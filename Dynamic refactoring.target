@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?pde version="3.2"?>
+
+<target name="Dynamic refactoring.target">
+
+   <location useDefault="true"/>
+
+   <content>
+      <plugins>
+      </plugins>
+      <features>
+      </features>
+      <extraLocations>
+         <location path="/home/imediava/Programas-StandAlone/eclipse-3.3/plugins"/>
+      </extraLocations>
+   </content>
+
+</target>

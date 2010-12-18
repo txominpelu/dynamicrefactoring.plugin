@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!DOCTYPE refactoring SYSTEM "refactoringDTD.dtd">
+
+<refactoring name="Remove Parameter">
+	<information>
+		<description>Remove a given parameter from a method's signature.</description>
+		<image src="removeparameter.JPG" />
+		<motivation>A parameter is no longer used by the method body.</motivation>
+	</information>
+	<inputs>
+		<input type="moon.core.classdef.FormalArgument" name="Argument" root="true" />
+		<input type="moon.core.classdef.MethDec" name="Method" from="Argument" method="getMethDec" root="false" />
+		<input type="moon.core.Model" name="Model" root="false" />
+	</inputs>
+	<mechanism>
+		<preconditions>
+			<precondition name="repository.moon.concretepredicate.ExistsFormalArgInMethod">
+				<param name="Argument" />
+				<param name="Method" />
+			</precondition>
+			<precondition name="repository.moon.concretepredicate.SignatureEntityIsNotUsedInMethod">
+				<param name="Argument" />
+				<param name="Method" />
+			</precondition>
+		</preconditions>
+		<actions>
+			<action name="repository.moon.concreteaction.RemoveFormalArg">
+				<param name="Argument" />
+				<param name="Method" />
+			</action>
+		</actions>
+		<postconditions>
+			<postcondition name="repository.moon.concretepredicate.HasNotFormalArg">
+				<param name="Argument" />
+				<param name="Method" />
+			</postcondition>
+		</postconditions>
+	</mechanism>
+	<examples />
+</refactoring>
+

@@ -1,0 +1,272 @@
+<HEAD>
+<META HTTP-EQUIV="Content-Type" Content="text/html; charset=Windows-1252">
+<TITLE>Creating Refactorings</TITLE>
+<link href="../../book.css" rel="stylesheet" type="text/css" />
+</HEAD>
+
+<body>
+<H1><img align="middle" border="0" src="../images/4.png">Creating Refactorings</H1>
+<P>
+
+<OL>
+	<LI>
+	Inside Eclipse select the menu item <STRONG>Dynamic Refactoring &gt; New Refactoring...</STRONG>
+	to open the <STRONG>New Dynamic Refactoring</STRONG> wizard.</p><br>
+	<p align="center"><img border="0" src="../images/refactoring/4.png"></p>
+	<p align="center"><a name="_Toc176096200"><font size="1"><b>Menu item Create a new refactoring</b></font></a></p><br>
+	<p>A wizard will show up that will guide you through the whole process of creating a new custom refactoring.
+	<br>You will see now the five steps that make up this wizard. You can cancel the creation progress at any
+	point, as well as go back to the previous step or forward to the following step (once all the needed fields
+	have been correctly filled in).</p><br>
+	</LI>
+
+	<LI>
+	On this page you will have to fill in some general information about the refactoring:</p><br>
+	<p align="center"><img border="0" src="../images/refactoring/5.png"></p>
+	<p align="center"><a name="_Toc176096201"><font size="1"><b>First step: "Create a new refactoring"</b></font></a></p><br>
+		<ul style="margin-top: 0cm; margin-bottom: 0cm" type="disc">
+			<li class="MsoNormal">
+  			<p style="text-align: left"><STRONG>Name</STRONG>:
+  			Type the name of the refactoring in this field. This value will identify the refactoring 
+  			within the refactoring selection window. It admits blank spaces and is cap-sensitive. If you are
+  			using Java 1.6 the name may contain special characters such as accents or the character <code>'ñ'</code>.
+  			However it is not advisable, and you must not use them under Java 1.5 or older versions. 
+  			This field must be filled in before continuing.</p>
+  			</li>
+  			<li class="MsoNormal">
+  			<p style="text-align: left"><STRONG>Description</STRONG>: Type a brief description of what the 
+  			refactoring does and why in this text area. You may use as many lines as needed. This field must
+  			also be filled in before continuing.</p>
+  			</li>
+  			<li class="MsoNormal">
+  			<p style="text-align: left"><STRONG>Image</STRONG>: You may specify here the image you want to 
+  			associate to the refactoring. If you push the button with the text <code>"..."</code> you 
+  			will be able to choose the image file. This field is not mandatory.</p>
+  				<blockquote>
+				<p class="MsoNormal" style="margin-left:35.4pt" align="left"><span lang="en-GB">
+				The ideal image size should have about 450 x 200 pixels. Although bigger images may be used
+				as well, they won't show well within the interface windows. The formats accepted are: 
+				<code>GIF</code>, <code>JPG</code>, <code>TIFF</code> and <code>PNG</code>.</span></p>
+				</blockquote>
+  			</li>
+  			<li class="MsoNormal">
+  			<p style="text-align: left"><STRONG>Motivation</STRONG>: You must type a brief explanation on
+  			the motivation that could lead to applying the refactoring. This field must also be filled in.</p>
+  			</li>
+		</ul>
+	</LI><br>
+
+	<LI>
+	<p>On this page the inputs for the refactoring must be configured:</p><br>
+	<p align="center"><img border="0" src="../images/refactoring/6.png"></p>
+	<p align="center"><a name="_Toc176096201"><font size="1"><b>Second step: "Configure inputs"</b></font></a></p><br>
+	<p>The list on the right (<code>Inputs</code>) shows the entries that have already been selected for the 
+	refactoring.</p>
+	<p>The list of available types for the new inputs appears on the left (<code>Types</code>).
+	If you want to add one o more inputs to the list on the right, select the declaring types you want them
+	to have and push the button with the arrow pointing to the right 
+	(<img border="0" src="../../../icons/arrow_right.gif">). If you need several inputs with the
+	same type, you may repeat the operation as many times as necessary.
+	<p>To remove the selected input or inputs from the <code>Inputs</code> list, push 
+	the button with the 'x' symbol on it (<img border="0" src="../../../icons/delete.gif">). 
+	<p>You may also reorder the inputs by using the buttons with the up and down arrows 
+	(<img border="0" src="../../../icons/arrow_up.gif"> and <img border="0" src="../../../icons/arrow_down.gif">).
+	The order they have when creating the refactoring will be kept across the plugin and its interface.</p>
+	<p>You may have to fill in the following fields for every input you add:</p>
+	
+	<ul style="margin-top: 0cm; margin-bottom: 0cm" type="disc">
+  		<li class="MsoNormal">
+  		<p style="text-align: left"><STRONG>Name</STRONG>: the name that will be used to identify the
+  		selected input later on within the wizard. It will also be used as a label on the refactoring window
+  		where the actual values for every one of the inputs must be entered. The name may contain 
+  		accents but not blank spaces and it must be filled in for all the inputs.</p></li>
+  		<li class="MsoNormal">
+  		<p style="text-align: left"><STRONG>Main</STRONG>: use this check box to select which one of the
+  		inputs should be used as the main input of the refactoring. You can only select one main input and
+  		it must have one of the specified types. Once the refactoring is built and running, the main input
+  		will be the one that the user selects on a Java editor or on a selectable tree on Eclipse.</p></li>
+  		<li class="MsoNormal">
+  		<p style="text-align: left"><STRONG>From</STRONG>: if the value or possible values assigned to this 
+  		input at runtime must be retrieved from another one, you should specify so by using this combo box.
+  		If the user should manually enter the value himself, leave this field blank.</p></li>
+  		<li class="MsoNormal">
+  		<p style="text-align: left"><STRONG>Method</STRONG>: once you have selected a <code>from</code> value
+  		for one of the inputs, this combo box will display the available methods that return either a collection
+  		of values or a value of type assignable to the selected input.</p></li>
+	</ul>
+  
+
+	<p>Certain restrictions are checked before you are allowed to continue to the next step:</p>
+	<ul style="margin-top: 0cm; margin-bottom: 0cm" type="disc">
+  		<li class="MsoNormal">
+  		<p style="text-align: left">Exactly one main input must be specified.</p></li>
+	
+  		<li class="MsoNormal">
+  		<p style="text-align: left">The main input must be either one of the types 
+  		<code>moon.core.classdef.ClassDef</code>, <code>moon.core.classdef.MethDec</code>,
+  		<code>moon.core.classdef.AttDec</code>, <code>moon.core.classdef.FormalArgument</code>
+  		or <code>moon.core.genericity.FormalPar</code> or a subtype of one of them.</p></li>
+  		
+  		<li class="MsoNormal">
+  		<p style="text-align: left">All the inputs must be given a unique name.</p></li>
+  		
+  		<li class="MsoNormal">
+  		<p style="text-align: left">If a value for <code>From</code> is specified for an entry,  
+  		a value for the <code>Method</code> field must also be given.</p></li>
+	</ul>
+
+	<p>In this page you can search for the correct input type by using the field of the top left. There you can write a regular expression
+	(Ejem.: moon.*)and then you have to push the button <img border="0" src="../images/refactoring/7.png">. After that the list of the types actualize 
+	it`s contents with the result of the search. Here are some rules to make a correct regular expresion: </p>
+	<ul style="margin-top: 0cm; margin-bottom: 0cm" type="disc">
+  		<li class="MsoNormal">
+		<p style="text-align: left">logic operators:</p>
+			<ul>
+				<li>x|y : x or y</li>
+				<li>xy : x followed by y</li>
+			</ul>
+		</li>
+		<li class="MsoNormal">
+		<p style="text-align: left">Intervals of characters:</p>
+			<ul>
+				<li>[abc] : Any of the characters between brackets</li>
+				<li>[^abc] : Any of the characters that are not between brackets </li>
+			</ul>
+			</li>
+		<li class="MsoNormal">
+		<p style="text-align: left">Intervals of predefined characters:</p>
+			<ul>
+				<li>. : Any individual character, except jump of line.</li>
+				<li>\d : Any digit, equivalent to [0-9].</li>
+				<li>\D: Any character that is not a digit, equivalent to [^0-9].</li>
+				<li>\s: Any special character of blank (spaces, tabulations, jumps of page or jumps of line).</li>
+				<li>\S: Any individual character that is not a blank.</li>
+				<li>\w: Any alphanumeric character, equivalent to [A-Za-z0-9 _].</li>
+				<li>\W: Any character that is not alphanumeric, equivalent to [^A-Za-z0-9 _].</li>
+			</ul>
+		</li>
+		<li class="MsoNormal">
+		<p style="text-align: left">Characters:</p>
+			<ul>
+				<li>\f: Jump of page.</li>
+				<li>\n: Jump of line.</li>
+				<li>\r: Return of car.</li>
+				<li>\t: Tabulation.</li>
+			</ul>
+		</li>
+		<li class="MsoNormal">
+		<p style="text-align: left">Limits:</p>
+			<ul>
+				<li>^: Beginning of entry or line.</li>
+				<li>$: End of entry or line.</li>
+				<li>\b: Limit of word (like a space or a return of car).</li>
+				<li>\B: End of word.</li>
+			</ul>
+		</li>
+		<li class="MsoNormal">
+		<p style="text-align: left">Cuantifiers:</p>
+			<ul>
+				<li>{n}: Exactly n appearances of the previous character.</li>
+				<li>{n, m}: As minimum n and at maximum m appearances of the previous character.</li>
+				<li>*: The previous character 0 or more times.</li>
+				<li>+: The previous character 1 or more times.</li>
+				<li>?: The previous character once at maximum (it is optional).</li>
+			</ul>
+		</li>
+
+	</ul>
+	<br><p>Whenever a type is selected inside the list of left side (Types) the browser is update with the information of the javadoc associated 
+	with the above mentioned type. This allows to help the user to know the functionality of each available type.</p>
+
+	<p>This html browser can be extended dragging the top part of the same one up and having the mouse left button pressed.</p><br>
+	<p align="center"><img border="0" src="../images/refactoring/8.png"></p>
+	
+  	</LI><br>
+  	
+  	<LI>
+	In this step you must select the preconditions that make up the refactoring:</p><br>
+	<p align="center"><img border="0" src="../images/refactoring/9.png"></p>
+	<p align="center"><a name="_Toc176096201"><font size="1"><b>Third step: "Select refactoring preconditions"</b></font></a></p><br>
+  	
+	<p class="MsoNormal">The list on the right shows the preconditions that have already been chosen 
+  	as part of the refactoring.</p>
+  	
+	<p class="MsoNormal">The list of available actions appears in the table on the left side.
+	In order to add one o more preconditions to the refactoring, select them
+        from the list and push the button with the arrow pointing to the right 
+	(<img border="0" src="../../../icons/arrow_right.gif">), then they will appear into the rigth list with a number between brackets
+       	(this number is used to differ it from other instances of the same action)
+	. To remove any of the chosen ones, select the
+        preconditions	you want to remove and push the button with the left arrow 
+ 	(<img border="0" src="../../../icons/arrow_left.gif">).
+ 	</p>
+ 	
+ 	<p class="MsoNormal">In order to reorder the list of selected components use the up and down buttons on 
+ 	the right (<img border="0" src="../../../icons/arrow_up.gif"> and <img border="0" src="../../../icons/arrow_down.gif">).
+ 	The resulting order will be the one they will be verified and run in when running the refactoring.</p>
+ 	
+ 	<p class="MsoNormal">Once you have selected an element from the repository, you will have to tell the 
+	plugin which inputs of the refactoring should be used as inputs for the new element.You have to choose one of the available
+	inputs for each parameter from the <code>combobox<code/>.</p><br>
+		<p align="center"><img border="0" src="../images/refactoring/10.png"></p>
+		<p align="center"><a name="_Toc176096201"><font size="1"><b>Action parameters</b></font></a></p><br>
+		<p class="MsoNormal">You can also get de qualified names of the actions by selecting the next <code>check button</code>:
+		<img border="0" src="../images/refactoring/11.png"></p><br>		
+  	</LI>
+
+	<LI>
+	On the fourth page of the wizard, you must select the actions that make up the refactoring:
+	
+	<p>The interface of this fourth page is similar as the third page. To interact with it you only have to make the sames steps as before.</p><br>
+	
+	<p align="center"><img border="0" src="../images/refactoring/12.png"></p>
+	<p align="center"><a name="_Toc176096201"><font size="1"><b>Fourth step: "Select refactoring actions"</b></font></a></p><br>
+	</LI>
+
+	<LI>
+	On the fifth page of the wizard, you must select the postconditions that make up the refactoring:
+	
+	<p>The interface of this fifth page is similar as the third page. To interact with it you only have to make the sames steps as before.</p><br>
+	
+	<p align="center"><img border="0" src="../images/refactoring/13.png"></p>
+	<p align="center"><a name="_Toc176096201"><font size="1"><b>Fifth step: "Select refactoring postconditions"</b></font></a></p><br>
+	</LI>
+
+	<LI>
+	On the sixth page of the wizard, you will be able to associate up to two examples to the refactoring.
+	
+	<p>To add a new example to the refactoring, select either a <code>TXT</code> or Java file which represents the
+	system before the refactoring, and a second one containing the system state after applying it. The examples must
+	always consist of two files (for "before" and "after"), so you will not be able to continue if one of them is
+	not complete yet.</p><br>
+	
+	<p align="center"><img border="0" src="../images/refactoring/14.png"></p>
+	<p align="center"><a name="_Toc176096201"><font size="1"><b>Sixth step: "Add examples"</b></font></a></p><br>
+	</LI>
+
+
+	<LI>
+	The last page of the wizard shows a informative summary of the whole refactoring, with all the information 
+	entered by the user throughout the previous pages.
+	
+	<p class = "MsoNormal">Once you have reviewed the refactoring configuration, you can save it by pushing the 
+	<code>Finish</code> button. The new or edited refactoring will show up immediately in the refactoring selection 
+	window, identified by its name.</p><br>
+	
+	<p align="center"><img border="0" src="../images/refactoring/15.png"></p>
+	<p align="center"><a name="_Toc176096201"><font size="1"><b>Seventh step: "Confirm"<b></font></a></p><br>
+	</LI>
+</OL>
+
+<p><img src="../images/1.png"  alt="Related tasks"></p>
+
+<ul class="NavList">
+	<li><a href="./run/init.html">Running refactorings</a><br></li>
+    <li><a href="../export/export.html">Exporting refactorings</a><br></li>
+    <li><a href="../export/import.html">Importing refactorings</a><br></li>
+    <li><a href="edition.html">Editing refactorings</a><br></li>
+    <li><a href="deletion.html">Deleting refactorings</a><br></li>
+</ul>
+
+</body>
+</html>

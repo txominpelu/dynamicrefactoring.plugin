@@ -1,0 +1,357 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html><head>
+<title></title>
+  <style type="text/css">
+    <!--code { font-family: Courier New, Courier; font-size: 10pt; margin: 0px; }-->
+  </style>
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+</head><body>
+
+
+<!-- ======================================================== -->
+<!-- = Java Sourcecode to HTML automatically converted code = -->
+<!-- =   Java2Html Converter 5.0 [2006-02-26] by Markus Gebhard  markus@jave.de   = -->
+<!-- =     Further information: http://www.java2html.de     = -->
+<div align="left" class="java">
+<table border="0" cellpadding="3" cellspacing="0" bgcolor="#ffffff">
+   <tr>
+  <!-- start source code -->
+   <td nowrap="nowrap" valign="top" align="left">
+    <code>
+<font color="#3f7f5f">/*&lt;Dynamic&nbsp;Refactoring&nbsp;Plugin&nbsp;For&nbsp;Eclipse&nbsp;2.0&nbsp;-&nbsp;Plugin&nbsp;that&nbsp;allows&nbsp;to&nbsp;perform&nbsp;refactorings&nbsp;</font><br>
+<font color="#3f7f5f">on&nbsp;Java&nbsp;code&nbsp;within&nbsp;Eclipse,&nbsp;as&nbsp;well&nbsp;as&nbsp;to&nbsp;dynamically&nbsp;create&nbsp;and&nbsp;manage&nbsp;new&nbsp;refactorings&gt;</font><br>
+<font color="#ffffff"></font><br>
+<font color="#3f7f5f">Copyright&nbsp;(C)&nbsp;2009&nbsp;&nbsp;Laura&nbsp;Fuente&nbsp;De&nbsp;La&nbsp;Fuente</font><br>
+<font color="#ffffff"></font><br>
+<font color="#3f7f5f">This&nbsp;file&nbsp;is&nbsp;part&nbsp;of&nbsp;Foobar</font><br>
+<font color="#ffffff"></font><br>
+<font color="#3f7f5f">Foobar&nbsp;is&nbsp;free&nbsp;software:&nbsp;you&nbsp;can&nbsp;redistribute&nbsp;it&nbsp;and/or&nbsp;modify</font><br>
+<font color="#3f7f5f">it&nbsp;under&nbsp;the&nbsp;terms&nbsp;of&nbsp;the&nbsp;GNU&nbsp;General&nbsp;Public&nbsp;License&nbsp;as&nbsp;published&nbsp;by</font><br>
+<font color="#3f7f5f">the&nbsp;Free&nbsp;Software&nbsp;Foundation,&nbsp;either&nbsp;version&nbsp;3&nbsp;of&nbsp;the&nbsp;License,&nbsp;or</font><br>
+<font color="#3f7f5f">(at&nbsp;your&nbsp;option)&nbsp;any&nbsp;later&nbsp;version.</font><br>
+<font color="#ffffff"></font><br>
+<font color="#3f7f5f">This&nbsp;program&nbsp;is&nbsp;distributed&nbsp;in&nbsp;the&nbsp;hope&nbsp;that&nbsp;it&nbsp;will&nbsp;be&nbsp;useful,</font><br>
+<font color="#3f7f5f">but&nbsp;WITHOUT&nbsp;ANY&nbsp;WARRANTY;&nbsp;without&nbsp;even&nbsp;the&nbsp;implied&nbsp;warranty&nbsp;of</font><br>
+<font color="#3f7f5f">MERCHANTABILITY&nbsp;or&nbsp;FITNESS&nbsp;FOR&nbsp;A&nbsp;PARTICULAR&nbsp;PURPOSE.&nbsp;&nbsp;See&nbsp;the</font><br>
+<font color="#3f7f5f">GNU&nbsp;General&nbsp;Public&nbsp;License&nbsp;for&nbsp;more&nbsp;details.</font><br>
+<font color="#ffffff"></font><br>
+<font color="#3f7f5f">You&nbsp;should&nbsp;have&nbsp;received&nbsp;a&nbsp;copy&nbsp;of&nbsp;the&nbsp;GNU&nbsp;General&nbsp;Public&nbsp;License</font><br>
+<font color="#3f7f5f">along&nbsp;with&nbsp;this&nbsp;program.&nbsp;&nbsp;If&nbsp;not,&nbsp;see&nbsp;&lt;http://www.gnu.org/licenses/&gt;.*/</font><br>
+<font color="#ffffff"></font><br>
+<font color="#7f0055"><b>package&nbsp;</b></font><font color="#000000">dynamicrefactoring.interfaz.dynamic;</font><br>
+<font color="#ffffff"></font><br>
+<font color="#7f0055"><b>import&nbsp;</b></font><font color="#000000">java.util.ArrayList;</font><br>
+<font color="#ffffff"></font><br>
+<font color="#7f0055"><b>import&nbsp;</b></font><font color="#000000">dynamicrefactoring.RefactoringConstants;</font><br>
+<font color="#ffffff"></font><br>
+<font color="#7f0055"><b>import&nbsp;</b></font><font color="#000000">dynamicrefactoring.domain.DynamicRefactoringDefinition;</font><br>
+<font color="#7f0055"><b>import&nbsp;</b></font><font color="#000000">dynamicrefactoring.interfaz.TreeEditor;</font><br>
+<font color="#ffffff"></font><br>
+<font color="#7f0055"><b>import&nbsp;</b></font><font color="#000000">org.eclipse.swt.SWT;</font><br>
+<font color="#7f0055"><b>import&nbsp;</b></font><font color="#000000">org.eclipse.swt.custom.ScrolledComposite;</font><br>
+<font color="#7f0055"><b>import&nbsp;</b></font><font color="#000000">org.eclipse.swt.custom.TableEditor;</font><br>
+<font color="#ffffff"></font><br>
+<font color="#7f0055"><b>import&nbsp;</b></font><font color="#000000">org.eclipse.swt.graphics.Color;</font><br>
+<font color="#7f0055"><b>import&nbsp;</b></font><font color="#000000">org.eclipse.swt.graphics.GC;</font><br>
+<font color="#7f0055"><b>import&nbsp;</b></font><font color="#000000">org.eclipse.swt.graphics.Image;</font><br>
+<font color="#7f0055"><b>import&nbsp;</b></font><font color="#000000">org.eclipse.swt.graphics.ImageLoader;</font><br>
+<font color="#7f0055"><b>import&nbsp;</b></font><font color="#000000">org.eclipse.swt.graphics.Point;</font><br>
+<font color="#7f0055"><b>import&nbsp;</b></font><font color="#000000">org.eclipse.swt.graphics.Rectangle;</font><br>
+<font color="#ffffff"></font><br>
+<font color="#7f0055"><b>import&nbsp;</b></font><font color="#000000">org.eclipse.swt.widgets.Button;</font><br>
+<font color="#7f0055"><b>import&nbsp;</b></font><font color="#000000">org.eclipse.swt.widgets.Canvas;</font><br>
+<font color="#7f0055"><b>import&nbsp;</b></font><font color="#000000">org.eclipse.swt.widgets.Composite;</font><br>
+<font color="#7f0055"><b>import&nbsp;</b></font><font color="#000000">org.eclipse.swt.widgets.Display;</font><br>
+<font color="#7f0055"><b>import&nbsp;</b></font><font color="#000000">org.eclipse.swt.widgets.Event;</font><br>
+<font color="#7f0055"><b>import&nbsp;</b></font><font color="#000000">org.eclipse.swt.widgets.Label;</font><br>
+<font color="#7f0055"><b>import&nbsp;</b></font><font color="#000000">org.eclipse.swt.widgets.Listener;</font><br>
+<font color="#7f0055"><b>import&nbsp;</b></font><font color="#000000">org.eclipse.swt.widgets.ScrollBar;</font><br>
+<font color="#7f0055"><b>import&nbsp;</b></font><font color="#000000">org.eclipse.swt.widgets.TabFolder;</font><br>
+<font color="#7f0055"><b>import&nbsp;</b></font><font color="#000000">org.eclipse.swt.widgets.TabItem;</font><br>
+<font color="#7f0055"><b>import&nbsp;</b></font><font color="#000000">org.eclipse.swt.widgets.Table;</font><br>
+<font color="#7f0055"><b>import&nbsp;</b></font><font color="#000000">org.eclipse.swt.widgets.TableColumn;</font><br>
+<font color="#7f0055"><b>import&nbsp;</b></font><font color="#000000">org.eclipse.swt.widgets.TableItem;</font><br>
+<font color="#7f0055"><b>import&nbsp;</b></font><font color="#000000">org.eclipse.swt.widgets.Text;</font><br>
+<font color="#7f0055"><b>import&nbsp;</b></font><font color="#000000">org.eclipse.swt.widgets.Tree;</font><br>
+<font color="#7f0055"><b>import&nbsp;</b></font><font color="#000000">org.eclipse.swt.widgets.TreeItem;</font><br>
+<font color="#ffffff"></font><br>
+<font color="#7f0055"><b>import&nbsp;</b></font><font color="#000000">com.swtdesigner.SWTResourceManager;</font><br>
+<font color="#ffffff"></font><br>
+<font color="#3f5fbf">/**</font><br>
+<font color="#ffffff">&nbsp;</font><font color="#3f5fbf">*&nbsp;Pesta&ntilde;a&nbsp;con&nbsp;el&nbsp;contenido&nbsp;resumen&nbsp;de&nbsp;una&nbsp;refactorizaci&oacute;n.</font><br>
+<font color="#ffffff">&nbsp;</font><font color="#3f5fbf">*&nbsp;</font><br>
+<font color="#ffffff">&nbsp;</font><font color="#3f5fbf">*&nbsp;</font><font color="#7f9fbf">@author&nbsp;</font><font color="#3f5fbf">&lt;A&nbsp;HREF=&#34;mailto:sfd0009@alu.ubu.es&#34;&gt;Sonia&nbsp;Fuente&nbsp;de&nbsp;la&nbsp;Fuente</font><font color="#7f7f9f">&lt;/A&gt;</font><br>
+<font color="#ffffff">&nbsp;</font><font color="#3f5fbf">*&nbsp;</font><font color="#7f9fbf">@author&nbsp;</font><font color="#3f5fbf">&lt;A&nbsp;HREF=&#34;mailto:ehp0001@alu.ubu.es&#34;&gt;Enrique&nbsp;Herrero&nbsp;Paredes</font><font color="#7f7f9f">&lt;/A&gt;</font><br>
+<font color="#ffffff">&nbsp;</font><font color="#3f5fbf">*/</font><br>
+<font color="#7f0055"><b>public&nbsp;class&nbsp;</b></font><font color="#000000">DynamicRefactoringTab&nbsp;</font><font color="#000000">{</font><br>
+<font color="#ffffff">&nbsp;&nbsp;</font><br>
+<font color="#ffffff">&nbsp;&nbsp;</font><font color="#3f5fbf">/**</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;</font><font color="#3f5fbf">*&nbsp;Campo&nbsp;de&nbsp;texto&nbsp;en&nbsp;que&nbsp;se&nbsp;muestra&nbsp;la&nbsp;motivaci&oacute;n&nbsp;de&nbsp;la&nbsp;refactorizaci&oacute;n.</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;</font><font color="#3f5fbf">*/</font><br>
+<font color="#ffffff">&nbsp;&nbsp;</font><font color="#7f0055"><b>private&nbsp;</b></font><font color="#000000">Text&nbsp;t_Motivation;</font><br>
+<font color="#ffffff"></font><br>
+<font color="#ffffff">&nbsp;&nbsp;</font><font color="#3f5fbf">/**</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;</font><font color="#3f5fbf">*&nbsp;Campo&nbsp;de&nbsp;texto&nbsp;en&nbsp;que&nbsp;se&nbsp;muestra&nbsp;la&nbsp;descripci&oacute;n&nbsp;de&nbsp;la&nbsp;refactorizaci&oacute;n.</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;</font><font color="#3f5fbf">*/</font><br>
+<font color="#ffffff">&nbsp;&nbsp;</font><font color="#7f0055"><b>private&nbsp;</b></font><font color="#000000">Text&nbsp;t_Description;</font><br>
+<font color="#ffffff">&nbsp;&nbsp;</font><br>
+<font color="#ffffff">&nbsp;&nbsp;</font><font color="#3f5fbf">/**</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;</font><font color="#3f5fbf">*&nbsp;Tabla&nbsp;de&nbsp;entradas&nbsp;de&nbsp;la&nbsp;refactorizaci&oacute;n.</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;</font><font color="#3f5fbf">*/</font><br>
+<font color="#ffffff">&nbsp;&nbsp;</font><font color="#7f0055"><b>private&nbsp;</b></font><font color="#000000">Table&nbsp;tb_Inputs;</font><br>
+<font color="#ffffff">&nbsp;&nbsp;</font><br>
+<font color="#ffffff">&nbsp;&nbsp;</font><font color="#3f5fbf">/**</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;</font><font color="#3f5fbf">*&nbsp;Tabla&nbsp;de&nbsp;componentes&nbsp;de&nbsp;la&nbsp;refactorizaci&oacute;n.</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;</font><font color="#3f5fbf">*/</font><br>
+<font color="#ffffff">&nbsp;&nbsp;</font><font color="#7f0055"><b>private&nbsp;</b></font><font color="#000000">Tree&nbsp;tr_Components;</font><br>
+<font color="#ffffff">&nbsp;&nbsp;</font><br>
+<font color="#ffffff">&nbsp;&nbsp;</font><font color="#3f5fbf">/**</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;</font><font color="#3f5fbf">*&nbsp;Pesta&ntilde;a&nbsp;asociada&nbsp;al&nbsp;resumen&nbsp;de&nbsp;la&nbsp;refactorizaci&oacute;n.</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;</font><font color="#3f5fbf">*/</font><br>
+<font color="#ffffff">&nbsp;&nbsp;</font><font color="#7f0055"><b>private&nbsp;</b></font><font color="#000000">TabItem&nbsp;tab;</font><br>
+<font color="#ffffff">&nbsp;&nbsp;</font><br>
+<font color="#ffffff">&nbsp;&nbsp;</font><font color="#3f5fbf">/**</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;</font><font color="#3f5fbf">*&nbsp;La&nbsp;definici&oacute;n&nbsp;de&nbsp;la&nbsp;refactorizaci&oacute;n.</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;</font><font color="#3f5fbf">*/</font><br>
+<font color="#ffffff">&nbsp;&nbsp;</font><font color="#7f0055"><b>protected&nbsp;</b></font><font color="#000000">DynamicRefactoringDefinition&nbsp;refactoringDefinition;</font><br>
+<font color="#ffffff">&nbsp;&nbsp;</font><br>
+<font color="#ffffff">&nbsp;&nbsp;</font><font color="#3f5fbf">/**</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;</font><font color="#3f5fbf">*&nbsp;Crea&nbsp;la&nbsp;pesta&ntilde;a&nbsp;con&nbsp;el&nbsp;resumen&nbsp;de&nbsp;la&nbsp;refactorizaci&oacute;n.</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;</font><font color="#3f5fbf">*&nbsp;</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;</font><font color="#3f5fbf">*&nbsp;</font><font color="#7f9fbf">@param&nbsp;</font><font color="#3f5fbf">parent&nbsp;el&nbsp;contenedor&nbsp;de&nbsp;pesta&ntilde;as&nbsp;que&nbsp;contendr&aacute;&nbsp;esta&nbsp;pesta&ntilde;a.</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;</font><font color="#3f5fbf">*&nbsp;</font><font color="#7f9fbf">@param&nbsp;</font><font color="#3f5fbf">definition&nbsp;la&nbsp;definici&oacute;n&nbsp;de&nbsp;la&nbsp;refactorizaci&oacute;n.</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;</font><font color="#3f5fbf">*/</font><br>
+<font color="#ffffff">&nbsp;&nbsp;</font><font color="#7f0055"><b>public&nbsp;</b></font><font color="#000000">DynamicRefactoringTab</font><font color="#000000">(</font><font color="#000000">TabFolder&nbsp;parent,</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#000000">DynamicRefactoringDefinition&nbsp;definition</font><font color="#000000">){</font><br>
+<font color="#ffffff"></font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#7f0055"><b>this</b></font><font color="#000000">.refactoringDefinition&nbsp;=&nbsp;definition;</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#7f0055"><b>final&nbsp;</b></font><font color="#000000">ScrolledComposite&nbsp;scrolledComposite&nbsp;=&nbsp;</font><font color="#7f0055"><b>new&nbsp;</b></font><font color="#000000">ScrolledComposite</font><font color="#000000">(</font><font color="#000000">parent,&nbsp;</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#000000">SWT.BORDER&nbsp;|&nbsp;SWT.H_SCROLL&nbsp;|&nbsp;SWT.V_SCROLL</font><font color="#000000">)</font><font color="#000000">;</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#000000">tab&nbsp;=&nbsp;</font><font color="#7f0055"><b>new&nbsp;</b></font><font color="#000000">TabItem</font><font color="#000000">(</font><font color="#000000">parent,&nbsp;SWT.NONE</font><font color="#000000">)</font><font color="#000000">;&nbsp;&nbsp;</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#000000">tab.setText</font><font color="#000000">(</font><font color="#000000">Messages.DynamicRefactoringTab_Information</font><font color="#000000">)</font><font color="#000000">;</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#000000">tab.setControl</font><font color="#000000">(</font><font color="#000000">scrolledComposite</font><font color="#000000">)</font><font color="#000000">;</font><br>
+<font color="#ffffff"></font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#000000">scrolledComposite.setExpandHorizontal</font><font color="#000000">(</font><font color="#7f0055"><b>true</b></font><font color="#000000">)</font><font color="#000000">;</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#000000">scrolledComposite.setExpandVertical</font><font color="#000000">(</font><font color="#7f0055"><b>true</b></font><font color="#000000">)</font><font color="#000000">;</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#3f7f5f">//&nbsp;Pesta&ntilde;a&nbsp;de&nbsp;informaci&oacute;n.</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#7f0055"><b>final&nbsp;</b></font><font color="#000000">Composite&nbsp;cInformation&nbsp;=&nbsp;</font><font color="#7f0055"><b>new&nbsp;</b></font><font color="#000000">Composite</font><font color="#000000">(</font><font color="#000000">scrolledComposite,&nbsp;SWT.NONE</font><font color="#000000">)</font><font color="#000000">;</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#000000">cInformation.setLocation</font><font color="#000000">(</font><font color="#990000">0</font><font color="#000000">,&nbsp;</font><font color="#990000">0</font><font color="#000000">)</font><font color="#000000">;</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#000000">cInformation.setSize</font><font color="#000000">(</font><font color="#990000">872</font><font color="#000000">,&nbsp;</font><font color="#990000">390</font><font color="#000000">)</font><font color="#000000">;</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#000000">scrolledComposite.setContent</font><font color="#000000">(</font><font color="#000000">cInformation</font><font color="#000000">)</font><font color="#000000">;</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#7f0055"><b>final&nbsp;</b></font><font color="#000000">Label&nbsp;nameLabel&nbsp;=&nbsp;</font><font color="#7f0055"><b>new&nbsp;</b></font><font color="#000000">Label</font><font color="#000000">(</font><font color="#000000">cInformation,&nbsp;SWT.NONE</font><font color="#000000">)</font><font color="#000000">;</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#000000">nameLabel.setAlignment</font><font color="#000000">(</font><font color="#000000">SWT.CENTER</font><font color="#000000">)</font><font color="#000000">;</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#000000">nameLabel.setText</font><font color="#000000">(</font><font color="#000000">refactoringDefinition.getName</font><font color="#000000">())</font><font color="#000000">;</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#000000">nameLabel.setFont</font><font color="#000000">(</font><font color="#000000">SWTResourceManager.getFont</font><font color="#000000">(</font><font color="#2a00ff">&#34;Tahoma&#34;</font><font color="#000000">,&nbsp;</font><font color="#990000">14</font><font color="#000000">,&nbsp;SWT.NONE</font><font color="#000000">))</font><font color="#000000">;&nbsp;</font><font color="#3f7f5f">//$NON-NLS-1$</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#000000">nameLabel.setBounds</font><font color="#000000">(</font><font color="#990000">10</font><font color="#000000">,&nbsp;</font><font color="#990000">15</font><font color="#000000">,&nbsp;</font><font color="#990000">354</font><font color="#000000">,&nbsp;</font><font color="#990000">39</font><font color="#000000">)</font><font color="#000000">;</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#3f7f5f">//&nbsp;Se&nbsp;a&ntilde;ade&nbsp;la&nbsp;imagen.</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#7f0055"><b>final&nbsp;</b></font><font color="#000000">Canvas&nbsp;canvas&nbsp;=&nbsp;</font><font color="#7f0055"><b>new&nbsp;</b></font><font color="#000000">Canvas</font><font color="#000000">(</font><font color="#000000">cInformation,&nbsp;SWT.NO_REDRAW_RESIZE&nbsp;|&nbsp;SWT.H_SCROLL&nbsp;|SWT.V_SCROLL&nbsp;|&nbsp;SWT.BORDER</font><font color="#000000">)</font><font color="#000000">;</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#000000">canvas.setBounds</font><font color="#000000">(</font><font color="#990000">456</font><font color="#000000">,&nbsp;</font><font color="#990000">15</font><font color="#000000">,&nbsp;</font><font color="#990000">385</font><font color="#000000">,&nbsp;</font><font color="#990000">162</font><font color="#000000">)</font><font color="#000000">;</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#000000">canvas.setBackground</font><font color="#000000">(</font><font color="#7f0055"><b>new&nbsp;</b></font><font color="#000000">Color</font><font color="#000000">(</font><font color="#000000">null,&nbsp;</font><font color="#990000">255</font><font color="#000000">,</font><font color="#990000">255</font><font color="#000000">,&nbsp;</font><font color="#990000">255</font><font color="#000000">))</font><font color="#000000">;</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#7f0055"><b>if&nbsp;</b></font><font color="#000000">(</font><font color="#000000">refactoringDefinition.getImage</font><font color="#000000">()&nbsp;</font><font color="#000000">!=&nbsp;</font><font color="#7f0055"><b>null&nbsp;</b></font><font color="#000000">&amp;&amp;&nbsp;</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#000000">refactoringDefinition.getImage</font><font color="#000000">()</font><font color="#000000">.length</font><font color="#000000">()&nbsp;</font><font color="#000000">!=&nbsp;</font><font color="#990000">0</font><font color="#000000">){</font><br>
+<font color="#ffffff"></font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#000000">String&nbsp;path&nbsp;=&nbsp;RefactoringConstants.DYNAMIC_REFACTORING_DIR</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#000000">+&nbsp;System.getProperty</font><font color="#000000">(</font><font color="#2a00ff">&#34;file.separator&#34;</font><font color="#000000">)&nbsp;</font><font color="#3f7f5f">//$NON-NLS-1$</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#000000">+&nbsp;refactoringDefinition.getName</font><font color="#000000">()&nbsp;</font><font color="#000000">+&nbsp;System.getProperty</font><font color="#000000">(</font><font color="#2a00ff">&#34;file.separator&#34;</font><font color="#000000">)&nbsp;</font><font color="#3f7f5f">//$NON-NLS-1$</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#000000">+&nbsp;refactoringDefinition.getImage</font><font color="#000000">()</font><font color="#000000">;</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#000000">ImageLoader&nbsp;loader&nbsp;=&nbsp;</font><font color="#7f0055"><b>new&nbsp;</b></font><font color="#000000">ImageLoader</font><font color="#000000">()</font><font color="#000000">;</font><br>
+<font color="#ffffff"></font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#7f0055"><b>final&nbsp;</b></font><font color="#000000">Image&nbsp;image&nbsp;=&nbsp;</font><font color="#7f0055"><b>new&nbsp;</b></font><font color="#000000">Image</font><font color="#000000">(</font><font color="#000000">canvas.getDisplay</font><font color="#000000">()</font><font color="#000000">,&nbsp;loader.load</font><font color="#000000">(</font><font color="#000000">path</font><font color="#000000">)[</font><font color="#990000">0</font><font color="#000000">])</font><font color="#000000">;</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#7f0055"><b>final&nbsp;</b></font><font color="#000000">Point&nbsp;origin&nbsp;=&nbsp;</font><font color="#7f0055"><b>new&nbsp;</b></font><font color="#000000">Point</font><font color="#000000">(</font><font color="#990000">0</font><font color="#000000">,&nbsp;</font><font color="#990000">0</font><font color="#000000">)</font><font color="#000000">;</font><br>
+<font color="#ffffff"></font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#3f7f5f">//&nbsp;Los&nbsp;scrolls&nbsp;del&nbsp;canvas&nbsp;para&nbsp;la&nbsp;imagen.</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#7f0055"><b>final&nbsp;</b></font><font color="#000000">ScrollBar&nbsp;hBar&nbsp;=&nbsp;canvas.getHorizontalBar</font><font color="#000000">()</font><font color="#000000">;</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#000000">hBar.addListener</font><font color="#000000">(</font><font color="#000000">SWT.Selection,&nbsp;</font><font color="#7f0055"><b>new&nbsp;</b></font><font color="#000000">Listener</font><font color="#000000">()&nbsp;{</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#7f0055"><b>public&nbsp;</b></font><font color="#7f0055"><b>void&nbsp;</b></font><font color="#000000">handleEvent</font><font color="#000000">(</font><font color="#000000">Event&nbsp;e</font><font color="#000000">)&nbsp;{</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#7f0055"><b>int&nbsp;</b></font><font color="#000000">hSelection&nbsp;=&nbsp;hBar.getSelection</font><font color="#000000">()</font><font color="#000000">;</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#7f0055"><b>int&nbsp;</b></font><font color="#000000">destX&nbsp;=&nbsp;-hSelection&nbsp;-&nbsp;origin.x;</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#000000">Rectangle&nbsp;rect&nbsp;=&nbsp;image.getBounds</font><font color="#000000">()</font><font color="#000000">;</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#000000">canvas.scroll</font><font color="#000000">(</font><font color="#000000">destX,&nbsp;</font><font color="#990000">0</font><font color="#000000">,&nbsp;</font><font color="#990000">0</font><font color="#000000">,&nbsp;</font><font color="#990000">0</font><font color="#000000">,&nbsp;rect.width,&nbsp;rect.height,&nbsp;</font><font color="#7f0055"><b>false</b></font><font color="#000000">)</font><font color="#000000">;</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#000000">origin.x&nbsp;=&nbsp;-hSelection;</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#000000">}</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#000000">})</font><font color="#000000">;</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#7f0055"><b>final&nbsp;</b></font><font color="#000000">ScrollBar&nbsp;vBar&nbsp;=&nbsp;canvas.getVerticalBar</font><font color="#000000">()</font><font color="#000000">;</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#000000">vBar.addListener</font><font color="#000000">(</font><font color="#000000">SWT.Selection,&nbsp;</font><font color="#7f0055"><b>new&nbsp;</b></font><font color="#000000">Listener</font><font color="#000000">()&nbsp;{</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#7f0055"><b>public&nbsp;</b></font><font color="#7f0055"><b>void&nbsp;</b></font><font color="#000000">handleEvent</font><font color="#000000">(</font><font color="#000000">Event&nbsp;e</font><font color="#000000">)&nbsp;{</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#7f0055"><b>int&nbsp;</b></font><font color="#000000">vSelection&nbsp;=&nbsp;vBar.getSelection</font><font color="#000000">()</font><font color="#000000">;</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#7f0055"><b>int&nbsp;</b></font><font color="#000000">destY&nbsp;=&nbsp;-vSelection&nbsp;-&nbsp;origin.y;</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#000000">Rectangle&nbsp;rect&nbsp;=&nbsp;image.getBounds</font><font color="#000000">()</font><font color="#000000">;</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#000000">canvas.scroll</font><font color="#000000">(</font><font color="#990000">0</font><font color="#000000">,&nbsp;destY,&nbsp;</font><font color="#990000">0</font><font color="#000000">,&nbsp;</font><font color="#990000">0</font><font color="#000000">,&nbsp;rect.width,&nbsp;rect.height,&nbsp;</font><font color="#7f0055"><b>false</b></font><font color="#000000">)</font><font color="#000000">;</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#000000">origin.y&nbsp;=&nbsp;-vSelection;</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#000000">}</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#000000">})</font><font color="#000000">;</font><br>
+<font color="#ffffff"></font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#000000">Rectangle&nbsp;rect&nbsp;=&nbsp;image.getBounds</font><font color="#000000">()</font><font color="#000000">;</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#000000">Rectangle&nbsp;client&nbsp;=&nbsp;canvas.getClientArea</font><font color="#000000">()</font><font color="#000000">;</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#000000">hBar.setMaximum</font><font color="#000000">(</font><font color="#000000">rect.width</font><font color="#000000">)</font><font color="#000000">;</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#000000">vBar.setMaximum</font><font color="#000000">(</font><font color="#000000">rect.height</font><font color="#000000">)</font><font color="#000000">;</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#000000">hBar.setThumb</font><font color="#000000">(</font><font color="#000000">Math.min</font><font color="#000000">(</font><font color="#000000">rect.width,&nbsp;client.width</font><font color="#000000">))</font><font color="#000000">;</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#000000">vBar.setThumb</font><font color="#000000">(</font><font color="#000000">Math.min</font><font color="#000000">(</font><font color="#000000">rect.height,&nbsp;client.height</font><font color="#000000">))</font><font color="#000000">;</font><br>
+<font color="#ffffff"></font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#7f0055"><b>int&nbsp;</b></font><font color="#000000">hPage&nbsp;=&nbsp;rect.width&nbsp;-&nbsp;client.width;</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#7f0055"><b>int&nbsp;</b></font><font color="#000000">vPage&nbsp;=&nbsp;rect.height&nbsp;-&nbsp;client.height;</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#7f0055"><b>int&nbsp;</b></font><font color="#000000">hSelection&nbsp;=&nbsp;hBar.getSelection</font><font color="#000000">()</font><font color="#000000">;</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#7f0055"><b>int&nbsp;</b></font><font color="#000000">vSelection&nbsp;=&nbsp;vBar.getSelection</font><font color="#000000">()</font><font color="#000000">;</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#7f0055"><b>if&nbsp;</b></font><font color="#000000">(</font><font color="#000000">hSelection&nbsp;&gt;=&nbsp;hPage</font><font color="#000000">)&nbsp;{</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#7f0055"><b>if&nbsp;</b></font><font color="#000000">(</font><font color="#000000">hPage&nbsp;&lt;=&nbsp;</font><font color="#990000">0</font><font color="#000000">)</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#000000">hSelection&nbsp;=&nbsp;</font><font color="#990000">0</font><font color="#000000">;</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#000000">origin.x&nbsp;=&nbsp;-hSelection;</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#000000">}</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#7f0055"><b>if&nbsp;</b></font><font color="#000000">(</font><font color="#000000">vSelection&nbsp;&gt;=&nbsp;vPage</font><font color="#000000">)&nbsp;{</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#7f0055"><b>if&nbsp;</b></font><font color="#000000">(</font><font color="#000000">vPage&nbsp;&lt;=&nbsp;</font><font color="#990000">0</font><font color="#000000">)</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#000000">vSelection&nbsp;=&nbsp;</font><font color="#990000">0</font><font color="#000000">;</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#000000">origin.y&nbsp;=&nbsp;-vSelection;</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#000000">}</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#000000">canvas.addListener</font><font color="#000000">(</font><font color="#000000">SWT.Resize,&nbsp;</font><font color="#7f0055"><b>new&nbsp;</b></font><font color="#000000">Listener</font><font color="#000000">()&nbsp;{</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#7f0055"><b>public&nbsp;</b></font><font color="#7f0055"><b>void&nbsp;</b></font><font color="#000000">handleEvent</font><font color="#000000">(</font><font color="#000000">Event&nbsp;e</font><font color="#000000">)&nbsp;{</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#000000">Rectangle&nbsp;rect&nbsp;=&nbsp;image.getBounds</font><font color="#000000">()</font><font color="#000000">;</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#000000">Rectangle&nbsp;client&nbsp;=&nbsp;canvas.getClientArea</font><font color="#000000">()</font><font color="#000000">;</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#000000">hBar.setMaximum</font><font color="#000000">(</font><font color="#000000">rect.width</font><font color="#000000">)</font><font color="#000000">;</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#000000">vBar.setMaximum</font><font color="#000000">(</font><font color="#000000">rect.height</font><font color="#000000">)</font><font color="#000000">;</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#000000">hBar.setThumb</font><font color="#000000">(</font><font color="#000000">Math.min</font><font color="#000000">(</font><font color="#000000">rect.width,&nbsp;client.width</font><font color="#000000">))</font><font color="#000000">;</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#000000">vBar.setThumb</font><font color="#000000">(</font><font color="#000000">Math.min</font><font color="#000000">(</font><font color="#000000">rect.height,&nbsp;client.height</font><font color="#000000">))</font><font color="#000000">;</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#7f0055"><b>int&nbsp;</b></font><font color="#000000">hPage&nbsp;=&nbsp;rect.width&nbsp;-&nbsp;client.width;</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#7f0055"><b>int&nbsp;</b></font><font color="#000000">vPage&nbsp;=&nbsp;rect.height&nbsp;-&nbsp;client.height;</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#7f0055"><b>int&nbsp;</b></font><font color="#000000">hSelection&nbsp;=&nbsp;hBar.getSelection</font><font color="#000000">()</font><font color="#000000">;</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#7f0055"><b>int&nbsp;</b></font><font color="#000000">vSelection&nbsp;=&nbsp;vBar.getSelection</font><font color="#000000">()</font><font color="#000000">;</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#7f0055"><b>if&nbsp;</b></font><font color="#000000">(</font><font color="#000000">hSelection&nbsp;&gt;=&nbsp;hPage</font><font color="#000000">)&nbsp;{</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#7f0055"><b>if&nbsp;</b></font><font color="#000000">(</font><font color="#000000">hPage&nbsp;&lt;=&nbsp;</font><font color="#990000">0</font><font color="#000000">)</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#000000">hSelection&nbsp;=&nbsp;</font><font color="#990000">0</font><font color="#000000">;</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#000000">origin.x&nbsp;=&nbsp;-hSelection;</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#000000">}</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#7f0055"><b>if&nbsp;</b></font><font color="#000000">(</font><font color="#000000">vSelection&nbsp;&gt;=&nbsp;vPage</font><font color="#000000">)&nbsp;{</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#7f0055"><b>if&nbsp;</b></font><font color="#000000">(</font><font color="#000000">vPage&nbsp;&lt;=&nbsp;</font><font color="#990000">0</font><font color="#000000">)</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#000000">vSelection&nbsp;=&nbsp;</font><font color="#990000">0</font><font color="#000000">;</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#000000">origin.y&nbsp;=&nbsp;-vSelection;</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#000000">}</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#000000">canvas.redraw</font><font color="#000000">()</font><font color="#000000">;</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#000000">}</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#000000">})</font><font color="#000000">;</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#000000">canvas.addListener</font><font color="#000000">(</font><font color="#000000">SWT.Paint,&nbsp;</font><font color="#7f0055"><b>new&nbsp;</b></font><font color="#000000">Listener</font><font color="#000000">()&nbsp;{</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#7f0055"><b>public&nbsp;</b></font><font color="#7f0055"><b>void&nbsp;</b></font><font color="#000000">handleEvent</font><font color="#000000">(</font><font color="#000000">Event&nbsp;e</font><font color="#000000">)&nbsp;{</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#000000">GC&nbsp;gc&nbsp;=&nbsp;e.gc;</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#000000">gc.drawImage</font><font color="#000000">(</font><font color="#000000">image,&nbsp;origin.x,&nbsp;origin.y</font><font color="#000000">)</font><font color="#000000">;</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#000000">Rectangle&nbsp;rect&nbsp;=&nbsp;image.getBounds</font><font color="#000000">()</font><font color="#000000">;</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#000000">Rectangle&nbsp;client&nbsp;=&nbsp;canvas.getClientArea</font><font color="#000000">()</font><font color="#000000">;</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#7f0055"><b>int&nbsp;</b></font><font color="#000000">marginWidth&nbsp;=&nbsp;client.width&nbsp;-&nbsp;rect.width;</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#7f0055"><b>if&nbsp;</b></font><font color="#000000">(</font><font color="#000000">marginWidth&nbsp;&gt;&nbsp;</font><font color="#990000">0</font><font color="#000000">)&nbsp;{</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#000000">gc.fillRectangle</font><font color="#000000">(</font><font color="#000000">rect.width,&nbsp;</font><font color="#990000">0</font><font color="#000000">,&nbsp;marginWidth,&nbsp;client.height</font><font color="#000000">)</font><font color="#000000">;</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#000000">}</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#7f0055"><b>int&nbsp;</b></font><font color="#000000">marginHeight&nbsp;=&nbsp;client.height&nbsp;-&nbsp;rect.height;</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#7f0055"><b>if&nbsp;</b></font><font color="#000000">(</font><font color="#000000">marginHeight&nbsp;&gt;&nbsp;</font><font color="#990000">0</font><font color="#000000">)&nbsp;{</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#000000">gc.fillRectangle</font><font color="#000000">(</font><font color="#990000">0</font><font color="#000000">,&nbsp;rect.height,&nbsp;client.width,&nbsp;marginHeight</font><font color="#000000">)</font><font color="#000000">;</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#000000">}</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#000000">}</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#000000">})</font><font color="#000000">;</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#000000">canvas.redraw</font><font color="#000000">()</font><font color="#000000">;</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#000000">}</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#7f0055"><b>final&nbsp;</b></font><font color="#000000">Label&nbsp;separator1&nbsp;=&nbsp;</font><font color="#7f0055"><b>new&nbsp;</b></font><font color="#000000">Label</font><font color="#000000">(</font><font color="#000000">cInformation,&nbsp;SWT.SEPARATOR&nbsp;|&nbsp;SWT.HORIZONTAL</font><font color="#000000">)</font><font color="#000000">;</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#000000">separator1.setBounds</font><font color="#000000">(</font><font color="#990000">10</font><font color="#000000">,&nbsp;</font><font color="#990000">183</font><font color="#000000">,&nbsp;</font><font color="#990000">843</font><font color="#000000">,&nbsp;</font><font color="#990000">13</font><font color="#000000">)</font><font color="#000000">;</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#000000">scrolledComposite.setMinSize</font><font color="#000000">(</font><font color="#000000">cInformation.computeSize</font><font color="#000000">(</font><font color="#000000">SWT.DEFAULT,&nbsp;SWT.DEFAULT</font><font color="#000000">))</font><font color="#000000">;</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#7f0055"><b>final&nbsp;</b></font><font color="#000000">Label&nbsp;lb_Description&nbsp;=&nbsp;</font><font color="#7f0055"><b>new&nbsp;</b></font><font color="#000000">Label</font><font color="#000000">(</font><font color="#000000">cInformation,&nbsp;SWT.NONE</font><font color="#000000">)</font><font color="#000000">;</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#000000">lb_Description.setText</font><font color="#000000">(</font><font color="#000000">Messages.DynamicRefactoringTab_Description</font><font color="#000000">)</font><font color="#000000">;</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#000000">lb_Description.setBounds</font><font color="#000000">(</font><font color="#990000">10</font><font color="#000000">,&nbsp;</font><font color="#990000">60</font><font color="#000000">,&nbsp;</font><font color="#990000">354</font><font color="#000000">,&nbsp;</font><font color="#990000">13</font><font color="#000000">)</font><font color="#000000">;</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#000000">t_Description&nbsp;=&nbsp;</font><font color="#7f0055"><b>new&nbsp;</b></font><font color="#000000">Text</font><font color="#000000">(</font><font color="#000000">cInformation,&nbsp;SWT.WRAP&nbsp;|&nbsp;SWT.V_SCROLL&nbsp;|&nbsp;SWT.READ_ONLY&nbsp;|&nbsp;SWT.MULTI&nbsp;|&nbsp;SWT.BORDER</font><font color="#000000">)</font><font color="#000000">;</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#000000">t_Description.setEditable</font><font color="#000000">(</font><font color="#7f0055"><b>false</b></font><font color="#000000">)</font><font color="#000000">;</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#000000">t_Description.setBackground</font><font color="#000000">(</font><font color="#000000">Display.getCurrent</font><font color="#000000">()</font><font color="#000000">.getSystemColor</font><font color="#000000">(</font><font color="#000000">SWT.COLOR_WHITE</font><font color="#000000">))</font><font color="#000000">;</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#000000">t_Description.setBounds</font><font color="#000000">(</font><font color="#990000">10</font><font color="#000000">,&nbsp;</font><font color="#990000">79</font><font color="#000000">,&nbsp;</font><font color="#990000">430</font><font color="#000000">,&nbsp;</font><font color="#990000">37</font><font color="#000000">)</font><font color="#000000">;</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#7f0055"><b>final&nbsp;</b></font><font color="#000000">Label&nbsp;lb_Motivation&nbsp;=&nbsp;</font><font color="#7f0055"><b>new&nbsp;</b></font><font color="#000000">Label</font><font color="#000000">(</font><font color="#000000">cInformation,&nbsp;SWT.NONE</font><font color="#000000">)</font><font color="#000000">;</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#000000">lb_Motivation.setText</font><font color="#000000">(</font><font color="#000000">Messages.DynamicRefactoringTab_Motivation</font><font color="#000000">)</font><font color="#000000">;</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#000000">lb_Motivation.setBounds</font><font color="#000000">(</font><font color="#990000">10</font><font color="#000000">,&nbsp;</font><font color="#990000">122</font><font color="#000000">,&nbsp;</font><font color="#990000">354</font><font color="#000000">,&nbsp;</font><font color="#990000">13</font><font color="#000000">)</font><font color="#000000">;</font><br>
+<font color="#ffffff"></font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#000000">t_Motivation&nbsp;=&nbsp;</font><font color="#7f0055"><b>new&nbsp;</b></font><font color="#000000">Text</font><font color="#000000">(</font><font color="#000000">cInformation,&nbsp;SWT.WRAP&nbsp;|&nbsp;SWT.V_SCROLL&nbsp;|&nbsp;SWT.READ_ONLY&nbsp;|&nbsp;SWT.MULTI&nbsp;|&nbsp;SWT.BORDER</font><font color="#000000">)</font><font color="#000000">;</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#000000">t_Motivation.setBackground</font><font color="#000000">(</font><font color="#000000">Display.getCurrent</font><font color="#000000">()</font><font color="#000000">.getSystemColor</font><font color="#000000">(</font><font color="#000000">SWT.COLOR_WHITE</font><font color="#000000">))</font><font color="#000000">;</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#000000">t_Motivation.setBounds</font><font color="#000000">(</font><font color="#990000">10</font><font color="#000000">,&nbsp;</font><font color="#990000">142</font><font color="#000000">,&nbsp;</font><font color="#990000">430</font><font color="#000000">,&nbsp;</font><font color="#990000">37</font><font color="#000000">)</font><font color="#000000">;</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#000000">tr_Components&nbsp;=&nbsp;</font><font color="#7f0055"><b>new&nbsp;</b></font><font color="#000000">Tree</font><font color="#000000">(</font><font color="#000000">cInformation,&nbsp;SWT.BORDER</font><font color="#000000">)</font><font color="#000000">;</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#000000">tr_Components.setBounds</font><font color="#000000">(</font><font color="#990000">456</font><font color="#000000">,&nbsp;</font><font color="#990000">202</font><font color="#000000">,&nbsp;</font><font color="#990000">385</font><font color="#000000">,&nbsp;</font><font color="#990000">177</font><font color="#000000">)</font><font color="#000000">;</font><br>
+<font color="#ffffff"></font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#000000">tb_Inputs&nbsp;=&nbsp;</font><font color="#7f0055"><b>new&nbsp;</b></font><font color="#000000">Table</font><font color="#000000">(</font><font color="#000000">cInformation,&nbsp;SWT.BORDER</font><font color="#000000">)</font><font color="#000000">;</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#000000">tb_Inputs.setEnabled</font><font color="#000000">(</font><font color="#7f0055"><b>false</b></font><font color="#000000">)</font><font color="#000000">;</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#000000">tb_Inputs.setBackground</font><font color="#000000">(</font><font color="#000000">Display.getCurrent</font><font color="#000000">()</font><font color="#000000">.getSystemColor</font><font color="#000000">(</font><font color="#000000">SWT.COLOR_WHITE</font><font color="#000000">))</font><font color="#000000">;</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#000000">tb_Inputs.setLinesVisible</font><font color="#000000">(</font><font color="#7f0055"><b>true</b></font><font color="#000000">)</font><font color="#000000">;</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#000000">tb_Inputs.setHeaderVisible</font><font color="#000000">(</font><font color="#7f0055"><b>true</b></font><font color="#000000">)</font><font color="#000000">;</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#000000">tb_Inputs.setBounds</font><font color="#000000">(</font><font color="#990000">10</font><font color="#000000">,&nbsp;</font><font color="#990000">202</font><font color="#000000">,&nbsp;</font><font color="#990000">430</font><font color="#000000">,&nbsp;</font><font color="#990000">177</font><font color="#000000">)</font><font color="#000000">;</font><br>
+<font color="#ffffff"></font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#7f0055"><b>final&nbsp;</b></font><font color="#000000">TableColumn&nbsp;cl_Name&nbsp;=&nbsp;</font><font color="#7f0055"><b>new&nbsp;</b></font><font color="#000000">TableColumn</font><font color="#000000">(</font><font color="#000000">tb_Inputs,&nbsp;SWT.NONE</font><font color="#000000">)</font><font color="#000000">;</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#000000">cl_Name.setWidth</font><font color="#000000">(</font><font color="#990000">179</font><font color="#000000">)</font><font color="#000000">;</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#000000">cl_Name.setText</font><font color="#000000">(</font><font color="#000000">Messages.DynamicRefactoringTab_Name</font><font color="#000000">)</font><font color="#000000">;</font><br>
+<font color="#ffffff"></font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#7f0055"><b>final&nbsp;</b></font><font color="#000000">TableColumn&nbsp;cl_Type&nbsp;=&nbsp;</font><font color="#7f0055"><b>new&nbsp;</b></font><font color="#000000">TableColumn</font><font color="#000000">(</font><font color="#000000">tb_Inputs,&nbsp;SWT.NONE</font><font color="#000000">)</font><font color="#000000">;</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#000000">cl_Type.setWidth</font><font color="#000000">(</font><font color="#990000">212</font><font color="#000000">)</font><font color="#000000">;</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#000000">cl_Type.setText</font><font color="#000000">(</font><font color="#000000">Messages.DynamicRefactoringTab_Type</font><font color="#000000">)</font><font color="#000000">;</font><br>
+<font color="#ffffff"></font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#7f0055"><b>final&nbsp;</b></font><font color="#000000">TableColumn&nbsp;cl_Main&nbsp;=&nbsp;</font><font color="#7f0055"><b>new&nbsp;</b></font><font color="#000000">TableColumn</font><font color="#000000">(</font><font color="#000000">tb_Inputs,&nbsp;SWT.NONE</font><font color="#000000">)</font><font color="#000000">;</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#000000">cl_Main.setWidth</font><font color="#000000">(</font><font color="#990000">35</font><font color="#000000">)</font><font color="#000000">;</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#000000">cl_Main.setText</font><font color="#000000">(</font><font color="#000000">Messages.DynamicRefactoringTab_Main</font><font color="#000000">)</font><font color="#000000">;</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#000000">cl_Main.setResizable</font><font color="#000000">(</font><font color="#7f0055"><b>false</b></font><font color="#000000">)</font><font color="#000000">;</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#000000">cl_Main.setToolTipText</font><font color="#000000">(</font><font color="#000000">Messages.DynamicRefactoringTab_MainInput</font><font color="#000000">)</font><font color="#000000">;</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#000000">fillInRefactoringData</font><font color="#000000">()</font><font color="#000000">;</font><br>
+<font color="#ffffff">&nbsp;&nbsp;</font><font color="#000000">}</font><br>
+<font color="#ffffff">&nbsp;&nbsp;</font><br>
+<font color="#ffffff">&nbsp;&nbsp;</font><font color="#3f5fbf">/**</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;</font><font color="#3f5fbf">*&nbsp;Puebla&nbsp;los&nbsp;campos&nbsp;de&nbsp;la&nbsp;pesta&ntilde;a&nbsp;con&nbsp;la&nbsp;informaci&oacute;n&nbsp;que&nbsp;se</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;</font><font color="#3f5fbf">*&nbsp;pueda&nbsp;obtener&nbsp;de&nbsp;la&nbsp;refactorizaci&oacute;n&nbsp;existente&nbsp;que&nbsp;se&nbsp;est&aacute;&nbsp;editando&nbsp;o</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;</font><font color="#3f5fbf">*&nbsp;que&nbsp;se&nbsp;est&aacute;&nbsp;a&nbsp;punto&nbsp;de&nbsp;crear.</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;</font><font color="#3f5fbf">*/</font><br>
+<font color="#ffffff">&nbsp;&nbsp;</font><font color="#7f0055"><b>private&nbsp;</b></font><font color="#7f0055"><b>void&nbsp;</b></font><font color="#000000">fillInRefactoringData</font><font color="#000000">(){</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#000000">t_Description.setText</font><font color="#000000">(</font><font color="#000000">refactoringDefinition.getDescription</font><font color="#000000">())</font><font color="#000000">;</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#000000">t_Motivation.setText</font><font color="#000000">(</font><font color="#000000">refactoringDefinition.getMotivation</font><font color="#000000">())</font><font color="#000000">;</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#000000">ArrayList&lt;String</font><font color="#000000">[]</font><font color="#000000">&gt;&nbsp;inputs&nbsp;=&nbsp;refactoringDefinition.getInputs</font><font color="#000000">()</font><font color="#000000">;</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#7f0055"><b>for&nbsp;</b></font><font color="#000000">(</font><font color="#000000">String</font><font color="#000000">[]&nbsp;</font><font color="#000000">input&nbsp;:&nbsp;inputs</font><font color="#000000">){</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#000000">TableItem&nbsp;item&nbsp;=&nbsp;</font><font color="#7f0055"><b>new&nbsp;</b></font><font color="#000000">TableItem</font><font color="#000000">(</font><font color="#000000">tb_Inputs,&nbsp;SWT.BORDER</font><font color="#000000">)</font><font color="#000000">;</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#000000">item.setText</font><font color="#000000">(</font><font color="#7f0055"><b>new&nbsp;</b></font><font color="#000000">String</font><font color="#000000">[]{</font><font color="#000000">input</font><font color="#000000">[</font><font color="#990000">1</font><font color="#000000">]</font><font color="#000000">,&nbsp;input</font><font color="#000000">[</font><font color="#990000">0</font><font color="#000000">]</font><font color="#000000">,&nbsp;</font><font color="#2a00ff">&#34;&#34;</font><font color="#000000">,&nbsp;</font><font color="#2a00ff">&#34;&#34;</font><font color="#000000">})</font><font color="#000000">;&nbsp;</font><font color="#3f7f5f">//$NON-NLS-1$&nbsp;//$NON-NLS-2$</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#000000">TableEditor&nbsp;editor&nbsp;=&nbsp;</font><font color="#7f0055"><b>new&nbsp;</b></font><font color="#000000">TableEditor</font><font color="#000000">(</font><font color="#000000">tb_Inputs</font><font color="#000000">)</font><font color="#000000">;</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#000000">Button&nbsp;checkButton&nbsp;=&nbsp;</font><font color="#7f0055"><b>new&nbsp;</b></font><font color="#000000">Button</font><font color="#000000">(</font><font color="#000000">tb_Inputs,&nbsp;SWT.CHECK</font><font color="#000000">)</font><font color="#000000">;</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#7f0055"><b>if&nbsp;</b></font><font color="#000000">(</font><font color="#000000">input</font><font color="#000000">[</font><font color="#990000">4</font><font color="#000000">]&nbsp;</font><font color="#000000">!=&nbsp;</font><font color="#7f0055"><b>null&nbsp;</b></font><font color="#000000">&amp;&amp;&nbsp;input</font><font color="#000000">[</font><font color="#990000">4</font><font color="#000000">]</font><font color="#000000">.equals</font><font color="#000000">(</font><font color="#2a00ff">&#34;true&#34;</font><font color="#000000">))&nbsp;</font><font color="#3f7f5f">//$NON-NLS-1$</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#000000">checkButton.setSelection</font><font color="#000000">(</font><font color="#7f0055"><b>true</b></font><font color="#000000">)</font><font color="#000000">;</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#000000">checkButton.pack</font><font color="#000000">()</font><font color="#000000">;</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#000000">editor.minimumWidth&nbsp;=&nbsp;checkButton.getSize</font><font color="#000000">()</font><font color="#000000">.x;</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#000000">editor.horizontalAlignment&nbsp;=&nbsp;SWT.CENTER;</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#000000">editor.setEditor</font><font color="#000000">(</font><font color="#000000">checkButton,&nbsp;item,&nbsp;</font><font color="#990000">2</font><font color="#000000">)</font><font color="#000000">;</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#000000">}</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#000000">ArrayList&lt;String&gt;&nbsp;preconditions&nbsp;=&nbsp;refactoringDefinition.getPreconditions</font><font color="#000000">()</font><font color="#000000">;</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#000000">ArrayList&lt;String&gt;&nbsp;actions&nbsp;=&nbsp;refactoringDefinition.getActions</font><font color="#000000">()</font><font color="#000000">;</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#000000">ArrayList&lt;String&gt;&nbsp;postconditions&nbsp;=&nbsp;refactoringDefinition.getPostconditions</font><font color="#000000">()</font><font color="#000000">;</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#000000">TreeItem&nbsp;preconditionsChild&nbsp;=&nbsp;TreeEditor.createBranch</font><font color="#000000">(</font><font color="#000000">tr_Components,&nbsp;</font><font color="#990000">0</font><font color="#000000">,</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#000000">Messages.DynamicRefactoringTab_Preconditions,&nbsp;</font><font color="#2a00ff">&#34;icons&#34;&nbsp;</font><font color="#000000">+&nbsp;System.getProperty</font><font color="#000000">(</font><font color="#2a00ff">&#34;file.separator&#34;</font><font color="#000000">)&nbsp;</font><font color="#000000">+&nbsp;</font><font color="#2a00ff">&#34;check.gif&#34;</font><font color="#000000">)</font><font color="#000000">;&nbsp;</font><font color="#3f7f5f">//$NON-NLS-1$&nbsp;//$NON-NLS-2$&nbsp;//$NON-NLS-3$&nbsp;</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#000000">TreeItem&nbsp;actionsChild&nbsp;=&nbsp;TreeEditor.createBranch</font><font color="#000000">(</font><font color="#000000">tr_Components,&nbsp;</font><font color="#990000">1</font><font color="#000000">,&nbsp;</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#000000">Messages.DynamicRefactoringTab_Actions,&nbsp;</font><font color="#2a00ff">&#34;icons&#34;&nbsp;</font><font color="#000000">+&nbsp;System.getProperty</font><font color="#000000">(</font><font color="#2a00ff">&#34;file.separator&#34;</font><font color="#000000">)&nbsp;</font><font color="#000000">+&nbsp;</font><font color="#2a00ff">&#34;run.gif&#34;</font><font color="#000000">)</font><font color="#000000">;&nbsp;</font><font color="#3f7f5f">//$NON-NLS-1$&nbsp;//$NON-NLS-2$&nbsp;//$NON-NLS-3$</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#000000">TreeItem&nbsp;postconditionsChild&nbsp;=&nbsp;TreeEditor.createBranch</font><font color="#000000">(</font><font color="#000000">tr_Components,&nbsp;</font><font color="#990000">2</font><font color="#000000">,</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#000000">Messages.DynamicRefactoringTab_Postconditions,&nbsp;</font><font color="#2a00ff">&#34;icons&#34;&nbsp;</font><font color="#000000">+&nbsp;System.getProperty</font><font color="#000000">(</font><font color="#2a00ff">&#34;file.separator&#34;</font><font color="#000000">)&nbsp;</font><font color="#000000">+&nbsp;</font><font color="#2a00ff">&#34;validate.gif&#34;</font><font color="#000000">)</font><font color="#000000">;&nbsp;</font><font color="#3f7f5f">//$NON-NLS-1$&nbsp;//$NON-NLS-2$&nbsp;//$NON-NLS-3$</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#000000">TreeEditor.fillInTreeBranch</font><font color="#000000">(</font><font color="#000000">preconditions,&nbsp;preconditionsChild,&nbsp;</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#2a00ff">&#34;icons&#34;&nbsp;</font><font color="#000000">+&nbsp;System.getProperty</font><font color="#000000">(</font><font color="#2a00ff">&#34;file.separator&#34;</font><font color="#000000">)&nbsp;</font><font color="#000000">+&nbsp;</font><font color="#2a00ff">&#34;check.gif&#34;</font><font color="#000000">)</font><font color="#000000">;&nbsp;</font><font color="#3f7f5f">//$NON-NLS-1$&nbsp;//$NON-NLS-2$&nbsp;//$NON-NLS-3$</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#000000">TreeEditor.fillInTreeBranch</font><font color="#000000">(</font><font color="#000000">actions,&nbsp;actionsChild,&nbsp;</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#2a00ff">&#34;icons&#34;&nbsp;</font><font color="#000000">+&nbsp;System.getProperty</font><font color="#000000">(</font><font color="#2a00ff">&#34;file.separator&#34;</font><font color="#000000">)&nbsp;</font><font color="#000000">+&nbsp;</font><font color="#2a00ff">&#34;run.gif&#34;</font><font color="#000000">)</font><font color="#000000">;&nbsp;</font><font color="#3f7f5f">//$NON-NLS-1$&nbsp;//$NON-NLS-2$&nbsp;//$NON-NLS-3$</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#000000">TreeEditor.fillInTreeBranch</font><font color="#000000">(</font><font color="#000000">postconditions,&nbsp;postconditionsChild,</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#2a00ff">&#34;icons&#34;&nbsp;</font><font color="#000000">+&nbsp;System.getProperty</font><font color="#000000">(</font><font color="#2a00ff">&#34;file.separator&#34;</font><font color="#000000">)&nbsp;</font><font color="#000000">+&nbsp;</font><font color="#2a00ff">&#34;validate.gif&#34;</font><font color="#000000">)</font><font color="#000000">;&nbsp;</font><font color="#3f7f5f">//$NON-NLS-1$&nbsp;//$NON-NLS-2$&nbsp;//$NON-NLS-3$</font><br>
+<font color="#ffffff">&nbsp;&nbsp;</font><font color="#000000">}</font><br>
+<font color="#000000">}</font></code>
+    
+   </td>
+  <!-- end source code -->
+   </tr>
+</table>
+</div>
+<!-- =       END of automatically generated HTML code       = -->
+<!-- ======================================================== -->
+
+
+</body></html>

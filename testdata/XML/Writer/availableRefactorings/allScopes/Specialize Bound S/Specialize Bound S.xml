@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!DOCTYPE refactoring SYSTEM "refactoringDTD.dtd">
+
+<refactoring name="Specialize Bound S">
+	<information>
+		<description>Replaces the current bound for a subtype.</description>
+		<image src="image.JPG" />
+		<motivation>The actual substitutions of the generic instantiations must be restringed to a subset of subtypes.</motivation>
+	</information>
+	<inputs>
+		<input type="moon.core.Model" name="Model" root="false" />
+		<input type="moon.core.classdef.ClassType" name="New_bounding_type" from="Model" method="getTypes" root="false" />
+		<input type="moon.core.classdef.ClassDef" name="Class" from="Parameter" method="getClassDef" root="false" />
+		<input type="moon.core.classdef.ClassType" name="Old_bounding_type" from="Parameter" method="getBounds" root="false" />
+		<input type="moon.core.genericity.BoundS" name="Parameter" root="true" />
+	</inputs>
+	<mechanism>
+		<preconditions>
+			<precondition name="repository.moon.concretepredicate.IsSubtype">
+				<param name="New_bounding_type" />
+				<param name="Old_bounding_type" />
+			</precondition>
+			<precondition name="repository.moon.concretepredicate.IsSubtypeSubstFormalPar">
+				<param name="Parameter" />
+				<param name="New_bounding_type" />
+			</precondition>
+			<precondition name="repository.moon.concretepredicate.IsSubtypeBoundDesc">
+				<param name="Parameter" />
+				<param name="Old_bounding_type" />
+				<param name="New_bounding_type" />
+			</precondition>
+		</preconditions>
+		<actions>
+			<action name="repository.moon.concreteaction.ReplaceBoundType">
+				<param name="Parameter" />
+				<param name="Old_bounding_type" />
+				<param name="New_bounding_type" />
+			</action>
+			<action name="repository.java.concreteaction.AddImportClause">
+				<param name="Class" />
+				<param name="New_bounding_type" />
+			</action>
+		</actions>
+		<postconditions>
+			<postcondition name="repository.moon.concretepredicate.IsBoundType">
+				<param name="Parameter" />
+				<param name="New_bounding_type" />
+			</postcondition>
+		</postconditions>
+	</mechanism>
+	<examples />
+</refactoring>
+

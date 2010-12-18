@@ -1,0 +1,65 @@
+<HEAD>
+<META HTTP-EQUIV="Content-Type" Content="text/html; charset=Windows-1252">
+<TITLE>Importing Refactoring Plan</TITLE>
+<link href="../../book.css" rel="stylesheet" type="text/css" />
+</HEAD>
+<body>
+
+	<H1><img align="middle" border="0" src="../images/4.png">Importing Refactoring Plan</H1>
+
+<P>
+	
+This section shows how to run and import a set of refactorings which take part into a refactoring plan.
+<OL>
+	<LI><p>Inside Eclipse select the menu item <STRONG>Dynamic Refactoring &gt; Import 
+	Refactoring Plan...</STRONG> to open the <STRONG>Import Refactoring Plan</STRONG> dialog.</p><br>
+	
+	<p align="center"><img border="0" src="../images/export/14.png"><br><br>
+	<a name="_Toc176096195"><font size="1"><b>Select Import Refactoring Plan from menu</b></font></a><br><br>
+	</LI>
+
+	<LI>
+	The default location to extract the refactoring plan can be established as the case of export refactoring plan from the menu <STRONG>Window &gt; Preferences</STRONG> in the section "Import directory for the refactoring plan " of the submenu item <STRONG>Dynamic Refactoring</STRONG>. 
+
+	<p>With the button "..." you can choose the directory where is located the refactoring plan if it`s different from the default one. The plugin will make a search through the directory looking for the files containing the definition of each refactoring of the plan.</p><br>
+	
+	<p align="center"><img border="0" src="../images/export/15.png"><br><br>
+	<a name="_Toc176096218"><font size="1"><b>Select input folder</b></font></a></p><br>
+	
+	</LI>
+		
+	<LI>
+	Once the search finishes, you will see the list of the plan refactorings. Pay attention to the messages on
+	the lower part of the dialog, since they will warn you about the possible effects of importing some
+	refactorings, as well as the effects produced by deselecting some <code>checkbox</code>.
+	
+	
+	<p align="center"><img border="0" src="../images/export/16.png"><br><br>
+	<a name="_Toc176096218"><font size="1"><b>import Refactoring Plan</b></font></a></p><br>
+
+	<p>Initially it shows a message indicating that the execution of the refactorings may cause problems if you deselect some of them to be executed or if the project does not contain elements with the same characteristics as the original one.</p><br>
+	
+	</LI>
+	<LI>Press <STRONG>Execute</STRONG> botton when you have finished selecting the refactorings to import and execute.</LI>
+	
+	<LI>
+	After a short while, a confirmation message will open up telling you how many refactorings were imported and executed if the process didn´t have any problem.
+	<p align="center"><img border="0" src="../images/export/17.png"><br><br>
+	<a name="_Toc176096218"><font size="1"><b>Confirmation</b></font></a></p><br>
+	
+	<p>If any of the refactorings had problems while it´s executing an information dialog appears informaing about which ones had problems.</p><br>
+	
+	<p align="center"><img border="0" src="../images/export/18.png"><br><br>
+	<a name="_Toc176096218"><font size="1"><b>Problems while executing</b></font></a></p><br>	
+	
+	
+	</LI>
+</OL>
+
+<p><img src="../images/1.png"  alt="Related tasks"></p>    
+<ul class="NavList">
+	<li><a href="exportPlan.html">Exporting refactoring plan</a><br></li>
+</ul>
+<br>
+</body>
+</html>

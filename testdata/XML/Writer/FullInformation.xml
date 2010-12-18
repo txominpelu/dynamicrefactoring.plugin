@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!DOCTYPE refactoring SYSTEM "refactoringDTD.dtd">
+
+<refactoring name="FullInformation">
+	<information>
+		<description>Renames the class.</description>
+		<image src="renameclass.JPG" />
+		<motivation>The name of class does not reveal its intention.</motivation>
+	</information>
+	<inputs>
+		<input type="moon.core.Name" name="Old_name" from="Class" method="getName" root="false" />
+		<input type="moon.core.Model" name="Model" root="false" />
+		<input type="moon.core.classdef.ClassDef" name="Class" root="true" />
+		<input type="moon.core.Name" name="New_name" root="false" />
+	</inputs>
+	<mechanism>
+		<preconditions>
+			<precondition name="repository.moon.concretepredicate.NotExistsClassWithName">
+				<param name="New_name" />
+			</precondition>
+		</preconditions>
+		<actions>
+			<action name="repository.moon.concreteaction.RenameClass">
+				<param name="Class" />
+				<param name="New_name" />
+			</action>
+			<action name="repository.moon.concreteaction.RenameReferenceFile">
+				<param name="Class" />
+				<param name="New_name" />
+			</action>
+			<action name="repository.moon.concreteaction.RenameClassType">
+				<param name="Class" />
+				<param name="New_name" />
+			</action>
+			<action name="repository.moon.concreteaction.RenameGenericClassType">
+				<param name="Class" />
+				<param name="New_name" />
+			</action>
+			<action name="repository.moon.concreteaction.RenameConstructors">
+				<param name="Class" />
+				<param name="New_name" />
+			</action>
+			<action name="repository.moon.concreteaction.RenameJavaFile">
+				<param name="Class" />
+				<param name="New_name" />
+			</action>
+		</actions>
+		<postconditions>
+			<postcondition name="repository.moon.concretepredicate.NotExistsClassWithName">
+				<param name="Old_name" />
+			</postcondition>
+		</postconditions>
+	</mechanism>
+	<examples>
+		<example before="ejemplo1_antes.txt" after="ejemplo1_despues.txt" />
+	</examples>
+</refactoring>
+

@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project basedir="." default="plugin_export" name="build" >
+	<!-- Directorio de los ficheros fuentes -->
+	    <property name="destino" value="${basedir}"/>
+	
+	<target name="plugin_export">
+		<copy file="${basedir}/refactoringsDTD.dtd" todir="${destino}/plugins/DynamicRefactoring_2.0.0"/>
+		<copy file="${basedir}/refactoringPlanDTD.dtd" todir="${destino}/plugins/DynamicRefactoring_2.0.0"/>
+		<copy todir="${destino}/plugins/DynamicRefactoring_2.0.0/doc/javadoc">
+			  <fileset dir="${basedir}/doc/javadoc"/>
+		</copy>
+		<pde.exportPlugins destination="${destino}" exportSource="false" exportType="directory" plugins="DynamicRefactoring" useJARFormat="false"/>
+	</target>
+</project>

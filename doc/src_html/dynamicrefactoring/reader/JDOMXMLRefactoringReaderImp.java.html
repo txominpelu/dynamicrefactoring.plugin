@@ -1,0 +1,497 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html><head>
+<title></title>
+  <style type="text/css">
+    <!--code { font-family: Courier New, Courier; font-size: 10pt; margin: 0px; }-->
+  </style>
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+</head><body>
+
+
+<!-- ======================================================== -->
+<!-- = Java Sourcecode to HTML automatically converted code = -->
+<!-- =   Java2Html Converter 5.0 [2006-02-26] by Markus Gebhard  markus@jave.de   = -->
+<!-- =     Further information: http://www.java2html.de     = -->
+<div align="left" class="java">
+<table border="0" cellpadding="3" cellspacing="0" bgcolor="#ffffff">
+   <tr>
+  <!-- start source code -->
+   <td nowrap="nowrap" valign="top" align="left">
+    <code>
+<font color="#3f7f5f">/*&lt;Dynamic&nbsp;Refactoring&nbsp;Plugin&nbsp;For&nbsp;Eclipse&nbsp;2.0&nbsp;-&nbsp;Plugin&nbsp;that&nbsp;allows&nbsp;to&nbsp;perform&nbsp;refactorings&nbsp;</font><br>
+<font color="#3f7f5f">on&nbsp;Java&nbsp;code&nbsp;within&nbsp;Eclipse,&nbsp;as&nbsp;well&nbsp;as&nbsp;to&nbsp;dynamically&nbsp;create&nbsp;and&nbsp;manage&nbsp;new&nbsp;refactorings&gt;</font><br>
+<font color="#ffffff"></font><br>
+<font color="#3f7f5f">Copyright&nbsp;(C)&nbsp;2009&nbsp;&nbsp;Laura&nbsp;Fuente&nbsp;De&nbsp;La&nbsp;Fuente</font><br>
+<font color="#ffffff"></font><br>
+<font color="#3f7f5f">This&nbsp;file&nbsp;is&nbsp;part&nbsp;of&nbsp;Foobar</font><br>
+<font color="#ffffff"></font><br>
+<font color="#3f7f5f">Foobar&nbsp;is&nbsp;free&nbsp;software:&nbsp;you&nbsp;can&nbsp;redistribute&nbsp;it&nbsp;and/or&nbsp;modify</font><br>
+<font color="#3f7f5f">it&nbsp;under&nbsp;the&nbsp;terms&nbsp;of&nbsp;the&nbsp;GNU&nbsp;General&nbsp;Public&nbsp;License&nbsp;as&nbsp;published&nbsp;by</font><br>
+<font color="#3f7f5f">the&nbsp;Free&nbsp;Software&nbsp;Foundation,&nbsp;either&nbsp;version&nbsp;3&nbsp;of&nbsp;the&nbsp;License,&nbsp;or</font><br>
+<font color="#3f7f5f">(at&nbsp;your&nbsp;option)&nbsp;any&nbsp;later&nbsp;version.</font><br>
+<font color="#ffffff"></font><br>
+<font color="#3f7f5f">This&nbsp;program&nbsp;is&nbsp;distributed&nbsp;in&nbsp;the&nbsp;hope&nbsp;that&nbsp;it&nbsp;will&nbsp;be&nbsp;useful,</font><br>
+<font color="#3f7f5f">but&nbsp;WITHOUT&nbsp;ANY&nbsp;WARRANTY;&nbsp;without&nbsp;even&nbsp;the&nbsp;implied&nbsp;warranty&nbsp;of</font><br>
+<font color="#3f7f5f">MERCHANTABILITY&nbsp;or&nbsp;FITNESS&nbsp;FOR&nbsp;A&nbsp;PARTICULAR&nbsp;PURPOSE.&nbsp;&nbsp;See&nbsp;the</font><br>
+<font color="#3f7f5f">GNU&nbsp;General&nbsp;Public&nbsp;License&nbsp;for&nbsp;more&nbsp;details.</font><br>
+<font color="#ffffff"></font><br>
+<font color="#3f7f5f">You&nbsp;should&nbsp;have&nbsp;received&nbsp;a&nbsp;copy&nbsp;of&nbsp;the&nbsp;GNU&nbsp;General&nbsp;Public&nbsp;License</font><br>
+<font color="#3f7f5f">along&nbsp;with&nbsp;this&nbsp;program.&nbsp;&nbsp;If&nbsp;not,&nbsp;see&nbsp;&lt;http://www.gnu.org/licenses/&gt;.*/</font><br>
+<font color="#ffffff"></font><br>
+<font color="#7f0055"><b>package&nbsp;</b></font><font color="#000000">dynamicrefactoring.reader;</font><br>
+<font color="#ffffff"></font><br>
+<font color="#7f0055"><b>import&nbsp;</b></font><font color="#000000">dynamicrefactoring.RefactoringConstants;</font><br>
+<font color="#7f0055"><b>import&nbsp;</b></font><font color="#000000">dynamicrefactoring.domain.DynamicRefactoringDefinition;</font><br>
+<font color="#7f0055"><b>import&nbsp;</b></font><font color="#000000">dynamicrefactoring.interfaz.SelectRefactoringWindow;</font><br>
+<font color="#ffffff"></font><br>
+<font color="#7f0055"><b>import&nbsp;</b></font><font color="#000000">java.io.File;</font><br>
+<font color="#7f0055"><b>import&nbsp;</b></font><font color="#000000">java.io.IOException;</font><br>
+<font color="#ffffff"></font><br>
+<font color="#7f0055"><b>import&nbsp;</b></font><font color="#000000">java.util.*;</font><br>
+<font color="#ffffff"></font><br>
+<font color="#7f0055"><b>import&nbsp;</b></font><font color="#000000">org.eclipse.jface.dialogs.MessageDialog;</font><br>
+<font color="#7f0055"><b>import&nbsp;</b></font><font color="#000000">org.eclipse.ui.IWorkbenchWindow;</font><br>
+<font color="#7f0055"><b>import&nbsp;</b></font><font color="#000000">org.eclipse.ui.PlatformUI;</font><br>
+<font color="#7f0055"><b>import&nbsp;</b></font><font color="#000000">org.jdom.*;</font><br>
+<font color="#7f0055"><b>import&nbsp;</b></font><font color="#000000">org.jdom.input.*;</font><br>
+<font color="#ffffff"></font><br>
+<font color="#3f5fbf">/**</font><br>
+<font color="#ffffff">&nbsp;</font><font color="#3f5fbf">*&nbsp;Utiliza&nbsp;la&nbsp;implementaci&oacute;n&nbsp;basada&nbsp;en&nbsp;JDOM&nbsp;para&nbsp;leer&nbsp;los&nbsp;ficheros&nbsp;XML&nbsp;que</font><br>
+<font color="#ffffff">&nbsp;</font><font color="#3f5fbf">*&nbsp;definen&nbsp;refactorizaciones.</font><br>
+<font color="#ffffff">&nbsp;</font><font color="#3f5fbf">*&nbsp;</font><br>
+<font color="#ffffff">&nbsp;</font><font color="#3f5fbf">*&nbsp;</font><font color="#7f9fbf">@author&nbsp;</font><font color="#3f5fbf">&lt;A&nbsp;HREF=&#34;mailto:lfd0002@alu.ubu.es&#34;&gt;Laura&nbsp;Fuente&nbsp;de&nbsp;la&nbsp;Fuente</font><font color="#7f7f9f">&lt;/A&gt;</font><br>
+<font color="#ffffff">&nbsp;</font><font color="#3f5fbf">*&nbsp;</font><font color="#7f9fbf">@author&nbsp;</font><font color="#3f5fbf">&lt;A&nbsp;HREF=&#34;mailto:alc0022@alu.ubu.es&#34;&gt;Ángel&nbsp;L&oacute;pez&nbsp;Campo</font><font color="#7f7f9f">&lt;/A&gt;</font><br>
+<font color="#ffffff">&nbsp;</font><font color="#3f5fbf">*&nbsp;</font><font color="#7f9fbf">@author&nbsp;</font><font color="#3f5fbf">&lt;A&nbsp;HREF=&#34;mailto:epf0006@alu.ubu.es&#34;&gt;Eduardo&nbsp;Pe&ntilde;a&nbsp;Fern&aacute;ndez</font><font color="#7f7f9f">&lt;/A&gt;</font><br>
+<font color="#ffffff">&nbsp;</font><font color="#3f5fbf">*&nbsp;</font><font color="#7f9fbf">@author&nbsp;</font><font color="#3f5fbf">&lt;A&nbsp;HREF=&#34;mailto:sfd0009@alu.ubu.es&#34;&gt;Sonia&nbsp;Fuente&nbsp;de&nbsp;la&nbsp;Fuente</font><font color="#7f7f9f">&lt;/A&gt;</font><br>
+<font color="#ffffff">&nbsp;</font><font color="#3f5fbf">*&nbsp;</font><font color="#7f9fbf">@author&nbsp;</font><font color="#3f5fbf">&lt;A&nbsp;HREF=&#34;mailto:ehp0001@alu.ubu.es&#34;&gt;Enrique&nbsp;Herrero&nbsp;Paredes</font><font color="#7f7f9f">&lt;/A&gt;</font><br>
+<font color="#ffffff">&nbsp;</font><font color="#3f5fbf">*/</font><br>
+<font color="#7f0055"><b>public&nbsp;class&nbsp;</b></font><font color="#000000">JDOMXMLRefactoringReaderImp&nbsp;</font><font color="#7f0055"><b>implements&nbsp;</b></font><font color="#000000">XMLRefactoringReaderImp&nbsp;</font><font color="#000000">{</font><br>
+<font color="#ffffff"></font><br>
+<font color="#ffffff">&nbsp;&nbsp;</font><font color="#3f5fbf">/**</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;</font><font color="#3f5fbf">*&nbsp;La&nbsp;definici&oacute;n&nbsp;de&nbsp;la&nbsp;refactorizaci&oacute;n&nbsp;obtenida.</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;</font><font color="#3f5fbf">*/</font><br>
+<font color="#ffffff">&nbsp;&nbsp;</font><font color="#7f0055"><b>private&nbsp;</b></font><font color="#000000">DynamicRefactoringDefinition&nbsp;refactoringDefinition;</font><br>
+<font color="#ffffff"></font><br>
+<font color="#ffffff">&nbsp;&nbsp;</font><font color="#3f5fbf">/**</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;</font><font color="#3f5fbf">*&nbsp;La&nbsp;ra&iacute;z&nbsp;del&nbsp;contenido&nbsp;del&nbsp;fichero.</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;</font><font color="#3f5fbf">*/</font><br>
+<font color="#ffffff">&nbsp;&nbsp;</font><font color="#7f0055"><b>private&nbsp;</b></font><font color="#000000">Element&nbsp;root;</font><br>
+<font color="#ffffff">&nbsp;&nbsp;</font><br>
+<font color="#ffffff">&nbsp;&nbsp;</font><font color="#3f5fbf">/**</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;</font><font color="#3f5fbf">*&nbsp;Constructor.</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;</font><font color="#3f5fbf">*/</font><br>
+<font color="#ffffff">&nbsp;&nbsp;</font><font color="#7f0055"><b>public&nbsp;&nbsp;</b></font><font color="#000000">JDOMXMLRefactoringReaderImp</font><font color="#000000">(){}</font><br>
+<font color="#ffffff">&nbsp;&nbsp;</font><br>
+<font color="#ffffff">&nbsp;&nbsp;</font><font color="#3f5fbf">/**</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;</font><font color="#3f5fbf">*&nbsp;Constructor.</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;</font><font color="#3f5fbf">*&nbsp;</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;</font><font color="#3f5fbf">*&nbsp;</font><font color="#7f9fbf">@param&nbsp;</font><font color="#3f5fbf">file&nbsp;el&nbsp;fichero&nbsp;con&nbsp;la&nbsp;definici&oacute;n&nbsp;de&nbsp;la&nbsp;refactorizaci&oacute;n.</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;</font><font color="#3f5fbf">*&nbsp;</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;</font><font color="#3f5fbf">*&nbsp;</font><font color="#7f9fbf">@throws&nbsp;</font><font color="#3f5fbf">XMLRefactoringReaderException&nbsp;si&nbsp;se&nbsp;produce&nbsp;un&nbsp;error&nbsp;al&nbsp;crear</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;</font><font color="#3f5fbf">*&nbsp;el&nbsp;lector&nbsp;y&nbsp;procesar&nbsp;el&nbsp;fichero&nbsp;con&nbsp;la&nbsp;refactorizaci&oacute;n.</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;</font><font color="#3f5fbf">*/</font><br>
+<font color="#ffffff">&nbsp;&nbsp;</font><font color="#7f0055"><b>public&nbsp;</b></font><font color="#000000">JDOMXMLRefactoringReaderImp</font><font color="#000000">(</font><font color="#000000">File&nbsp;file</font><font color="#000000">)&nbsp;</font><font color="#7f0055"><b>throws&nbsp;</b></font><font color="#000000">XMLRefactoringReaderException&nbsp;</font><font color="#000000">{</font><br>
+<font color="#ffffff"></font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#7f0055"><b>this</b></font><font color="#000000">.refactoringDefinition&nbsp;=&nbsp;</font><font color="#7f0055"><b>new&nbsp;</b></font><font color="#000000">DynamicRefactoringDefinition</font><font color="#000000">()</font><font color="#000000">;</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#000000">readFile</font><font color="#000000">(</font><font color="#000000">file</font><font color="#000000">)</font><font color="#000000">;</font><br>
+<font color="#ffffff">&nbsp;&nbsp;</font><font color="#000000">}</font><br>
+<font color="#ffffff">&nbsp;&nbsp;</font><br>
+<font color="#ffffff">&nbsp;&nbsp;</font><font color="#3f5fbf">/**</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;</font><font color="#3f5fbf">*&nbsp;Lee&nbsp;cada&nbsp;uno&nbsp;de&nbsp;los&nbsp;componentes&nbsp;de&nbsp;la&nbsp;refactorizaci&oacute;n&nbsp;a&nbsp;partir&nbsp;de&nbsp;la</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;</font><font color="#3f5fbf">*&nbsp;definici&oacute;n&nbsp;contenida&nbsp;en&nbsp;el&nbsp;fichero.</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;</font><font color="#3f5fbf">*&nbsp;</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;</font><font color="#3f5fbf">*&nbsp;</font><font color="#7f9fbf">@param&nbsp;</font><font color="#3f5fbf">file&nbsp;el&nbsp;fichero&nbsp;con&nbsp;la&nbsp;definici&oacute;n&nbsp;de&nbsp;la&nbsp;refactorizaci&oacute;n.</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;</font><font color="#3f5fbf">*&nbsp;</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;</font><font color="#3f5fbf">*&nbsp;</font><font color="#7f9fbf">@throws&nbsp;</font><font color="#3f5fbf">XMLRefactoringReaderException&nbsp;si&nbsp;se&nbsp;produce&nbsp;un&nbsp;error&nbsp;al&nbsp;cargar</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;</font><font color="#3f5fbf">*&nbsp;la&nbsp;refactorizaci&oacute;n&nbsp;desde&nbsp;el&nbsp;fichero&nbsp;XML.</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;</font><font color="#3f5fbf">*/</font><br>
+<font color="#ffffff">&nbsp;&nbsp;</font><font color="#7f0055"><b>private&nbsp;</b></font><font color="#7f0055"><b>void&nbsp;</b></font><font color="#000000">readFile</font><font color="#000000">(</font><font color="#000000">File&nbsp;file</font><font color="#000000">)&nbsp;</font><font color="#7f0055"><b>throws&nbsp;</b></font><font color="#000000">XMLRefactoringReaderException&nbsp;</font><font color="#000000">{</font><br>
+<font color="#ffffff"></font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#7f0055"><b>try&nbsp;</b></font><font color="#000000">{</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#000000">SAXBuilder&nbsp;builder&nbsp;=&nbsp;</font><font color="#7f0055"><b>new&nbsp;</b></font><font color="#000000">SAXBuilder</font><font color="#000000">(</font><font color="#7f0055"><b>true</b></font><font color="#000000">)</font><font color="#000000">;</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#000000">builder.setIgnoringElementContentWhitespace</font><font color="#000000">(</font><font color="#7f0055"><b>true</b></font><font color="#000000">)</font><font color="#000000">;</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#3f7f5f">//&nbsp;El&nbsp;atributo&nbsp;SYSTEM&nbsp;del&nbsp;DOCTYPE&nbsp;de&nbsp;la&nbsp;definici&oacute;n&nbsp;XML&nbsp;de&nbsp;la</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#3f7f5f">//&nbsp;refactorizaci&oacute;n&nbsp;es&nbsp;solo&nbsp;la&nbsp;parte&nbsp;relativa&nbsp;de&nbsp;la&nbsp;ruta&nbsp;del&nbsp;fichero</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#3f7f5f">//&nbsp;DTD.&nbsp;Se&nbsp;le&nbsp;antepone&nbsp;la&nbsp;ruta&nbsp;del&nbsp;directorio&nbsp;del&nbsp;plugin&nbsp;que&nbsp;</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#3f7f5f">//&nbsp;contiene&nbsp;los&nbsp;ficheros&nbsp;de&nbsp;refactorizaciones&nbsp;din&aacute;micas.</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#000000">Document&nbsp;doc&nbsp;=&nbsp;builder.build</font><font color="#000000">(</font><font color="#000000">file</font><font color="#000000">)</font><font color="#000000">;</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#000000">root&nbsp;=&nbsp;doc.getRootElement</font><font color="#000000">()</font><font color="#000000">;</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#000000">}&nbsp;</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#7f0055"><b>catch&nbsp;</b></font><font color="#000000">(</font><font color="#000000">JDOMException&nbsp;jdomexception</font><font color="#000000">)&nbsp;{</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#7f0055"><b>throw&nbsp;new&nbsp;</b></font><font color="#000000">XMLRefactoringReaderException</font><font color="#000000">(</font><font color="#000000">jdomexception.getMessage</font><font color="#000000">())</font><font color="#000000">;</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#000000">}&nbsp;</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#7f0055"><b>catch&nbsp;</b></font><font color="#000000">(</font><font color="#000000">IOException&nbsp;ioexception</font><font color="#000000">)&nbsp;{</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#7f0055"><b>throw&nbsp;new&nbsp;</b></font><font color="#000000">XMLRefactoringReaderException</font><font color="#000000">(</font><font color="#000000">ioexception.getMessage</font><font color="#000000">())</font><font color="#000000">;</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#000000">}</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#000000">readInformationRefactoring</font><font color="#000000">(</font><font color="#000000">root</font><font color="#000000">)</font><font color="#000000">;</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#000000">readInputsRefactoring</font><font color="#000000">(</font><font color="#000000">root</font><font color="#000000">)</font><font color="#000000">;</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#000000">readMechanismRefactoring</font><font color="#000000">()</font><font color="#000000">;</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#000000">readExamplesRefactoring</font><font color="#000000">(</font><font color="#000000">root</font><font color="#000000">)</font><font color="#000000">;</font><br>
+<font color="#ffffff">&nbsp;&nbsp;</font><font color="#000000">}</font><br>
+<font color="#ffffff">&nbsp;&nbsp;</font><br>
+<font color="#ffffff">&nbsp;&nbsp;</font><font color="#3f5fbf">/**</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;</font><font color="#3f5fbf">*&nbsp;Lee&nbsp;el&nbsp;nombre,&nbsp;la&nbsp;descripci&oacute;n&nbsp;y&nbsp;la&nbsp;motivaci&oacute;n&nbsp;de&nbsp;la&nbsp;refactorizaci&oacute;n&nbsp;a</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;</font><font color="#3f5fbf">*&nbsp;partir&nbsp;de&nbsp;la&nbsp;definici&oacute;n&nbsp;contenida&nbsp;en&nbsp;el&nbsp;fichero.</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;</font><font color="#3f5fbf">*&nbsp;</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;</font><font color="#3f5fbf">*&nbsp;</font><font color="#7f9fbf">@param&nbsp;</font><font color="#3f5fbf">root&nbsp;el&nbsp;elemento&nbsp;ra&iacute;z&nbsp;del&nbsp;&aacute;rbol&nbsp;XML&nbsp;que&nbsp;define&nbsp;la&nbsp;refactorizaci&oacute;n.</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;</font><font color="#3f5fbf">*/</font><br>
+<font color="#ffffff">&nbsp;&nbsp;</font><font color="#7f0055"><b>private&nbsp;</b></font><font color="#7f0055"><b>void&nbsp;</b></font><font color="#000000">readInformationRefactoring</font><font color="#000000">(</font><font color="#000000">Element&nbsp;root</font><font color="#000000">)&nbsp;{</font><br>
+<font color="#ffffff"></font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#3f7f5f">//&nbsp;Se&nbsp;obtiene&nbsp;el&nbsp;nombre&nbsp;de&nbsp;la&nbsp;refactorizaci&oacute;n.</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#000000">refactoringDefinition.setName</font><font color="#000000">(</font><font color="#000000">root.getAttributeValue</font><font color="#000000">(</font><font color="#000000">NAME_ATTRIBUTE</font><font color="#000000">))</font><font color="#000000">;</font><br>
+<font color="#ffffff"></font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#000000">Element&nbsp;information&nbsp;=&nbsp;root.getChild</font><font color="#000000">(</font><font color="#000000">INFORMATION_ELEMENT</font><font color="#000000">)</font><font color="#000000">;</font><br>
+<font color="#ffffff"></font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#3f7f5f">//&nbsp;Se&nbsp;obtiene&nbsp;la&nbsp;descripcion&nbsp;de&nbsp;la&nbsp;refactorizaci&oacute;n.</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#000000">refactoringDefinition.setDescription</font><font color="#000000">(</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#000000">information.getChildTextTrim</font><font color="#000000">(</font><font color="#000000">DESCRIPTION_ELEMENT</font><font color="#000000">))</font><font color="#000000">;</font><br>
+<font color="#ffffff"></font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#3f7f5f">//&nbsp;Se&nbsp;obtiene&nbsp;la&nbsp;imagen&nbsp;que&nbsp;describe&nbsp;la&nbsp;refactorizaci&oacute;n.</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#000000">Element&nbsp;imageElement&nbsp;=&nbsp;information.getChild</font><font color="#000000">(</font><font color="#000000">IMAGE_ELEMENT</font><font color="#000000">)</font><font color="#000000">;</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#7f0055"><b>if</b></font><font color="#000000">(</font><font color="#000000">imageElement&nbsp;!=&nbsp;</font><font color="#7f0055"><b>null</b></font><font color="#000000">)</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#000000">refactoringDefinition.setImage</font><font color="#000000">(</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#000000">imageElement.getAttributeValue</font><font color="#000000">(</font><font color="#000000">SRC_IMAGE_ATTRIBUTE</font><font color="#000000">))</font><font color="#000000">;</font><br>
+<font color="#ffffff"></font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#3f7f5f">//&nbsp;Se&nbsp;obtiene&nbsp;la&nbsp;motivacion&nbsp;de&nbsp;la&nbsp;refactorizaci&oacute;n.</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#000000">refactoringDefinition.setMotivation</font><font color="#000000">(</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#000000">information.getChildTextTrim</font><font color="#000000">(</font><font color="#000000">MOTIVATION_ELEMENT</font><font color="#000000">))</font><font color="#000000">;</font><br>
+<font color="#ffffff">&nbsp;&nbsp;</font><font color="#000000">}</font><br>
+<font color="#ffffff"></font><br>
+<font color="#ffffff">&nbsp;&nbsp;</font><font color="#3f5fbf">/**</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;</font><font color="#3f5fbf">*&nbsp;Lee&nbsp;la&nbsp;lista&nbsp;de&nbsp;entradas&nbsp;que&nbsp;debe&nbsp;proporcionar&nbsp;el&nbsp;usuario&nbsp;a&nbsp;la</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;</font><font color="#3f5fbf">*&nbsp;refactorizaci&oacute;n,&nbsp;a&nbsp;partir&nbsp;de&nbsp;la&nbsp;definici&oacute;n&nbsp;contenida&nbsp;en&nbsp;el&nbsp;fichero.</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;</font><font color="#3f5fbf">*&nbsp;</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;</font><font color="#3f5fbf">*&nbsp;</font><font color="#7f9fbf">@param&nbsp;</font><font color="#3f5fbf">root&nbsp;el&nbsp;elemento&nbsp;ra&iacute;z&nbsp;del&nbsp;&aacute;rbol&nbsp;XML&nbsp;que&nbsp;define&nbsp;la&nbsp;refactorizaci&oacute;n.</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;</font><font color="#3f5fbf">*/</font><br>
+<font color="#ffffff">&nbsp;&nbsp;</font><font color="#646464">@SuppressWarnings</font><font color="#000000">({</font><font color="#2a00ff">&#34;unchecked&#34;</font><font color="#000000">})&nbsp;</font><font color="#3f7f5f">//$NON-NLS-1$</font><br>
+<font color="#ffffff">&nbsp;&nbsp;</font><font color="#7f0055"><b>private&nbsp;</b></font><font color="#7f0055"><b>void&nbsp;</b></font><font color="#000000">readInputsRefactoring</font><font color="#000000">(</font><font color="#000000">Element&nbsp;root</font><font color="#000000">)&nbsp;{</font><br>
+<font color="#ffffff"></font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#000000">Element&nbsp;inputsElement&nbsp;=&nbsp;root.getChild</font><font color="#000000">(</font><font color="#000000">INPUTS_ELEMENT</font><font color="#000000">)</font><font color="#000000">;</font><br>
+<font color="#ffffff"></font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#3f7f5f">//&nbsp;Se&nbsp;obtienen&nbsp;las&nbsp;entradas&nbsp;de&nbsp;la&nbsp;refactorizaci&oacute;n.</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#000000">List&lt;Element&gt;&nbsp;in&nbsp;=&nbsp;inputsElement.getChildren</font><font color="#000000">(</font><font color="#000000">INPUT_ELEMENT</font><font color="#000000">)</font><font color="#000000">;</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#000000">refactoringDefinition.setInputs</font><font color="#000000">(</font><font color="#000000">readInputsElements</font><font color="#000000">(</font><font color="#000000">in</font><font color="#000000">))</font><font color="#000000">;</font><br>
+<font color="#ffffff">&nbsp;&nbsp;</font><font color="#000000">}</font><br>
+<font color="#ffffff">&nbsp;&nbsp;</font><br>
+<font color="#ffffff">&nbsp;&nbsp;</font><font color="#3f5fbf">/**</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;</font><font color="#3f5fbf">*&nbsp;Obtiene&nbsp;el&nbsp;tipo,&nbsp;el&nbsp;nombre,&nbsp;el&nbsp;origen,&nbsp;el&nbsp;m&eacute;todo&nbsp;y&nbsp;el&nbsp;car&aacute;cter&nbsp;de&nbsp;entrada</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;</font><font color="#3f5fbf">*&nbsp;principal&nbsp;o&nbsp;no&nbsp;de&nbsp;cada&nbsp;uno&nbsp;de&nbsp;los&nbsp;par&aacute;metros&nbsp;de&nbsp;una&nbsp;lista&nbsp;de&nbsp;entradas&nbsp;de&nbsp;</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;</font><font color="#3f5fbf">*&nbsp;tipo&nbsp;</font><font color="#7f7f9f">&lt;i&gt;</font><font color="#3f5fbf">input</font><font color="#7f7f9f">&lt;/i&gt;</font><font color="#3f5fbf">.</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;</font><font color="#3f5fbf">*&nbsp;</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;</font><font color="#3f5fbf">*&nbsp;</font><font color="#7f9fbf">@param&nbsp;</font><font color="#3f5fbf">in&nbsp;la&nbsp;lista&nbsp;de&nbsp;entradas&nbsp;de&nbsp;tipo&nbsp;</font><font color="#7f7f9f">&lt;i&gt;</font><font color="#3f5fbf">input</font><font color="#7f7f9f">&lt;/i&gt;</font><font color="#3f5fbf">.</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;</font><font color="#3f5fbf">*&nbsp;</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;</font><font color="#3f5fbf">*&nbsp;</font><font color="#7f9fbf">@return&nbsp;</font><font color="#3f5fbf">un&nbsp;</font><font color="#7f7f9f">&lt;code&gt;</font><font color="#3f5fbf">ArrayList</font><font color="#7f7f9f">&lt;/code&gt;&nbsp;</font><font color="#3f5fbf">de&nbsp;cadenas&nbsp;con&nbsp;el&nbsp;tipo&nbsp;de&nbsp;la&nbsp;entrada,</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;</font><font color="#3f5fbf">*&nbsp;su&nbsp;nombre,&nbsp;la&nbsp;clase&nbsp;de&nbsp;origen&nbsp;del&nbsp;par&aacute;metro,&nbsp;el&nbsp;m&eacute;todo&nbsp;mediante&nbsp;el&nbsp;que&nbsp;se&nbsp;</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;</font><font color="#3f5fbf">*&nbsp;puede&nbsp;obtener&nbsp;y&nbsp;si&nbsp;se&nbsp;trata&nbsp;de&nbsp;la&nbsp;entrada&nbsp;principal&nbsp;de&nbsp;la&nbsp;refactorizaci&oacute;n,&nbsp;</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;</font><font color="#3f5fbf">*&nbsp;en&nbsp;ese&nbsp;orden.</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;</font><font color="#3f5fbf">*/</font><br>
+<font color="#ffffff">&nbsp;&nbsp;</font><font color="#7f0055"><b>private&nbsp;</b></font><font color="#000000">ArrayList&lt;String</font><font color="#000000">[]</font><font color="#000000">&gt;&nbsp;readInputsElements</font><font color="#000000">(</font><font color="#000000">List&lt;Element&gt;&nbsp;in</font><font color="#000000">)&nbsp;{</font><br>
+<font color="#ffffff"></font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#000000">ArrayList&lt;String</font><font color="#000000">[]</font><font color="#000000">&gt;&nbsp;inputs&nbsp;=&nbsp;</font><font color="#7f0055"><b>new&nbsp;</b></font><font color="#000000">ArrayList&lt;String</font><font color="#000000">[]</font><font color="#000000">&gt;</font><font color="#000000">()</font><font color="#000000">;</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#000000">String</font><font color="#000000">[]&nbsp;</font><font color="#000000">inputContent;</font><br>
+<font color="#ffffff"></font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#7f0055"><b>for&nbsp;</b></font><font color="#000000">(</font><font color="#000000">Element&nbsp;input&nbsp;:&nbsp;in</font><font color="#000000">){</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#000000">inputContent&nbsp;=&nbsp;</font><font color="#7f0055"><b>new&nbsp;</b></font><font color="#000000">String</font><font color="#000000">[</font><font color="#990000">5</font><font color="#000000">]</font><font color="#000000">;</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#000000">inputContent</font><font color="#000000">[</font><font color="#990000">0</font><font color="#000000">]&nbsp;</font><font color="#000000">=&nbsp;input.getAttributeValue</font><font color="#000000">(</font><font color="#000000">TYPE_INPUT_ATTRIBUTE</font><font color="#000000">)</font><font color="#000000">;</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#000000">inputContent</font><font color="#000000">[</font><font color="#990000">1</font><font color="#000000">]&nbsp;</font><font color="#000000">=&nbsp;input.getAttributeValue</font><font color="#000000">(</font><font color="#000000">NAME_INPUT_ATTRIBUTE</font><font color="#000000">)</font><font color="#000000">;</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#000000">inputContent</font><font color="#000000">[</font><font color="#990000">2</font><font color="#000000">]&nbsp;</font><font color="#000000">=&nbsp;input.getAttributeValue</font><font color="#000000">(</font><font color="#000000">FROM_INPUT_ATTRIBUTE</font><font color="#000000">)</font><font color="#000000">;</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#000000">inputContent</font><font color="#000000">[</font><font color="#990000">3</font><font color="#000000">]&nbsp;</font><font color="#000000">=&nbsp;input.getAttributeValue</font><font color="#000000">(</font><font color="#000000">METHOD_INPUT_ATTRIBUTE</font><font color="#000000">)</font><font color="#000000">;</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#000000">inputContent</font><font color="#000000">[</font><font color="#990000">4</font><font color="#000000">]&nbsp;</font><font color="#000000">=&nbsp;input.getAttributeValue</font><font color="#000000">(</font><font color="#000000">ROOT_INPUT_ATTRIBUTE</font><font color="#000000">)</font><font color="#000000">;</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#000000">inputs.add</font><font color="#000000">(</font><font color="#000000">inputContent</font><font color="#000000">)</font><font color="#000000">;</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#000000">}</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#7f0055"><b>return&nbsp;</b></font><font color="#000000">inputs;</font><br>
+<font color="#ffffff">&nbsp;&nbsp;</font><font color="#000000">}</font><br>
+<font color="#ffffff">&nbsp;&nbsp;</font><br>
+<font color="#ffffff">&nbsp;&nbsp;</font><font color="#3f5fbf">/**</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;</font><font color="#3f5fbf">*&nbsp;Lee&nbsp;las&nbsp;precondiciones,&nbsp;acciones&nbsp;y&nbsp;postcondiciones&nbsp;de&nbsp;la&nbsp;refactorizaci&oacute;n</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;</font><font color="#3f5fbf">*&nbsp;a&nbsp;partir&nbsp;de&nbsp;la&nbsp;definici&oacute;n&nbsp;contenida&nbsp;en&nbsp;el&nbsp;fichero.</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;</font><font color="#3f5fbf">*&nbsp;</font><font color="#7f9fbf">@return&nbsp;</font><font color="#3f5fbf">mecanismos&nbsp;de&nbsp;la&nbsp;refactorizaci&oacute;n.</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;</font><font color="#3f5fbf">*/</font><br>
+<font color="#ffffff">&nbsp;&nbsp;</font><font color="#646464">@SuppressWarnings</font><font color="#000000">({</font><font color="#2a00ff">&#34;unchecked&#34;</font><font color="#000000">})&nbsp;</font><font color="#3f7f5f">//$NON-NLS-1$</font><br>
+<font color="#ffffff">&nbsp;&nbsp;</font><font color="#7f0055"><b>public&nbsp;</b></font><font color="#000000">ArrayList&lt;String&gt;&nbsp;readMechanismRefactoring</font><font color="#000000">()&nbsp;{</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#000000">ArrayList&lt;String&gt;&nbsp;elements;</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#000000">ArrayList&lt;String&gt;&nbsp;precondiciones&nbsp;=&nbsp;</font><font color="#7f0055"><b>new&nbsp;</b></font><font color="#000000">ArrayList&lt;String&gt;</font><font color="#000000">()</font><font color="#000000">;</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#000000">ArrayList&lt;String&gt;&nbsp;actions&nbsp;=&nbsp;</font><font color="#7f0055"><b>new&nbsp;</b></font><font color="#000000">ArrayList&lt;String&gt;</font><font color="#000000">()</font><font color="#000000">;</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#000000">ArrayList&lt;String&gt;&nbsp;acciones&nbsp;=&nbsp;</font><font color="#7f0055"><b>new&nbsp;</b></font><font color="#000000">ArrayList&lt;String&gt;</font><font color="#000000">()</font><font color="#000000">;</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#000000">ArrayList&lt;String&gt;&nbsp;postconditions&nbsp;=&nbsp;</font><font color="#7f0055"><b>new&nbsp;</b></font><font color="#000000">ArrayList&lt;String&gt;</font><font color="#000000">()</font><font color="#000000">;</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#000000">ArrayList&lt;String&gt;&nbsp;postcondiciones&nbsp;=&nbsp;</font><font color="#7f0055"><b>new&nbsp;</b></font><font color="#000000">ArrayList&lt;String&gt;</font><font color="#000000">()</font><font color="#000000">;</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#000000">String&nbsp;postcond&nbsp;=&nbsp;</font><font color="#2a00ff">&#34;&#34;</font><font color="#000000">;</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#000000">String&nbsp;precond&nbsp;=&nbsp;</font><font color="#2a00ff">&#34;&#34;</font><font color="#000000">;</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#000000">String&nbsp;acti&nbsp;=&nbsp;</font><font color="#2a00ff">&#34;&#34;</font><font color="#000000">;</font><br>
+<font color="#ffffff"></font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#000000">Element&nbsp;mechanism&nbsp;=&nbsp;root.getChild</font><font color="#000000">(</font><font color="#000000">MECHANISM_ELEMENT</font><font color="#000000">)</font><font color="#000000">;</font><br>
+<font color="#ffffff"></font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#3f7f5f">//&nbsp;Se&nbsp;obtienen&nbsp;las&nbsp;precondiciones&nbsp;de&nbsp;la&nbsp;refactorizaci&oacute;n.</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#000000">Element&nbsp;preconditionsElement&nbsp;=&nbsp;mechanism.getChild</font><font color="#000000">(</font><font color="#000000">PRECONDITIONS_ELEMENT</font><font color="#000000">)</font><font color="#000000">;</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#000000">List&lt;Element&gt;&nbsp;pre&nbsp;=&nbsp;preconditionsElement.getChildren</font><font color="#000000">(</font><font color="#000000">PRECONDITION_ELEMENT</font><font color="#000000">)</font><font color="#000000">;</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#000000">elements&nbsp;=&nbsp;readMechanismElements</font><font color="#000000">(</font><font color="#000000">pre,&nbsp;RefactoringConstants.PRECONDITION</font><font color="#000000">)</font><font color="#000000">;</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#3f7f5f">//Bucle&nbsp;para&nbsp;quedarnos&nbsp;con&nbsp;el&nbsp;nombre&nbsp;no&nbsp;cualificado</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#7f0055"><b>for</b></font><font color="#000000">(</font><font color="#000000">String&nbsp;precondition&nbsp;:&nbsp;elements&nbsp;</font><font color="#000000">){</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#000000">StringTokenizer&nbsp;prec&nbsp;=&nbsp;</font><font color="#7f0055"><b>new&nbsp;</b></font><font color="#000000">StringTokenizer</font><font color="#000000">(</font><font color="#000000">precondition,</font><font color="#2a00ff">&#34;.&#34;</font><font color="#000000">)</font><font color="#000000">;</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#7f0055"><b>while</b></font><font color="#000000">(</font><font color="#000000">prec.hasMoreTokens</font><font color="#000000">()){</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#000000">precond&nbsp;=&nbsp;prec.nextElement</font><font color="#000000">()</font><font color="#000000">.toString</font><font color="#000000">()</font><font color="#000000">;</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#000000">}</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#000000">precondiciones.add</font><font color="#000000">(</font><font color="#000000">precond</font><font color="#000000">)</font><font color="#000000">;</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#000000">}</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#000000">refactoringDefinition.setPreconditions</font><font color="#000000">(</font><font color="#000000">precondiciones</font><font color="#000000">)</font><font color="#000000">;</font><br>
+<font color="#ffffff"></font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#3f7f5f">//&nbsp;Se&nbsp;obtienen&nbsp;las&nbsp;acciones&nbsp;de&nbsp;la&nbsp;refactorizaci&oacute;n.</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#000000">Element&nbsp;actionsElement&nbsp;=&nbsp;mechanism.getChild</font><font color="#000000">(</font><font color="#000000">ACTIONS_ELEMENT</font><font color="#000000">)</font><font color="#000000">;</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#000000">List&lt;Element&gt;&nbsp;ac&nbsp;=&nbsp;actionsElement.getChildren</font><font color="#000000">(</font><font color="#000000">ACTION_ELEMENT</font><font color="#000000">)</font><font color="#000000">;</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#000000">actions&nbsp;=&nbsp;readMechanismElements</font><font color="#000000">(</font><font color="#000000">ac,&nbsp;RefactoringConstants.ACTION</font><font color="#000000">)</font><font color="#000000">;</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#000000">elements.addAll</font><font color="#000000">(</font><font color="#000000">actions</font><font color="#000000">)</font><font color="#000000">;</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#3f7f5f">//Bucle&nbsp;para&nbsp;quedarnos&nbsp;con&nbsp;el&nbsp;nombre&nbsp;no&nbsp;cualificado</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#7f0055"><b>for</b></font><font color="#000000">(</font><font color="#000000">String&nbsp;action&nbsp;:&nbsp;actions&nbsp;</font><font color="#000000">){</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#000000">StringTokenizer&nbsp;accion&nbsp;=&nbsp;</font><font color="#7f0055"><b>new&nbsp;</b></font><font color="#000000">StringTokenizer</font><font color="#000000">(</font><font color="#000000">action,</font><font color="#2a00ff">&#34;.&#34;</font><font color="#000000">)</font><font color="#000000">;</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#7f0055"><b>while</b></font><font color="#000000">(</font><font color="#000000">accion.hasMoreTokens</font><font color="#000000">()){</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#000000">acti&nbsp;=&nbsp;accion.nextElement</font><font color="#000000">()</font><font color="#000000">.toString</font><font color="#000000">()</font><font color="#000000">;</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#000000">}</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#000000">acciones.add</font><font color="#000000">(</font><font color="#000000">acti</font><font color="#000000">)</font><font color="#000000">;</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#000000">}</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#000000">refactoringDefinition.setActions</font><font color="#000000">(</font><font color="#000000">acciones</font><font color="#000000">)</font><font color="#000000">;</font><br>
+<font color="#ffffff"></font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#3f7f5f">//&nbsp;Se&nbsp;obtienen&nbsp;las&nbsp;postcondiciones&nbsp;de&nbsp;la&nbsp;refactorizaci&oacute;n.</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#000000">Element&nbsp;postconditionsElement&nbsp;=&nbsp;mechanism.getChild</font><font color="#000000">(</font><font color="#000000">POSTCONDITIONS_ELEMENT</font><font color="#000000">)</font><font color="#000000">;</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#000000">List&lt;Element&gt;&nbsp;post&nbsp;=&nbsp;postconditionsElement.getChildren</font><font color="#000000">(</font><font color="#000000">POSTCONDITION_ELEMENT</font><font color="#000000">)</font><font color="#000000">;</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#000000">postconditions&nbsp;=&nbsp;readMechanismElements</font><font color="#000000">(</font><font color="#000000">post,&nbsp;RefactoringConstants.POSTCONDITION</font><font color="#000000">)</font><font color="#000000">;</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#000000">elements.addAll</font><font color="#000000">(</font><font color="#000000">postconditions</font><font color="#000000">)</font><font color="#000000">;</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#3f7f5f">//Bucle&nbsp;para&nbsp;quedarnos&nbsp;con&nbsp;el&nbsp;nombre&nbsp;no&nbsp;cualificado</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#7f0055"><b>for</b></font><font color="#000000">(</font><font color="#000000">String&nbsp;postcondicion&nbsp;:&nbsp;postconditions&nbsp;</font><font color="#000000">){</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#000000">StringTokenizer&nbsp;postcondition&nbsp;=&nbsp;</font><font color="#7f0055"><b>new&nbsp;</b></font><font color="#000000">StringTokenizer</font><font color="#000000">(</font><font color="#000000">postcondicion,</font><font color="#2a00ff">&#34;.&#34;</font><font color="#000000">)</font><font color="#000000">;</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#7f0055"><b>while</b></font><font color="#000000">(</font><font color="#000000">postcondition.hasMoreTokens</font><font color="#000000">()){</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#000000">postcond&nbsp;=&nbsp;postcondition.nextElement</font><font color="#000000">()</font><font color="#000000">.toString</font><font color="#000000">()</font><font color="#000000">;</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#000000">}</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#000000">postcondiciones.add</font><font color="#000000">(</font><font color="#000000">postcond</font><font color="#000000">)</font><font color="#000000">;&nbsp;&nbsp;&nbsp;&nbsp;</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#000000">}</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#000000">refactoringDefinition.setPostconditions</font><font color="#000000">(</font><font color="#000000">postcondiciones</font><font color="#000000">)</font><font color="#000000">;</font><br>
+<font color="#ffffff"></font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#7f0055"><b>return&nbsp;</b></font><font color="#000000">elements;</font><br>
+<font color="#ffffff">&nbsp;&nbsp;</font><font color="#000000">}</font><br>
+<font color="#ffffff"></font><br>
+<font color="#ffffff">&nbsp;&nbsp;</font><font color="#3f5fbf">/**</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;</font><font color="#3f5fbf">*&nbsp;Lee&nbsp;el&nbsp;nombre&nbsp;de&nbsp;cada&nbsp;elemento&nbsp;de&nbsp;una&nbsp;lista&nbsp;de&nbsp;precondiciones,&nbsp;acciones&nbsp;o</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;</font><font color="#3f5fbf">*&nbsp;postcondiciones,&nbsp;y&nbsp;la&nbsp;lista&nbsp;de&nbsp;par&aacute;metros&nbsp;ambiguos&nbsp;asociados&nbsp;a&nbsp;cada&nbsp;uno.</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;</font><font color="#3f5fbf">*&nbsp;</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;</font><font color="#3f5fbf">*&nbsp;</font><font color="#7f9fbf">@param&nbsp;</font><font color="#3f5fbf">elements&nbsp;lista&nbsp;de&nbsp;elementos&nbsp;(precondiciones,&nbsp;acciones&nbsp;o&nbsp;</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;</font><font color="#3f5fbf">*&nbsp;postcondiciones).</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;</font><font color="#3f5fbf">*&nbsp;</font><font color="#7f9fbf">@param&nbsp;</font><font color="#3f5fbf">type&nbsp;</font><font color="#3f3fbf">{@link&nbsp;RefactoringConstants#PRECONDITION}</font><font color="#3f5fbf">,&nbsp;</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;</font><font color="#3f5fbf">*&nbsp;</font><font color="#3f3fbf">{@link&nbsp;RefactoringConstants#ACTION}&nbsp;</font><font color="#3f5fbf">o&nbsp;</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;</font><font color="#3f5fbf">*&nbsp;</font><font color="#3f3fbf">{@link&nbsp;RefactoringConstants#POSTCONDITION}</font><font color="#3f5fbf">.</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;</font><font color="#3f5fbf">*&nbsp;</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;</font><font color="#3f5fbf">*&nbsp;</font><font color="#7f9fbf">@return&nbsp;</font><font color="#3f5fbf">un&nbsp;</font><font color="#7f7f9f">&lt;code&gt;</font><font color="#3f5fbf">ArrayList</font><font color="#7f7f9f">&lt;/code&gt;&nbsp;</font><font color="#3f5fbf">de&nbsp;cadenas&nbsp;con&nbsp;los&nbsp;nombres&nbsp;de&nbsp;los&nbsp;</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;</font><font color="#3f5fbf">*&nbsp;elementos&nbsp;del&nbsp;repositorio.</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;</font><font color="#3f5fbf">*/</font><br>
+<font color="#ffffff">&nbsp;&nbsp;</font><font color="#646464">@SuppressWarnings</font><font color="#000000">({</font><font color="#2a00ff">&#34;unchecked&#34;</font><font color="#000000">})&nbsp;</font><font color="#3f7f5f">//$NON-NLS-1$</font><br>
+<font color="#ffffff">&nbsp;&nbsp;</font><font color="#7f0055"><b>private&nbsp;</b></font><font color="#000000">ArrayList&lt;String&gt;&nbsp;readMechanismElements</font><font color="#000000">(</font><font color="#000000">List&lt;Element&gt;&nbsp;elements,</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#7f0055"><b>int&nbsp;</b></font><font color="#000000">type</font><font color="#000000">)&nbsp;{</font><br>
+<font color="#ffffff"></font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#000000">ArrayList&lt;String&gt;&nbsp;elementNames&nbsp;=&nbsp;</font><font color="#7f0055"><b>new&nbsp;</b></font><font color="#000000">ArrayList&lt;String&gt;</font><font color="#000000">()</font><font color="#000000">;</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#000000">List&lt;Element&gt;&nbsp;params;</font><br>
+<font color="#ffffff"></font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#7f0055"><b>for&nbsp;</b></font><font color="#000000">(</font><font color="#000000">Element&nbsp;element&nbsp;:&nbsp;elements</font><font color="#000000">){</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#000000">String&nbsp;elementName&nbsp;=&nbsp;element.getAttributeValue</font><font color="#000000">(</font><font color="#000000">NAME_ATTRIBUTE</font><font color="#000000">)</font><font color="#000000">;&nbsp;</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#000000">elementNames.add</font><font color="#000000">(</font><font color="#000000">elementName</font><font color="#000000">)</font><font color="#000000">;</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#000000">params&nbsp;=&nbsp;element.getChildren</font><font color="#000000">(</font><font color="#000000">PARAM_ELEMENT</font><font color="#000000">)</font><font color="#000000">;</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#7f0055"><b>if&nbsp;</b></font><font color="#000000">(</font><font color="#000000">!params.isEmpty</font><font color="#000000">()){</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#000000">StringTokenizer&nbsp;st_name&nbsp;=&nbsp;</font><font color="#7f0055"><b>new&nbsp;</b></font><font color="#000000">StringTokenizer</font><font color="#000000">(</font><font color="#000000">elementName,</font><font color="#2a00ff">&#34;.&#34;</font><font color="#000000">)</font><font color="#000000">;</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#000000">String&nbsp;shortname=</font><font color="#2a00ff">&#34;&#34;</font><font color="#000000">;</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#7f0055"><b>while</b></font><font color="#000000">(</font><font color="#000000">st_name.hasMoreTokens</font><font color="#000000">()){</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#000000">shortname&nbsp;=&nbsp;st_name.nextElement</font><font color="#000000">()</font><font color="#000000">.toString</font><font color="#000000">()</font><font color="#000000">;</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#000000">}</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#000000">readAmbiguousParametersOfElement</font><font color="#000000">(</font><font color="#000000">shortname,&nbsp;type,&nbsp;params</font><font color="#000000">)</font><font color="#000000">;</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#000000">}</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#000000">}</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#7f0055"><b>return&nbsp;</b></font><font color="#000000">elementNames;</font><br>
+<font color="#ffffff">&nbsp;&nbsp;</font><font color="#000000">}</font><br>
+<font color="#ffffff">&nbsp;&nbsp;</font><br>
+<font color="#ffffff">&nbsp;&nbsp;</font><font color="#3f5fbf">/**</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;</font><font color="#3f5fbf">*&nbsp;Obtiene&nbsp;una&nbsp;lista&nbsp;con&nbsp;los&nbsp;nombre&nbsp;de&nbsp;las&nbsp;distintas&nbsp;precondiciones,&nbsp;acciones&nbsp;y&nbsp;postcondiciones.</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;</font><font color="#3f5fbf">*&nbsp;</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;</font><font color="#3f5fbf">*&nbsp;</font><font color="#7f9fbf">@return&nbsp;</font><font color="#3f5fbf">lista&nbsp;con&nbsp;las&nbsp;precondiciones,&nbsp;acciones&nbsp;y&nbsp;postcondiciones.</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;</font><font color="#3f5fbf">*/</font><br>
+<font color="#ffffff">&nbsp;&nbsp;</font><font color="#7f0055"><b>public&nbsp;</b></font><font color="#000000">ArrayList&lt;String&gt;&nbsp;readAllreadMechanismElements</font><font color="#000000">(){</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#000000">ArrayList&lt;String&gt;&nbsp;elements&nbsp;=&nbsp;refactoringDefinition.getPreconditions</font><font color="#000000">()</font><font color="#000000">;</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#000000">elements.addAll</font><font color="#000000">(</font><font color="#000000">refactoringDefinition.getActions</font><font color="#000000">())</font><font color="#000000">;</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#000000">elements.addAll</font><font color="#000000">(</font><font color="#000000">refactoringDefinition.getPostconditions</font><font color="#000000">())</font><font color="#000000">;</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#7f0055"><b>return&nbsp;</b></font><font color="#000000">elements;</font><br>
+<font color="#ffffff">&nbsp;&nbsp;</font><font color="#000000">}</font><br>
+<font color="#ffffff">&nbsp;&nbsp;</font><br>
+<font color="#ffffff">&nbsp;&nbsp;</font><font color="#3f5fbf">/**</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;</font><font color="#3f5fbf">*&nbsp;Lee&nbsp;la&nbsp;lista&nbsp;de&nbsp;par&aacute;metros&nbsp;ambiguos&nbsp;asociados&nbsp;a&nbsp;un&nbsp;elemento,&nbsp;que&nbsp;puede&nbsp;</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;</font><font color="#3f5fbf">*&nbsp;ser&nbsp;una&nbsp;precondici&oacute;n,&nbsp;una&nbsp;acci&oacute;n&nbsp;o&nbsp;una&nbsp;postcondici&oacute;n.</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;</font><font color="#3f5fbf">*&nbsp;</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;</font><font color="#3f5fbf">*&nbsp;</font><font color="#7f9fbf">@param&nbsp;</font><font color="#3f5fbf">elementName&nbsp;el&nbsp;nombre&nbsp;del&nbsp;elemento&nbsp;cuyos&nbsp;par&aacute;metros&nbsp;ambiguos&nbsp;han</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;</font><font color="#3f5fbf">*&nbsp;de&nbsp;leerse.</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;</font><font color="#3f5fbf">*&nbsp;</font><font color="#7f9fbf">@param&nbsp;</font><font color="#3f5fbf">type&nbsp;</font><font color="#3f3fbf">{@link&nbsp;RefactoringConstants#PRECONDITION}</font><font color="#3f5fbf">,&nbsp;</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;</font><font color="#3f5fbf">*&nbsp;</font><font color="#3f3fbf">{@link&nbsp;RefactoringConstants#ACTION}&nbsp;</font><font color="#3f5fbf">o&nbsp;</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;</font><font color="#3f5fbf">*&nbsp;</font><font color="#3f3fbf">{@link&nbsp;RefactoringConstants#POSTCONDITION}</font><font color="#3f5fbf">.</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;</font><font color="#3f5fbf">*&nbsp;</font><font color="#7f9fbf">@param&nbsp;</font><font color="#3f5fbf">params&nbsp;la&nbsp;lista&nbsp;de&nbsp;par&aacute;metros&nbsp;ambiguos&nbsp;del&nbsp;elemento.</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;</font><font color="#3f5fbf">*/</font><br>
+<font color="#ffffff">&nbsp;&nbsp;</font><font color="#7f0055"><b>private&nbsp;</b></font><font color="#7f0055"><b>void&nbsp;</b></font><font color="#000000">readAmbiguousParametersOfElement</font><font color="#000000">(</font><font color="#000000">String&nbsp;elementName,&nbsp;</font><font color="#7f0055"><b>int&nbsp;</b></font><font color="#000000">type,</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#000000">List&lt;Element&gt;&nbsp;params</font><font color="#000000">)&nbsp;{</font><br>
+<font color="#ffffff"></font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#000000">ArrayList&lt;String</font><font color="#000000">[]</font><font color="#000000">&gt;&nbsp;attributes&nbsp;=&nbsp;</font><font color="#7f0055"><b>new&nbsp;</b></font><font color="#000000">ArrayList&lt;String</font><font color="#000000">[]</font><font color="#000000">&gt;</font><font color="#000000">()</font><font color="#000000">;</font><br>
+<font color="#ffffff"></font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#7f0055"><b>for&nbsp;</b></font><font color="#000000">(</font><font color="#000000">Element&nbsp;param&nbsp;:&nbsp;params</font><font color="#000000">){</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#000000">String</font><font color="#000000">[]&nbsp;</font><font color="#000000">attributesParam&nbsp;=&nbsp;</font><font color="#7f0055"><b>new&nbsp;</b></font><font color="#000000">String</font><font color="#000000">[</font><font color="#990000">1</font><font color="#000000">]</font><font color="#000000">;</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#000000">attributesParam</font><font color="#000000">[</font><font color="#990000">0</font><font color="#000000">]&nbsp;</font><font color="#000000">=&nbsp;param.getAttributeValue</font><font color="#000000">(</font><font color="#000000">NAME_ATTRIBUTE</font><font color="#000000">)</font><font color="#000000">;</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#000000">attributes.add</font><font color="#000000">(</font><font color="#000000">attributesParam</font><font color="#000000">)</font><font color="#000000">;</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#000000">}</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#000000">refactoringDefinition.getAmbiguousParameters</font><font color="#000000">()[</font><font color="#000000">type</font><font color="#000000">]</font><font color="#000000">.put</font><font color="#000000">(</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#000000">elementName,&nbsp;attributes</font><font color="#000000">)</font><font color="#000000">;</font><br>
+<font color="#ffffff">&nbsp;&nbsp;</font><font color="#000000">}</font><br>
+<font color="#ffffff">&nbsp;&nbsp;</font><br>
+<font color="#ffffff">&nbsp;&nbsp;</font><font color="#3f5fbf">/**</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;</font><font color="#3f5fbf">*&nbsp;Lee&nbsp;los&nbsp;ejemplos&nbsp;de&nbsp;la&nbsp;refactorizaci&oacute;n&nbsp;a&nbsp;partir&nbsp;de&nbsp;la&nbsp;definici&oacute;n</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;</font><font color="#3f5fbf">*&nbsp;contenida&nbsp;en&nbsp;el&nbsp;fichero.</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;</font><font color="#3f5fbf">*&nbsp;</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;</font><font color="#3f5fbf">*&nbsp;</font><font color="#7f9fbf">@param&nbsp;</font><font color="#3f5fbf">root&nbsp;el&nbsp;elemento&nbsp;ra&iacute;z&nbsp;del&nbsp;&aacute;rbol&nbsp;XML&nbsp;que&nbsp;define&nbsp;la&nbsp;refactorizaci&oacute;n.</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;</font><font color="#3f5fbf">*/</font><br>
+<font color="#ffffff">&nbsp;&nbsp;</font><font color="#646464">@SuppressWarnings</font><font color="#000000">({</font><font color="#2a00ff">&#34;unchecked&#34;</font><font color="#000000">})&nbsp;</font><font color="#3f7f5f">//$NON-NLS-1$</font><br>
+<font color="#ffffff">&nbsp;&nbsp;</font><font color="#7f0055"><b>private&nbsp;</b></font><font color="#7f0055"><b>void&nbsp;</b></font><font color="#000000">readExamplesRefactoring</font><font color="#000000">(</font><font color="#000000">Element&nbsp;root</font><font color="#000000">)&nbsp;{</font><br>
+<font color="#ffffff"></font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#3f7f5f">//&nbsp;Se&nbsp;obtienen&nbsp;los&nbsp;ejemplos&nbsp;de&nbsp;la&nbsp;refactorizaci&oacute;n.</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#000000">Element&nbsp;examplesElement&nbsp;=&nbsp;root.getChild</font><font color="#000000">(</font><font color="#000000">EXAMPLES_ELEMENT</font><font color="#000000">)</font><font color="#000000">;</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#7f0055"><b>if</b></font><font color="#000000">(</font><font color="#000000">examplesElement&nbsp;!=&nbsp;</font><font color="#7f0055"><b>null</b></font><font color="#000000">)&nbsp;{</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#000000">List&lt;Element&gt;&nbsp;ex&nbsp;=&nbsp;examplesElement.getChildren</font><font color="#000000">(</font><font color="#000000">EXAMPLE_ELEMENT</font><font color="#000000">)</font><font color="#000000">;</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#000000">refactoringDefinition.setExamples</font><font color="#000000">(</font><font color="#000000">readExamplesElements</font><font color="#000000">(</font><font color="#000000">ex</font><font color="#000000">))</font><font color="#000000">;</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#000000">}</font><br>
+<font color="#ffffff">&nbsp;&nbsp;</font><font color="#000000">}</font><br>
+<font color="#ffffff">&nbsp;&nbsp;</font><br>
+<font color="#ffffff">&nbsp;&nbsp;</font><font color="#3f5fbf">/**</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;</font><font color="#3f5fbf">*&nbsp;Lee&nbsp;los&nbsp;atributos&nbsp;de&nbsp;los&nbsp;ejemplos&nbsp;de&nbsp;una&nbsp;lista&nbsp;de&nbsp;ejemplos&nbsp;a&nbsp;partir&nbsp;de&nbsp;</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;</font><font color="#3f5fbf">*&nbsp;la&nbsp;definici&oacute;n&nbsp;contenida&nbsp;en&nbsp;el&nbsp;fichero.</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;</font><font color="#3f5fbf">*&nbsp;</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;</font><font color="#3f5fbf">*&nbsp;</font><font color="#7f9fbf">@param&nbsp;</font><font color="#3f5fbf">examples&nbsp;lista&nbsp;de&nbsp;ejemplos.</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;</font><font color="#3f5fbf">*&nbsp;</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;</font><font color="#3f5fbf">*&nbsp;</font><font color="#7f9fbf">@return&nbsp;</font><font color="#3f5fbf">lista&nbsp;de&nbsp;arrays&nbsp;de&nbsp;cadenas&nbsp;que&nbsp;contienen&nbsp;para&nbsp;cada&nbsp;ejemplo&nbsp;</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;</font><font color="#3f5fbf">*&nbsp;sus&nbsp;atributos.</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;</font><font color="#3f5fbf">*/</font><br>
+<font color="#ffffff">&nbsp;&nbsp;</font><font color="#7f0055"><b>private&nbsp;</b></font><font color="#000000">ArrayList&lt;String</font><font color="#000000">[]</font><font color="#000000">&gt;&nbsp;readExamplesElements</font><font color="#000000">(</font><font color="#000000">List&lt;Element&gt;&nbsp;examples</font><font color="#000000">)&nbsp;{</font><br>
+<font color="#ffffff"></font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#000000">ArrayList&lt;String</font><font color="#000000">[]</font><font color="#000000">&gt;&nbsp;completed&nbsp;=&nbsp;</font><font color="#7f0055"><b>new&nbsp;</b></font><font color="#000000">ArrayList&lt;String</font><font color="#000000">[]</font><font color="#000000">&gt;</font><font color="#000000">()</font><font color="#000000">;</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#000000">String</font><font color="#000000">[]&nbsp;</font><font color="#000000">exampleContent;</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#7f0055"><b>for&nbsp;</b></font><font color="#000000">(</font><font color="#000000">Element&nbsp;example&nbsp;:&nbsp;examples</font><font color="#000000">){</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#000000">exampleContent&nbsp;=&nbsp;</font><font color="#7f0055"><b>new&nbsp;</b></font><font color="#000000">String</font><font color="#000000">[</font><font color="#990000">2</font><font color="#000000">]</font><font color="#000000">;</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#000000">exampleContent</font><font color="#000000">[</font><font color="#990000">0</font><font color="#000000">]&nbsp;</font><font color="#000000">=&nbsp;example.getAttributeValue</font><font color="#000000">(</font><font color="#000000">BEFORE_EXAMPLE_ATTRIBUTE</font><font color="#000000">)</font><font color="#000000">;</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#000000">exampleContent</font><font color="#000000">[</font><font color="#990000">1</font><font color="#000000">]&nbsp;</font><font color="#000000">=&nbsp;example.getAttributeValue</font><font color="#000000">(</font><font color="#000000">AFTER_EXAMPLE_ATTRIBUTE</font><font color="#000000">)</font><font color="#000000">;</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#000000">completed.add</font><font color="#000000">(</font><font color="#000000">exampleContent</font><font color="#000000">)</font><font color="#000000">;</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#000000">}</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#7f0055"><b>return&nbsp;</b></font><font color="#000000">completed;</font><br>
+<font color="#ffffff">&nbsp;&nbsp;</font><font color="#000000">}</font><br>
+<font color="#ffffff"></font><br>
+<font color="#ffffff">&nbsp;&nbsp;</font><font color="#3f5fbf">/**</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;</font><font color="#3f5fbf">*&nbsp;Devuelve&nbsp;la&nbsp;definici&oacute;n&nbsp;de&nbsp;la&nbsp;refactorizaci&oacute;n.</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;</font><font color="#3f5fbf">*&nbsp;</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;</font><font color="#3f5fbf">*&nbsp;</font><font color="#7f9fbf">@return&nbsp;</font><font color="#3f5fbf">la&nbsp;definici&oacute;n&nbsp;de&nbsp;la&nbsp;refactorizaci&oacute;n.</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;</font><font color="#3f5fbf">*/</font><br>
+<font color="#ffffff">&nbsp;&nbsp;</font><font color="#646464">@Override</font><br>
+<font color="#ffffff">&nbsp;&nbsp;</font><font color="#7f0055"><b>public&nbsp;</b></font><font color="#000000">DynamicRefactoringDefinition&nbsp;getDynamicRefactoringDefinition</font><font color="#000000">()&nbsp;{</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#7f0055"><b>return&nbsp;</b></font><font color="#000000">refactoringDefinition;</font><br>
+<font color="#ffffff">&nbsp;&nbsp;</font><font color="#000000">}</font><br>
+<font color="#ffffff">&nbsp;&nbsp;</font><br>
+<font color="#ffffff">&nbsp;&nbsp;</font><br>
+<font color="#ffffff">&nbsp;&nbsp;</font><font color="#3f5fbf">/**</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;</font><font color="#3f5fbf">*&nbsp;Obtiene&nbsp;del&nbsp;fichero&nbsp;temporal&nbsp;que&nbsp;guarda&nbsp;las&nbsp;refactorizaciones&nbsp;disponibles,&nbsp;aquellas&nbsp;que&nbsp;son&nbsp;</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;</font><font color="#3f5fbf">*&nbsp;ejecutables&nbsp;con&nbsp;el&nbsp;par&aacute;metro&nbsp;de&nbsp;entrada&nbsp;del&nbsp;tipo&nbsp;se&ntilde;alado&nbsp;por&nbsp;el&nbsp;par&aacute;metro&nbsp;scope.</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;</font><font color="#3f5fbf">*&nbsp;</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;</font><font color="#3f5fbf">*&nbsp;</font><font color="#7f9fbf">@param&nbsp;</font><font color="#3f5fbf">scope&nbsp;tipo&nbsp;de&nbsp;la&nbsp;entrada&nbsp;principal&nbsp;de&nbsp;la&nbsp;refactorizaci&oacute;n.</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;</font><font color="#3f5fbf">*&nbsp;</font><font color="#7f9fbf">@param&nbsp;</font><font color="#3f5fbf">path_file&nbsp;ruta&nbsp;del&nbsp;fichero&nbsp;xml&nbsp;en&nbsp;donde&nbsp;estan&nbsp;descritas&nbsp;las&nbsp;refactorizaciones&nbsp;disponibles.</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;</font><font color="#3f5fbf">*&nbsp;</font><font color="#7f9fbf">@return&nbsp;</font><font color="#7f7f9f">&lt;code&gt;</font><font color="#3f5fbf">HashMap</font><font color="#7f7f9f">&lt;/code&gt;&nbsp;</font><font color="#3f5fbf">cuyas&nbsp;claves&nbsp;son&nbsp;el&nbsp;nombre&nbsp;de&nbsp;las&nbsp;refactorizaciones&nbsp;y&nbsp;</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;</font><font color="#3f5fbf">*&nbsp;los&nbsp;valores&nbsp;la&nbsp;ruta&nbsp;del&nbsp;fichero&nbsp;que&nbsp;contiene&nbsp;la&nbsp;definici&oacute;n&nbsp;de&nbsp;la&nbsp;refactorizaci&oacute;n&nbsp;en&nbsp;caso</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;</font><font color="#3f5fbf">*&nbsp;de&nbsp;ser&nbsp;din&aacute;mica&nbsp;o&nbsp;la&nbsp;cadena&nbsp;vacia&nbsp;en&nbsp;caso&nbsp;de&nbsp;ser&nbsp;est&aacute;tica.</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;</font><font color="#3f5fbf">*&nbsp;</font><font color="#7f9fbf">@throws&nbsp;</font><font color="#3f5fbf">XMLRefactoringReaderException&nbsp;lanzado&nbsp;en&nbsp;caso&nbsp;de&nbsp;que&nbsp;no&nbsp;se&nbsp;pueda&nbsp;leer&nbsp;el&nbsp;fichero&nbsp;xml.</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;</font><font color="#3f5fbf">*/</font><br>
+<font color="#ffffff">&nbsp;&nbsp;</font><font color="#7f0055"><b>public&nbsp;</b></font><font color="#000000">HashMap&lt;String,&nbsp;String&gt;&nbsp;readAvailableRefactorings</font><font color="#000000">(</font><font color="#7f0055"><b>int&nbsp;</b></font><font color="#000000">scope,&nbsp;String&nbsp;path_file</font><font color="#000000">)&nbsp;</font><font color="#7f0055"><b>throws&nbsp;</b></font><font color="#000000">XMLRefactoringReaderException&nbsp;</font><font color="#000000">{</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#000000">HashMap&lt;String,&nbsp;String&gt;&nbsp;refactorings&nbsp;=&nbsp;</font><font color="#7f0055"><b>new&nbsp;</b></font><font color="#000000">HashMap&lt;String,&nbsp;String&gt;</font><font color="#000000">()</font><font color="#000000">;&nbsp;</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#7f0055"><b>try&nbsp;</b></font><font color="#000000">{</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#000000">SAXBuilder&nbsp;builder&nbsp;=&nbsp;</font><font color="#7f0055"><b>new&nbsp;</b></font><font color="#000000">SAXBuilder</font><font color="#000000">(</font><font color="#7f0055"><b>true</b></font><font color="#000000">)</font><font color="#000000">;</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#000000">builder.setIgnoringElementContentWhitespace</font><font color="#000000">(</font><font color="#7f0055"><b>true</b></font><font color="#000000">)</font><font color="#000000">;</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#000000">Document&nbsp;doc&nbsp;=&nbsp;builder.build</font><font color="#000000">(</font><font color="#7f0055"><b>new&nbsp;</b></font><font color="#000000">File</font><font color="#000000">(</font><font color="#000000">path_file</font><font color="#000000">)</font><font color="#000000">.toURI</font><font color="#000000">()</font><font color="#000000">.toString</font><font color="#000000">())</font><font color="#000000">;</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#000000">root&nbsp;=&nbsp;doc.getRootElement</font><font color="#000000">()</font><font color="#000000">;</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#000000">}&nbsp;</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#7f0055"><b>catch&nbsp;</b></font><font color="#000000">(</font><font color="#000000">JDOMException&nbsp;jdomexception</font><font color="#000000">)&nbsp;{</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#7f0055"><b>throw&nbsp;new&nbsp;</b></font><font color="#000000">XMLRefactoringReaderException</font><font color="#000000">(</font><font color="#000000">jdomexception.getMessage</font><font color="#000000">())</font><font color="#000000">;</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#000000">}&nbsp;</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#7f0055"><b>catch&nbsp;</b></font><font color="#000000">(</font><font color="#000000">IOException&nbsp;ioexception</font><font color="#000000">)&nbsp;{</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#7f0055"><b>throw&nbsp;new&nbsp;</b></font><font color="#000000">XMLRefactoringReaderException</font><font color="#000000">(</font><font color="#000000">ioexception.getMessage</font><font color="#000000">())</font><font color="#000000">;</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#000000">}&nbsp;&nbsp;</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#7f0055"><b>if</b></font><font color="#000000">(</font><font color="#000000">scope&nbsp;==&nbsp;SelectRefactoringWindow.SCOPE_CLASS</font><font color="#000000">){</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#000000">Element&nbsp;classdef&nbsp;=&nbsp;root.getChild</font><font color="#000000">(</font><font color="#2a00ff">&#34;classdef&#34;</font><font color="#000000">)</font><font color="#000000">;</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#7f0055"><b>for</b></font><font color="#000000">(</font><font color="#7f0055"><b>int&nbsp;</b></font><font color="#000000">i=</font><font color="#990000">0</font><font color="#000000">;&nbsp;&nbsp;i&nbsp;&lt;&nbsp;classdef.getChildren</font><font color="#000000">()</font><font color="#000000">.size</font><font color="#000000">()</font><font color="#000000">;&nbsp;i++</font><font color="#000000">){</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#000000">Element&nbsp;refactor&nbsp;=&nbsp;</font><font color="#000000">(</font><font color="#000000">Element</font><font color="#000000">)</font><font color="#000000">classdef.getChildren</font><font color="#000000">()</font><font color="#000000">.get</font><font color="#000000">(</font><font color="#000000">i</font><font color="#000000">)</font><font color="#000000">;</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#000000">String&nbsp;name&nbsp;=&nbsp;refactor.getAttribute</font><font color="#000000">(</font><font color="#2a00ff">&#34;name&#34;</font><font color="#000000">)</font><font color="#000000">.getValue</font><font color="#000000">()</font><font color="#000000">;</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#000000">String&nbsp;path&nbsp;=&nbsp;refactor.getAttribute</font><font color="#000000">(</font><font color="#2a00ff">&#34;path&#34;</font><font color="#000000">)</font><font color="#000000">.getValue</font><font color="#000000">()</font><font color="#000000">;</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#000000">refactorings.put</font><font color="#000000">(</font><font color="#000000">name,&nbsp;path</font><font color="#000000">)</font><font color="#000000">;</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#000000">}</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#000000">}</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#7f0055"><b>else&nbsp;if</b></font><font color="#000000">(</font><font color="#000000">scope&nbsp;==&nbsp;SelectRefactoringWindow.SCOPE_METHOD</font><font color="#000000">){</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#000000">Element&nbsp;classdef&nbsp;=&nbsp;root.getChild</font><font color="#000000">(</font><font color="#2a00ff">&#34;methdec&#34;</font><font color="#000000">)</font><font color="#000000">;</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#7f0055"><b>for</b></font><font color="#000000">(</font><font color="#7f0055"><b>int&nbsp;</b></font><font color="#000000">i=</font><font color="#990000">0</font><font color="#000000">;&nbsp;&nbsp;i&nbsp;&lt;&nbsp;classdef.getChildren</font><font color="#000000">()</font><font color="#000000">.size</font><font color="#000000">()</font><font color="#000000">;&nbsp;i++</font><font color="#000000">){</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#000000">Element&nbsp;refactor&nbsp;=&nbsp;</font><font color="#000000">(</font><font color="#000000">Element</font><font color="#000000">)</font><font color="#000000">classdef.getChildren</font><font color="#000000">()</font><font color="#000000">.get</font><font color="#000000">(</font><font color="#000000">i</font><font color="#000000">)</font><font color="#000000">;</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#000000">String&nbsp;name&nbsp;=&nbsp;refactor.getAttribute</font><font color="#000000">(</font><font color="#2a00ff">&#34;name&#34;</font><font color="#000000">)</font><font color="#000000">.getValue</font><font color="#000000">()</font><font color="#000000">;</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#000000">String&nbsp;path&nbsp;=&nbsp;refactor.getAttribute</font><font color="#000000">(</font><font color="#2a00ff">&#34;path&#34;</font><font color="#000000">)</font><font color="#000000">.getValue</font><font color="#000000">()</font><font color="#000000">;</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#000000">refactorings.put</font><font color="#000000">(</font><font color="#000000">name,&nbsp;path</font><font color="#000000">)</font><font color="#000000">;</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#000000">}</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#000000">}</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#7f0055"><b>else&nbsp;if</b></font><font color="#000000">(</font><font color="#000000">scope&nbsp;==&nbsp;SelectRefactoringWindow.SCOPE_ATTRIBUTE</font><font color="#000000">){</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#000000">Element&nbsp;classdef&nbsp;=&nbsp;root.getChild</font><font color="#000000">(</font><font color="#2a00ff">&#34;attdec&#34;</font><font color="#000000">)</font><font color="#000000">;</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#7f0055"><b>for</b></font><font color="#000000">(</font><font color="#7f0055"><b>int&nbsp;</b></font><font color="#000000">i=</font><font color="#990000">0</font><font color="#000000">;&nbsp;&nbsp;i&nbsp;&lt;&nbsp;classdef.getChildren</font><font color="#000000">()</font><font color="#000000">.size</font><font color="#000000">()</font><font color="#000000">;&nbsp;i++</font><font color="#000000">){</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#000000">Element&nbsp;refactor&nbsp;=&nbsp;</font><font color="#000000">(</font><font color="#000000">Element</font><font color="#000000">)</font><font color="#000000">classdef.getChildren</font><font color="#000000">()</font><font color="#000000">.get</font><font color="#000000">(</font><font color="#000000">i</font><font color="#000000">)</font><font color="#000000">;</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#000000">String&nbsp;name&nbsp;=&nbsp;refactor.getAttribute</font><font color="#000000">(</font><font color="#2a00ff">&#34;name&#34;</font><font color="#000000">)</font><font color="#000000">.getValue</font><font color="#000000">()</font><font color="#000000">;</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#000000">String&nbsp;path&nbsp;=&nbsp;refactor.getAttribute</font><font color="#000000">(</font><font color="#2a00ff">&#34;path&#34;</font><font color="#000000">)</font><font color="#000000">.getValue</font><font color="#000000">()</font><font color="#000000">;</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#000000">refactorings.put</font><font color="#000000">(</font><font color="#000000">name,&nbsp;path</font><font color="#000000">)</font><font color="#000000">;</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#000000">}</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#000000">}</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#7f0055"><b>else&nbsp;if</b></font><font color="#000000">(</font><font color="#000000">scope&nbsp;==&nbsp;SelectRefactoringWindow.SCOPE_FORMAL_ARG</font><font color="#000000">){</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#000000">Element&nbsp;classdef&nbsp;=&nbsp;root.getChild</font><font color="#000000">(</font><font color="#2a00ff">&#34;formalArgument&#34;</font><font color="#000000">)</font><font color="#000000">;</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#7f0055"><b>for</b></font><font color="#000000">(</font><font color="#7f0055"><b>int&nbsp;</b></font><font color="#000000">i=</font><font color="#990000">0</font><font color="#000000">;&nbsp;&nbsp;i&nbsp;&lt;&nbsp;classdef.getChildren</font><font color="#000000">()</font><font color="#000000">.size</font><font color="#000000">()</font><font color="#000000">;&nbsp;i++</font><font color="#000000">){</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#000000">Element&nbsp;refactor&nbsp;=&nbsp;</font><font color="#000000">(</font><font color="#000000">Element</font><font color="#000000">)</font><font color="#000000">classdef.getChildren</font><font color="#000000">()</font><font color="#000000">.get</font><font color="#000000">(</font><font color="#000000">i</font><font color="#000000">)</font><font color="#000000">;</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#000000">String&nbsp;name&nbsp;=&nbsp;refactor.getAttribute</font><font color="#000000">(</font><font color="#2a00ff">&#34;name&#34;</font><font color="#000000">)</font><font color="#000000">.getValue</font><font color="#000000">()</font><font color="#000000">;</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#000000">String&nbsp;path&nbsp;=&nbsp;refactor.getAttribute</font><font color="#000000">(</font><font color="#2a00ff">&#34;path&#34;</font><font color="#000000">)</font><font color="#000000">.getValue</font><font color="#000000">()</font><font color="#000000">;</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#000000">refactorings.put</font><font color="#000000">(</font><font color="#000000">name,&nbsp;path</font><font color="#000000">)</font><font color="#000000">;</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#000000">}</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#000000">}</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#7f0055"><b>else&nbsp;if</b></font><font color="#000000">(</font><font color="#000000">scope&nbsp;==&nbsp;SelectRefactoringWindow.SCOPE_FORMAL_PAR</font><font color="#000000">){</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#000000">Element&nbsp;classdef&nbsp;=&nbsp;root.getChild</font><font color="#000000">(</font><font color="#2a00ff">&#34;formalPar&#34;</font><font color="#000000">)</font><font color="#000000">;</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#7f0055"><b>for</b></font><font color="#000000">(</font><font color="#7f0055"><b>int&nbsp;</b></font><font color="#000000">i=</font><font color="#990000">0</font><font color="#000000">;&nbsp;&nbsp;i&nbsp;&lt;&nbsp;classdef.getChildren</font><font color="#000000">()</font><font color="#000000">.size</font><font color="#000000">()</font><font color="#000000">;&nbsp;i++</font><font color="#000000">){</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#000000">Element&nbsp;refactor&nbsp;=&nbsp;</font><font color="#000000">(</font><font color="#000000">Element</font><font color="#000000">)</font><font color="#000000">classdef.getChildren</font><font color="#000000">()</font><font color="#000000">.get</font><font color="#000000">(</font><font color="#000000">i</font><font color="#000000">)</font><font color="#000000">;</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#000000">String&nbsp;name&nbsp;=&nbsp;refactor.getAttribute</font><font color="#000000">(</font><font color="#2a00ff">&#34;name&#34;</font><font color="#000000">)</font><font color="#000000">.getValue</font><font color="#000000">()</font><font color="#000000">;</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#000000">String&nbsp;path&nbsp;=&nbsp;refactor.getAttribute</font><font color="#000000">(</font><font color="#2a00ff">&#34;path&#34;</font><font color="#000000">)</font><font color="#000000">.getValue</font><font color="#000000">()</font><font color="#000000">;</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#000000">refactorings.put</font><font color="#000000">(</font><font color="#000000">name,&nbsp;path</font><font color="#000000">)</font><font color="#000000">;</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#000000">}</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#000000">}</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#7f0055"><b>else&nbsp;if</b></font><font color="#000000">(</font><font color="#000000">scope&nbsp;==&nbsp;SelectRefactoringWindow.SCOPE_CODE_FRAGMENT</font><font color="#000000">){</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#000000">Element&nbsp;classdef&nbsp;=&nbsp;root.getChild</font><font color="#000000">(</font><font color="#2a00ff">&#34;codeFragment&#34;</font><font color="#000000">)</font><font color="#000000">;</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#7f0055"><b>for</b></font><font color="#000000">(</font><font color="#7f0055"><b>int&nbsp;</b></font><font color="#000000">i=</font><font color="#990000">0</font><font color="#000000">;&nbsp;&nbsp;i&nbsp;&lt;&nbsp;classdef.getChildren</font><font color="#000000">()</font><font color="#000000">.size</font><font color="#000000">()</font><font color="#000000">;&nbsp;i++</font><font color="#000000">){</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#000000">Element&nbsp;refactor&nbsp;=&nbsp;</font><font color="#000000">(</font><font color="#000000">Element</font><font color="#000000">)</font><font color="#000000">classdef.getChildren</font><font color="#000000">()</font><font color="#000000">.get</font><font color="#000000">(</font><font color="#000000">i</font><font color="#000000">)</font><font color="#000000">;</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#000000">String&nbsp;name&nbsp;=&nbsp;refactor.getAttribute</font><font color="#000000">(</font><font color="#2a00ff">&#34;name&#34;</font><font color="#000000">)</font><font color="#000000">.getValue</font><font color="#000000">()</font><font color="#000000">;</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#000000">String&nbsp;path&nbsp;=&nbsp;refactor.getAttribute</font><font color="#000000">(</font><font color="#2a00ff">&#34;path&#34;</font><font color="#000000">)</font><font color="#000000">.getValue</font><font color="#000000">()</font><font color="#000000">;</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#000000">refactorings.put</font><font color="#000000">(</font><font color="#000000">name,&nbsp;path</font><font color="#000000">)</font><font color="#000000">;</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#000000">}</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#000000">}</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#7f0055"><b>return&nbsp;</b></font><font color="#000000">refactorings;</font><br>
+<font color="#ffffff">&nbsp;&nbsp;</font><font color="#000000">}</font><br>
+<font color="#ffffff">&nbsp;&nbsp;</font><br>
+<font color="#ffffff"></font><br>
+<font color="#000000">}</font></code>
+    
+   </td>
+  <!-- end source code -->
+   </tr>
+</table>
+</div>
+<!-- =       END of automatically generated HTML code       = -->
+<!-- ======================================================== -->
+
+
+</body></html>

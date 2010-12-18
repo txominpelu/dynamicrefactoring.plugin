@@ -1,0 +1,18 @@
+<!ELEMENT RefactoringPlan ( refactoring* ) >
+
+<!ELEMENT refactoring (name, date, parameters)  >
+
+<!ELEMENT name EMPTY >
+<!ATTLIST name value CDATA #REQUIRED >
+
+<!ELEMENT date EMPTY >
+<!ATTLIST date value CDATA #REQUIRED >
+
+<!ELEMENT parameters ( parameter* ) >
+
+<!ELEMENT parameter EMPTY >
+<!ATTLIST parameter name CDATA #REQUIRED >
+<!ATTLIST parameter value CDATA #REQUIRED >
+<!ATTLIST parameter isName (false|true) #IMPLIED >
+
+

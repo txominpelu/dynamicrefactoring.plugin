@@ -1,0 +1,15 @@
+<!ELEMENT dynamicRefactorings ( classdef, methdec, attdec, formalArgument, formalPar, codeFragment ) >
+
+<!ELEMENT classdef ( refactoring* ) >
+
+
+<!ELEMENT methdec ( refactoring* ) >
+
+<!ELEMENT attdec ( refactoring* ) >
+<!ELEMENT formalArgument ( refactoring* ) >
+<!ELEMENT formalPar ( refactoring* ) >
+<!ELEMENT codeFragment ( refactoring* ) >
+
+<!ELEMENT refactoring EMPTY >
+<!ATTLIST refactoring name CDATA #REQUIRED >
+<!ATTLIST refactoring path CDATA #REQUIRED >
