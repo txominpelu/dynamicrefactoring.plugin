@@ -13,16 +13,13 @@
 	</inputs>
 	<mechanism>
 		<preconditions>
-			<precondition name="repository.moon.concretepredicate.ExistsClass">
-				<param name="clase" />
-			</precondition>
 			<precondition name="repository.java.concretepredicate.HasPublicFinalStaticAttributes">
 				<param name="clase" />
 			</precondition>
-			<precondition name="repository.java.concretepredicate.AreConstructorsPrivate">
+			<precondition name="repository.java.concretepredicate.ConstructorsArePrivate">
 				<param name="clase" />
 			</precondition>
-			<precondition name="repository.java.concretepredicate.EnumConstantsBeforeProperties">
+			<precondition name="repository.java.concretepredicate.EnumConstantsBeforeOthers">
 				<param name="clase" />
 			</precondition>
 		</preconditions>

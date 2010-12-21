@@ -9,17 +9,13 @@
 	</information>
 	<inputs>
 		<input type="moon.core.Name" name="Name" root="false" />
+		<input type="moon.core.Model" name="Model" root="false" />
 		<input type="moon.core.classdef.ClassDef" name="Class" from="Method" method="getClassDef" root="false" />
 		<input type="moon.core.classdef.MethDec" name="Method" root="true" />
-		<input type="moon.core.Model" name="Model" root="false" />
 		<input type="moon.core.classdef.Type" name="Type" from="Model" method="getTypes" root="false" />
 	</inputs>
 	<mechanism>
 		<preconditions>
-			<precondition name="repository.moon.concretepredicate.ExistsMethodInClass">
-				<param name="Method" />
-				<param name="Class" />
-			</precondition>
 			<precondition name="repository.moon.concretepredicate.HasNotFormalArgWithName">
 				<param name="Method" />
 				<param name="Name" />

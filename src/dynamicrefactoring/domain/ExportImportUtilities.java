@@ -26,6 +26,8 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.StringTokenizer;
 
+import org.apache.commons.io.FilenameUtils;
+
 import dynamicrefactoring.RefactoringConstants;
 import dynamicrefactoring.reader.JDOMXMLRefactoringReaderImp;
 import dynamicrefactoring.reader.RefactoringPlanReader;
@@ -55,37 +57,38 @@ public class ExportImportUtilities {
 	public static void ExportRefactoring(String destination, String definition, boolean createFolders) throws IOException, XMLRefactoringReaderException{
 		String folder = new File(definition).getParent();
 		FileManager.copyFolder(folder, destination);
-		StringTokenizer st_namefolder = new StringTokenizer(folder, "\\");
-		String namefolder = "";
-		
-		while(st_namefolder.hasMoreTokens()){
-			namefolder = st_namefolder.nextElement().toString();
-		}
-		
+		String definitionFolderName = FilenameUtils.getName(folder);
 		JDOMXMLRefactoringReaderImp reader = new JDOMXMLRefactoringReaderImp(new File(definition));
 		
-		for(String element : reader.readMechanismRefactoring()){
-			String name = "";
-			StringTokenizer st_name = new StringTokenizer(element,".");
-			while(st_name.hasMoreTokens()){
-				name = st_name.nextElement().toString();
-			}
-			element = element.replace('.', '\\');
-			String element2 = RefactoringConstants.REFACTORING_CLASSES + "\\" + element + ".class";
-			if(!(new File (destination + "\\" + namefolder+ "\\" + name + ".class").exists()) && new File(element2).exists()){
+		for(String rule : reader.readMechanismRefactoring()){
+			String className = splitGetLast(rule,".");
+			
+			String rulePath = rule.replace('.', File.separatorChar);
+			
+			//String classPath = RefactoringConstants.REFACTORING_CLASSES + "\\" + element + ".class";
+			File currentFile = new File(RefactoringConstants.REFACTORING_CLASSES + File.separatorChar + rulePath + ".class");
+			File destinationFile = new File (destination + File.separatorChar + definitionFolderName + File.separatorChar + className + ".class");
+			File destinationFolder = new File(destination);
+			File newFolder = new File( destinationFolder.getParent()+ File.separatorChar + new File(rulePath).getParent());
+			File newFile = new File (new File(destination).getParent()+ File.separatorChar + rulePath + ".class");
+			
+			// Si no existe el destino y si el actual
+			if(!destinationFile.exists() && currentFile.exists()){
 				if(!createFolders){
-					FileManager.copyFile(new File(element2), new File (destination + "\\" + namefolder+ "\\" + name + ".class"));
+					FileManager.copyFile(currentFile, destinationFile);
 				}else{
-					if(! new File( new File(destination).getParent()+ "\\" + element.substring(0, element.length()-name.length()-1)).exists())
-						new File(new File(destination).getParent()+  "\\" + element.substring(0, element.length()-name.length()-1)).mkdirs();
-					FileManager.copyFile(new File(element2), new File (new File(destination).getParent()+ "\\" + element + ".class"));
+					if(! newFolder.exists()){
+						newFolder.mkdirs();
+					}
+					FileManager.copyFile(currentFile, newFile );
 				}
 			}else{
-				if(! new File(element2).exists()){//falta algún fichero .class necesario en esta refactorización
+				if(! currentFile.exists()){
+					//falta algún fichero .class necesario en esta refactorización
 					//En este caso se borra la carpeta generada en destino ya
 					//que no estará completa
-					FileManager.emptyDirectories(destination + "\\" + namefolder);
-					FileManager.deleteDirectories(destination + "\\" + namefolder, true);
+					FileManager.emptyDirectories(destination + File.separatorChar + definitionFolderName);
+					FileManager.deleteDirectories(destination + File.separatorChar + definitionFolderName, true);
 					throw new IOException(Messages.ExportImportUtilities_ClassesNotFound);
 				}
 				
@@ -93,6 +96,23 @@ public class ExportImportUtilities {
 		    
 		}
 		
+	}
+
+	/**
+	 * Divide la cadena en partes utilizando como token delim y devuelve
+	 * la última de las particiones hechas.
+	 * 
+	 * @param cadena Cadena a dividir
+	 * @param delim Token para hacer la division
+	 * @return
+	 */
+	public static String splitGetLast(String cadena, String delim) {
+		String name = "";
+		StringTokenizer st_name = new StringTokenizer(cadena,delim);
+		while(st_name.hasMoreTokens()){
+			name = st_name.nextElement().toString();
+		}
+		return name;
 	}
 	
 	/**

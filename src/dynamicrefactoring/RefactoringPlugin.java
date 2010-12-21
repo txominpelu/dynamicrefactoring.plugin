@@ -54,6 +54,7 @@ import moon.core.classdef.ClassDef;
 import moon.core.classdef.FormalArgument;
 import moon.core.classdef.MethDec;
 
+import org.apache.commons.io.FilenameUtils;
 import org.apache.log4j.Logger;
 
 import org.eclipse.core.resources.IProject;
@@ -714,22 +715,23 @@ public class RefactoringPlugin extends AbstractUIPlugin
 	public String getBundleRootDir(){
 		Bundle pluginBundle = Platform.getBundle(BUNDLE_NAME);
 		
+		String pluginRoot = "";
+		
 		if(pluginBundle == null){
-			return ".\\";
+			pluginRoot = ".\\";
+		}else {
+			String pluginLocation = pluginBundle.getLocation();
+			if(pluginLocation.startsWith("update@")){
+				// La localización tiene el formato update@directorio.
+				// Hay que eliminar el primer fragmento de la localización.
+				pluginRoot = pluginLocation.substring(pluginLocation.indexOf('@') + 1);
+			}else{
+				//pluginRoot = pluginLocation.substring(pluginLocation.indexOf('/') + 1);
+				pluginRoot = pluginLocation.substring(pluginLocation.indexOf('/'));
+			}
 		}
-		String pluginLocation = pluginBundle.getLocation();
 	
-		String pluginRoot="";
-		if(pluginLocation.startsWith("update@")){
-			// La localización tiene el formato update@directorio.
-			// Hay que eliminar el primer fragmento de la localización.
-			pluginRoot = pluginLocation.substring(pluginLocation.indexOf('@') + 1);
-		}else{
-			//pluginRoot = pluginLocation.substring(pluginLocation.indexOf('/') + 1);
-			pluginRoot = pluginLocation.substring(pluginLocation.indexOf('/'));
-		}
-	
-		return pluginRoot;
+		return FilenameUtils.separatorsToSystem(pluginRoot);
 	}
 
 	/**

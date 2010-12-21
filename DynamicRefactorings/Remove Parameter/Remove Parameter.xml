@@ -8,31 +8,27 @@
 		<motivation>A parameter is no longer used by the method body.</motivation>
 	</information>
 	<inputs>
-		<input type="moon.core.classdef.FormalArgument" name="Argument" root="true" />
-		<input type="moon.core.classdef.MethDec" name="Method" from="Argument" method="getMethDec" root="false" />
 		<input type="moon.core.Model" name="Model" root="false" />
+		<input type="moon.core.classdef.MethDec" name="Method" from="Argument" method="getMethDec" root="false" />
+		<input type="moon.core.classdef.FormalArgument" name="Argument" root="true" />
 	</inputs>
 	<mechanism>
 		<preconditions>
-			<precondition name="repository.moon.concretepredicate.ExistsFormalArgInMethod">
-				<param name="Argument" />
-				<param name="Method" />
-			</precondition>
-			<precondition name="repository.moon.concretepredicate.SignatureEntityIsNotUsedInMethod">
+			<precondition name="repository.moon.concretepredicate.SignatureEntityIsNotUsedInMeth">
 				<param name="Argument" />
 				<param name="Method" />
 			</precondition>
 		</preconditions>
 		<actions>
-			<action name="repository.moon.concreteaction.RemoveFormalArg">
+			<action name="repository.moon.concreteaction.RemoveFormalA">
 				<param name="Argument" />
 				<param name="Method" />
 			</action>
 		</actions>
 		<postconditions>
-			<postcondition name="repository.moon.concretepredicate.HasNotFormalArg">
-				<param name="Argument" />
+			<postcondition name="repository.moon.concretepredicate.HasNotFormalA">
 				<param name="Method" />
+				<param name="Argument" />
 			</postcondition>
 		</postconditions>
 	</mechanism>

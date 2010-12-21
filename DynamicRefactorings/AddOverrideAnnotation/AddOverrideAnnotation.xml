@@ -8,16 +8,12 @@
 		<motivation>La herencia de clases es una de las propiedades más importantes dentro de la programación orientada a objetos , por ello poder detectar los métodos que sobrescriben a los de la superclase puede facilitar la visión de conjunto cuando trabajemos con polimorfismo.</motivation>
 	</information>
 	<inputs>
+		<input type="moon.core.Model" name="Model" root="false" />
 		<input type="moon.core.classdef.ClassDef" name="class" from="method" method="getClassDef" root="false" />
 		<input type="moon.core.classdef.MethDec" name="method" root="true" />
-		<input type="moon.core.Model" name="Model" root="false" />
 	</inputs>
 	<mechanism>
 		<preconditions>
-			<precondition name="repository.moon.concretepredicate.ExistsMethodInClass">
-				<param name="method" />
-				<param name="class" />
-			</precondition>
 			<precondition name="repository.moon.concretepredicate.MethodSignatureIsInSuperclass">
 				<param name="method" />
 				<param name="class" />

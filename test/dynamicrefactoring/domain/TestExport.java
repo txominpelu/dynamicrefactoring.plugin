@@ -20,6 +20,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.*/
 
 package dynamicrefactoring.domain;
 
+import org.apache.commons.io.FilenameUtils;
 import org.junit.Test;
 
 import java.io.File;
@@ -52,28 +53,34 @@ public class TestExport {
 	 */
 	@Test
 	public void testExportRefactoring() throws XMLRefactoringReaderException, IOException{
-		FileManager.createDir("./temp");
 		String destination = "./temp";
-		String definition = RefactoringConstants.DYNAMIC_REFACTORING_DIR + ".\\Rename Class\\Rename Class.xml";
+		FileManager.createDir(destination);
+		//String definition = RefactoringConstants.DYNAMIC_REFACTORING_DIR + "\\Rename Class\\Rename Class.xml";
+		String definitionOriginal = RefactoringConstants.DYNAMIC_REFACTORING_DIR + "\\Rename Class\\Rename Class.xml";
+		
+		String definition = FilenameUtils.separatorsToSystem(definitionOriginal);
+		
 		//Primero exportamos la refactorización Rename Class a un directorio temporal que luego eliminaremos
 		ExportImportUtilities.ExportRefactoring(destination,definition,false );
 		
 		JDOMXMLRefactoringReaderImp reader = new JDOMXMLRefactoringReaderImp(new File(definition));
 		
 		for(String element : reader.readMechanismRefactoring()){
-			String name = "";
-			StringTokenizer st_name = new StringTokenizer(element,".");
-			StringTokenizer st_namefolder = new StringTokenizer(new File(definition).getParent(), "\\");
-			String namefolder = "";
+			
+			String name = FilenameUtils.getName(ExportImportUtilities.splitGetLast(element, "."));
+			/*StringTokenizer st_name = new StringTokenizer(element,".");
 			while(st_name.hasMoreTokens()){
 				name = st_name.nextElement().toString();
-			}
+			}*/
 			
+			String namefolder = FilenameUtils.getName(new File(definition).getParent());
+			/*StringTokenizer st_namefolder = new StringTokenizer(new File(definition).getParent(), "\\");
+			String namefolder = "";
 			while(st_namefolder.hasMoreTokens()){
 				namefolder = st_namefolder.nextElement().toString();
-			}
-			
-			assertEquals(true , new File (destination + "\\" + namefolder+ "\\" + name + ".class").exists());
+			}*/
+			File resultFile = new File (destination + File.separatorChar + namefolder + File.separatorChar + name + ".class");
+			assertEquals(true , resultFile.exists());
 		}
 		
 		//Borramos el directorio temporal al final del test

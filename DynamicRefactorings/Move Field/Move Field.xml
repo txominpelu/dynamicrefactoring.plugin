@@ -8,20 +8,13 @@
 		<motivation>A field is, or will be, used by another class more than the class on which it is defined.</motivation>
 	</information>
 	<inputs>
+		<input type="moon.core.Model" name="Model" root="false" />
 		<input type="moon.core.classdef.ClassDef" name="Target_class" from="Model" method="getClassDefSourceAvailable" root="false" />
 		<input type="moon.core.classdef.ClassDef" name="Source_class" from="Attribute" method="getClassDef" root="false" />
 		<input type="moon.core.classdef.AttDec" name="Attribute" root="true" />
-		<input type="moon.core.Model" name="Model" root="false" />
 	</inputs>
 	<mechanism>
 		<preconditions>
-			<precondition name="repository.moon.concretepredicate.ExistsAttributeInClass">
-				<param name="Attribute" />
-				<param name="Source_class" />
-			</precondition>
-			<precondition name="repository.moon.concretepredicate.ExistsClass">
-				<param name="Target_class" />
-			</precondition>
 			<precondition name="repository.moon.concretepredicate.NotEqualClasses">
 				<param name="Source_class" />
 				<param name="Target_class" />
@@ -29,7 +22,7 @@
 			<precondition name="repository.moon.concretepredicate.IsNotInnerClass">
 				<param name="Target_class" />
 			</precondition>
-			<precondition name="repository.moon.concretepredicate.NotExistsAttributeInClass">
+			<precondition name="repository.moon.concretepredicate.AttributeIsNotAlreadyInClass">
 				<param name="Attribute" />
 				<param name="Target_class" />
 			</precondition>
@@ -48,11 +41,11 @@
 			</action>
 		</actions>
 		<postconditions>
-			<postcondition name="repository.moon.concretepredicate.NotExistsAttributeInClass">
+			<postcondition name="repository.moon.concretepredicate.AttributeIsNotAlreadyInClass">
 				<param name="Attribute" />
 				<param name="Source_class" />
 			</postcondition>
-			<postcondition name="repository.moon.concretepredicate.ExistsAttributeInClass">
+			<postcondition name="repository.moon.concretepredicate.AttributeIsAlreadyInClass">
 				<param name="Attribute" />
 				<param name="Target_class" />
 			</postcondition>
