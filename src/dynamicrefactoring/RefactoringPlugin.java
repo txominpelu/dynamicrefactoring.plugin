@@ -42,6 +42,7 @@ import dynamicrefactoring.writer.JDOMXMLRefactoringWriterImp;
 import dynamicrefactoring.writer.RefactoringPlanWriter;
 
 import java.io.File;
+import java.net.URL;
 
 import java.util.Calendar;
 import java.util.GregorianCalendar;
@@ -57,11 +58,13 @@ import org.apache.log4j.Logger;
 
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.runtime.CoreException;
+import org.eclipse.core.runtime.FileLocator;
 import org.eclipse.core.runtime.IConfigurationElement;
 import org.eclipse.core.runtime.IExtension;
 import org.eclipse.core.runtime.IExtensionPoint;
 import org.eclipse.core.runtime.IExtensionRegistry;
 import org.eclipse.core.runtime.ListenerList;
+import org.eclipse.core.runtime.Path;
 import org.eclipse.core.runtime.Platform;
 
 import org.eclipse.jdt.core.IJavaProject;
@@ -722,7 +725,8 @@ public class RefactoringPlugin extends AbstractUIPlugin
 			// Hay que eliminar el primer fragmento de la localización.
 			pluginRoot = pluginLocation.substring(pluginLocation.indexOf('@') + 1);
 		}else{
-			pluginRoot = pluginLocation.substring(pluginLocation.indexOf('/') + 1);
+			//pluginRoot = pluginLocation.substring(pluginLocation.indexOf('/') + 1);
+			pluginRoot = pluginLocation.substring(pluginLocation.indexOf('/'));
 		}
 	
 		return pluginRoot;
@@ -862,5 +866,20 @@ public class RefactoringPlugin extends AbstractUIPlugin
 
 		currentRefactoring = name + "_" + hour + "." + minutes  //$NON-NLS-1$ //$NON-NLS-2$
 			+ "." + seconds + ".mod";  //$NON-NLS-1$ //$NON-NLS-2$
+	}
+
+	/**
+	 * Obtiene la URL que permite acceder a un recurso contenido dentro
+	 * de un plugin.
+	 * 
+	 * @param pluginId Identificador del plugin
+	 * @param fullPath Ruta del recurso dentro del contenedor del plugin
+	 * @return URL con la ruta de acceso al recurso
+	 */
+	public URL getURLForPluginResource(String pluginId, String fullPath) {
+		Bundle bundle = Platform.getBundle(pluginId);
+		Path path = new Path(fullPath);
+		URL fileURL = FileLocator.find(bundle, path, null);
+		return fileURL;
 	}
 }

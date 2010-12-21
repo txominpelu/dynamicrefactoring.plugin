@@ -126,8 +126,12 @@ public abstract class RefactoringTemplateAbstractTest extends TestCase{
 		System.out.println(source);
 		
 		boolean bool = Comparator.compareText(initialFormatted, source, false);
+		if(!bool)
+			System.out.println("Failure comparing " + file + ".java with");
+		
 		assertTrue("Failure comparing " + file + ".java with", bool);
-		if (WRITE) {
+		
+		if (WRITE && !bool) {
 			PrintWriter printWriter = new PrintWriter(new File(file));
 			printWriter.write(initialFormatted);
 			printWriter.close();

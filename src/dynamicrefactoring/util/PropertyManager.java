@@ -23,6 +23,8 @@ package dynamicrefactoring.util;
 import java.util.Properties;
 
 import java.io.FileInputStream;
+import java.io.InputStream;
+import java.net.URL;
 
 import org.apache.log4j.Logger;
 
@@ -78,15 +80,24 @@ public class PropertyManager {
 	 * Recupera las propiedades almacenadas en el fichero de propiedades.
 	 */
 	private void loadProperties(){
-		try {	
-			FileInputStream configFile = new FileInputStream(
-				RefactoringPlugin.getDefault().getBundleRootDir()
-				+ CONFIGURATION_FILE);
+		try {
+			
+			String pluginId = "DynamicRefactoring";
+			URL fileURL = RefactoringPlugin.getDefault().getURLForPluginResource(pluginId, CONFIGURATION_FILE);
+			InputStream in = fileURL.openStream();
+			
+			//FileInputStream configFile = new FileInputStream(
+				//RefactoringPlugin.getDefault().getBundleRootDir()
+				//+ CONFIGURATION_FILE);
 			
 			properties = new Properties();
-			properties.load(configFile);
+			properties.load(in);
 			
-			configFile.close();
+			in.close();
+			//configFile.close();
+			
+			
+
 
 		} catch (Exception e) {
 			String message = Messages.PropertyManager_NotLoaded +
@@ -95,7 +106,7 @@ public class PropertyManager {
 			Logger.getRootLogger().fatal(message);			
 		}
 	}
-	
+
 	/**
 	 * Constructor.
 	 * 
