@@ -167,12 +167,9 @@ public class ExportImportUtilities {
 	 * @throws XMLRefactoringReaderException XMLRefactoringReaderException
 	 */
 	public static String ImportRefactoring(String definition, boolean fromPlan) throws IOException, XMLRefactoringReaderException{
-		String folder = new File(definition).getParent();
-		StringTokenizer st_namefolder = new StringTokenizer(folder, "\\");
-		String namefolder = "";
-		while(st_namefolder.hasMoreTokens()){
-			namefolder = st_namefolder.nextElement().toString();
-		}
+		File definitionFile = new File(definition);
+		String folder = definitionFile.getParent();
+		String namefolder = definitionFile.getParentFile().getName();
 		
 		if (! FileManager.copyFolder(folder, 
 				RefactoringConstants.DYNAMIC_REFACTORING_DIR)){
@@ -181,27 +178,23 @@ public class ExportImportUtilities {
 		
 		//Pasamos a copiar los .class de las precondiciones, postcondiciones
 		// y acciones en su lugar
-		JDOMXMLRefactoringReaderImp reader = new JDOMXMLRefactoringReaderImp(new File(definition));
+		JDOMXMLRefactoringReaderImp reader = new JDOMXMLRefactoringReaderImp(definitionFile);
 		
-		for(String element : reader.readMechanismRefactoring()){
-			String name = "";
-			StringTokenizer st_name = new StringTokenizer(element,".");
-			while(st_name.hasMoreTokens()){
-				name = st_name.nextElement().toString();
-			}
-			element = element.replace('.', '\\');
-			String element2 = RefactoringConstants.REFACTORING_CLASSES + "\\" + element + ".class";
+		for(String predicado : reader.readMechanismRefactoring()){
+			String name = splitGetLast(predicado, ".");
+			String rutaPredicadoClass = predicado.replace('.', File.separatorChar) + ".class";
+			String rutaDirectorioPredicadoClass = RefactoringConstants.REFACTORING_CLASSES + File.separatorChar + rutaPredicadoClass;
 
-			if(!(new File(element2).exists())){//En caso de que el fichero .class no se encuentre en el repositorio
-				if(fromPlan==false){
-					if(new File(folder + "\\" + name + ".class").exists()){							
-						FileManager.copyFile(new File(folder + "\\" + name + ".class"),new File(element2));		
+			if(!(new File(rutaDirectorioPredicadoClass).exists())){//En caso de que el fichero .class no se encuentre en el repositorio
+				if(fromPlan){
+					if(new File(new File(folder).getParentFile().getParent() + File.separatorChar + rutaPredicadoClass).exists()){							
+						FileManager.copyFile(new File(new File(folder).getParentFile().getParent() + File.separatorChar + rutaPredicadoClass),new File(rutaDirectorioPredicadoClass));		
 					}else{
 						return name;
 					}
 				}else{
-					if(new File(new File(folder).getParentFile().getParent() + "\\" + element + ".class").exists()){							
-						FileManager.copyFile(new File(new File(folder).getParentFile().getParent() + "\\" + element + ".class"),new File(element2));		
+					if(new File(folder + File.separatorChar + name + ".class").exists()){							
+						FileManager.copyFile(new File(folder + File.separatorChar + name + ".class"),new File(rutaDirectorioPredicadoClass));		
 					}else{
 						return name;
 					}
@@ -225,17 +218,13 @@ public class ExportImportUtilities {
 			//Borramos los .class de la carpeta en la que se guarda la refactorización
 			//para no tener almacenada la misma información en dos sitios
 			for(String element : reader.readMechanismRefactoring()){
-				String name = "";
-				StringTokenizer st_name = new StringTokenizer(element,".");
-				while(st_name.hasMoreTokens()){
-					name = st_name.nextElement().toString();
-				}
-				if(new File(RefactoringConstants.DYNAMIC_REFACTORING_DIR + "\\" + namefolder + "\\" + name + ".class").exists())
-					FileManager.deleteFile(RefactoringConstants.DYNAMIC_REFACTORING_DIR + "\\" + namefolder + "\\" + name + ".class");
+				String name = splitGetLast(element, ".");
+				if(new File(RefactoringConstants.DYNAMIC_REFACTORING_DIR + File.separatorChar + namefolder + File.separatorChar + name + ".class").exists())
+					FileManager.deleteFile(RefactoringConstants.DYNAMIC_REFACTORING_DIR + File.separatorChar + namefolder + File.separatorChar + name + ".class");
 			}
 		}else{
-			FileManager.emptyDirectories(RefactoringConstants.DYNAMIC_REFACTORING_DIR + "\\" + namefolder + "\\repository");
-			FileManager.deleteDirectories(RefactoringConstants.DYNAMIC_REFACTORING_DIR + "\\" + namefolder + "\\repository",true);
+			FileManager.emptyDirectories(RefactoringConstants.DYNAMIC_REFACTORING_DIR + File.separatorChar + namefolder + File.separatorChar + "repository");
+			FileManager.deleteDirectories(RefactoringConstants.DYNAMIC_REFACTORING_DIR + File.separatorChar + namefolder + File.separatorChar +"repository",true);
 		}
 		
 		return "";
