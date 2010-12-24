@@ -110,7 +110,7 @@ public abstract class RefactoringTemplateAbstractTest extends TestCase{
     protected void compare(String source, String file) throws IOException{
     	final boolean WRITE = true;
 
-		String initial = new Scanner(new File(file)).useDelimiter("\\Z").next();
+		String initial = new Scanner(new File(file)).useDelimiter("" + File.separatorChar + "Z").next();
 		String initialFormatted = null;
 		if (WRITE) {
 			initialFormatted = EclipsePrettyPrinter

@@ -65,7 +65,7 @@ public class ExportImportUtilities {
 			
 			String rulePath = rule.replace('.', File.separatorChar);
 			
-			//String classPath = RefactoringConstants.REFACTORING_CLASSES + "\\" + element + ".class";
+			//String classPath = RefactoringConstants.REFACTORING_CLASSES + "" + File.separatorChar + "" + element + ".class";
 			File currentFile = new File(RefactoringConstants.REFACTORING_CLASSES + File.separatorChar + rulePath + ".class");
 			File destinationFile = new File (destination + File.separatorChar + definitionFolderName + File.separatorChar + className + ".class");
 			File destinationFolder = new File(destination);

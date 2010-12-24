@@ -20,6 +20,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.*/
 
 package dynamicrefactoring;
 
+import java.io.File;
+
 /**
  * Define las constantes utilizadas para el funcionamiento de las 
  * refactorizaciones dinámicas.
@@ -99,7 +101,7 @@ public class RefactoringConstants {
 	 */
 	public static final String REFACTORING_JAVADOC = 
 		RefactoringPlugin.getDefault().getBundleRootDir() +
-		"doc\\javadoc"; //$NON-NLS-1$
+		"doc" + File.separatorChar + "javadoc"; //$NON-NLS-1$
 	
 	/**
 	 * Nombre completamente cualificado del paquete que contiene las acciones

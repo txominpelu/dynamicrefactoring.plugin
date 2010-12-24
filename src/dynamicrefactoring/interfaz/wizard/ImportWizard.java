@@ -517,13 +517,13 @@ public class ImportWizard extends Dialog {
 							//Elimina la carpeta de la refactorización ya que si ha llegado
 							//a este punto quiere decir que no se ha podido completar la tarea
 							//adecuadamente.
-							StringTokenizer st_namefolder = new StringTokenizer(folder, "\\");
+							StringTokenizer st_namefolder = new StringTokenizer(folder, "" + File.separatorChar + "");
 							String namefolder = "";
 							while(st_namefolder.hasMoreTokens()){
 								namefolder = st_namefolder.nextElement().toString();
 							}
-							FileManager.emptyDirectories(RefactoringConstants.DYNAMIC_REFACTORING_DIR + "\\" + namefolder);
-							FileManager.deleteDirectories(RefactoringConstants.DYNAMIC_REFACTORING_DIR + "\\" + namefolder, true);
+							FileManager.emptyDirectories(RefactoringConstants.DYNAMIC_REFACTORING_DIR + "" + File.separatorChar + "" + namefolder);
+							FileManager.deleteDirectories(RefactoringConstants.DYNAMIC_REFACTORING_DIR + "" + File.separatorChar + "" + namefolder, true);
 							throw new Exception(formatter.format(messageArgs) + ".");
 	
 						}

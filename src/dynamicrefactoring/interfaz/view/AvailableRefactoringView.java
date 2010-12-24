@@ -149,6 +149,8 @@ public class AvailableRefactoringView extends ViewPart {
 					description.setText(Messages.AvailableRefactoringView_Description + ":" +  definition.getDescription());
 					TreeItem motivation = new TreeItem(refactoring, SWT.NONE);
 					motivation.setText(Messages.AvailableRefactoringView_Motivation + ":" +  definition.getMotivation());
+					
+					// Precondiciones
 					TreeItem preconditionsChild = new TreeItem(refactoring, SWT.NONE);
 					preconditionsChild.setText(Messages.AvailableRefactoringView_Preconditions);
 					preconditionsChild.setImage(ResourceManager.getPluginImage(
@@ -156,6 +158,8 @@ public class AvailableRefactoringView extends ViewPart {
 							+ System.getProperty("file.separator") + "check.gif")); //$NON-NLS-1$ //$NON-NLS-2$
 					TreeEditor.fillInTreeBranch(definition.getPreconditions(), preconditionsChild, 
 							"icons" + System.getProperty("file.separator") + "check.gif"); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
+					
+					// Acciones
 					TreeItem actionsChild = new TreeItem(refactoring, SWT.NONE);
 					actionsChild.setText(Messages.AvailableRefactoringView_Action);
 					actionsChild.setImage(ResourceManager.getPluginImage(
@@ -163,6 +167,8 @@ public class AvailableRefactoringView extends ViewPart {
 							+ System.getProperty("file.separator") + "run.gif")); //$NON-NLS-1$ //$NON-NLS-2$
 					TreeEditor.fillInTreeBranch(definition.getActions(), actionsChild, 
 							"icons" + System.getProperty("file.separator") + "run.gif"); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
+					
+					// Postcondiciones
 					TreeItem postconditionsChild = new TreeItem(refactoring, SWT.NONE);
 					postconditionsChild.setText(Messages.AvailableRefactoringView_Postconditions);
 					postconditionsChild.setImage(ResourceManager.getPluginImage(

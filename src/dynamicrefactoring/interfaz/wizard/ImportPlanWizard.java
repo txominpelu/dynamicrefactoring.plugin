@@ -712,13 +712,13 @@ public class ImportPlanWizard extends Dialog {
 							//Elimina la carpeta de la refactorización ya que si ha llegado
 							//a este punto quiere decir que no se ha podido completar la tarea
 							//adecuadamente.
-							StringTokenizer st_namefolder = new StringTokenizer(folder, "\\"); //$NON-NLS-1$
+							StringTokenizer st_namefolder = new StringTokenizer(folder, "" + File.separatorChar + ""); //$NON-NLS-1$
 							String namefolder = ""; //$NON-NLS-1$
 							while(st_namefolder.hasMoreTokens()){
 								namefolder = st_namefolder.nextElement().toString();
 							}
-							FileManager.emptyDirectories(RefactoringConstants.DYNAMIC_REFACTORING_DIR + "\\" + namefolder); //$NON-NLS-1$
-							FileManager.deleteDirectories(RefactoringConstants.DYNAMIC_REFACTORING_DIR + "\\" + namefolder, true); //$NON-NLS-1$
+							FileManager.emptyDirectories(RefactoringConstants.DYNAMIC_REFACTORING_DIR + "" + File.separatorChar + "" + namefolder); //$NON-NLS-1$
+							FileManager.deleteDirectories(RefactoringConstants.DYNAMIC_REFACTORING_DIR + "" + File.separatorChar + "" + namefolder, true); //$NON-NLS-1$
 							throw new Exception(formatter.format(messageArgs) + "."); //$NON-NLS-1$
 	
 						}

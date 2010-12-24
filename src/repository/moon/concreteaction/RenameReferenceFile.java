@@ -20,6 +20,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.*/
 package repository.moon.concreteaction;
 
 
+import java.io.File;
+
 import javamoon.core.JavaFile;
 import moon.core.Name;
 import javamoon.core.JavaName;
@@ -90,7 +92,7 @@ public class RenameReferenceFile extends Action {
 		String newPath;
 
 		
-		oldPath = ((JavaClassDef)classDef).getSourceFile().getPath().toString()+"\\"+ originalName + ".java";
+		oldPath = ((JavaClassDef)classDef).getSourceFile().getPath().toString()+"" + File.separatorChar + ""+ originalName + ".java";
 		nameFileFirstIndex = oldPath.lastIndexOf(originalName + ".java"); //$NON-NLS-1$
 		newPath = oldPath.substring(0, nameFileFirstIndex)+ newName + ".java"; //$NON-NLS-1$
 		

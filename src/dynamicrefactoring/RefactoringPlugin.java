@@ -718,7 +718,7 @@ public class RefactoringPlugin extends AbstractUIPlugin
 		String pluginRoot = "";
 		
 		if(pluginBundle == null){
-			pluginRoot = ".\\";
+			pluginRoot = "." + File.separatorChar + "";
 		}else {
 			String pluginLocation = pluginBundle.getLocation();
 			if(pluginLocation.startsWith("update@")){

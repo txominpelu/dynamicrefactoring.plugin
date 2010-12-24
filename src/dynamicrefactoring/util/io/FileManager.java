@@ -335,7 +335,7 @@ public class FileManager {
     	String rutaActual = new File(".").getAbsolutePath();
 
     	rutaAbsoluta=rutaAbsoluta.replace("/",File.separator);
-    	rutaAbsoluta=rutaAbsoluta.replace("\\",File.separator);
+    	rutaAbsoluta=rutaAbsoluta.replace("" + File.separatorChar + "",File.separator);
 
     	StringTokenizer st_absolute = new StringTokenizer(rutaAbsoluta,File.separator);
     	StringTokenizer st_actual = new StringTokenizer(rutaActual,File.separator);
@@ -369,7 +369,7 @@ public class FileManager {
     			absolute=st_absolute.nextElement();
     		}
     		rutaRelativa=rutaRelativa+absolute.toString();
-    		rutaRelativa=rutaRelativa.replace("\\","/" );
+    		rutaRelativa=rutaRelativa.replace("" + File.separatorChar + "","/" );
     	}else{
     		rutaRelativa=rutaAbsoluta; //estan en distinta unidad y por
     		//tanto no se puede obtener su ruta relativa.

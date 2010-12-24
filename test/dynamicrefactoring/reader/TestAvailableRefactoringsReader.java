@@ -24,6 +24,7 @@ import dynamicrefactoring.interfaz.SelectRefactoringWindow;
 import dynamicrefactoring.reader.JDOMXMLRefactoringReaderImp;
 import dynamicrefactoring.reader.XMLRefactoringReaderException;
 
+import java.io.File;
 import java.util.*;
 
 import static org.junit.Assert.*;
@@ -133,11 +134,11 @@ public class TestAvailableRefactoringsReader {
 	
 		assertEquals(3,refactorings.size());
 		assertEquals(refactorings.get("EnumeratedTypes"),
-				".\\DynamicRefactorings\\EnumeratedTypes\\EnumeratedTypes.xml");
+				"." + "\\" + "DynamicRefactorings" + "\\" + "EnumeratedTypes" + "\\" + "EnumeratedTypes.xml");
 		assertEquals(refactorings.get("MigrateJUnit3ToJUnit4"),
-				".\\DynamicRefactorings\\MigrateJUnit3ToJUnit4\\MigrateJUnit3ToJUnit4.xml");
+				"." + "\\" + "DynamicRefactorings" + "\\" + "MigrateJUnit3ToJUnit4" + "\\" + "MigrateJUnit3ToJUnit4.xml");
 		assertEquals(refactorings.get("Rename Class"),
-				".\\DynamicRefactorings\\Rename Class\\Rename Class.xml");
+				"." + "\\" + "DynamicRefactorings" + "\\" + "Rename Class" + "\\" + "Rename Class.xml");
 		
 		refactorings 
 		=new JDOMXMLRefactoringReaderImp().readAvailableRefactorings
@@ -146,13 +147,13 @@ public class TestAvailableRefactoringsReader {
 	
 		assertEquals(4,refactorings.size());
 		assertEquals(refactorings.get("MigrateJUnit3ToJUni4TestException"),
-			".\\DynamicRefactorings\\MigrateJUnit3ToJUni4TestException\\MigrateJUnit3ToJUni4TestException.xml");
+			"." + "\\" + "DynamicRefactorings" + "\\" + "MigrateJUnit3ToJUni4TestException" + "\\" + "MigrateJUnit3ToJUni4TestException.xml");
 		assertEquals(refactorings.get("Rename Method"),
-			".\\DynamicRefactorings\\Rename Method\\Rename Method.xml");
+			"." + "\\" + "DynamicRefactorings" + "\\" + "Rename Method" + "\\" + "Rename Method.xml");
 		assertEquals(refactorings.get("Add Parameter"),
-			".\\DynamicRefactorings\\Add Parameter\\Add Parameter.xml");
+			"." + "\\" + "DynamicRefactorings" + "\\" + "Add Parameter" + "\\" + "Add Parameter.xml");
 		assertEquals(refactorings.get("AddOverrideAnnotation"),
-			".\\DynamicRefactorings\\AddOverrideAnnotation\\AddOverrideAnnotation.xml");
+			"." + "\\" + "DynamicRefactorings" + "\\" + "AddOverrideAnnotation" + "\\" + "AddOverrideAnnotation.xml");
 		
 		refactorings 
 		=new JDOMXMLRefactoringReaderImp().readAvailableRefactorings
@@ -161,7 +162,7 @@ public class TestAvailableRefactoringsReader {
 	
 		assertEquals(1,refactorings.size());
 		assertEquals(refactorings.get("Move Field"),
-			".\\DynamicRefactorings\\Move Field\\Move Field.xml");
+			"." + "\\" + "DynamicRefactorings" + "\\" + "Move Field" + "\\" + "Move Field.xml");
 		
 		refactorings 
 		=new JDOMXMLRefactoringReaderImp().readAvailableRefactorings
@@ -170,9 +171,9 @@ public class TestAvailableRefactoringsReader {
 	
 		assertEquals(2,refactorings.size());
 		assertEquals(refactorings.get("Rename Parameter"),
-			".\\DynamicRefactorings\\Rename Parameter\\Rename Parameter.xml");
+			"." + "\\" + "DynamicRefactorings" + "\\" + "Rename Parameter" + "\\" + "Rename Parameter.xml");
 		assertEquals(refactorings.get("Remove Parameter"),
-			".\\DynamicRefactorings\\Remove Parameter\\Remove Parameter.xml");
+			"." + "\\" + "DynamicRefactorings" + "\\" + "Remove Parameter" + "\\" + "Remove Parameter.xml");
 		
 		refactorings 
 		=new JDOMXMLRefactoringReaderImp().readAvailableRefactorings
@@ -181,13 +182,13 @@ public class TestAvailableRefactoringsReader {
 	
 		assertEquals(3,refactorings.size());
 		assertEquals(refactorings.get("Specialize Bound S"),
-			".\\DynamicRefactorings\\Specialize Bound S\\Specialize Bound S.xml");
+			"." + "\\" + "DynamicRefactorings" + "\\" + "Specialize Bound S" + "\\" + "Specialize Bound S.xml");
 		assertEquals(refactorings.get("Replace Formal Parameter With Type"),
-			".\\DynamicRefactorings\\Replace Formal Parameter With Type" +
-			"\\Replace Formal Parameter With Type.xml");
+			"." + "\\" + "DynamicRefactorings" + "\\" + "Replace Formal Parameter With Type" +
+			"" + "\\" + "Replace Formal Parameter With Type.xml");
 		assertEquals(refactorings.get("Replace Formal Parameter With Bounding Type"),
-			".\\DynamicRefactorings\\Replace Formal Parameter With Bounding Type" +
-			"\\Replace Formal Parameter With Bounding Type.xml");
+			"." + "\\" + "DynamicRefactorings" + "\\" + "Replace Formal Parameter With Bounding Type" +
+			"" + "\\" + "Replace Formal Parameter With Bounding Type.xml");
 		
 		refactorings 
 		=new JDOMXMLRefactoringReaderImp().readAvailableRefactorings
@@ -196,7 +197,7 @@ public class TestAvailableRefactoringsReader {
 		
 		assertEquals(1,refactorings.size());
 		assertEquals(refactorings.get("ExtractMethod"),
-			".\\DynamicRefactorings\\ExtractMethod\\ExtractMethod.xml");
+			"." + "\\" + "DynamicRefactorings" + "\\" + "ExtractMethod" + "\\" + "ExtractMethod.xml");
 		
 		
 	}
