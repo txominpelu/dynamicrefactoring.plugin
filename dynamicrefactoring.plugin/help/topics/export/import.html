@@ -1,0 +1,69 @@
+<HEAD>
+<META HTTP-EQUIV="Content-Type" Content="text/html; charset=Windows-1252">
+<TITLE>Importing Refactorings</TITLE>
+<link href="../../book.css" rel="stylesheet" type="text/css" />
+</HEAD>
+<body>
+
+<H1><img align="middle" border="0" src="../images/4.png">Importing Refactorings</H1>
+
+<P>
+In this section you will learn how to import existing dynamic refactorings into your Eclipse installation
+with the <STRONG>Dynamic Refactoring Plugin</STRONG>.
+
+<OL>
+	<LI><p>Inside Eclipse select the menu item <STRONG>Dynamic Refactoring &gt; Import 
+	Refactoring...</STRONG> to open the <STRONG>Import Dynamic Refactoring</STRONG> dialog.</p><br>
+	
+	<p align="center"><img border="0" src="../images/export/6.png"><br><br>
+	<a name="_Toc176096195"><font size="1"><b>Select Import from menu</b></font></a><br><br>
+	</LI>
+
+	<LI>
+	Push the <i>"Examine"</i> <code>(...)</code> button and select the folder you want to import the
+	refactoring files from.
+	
+	<p>The plugin will perform a recursive search within the given directory looking for valid refactoring files.
+	If you want the search to be fast, select the exact folder where the refactorings are located. If the <code>
+	Recursive</code> check box is selected, the plugin will recurisvely search within the directories contained
+	in the folder you selected. This could be a long-running operation for deep folders, so be sure to uncheck
+	this option if you don't want the search to be recursive.</p><br>
+	
+	<p align="center"><img border="0" src="../images/export/7.png"><br><br>
+	<a name="_Toc176096218"><font size="1"><b>Select input folder</b></font></a></p><br>
+	
+	</LI>
+		
+	<LI>
+	Once the search finishes, you will see the list of available refactorings. Pay attention to the messages on
+	the lower part of the dialog, since they will warn you about the possible effects of importing some
+	refactorings, as well as give you important info on how to get better search results.
+	
+	<p>Select the refactorings you would like to import.</p><br>
+	
+	<p align="center"><img border="0" src="../images/export/8.png"><br><br>
+	<a name="_Toc176096218"><font size="1"><b>Select refactorings</b></font></a></p><br>
+	
+	</LI>
+	
+	<LI>
+	After a short while, a confirmation message will open up telling you how many refactorings were imported.
+	
+	<p>You can now find the new refactorings within any of the Dynamic Refactoring Plugin options.</p><br>
+	
+	<p align="center"><img border="0" src="../images/export/9.png"><br><br>
+	<a name="_Toc176096218"><font size="1"><b>Confirmation</b></font></a></p><br>
+	
+	</LI>
+</OL>
+
+<p><img src="../images/1.png"  alt="Related tasks"></p>    
+<ul class="NavList">
+    <li><a href="export.html">Exporting refactorings</a><br></li>
+    <li><a href="../refactoring/creation.html">Creating refactorings.</a><br></li>
+    <li><a href="../refactoring/edition.html">Editing refactorings</a><br></li>
+    <li><a href="../refactoring/deletion.html">Deleting refactorings.</a><br></li>
+</ul>
+<br>
+</body>
+</html>

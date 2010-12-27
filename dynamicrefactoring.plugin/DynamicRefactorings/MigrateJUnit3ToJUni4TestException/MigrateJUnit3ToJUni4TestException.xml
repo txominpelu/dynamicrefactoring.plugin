@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!DOCTYPE refactoring SYSTEM "refactoringDTD.dtd">
+
+<refactoring name="MigrateJUnit3ToJUni4TestException">
+	<information>
+		<description>El mecanismo de gestión de excepciones en los métodos cambia completamente entre versiones, eliminando los try catch finally en la versión JUnit4</description>
+		<motivation>El mecanismo de gestión de excepciones en los métodos cambia completamente entre versiones, eliminando los try catch finally en la versión JUnit4</motivation>
+	</information>
+	<inputs>
+		<input type="moon.core.classdef.ClassDef" name="clase" from="Method" method="getClassDef" root="false" />
+		<input type="moon.core.classdef.MethDec" name="Method" root="true" />
+		<input type="moon.core.Model" name="Modelo" root="false" />
+	</inputs>
+	<mechanism>
+		<preconditions>
+			<precondition name="repository.moon.concretepredicate.ExistsMethodInClass">
+				<param name="Method" />
+			</precondition>
+			<precondition name="repository.java.concretepredicate.IsJUnit4TestMethod">
+				<param name="Method" />
+			</precondition>
+		</preconditions>
+		<actions>
+			<action name="repository.java.concreteaction.AddJUnit4AnnotationTestExceptionValue">
+				<param name="Method" />
+			</action>
+			<action name="repository.java.concreteaction.RemoveTryCatchFinally">
+				<param name="Method" />
+			</action>
+			<action name="repository.java.concreteaction.RemoveJUnit3FailInstructions">
+				<param name="Method" />
+			</action>
+		</actions>
+		<postconditions>
+			<postcondition name="repository.java.concretepredicate.IsJUnit4TestMethod">
+				<param name="Method" />
+			</postcondition>
+		</postconditions>
+	</mechanism>
+	<examples />
+</refactoring>
+

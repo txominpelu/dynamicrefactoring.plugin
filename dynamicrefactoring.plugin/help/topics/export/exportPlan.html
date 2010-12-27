@@ -1,0 +1,59 @@
+<HEAD>
+<META HTTP-EQUIV="Content-Type" Content="text/html; charset=Windows-1252">
+<TITLE>Exporting Refactoring Plan</TITLE>
+<link href="../../book.css" rel="stylesheet" type="text/css" />
+</HEAD>
+<body>
+
+	<H1><img align="middle" border="0" src="../images/4.png">Exporting Refactoring Plan</H1>
+<P>
+In this section appears how to export the refactoring plan that has been executed on a certain project, in such a way that later it could be executed on a new project that has the pertinent characteristics. 
+
+<OL>
+	<LI><p>Inside Eclipse select the menu item <STRONG>Dynamic Refactoring &gt; Export 
+	Refactoring Plan...</STRONG> to open the <STRONG>Dynamic Refactoring Export</STRONG> dialog.</p><br>
+	
+	<p align="center"><img border="0" src="../images/export/10.png"><br><br>
+	<a name="_Toc176096195"><font size="1"><b>Select Export from menu</b></font></a></p><br>
+
+	<p>The default location in which the plan will be exported can be set from the menu item <STRONG>Window &gt;
+	Preferences</STRONG> in the section "Export directory for the refactoring plan" of the submenu  <STRONG>Dynamic Refactoring</STRONG>.</p><br>
+
+	<p align="center"><img border="0" src="../images/export/11.png"><br>
+	<a name="_Toc176096195"><font size="1"><b>Preferences menu</b></font></a></p><br>
+	</LI>
+
+	<LI>
+	To select a different destination location from the default which want to export the plan, press the button "...".</p><br>
+
+	<p align="center"><img border="0" src="../images/export/12.png"><br>
+	<a name="_Toc176096217"><font size="1"><b>output directory</b></font></a></p><br>
+	</LI>
+
+	<LI>
+	Once the export is requested, it will shown a confirmation message indicating that the export has been performed satisfactorily.
+	
+	<br><p align="center"><img border="0" src="../images/export/13.png"><br><br>
+	<a name="_Toc176096218"><font size="1"><b>Confirmation</b></font></a></p><br>
+
+
+	<p>This will create a folder with the refactoring plan structure which has the following files:
+		<br>&nbsp;&nbsp;&nbsp;&nbsp;- A folder called refactorings that contains a folder for each refactoring of the plan.
+		<br>&nbsp;&nbsp;&nbsp;&nbsp;- A XML file called refactoringPlan.xml keeping a description of each refactoring.
+		<br>&nbsp;&nbsp;&nbsp;&nbsp;- A DTD file called refactoringPlanDTD.dtd containing the structure that must have the file refactoringPlan.xml so it can be interpreted by the application.
+		<br>&nbsp;&nbsp;&nbsp;&nbsp;- A folder that contains all the repository files <code>.class</code> corresponding to the mechanisms (actions, preconditions and postcondiciones) which take part in the refactoring plan.</p><br>
+		
+		<p>To cancel the export operation you can press the <STRONG>Cancel</STRONG> button.<br></p>
+	
+	</LI>
+	
+</OL>
+
+<p><img src="../images/1.png"  alt="Related tasks"></p>    
+<ul class="NavList">
+	<li><a href="importPlan.html">Importing refactoring plan</a><br></li>
+</ul>
+<br>
+
+</body>
+</html>

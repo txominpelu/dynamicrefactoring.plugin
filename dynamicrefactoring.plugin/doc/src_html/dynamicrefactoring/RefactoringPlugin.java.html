@@ -1,0 +1,897 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html><head>
+<title></title>
+  <style type="text/css">
+    <!--code { font-family: Courier New, Courier; font-size: 10pt; margin: 0px; }-->
+  </style>
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+</head><body>
+
+
+<!-- ======================================================== -->
+<!-- = Java Sourcecode to HTML automatically converted code = -->
+<!-- =   Java2Html Converter 5.0 [2006-02-26] by Markus Gebhard  markus@jave.de   = -->
+<!-- =     Further information: http://www.java2html.de     = -->
+<div align="left" class="java">
+<table border="0" cellpadding="3" cellspacing="0" bgcolor="#ffffff">
+   <tr>
+  <!-- start source code -->
+   <td nowrap="nowrap" valign="top" align="left">
+    <code>
+<font color="#3f7f5f">/*&lt;Dynamic&nbsp;Refactoring&nbsp;Plugin&nbsp;For&nbsp;Eclipse&nbsp;2.0&nbsp;-&nbsp;Plugin&nbsp;that&nbsp;allows&nbsp;to&nbsp;perform&nbsp;refactorings&nbsp;</font><br>
+<font color="#3f7f5f">on&nbsp;Java&nbsp;code&nbsp;within&nbsp;Eclipse,&nbsp;as&nbsp;well&nbsp;as&nbsp;to&nbsp;dynamically&nbsp;create&nbsp;and&nbsp;manage&nbsp;new&nbsp;refactorings&gt;</font><br>
+<font color="#ffffff"></font><br>
+<font color="#3f7f5f">Copyright&nbsp;(C)&nbsp;2009&nbsp;&nbsp;Laura&nbsp;Fuente</font><br>
+<font color="#ffffff"></font><br>
+<font color="#3f7f5f">This&nbsp;file&nbsp;is&nbsp;part&nbsp;of&nbsp;Foobar</font><br>
+<font color="#ffffff"></font><br>
+<font color="#3f7f5f">Foobar&nbsp;is&nbsp;free&nbsp;software:&nbsp;you&nbsp;can&nbsp;redistribute&nbsp;it&nbsp;and/or&nbsp;modify</font><br>
+<font color="#3f7f5f">it&nbsp;under&nbsp;the&nbsp;terms&nbsp;of&nbsp;the&nbsp;GNU&nbsp;General&nbsp;Public&nbsp;License&nbsp;as&nbsp;published&nbsp;by</font><br>
+<font color="#3f7f5f">the&nbsp;Free&nbsp;Software&nbsp;Foundation,&nbsp;either&nbsp;version&nbsp;3&nbsp;of&nbsp;the&nbsp;License,&nbsp;or</font><br>
+<font color="#3f7f5f">(at&nbsp;your&nbsp;option)&nbsp;any&nbsp;later&nbsp;version.</font><br>
+<font color="#ffffff"></font><br>
+<font color="#3f7f5f">This&nbsp;program&nbsp;is&nbsp;distributed&nbsp;in&nbsp;the&nbsp;hope&nbsp;that&nbsp;it&nbsp;will&nbsp;be&nbsp;useful,</font><br>
+<font color="#3f7f5f">but&nbsp;WITHOUT&nbsp;ANY&nbsp;WARRANTY;&nbsp;without&nbsp;even&nbsp;the&nbsp;implied&nbsp;warranty&nbsp;of</font><br>
+<font color="#3f7f5f">MERCHANTABILITY&nbsp;or&nbsp;FITNESS&nbsp;FOR&nbsp;A&nbsp;PARTICULAR&nbsp;PURPOSE.&nbsp;&nbsp;See&nbsp;the</font><br>
+<font color="#3f7f5f">GNU&nbsp;General&nbsp;Public&nbsp;License&nbsp;for&nbsp;more&nbsp;details.</font><br>
+<font color="#ffffff"></font><br>
+<font color="#3f7f5f">You&nbsp;should&nbsp;have&nbsp;received&nbsp;a&nbsp;copy&nbsp;of&nbsp;the&nbsp;GNU&nbsp;General&nbsp;Public&nbsp;License</font><br>
+<font color="#3f7f5f">along&nbsp;with&nbsp;this&nbsp;program.&nbsp;&nbsp;If&nbsp;not,&nbsp;see&nbsp;&lt;http://www.gnu.org/licenses/&gt;.*/</font><br>
+<font color="#ffffff"></font><br>
+<font color="#7f0055"><b>package&nbsp;</b></font><font color="#000000">dynamicrefactoring;</font><br>
+<font color="#ffffff"></font><br>
+<font color="#7f0055"><b>import&nbsp;</b></font><font color="#000000">dynamicrefactoring.domain.RefactoringSummary;</font><br>
+<font color="#ffffff"></font><br>
+<font color="#7f0055"><b>import&nbsp;</b></font><font color="#000000">dynamicrefactoring.integration.ModelGenerator;</font><br>
+<font color="#7f0055"><b>import&nbsp;</b></font><font color="#000000">dynamicrefactoring.integration.CodeRegenerator;</font><br>
+<font color="#ffffff"></font><br>
+<font color="#7f0055"><b>import&nbsp;</b></font><font color="#000000">dynamicrefactoring.interfaz.SelectRefactoringWindow;</font><br>
+<font color="#7f0055"><b>import&nbsp;</b></font><font color="#000000">dynamicrefactoring.interfaz.view.HistoryView;</font><br>
+<font color="#7f0055"><b>import&nbsp;</b></font><font color="#000000">dynamicrefactoring.interfaz.view.ProgressView;</font><br>
+<font color="#7f0055"><b>import&nbsp;</b></font><font color="#000000">dynamicrefactoring.interfaz.view.AvailableRefactoringView;</font><br>
+<font color="#ffffff"></font><br>
+<font color="#7f0055"><b>import&nbsp;</b></font><font color="#000000">dynamicrefactoring.listener.IRefactoringRunListener;</font><br>
+<font color="#ffffff"></font><br>
+<font color="#7f0055"><b>import&nbsp;</b></font><font color="#000000">dynamicrefactoring.util.LogManager;</font><br>
+<font color="#7f0055"><b>import&nbsp;</b></font><font color="#000000">dynamicrefactoring.util.PropertyManager;</font><br>
+<font color="#7f0055"><b>import&nbsp;</b></font><font color="#000000">dynamicrefactoring.util.io.FileManager;</font><br>
+<font color="#7f0055"><b>import&nbsp;</b></font><font color="#000000">dynamicrefactoring.util.io.JavaFileManager;</font><br>
+<font color="#7f0055"><b>import&nbsp;</b></font><font color="#000000">dynamicrefactoring.util.selection.SelectionInfo;</font><br>
+<font color="#ffffff"></font><br>
+<font color="#7f0055"><b>import&nbsp;</b></font><font color="#000000">dynamicrefactoring.writer.JDOMXMLRefactoringWriterImp;</font><br>
+<font color="#7f0055"><b>import&nbsp;</b></font><font color="#000000">dynamicrefactoring.writer.RefactoringPlanWriter;</font><br>
+<font color="#ffffff"></font><br>
+<font color="#7f0055"><b>import&nbsp;</b></font><font color="#000000">java.io.File;</font><br>
+<font color="#ffffff"></font><br>
+<font color="#7f0055"><b>import&nbsp;</b></font><font color="#000000">java.util.Calendar;</font><br>
+<font color="#7f0055"><b>import&nbsp;</b></font><font color="#000000">java.util.GregorianCalendar;</font><br>
+<font color="#7f0055"><b>import&nbsp;</b></font><font color="#000000">java.util.List;</font><br>
+<font color="#ffffff"></font><br>
+<font color="#7f0055"><b>import&nbsp;</b></font><font color="#000000">moon.core.ObjectMoon;</font><br>
+<font color="#7f0055"><b>import&nbsp;</b></font><font color="#000000">moon.core.classdef.AttDec;</font><br>
+<font color="#7f0055"><b>import&nbsp;</b></font><font color="#000000">moon.core.classdef.ClassDef;</font><br>
+<font color="#7f0055"><b>import&nbsp;</b></font><font color="#000000">moon.core.classdef.FormalArgument;</font><br>
+<font color="#7f0055"><b>import&nbsp;</b></font><font color="#000000">moon.core.classdef.MethDec;</font><br>
+<font color="#ffffff"></font><br>
+<font color="#7f0055"><b>import&nbsp;</b></font><font color="#000000">org.apache.log4j.Logger;</font><br>
+<font color="#ffffff"></font><br>
+<font color="#7f0055"><b>import&nbsp;</b></font><font color="#000000">org.eclipse.core.resources.IProject;</font><br>
+<font color="#7f0055"><b>import&nbsp;</b></font><font color="#000000">org.eclipse.core.runtime.CoreException;</font><br>
+<font color="#7f0055"><b>import&nbsp;</b></font><font color="#000000">org.eclipse.core.runtime.IConfigurationElement;</font><br>
+<font color="#7f0055"><b>import&nbsp;</b></font><font color="#000000">org.eclipse.core.runtime.IExtension;</font><br>
+<font color="#7f0055"><b>import&nbsp;</b></font><font color="#000000">org.eclipse.core.runtime.IExtensionPoint;</font><br>
+<font color="#7f0055"><b>import&nbsp;</b></font><font color="#000000">org.eclipse.core.runtime.IExtensionRegistry;</font><br>
+<font color="#7f0055"><b>import&nbsp;</b></font><font color="#000000">org.eclipse.core.runtime.ListenerList;</font><br>
+<font color="#7f0055"><b>import&nbsp;</b></font><font color="#000000">org.eclipse.core.runtime.Platform;</font><br>
+<font color="#ffffff"></font><br>
+<font color="#7f0055"><b>import&nbsp;</b></font><font color="#000000">org.eclipse.jdt.core.IJavaProject;</font><br>
+<font color="#7f0055"><b>import&nbsp;</b></font><font color="#000000">org.eclipse.jdt.ui.JavaUI;</font><br>
+<font color="#ffffff"></font><br>
+<font color="#7f0055"><b>import&nbsp;</b></font><font color="#000000">org.eclipse.ui.IEditorInput;</font><br>
+<font color="#7f0055"><b>import&nbsp;</b></font><font color="#000000">org.eclipse.ui.IWorkbenchWindow;</font><br>
+<font color="#7f0055"><b>import&nbsp;</b></font><font color="#000000">org.eclipse.ui.PlatformUI;</font><br>
+<font color="#7f0055"><b>import&nbsp;</b></font><font color="#000000">org.eclipse.ui.IViewReference;</font><br>
+<font color="#7f0055"><b>import&nbsp;</b></font><font color="#000000">org.eclipse.ui.IWorkbenchPage;</font><br>
+<font color="#7f0055"><b>import&nbsp;</b></font><font color="#000000">org.eclipse.ui.plugin.AbstractUIPlugin;</font><br>
+<font color="#ffffff"></font><br>
+<font color="#7f0055"><b>import&nbsp;</b></font><font color="#000000">org.osgi.framework.Bundle;</font><br>
+<font color="#7f0055"><b>import&nbsp;</b></font><font color="#000000">org.osgi.framework.BundleContext;</font><br>
+<font color="#ffffff"></font><br>
+<font color="#7f0055"><b>import&nbsp;</b></font><font color="#000000">repository.IRefactoringMessageListener;</font><br>
+<font color="#7f0055"><b>import&nbsp;</b></font><font color="#000000">repository.RelayListenerRegistry;</font><br>
+<font color="#7f0055"><b>import&nbsp;</b></font><font color="#000000">repository.moon.MOONRefactoring;</font><br>
+<font color="#ffffff"></font><br>
+<font color="#7f0055"><b>import&nbsp;</b></font><font color="#000000">org.eclipse.jface.preference.IPreferenceStore;</font><br>
+<font color="#ffffff"></font><br>
+<font color="#3f5fbf">/**</font><br>
+<font color="#ffffff">&nbsp;</font><font color="#3f5fbf">*&nbsp;Representa&nbsp;el&nbsp;</font><font color="#7f7f9f">&lt;i&gt;</font><font color="#3f5fbf">plugin</font><font color="#7f7f9f">&lt;/i&gt;&nbsp;</font><font color="#3f5fbf">de&nbsp;refactorizaci&oacute;n&nbsp;ante&nbsp;la&nbsp;plataforma&nbsp;Eclipse.</font><br>
+<font color="#ffffff">&nbsp;</font><font color="#3f5fbf">*&nbsp;</font><br>
+<font color="#ffffff">&nbsp;</font><font color="#3f5fbf">*&nbsp;</font><font color="#7f7f9f">&lt;p&gt;</font><font color="#3f5fbf">Act&uacute;a&nbsp;a&nbsp;modo&nbsp;de&nbsp;mediador&nbsp;entre&nbsp;muchos&nbsp;de&nbsp;los&nbsp;componentes&nbsp;que&nbsp;conforman</font><br>
+<font color="#ffffff">&nbsp;</font><font color="#3f5fbf">*&nbsp;el&nbsp;</font><font color="#7f7f9f">&lt;i&gt;</font><font color="#3f5fbf">plugin</font><font color="#7f7f9f">&lt;/i&gt;&nbsp;</font><font color="#3f5fbf">y&nbsp;los&nbsp;coordina&nbsp;de&nbsp;manera&nbsp;que&nbsp;todas&nbsp;&nbsp;las&nbsp;operaciones&nbsp;se</font><br>
+<font color="#ffffff">&nbsp;</font><font color="#3f5fbf">*&nbsp;completen&nbsp;en&nbsp;el&nbsp;orden&nbsp;adecuado.</font><font color="#7f7f9f">&lt;/p&gt;</font><br>
+<font color="#ffffff">&nbsp;</font><font color="#3f5fbf">*&nbsp;</font><br>
+<font color="#ffffff">&nbsp;</font><font color="#3f5fbf">*&nbsp;</font><font color="#7f7f9f">&lt;p&gt;</font><font color="#3f5fbf">Implementa&nbsp;las&nbsp;funciones&nbsp;de&nbsp;arranque&nbsp;y&nbsp;finalizaci&oacute;n&nbsp;ordenados&nbsp;del&nbsp;</font><br>
+<font color="#ffffff">&nbsp;</font><font color="#3f5fbf">*&nbsp;</font><font color="#7f7f9f">&lt;i&gt;</font><font color="#3f5fbf">plugin</font><font color="#7f7f9f">&lt;/i&gt;</font><font color="#3f5fbf">,&nbsp;asignando&nbsp;al&nbsp;principio&nbsp;los&nbsp;recursos&nbsp;que&nbsp;sen&nbsp;necesarios,&nbsp;y</font><br>
+<font color="#ffffff">&nbsp;</font><font color="#3f5fbf">*&nbsp;liber&aacute;ndolos&nbsp;al&nbsp;final&nbsp;de&nbsp;forma&nbsp;ordenada.&nbsp;Tambi&eacute;n&nbsp;elimina&nbsp;al&nbsp;finalizar&nbsp;los</font><br>
+<font color="#ffffff">&nbsp;</font><font color="#3f5fbf">*&nbsp;ficheros&nbsp;temporales&nbsp;creados&nbsp;por&nbsp;el&nbsp;</font><font color="#7f7f9f">&lt;i&gt;</font><font color="#3f5fbf">plugin</font><font color="#7f7f9f">&lt;/i&gt;&nbsp;</font><font color="#3f5fbf">durante&nbsp;la&nbsp;ejecuci&oacute;n.</font><font color="#7f7f9f">&lt;/p&gt;</font><br>
+<font color="#ffffff">&nbsp;</font><font color="#3f5fbf">*&nbsp;</font><br>
+<font color="#ffffff">&nbsp;</font><font color="#3f5fbf">*&nbsp;</font><font color="#7f7f9f">&lt;p&gt;</font><font color="#3f5fbf">Proporciona&nbsp;funciones&nbsp;de&nbsp;acceso&nbsp;a&nbsp;las&nbsp;propiedades&nbsp;del&nbsp;</font><font color="#7f7f9f">&lt;i&gt;</font><font color="#3f5fbf">plugin</font><font color="#7f7f9f">&lt;/i&gt;&nbsp;</font><font color="#3f5fbf">que</font><br>
+<font color="#ffffff">&nbsp;</font><font color="#3f5fbf">*&nbsp;pueden&nbsp;ser&nbsp;necesarias&nbsp;desde&nbsp;otros&nbsp;puntos&nbsp;del&nbsp;mismo,&nbsp;como&nbsp;el&nbsp;directorio&nbsp;de&nbsp;</font><br>
+<font color="#ffffff">&nbsp;</font><font color="#3f5fbf">*&nbsp;los&nbsp;ficheros&nbsp;de&nbsp;recuperaci&oacute;n&nbsp;o&nbsp;de&nbsp;ficheros&nbsp;temporales,&nbsp;o&nbsp;como&nbsp;el&nbsp;propio</font><br>
+<font color="#ffffff">&nbsp;</font><font color="#3f5fbf">*&nbsp;nombre&nbsp;identificativo&nbsp;del&nbsp;</font><font color="#7f7f9f">&lt;i&gt;</font><font color="#3f5fbf">plugin</font><font color="#7f7f9f">&lt;/i&gt;</font><font color="#3f5fbf">.</font><br>
+<font color="#ffffff">&nbsp;</font><font color="#3f5fbf">*&nbsp;</font><br>
+<font color="#ffffff">&nbsp;</font><font color="#3f5fbf">*&nbsp;</font><font color="#7f9fbf">@author&nbsp;</font><font color="#3f5fbf">&lt;A&nbsp;HREF=&#34;mailto:lfd0002@alu.ubu.es&#34;&gt;Laura&nbsp;Fuente&nbsp;de&nbsp;la&nbsp;Fuente</font><font color="#7f7f9f">&lt;/A&gt;</font><br>
+<font color="#ffffff">&nbsp;</font><font color="#3f5fbf">*&nbsp;</font><font color="#7f9fbf">@author&nbsp;</font><font color="#3f5fbf">&lt;A&nbsp;HREF=&#34;mailto:sfd0009@alu.ubu.es&#34;&gt;Sonia&nbsp;Fuente&nbsp;de&nbsp;la&nbsp;Fuente</font><font color="#7f7f9f">&lt;/A&gt;</font><br>
+<font color="#ffffff">&nbsp;</font><font color="#3f5fbf">*&nbsp;</font><font color="#7f9fbf">@author&nbsp;</font><font color="#3f5fbf">&lt;A&nbsp;HREF=&#34;mailto:ehp0001@alu.ubu.es&#34;&gt;Enrique&nbsp;Herrero&nbsp;Paredes</font><font color="#7f7f9f">&lt;/A&gt;</font><br>
+<font color="#ffffff">&nbsp;</font><font color="#3f5fbf">*/</font><br>
+<font color="#7f0055"><b>public&nbsp;class&nbsp;</b></font><font color="#000000">RefactoringPlugin&nbsp;</font><font color="#7f0055"><b>extends&nbsp;</b></font><font color="#000000">AbstractUIPlugin&nbsp;</font><br>
+<font color="#ffffff">&nbsp;&nbsp;</font><font color="#7f0055"><b>implements&nbsp;</b></font><font color="#000000">IRefactoringMessageListener&nbsp;</font><font color="#000000">{</font><br>
+<font color="#ffffff">&nbsp;&nbsp;</font><br>
+<font color="#ffffff">&nbsp;&nbsp;</font><br>
+<font color="#ffffff">&nbsp;&nbsp;</font><font color="#3f7f5f">//The&nbsp;identifiers&nbsp;for&nbsp;the&nbsp;preferences&nbsp;&nbsp;</font><br>
+<font color="#ffffff">&nbsp;&nbsp;</font><br>
+<font color="#ffffff">&nbsp;&nbsp;</font><font color="#3f5fbf">/**</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;</font><font color="#3f5fbf">*&nbsp;Identificador&nbsp;que&nbsp;guarda&nbsp;el&nbsp;directorio&nbsp;de&nbsp;exportaci&oacute;n&nbsp;de&nbsp;un&nbsp;plan&nbsp;de&nbsp;refactorizaciones.</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;</font><font color="#3f5fbf">*/</font><br>
+<font color="#ffffff">&nbsp;&nbsp;</font><font color="#7f0055"><b>public&nbsp;static&nbsp;final&nbsp;</b></font><font color="#000000">String&nbsp;EXPORT_PLAN_DIRECTORY&nbsp;&nbsp;=&nbsp;</font><font color="#2a00ff">&#34;exportPlanDirectory&#34;</font><font color="#000000">;</font><br>
+<font color="#ffffff">&nbsp;&nbsp;</font><br>
+<font color="#ffffff">&nbsp;&nbsp;</font><font color="#3f5fbf">/**</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;</font><font color="#3f5fbf">*&nbsp;Identificador&nbsp;que&nbsp;guarda&nbsp;el&nbsp;directorio&nbsp;de&nbsp;importaci&oacute;n&nbsp;de&nbsp;un&nbsp;plan&nbsp;de&nbsp;refactorizaciones.</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;</font><font color="#3f5fbf">*/</font><br>
+<font color="#ffffff">&nbsp;&nbsp;</font><font color="#7f0055"><b>public&nbsp;static&nbsp;final&nbsp;</b></font><font color="#000000">String&nbsp;IMPORT_PLAN_DIRECTORY&nbsp;&nbsp;=&nbsp;</font><font color="#2a00ff">&#34;importPlanDirectory&#34;</font><font color="#000000">;</font><br>
+<font color="#ffffff">&nbsp;&nbsp;</font><br>
+<font color="#ffffff">&nbsp;&nbsp;</font><br>
+<font color="#ffffff">&nbsp;&nbsp;</font><font color="#3f7f5f">//The&nbsp;default&nbsp;values&nbsp;for&nbsp;the&nbsp;preferences</font><br>
+<font color="#ffffff">&nbsp;&nbsp;</font><br>
+<font color="#ffffff">&nbsp;&nbsp;</font><font color="#3f5fbf">/**</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;</font><font color="#3f5fbf">*&nbsp;Valor&nbsp;por&nbsp;defecto&nbsp;del&nbsp;directorio&nbsp;de&nbsp;exportaci&oacute;n&nbsp;de&nbsp;un&nbsp;plan&nbsp;de&nbsp;refactorizaciones.</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;</font><font color="#3f5fbf">*/</font><br>
+<font color="#ffffff">&nbsp;&nbsp;</font><font color="#7f0055"><b>public&nbsp;static&nbsp;final&nbsp;</b></font><font color="#000000">String&nbsp;DEFAULT_EXPORT_PLAN_DIRECTORY&nbsp;=&nbsp;RefactoringPlugin.getDefault</font><font color="#000000">()</font><font color="#000000">.getBundleRootDir</font><font color="#000000">()</font><font color="#000000">;</font><br>
+<font color="#ffffff">&nbsp;&nbsp;</font><br>
+<font color="#ffffff">&nbsp;&nbsp;</font><font color="#3f5fbf">/**</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;</font><font color="#3f5fbf">*&nbsp;Valor&nbsp;por&nbsp;defecto&nbsp;del&nbsp;directorio&nbsp;de&nbsp;importaci&oacute;n&nbsp;de&nbsp;un&nbsp;plan&nbsp;de&nbsp;refactorizaciones.</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;</font><font color="#3f5fbf">*/</font><br>
+<font color="#ffffff">&nbsp;&nbsp;</font><font color="#7f0055"><b>public&nbsp;static&nbsp;final&nbsp;</b></font><font color="#000000">String&nbsp;DEFAULT_IMPORT_PLAN_DIRECTORY&nbsp;=&nbsp;RefactoringPlugin.getDefault</font><font color="#000000">()</font><font color="#000000">.getBundleRootDir</font><font color="#000000">()&nbsp;</font><font color="#000000">+&nbsp;</font><font color="#2a00ff">&#34;refactoringPlan&#34;</font><font color="#000000">;</font><br>
+<font color="#ffffff">&nbsp;&nbsp;</font><br>
+<font color="#ffffff">&nbsp;&nbsp;</font><br>
+<font color="#ffffff">&nbsp;&nbsp;</font><br>
+<font color="#ffffff">&nbsp;&nbsp;</font><font color="#3f5fbf">/**</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;</font><font color="#3f5fbf">*&nbsp;El&nbsp;nombre&nbsp;del&nbsp;estado&nbsp;inicial&nbsp;del&nbsp;modelo.</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;</font><font color="#3f5fbf">*/</font><br>
+<font color="#ffffff">&nbsp;&nbsp;</font><font color="#7f0055"><b>private&nbsp;static&nbsp;final&nbsp;</b></font><font color="#000000">String&nbsp;INITIAL_REF_NAME&nbsp;=&nbsp;</font><font color="#2a00ff">&#34;Initial&#34;</font><font color="#000000">;&nbsp;</font><font color="#3f7f5f">//$NON-NLS-1$</font><br>
+<font color="#ffffff"></font><br>
+<font color="#ffffff">&nbsp;&nbsp;</font><font color="#3f5fbf">/**</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;</font><font color="#3f5fbf">*&nbsp;El&nbsp;nombre&nbsp;del&nbsp;&#34;bundle&#34;&nbsp;asociado&nbsp;al&nbsp;plugin.</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;</font><font color="#3f5fbf">*/</font><br>
+<font color="#ffffff">&nbsp;&nbsp;</font><font color="#7f0055"><b>public&nbsp;static&nbsp;final&nbsp;</b></font><font color="#000000">String&nbsp;BUNDLE_NAME&nbsp;=&nbsp;</font><font color="#2a00ff">&#34;DynamicRefactoring&#34;</font><font color="#000000">;&nbsp;</font><font color="#3f7f5f">//$NON-NLS-1$</font><br>
+<font color="#ffffff">&nbsp;&nbsp;</font><br>
+<font color="#ffffff">&nbsp;&nbsp;</font><font color="#3f5fbf">/**</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;</font><font color="#3f5fbf">*&nbsp;El&nbsp;nombre&nbsp;del&nbsp;punto&nbsp;de&nbsp;extensi&oacute;n&nbsp;de&nbsp;los&nbsp;</font><font color="#7f7f9f">&lt;i&gt;</font><font color="#3f5fbf">listeners</font><font color="#7f7f9f">&lt;/i&gt;</font><font color="#3f5fbf">.</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;</font><font color="#3f5fbf">*/</font><br>
+<font color="#ffffff">&nbsp;&nbsp;</font><font color="#7f0055"><b>private&nbsp;static&nbsp;final&nbsp;</b></font><font color="#000000">String&nbsp;LISTENER_EXTPOINT&nbsp;=&nbsp;BUNDLE_NAME&nbsp;+&nbsp;</font><font color="#2a00ff">&#34;.&#34;&nbsp;</font><font color="#000000">+&nbsp;</font><font color="#2a00ff">&#34;listeners&#34;</font><font color="#000000">;&nbsp;</font><font color="#3f7f5f">//$NON-NLS-1$&nbsp;//$NON-NLS-2$</font><br>
+<font color="#ffffff"></font><br>
+<font color="#ffffff">&nbsp;&nbsp;</font><font color="#3f5fbf">/**</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;</font><font color="#3f5fbf">*&nbsp;Elemento&nbsp;de&nbsp;registro&nbsp;de&nbsp;errores&nbsp;y&nbsp;otros&nbsp;eventos&nbsp;de&nbsp;la&nbsp;clase.</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;</font><font color="#3f5fbf">*/</font><br>
+<font color="#ffffff">&nbsp;&nbsp;</font><font color="#7f0055"><b>private&nbsp;static&nbsp;final&nbsp;</b></font><font color="#000000">Logger&nbsp;logger&nbsp;=&nbsp;</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#000000">Logger.getLogger</font><font color="#000000">(</font><font color="#000000">RefactoringPlugin.</font><font color="#7f0055"><b>class</b></font><font color="#000000">)</font><font color="#000000">;</font><br>
+<font color="#ffffff"></font><br>
+<font color="#ffffff">&nbsp;&nbsp;</font><font color="#3f5fbf">/**</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;</font><font color="#3f5fbf">*&nbsp;Instancia&nbsp;&uacute;nica&nbsp;del&nbsp;plug-in&nbsp;(patr&oacute;n&nbsp;de&nbsp;dise&ntilde;o&nbsp;Singleton).</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;</font><font color="#3f5fbf">*/</font><br>
+<font color="#ffffff">&nbsp;&nbsp;</font><font color="#7f0055"><b>private&nbsp;static&nbsp;</b></font><font color="#000000">RefactoringPlugin&nbsp;myInstance;</font><br>
+<font color="#ffffff"></font><br>
+<font color="#ffffff">&nbsp;&nbsp;</font><font color="#3f5fbf">/**</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;</font><font color="#3f5fbf">*&nbsp;Nombre&nbsp;del&nbsp;fichero&nbsp;mod&nbsp;que&nbsp;contiene&nbsp;el&nbsp;estado&nbsp;actual&nbsp;del&nbsp;modelo&nbsp;sobre&nbsp;el</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;</font><font color="#3f5fbf">*&nbsp;que&nbsp;se&nbsp;est&aacute;n&nbsp;ejecutando&nbsp;refactorizaciones.</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;</font><font color="#3f5fbf">*/</font><br>
+<font color="#ffffff">&nbsp;&nbsp;</font><font color="#7f0055"><b>private&nbsp;</b></font><font color="#000000">String&nbsp;currentRefactoring;</font><br>
+<font color="#ffffff">&nbsp;&nbsp;</font><br>
+<font color="#ffffff">&nbsp;&nbsp;</font><font color="#3f5fbf">/**</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;</font><font color="#3f5fbf">*&nbsp;Selecci&oacute;n&nbsp;actual&nbsp;sobre&nbsp;la&nbsp;interfaz.</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;</font><font color="#3f5fbf">*/</font><br>
+<font color="#ffffff">&nbsp;&nbsp;</font><font color="#7f0055"><b>private&nbsp;</b></font><font color="#000000">SelectionInfo&nbsp;currentSelection;</font><br>
+<font color="#ffffff">&nbsp;&nbsp;</font><br>
+<font color="#ffffff">&nbsp;&nbsp;</font><font color="#3f5fbf">/**</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;</font><font color="#3f5fbf">*&nbsp;Proyecto&nbsp;actual&nbsp;sobre&nbsp;el&nbsp;que&nbsp;se&nbsp;trabaja.</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;</font><font color="#3f5fbf">*/</font><br>
+<font color="#ffffff">&nbsp;&nbsp;</font><font color="#7f0055"><b>private&nbsp;</b></font><font color="#000000">IJavaProject&nbsp;currentProject;</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><br>
+<font color="#ffffff">&nbsp;&nbsp;</font><font color="#3f5fbf">/**</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;</font><font color="#3f5fbf">*&nbsp;Conjunto&nbsp;de&nbsp;</font><font color="#7f7f9f">&lt;i&gt;</font><font color="#3f5fbf">listeners</font><font color="#7f7f9f">&lt;/i&gt;&nbsp;</font><font color="#3f5fbf">a&nbsp;los&nbsp;que&nbsp;hay&nbsp;que&nbsp;informar&nbsp;acerca&nbsp;del&nbsp;</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;</font><font color="#3f5fbf">*&nbsp;progreso&nbsp;de&nbsp;las&nbsp;refactorizaciones&nbsp;ejecutadas.</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;</font><font color="#3f5fbf">*/</font><br>
+<font color="#ffffff">&nbsp;&nbsp;</font><font color="#7f0055"><b>private&nbsp;</b></font><font color="#000000">ListenerList&nbsp;listeners;</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;</font><br>
+<font color="#ffffff">&nbsp;&nbsp;</font><font color="#3f5fbf">/**</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;</font><font color="#3f5fbf">*&nbsp;Constructor.</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;</font><font color="#3f5fbf">*&nbsp;</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;</font><font color="#3f5fbf">*&nbsp;P&uacute;blico,&nbsp;para&nbsp;que&nbsp;sea&nbsp;accesible&nbsp;a&nbsp;Eclipse&nbsp;como&nbsp;plug-in.</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;</font><font color="#3f5fbf">*/</font><br>
+<font color="#ffffff">&nbsp;&nbsp;</font><font color="#7f0055"><b>public&nbsp;</b></font><font color="#000000">RefactoringPlugin</font><font color="#000000">(){</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#7f0055"><b>super</b></font><font color="#000000">()</font><font color="#000000">;</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#000000">myInstance&nbsp;=&nbsp;</font><font color="#7f0055"><b>this</b></font><font color="#000000">;</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#000000">currentRefactoring&nbsp;=&nbsp;INITIAL_REF_NAME;</font><br>
+<font color="#ffffff">&nbsp;&nbsp;</font><font color="#000000">}</font><br>
+<font color="#ffffff"></font><br>
+<font color="#ffffff">&nbsp;&nbsp;</font><font color="#3f5fbf">/**</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;</font><font color="#3f5fbf">*&nbsp;Inicializa&nbsp;el&nbsp;</font><font color="#7f7f9f">&lt;i&gt;</font><font color="#3f5fbf">plugin</font><font color="#7f7f9f">&lt;/i&gt;</font><font color="#3f5fbf">.</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;</font><font color="#3f5fbf">*&nbsp;</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;</font><font color="#3f5fbf">*&nbsp;</font><font color="#7f9fbf">@param&nbsp;</font><font color="#3f5fbf">context&nbsp;el&nbsp;contexto&nbsp;en&nbsp;el&nbsp;que&nbsp;se&nbsp;ejecuta&nbsp;el&nbsp;</font><font color="#7f7f9f">&lt;i&gt;</font><font color="#3f5fbf">bundle</font><font color="#7f7f9f">&lt;/i&gt;</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;</font><font color="#3f5fbf">*&nbsp;del&nbsp;</font><font color="#7f7f9f">&lt;i&gt;</font><font color="#3f5fbf">plugin</font><font color="#7f7f9f">&lt;/i&gt;</font><font color="#3f5fbf">.</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;</font><font color="#3f5fbf">*&nbsp;</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;</font><font color="#3f5fbf">*&nbsp;</font><font color="#7f9fbf">@throws&nbsp;</font><font color="#3f5fbf">Exception&nbsp;si&nbsp;se&nbsp;produce&nbsp;un&nbsp;error&nbsp;al&nbsp;arrancar&nbsp;el&nbsp;</font><font color="#7f7f9f">&lt;i&gt;</font><font color="#3f5fbf">plugin</font><font color="#7f7f9f">&lt;/i&gt;</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;</font><font color="#3f5fbf">*&nbsp;</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;</font><font color="#3f5fbf">*&nbsp;</font><font color="#7f9fbf">@see&nbsp;</font><font color="#3f5fbf">AbstractUIPlugin#start(BundleContext)</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;</font><font color="#3f5fbf">*/</font><br>
+<font color="#ffffff">&nbsp;&nbsp;</font><font color="#7f0055"><b>public&nbsp;</b></font><font color="#7f0055"><b>void&nbsp;</b></font><font color="#000000">start</font><font color="#000000">(</font><font color="#000000">BundleContext&nbsp;context</font><font color="#000000">)&nbsp;</font><font color="#7f0055"><b>throws&nbsp;</b></font><font color="#000000">Exception</font><font color="#000000">{</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#7f0055"><b>super</b></font><font color="#000000">.start</font><font color="#000000">(</font><font color="#000000">context</font><font color="#000000">)</font><font color="#000000">;</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#000000">MOONRefactoring.resetModel</font><font color="#000000">()</font><font color="#000000">;</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#000000">LogManager.getInstance</font><font color="#000000">()</font><font color="#000000">.loadLogConfig</font><font color="#000000">()</font><font color="#000000">;</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#000000">loadRefactoringTypes</font><font color="#000000">()</font><font color="#000000">;</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#000000">RefactoringPlanWriter.getInstance</font><font color="#000000">()</font><font color="#000000">;</font><br>
+<font color="#ffffff">&nbsp;&nbsp;</font><font color="#000000">}</font><br>
+<font color="#ffffff">&nbsp;&nbsp;</font><br>
+<font color="#ffffff">&nbsp;&nbsp;</font><font color="#3f5fbf">/**&nbsp;</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;</font><font color="#3f5fbf">*&nbsp;Initializes&nbsp;a&nbsp;preference&nbsp;store&nbsp;with&nbsp;default&nbsp;preference&nbsp;values&nbsp;</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;</font><font color="#3f5fbf">*&nbsp;for&nbsp;this&nbsp;plug-in.</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;</font><font color="#3f5fbf">*&nbsp;</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;</font><font color="#3f5fbf">*&nbsp;</font><font color="#7f9fbf">@param&nbsp;</font><font color="#3f5fbf">store&nbsp;the&nbsp;preference&nbsp;store&nbsp;to&nbsp;fill</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;</font><font color="#3f5fbf">*/</font><br>
+<font color="#ffffff">&nbsp;&nbsp;</font><font color="#7f0055"><b>protected&nbsp;</b></font><font color="#7f0055"><b>void&nbsp;</b></font><font color="#000000">initializeDefaultPreferences</font><font color="#000000">(</font><font color="#000000">IPreferenceStore&nbsp;store</font><font color="#000000">)&nbsp;{</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#000000">store.setDefault</font><font color="#000000">(</font><font color="#000000">EXPORT_PLAN_DIRECTORY,&nbsp;DEFAULT_EXPORT_PLAN_DIRECTORY</font><font color="#000000">)</font><font color="#000000">;</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#000000">store.setDefault</font><font color="#000000">(</font><font color="#000000">IMPORT_PLAN_DIRECTORY,&nbsp;DEFAULT_IMPORT_PLAN_DIRECTORY</font><font color="#000000">)</font><font color="#000000">;</font><br>
+<font color="#ffffff">&nbsp;&nbsp;</font><font color="#000000">}</font><br>
+<font color="#ffffff">&nbsp;&nbsp;</font><br>
+<font color="#ffffff">&nbsp;&nbsp;</font><font color="#3f5fbf">/**</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;</font><font color="#3f5fbf">*&nbsp;Devuelve&nbsp;el&nbsp;valor&nbsp;por&nbsp;defecto&nbsp;del&nbsp;directorio&nbsp;de&nbsp;d&oacute;nde&nbsp;selecciona&nbsp;el&nbsp;plan&nbsp;de&nbsp;</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;</font><font color="#3f5fbf">*&nbsp;refactorizaciones&nbsp;a&nbsp;importar.</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;</font><font color="#3f5fbf">*&nbsp;</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;</font><font color="#3f5fbf">*&nbsp;</font><font color="#7f9fbf">@return&nbsp;</font><font color="#3f5fbf">valor&nbsp;por&nbsp;defecto&nbsp;del&nbsp;directorio&nbsp;de&nbsp;importaci&oacute;n&nbsp;del&nbsp;plan.</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;</font><font color="#3f5fbf">*/</font><br>
+<font color="#ffffff">&nbsp;&nbsp;</font><font color="#7f0055"><b>public&nbsp;</b></font><font color="#000000">String&nbsp;getDefaultImportRefactoringPlanPreference</font><font color="#000000">()&nbsp;{</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#7f0055"><b>return&nbsp;</b></font><font color="#000000">getPreferenceStore</font><font color="#000000">()</font><font color="#000000">.getDefaultString</font><font color="#000000">(</font><font color="#000000">IMPORT_PLAN_DIRECTORY</font><font color="#000000">)</font><font color="#000000">;</font><br>
+<font color="#ffffff">&nbsp;&nbsp;</font><font color="#000000">}</font><br>
+<font color="#ffffff"></font><br>
+<font color="#ffffff">&nbsp;&nbsp;</font><font color="#3f5fbf">/**</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;</font><font color="#3f5fbf">*&nbsp;Devuelve&nbsp;el&nbsp;valor&nbsp;del&nbsp;directorio&nbsp;de&nbsp;d&oacute;nde&nbsp;selecciona&nbsp;el&nbsp;plan&nbsp;de&nbsp;</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;</font><font color="#3f5fbf">*&nbsp;refactorizaciones&nbsp;a&nbsp;importar.</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;</font><font color="#3f5fbf">*&nbsp;</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;</font><font color="#3f5fbf">*&nbsp;</font><font color="#7f9fbf">@return&nbsp;</font><font color="#3f5fbf">valor&nbsp;del&nbsp;directorio&nbsp;de&nbsp;importaci&oacute;n&nbsp;del&nbsp;plan.</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;</font><font color="#3f5fbf">*&nbsp;</font><font color="#7f9fbf">@see&nbsp;</font><font color="#3f5fbf">#setImportRefactoringPlanPreference</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;</font><font color="#3f5fbf">*/</font><br>
+<font color="#ffffff">&nbsp;&nbsp;</font><font color="#7f0055"><b>public&nbsp;</b></font><font color="#000000">String&nbsp;getImportRefactoringPlanPreference</font><font color="#000000">()&nbsp;{</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#7f0055"><b>return&nbsp;</b></font><font color="#000000">getPreferenceStore</font><font color="#000000">()</font><font color="#000000">.getString</font><font color="#000000">(</font><font color="#000000">IMPORT_PLAN_DIRECTORY</font><font color="#000000">)</font><font color="#000000">;</font><br>
+<font color="#ffffff">&nbsp;&nbsp;</font><font color="#000000">}</font><br>
+<font color="#ffffff">&nbsp;&nbsp;</font><br>
+<font color="#ffffff">&nbsp;&nbsp;</font><font color="#3f5fbf">/**</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;</font><font color="#3f5fbf">*&nbsp;Devuelve&nbsp;el&nbsp;valor&nbsp;por&nbsp;defecto&nbsp;del&nbsp;directorio&nbsp;en&nbsp;d&oacute;nde&nbsp;se&nbsp;exportara&nbsp;el&nbsp;plan&nbsp;de&nbsp;</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;</font><font color="#3f5fbf">*&nbsp;refactorizaciones.</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;</font><font color="#3f5fbf">*&nbsp;</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;</font><font color="#3f5fbf">*&nbsp;</font><font color="#7f9fbf">@return&nbsp;</font><font color="#3f5fbf">valor&nbsp;por&nbsp;defecto&nbsp;del&nbsp;directorio&nbsp;de&nbsp;exportaci&oacute;n&nbsp;del&nbsp;plan.</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;</font><font color="#3f5fbf">*&nbsp;</font><font color="#7f9fbf">@see&nbsp;</font><font color="#3f5fbf">#setImportRefactoringPlanPreference</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;</font><font color="#3f5fbf">*/</font><br>
+<font color="#ffffff">&nbsp;&nbsp;</font><font color="#7f0055"><b>public&nbsp;</b></font><font color="#000000">String&nbsp;getDefaultExportRefactoringPlanPreference</font><font color="#000000">()&nbsp;{</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#7f0055"><b>return&nbsp;</b></font><font color="#000000">getPreferenceStore</font><font color="#000000">()</font><font color="#000000">.getDefaultString</font><font color="#000000">(</font><font color="#000000">EXPORT_PLAN_DIRECTORY</font><font color="#000000">)</font><font color="#000000">;</font><br>
+<font color="#ffffff">&nbsp;&nbsp;</font><font color="#000000">}</font><br>
+<font color="#ffffff"></font><br>
+<font color="#ffffff">&nbsp;&nbsp;</font><font color="#3f5fbf">/**</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;</font><font color="#3f5fbf">*&nbsp;Devuelve&nbsp;el&nbsp;valor&nbsp;del&nbsp;directorio&nbsp;en&nbsp;d&oacute;nde&nbsp;se&nbsp;exportara&nbsp;el&nbsp;plan&nbsp;de&nbsp;</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;</font><font color="#3f5fbf">*&nbsp;refactorizaciones.</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;</font><font color="#3f5fbf">*&nbsp;</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;</font><font color="#3f5fbf">*&nbsp;</font><font color="#7f9fbf">@return&nbsp;</font><font color="#3f5fbf">valor&nbsp;del&nbsp;directorio&nbsp;de&nbsp;exportaci&oacute;n&nbsp;del&nbsp;plan.</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;</font><font color="#3f5fbf">*&nbsp;</font><font color="#7f9fbf">@see&nbsp;</font><font color="#3f5fbf">#setExportRefactoringPlanPreference</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;</font><font color="#3f5fbf">*/</font><br>
+<font color="#ffffff">&nbsp;&nbsp;</font><font color="#7f0055"><b>public&nbsp;</b></font><font color="#000000">String&nbsp;getExportRefactoringPlanPreference</font><font color="#000000">()&nbsp;{</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#7f0055"><b>return&nbsp;</b></font><font color="#000000">getPreferenceStore</font><font color="#000000">()</font><font color="#000000">.getString</font><font color="#000000">(</font><font color="#000000">EXPORT_PLAN_DIRECTORY</font><font color="#000000">)</font><font color="#000000">;</font><br>
+<font color="#ffffff">&nbsp;&nbsp;</font><font color="#000000">}</font><br>
+<font color="#ffffff">&nbsp;&nbsp;</font><br>
+<font color="#ffffff">&nbsp;&nbsp;</font><font color="#3f5fbf">/**</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;</font><font color="#3f5fbf">*&nbsp;Establece&nbsp;el&nbsp;valor&nbsp;del&nbsp;directorio&nbsp;en&nbsp;d&oacute;nde&nbsp;se&nbsp;exportara&nbsp;el&nbsp;plan&nbsp;de&nbsp;</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;</font><font color="#3f5fbf">*&nbsp;refactorizaciones.</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;</font><font color="#3f5fbf">*&nbsp;</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;</font><font color="#3f5fbf">*&nbsp;</font><font color="#7f9fbf">@param&nbsp;</font><font color="#3f5fbf">directory&nbsp;directorio&nbsp;de&nbsp;exportaci&oacute;n&nbsp;del&nbsp;plan.</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;</font><font color="#3f5fbf">*&nbsp;</font><font color="#7f9fbf">@see&nbsp;</font><font color="#3f5fbf">#getExportRefactoringPlanPreference</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;</font><font color="#3f5fbf">*/</font><br>
+<font color="#ffffff">&nbsp;&nbsp;</font><font color="#7f0055"><b>public&nbsp;</b></font><font color="#7f0055"><b>void&nbsp;</b></font><font color="#000000">setExportRefactoringPlanPreference</font><font color="#000000">(</font><font color="#000000">String&nbsp;directory</font><font color="#000000">)&nbsp;{</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#000000">getPreferenceStore</font><font color="#000000">()</font><font color="#000000">.setValue</font><font color="#000000">(</font><font color="#000000">EXPORT_PLAN_DIRECTORY,&nbsp;directory</font><font color="#000000">)</font><font color="#000000">;</font><br>
+<font color="#ffffff">&nbsp;&nbsp;</font><font color="#000000">}</font><br>
+<font color="#ffffff">&nbsp;&nbsp;</font><br>
+<font color="#ffffff">&nbsp;&nbsp;</font><font color="#3f5fbf">/**</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;</font><font color="#3f5fbf">*&nbsp;Establece&nbsp;el&nbsp;valor&nbsp;del&nbsp;directorio&nbsp;de&nbsp;d&oacute;nde&nbsp;selecciona&nbsp;el&nbsp;plan&nbsp;de&nbsp;</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;</font><font color="#3f5fbf">*&nbsp;refactorizaciones&nbsp;a&nbsp;importar.</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;</font><font color="#3f5fbf">*&nbsp;</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;</font><font color="#3f5fbf">*&nbsp;</font><font color="#7f9fbf">@param&nbsp;</font><font color="#3f5fbf">directory&nbsp;directorio&nbsp;de&nbsp;importaci&oacute;n&nbsp;del&nbsp;plan.</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;</font><font color="#3f5fbf">*&nbsp;</font><font color="#7f9fbf">@see&nbsp;</font><font color="#3f5fbf">#getImportRefactoringPlanPreference</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;</font><font color="#3f5fbf">*/</font><br>
+<font color="#ffffff">&nbsp;&nbsp;</font><font color="#7f0055"><b>public&nbsp;</b></font><font color="#7f0055"><b>void&nbsp;</b></font><font color="#000000">setImportRefactoringPlanPreference</font><font color="#000000">(</font><font color="#000000">String&nbsp;directory</font><font color="#000000">)&nbsp;{</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#000000">getPreferenceStore</font><font color="#000000">()</font><font color="#000000">.setValue</font><font color="#000000">(</font><font color="#000000">IMPORT_PLAN_DIRECTORY,&nbsp;directory</font><font color="#000000">)</font><font color="#000000">;</font><br>
+<font color="#ffffff">&nbsp;&nbsp;</font><font color="#000000">}</font><br>
+<font color="#ffffff">&nbsp;&nbsp;</font><br>
+<font color="#ffffff">&nbsp;&nbsp;</font><font color="#3f5fbf">/**</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;</font><font color="#3f5fbf">*&nbsp;Elimina&nbsp;el&nbsp;directorio&nbsp;y&nbsp;posibles&nbsp;los&nbsp;ficheros&nbsp;de&nbsp;</font><font color="#7f7f9f">&lt;i&gt;</font><font color="#3f5fbf">backup</font><font color="#7f7f9f">&lt;/i&gt;&nbsp;</font><font color="#3f5fbf">generados&nbsp;</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;</font><font color="#3f5fbf">*&nbsp;por&nbsp;el&nbsp;</font><font color="#7f7f9f">&lt;i&gt;</font><font color="#3f5fbf">plugin</font><font color="#7f7f9f">&lt;/i&gt;&nbsp;</font><font color="#3f5fbf">durante&nbsp;la&nbsp;ejecuci&oacute;n&nbsp;de&nbsp;refactorizaciones,&nbsp;as&iacute;&nbsp;como&nbsp;</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;</font><font color="#3f5fbf">*&nbsp;el&nbsp;fichero&nbsp;MOD&nbsp;utilizado&nbsp;por&nbsp;defecto&nbsp;para&nbsp;guardar&nbsp;el&nbsp;modelo&nbsp;MOON&nbsp;en&nbsp;uso.</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;</font><font color="#3f5fbf">*&nbsp;</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;</font><font color="#3f5fbf">*&nbsp;</font><font color="#7f9fbf">@param&nbsp;</font><font color="#3f5fbf">context&nbsp;el&nbsp;contexto&nbsp;en&nbsp;el&nbsp;que&nbsp;se&nbsp;ejecuta&nbsp;el&nbsp;</font><font color="#7f7f9f">&lt;i&gt;</font><font color="#3f5fbf">bundle</font><font color="#7f7f9f">&lt;/i&gt;&nbsp;</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;</font><font color="#3f5fbf">*&nbsp;del&nbsp;</font><font color="#7f7f9f">&lt;i&gt;</font><font color="#3f5fbf">plugin</font><font color="#7f7f9f">&lt;/i&gt;</font><font color="#3f5fbf">.</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;</font><font color="#3f5fbf">*&nbsp;</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;</font><font color="#3f5fbf">*&nbsp;</font><font color="#7f9fbf">@throws&nbsp;</font><font color="#3f5fbf">Exception&nbsp;si&nbsp;se&nbsp;produce&nbsp;un&nbsp;error&nbsp;al&nbsp;para&nbsp;el&nbsp;</font><font color="#7f7f9f">&lt;i&gt;</font><font color="#3f5fbf">plugin</font><font color="#7f7f9f">&lt;/i&gt;</font><font color="#3f5fbf">.</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;</font><font color="#3f5fbf">*&nbsp;</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;</font><font color="#3f5fbf">*&nbsp;</font><font color="#7f9fbf">@see&nbsp;</font><font color="#3f5fbf">AbstractUIPlugin#stop(BundleContext)</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;</font><font color="#3f5fbf">*/</font><br>
+<font color="#ffffff">&nbsp;&nbsp;</font><font color="#646464">@Override</font><br>
+<font color="#ffffff">&nbsp;&nbsp;</font><font color="#7f0055"><b>public&nbsp;</b></font><font color="#7f0055"><b>void&nbsp;</b></font><font color="#000000">stop</font><font color="#000000">(</font><font color="#000000">BundleContext&nbsp;context</font><font color="#000000">)&nbsp;</font><font color="#7f0055"><b>throws&nbsp;</b></font><font color="#000000">Exception</font><font color="#000000">{</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#7f0055"><b>try&nbsp;</b></font><font color="#000000">{</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#000000">deleteFiles</font><font color="#000000">()</font><font color="#000000">;</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#000000">myInstance&nbsp;=&nbsp;</font><font color="#7f0055"><b>null</b></font><font color="#000000">;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#000000">}</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#7f0055"><b>catch&nbsp;</b></font><font color="#000000">(</font><font color="#000000">Exception&nbsp;e</font><font color="#000000">){</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#000000">logger.error</font><font color="#000000">(</font><font color="#000000">Messages.RefactoringPlugin_NotStopped&nbsp;+</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#2a00ff">&#34;.\n&#34;&nbsp;</font><font color="#000000">+&nbsp;e.getMessage</font><font color="#000000">())</font><font color="#000000">;&nbsp;</font><font color="#3f7f5f">//$NON-NLS-1$</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#000000">}</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#7f0055"><b>super</b></font><font color="#000000">.stop</font><font color="#000000">(</font><font color="#000000">context</font><font color="#000000">)</font><font color="#000000">;</font><br>
+<font color="#ffffff">&nbsp;&nbsp;</font><font color="#000000">}</font><br>
+<font color="#ffffff"></font><br>
+<font color="#ffffff">&nbsp;&nbsp;</font><font color="#3f5fbf">/**</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;</font><font color="#3f5fbf">*&nbsp;Elimina&nbsp;los&nbsp;ficheros&nbsp;temporales&nbsp;generados&nbsp;por&nbsp;el&nbsp;</font><font color="#7f7f9f">&lt;i&gt;</font><font color="#3f5fbf">plugin</font><font color="#7f7f9f">&lt;/i&gt;&nbsp;</font><font color="#3f5fbf">hasta&nbsp;ese</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;</font><font color="#3f5fbf">*&nbsp;momento&nbsp;(ficheros&nbsp;de&nbsp;</font><font color="#7f7f9f">&lt;i&gt;</font><font color="#3f5fbf">backup</font><font color="#7f7f9f">&lt;/i&gt;&nbsp;</font><font color="#3f5fbf">y&nbsp;de&nbsp;modelo).</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;</font><font color="#3f5fbf">*/</font><br>
+<font color="#ffffff">&nbsp;&nbsp;</font><font color="#7f0055"><b>private&nbsp;</b></font><font color="#7f0055"><b>void&nbsp;</b></font><font color="#000000">deleteFiles</font><font color="#000000">()&nbsp;{</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#000000">String&nbsp;backupDir&nbsp;=&nbsp;getBackupDir</font><font color="#000000">()</font><font color="#000000">;</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#3f7f5f">//&nbsp;Si&nbsp;existe&nbsp;el&nbsp;directorio&nbsp;de&nbsp;backup,&nbsp;se&nbsp;asegura&nbsp;de&nbsp;borrarlo.</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#7f0055"><b>if</b></font><font color="#000000">(</font><font color="#000000">FileManager.emptyDirectories</font><font color="#000000">(</font><font color="#000000">backupDir</font><font color="#000000">))</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#000000">FileManager.deleteDirectories</font><font color="#000000">(</font><font color="#000000">backupDir,&nbsp;</font><font color="#7f0055"><b>true</b></font><font color="#000000">)</font><font color="#000000">;</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#000000">FileManager.deleteFile</font><font color="#000000">(</font><font color="#000000">ModelGenerator.DEFAULT_MOD_NAME</font><font color="#000000">)</font><font color="#000000">;</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#000000">FileManager.deleteFile</font><font color="#000000">(</font><font color="#000000">RefactoringConstants.REFACTORING_TYPES_FILE</font><font color="#000000">)</font><font color="#000000">;</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#000000">FileManager.deleteFile</font><font color="#000000">(</font><font color="#000000">RefactoringConstants.REFACTORING_PLAN_FILE</font><font color="#000000">)</font><font color="#000000">;</font><br>
+<font color="#ffffff">&nbsp;&nbsp;</font><font color="#000000">}</font><br>
+<font color="#ffffff">&nbsp;&nbsp;</font><br>
+<font color="#ffffff">&nbsp;&nbsp;</font><font color="#3f5fbf">/**</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;</font><font color="#3f5fbf">*&nbsp;Carga&nbsp;bajo&nbsp;demanda&nbsp;la&nbsp;lista&nbsp;de&nbsp;</font><font color="#7f7f9f">&lt;i&gt;</font><font color="#3f5fbf">listeners</font><font color="#7f7f9f">&lt;/i&gt;&nbsp;</font><font color="#3f5fbf">registrados&nbsp;para&nbsp;el&nbsp;punto</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;</font><font color="#3f5fbf">*&nbsp;de&nbsp;extensi&oacute;n&nbsp;declarado&nbsp;por&nbsp;el&nbsp;</font><font color="#7f7f9f">&lt;i&gt;</font><font color="#3f5fbf">plugin</font><font color="#7f7f9f">&lt;/i&gt;&nbsp;</font><font color="#3f5fbf">para&nbsp;el&nbsp;registro&nbsp;de&nbsp;</font><font color="#7f7f9f">&lt;i&gt;</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;</font><font color="#3f5fbf">*&nbsp;listeners</font><font color="#7f7f9f">&lt;/i&gt;&nbsp;</font><font color="#3f5fbf">que&nbsp;hagan&nbsp;un&nbsp;seguimiento&nbsp;del&nbsp;progreso&nbsp;de&nbsp;las&nbsp;refactorizaciones</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;</font><font color="#3f5fbf">*&nbsp;ejecutadas.</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;</font><font color="#3f5fbf">*&nbsp;</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;</font><font color="#3f5fbf">*&nbsp;</font><font color="#7f9fbf">@return&nbsp;</font><font color="#3f5fbf">carga&nbsp;bajo&nbsp;demanda&nbsp;la&nbsp;lista&nbsp;de&nbsp;</font><font color="#7f7f9f">&lt;i&gt;</font><font color="#3f5fbf">listeners</font><font color="#7f7f9f">&lt;/i&gt;&nbsp;</font><font color="#3f5fbf">registrados&nbsp;y&nbsp;</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;</font><font color="#3f5fbf">*&nbsp;devuelve&nbsp;la&nbsp;lista&nbsp;obtenida.</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;</font><font color="#3f5fbf">*/</font><br>
+<font color="#ffffff">&nbsp;&nbsp;</font><font color="#7f0055"><b>private&nbsp;</b></font><font color="#000000">ListenerList&nbsp;lazyGetListeners</font><font color="#000000">(){</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#7f0055"><b>if&nbsp;</b></font><font color="#000000">(</font><font color="#000000">listeners&nbsp;==&nbsp;</font><font color="#7f0055"><b>null</b></font><font color="#000000">)</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#000000">listeners&nbsp;=&nbsp;computeListeners</font><font color="#000000">()</font><font color="#000000">;</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#7f0055"><b>else&nbsp;</b></font><font color="#000000">{</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#000000">ListenerList&nbsp;newListeners&nbsp;=&nbsp;computeListeners</font><font color="#000000">()</font><font color="#000000">;</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#000000">Object</font><font color="#000000">[]&nbsp;</font><font color="#000000">_newListeners&nbsp;=&nbsp;newListeners.getListeners</font><font color="#000000">()</font><font color="#000000">;</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#3f7f5f">//&nbsp;Para&nbsp;cada&nbsp;nuevo&nbsp;listener.</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#7f0055"><b>for&nbsp;</b></font><font color="#000000">(</font><font color="#7f0055"><b>int&nbsp;</b></font><font color="#000000">i&nbsp;=&nbsp;</font><font color="#990000">0</font><font color="#000000">;&nbsp;i&nbsp;&lt;&nbsp;_newListeners.length;&nbsp;++i</font><font color="#000000">)</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#000000">listeners.add</font><font color="#000000">(</font><font color="#000000">_newListeners</font><font color="#000000">[</font><font color="#000000">i</font><font color="#000000">])</font><font color="#000000">;</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#000000">}</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#7f0055"><b>return&nbsp;</b></font><font color="#000000">listeners;</font><br>
+<font color="#ffffff">&nbsp;&nbsp;</font><font color="#000000">}</font><br>
+<font color="#ffffff">&nbsp;&nbsp;</font><br>
+<font color="#ffffff">&nbsp;&nbsp;</font><font color="#3f5fbf">/**</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;</font><font color="#3f5fbf">*&nbsp;Obtiene&nbsp;la&nbsp;lista&nbsp;de&nbsp;</font><font color="#7f7f9f">&lt;i&gt;</font><font color="#3f5fbf">listeners</font><font color="#7f7f9f">&lt;/i&gt;&nbsp;</font><font color="#3f5fbf">que&nbsp;se&nbsp;han&nbsp;registrado&nbsp;en&nbsp;el&nbsp;punto&nbsp;de</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;</font><font color="#3f5fbf">*&nbsp;extensi&oacute;n&nbsp;declarado&nbsp;por&nbsp;el&nbsp;</font><font color="#7f7f9f">&lt;i&gt;</font><font color="#3f5fbf">plugin</font><font color="#7f7f9f">&lt;/i&gt;&nbsp;</font><font color="#3f5fbf">para&nbsp;el&nbsp;registro&nbsp;de&nbsp;</font><font color="#7f7f9f">&lt;i&gt;</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;</font><font color="#3f5fbf">*&nbsp;listeners</font><font color="#7f7f9f">&lt;/i&gt;&nbsp;</font><font color="#3f5fbf">a&nbsp;los&nbsp;que&nbsp;notificar&nbsp;acerca&nbsp;del&nbsp;progreso&nbsp;de&nbsp;las&nbsp;refactorizaciones.</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;</font><font color="#3f5fbf">*&nbsp;</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;</font><font color="#3f5fbf">*&nbsp;</font><font color="#7f9fbf">@return&nbsp;</font><font color="#3f5fbf">la&nbsp;lista&nbsp;de&nbsp;</font><font color="#7f7f9f">&lt;i&gt;</font><font color="#3f5fbf">listener</font><font color="#7f7f9f">&lt;/i&gt;&nbsp;</font><font color="#3f5fbf">registrados&nbsp;como&nbsp;extensiones.</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;</font><font color="#3f5fbf">*/</font><br>
+<font color="#ffffff">&nbsp;&nbsp;</font><font color="#7f0055"><b>private&nbsp;</b></font><font color="#000000">ListenerList&nbsp;computeListeners</font><font color="#000000">(){</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#3f7f5f">//&nbsp;Se&nbsp;accede&nbsp;al&nbsp;registro&nbsp;de&nbsp;extensiones&nbsp;de&nbsp;Eclipse.</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#000000">IExtensionRegistry&nbsp;registry&nbsp;=&nbsp;Platform.getExtensionRegistry</font><font color="#000000">()</font><font color="#000000">;</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#3f7f5f">//&nbsp;Se&nbsp;solicita&nbsp;el&nbsp;punto&nbsp;de&nbsp;extensi&oacute;n&nbsp;declarado&nbsp;para&nbsp;los&nbsp;listener&nbsp;del&nbsp;plugin.</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#000000">IExtensionPoint&nbsp;extensionPoint&nbsp;=&nbsp;registry.getExtensionPoint</font><font color="#000000">(</font><font color="#000000">LISTENER_EXTPOINT</font><font color="#000000">)</font><font color="#000000">;&nbsp;</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#3f7f5f">//&nbsp;Se&nbsp;solicitan&nbsp;todas&nbsp;las&nbsp;extensiones&nbsp;registradas&nbsp;en&nbsp;el&nbsp;punto&nbsp;de&nbsp;extensi&oacute;n.</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#000000">IExtension</font><font color="#000000">[]&nbsp;</font><font color="#000000">extensions&nbsp;=&nbsp;extensionPoint.getExtensions</font><font color="#000000">()</font><font color="#000000">;</font><br>
+<font color="#ffffff">&nbsp;&nbsp;</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#3f7f5f">//&nbsp;Se&nbsp;crea&nbsp;la&nbsp;lista&nbsp;de&nbsp;listeners&nbsp;del&nbsp;plugin.</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#000000">ListenerList&nbsp;results&nbsp;=&nbsp;</font><font color="#7f0055"><b>new&nbsp;</b></font><font color="#000000">ListenerList</font><font color="#000000">()</font><font color="#000000">;</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#7f0055"><b>for&nbsp;</b></font><font color="#000000">(</font><font color="#7f0055"><b>int&nbsp;</b></font><font color="#000000">i&nbsp;=&nbsp;</font><font color="#990000">0</font><font color="#000000">;&nbsp;i&nbsp;&lt;&nbsp;extensions.length;&nbsp;i++</font><font color="#000000">){</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#3f7f5f">//&nbsp;Se&nbsp;accede&nbsp;a&nbsp;la&nbsp;configuraci&oacute;n&nbsp;de&nbsp;la&nbsp;siguiente&nbsp;extensi&oacute;n.</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#000000">IConfigurationElement</font><font color="#000000">[]&nbsp;</font><font color="#000000">elements&nbsp;=&nbsp;</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#000000">extensions</font><font color="#000000">[</font><font color="#000000">i</font><font color="#000000">]</font><font color="#000000">.getConfigurationElements</font><font color="#000000">()</font><font color="#000000">;</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#7f0055"><b>for&nbsp;</b></font><font color="#000000">(</font><font color="#7f0055"><b>int&nbsp;</b></font><font color="#000000">j&nbsp;=&nbsp;</font><font color="#990000">0</font><font color="#000000">;&nbsp;j&nbsp;&lt;&nbsp;elements.length;&nbsp;j++</font><font color="#000000">){</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#7f0055"><b>try&nbsp;</b></font><font color="#000000">{</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#3f7f5f">//&nbsp;Se&nbsp;intenta&nbsp;instanciar&nbsp;un&nbsp;listener&nbsp;a&nbsp;partir&nbsp;de&nbsp;la&nbsp;clase</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#3f7f5f">//&nbsp;que&nbsp;implementa&nbsp;la&nbsp;extensi&oacute;n.</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#000000">Object&nbsp;listener&nbsp;=&nbsp;</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#000000">elements</font><font color="#000000">[</font><font color="#000000">j</font><font color="#000000">]</font><font color="#000000">.createExecutableExtension</font><font color="#000000">(</font><font color="#2a00ff">&#34;class&#34;</font><font color="#000000">)</font><font color="#000000">;&nbsp;</font><font color="#3f7f5f">//$NON-NLS-1$</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#7f0055"><b>if&nbsp;</b></font><font color="#000000">(</font><font color="#000000">listener&nbsp;</font><font color="#7f0055"><b>instanceof&nbsp;</b></font><font color="#000000">IRefactoringRunListener</font><font color="#000000">)</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#3f7f5f">//&nbsp;Se&nbsp;registra&nbsp;el&nbsp;nuevo&nbsp;listener.</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#000000">results.add</font><font color="#000000">(</font><font color="#000000">listener</font><font color="#000000">)</font><font color="#000000">;</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#000000">}</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#7f0055"><b>catch&nbsp;</b></font><font color="#000000">(</font><font color="#000000">CoreException&nbsp;e</font><font color="#000000">){</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#000000">logger.error</font><font color="#000000">(</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#000000">Messages.RefactoringPlugin_ErrorRegistering</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#000000">+&nbsp;</font><font color="#2a00ff">&#34;.\n&#34;&nbsp;</font><font color="#000000">+&nbsp;e.getMessage</font><font color="#000000">())</font><font color="#000000">;&nbsp;</font><font color="#3f7f5f">//$NON-NLS-1$</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#000000">}</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#000000">}</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#000000">}</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#7f0055"><b>return&nbsp;</b></font><font color="#000000">results;</font><br>
+<font color="#ffffff">&nbsp;&nbsp;</font><font color="#000000">}</font><br>
+<font color="#ffffff">&nbsp;&nbsp;</font><br>
+<font color="#ffffff">&nbsp;&nbsp;</font><font color="#3f5fbf">/**</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;</font><font color="#3f5fbf">*&nbsp;Registra&nbsp;din&aacute;micamente&nbsp;un&nbsp;nuevo&nbsp;</font><font color="#7f7f9f">&lt;i&gt;</font><font color="#3f5fbf">listener</font><font color="#7f7f9f">&lt;/i&gt;&nbsp;</font><font color="#3f5fbf">en&nbsp;la&nbsp;lista&nbsp;de&nbsp;</font><font color="#7f7f9f">&lt;i&gt;</font><font color="#3f5fbf">listeners</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;</font><font color="#3f5fbf">*&nbsp;</font><font color="#7f7f9f">&lt;/i&gt;&nbsp;</font><font color="#3f5fbf">a&nbsp;los&nbsp;que&nbsp;hay&nbsp;que&nbsp;informar&nbsp;acerca&nbsp;del&nbsp;progreso&nbsp;de&nbsp;las&nbsp;refactorizaciones.</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;</font><font color="#3f5fbf">*&nbsp;</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;</font><font color="#3f5fbf">*&nbsp;</font><font color="#7f9fbf">@param&nbsp;</font><font color="#3f5fbf">listener&nbsp;el&nbsp;nuevo&nbsp;</font><font color="#7f7f9f">&lt;i&gt;</font><font color="#3f5fbf">listener</font><font color="#7f7f9f">&lt;/i&gt;&nbsp;</font><font color="#3f5fbf">que&nbsp;se&nbsp;debe&nbsp;registrar.</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;</font><font color="#3f5fbf">*&nbsp;</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;</font><font color="#3f5fbf">*&nbsp;</font><font color="#7f9fbf">@see&nbsp;</font><font color="#3f5fbf">#removeRefactoringListener(IRefactoringRunListener)</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;</font><font color="#3f5fbf">*/</font><br>
+<font color="#ffffff">&nbsp;&nbsp;</font><font color="#7f0055"><b>public&nbsp;</b></font><font color="#7f0055"><b>void&nbsp;</b></font><font color="#000000">addRefactoringListener</font><font color="#000000">(</font><font color="#000000">IRefactoringRunListener&nbsp;listener</font><font color="#000000">){</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#7f0055"><b>if&nbsp;</b></font><font color="#000000">(</font><font color="#000000">listener&nbsp;!=&nbsp;</font><font color="#7f0055"><b>null</b></font><font color="#000000">)</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#000000">lazyGetListeners</font><font color="#000000">()</font><font color="#000000">.add</font><font color="#000000">(</font><font color="#000000">listener</font><font color="#000000">)</font><font color="#000000">;</font><br>
+<font color="#ffffff">&nbsp;&nbsp;</font><font color="#000000">}</font><br>
+<font color="#ffffff">&nbsp;&nbsp;</font><br>
+<font color="#ffffff">&nbsp;&nbsp;</font><font color="#3f5fbf">/**</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;</font><font color="#3f5fbf">*&nbsp;Elimina&nbsp;din&aacute;micamente&nbsp;un&nbsp;</font><font color="#7f7f9f">&lt;i&gt;</font><font color="#3f5fbf">listener</font><font color="#7f7f9f">&lt;/i&gt;&nbsp;</font><font color="#3f5fbf">de&nbsp;la&nbsp;lista&nbsp;de&nbsp;</font><font color="#7f7f9f">&lt;i&gt;</font><font color="#3f5fbf">listeners</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;</font><font color="#3f5fbf">*&nbsp;</font><font color="#7f7f9f">&lt;/i&gt;&nbsp;</font><font color="#3f5fbf">a&nbsp;los&nbsp;que&nbsp;hay&nbsp;que&nbsp;informar&nbsp;acerca&nbsp;del&nbsp;progreso&nbsp;de&nbsp;las&nbsp;refactorizaciones.</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;</font><font color="#3f5fbf">*&nbsp;</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;</font><font color="#3f5fbf">*&nbsp;</font><font color="#7f9fbf">@param&nbsp;</font><font color="#3f5fbf">listener&nbsp;el&nbsp;</font><font color="#7f7f9f">&lt;i&gt;</font><font color="#3f5fbf">listener</font><font color="#7f7f9f">&lt;/i&gt;&nbsp;</font><font color="#3f5fbf">que&nbsp;se&nbsp;debe&nbsp;eliminar.</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;</font><font color="#3f5fbf">*&nbsp;</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;</font><font color="#3f5fbf">*&nbsp;</font><font color="#7f9fbf">@see&nbsp;</font><font color="#3f5fbf">#addRefactoringListener(IRefactoringRunListener)</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;</font><font color="#3f5fbf">*/</font><br>
+<font color="#ffffff">&nbsp;&nbsp;</font><font color="#7f0055"><b>public&nbsp;</b></font><font color="#7f0055"><b>void&nbsp;</b></font><font color="#000000">removeRefactoringListener</font><font color="#000000">(</font><font color="#000000">IRefactoringRunListener&nbsp;listener</font><font color="#000000">){</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#7f0055"><b>if&nbsp;</b></font><font color="#000000">(</font><font color="#000000">listener&nbsp;!=&nbsp;</font><font color="#7f0055"><b>null</b></font><font color="#000000">)</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#000000">lazyGetListeners</font><font color="#000000">()</font><font color="#000000">.remove</font><font color="#000000">(</font><font color="#000000">listener</font><font color="#000000">)</font><font color="#000000">;</font><br>
+<font color="#ffffff">&nbsp;&nbsp;</font><font color="#000000">}</font><br>
+<font color="#ffffff"></font><br>
+<font color="#ffffff">&nbsp;&nbsp;</font><font color="#3f5fbf">/**</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;</font><font color="#3f5fbf">*&nbsp;Solicita&nbsp;al&nbsp;</font><font color="#7f7f9f">&lt;i&gt;</font><font color="#3f5fbf">plugin</font><font color="#7f7f9f">&lt;/i&gt;&nbsp;</font><font color="#3f5fbf">que&nbsp;notifique&nbsp;a&nbsp;todos&nbsp;los&nbsp;</font><font color="#7f7f9f">&lt;i&gt;</font><font color="#3f5fbf">listeners</font><font color="#7f7f9f">&lt;/i&gt;&nbsp;</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;</font><font color="#3f5fbf">*&nbsp;registrados&nbsp;que&nbsp;una&nbsp;refactorizaci&oacute;n&nbsp;acaba&nbsp;de&nbsp;comenzar.</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;</font><font color="#3f5fbf">*&nbsp;</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;</font><font color="#3f5fbf">*&nbsp;</font><font color="#7f7f9f">&lt;p&gt;</font><font color="#3f5fbf">Si&nbsp;una&nbsp;de&nbsp;las&nbsp;extensiones&nbsp;registradas&nbsp;da&nbsp;lugar&nbsp;a&nbsp;alg&uacute;n&nbsp;tipo&nbsp;de&nbsp;error,&nbsp;</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;</font><font color="#3f5fbf">*&nbsp;se&nbsp;puede&nbsp;controlar&nbsp;el&nbsp;problema&nbsp;y&nbsp;continuar&nbsp;con&nbsp;la&nbsp;ejecuci&oacute;n&nbsp;normal.&nbsp;En&nbsp;ese&nbsp;</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;</font><font color="#3f5fbf">*&nbsp;caso,&nbsp;el&nbsp;</font><font color="#7f7f9f">&lt;i&gt;&nbsp;</font><font color="#3f5fbf">listener</font><font color="#7f7f9f">&lt;/i&gt;&nbsp;</font><font color="#3f5fbf">que&nbsp;hubiera&nbsp;provocado&nbsp;el&nbsp;problema&nbsp;ser&iacute;a&nbsp;eliminado&nbsp;</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;</font><font color="#3f5fbf">*&nbsp;de&nbsp;la&nbsp;lista&nbsp;de&nbsp;</font><font color="#7f7f9f">&lt;i&gt;</font><font color="#3f5fbf">listeners</font><font color="#7f7f9f">&lt;/i&gt;&nbsp;</font><font color="#3f5fbf">registrados.</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;</font><font color="#3f5fbf">*&nbsp;</font><font color="#7f7f9f">&lt;/p&gt;</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;</font><font color="#3f5fbf">*&nbsp;</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;</font><font color="#3f5fbf">*&nbsp;</font><font color="#7f9fbf">@param&nbsp;</font><font color="#3f5fbf">name&nbsp;el&nbsp;nombre&nbsp;de&nbsp;la&nbsp;refactorizaci&oacute;n&nbsp;que&nbsp;acaba&nbsp;de&nbsp;comenzar.</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;</font><font color="#3f5fbf">*/</font><br>
+<font color="#ffffff">&nbsp;&nbsp;</font><font color="#7f0055"><b>public&nbsp;</b></font><font color="#7f0055"><b>void&nbsp;</b></font><font color="#000000">fireRefactoringStarted</font><font color="#000000">(</font><font color="#000000">String&nbsp;name</font><font color="#000000">){</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#3f7f5f">//&nbsp;Se&nbsp;solicita&nbsp;la&nbsp;lista&nbsp;de&nbsp;listeners&nbsp;registrados.</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#000000">Object</font><font color="#000000">[]&nbsp;</font><font color="#000000">registeredListeners&nbsp;=&nbsp;lazyGetListeners</font><font color="#000000">()</font><font color="#000000">.getListeners</font><font color="#000000">()</font><font color="#000000">;</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#3f7f5f">//&nbsp;Para&nbsp;cada&nbsp;listener.</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#7f0055"><b>for&nbsp;</b></font><font color="#000000">(</font><font color="#7f0055"><b>int&nbsp;</b></font><font color="#000000">i&nbsp;=&nbsp;</font><font color="#990000">0</font><font color="#000000">;&nbsp;i&nbsp;&lt;&nbsp;registeredListeners.length;&nbsp;++i</font><font color="#000000">){</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#7f0055"><b>final&nbsp;</b></font><font color="#000000">IRefactoringRunListener&nbsp;next&nbsp;=&nbsp;</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#000000">(</font><font color="#000000">IRefactoringRunListener</font><font color="#000000">)&nbsp;</font><font color="#000000">registeredListeners</font><font color="#000000">[</font><font color="#000000">i</font><font color="#000000">]</font><font color="#000000">;</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#3f7f5f">//&nbsp;Se&nbsp;envuelve&nbsp;la&nbsp;llamada&nbsp;para&nbsp;evitar&nbsp;que&nbsp;se&nbsp;extiendan&nbsp;fallos&nbsp;</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#3f7f5f">//&nbsp;que&nbsp;se&nbsp;pudieran&nbsp;producir&nbsp;en&nbsp;la&nbsp;ejecuci&oacute;n&nbsp;de&nbsp;la&nbsp;llamada&nbsp;</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#3f7f5f">//&nbsp;(el&nbsp;listener&nbsp;puede&nbsp;ser&nbsp;externo).</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#7f0055"><b>try&nbsp;</b></font><font color="#000000">{</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#000000">next.refactoringStarted</font><font color="#000000">(</font><font color="#000000">name</font><font color="#000000">)</font><font color="#000000">;</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#000000">}</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#7f0055"><b>catch</b></font><font color="#000000">(</font><font color="#000000">Throwable&nbsp;exception</font><font color="#000000">)&nbsp;{</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#000000">logger.error</font><font color="#000000">(</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#000000">Messages.RefactoringPlugin_ErrorNotifying</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#000000">+&nbsp;</font><font color="#2a00ff">&#34;.\n&#34;&nbsp;</font><font color="#000000">+&nbsp;exception.getMessage</font><font color="#000000">())</font><font color="#000000">;&nbsp;</font><font color="#3f7f5f">//$NON-NLS-1$</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#000000">lazyGetListeners</font><font color="#000000">()</font><font color="#000000">.remove</font><font color="#000000">(</font><font color="#000000">next</font><font color="#000000">)</font><font color="#000000">;</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#000000">}</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#000000">}</font><br>
+<font color="#ffffff">&nbsp;&nbsp;</font><font color="#000000">}</font><br>
+<font color="#ffffff">&nbsp;&nbsp;</font><br>
+<font color="#ffffff">&nbsp;&nbsp;</font><font color="#3f5fbf">/**</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;</font><font color="#3f5fbf">*&nbsp;Notifica&nbsp;al&nbsp;</font><font color="#7f7f9f">&lt;i&gt;</font><font color="#3f5fbf">listener</font><font color="#7f7f9f">&lt;/i&gt;&nbsp;</font><font color="#3f5fbf">que&nbsp;se&nbsp;ha&nbsp;enviado&nbsp;un&nbsp;mensaje&nbsp;desde&nbsp;uno&nbsp;de&nbsp;los</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;</font><font color="#3f5fbf">*&nbsp;elementos&nbsp;concretos&nbsp;del&nbsp;repositorio&nbsp;que&nbsp;componen&nbsp;la&nbsp;refactorizaci&oacute;n.</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;</font><font color="#3f5fbf">*&nbsp;</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;</font><font color="#3f5fbf">*&nbsp;</font><font color="#7f7f9f">&lt;p&gt;</font><font color="#3f5fbf">Si&nbsp;una&nbsp;de&nbsp;las&nbsp;extensiones&nbsp;registradas&nbsp;da&nbsp;lugar&nbsp;a&nbsp;alg&uacute;n&nbsp;tipo&nbsp;de&nbsp;error,&nbsp;se</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;</font><font color="#3f5fbf">*&nbsp;puede&nbsp;controlar&nbsp;el&nbsp;problema&nbsp;y&nbsp;continuar&nbsp;con&nbsp;la&nbsp;ejecuci&oacute;n&nbsp;normal.&nbsp;En&nbsp;ese&nbsp;</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;</font><font color="#3f5fbf">*&nbsp;caso,&nbsp;el&nbsp;</font><font color="#7f7f9f">&lt;i&gt;</font><font color="#3f5fbf">listener</font><font color="#7f7f9f">&lt;/i&gt;&nbsp;</font><font color="#3f5fbf">que&nbsp;hubier&nbsp;provocado&nbsp;el&nbsp;problema&nbsp;ser&iacute;a&nbsp;eliminado</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;</font><font color="#3f5fbf">*&nbsp;de&nbsp;la&nbsp;lista&nbsp;de&nbsp;</font><font color="#7f7f9f">&lt;i&gt;</font><font color="#3f5fbf">listeners</font><font color="#7f7f9f">&lt;/i&gt;&nbsp;</font><font color="#3f5fbf">registrados.</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;</font><font color="#3f5fbf">*&nbsp;</font><font color="#7f7f9f">&lt;/p&gt;</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;</font><font color="#3f5fbf">*&nbsp;</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;</font><font color="#3f5fbf">*&nbsp;</font><font color="#7f9fbf">@param&nbsp;</font><font color="#3f5fbf">message&nbsp;el&nbsp;mensaje&nbsp;enviado.</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;</font><font color="#3f5fbf">*&nbsp;</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;</font><font color="#3f5fbf">*&nbsp;</font><font color="#7f9fbf">@see&nbsp;</font><font color="#3f5fbf">IRefactoringMessageListener#messageSent(String)</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;</font><font color="#3f5fbf">*/</font><br>
+<font color="#ffffff">&nbsp;&nbsp;</font><font color="#646464">@Override</font><br>
+<font color="#ffffff">&nbsp;&nbsp;</font><font color="#7f0055"><b>public&nbsp;</b></font><font color="#7f0055"><b>void&nbsp;</b></font><font color="#000000">messageSent</font><font color="#000000">(</font><font color="#000000">String&nbsp;message</font><font color="#000000">){</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#3f7f5f">//&nbsp;Se&nbsp;solicita&nbsp;la&nbsp;lista&nbsp;de&nbsp;listeners&nbsp;registrados.</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#000000">Object</font><font color="#000000">[]&nbsp;</font><font color="#000000">registeredListeners&nbsp;=&nbsp;lazyGetListeners</font><font color="#000000">()</font><font color="#000000">.getListeners</font><font color="#000000">()</font><font color="#000000">;</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#3f7f5f">//&nbsp;Para&nbsp;cada&nbsp;listener.</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#7f0055"><b>for&nbsp;</b></font><font color="#000000">(</font><font color="#7f0055"><b>int&nbsp;</b></font><font color="#000000">i&nbsp;=&nbsp;</font><font color="#990000">0</font><font color="#000000">;&nbsp;i&nbsp;&lt;&nbsp;registeredListeners.length;&nbsp;++i</font><font color="#000000">){</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#7f0055"><b>final&nbsp;</b></font><font color="#000000">IRefactoringRunListener&nbsp;next&nbsp;=&nbsp;</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#000000">(</font><font color="#000000">IRefactoringRunListener</font><font color="#000000">)&nbsp;</font><font color="#000000">registeredListeners</font><font color="#000000">[</font><font color="#000000">i</font><font color="#000000">]</font><font color="#000000">;</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#3f7f5f">//&nbsp;Se&nbsp;envuelve&nbsp;la&nbsp;llamada&nbsp;para&nbsp;evitar&nbsp;que&nbsp;se&nbsp;extiendan&nbsp;fallos&nbsp;</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#3f7f5f">//&nbsp;que&nbsp;se&nbsp;pudieran&nbsp;producir&nbsp;en&nbsp;la&nbsp;ejecuci&oacute;n&nbsp;de&nbsp;la&nbsp;llamada&nbsp;</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#3f7f5f">//&nbsp;(el&nbsp;listener&nbsp;puede&nbsp;ser&nbsp;externo).</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#7f0055"><b>try&nbsp;</b></font><font color="#000000">{</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#000000">next.refactoringStepTaken</font><font color="#000000">(</font><font color="#000000">message</font><font color="#000000">)</font><font color="#000000">;</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#000000">}</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#7f0055"><b>catch&nbsp;</b></font><font color="#000000">(</font><font color="#000000">Throwable&nbsp;exception</font><font color="#000000">)&nbsp;{</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#000000">logger.error</font><font color="#000000">(</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#000000">Messages.RefactoringPlugin_ErrorNotifying&nbsp;+&nbsp;</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#2a00ff">&#34;.\n&#34;&nbsp;</font><font color="#000000">+&nbsp;exception.getMessage</font><font color="#000000">())</font><font color="#000000">;&nbsp;</font><font color="#3f7f5f">//$NON-NLS-1$</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#000000">lazyGetListeners</font><font color="#000000">()</font><font color="#000000">.remove</font><font color="#000000">(</font><font color="#000000">next</font><font color="#000000">)</font><font color="#000000">;</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#000000">}</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#000000">}</font><br>
+<font color="#ffffff">&nbsp;&nbsp;</font><font color="#000000">}</font><br>
+<font color="#ffffff">&nbsp;&nbsp;</font><br>
+<font color="#ffffff">&nbsp;&nbsp;</font><font color="#3f5fbf">/**</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;</font><font color="#3f5fbf">*&nbsp;Solicita&nbsp;al&nbsp;</font><font color="#7f7f9f">&lt;i&gt;</font><font color="#3f5fbf">plugin</font><font color="#7f7f9f">&lt;/i&gt;&nbsp;</font><font color="#3f5fbf">que&nbsp;notifique&nbsp;a&nbsp;todos&nbsp;los&nbsp;</font><font color="#7f7f9f">&lt;i&gt;</font><font color="#3f5fbf">listeners</font><font color="#7f7f9f">&lt;/i&gt;&nbsp;</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;</font><font color="#3f5fbf">*&nbsp;registrados&nbsp;que&nbsp;una&nbsp;refactorizaci&oacute;n&nbsp;ha&nbsp;fallado.</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;</font><font color="#3f5fbf">*&nbsp;</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;</font><font color="#3f5fbf">*&nbsp;</font><font color="#7f7f9f">&lt;p&gt;</font><font color="#3f5fbf">Si&nbsp;una&nbsp;de&nbsp;las&nbsp;extensiones&nbsp;registradas&nbsp;da&nbsp;lugar&nbsp;a&nbsp;alg&uacute;n&nbsp;tipo&nbsp;de&nbsp;error,&nbsp;</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;</font><font color="#3f5fbf">*&nbsp;el&nbsp;</font><font color="#7f7f9f">&lt;i&gt;&nbsp;</font><font color="#3f5fbf">listener</font><font color="#7f7f9f">&lt;/i&gt;&nbsp;</font><font color="#3f5fbf">que&nbsp;hubiera&nbsp;provocado&nbsp;el&nbsp;problema&nbsp;ser&iacute;a&nbsp;eliminado&nbsp;de&nbsp;la&nbsp;</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;</font><font color="#3f5fbf">*&nbsp;lista&nbsp;de&nbsp;</font><font color="#7f7f9f">&lt;i&gt;</font><font color="#3f5fbf">listeners</font><font color="#7f7f9f">&lt;/i&gt;&nbsp;</font><font color="#3f5fbf">registrados.</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;</font><font color="#3f5fbf">*&nbsp;</font><font color="#7f7f9f">&lt;/p&gt;</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;</font><font color="#3f5fbf">*&nbsp;</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;</font><font color="#3f5fbf">*&nbsp;</font><font color="#7f9fbf">@param&nbsp;</font><font color="#3f5fbf">name&nbsp;el&nbsp;nombre&nbsp;de&nbsp;la&nbsp;refactorizaci&oacute;n&nbsp;que&nbsp;ha&nbsp;fallado.</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;</font><font color="#3f5fbf">*&nbsp;</font><font color="#7f9fbf">@param&nbsp;</font><font color="#3f5fbf">message&nbsp;el&nbsp;mensaje&nbsp;asociado&nbsp;al&nbsp;fallo.</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;</font><font color="#3f5fbf">*/</font><br>
+<font color="#ffffff">&nbsp;&nbsp;</font><font color="#7f0055"><b>public&nbsp;</b></font><font color="#7f0055"><b>void&nbsp;</b></font><font color="#000000">fireRefactoringFailed</font><font color="#000000">(</font><font color="#000000">String&nbsp;name,&nbsp;String&nbsp;message</font><font color="#000000">){</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#3f7f5f">//&nbsp;Se&nbsp;solicita&nbsp;la&nbsp;lista&nbsp;de&nbsp;listeners&nbsp;registrados.</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#000000">Object</font><font color="#000000">[]&nbsp;</font><font color="#000000">registeredListeners&nbsp;=&nbsp;lazyGetListeners</font><font color="#000000">()</font><font color="#000000">.getListeners</font><font color="#000000">()</font><font color="#000000">;</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#3f7f5f">//&nbsp;Para&nbsp;cada&nbsp;listener.</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#7f0055"><b>for&nbsp;</b></font><font color="#000000">(</font><font color="#7f0055"><b>int&nbsp;</b></font><font color="#000000">i&nbsp;=&nbsp;</font><font color="#990000">0</font><font color="#000000">;&nbsp;i&nbsp;&lt;&nbsp;registeredListeners.length;&nbsp;++i</font><font color="#000000">){</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#7f0055"><b>final&nbsp;</b></font><font color="#000000">IRefactoringRunListener&nbsp;next&nbsp;=&nbsp;</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#000000">(</font><font color="#000000">IRefactoringRunListener</font><font color="#000000">)&nbsp;</font><font color="#000000">registeredListeners</font><font color="#000000">[</font><font color="#000000">i</font><font color="#000000">]</font><font color="#000000">;</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#3f7f5f">//&nbsp;Se&nbsp;envuelve&nbsp;la&nbsp;llamada&nbsp;para&nbsp;evitar&nbsp;que&nbsp;se&nbsp;extiendan&nbsp;fallos&nbsp;</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#3f7f5f">//&nbsp;que&nbsp;se&nbsp;pudieran&nbsp;producir&nbsp;en&nbsp;la&nbsp;ejecuci&oacute;n&nbsp;de&nbsp;la&nbsp;llamada&nbsp;</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#3f7f5f">//&nbsp;(el&nbsp;listener&nbsp;puede&nbsp;ser&nbsp;externo).</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#7f0055"><b>try&nbsp;</b></font><font color="#000000">{</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#000000">next.refactoringFailed</font><font color="#000000">(</font><font color="#000000">name,&nbsp;message</font><font color="#000000">)</font><font color="#000000">;&nbsp;&nbsp;</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#000000">}</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#7f0055"><b>catch&nbsp;</b></font><font color="#000000">(</font><font color="#000000">Throwable&nbsp;exception</font><font color="#000000">)&nbsp;{</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#000000">logger.error</font><font color="#000000">(</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#000000">Messages.RefactoringPlugin_ErrorNotifying</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#000000">+&nbsp;</font><font color="#2a00ff">&#34;.\n&#34;&nbsp;</font><font color="#000000">+&nbsp;exception.getMessage</font><font color="#000000">())</font><font color="#000000">;&nbsp;</font><font color="#3f7f5f">//$NON-NLS-1$</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#000000">lazyGetListeners</font><font color="#000000">()</font><font color="#000000">.remove</font><font color="#000000">(</font><font color="#000000">next</font><font color="#000000">)</font><font color="#000000">;</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#000000">}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#000000">}</font><br>
+<font color="#ffffff">&nbsp;&nbsp;</font><font color="#000000">}</font><br>
+<font color="#ffffff">&nbsp;&nbsp;</font><br>
+<font color="#ffffff">&nbsp;&nbsp;</font><font color="#3f5fbf">/**</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;</font><font color="#3f5fbf">*&nbsp;Solicita&nbsp;al&nbsp;</font><font color="#7f7f9f">&lt;i&gt;</font><font color="#3f5fbf">plugin</font><font color="#7f7f9f">&lt;/i&gt;&nbsp;</font><font color="#3f5fbf">que&nbsp;notifique&nbsp;a&nbsp;todos&nbsp;los&nbsp;</font><font color="#7f7f9f">&lt;i&gt;</font><font color="#3f5fbf">listeners</font><font color="#7f7f9f">&lt;/i&gt;&nbsp;</font><font color="#3f5fbf">registrados</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;</font><font color="#3f5fbf">*&nbsp;que&nbsp;una&nbsp;refactorizaci&oacute;n&nbsp;acaba&nbsp;de&nbsp;terminar.</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;</font><font color="#3f5fbf">*&nbsp;</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;</font><font color="#3f5fbf">*&nbsp;</font><font color="#7f7f9f">&lt;p&gt;</font><font color="#3f5fbf">Si&nbsp;una&nbsp;de&nbsp;las&nbsp;extensiones&nbsp;registradas&nbsp;da&nbsp;lugar&nbsp;a&nbsp;alg&uacute;n&nbsp;tipo&nbsp;de&nbsp;error,&nbsp;</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;</font><font color="#3f5fbf">*&nbsp;se&nbsp;puede&nbsp;controlar&nbsp;el&nbsp;problema&nbsp;y&nbsp;continuar&nbsp;con&nbsp;la&nbsp;ejecuci&oacute;n&nbsp;normal.&nbsp;En&nbsp;ese&nbsp;</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;</font><font color="#3f5fbf">*&nbsp;caso,&nbsp;el&nbsp;</font><font color="#7f7f9f">&lt;i&gt;&nbsp;</font><font color="#3f5fbf">listener</font><font color="#7f7f9f">&lt;/i&gt;&nbsp;</font><font color="#3f5fbf">que&nbsp;hubiera&nbsp;provocado&nbsp;el&nbsp;problema&nbsp;ser&iacute;a&nbsp;eliminado&nbsp;</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;</font><font color="#3f5fbf">*&nbsp;de&nbsp;la&nbsp;lista&nbsp;de&nbsp;</font><font color="#7f7f9f">&lt;i&gt;</font><font color="#3f5fbf">listeners</font><font color="#7f7f9f">&lt;/i&gt;&nbsp;</font><font color="#3f5fbf">registrados.</font><font color="#7f7f9f">&lt;/p&gt;</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;</font><font color="#3f5fbf">*&nbsp;</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;</font><font color="#3f5fbf">*&nbsp;</font><font color="#7f9fbf">@param&nbsp;</font><font color="#3f5fbf">summary&nbsp;el&nbsp;resumen&nbsp;de&nbsp;la&nbsp;refactorizaci&oacute;n&nbsp;que&nbsp;acaba&nbsp;de&nbsp;finalizar.</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;</font><font color="#3f5fbf">*/</font><br>
+<font color="#ffffff">&nbsp;&nbsp;</font><font color="#7f0055"><b>public&nbsp;</b></font><font color="#7f0055"><b>void&nbsp;</b></font><font color="#000000">fireRefactoringFinished</font><font color="#000000">(</font><font color="#000000">RefactoringSummary&nbsp;summary</font><font color="#000000">){</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#3f7f5f">//&nbsp;Se&nbsp;solicita&nbsp;la&nbsp;lista&nbsp;de&nbsp;listeners&nbsp;registrados.</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#000000">Object</font><font color="#000000">[]&nbsp;</font><font color="#000000">registeredListeners&nbsp;=&nbsp;lazyGetListeners</font><font color="#000000">()</font><font color="#000000">.getListeners</font><font color="#000000">()</font><font color="#000000">;</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#3f7f5f">//&nbsp;Para&nbsp;cada&nbsp;listener.</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#7f0055"><b>for&nbsp;</b></font><font color="#000000">(</font><font color="#7f0055"><b>int&nbsp;</b></font><font color="#000000">i&nbsp;=&nbsp;</font><font color="#990000">0</font><font color="#000000">;&nbsp;i&nbsp;&lt;&nbsp;registeredListeners.length;&nbsp;++i</font><font color="#000000">){</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#7f0055"><b>final&nbsp;</b></font><font color="#000000">IRefactoringRunListener&nbsp;next&nbsp;=&nbsp;</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#000000">(</font><font color="#000000">IRefactoringRunListener</font><font color="#000000">)&nbsp;</font><font color="#000000">registeredListeners</font><font color="#000000">[</font><font color="#000000">i</font><font color="#000000">]</font><font color="#000000">;</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#3f7f5f">//&nbsp;Se&nbsp;envuelve&nbsp;la&nbsp;llamada&nbsp;para&nbsp;evitar&nbsp;que&nbsp;se&nbsp;extiendan&nbsp;fallos&nbsp;que&nbsp;</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#3f7f5f">//&nbsp;se&nbsp;pudieran&nbsp;producir&nbsp;en&nbsp;la&nbsp;ejecuci&oacute;n&nbsp;de&nbsp;la&nbsp;llamada&nbsp;(el&nbsp;listener&nbsp;</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#3f7f5f">//&nbsp;puede&nbsp;ser&nbsp;externo).</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#7f0055"><b>try&nbsp;</b></font><font color="#000000">{</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#000000">next.refactoringFinished</font><font color="#000000">(</font><font color="#000000">summary</font><font color="#000000">)</font><font color="#000000">;</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#000000">}</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#7f0055"><b>catch</b></font><font color="#000000">(</font><font color="#000000">Throwable&nbsp;exception</font><font color="#000000">)&nbsp;{</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#000000">exception.printStackTrace</font><font color="#000000">()</font><font color="#000000">;</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#000000">logger.error</font><font color="#000000">(</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#000000">Messages.RefactoringPlugin_ErrorNotifying</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#000000">+&nbsp;</font><font color="#2a00ff">&#34;.\n&#34;&nbsp;</font><font color="#000000">+&nbsp;exception.getMessage</font><font color="#000000">())</font><font color="#000000">;&nbsp;</font><font color="#3f7f5f">//$NON-NLS-1$</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#000000">lazyGetListeners</font><font color="#000000">()</font><font color="#000000">.remove</font><font color="#000000">(</font><font color="#000000">next</font><font color="#000000">)</font><font color="#000000">;</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#000000">}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#000000">}</font><br>
+<font color="#ffffff">&nbsp;&nbsp;</font><font color="#000000">}</font><br>
+<font color="#ffffff">&nbsp;&nbsp;</font><br>
+<font color="#ffffff">&nbsp;&nbsp;</font><font color="#3f5fbf">/**</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;</font><font color="#3f5fbf">*&nbsp;Solicita&nbsp;al&nbsp;</font><font color="#7f7f9f">&lt;i&gt;</font><font color="#3f5fbf">plugin</font><font color="#7f7f9f">&lt;/i&gt;&nbsp;</font><font color="#3f5fbf">que&nbsp;notifique&nbsp;a&nbsp;todos&nbsp;los&nbsp;</font><font color="#7f7f9f">&lt;i&gt;</font><font color="#3f5fbf">listeners</font><font color="#7f7f9f">&lt;/i&gt;&nbsp;</font><font color="#3f5fbf">registrados</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;</font><font color="#3f5fbf">*&nbsp;que&nbsp;una&nbsp;refactorizaci&oacute;n&nbsp;se&nbsp;ha&nbsp;deshecho&nbsp;y&nbsp;se&nbsp;ha&nbsp;recuperado&nbsp;el&nbsp;estado&nbsp;previo.</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;</font><font color="#3f5fbf">*&nbsp;</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;</font><font color="#3f5fbf">*&nbsp;</font><font color="#7f7f9f">&lt;p&gt;</font><font color="#3f5fbf">Si&nbsp;una&nbsp;de&nbsp;las&nbsp;extensiones&nbsp;registradas&nbsp;da&nbsp;lugar&nbsp;a&nbsp;alg&uacute;n&nbsp;tipo&nbsp;de&nbsp;error,&nbsp;</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;</font><font color="#3f5fbf">*&nbsp;se&nbsp;puede&nbsp;controlar&nbsp;el&nbsp;problema&nbsp;y&nbsp;continuar&nbsp;con&nbsp;la&nbsp;ejecuci&oacute;n&nbsp;normal.&nbsp;En&nbsp;ese&nbsp;</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;</font><font color="#3f5fbf">*&nbsp;caso,&nbsp;el&nbsp;</font><font color="#7f7f9f">&lt;i&gt;&nbsp;</font><font color="#3f5fbf">listener</font><font color="#7f7f9f">&lt;/i&gt;&nbsp;</font><font color="#3f5fbf">que&nbsp;hubiera&nbsp;provocado&nbsp;el&nbsp;problema&nbsp;ser&iacute;a&nbsp;eliminado&nbsp;</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;</font><font color="#3f5fbf">*&nbsp;de&nbsp;la&nbsp;lista&nbsp;de&nbsp;</font><font color="#7f7f9f">&lt;i&gt;</font><font color="#3f5fbf">listeners</font><font color="#7f7f9f">&lt;/i&gt;&nbsp;</font><font color="#3f5fbf">registrados.</font><font color="#7f7f9f">&lt;/p&gt;</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;</font><font color="#3f5fbf">*&nbsp;</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;</font><font color="#3f5fbf">*&nbsp;</font><font color="#7f9fbf">@param&nbsp;</font><font color="#3f5fbf">id&nbsp;identificador&nbsp;de&nbsp;la&nbsp;refactorizaci&oacute;n&nbsp;que&nbsp;se&nbsp;ha&nbsp;deshecho.</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;</font><font color="#3f5fbf">*/</font><br>
+<font color="#ffffff">&nbsp;&nbsp;</font><font color="#7f0055"><b>public&nbsp;</b></font><font color="#7f0055"><b>void&nbsp;</b></font><font color="#000000">fireRefactoringUndone</font><font color="#000000">(</font><font color="#000000">String&nbsp;id</font><font color="#000000">){</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#3f7f5f">//&nbsp;Se&nbsp;solicita&nbsp;la&nbsp;lista&nbsp;de&nbsp;listeners&nbsp;registrados.</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#000000">Object</font><font color="#000000">[]&nbsp;</font><font color="#000000">registeredListeners&nbsp;=&nbsp;lazyGetListeners</font><font color="#000000">()</font><font color="#000000">.getListeners</font><font color="#000000">()</font><font color="#000000">;</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#3f7f5f">//&nbsp;Para&nbsp;cada&nbsp;listener.</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#7f0055"><b>for&nbsp;</b></font><font color="#000000">(</font><font color="#7f0055"><b>int&nbsp;</b></font><font color="#000000">i&nbsp;=&nbsp;</font><font color="#990000">0</font><font color="#000000">;&nbsp;i&nbsp;&lt;&nbsp;registeredListeners.length;&nbsp;++i</font><font color="#000000">){</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#7f0055"><b>final&nbsp;</b></font><font color="#000000">IRefactoringRunListener&nbsp;next&nbsp;=&nbsp;</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#000000">(</font><font color="#000000">IRefactoringRunListener</font><font color="#000000">)&nbsp;</font><font color="#000000">registeredListeners</font><font color="#000000">[</font><font color="#000000">i</font><font color="#000000">]</font><font color="#000000">;</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#3f7f5f">//&nbsp;Se&nbsp;envuelve&nbsp;la&nbsp;llamada&nbsp;para&nbsp;evitar&nbsp;que&nbsp;se&nbsp;extiendan&nbsp;fallos&nbsp;que&nbsp;</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#3f7f5f">//&nbsp;se&nbsp;pudieran&nbsp;producir&nbsp;en&nbsp;la&nbsp;ejecuci&oacute;n&nbsp;de&nbsp;la&nbsp;llamada&nbsp;(el&nbsp;listener&nbsp;</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#3f7f5f">//&nbsp;puede&nbsp;ser&nbsp;externo).</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#7f0055"><b>try&nbsp;</b></font><font color="#000000">{</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#000000">next.refactoringUndone</font><font color="#000000">(</font><font color="#000000">id</font><font color="#000000">)</font><font color="#000000">;</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#000000">}</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#7f0055"><b>catch</b></font><font color="#000000">(</font><font color="#000000">Throwable&nbsp;exception</font><font color="#000000">)&nbsp;{</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#000000">logger.error</font><font color="#000000">(</font><font color="#000000">Messages.RefactoringPlugin_ErrorNotifying</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#000000">+&nbsp;</font><font color="#2a00ff">&#34;.\n&#34;&nbsp;</font><font color="#000000">+&nbsp;exception.getMessage</font><font color="#000000">())</font><font color="#000000">;&nbsp;</font><font color="#3f7f5f">//$NON-NLS-1$</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#000000">lazyGetListeners</font><font color="#000000">()</font><font color="#000000">.remove</font><font color="#000000">(</font><font color="#000000">next</font><font color="#000000">)</font><font color="#000000">;</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#000000">}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#000000">}</font><br>
+<font color="#ffffff">&nbsp;&nbsp;</font><font color="#000000">}</font><br>
+<font color="#ffffff">&nbsp;&nbsp;</font><br>
+<font color="#ffffff">&nbsp;&nbsp;</font><font color="#3f5fbf">/**</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;</font><font color="#3f5fbf">*&nbsp;Obtiene&nbsp;la&nbsp;instancia&nbsp;&uacute;nica&nbsp;del&nbsp;plug-in.</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;</font><font color="#3f5fbf">*&nbsp;</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;</font><font color="#3f5fbf">*&nbsp;M&eacute;todo&nbsp;definido&nbsp;por&nbsp;el&nbsp;patr&oacute;n&nbsp;de&nbsp;dise&ntilde;o&nbsp;Singleton.</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;</font><font color="#3f5fbf">*&nbsp;</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;</font><font color="#3f5fbf">*&nbsp;</font><font color="#7f9fbf">@return&nbsp;</font><font color="#3f5fbf">la&nbsp;instancia&nbsp;&uacute;nica&nbsp;del&nbsp;plug-in.</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;</font><font color="#3f5fbf">*/</font><br>
+<font color="#ffffff">&nbsp;&nbsp;</font><font color="#7f0055"><b>public&nbsp;static&nbsp;</b></font><font color="#000000">RefactoringPlugin&nbsp;getDefault</font><font color="#000000">(){</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#7f0055"><b>if&nbsp;</b></font><font color="#000000">(</font><font color="#000000">myInstance&nbsp;==&nbsp;</font><font color="#7f0055"><b>null</b></font><font color="#000000">)</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#000000">myInstance&nbsp;=&nbsp;</font><font color="#7f0055"><b>new&nbsp;</b></font><font color="#000000">RefactoringPlugin</font><font color="#000000">()</font><font color="#000000">;</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#7f0055"><b>return&nbsp;</b></font><font color="#000000">myInstance;</font><br>
+<font color="#ffffff">&nbsp;&nbsp;</font><font color="#000000">}</font><br>
+<font color="#ffffff"></font><br>
+<font color="#ffffff">&nbsp;&nbsp;</font><font color="#3f5fbf">/**</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;</font><font color="#3f5fbf">*&nbsp;Inicia&nbsp;el&nbsp;proceso&nbsp;de&nbsp;configuraci&oacute;n&nbsp;y&nbsp;ejecuci&oacute;n&nbsp;de&nbsp;una&nbsp;refactorizaci&oacute;n</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;</font><font color="#3f5fbf">*&nbsp;sobre&nbsp;un&nbsp;elemento&nbsp;seleccionado.</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;</font><font color="#3f5fbf">*&nbsp;</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;</font><font color="#3f5fbf">*&nbsp;</font><font color="#7f9fbf">@param&nbsp;</font><font color="#3f5fbf">selectedElement&nbsp;el&nbsp;elemento&nbsp;seleccionado&nbsp;en&nbsp;el&nbsp;modelo&nbsp;MOON.&nbsp;Debe&nbsp;ser</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;</font><font color="#3f5fbf">*&nbsp;uno&nbsp;de&nbsp;</font><font color="#7f7f9f">&lt;code&gt;</font><font color="#3f5fbf">ClassDef</font><font color="#7f7f9f">&lt;/code&gt;</font><font color="#3f5fbf">,&nbsp;</font><font color="#7f7f9f">&lt;code&gt;</font><font color="#3f5fbf">MethDec</font><font color="#7f7f9f">&lt;/code&gt;&nbsp;</font><font color="#3f5fbf">o&nbsp;</font><font color="#7f7f9f">&lt;code&gt;</font><font color="#3f5fbf">AttDec</font><font color="#7f7f9f">&lt;/code&gt;</font><font color="#3f5fbf">.</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;</font><font color="#3f5fbf">*&nbsp;</font><font color="#7f9fbf">@param&nbsp;</font><font color="#3f5fbf">selection&nbsp;el&nbsp;proveedor&nbsp;de&nbsp;informaci&oacute;n&nbsp;para&nbsp;la&nbsp;selecci&oacute;n&nbsp;actual.</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;</font><font color="#3f5fbf">*&nbsp;</font><font color="#7f9fbf">@param&nbsp;</font><font color="#3f5fbf">showSelector&nbsp;indica&nbsp;si&nbsp;se&nbsp;quiere&nbsp;o&nbsp;no&nbsp;mostrar&nbsp;la&nbsp;ventana&nbsp;selectora,</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;</font><font color="#3f5fbf">*/</font><br>
+<font color="#ffffff">&nbsp;&nbsp;</font><font color="#7f0055"><b>public&nbsp;</b></font><font color="#7f0055"><b>void&nbsp;</b></font><font color="#000000">runRefactoring</font><font color="#000000">(</font><font color="#000000">ObjectMoon&nbsp;selectedElement,&nbsp;</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#000000">SelectionInfo&nbsp;selection,&nbsp;Boolean&nbsp;showSelector&nbsp;</font><font color="#000000">){</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#7f0055"><b>assert&nbsp;</b></font><font color="#000000">(</font><font color="#000000">selectedElement&nbsp;</font><font color="#7f0055"><b>instanceof&nbsp;</b></font><font color="#000000">ClassDef&nbsp;||</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#000000">selectedElement&nbsp;</font><font color="#7f0055"><b>instanceof&nbsp;</b></font><font color="#000000">MethDec&nbsp;||</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#000000">selectedElement&nbsp;</font><font color="#7f0055"><b>instanceof&nbsp;</b></font><font color="#000000">AttDec&nbsp;||</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#000000">selectedElement&nbsp;</font><font color="#7f0055"><b>instanceof&nbsp;</b></font><font color="#000000">FormalArgument</font><font color="#000000">)</font><font color="#000000">:&nbsp;Messages.RefactoringPlugin_InvalidElement;</font><br>
+<font color="#ffffff">&nbsp;&nbsp;</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#7f0055"><b>this</b></font><font color="#000000">.currentSelection&nbsp;=&nbsp;selection;</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#000000">IJavaProject&nbsp;nextProject&nbsp;=&nbsp;currentSelection.getJavaProjectForSelection</font><font color="#000000">()</font><font color="#000000">;&nbsp;&nbsp;</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#7f0055"><b>if</b></font><font color="#000000">(</font><font color="#000000">currentProject&nbsp;!=&nbsp;</font><font color="#7f0055"><b>null&nbsp;</b></font><font color="#000000">&amp;&amp;&nbsp;nextProject.getElementName</font><font color="#000000">()&nbsp;</font><font color="#000000">!=&nbsp;currentProject.getElementName</font><font color="#000000">())</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#000000">cleanEnvironment</font><font color="#000000">()</font><font color="#000000">;</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#7f0055"><b>this</b></font><font color="#000000">.currentProject&nbsp;=&nbsp;nextProject;</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#7f0055"><b>if&nbsp;</b></font><font color="#000000">(</font><font color="#000000">selectedElement&nbsp;!=&nbsp;</font><font color="#7f0055"><b>null</b></font><font color="#000000">){</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#3f7f5f">//&nbsp;Se&nbsp;registra&nbsp;el&nbsp;propio&nbsp;plugin&nbsp;como&nbsp;listener&nbsp;de&nbsp;los&nbsp;mensajes</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#3f7f5f">//&nbsp;enviados&nbsp;por&nbsp;los&nbsp;elementos&nbsp;del&nbsp;repositorio.</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#000000">RelayListenerRegistry.getInstance</font><font color="#000000">()</font><font color="#000000">.add</font><font color="#000000">(</font><font color="#7f0055"><b>this</b></font><font color="#000000">)</font><font color="#000000">;</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#7f0055"><b>try&nbsp;</b></font><font color="#000000">{</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#3f7f5f">//&nbsp;Se&nbsp;inicializan&nbsp;las&nbsp;vistas.</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#000000">IWorkbenchPage&nbsp;page&nbsp;=&nbsp;</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#000000">PlatformUI.getWorkbench</font><font color="#000000">()</font><font color="#000000">.getActiveWorkbenchWindow</font><font color="#000000">()</font><font color="#000000">.getPages</font><font color="#000000">()[</font><font color="#990000">0</font><font color="#000000">]</font><font color="#000000">;</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#000000">page.showView</font><font color="#000000">(</font><font color="#000000">HistoryView.ID,&nbsp;null,&nbsp;IWorkbenchPage.VIEW_VISIBLE</font><font color="#000000">)</font><font color="#000000">;</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#000000">page.showView</font><font color="#000000">(</font><font color="#000000">AvailableRefactoringView.ID,&nbsp;null,&nbsp;IWorkbenchPage.VIEW_VISIBLE</font><font color="#000000">)</font><font color="#000000">;</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#000000">page.showView</font><font color="#000000">(</font><font color="#000000">ProgressView.ID,&nbsp;null,&nbsp;IWorkbenchPage.VIEW_VISIBLE</font><font color="#000000">)</font><font color="#000000">;</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#000000">}</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#7f0055"><b>catch</b></font><font color="#000000">(</font><font color="#000000">Exception&nbsp;exception</font><font color="#000000">){</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#000000">logger.error</font><font color="#000000">(</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#000000">Messages.RefactoringPlugin_ErrorInitializing&nbsp;+&nbsp;</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#2a00ff">&#34;.&#34;</font><font color="#000000">)</font><font color="#000000">;&nbsp;&nbsp;</font><font color="#3f7f5f">//$NON-NLS-1$</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#000000">logger.error</font><font color="#000000">(</font><font color="#000000">exception.getMessage</font><font color="#000000">())</font><font color="#000000">;</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#000000">}</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#7f0055"><b>if</b></font><font color="#000000">(</font><font color="#000000">showSelector</font><font color="#000000">){</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#000000">SelectRefactoringWindow&nbsp;selector&nbsp;=&nbsp;</font><font color="#7f0055"><b>new&nbsp;</b></font><font color="#000000">SelectRefactoringWindow</font><font color="#000000">(</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#000000">getWorkbench</font><font color="#000000">()</font><font color="#000000">.getActiveWorkbenchWindow</font><font color="#000000">()</font><font color="#000000">.getShell</font><font color="#000000">()</font><font color="#000000">,</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#000000">selectedElement</font><font color="#000000">)</font><font color="#000000">;</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#000000">selector.setBlockOnOpen</font><font color="#000000">(</font><font color="#7f0055"><b>true</b></font><font color="#000000">)</font><font color="#000000">;</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#000000">selector.open</font><font color="#000000">()</font><font color="#000000">;</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#000000">}</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#000000">}</font><br>
+<font color="#ffffff">&nbsp;&nbsp;</font><font color="#000000">}</font><br>
+<font color="#ffffff">&nbsp;&nbsp;</font><br>
+<font color="#ffffff">&nbsp;&nbsp;</font><font color="#3f5fbf">/**</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;</font><font color="#3f5fbf">*&nbsp;Realiza&nbsp;las&nbsp;actualizaciones&nbsp;necesarias&nbsp;sobre&nbsp;los&nbsp;recursos&nbsp;del&nbsp;plugin&nbsp;y&nbsp;del</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;</font><font color="#3f5fbf">*&nbsp;entorno&nbsp;de&nbsp;Eclipse&nbsp;despu&eacute;s&nbsp;de&nbsp;la&nbsp;ejecuci&oacute;n&nbsp;de&nbsp;una&nbsp;refactorizaci&oacute;n.</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;</font><font color="#3f5fbf">*&nbsp;</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;</font><font color="#3f5fbf">*&nbsp;</font><font color="#7f9fbf">@param&nbsp;</font><font color="#3f5fbf">refactoring&nbsp;el&nbsp;nombre&nbsp;de&nbsp;la&nbsp;refactorizaci&oacute;n&nbsp;ejecutada.</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;</font><font color="#3f5fbf">*/</font><br>
+<font color="#ffffff">&nbsp;&nbsp;</font><font color="#7f0055"><b>public&nbsp;</b></font><font color="#7f0055"><b>void&nbsp;</b></font><font color="#000000">updateEnvironment</font><font color="#000000">(</font><font color="#000000">String&nbsp;refactoring</font><font color="#000000">){</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#000000">storeRefactoring</font><font color="#000000">(</font><font color="#000000">refactoring</font><font color="#000000">)</font><font color="#000000">;</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#000000">CodeRegenerator.getInstance</font><font color="#000000">()</font><font color="#000000">.refreshCode</font><font color="#000000">()</font><font color="#000000">;</font><br>
+<font color="#ffffff">&nbsp;&nbsp;</font><font color="#000000">}</font><br>
+<font color="#ffffff">&nbsp;&nbsp;</font><br>
+<font color="#ffffff">&nbsp;&nbsp;</font><font color="#3f5fbf">/**</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;</font><font color="#3f5fbf">*&nbsp;Elimina&nbsp;todos&nbsp;los&nbsp;recursos&nbsp;temporales&nbsp;asignados&nbsp;a&nbsp;un&nbsp;cierto&nbsp;proyecto&nbsp;antes</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;</font><font color="#3f5fbf">*&nbsp;de&nbsp;ponerse&nbsp;a&nbsp;trabajar&nbsp;sobre&nbsp;otro&nbsp;diferente.</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;</font><font color="#3f5fbf">*/</font><br>
+<font color="#ffffff">&nbsp;&nbsp;</font><font color="#7f0055"><b>public&nbsp;</b></font><font color="#7f0055"><b>void&nbsp;</b></font><font color="#000000">cleanEnvironment</font><font color="#000000">(){</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#000000">currentRefactoring&nbsp;=&nbsp;INITIAL_REF_NAME;&nbsp;&nbsp;&nbsp;&nbsp;</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#000000">IWorkbenchPage&nbsp;page&nbsp;=&nbsp;</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#000000">PlatformUI.getWorkbench</font><font color="#000000">()</font><font color="#000000">.getActiveWorkbenchWindow</font><font color="#000000">()</font><font color="#000000">.getPages</font><font color="#000000">()[</font><font color="#990000">0</font><font color="#000000">]</font><font color="#000000">;</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#000000">IViewReference</font><font color="#000000">[]&nbsp;</font><font color="#000000">views&nbsp;=&nbsp;page.getViewReferences</font><font color="#000000">()</font><font color="#000000">;</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#7f0055"><b>for&nbsp;</b></font><font color="#000000">(</font><font color="#7f0055"><b>int&nbsp;</b></font><font color="#000000">i&nbsp;=&nbsp;</font><font color="#990000">0</font><font color="#000000">;&nbsp;i&nbsp;&lt;&nbsp;views.length;&nbsp;i++</font><font color="#000000">){</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#7f0055"><b>if&nbsp;</b></font><font color="#000000">(</font><font color="#000000">views</font><font color="#000000">[</font><font color="#000000">i</font><font color="#000000">]</font><font color="#000000">.getId</font><font color="#000000">()</font><font color="#000000">.equals</font><font color="#000000">(</font><font color="#000000">HistoryView.ID</font><font color="#000000">)){</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#000000">HistoryView&nbsp;history&nbsp;=&nbsp;</font><font color="#000000">(</font><font color="#000000">HistoryView</font><font color="#000000">)</font><font color="#000000">views</font><font color="#000000">[</font><font color="#000000">i</font><font color="#000000">]</font><font color="#000000">.getView</font><font color="#000000">(</font><font color="#7f0055"><b>true</b></font><font color="#000000">)</font><font color="#000000">;</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#000000">history.cleanView</font><font color="#000000">()</font><font color="#000000">;</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#000000">}</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#7f0055"><b>else&nbsp;if&nbsp;</b></font><font color="#000000">(</font><font color="#000000">views</font><font color="#000000">[</font><font color="#000000">i</font><font color="#000000">]</font><font color="#000000">.getId</font><font color="#000000">()</font><font color="#000000">.equals</font><font color="#000000">(</font><font color="#000000">ProgressView.ID</font><font color="#000000">)){</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#000000">ProgressView&nbsp;progress&nbsp;=&nbsp;</font><font color="#000000">(</font><font color="#000000">ProgressView</font><font color="#000000">)</font><font color="#000000">views</font><font color="#000000">[</font><font color="#000000">i</font><font color="#000000">]</font><font color="#000000">.getView</font><font color="#000000">(</font><font color="#7f0055"><b>true</b></font><font color="#000000">)</font><font color="#000000">;</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#000000">progress.cleanTable</font><font color="#000000">()</font><font color="#000000">;</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#000000">}</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#7f0055"><b>else&nbsp;if&nbsp;</b></font><font color="#000000">(</font><font color="#000000">views</font><font color="#000000">[</font><font color="#000000">i</font><font color="#000000">]</font><font color="#000000">.getId</font><font color="#000000">()</font><font color="#000000">.equals</font><font color="#000000">(</font><font color="#000000">AvailableRefactoringView.ID</font><font color="#000000">)){</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#000000">AvailableRefactoringView&nbsp;available&nbsp;=&nbsp;</font><font color="#000000">(</font><font color="#000000">AvailableRefactoringView</font><font color="#000000">)</font><font color="#000000">views</font><font color="#000000">[</font><font color="#000000">i</font><font color="#000000">]</font><font color="#000000">.getView</font><font color="#000000">(</font><font color="#7f0055"><b>true</b></font><font color="#000000">)</font><font color="#000000">;</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#000000">available.cleanView</font><font color="#000000">()</font><font color="#000000">;</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#000000">}</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#000000">}</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#000000">deleteFiles</font><font color="#000000">()</font><font color="#000000">;</font><br>
+<font color="#ffffff">&nbsp;&nbsp;</font><font color="#000000">}</font><br>
+<font color="#ffffff">&nbsp;&nbsp;</font><br>
+<font color="#ffffff">&nbsp;&nbsp;</font><font color="#3f5fbf">/**</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;</font><font color="#3f5fbf">*&nbsp;Obtiene&nbsp;la&nbsp;ruta&nbsp;ra&iacute;z&nbsp;del&nbsp;&#34;bundle&#34;&nbsp;asociado&nbsp;al&nbsp;plugin.</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;</font><font color="#3f5fbf">*&nbsp;</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;</font><font color="#3f5fbf">*&nbsp;La&nbsp;ruta&nbsp;termina&nbsp;en&nbsp;el&nbsp;s&iacute;mbolo&nbsp;separador&nbsp;del&nbsp;sistema&nbsp;operativo.</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;</font><font color="#3f5fbf">*&nbsp;</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;</font><font color="#3f5fbf">*&nbsp;</font><font color="#7f9fbf">@return&nbsp;</font><font color="#3f5fbf">la&nbsp;ruta&nbsp;ra&iacute;z&nbsp;del&nbsp;&#34;bundle&#34;&nbsp;asociado&nbsp;al&nbsp;plugin.</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;</font><font color="#3f5fbf">*/</font><br>
+<font color="#ffffff">&nbsp;&nbsp;</font><font color="#7f0055"><b>public&nbsp;</b></font><font color="#000000">String&nbsp;getBundleRootDir</font><font color="#000000">(){</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#000000">Bundle&nbsp;pluginBundle&nbsp;=&nbsp;Platform.getBundle</font><font color="#000000">(</font><font color="#000000">BUNDLE_NAME</font><font color="#000000">)</font><font color="#000000">;</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#7f0055"><b>if</b></font><font color="#000000">(</font><font color="#000000">pluginBundle&nbsp;==&nbsp;</font><font color="#7f0055"><b>null</b></font><font color="#000000">){</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#7f0055"><b>return&nbsp;</b></font><font color="#2a00ff">&#34;.\\&#34;</font><font color="#000000">;</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#000000">}</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#000000">String&nbsp;pluginLocation&nbsp;=&nbsp;pluginBundle.getLocation</font><font color="#000000">()</font><font color="#000000">;</font><br>
+<font color="#ffffff">&nbsp;&nbsp;</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#000000">String&nbsp;pluginRoot=</font><font color="#2a00ff">&#34;&#34;</font><font color="#000000">;</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#7f0055"><b>if</b></font><font color="#000000">(</font><font color="#000000">pluginLocation.startsWith</font><font color="#000000">(</font><font color="#2a00ff">&#34;update@&#34;</font><font color="#000000">)){</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#3f7f5f">//&nbsp;La&nbsp;localizaci&oacute;n&nbsp;tiene&nbsp;el&nbsp;formato&nbsp;update@directorio.</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#3f7f5f">//&nbsp;Hay&nbsp;que&nbsp;eliminar&nbsp;el&nbsp;primer&nbsp;fragmento&nbsp;de&nbsp;la&nbsp;localizaci&oacute;n.</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#000000">pluginRoot&nbsp;=&nbsp;pluginLocation.substring</font><font color="#000000">(</font><font color="#000000">pluginLocation.indexOf</font><font color="#000000">(</font><font color="#990000">'@'</font><font color="#000000">)&nbsp;</font><font color="#000000">+&nbsp;</font><font color="#990000">1</font><font color="#000000">)</font><font color="#000000">;</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#000000">}</font><font color="#7f0055"><b>else</b></font><font color="#000000">{</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#000000">pluginRoot&nbsp;=&nbsp;pluginLocation.substring</font><font color="#000000">(</font><font color="#000000">pluginLocation.indexOf</font><font color="#000000">(</font><font color="#990000">'/'</font><font color="#000000">)&nbsp;</font><font color="#000000">+&nbsp;</font><font color="#990000">1</font><font color="#000000">)</font><font color="#000000">;</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#000000">}</font><br>
+<font color="#ffffff">&nbsp;&nbsp;</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#7f0055"><b>return&nbsp;</b></font><font color="#000000">pluginRoot;</font><br>
+<font color="#ffffff">&nbsp;&nbsp;</font><font color="#000000">}</font><br>
+<font color="#ffffff"></font><br>
+<font color="#ffffff">&nbsp;&nbsp;</font><font color="#3f5fbf">/**</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;</font><font color="#3f5fbf">*&nbsp;Devuelve&nbsp;el&nbsp;directorio&nbsp;del&nbsp;&aacute;rea&nbsp;de&nbsp;estado&nbsp;del&nbsp;plugin&nbsp;en&nbsp;el&nbsp;sistema&nbsp;de&nbsp;</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;</font><font color="#3f5fbf">*&nbsp;ficheros&nbsp;local.&nbsp;Si&nbsp;el&nbsp;&aacute;rea&nbsp;de&nbsp;estado&nbsp;del&nbsp;plugin&nbsp;no&nbsp;exist&iacute;a&nbsp;antes&nbsp;de&nbsp;esta&nbsp;</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;</font><font color="#3f5fbf">*&nbsp;llamada,&nbsp;se&nbsp;crea.</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;</font><font color="#3f5fbf">*&nbsp;El&nbsp;&aacute;rea&nbsp;de&nbsp;estado&nbsp;de&nbsp;un&nbsp;plugin&nbsp;es&nbsp;un&nbsp;directorio&nbsp;dentro&nbsp;del&nbsp;&aacute;rea&nbsp;de&nbsp;metadatos</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;</font><font color="#3f5fbf">*&nbsp;de&nbsp;la&nbsp;plataforma&nbsp;en&nbsp;el&nbsp;que&nbsp;un&nbsp;plugin&nbsp;es&nbsp;libre&nbsp;para&nbsp;crear&nbsp;ficheros&nbsp;bajo&nbsp;su</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;</font><font color="#3f5fbf">*&nbsp;completa&nbsp;responsabilidad.</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;</font><font color="#3f5fbf">*&nbsp;</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;</font><font color="#3f5fbf">*&nbsp;</font><font color="#7f9fbf">@return&nbsp;</font><font color="#3f5fbf">el&nbsp;directorio&nbsp;del&nbsp;&aacute;rea&nbsp;de&nbsp;estado&nbsp;del&nbsp;plugin.</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;</font><font color="#3f5fbf">*/</font><br>
+<font color="#ffffff">&nbsp;&nbsp;</font><font color="#7f0055"><b>public&nbsp;</b></font><font color="#000000">String&nbsp;getPluginTempDir</font><font color="#000000">(){</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#000000">Bundle&nbsp;pluginBundle&nbsp;=&nbsp;Platform.getBundle</font><font color="#000000">(</font><font color="#000000">BUNDLE_NAME</font><font color="#000000">)</font><font color="#000000">;</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#7f0055"><b>return&nbsp;</b></font><font color="#000000">Platform.getStateLocation</font><font color="#000000">(</font><font color="#000000">pluginBundle</font><font color="#000000">)</font><font color="#000000">.toOSString</font><font color="#000000">()</font><font color="#000000">;</font><br>
+<font color="#ffffff">&nbsp;&nbsp;</font><font color="#000000">}</font><br>
+<font color="#ffffff"></font><br>
+<font color="#ffffff">&nbsp;&nbsp;</font><font color="#3f5fbf">/**</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;</font><font color="#3f5fbf">*&nbsp;Obtiene&nbsp;la&nbsp;siguiente&nbsp;ruta&nbsp;completa&nbsp;que&nbsp;deber&aacute;&nbsp;utilizarse&nbsp;al&nbsp;guardar&nbsp;un&nbsp;</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;</font><font color="#3f5fbf">*&nbsp;modelo&nbsp;MOON&nbsp;de&nbsp;backup.</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;</font><font color="#3f5fbf">*&nbsp;</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;</font><font color="#3f5fbf">*&nbsp;</font><font color="#7f9fbf">@return&nbsp;</font><font color="#3f5fbf">la&nbsp;siguiente&nbsp;ruta&nbsp;completa&nbsp;que&nbsp;deber&aacute;&nbsp;utilizarse&nbsp;al&nbsp;guardar&nbsp;un&nbsp;</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;</font><font color="#3f5fbf">*&nbsp;modelo&nbsp;MOON&nbsp;de&nbsp;backup.</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;</font><font color="#3f5fbf">*/</font><br>
+<font color="#ffffff">&nbsp;&nbsp;</font><font color="#7f0055"><b>public&nbsp;</b></font><font color="#000000">String&nbsp;getNextBackupDestiny</font><font color="#000000">(){</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#7f0055"><b>boolean&nbsp;</b></font><font color="#000000">backupDirExists&nbsp;=&nbsp;</font><font color="#7f0055"><b>true</b></font><font color="#000000">;</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#000000">String&nbsp;backupDir&nbsp;=&nbsp;getBackupDir</font><font color="#000000">()</font><font color="#000000">;</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#3f7f5f">//&nbsp;Si&nbsp;no&nbsp;existe&nbsp;todav&iacute;a&nbsp;el&nbsp;directorio&nbsp;de&nbsp;backup,&nbsp;se&nbsp;asegura&nbsp;de&nbsp;crearlo.</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#000000">File&nbsp;backupDirectory&nbsp;=&nbsp;</font><font color="#7f0055"><b>new&nbsp;</b></font><font color="#000000">File</font><font color="#000000">(</font><font color="#000000">backupDir</font><font color="#000000">)</font><font color="#000000">;</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#7f0055"><b>if</b></font><font color="#000000">(</font><font color="#000000">!&nbsp;backupDirectory.exists</font><font color="#000000">()){</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#7f0055"><b>try&nbsp;</b></font><font color="#000000">{</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#000000">backupDirExists&nbsp;=&nbsp;backupDirectory.mkdir</font><font color="#000000">()</font><font color="#000000">;</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#000000">}</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#7f0055"><b>catch</b></font><font color="#000000">(</font><font color="#000000">Exception&nbsp;e</font><font color="#000000">){</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#000000">backupDirExists&nbsp;=&nbsp;</font><font color="#7f0055"><b>false</b></font><font color="#000000">;</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#000000">}</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#000000">}</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#7f0055"><b>if&nbsp;</b></font><font color="#000000">(</font><font color="#000000">backupDirExists</font><font color="#000000">)</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#7f0055"><b>return&nbsp;</b></font><font color="#000000">backupDir&nbsp;+&nbsp;System.getProperty</font><font color="#000000">(</font><font color="#2a00ff">&#34;file.separator&#34;</font><font color="#000000">)&nbsp;</font><font color="#000000">+&nbsp;&nbsp;</font><font color="#3f7f5f">//$NON-NLS-1$</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#000000">getCurrentRefactoring</font><font color="#000000">()</font><font color="#000000">;</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#7f0055"><b>else</b></font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#7f0055"><b>return&nbsp;</b></font><font color="#000000">getPluginTempDir</font><font color="#000000">()&nbsp;</font><font color="#000000">+&nbsp;System.getProperty</font><font color="#000000">(</font><font color="#2a00ff">&#34;file.separator&#34;</font><font color="#000000">)&nbsp;</font><font color="#000000">+&nbsp;</font><font color="#3f7f5f">//$NON-NLS-1$</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#000000">getCurrentRefactoring</font><font color="#000000">()</font><font color="#000000">;</font><br>
+<font color="#ffffff">&nbsp;&nbsp;</font><font color="#000000">}</font><br>
+<font color="#ffffff">&nbsp;&nbsp;</font><br>
+<font color="#ffffff">&nbsp;&nbsp;</font><font color="#3f5fbf">/**</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;</font><font color="#3f5fbf">*&nbsp;Obtiene&nbsp;el&nbsp;nombre&nbsp;del&nbsp;fichero&nbsp;mod&nbsp;que&nbsp;contiene&nbsp;el&nbsp;estado&nbsp;actual&nbsp;del</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;</font><font color="#3f5fbf">*&nbsp;modelo&nbsp;en&nbsp;proceso&nbsp;de&nbsp;refactorizaci&oacute;n.</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;</font><font color="#3f5fbf">*&nbsp;</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;</font><font color="#3f5fbf">*&nbsp;</font><font color="#7f9fbf">@return&nbsp;</font><font color="#3f5fbf">El&nbsp;nombre&nbsp;del&nbsp;fichero&nbsp;mod&nbsp;que&nbsp;contiene&nbsp;el&nbsp;estado&nbsp;actual&nbsp;del</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;</font><font color="#3f5fbf">*&nbsp;modelo&nbsp;en&nbsp;proceso&nbsp;de&nbsp;refactorizaci&oacute;n.</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;</font><font color="#3f5fbf">*/</font><br>
+<font color="#ffffff">&nbsp;&nbsp;</font><font color="#7f0055"><b>public&nbsp;</b></font><font color="#000000">String&nbsp;getCurrentRefactoring</font><font color="#000000">()&nbsp;{</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#7f0055"><b>return&nbsp;</b></font><font color="#000000">currentRefactoring;</font><br>
+<font color="#ffffff">&nbsp;&nbsp;</font><font color="#000000">}</font><br>
+<font color="#ffffff">&nbsp;&nbsp;</font><br>
+<font color="#ffffff">&nbsp;&nbsp;</font><font color="#3f5fbf">/**</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;</font><font color="#3f5fbf">*&nbsp;Obtiene&nbsp;el&nbsp;proyecto&nbsp;sobre&nbsp;el&nbsp;que&nbsp;se&nbsp;est&aacute;&nbsp;trabajando&nbsp;en&nbsp;un&nbsp;momento&nbsp;dado.</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;</font><font color="#3f5fbf">*&nbsp;</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;</font><font color="#3f5fbf">*&nbsp;</font><font color="#7f9fbf">@return&nbsp;</font><font color="#3f5fbf">el&nbsp;proyecto&nbsp;sobre&nbsp;el&nbsp;que&nbsp;se&nbsp;est&aacute;&nbsp;trabajando&nbsp;en&nbsp;un&nbsp;momento&nbsp;dado.</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;</font><font color="#3f5fbf">*/</font><br>
+<font color="#ffffff">&nbsp;&nbsp;</font><font color="#7f0055"><b>public&nbsp;</b></font><font color="#000000">IProject&nbsp;getAffectedProject</font><font color="#000000">(){</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#7f0055"><b>if</b></font><font color="#000000">(</font><font color="#000000">currentSelection==</font><font color="#7f0055"><b>null</b></font><font color="#000000">){</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#000000">IWorkbenchWindow&nbsp;window&nbsp;=&nbsp;PlatformUI.getWorkbench</font><font color="#000000">()</font><font color="#000000">.getActiveWorkbenchWindow</font><font color="#000000">()</font><font color="#000000">;</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#000000">IEditorInput&nbsp;input&nbsp;=&nbsp;</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#000000">window.getPages</font><font color="#000000">()[</font><font color="#990000">0</font><font color="#000000">]</font><font color="#000000">.getActiveEditor</font><font color="#000000">()</font><font color="#000000">.getEditorInput</font><font color="#000000">()</font><font color="#000000">;&nbsp;</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#000000">currentProject&nbsp;=&nbsp;JavaUI.getEditorInputJavaElement</font><font color="#000000">(</font><font color="#000000">input</font><font color="#000000">)</font><font color="#000000">.getJavaProject</font><font color="#000000">()</font><font color="#000000">;</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#7f0055"><b>return&nbsp;</b></font><font color="#000000">currentProject.getProject</font><font color="#000000">()</font><font color="#000000">;&nbsp;</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#000000">}</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#7f0055"><b>return&nbsp;</b></font><font color="#000000">currentSelection.getProjectForSelection</font><font color="#000000">()</font><font color="#000000">;</font><br>
+<font color="#ffffff">&nbsp;&nbsp;</font><font color="#000000">}</font><br>
+<font color="#ffffff">&nbsp;&nbsp;</font><br>
+<font color="#ffffff">&nbsp;&nbsp;</font><font color="#3f5fbf">/**</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;</font><font color="#3f5fbf">*&nbsp;Obtiene&nbsp;el&nbsp;proyecto&nbsp;Java&nbsp;sobre&nbsp;el&nbsp;que&nbsp;se&nbsp;est&aacute;&nbsp;trabajando&nbsp;en&nbsp;un&nbsp;momento&nbsp;dado.</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;</font><font color="#3f5fbf">*&nbsp;</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;</font><font color="#3f5fbf">*&nbsp;</font><font color="#7f9fbf">@return&nbsp;</font><font color="#3f5fbf">el&nbsp;proyecto&nbsp;Java&nbsp;sobre&nbsp;el&nbsp;que&nbsp;se&nbsp;est&aacute;&nbsp;trabajando&nbsp;en&nbsp;un&nbsp;momento&nbsp;dado.</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;</font><font color="#3f5fbf">*/</font><br>
+<font color="#ffffff">&nbsp;&nbsp;</font><font color="#7f0055"><b>public&nbsp;</b></font><font color="#000000">IJavaProject&nbsp;getAffectedJavaProject</font><font color="#000000">(){</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#7f0055"><b>return&nbsp;</b></font><font color="#000000">currentProject;</font><br>
+<font color="#ffffff">&nbsp;&nbsp;</font><font color="#000000">}</font><br>
+<font color="#ffffff">&nbsp;&nbsp;</font><br>
+<font color="#ffffff">&nbsp;&nbsp;</font><font color="#3f5fbf">/**</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;</font><font color="#3f5fbf">*&nbsp;Obtiene&nbsp;los&nbsp;directorios&nbsp;ra&iacute;z&nbsp;a&nbsp;partir&nbsp;de&nbsp;los&nbsp;cuales&nbsp;se&nbsp;pueden</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;</font><font color="#3f5fbf">*&nbsp;encontrar&nbsp;los&nbsp;ficheros&nbsp;fuente&nbsp;del&nbsp;proyecto&nbsp;afectado.</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;</font><font color="#3f5fbf">*&nbsp;</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;</font><font color="#3f5fbf">*&nbsp;</font><font color="#7f9fbf">@return&nbsp;</font><font color="#3f5fbf">los&nbsp;directorios&nbsp;ra&iacute;z&nbsp;de&nbsp;los&nbsp;ficheros&nbsp;fuente.</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;</font><font color="#3f5fbf">*/</font><br>
+<font color="#ffffff">&nbsp;&nbsp;</font><font color="#7f0055"><b>public&nbsp;</b></font><font color="#000000">List&lt;String&gt;&nbsp;getAffectedSourceDirs</font><font color="#000000">(){</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#7f0055"><b>return&nbsp;</b></font><font color="#000000">JavaFileManager.getSourceDirsForProject</font><font color="#000000">(</font><font color="#000000">getAffectedJavaProject</font><font color="#000000">())</font><font color="#000000">;</font><br>
+<font color="#ffffff">&nbsp;&nbsp;</font><font color="#000000">}</font><br>
+<font color="#ffffff">&nbsp;&nbsp;</font><br>
+<font color="#ffffff">&nbsp;&nbsp;</font><font color="#3f5fbf">/**</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;</font><font color="#3f5fbf">*&nbsp;Obtiene&nbsp;la&nbsp;ruta&nbsp;del&nbsp;directorio&nbsp;de&nbsp;backup&nbsp;utilizado&nbsp;por&nbsp;el&nbsp;plugin.</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;</font><font color="#3f5fbf">*&nbsp;</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;</font><font color="#3f5fbf">*&nbsp;</font><font color="#7f9fbf">@return&nbsp;</font><font color="#3f5fbf">la&nbsp;ruta&nbsp;del&nbsp;directorio&nbsp;de&nbsp;backup&nbsp;utilizado&nbsp;por&nbsp;el&nbsp;plugin.</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;</font><font color="#3f5fbf">*/</font><br>
+<font color="#ffffff">&nbsp;&nbsp;</font><font color="#7f0055"><b>private&nbsp;</b></font><font color="#000000">String&nbsp;getBackupDir</font><font color="#000000">(){</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#3f7f5f">//&nbsp;Directorio&nbsp;temporal&nbsp;asignado&nbsp;para&nbsp;los&nbsp;metadatos&nbsp;del&nbsp;plugin.</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#000000">String&nbsp;tmpDir&nbsp;=&nbsp;getPluginTempDir</font><font color="#000000">()</font><font color="#000000">;</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#000000">String&nbsp;backupDirName&nbsp;=&nbsp;</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#000000">PropertyManager.getInstance</font><font color="#000000">()</font><font color="#000000">.getBackupDirectory</font><font color="#000000">()</font><font color="#000000">;</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#7f0055"><b>return&nbsp;</b></font><font color="#000000">tmpDir&nbsp;+&nbsp;System.getProperty</font><font color="#000000">(</font><font color="#2a00ff">&#34;file.separator&#34;</font><font color="#000000">)&nbsp;</font><font color="#000000">+&nbsp;backupDirName;&nbsp;</font><font color="#3f7f5f">//$NON-NLS-1$</font><br>
+<font color="#ffffff">&nbsp;&nbsp;</font><font color="#000000">}</font><br>
+<font color="#ffffff">&nbsp;&nbsp;</font><br>
+<font color="#ffffff">&nbsp;&nbsp;</font><font color="#3f5fbf">/**</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;</font><font color="#3f5fbf">*&nbsp;Carga&nbsp;en&nbsp;un&nbsp;fichero&nbsp;xml&nbsp;las&nbsp;diferentes&nbsp;refactorizaciones&nbsp;que&nbsp;son&nbsp;posibles&nbsp;para</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;</font><font color="#3f5fbf">*&nbsp;los&nbsp;diferentes&nbsp;tipos&nbsp;de&nbsp;entrada&nbsp;principal&nbsp;de&nbsp;una&nbsp;refactorizaci&oacute;n.</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;</font><font color="#3f5fbf">*/</font><br>
+<font color="#ffffff">&nbsp;&nbsp;</font><font color="#7f0055"><b>private&nbsp;</b></font><font color="#7f0055"><b>void&nbsp;</b></font><font color="#000000">loadRefactoringTypes</font><font color="#000000">(){</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#7f0055"><b>new&nbsp;</b></font><font color="#000000">JDOMXMLRefactoringWriterImp</font><font color="#000000">(</font><font color="#7f0055"><b>null</b></font><font color="#000000">)</font><font color="#000000">.writeFileToLoadRefactoringTypes</font><font color="#000000">()</font><font color="#000000">;</font><br>
+<font color="#ffffff">&nbsp;&nbsp;</font><font color="#000000">}</font><br>
+<font color="#ffffff"></font><br>
+<font color="#ffffff">&nbsp;&nbsp;</font><font color="#3f5fbf">/**</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;</font><font color="#3f5fbf">*&nbsp;Almacena&nbsp;una&nbsp;refactorizaci&oacute;n&nbsp;en&nbsp;la&nbsp;lista&nbsp;de&nbsp;refactorizaciones&nbsp;ejecutadas.</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;</font><font color="#3f5fbf">*&nbsp;</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;</font><font color="#3f5fbf">*&nbsp;Le&nbsp;asigna&nbsp;un&nbsp;nombre&nbsp;&uacute;nico&nbsp;basado&nbsp;en&nbsp;el&nbsp;tipo&nbsp;de&nbsp;refactorizaci&oacute;n&nbsp;y&nbsp;la&nbsp;hora</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;</font><font color="#3f5fbf">*&nbsp;exacta&nbsp;en&nbsp;la&nbsp;que&nbsp;se&nbsp;guarda&nbsp;la&nbsp;refactorizaci&oacute;n.</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;</font><font color="#3f5fbf">*&nbsp;</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;</font><font color="#3f5fbf">*&nbsp;</font><font color="#7f9fbf">@param&nbsp;</font><font color="#3f5fbf">name&nbsp;el&nbsp;nombre&nbsp;de&nbsp;la&nbsp;refactorizaci&oacute;n&nbsp;ejecutada.</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;</font><font color="#3f5fbf">*/</font><br>
+<font color="#ffffff">&nbsp;&nbsp;</font><font color="#7f0055"><b>public&nbsp;</b></font><font color="#7f0055"><b>void&nbsp;</b></font><font color="#000000">storeRefactoring</font><font color="#000000">(</font><font color="#000000">String&nbsp;name</font><font color="#000000">){</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#000000">Calendar&nbsp;calendar&nbsp;=&nbsp;</font><font color="#7f0055"><b>new&nbsp;</b></font><font color="#000000">GregorianCalendar</font><font color="#000000">()</font><font color="#000000">;</font><br>
+<font color="#ffffff"></font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#7f0055"><b>int&nbsp;</b></font><font color="#000000">hour&nbsp;=&nbsp;calendar.get</font><font color="#000000">(</font><font color="#000000">Calendar.HOUR_OF_DAY</font><font color="#000000">)</font><font color="#000000">;</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#7f0055"><b>int&nbsp;</b></font><font color="#000000">minutes&nbsp;=&nbsp;calendar.get</font><font color="#000000">(</font><font color="#000000">Calendar.MINUTE</font><font color="#000000">)</font><font color="#000000">;</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#7f0055"><b>int&nbsp;</b></font><font color="#000000">seconds&nbsp;=&nbsp;calendar.get</font><font color="#000000">(</font><font color="#000000">Calendar.SECOND</font><font color="#000000">)</font><font color="#000000">;</font><br>
+<font color="#ffffff"></font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#000000">currentRefactoring&nbsp;=&nbsp;name&nbsp;+&nbsp;</font><font color="#2a00ff">&#34;_&#34;&nbsp;</font><font color="#000000">+&nbsp;hour&nbsp;+&nbsp;</font><font color="#2a00ff">&#34;.&#34;&nbsp;</font><font color="#000000">+&nbsp;minutes&nbsp;&nbsp;</font><font color="#3f7f5f">//$NON-NLS-1$&nbsp;//$NON-NLS-2$</font><br>
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#000000">+&nbsp;</font><font color="#2a00ff">&#34;.&#34;&nbsp;</font><font color="#000000">+&nbsp;seconds&nbsp;+&nbsp;</font><font color="#2a00ff">&#34;.mod&#34;</font><font color="#000000">;&nbsp;&nbsp;</font><font color="#3f7f5f">//$NON-NLS-1$&nbsp;//$NON-NLS-2$</font><br>
+<font color="#ffffff">&nbsp;&nbsp;</font><font color="#000000">}</font><br>
+<font color="#000000">}</font></code>
+    
+   </td>
+  <!-- end source code -->
+   </tr>
+</table>
+</div>
+<!-- =       END of automatically generated HTML code       = -->
+<!-- ======================================================== -->
+
+
+</body></html>

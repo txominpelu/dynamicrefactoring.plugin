@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!DOCTYPE refactoring SYSTEM "refactoringDTD.dtd">
+
+<refactoring name="Move Field">
+	<information>
+		<description>Create a new field in the target class, and change all its users.</description>
+		<image src="movefield.JPG" />
+		<motivation>A field is, or will be, used by another class more than the class on which it is defined.</motivation>
+	</information>
+	<inputs>
+		<input type="moon.core.Model" name="Model" root="false" />
+		<input type="moon.core.classdef.ClassDef" name="Target_class" from="Model" method="getClassDefSourceAvailable" root="false" />
+		<input type="moon.core.classdef.ClassDef" name="Source_class" from="Attribute" method="getClassDef" root="false" />
+		<input type="moon.core.classdef.AttDec" name="Attribute" root="true" />
+	</inputs>
+	<mechanism>
+		<preconditions>
+			<precondition name="repository.moon.concretepredicate.NotEqualClasses">
+				<param name="Source_class" />
+				<param name="Target_class" />
+			</precondition>
+			<precondition name="repository.moon.concretepredicate.IsNotInnerClass">
+				<param name="Target_class" />
+			</precondition>
+			<precondition name="repository.moon.concretepredicate.AttributeIsNotAlreadyInClass">
+				<param name="Attribute" />
+				<param name="Target_class" />
+			</precondition>
+			<precondition name="repository.moon.concretepredicate.AttributeIsNotUsedInClass">
+				<param name="Attribute" />
+				<param name="Source_class" />
+			</precondition>
+			<precondition name="repository.moon.concretepredicate.AttributeIsNotUsedInModel">
+				<param name="Attribute" />
+			</precondition>
+		</preconditions>
+		<actions>
+			<action name="repository.moon.concreteaction.MoveAttribute">
+				<param name="Attribute" />
+				<param name="Target_class" />
+			</action>
+		</actions>
+		<postconditions>
+			<postcondition name="repository.moon.concretepredicate.AttributeIsNotAlreadyInClass">
+				<param name="Attribute" />
+				<param name="Source_class" />
+			</postcondition>
+			<postcondition name="repository.moon.concretepredicate.AttributeIsAlreadyInClass">
+				<param name="Attribute" />
+				<param name="Target_class" />
+			</postcondition>
+		</postconditions>
+	</mechanism>
+	<examples />
+</refactoring>
+

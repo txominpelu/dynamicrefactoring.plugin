@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!DOCTYPE refactoring SYSTEM "refactoringDTD.dtd">
+
+<refactoring name="Rename Parameter" version="1.2">
+	<information>
+		<description>Change the name of the parameter.</description>
+		<image src="renameparameter.JPG" />
+		<motivation>The name of a parameter within a method's signature does not reveal its purpose.</motivation>
+	</information>
+	<inputs>
+		<input type="moon.core.classdef.FormalArgument" name="Parameter" root="true"/>
+		<input type="moon.core.classdef.MethDec" name="Method" from="Parameter" method="getMethDec"/>
+		<input type="moon.core.Name" name="Old_name" from="Parameter" method="getName"/>
+		<input type="moon.core.Name" name="New_name" />
+		<input type="moon.core.Model" name="Model"/>
+	</inputs>
+	<mechanism>
+		<preconditions>
+			<precondition name="HasNotFormalArgWithName">
+				<param name="Method"/>
+				<param name="New_name"/>
+			</precondition>
+			<precondition name="NotExistsLocalDecWithName">
+				<param name="Method"/>
+				<param name="New_name"/>
+			</precondition>
+		</preconditions>
+		<actions>
+			<action name="RenameFormalArg">
+				<param name="Parameter"/>
+				<param name="New_name"/>
+			</action>
+		</actions>
+		<postconditions>
+			<postcondition name="HasNotFormalArgWithName">
+				<param name="Method"/>
+				<param name="Old_name"/>
+			</postcondition>
+			<postcondition name="ExistsFormalArgInMethod">
+				<param name="Parameter"/>
+				<param name="Method"/>
+			</postcondition>
+		</postconditions>
+	</mechanism>
+	<examples />
+</refactoring>

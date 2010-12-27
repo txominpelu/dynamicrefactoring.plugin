@@ -1,0 +1,32 @@
+/* Javadoc style sheet */
+
+/* Define colors, fonts and other style attributes here to override the defaults */
+
+/* Page background color */
+body { background-color: #AFEEEE } /* PaleTurquoise */
+
+/* Table colors */
+.TableHeadingColor     { background: #00CED1 } /* DarkTurquoise */
+.TableSubHeadingColor  { background: #40E0D0 } /* Turquoise */
+.TableRowColor         { background: #DCDCDC } /* Gainsboro */
+
+/* Font used in left-hand frame lists */
+.FrameTitleFont   { font-size: 10pts; font-family: Helvetica, Arial, san-serif }
+.FrameHeadingFont { font-size: 10pts; font-family: Helvetica, Arial, san-serif }
+.FrameItemFont    { font-size: 10pts; font-family: Helvetica, Arial, san-serif }
+
+/* Example of smaller, sans-serif font in frames */
+/* .FrameItemFont  { font-size: 10pt; font-family: Helvetica, Arial, sans-serif } */
+
+/* Navigation bar fonts and colors */
+.NavBarCell1    { background-color: #00CED1 ;}/* DarkTurquoise */
+.NavBarCell1Rev { background-color: #8B008B ;}/* DarkMagenta */
+.NavBarFont1    { font-family: Arial, Helvetica, sans-serif; color: #000000;} /* Black */
+.NavBarFont1Rev { font-family: Arial, Helvetica, sans-serif; color: #DDA0DD;} /* Plum */
+
+.NavBarCell2    { font-family: Arial, Helvetica, sans-serif; background-color: #E6E6FA;} /* Lavender */
+.NavBarCell3    { font-family: Arial, Helvetica, sans-serif; background-color: #DDA0DD;} /* Plum */
+A:link    { color: #9932CC; } /* DarkOrchid */
+A:visited { color: #996600; } /* brown */
+A:hover   { color: #4B0082; } /* Indigo */
+A:active  { color: #DA70D6; } /* Orchid */

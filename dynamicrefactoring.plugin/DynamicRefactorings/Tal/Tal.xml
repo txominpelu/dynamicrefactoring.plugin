@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!DOCTYPE refactoring SYSTEM "refactoringDTD.dtd">
+
+<refactoring name="Tal">
+	<information>
+		<description>asd</description>
+		<motivation>ad</motivation>
+	</information>
+	<inputs>
+		<input type="moon.core.classdef.ClassDef" name="ClaseDestino" from="Model" method="getClassDefSourceAvailable" root="false" />
+		<input type="moon.core.classdef.AttDec" name="Atributo" root="true" />
+		<input type="moon.core.classdef.ClassDef" name="ClaseOrigen" from="Atributo" method="getClassDef" root="false" />
+		<input type="moon.core.Model" name="Model" root="false" />
+	</inputs>
+	<mechanism>
+		<preconditions>
+			<precondition name="repository.moon.concretepredicate.NotExistsAttributeInClass">
+				<param name="Atributo" />
+				<param name="ClaseDestino" />
+			</precondition>
+		</preconditions>
+		<actions>
+			<action name="repository.moon.concreteaction.MoveAttribute">
+				<param name="Atributo" />
+				<param name="ClaseDestino" />
+			</action>
+		</actions>
+		<postconditions>
+			<postcondition name="repository.moon.concretepredicate.NotExistsAttributeInClass">
+				<param name="Atributo" />
+				<param name="ClaseOrigen" />
+			</postcondition>
+			<postcondition name="repository.moon.concretepredicate.ExistsAttributeInClass">
+				<param name="Atributo" />
+				<param name="ClaseDestino" />
+			</postcondition>
+		</postconditions>
+	</mechanism>
+	<examples>
+		<example before="" after="" />
+		<example before="" after="" />
+	</examples>
+</refactoring>
+
