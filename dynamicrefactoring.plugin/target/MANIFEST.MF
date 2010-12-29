@@ -1,0 +1,172 @@
+Manifest-Version: 1.0
+Export-Package: .,com.swtdesigner;uses:="org.eclipse.jface.resource,or
+ g.eclipse.swt.graphics,org.eclipse.swt.widgets",dynamicrefactoring; u
+ ses:="org.eclipse.jface.operation,  org.eclipse.core.runtime,  org.ec
+ lipse.ui.plugin,  dynamicrefactoring.util.selection,  org.eclipse.osg
+ i.util,  dynamicrefactoring.domain,  moon.core,  org.eclipse.jdt.core
+ ,  repository,  refactoring.engine,  org.eclipse.core.resources,  dyn
+ amicrefactoring.listener,  org.osgi.framework",dynamicrefactoring.act
+ ion; uses:="org.eclipse.jface.action,  org.eclipse.osgi.util,  org.ec
+ lipse.ui,  org.eclipse.jface.viewers",dynamicrefactoring.domain,dynam
+ icrefactoring.integration;uses:="org.eclipse.osgi.util,javamoon.core,
+ dynamicrefactoring.util.selection",dynamicrefactoring.integration.sel
+ ectionhandler; uses:="org.eclipse.osgi.util,  moon.core.classdef,  mo
+ on.core,  dynamicrefactoring.util.processor,  dynamicrefactoring.util
+ .selection",dynamicrefactoring.interfaz; uses:="org.eclipse.jface.win
+ dow,  org.eclipse.osgi.util,  moon.core,  org.apache.log4j,  org.ecli
+ pse.swt.events,  org.eclipse.swt.graphics,  org.eclipse.swt.widgets, 
+  org.eclipse.jface.dialogs",dynamicrefactoring.interfaz.dynamic; uses
+ :="org.apache.log4j,  org.eclipse.swt.events,  org.eclipse.osgi.util,
+   moon.core.classdef,  moon.core,  refactoring.engine,  javamoon.core
+ ,  org.eclipse.swt.graphics,  moon.core.genericity,  dynamicrefactori
+ ng,  org.eclipse.swt.widgets,  org.eclipse.jface.dialogs",dynamicrefa
+ ctoring.interfaz.view; uses:="org.eclipse.osgi.util,  dynamicrefactor
+ ing.domain,  dynamicrefactoring.listener,  org.eclipse.ui.part,  org.
+ eclipse.swt.widgets",dynamicrefactoring.interfaz.wizard; uses:="org.e
+ clipse.jface.wizard,  org.eclipse.ui,  org.eclipse.swt.events,  dynam
+ icrefactoring.interfaz,  org.eclipse.osgi.util,  dynamicrefactoring.d
+ omain,  org.eclipse.swt.graphics,  org.eclipse.jface.viewers,  org.ec
+ lipse.swt.widgets,  org.eclipse.jface.dialogs",dynamicrefactoring.int
+ erfaz.wizard.listener;uses:="org.eclipse.swt.events,org.eclipse.swt.w
+ idgets",dynamicrefactoring.listener;uses:="dynamicrefactoring.domain,
+ dynamicrefactoring.util.selection",dynamicrefactoring.reader,dynamicr
+ efactoring.util;uses:="org.eclipse.osgi.util,org.eclipse.core.runtime
+ ",dynamicrefactoring.util.io;uses:="org.eclipse.osgi.util,org.eclipse
+ .jdt.core,org.eclipse.core.resources",dynamicrefactoring.util.io.filt
+ er;uses:="org.eclipse.osgi.util,javax.swing.filechooser",dynamicrefac
+ toring.util.processor;uses:="org.eclipse.jdt.core",dynamicrefactoring
+ .util.selection; uses:="org.eclipse.jface.text,  org.eclipse.osgi.uti
+ l,  org.eclipse.jdt.core,  org.eclipse.ui,  org.eclipse.core.resource
+ s,  org.eclipse.jface.viewers",dynamicrefactoring.writer,javamoon.con
+ struct.binary; uses:="moon.core.classdef,  org.apache.log4j,  javamoo
+ n.core,  javamoon.core.classdef",javamoon.construct.binary.binaryfile
+ ;uses:="org.apache.log4j",javamoon.construct.source; uses:="org.apach
+ e.log4j,  moon.core.classdef,  javamoon.core,  javamoon.construct.sou
+ rce.parser,  javamoon.core.classdef,  moon.core.entity",javamoon.cons
+ truct.source.ast; uses:="org.eclipse.jdt.core.dom,  org.apache.log4j,
+   moon.core.classdef,  moon.core.expression,  javamoon.core.entity,  
+ javamoon.core.classdef,  moon.core.entity,  javamoon.core.expression"
+ ,javamoon.construct.source.element; uses:="org.apache.log4j,  moon.co
+ re.classdef,  javamoon.core.inheritance,  javamoon.core,  javamoon.co
+ nstruct.source.parser,  javamoon.core.entity,  javamoon.core.generici
+ ty,  javamoon.core.classdef",javamoon.construct.source.parser;uses:="
+ javamoon.construct.source",javamoon.core; uses:="org.apache.log4j,  m
+ oon.core.classdef,  moon.core,  moon.core.genericity,  moon.core.expr
+ ession.constant,  javamoon.core.classdef",javamoon.core.classdef; use
+ s:="moon.core.classdef,  moon.core,  javamoon.core,  moon.core.expres
+ sion,  javamoon.core.entity,  javamoon.core.genericity,  moon.core.en
+ tity",javamoon.core.classdef.primitivetypes;uses:="moon.core.classdef
+ ,moon.core,javamoon.core.classdef",javamoon.core.comment;uses:="moon.
+ core",javamoon.core.entity; uses:="moon.core,  moon.core.classdef,  m
+ oon.core.expression,  javamoon.core.classdef,  moon.core.entity,  jav
+ amoon.core.expression",javamoon.core.expression; uses:="moon.core.cla
+ ssdef,  moon.core.expression,  javamoon.core.classdef,  moon.core.ent
+ ity",javamoon.core.expression.constant;uses:="moon.core.classdef,moon
+ .core.expression,moon.core.expression.constant",javamoon.core.express
+ ion.operation; uses:="moon.core.classdef,  moon.core,  moon.core.expr
+ ession,  moon.core.entity,  javamoon.core.expression",javamoon.core.g
+ enericity;uses:="moon.core.classdef,moon.core,moon.core.genericity",j
+ avamoon.core.inheritance;uses:="moon.core.classdef,moon.core.inherita
+ nce,javamoon.core.classdef",javamoon.core.instruction; uses:="moon.co
+ re.instruction,  moon.core.expression,  javamoon.core.entity,  moon.c
+ ore.entity,  javamoon.core.expression",javamoon.regenerate; uses:="mo
+ on.core,  org.apache.log4j,  moon.core.classdef,  moon.core.inheritan
+ ce,  javamoon.core.comment,  moon.traverse",javamoon.utils;uses:="org
+ .apache.log4j",junit.extensions;uses:="junit.framework",junit.framewo
+ rk;uses:="org.junit.runner.manipulation,org.junit.runner,org.junit.ru
+ nner.notification",junit.runner;uses:="junit.framework",junit.textui;
+ uses:="junit.framework,junit.runner",moon.core; uses:="org.apache.log
+ 4j,  moon.core.classdef,  moon.core.genericity,  moon.core.expression
+ .constant",moon.core.classdef; uses:="moon.core.instruction,  moon.co
+ re,  moon.core.inheritance,  moon.core.genericity,  moon.core.entity,
+   moon.traverse",moon.core.entity;uses:="moon.core,moon.core.classdef
+ ",moon.core.expression;uses:="moon.core,moon.core.classdef,moon.core.
+ entity",moon.core.expression.constant;uses:="org.apache.log4j,moon.co
+ re.classdef,moon.core.expression",moon.core.genericity;uses:="moon.co
+ re.classdef,moon.core",moon.core.inheritance;uses:="moon.core,moon.co
+ re.classdef,moon.traverse",moon.core.instruction;uses:="moon.core,moo
+ n.core.expression,moon.core.entity",moon.metrics.concretemetrics;uses
+ :="moon.metrics.core,moon.core",moon.metrics.core;uses:="moon.core",m
+ oon.metrics.engine; uses:="moon.metrics.core,  moon.core.classdef,  o
+ rg.apache.log4j,  moon.core,  moon.metrics.profile,  moon.core.inheri
+ tance,  moon.traverse",moon.metrics.profile;uses:="moon.metrics.core,
+ moon.core",moon.search.criterion;uses:="moon.search.query",moon.searc
+ h.criterion.comparison;uses:="moon.search.criterion,moon.search.query
+ ",moon.search.criterion.logic;uses:="moon.search.criterion",moon.sear
+ ch.criterion.predicate;uses:="moon.search.criterion",moon.search.quer
+ y;uses:="moon.metrics.core,moon.search.criterion",moon.search.query.b
+ adsmell;uses:="moon.core,moon.search.query",moon.search.query.operato
+ r,moon.search.query.repository;uses:="moon.metrics.core,moon.search.c
+ riterion,moon.search.query",moon.search.query.statistic;uses:="moon.s
+ earch.criterion,moon.search.query",moon.traverse; uses:="moon.core.cl
+ assdef,  org.apache.log4j,  moon.core,  moon.core.inheritance",org.ap
+ ache.log4j;uses:="org.apache.log4j.helpers,org.apache.log4j.or,org.ap
+ ache.log4j.spi",org.apache.log4j.chainsaw; uses:="org.apache.log4j,  
+ javax.swing,  javax.swing.table,  org.apache.log4j.spi,  javax.swing.
+ event,  org.xml.sax.helpers,  org.xml.sax",org.apache.log4j.config;us
+ es:="org.apache.log4j",org.apache.log4j.helpers;uses:="org.apache.log
+ 4j,org.apache.log4j.spi",org.apache.log4j.jdbc;uses:="org.apache.log4
+ j,org.apache.log4j.spi",org.apache.log4j.jmx;uses:="org.apache.log4j,
+ org.apache.log4j.spi,javax.management",org.apache.log4j.lf5;uses:="or
+ g.apache.log4j.lf5.viewer,org.apache.log4j,org.apache.log4j.spi",org.
+ apache.log4j.lf5.config,org.apache.log4j.lf5.util;uses:="org.apache.l
+ og4j.lf5.viewer,org.apache.log4j.lf5",org.apache.log4j.lf5.viewer; us
+ es:="org.apache.log4j.lf5.util,  org.apache.log4j.lf5.viewer.category
+ explorer,  org.apache.log4j.lf5,  javax.swing,  javax.swing.table,  j
+ avax.swing.event,  org.apache.log4j.lf5.viewer.configure",org.apache.
+ log4j.lf5.viewer.categoryexplorer; uses:="javax.swing.tree,  org.apac
+ he.log4j.lf5,  javax.swing,  javax.swing.table,  javax.swing.event",o
+ rg.apache.log4j.lf5.viewer.configure;uses:="org.apache.log4j.lf5.view
+ er,javax.swing.tree,org.w3c.dom",org.apache.log4j.lf5.viewer.images,o
+ rg.apache.log4j.net; uses:="javax.naming,  javax.jms,  org.apache.log
+ 4j,  org.apache.log4j.helpers,  javax.mail.internet,  org.apache.log4
+ j.spi,  org.w3c.dom,  org.apache.log4j.xml,  javax.mail",org.apache.l
+ og4j.nt;uses:="org.apache.log4j,org.apache.log4j.spi",org.apache.log4
+ j.or;uses:="org.apache.log4j.spi",org.apache.log4j.or.jms;uses:="org.
+ apache.log4j.or",org.apache.log4j.or.sax;uses:="org.apache.log4j.or",
+ org.apache.log4j.spi;uses:="org.apache.log4j,org.apache.log4j.or",org
+ .apache.log4j.varia;uses:="org.apache.log4j,org.apache.log4j.spi",org
+ .apache.log4j.xml; uses:="org.apache.log4j.config,  org.apache.log4j.
+ helpers,  org.apache.log4j,  javax.xml.parsers,  org.apache.log4j.spi
+ ,  org.w3c.dom,  org.xml.sax",org.hamcrest,org.hamcrest.core;uses:="o
+ rg.hamcrest",org.hamcrest.internal;x-internal:=true,org.jdom;uses:="o
+ rg.jdom.filter",org.jdom.adapters;uses:="org.jdom,org.w3c.dom",org.jd
+ om.filter;uses:="org.jdom",org.jdom.input; uses:="org.xml.sax.ext,  o
+ rg.jdom,  org.xml.sax.helpers,  org.w3c.dom,  org.xml.sax",org.jdom.o
+ utput; uses:="org.xml.sax.ext,  org.jdom,  org.xml.sax.helpers,  org.
+ w3c.dom,  org.xml.sax",org.jdom.transform; uses:="org.xml.sax.ext,  o
+ rg.jdom,  javax.xml.transform.sax,  org.xml.sax",org.jdom.xpath;uses:
+ ="org.jdom",org.junit;uses:="org.hamcrest",org.junit.experimental.res
+ ults;uses:="org.junit.runner,org.hamcrest",org.junit.experimental.the
+ ories;uses:="org.junit.internal.runners,new org.junit.experimental.th
+ eories",org.junit.experimental.theories.internal;x-internal:=true,org
+ .junit.experimental.theories.suppliers;uses:="org.junit.experimental.
+ theories",org.junit.internal;x-internal:=true,org.junit.internal.requ
+ ests;x-internal:=true,org.junit.internal.runners;x-internal:=true,org
+ .junit.matchers;uses:="org.hamcrest",org.junit.runner;uses:="org.juni
+ t.runner.manipulation,junit.framework,org.junit.runner.notification",
+ org.junit.runner.manipulation;uses:="org.junit.runner",org.junit.runn
+ er.notification;uses:="org.junit.runner",org.junit.runners;uses:="jun
+ it.framework,org.junit.internal.runners,org.junit.runner.notification
+ ",refactoring.engine,refactoring.engine.tailoring,repository;uses:="j
+ avamoon.construct.source",repository.java.concreteaction;uses:="repos
+ itory",repository.java.concretefunction,repository.java.concretepredi
+ cate,repository.moon;uses:="repository",repository.moon.concreteactio
+ n;uses:="repository",repository.moon.concretefunction;uses:="reposito
+ ry",repository.moon.concretepredicate;uses:="repository",repository.m
+ oon.concreterefactoring; uses:="repository.moon,  moon.core.classdef,
+   moon.core,  repository"
+Require-Bundle: org.eclipse.core.resources,org.eclipse.ui,org.eclipse.
+ core.runtime,org.eclipse.jface.text,org.eclipse.jdt.core,org.eclipse.
+ jdt.ui,org.eclipse.jdt.launching,org.eclipse.help
+Eclipse-LazyStart: true
+Bundle-ClassPath: ./temp,lib/log4j-1.2.15.jar,lib/jdom.jar,.,lib/swtde
+ signer.jar,lib/junit-4.4.jar,lib/refactoringengine-1.1.1.jar,lib/j2h.
+ jar,lib/javamoon-2.3.0.jar,lib/moon-2.3.0.jar,lib/commons-io-2.0.jar
+Bundle-Version: 2.0.0
+Bundle-Localization: plugin
+Bundle-Name: Dynamic Refactoring Plug-in
+Bundle-Activator: dynamicrefactoring.RefactoringPlugin
+Bundle-ManifestVersion: 2
+Bundle-SymbolicName: dynamicrefactoring.plugin;singleton:=true
+

@@ -82,7 +82,7 @@ public class PropertyManager {
 	private void loadProperties(){
 		try {
 			
-			String pluginId = "DynamicRefactoring";
+			String pluginId = "dinamicrefactoring.plugin";
 			URL fileURL = RefactoringPlugin.getDefault().getURLForPluginResource(pluginId, CONFIGURATION_FILE);
 			InputStream in = fileURL.openStream();
 			

@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd" xmlns="http://maven.apache.org/POM/4.0.0"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <modelVersion>4.0.0</modelVersion>
+  <groupId>dynamicrefactoring</groupId>
+  <artifactId>dynamic-refactoring-plugin</artifactId>
+  <version>0.0.1-SNAPSHOT</version>
+  <packaging>pom</packaging>
+
+  <properties>
+	<tycho-version>0.10.0</tycho-version>
+  </properties>
+
+  <modules>
+    <module>dynamicrefactoring.plugin</module>
+    <module>dynamicrefactoring.tests</module>
+    <!-- Debe tomar la target platform de ahi -->
+    <module>dynamicrefactoring.targetplatform</module>
+  </modules>
+  <build>
+    <plugins>
+      <plugin>
+        <groupId>org.sonatype.tycho</groupId>
+        <artifactId>tycho-maven-plugin</artifactId>
+        <version>0.10.0</version>
+        <extensions>true</extensions>
+      </plugin>
+
+<!-- Para resolver la targetplatform desde el proyecto targetplatform -->
+	<plugin>
+		<groupId>org.sonatype.tycho</groupId>
+		<artifactId>target-platform-configuration</artifactId>
+		<version>${tycho-version}</version>
+		<configuration>
+		<resolver>p2</resolver>
+			<target>
+				<artifact>
+					<groupId>dynamicrefactoring</groupId>
+					<artifactId>dynamicrefactoring.targetplatform</artifactId>
+					<version>0.0.1-SNAPSHOT</version>
+					<classifier>dynamicrefactoring</classifier>
+				</artifact>
+			</target>
+			<ignoreTychoRepositories>false</ignoreTychoRepositories>
+			</configuration>
+	</plugin>
+<!-- Para que el proyecto se compile con java 1.6 -->
+	<plugin>
+		<groupId>org.sonatype.tycho</groupId>
+		<artifactId>maven-osgi-compiler-plugin</artifactId>
+		<version>${tycho-version}</version>
+		<configuration>
+  			<source>1.6</source>
+  			<target>1.6</target>
+		</configuration>
+	</plugin>
+
+    </plugins>
+  </build>
+</project>
