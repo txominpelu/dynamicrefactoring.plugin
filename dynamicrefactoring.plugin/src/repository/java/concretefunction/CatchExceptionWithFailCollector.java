@@ -14,7 +14,7 @@ import javamoon.core.JavaModel;
 import javamoon.core.JavaName;
 import javamoon.core.entity.JavaArtificialEntity;
 import javamoon.core.entity.JavaRoutineDec;
-import javamoon.core.expression.JavaCallExprLength1;
+import javamoon.core.expression.JavaCallExpr;
 import javamoon.core.instruction.InstrNoMoon;
 import javamoon.core.instruction.JavaFalseAssigmentInstr;
 import javamoon.core.instruction.JavaFalseLocalDec;

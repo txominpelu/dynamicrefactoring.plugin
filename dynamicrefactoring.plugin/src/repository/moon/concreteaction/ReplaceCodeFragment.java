@@ -24,7 +24,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javamoon.core.DefinitionLanguage;
-import javamoon.core.expression.JavaCallExprLength1;
+import javamoon.core.expression.JavaCallExpr;
 import javamoon.core.instruction.JavaAssignmentInstr;
 import javamoon.core.instruction.JavaCallInstrLength1;
 import javamoon.core.instruction.JavaInstrNoMoon;
@@ -128,16 +128,16 @@ public class ReplaceCodeFragment extends Action {
 						Function function = new LocalEntitiesAccessed(fragment.getInstructionsInMethod());
 						List<Entity> entities = (List<Entity>) function.getCollection();
 						for (Entity entity : entities){
-							Expr ce = new JavaCallExprLength1(entity);
+							Expr ce = new JavaCallExpr(entity);
 							arguments.add(ce);
 						}
 						
 						Function function2 = new LocalEntitiesAccessedAfterCodeFragment(fragment);
 						List<Entity> listAux = (List<Entity>) function2.getCollection();
 						Entity entity = (Entity) listAux.get(0);
-						CallExpr ce = new JavaCallExprLength1(entity);
+						CallExpr ce = new JavaCallExpr(entity);
 						
-						CallExpr ce2 = new JavaCallExprLength1(((FunctionDec) newMethDec).getResultEntity(),arguments);
+						CallExpr ce2 = new JavaCallExpr(((FunctionDec) newMethDec).getResultEntity(),arguments);
 						
 						AssignmentInstr assignmentInstr = new JavaAssignmentInstr((Expr)ce,DefinitionLanguage.ASSIGNMENT,(Expr)ce2,(int)instr.getLine(),(int)instr.getColumn());
 						
@@ -151,7 +151,7 @@ public class ReplaceCodeFragment extends Action {
 						Function function = new LocalEntitiesAccessed(fragment.getInstructionsInMethod());
 						List<Entity> entities = (List<Entity>) function.getCollection();
 						for (Entity entity : entities){
-							Expr ce = new JavaCallExprLength1(entity);
+							Expr ce = new JavaCallExpr(entity);
 							arguments.add(ce);
 						}
 						CallInstr jcil1 = new JavaCallInstrLength1((RoutineDec) newMethDec,arguments,(int)instr.getLine(),(int)instr.getColumn());

@@ -24,7 +24,7 @@ package repository.moon.concretepredicate;
 import java.util.*;
 
 import javamoon.core.entity.JavaVoidResult;
-import javamoon.core.expression.JavaCallExprLength1;
+import javamoon.core.expression.JavaCallExpr;
 
 import moon.core.classdef.ClassDef;
 import moon.core.classdef.MethDec;
@@ -151,9 +151,9 @@ public class NotExistsCallToThisMethod extends Predicate {
 		}
 		
 		// FIXME: Java dependent code.
-		if (exp instanceof JavaCallExprLength1){
-			Expr leftSide = ((JavaCallExprLength1)exp).getLeftSide();
-			Expr rightSide = ((JavaCallExprLength1)exp).getRightSide();
+		if (exp instanceof JavaCallExpr){
+			Expr leftSide = ((JavaCallExpr)exp).getLeftSide();
+			Expr rightSide = ((JavaCallExpr)exp).getRightSide();
 			if (leftSide != null && ! exprIds.contains(leftSide.getId())){
 				exprIds.add(leftSide.getId());
 				if (!checkExpr(leftSide))

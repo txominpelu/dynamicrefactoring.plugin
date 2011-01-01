@@ -25,7 +25,7 @@ import java.util.List;
 import javamoon.core.DefinitionLanguage;
 import javamoon.core.JavaName;
 import javamoon.core.entity.JavaResult;
-import javamoon.core.expression.JavaCallExprLength1;
+import javamoon.core.expression.JavaCallExpr;
 import javamoon.core.instruction.JavaFalseAssigmentInstr;
 import javamoon.core.instruction.JavaInstrNoMoon;
 import moon.core.Name;
@@ -118,8 +118,8 @@ public class AddReturnCode extends Action {
 			methDec.add(new JavaInstrNoMoon(DefinitionLanguage.RETURN + DefinitionLanguage.SPACE,-1,-1));
 			
 			Entity entityResult = new JavaResult(new JavaName(DefinitionLanguage.RETURN), list.get(0).getType(), (FunctionDec) methDec);
-			JavaCallExprLength1 jcel1 = new JavaCallExprLength1(entityResult);
-			Expr expr = new JavaCallExprLength1(list.get(0));
+			JavaCallExpr jcel1 = new JavaCallExpr(entityResult);
+			Expr expr = new JavaCallExpr(list.get(0));
 			methDec.add(new JavaFalseAssigmentInstr(jcel1, expr,-1, -1));
 			methDec.add(new JavaInstrNoMoon(DefinitionLanguage.ENDLINE,-1,-1));
 			methDec.add(new JavaInstrNoMoon("}",-1,-1));

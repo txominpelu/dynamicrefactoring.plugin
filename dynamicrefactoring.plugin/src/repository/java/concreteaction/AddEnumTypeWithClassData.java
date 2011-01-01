@@ -39,7 +39,7 @@ import repository.moon.MOONRefactoring;
 
 import javamoon.core.entity.JavaEnumConstant;
 import moon.core.expression.Expr;
-import javamoon.core.expression.JavaCallExprLength1Creation;
+import javamoon.core.expression.JavaCallExprCreation;
 
 /**
  * Permite añadir un tipo enumerado al modelo a partir de la información de 
@@ -107,9 +107,9 @@ public class AddEnumTypeWithClassData extends Action {
 							(int)attribute.getColumn());
 			      posicion++;
 			      try{
-			    	  if(attribute.hasInitializer()&& attribute.getInitializer().getClass().equals(Class.forName("javamoon.core.expression.JavaCallExprLength1Creation"))){
+			    	  if(attribute.hasInitializer()&& attribute.getInitializer().getClass().equals(Class.forName("javamoon.core.expression.JavaCallExprCreation"))){
 			    		  List<Expr> inicializacion =  new ArrayList<Expr>();
-			    		  for(Expr e : ((JavaCallExprLength1Creation)attribute.getInitializer()).getExpression().getRealArguments()){
+			    		  for(Expr e : ((JavaCallExprCreation)attribute.getInitializer()).getExpression().getRealArguments()){
 			    			  inicializacion.add(e);
 			    		  }
 			    		  constant.setSignature(inicializacion);

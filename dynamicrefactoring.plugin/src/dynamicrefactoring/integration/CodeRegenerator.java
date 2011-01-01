@@ -218,7 +218,7 @@ public class CodeRegenerator {
 					monitor.worked(1);
 					
 					monitor.subTask(Messages.CodeRegenerator_CreatingStrategy);
-					RegenerateSourceFileStrategy reg = new RegenerateSourceFileStrategy();
+					RegenerateSourceFileStrategy reg = RegenerateSourceFileStrategy.getInstance();
 					checkForCancellation(monitor);
 					monitor.worked(1);
 					
@@ -306,7 +306,7 @@ public class CodeRegenerator {
 					String fileName = javaFiles.get(i).getName();
 					SourceCode code = new SourceCode();
 					Visitor visitor = new CodeVisitor(code);
-					RegenerateSourceFileStrategy reg = new RegenerateSourceFileStrategy();
+					RegenerateSourceFileStrategy reg = RegenerateSourceFileStrategy.getInstance();
 					reg.setFileToRegenerate(fileName);
 					reg.traverse(ModelGenerator.getInstance().getModel(), visitor);
 					String sourceCode = ((CodeVisitor)visitor).getCode();

@@ -23,7 +23,7 @@ package repository.moon.concreteaction;
 import java.util.*;
 
 import javamoon.core.entity.JavaVoidResult;
-import javamoon.core.expression.JavaCallExprLength1;
+import javamoon.core.expression.JavaCallExpr;
 
 import moon.core.classdef.*;
 import moon.core.entity.*;
@@ -268,11 +268,11 @@ public class AddFormalArgIntoInstructions extends Action {
 			expr.setRealArgument(defaultValue);
 		}
 		// FIXME: Java dependent code.
-		else if (expr instanceof JavaCallExprLength1){
+		else if (expr instanceof JavaCallExpr){
 			
-			Expr leftSide = ((JavaCallExprLength1)expr).getLeftSide();
+			Expr leftSide = ((JavaCallExpr)expr).getLeftSide();
 			
-			Expr rightSide = ((JavaCallExprLength1)expr).getRightSide();
+			Expr rightSide = ((JavaCallExpr)expr).getRightSide();
 			
 			if (leftSide != null && ! exprIds.contains(leftSide.getId())){
 				exprIds.add(leftSide.getId());
@@ -377,9 +377,9 @@ public class AddFormalArgIntoInstructions extends Action {
 		}
 
 		// FIXME: Java dependent code.
-		else if (expr instanceof JavaCallExprLength1){
-			Expr leftSide = ((JavaCallExprLength1)expr).getLeftSide();
-			Expr rightSide = ((JavaCallExprLength1)expr).getRightSide();
+		else if (expr instanceof JavaCallExpr){
+			Expr leftSide = ((JavaCallExpr)expr).getLeftSide();
+			Expr rightSide = ((JavaCallExpr)expr).getRightSide();
 						
 			if (leftSide != null && ! exprIds.contains(leftSide.getId())){
 				exprIds.add(leftSide.getId());

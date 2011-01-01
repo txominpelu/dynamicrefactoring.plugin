@@ -155,13 +155,13 @@ public class SignatureEntityIsUsedInMethod extends Predicate {
 					((JavaArtificialEntityExpression)leftSide).getExpression()))
 					return true;
 		}*/
-		if(leftSide instanceof JavaCallExprLength1){
+		if(leftSide instanceof JavaCallExpr){
 			
 			if(checkCallExprLength1((CallExprLength1) leftSide))
 				return true;
 		}
 		
-		if(right instanceof JavaCallExprLength1){
+		if(right instanceof JavaCallExpr){
 			
 			if(checkCallExprLength1((CallExprLength1) right))
 				return true;
@@ -231,9 +231,9 @@ public class SignatureEntityIsUsedInMethod extends Predicate {
 				return true;
 		
 		// FIXME: Java dependent code.
-		if (callExpr instanceof JavaCallExprLength1){
-			Expr leftSide = ((JavaCallExprLength1)callExpr).getLeftSide();
-			Expr rightSide = ((JavaCallExprLength1)callExpr).getRightSide();
+		if (callExpr instanceof JavaCallExpr){
+			Expr leftSide = ((JavaCallExpr)callExpr).getLeftSide();
+			Expr rightSide = ((JavaCallExpr)callExpr).getRightSide();
 			if (leftSide != null && ! exprIds.contains(leftSide.getId())){
 				exprIds.add(leftSide.getId());
 				if(checkExpr(leftSide))
@@ -247,8 +247,8 @@ public class SignatureEntityIsUsedInMethod extends Predicate {
 		}
 		
 		// FIXME: Java dependent code
-		if (callExpr instanceof JavaCallExprLength1Creation){
-			CallExprLength1 subexpr = ((JavaCallExprLength1Creation)callExpr).getExpression();
+		if (callExpr instanceof JavaCallExprCreation){
+			CallExprLength1 subexpr = ((JavaCallExprCreation)callExpr).getExpression();
 			return checkExpr(subexpr);
 		}
 		
