@@ -5,7 +5,7 @@
     <properties size='6'>
       <property name='artifact.size' value='3858990'/>
       <property name='download.size' value='3858990'/>
-      <property name='download.md5' value='09aa0a26236aea1c68df70127c92b29d'/>
+      <property name='download.md5' value='4c39ab7ac333ad47c79220d76f56b9a7'/>
       <property name='maven-groupId' value='dynamicrefactoring'/>
       <property name='maven-artifactId' value='dynamicrefactoring.plugin'/>
       <property name='maven-version' value='2.0.0'/>

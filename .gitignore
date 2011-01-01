@@ -1,2 +1,4 @@
 .metadata/
 .settings/
+dynamicrefactoring.plugin/target/*
+dynamicrefactoring.tests/target/*
