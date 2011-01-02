@@ -26,7 +26,7 @@ import java.util.List;
 import javamoon.core.DefinitionLanguage;
 import javamoon.core.expression.JavaCallExpr;
 import javamoon.core.instruction.JavaAssignmentInstr;
-import javamoon.core.instruction.JavaCallInstrLength1;
+import javamoon.core.instruction.JavaCallInstr;
 import javamoon.core.instruction.JavaInstrNoMoon;
 import moon.core.Name;
 import moon.core.classdef.*;
@@ -137,7 +137,7 @@ public class ReplaceCodeFragment extends Action {
 						Entity entity = (Entity) listAux.get(0);
 						CallExpr ce = new JavaCallExpr(entity);
 						
-						CallExpr ce2 = new JavaCallExpr(((FunctionDec) newMethDec).getResultEntity(),arguments);
+						CallExpr ce2 = new JavaCallExpr(((FunctionDec) newMethDec).getFunctionResultEntity(),arguments);
 						
 						AssignmentInstr assignmentInstr = new JavaAssignmentInstr((Expr)ce,DefinitionLanguage.ASSIGNMENT,(Expr)ce2,(int)instr.getLine(),(int)instr.getColumn());
 						
@@ -154,7 +154,7 @@ public class ReplaceCodeFragment extends Action {
 							Expr ce = new JavaCallExpr(entity);
 							arguments.add(ce);
 						}
-						CallInstr jcil1 = new JavaCallInstrLength1((RoutineDec) newMethDec,arguments,(int)instr.getLine(),(int)instr.getColumn());
+						CallInstr jcil1 = new JavaCallInstr((RoutineDec) newMethDec,arguments,(int)instr.getLine(),(int)instr.getColumn());
 						newBodyMethodAux.add(jcil1);
 						newBodyMethodAux.add(new JavaInstrNoMoon(DefinitionLanguage.ENDLINE,-1,-1));
 					}

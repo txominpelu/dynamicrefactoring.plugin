@@ -28,7 +28,7 @@ import java.util.List;
 import moon.core.classdef.FormalArgument;
 import moon.core.classdef.LocalDec;
 import moon.core.entity.Entity;
-import moon.core.expression.CallExprLength1;
+import moon.core.expression.CallExpr;
 import moon.core.expression.Expr;
 import moon.core.instruction.AssignmentInstr;
 import moon.core.instruction.CompoundInstr;
@@ -117,11 +117,11 @@ public class LocalReadEntitiesAccessed extends Function {
 	private void visit(Instr instr){
 		if (instr instanceof AssignmentInstr){
 			 Expr exprRight = ((AssignmentInstr) instr).getRighSide();
-			 if (exprRight instanceof CallExprLength1){
-				 checkAddEntity(((CallExprLength1) exprRight).getFirstElement());
-				 for (Expr expr : ((CallExprLength1) exprRight).getRealArguments()){
-					 if (expr instanceof CallExprLength1){
-						 checkAddEntity(((CallExprLength1) expr).getFirstElement());
+			 if (exprRight instanceof CallExpr){
+				 checkAddEntity(((CallExpr) exprRight).getFirstElement());
+				 for (Expr expr : ((CallExpr) exprRight).getRealArguments()){
+					 if (expr instanceof CallExpr){
+						 checkAddEntity(((CallExpr) expr).getFirstElement());
 					 }
 				 }
 			 }

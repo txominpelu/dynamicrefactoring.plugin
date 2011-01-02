@@ -25,7 +25,7 @@ import java.util.List;
 
 import javamoon.core.entity.JavaVoidResult;
 import javamoon.core.expression.JavaCallExpr;
-import javamoon.core.instruction.JavaFalseAssigmentInstr;
+import javamoon.core.instruction.JavaFalseAssignmentInstr;
 import moon.core.classdef.MethDec;
 import moon.core.expression.Expr;
 import moon.core.instruction.CompoundInstr;
@@ -96,8 +96,8 @@ public class RemoveJUnit3FailInstructions  extends Action{
 			}
 			else{		
 				// Remove fail in false assignment instr...
-				if (instr instanceof JavaFalseAssigmentInstr){
-					Expr expr = ((JavaFalseAssigmentInstr) instr).getRighSide();
+				if (instr instanceof JavaFalseAssignmentInstr){
+					Expr expr = ((JavaFalseAssignmentInstr) instr).getRighSide();
 					String name = ((JavaVoidResult) (((JavaCallExpr) expr)).getFirstElement()).toString();					
 					if (name.toString().equals("fail")){						
 						compoundInstr.removeInstruction(instr);

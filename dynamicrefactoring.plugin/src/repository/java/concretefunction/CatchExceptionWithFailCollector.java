@@ -16,7 +16,7 @@ import javamoon.core.entity.JavaArtificialEntity;
 import javamoon.core.entity.JavaRoutineDec;
 import javamoon.core.expression.JavaCallExpr;
 import javamoon.core.instruction.InstrNoMoon;
-import javamoon.core.instruction.JavaFalseAssigmentInstr;
+import javamoon.core.instruction.JavaFalseAssignmentInstr;
 import javamoon.core.instruction.JavaFalseLocalDec;
 import javamoon.core.instruction.JavaInstrNoMoon;
 

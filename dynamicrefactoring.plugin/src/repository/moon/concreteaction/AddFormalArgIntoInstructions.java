@@ -164,7 +164,7 @@ public class AddFormalArgIntoInstructions extends Action {
 	 * @return <code>true</code> si la expresión contiene una llamada al
 	 * método, <code>false</code> en caso contrario.
 	 */
-	private boolean checkCallExprLength1(CallExprLength1 exp){
+	private boolean checkCallExpr(CallExpr exp){
 		
 		if(exp.getFirstElement() instanceof Result){
 			
@@ -234,8 +234,8 @@ public class AddFormalArgIntoInstructions extends Action {
 			List<Expr> arguments = instr.getRealArguments();
 			
 			for (Expr next : arguments)
-				if(next instanceof CallExprLength1)
-					addFormalArg((CallExprLength1) next);
+				if(next instanceof CallExpr)
+					addFormalArg((CallExpr) next);
 			
 			arguments.add(defaultValue);
 		}
@@ -259,10 +259,10 @@ public class AddFormalArgIntoInstructions extends Action {
 	 * 
 	 * @param expr expresión de llamada de longitud uno.
 	 */
-	private void addFormalArg(CallExprLength1 expr){
+	private void addFormalArg(CallExpr expr){
 		
 		
-		if (checkCallExprLength1(expr)){
+		if (checkCallExpr(expr)){
 			// Se añade AL FINAL de la lista 
 			// el valor por defecto para el nuevo argumento.
 			expr.setRealArgument(defaultValue);
@@ -285,8 +285,8 @@ public class AddFormalArgIntoInstructions extends Action {
 		}
 		
 		for(Expr nextAtom : expr.getRealArguments())
-			if(nextAtom instanceof CallExprLength1)
-				addFormalArg((CallExprLength1) nextAtom);
+			if(nextAtom instanceof CallExpr)
+				addFormalArg((CallExpr) nextAtom);
 	}
 
 	/**
@@ -297,8 +297,8 @@ public class AddFormalArgIntoInstructions extends Action {
 	 * ser necesario.
 	 */
 	private void addFormalArg(Expr expr){
-		if (expr instanceof CallExprLength1){			
-			addFormalArg((CallExprLength1)expr);
+		if (expr instanceof CallExpr){			
+			addFormalArg((CallExpr)expr);
 		}
 	}
 
@@ -346,8 +346,8 @@ public class AddFormalArgIntoInstructions extends Action {
 			arguments.remove(arguments.size() - 1);
 			
 			for (Expr next : arguments)
-				if(next instanceof CallExprLength1)
-					removeFormalArg((CallExprLength1) next);	
+				if(next instanceof CallExpr)
+					removeFormalArg((CallExpr) next);	
 		}
 	}
 
@@ -369,8 +369,8 @@ public class AddFormalArgIntoInstructions extends Action {
 	 * @param expr expresión de llamada de longitud dos de la que se elimina el 
 	 * último argumento formal de las llamadas al método, en caso de ser necesario.
 	 */
-	private void removeFormalArg(CallExprLength1 expr){
-		if (checkCallExprLength1(expr)){
+	private void removeFormalArg(CallExpr expr){
+		if (checkCallExpr(expr)){
 			// Se añade EL ÚLTIMO de la lista.
 			List<Expr> arguments = expr.getRealArguments();
 			arguments.remove(arguments.size() - 1);
@@ -392,8 +392,8 @@ public class AddFormalArgIntoInstructions extends Action {
 		}
 		
 		for(Expr nextAtom : expr.getRealArguments())
-			if(nextAtom instanceof CallExprLength1)
-				removeFormalArg((CallExprLength1) nextAtom);
+			if(nextAtom instanceof CallExpr)
+				removeFormalArg((CallExpr) nextAtom);
 	}
 	
 	
@@ -405,8 +405,8 @@ public class AddFormalArgIntoInstructions extends Action {
 	 * último argumento formal de las llamadas al método, en caso de ser necesario.
 	 */
 	private void removeFormalArg(Expr expr){
-		if (expr instanceof CallExprLength1)
-			removeFormalArg((CallExprLength1)expr);
+		if (expr instanceof CallExpr)
+			removeFormalArg((CallExpr)expr);
 	}
 	
 	

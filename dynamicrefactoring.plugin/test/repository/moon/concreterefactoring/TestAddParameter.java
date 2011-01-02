@@ -29,7 +29,7 @@ import javamoon.utils.EclipsePrettyPrinter;
 
 import moon.core.MoonFactory;
 import moon.core.classdef.*;
-import moon.core.expression.CallExprLength1;
+import moon.core.expression.CallExpr;
 import moon.core.instruction.AssignmentInstr;
 import moon.core.instruction.CompoundInstr;
 import moon.core.instruction.Instr;
@@ -300,7 +300,7 @@ public class TestAddParameter extends RefactoringTemplateAbstractTest {
 
 		assertEquals("Test añadir argumento a método usado: las llamadas al método " + //$NON-NLS-1$
 			"no contienen un valor real para el nuevo argumento.", "0", //$NON-NLS-1$ //$NON-NLS-2$
-			((CallExprLength1)instr2.getRighSide()).getRealArgument(0).toString());
+			((CallExpr)instr2.getRighSide()).getRealArgument(0).toString());
 	}
 	
 	/** 

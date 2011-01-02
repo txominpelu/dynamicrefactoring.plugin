@@ -22,6 +22,7 @@ package repository.moon.concretefunction;
 
 import java.util.*;
 
+import javamoon.core.classdef.JavaDecoratorType;
 import javamoon.core.classdef.JavaQualifiedDecoratorType;
 
 import moon.core.genericity.FormalPar;
@@ -115,9 +116,9 @@ public class FormalParSubstitutionCollector extends Function {
 						substitutions.add(realType.getClassDef().getClassType());
 
 					// FIXME: Java dependent code
-					if (realType instanceof JavaQualifiedDecoratorType){
+					if (realType instanceof JavaDecoratorType){
 						Type javaType = 
-							((JavaQualifiedDecoratorType)realType).getType();
+							((JavaDecoratorType)realType).getType();
 						if (javaType.getClassDef() != null)
 							if (! substitutions.contains(
 								javaType.getClassDef().getClassType()))

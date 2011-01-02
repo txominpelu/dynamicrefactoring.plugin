@@ -32,7 +32,7 @@ import moon.core.classdef.MethDec;
 import moon.core.entity.FunctionDec;
 import moon.core.entity.Result;
 
-import moon.core.expression.CallExprLength1;
+import moon.core.expression.CallExpr;
 import moon.core.expression.Expr;
 import moon.core.expression.Expr;
 
@@ -116,8 +116,8 @@ public class NotExistsCallToThisMethod extends Predicate {
 								((AssignmentInstr)instruction).getRighSide();
 											
 							
-							if(expresion instanceof CallExprLength1)
-								if(!(checkCallExprLength1((CallExprLength1)expresion)))
+							if(expresion instanceof CallExpr)
+								if(!(checkCallExpr((CallExpr)expresion)))
 									return false;
 						}
 					}
@@ -138,13 +138,13 @@ public class NotExistsCallToThisMethod extends Predicate {
 	 * @return <code>true</code> si la expresión no contiene ninguna llamada al
 	 * método; <code>false</code> en caso contrario.
 	 */
-	private boolean checkCallExprLength1(CallExprLength1 exp){
+	private boolean checkCallExpr(CallExpr exp){
 		
 		if(exp.getFirstElement() instanceof Result){			
 			Result result = (Result)exp.getFirstElement();
 									
 			if(method instanceof FunctionDec){
-				Result methRes = ((FunctionDec)method).getResultEntity();
+				Result methRes = ((FunctionDec)method).getFunctionResultEntity();
 				if(methRes.getFunctionDec().getUniqueName().equals(result.getFunctionDec().getUniqueName()))
 					return false;
 			}
@@ -195,8 +195,8 @@ public class NotExistsCallToThisMethod extends Predicate {
 	 * método especificado; <code>false</code> en caso contrario.
 	 */
 	private boolean checkExpr(Expr expr){
-		if (expr instanceof CallExprLength1)
-			if (!checkCallExprLength1((CallExprLength1)expr))
+		if (expr instanceof CallExpr)
+			if (!checkCallExpr((CallExpr)expr))
 				return false;
 		return true;
 	}
@@ -218,8 +218,8 @@ public class NotExistsCallToThisMethod extends Predicate {
 		for(int i=0; i < instr.getRealArguments().size(); i++){			
 			Expr param = instr.getRealArgument(i);
 			
-			if(param instanceof CallExprLength1)				
-				if(! (checkCallExprLength1((CallExprLength1)param)))
+			if(param instanceof CallExpr)				
+				if(! (checkCallExpr((CallExpr)param)))
 					return false;			
 		}
 		

@@ -28,7 +28,7 @@ import java.util.List;
 import moon.core.classdef.FormalArgument;
 import moon.core.classdef.LocalDec;
 import moon.core.entity.Entity;
-import moon.core.expression.CallExprLength1;
+import moon.core.expression.CallExpr;
 import moon.core.expression.Expr;
 import moon.core.instruction.AssignmentInstr;
 import moon.core.instruction.CallInstr;
@@ -121,26 +121,26 @@ public class LocalEntitiesAccessed extends Function {
 
 		if (instr instanceof AssignmentInstr){
 			 Expr exprLeft = ((AssignmentInstr) instr).getLeftSide();
-			 if (exprLeft instanceof CallExprLength1){
-				 checkAddEntity(((CallExprLength1) exprLeft).getFirstElement());
+			 if (exprLeft instanceof CallExpr){
+				 checkAddEntity(((CallExpr) exprLeft).getFirstElement());
 				// visit arguments...
-					List<Expr> listArguments = ((CallExprLength1)exprLeft).getRealArguments();
+					List<Expr> listArguments = ((CallExpr)exprLeft).getRealArguments();
 					for (Expr expr2 : listArguments){
-						if (expr2 instanceof CallExprLength1){
-							visit((CallExprLength1)expr2);
+						if (expr2 instanceof CallExpr){
+							visit((CallExpr)expr2);
 						}
 					}
 			 }
 			 
 			 
 			 Expr expr = ((AssignmentInstr) instr).getRighSide();
-			 if (expr instanceof CallExprLength1){
-				 visit((CallExprLength1) expr);
+			 if (expr instanceof CallExpr){
+				 visit((CallExpr) expr);
 				// visit arguments...
-				List<Expr> listArguments = ((CallExprLength1)expr).getRealArguments();
+				List<Expr> listArguments = ((CallExpr)expr).getRealArguments();
 				for (Expr expr2 : listArguments){
-					if (expr2 instanceof CallExprLength1){
-						visit((CallExprLength1)expr2);
+					if (expr2 instanceof CallExpr){
+						visit((CallExpr)expr2);
 					}
 				}
 			 }
@@ -153,14 +153,14 @@ public class LocalEntitiesAccessed extends Function {
 			visit(callInstr.getLeftSide());
 			List<Expr> listExpr = callInstr.getRealArguments();
 			for (Expr expr : listExpr){
-				if (expr instanceof CallExprLength1){
+				if (expr instanceof CallExpr){
 					// visit expression
-					visit((CallExprLength1)expr);
+					visit((CallExpr)expr);
 					// visit arguments...
-					List<Expr> listArguments = ((CallExprLength1)expr).getRealArguments();
+					List<Expr> listArguments = ((CallExpr)expr).getRealArguments();
 					for (Expr expr2 : listArguments){
-						if (expr2 instanceof CallExprLength1){
-							visit((CallExprLength1)expr2);
+						if (expr2 instanceof CallExpr){
+							visit((CallExpr)expr2);
 						}
 					}					
 				}
@@ -188,12 +188,12 @@ public class LocalEntitiesAccessed extends Function {
 	 * 
 	 * @param cel1 expression to visit
 	 */
-	private void visit(CallExprLength1 cel1){
+	private void visit(CallExpr cel1){
 		Entity entity = cel1.getFirstElement();
 		checkAddEntity(entity);
 		
-		if (cel1.getLeftSide()!=null && cel1.getLeftSide() instanceof CallExprLength1){			
-			visit((CallExprLength1) cel1.getLeftSide());
+		if (cel1.getLeftSide()!=null && cel1.getLeftSide() instanceof CallExpr){			
+			visit((CallExpr) cel1.getLeftSide());
 		}		
 	}
 }

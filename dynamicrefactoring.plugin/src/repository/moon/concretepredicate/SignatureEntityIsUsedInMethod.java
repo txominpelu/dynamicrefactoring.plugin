@@ -150,20 +150,20 @@ public class SignatureEntityIsUsedInMethod extends Predicate {
 		if (leftSide instanceof JavaArtificialEntityExpression){
 			
 			if(((JavaArtificialEntityExpression)leftSide).getExpression()
-				instanceof CallExprLength1)
-				if(checkCallExprLength1(
+				instanceof CallExpr)
+				if(checkCallExpr(
 					((JavaArtificialEntityExpression)leftSide).getExpression()))
 					return true;
 		}*/
 		if(leftSide instanceof JavaCallExpr){
 			
-			if(checkCallExprLength1((CallExprLength1) leftSide))
+			if(checkCallExpr((CallExpr) leftSide))
 				return true;
 		}
 		
 		if(right instanceof JavaCallExpr){
 			
-			if(checkCallExprLength1((CallExprLength1) right))
+			if(checkCallExpr((CallExpr) right))
 				return true;
 		}
 		
@@ -187,8 +187,8 @@ public class SignatureEntityIsUsedInMethod extends Predicate {
 			List<Expr> arguments = 
 				((CallInstr)callInstr).getRealArguments();
 			for (Expr argument : arguments)
-				if (argument instanceof CallExprLength1)
-					if (checkCallExprLength1((CallExprLength1)argument))
+				if (argument instanceof CallExpr)
+					if (checkCallExpr((CallExpr)argument))
 						return true;
 		}
 		return false;
@@ -211,7 +211,7 @@ public class SignatureEntityIsUsedInMethod extends Predicate {
 	}
 	
 	/**
-	 * Comprueba si la entidad de signatura forma parte de una CallExprLength1.
+	 * Comprueba si la entidad de signatura forma parte de una CallExpr.
 	 *
 	 * @param callExpr la expresión de llamada de longitud uno en la que se 
 	 * estudia el posible uso de la entidad de signatura.
@@ -219,15 +219,15 @@ public class SignatureEntityIsUsedInMethod extends Predicate {
 	 * @return <code>true</code> si la entidad es utilizada en la expresión 
 	 * de llamada; <code>false</code> en caso contrario.
 	 */
-	private boolean checkCallExprLength1(CallExprLength1 callExpr){
+	private boolean checkCallExpr(CallExpr callExpr){
 		
 		if (callExpr.getFirstElement() == sigEnt)
 			return true;
 		
 		List<Expr> realArguments = callExpr.getRealArguments();
 		for (Expr argument : realArguments)
-			if (argument instanceof CallExprLength1 &&
-				checkCallExprLength1((CallExprLength1)argument))
+			if (argument instanceof CallExpr &&
+				checkCallExpr((CallExpr)argument))
 				return true;
 		
 		// FIXME: Java dependent code.
@@ -248,7 +248,7 @@ public class SignatureEntityIsUsedInMethod extends Predicate {
 		
 		// FIXME: Java dependent code
 		if (callExpr instanceof JavaCallExprCreation){
-			CallExprLength1 subexpr = ((JavaCallExprCreation)callExpr).getExpression();
+			CallExpr subexpr = ((JavaCallExprCreation)callExpr).getExpression();
 			return checkExpr(subexpr);
 		}
 		
@@ -279,8 +279,8 @@ public class SignatureEntityIsUsedInMethod extends Predicate {
 	 * de llamada; <code>false</code> en caso contrario.
 	 */
 	private boolean checkExpr(Expr expr){
-		if (expr instanceof CallExprLength1)
-			if (checkCallExprLength1((CallExprLength1)expr))
+		if (expr instanceof CallExpr)
+			if (checkCallExpr((CallExpr)expr))
 				return true;
 		return false;
 	}

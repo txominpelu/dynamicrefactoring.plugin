@@ -3,7 +3,7 @@ package repository.java.concretepredicate;
 import javamoon.core.entity.JavaArtificialEntity;
 import javamoon.core.entity.JavaVoidResult;
 import javamoon.core.expression.JavaCallExpr;
-import javamoon.core.instruction.JavaFalseAssigmentInstr;
+import javamoon.core.instruction.JavaFalseAssignmentInstr;
 import moon.core.expression.Expr;
 import moon.core.instruction.CompoundInstr;
 import moon.core.instruction.Instr;
@@ -58,9 +58,9 @@ public class HasNotFail extends Predicate{
 		else{
 			
 			
-			if (instr instanceof JavaFalseAssigmentInstr){
+			if (instr instanceof JavaFalseAssignmentInstr){
 				
-				Expr expr = ((JavaFalseAssigmentInstr) instr).getRighSide();
+				Expr expr = ((JavaFalseAssignmentInstr) instr).getRighSide();
 				String name = ((JavaVoidResult) (((JavaCallExpr) expr)).getFirstElement()).toString();
 				if (name.toString().equals("fail")){
 					return false;

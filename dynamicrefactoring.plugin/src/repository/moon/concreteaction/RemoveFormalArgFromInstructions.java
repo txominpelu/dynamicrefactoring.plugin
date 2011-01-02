@@ -131,9 +131,9 @@ public class RemoveFormalArgFromInstructions extends Action {
 						Expr param = 
 							((CallInstr)instruction).getRealArgument(i);
 						
-						if(param instanceof CallExprLength1)							
-							if(checkCallExprLength1((CallExprLength1)param))
-								((CallExprLength1)param).getRealArguments().
+						if(param instanceof CallExpr)							
+							if(checkCallExpr((CallExpr)param))
+								((CallExpr)param).getRealArguments().
 									remove(argPosition);
 					}
 				}
@@ -143,9 +143,9 @@ public class RemoveFormalArgFromInstructions extends Action {
 						Expr expresion = 
 							((AssignmentInstr)instruction).getRighSide();
 												
-						if(expresion instanceof CallExprLength1)
-							if(checkCallExprLength1((CallExprLength1)expresion))
-								((CallExprLength1)expresion).getRealArguments().
+						if(expresion instanceof CallExpr)
+							if(checkCallExpr((CallExpr)expresion))
+								((CallExpr)expresion).getRealArguments().
 									remove(argPosition);
 					}
 			}
@@ -172,11 +172,11 @@ public class RemoveFormalArgFromInstructions extends Action {
 	 * @return <code>true</code> si la expresión contiene una llamada al
 	 * método, <code>false</code> en caso contrario.
 	 */
-	private boolean checkCallExprLength1(CallExprLength1 exp){
+	private boolean checkCallExpr(CallExpr exp){
 		
 		if(exp.getFirstElement() instanceof Result){
 			
-			Result result = (Result)((CallExprLength1)exp).getFirstElement();
+			Result result = (Result)((CallExpr)exp).getFirstElement();
 									
 			if(method instanceof FunctionDec && 
 				result.getFunctionDec() == method)

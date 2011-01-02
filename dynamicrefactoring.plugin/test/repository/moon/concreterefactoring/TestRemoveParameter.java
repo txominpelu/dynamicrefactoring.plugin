@@ -27,7 +27,7 @@ import javamoon.core.JavaModel;
 
 import moon.core.MoonFactory;
 import moon.core.classdef.*;
-import moon.core.expression.CallExprLength1;
+import moon.core.expression.CallExpr;
 import moon.core.expression.Expr;
 import moon.core.instruction.AssignmentInstr;
 import moon.core.instruction.CompoundInstr;
@@ -301,7 +301,7 @@ public class TestRemoveParameter extends RefactoringTemplateAbstractTest {
 		
 		AssignmentInstr instr2 = (AssignmentInstr) instrIt.get(3);
 		
-		List <Expr> list = ((CallExprLength1)instr2.getRighSide()).getRealArguments();
+		List <Expr> list = ((CallExpr)instr2.getRighSide()).getRealArguments();
 		//List <ExprAtom> list =instr2.getRealArguments();
 
 		assertTrue("Test eliminar argumento método usado: las llamadas al método " + //$NON-NLS-1$
@@ -342,7 +342,7 @@ public class TestRemoveParameter extends RefactoringTemplateAbstractTest {
 			for (Instr subi : ((CompoundInstr)i).getInstructions())
 				if (subi instanceof AssignmentInstr)
 					assertEquals("Test eliminar argumento método con muchas llamadas.", //$NON-NLS-1$
-						0, ((CallExprLength1)((AssignmentInstr)subi).getRighSide()).getRealArguments().size());
+						0, ((CallExpr)((AssignmentInstr)subi).getRighSide()).getRealArguments().size());
 	}
 
 	/**
