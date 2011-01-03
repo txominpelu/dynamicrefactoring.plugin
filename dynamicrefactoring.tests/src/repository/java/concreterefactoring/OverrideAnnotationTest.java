@@ -27,7 +27,6 @@ import java.io.IOException;
 
 import javamoon.construct.binary.BinaryClassFileException;
 import javamoon.construct.source.SourceLoader;
-import javamoon.construct.source.parser.ParseException;
 import javamoon.core.JavaModel;
 import javamoon.core.JavaName;
 import moon.core.classdef.MethDec;
@@ -52,7 +51,7 @@ public class OverrideAnnotationTest extends RefactoringTemplateAbstractTest{
 
 
 	/**
-	 * Prueba la refactorización con un método carente de parámetros.
+	 * Prueba la refactorizaciï¿½n con un mï¿½todo carente de parï¿½metros.
 	 * 
 	 * @throws Exception if something goes wrong
 	 */
@@ -62,7 +61,7 @@ public class OverrideAnnotationTest extends RefactoringTemplateAbstractTest{
 	}
 	
 	/**
-	 * Prueba la refactorización con un método con parámetros.
+	 * Prueba la refactorizaciï¿½n con un mï¿½todo con parï¿½metros.
 	 * 
 	 * @throws Exception if something goes wrong
 	 */
@@ -85,7 +84,7 @@ public class OverrideAnnotationTest extends RefactoringTemplateAbstractTest{
 	 * @throws PostconditionException PostconditionException
 	 * @throws IOException IOException
 	 */
-	private void check(String dir) throws ParseException, BinaryClassFileException, 
+	private void check(String dir) throws BinaryClassFileException, 
 										PreconditionException, PostconditionException, IOException {
 		SourceLoader sourceLoader = new SourceLoader();
 		sourceLoader.loadFromDirectory("testdata" + File.separator
@@ -117,7 +116,7 @@ public class OverrideAnnotationTest extends RefactoringTemplateAbstractTest{
 
 
 	/**
-	 * Prueba a deshacer un caso correcto sobre un método sin parámetros.
+	 * Prueba a deshacer un caso correcto sobre un mï¿½todo sin parï¿½metros.
 	 * 
 	 * @throws Exception if something goes wrong
 	 */
@@ -127,7 +126,7 @@ public class OverrideAnnotationTest extends RefactoringTemplateAbstractTest{
 	}
 	
 	/**
-	 * Prueba a deshacer un caso correcto sobre un método sin parámetros.
+	 * Prueba a deshacer un caso correcto sobre un mï¿½todo sin parï¿½metros.
 	 * 
 	 * @throws Exception if something goes wrong
 	 */
@@ -138,7 +137,7 @@ public class OverrideAnnotationTest extends RefactoringTemplateAbstractTest{
 	
 	
 	/**
-	 * Comprueba que la refactorización se deshace de forma correcta.
+	 * Comprueba que la refactorizaciï¿½n se deshace de forma correcta.
 	 * 
 	 * @param dir directorio sobre el que se encuentra el caso a probar.
 	 * @throws ParseException ParseException
@@ -147,7 +146,7 @@ public class OverrideAnnotationTest extends RefactoringTemplateAbstractTest{
 	 * @throws PostconditionException PostconditionException
 	 * @throws IOException IOException
 	 */
-	private void undo(String dir) throws ParseException, BinaryClassFileException, 
+	private void undo(String dir) throws BinaryClassFileException, 
 						PreconditionException, PostconditionException, IOException {
 		SourceLoader sourceLoader = new SourceLoader();
 		sourceLoader.loadFromDirectory("testdata" + File.separator
@@ -181,13 +180,13 @@ public class OverrideAnnotationTest extends RefactoringTemplateAbstractTest{
 	
 	
 	/**
-	 * Verifica el funcionamiento de las precondiciones de la refactorización.
+	 * Verifica el funcionamiento de las precondiciones de la refactorizaciï¿½n.
 	 *
 	 * <p>Comprueba que se lanza una cuando la superclase de la clase en donde se 
-	 *    encuentra el método sobre el que operamos no tiene un método con la misma
+	 *    encuentra el mï¿½todo sobre el que operamos no tiene un mï¿½todo con la misma
 	 *    signatura que este.</p>
 	 * 
-	 * @throws Exception si se produce un error durante la ejecución de la prueba.
+	 * @throws Exception si se produce un error durante la ejecuciï¿½n de la prueba.
 	 */    
 	@Test(expected=PreconditionException.class)
 	public void testNotMethodSignatureIsInSuperclass() throws Exception{
@@ -195,12 +194,12 @@ public class OverrideAnnotationTest extends RefactoringTemplateAbstractTest{
 	}
 	
 	/**
-	 * Verifica el funcionamiento de las precondiciones de la refactorización.
+	 * Verifica el funcionamiento de las precondiciones de la refactorizaciï¿½n.
 	 *
-	 * <p>Comprueba que se lanza una cuando el método sobre el que estamos operando
-	 *    ya tiene una anotación override.</p>
+	 * <p>Comprueba que se lanza una cuando el mï¿½todo sobre el que estamos operando
+	 *    ya tiene una anotaciï¿½n override.</p>
 	 * 
-	 * @throws Exception si se produce un error durante la ejecución de la prueba.
+	 * @throws Exception si se produce un error durante la ejecuciï¿½n de la prueba.
 	 */    
 	@Test(expected=PreconditionException.class)
 	public void testHasOverrideAnnotation() throws Exception{

@@ -23,7 +23,6 @@ package repository.moon.concretefunction;
 import java.util.*;
 
 import javamoon.core.classdef.JavaDecoratorType;
-import javamoon.core.classdef.JavaQualifiedDecoratorType;
 
 import moon.core.genericity.FormalPar;
 import moon.core.classdef.ClassDef;

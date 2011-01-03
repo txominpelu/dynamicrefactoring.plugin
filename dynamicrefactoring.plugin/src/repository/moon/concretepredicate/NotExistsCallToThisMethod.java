@@ -23,7 +23,7 @@ package repository.moon.concretepredicate;
 
 import java.util.*;
 
-import javamoon.core.entity.JavaVoidResult;
+
 import javamoon.core.expression.JavaCallExpr;
 
 import moon.core.classdef.ClassDef;
@@ -42,6 +42,7 @@ import moon.core.instruction.Instr;
 
 import refactoring.engine.Predicate;
 import repository.moon.MOONRefactoring;
+import repository.moon.RepositoryUtils;
 import repository.moon.concretefunction.MethodInstructionsCollector;
 
 /**
@@ -169,21 +170,14 @@ public class NotExistsCallToThisMethod extends Predicate {
 			// if we have a method invocation, we have a JavaVoidResult
 			// and a routine invocation
 			else {
-				if (exp.getFirstElement() instanceof JavaVoidResult){
-					
-					JavaVoidResult jvr  = (JavaVoidResult) exp.getFirstElement();
-					if (jvr.getJavaRoutine() == method){
-						return false;
-					}
-				}			
+				return ! RepositoryUtils.isCallToMethod(exp,method);			
 			}
 			
 		}
 		
 		return true;
 	}
-	
-	
+
 	/**
 	 * Comprueba que una expresión no contiene una llamada al método 
 	 * especificado.

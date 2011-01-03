@@ -23,7 +23,7 @@ package repository.moon.concreteaction;
 
 import java.util.*;
 
-import javamoon.core.entity.JavaVoidResult;
+import javamoon.core.entity.JavaFunctionResult;
 
 import moon.core.classdef.*;
 import moon.core.entity.*;
@@ -32,6 +32,7 @@ import moon.core.expression.*;
 
 import refactoring.engine.Action;
 import repository.RelayListenerRegistry;
+import repository.moon.RepositoryUtils;
 import repository.moon.concretefunction.FormalArgRetriever;
 
 /**
@@ -187,13 +188,7 @@ public class RemoveFormalArgFromInstructions extends Action {
 		// if we have a method invocation, we have a JavaVoidResult
 		// and a routine invocation
 		else {
-			if (exp.getFirstElement() instanceof JavaVoidResult){
-				
-				JavaVoidResult jvr  = (JavaVoidResult) exp.getFirstElement();
-				if (jvr.getJavaRoutine() == method){
-					return true;
-				}
-			}			
+			return RepositoryUtils.isCallToMethod(exp, method);		
 		}
 		
 		return false;				

@@ -93,7 +93,7 @@ public class AddImportClause extends Action {
 				JavaClassDef jclass = (JavaClassDef)classdef;
 				JavaType jtype = (JavaType)type;
 				
-				jimport = new JavaImport(jtype, -1, -1, false);
+				jimport = new JavaImport(jtype,true, -1, -1, false);
 				jclass.format(jimport);
 				jclass.add(jimport);
 			}

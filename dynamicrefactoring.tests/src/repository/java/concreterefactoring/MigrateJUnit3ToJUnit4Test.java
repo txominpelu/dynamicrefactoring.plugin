@@ -27,7 +27,6 @@ import java.io.IOException;
 
 import javamoon.construct.binary.BinaryClassFileException;
 import javamoon.construct.source.SourceLoader;
-import javamoon.construct.source.parser.ParseException;
 import javamoon.core.JavaModel;
 import javamoon.core.JavaName;
 import javamoon.core.classdef.JavaClassDef;
@@ -46,7 +45,7 @@ import repository.java.concreterefactoring.MigrateJUnit3ToJUnit4;
  * Tests the refactoring that migrates fromo JUnit 3 test
  * to new versions.
  * 
- * @author Raúl Marticorena
+ * @author Raï¿½l Marticorena
  * @since JavaMoon-2.1.0
  */
 public class MigrateJUnit3ToJUnit4Test extends RefactoringTemplateAbstractTest{
@@ -86,14 +85,13 @@ public class MigrateJUnit3ToJUnit4Test extends RefactoringTemplateAbstractTest{
 	/**
 	 * Checks.
 	 * 
-	 * @param dir directorio de la refactorización.
-	 * @throws ParseException ParseException.
+	 * @param dir directorio de la refactorizaciï¿½n.
 	 * @throws BinaryClassFileException BinaryClassFileException.
 	 * @throws PreconditionException PreconditionException.
 	 * @throws PostconditionException PostconditionException.
 	 * @throws IOException IOException.
 	 */
-	private void check(String dir) throws ParseException, BinaryClassFileException, 
+	private void check(String dir) throws BinaryClassFileException, 
 										PreconditionException, PostconditionException, IOException {
 		SourceLoader sourceLoader = new SourceLoader();
 		sourceLoader.loadFromDirectory("testdata" + File.separator
@@ -144,16 +142,15 @@ public class MigrateJUnit3ToJUnit4Test extends RefactoringTemplateAbstractTest{
 	
 	
 	/**
-	 * Permite deshacer la refactorización.
+	 * Permite deshacer la refactorizaciï¿½n.
 	 * 
-	 * @param dir directorio de la refactorización.
-	 * @throws ParseException ParseException.
+	 * @param dir directorio de la refactorizaciï¿½n.
 	 * @throws BinaryClassFileException BinaryClassFileException.
 	 * @throws PreconditionException PreconditionException.
 	 * @throws PostconditionException PostconditionException.
 	 * @throws IOException IOException.
 	 */
-	private void undo(String dir) throws ParseException, BinaryClassFileException, 
+	private void undo(String dir) throws BinaryClassFileException, 
 						PreconditionException, PostconditionException, IOException {
 		SourceLoader sourceLoader = new SourceLoader();
 		sourceLoader.loadFromDirectory("testdata" + File.separator

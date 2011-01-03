@@ -38,7 +38,7 @@ import junit.framework.TestCase;
 /**
  * Refactoring test template.
  * 
- * @author Raúl Marticorena
+ * @author Raï¿½l Marticorena
  * @since JavaMoon-2.1.0
  */
 public abstract class RefactoringTemplateAbstractTest extends TestCase{
@@ -125,7 +125,7 @@ public abstract class RefactoringTemplateAbstractTest extends TestCase{
 		System.out.println(initialFormatted);
 		System.out.println(source);
 		
-		boolean bool = Comparator.compareText(initialFormatted, source, false);
+		boolean bool = Comparator.comparePlainText(initialFormatted, source);
 		if(!bool)
 			System.out.println("Failure comparing " + file + ".java with");
 		

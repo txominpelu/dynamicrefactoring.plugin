@@ -23,7 +23,7 @@ package repository.moon.concretepredicate;
 import java.util.*;
 
 import javamoon.core.expression.*;
-import javamoon.core.entity.JavaVoidResult;
+import javamoon.core.entity.JavaFunctionResult;
 
 import moon.core.classdef.MethDec;
 import moon.core.entity.SignatureEntity;
@@ -253,13 +253,13 @@ public class SignatureEntityIsUsedInMethod extends Predicate {
 		}
 		
 		// RMS
-		// if we have a method invocation, we have a JavaVoidResult
+		// if we have a method invocation, we have a JavaFunctionResult
 		// and a routine invocation
 		else {
-			if (callExpr.getFirstElement() instanceof JavaVoidResult){
+			if (callExpr.getFirstElement() instanceof JavaFunctionResult){
 				
-				JavaVoidResult jvr  = (JavaVoidResult) callExpr.getFirstElement();
-				if (jvr.getJavaRoutine() == this.methDec){
+				JavaFunctionResult jvr  = (JavaFunctionResult) callExpr.getFirstElement();
+				if (jvr.getFunctionDec() == this.methDec){
 					return true;
 				}
 			}			

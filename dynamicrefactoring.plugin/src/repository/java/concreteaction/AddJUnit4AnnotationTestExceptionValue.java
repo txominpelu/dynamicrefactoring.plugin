@@ -32,7 +32,6 @@ import javamoon.core.entity.JavaFunctionDec;
 import javamoon.core.entity.JavaRoutineDec;
 import javamoon.core.entity.JavaThrows;
 import javamoon.core.expression.JavaCallExpr;
-import javamoon.core.expression.JavaCallExpr;
 import javamoon.core.expression.constant.JavaTypeConstant;
 import moon.core.classdef.ClassType;
 import moon.core.classdef.MethDec;
@@ -92,11 +91,11 @@ public class AddJUnit4AnnotationTestExceptionValue extends Action {
 					List<Expr> listExpr = new ArrayList<Expr>();
 					// FIXME
 					 
-					Expr exprAtom = new JavaTypeConstant(exception,(int) jar.getLine(),-1);
+					Expr exprAtom = new JavaTypeConstant(exception,(int) jar.getLine(),-1,jrd.getClassDef());
 					listExpr.add(exprAtom);
 					
 					// Add expr to annotation
-					JavaCallExpr jcel1 = new JavaCallExpr(((JavaFunctionDec)md).getResultEntity(), listExpr);
+					JavaCallExpr jcel1 = new JavaCallExpr(((JavaFunctionDec)md).getFunctionResultEntity(), listExpr);
 					jar.add(jcel1);
 				}
 			}
@@ -129,7 +128,7 @@ public class AddJUnit4AnnotationTestExceptionValue extends Action {
 				MethDec md = listMethDec.get(0);
 				while(listExpr.hasNext()){
 					JavaCallExpr jcel1 = listExpr.next();
-					if (jcel1.getFirstElement().equals(((JavaFunctionDec)md).getResultEntity())){
+					if (jcel1.getFirstElement().equals(((JavaFunctionDec)md).getFunctionResultEntity())){
 						// remove expr...
 						jar.remove(jcel1);
 					}

@@ -1,7 +1,7 @@
 package repository.java.concretepredicate;
 
 import javamoon.core.entity.JavaArtificialEntity;
-import javamoon.core.entity.JavaVoidResult;
+import javamoon.core.entity.JavaFunctionResult;
 import javamoon.core.expression.JavaCallExpr;
 import javamoon.core.instruction.JavaFalseAssignmentInstr;
 import moon.core.expression.Expr;
@@ -61,7 +61,8 @@ public class HasNotFail extends Predicate{
 			if (instr instanceof JavaFalseAssignmentInstr){
 				
 				Expr expr = ((JavaFalseAssignmentInstr) instr).getRighSide();
-				String name = ((JavaVoidResult) (((JavaCallExpr) expr)).getFirstElement()).toString();
+				// FIXME: Que devuelve la void.toString()?
+				String name = ((JavaFunctionResult) (((JavaCallExpr) expr)).getFirstElement()).toString();
 				if (name.toString().equals("fail")){
 					return false;
 				}

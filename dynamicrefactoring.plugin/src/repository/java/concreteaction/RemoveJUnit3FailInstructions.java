@@ -23,7 +23,7 @@ package repository.java.concreteaction;
 import java.util.ArrayList;
 import java.util.List;
 
-import javamoon.core.entity.JavaVoidResult;
+import javamoon.core.entity.JavaFunctionResult;
 import javamoon.core.expression.JavaCallExpr;
 import javamoon.core.instruction.JavaFalseAssignmentInstr;
 import moon.core.classdef.MethDec;
@@ -98,7 +98,7 @@ public class RemoveJUnit3FailInstructions  extends Action{
 				// Remove fail in false assignment instr...
 				if (instr instanceof JavaFalseAssignmentInstr){
 					Expr expr = ((JavaFalseAssignmentInstr) instr).getRighSide();
-					String name = ((JavaVoidResult) (((JavaCallExpr) expr)).getFirstElement()).toString();					
+					String name = ((JavaFunctionResult) (((JavaCallExpr) expr)).getFirstElement()).toString();					
 					if (name.toString().equals("fail")){						
 						compoundInstr.removeInstruction(instr);
 						Instr semicolon  = list.get(i+1);

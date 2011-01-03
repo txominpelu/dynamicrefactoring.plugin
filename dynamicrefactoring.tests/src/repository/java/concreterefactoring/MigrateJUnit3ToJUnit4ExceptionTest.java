@@ -27,7 +27,6 @@ import java.io.IOException;
 import javamoon.construct.binary.BinaryClassFileException;
 
 import javamoon.construct.source.SourceLoader;
-import javamoon.construct.source.parser.ParseException;
 import javamoon.core.JavaModel;
 import javamoon.core.JavaName;
 import javamoon.core.classdef.JavaClassDef;
@@ -49,7 +48,7 @@ import repository.java.concreterefactoring.MigrateJUnit3ToJUnit4TestException;
  * Tests the refactoring that migrates fromo JUnit 3 exception test
  * to new versions.
  * 
- * @author Raúl Marticorena
+ * @author Raï¿½l Marticorena
  * @since JavaMoon-2.1.0
  */
 public class MigrateJUnit3ToJUnit4ExceptionTest extends RefactoringTemplateAbstractTest{
@@ -169,7 +168,7 @@ public class MigrateJUnit3ToJUnit4ExceptionTest extends RefactoringTemplateAbstr
      * @throws PostconditionException
      * @throws IOException
      */
-    private void check(String dir) throws ParseException, BinaryClassFileException, PreconditionException, PostconditionException, IOException{
+    private void check(String dir) throws BinaryClassFileException, PreconditionException, PostconditionException, IOException{
     	SourceLoader sourceLoader = new SourceLoader();
 		sourceLoader.loadFromDirectory("testdata" + File.separator
 				+ this.getClass().getName().replace(".", File.separator) + File.separator + dir + File.separator + "before");
@@ -203,7 +202,7 @@ public class MigrateJUnit3ToJUnit4ExceptionTest extends RefactoringTemplateAbstr
      * @throws PostconditionException
      * @throws IOException
      */
-    private void undo(String dir) throws ParseException, BinaryClassFileException, PreconditionException, PostconditionException, IOException{
+    private void undo(String dir) throws BinaryClassFileException, PreconditionException, PostconditionException, IOException{
     	SourceLoader sourceLoader = new SourceLoader();
 		sourceLoader.loadFromDirectory("testdata" + File.separator
 				+ this.getClass().getName().replace(".", File.separator) + File.separator + dir + File.separator + "before");

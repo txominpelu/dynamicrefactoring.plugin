@@ -26,7 +26,6 @@ import java.io.IOException;
 
 import javamoon.construct.binary.BinaryClassFileException;
 import javamoon.construct.source.SourceLoader;
-import javamoon.construct.source.parser.ParseException;
 import javamoon.core.JavaModel;
 import javamoon.core.JavaName;
 import javamoon.core.classdef.JavaClassDef;
@@ -51,10 +50,10 @@ public class EnumeratedTypeTest extends RefactoringTemplateAbstractTest{
 
 
 	/**
-	 * Comprueba la correcta ejecución de la refactorización EnumeratedType sobre
+	 * Comprueba la correcta ejecuciï¿½n de la refactorizaciï¿½n EnumeratedType sobre
 	 * una clase sencilla con un constructor, un atributo y una constante.
 	 * 
-	 * @throws Exception si se produce un error durante la ejecución de la prueba.
+	 * @throws Exception si se produce un error durante la ejecuciï¿½n de la prueba.
 	 */
 	@Test
 	public void testSimpleTest() throws Exception{
@@ -62,11 +61,11 @@ public class EnumeratedTypeTest extends RefactoringTemplateAbstractTest{
 	}
 	
 	/**
-	 * Comprueba la correcta ejecución de la refactorización EnumeratedType sobre
+	 * Comprueba la correcta ejecuciï¿½n de la refactorizaciï¿½n EnumeratedType sobre
 	 * una clase sencilla dentro de un paquete con un constructor, un atributo
 	 * y varias constantes.
 	 * 
-	 * @throws Exception si se produce un error durante la ejecución de la prueba.
+	 * @throws Exception si se produce un error durante la ejecuciï¿½n de la prueba.
 	 */
 	@Test
 	public void testSimpleClass() throws Exception{
@@ -74,10 +73,10 @@ public class EnumeratedTypeTest extends RefactoringTemplateAbstractTest{
 	}
 	
 	/**
-	 * Comprueba la correcta ejecución de la refactorización EnumeratedType sobre
+	 * Comprueba la correcta ejecuciï¿½n de la refactorizaciï¿½n EnumeratedType sobre
 	 * una clase sencilla que solo tiene constantes.
 	 * 
-	 * @throws Exception si se produce un error durante la ejecución de la prueba.
+	 * @throws Exception si se produce un error durante la ejecuciï¿½n de la prueba.
 	 */
 	@Test
 	public void testOnlyWithConstants() throws Exception{
@@ -85,10 +84,10 @@ public class EnumeratedTypeTest extends RefactoringTemplateAbstractTest{
 	}
 	
 	/**
-	 * Comprueba la correcta ejecución de la refactorización EnumeratedType sobre
+	 * Comprueba la correcta ejecuciï¿½n de la refactorizaciï¿½n EnumeratedType sobre
 	 * una clase sencilla cuyo constructor cuenta con dos enteros.
 	 * 
-	 * @throws Exception si se produce un error durante la ejecución de la prueba.
+	 * @throws Exception si se produce un error durante la ejecuciï¿½n de la prueba.
 	 */
 	@Test
 	public void testConstructorWithTwoExpresion() throws Exception{
@@ -97,11 +96,11 @@ public class EnumeratedTypeTest extends RefactoringTemplateAbstractTest{
 	
 	
 	/**
-	 * Verifica el funcionamiento de las precondiciones de la refactorización.
+	 * Verifica el funcionamiento de las precondiciones de la refactorizaciï¿½n.
 	 *
 	 * <p>Comprueba que se lanza una cuando la clase no dispone de constantes.</p>
 	 * 
-	 * @throws Exception si se produce un error durante la ejecución de la prueba.
+	 * @throws Exception si se produce un error durante la ejecuciï¿½n de la prueba.
 	 */   
 	@Test(expected=PreconditionException.class)
 	public void testWithoutFinalStaticAttributes() throws Exception{
@@ -109,12 +108,12 @@ public class EnumeratedTypeTest extends RefactoringTemplateAbstractTest{
 	}
 	
 	/**
-	 * Verifica el funcionamiento de las precondiciones de la refactorización.
+	 * Verifica el funcionamiento de las precondiciones de la refactorizaciï¿½n.
 	 *
 	 * <p>Comprueba que se lanza una cuando los atributos de la clase se encuentran
 	 *    antes que las constantes de la misma.</p>
 	 * 
-	 * @throws Exception si se produce un error durante la ejecución de la prueba.
+	 * @throws Exception si se produce un error durante la ejecuciï¿½n de la prueba.
 	 */   
 	@Test(expected=PreconditionException.class)
 	public void testAttributesBeforeConstants() throws Exception{
@@ -122,12 +121,12 @@ public class EnumeratedTypeTest extends RefactoringTemplateAbstractTest{
 	}
 	
 	/**
-	 * Verifica el funcionamiento de las precondiciones de la refactorización.
+	 * Verifica el funcionamiento de las precondiciones de la refactorizaciï¿½n.
 	 *
 	 * <p>Comprueba que se lanza una cuando los atributos de la clase se encuentran
 	 *    antes que alguna de las constantes de la misma.</p>
 	 * 
-	 * @throws Exception si se produce un error durante la ejecución de la prueba.
+	 * @throws Exception si se produce un error durante la ejecuciï¿½n de la prueba.
 	 */ 
 	@Test(expected=PreconditionException.class)
 	public void testAttributesBeforeSomeConstants() throws Exception{
@@ -135,12 +134,12 @@ public class EnumeratedTypeTest extends RefactoringTemplateAbstractTest{
 	}
 	
 	/**
-	 * Verifica el funcionamiento de las precondiciones de la refactorización.
+	 * Verifica el funcionamiento de las precondiciones de la refactorizaciï¿½n.
 	 *
 	 * <p>Comprueba que se lanza una cuando los metodos de la clase se encuentran
 	 *    antes que las constantes de la misma.</p>
 	 * 
-	 * @throws Exception si se produce un error durante la ejecución de la prueba.
+	 * @throws Exception si se produce un error durante la ejecuciï¿½n de la prueba.
 	 */ 
 	@Test(expected=PreconditionException.class)
 	public void testMethodBeforeConstants() throws Exception{
@@ -148,12 +147,12 @@ public class EnumeratedTypeTest extends RefactoringTemplateAbstractTest{
 	}
 	
 	/**
-	 * Verifica el funcionamiento de las precondiciones de la refactorización.
+	 * Verifica el funcionamiento de las precondiciones de la refactorizaciï¿½n.
 	 *
-	 * <p>Comprueba que se lanza una cuando los atributos y métodos de la clase se encuentran
+	 * <p>Comprueba que se lanza una cuando los atributos y mï¿½todos de la clase se encuentran
 	 *    por medio de las constantes de la misma.</p>
 	 * 
-	 * @throws Exception si se produce un error durante la ejecución de la prueba.
+	 * @throws Exception si se produce un error durante la ejecuciï¿½n de la prueba.
 	 */ 
 	@Test(expected=PreconditionException.class)
 	public void testMethodAttributeBetweenConstants() throws Exception{
@@ -161,11 +160,11 @@ public class EnumeratedTypeTest extends RefactoringTemplateAbstractTest{
 	}
 	
 	/**
-	 * Verifica el funcionamiento de las precondiciones de la refactorización.
+	 * Verifica el funcionamiento de las precondiciones de la refactorizaciï¿½n.
 	 *
 	 * <p>Comprueba que se lanza una cuando hay un constructor que no es privado.</p>
 	 * 
-	 * @throws Exception si se produce un error durante la ejecución de la prueba.
+	 * @throws Exception si se produce un error durante la ejecuciï¿½n de la prueba.
 	 */ 
 	@Test(expected=PreconditionException.class)
 	public void testConstructorPublic() throws Exception{
@@ -174,18 +173,18 @@ public class EnumeratedTypeTest extends RefactoringTemplateAbstractTest{
 	
 	 
 	/**
-	 * Ejecuta la refactorización sobre un caso determinado.
+	 * Ejecuta la refactorizaciï¿½n sobre un caso determinado.
 	 * 
 	 * @param dir directorio sobre el que se encuentra el caso a probar.
 	 * @param paquete paquete java de la clase sobre la que se esta probando 
-	 * 		  la refactorización.
+	 * 		  la refactorizaciï¿½n.
 	 * @throws ParseException ParseException
 	 * @throws BinaryClassFileException BinaryClassFileException
 	 * @throws PreconditionException PreconditionException
 	 * @throws PostconditionException PostconditionException
 	 * @throws IOException IOException
 	 */
-	private void check(String dir, String paquete) throws ParseException, BinaryClassFileException, 
+	private void check(String dir, String paquete) throws BinaryClassFileException, 
 										PreconditionException, PostconditionException, IOException {
 		SourceLoader sourceLoader = new SourceLoader();
 		sourceLoader.loadFromDirectory("testdata" + File.separator
@@ -220,19 +219,19 @@ public class EnumeratedTypeTest extends RefactoringTemplateAbstractTest{
 	}
 	
 	/**
-	 * Ejecuta la refactorización sobre un caso determinado en el que va a aparecer
-	 * una excepción.
+	 * Ejecuta la refactorizaciï¿½n sobre un caso determinado en el que va a aparecer
+	 * una excepciï¿½n.
 	 * 
 	 * @param dir directorio sobre el que se encuentra el caso a probar.
 	 * @param paquete paquete de la clase sobre la que se esta probando 
-	 * 		  la refactorización.
+	 * 		  la refactorizaciï¿½n.
 	 * @throws ParseException ParseException
 	 * @throws BinaryClassFileException BinaryClassFileException
 	 * @throws PreconditionException PreconditionException
 	 * @throws PostconditionException PostconditionException
 	 * @throws IOException IOException
 	 */
-	private void exception(String dir, String paquete) throws ParseException, BinaryClassFileException, 
+	private void exception(String dir, String paquete) throws BinaryClassFileException, 
 	PreconditionException, PostconditionException, IOException {
 		SourceLoader sourceLoader = new SourceLoader();
 		sourceLoader.loadFromDirectory("testdata" + File.separator
@@ -248,8 +247,8 @@ public class EnumeratedTypeTest extends RefactoringTemplateAbstractTest{
 	}
 
 	/**
-	 * Comprueba que la refactorización se deshace de forma correcta.
-	 * @throws Exception si se produce un error durante la ejecución de la prueba.
+	 * Comprueba que la refactorizaciï¿½n se deshace de forma correcta.
+	 * @throws Exception si se produce un error durante la ejecuciï¿½n de la prueba.
 	 */
 	@Test
 	public void testConstructorWithTwoExpresionUndo() throws Exception{
@@ -257,8 +256,8 @@ public class EnumeratedTypeTest extends RefactoringTemplateAbstractTest{
 	}
 	
 	/**
-	 * Comprueba que la refactorización se deshace de forma correcta.
-	 * @throws Exception si se produce un error durante la ejecución de la prueba.
+	 * Comprueba que la refactorizaciï¿½n se deshace de forma correcta.
+	 * @throws Exception si se produce un error durante la ejecuciï¿½n de la prueba.
 	 */
 	@Test
 	public void testOnlyWithConstantsUndo() throws Exception{
@@ -266,8 +265,8 @@ public class EnumeratedTypeTest extends RefactoringTemplateAbstractTest{
 	}
 	
 	/**
-	 * Comprueba que la refactorización se deshace de forma correcta.
-	 * @throws Exception si se produce un error durante la ejecución de la prueba.
+	 * Comprueba que la refactorizaciï¿½n se deshace de forma correcta.
+	 * @throws Exception si se produce un error durante la ejecuciï¿½n de la prueba.
 	 */
 	@Test
 	public void testSimpleTestUndo() throws Exception{
@@ -275,8 +274,8 @@ public class EnumeratedTypeTest extends RefactoringTemplateAbstractTest{
 	}
 	
 	/**
-	 * Comprueba que la refactorización se deshace de forma correcta.
-	 * @throws Exception si se produce un error durante la ejecución de la prueba.
+	 * Comprueba que la refactorizaciï¿½n se deshace de forma correcta.
+	 * @throws Exception si se produce un error durante la ejecuciï¿½n de la prueba.
 	 */
 	@Test
 	public void testSimpleClassUndo() throws Exception{
@@ -284,18 +283,18 @@ public class EnumeratedTypeTest extends RefactoringTemplateAbstractTest{
 	}
 	
 	/**
-	 * Comprueba que la refactorización se deshace de forma correcta.
+	 * Comprueba que la refactorizaciï¿½n se deshace de forma correcta.
 	 * 
 	 * @param dir directorio sobre el que se encuentra el caso a probar.
 	 * @param paquete paquete de la clase sobre la que se esta probando 
-	 * 		  la refactorización.
+	 * 		  la refactorizaciï¿½n.
 	 * @throws ParseException ParseException
 	 * @throws BinaryClassFileException BinaryClassFileException
 	 * @throws PreconditionException PreconditionException
 	 * @throws PostconditionException PostconditionException
 	 * @throws IOException IOException
 	 */
-	private void undo(String dir, String paquete) throws ParseException, BinaryClassFileException, 
+	private void undo(String dir, String paquete) throws BinaryClassFileException, 
 						PreconditionException, PostconditionException, IOException {
 		SourceLoader sourceLoader = new SourceLoader();
 		sourceLoader.loadFromDirectory("testdata" + File.separator

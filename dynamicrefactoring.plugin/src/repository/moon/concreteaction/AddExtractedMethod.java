@@ -100,11 +100,11 @@ public class AddExtractedMethod extends Action {
 		Function function = new LocalEntitiesAccessedAfterCodeFragment(fragment);
 		if (function.getCollection().size()==0){
 			// routine
-			methDec = new JavaRoutineDec(0,name,false,-1,-1);
+			methDec = new JavaRoutineDec(0,name,-1,-1);
 		}
 		else{
 			// function
-			methDec = new JavaFunctionDec(0,name,null, false,-1,-1);
+			methDec = new JavaFunctionDec(0,name,null, -1,-1, false);
 		}	
 		
 		

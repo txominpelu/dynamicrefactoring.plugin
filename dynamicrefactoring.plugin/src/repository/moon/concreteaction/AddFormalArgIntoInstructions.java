@@ -22,7 +22,6 @@ package repository.moon.concreteaction;
 
 import java.util.*;
 
-import javamoon.core.entity.JavaVoidResult;
 import javamoon.core.expression.JavaCallExpr;
 
 import moon.core.classdef.*;
@@ -34,6 +33,7 @@ import moon.core.instruction.*;
 import refactoring.engine.Action;
 import repository.RelayListenerRegistry;
 import repository.moon.MOONRefactoring;
+import repository.moon.RepositoryUtils;
 
 /**
  * Permite incluir un nuevo parámetro real en las instrucciones que contengan
@@ -179,13 +179,7 @@ public class AddFormalArgIntoInstructions extends Action {
 		// if we have a method invocation, we have a JavaVoidResult
 		// and a routine invocation
 		else {
-			if (exp.getFirstElement() instanceof JavaVoidResult){
-				
-				JavaVoidResult jvr  = (JavaVoidResult) exp.getFirstElement();
-				if (jvr.getJavaRoutine() == method){
-					return true;
-				}
-			}			
+			return RepositoryUtils.isCallToMethod(exp, method);			
 		}
 			
 		return false;	

@@ -23,12 +23,12 @@ package repository.java.concreteaction;
 import java.util.ArrayList;
 import java.util.List;
 
-import moon.core.classdef.ClassDef;
-
 import javamoon.core.JavaName;
 import javamoon.core.classdef.JavaClassDef;
 import javamoon.core.classdef.JavaImport;
+import javamoon.core.classdef.JavaPackage;
 import javamoon.core.classdef.JavaType;
+import moon.core.classdef.ClassDef;
 import refactoring.engine.Action;
 import repository.moon.MOONRefactoring;
 
@@ -71,18 +71,24 @@ public class AddJUnit4Imports extends Action{
 				"org.junit.After"};
 		for (String s : imports){
 			JavaType jt1= (JavaType) MOONRefactoring.getModel().getType(new JavaName(s));
-			JavaImport ji1 = new JavaImport(jt1,-1,-1,false);
+			JavaImport ji1 = new JavaImport(jt1,true,-1,-1,false);
 			classDef.format(ji1);
 			classDef.add(ji1);	
 			undoList.add(ji1);
 		}
 		
 		// add the static imports
-		String[] staticImports = {"org.junit.Assert.assertEquals","org.junit.Assert.assertFalse",
-				"org.junit.Assert.assertTrue",
-				"org.junit.Assert.fail"};
+		JavaType jUnitAssertType = new JavaType(
+				new JavaName("org.junit.Assert"), new JavaClassDef(
+						new JavaName("Assert"), new JavaPackage(new JavaName(
+								"org.junit"))));
+
+		String[] staticImports = {"assertEquals","assertFalse",
+				"assertTrue",
+				"fail"};
 		for (String s : staticImports){
-			JavaImport ji2 = new JavaImport(new JavaName(s),-1,-1,true);
+			JavaImport ji2 = new JavaImport(jUnitAssertType,true,-1,-1,true);
+			ji2.setPropertyName(new JavaName(s));
 			classDef.format(ji2);
 			classDef.add(ji2);
 			undoList.add(ji2);

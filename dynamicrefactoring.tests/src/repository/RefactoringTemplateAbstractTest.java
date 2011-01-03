@@ -20,11 +20,12 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.*/
 
 package repository;
 
+import static org.junit.Assert.assertTrue;
+
 import java.io.File;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.Scanner;
-import static org.junit.Assert.*;
 
 import javamoon.construct.binary.BinaryLoader;
 import javamoon.construct.source.SourceLoader;
@@ -38,22 +39,22 @@ import org.junit.Before;
 import repository.moon.MOONRefactoring;
 
 /**
- * Proporciona el comportamiento de inicialización y finalización por defecto de los
+ * Proporciona el comportamiento de inicializaciï¿½n y finalizaciï¿½n por defecto de los
  * test ejecutados sobre el repositorio.
  * 
- * @author Raúl Marticorena
+ * @author Raï¿½l Marticorena
  * 
  * @since JavaMoon-2.1.0
  */
 public abstract class RefactoringTemplateAbstractTest {
 
 	/**
-	 * Cargador de código fuente.
+	 * Cargador de cï¿½digo fuente.
 	 */
 	protected static SourceLoader sourceLoader;
 
 	/**
-	 * Fichero binario JAR con las bibliotecas básicas de Java.
+	 * Fichero binario JAR con las bibliotecas bï¿½sicas de Java.
 	 */
 	public static final String JARFILE = "rt.jar"; //$NON-NLS-1$
 
@@ -63,14 +64,14 @@ public abstract class RefactoringTemplateAbstractTest {
 	private static final String JUNITJARFILE = "junit-4.4.jar"; //$NON-NLS-1$
 	
 	/**
-	 * Carácter separador de rutas en el sistema operativo.
+	 * Carï¿½cter separador de rutas en el sistema operativo.
 	 */
 	public static final String SEPARATOR = File.separator;
 
 	/**
 	 * Inicializa los test.
 	 * 
-	 * @throws Exception si se produce un fallo durante la inicialización.
+	 * @throws Exception si se produce un fallo durante la inicializaciï¿½n.
 	 */
 	@Before
 	public void setUp() throws Exception{     	
@@ -87,7 +88,7 @@ public abstract class RefactoringTemplateAbstractTest {
 	}    
     
     /**
-     * Método de finalización.
+     * Mï¿½todo de finalizaciï¿½n.
      */
 	@After
     public void tearDown() {
@@ -134,8 +135,8 @@ public abstract class RefactoringTemplateAbstractTest {
 		System.out.println(initialFormatted);
 		System.out.println(source);
 		
-		boolean bool = Comparator.compareText(initialFormatted, source, false);
-		assertTrue("Failure comparing " + file + ".java with", bool);
+		boolean bool = Comparator.compareText(initialFormatted, source, " ");
+		assertTrue("Failure comparing " + file + " with", bool);
 		if (WRITE) {
 			PrintWriter printWriter = new PrintWriter(new File(file));
 			printWriter.write(initialFormatted);
