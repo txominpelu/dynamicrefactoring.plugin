@@ -20,30 +20,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.*/
 
 package dynamicrefactoring;
 
-import dynamicrefactoring.domain.RefactoringSummary;
-
-import dynamicrefactoring.integration.ModelGenerator;
-import dynamicrefactoring.integration.CodeRegenerator;
-
-import dynamicrefactoring.interfaz.SelectRefactoringWindow;
-import dynamicrefactoring.interfaz.view.HistoryView;
-import dynamicrefactoring.interfaz.view.ProgressView;
-import dynamicrefactoring.interfaz.view.AvailableRefactoringView;
-
-import dynamicrefactoring.listener.IRefactoringRunListener;
-
-import dynamicrefactoring.util.LogManager;
-import dynamicrefactoring.util.PropertyManager;
-import dynamicrefactoring.util.io.FileManager;
-import dynamicrefactoring.util.io.JavaFileManager;
-import dynamicrefactoring.util.selection.SelectionInfo;
-
-import dynamicrefactoring.writer.JDOMXMLRefactoringWriterImp;
-import dynamicrefactoring.writer.RefactoringPlanWriter;
-
 import java.io.File;
 import java.net.URL;
-
 import java.util.Calendar;
 import java.util.GregorianCalendar;
 import java.util.List;
@@ -56,7 +34,6 @@ import moon.core.classdef.MethDec;
 
 import org.apache.commons.io.FilenameUtils;
 import org.apache.log4j.Logger;
-
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.FileLocator;
@@ -67,42 +44,58 @@ import org.eclipse.core.runtime.IExtensionRegistry;
 import org.eclipse.core.runtime.ListenerList;
 import org.eclipse.core.runtime.Path;
 import org.eclipse.core.runtime.Platform;
-
 import org.eclipse.jdt.core.IJavaProject;
 import org.eclipse.jdt.ui.JavaUI;
-
+import org.eclipse.jface.preference.IPreferenceStore;
 import org.eclipse.ui.IEditorInput;
-import org.eclipse.ui.IWorkbenchWindow;
-import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.IViewReference;
 import org.eclipse.ui.IWorkbenchPage;
+import org.eclipse.ui.IWorkbenchWindow;
+import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.plugin.AbstractUIPlugin;
-
 import org.osgi.framework.Bundle;
 import org.osgi.framework.BundleContext;
 
 import repository.IRefactoringMessageListener;
 import repository.RelayListenerRegistry;
 import repository.moon.MOONRefactoring;
-
-import org.eclipse.jface.preference.IPreferenceStore;
+import dynamicrefactoring.domain.RefactoringSummary;
+import dynamicrefactoring.integration.CodeRegenerator;
+import dynamicrefactoring.integration.ModelGenerator;
+import dynamicrefactoring.interfaz.SelectRefactoringWindow;
+import dynamicrefactoring.interfaz.view.AvailableRefactoringView;
+import dynamicrefactoring.interfaz.view.HistoryView;
+import dynamicrefactoring.interfaz.view.ProgressView;
+import dynamicrefactoring.listener.IRefactoringRunListener;
+import dynamicrefactoring.util.LogManager;
+import dynamicrefactoring.util.PropertyManager;
+import dynamicrefactoring.util.io.FileManager;
+import dynamicrefactoring.util.io.JavaFileManager;
+import dynamicrefactoring.util.selection.SelectionInfo;
+import dynamicrefactoring.writer.JDOMXMLRefactoringWriterImp;
+import dynamicrefactoring.writer.RefactoringPlanWriter;
 
 /**
  * Representa el <i>plugin</i> de refactorización ante la plataforma Eclipse.
  * 
- * <p>Actúa a modo de mediador entre muchos de los componentes que conforman
- * el <i>plugin</i> y los coordina de manera que todas  las operaciones se
- * completen en el orden adecuado.</p>
+ * <p>
+ * Actúa a modo de mediador entre muchos de los componentes que conforman el
+ * <i>plugin</i> y los coordina de manera que todas las operaciones se completen
+ * en el orden adecuado.
+ * </p>
  * 
- * <p>Implementa las funciones de arranque y finalización ordenados del 
+ * <p>
+ * Implementa las funciones de arranque y finalización ordenados del
  * <i>plugin</i>, asignando al principio los recursos que sen necesarios, y
  * liberándolos al final de forma ordenada. También elimina al finalizar los
- * ficheros temporales creados por el <i>plugin</i> durante la ejecución.</p>
+ * ficheros temporales creados por el <i>plugin</i> durante la ejecución.
+ * </p>
  * 
- * <p>Proporciona funciones de acceso a las propiedades del <i>plugin</i> que
- * pueden ser necesarias desde otros puntos del mismo, como el directorio de 
- * los ficheros de recuperación o de ficheros temporales, o como el propio
- * nombre identificativo del <i>plugin</i>.
+ * <p>
+ * Proporciona funciones de acceso a las propiedades del <i>plugin</i> que
+ * pueden ser necesarias desde otros puntos del mismo, como el directorio de los
+ * ficheros de recuperación o de ficheros temporales, o como el propio nombre
+ * identificativo del <i>plugin</i>.
  * 
  * @author <A HREF="mailto:lfd0002@alu.ubu.es">Laura Fuente de la Fuente</A>
  * @author <A HREF="mailto:sfd0009@alu.ubu.es">Sonia Fuente de la Fuente</A>
@@ -112,28 +105,32 @@ public class RefactoringPlugin extends AbstractUIPlugin
 	implements IRefactoringMessageListener {
 	
 	
-	//The identifiers for the preferences	
-	
+	//The identifiers for the preferences
+
 	/**
-	 * Identificador que guarda el directorio de exportación de un plan de refactorizaciones.
+	 * Identificador que guarda el directorio de exportación de un plan de
+	 * refactorizaciones.
 	 */
 	public static final String EXPORT_PLAN_DIRECTORY  = "exportPlanDirectory";
-	
+
 	/**
-	 * Identificador que guarda el directorio de importación de un plan de refactorizaciones.
+	 * Identificador que guarda el directorio de importación de un plan de
+	 * refactorizaciones.
 	 */
 	public static final String IMPORT_PLAN_DIRECTORY  = "importPlanDirectory";
 	
 	
 	//The default values for the preferences
-	
+
 	/**
-	 * Valor por defecto del directorio de exportación de un plan de refactorizaciones.
+	 * Valor por defecto del directorio de exportación de un plan de
+	 * refactorizaciones.
 	 */
 	public static final String DEFAULT_EXPORT_PLAN_DIRECTORY = RefactoringPlugin.getDefault().getBundleRootDir();
-	
+
 	/**
-	 * Valor por defecto del directorio de importación de un plan de refactorizaciones.
+	 * Valor por defecto del directorio de importación de un plan de
+	 * refactorizaciones.
 	 */
 	public static final String DEFAULT_IMPORT_PLAN_DIRECTORY = RefactoringPlugin.getDefault().getBundleRootDir() + "refactoringPlan";
 	
@@ -147,7 +144,7 @@ public class RefactoringPlugin extends AbstractUIPlugin
 	/**
 	 * El nombre del "bundle" asociado al plugin.
 	 */
-	public static final String BUNDLE_NAME = "DynamicRefactoring"; //$NON-NLS-1$
+	public static final String BUNDLE_NAME = "dynamicrefactoring.plugin"; //$NON-NLS-1$
 	
 	/**
 	 * El nombre del punto de extensión de los <i>listeners</i>.
@@ -170,7 +167,7 @@ public class RefactoringPlugin extends AbstractUIPlugin
 	 * que se están ejecutando refactorizaciones.
 	 */
 	private String currentRefactoring;
-	
+
 	/**
 	 * Selección actual sobre la interfaz.
 	 */
@@ -186,7 +183,7 @@ public class RefactoringPlugin extends AbstractUIPlugin
 	 * progreso de las refactorizaciones ejecutadas.
 	 */
 	private ListenerList listeners;
-		
+
 	/**
 	 * Constructor.
 	 * 
@@ -228,10 +225,10 @@ public class RefactoringPlugin extends AbstractUIPlugin
 		store.setDefault(EXPORT_PLAN_DIRECTORY, DEFAULT_EXPORT_PLAN_DIRECTORY);
 		store.setDefault(IMPORT_PLAN_DIRECTORY, DEFAULT_IMPORT_PLAN_DIRECTORY);
 	}
-	
+
 	/**
-	 * Devuelve el valor por defecto del directorio de dónde selecciona el plan de 
-	 * refactorizaciones a importar.
+	 * Devuelve el valor por defecto del directorio de dónde selecciona el plan
+	 * de refactorizaciones a importar.
 	 * 
 	 * @return valor por defecto del directorio de importación del plan.
 	 */
@@ -240,7 +237,7 @@ public class RefactoringPlugin extends AbstractUIPlugin
 	}
 
 	/**
-	 * Devuelve el valor del directorio de dónde selecciona el plan de 
+	 * Devuelve el valor del directorio de dónde selecciona el plan de
 	 * refactorizaciones a importar.
 	 * 
 	 * @return valor del directorio de importación del plan.
@@ -249,10 +246,10 @@ public class RefactoringPlugin extends AbstractUIPlugin
 	public String getImportRefactoringPlanPreference() {
 		return getPreferenceStore().getString(IMPORT_PLAN_DIRECTORY);
 	}
-	
+
 	/**
-	 * Devuelve el valor por defecto del directorio en dónde se exportara el plan de 
-	 * refactorizaciones.
+	 * Devuelve el valor por defecto del directorio en dónde se exportara el
+	 * plan de refactorizaciones.
 	 * 
 	 * @return valor por defecto del directorio de exportación del plan.
 	 * @see #setImportRefactoringPlanPreference
@@ -262,7 +259,7 @@ public class RefactoringPlugin extends AbstractUIPlugin
 	}
 
 	/**
-	 * Devuelve el valor del directorio en dónde se exportara el plan de 
+	 * Devuelve el valor del directorio en dónde se exportara el plan de
 	 * refactorizaciones.
 	 * 
 	 * @return valor del directorio de exportación del plan.
@@ -271,38 +268,42 @@ public class RefactoringPlugin extends AbstractUIPlugin
 	public String getExportRefactoringPlanPreference() {
 		return getPreferenceStore().getString(EXPORT_PLAN_DIRECTORY);
 	}
-	
+
 	/**
-	 * Establece el valor del directorio en dónde se exportara el plan de 
+	 * Establece el valor del directorio en dónde se exportara el plan de
 	 * refactorizaciones.
 	 * 
-	 * @param directory directorio de exportación del plan.
+	 * @param directory
+	 *            directorio de exportación del plan.
 	 * @see #getExportRefactoringPlanPreference
 	 */
 	public void setExportRefactoringPlanPreference(String directory) {
 		getPreferenceStore().setValue(EXPORT_PLAN_DIRECTORY, directory);
 	}
-	
+
 	/**
-	 * Establece el valor del directorio de dónde selecciona el plan de 
+	 * Establece el valor del directorio de dónde selecciona el plan de
 	 * refactorizaciones a importar.
 	 * 
-	 * @param directory directorio de importación del plan.
+	 * @param directory
+	 *            directorio de importación del plan.
 	 * @see #getImportRefactoringPlanPreference
 	 */
 	public void setImportRefactoringPlanPreference(String directory) {
 		getPreferenceStore().setValue(IMPORT_PLAN_DIRECTORY, directory);
 	}
-	
+
 	/**
-	 * Elimina el directorio y posibles los ficheros de <i>backup</i> generados 
-	 * por el <i>plugin</i> durante la ejecución de refactorizaciones, así como 
+	 * Elimina el directorio y posibles los ficheros de <i>backup</i> generados
+	 * por el <i>plugin</i> durante la ejecución de refactorizaciones, así como
 	 * el fichero MOD utilizado por defecto para guardar el modelo MOON en uso.
 	 * 
-	 * @param context el contexto en el que se ejecuta el <i>bundle</i> 
-	 * del <i>plugin</i>.
+	 * @param context
+	 *            el contexto en el que se ejecuta el <i>bundle</i> del
+	 *            <i>plugin</i>.
 	 * 
-	 * @throws Exception si se produce un error al para el <i>plugin</i>.
+	 * @throws Exception
+	 *             si se produce un error al para el <i>plugin</i>.
 	 * 
 	 * @see AbstractUIPlugin#stop(BundleContext)
 	 */
@@ -334,15 +335,15 @@ public class RefactoringPlugin extends AbstractUIPlugin
 		FileManager.deleteFile(RefactoringConstants.REFACTORING_TYPES_FILE);
 		FileManager.deleteFile(RefactoringConstants.REFACTORING_PLAN_FILE);
 	}
-	
+
 	/**
 	 * Carga bajo demanda la lista de <i>listeners</i> registrados para el punto
 	 * de extensión declarado por el <i>plugin</i> para el registro de <i>
-	 * listeners</i> que hagan un seguimiento del progreso de las refactorizaciones
-	 * ejecutadas.
+	 * listeners</i> que hagan un seguimiento del progreso de las
+	 * refactorizaciones ejecutadas.
 	 * 
-	 * @return carga bajo demanda la lista de <i>listeners</i> registrados y 
-	 * devuelve la lista obtenida.
+	 * @return carga bajo demanda la lista de <i>listeners</i> registrados y
+	 *         devuelve la lista obtenida.
 	 */
 	private ListenerList lazyGetListeners(){
 		if (listeners == null)
@@ -356,20 +357,23 @@ public class RefactoringPlugin extends AbstractUIPlugin
 		}
 		return listeners;
 	}
-	
+
 	/**
 	 * Obtiene la lista de <i>listeners</i> que se han registrado en el punto de
 	 * extensión declarado por el <i>plugin</i> para el registro de <i>
-	 * listeners</i> a los que notificar acerca del progreso de las refactorizaciones.
+	 * listeners</i> a los que notificar acerca del progreso de las
+	 * refactorizaciones.
 	 * 
 	 * @return la lista de <i>listener</i> registrados como extensiones.
 	 */
 	private ListenerList computeListeners(){
 		// Se accede al registro de extensiones de Eclipse.
 		IExtensionRegistry registry = Platform.getExtensionRegistry();
-		// Se solicita el punto de extensión declarado para los listener del plugin.
+		// Se solicita el punto de extensión declarado para los listener del
+		// plugin.
 		IExtensionPoint extensionPoint = registry.getExtensionPoint(LISTENER_EXTPOINT); 
-		// Se solicitan todas las extensiones registradas en el punto de extensión.
+		// Se solicitan todas las extensiones registradas en el punto de
+		// extensión.
 		IExtension[] extensions = extensionPoint.getExtensions();
 	
 		// Se crea la lista de listeners del plugin.
@@ -397,12 +401,14 @@ public class RefactoringPlugin extends AbstractUIPlugin
 		}
 		return results;
 	}
-	
+
 	/**
-	 * Registra dinámicamente un nuevo <i>listener</i> en la lista de <i>listeners
-	 * </i> a los que hay que informar acerca del progreso de las refactorizaciones.
+	 * Registra dinámicamente un nuevo <i>listener</i> en la lista de
+	 * <i>listeners </i> a los que hay que informar acerca del progreso de las
+	 * refactorizaciones.
 	 * 
-	 * @param listener el nuevo <i>listener</i> que se debe registrar.
+	 * @param listener
+	 *            el nuevo <i>listener</i> que se debe registrar.
 	 * 
 	 * @see #removeRefactoringListener(IRefactoringRunListener)
 	 */
@@ -410,12 +416,13 @@ public class RefactoringPlugin extends AbstractUIPlugin
 		if (listener != null)
 			lazyGetListeners().add(listener);
 	}
-	
+
 	/**
-	 * Elimina dinámicamente un <i>listener</i> de la lista de <i>listeners
-	 * </i> a los que hay que informar acerca del progreso de las refactorizaciones.
+	 * Elimina dinámicamente un <i>listener</i> de la lista de <i>listeners </i>
+	 * a los que hay que informar acerca del progreso de las refactorizaciones.
 	 * 
-	 * @param listener el <i>listener</i> que se debe eliminar.
+	 * @param listener
+	 *            el <i>listener</i> que se debe eliminar.
 	 * 
 	 * @see #addRefactoringListener(IRefactoringRunListener)
 	 */
@@ -425,16 +432,18 @@ public class RefactoringPlugin extends AbstractUIPlugin
 	}
 
 	/**
-	 * Solicita al <i>plugin</i> que notifique a todos los <i>listeners</i> 
+	 * Solicita al <i>plugin</i> que notifique a todos los <i>listeners</i>
 	 * registrados que una refactorización acaba de comenzar.
 	 * 
-	 * <p>Si una de las extensiones registradas da lugar a algún tipo de error, 
-	 * se puede controlar el problema y continuar con la ejecución normal. En ese 
-	 * caso, el <i> listener</i> que hubiera provocado el problema sería eliminado 
-	 * de la lista de <i>listeners</i> registrados.
+	 * <p>
+	 * Si una de las extensiones registradas da lugar a algún tipo de error, se
+	 * puede controlar el problema y continuar con la ejecución normal. En ese
+	 * caso, el <i> listener</i> que hubiera provocado el problema sería
+	 * eliminado de la lista de <i>listeners</i> registrados.
 	 * </p>
 	 * 
-	 * @param name el nombre de la refactorización que acaba de comenzar.
+	 * @param name
+	 *            el nombre de la refactorización que acaba de comenzar.
 	 */
 	public void fireRefactoringStarted(String name){
 		// Se solicita la lista de listeners registrados.
@@ -444,7 +453,7 @@ public class RefactoringPlugin extends AbstractUIPlugin
 			final IRefactoringRunListener next = 
 				(IRefactoringRunListener) registeredListeners[i];
 			// Se envuelve la llamada para evitar que se extiendan fallos 
-			// que se pudieran producir en la ejecución de la llamada 
+			// que se pudieran producir en la ejecución de la llamada
 			// (el listener puede ser externo).
 			try {
 				next.refactoringStarted(name);
@@ -457,18 +466,20 @@ public class RefactoringPlugin extends AbstractUIPlugin
 			}
 		}
 	}
-	
+
 	/**
 	 * Notifica al <i>listener</i> que se ha enviado un mensaje desde uno de los
 	 * elementos concretos del repositorio que componen la refactorización.
 	 * 
-	 * <p>Si una de las extensiones registradas da lugar a algún tipo de error, se
-	 * puede controlar el problema y continuar con la ejecución normal. En ese 
+	 * <p>
+	 * Si una de las extensiones registradas da lugar a algún tipo de error, se
+	 * puede controlar el problema y continuar con la ejecución normal. En ese
 	 * caso, el <i>listener</i> que hubier provocado el problema sería eliminado
 	 * de la lista de <i>listeners</i> registrados.
 	 * </p>
 	 * 
-	 * @param message el mensaje enviado.
+	 * @param message
+	 *            el mensaje enviado.
 	 * 
 	 * @see IRefactoringMessageListener#messageSent(String)
 	 */
@@ -481,7 +492,7 @@ public class RefactoringPlugin extends AbstractUIPlugin
 			final IRefactoringRunListener next = 
 				(IRefactoringRunListener) registeredListeners[i];
 			// Se envuelve la llamada para evitar que se extiendan fallos 
-			// que se pudieran producir en la ejecución de la llamada 
+			// que se pudieran producir en la ejecución de la llamada
 			// (el listener puede ser externo).
 			try {
 				next.refactoringStepTaken(message);
@@ -494,18 +505,21 @@ public class RefactoringPlugin extends AbstractUIPlugin
 			}
 		}
 	}
-	
+
 	/**
-	 * Solicita al <i>plugin</i> que notifique a todos los <i>listeners</i> 
+	 * Solicita al <i>plugin</i> que notifique a todos los <i>listeners</i>
 	 * registrados que una refactorización ha fallado.
 	 * 
-	 * <p>Si una de las extensiones registradas da lugar a algún tipo de error, 
-	 * el <i> listener</i> que hubiera provocado el problema sería eliminado de la 
+	 * <p>
+	 * Si una de las extensiones registradas da lugar a algún tipo de error, el
+	 * <i> listener</i> que hubiera provocado el problema sería eliminado de la
 	 * lista de <i>listeners</i> registrados.
 	 * </p>
 	 * 
-	 * @param name el nombre de la refactorización que ha fallado.
-	 * @param message el mensaje asociado al fallo.
+	 * @param name
+	 *            el nombre de la refactorización que ha fallado.
+	 * @param message
+	 *            el mensaje asociado al fallo.
 	 */
 	public void fireRefactoringFailed(String name, String message){
 		// Se solicita la lista de listeners registrados.
@@ -515,7 +529,7 @@ public class RefactoringPlugin extends AbstractUIPlugin
 			final IRefactoringRunListener next = 
 				(IRefactoringRunListener) registeredListeners[i];
 			// Se envuelve la llamada para evitar que se extiendan fallos 
-			// que se pudieran producir en la ejecución de la llamada 
+			// que se pudieran producir en la ejecución de la llamada
 			// (el listener puede ser externo).
 			try {
 				next.refactoringFailed(name, message);	
@@ -528,17 +542,20 @@ public class RefactoringPlugin extends AbstractUIPlugin
 			}			
 		}
 	}
-	
+
 	/**
-	 * Solicita al <i>plugin</i> que notifique a todos los <i>listeners</i> registrados
-	 * que una refactorización acaba de terminar.
+	 * Solicita al <i>plugin</i> que notifique a todos los <i>listeners</i>
+	 * registrados que una refactorización acaba de terminar.
 	 * 
-	 * <p>Si una de las extensiones registradas da lugar a algún tipo de error, 
-	 * se puede controlar el problema y continuar con la ejecución normal. En ese 
-	 * caso, el <i> listener</i> que hubiera provocado el problema sería eliminado 
-	 * de la lista de <i>listeners</i> registrados.</p>
+	 * <p>
+	 * Si una de las extensiones registradas da lugar a algún tipo de error, se
+	 * puede controlar el problema y continuar con la ejecución normal. En ese
+	 * caso, el <i> listener</i> que hubiera provocado el problema sería
+	 * eliminado de la lista de <i>listeners</i> registrados.
+	 * </p>
 	 * 
-	 * @param summary el resumen de la refactorización que acaba de finalizar.
+	 * @param summary
+	 *            el resumen de la refactorización que acaba de finalizar.
 	 */
 	public void fireRefactoringFinished(RefactoringSummary summary){
 		
@@ -549,7 +566,7 @@ public class RefactoringPlugin extends AbstractUIPlugin
 			final IRefactoringRunListener next = 
 				(IRefactoringRunListener) registeredListeners[i];
 			// Se envuelve la llamada para evitar que se extiendan fallos que 
-			// se pudieran producir en la ejecución de la llamada (el listener 
+			// se pudieran producir en la ejecución de la llamada (el listener
 			// puede ser externo).
 			try {
 				next.refactoringFinished(summary);
@@ -563,17 +580,21 @@ public class RefactoringPlugin extends AbstractUIPlugin
 			}			
 		}
 	}
-	
+
 	/**
-	 * Solicita al <i>plugin</i> que notifique a todos los <i>listeners</i> registrados
-	 * que una refactorización se ha deshecho y se ha recuperado el estado previo.
+	 * Solicita al <i>plugin</i> que notifique a todos los <i>listeners</i>
+	 * registrados que una refactorización se ha deshecho y se ha recuperado el
+	 * estado previo.
 	 * 
-	 * <p>Si una de las extensiones registradas da lugar a algún tipo de error, 
-	 * se puede controlar el problema y continuar con la ejecución normal. En ese 
-	 * caso, el <i> listener</i> que hubiera provocado el problema sería eliminado 
-	 * de la lista de <i>listeners</i> registrados.</p>
+	 * <p>
+	 * Si una de las extensiones registradas da lugar a algún tipo de error, se
+	 * puede controlar el problema y continuar con la ejecución normal. En ese
+	 * caso, el <i> listener</i> que hubiera provocado el problema sería
+	 * eliminado de la lista de <i>listeners</i> registrados.
+	 * </p>
 	 * 
-	 * @param id identificador de la refactorización que se ha deshecho.
+	 * @param id
+	 *            identificador de la refactorización que se ha deshecho.
 	 */
 	public void fireRefactoringUndone(String id){
 		// Se solicita la lista de listeners registrados.
@@ -583,7 +604,7 @@ public class RefactoringPlugin extends AbstractUIPlugin
 			final IRefactoringRunListener next = 
 				(IRefactoringRunListener) registeredListeners[i];
 			// Se envuelve la llamada para evitar que se extiendan fallos que 
-			// se pudieran producir en la ejecución de la llamada (el listener 
+			// se pudieran producir en la ejecución de la llamada (el listener
 			// puede ser externo).
 			try {
 				next.refactoringUndone(id);
@@ -595,7 +616,7 @@ public class RefactoringPlugin extends AbstractUIPlugin
 			}			
 		}
 	}
-	
+
 	/**
 	 * Obtiene la instancia única del plug-in.
 	 * 
@@ -613,10 +634,14 @@ public class RefactoringPlugin extends AbstractUIPlugin
 	 * Inicia el proceso de configuración y ejecución de una refactorización
 	 * sobre un elemento seleccionado.
 	 * 
-	 * @param selectedElement el elemento seleccionado en el modelo MOON. Debe ser
-	 * uno de <code>ClassDef</code>, <code>MethDec</code> o <code>AttDec</code>.
-	 * @param selection el proveedor de información para la selección actual.
-	 * @param showSelector indica si se quiere o no mostrar la ventana selectora,
+	 * @param selectedElement
+	 *            el elemento seleccionado en el modelo MOON. Debe ser uno de
+	 *            <code>ClassDef</code>, <code>MethDec</code> o
+	 *            <code>AttDec</code>.
+	 * @param selection
+	 *            el proveedor de información para la selección actual.
+	 * @param showSelector
+	 *            indica si se quiere o no mostrar la ventana selectora,
 	 */
 	public void runRefactoring(ObjectMoon selectedElement, 
 		SelectionInfo selection, Boolean showSelector ){
@@ -663,12 +688,13 @@ public class RefactoringPlugin extends AbstractUIPlugin
 			}
 		}
 	}
-	
+
 	/**
-	 * Realiza las actualizaciones necesarias sobre los recursos del plugin y del
-	 * entorno de Eclipse después de la ejecución de una refactorización.
+	 * Realiza las actualizaciones necesarias sobre los recursos del plugin y
+	 * del entorno de Eclipse después de la ejecución de una refactorización.
 	 * 
-	 * @param refactoring el nombre de la refactorización ejecutada.
+	 * @param refactoring
+	 *            el nombre de la refactorización ejecutada.
 	 */
 	public void updateEnvironment(String refactoring){
 		storeRefactoring(refactoring);
@@ -704,7 +730,7 @@ public class RefactoringPlugin extends AbstractUIPlugin
 		
 		deleteFiles();
 	}
-	
+
 	/**
 	 * Obtiene la ruta raíz del "bundle" asociado al plugin.
 	 * 
@@ -735,12 +761,11 @@ public class RefactoringPlugin extends AbstractUIPlugin
 	}
 
 	/**
-	 * Devuelve el directorio del área de estado del plugin en el sistema de 
-	 * ficheros local. Si el área de estado del plugin no existía antes de esta 
-	 * llamada, se crea.
-	 * El área de estado de un plugin es un directorio dentro del área de metadatos
-	 * de la plataforma en el que un plugin es libre para crear ficheros bajo su
-	 * completa responsabilidad.
+	 * Devuelve el directorio del área de estado del plugin en el sistema de
+	 * ficheros local. Si el área de estado del plugin no existía antes de esta
+	 * llamada, se crea. El área de estado de un plugin es un directorio dentro
+	 * del área de metadatos de la plataforma en el que un plugin es libre para
+	 * crear ficheros bajo su completa responsabilidad.
 	 * 
 	 * @return el directorio del área de estado del plugin.
 	 */
@@ -751,11 +776,11 @@ public class RefactoringPlugin extends AbstractUIPlugin
 	}
 
 	/**
-	 * Obtiene la siguiente ruta completa que deberá utilizarse al guardar un 
+	 * Obtiene la siguiente ruta completa que deberá utilizarse al guardar un
 	 * modelo MOON de backup.
 	 * 
-	 * @return la siguiente ruta completa que deberá utilizarse al guardar un 
-	 * modelo MOON de backup.
+	 * @return la siguiente ruta completa que deberá utilizarse al guardar un
+	 *         modelo MOON de backup.
 	 */
 	public String getNextBackupDestiny(){
 		
@@ -780,18 +805,18 @@ public class RefactoringPlugin extends AbstractUIPlugin
 			return getPluginTempDir() + System.getProperty("file.separator") + //$NON-NLS-1$
 				getCurrentRefactoring();
 	}
-	
+
 	/**
 	 * Obtiene el nombre del fichero mod que contiene el estado actual del
 	 * modelo en proceso de refactorización.
 	 * 
 	 * @return El nombre del fichero mod que contiene el estado actual del
-	 * modelo en proceso de refactorización.
+	 *         modelo en proceso de refactorización.
 	 */
 	public String getCurrentRefactoring() {
 		return currentRefactoring;
 	}
-	
+
 	/**
 	 * Obtiene el proyecto sobre el que se está trabajando en un momento dado.
 	 * 
@@ -809,19 +834,21 @@ public class RefactoringPlugin extends AbstractUIPlugin
 		
 		return currentSelection.getProjectForSelection();
 	}
-	
+
 	/**
-	 * Obtiene el proyecto Java sobre el que se está trabajando en un momento dado.
+	 * Obtiene el proyecto Java sobre el que se está trabajando en un momento
+	 * dado.
 	 * 
-	 * @return el proyecto Java sobre el que se está trabajando en un momento dado.
+	 * @return el proyecto Java sobre el que se está trabajando en un momento
+	 *         dado.
 	 */
 	public IJavaProject getAffectedJavaProject(){
 		return currentProject;
 	}
-	
+
 	/**
-	 * Obtiene los directorios raíz a partir de los cuales se pueden
-	 * encontrar los ficheros fuente del proyecto afectado.
+	 * Obtiene los directorios raíz a partir de los cuales se pueden encontrar
+	 * los ficheros fuente del proyecto afectado.
 	 * 
 	 * @return los directorios raíz de los ficheros fuente.
 	 */
@@ -842,10 +869,10 @@ public class RefactoringPlugin extends AbstractUIPlugin
 		
 		return tmpDir + System.getProperty("file.separator") + backupDirName; //$NON-NLS-1$
 	}
-	
+
 	/**
-	 * Carga en un fichero xml las diferentes refactorizaciones que son posibles para
-	 * los diferentes tipos de entrada principal de una refactorización.
+	 * Carga en un fichero xml las diferentes refactorizaciones que son posibles
+	 * para los diferentes tipos de entrada principal de una refactorización.
 	 */
 	private void loadRefactoringTypes(){
 		new JDOMXMLRefactoringWriterImp(null).writeFileToLoadRefactoringTypes();
@@ -857,7 +884,8 @@ public class RefactoringPlugin extends AbstractUIPlugin
 	 * Le asigna un nombre único basado en el tipo de refactorización y la hora
 	 * exacta en la que se guarda la refactorización.
 	 * 
-	 * @param name el nombre de la refactorización ejecutada.
+	 * @param name
+	 *            el nombre de la refactorización ejecutada.
 	 */
 	public void storeRefactoring(String name){
 		Calendar calendar = new GregorianCalendar();

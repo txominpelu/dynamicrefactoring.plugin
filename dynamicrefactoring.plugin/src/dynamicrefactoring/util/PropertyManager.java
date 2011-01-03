@@ -20,11 +20,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.*/
 
 package dynamicrefactoring.util;
 
-import java.util.Properties;
-
-import java.io.FileInputStream;
 import java.io.InputStream;
 import java.net.URL;
+import java.util.Properties;
 
 import org.apache.log4j.Logger;
 
@@ -34,7 +32,7 @@ import dynamicrefactoring.RefactoringPlugin;
  * Proporciona acceso a las propiedades del fichero de propiedades.
  */
 public class PropertyManager {
-	
+
 	/**
 	 * La instancia única de la clase.
 	 */
@@ -62,9 +60,9 @@ public class PropertyManager {
 	 * ficheros sobre los que se refactoriza.
 	 */
 	private final String TEMP_PROPERTY = "temp"; //$NON-NLS-1$
-	
+
 	/**
-	 * El nombre de la propiedad que almacena dónde se guardan los ficheros de 
+	 * El nombre de la propiedad que almacena dónde se guardan los ficheros de
 	 * registro.
 	 */
 	protected static final String LOG_PROPERTY = "log"; //$NON-NLS-1$
@@ -73,16 +71,16 @@ public class PropertyManager {
 	 * Las propiedades cargadas del fichero de propiedades.
 	 */
 	private Properties properties;
-	
+
 	/**
 	 * Bloque de inicialización.
-	 *
+	 * 
 	 * Recupera las propiedades almacenadas en el fichero de propiedades.
 	 */
 	private void loadProperties(){
 		try {
 			
-			String pluginId = "dinamicrefactoring.plugin";
+			String pluginId = RefactoringPlugin.BUNDLE_NAME;
 			URL fileURL = RefactoringPlugin.getDefault().getURLForPluginResource(pluginId, CONFIGURATION_FILE);
 			InputStream in = fileURL.openStream();
 			
@@ -117,7 +115,7 @@ public class PropertyManager {
 		
 		loadProperties();
 	}
-	
+
 	/**
 	 * Obtiene la instancia única del gestor de propiedades.
 	 * 
@@ -143,11 +141,12 @@ public class PropertyManager {
 	}
 
 	/**
-	 * Recupera la propiedad que almacena el nombre del directorio donde se 
+	 * Recupera la propiedad que almacena el nombre del directorio donde se
 	 * copian temporalmente los ficheros sobre los que se está refactorizando.
-	 *
-	 * @return La propiedad que almacena el nombre del directorio donde se 
-	 * copian temporalmente los ficheros sobre los que se está refactorizando.
+	 * 
+	 * @return La propiedad que almacena el nombre del directorio donde se
+	 *         copian temporalmente los ficheros sobre los que se está
+	 *         refactorizando.
 	 */
 	public String getTempRefactoredFileDirectory(){
 		return getCustomProperty(TEMP_PROPERTY);
@@ -163,15 +162,16 @@ public class PropertyManager {
 	public String getLogFileDirectory(){
 		return getCustomProperty(LOG_PROPERTY);
 	}
-	
+
 	/**
 	 * Obtiene el valor de una propiedad con un nombre determinado.
-	 *
-	 * @param name el nombre de la propiedad que se busca.
-	 *
+	 * 
+	 * @param name
+	 *            el nombre de la propiedad que se busca.
+	 * 
 	 * @return el valor de la propiedad con el nombre especificado por <code>
-	 * name</code>; <code>null</code> si no se encuentra ningún valor para
-	 * ese nombre.
+	 * name</code>; <code>null</code> si no se encuentra ningún valor para ese
+	 *         nombre.
 	 */
 	public String getCustomProperty(String name){
 		return (String) properties.get(name);

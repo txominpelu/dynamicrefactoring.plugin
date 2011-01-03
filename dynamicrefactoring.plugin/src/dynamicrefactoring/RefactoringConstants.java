@@ -23,7 +23,7 @@ package dynamicrefactoring;
 import java.io.File;
 
 /**
- * Define las constantes utilizadas para el funcionamiento de las 
+ * Define las constantes utilizadas para el funcionamiento de las
  * refactorizaciones dinámicas.
  * 
  * @author <A HREF="mailto:lfd0002@alu.ubu.es">Laura Fuente de la Fuente</A>
@@ -37,22 +37,22 @@ public class RefactoringConstants {
 	/**
 	 * Nombre del fichero .jar que almacena las clases que componen el modelo moon.
 	 */
-	public static final String BIBLIOTECA_MOON="moon-2.3.0.jar";
+	public static final String BIBLIOTECA_MOON = "moon-2.4.1.jar";
 	
 	/**
 	 * Nombre del fichero .jar que almacena las clases que componen el modelo javamoon.
 	 */
-	public static final String BIBLIOTECA_JAVA="javamoon-2.3.0.jar";
+	public static final String BIBLIOTECA_JAVA = "javamoon-2.6.0.jar";
 	
 	/**
-	 * Nombre del fichero en el que se guardan las distintas refactorizaciones dinámicas
-	 * clasificadas según el tipo de entrada principal.
+	 * Nombre del fichero en el que se guardan las distintas refactorizaciones
+	 * dinámicas clasificadas según el tipo de entrada principal.
 	 */
 	public static final String REFACTORING_TYPES_FILE= RefactoringPlugin.getDefault().getBundleRootDir() + "refactorings.xml";
-	
+
 	/**
-	 * Directorio temporal donde almacenar el classpath temporal que se utiliza durante la 
-	 * ejecución de un plan de refactorizaciones.
+	 * Directorio temporal donde almacenar el classpath temporal que se utiliza
+	 * durante la ejecución de un plan de refactorizaciones.
 	 */
 	public static final String TEMP_DIRECTORY= RefactoringPlugin.getDefault().getBundleRootDir() + "temp";
 	
@@ -60,10 +60,10 @@ public class RefactoringConstants {
 	 * Fichero DTD que contiene la estructura del REFACTORING_PLAN_FILE.
 	 */
 	public static final String REFACTORING_PLAN_DTD= RefactoringPlugin.getDefault().getBundleRootDir() + "refactoringPlanDTD.dtd";
-	
+
 	/**
-	 * Nombre del fichero en el que se guardan las distintas refactorizaciones dinámicas
-	 * que han sido ejecutadas dentro de la aplicación.
+	 * Nombre del fichero en el que se guardan las distintas refactorizaciones
+	 * dinámicas que han sido ejecutadas dentro de la aplicación.
 	 */
 	public static final String REFACTORING_PLAN_FILE= RefactoringPlugin.getDefault().getBundleRootDir() + "refactoringPlan.xml";
 	
@@ -80,9 +80,9 @@ public class RefactoringConstants {
 	 */
 	public static final String ACTIONS_PACKAGE = 
 		"repository.moon.concreteaction."; //$NON-NLS-1$
-	
+
 	/**
-	 * Ruta al directorio donde se encuentran las definiciones de las 
+	 * Ruta al directorio donde se encuentran las definiciones de las
 	 * refactorizaciones dinámicas.
 	 */
 	public static final String DYNAMIC_REFACTORING_DIR = 
@@ -116,7 +116,7 @@ public class RefactoringConstants {
 	 */
 	public static final String JAVA_PREDICATES_PACKAGE = 
 		"repository.java.concretepredicate."; //$NON-NLS-1$
-	
+
 	/**
 	 * La ruta al fichero con la DTD de las refactorizaciones dinámicas.
 	 */
@@ -154,13 +154,13 @@ public class RefactoringConstants {
 	 * Ruta al fichero del core de MOON.
 	 */
 	public static final String MOONCORE_DIR = getLibDir();
-	
+
 	/**
 	 * Ruta al fichero de la extensión Java de MOON.
 	 */
 	public static final String JAVAEXTENSION_DIR = getJavaLibDir();
-	
-	/** 
+
+	/**
 	 * Predicado de tipo precondición.
 	 */
 	public static final int PRECONDITION = 0;
@@ -176,7 +176,8 @@ public class RefactoringConstants {
 	public static final int POSTCONDITION = 2;
 
 	/**
-	 * La extensión de los ficheros donde se definen refactorizaciones dinámicas.
+	 * La extensión de los ficheros donde se definen refactorizaciones
+	 * dinámicas.
 	 */
 	public static final String FILE_EXTENSION = ".xml"; //$NON-NLS-1$
 	
@@ -199,7 +200,7 @@ public class RefactoringConstants {
 	 * Clase de los iteradores.
 	 */
 	public static final String ITERATOR_PATH = "java.util.Iterator"; //$NON-NLS-1$
-		
+
 	/**
 	 * Obtiene la ruta de la raíz de la biblioteca de MOON.
 	 * 
@@ -209,23 +210,25 @@ public class RefactoringConstants {
 		return RefactoringPlugin.getDefault().getBundleRootDir()
 			+ "lib" + System.getProperty("file.separator") + BIBLIOTECA_MOON; //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
 	}
-	
+
 	/**
-	 * Obtiene la ruta de la raíz de la biblioteca con la extensión Java de MOON.
+	 * Obtiene la ruta de la raíz de la biblioteca con la extensión Java de
+	 * MOON.
 	 * 
-	 * @return la ruta de la raíz de la biblioteca con la extensión Java de MOON.
+	 * @return la ruta de la raíz de la biblioteca con la extensión Java de
+	 *         MOON.
 	 */
 	public static String getJavaLibDir(){
 		return RefactoringPlugin.getDefault().getBundleRootDir()
 			+ "lib" + System.getProperty("file.separator") + BIBLIOTECA_JAVA; //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
 	}
-	
+
 	/**
-	 * Obtiene la ruta del directorio raíz bajo el cual se encuentran las 
-	 * clases de los predicados concretos del repositorio.
-	 *  
-	 * @return la ruta del directorio raíz bajo el cual se encuentran las 
-	 * clases de los predicados concretos del repositorio.
+	 * Obtiene la ruta del directorio raíz bajo el cual se encuentran las clases
+	 * de los predicados concretos del repositorio.
+	 * 
+	 * @return la ruta del directorio raíz bajo el cual se encuentran las clases
+	 *         de los predicados concretos del repositorio.
 	 */
 	public static String getPrePostDir(){
 		return RefactoringPlugin.getDefault().getBundleRootDir()
@@ -233,13 +236,13 @@ public class RefactoringConstants {
 			"repository" + System.getProperty("file.separator") +  //$NON-NLS-1$ //$NON-NLS-2$
 			"moon" + System.getProperty("file.separator") + "concretepredicate"; //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
 	}
-	
+
 	/**
-	 * Obtiene la ruta del directorio raíz bajo el cual se encuentran las
-	 * clases de las acciones concretas del repositorio.
+	 * Obtiene la ruta del directorio raíz bajo el cual se encuentran las clases
+	 * de las acciones concretas del repositorio.
 	 * 
-	 * @return la ruta del directorio raíz bajo el cual se encuentran las
-	 * clases de las acciones concretas del repositorio.
+	 * @return la ruta del directorio raíz bajo el cual se encuentran las clases
+	 *         de las acciones concretas del repositorio.
 	 */
 	public static String getActionDir(){
 		return RefactoringPlugin.getDefault().getBundleRootDir()
@@ -249,11 +252,11 @@ public class RefactoringConstants {
 	}
 
 	/**
-	 * Obtiene la ruta del directorio raíz bajo el cual se encuentran las
-	 * clases de las acciones concretas del repositorio dependientes de Java.
+	 * Obtiene la ruta del directorio raíz bajo el cual se encuentran las clases
+	 * de las acciones concretas del repositorio dependientes de Java.
 	 * 
-	 * @return la ruta del directorio raíz bajo el cual se encuentran las
-	 * clases de las acciones concretas del repositorio dependientes de Java.
+	 * @return la ruta del directorio raíz bajo el cual se encuentran las clases
+	 *         de las acciones concretas del repositorio dependientes de Java.
 	 */
 	public static String getJavaActionDir(){
 		return RefactoringPlugin.getDefault().getBundleRootDir()
@@ -261,13 +264,13 @@ public class RefactoringConstants {
 			"repository" + System.getProperty("file.separator") +  //$NON-NLS-1$ //$NON-NLS-2$
 			"java" + System.getProperty("file.separator") + "concreteaction"; //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
 	}
-	
+
 	/**
-	 * Obtiene la ruta del directorio raíz bajo el cual se encuentran las
-	 * clases de los predicados del repositorio dependientes de Java.
+	 * Obtiene la ruta del directorio raíz bajo el cual se encuentran las clases
+	 * de los predicados del repositorio dependientes de Java.
 	 * 
-	 * @return la ruta del directorio raíz bajo el cual se encuentran las
-	 * clases de los predicados concretos del repositorio dependientes de Java.
+	 * @return la ruta del directorio raíz bajo el cual se encuentran las clases
+	 *         de los predicados concretos del repositorio dependientes de Java.
 	 */
 	public static String getJavaPredicateDir(){
 		return RefactoringPlugin.getDefault().getBundleRootDir()

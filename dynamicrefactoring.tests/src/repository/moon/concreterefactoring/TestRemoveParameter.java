@@ -20,46 +20,53 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.*/
 
 package repository.moon.concreterefactoring;
 
-import java.util.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
+
+import java.util.List;
 
 import javamoon.construct.source.SourceLoader;
 import javamoon.core.JavaModel;
-
 import moon.core.MoonFactory;
-import moon.core.classdef.*;
+import moon.core.classdef.ClassDef;
+import moon.core.classdef.FormalArgument;
+import moon.core.classdef.MethDec;
 import moon.core.expression.CallExpr;
 import moon.core.expression.Expr;
 import moon.core.instruction.AssignmentInstr;
 import moon.core.instruction.CompoundInstr;
 import moon.core.instruction.Instr;
 
-import static org.junit.Assert.*;
-import org.junit.Test; 
+import org.junit.Test;
 
 import refactoring.engine.PreconditionException;
-
 import repository.RefactoringTemplateAbstractTest;
 import repository.moon.MOONRefactoring;
 
-/** 
+/**
  * Comprueba que funciona correctamente la refactorizaciï¿½n que elimina un
  * argumento formal de la lista de parï¿½metros de un mï¿½todo.
  * 
- * <p>Indirectamente, se comprueba tambiï¿½n la correcciï¿½n de las funciones,
- * acciones y predicados utilizados por la refactorizaciï¿½n.</p>
- *
+ * <p>
+ * Indirectamente, se comprueba tambiï¿½n la correcciï¿½n de las funciones,
+ * acciones y predicados utilizados por la refactorizaciï¿½n.
+ * </p>
+ * 
  * @author <A HREF="mailto:sfd0009@alu.ubu.es">Sonia Fuente de la Fuente</A>
  * @author <A HREF="mailto:ehp0001@alu.ubu.es">Enrique Herrero Paredes</A>
- *
+ * 
  * @see RemoveParameter
  */
 public class TestRemoveParameter extends RefactoringTemplateAbstractTest {
 
-	/** 
+	/**
 	 * Comprueba que la refactorizaciï¿½n funciona correctamente al hacer una
-	 * eliminaciï¿½n de un argumento formal en un mï¿½todo con mï¿½s de un parï¿½metro.
+	 * eliminaciï¿½n de un argumento formal en un mï¿½todo con mï¿½s de un
+	 * parï¿½metro.
 	 * 
-	 * @throws Exception si se produce un error durante la ejecuciï¿½n de la prueba.
+	 * @throws Exception
+	 *             si se produce un error durante la ejecuciï¿½n de la prueba.
 	 */
 	@Test
 	public void testRemoveWithManyParameters() throws Exception{
@@ -82,26 +89,32 @@ public class TestRemoveParameter extends RefactoringTemplateAbstractTest {
 
 		//comienzan las comprobaciones
 		List <MethDec> lMetodo2 = classSource.getMethDecByName(factory.createName("metodoA")); //$NON-NLS-1$
-		assertTrue("Test eliminar argumento en mï¿½todo con varios parï¿½metros: " + //$NON-NLS-1$
-			"no se encuentra el mï¿½todo del que se ha eliminado el parï¿½metro.", //$NON-NLS-1$
+		assertTrue(
+				"Test eliminar argumento en mï¿½todo con varios parï¿½metros: " + //$NON-NLS-1$
+						"no se encuentra el mï¿½todo del que se ha eliminado el parï¿½metro.", //$NON-NLS-1$
 			!lMetodo2.isEmpty());
 
 		MethDec metodo2 = lMetodo2.get(0);
 		List <FormalArgument> lArgument2 = metodo2.getFormalArgument();
-		assertEquals("Test eliminar argumento en mï¿½todo con varios parï¿½metros: " + //$NON-NLS-1$
-			"hay mï¿½s parï¿½metros de los que debiera", 1, lArgument2.size()); //$NON-NLS-1$
+		assertEquals(
+				"Test eliminar argumento en mï¿½todo con varios parï¿½metros: " + //$NON-NLS-1$
+						"hay mï¿½s parï¿½metros de los que debiera", 1,
+				lArgument2.size()); //$NON-NLS-1$
 
 		FormalArgument argumento2 = lArgument2.get(0);		
-		assertEquals("Test eliminar argumento en mï¿½todo con varios parï¿½metros: " + //$NON-NLS-1$
-			"no se ha eliminado correctamente el parï¿½metro.", "b",  //$NON-NLS-1$ //$NON-NLS-2$
+		assertEquals(
+				"Test eliminar argumento en mï¿½todo con varios parï¿½metros: " + //$NON-NLS-1$
+						"no se ha eliminado correctamente el parï¿½metro.",
+				"b", //$NON-NLS-1$ //$NON-NLS-2$
 			argumento2.getName().toString());
 	}
 
-	/** 
-	 * Comprueba que la refactorizaciï¿½n funciona correctamente al eliminar
-	 * el segundo argumento formal de un mï¿½todo.
+	/**
+	 * Comprueba que la refactorizaciï¿½n funciona correctamente al eliminar el
+	 * segundo argumento formal de un mï¿½todo.
 	 * 
-	 * @throws Exception si se produce un error durante la ejecuciï¿½n de la prueba.
+	 * @throws Exception
+	 *             si se produce un error durante la ejecuciï¿½n de la prueba.
 	 */
 	@Test
 	public void testRemoveSecondArgument() throws Exception{
@@ -135,12 +148,14 @@ public class TestRemoveParameter extends RefactoringTemplateAbstractTest {
 			"no se ha conservado el primer argumento formal.",  //$NON-NLS-1$
 			"a", otro.getName().toString()); //$NON-NLS-1$
 	}
-	
-	/** 
+
+	/**
 	 * Comprueba que la refactorizaciï¿½n funciona correctamente al hacer una
-	 * eliminaciï¿½n de un argumento formal en un mï¿½todo con un solo parï¿½metro.
+	 * eliminaciï¿½n de un argumento formal en un mï¿½todo con un solo
+	 * parï¿½metro.
 	 * 
-	 * @throws Exception si se produce un error durante la ejecuciï¿½n de la prueba.
+	 * @throws Exception
+	 *             si se produce un error durante la ejecuciï¿½n de la prueba.
 	 */  
 	@Test
 	public void testRemoveWithOneParameter() throws Exception{
@@ -163,29 +178,33 @@ public class TestRemoveParameter extends RefactoringTemplateAbstractTest {
 
 		//comienzan las comprobaciones
 		List <MethDec> lMetodo2 = classSource.getMethDecByName(factory.createName("metodoA")); //$NON-NLS-1$
-		assertTrue("Test eliminar argumento en mï¿½todo con un parï¿½metro: " + //$NON-NLS-1$
-			"No se encuentra el mï¿½todo del que se ha eliminado el parï¿½metro.", //$NON-NLS-1$
+		assertTrue(
+				"Test eliminar argumento en mï¿½todo con un parï¿½metro: " + //$NON-NLS-1$
+						"No se encuentra el mï¿½todo del que se ha eliminado el parï¿½metro.", //$NON-NLS-1$
 			!lMetodo2.isEmpty());
 
 		MethDec metodo2 = lMetodo2.get(0);
 		List <FormalArgument> lArgument2 = metodo2.getFormalArgument();
 		assertTrue("Test eliminar argumento en mï¿½todo con un parï¿½metro: " + //$NON-NLS-1$
-			"no se ha eliminado correctamente el parï¿½metro.",  //$NON-NLS-1$
+				"no se ha eliminado correctamente el parï¿½metro.", //$NON-NLS-1$
 			lArgument2.isEmpty());
 	}
 
-	/** 
-	 * Comprueba que la refactorizaciï¿½n funciona correctamente cuando se elimina
-	 * un argumento formal en un mï¿½todo de una clase intermedia de una jerarquï¿½a
-	 * de herencia.
-	 *
-	 * <p>En un modelo con 3 clases repartidas en 3 niveles de la misma jerarquï¿½a
-	 * de herencia, en la que las 3 clases dan su propia definiciï¿½n para un 
-	 * mï¿½todo, se elimina el argumento ï¿½nico del mï¿½todo en la clase del nivel
-	 * intermedio. Se comprueba que los cambios se extiendan a las demï¿½s clases
-	 * de la jerarquï¿½a.</p>
+	/**
+	 * Comprueba que la refactorizaciï¿½n funciona correctamente cuando se
+	 * elimina un argumento formal en un mï¿½todo de una clase intermedia de una
+	 * jerarquï¿½a de herencia.
 	 * 
-	 * @throws Exception si se produce un error durante la ejecuciï¿½n de la prueba.
+	 * <p>
+	 * En un modelo con 3 clases repartidas en 3 niveles de la misma jerarquï¿½a
+	 * de herencia, en la que las 3 clases dan su propia definiciï¿½n para un
+	 * mï¿½todo, se elimina el argumento ï¿½nico del mï¿½todo en la clase del
+	 * nivel intermedio. Se comprueba que los cambios se extiendan a las demï¿½s
+	 * clases de la jerarquï¿½a.
+	 * </p>
+	 * 
+	 * @throws Exception
+	 *             si se produce un error durante la ejecuciï¿½n de la prueba.
 	 */ 
 	@Test
 	public void testRemoveWithHierarchy() throws Exception{
@@ -211,10 +230,10 @@ public class TestRemoveParameter extends RefactoringTemplateAbstractTest {
 		MethDec metodo2 = lMetodo2.get(0);		
 
 		assertFalse("Test eliminar argumento con herencia: sigue existiendo el " + //$NON-NLS-1$
-			"mï¿½todo con la antigua signatura en la clase.", //$NON-NLS-1$
+						"mï¿½todo con la antigua signatura en la clase.", //$NON-NLS-1$
 			"paqueteA.MediumClass~metodoA%int".equals(metodo2.getUniqueName().toString())); //$NON-NLS-1$
 		assertEquals("Test eliminar argumento con herencia: no se encuentra el " + //$NON-NLS-1$
-			"mï¿½todo del que se ha eliminado el argumento.", //$NON-NLS-1$
+						"mï¿½todo del que se ha eliminado el argumento.", //$NON-NLS-1$
 			"paqueteA.MediumClass~metodoA", metodo2.getUniqueName().toString()); //$NON-NLS-1$
 
 		List<FormalArgument> lArg = metodo2.getFormalArgument();
@@ -228,10 +247,10 @@ public class TestRemoveParameter extends RefactoringTemplateAbstractTest {
 		MethDec metodoS = lMetodoS.get(0);		
 
 		assertFalse("Test eliminar argumento con herencia: sigue existiendo el " + //$NON-NLS-1$
-			"mï¿½todo con la antigua signatura en la superclase.", //$NON-NLS-1$
+						"mï¿½todo con la antigua signatura en la superclase.", //$NON-NLS-1$
 			"paqueteA.SuperType~metodoA%int".equals(metodoS.getUniqueName().toString())); //$NON-NLS-1$
 		assertEquals("Test eliminar argumento con herencia: no se encuentra el " + //$NON-NLS-1$
-			"mï¿½todo del que se ha eliminado el argumento en la superclase.", //$NON-NLS-1$
+						"mï¿½todo del que se ha eliminado el argumento en la superclase.", //$NON-NLS-1$
 			"paqueteA.SuperType~metodoA", metodoS.getUniqueName().toString()); //$NON-NLS-1$
 
 		List<FormalArgument> lArgS = metodoS.getFormalArgument();
@@ -245,10 +264,10 @@ public class TestRemoveParameter extends RefactoringTemplateAbstractTest {
 		MethDec metodos = lMetodos.get(0);		
 
 		assertFalse("Test eliminar argumento con herencia: sigue existiendo el " + //$NON-NLS-1$
-			"mï¿½todo con la antigua signatura en la subclase.", //$NON-NLS-1$
+						"mï¿½todo con la antigua signatura en la subclase.", //$NON-NLS-1$
 			"paqueteA.SubType~metodoA%int".equals(metodos.getUniqueName().toString())); //$NON-NLS-1$
 		assertEquals("Test eliminar argumento con herencia: no se encuentra el " + //$NON-NLS-1$
-			"mï¿½todo del que se ha eliminado el argumento en la subclase.", //$NON-NLS-1$
+						"mï¿½todo del que se ha eliminado el argumento en la subclase.", //$NON-NLS-1$
 			"paqueteA.SubType~metodoA", metodos.getUniqueName().toString()); //$NON-NLS-1$
 
 		List<FormalArgument> lArgs = metodos.getFormalArgument();
@@ -257,18 +276,20 @@ public class TestRemoveParameter extends RefactoringTemplateAbstractTest {
 			0, lArgs.size());
 	}
 
-	/** 
-	 * Comprueba que la refactorizaciï¿½n funciona correctamente cuando se elimina
-	 * un argumento formal de un mï¿½todo al que se referencia en otras clases del
-	 * modelo.
-	 *
-	 * <p>En un modelo con dos clases, se toma un mï¿½todo de la primera clase y se 
-	 * elimina el primero de sus dos argumentos, de tipo <code>String</code>.
-	 * En la segunda clase se utiliza dicho mï¿½todo en las sentencias del cuerpo 
-	 * de un mï¿½todo. Se comprueba que los cambios se extiendan a las instrucciones 
-	 * de este segundo mï¿½todo.
+	/**
+	 * Comprueba que la refactorizaciï¿½n funciona correctamente cuando se
+	 * elimina un argumento formal de un mï¿½todo al que se referencia en otras
+	 * clases del modelo.
 	 * 
-	 * @throws Exception si se produce un error durante la ejecuciï¿½n de la prueba.
+	 * <p>
+	 * En un modelo con dos clases, se toma un mï¿½todo de la primera clase y se
+	 * elimina el primero de sus dos argumentos, de tipo <code>String</code>. En
+	 * la segunda clase se utiliza dicho mï¿½todo en las sentencias del cuerpo
+	 * de un mï¿½todo. Se comprueba que los cambios se extiendan a las
+	 * instrucciones de este segundo mï¿½todo.
+	 * 
+	 * @throws Exception
+	 *             si se produce un error durante la ejecuciï¿½n de la prueba.
 	 */
 	@Test
 	public void testMethodIsCalled() throws Exception{
@@ -304,16 +325,18 @@ public class TestRemoveParameter extends RefactoringTemplateAbstractTest {
 		List <Expr> list = ((CallExpr)instr2.getRighSide()).getRealArguments();
 		//List <ExprAtom> list =instr2.getRealArguments();
 
-		assertTrue("Test eliminar argumento mï¿½todo usado: las llamadas al mï¿½todo " + //$NON-NLS-1$
+		assertTrue(
+				"Test eliminar argumento mï¿½todo usado: las llamadas al mï¿½todo " + //$NON-NLS-1$
 			"no han eliminado el argumento.", list.isEmpty()); //$NON-NLS-1$
 	}
-	
-	/** 
-	 * Comprueba que la refactorizaciï¿½n funciona correctamente cuando se elimina
-	 * un argumento formal de un mï¿½todo del que existen llamadas que representan
-	 * diferentes tipos de instrucciones y expresiones del modelo.
+
+	/**
+	 * Comprueba que la refactorizaciï¿½n funciona correctamente cuando se
+	 * elimina un argumento formal de un mï¿½todo del que existen llamadas que
+	 * representan diferentes tipos de instrucciones y expresiones del modelo.
 	 * 
-	 * @throws Exception si se produce un error durante la ejecuciï¿½n de la prueba.
+	 * @throws Exception
+	 *             si se produce un error durante la ejecuciï¿½n de la prueba.
 	 */
 	@Test
 	public void testMethodDiffInstructions() throws Exception{
@@ -341,18 +364,23 @@ public class TestRemoveParameter extends RefactoringTemplateAbstractTest {
 		for (Instr i : metodoB.getInstructions())
 			for (Instr subi : ((CompoundInstr)i).getInstructions())
 				if (subi instanceof AssignmentInstr)
-					assertEquals("Test eliminar argumento mï¿½todo con muchas llamadas.", //$NON-NLS-1$
+					assertEquals(
+							"Test eliminar argumento mï¿½todo con muchas llamadas.", //$NON-NLS-1$
 						0, ((CallExpr)((AssignmentInstr)subi).getRighSide()).getRealArguments().size());
 	}
 
 	/**
 	 * Verifica el funcionamiento de las precondiciones de la refactorizaciï¿½n.
-	 *
-	 * <p>Comprueba que se lanza una excepciï¿½n <code>PreconditionException</code>
-	 * cuando se intenta eliminar un argumento formal de forma que se genera un 
-	 * nombre ï¿½nico para el mï¿½todo que ya existe en un mï¿½todo de la misma clase.</p>
 	 * 
-	 * @throws Exception si se produce un error durante la ejecuciï¿½n de la prueba.
+	 * <p>
+	 * Comprueba que se lanza una excepciï¿½n <code>PreconditionException</code>
+	 * cuando se intenta eliminar un argumento formal de forma que se genera un
+	 * nombre ï¿½nico para el mï¿½todo que ya existe en un mï¿½todo de la misma
+	 * clase.
+	 * </p>
+	 * 
+	 * @throws Exception
+	 *             si se produce un error durante la ejecuciï¿½n de la prueba.
 	 */
 	@Test(expected=PreconditionException.class)
 	public void testCheckMethodIsNotAlreadyInClass() throws Exception{
@@ -376,13 +404,16 @@ public class TestRemoveParameter extends RefactoringTemplateAbstractTest {
 
 	/**
 	 * Verifica el funcionamiento de las precondiciones de la refactorizaciï¿½n.
-	 *
-	 * <p>Comprueba que se lanza una excepciï¿½n <code>PreconditionException</code>
-	 * cuando se intenta eliminar un argumento formal de manera que se genera un 
-	 * nombre ï¿½nico para el mï¿½todo que ya existe en otro mï¿½todo de una 
-	 * superclase.</p>
 	 * 
-	 * @throws Exception si se produce un error durante la ejecuciï¿½n de la prueba.
+	 * <p>
+	 * Comprueba que se lanza una excepciï¿½n <code>PreconditionException</code>
+	 * cuando se intenta eliminar un argumento formal de manera que se genera un
+	 * nombre ï¿½nico para el mï¿½todo que ya existe en otro mï¿½todo de una
+	 * superclase.
+	 * </p>
+	 * 
+	 * @throws Exception
+	 *             si se produce un error durante la ejecuciï¿½n de la prueba.
 	 */
 	@Test(expected=PreconditionException.class)
 	public void testCheckMethodIsNotInSuperclass() throws Exception{
@@ -406,12 +437,16 @@ public class TestRemoveParameter extends RefactoringTemplateAbstractTest {
 
 	/**
 	 * Verifica el funcionamiento de las precondiciones de la refactorizaciï¿½n.
-	 *
-	 * <p>Comprueba que se lanza una excepciï¿½n <code>PreconditionException</code>
-	 * cuando se intenta eliminar un argumento formal de manera que se genera un 
-	 * nombre ï¿½nico para el mï¿½todo que ya existe en un mï¿½todo de una subclase.</p>
 	 * 
-	 * @throws Exception si se produce un error durante la ejecuciï¿½n de la prueba.
+	 * <p>
+	 * Comprueba que se lanza una excepciï¿½n <code>PreconditionException</code>
+	 * cuando se intenta eliminar un argumento formal de manera que se genera un
+	 * nombre ï¿½nico para el mï¿½todo que ya existe en un mï¿½todo de una
+	 * subclase.
+	 * </p>
+	 * 
+	 * @throws Exception
+	 *             si se produce un error durante la ejecuciï¿½n de la prueba.
 	 */
 	@Test(expected=PreconditionException.class)
 	public void testCheckMethodIsNotInSubclass() throws Exception{
@@ -435,12 +470,15 @@ public class TestRemoveParameter extends RefactoringTemplateAbstractTest {
 
 	/**
 	 * Verifica el funcionamiento de las precondiciones de la refactorizaciï¿½n.
-	 *
-	 * <p>Comprueba que se lanza una excepciï¿½n <code>PreconditionException</code>
-	 * cuando se intenta eliminar un argumento formal que estï¿½ siendo utilizado
-	 * en el cuerpo del mï¿½todo.</p>
 	 * 
-	 * @throws Exception si se produce un error durante la ejecuciï¿½n de la prueba.
+	 * <p>
+	 * Comprueba que se lanza una excepciï¿½n <code>PreconditionException</code>
+	 * cuando se intenta eliminar un argumento formal que estï¿½ siendo
+	 * utilizado en el cuerpo del mï¿½todo.
+	 * </p>
+	 * 
+	 * @throws Exception
+	 *             si se produce un error durante la ejecuciï¿½n de la prueba.
 	 */
 	@Test(expected=PreconditionException.class)
 	public void testCheckSignatureEntityIsNotUsedInMethod() throws Exception{
@@ -462,11 +500,13 @@ public class TestRemoveParameter extends RefactoringTemplateAbstractTest {
 		eliminacion.run();
 	}
 
-	/** 
+	/**
 	 * Comprueba que la refactorizaciï¿½n funciona correctamente al deshacer una
-	 * eliminaciï¿½n de un argumento formal en un mï¿½todo con un solo parï¿½metro.
+	 * eliminaciï¿½n de un argumento formal en un mï¿½todo con un solo
+	 * parï¿½metro.
 	 * 
-	 * @throws Exception si se produce un error durante la ejecuciï¿½n de la prueba.
+	 * @throws Exception
+	 *             si se produce un error durante la ejecuciï¿½n de la prueba.
 	 */ 
 	@Test
 	public void testUndo() throws Exception{
@@ -490,14 +530,17 @@ public class TestRemoveParameter extends RefactoringTemplateAbstractTest {
 
 		//comienzan las comprobaciones
 		List <MethDec> lMetodo2 = classSource.getMethDecByName(factory.createName("metodoA")); //$NON-NLS-1$
-		assertTrue("Test deshacer eliminar parï¿½metro en mï¿½todo con argumento: " + //$NON-NLS-1$
-			"no se encuentra el mï¿½todo.", !lMetodo2.isEmpty()); //$NON-NLS-1$
+		assertTrue(
+				"Test deshacer eliminar parámetro en mï¿½todo con argumento: " + //$NON-NLS-1$
+						"no se encuentra el método.", !lMetodo2.isEmpty()); //$NON-NLS-1$
 
 		MethDec metodo2 = lMetodo2.get(0);
 		List <FormalArgument> lArgument2 = metodo2.getFormalArgument();
-		assertEquals("Test deshacer eliminar parï¿½metro en mï¿½todo con un argumento: " + //$NON-NLS-1$
+		assertEquals(
+				"Test deshacer eliminar parámetro en método con un argumento: " + //$NON-NLS-1$
 			"no se ha restaurado el argumento.", 1, lArgument2.size()); //$NON-NLS-1$
-		assertEquals("Test deshacer eliminar parï¿½metro en mï¿½todo con un argumento: " + //$NON-NLS-1$
+		assertEquals(
+				"Test deshacer eliminar parámetro en método con un argumento: " + //$NON-NLS-1$
 			"no se ha restaurado correctamente el argumento.", //$NON-NLS-1$
 			"paqueteA.ClaseA~metodoA%int#a", lArgument2.get(0).getUniqueName().toString()); //$NON-NLS-1$
 	}
