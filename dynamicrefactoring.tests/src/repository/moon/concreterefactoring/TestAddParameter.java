@@ -20,28 +20,30 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.*/
 
 package repository.moon.concreterefactoring;
 
-import java.util.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
+
+import java.util.List;
 
 import javamoon.construct.source.SourceLoader;
 import javamoon.core.JavaModel;
-import javamoon.regenerate.Regenerate;
-import javamoon.utils.EclipsePrettyPrinter;
-
 import moon.core.MoonFactory;
-import moon.core.classdef.*;
-import moon.core.expression.CallExpr;
-import moon.core.instruction.AssignmentInstr;
+import moon.core.Name;
+import moon.core.classdef.ClassDef;
+import moon.core.classdef.FormalArgument;
+import moon.core.classdef.MethDec;
+import moon.core.classdef.Type;
+import moon.core.instruction.CallInstr;
 import moon.core.instruction.CompoundInstr;
 import moon.core.instruction.Instr;
-import moon.core.Name;
 
-import static org.junit.Assert.*;
 import org.junit.Test;
 
 import refactoring.engine.PreconditionException;
-
 import repository.RefactoringTemplateAbstractTest;
 import repository.moon.MOONRefactoring;
+import repository.moon.RepositoryUtils;
 
 /** 
  * Comprueba que funciona correctamente la refactorizaci�n que a�ade un
@@ -291,16 +293,15 @@ public class TestAddParameter extends RefactoringTemplateAbstractTest {
 		List <MethDec> lMetodo2 = classDef2.getMethDecByName(factory.createName("metodoB")); //$NON-NLS-1$
 		MethDec metodo2 = lMetodo2.get(0);
 
-		CompoundInstr instr1 = (CompoundInstr)metodo2.getInstructions().get(0);
-		List <Instr> instrIt = instr1.getInstructions();
+		List<Instr> instrIt = RepositoryUtils
+				.getCallInstructionsFromMethod(metodo2);
 		
-		//CallInstrLength1 instr2 = (CallInstrLength1)instrIt.get(3);
-		AssignmentInstr instr2 = (AssignmentInstr) instrIt.get(3);
+		CallInstr instr2 = (CallInstr) instrIt.get(0);
 		
 
 		assertEquals("Test a�adir argumento a m�todo usado: las llamadas al m�todo " + //$NON-NLS-1$
 			"no contienen un valor real para el nuevo argumento.", "0", //$NON-NLS-1$ //$NON-NLS-2$
-			((CallExpr)instr2.getRighSide()).getRealArgument(0).toString());
+				instr2.getRealArgument(0).toString());
 	}
 	
 	/** 
@@ -424,7 +425,7 @@ public class TestAddParameter extends RefactoringTemplateAbstractTest {
 
 		assertEquals("Test a�adir argumento con herencia: no se ha generado " + //$NON-NLS-1$
 			"correctamente el par�metro.", //$NON-NLS-1$
-			"paqueteA.MediumClass~metodoA%int#newParanuevoParametro", //$NON-NLS-1$
+				"paqueteA.MediumClass~metodoA%int#int:newParanuevoParametro(0)", //$NON-NLS-1$
 			argumento.getUniqueName().toString());
 
 		// Comprobaciones en la superclase
@@ -449,7 +450,7 @@ public class TestAddParameter extends RefactoringTemplateAbstractTest {
 
 		assertEquals("Test a�adir argumento con herencia: no se ha generado " + //$NON-NLS-1$
 			"correctamente el par�metro en la superclase.", //$NON-NLS-1$
-			"paqueteA.SuperType~metodoA%int#newParanuevoParametro", //$NON-NLS-1$
+				"paqueteA.SuperType~metodoA%int#int:newParanuevoParametro(0)", //$NON-NLS-1$
 			argumentoS.getUniqueName().toString());
 						
 		// Comprobaciones en la subclase
@@ -474,7 +475,7 @@ public class TestAddParameter extends RefactoringTemplateAbstractTest {
 
 		assertEquals("Test a�adir argumento con herencia: no se ha generado " + //$NON-NLS-1$
 			"correctamente el par�metro en la subclase.", //$NON-NLS-1$
-			"paqueteA.SubType~metodoA%int#newParanuevoParametro", //$NON-NLS-1$
+				"paqueteA.SubType~metodoA%int#int:newParanuevoParametro(0)", //$NON-NLS-1$
 			argumentos.getUniqueName().toString());		
 	}
 

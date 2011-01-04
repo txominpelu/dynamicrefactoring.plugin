@@ -179,7 +179,7 @@ public class AddFormalArgIntoInstructions extends Action {
 		// if we have a method invocation, we have a JavaVoidResult
 		// and a routine invocation
 		else {
-			return RepositoryUtils.isCallToMethod(exp, method);			
+			return RepositoryUtils.isCallToVoidMethod(exp, method);			
 		}
 			
 		return false;	
