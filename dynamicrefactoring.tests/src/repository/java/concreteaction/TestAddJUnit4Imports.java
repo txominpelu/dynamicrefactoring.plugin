@@ -83,9 +83,16 @@ public class TestAddJUnit4Imports extends RefactoringTemplateAbstractTest {
 			"no se añadió el número de importaciones esperado", 8, imports.size()); //$NON-NLS-1$
 		for (JavaImport i : imports){
 			if (i.getType() != null)
-				assertTrue("Test añadir importaciones JUnit4: " + //$NON-NLS-1$
-					"se añadió un tipo no esperado.",  //$NON-NLS-1$
-					types.contains(i.getType().getUniqueName().toString()));
+				if (i.hasPropertyName()){
+					assertTrue("Test añadir importaciones JUnit4: " + //$NON-NLS-1$
+							"se añadió un tipo no esperado.",  //$NON-NLS-1$
+							types.contains(i.getType().getUniqueName().toString() + "." + i.getPropertyName().toString()));
+				}else{
+					assertTrue("Test añadir importaciones JUnit4: " + //$NON-NLS-1$
+							"se añadió un tipo no esperado.",  //$NON-NLS-1$
+							types.contains(i.getType().getUniqueName().toString()));
+
+				}
 			else
 				assertTrue("Test añadir importacines JUnit4: " + //$NON-NLS-1$
 					"se añadió un tipo no esperado.", //$NON-NLS-1$

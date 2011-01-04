@@ -1,6 +1,5 @@
 package repository.moon.concretepredicate;
 
-
 import moon.core.instruction.CodeFragment;
 import refactoring.engine.Predicate;
 
@@ -13,20 +12,10 @@ import refactoring.engine.Predicate;
  */
 public class IsCodeFragmentInMethodBody extends Predicate {
 
-	/**
-	 * CodeFragment.
-	 */
 	private CodeFragment codeFragment;
 
-	/**
-	 * Constructs an IsCodeFragmentInMethodBody object.
-	 *
-	 * @param codeFragment  a CodeFragment object
-	 */
-
 	public IsCodeFragmentInMethodBody(CodeFragment codeFragment) {
-		super("IsCodeFragmentInMethodBody:\n\t" + //$NON-NLS-1$
-			  "Checks that the code fragment selected is in the body of a method");
+		super("");
 		this.codeFragment = codeFragment;
 	}
 

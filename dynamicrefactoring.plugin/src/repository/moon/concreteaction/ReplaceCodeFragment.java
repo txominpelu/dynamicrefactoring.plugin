@@ -21,15 +21,19 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.*/
 package repository.moon.concreteaction;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 
 import javamoon.core.DefinitionLanguage;
+import javamoon.core.entity.JavaLocalDec;
 import javamoon.core.expression.JavaCallExpr;
 import javamoon.core.instruction.JavaAssignmentInstr;
 import javamoon.core.instruction.JavaCallInstr;
+import javamoon.core.instruction.JavaFalseLocalDec;
 import javamoon.core.instruction.JavaInstrNoMoon;
 import moon.core.Name;
-import moon.core.classdef.*;
+import moon.core.classdef.LocalDec;
+import moon.core.classdef.MethDec;
 import moon.core.entity.Entity;
 import moon.core.entity.FunctionDec;
 import moon.core.entity.RoutineDec;
@@ -41,17 +45,20 @@ import moon.core.instruction.CodeFragment;
 import moon.core.instruction.CompoundInstr;
 import moon.core.instruction.CreationInstr;
 import moon.core.instruction.Instr;
-
 import refactoring.engine.Action;
 import refactoring.engine.Function;
 import repository.RelayListenerRegistry;
 import repository.moon.concretefunction.LocalEntitiesAccessed;
 import repository.moon.concretefunction.LocalEntitiesAccessedAfterCodeFragment;
+import repository.moon.concretefunction.LocalEntitiesDeclared;
+import repository.moon.concretefunction.LocalEntitiesInLoopReentrance;
 
 /**
  * Replaces the code fragment with method invocation.
- * 
- * @author <A HREF="mailto:rmartico@ubu.es">Raúl Marticorena</A>
+ *
+ * @author <A HREF="mailto:ehp0001@alu.ubu.es">Enrique Herrero Paredes</A>
+ * @author <A HREF="mailto:alc0022@alu.ubu.es">Ángel López Campo</A>
+ * @author <A HREF="mailto:sfd0009@alu.ubu.es">Sonia Fuente de la Fuente</A>
  */ 
 public class ReplaceCodeFragment extends Action {
 	
@@ -61,7 +68,7 @@ public class ReplaceCodeFragment extends Action {
 	private CodeFragment fragment;
 	 
 	/**
-	 * Name.
+	 * Name
 	 */
 	private Name name;
 	
@@ -73,9 +80,9 @@ public class ReplaceCodeFragment extends Action {
 	/**
 	 * Constructor.<p>
 	 *
-	 * Obtiene una nueva instancia de ReplaceCodeFragment
-	 * @param name nombre del nuevo método a ser creado.
-	 * @param fragment fragmento de código a ser tratado.
+	 * Obtiene una nueva instancia de MoveMethod.
+	 * @param method método que se va a mover de una clase a otra.
+	 * @param classDefDest clase a la que se moverá el método.
 	 */	
 	public ReplaceCodeFragment(Name name, CodeFragment fragment){
 		super();
@@ -89,7 +96,7 @@ public class ReplaceCodeFragment extends Action {
 	 */
 	@Override
 	public void run() {		
-		listenerReg.notify("# run():ReplaceCodeFragment #"); //$NON-NLS-1$
+		listenerReg.notify("# run():ExtractMethod #"); //$NON-NLS-1$
 
 		listenerReg.notify("\t- Removing instructions " + fragment.toString() //$NON-NLS-1$
 			+ " from " + fragment.getClassDef().getName().toString()); //$NON-NLS-1$
@@ -103,6 +110,7 @@ public class ReplaceCodeFragment extends Action {
 		
 		for (Instr instr : bodyMethod){
 			if (! (instr instanceof CompoundInstr )){
+				
 				newBodyMethod.add(instr);
 			}
 			else {
@@ -115,6 +123,7 @@ public class ReplaceCodeFragment extends Action {
 			Instr instr = newBodyMethod.get(i);
 			if (!isInFragment(instr)){
 				// if the instructions is not in the fragment add...
+				
 				newBodyMethodAux.add(instr);
 			}
 			else{
@@ -123,34 +132,131 @@ public class ReplaceCodeFragment extends Action {
 				
 					MethDec newMethDec = list.get(0);
 					if (newMethDec.hasReturnType()){
+						// With return...
 						// Gets arguments...
-						List<Expr> arguments = new ArrayList<Expr>();
-						Function function = new LocalEntitiesAccessed(fragment.getInstructionsInMethod());
+						
+						Function function3 = new LocalEntitiesDeclared(fragment);
+						List<Entity> listLocalDeclared = (List<Entity>) function3.getCollection();
+						
+				
+						
+						
+						
+						Function function = new LocalEntitiesAccessed(fragment.getFlattenedInstructionsInMethod());
 						List<Entity> entities = (List<Entity>) function.getCollection();
+						List<Expr> arguments = new ArrayList<Expr>();
 						for (Entity entity : entities){
-							Expr ce = new JavaCallExpr(entity);
-							arguments.add(ce);
+							if (!listLocalDeclared.contains(entity)){
+								Expr ce = new JavaCallExpr(entity);
+								arguments.add(ce);
+							}
 						}
 						
 						Function function2 = new LocalEntitiesAccessedAfterCodeFragment(fragment);
 						List<Entity> listAux = (List<Entity>) function2.getCollection();
-						Entity entity = (Entity) listAux.get(0);
-						CallExpr ce = new JavaCallExpr(entity);
+				
 						
-						CallExpr ce2 = new JavaCallExpr(((FunctionDec) newMethDec).getFunctionResultEntity(),arguments);
+						Entity entity = null;
+						if (listAux.size()>0){
+							entity = listAux.get(0);
+						}
+						else{
+							Function functionLoop = new LocalEntitiesInLoopReentrance(fragment);
+							List<Entity> loopList = (List<Entity>) functionLoop.getCollection();
+				
+							if (loopList.size()>0){
+								entity = loopList.get(0);
+							}
+						}
 						
-						AssignmentInstr assignmentInstr = new JavaAssignmentInstr((Expr)ce,DefinitionLanguage.ASSIGNMENT,(Expr)ce2,(int)instr.getLine(),(int)instr.getColumn());
 						
-						newBodyMethodAux.add(assignmentInstr);
-						newBodyMethodAux.add(new JavaInstrNoMoon(DefinitionLanguage.ENDLINE,-1,-1));
+						// if there are local variables declared and return entity is declared	
+												
+						// Remove local decs..
+						List<LocalDec> tmp = new ArrayList<LocalDec>();
+						for (Entity entity2 : listLocalDeclared){
+							List<LocalDec> listLocalDec = methDec.getLocalDecs();
+							for (LocalDec ld : listLocalDec){
+								if (ld.getName().equals(entity2.getName()) && ld.getType().equals(entity2.getType())){
+									tmp.add(ld);
+								}
+							}
+						}
+						for (LocalDec ld : tmp){							
+							methDec.remove(ld);
+						}
+						//
+
+						//if (listLocalDeclared.size()>0 && entity == (Entity) listLocalDeclared.get(0)){
+						if (entity!=null && listLocalDeclared.size()>0 && listLocalDeclared.contains(entity)){
+							
+							// declare a new local entity
+							
+							LocalDec ld = new JavaLocalDec(false, entity.getName(),entity.getType(),
+									(int)instr.getLine(),(int)instr.getColumn(),false,false);
+							
+							Instr instrFalseLocalDec = new JavaFalseLocalDec((JavaLocalDec)ld,(int)ld.getLine(),(int)ld.getColumn());
+							
+							fragment.getMethDec().add(ld);
+							
+							CallExpr ce = new JavaCallExpr(ld);
+							
+							CallExpr ce2 = new JavaCallExpr(((FunctionDec) newMethDec).getFunctionResultEntity(),arguments);
 						
+							AssignmentInstr assignmentInstr = new JavaAssignmentInstr((Expr)ce,DefinitionLanguage.ASSIGNMENT,(Expr)ce2,
+									(int)instr.getLine(),(int)instr.getColumn(), (JavaFalseLocalDec) instrFalseLocalDec);
+						
+							newBodyMethodAux.add(assignmentInstr);
+							newBodyMethodAux.add(new JavaInstrNoMoon(DefinitionLanguage.ENDLINE,-1,-1));
+							
+						}
+						else if (entity!=null){
+							
+							// only catch the return value
+							CallExpr ce = new JavaCallExpr(entity);
+						
+							CallExpr ce2 = new JavaCallExpr(((FunctionDec) newMethDec).getFunctionResultEntity(),arguments);
+						
+							AssignmentInstr assignmentInstr = new JavaAssignmentInstr(ce,DefinitionLanguage.ASSIGNMENT,ce2,(int)instr.getLine(),(int)instr.getColumn());
+						
+							newBodyMethodAux.add(assignmentInstr);
+							newBodyMethodAux.add(new JavaInstrNoMoon(DefinitionLanguage.ENDLINE,-1,-1));
+						}
 					}
 					else{
 						// no return 
 						List<Expr> arguments = new ArrayList<Expr>();
-						Function function = new LocalEntitiesAccessed(fragment.getInstructionsInMethod());
-						List<Entity> entities = (List<Entity>) function.getCollection();
-						for (Entity entity : entities){
+						//Function function = new LocalEntitiesAccessed(fragment.getFlattenedInstructionsInMethod());
+						//List<Entity> entities = (List<Entity>) function.getCollection();
+						LocalEntitiesAccessed lea = new LocalEntitiesAccessed(this.fragment.getFlattenedInstructionsInMethod());
+						
+						
+						LocalEntitiesDeclared led = new LocalEntitiesDeclared(this.fragment);
+						List localEntitiesDeclared = new ArrayList(led.getCollection());
+						
+							
+						List<Entity> declared = (List<Entity>) lea.getCollection();
+						
+						// remove the local declared entities 
+						List<Entity> listAux = new ArrayList<Entity>();
+						for (int j = 0; j<declared.size();j++){
+							if (!localEntitiesDeclared.contains(declared.get(j))){
+								listAux.add(declared.get(j));
+							}
+						}
+						
+						
+						// Loop Reentrance
+						LocalEntitiesInLoopReentrance leilr = new LocalEntitiesInLoopReentrance(fragment);
+						Collection<Entity> col = leilr.getCollection();
+						for (Entity entity : col){
+							if (!listAux.contains(entity)){
+								listAux.add(entity);
+							}
+						}
+						
+						
+						for (Entity entity : listAux){
 							Expr ce = new JavaCallExpr(entity);
 							arguments.add(ce);
 						}
@@ -174,26 +280,23 @@ public class ReplaceCodeFragment extends Action {
 	}
 
 	/**
-	 * Deshace el reemplazo del fragmento de código.
+	 * Deshace el movimiento del método, devolviéndolo a su clase de origen y 
+	 * eliminándolo de la nueva clase destino.
 	 */
 	@Override
 	public void undo() {		
-		listenerReg.notify("# undo():ReplaceCodeFragment #"); //$NON-NLS-1$
+		listenerReg.notify("# undo():MoveMethod #"); //$NON-NLS-1$
 		
 		ReplaceCodeFragment undo = new ReplaceCodeFragment(name, fragment);
 
 		undo.run();
 	}
 	
-	/**
-	 * isInFragment.
-	 * @param instr instr
-	 * @return verdadero si es un fragmento.
-	 */
 	private boolean isInFragment(Instr instr){
 		if (instr instanceof CallInstr ||
 				instr instanceof CreationInstr ||
 				instr instanceof AssignmentInstr || 
+				instr instanceof JavaFalseLocalDec || // FIXME Language dependent
 				instr instanceof JavaInstrNoMoon){ // FIXME Language dependent
 			if ( (instr.getLine() + fragment.getMethDec().getLine()) >= fragment.getLine() && 
 					(instr.getLine() + fragment.getMethDec().getLine()) <= fragment.getEndLine()){
@@ -203,11 +306,6 @@ public class ReplaceCodeFragment extends Action {
 		return false;
 	}
 	
-	/**
-	 * visit.
-	 * @param compound compound.
-	 * @param newBodyMethod newBodyMethod.
-	 */
 	private void visit(CompoundInstr compound, List<Instr> newBodyMethod){
 		for (Instr instr : compound.getInstructions()){
 			if (! (instr instanceof CompoundInstr )){				

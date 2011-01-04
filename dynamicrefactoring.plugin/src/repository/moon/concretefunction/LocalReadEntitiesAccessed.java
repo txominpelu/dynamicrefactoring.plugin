@@ -1,29 +1,8 @@
-/*<Dynamic Refactoring Plugin For Eclipse 2.0 - Plugin that allows to perform refactorings 
-on Java code within Eclipse, as well as to dynamically create and manage new refactorings>
-
-Copyright (C) 2009  Laura Fuente De La Fuente
-
-This file is part of Foobar
-
-Foobar is free software: you can redistribute it and/or modify
-it under the terms of the GNU General Public License as published by
-the Free Software Foundation, either version 3 of the License, or
-(at your option) any later version.
-
-This program is distributed in the hope that it will be useful,
-but WITHOUT ANY WARRANTY; without even the implied warranty of
-MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-GNU General Public License for more details.
-
-You should have received a copy of the GNU General Public License
-along with this program.  If not, see <http://www.gnu.org/licenses/>.*/
-
 package repository.moon.concretefunction;
 
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
-
 
 import moon.core.classdef.FormalArgument;
 import moon.core.classdef.LocalDec;
@@ -31,10 +10,10 @@ import moon.core.entity.Entity;
 import moon.core.expression.CallExpr;
 import moon.core.expression.Expr;
 import moon.core.instruction.AssignmentInstr;
+import moon.core.instruction.CallInstr;
 import moon.core.instruction.CompoundInstr;
 import moon.core.instruction.CreationInstr;
 import moon.core.instruction.Instr;
-
 import refactoring.engine.Function;
 
 /**
@@ -56,7 +35,7 @@ public class LocalReadEntitiesAccessed extends Function {
 	/**
 	 * Constructor.
 	 * 
-	 * @param instr lista de instrucciones.
+	 * @param classDef class 
 	 */
 	public LocalReadEntitiesAccessed(List<Instr> instr) {
 		this.listInstr = instr;
@@ -83,9 +62,9 @@ public class LocalReadEntitiesAccessed extends Function {
 	}
 
 	/**
-	 * getValue.
+	 * {@inheritDoc}
 	 * 
-	 * @return null.
+	 * @return {@inheritDoc}
 	 */
 	@Override
 	public Object getValue() {
@@ -95,8 +74,9 @@ public class LocalReadEntitiesAccessed extends Function {
 
 	
 	/**
-	 * visitCompoundInstr.
-	 * @param instr instr.
+	 * Visits compound instructions.
+	 * 
+	 * @param instr compound instruction
 	 */
 	private void visitCompoundInstr(CompoundInstr instr){
 		List<Instr> list = instr.getInstructions();
@@ -110,32 +90,102 @@ public class LocalReadEntitiesAccessed extends Function {
 		}		
 	}
 	
+	
 	/**
-	 * visit.
-	 * @param instr instr
+	 * Visits an instruction.
+	 * 
+	 * @param instr instruction
 	 */
 	private void visit(Instr instr){
+
 		if (instr instanceof AssignmentInstr){
-			 Expr exprRight = ((AssignmentInstr) instr).getRighSide();
-			 if (exprRight instanceof CallExpr){
-				 checkAddEntity(((CallExpr) exprRight).getFirstElement());
-				 for (Expr expr : ((CallExpr) exprRight).getRealArguments()){
-					 if (expr instanceof CallExpr){
-						 checkAddEntity(((CallExpr) expr).getFirstElement());
-					 }
-				 }
+			/*
+			 Expr exprLeft = ((AssignmentInstr) instr).getLeftSide();
+			if (exprLeft instanceof CallExpr) {
+				if (((CallExpr) exprLeft).getLeftSide()!=null){
+					visit((CallExpr) ((CallExpr) exprLeft).getLeftSide());
+				}
+				checkAddEntity(((CallExpr) exprLeft).getFirstElement());
+				// visit arguments...
+				List<Expr> listArguments = ((CallExpr) exprLeft)
+						.getRealArguments();
+				for (Expr expr2 : listArguments) {
+					if (expr2 instanceof CallExpr) {
+						visit((CallExpr) expr2);
+					}
+				}
+			}*/
+			 
+			 Expr expr = ((AssignmentInstr) instr).getRighSide();
+			 if (expr instanceof CallExpr){
+				 if (((CallExpr) expr).getLeftSide()!=null){
+						visit((CallExpr) ((CallExpr) expr).getLeftSide());
+					}
+				 visit((CallExpr) expr);
+				// visit arguments...
+				List<Expr> listArguments = ((CallExpr)expr).getRealArguments();
+				for (Expr expr2 : listArguments){
+					if (expr2 instanceof CallExpr){
+						visit((CallExpr)expr2);
+					}
+				}
 			 }
 		}
 		else if (instr instanceof CreationInstr){
 			checkAddEntity(((CreationInstr) instr).getEntity());
-		}		
+		}
+		else if (instr instanceof CallInstr){
+			CallInstr callInstr = ((CallInstr) instr);
+			System.out.println("instr: " + callInstr.toString());
+			visit(callInstr.getLeftSide());
+			List<Expr> listExpr = callInstr.getRealArguments();
+			for (Expr expr : listExpr){
+				if (expr instanceof CallExpr){
+					// visit expression
+					visit((CallExpr)expr);
+					// visit arguments...
+					List<Expr> listArguments = ((CallExpr)expr).getRealArguments();
+					for (Expr expr2 : listArguments){
+						if (expr2 instanceof CallExpr){
+							visit((CallExpr)expr2);
+						}
+					}					
+				}
+			}
+		}
+	}
+	
+	/**
+	 * Visits the expression.
+	 * 
+	 * @param cel1 expression
+	 */
+	private void visit(CallExpr cel1){
+		if (cel1==null){
+			return;
+		}
+		System.out.println("cel1:" + cel1.toString());
+		if (cel1.getLeftSide()!=null){
+			if (cel1.getLeftSide() instanceof CallExpr){
+				visit((CallExpr) cel1.getLeftSide());
+			}
+		}
+		 checkAddEntity(cel1.getFirstElement());
+		 for (Expr expr : cel1.getRealArguments()){
+			 if (expr instanceof CallExpr){
+				 visit((CallExpr)expr);
+			 }
+		 }
 	}
 
 	/**
-	 * checkAddEntity.
-	 * @param entity entity.
+	 * Checks and adds, if the entity should be added to result set.
+	 * 
+	 * @param entity entity
 	 */
 	private void checkAddEntity(Entity entity) {
+		System.out.println("¿Añadir ... " + entity.getName().toString() + "?");
+		System.out.println(entity.getClass().toString());
 		
 		if (entity instanceof LocalDec || entity instanceof FormalArgument){
 			if (!collection.contains(entity)){

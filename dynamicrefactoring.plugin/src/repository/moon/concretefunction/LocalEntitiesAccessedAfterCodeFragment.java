@@ -1,23 +1,3 @@
-/*<Dynamic Refactoring Plugin For Eclipse 2.0 - Plugin that allows to perform refactorings 
-on Java code within Eclipse, as well as to dynamically create and manage new refactorings>
-
-Copyright (C) 2009  Laura Fuente De La Fuente
-
-This file is part of Foobar
-
-Foobar is free software: you can redistribute it and/or modify
-it under the terms of the GNU General Public License as published by
-the Free Software Foundation, either version 3 of the License, or
-(at your option) any later version.
-
-This program is distributed in the hope that it will be useful,
-but WITHOUT ANY WARRANTY; without even the implied warranty of
-MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-GNU General Public License for more details.
-
-You should have received a copy of the GNU General Public License
-along with this program.  If not, see <http://www.gnu.org/licenses/>.*/
-
 package repository.moon.concretefunction;
 
 import java.util.ArrayList;
@@ -25,13 +5,10 @@ import java.util.Collection;
 import java.util.List;
 
 import javamoon.core.instruction.JavaCodeFragment;
-
 import moon.core.classdef.MethDec;
 import moon.core.entity.Entity;
 import moon.core.instruction.CodeFragment;
-import moon.core.instruction.CompoundInstr;
 import moon.core.instruction.Instr;
-
 import refactoring.engine.Function;
 
 /**
@@ -53,57 +30,57 @@ public class LocalEntitiesAccessedAfterCodeFragment extends Function {
 	/**
 	 * Constructor.
 	 * 
-	 * @param codeFragment codeFragment.
+	 * @param classDef class 
 	 */
 	public LocalEntitiesAccessedAfterCodeFragment(CodeFragment codeFragment) {
 		this.codeFragment = codeFragment;
+		collection = new ArrayList<Entity>();	
 	}
 
 	/**
-	 * Gets the set of entities of the class, including inheritance.
+	 * Gets the set of local entities accessed after fragment.
 	 * 
 	 * @return entities
 	 */
+	@SuppressWarnings("unchecked")
 	@Override
-	public Collection getCollection() {		
-		collection = new ArrayList<Entity>();
-		Function functionBefore = new LocalEntitiesAccessed(codeFragment.getInstructionsInMethod());
-		
+	public Collection getCollection() {				
 
 		// duplicate code. Change or move... see RemoveCodeFragment
 		MethDec methDec = codeFragment.getMethDec();
-		List<Instr> bodyMethod = methDec.getInstructions();
-		List<Instr> newBodyMethod = new ArrayList<Instr>();
-		List<Instr> newBodyMethodAux = new ArrayList<Instr>();
-		// removing instructions to new method
 		
-		for (Instr instr : bodyMethod){
-			if (! (instr instanceof CompoundInstr )){
-				newBodyMethod.add(instr);
-			}
-			else {
-				visit((CompoundInstr)instr, newBodyMethod);
-			}
-		}	
-
-		
+		List<Instr> newBodyMethod = codeFragment.getMethDec().getFlattenedInstructions();		
 		long lastLine =  newBodyMethod.get(newBodyMethod.size()-1).getLine() + methDec.getLine();
 		
 		
-		CodeFragment codeAfterCodeFragment = new JavaCodeFragment((int)codeFragment.getEndLine()+1,0,(int)lastLine,0,
+		CodeFragment codeAfterCodeFragment = new JavaCodeFragment(codeFragment.getEndLine()+1,0,(int)lastLine,0,
 													codeFragment.getClassDef(),"");
 		
-		List<Instr> codeAfter = codeAfterCodeFragment.getInstructionsInMethod();
+		List<Instr> codeAfter = codeAfterCodeFragment.getFlattenedInstructionsInMethod();
 		if (codeAfter!=null && codeAfter.size()>0){
-			Function functionAfter = new LocalReadEntitiesAccessed(codeAfter);
-		
+						
+			Function functionBefore = new LocalEntitiesAccessed(codeFragment.getFlattenedInstructionsInMethod());
 			List<Entity> candidateBefore = (List<Entity>) functionBefore.getCollection();
+			
+			
+			Function functionAfter = new LocalReadEntitiesAccessed(codeAfter);
 			List<Entity> candidateAfter = (List<Entity>) functionAfter.getCollection();
-			List<Entity> finalList= new ArrayList<Entity>();
+			
+			
+			Function functionLocalDeclared = new LocalEntitiesDeclared(codeFragment);
+			List<Entity> localDeclared = (List<Entity>) functionLocalDeclared.getCollection();
+			
+			
+			// intersection of sets...
 			for (Entity entityR : candidateAfter){
 				for (Entity entityRW : candidateBefore){
 					if (entityR == entityRW){
-						collection.add(entityR);
+						
+						if (!entityR.getType().isReference() ||
+								localDeclared.contains(entityR)){
+						
+							collection.add(entityR);
+						}
 					}
 				}
 			}
@@ -113,30 +90,13 @@ public class LocalEntitiesAccessedAfterCodeFragment extends Function {
 	}
 
 	/**
-	 * getValue.
+	 * {@inheritDoc}
 	 * 
-	 * @return null.
+	 * @return {@inheritDoc}
 	 */
 	@Override
 	public Object getValue() {
-		// TODO Auto-generated method stub
 		return null;
-	}
-
-	/**
-	 * visit.
-	 * @param compound compound.
-	 * @param newBodyMethod newBodyMethod.
-	 */
-	private void visit(CompoundInstr compound, List<Instr> newBodyMethod){
-		for (Instr instr : compound.getInstructions()){
-			if (! (instr instanceof CompoundInstr )){				
-				newBodyMethod.add(instr);
-			}
-			else {
-				visit((CompoundInstr)instr, newBodyMethod);
-			}
-		}
 	}
 }
  

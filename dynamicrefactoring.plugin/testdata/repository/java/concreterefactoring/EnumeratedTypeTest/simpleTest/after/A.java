@@ -7,4 +7,5 @@ public enum A {
 	private A(int i) {
 		this.i = i;
 	}
+
 }

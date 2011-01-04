@@ -335,37 +335,27 @@ public class TestAddParameter extends RefactoringTemplateAbstractTest {
 		MethDec metodoB = classDef.getMethDecByName(factory.createName("metodoB")).get(0); //$NON-NLS-1$
 		MethDec metodoC = classDef.getMethDecByName(factory.createName("metodoC")).get(0); //$NON-NLS-1$
 		
-		List<Instr> instrB = metodoB.getInstructions();
-		List<Instr> instrC = metodoC.getInstructions();
-
-		for (Instr i : instrB)
-			for (Instr subi : ((CompoundInstr)i).getInstructions())
-				if (subi.toString().contains("metodoA")) //$NON-NLS-1$
+		for (Instr instMetodoB : metodoB.getFlattenedInstructions())
+				if (instMetodoB.toString().contains("metodoA")) //$NON-NLS-1$
 					assertEquals("A�adir par�metro con llamadas complejas: " + //$NON-NLS-1$
 						"no se ha a�adido el par�metro real para el nuevo argumento.", //$NON-NLS-1$
-						"metodoA('0') * 2 / metodoA('0')", subi.toString()); //$NON-NLS-1$
+						"metodoA('0') * 2 / metodoA('0')", instMetodoB.toString()); //$NON-NLS-1$
 		
-		for (Instr i : instrC)
-			for (Instr subi : ((CompoundInstr)i).getInstructions())
-				if (subi.toString().contains("metodoA")) //$NON-NLS-1$
+		for (Instr instrMetodoC : metodoC.getFlattenedInstructions())
+				if (instrMetodoC.toString().contains("metodoA")) //$NON-NLS-1$
 					assertEquals("A�adir par�metro con llamadas complejas: " + //$NON-NLS-1$
 						"no se ha a�adido el par�metro real en el segundo m�todo.", //$NON-NLS-1$
-						"a=metodoA('0').intValue() - metodoB()", subi.toString()); //$NON-NLS-1$
+						"a=metodoA('0').intValue() - metodoB()", instrMetodoC.toString()); //$NON-NLS-1$
 		
 		addition.undoActions();
 		
-		instrB = metodoB.getInstructions();
-		instrC = metodoC.getInstructions();
-		
-		for (Instr i : instrB)
-			for (Instr subi : ((CompoundInstr)i).getInstructions())
+		for (Instr subi : metodoB.getFlattenedInstructions())
 				if (subi.toString().contains("metodoA")) //$NON-NLS-1$
 					assertEquals("Deshacer a�adir par�metro con llamadas complejas: " + //$NON-NLS-1$
 						"no se ha eliminado el par�metro real para el nuevo argumento.", //$NON-NLS-1$
 						"metodoA() * 2 / metodoA()", subi.toString()); //$NON-NLS-1$
 		
-		for (Instr i : instrC)
-			for (Instr subi : ((CompoundInstr)i).getInstructions())
+		for (Instr subi : metodoC.getFlattenedInstructions())
 				if (subi.toString().contains("metodoA")) //$NON-NLS-1$
 					assertEquals("Deshacer a�adir par�metro con llamadas complejas: " + //$NON-NLS-1$
 						"no se ha eliminado el par�metro real en el segundo m�todo.", //$NON-NLS-1$

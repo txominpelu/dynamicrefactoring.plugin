@@ -88,6 +88,7 @@ public class AddEnumTypeWithClassData extends Action {
 		JavaEnum enumtype = new JavaEnum(className, classDef.getNameSpace(), ((JavaClassDef) classDef).getSourceFile());
 		
 		enumtype.copy(classDef);
+		enumtype.setEndLine(((JavaClassDef) classDef).getEndLine());
 		
 		List<AttDec> attributes = new ArrayList<AttDec>();
 		for(AttDec at: class_attributes )
@@ -96,6 +97,7 @@ public class AddEnumTypeWithClassData extends Action {
 		int posicion=0;//posicion que ocupa cada tipo enumerado dentro del conjunto de tipos enumerados.
 		
 		for(int i=0; i<attributes.size(); i++){
+			
 			JavaAttDec attribute = (JavaAttDec)attributes.get(i);
 			if(ModifierSet.isFinal(attribute.getModifiers()) && 
 					ModifierSet.isStatic(attribute.getModifiers()) &&
@@ -105,6 +107,7 @@ public class AddEnumTypeWithClassData extends Action {
 			      JavaEnumConstant constant = new JavaEnumConstant(attribute.getModifiers(), attribute.getName(), 
 							attribute.getType(), false,posicion , (int)attribute.getLine(), 
 							(int)attribute.getColumn());
+			      
 			      posicion++;
 			      try{
 			    	  if(attribute.hasInitializer()&& attribute.getInitializer().getClass().equals(Class.forName("javamoon.core.expression.JavaCallExprCreation"))){
@@ -114,7 +117,12 @@ public class AddEnumTypeWithClassData extends Action {
 			    		  }
 			    		  constant.setSignature(inicializacion);
 			    	  }
+			    	 
+			    	 
 			    	  enumtype.add(constant);
+			    	  enumtype.reformat(constant.getLine());
+			    	  
+			    	  
 			      }catch(Exception e){e.printStackTrace();}
 			}
 		
@@ -124,6 +132,8 @@ public class AddEnumTypeWithClassData extends Action {
 		
 		((JavaClassDef) this.classDef).getJavaFile().remove((JavaClassDef)classDef);		
 		((JavaClassDef) this.classDef).getJavaFile().add(enumtype);
+		//enumtype.setEndLine(2000);
+		
 
 		MOONRefactoring.getModel().remove(classDef);
 		MOONRefactoring.getModel().add(enumtype);

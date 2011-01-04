@@ -20,25 +20,32 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.*/
 
 package repository.moon.concreteaction;
 
+import java.util.Collection;
 import java.util.List;
 
+import javamoon.core.ModifierSet;
+import javamoon.core.classdef.JavaClassDef;
 import javamoon.core.entity.JavaFunctionDec;
 import javamoon.core.entity.JavaRoutineDec;
 import javamoon.core.instruction.JavaInstrNoMoon;
 import moon.core.Name;
-import moon.core.classdef.*;
+import moon.core.classdef.ClassDef;
+import moon.core.classdef.MethDec;
+import moon.core.entity.Entity;
 import moon.core.instruction.CodeFragment;
 import moon.core.instruction.Instr;
-
 import refactoring.engine.Action;
 import refactoring.engine.Function;
 import repository.RelayListenerRegistry;
 import repository.moon.concretefunction.LocalEntitiesAccessedAfterCodeFragment;
+import repository.moon.concretefunction.LocalEntitiesInLoopReentrance;
 
 /**
- * Permite añadir un método que contiene la funcionalidad de un fragmento de código.
+ * Permite mover un método de una clase a otra del modelo.
  *
- * @author <A HREF="mailto:rmartico@ubu.es">Raúl Marticorena</A>
+ * @author <A HREF="mailto:ehp0001@alu.ubu.es">Enrique Herrero Paredes</A>
+ * @author <A HREF="mailto:alc0022@alu.ubu.es">Ángel López Campo</A>
+ * @author <A HREF="mailto:sfd0009@alu.ubu.es">Sonia Fuente de la Fuente</A>
  */ 
 public class AddExtractedMethod extends Action {
 	
@@ -70,9 +77,9 @@ public class AddExtractedMethod extends Action {
 	/**
 	 * Constructor.<p>
 	 *
-	 * Obtiene una nueva instancia de AddExtractedMethod.
-	 * @param name nombre del nuevo método a ser creado.
-	 * @param fragment fragmento de código a ser tratado.
+	 * Obtiene una nueva instancia de MoveMethod.
+	 * @param method método que se va a mover de una clase a otra.
+	 * @param classDefDest clase a la que se moverá el método.
 	 */	
 	public AddExtractedMethod(Name name, CodeFragment fragment){
 		super();
@@ -85,51 +92,88 @@ public class AddExtractedMethod extends Action {
 	}
 	
 	/**
-	 * Añade el nuevo método.
+	 * Ejecuta el movimiento del método de una clase a otra.
 	 */
 	@Override
 	public void run() {		
-		listenerReg.notify("# run():AddExtractedMethod #"); //$NON-NLS-1$
+		listenerReg.notify("# run():ExtractMethod #"); //$NON-NLS-1$
 
-		listenerReg.notify("\t- Adding method " + method.getUniqueName().toString() //$NON-NLS-1$
+		listenerReg.notify("\t- Extracting method " + method.getUniqueName().toString() //$NON-NLS-1$
 			+ " from " + classDef.getName().toString()); //$NON-NLS-1$
 		
-		//classDefSource.remove(method);
 		MethDec methDec = null;
 		
 		Function function = new LocalEntitiesAccessedAfterCodeFragment(fragment);
-		if (function.getCollection().size()==0){
+		
+		LocalEntitiesInLoopReentrance leilr = new LocalEntitiesInLoopReentrance(fragment);
+		Collection<Entity> col = leilr.getCollection();
+		
+		// if the original method was static we should make the new method static
+		MethDec originalMethDec = fragment.getMethDec();
+		int modifiers;
+		if (originalMethDec instanceof JavaRoutineDec){
+			modifiers = ((JavaRoutineDec)originalMethDec).getModifiers();
+		}
+		else{
+			modifiers = ((JavaFunctionDec)originalMethDec).getModifiers();
+		}
+		int newModifier = 0;
+		if (ModifierSet.isStatic(modifiers)){
+			newModifier = ModifierSet.STATIC;
+		}
+		
+		
+		if (function.getCollection().size()==0 && col.size()==0){
 			// routine
-			methDec = new JavaRoutineDec(0,name,-1,-1);
+			methDec = new JavaRoutineDec(newModifier,name,-1,-1);
 		}
 		else{
 			// function
-			methDec = new JavaFunctionDec(0,name,null, -1,-1, false);
+			methDec = new JavaFunctionDec(newModifier,name,null, -1,-1,false);
 		}	
 		
 		
 		
-		List<Instr> list = fragment.getInstructionsInMethod();
+		
+		List<Instr> list = fragment.getFlattenedInstructionsInMethod();
 		// adding instructions to new method
 		methDec.add(new JavaInstrNoMoon("{",-1,-1));
+
 		for (Instr instr : list){
+		
 			methDec.add(instr);
 		}
-		//methDec.add(new JavaInstrNoMoon("}",-1,-1));
+
+
+	
 		
 			
 		classDef.format(methDec);
+		
 		classDef.add(methDec);
 		methDec.setClassDef(classDef);
-			 //$NON-NLS-1$
+		
+		int numberOfInstructions = fragment.getMethDec().getFlattenedInstructions().size();
+		int endOfClass = ((JavaClassDef) classDef).getEndLine();
+			
+		// FIXME why do we have to *2 size?
+		((JavaClassDef) classDef).setEndLine(endOfClass + numberOfInstructions*2);
+		
+		
+		
+		listenerReg.notify("\t- Extracting method " + method.getUniqueName().toString() //$NON-NLS-1$
+			+ " to " + classDef.getName().toString());				 //$NON-NLS-1$
+		
+		
 	}
 
 	/**
-	 * Deshace la adición del nuevo método.
+	 * Deshace el movimiento del método, devolviéndolo a su clase de origen y 
+	 * eliminándolo de la nueva clase destino.
 	 */
 	@Override
 	public void undo() {		
-		listenerReg.notify("# undo():AddExtractedMethod #"); //$NON-NLS-1$
+		listenerReg.notify("# undo():MoveMethod #"); //$NON-NLS-1$
 		
 		AddExtractedMethod undoMove = new AddExtractedMethod(name, fragment);
 

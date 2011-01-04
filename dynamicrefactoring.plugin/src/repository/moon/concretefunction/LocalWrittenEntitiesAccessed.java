@@ -1,28 +1,16 @@
-/*<Dynamic Refactoring Plugin For Eclipse 2.0 - Plugin that allows to perform refactorings 
-on Java code within Eclipse, as well as to dynamically create and manage new refactorings>
-
-Copyright (C) 2009  Laura Fuente De La Fuente
-
-This file is part of Foobar
-
-Foobar is free software: you can redistribute it and/or modify
-it under the terms of the GNU General Public License as published by
-the Free Software Foundation, either version 3 of the License, or
-(at your option) any later version.
-
-This program is distributed in the hope that it will be useful,
-but WITHOUT ANY WARRANTY; without even the implied warranty of
-MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-GNU General Public License for more details.
-
-You should have received a copy of the GNU General Public License
-along with this program.  If not, see <http://www.gnu.org/licenses/>.*/
-
 package repository.moon.concretefunction;
 
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
+
+import javamoon.core.classdef.JavaType;
+import javamoon.core.classdef.primitivetypes.JavaPrimitiveType;
+import javamoon.core.expression.JavaCallExpr;
+import javamoon.core.expression.operation.JavaOperationInfix;
+import javamoon.core.expression.operation.JavaOperationPostfix;
+import javamoon.core.expression.operation.JavaOperationPrefix;
+import javamoon.core.instruction.JavaFalseAssignmentInstr;
 
 import moon.core.classdef.FormalArgument;
 import moon.core.classdef.LocalDec;
@@ -30,14 +18,14 @@ import moon.core.entity.Entity;
 import moon.core.expression.CallExpr;
 import moon.core.expression.Expr;
 import moon.core.instruction.AssignmentInstr;
+import moon.core.instruction.CallInstr;
 import moon.core.instruction.CompoundInstr;
 import moon.core.instruction.CreationInstr;
 import moon.core.instruction.Instr;
-
 import refactoring.engine.Function;
 
 /**
- * Gets the set of entities accesed locally in an instruction set.
+ * Gets the set of entities written locally in an instruction set.
  * 
  * @author rmartico
  * @since JavaMoon-2.3.0
@@ -55,7 +43,7 @@ public class LocalWrittenEntitiesAccessed extends Function {
 	/**
 	 * Constructor.
 	 * 
-	 * @param instr instr. 
+	 * @param classDef class 
 	 */
 	public LocalWrittenEntitiesAccessed(List<Instr> instr) {
 		this.listInstr = instr;
@@ -82,9 +70,9 @@ public class LocalWrittenEntitiesAccessed extends Function {
 	}
 
 	/**
-	 * getValue.
+	 * {@inheritDoc}
 	 * 
-	 * @return value.
+	 * @return {@inheritDoc}
 	 */
 	@Override
 	public Object getValue() {
@@ -94,9 +82,9 @@ public class LocalWrittenEntitiesAccessed extends Function {
 
 	
 	/**
-	 * visitCompoundInstr.
+	 * Visits compound instructions.
 	 * 
-	 * @param instr instr.
+	 * @param instr compound instruction
 	 */
 	private void visitCompoundInstr(CompoundInstr instr){
 		List<Instr> list = instr.getInstructions();
@@ -111,27 +99,82 @@ public class LocalWrittenEntitiesAccessed extends Function {
 	}
 	
 	/**
-	 * visit.
-	 * @param instr instr.
+	 * Visits an instruction.
+	 * 
+	 * @param instr instruction
 	 */
 	private void visit(Instr instr){
+		
 		if (instr instanceof AssignmentInstr){
+			if (instr instanceof JavaFalseAssignmentInstr){ // FIXME
+				return;
+			}
 			 Expr exprLeft = ((AssignmentInstr) instr).getLeftSide();
 			 if (exprLeft instanceof CallExpr){
 				 checkAddEntity(((CallExpr) exprLeft).getFirstElement());
 			 }
+			 
+			 Expr exprRight = ((AssignmentInstr) instr).getRighSide();
+			 if (exprRight instanceof CallExpr){
+				 checkAddEntity(((CallExpr) exprRight).getFirstElement());
+			 }
+			 if (exprRight instanceof CallExpr){
+			 List<Expr> listExpr = ((CallExpr) exprRight).getRealArguments();
+				for (Expr expr : listExpr){
+		
+					if (expr instanceof JavaOperationPostfix){
+							checkAddEntity(((JavaOperationPostfix) expr).getFirstElement()); 				
+					}
+					else if (expr instanceof JavaOperationPrefix){
+							checkAddEntity(((JavaOperationPrefix) expr).getFirstElement());
+					}
+					else if (expr instanceof JavaOperationInfix){
+						JavaOperationInfix joi = (JavaOperationInfix) expr;
+						checkAddEntity(joi.getFirstElement());
+						List<Expr> list = joi.getRealArguments();
+						for (Expr expr2 : list){
+							if (expr2 instanceof JavaOperationPostfix){
+								checkAddEntity(((JavaOperationPostfix) expr2).getFirstElement()); 				
+							}
+							else if (expr2 instanceof JavaOperationPrefix){
+								checkAddEntity(((JavaOperationPrefix) expr2).getFirstElement());
+							}
+						}
+					}
+				}
+			 }
 		}
 		else if (instr instanceof CreationInstr){
 			checkAddEntity(((CreationInstr) instr).getEntity());
-		}		
+		}
+		else if (instr instanceof CallInstr){
+		
+			List<Expr> list = ((CallInstr) instr).getRealArguments();
+			visit(list);
+		}
+	}
+	
+	
+	private void visit(List<Expr> list){
+		for (Expr expr : list){
+			if (expr instanceof JavaCallExpr){
+				JavaType jt = (JavaType) ((JavaCallExpr) expr).getFirstElement().getType();
+				if (jt instanceof JavaPrimitiveType){
+					checkAddEntity(((JavaCallExpr) expr).getFirstElement());
+				}				
+				List<Expr> listArguments = 	((JavaCallExpr) expr).getRealArguments();
+				visit(listArguments);
+			}
+		}
 	}
 
 	/**
-	 * checkAddEntity.
-	 * @param entity entity.
+	 * Checks and adds, if the entity should be added to result set.
+	 * 
+	 * @param entity entity
 	 */
 	private void checkAddEntity(Entity entity) {
-
+		
 		if (entity instanceof LocalDec || entity instanceof FormalArgument){
 			if (!collection.contains(entity)){
 				collection.add(entity);

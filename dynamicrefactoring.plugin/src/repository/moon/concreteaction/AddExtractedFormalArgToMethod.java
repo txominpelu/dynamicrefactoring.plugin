@@ -20,25 +20,28 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.*/
 
 package repository.moon.concreteaction;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Iterator;
 import java.util.List;
 
-
 import moon.core.Name;
-import moon.core.classdef.*;
+import moon.core.classdef.ClassDef;
+import moon.core.classdef.MethDec;
 import moon.core.entity.Entity;
 import moon.core.instruction.CodeFragment;
-
 import refactoring.engine.Action;
 import repository.RelayListenerRegistry;
 import repository.moon.concretefunction.LocalEntitiesAccessed;
+import repository.moon.concretefunction.LocalEntitiesDeclared;
+import repository.moon.concretefunction.LocalEntitiesInLoopReentrance;
 
 /**
- * Permite extraer los argumentos formales que formarán parte del método
- * que se forma a partir de un fragmento de código determinado.
+ * Permite mover un método de una clase a otra del modelo.
  *
- * @author <A HREF="mailto:rmartico@ubu.es">Raúl Marticorena</A>
+ * @author <A HREF="mailto:ehp0001@alu.ubu.es">Enrique Herrero Paredes</A>
+ * @author <A HREF="mailto:alc0022@alu.ubu.es">Ángel López Campo</A>
+ * @author <A HREF="mailto:sfd0009@alu.ubu.es">Sonia Fuente de la Fuente</A>
  */ 
 public class AddExtractedFormalArgToMethod extends Action {
 	
@@ -70,9 +73,9 @@ public class AddExtractedFormalArgToMethod extends Action {
 	/**
 	 * Constructor.<p>
 	 *
-	 * Obtiene una nueva instancia de AddExtractedFormalArgToMethod.
-	 * @param name nombre del nuevo método a ser creado.
-	 * @param fragment fragmento de código a ser tratado.
+	 * Obtiene una nueva instancia de MoveMethod.
+	 * @param method método que se va a mover de una clase a otra.
+	 * @param classDefDest clase a la que se moverá el método.
 	 */	
 	public AddExtractedFormalArgToMethod(Name name, CodeFragment fragment){
 		super();
@@ -85,13 +88,13 @@ public class AddExtractedFormalArgToMethod extends Action {
 	}
 	
 	/**
-	 * Añade los parámetros al método.
+	 * Ejecuta el movimiento del método de una clase a otra.
 	 */
 	@Override
 	public void run() {		
-		listenerReg.notify("# run():AddExtractedFormalArgToMethod #"); //$NON-NLS-1$
+		listenerReg.notify("# run():ExtractMethod #"); //$NON-NLS-1$
 
-		listenerReg.notify("\t- Adding formalArgs to  " + method.getUniqueName().toString() //$NON-NLS-1$
+		listenerReg.notify("\t- Extracting method " + method.getUniqueName().toString() //$NON-NLS-1$
 			+ " from " + classDef.getName().toString()); //$NON-NLS-1$
 		
 		
@@ -99,27 +102,57 @@ public class AddExtractedFormalArgToMethod extends Action {
 		MethDec methDec = listMethDec.get(0);
 		
 		
-		Collection cole = this.fragment.getInstructionsInMethod();
+		
+		
+		Collection cole = this.fragment.getFlattenedInstructionsInMethod();
 		Iterator it = cole.iterator();
-
-		LocalEntitiesAccessed lea = new LocalEntitiesAccessed(this.fragment.getInstructionsInMethod());
+		
+		LocalEntitiesAccessed lea = new LocalEntitiesAccessed(this.fragment.getFlattenedInstructionsInMethod());
 		
 		
+		LocalEntitiesDeclared led = new LocalEntitiesDeclared(this.fragment);
+		List localEntitiesDeclared = new ArrayList(led.getCollection());
+		
+			
 		List<Entity> list = (List<Entity>) lea.getCollection();
-		for (Entity entity : list){
+		
+		// remove the local declared entities 
+		List<Entity> listAux = new ArrayList<Entity>();
+		for (int i = 0; i<list.size();i++){
+			if (!localEntitiesDeclared.contains(list.get(i))){
+				listAux.add(list.get(i));
+			}
+		}
+		
+		
+		// Loop Reentrance
+		LocalEntitiesInLoopReentrance leilr = new LocalEntitiesInLoopReentrance(fragment);
+		Collection<Entity> col = leilr.getCollection();
+		for (Entity entity : col){
+			if (!listAux.contains(entity)){
+				listAux.add(entity);
+			}
+		}
+		
+		// end remove
+		for (Entity entity : listAux){
 			Action action = new AddFormalArg(methDec, entity.getName(), entity.getType());	
 			action.run();
 		}		
 		
-		 //$NON-NLS-1$
+		listenerReg.notify("\t- Extracting method " + method.getUniqueName().toString() //$NON-NLS-1$
+			+ " to " + classDef.getName().toString());				 //$NON-NLS-1$
+		
+		
 	}
 
 	/**
-	 * Deshace la adicción de los parámetro del método.
+	 * Deshace el movimiento del método, devolviéndolo a su clase de origen y 
+	 * eliminándolo de la nueva clase destino.
 	 */
 	@Override
 	public void undo() {		
-		listenerReg.notify("# undo():AddExtractedFormalArgToMethod #"); //$NON-NLS-1$
+		listenerReg.notify("# undo():MoveMethod #"); //$NON-NLS-1$
 		
 		AddExtractedFormalArgToMethod undo = new AddExtractedFormalArgToMethod(name, fragment);
 
