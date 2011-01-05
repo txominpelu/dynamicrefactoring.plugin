@@ -20,24 +20,30 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.*/
 
 package dynamicrefactoring.writer;
 
-import dynamicrefactoring.RefactoringConstants;
-import dynamicrefactoring.interfaz.dynamic.RepositoryElementProcessor;
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Map;
 
+import org.jdom.DocType;
+import org.jdom.Document;
+import org.jdom.Element;
+import org.jdom.JDOMException;
+import org.jdom.input.SAXBuilder;
+import org.jdom.output.Format;
+import org.jdom.output.XMLOutputter;
+
+import dynamicrefactoring.RefactoringConstants;
 import dynamicrefactoring.domain.DynamicRefactoringDefinition;
+import dynamicrefactoring.interfaz.SelectRefactoringWindow;
+import dynamicrefactoring.interfaz.dynamic.RepositoryElementProcessor;
 import dynamicrefactoring.reader.XMLRefactoringReaderException;
 import dynamicrefactoring.reader.XMLRefactoringReaderImp;
 import dynamicrefactoring.util.ScopeLimitedLister;
-import dynamicrefactoring.interfaz.SelectRefactoringWindow;
-
-import java.io.*; 
-import java.util.*;
-
-import org.jdom.*; 
-import org.jdom.input.SAXBuilder;
-import org.jdom.output.*; 
 
 /**
- * Utiliza la implementación basada en JDOM para escribir los ficheros XML de 
+ * Utiliza la implementación basada en JDOM para escribir los ficheros XML de
  * refactorizaciones dinámicas.
  * 
  * @author <A HREF="mailto:lfd0002@alu.ubu.es">Laura Fuente de la Fuente</A>
@@ -46,7 +52,7 @@ import org.jdom.output.*;
  * @author <A HREF="mailto:sfd0009@alu.ubu.es">Sonia Fuente de la Fuente</A>
  * @author <A HREF="mailto:ehp0001@alu.ubu.es">Enrique Herrero Paredes</A>
  */
-public class JDOMXMLRefactoringWriterImp implements XMLRefactoringWriterImp { 
+public class JDOMXMLRefactoringWriterImp implements XMLRefactoringWriterImp {
 
 	/**
 	 * La definición de refactorización que se debe escribir.
@@ -58,13 +64,11 @@ public class JDOMXMLRefactoringWriterImp implements XMLRefactoringWriterImp {
 	 */
 	private Format format;
 
-
-
 	/**
 	 * Constructor.
 	 * 
-	 * @param refactoringDefinition definición de la refactorización que se
-	 * debe escribir.
+	 * @param refactoringDefinition
+	 *            definición de la refactorización que se debe escribir.
 	 */
 	public JDOMXMLRefactoringWriterImp(
 		DynamicRefactoringDefinition refactoringDefinition) {
@@ -74,105 +78,121 @@ public class JDOMXMLRefactoringWriterImp implements XMLRefactoringWriterImp {
 	}
 
 	/**
-	 * Escribe el fichero temporal que guarda las refactorizaciones disponibles para los diferentes
-	 * tipos de entrada pricipal de la refactorización posibles.
+	 * Escribe el fichero temporal que guarda las refactorizaciones disponibles
+	 * para los diferentes tipos de entrada pricipal de la refactorización
+	 * posibles.
 	 */
 	public void writeFileToLoadRefactoringTypes(){
 		try{
 			Element refactoring;
-			
+
 			Element root = new Element("dynamicRefactorings");
-			
-			DocType type = new DocType(root.getName(), 
-			"refactoringsDTD.dtd"); //$NON-NLS-1$
-			
-			//----->Elemento del xml en el que se guardarán las refactorizaciones
-			//cuya entrada principal concuerda con moon.core.classdef.ClassDef
+
+			DocType type = new DocType(root.getName(), "refactoringsDTD.dtd"); //$NON-NLS-1$
+
+			// ----->Elemento del xml en el que se guardarán las
+			// refactorizaciones
+			// cuya entrada principal concuerda con moon.core.classdef.ClassDef
 			Element classdef = new Element("classdef");
-			
-		    //añdimos las refactorizaciones dinámicas al grupo de classdef
-		    for(Map.Entry<String,String> n_refactoring : 
-					ScopeLimitedLister.getAvailableRefactorings(SelectRefactoringWindow.SCOPE_CLASS).entrySet()){
+
+			// añdimos las refactorizaciones dinámicas al grupo de classdef
+			for (Map.Entry<String, String> n_refactoring : ScopeLimitedLister
+					.getAvailableRefactorings(
+							SelectRefactoringWindow.SCOPE_CLASS).entrySet()) {
 				refactoring = new Element("refactoring");
-			    refactoring.setAttribute("name", n_refactoring.getKey());
-			    refactoring.setAttribute("path", n_refactoring.getValue());
-			    classdef.addContent(refactoring);
+				refactoring.setAttribute("name", n_refactoring.getKey());
+				refactoring.setAttribute("path", n_refactoring.getValue());
+				classdef.addContent(refactoring);
 			}
 			root.addContent(classdef);
-			
-			//----->Elemento del xml en el que se guardarán las refactorizaciones
-			//cuya entrada principal concuerda con moon.core.classdef.MethDec
+
+			// ----->Elemento del xml en el que se guardarán las
+			// refactorizaciones
+			// cuya entrada principal concuerda con moon.core.classdef.MethDec
 			Element methdec = new Element("methdec");
-			
-		    //añdimos las refactorizaciones dinámicas al grupo de methdec
-		    for(Map.Entry<String,String> n_refactoring : 
-					ScopeLimitedLister.getAvailableRefactorings(SelectRefactoringWindow.SCOPE_METHOD).entrySet()){
-		    	refactoring = new Element("refactoring");
-		    	refactoring.setAttribute("name", n_refactoring.getKey());
-		    	refactoring.setAttribute("path", n_refactoring.getValue());
-		    	methdec.addContent(refactoring);
-		    }
+
+			// añdimos las refactorizaciones dinámicas al grupo de methdec
+			for (Map.Entry<String, String> n_refactoring : ScopeLimitedLister
+					.getAvailableRefactorings(
+							SelectRefactoringWindow.SCOPE_METHOD).entrySet()) {
+				refactoring = new Element("refactoring");
+				refactoring.setAttribute("name", n_refactoring.getKey());
+				refactoring.setAttribute("path", n_refactoring.getValue());
+				methdec.addContent(refactoring);
+			}
 			root.addContent(methdec);
-			
-			//------>Elemento del xml en el que se guardarán las refactorizaciones
-			//cuya entrada principal concuerda con moon.core.classdef.AttDec
+
+			// ------>Elemento del xml en el que se guardarán las
+			// refactorizaciones
+			// cuya entrada principal concuerda con moon.core.classdef.AttDec
 			Element attdec = new Element("attdec");
-			
-		    //añdimos las refactorizaciones dinámicas al grupo de attdec
-		    for(Map.Entry<String,String> n_refactoring : 
-					ScopeLimitedLister.getAvailableRefactorings(SelectRefactoringWindow.SCOPE_ATTRIBUTE).entrySet()){
-		    	refactoring = new Element("refactoring");
-		    	refactoring.setAttribute("name", n_refactoring.getKey());
-		    	refactoring.setAttribute("path", n_refactoring.getValue());
-		    	attdec.addContent(refactoring);
-		    }
+
+			// añdimos las refactorizaciones dinámicas al grupo de attdec
+			for (Map.Entry<String, String> n_refactoring : ScopeLimitedLister
+					.getAvailableRefactorings(
+							SelectRefactoringWindow.SCOPE_ATTRIBUTE).entrySet()) {
+				refactoring = new Element("refactoring");
+				refactoring.setAttribute("name", n_refactoring.getKey());
+				refactoring.setAttribute("path", n_refactoring.getValue());
+				attdec.addContent(refactoring);
+			}
 			root.addContent(attdec);
-			
-			//------>Elemento del xml en el que se guardarán las refactorizaciones
-			//cuya entrada principal concuerda con moon.core.classdef.FormalArgument
+
+			// ------>Elemento del xml en el que se guardarán las
+			// refactorizaciones
+			// cuya entrada principal concuerda con
+			// moon.core.classdef.FormalArgument
 			Element formalargument = new Element("formalArgument");
-			
-		    //añdimos las refactorizaciones dinámicas al grupo de formalArgument
-			for(Map.Entry<String,String> n_refactoring : 
-					ScopeLimitedLister.getAvailableRefactorings(SelectRefactoringWindow.SCOPE_FORMAL_ARG).entrySet()){
+
+			// añdimos las refactorizaciones dinámicas al grupo de
+			// formalArgument
+			for (Map.Entry<String, String> n_refactoring : ScopeLimitedLister
+					.getAvailableRefactorings(
+							SelectRefactoringWindow.SCOPE_FORMAL_ARG)
+					.entrySet()) {
 				refactoring = new Element("refactoring");
 				refactoring.setAttribute("name", n_refactoring.getKey());
 				refactoring.setAttribute("path", n_refactoring.getValue());
 				formalargument.addContent(refactoring);
 			}
 			root.addContent(formalargument);
-			
-			
-			//------>Elemento del xml en el que se guardarán las refactorizaciones
-			//cuya entrada principal concuerda con moon.core.genericity.FormalPar
+
+			// ------>Elemento del xml en el que se guardarán las
+			// refactorizaciones
+			// cuya entrada principal concuerda con
+			// moon.core.genericity.FormalPar
 			Element formalpar = new Element("formalPar");
-			
-			
-		    //añdimos las refactorizaciones dinámicas al grupo de formalpar
-			for(Map.Entry<String,String> n_refactoring : 
-					ScopeLimitedLister.getAvailableRefactorings(SelectRefactoringWindow.SCOPE_FORMAL_PAR).entrySet()){
+
+			// añdimos las refactorizaciones dinámicas al grupo de formalpar
+			for (Map.Entry<String, String> n_refactoring : ScopeLimitedLister
+					.getAvailableRefactorings(
+							SelectRefactoringWindow.SCOPE_FORMAL_PAR)
+					.entrySet()) {
 				refactoring = new Element("refactoring");
 				refactoring.setAttribute("name", n_refactoring.getKey());
 				refactoring.setAttribute("path", n_refactoring.getValue());
 				formalpar.addContent(refactoring);
 			}
 			root.addContent(formalpar);
-			
-			//------>Elemento del xml en el que se guardarán las refactorizaciones
-			//cuya entrada principal concuerda con moon.core.classdef.AttDec
+
+			// ------>Elemento del xml en el que se guardarán las
+			// refactorizaciones
+			// cuya entrada principal concuerda con moon.core.classdef.AttDec
 			Element codeFragment = new Element("codeFragment");
-			
-		    //añdimos las refactorizaciones dinámicas al grupo de attdec
-		    for(Map.Entry<String,String> n_refactoring : 
-					ScopeLimitedLister.getAvailableRefactorings(SelectRefactoringWindow.SCOPE_CODE_FRAGMENT).entrySet()){
-		    	refactoring = new Element("refactoring");
-		    	refactoring.setAttribute("name", n_refactoring.getKey());
-		    	refactoring.setAttribute("path", n_refactoring.getValue());
-		    	codeFragment.addContent(refactoring);
-		    }
+
+			// añdimos las refactorizaciones dinámicas al grupo de attdec
+			for (Map.Entry<String, String> n_refactoring : ScopeLimitedLister
+					.getAvailableRefactorings(
+							SelectRefactoringWindow.SCOPE_CODE_FRAGMENT)
+					.entrySet()) {
+				refactoring = new Element("refactoring");
+				refactoring.setAttribute("name", n_refactoring.getKey());
+				refactoring.setAttribute("path", n_refactoring.getValue());
+				codeFragment.addContent(refactoring);
+			}
 			root.addContent(codeFragment);
-			
-			Document newdoc = new Document(root,type);
+
+			Document newdoc = new Document(root, type);
 			
 			writeToFile(RefactoringConstants.REFACTORING_TYPES_FILE, newdoc);
 		} 
@@ -180,14 +200,38 @@ public class JDOMXMLRefactoringWriterImp implements XMLRefactoringWriterImp {
 		 e.printStackTrace();
 		}	
 	}
-	
-	
+
+	/**
+	 * Genera el documento de JDOM que representa la refactorizacion.
+	 * 
+	 * @return documento de jdom con la representacion de la refactorizacion
+	 */
+	@Override
+	public Document getDocumentOfRefactoring() {
+		Element refactoring = new Element(
+				XMLRefactoringReaderImp.REFACTORING_TAG);
+
+		DocType type = new DocType(refactoring.getName(), "refactoringDTD.dtd"); //$NON-NLS-1$
+
+		refactoring.setAttribute("name", refactoringDefinition.getName()); //$NON-NLS-1$
+
+		constructRefactoringInformation(refactoring);
+		constructRefactoringInputs(refactoring);
+		constructRefactoringMechanism(refactoring);
+		constructRefactoringExamples(refactoring);
+
+		return new Document(refactoring, type);
+	}
+
 	/**
 	 * Elimina una refactoriazción dentro del fichero refactorings.xml.
 	 * 
-	 * @param scope ámbito de la refactorización.
-	 * @param name Nombre de la refactorización. 
-	 * @throws XMLRefactoringReaderException XMLRefactoringReaderException.
+	 * @param scope
+	 *            ámbito de la refactorización.
+	 * @param name
+	 *            Nombre de la refactorización.
+	 * @throws XMLRefactoringReaderException
+	 *             XMLRefactoringReaderException.
 	 */
 	public void deleteRefactoringFromXml(int scope, String name) throws XMLRefactoringReaderException{
 		try {
@@ -268,13 +312,18 @@ public class JDOMXMLRefactoringWriterImp implements XMLRefactoringWriterImp {
 	}
 
 	/**
-	 * Cambia el nombre de una refactorinzación en el fichero temporal que alamacena las refactorizaciones
-	 * según el ambito al que pertenece su entrada principal.
+	 * Cambia el nombre de una refactorinzación en el fichero temporal que
+	 * alamacena las refactorizaciones según el ambito al que pertenece su
+	 * entrada principal.
 	 * 
-	 * @param scope ambito de la refactorización.
-	 * @param newName nuevo nombre.
-	 * @param originalName nombre anterior.
-	 * @throws XMLRefactoringReaderException XMLRefactoringReaderException.
+	 * @param scope
+	 *            ambito de la refactorización.
+	 * @param newName
+	 *            nuevo nombre.
+	 * @param originalName
+	 *            nombre anterior.
+	 * @throws XMLRefactoringReaderException
+	 *             XMLRefactoringReaderException.
 	 */
 	public void renameRefactoringIntoXml(int scope, String newName, String originalName) throws XMLRefactoringReaderException{
 		
@@ -363,13 +412,16 @@ public class JDOMXMLRefactoringWriterImp implements XMLRefactoringWriterImp {
 		}
 	}
 
-	
 	/**
 	 * Añade una línea dentro del fichero refactorings.xml.
 	 * 
-	 * @param scope ámbito de la refactorización.
-	 * @param name Nombre de la refactorización.
-	 * @param path Nombre de la ruta del fichero de definición de la refactorización.
+	 * @param scope
+	 *            ámbito de la refactorización.
+	 * @param name
+	 *            Nombre de la refactorización.
+	 * @param path
+	 *            Nombre de la ruta del fichero de definición de la
+	 *            refactorización.
 	 */
 	public void addNewRefactoringToXml(int scope, String name, String path){
 		try {
@@ -421,53 +473,44 @@ public class JDOMXMLRefactoringWriterImp implements XMLRefactoringWriterImp {
 			
 		}
 	}
-	
-	
-	
+
 	/**
 	 * Escribe el fichero XML a partir de la definición de la refactorización.
 	 * 
-	 * @param dir directorio donde se guardará el fichero.
+	 * @param dir
+	 *            directorio donde se guardará el fichero.
 	 * 
-	 * @throws XMLRefactoringWriterException si se produce un error al intentar
-	 * almacenar la definición de la refactorización en el fichero.
+	 * @throws XMLRefactoringWriterException
+	 *             si se produce un error al intentar almacenar la definición de
+	 *             la refactorización en el fichero.
 	 */
 	@Override
 	public void writeRefactoring(File dir) throws XMLRefactoringWriterException {
 	
 		try {
-			Element refactoring = new Element(
-				XMLRefactoringReaderImp.REFACTORING_TAG);
-						
-			DocType type = new DocType(refactoring.getName(), 
-				"refactoringDTD.dtd"); //$NON-NLS-1$
 			
-			refactoring.setAttribute("name", refactoringDefinition.getName()); //$NON-NLS-1$
-			
-			constructRefactoringInformation(refactoring);
-			constructRefactoringInputs(refactoring);
-			constructRefactoringMechanism(refactoring);
-			constructRefactoringExamples(refactoring);
-			
-			Document newdoc = new Document(refactoring, type);
 			
 			writeToFile(dir.getPath() + 
 				System.getProperty("file.separator")+ refactoringDefinition.getName() + //$NON-NLS-1$
-				RefactoringConstants.FILE_EXTENSION, newdoc);
+							RefactoringConstants.FILE_EXTENSION,
+ getDocumentOfRefactoring());
 		} 
 		catch(Exception e){
 			throw new XMLRefactoringWriterException(e.getMessage());
 		}
 	}
-	
+
 	/**
 	 * Escribe los elementos con la información general de la refactorización.
 	 * 
-	 * <p>Almacena la descripción básica de la refactorización, la ruta de la 
-	 * imagen asociada a la refactorización y la motivación de la misma.</p>
+	 * <p>
+	 * Almacena la descripción básica de la refactorización, la ruta de la
+	 * imagen asociada a la refactorización y la motivación de la misma.
+	 * </p>
 	 * 
-	 * @param refactoringElement el elemento XML raíz a partir del cual se
-	 * añadirá el elemento hijo con la información básica de la refactorización.
+	 * @param refactoringElement
+	 *            el elemento XML raíz a partir del cual se añadirá el elemento
+	 *            hijo con la información básica de la refactorización.
 	 */
 	private void constructRefactoringInformation(Element refactoringElement) {
 		
@@ -502,9 +545,10 @@ public class JDOMXMLRefactoringWriterImp implements XMLRefactoringWriterImp {
 	/**
 	 * Escribe los elementos de las entradas de la refactorización.
 	 * 
-	 * @param refactoringElement el elemento XML raíz a partir del cual se
-	 * añadirá el elemento hijo con la información acerca de las entradas
-	 * de la refactorización.
+	 * @param refactoringElement
+	 *            el elemento XML raíz a partir del cual se añadirá el elemento
+	 *            hijo con la información acerca de las entradas de la
+	 *            refactorización.
 	 */
 	private void constructRefactoringInputs(Element refactoringElement){
 		
@@ -531,14 +575,15 @@ public class JDOMXMLRefactoringWriterImp implements XMLRefactoringWriterImp {
 
 		refactoringElement.addContent(inputs);
 	}
-	
+
 	/**
-	 * Escribe los elementos correspondientes a los predicados y acciones que 
+	 * Escribe los elementos correspondientes a los predicados y acciones que
 	 * componen la refactorización.
 	 * 
-	 * @param refactoringElement el elemento XML raíz a partir del cual se
-	 * añadirá el elemento hijo con la información acerca de los predicados y
-	 * las acciones que componen la refactorización.
+	 * @param refactoringElement
+	 *            el elemento XML raíz a partir del cual se añadirá el elemento
+	 *            hijo con la información acerca de los predicados y las
+	 *            acciones que componen la refactorización.
 	 */
 	private void constructRefactoringMechanism(Element refactoringElement) {
 		
@@ -552,14 +597,17 @@ public class JDOMXMLRefactoringWriterImp implements XMLRefactoringWriterImp {
 			Element precondition = new Element(
 				XMLRefactoringReaderImp.PRECONDITION_ELEMENT);
 			
-			//Comprueba cual es el paquete en donde se encuentra la precondición
+			// Comprueba cual es el paquete en donde se encuentra la
+			// precondición
 			String preconditionPack = ""; //$NON-NLS-1$
 			if (RepositoryElementProcessor.isPredicateJavaDependent(pre.substring(0,pre.length()-4)))
 				preconditionPack = RefactoringConstants.JAVA_PREDICATES_PACKAGE;
 			else 
 				preconditionPack = RefactoringConstants.PREDICATES_PACKAGE;
-			//con esta parte de la instrucción: pre.substring(0,pre.length()-4) lo que hacemos
-			//es quitar el número de la precondicion para que pueda ser interpretado por
+			// con esta parte de la instrucción: pre.substring(0,pre.length()-4)
+			// lo que hacemos
+			// es quitar el número de la precondicion para que pueda ser
+			// interpretado por
 			//el motor de las refactorizaciones.
 			precondition.setAttribute(
 				XMLRefactoringReaderImp.NAME_ATTRIBUTE, preconditionPack + pre.substring(0,pre.length()-4));
@@ -573,15 +621,18 @@ public class JDOMXMLRefactoringWriterImp implements XMLRefactoringWriterImp {
 		for(String act : refactoringDefinition.getActions()){
 			Element action = new Element(XMLRefactoringReaderImp.ACTION_ELEMENT);
 			
-			//Comprueba cual es el paquete en donde se encuentra la precondición
+			// Comprueba cual es el paquete en donde se encuentra la
+			// precondición
 			String actionPack = ""; //$NON-NLS-1$
 			if (RepositoryElementProcessor.isActionJavaDependent(act.substring(0,act.length()-4)))
 				actionPack = RefactoringConstants.JAVA_ACTIONS_PACKAGE;
 			else 
 				actionPack = RefactoringConstants.ACTIONS_PACKAGE;
 			
-			//con esta parte de la instrucción: act.substring(0,act.length()-4) lo que hacemos
-			//es quitar el número de la acción para que pueda ser interpretado por
+			// con esta parte de la instrucción: act.substring(0,act.length()-4)
+			// lo que hacemos
+			// es quitar el número de la acción para que pueda ser interpretado
+			// por
 			//el motor de las refactorizaciones.
 			action.setAttribute(
 				XMLRefactoringReaderImp.NAME_ATTRIBUTE, actionPack + act.substring(0,act.length()-4));
@@ -597,15 +648,18 @@ public class JDOMXMLRefactoringWriterImp implements XMLRefactoringWriterImp {
 			Element postcondition = new Element(
 				XMLRefactoringReaderImp.POSTCONDITION_ELEMENT);
 			
-			//Comprueba cual es el paquete en donde se encuentra la postcondición
+			// Comprueba cual es el paquete en donde se encuentra la
+			// postcondición
 			String postconditionPack = ""; //$NON-NLS-1$
 			if (RepositoryElementProcessor.isPredicateJavaDependent(post.substring(0,post.length()-4)))
 				postconditionPack = RefactoringConstants.JAVA_PREDICATES_PACKAGE;
 			else 
 				postconditionPack = RefactoringConstants.PREDICATES_PACKAGE;
 			
-			//con esta parte de la instrucción: post.substring(0,post.length()-4) lo que hacemos
-			//es quitar el número de la postcondición para que pueda ser interpretado por
+			// con esta parte de la instrucción:
+			// post.substring(0,post.length()-4) lo que hacemos
+			// es quitar el número de la postcondición para que pueda ser
+			// interpretado por
 			//el motor de las refactorizaciones.
 			postcondition.setAttribute(
 				XMLRefactoringReaderImp.NAME_ATTRIBUTE, postconditionPack + post.substring(0,post.length()-4));
@@ -620,9 +674,12 @@ public class JDOMXMLRefactoringWriterImp implements XMLRefactoringWriterImp {
 	/**
 	 * Escribe los elementos de los parámetros ambiguos de la refactorización.
 	 * 
-	 * @param partOfRefactoring el elemento de parámetros ambiguos.
-	 * @param nameOfPart el elemento del nombre del parámetro ambiguo.
-	 * @param typeOfPart el elemento del tipo del parámetro ambiguo.
+	 * @param partOfRefactoring
+	 *            el elemento de parámetros ambiguos.
+	 * @param nameOfPart
+	 *            el elemento del nombre del parámetro ambiguo.
+	 * @param typeOfPart
+	 *            el elemento del tipo del parámetro ambiguo.
 	 */
 	private void constructAmbiguousParameters(Element partOfRefactoring, 
 		String nameOfPart, int typeOfPart) {
@@ -639,26 +696,29 @@ public class JDOMXMLRefactoringWriterImp implements XMLRefactoringWriterImp {
 			}
 		}
 	}
-	
+
 	/**
 	 * Escribe los elementos de los ejemplos de la refactorización.
 	 * 
-	 * @param refactoringElement el elemento XML raíz a partir del cual se
-	 * añadirá el elemento hijo con la información acerca de los ejemplos
-	 * asociados a la refactorización.
+	 * @param refactoringElement
+	 *            el elemento XML raíz a partir del cual se añadirá el elemento
+	 *            hijo con la información acerca de los ejemplos asociados a la
+	 *            refactorización.
 	 */
 	private void constructRefactoringExamples(Element refactoringElement) {
 		
 		Element examples = new Element(XMLRefactoringReaderImp.EXAMPLES_ELEMENT);
 		
 		for(String[] ex : refactoringDefinition.getExamples()){
-			Element example = new Element(
-				XMLRefactoringReaderImp.EXAMPLE_ELEMENT);
-			example.setAttribute(
-				XMLRefactoringReaderImp.BEFORE_EXAMPLE_ATTRIBUTE, ex[0]);
-			example.setAttribute(
-				XMLRefactoringReaderImp.AFTER_EXAMPLE_ATTRIBUTE, ex[1]);
-			examples.addContent(example);
+			if (!(ex[0].isEmpty() && ex[1].isEmpty())) {
+				Element example = new Element(
+						XMLRefactoringReaderImp.EXAMPLE_ELEMENT);
+				example.setAttribute(
+						XMLRefactoringReaderImp.BEFORE_EXAMPLE_ATTRIBUTE, ex[0]);
+				example.setAttribute(
+						XMLRefactoringReaderImp.AFTER_EXAMPLE_ATTRIBUTE, ex[1]);
+				examples.addContent(example);
+			}
 		}
 		refactoringElement.addContent(examples);
 	}

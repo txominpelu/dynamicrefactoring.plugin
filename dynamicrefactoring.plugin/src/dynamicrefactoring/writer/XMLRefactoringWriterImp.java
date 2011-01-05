@@ -22,6 +22,8 @@ package dynamicrefactoring.writer;
 
 import java.io.File;
 
+import org.jdom.Document;
+
 /**
  * Define una interfaz para los escritores de ficheros XML donde se definen
  * refactorizaciones.
@@ -32,14 +34,25 @@ import java.io.File;
  * @author <A HREF="mailto:ehp0001@alu.ubu.es">Enrique Herrero Paredes</A>
  */
 public interface XMLRefactoringWriterImp {
-	
+
 	/**
 	 * Escribe el fichero XML a partir de la definición de la refactorización.
 	 * 
-	 * @param dir directorio donde se guardará el fichero.
+	 * @param dir
+	 *            directorio donde se guardará el fichero.
 	 * 
-	 * @throws XMLRefactoringWriterException si se produce un error durante la
-	 * escritura de la refactorización en el fichero.
+	 * @throws XMLRefactoringWriterException
+	 *             si se produce un error durante la escritura de la
+	 *             refactorización en el fichero.
 	 */
 	public void writeRefactoring(File dir) throws XMLRefactoringWriterException;
+
+	/**
+	 * Obtiene una representacion en formato de un documento JDOM de la
+	 * refactorizacion.
+	 * 
+	 * @return documento de jdom con la representacion de la refactorizacion
+	 */
+	public Document getDocumentOfRefactoring();
+
 }
