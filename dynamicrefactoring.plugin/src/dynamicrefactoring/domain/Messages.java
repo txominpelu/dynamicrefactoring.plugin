@@ -33,6 +33,7 @@ public class Messages extends NLS {
 	public static String DynamicRefactoringDefinition_ErrorLoading;
 	public static String RefactoringSummary_DateFormat;
 	public static String ExportImportUtilities_ClassesNotFound;
+	public static String FileNotFoundMessage0;
 	public static String RefactoringPlanExecutor_ObjectNotLoaded;
 	public static String RefactoringPlanExecutor_InvokeMethod;
 	public static String RefactoringPlanExecutor_RefactoringNotExecuted;

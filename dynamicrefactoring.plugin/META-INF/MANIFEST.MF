@@ -31,7 +31,6 @@ Export-Package: .,
  com.java2html.firstparse,
  com.java2html.secondparse;uses:="com.java2html",
  com.swtdesigner;uses:="org.eclipse.jface.resource,org.eclipse.swt.graphics,org.eclipse.swt.widgets",
- dynamic_refactoring;uses:="org.eclipse.ui.plugin,org.osgi.framework",
  dynamicrefactoring;
   uses:="org.eclipse.jface.operation,
    org.eclipse.core.runtime,

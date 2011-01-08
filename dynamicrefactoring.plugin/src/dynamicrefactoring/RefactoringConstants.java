@@ -43,12 +43,13 @@ public class RefactoringConstants {
 	 * Nombre del fichero .jar que almacena las clases que componen el modelo javamoon.
 	 */
 	public static final String BIBLIOTECA_JAVA = "javamoon-2.6.0.jar";
-	
+
 	/**
 	 * Nombre del fichero en el que se guardan las distintas refactorizaciones
 	 * dinámicas clasificadas según el tipo de entrada principal.
 	 */
-	public static final String REFACTORING_TYPES_FILE= RefactoringPlugin.getDefault().getBundleRootDir() + "refactorings.xml";
+	public static final String REFACTORING_TYPES_FILE = RefactoringPlugin
+			.getDynamicRefactoringsDir() + "refactorings.xml";
 
 	/**
 	 * Directorio temporal donde almacenar el classpath temporal que se utiliza
@@ -121,7 +122,7 @@ public class RefactoringConstants {
 	 * La ruta al fichero con la DTD de las refactorizaciones dinámicas.
 	 */
 	public static final String DTD_PATH = 
-		DYNAMIC_REFACTORING_DIR + System.getProperty("file.separator") + "refactoringDTD.dtd"; //$NON-NLS-1$ //$NON-NLS-2$
+		RefactoringPlugin.getDefault() + System.getProperty("file.separator") + "refactoringDTD.dtd"; //$NON-NLS-1$ //$NON-NLS-2$
 	
 	/**
 	 * Ruta al directorio donde se encuentran las definiciones de las precondiciones.

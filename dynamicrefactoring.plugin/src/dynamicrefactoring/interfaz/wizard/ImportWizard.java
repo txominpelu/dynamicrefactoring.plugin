@@ -20,26 +20,16 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.*/
 
 package dynamicrefactoring.interfaz.wizard;
 
-import dynamicrefactoring.RefactoringPlugin;
-import dynamicrefactoring.RefactoringConstants;
-import dynamicrefactoring.domain.DynamicRefactoringDefinition;
-import dynamicrefactoring.interfaz.ButtonTextProvider;
-import dynamicrefactoring.interfaz.CustomProgressDialog;
-import dynamicrefactoring.util.DynamicRefactoringLister;
-import dynamicrefactoring.util.io.FileManager;
-import dynamicrefactoring.domain.ExportImportUtilities;
-
 import java.io.File;
-
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
-
 import java.text.ChoiceFormat;
 import java.text.MessageFormat;
-
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.StringTokenizer;
 import java.util.Map.Entry;
+import java.util.StringTokenizer;
 
 import org.apache.log4j.Logger;
 import org.eclipse.core.runtime.IProgressMonitor;
@@ -47,16 +37,12 @@ import org.eclipse.jface.dialogs.Dialog;
 import org.eclipse.jface.dialogs.IDialogConstants;
 import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.jface.operation.IRunnableWithProgress;
-
 import org.eclipse.swt.SWT;
-
 import org.eclipse.swt.events.ModifyEvent;
 import org.eclipse.swt.events.ModifyListener;
 import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.events.SelectionListener;
-
 import org.eclipse.swt.graphics.Point;
-
 import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Control;
@@ -67,7 +53,17 @@ import org.eclipse.swt.widgets.Table;
 import org.eclipse.swt.widgets.TableColumn;
 import org.eclipse.swt.widgets.TableItem;
 import org.eclipse.swt.widgets.Text;
+
 import com.swtdesigner.ResourceManager;
+
+import dynamicrefactoring.RefactoringConstants;
+import dynamicrefactoring.RefactoringPlugin;
+import dynamicrefactoring.domain.DynamicRefactoringDefinition;
+import dynamicrefactoring.domain.ExportImportUtilities;
+import dynamicrefactoring.interfaz.ButtonTextProvider;
+import dynamicrefactoring.interfaz.CustomProgressDialog;
+import dynamicrefactoring.util.DynamicRefactoringLister;
+import dynamicrefactoring.util.io.FileManager;
 
 /**
  * Proporciona un asistente que permite buscar e importar refactorizaciones
@@ -93,12 +89,12 @@ public class ImportWizard extends Dialog {
 	 * Ruta del directorio en que se deben buscar las refactorizaciones.
 	 */
 	private Text t_Input;
-	
+
 	/**
 	 * Botón que lanza el proceso de importación.
 	 */
 	private Button bt_Import;
-	
+
 	/**
 	 * Casilla de selección que indica si la búsqueda ha de ser recursiva o no.
 	 */
@@ -113,13 +109,13 @@ public class ImportWizard extends Dialog {
 	 * Tabla de refactorizaciones que ya forman parte del <i>plugin</i>.
 	 */
 	private HashMap<String, String> existing;
-	
+
 	/**
-	 * Nombres de las refactorizaciones que, de importarse, sobreescribirían otras
-	 * ya existentes.
+	 * Nombres de las refactorizaciones que, de importarse, sobreescribirían
+	 * otras ya existentes.
 	 */
 	private ArrayList<String> overwritten;
-	
+
 	/**
 	 * Consejo mostrado al usuario sobre la búsqueda de refactorizaciones.
 	 */
@@ -138,7 +134,8 @@ public class ImportWizard extends Dialog {
 	/**
 	 * Crea la ventana de diálogo.
 	 * 
-	 * @param parentShell <i>shell</i> padre de la ventana de diálogo.
+	 * @param parentShell
+	 *            <i>shell</i> padre de la ventana de diálogo.
 	 */
 	public ImportWizard(Shell parentShell) {
 		super(parentShell);
@@ -147,7 +144,8 @@ public class ImportWizard extends Dialog {
 	/**
 	 * Crea el contenido de la ventana de diálogo.
 	 * 
-	 * @param parent componente padre de los contenidos de la ventana.
+	 * @param parent
+	 *            componente padre de los contenidos de la ventana.
 	 * 
 	 * @return el control asociado al área de diálogo.
 	 */
@@ -274,7 +272,8 @@ public class ImportWizard extends Dialog {
 	/**
 	 * Prepara la ventana de diálogo para su apertura.
 	 * 
-	 * @param newShell <i>shell</i> que abrirá la ventana.
+	 * @param newShell
+	 *            <i>shell</i> que abrirá la ventana.
 	 */
 	@Override
 	protected void configureShell(Shell newShell) {
@@ -307,7 +306,8 @@ public class ImportWizard extends Dialog {
 	 * Implementa la funcionalidad de importación, lanzada como respuesta a la
 	 * pulsación del botón correspondiente.
 	 * 
-	 * @param buttonId identificador del botón que ha sido pulsado en el diálogo.
+	 * @param buttonId
+	 *            identificador del botón que ha sido pulsado en el diálogo.
 	 */
 	@Override
 	protected void buttonPressed(int buttonId) {
@@ -342,7 +342,7 @@ public class ImportWizard extends Dialog {
 						formatter.format(messageArgs) + "."); //$NON-NLS-1$
 				}
 				catch (InterruptedException e) {
-					// El usuario canceló el proceso.			 
+					// El usuario canceló el proceso.
 					logger.warn(e.getMessage());
 				}
 				catch (Exception exception){
@@ -355,7 +355,7 @@ public class ImportWizard extends Dialog {
 		}
 		super.buttonPressed(buttonId);
 	}
-	
+
 	/**
 	 * Actualiza el mensaje de aviso mostrado en la ventana, en función de los
 	 * valores de configuración actuales resultantes de la última búsqueda.
@@ -405,7 +405,8 @@ public class ImportWizard extends Dialog {
 		/**
 		 * Recibe notificaciones cada vez que se modifica el texto observado.
 		 * 
-		 * @param e el evento de modificación del texto.
+		 * @param e
+		 *            el evento de modificación del texto.
 		 */
 		@Override
 		public void modifyText(ModifyEvent e){
@@ -425,7 +426,7 @@ public class ImportWizard extends Dialog {
 					updateMessage();
 				}
 				catch (InterruptedException exception) {
-					// El usuario canceló el proceso.			 
+					// El usuario canceló el proceso.
 					logger.warn(exception.getMessage());
 				}
 				catch (Exception exception){
@@ -444,7 +445,7 @@ public class ImportWizard extends Dialog {
 			}
 		}
 	}
-	
+
 	/**
 	 * Permite lanzar el trabajo de importación de refactorizaciones y hacer un
 	 * seguimiento de su progreso.
@@ -467,19 +468,23 @@ public class ImportWizard extends Dialog {
 		public ImportJob(String[] names){
 			this.names = names;
 		}
-		
+
 		/**
 		 * Ejecuta el trabajo de importación de refactorizaciones.
 		 * 
-		 * @param monitor el monitor de progreso que deberá usarse para mostrar
-		 * el progreso.
+		 * @param monitor
+		 *            el monitor de progreso que deberá usarse para mostrar el
+		 *            progreso.
 		 * 
-		 * @throws InvocationTargetException utilizada como envoltura si el método 
-		 * debe propagar una excepción (<i>checked exception</i>). Las excepciones
-		 * de tipo <i>runtime exception</i> se envuelven automáticamente en una
-		 * excepción de este tipo por el contexto que efectúa la llamada.
-		 * @throws InterruptedException si la operación detecta una solicitud de 
-		 * cancelación (no disponible).
+		 * @throws InvocationTargetException
+		 *             utilizada como envoltura si el método debe propagar una
+		 *             excepción (<i>checked exception</i>). Las excepciones de
+		 *             tipo <i>runtime exception</i> se envuelven
+		 *             automáticamente en una excepción de este tipo por el
+		 *             contexto que efectúa la llamada.
+		 * @throws InterruptedException
+		 *             si la operación detecta una solicitud de cancelación (no
+		 *             disponible).
 		 * 
 		 * @see IRunnableWithProgress#run(IProgressMonitor)
 		 */
@@ -501,20 +506,13 @@ public class ImportWizard extends Dialog {
 					String definition = refactorings.get(next);
 					String folder = new File(definition).getParent();
 				
-					String name = ExportImportUtilities.ImportRefactoring(definition,false); 
-					if (name.equals("folder_fail")){
-						messageArgs = new Object[] {folder};
-						formatter = new MessageFormat(""); //$NON-NLS-1$
-						formatter.applyPattern(Messages.ImportWizard_NotCopied);
-						
-						throw new Exception(formatter.format(messageArgs) + "."); //$NON-NLS-1$
-					}else{
-						if(! name.equals("")){
-							messageArgs = new Object[] {name + ".class"};
-							formatter = new MessageFormat(""); //$NON-NLS-1$
-							formatter.applyPattern(Messages.ImportWizard_ClassesNotFound);
-							
-							//Elimina la carpeta de la refactorización ya que si ha llegado
+					try {
+						ExportImportUtilities.ImportRefactoring(
+								definition, false);
+					} catch (FileNotFoundException e) {
+
+						// Elimina la carpeta de la refactorización ya que
+							// si ha llegado
 							//a este punto quiere decir que no se ha podido completar la tarea
 							//adecuadamente.
 							StringTokenizer st_namefolder = new StringTokenizer(folder, "" + File.separatorChar + "");
@@ -524,11 +522,15 @@ public class ImportWizard extends Dialog {
 							}
 							FileManager.emptyDirectories(RefactoringConstants.DYNAMIC_REFACTORING_DIR + "" + File.separatorChar + "" + namefolder);
 							FileManager.deleteDirectories(RefactoringConstants.DYNAMIC_REFACTORING_DIR + "" + File.separatorChar + "" + namefolder, true);
-							throw new Exception(formatter.format(messageArgs) + ".");
-	
-						}
+						throw e;
+
+					} catch (IOException e) {
+						messageArgs = new Object[] { folder };
+						formatter = new MessageFormat(""); //$NON-NLS-1$
+						formatter.applyPattern(Messages.ImportWizard_NotCopied);
+						throw new Exception(formatter.format(messageArgs) + "."); //$NON-NLS-1$
 					}
-					
+
 					monitor.worked(1);
 				}
 			}
@@ -557,35 +559,42 @@ public class ImportWizard extends Dialog {
 		 * Directorio a partir del que se buscan refactorizaciones.
 		 */
 		private String folder;
-		
+
 		/**
 		 * Si la búsqueda ha de ser recursiva o no.
 		 */
 		private boolean recursive;
-		
+
 		/**
 		 * Constructor.
 		 * 
-		 * @param folder directorio a partir del que se deben buscar las refactorizaciones.
-		 * @param recursive si la búsqueda debe ser recursiva o no.
+		 * @param folder
+		 *            directorio a partir del que se deben buscar las
+		 *            refactorizaciones.
+		 * @param recursive
+		 *            si la búsqueda debe ser recursiva o no.
 		 */
 		public RefactoringSearchJob(String folder, boolean recursive){
 			this.folder = folder;
 			this.recursive = recursive;
 		}
-		
+
 		/**
 		 * Ejecuta el trabajo de búsqueda de refactorizaciones.
 		 * 
-		 * @param monitor el monitor de progreso que deberá usarse para mostrar
-		 * el progreso.
+		 * @param monitor
+		 *            el monitor de progreso que deberá usarse para mostrar el
+		 *            progreso.
 		 * 
-		 * @throws InvocationTargetException utilizada como envoltura si el método 
-		 * debe propagar una excepción (<i>checked exception</i>). Las excepciones
-		 * de tipo <i>runtime exception</i> se envuelven automáticamente en una
-		 * excepción de este tipo por el contexto que efectúa la llamada.
-		 * @throws InterruptedException si la operación detecta una solicitud de 
-		 * cancelación (no disponible).
+		 * @throws InvocationTargetException
+		 *             utilizada como envoltura si el método debe propagar una
+		 *             excepción (<i>checked exception</i>). Las excepciones de
+		 *             tipo <i>runtime exception</i> se envuelven
+		 *             automáticamente en una excepción de este tipo por el
+		 *             contexto que efectúa la llamada.
+		 * @throws InterruptedException
+		 *             si la operación detecta una solicitud de cancelación (no
+		 *             disponible).
 		 * 
 		 * @see IRunnableWithProgress#run(IProgressMonitor)
 		 */
@@ -613,7 +622,8 @@ public class ImportWizard extends Dialog {
 					monitor.subTask(formatter.format(messageArgs) + "..."); //$NON-NLS-1$
 					
 					try {
-						// Se intenta obtener la definición de la siguiente refactorización.
+						// Se intenta obtener la definición de la siguiente
+						// refactorización.
 						DynamicRefactoringDefinition.getRefactoringDefinition(path);
 						
 						// Solo se recogen refactorizaciones cuya carpeta se

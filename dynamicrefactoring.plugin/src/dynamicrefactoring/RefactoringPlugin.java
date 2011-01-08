@@ -21,6 +21,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.*/
 package dynamicrefactoring;
 
 import java.io.File;
+import java.io.IOException;
 import java.net.URL;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
@@ -32,6 +33,7 @@ import moon.core.classdef.ClassDef;
 import moon.core.classdef.FormalArgument;
 import moon.core.classdef.MethDec;
 
+import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.FilenameUtils;
 import org.apache.log4j.Logger;
 import org.eclipse.core.resources.IProject;
@@ -108,6 +110,11 @@ public class RefactoringPlugin extends AbstractUIPlugin
 	//The identifiers for the preferences
 
 	/**
+	 * Nombre de la carpeta que contiene el catalogo de las refactorizaciones.
+	 */
+	private static final String DYNAMIC_REFACTORINGS_FOLDER_NAME = "/DynamicRefactorings/";
+
+	/**
 	 * Identificador que guarda el directorio de exportación de un plan de
 	 * refactorizaciones.
 	 */
@@ -145,7 +152,7 @@ public class RefactoringPlugin extends AbstractUIPlugin
 	 * El nombre del "bundle" asociado al plugin.
 	 */
 	public static final String BUNDLE_NAME = "dynamicrefactoring.plugin"; //$NON-NLS-1$
-	
+
 	/**
 	 * El nombre del punto de extensión de los <i>listeners</i>.
 	 */
@@ -207,20 +214,51 @@ public class RefactoringPlugin extends AbstractUIPlugin
 	 * 
 	 * @see AbstractUIPlugin#start(BundleContext)
 	 */
+	@Override
 	public void start(BundleContext context) throws Exception{
 		super.start(context);
 		MOONRefactoring.resetModel();
 		LogManager.getInstance().loadLogConfig();
 		loadRefactoringTypes();
 		RefactoringPlanWriter.getInstance();
+		copyDefaultDynamicRefactoringsToStateLocation();
 	}
 	
+	/**
+	 * Copia las refactorizaciones que vienen por defecto incluidas en el plugin
+	 * en el directorio de estado de este si no existen todavia en dicho
+	 * directorio.
+	 */
+	private void copyDefaultDynamicRefactoringsToStateLocation() {
+		if (!new File(getDynamicRefactoringsDir()).exists()) {
+			try {
+				FileUtils.forceMkdir(new File(getDynamicRefactoringsDir()));
+				FileManager.copyBundleDirToFileSystem(
+						DYNAMIC_REFACTORINGS_FOLDER_NAME,
+						getStateLocation().toOSString());
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		}
+	}
+
+	/**
+	 * Directorio en el que se guardan los ficheros
+	 * 
+	 * @return
+	 */
+	public static String getDynamicRefactoringsDir() {
+		return RefactoringPlugin.getDefault().getStateLocation().toOSString()
+				+ DYNAMIC_REFACTORINGS_FOLDER_NAME;
+	}
+
 	/** 
 	 * Initializes a preference store with default preference values 
 	 * for this plug-in.
 	 * 
 	 * @param store the preference store to fill
 	 */
+	@Override
 	protected void initializeDefaultPreferences(IPreferenceStore store) {
 		store.setDefault(EXPORT_PLAN_DIRECTORY, DEFAULT_EXPORT_PLAN_DIRECTORY);
 		store.setDefault(IMPORT_PLAN_DIRECTORY, DEFAULT_IMPORT_PLAN_DIRECTORY);

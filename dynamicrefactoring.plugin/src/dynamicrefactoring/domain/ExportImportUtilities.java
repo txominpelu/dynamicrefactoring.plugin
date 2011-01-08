@@ -21,38 +21,45 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.*/
 package dynamicrefactoring.domain;
 
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.StringTokenizer;
 
+import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.FilenameUtils;
 
 import dynamicrefactoring.RefactoringConstants;
 import dynamicrefactoring.reader.JDOMXMLRefactoringReaderImp;
 import dynamicrefactoring.reader.RefactoringPlanReader;
 import dynamicrefactoring.reader.XMLRefactoringReaderException;
-import dynamicrefactoring.util.io.FileManager;
 import dynamicrefactoring.util.DynamicRefactoringLister;
 import dynamicrefactoring.util.ScopeLimitedLister;
+import dynamicrefactoring.util.io.FileManager;
 
 /**
- * Proporciona una serie de métodos que se encargan de la exportación e 
+ * Proporciona una serie de métodos que se encargan de la exportación e
  * importación de refactorizaciones dinámicas.
  * 
  * @author <A HREF="mailto:lfd0002@alu.ubu.es">Laura Fuente de la Fuente</A>
  */
 public class ExportImportUtilities {
-	
+
 	/**
 	 * Se encarga del proceso de exportación de una refactorización dinámica.
 	 * 
-	 * @param destination directorio a donde se quiere exportar la refactorización.
-	 * @param definition ruta del fichero con la definición de la refactorización.
-	 * @param createFolders indica si los ficheros .class se copian en al carpeta raíz
-	 * 	      o si se generá la estructura de carpetas correspondiente.
-	 * @throws IOException IOException.
-	 * @throws XMLRefactoringReaderException XMLRefactoringReaderException.
+	 * @param destination
+	 *            directorio a donde se quiere exportar la refactorización.
+	 * @param definition
+	 *            ruta del fichero con la definición de la refactorización.
+	 * @param createFolders
+	 *            indica si los ficheros .class se copian en al carpeta raíz o
+	 *            si se generá la estructura de carpetas correspondiente.
+	 * @throws IOException
+	 *             IOException.
+	 * @throws XMLRefactoringReaderException
+	 *             XMLRefactoringReaderException.
 	 */
 	public static void ExportRefactoring(String destination, String definition, boolean createFolders) throws IOException, XMLRefactoringReaderException{
 		String folder = new File(definition).getParent();
@@ -61,16 +68,21 @@ public class ExportImportUtilities {
 		JDOMXMLRefactoringReaderImp reader = new JDOMXMLRefactoringReaderImp(new File(definition));
 		
 		for(String rule : reader.readMechanismRefactoring()){
-			String className = splitGetLast(rule,".");
+			String className = splitGetLast(rule, "."); //$NON-NLS-1$
 			
 			String rulePath = rule.replace('.', File.separatorChar);
 			
-			//String classPath = RefactoringConstants.REFACTORING_CLASSES + "" + File.separatorChar + "" + element + ".class";
-			File currentFile = new File(RefactoringConstants.REFACTORING_CLASSES + File.separatorChar + rulePath + ".class");
-			File destinationFile = new File (destination + File.separatorChar + definitionFolderName + File.separatorChar + className + ".class");
+
+			File currentFile = new File(
+					RefactoringConstants.REFACTORING_CLASSES
+							+ File.separatorChar + rulePath + ".class"); //$NON-NLS-1$
+			File destinationFile = new File(destination + File.separatorChar
+					+ definitionFolderName + File.separatorChar + className
+					+ ".class"); //$NON-NLS-1$
 			File destinationFolder = new File(destination);
 			File newFolder = new File( destinationFolder.getParent()+ File.separatorChar + new File(rulePath).getParent());
-			File newFile = new File (new File(destination).getParent()+ File.separatorChar + rulePath + ".class");
+			File newFile = new File(new File(destination).getParent()
+					+ File.separatorChar + rulePath + ".class"); //$NON-NLS-1$
 			
 			// Si no existe el destino y si el actual
 			if(!destinationFile.exists() && currentFile.exists()){
@@ -84,12 +96,15 @@ public class ExportImportUtilities {
 				}
 			}else{
 				if(! currentFile.exists()){
-					//falta algún fichero .class necesario en esta refactorización
+					// falta algún fichero .class necesario en esta
+					// refactorización
 					//En este caso se borra la carpeta generada en destino ya
-					//que no estará completa
+					// que no estará completa
 					FileManager.emptyDirectories(destination + File.separatorChar + definitionFolderName);
 					FileManager.deleteDirectories(destination + File.separatorChar + definitionFolderName, true);
-					throw new IOException(Messages.ExportImportUtilities_ClassesNotFound);
+					throw new IOException(
+							Messages.ExportImportUtilities_ClassesNotFound
+									+ currentFile.getPath());
 				}
 				
 			}
@@ -99,47 +114,57 @@ public class ExportImportUtilities {
 	}
 
 	/**
-	 * Divide la cadena en partes utilizando como token delim y devuelve
-	 * la última de las particiones hechas.
+	 * Divide la cadena en partes utilizando como token delim y devuelve la
+	 * última de las particiones hechas.
 	 * 
-	 * @param cadena Cadena a dividir
-	 * @param delim Token para hacer la division
+	 * @param cadena
+	 *            Cadena a dividir
+	 * @param delim
+	 *            Token para hacer la division
 	 * @return
 	 */
 	public static String splitGetLast(String cadena, String delim) {
-		String name = "";
+		String name = ""; //$NON-NLS-1$
 		StringTokenizer st_name = new StringTokenizer(cadena,delim);
 		while(st_name.hasMoreTokens()){
 			name = st_name.nextElement().toString();
 		}
 		return name;
 	}
-	
+
 	/**
-	 * Se encarga del proceso de exportación de un plan de refactorizaciones dinámicas.
+	 * Se encarga del proceso de exportación de un plan de refactorizaciones
+	 * dinámicas.
 	 * 
-	 * @param destination directorio a donde se quiere exportar el plan.
-	 * @throws IOException IOException.
-	 * @throws XMLRefactoringReaderException XMLRefactoringReaderException.
+	 * @param destination
+	 *            directorio a donde se quiere exportar el plan.
+	 * @throws IOException
+	 *             IOException.
+	 * @throws XMLRefactoringReaderException
+	 *             XMLRefactoringReaderException.
 	 */
 	public static void exportRefactoringPlan(String destination)throws IOException, XMLRefactoringReaderException{
-		if(new File(destination + "/refactoringPlan").exists()){
-			FileManager.emptyDirectories(destination + "/refactoringPlan");
-			FileManager.deleteDirectories(destination + "/refactoringPlan",true);
+		if (new File(destination + "/refactoringPlan").exists()) { //$NON-NLS-1$
+			FileManager.emptyDirectories(destination + "/refactoringPlan"); //$NON-NLS-1$
+			FileManager.deleteDirectories(
+					destination + "/refactoringPlan", true); //$NON-NLS-1$
 		}
-		//Creamos el directorio donde se guardará el plan.
-		new File(destination + "/refactoringPlan").mkdir();
-		//Copiamos el fichero xml que guarda la información relativa al plan.
+		// Creamos el directorio donde se guardará el plan.
+		new File(destination + "/refactoringPlan").mkdir(); //$NON-NLS-1$
+		// Copiamos el fichero xml que guarda la información relativa al plan.
 		String planFile = new String(RefactoringConstants.REFACTORING_PLAN_FILE);
 		String dtdFile = new String(RefactoringConstants.REFACTORING_PLAN_DTD);
 		FileManager.copyFile(new File(RefactoringConstants.REFACTORING_PLAN_FILE)
-			,new File(destination + "/refactoringPlan" 
+, new File(
+				destination + "/refactoringPlan" //$NON-NLS-1$
 					+ planFile.substring(planFile.lastIndexOf('/'))) );
 		FileManager.copyFile(new File(RefactoringConstants.REFACTORING_PLAN_DTD)
-		,new File(destination + "/refactoringPlan" 
+, new File(
+						destination + "/refactoringPlan" //$NON-NLS-1$
 				+ dtdFile.substring(dtdFile.lastIndexOf('/'))) );
 		//Creamos una carpeta donde guardaremos las refactorizaciones.
-		String refactoringDestination = destination + "/refactoringPlan/refactorings" ; 
+		String refactoringDestination = destination
+				+ "/refactoringPlan/refactorings"; //$NON-NLS-1$
 		new File(refactoringDestination).mkdir();
 		
 		//Pasamos a exportar las refactorizaciones necesarias dentro de la carpeta anterior.
@@ -149,62 +174,113 @@ public class ExportImportUtilities {
 				RefactoringConstants.DYNAMIC_REFACTORING_DIR, true, null);
 		
 		for(String next : refactorings){
-			String key = next + " (" + next + ".xml)";
-			String definition = allRefactorings.get(key);//ruta del fichero de definición de al refactorización
+			String key = next + " (" + next + ".xml)"; //$NON-NLS-1$ //$NON-NLS-2$
+			String definition = allRefactorings.get(key);// ruta del fichero de
+															// definición de al
+															// refactorización
 			ExportRefactoring(refactoringDestination ,definition,true);
 		}
 	}
-	
+
 	/**
 	 * Se encarga del proceso de importación de una refactorización dinámica.
 	 * 
-	 * @param definition ruta del fichero con la definición de la refactorización.
-	 * @param fromPlan indica si la importación de la refactorización ha sido solicitada
-	 * 	      cuando se importaba un plan de refactorizaciones.
-	 * @return nombre del fichero .class que no existe, cadena vacía en caso de que todo
-	 * 			funcione bien o folder_fail en caso de fallo al copiar la carpeta.
-	 * @throws IOException IOException
-	 * @throws XMLRefactoringReaderException XMLRefactoringReaderException
+	 * @param definition
+	 *            ruta del fichero con la definición de la refactorización.
+	 * @param importingFromPlan
+	 *            indica si la importación de la refactorización ha sido
+	 *            solicitada cuando se importaba un plan de refactorizaciones.
+	 * @throws IOException
+	 *             IOException en caso de fallo al copiar la carpeta
+	 * @throws XMLRefactoringReaderException
+	 *             XMLRefactoringReaderException
 	 */
-	public static String ImportRefactoring(String definition, boolean fromPlan) throws IOException, XMLRefactoringReaderException{
+	public static void ImportRefactoring(String definition,
+			boolean importingFromPlan) throws IOException,
+			XMLRefactoringReaderException {
 		File definitionFile = new File(definition);
-		String folder = definitionFile.getParent();
+		final String originalFolder = definitionFile.getParent();
 		String namefolder = definitionFile.getParentFile().getName();
 		
-		if (! FileManager.copyFolder(folder, 
-				RefactoringConstants.DYNAMIC_REFACTORING_DIR)){
-			return "folder_fail";
-		}
+		FileUtils.copyDirectoryToDirectory(new File(originalFolder), new File(
+				RefactoringConstants.DYNAMIC_REFACTORING_DIR));
 		
 		//Pasamos a copiar los .class de las precondiciones, postcondiciones
 		// y acciones en su lugar
 		JDOMXMLRefactoringReaderImp reader = new JDOMXMLRefactoringReaderImp(definitionFile);
 		
 		for(String predicado : reader.readMechanismRefactoring()){
-			String name = splitGetLast(predicado, ".");
-			String rutaPredicadoClass = predicado.replace('.', File.separatorChar) + ".class";
-			String rutaDirectorioPredicadoClass = RefactoringConstants.REFACTORING_CLASSES + File.separatorChar + rutaPredicadoClass;
-
-			if(!(new File(rutaDirectorioPredicadoClass).exists())){//En caso de que el fichero .class no se encuentre en el repositorio
-				if(fromPlan){
-					if(new File(new File(folder).getParentFile().getParent() + File.separatorChar + rutaPredicadoClass).exists()){							
-						FileManager.copyFile(new File(new File(folder).getParentFile().getParent() + File.separatorChar + rutaPredicadoClass),new File(rutaDirectorioPredicadoClass));		
-					}else{
-						return name;
-					}
-				}else{
-					if(new File(folder + File.separatorChar + name + ".class").exists()){							
-						FileManager.copyFile(new File(folder + File.separatorChar + name + ".class"),new File(rutaDirectorioPredicadoClass));		
-					}else{
-						return name;
-					}
-				}
-			}
-		    
+				copyRefactoringFileClassIfNeeded(importingFromPlan, originalFolder,
+						predicado);
 		}
 		
-		//actualizamos el fichero refactorings.xml que guarda la información de las refactorizaciones
-		//de la aplicación.
+		// actualizamos el fichero refactorings.xml que guarda la información de
+		// las refactorizaciones
+		// de la aplicación.
+		updateRefactoringsXml(definition, namefolder);
+
+		if (importingFromPlan) {
+			FileManager
+					.emptyDirectories(RefactoringConstants.DYNAMIC_REFACTORING_DIR
+							+ File.separatorChar
+							+ namefolder
+							+ File.separatorChar + "repository");
+			FileManager.deleteDirectories(
+					RefactoringConstants.DYNAMIC_REFACTORING_DIR
+							+ File.separatorChar + namefolder
+							+ File.separatorChar + "repository", true);
+
+		} else {
+			// Borramos los .class para no tener almacenada la misma información
+			// en dos sitios
+			deleteClassFilesFromRefactoringsDir(namefolder, reader);
+		}
+	}
+
+	/**
+	 * Copia el fichero .class asociado con una refactorizacion al directorio
+	 * que le corresponde al importarlo.
+	 * 
+	 * @param importingFromPlan
+	 *            si se importa de un plan o no
+	 * @param originalFolder
+	 *            carpeta en la que se encuentra la definicion de la
+	 *            refactorizacion
+	 * @param predicateName
+	 *            nombre del predicado
+	 * @throws IOException
+	 *             si la carpeta origen no existe
+	 */
+	private static void copyRefactoringFileClassIfNeeded(boolean importingFromPlan,
+			final String originalFolder, String predicateName)
+			throws IOException {
+		final String rutaDirectorioPredicadoClass = RefactoringConstants.REFACTORING_CLASSES
+				+ File.separatorChar
+				+ predicateName.replace('.', File.separatorChar) + ".class";
+		if (!(new File(rutaDirectorioPredicadoClass).exists())) {
+			final File originalFile = (importingFromPlan ? getClassFileFromPlanBinDir(
+					originalFolder, predicateName) : getClassFileFromBinDir(
+					originalFolder, predicateName));
+			if (originalFile.exists()) {
+				FileManager.copyFile(originalFile, new File(
+						rutaDirectorioPredicadoClass));
+
+			} else {
+				throw new FileNotFoundException(Messages.FileNotFoundMessage0
+						+ originalFile.getPath());
+			}
+		}
+	}
+
+
+	/**
+	 * Actualiza el fichero con las nuevas refactorizaciones.
+	 * 
+	 * @param definition
+	 * @param namefolder
+	 */
+	private static void updateRefactoringsXml(String definition,
+			String namefolder) {
 		try{
 			DynamicRefactoringDefinition r_definition = DynamicRefactoringDefinition.getRefactoringDefinition(
 				definition);
@@ -213,21 +289,64 @@ public class ExportImportUtilities {
 		}catch(RefactoringException e){
 			e.printStackTrace();
 		}
-		
-		if(fromPlan==false){
-			//Borramos los .class de la carpeta en la que se guarda la refactorización
-			//para no tener almacenada la misma información en dos sitios
-			for(String element : reader.readMechanismRefactoring()){
-				String name = splitGetLast(element, ".");
-				if(new File(RefactoringConstants.DYNAMIC_REFACTORING_DIR + File.separatorChar + namefolder + File.separatorChar + name + ".class").exists())
-					FileManager.deleteFile(RefactoringConstants.DYNAMIC_REFACTORING_DIR + File.separatorChar + namefolder + File.separatorChar + name + ".class");
-			}
-		}else{
-			FileManager.emptyDirectories(RefactoringConstants.DYNAMIC_REFACTORING_DIR + File.separatorChar + namefolder + File.separatorChar + "repository");
-			FileManager.deleteDirectories(RefactoringConstants.DYNAMIC_REFACTORING_DIR + File.separatorChar + namefolder + File.separatorChar +"repository",true);
+	}
+
+	/**
+	 * Elimina los ficheros de clase del directorio de refactorizaciones
+	 * (DynamicRefactorings).
+	 * 
+	 * @param namefolder
+	 * @param reader
+	 */
+	private static void deleteClassFilesFromRefactoringsDir(String namefolder,
+			JDOMXMLRefactoringReaderImp reader) {
+		for (String element : reader.readMechanismRefactoring()) {
+			String name = splitGetLast(element, "."); //$NON-NLS-1$
+			if (new File(RefactoringConstants.DYNAMIC_REFACTORING_DIR
+					+ File.separatorChar + namefolder + File.separatorChar
+					+ name + ".class").exists()) //$NON-NLS-1$
+				FileManager
+						.deleteFile(RefactoringConstants.DYNAMIC_REFACTORING_DIR
+								+ File.separatorChar
+								+ namefolder
+								+ File.separatorChar + name + ".class"); //$NON-NLS-1$
 		}
+	}
+
+	/**
+	 * Obtiene el fichero de clase de una refactorizacion que proviene de un
+	 * plan de refactorizaciones.
+	 * 
+	 * Estos ficheros se encuentran en el directorio de binarios de un plan de
+	 * refactorizaciones.
+	 * 
+	 * @param originalFolder
+	 * @param predicateName
+	 * @return
+	 */
+	private static File getClassFileFromPlanBinDir(final String originalFolder,
+			final String predicateName) {
 		
-		return "";
+		return new File(new File(originalFolder).getParentFile().getParent()
+				+ File.separatorChar
+				+ predicateName.replace('.', File.separatorChar) + ".class");
+	}
+
+	/**
+	 * Obtiene el fichero de clase de una refactorizacion que proviene de un
+	 * plan de refactorizaciones.
+	 * 
+	 * Estos ficheros se encuentran en el directorio de binarios de un plan de
+	 * refactorizaciones.
+	 * 
+	 * @param originalFolder
+	 * @param predicateName
+	 * @return
+	 */
+	private static File getClassFileFromBinDir(final String originalFolder,
+			String predicateName) {
+		final String name = splitGetLast(predicateName, ".");
+		return new File(originalFolder + File.separatorChar + name + ".class");
 	}
 
 
