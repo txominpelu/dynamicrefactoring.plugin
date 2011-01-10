@@ -20,10 +20,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.*/
 
 package dynamicrefactoring.interfaz.dynamic;
 
-import dynamicrefactoring.RefactoringConstants;
-import dynamicrefactoring.domain.RefactoringException;
-import dynamicrefactoring.util.DynamicRefactoringLister;
-
 import java.io.IOException;
 import java.text.MessageFormat;
 import java.util.HashMap;
@@ -33,6 +29,10 @@ import moon.core.ObjectMoon;
 import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.ui.PlatformUI;
+
+import dynamicrefactoring.RefactoringPlugin;
+import dynamicrefactoring.domain.RefactoringException;
+import dynamicrefactoring.util.DynamicRefactoringLister;
 
 /**
  * Construye una nueva ventana de refactorización dinámica y la abre.
@@ -44,22 +44,24 @@ public class DynamicRefactoringWindowLauncher {
 
 	/**
 	 * Constructor.
-	 *
-	 * @param currentObject objeto que constituye la entrada principal a la 
-	 * refactorización.
-	 * @param refactoringName nombre de la refactorización dinámica seleccionada.
+	 * 
+	 * @param currentObject
+	 *            objeto que constituye la entrada principal a la
+	 *            refactorización.
+	 * @param refactoringName
+	 *            nombre de la refactorización dinámica seleccionada.
 	 */
 	public DynamicRefactoringWindowLauncher(
 			ObjectMoon currentObject, String refactoringName) {
 
 		try {
 			
-			// Se comprueba que la refactorización dinámica solicitada está 
+			// Se comprueba que la refactorización dinámica solicitada está
 			// disponible.
 			DynamicRefactoringLister drlister = 
 				DynamicRefactoringLister.getInstance();
 			HashMap<String, String> list = drlister.getDynamicRefactoringNameList(
-				RefactoringConstants.DYNAMIC_REFACTORING_DIR, true, null);
+				RefactoringPlugin.getDynamicRefactoringsDir(), true, null);
 			String refactoringFilePath = 
 				list.get(refactoringName+ " (" + refactoringName + ".xml)"); //$NON-NLS-1$ //$NON-NLS-2$
 

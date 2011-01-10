@@ -2,6 +2,7 @@ package repository.java.concreterefactoring;
 
 
 import java.io.File;
+
 import javamoon.construct.source.SourceLoader;
 import javamoon.core.JavaModel;
 import javamoon.core.JavaName;
@@ -15,8 +16,6 @@ import moon.core.instruction.CodeFragment;
 import org.junit.Test;
 
 import refactoring.engine.PreconditionException;
-//import repository.RefactoringTemplateAbstractTest;
-import repository.java.concreterefactoring.RefactoringTemplateAbstractTest;
 import repository.moon.MOONRefactoring;
 import repository.moon.concreterefactoring.ExtractMethod;
 
@@ -149,20 +148,24 @@ public class ExtractMethodWithGenericsTest extends RefactoringTemplateAbstractTe
 						+ "if (a.length > size)\n"
 						+ "a[size] = null;"));
 	}
-	
+
 	/**
 	 * Ejecuta la refactorización sobre un caso determinado.
 	 * 
-	 * @param dir directorio sobre el que se encuentra el caso a probar.
-	 * @param paquete paquete java de la clase sobre la que se esta probando 
-	 * 		  la refactorización.
-	 * @throws Exception Excepción en caso de haber algún problema durante
-	 * la ejecución de la refactorización.
+	 * @param dir
+	 *            directorio sobre el que se encuentra el caso a probar.
+	 * @param paquete
+	 *            paquete java de la clase sobre la que se esta probando la
+	 *            refactorización.
+	 * @throws Exception
+	 *             Excepción en caso de haber algún problema durante la
+	 *             ejecución de la refactorización.
 	 */
 	private void check(String dir, String paquete, String nombreClase, Fragmento fragmento) throws PreconditionException,Exception{
 		SourceLoader sourceLoader = new SourceLoader();
 
-		sourceLoader.loadFromDirectoryWithBinaryLoad(ExtractMethodTest.PATH_TESTDATA 
+		sourceLoader
+				.loadFromDirectoryWithBinaryLoad(ExtractMethodTest.PATH_TESTDATA
 				+ this.getClass().getSimpleName().replace(".", File.separator) + File.separator + dir + File.separator + "before");
 		
 		JavaModel jm = JavaModel.getInstance();
@@ -195,11 +198,12 @@ public class ExtractMethodWithGenericsTest extends RefactoringTemplateAbstractTe
 		
 		System.out.println(target);
 	}
-	
+
 	/**
 	 * Extract method with bounded unknown type with formal parameter.
-	 *    
-	 * @throws Exception si se produce un error durante la ejecución de la prueba.
+	 * 
+	 * @throws Exception
+	 *             si se produce un error durante la ejecución de la prueba.
 	 */
 	@Test
 	public void testExtractMethodWithBoundedUnknownTypeWithFormalParameter() throws Exception{

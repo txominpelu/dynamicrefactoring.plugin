@@ -26,19 +26,18 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.Scanner;
 
-import repository.moon.MOONRefactoring;
-
 import javamoon.construct.binary.BinaryLoader;
 import javamoon.construct.source.SourceLoader;
 import javamoon.core.JavaModel;
 import javamoon.utils.Comparator;
 import javamoon.utils.EclipsePrettyPrinter;
 import junit.framework.TestCase;
+import repository.moon.MOONRefactoring;
 
 /**
  * Refactoring test template.
  * 
- * @author Ra�l Marticorena
+ * @author Raul Marticorena
  * @since JavaMoon-2.1.0
  */
 public abstract class RefactoringTemplateAbstractTest extends TestCase{
@@ -52,7 +51,7 @@ public abstract class RefactoringTemplateAbstractTest extends TestCase{
 	 * Binary jar file with basic classes.
 	 * 
 	 */
-	public static final String JARFILE = "mini-java-1.6.0_02.jar";
+	public static final String JARFILE = "mini-java-extendido-1.6.0_02.jar";
 	
 	/**
 	 * Binary jar file with JUnit basic classes.
@@ -76,15 +75,22 @@ public abstract class RefactoringTemplateAbstractTest extends TestCase{
 	 */
     public void setUp() throws Exception{     	
     	
-    		BinaryLoader bl = new BinaryLoader();		
-    		bl.addClassesFromPackageInJar("java.lang", "." + File.separator + "jarFiles" + File.separator + JARFILE);
-    		bl.addClassesFromPackageInJar("java.lang.annotation", "." + File.separator + "jarFiles" + File.separator + JARFILE);
-    		bl.addClassesFromPackageInJar("java.util", "." + File.separator + "jarFiles" + File.separator + JARFILE);
-    		bl.addClassesFromPackageInJar("java.io", "." + File.separator + "jarFiles" + File.separator + JARFILE);		
-    		bl.addClassesFromPackageInJar("org.junit", "." + File.separator + "jarFiles" + File.separator + JUNITJARFILE);
-    		bl.addClassesFromPackageInJar("junit.framework", "." + File.separator + "jarFiles" + File.separator + JUNITJARFILE);    		
-    		bl.addClassesFromPackageInJar("junit.textui", "." + File.separator + "jarfiles" + File.separator + JUNITJARFILE);
-    		bl.load();  	
+		BinaryLoader bl = new BinaryLoader();
+		bl.addClassesFromPackageInJar("java.lang", "." + File.separator
+				+ "jarFiles" + File.separator + JARFILE);
+		bl.addClassesFromPackageInJar("java.lang.annotation", "."
+				+ File.separator + "jarFiles" + File.separator + JARFILE);
+		bl.addClassesFromPackageInJar("java.util", "." + File.separator
+				+ "jarFiles" + File.separator + JARFILE);
+		bl.addClassesFromPackageInJar("java.io", "." + File.separator
+				+ "jarFiles" + File.separator + JARFILE);
+		bl.addClassesFromPackageInJar("org.junit", "." + File.separator
+				+ "jarFiles" + File.separator + JUNITJARFILE);
+		bl.addClassesFromPackageInJar("junit.framework", "." + File.separator
+				+ "jarFiles" + File.separator + JUNITJARFILE);
+		bl.addClassesFromPackageInJar("junit.textui", "." + File.separator
+				+ "jarFiles" + File.separator + JUNITJARFILE);
+		bl.load();
     		
    	
     }    

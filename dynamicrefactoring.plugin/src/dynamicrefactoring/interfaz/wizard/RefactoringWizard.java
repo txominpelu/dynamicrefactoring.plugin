@@ -314,7 +314,7 @@ public class RefactoringWizard extends Wizard implements INewWizard {
 		try {
 			
 			File destination = new File(
-				RefactoringConstants.DYNAMIC_REFACTORING_DIR +
+				RefactoringPlugin.getDynamicRefactoringsDir() +
 				System.getProperty("file.separator") +  //$NON-NLS-1$
 				refactoring.getName());
 
@@ -360,7 +360,7 @@ public class RefactoringWizard extends Wizard implements INewWizard {
 				//de la aplicación.
 				int scope = new ScopeLimitedLister().getRefactoringScope(refactoring);
 				new JDOMXMLRefactoringWriterImp(null).addNewRefactoringToXml(scope,refactoring.getName()
-						,RefactoringConstants.DYNAMIC_REFACTORING_DIR + "/" + refactoring.getName()
+						,RefactoringPlugin.getDynamicRefactoringsDir() + "/" + refactoring.getName()
 							+ "/" + refactoring.getName() + ".xml");
 			}
 			
@@ -381,7 +381,7 @@ public class RefactoringWizard extends Wizard implements INewWizard {
 					JDOMXMLRefactoringWriterImp writer = new JDOMXMLRefactoringWriterImp(null);
 					writer.deleteRefactoringFromXml(originalScope ,originalName );
 					writer.addNewRefactoringToXml(scope,refactoring.getName() ,
-						RefactoringConstants.DYNAMIC_REFACTORING_DIR + "/" + refactoring.getName()
+						RefactoringPlugin.getDynamicRefactoringsDir() + "/" + refactoring.getName()
 							+ "/" + refactoring.getName() + ".xml");
 				}
 					
@@ -536,7 +536,7 @@ public class RefactoringWizard extends Wizard implements INewWizard {
 	private void renameResources(File destination) throws IOException {
 		// Se busca el directorio con el nombre original.
 		File folder = new File(
-			RefactoringConstants.DYNAMIC_REFACTORING_DIR +
+			RefactoringPlugin.getDynamicRefactoringsDir() +
 			System.getProperty("file.separator") + originalName); //$NON-NLS-1$
 		// Si se encuentra.
 		if (folder.exists() && folder.isDirectory())

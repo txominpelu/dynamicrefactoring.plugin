@@ -49,7 +49,8 @@ public class RefactoringConstants {
 	 * dinámicas clasificadas según el tipo de entrada principal.
 	 */
 	public static final String REFACTORING_TYPES_FILE = RefactoringPlugin
-			.getDynamicRefactoringsDir() + "refactorings.xml";
+			.getDefault().getStateLocation().toOSString()
+			+ "/refactorings.xml";
 
 	/**
 	 * Directorio temporal donde almacenar el classpath temporal que se utiliza
@@ -60,13 +61,17 @@ public class RefactoringConstants {
 	/**
 	 * Fichero DTD que contiene la estructura del REFACTORING_PLAN_FILE.
 	 */
-	public static final String REFACTORING_PLAN_DTD= RefactoringPlugin.getDefault().getBundleRootDir() + "refactoringPlanDTD.dtd";
+	public static final String REFACTORING_PLAN_DTD = RefactoringPlugin
+			.getDefault().getStateLocation().toOSString()
+			+ "/refactoringPlanDTD.dtd";
 
 	/**
 	 * Nombre del fichero en el que se guardan las distintas refactorizaciones
 	 * dinámicas que han sido ejecutadas dentro de la aplicación.
 	 */
-	public static final String REFACTORING_PLAN_FILE= RefactoringPlugin.getDefault().getBundleRootDir() + "refactoringPlan.xml";
+	public static final String REFACTORING_PLAN_FILE = RefactoringPlugin
+			.getDefault().getStateLocation().toOSString()
+			+ "/refactoringPlan.xml";
 	
 	/**
 	 * Nombre completamente cualificado del paquete que contiene los predicados
@@ -81,21 +86,13 @@ public class RefactoringConstants {
 	 */
 	public static final String ACTIONS_PACKAGE = 
 		"repository.moon.concreteaction."; //$NON-NLS-1$
-
-	/**
-	 * Ruta al directorio donde se encuentran las definiciones de las
-	 * refactorizaciones dinámicas.
-	 */
-	public static final String DYNAMIC_REFACTORING_DIR = 
-		RefactoringPlugin.getDefault().getBundleRootDir() +
-		"DynamicRefactorings"; //$NON-NLS-1$
 	
 	/**
 	 * Ruta al directorio donde se encuentran las clases del plugin.
 	 */
-	public static final String REFACTORING_CLASSES = 
-		RefactoringPlugin.getDefault().getBundleRootDir() +
-		"bin"; //$NON-NLS-1$
+	public static final String REFACTORING_CLASSES_DIR = RefactoringPlugin
+			.getDefault().getStateLocation().toOSString()
+			+ "/bin/"; //$NON-NLS-1$
 	
 	/**
 	 * Ruta al directorio donde se encuentran los documentos javadoc.

@@ -237,7 +237,7 @@ public class ImportPlanWizard extends Dialog {
 		try {
 			existing = DynamicRefactoringLister.getInstance().
 				getDynamicRefactoringNameList(
-					RefactoringConstants.DYNAMIC_REFACTORING_DIR, true, null);
+					RefactoringPlugin.getDynamicRefactoringsDir(), true, null);
 		}
 		catch(Exception exception){
 			logger.error(Messages.ImportPlanWizard_ErrorBuilding +
@@ -716,8 +716,8 @@ public class ImportPlanWizard extends Dialog {
 							while(st_namefolder.hasMoreTokens()){
 								namefolder = st_namefolder.nextElement().toString();
 							}
-							FileManager.emptyDirectories(RefactoringConstants.DYNAMIC_REFACTORING_DIR + "" + File.separatorChar + "" + namefolder); //$NON-NLS-1$
-							FileManager.deleteDirectories(RefactoringConstants.DYNAMIC_REFACTORING_DIR + "" + File.separatorChar + "" + namefolder, true); //$NON-NLS-1$
+							FileManager.emptyDirectories(RefactoringPlugin.getDynamicRefactoringsDir() + "" + File.separatorChar + "" + namefolder); //$NON-NLS-1$
+							FileManager.deleteDirectories(RefactoringPlugin.getDynamicRefactoringsDir() + "" + File.separatorChar + "" + namefolder, true); //$NON-NLS-1$
 						throw e; //$NON-NLS-1$
 	
 					} catch (IOException e) {

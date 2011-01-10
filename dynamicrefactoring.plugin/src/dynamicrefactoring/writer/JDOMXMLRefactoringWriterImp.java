@@ -35,6 +35,7 @@ import org.jdom.output.Format;
 import org.jdom.output.XMLOutputter;
 
 import dynamicrefactoring.RefactoringConstants;
+import dynamicrefactoring.RefactoringPlugin;
 import dynamicrefactoring.domain.DynamicRefactoringDefinition;
 import dynamicrefactoring.interfaz.SelectRefactoringWindow;
 import dynamicrefactoring.interfaz.dynamic.RepositoryElementProcessor;
@@ -327,7 +328,7 @@ public class JDOMXMLRefactoringWriterImp implements XMLRefactoringWriterImp {
 	 */
 	public void renameRefactoringIntoXml(int scope, String newName, String originalName) throws XMLRefactoringReaderException{
 		
-		String path = RefactoringConstants.DYNAMIC_REFACTORING_DIR + "/" + newName
+		String path = RefactoringPlugin.getDynamicRefactoringsDir() + "/" + newName
 		+ "/" + newName + ".xml";
 		try {
 			SAXBuilder builder = new SAXBuilder(true);

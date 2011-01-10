@@ -34,7 +34,7 @@ import org.eclipse.jface.window.IShellProvider;
 import org.eclipse.swt.widgets.List;
 import org.eclipse.swt.widgets.Shell;
 
-import dynamicrefactoring.RefactoringConstants;
+import dynamicrefactoring.RefactoringPlugin;
 import dynamicrefactoring.domain.DynamicRefactoringDefinition;
 import dynamicrefactoring.domain.RefactoringException;
 import dynamicrefactoring.util.DynamicRefactoringLister;
@@ -53,12 +53,14 @@ public abstract class DynamicRefactoringList extends Dialog {
 	 * Elemento de registro de errores y otros eventos de la clase.
 	 */
 	protected static Logger logger = Logger.getLogger(DynamicRefactoringList.class);
-	
+
 	/**
 	 * Tabla de refactorizaciones disponibles.
 	 * 
-	 * <p>Se utiliza como clave el nombre de la refactorización y como valor
-	 * la propia representación de la definición de la refactorización.</p>
+	 * <p>
+	 * Se utiliza como clave el nombre de la refactorización y como valor la
+	 * propia representación de la definición de la refactorización.
+	 * </p>
 	 */
 	protected HashMap<String, DynamicRefactoringDefinition> refactorings;
 	
@@ -80,7 +82,8 @@ public abstract class DynamicRefactoringList extends Dialog {
 	/**
 	 * Constructor.
 	 * 
-	 * @param parentShell <i>shell</i> padre del diálogo.
+	 * @param parentShell
+	 *            <i>shell</i> padre del diálogo.
 	 */
 	public DynamicRefactoringList(Shell parentShell) {
 		super(parentShell);
@@ -89,7 +92,8 @@ public abstract class DynamicRefactoringList extends Dialog {
 	/**
 	 * Constructor.
 	 * 
-	 * @param parentShell <i>shell</i> padre del diálogo.
+	 * @param parentShell
+	 *            <i>shell</i> padre del diálogo.
 	 */
 	public DynamicRefactoringList(IShellProvider parentShell) {
 		super(parentShell);
@@ -105,7 +109,7 @@ public abstract class DynamicRefactoringList extends Dialog {
 			// Se obtiene la lista de todas las refactorizaciones disponibles.
 			HashMap<String, String> allRefactorings = 
 				listing.getDynamicRefactoringNameList(
-					RefactoringConstants.DYNAMIC_REFACTORING_DIR, true, null);
+					RefactoringPlugin.getDynamicRefactoringsDir(), true, null);
 			
 			refactoringNames = new ArrayList<String>();
 			refactoringLocations = new HashMap<String, String>();
@@ -141,10 +145,10 @@ public abstract class DynamicRefactoringList extends Dialog {
 				".\n" + e.getMessage()); //$NON-NLS-1$
 		}
 	}
-	
+
 	/**
-	 * Puebla la tabla de refactorizaciones disponibles con los nombres ordenados
-	 * alfabéticamente de las refactorizaciones.
+	 * Puebla la tabla de refactorizaciones disponibles con los nombres
+	 * ordenados alfabéticamente de las refactorizaciones.
 	 */
 	protected void fillInRefactoringList(){
 		Collections.sort(refactoringNames);

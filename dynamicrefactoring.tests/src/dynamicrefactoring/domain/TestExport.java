@@ -20,21 +20,22 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.*/
 
 package dynamicrefactoring.domain;
 
-import org.apache.commons.io.FileUtils;
-import org.apache.commons.io.FilenameUtils;
-import org.junit.Test;
+import static org.junit.Assert.assertEquals;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.StringTokenizer;
 
-import dynamicrefactoring.util.io.FileManager;
+import org.apache.commons.io.FileUtils;
+import org.apache.commons.io.FilenameUtils;
+import org.junit.After;
+import org.junit.Before;
+import org.junit.Test;
+
 import dynamicrefactoring.RefactoringConstants;
-import dynamicrefactoring.domain.ExportImportUtilities;
+import dynamicrefactoring.RefactoringPlugin;
 import dynamicrefactoring.reader.JDOMXMLRefactoringReaderImp;
 import dynamicrefactoring.reader.XMLRefactoringReaderException;
-
-import static org.junit.Assert.*;
+import dynamicrefactoring.util.io.FileManager;
 
 /**
  * Comprueba que funciona correctamente el proceso de exportación de
@@ -44,6 +45,23 @@ import static org.junit.Assert.*;
  * 
  */
 public class TestExport {
+
+	private static final String RENAME_CLASS_XML_FILE = FilenameUtils.separatorsToSystem(RefactoringPlugin.getDynamicRefactoringsDir()
+					+ "\\Rename Class\\Rename Class.xml");
+	private static final String TEMP_DIR = FilenameUtils
+			.separatorsToSystem(".\\temp");
+
+	@Before
+	public void setUp() {
+		FileManager.createDir(TEMP_DIR);
+	}
+
+	@After
+	public void tearDown() {
+		// Borramos el directorio temporal al final del test
+		FileManager.emptyDirectories(TEMP_DIR);
+		FileManager.deleteDirectories(TEMP_DIR, true);
+	}
 
 	/**
 	 * Comprueba que el proceso de exportación de la refactorización dinámica
@@ -58,35 +76,28 @@ public class TestExport {
 	@Test
 	public void testExportRefactoring() throws XMLRefactoringReaderException,
 			IOException {
-		String destination = FilenameUtils.separatorsToSystem(".\\temp");
-		FileManager.createDir(destination);
-
-		String definition = FilenameUtils
-				.separatorsToSystem(RefactoringConstants.DYNAMIC_REFACTORING_DIR
-						+ "\\Rename Class\\Rename Class.xml");
 
 		// Primero exportamos la refactorización Rename Class a un directorio
 		// temporal que luego eliminaremos
-		ExportImportUtilities.ExportRefactoring(destination, definition, false);
+		ExportImportUtilities.ExportRefactoring(TEMP_DIR,
+				RENAME_CLASS_XML_FILE, false);
 
 		JDOMXMLRefactoringReaderImp reader = new JDOMXMLRefactoringReaderImp(
-				new File(definition));
+				new File(RENAME_CLASS_XML_FILE));
 
 		for (String element : reader.readMechanismRefactoring()) {
 
 			String name = FilenameUtils.getName(ExportImportUtilities
 					.splitGetLast(element, "."));
-			String namefolder = FilenameUtils.getName(new File(definition)
+			String namefolder = FilenameUtils.getName(new File(
+					RENAME_CLASS_XML_FILE)
 					.getParent());
 
-			File resultFile = new File(destination + File.separatorChar
+			File resultFile = new File(TEMP_DIR + File.separatorChar
 					+ namefolder + File.separatorChar + name + ".class");
 			assertEquals(true, resultFile.exists());
 		}
 
-		// Borramos el directorio temporal al final del test
-		FileManager.emptyDirectories(destination);
-		FileManager.deleteDirectories(destination, true);
 	}
 
 	/**
@@ -99,22 +110,18 @@ public class TestExport {
 	 * @throws IOException
 	 *             IOException.
 	 */
-	@Test(expected = IOException.class)
+	@Test
 	public void testExportFileNotExists() throws XMLRefactoringReaderException,
 			IOException {
 		
-		String destination = FilenameUtils.separatorsToSystem(".\\temp");
-		String refactoringName = "RenameClass.class";
-		
-		FileManager.createDir(destination);
-		String definition = FilenameUtils.separatorsToSystem(RefactoringConstants.DYNAMIC_REFACTORING_DIR
-				+ "\\Rename Class\\Rename Class.xml");
+		final String refactoringName = "RenameClass.class";
 
-		File definitionFile = new File(definition);
-		File definitionFolder = definitionFile.getParentFile();
-		String definitionFolderName = definitionFolder.getName();
-		String ficheroOrigen = FilenameUtils.separatorsToSystem(
-		".\\bin\\repository\\moon\\concreteaction\\" + refactoringName);
+		final String definitionFolderName = new File(RENAME_CLASS_XML_FILE)
+				.getParentFile().getName();
+		final String ficheroOrigen = FilenameUtils
+				.separatorsToSystem(RefactoringConstants.REFACTORING_CLASSES_DIR
+						+ "repository\\moon\\concreteaction\\"
+						+ refactoringName);
 
 		try {
 			// Copiamos uno de los ficheros .class que necesita la
@@ -123,31 +130,30 @@ public class TestExport {
 			// excepción.
 			
 
-			FileUtils.copyFileToDirectory(new File(ficheroOrigen),new File(destination));
+			FileUtils.copyFileToDirectory(new File(ficheroOrigen), new File(
+					TEMP_DIR));
 			FileManager.deleteFile(ficheroOrigen);
 
-			ExportImportUtilities.ExportRefactoring(destination, definition,false);
+			ExportImportUtilities.ExportRefactoring(TEMP_DIR,
+					RENAME_CLASS_XML_FILE, false);
 
 		} catch (IOException e) {
 			// Comprobamos que el directorio en el que se generaría la
 			// refactorización no existe al no
 			// poderse completar la operación.
-			assertEquals(false,
-					new File(destination + File.separatorChar + definitionFolderName).exists());
+			assertEquals(false, new File(TEMP_DIR + File.separatorChar
+					+ definitionFolderName).exists());
 
 			// Reponemos el fichero .class que habíamos borrado para comprobar
 			// que saltaba la
 			// excepción.
 			
-			FileManager.copyFile(new File(destination + File.separatorChar + refactoringName),
+			FileManager.copyFile(new File(TEMP_DIR + File.separatorChar
+					+ refactoringName),
 							new File(ficheroOrigen));
 
 			assertEquals(true,new File(ficheroOrigen).exists());
 
-			// Borramos el directorio temporal al final del test
-			FileManager.emptyDirectories(destination);
-			FileManager.deleteDirectories(destination, true);
-			throw e;
 		}
 	}
 

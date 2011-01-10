@@ -20,45 +20,97 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.*/
 
 package dynamicrefactoring.writer;
 
-import dynamicrefactoring.RefactoringConstants;
-import dynamicrefactoring.writer.JDOMXMLRefactoringWriterImp;
-import dynamicrefactoring.interfaz.SelectRefactoringWindow;
-import dynamicrefactoring.reader.JDOMXMLRefactoringReaderImp;
-import dynamicrefactoring.util.io.FileManager;
+import static org.junit.Assert.assertEquals;
 
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
-import java.util.*;
+import java.io.IOException;
+import java.util.HashMap;
 
-import static org.junit.Assert.*;
+import org.junit.After;
+import org.junit.Before;
+import org.junit.Test;
 
-import org.junit.Test; 
-
+import dynamicrefactoring.RefactoringConstants;
+import dynamicrefactoring.RefactoringPlugin;
+import dynamicrefactoring.interfaz.SelectRefactoringWindow;
+import dynamicrefactoring.reader.JDOMXMLRefactoringReaderImp;
+import dynamicrefactoring.util.io.FileManager;
 
 /**
- * Comprueba que funciona correctamente el proceso de escritura de las refactorizaciones
- * disponibles para cada ámbito.
+ * Comprueba que funciona correctamente el proceso de escritura de las
+ * refactorizaciones disponibles para cada ámbito.
  * 
  * @author <A HREF="mailto:lfd0002@alu.ubu.es">Laura Fuente de la Fuente</A>
  * 
  */
 public class TestAvailableRefactoringsWriter{
 
+	@Before
+	public void testSetup() throws IOException {
+		manageDirectories();
+	}
+
+	/**
+	 * Prepara los directorios al estado necesario antes de ejecutar los tests.
+	 * 
+	 * @throws IOException
+	 */
+	private void manageDirectories() throws IOException {
+		FileManager.copyFolder(RefactoringPlugin.getDynamicRefactoringsDir(),
+				"./testdata/XML/Writer/availableRefactorings");
+		FileManager.emptyDirectories(RefactoringPlugin
+				.getDynamicRefactoringsDir());
+		FileManager.deleteDirectories(
+				RefactoringPlugin.getDynamicRefactoringsDir(), false);
+	}
+
+	@After
+	public void tearDown() throws IOException {
+		restoreDirectories();
+	}
+
+	/**
+	 * Devuelve el estado de los directorios al estado inicial antes de iniciar
+	 * los tests.
+	 * 
+	 * @throws IOException
+	 */
+	private void restoreDirectories() throws IOException {
+		// Reponemos las refactorizaciones que habia antes
+		FileManager.emptyDirectories(RefactoringPlugin
+				.getDynamicRefactoringsDir());
+		FileManager.deleteDirectories(
+				RefactoringPlugin.getDynamicRefactoringsDir(), false);
+		FileManager
+				.copyFolder(
+						"./testdata/XML/Writer/availableRefactorings/DynamicRefactorings",
+						new File(RefactoringPlugin.getDynamicRefactoringsDir())
+								.getParent());
+		// Borramos la carpeta con las refactorizaciones del directorio temporal
+		FileManager
+				.emptyDirectories("./testdata/XML/Writer/availableRefactorings/DynamicRefactorings");
+		FileManager
+				.deleteDirectories(
+						"./testdata/XML/Writer/availableRefactorings/DynamicRefactorings",
+						true);
+		// Borramos el archivo generado para dejar la aplicación como se
+		// encontraba.
+		FileManager.deleteFile(RefactoringConstants.REFACTORING_TYPES_FILE);
+	}
+
 	/**
 	 * Comprueba que la escritura se realiza correctamente cuando se añade la
 	 * información mínima necesaria. Es decir no hay ninguna refactorización en
 	 * la aplicación.
 	 * 
-	 *
-	 * @throws Exception si se produce un error al escribir.
+	 * 
+	 * @throws Exception
+	 *             si se produce un error al escribir.
 	 */
 	@Test
 	public void testWritingWithMinimunInformation() throws Exception{
-		FileManager.copyFolder(RefactoringConstants.DYNAMIC_REFACTORING_DIR, 
-				"./testdata/XML/Writer/availableRefactorings");
-		FileManager.emptyDirectories(RefactoringConstants.DYNAMIC_REFACTORING_DIR);
-		FileManager.deleteDirectories(RefactoringConstants.DYNAMIC_REFACTORING_DIR, false);
 		
 		new JDOMXMLRefactoringWriterImp(null).writeFileToLoadRefactoringTypes();
 		
@@ -79,39 +131,23 @@ public class TestAvailableRefactoringsWriter{
 		}
 		fr1.close();
 		fr2.close();
-		
-		//Reponemos las refactorizaciones que habia antes
-		FileManager.copyFolder("./testdata/XML/Writer/availableRefactorings/DynamicRefactorings",
-				new File(RefactoringConstants.DYNAMIC_REFACTORING_DIR).getParent());
-		//Borramos la carpeta con las refactorizaciones del directorio temporal
-		FileManager.emptyDirectories("./testdata/XML/Writer/availableRefactorings/DynamicRefactorings");
-		FileManager.deleteDirectories("./testdata/XML/Writer/availableRefactorings/DynamicRefactorings", true);
-		//Borramos el archivo generado para dejar la aplicación como se encontraba.
-		FileManager.deleteFile(RefactoringConstants.REFACTORING_TYPES_FILE);
 	}
 
 	/**
-	 * Comprueba que la escritura se realiza correctamente cuando solo hay refactoriozaciones
-	 * de algunos ámbitos y de otros no.
+	 * Comprueba que la escritura se realiza correctamente cuando solo hay
+	 * refactorizaciones de algunos ámbitos y de otros no.
 	 * 
 	 * 
-	 * @throws Exception si se produce un error durante la escritura.
+	 * @throws Exception
+	 *             si se produce un error durante la escritura.
 	 */
 	@Test
 	public void testWritingSomeScopes() throws Exception{
-		FileManager.copyFolder(RefactoringConstants.DYNAMIC_REFACTORING_DIR, 
-		"./testdata/XML/Writer/availableRefactorings");
-		FileManager.emptyDirectories(RefactoringConstants.DYNAMIC_REFACTORING_DIR);
-		FileManager.deleteDirectories(RefactoringConstants.DYNAMIC_REFACTORING_DIR, false);
-		for(File f : new File("./testdata/XML/Writer/availableRefactorings" +
-				"/someScopes").listFiles()){
-			if(f.isDirectory())
-				FileManager.copyFolder(f.getPath(),RefactoringConstants.DYNAMIC_REFACTORING_DIR);
-			else{
-				FileManager.copyFile(f,new File(RefactoringConstants.DYNAMIC_REFACTORING_DIR 
-						 + File.separator + f.getName()));
-			}
-		}
+
+		String availableRefactoringsSomeScopesDir = "testdata/XML/Writer/availableRefactorings/someScopes";
+		FileManager.copyBundleDirToFileSystem(
+				availableRefactoringsSomeScopesDir,
+				RefactoringPlugin.getDynamicRefactoringsDir());
 
 		new JDOMXMLRefactoringWriterImp(null).writeFileToLoadRefactoringTypes();
 		
@@ -128,12 +164,17 @@ public class TestAvailableRefactoringsWriter{
 					RefactoringConstants.REFACTORING_TYPES_FILE);
 	
 		assertEquals(2,refactorings.size());
-		assertEquals(refactorings.get("Add Parameter"),
-				RefactoringConstants.DYNAMIC_REFACTORING_DIR 
-				+ File.separatorChar + "Add Parameter" + File.separatorChar + "Add Parameter.xml");
+		assertEquals(
+				RefactoringPlugin.getDynamicRefactoringsDir()
+						+ availableRefactoringsSomeScopesDir
+ + File.separatorChar
+				+ "Add Parameter" + File.separatorChar + "Add Parameter.xml",
+				refactorings.get("Add Parameter"));
 		assertEquals(refactorings.get("AddOverrideAnnotation"),
-				RefactoringConstants.DYNAMIC_REFACTORING_DIR
-				+"" + File.separatorChar + "AddOverrideAnnotation" + File.separatorChar + "AddOverrideAnnotation.xml");
+				RefactoringPlugin.getDynamicRefactoringsDir()
+						+ availableRefactoringsSomeScopesDir
+						+ File.separatorChar + "AddOverrideAnnotation"
+						+ File.separatorChar + "AddOverrideAnnotation.xml");
 		
 		refactorings 
 		=new JDOMXMLRefactoringReaderImp().readAvailableRefactorings
@@ -142,8 +183,10 @@ public class TestAvailableRefactoringsWriter{
 	
 		assertEquals(1,refactorings.size());
 		assertEquals(refactorings.get("Move Field"),
-				RefactoringConstants.DYNAMIC_REFACTORING_DIR	
-				+ "" + File.separatorChar + "Move Field" + File.separatorChar + "Move Field.xml");
+				RefactoringPlugin.getDynamicRefactoringsDir()	
+						+ availableRefactoringsSomeScopesDir
+						+ File.separatorChar + "Move Field"
+						+ File.separatorChar + "Move Field.xml");
 		
 		refactorings 
 		=new JDOMXMLRefactoringReaderImp().readAvailableRefactorings
@@ -159,41 +202,24 @@ public class TestAvailableRefactoringsWriter{
 	
 		assertEquals(0,refactorings.size());
 
-		//Reponemos las refactorizaciones que habia antes
-		FileManager.emptyDirectories(RefactoringConstants.DYNAMIC_REFACTORING_DIR);
-		FileManager.deleteDirectories(RefactoringConstants.DYNAMIC_REFACTORING_DIR, false);
-		FileManager.copyFolder("./testdata/XML/Writer/availableRefactorings/DynamicRefactorings",
-				new File(RefactoringConstants.DYNAMIC_REFACTORING_DIR).getParent());
-		//Borramos la carpeta con las refactorizaciones del directorio temporal
-		FileManager.emptyDirectories("./testdata/XML/Writer/availableRefactorings/DynamicRefactorings");
-		FileManager.deleteDirectories("./testdata/XML/Writer/availableRefactorings/DynamicRefactorings", true);
-		//Borramos el archivo generado para dejar la aplicación como se encontraba.
-		FileManager.deleteFile(RefactoringConstants.REFACTORING_TYPES_FILE);
+
 	}
-	
-	
+
 	/**
-	 * Comprueba que la escritura se realiza correctamente cuando hay refactoriozaciones
-	 * de todos los ámbitos.
+	 * Comprueba que la escritura se realiza correctamente cuando hay
+	 * refactoriozaciones de todos los ámbitos.
 	 * 
 	 * 
-	 * @throws Exception si se produce un error durante la escritura.
+	 * @throws Exception
+	 *             si se produce un error durante la escritura.
 	 */
 	@Test
 	public void testWritingAllScopes() throws Exception{
-		FileManager.copyFolder(RefactoringConstants.DYNAMIC_REFACTORING_DIR, 
-		"./testdata/XML/Writer/availableRefactorings");
-		FileManager.emptyDirectories(RefactoringConstants.DYNAMIC_REFACTORING_DIR);
-		FileManager.deleteDirectories(RefactoringConstants.DYNAMIC_REFACTORING_DIR, false);
-		for(File f : new File("./testdata/XML/Writer/availableRefactorings" +
-				"/allScopes").listFiles()){
-			if(f.isDirectory())
-				FileManager.copyFolder(f.getPath(),RefactoringConstants.DYNAMIC_REFACTORING_DIR);
-			else{
-				FileManager.copyFile(f,new File(RefactoringConstants.DYNAMIC_REFACTORING_DIR 
-						 + File.separator + f.getName()));
-			}
-		}
+
+		String availableRefactoringsSomeScopesDir = "testdata/XML/Writer/availableRefactorings/allScopes";
+		FileManager.copyBundleDirToFileSystem(
+				availableRefactoringsSomeScopesDir,
+				RefactoringPlugin.getDynamicRefactoringsDir());
 
 		new JDOMXMLRefactoringWriterImp(null).writeFileToLoadRefactoringTypes();
 		
@@ -204,8 +230,10 @@ public class TestAvailableRefactoringsWriter{
 	
 		assertEquals(1,refactorings.size());
 		assertEquals(refactorings.get("EnumeratedTypes"),
-				RefactoringConstants.DYNAMIC_REFACTORING_DIR 
-				+ "" + File.separatorChar + "EnumeratedTypes" + File.separatorChar + "EnumeratedTypes.xml");
+				RefactoringPlugin.getDynamicRefactoringsDir() 
+						+ availableRefactoringsSomeScopesDir
+						+ File.separatorChar + "EnumeratedTypes"
+						+ File.separatorChar + "EnumeratedTypes.xml");
 		
 		refactorings 
 		=new JDOMXMLRefactoringReaderImp().readAvailableRefactorings
@@ -214,8 +242,10 @@ public class TestAvailableRefactoringsWriter{
 	
 		assertEquals(1,refactorings.size());
 		assertEquals(refactorings.get("Add Parameter"),
-				RefactoringConstants.DYNAMIC_REFACTORING_DIR 
-				+ "" + File.separatorChar + "Add Parameter" + File.separatorChar + "Add Parameter.xml");
+				RefactoringPlugin.getDynamicRefactoringsDir() 
+						+ availableRefactoringsSomeScopesDir
+						+ File.separatorChar + "Add Parameter"
+						+ File.separatorChar + "Add Parameter.xml");
 		
 		refactorings 
 		=new JDOMXMLRefactoringReaderImp().readAvailableRefactorings
@@ -224,8 +254,10 @@ public class TestAvailableRefactoringsWriter{
 	
 		assertEquals(1,refactorings.size());
 		assertEquals(refactorings.get("Move Field"),
-				RefactoringConstants.DYNAMIC_REFACTORING_DIR	
-				+ "" + File.separatorChar + "Move Field" + File.separatorChar + "Move Field.xml");
+				RefactoringPlugin.getDynamicRefactoringsDir()	
+						+ availableRefactoringsSomeScopesDir
+						+ File.separatorChar + "Move Field"
+						+ File.separatorChar + "Move Field.xml");
 		
 		refactorings 
 		=new JDOMXMLRefactoringReaderImp().readAvailableRefactorings
@@ -234,8 +266,10 @@ public class TestAvailableRefactoringsWriter{
 	
 		assertEquals(1,refactorings.size());
 		assertEquals(refactorings.get("Remove Parameter"),
-				RefactoringConstants.DYNAMIC_REFACTORING_DIR
-				+ "" + File.separatorChar + "Remove Parameter" + File.separatorChar + "Remove Parameter.xml");
+				RefactoringPlugin.getDynamicRefactoringsDir()
+						+ availableRefactoringsSomeScopesDir
+						+ File.separatorChar + "Remove Parameter"
+						+ File.separatorChar + "Remove Parameter.xml");
 		
 		refactorings 
 		=new JDOMXMLRefactoringReaderImp().readAvailableRefactorings
@@ -244,8 +278,10 @@ public class TestAvailableRefactoringsWriter{
 	
 		assertEquals(1,refactorings.size());
 		assertEquals(refactorings.get("Specialize Bound S"),
-				RefactoringConstants.DYNAMIC_REFACTORING_DIR	
-				+ "" + File.separatorChar + "Specialize Bound S" + File.separatorChar + "Specialize Bound S.xml");
+				RefactoringPlugin.getDynamicRefactoringsDir()	
+						+ availableRefactoringsSomeScopesDir
+						+ File.separatorChar + "Specialize Bound S"
+						+ File.separatorChar + "Specialize Bound S.xml");
 		
 		refactorings 
 		=new JDOMXMLRefactoringReaderImp().readAvailableRefactorings
@@ -254,51 +290,42 @@ public class TestAvailableRefactoringsWriter{
 	
 		assertEquals(1,refactorings.size());
 		assertEquals(refactorings.get("ExtractMethod"),
-				RefactoringConstants.DYNAMIC_REFACTORING_DIR	
-				+ "" + File.separatorChar + "ExtractMethod" + File.separatorChar + "ExtractMethod.xml");
+				RefactoringPlugin.getDynamicRefactoringsDir()	
+						+ availableRefactoringsSomeScopesDir
+						+ File.separatorChar + "ExtractMethod"
+						+ File.separatorChar + "ExtractMethod.xml");
 
 		//Reponemos las refactorizaciones que habia antes
-		FileManager.emptyDirectories(RefactoringConstants.DYNAMIC_REFACTORING_DIR);
-		FileManager.deleteDirectories(RefactoringConstants.DYNAMIC_REFACTORING_DIR, false);
-		FileManager.copyFolder("./testdata/XML/Writer/availableRefactorings/DynamicRefactorings",
-				new File(RefactoringConstants.DYNAMIC_REFACTORING_DIR).getParent());
-		//Borramos la carpeta con las refactorizaciones del directorio temporal
-		FileManager.emptyDirectories("./testdata/XML/Writer/availableRefactorings/DynamicRefactorings");
-		FileManager.deleteDirectories("./testdata/XML/Writer/availableRefactorings/DynamicRefactorings", true);
-		//Borramos el archivo generado para dejar la aplicación como se encontraba.
-		FileManager.deleteFile(RefactoringConstants.REFACTORING_TYPES_FILE);
+
 	}
-	
+
 	/**
 	 * Comprueba la adicción de una nueva refactorización dentro del fichero de
-	 * refactorizaciones disponibles. Para ello añade una refactorización por cada
-	 * ámbito disponible para el elemento principal de la refactorización.
-	 *
-	 * @throws Exception si se produce un error al escribir.
+	 * refactorizaciones disponibles. Para ello añade una refactorización por
+	 * cada ámbito disponible para el elemento principal de la refactorización.
+	 * 
+	 * @throws Exception
+	 *             si se produce un error al escribir.
 	 */
 	@Test
 	public void testAddingRefactoringInformation() throws Exception{
-		FileManager.copyFolder(RefactoringConstants.DYNAMIC_REFACTORING_DIR, 
-				"./testdata/XML/Writer/availableRefactorings");
-		FileManager.emptyDirectories(RefactoringConstants.DYNAMIC_REFACTORING_DIR);
-		FileManager.deleteDirectories(RefactoringConstants.DYNAMIC_REFACTORING_DIR, false);
 		
 		JDOMXMLRefactoringWriterImp writer = new JDOMXMLRefactoringWriterImp(null);
 		writer.writeFileToLoadRefactoringTypes();
 		writer.addNewRefactoringToXml(SelectRefactoringWindow.SCOPE_CLASS, "EnumeratedTypes"
-				,RefactoringConstants.DYNAMIC_REFACTORING_DIR+ "" + File.separatorChar + "EnumeratedTypes" + File.separatorChar + "EnumeratedTypes.xml");
+				,RefactoringPlugin.getDynamicRefactoringsDir()+ "" + File.separatorChar + "EnumeratedTypes" + File.separatorChar + "EnumeratedTypes.xml");
 		writer.addNewRefactoringToXml(SelectRefactoringWindow.SCOPE_METHOD,"Add Parameter"
-				, RefactoringConstants.DYNAMIC_REFACTORING_DIR + "" + File.separatorChar + "Add Parameter" + File.separatorChar + "Add Parameter.xml");
+				, RefactoringPlugin.getDynamicRefactoringsDir() + "" + File.separatorChar + "Add Parameter" + File.separatorChar + "Add Parameter.xml");
 		writer.addNewRefactoringToXml(SelectRefactoringWindow.SCOPE_ATTRIBUTE, "Move Field",
-				RefactoringConstants.DYNAMIC_REFACTORING_DIR+ "" + File.separatorChar + "Move Field" + File.separatorChar + "Move Field.xml");
+				RefactoringPlugin.getDynamicRefactoringsDir()+ "" + File.separatorChar + "Move Field" + File.separatorChar + "Move Field.xml");
 		writer.addNewRefactoringToXml(SelectRefactoringWindow.SCOPE_FORMAL_ARG, "Remove Parameter",
-				RefactoringConstants.DYNAMIC_REFACTORING_DIR
+				RefactoringPlugin.getDynamicRefactoringsDir()
 				+ "" + File.separatorChar + "Remove Parameter" + File.separatorChar + "Remove Parameter.xml");
 	    writer.addNewRefactoringToXml(SelectRefactoringWindow.SCOPE_FORMAL_PAR, "Specialize Bound S",
-	    		RefactoringConstants.DYNAMIC_REFACTORING_DIR	
+	    		RefactoringPlugin.getDynamicRefactoringsDir()	
 	    		+ "" + File.separatorChar + "Specialize Bound S" + File.separatorChar + "Specialize Bound S.xml");
 	    writer.addNewRefactoringToXml(SelectRefactoringWindow.SCOPE_CODE_FRAGMENT, "ExtractMethod",
-	    		RefactoringConstants.DYNAMIC_REFACTORING_DIR	
+	    		RefactoringPlugin.getDynamicRefactoringsDir()	
 	    		+ "" + File.separatorChar + "ExtractMethod" + File.separatorChar + "ExtractMethod.xml");
 		
 		HashMap<String,String> refactorings 
@@ -308,7 +335,7 @@ public class TestAvailableRefactoringsWriter{
 	
 		assertEquals(1,refactorings.size());
 		assertEquals(refactorings.get("EnumeratedTypes"),
-				RefactoringConstants.DYNAMIC_REFACTORING_DIR 
+				RefactoringPlugin.getDynamicRefactoringsDir() 
 				+ "" + File.separatorChar + "EnumeratedTypes" + File.separatorChar + "EnumeratedTypes.xml");
 		
 		refactorings 
@@ -318,7 +345,7 @@ public class TestAvailableRefactoringsWriter{
 	
 		assertEquals(1,refactorings.size());
 		assertEquals(refactorings.get("Add Parameter"),
-				RefactoringConstants.DYNAMIC_REFACTORING_DIR 
+				RefactoringPlugin.getDynamicRefactoringsDir() 
 				+ "" + File.separatorChar + "Add Parameter" + File.separatorChar + "Add Parameter.xml");
 
 		
@@ -329,7 +356,7 @@ public class TestAvailableRefactoringsWriter{
 	
 		assertEquals(1,refactorings.size());
 		assertEquals(refactorings.get("Move Field"),
-				RefactoringConstants.DYNAMIC_REFACTORING_DIR	
+				RefactoringPlugin.getDynamicRefactoringsDir()	
 				+ "" + File.separatorChar + "Move Field" + File.separatorChar + "Move Field.xml");
 		
 		refactorings 
@@ -339,7 +366,7 @@ public class TestAvailableRefactoringsWriter{
 	
 		assertEquals(1,refactorings.size());
 		assertEquals(refactorings.get("Remove Parameter"),
-				RefactoringConstants.DYNAMIC_REFACTORING_DIR
+				RefactoringPlugin.getDynamicRefactoringsDir()
 				+ "" + File.separatorChar + "Remove Parameter" + File.separatorChar + "Remove Parameter.xml");
 
 		refactorings 
@@ -349,7 +376,7 @@ public class TestAvailableRefactoringsWriter{
 	
 		assertEquals(1,refactorings.size());
 		assertEquals(refactorings.get("Specialize Bound S"),
-				RefactoringConstants.DYNAMIC_REFACTORING_DIR	
+				RefactoringPlugin.getDynamicRefactoringsDir()	
 				+ "" + File.separatorChar + "Specialize Bound S" + File.separatorChar + "Specialize Bound S.xml");
 		
 		refactorings 
@@ -359,53 +386,42 @@ public class TestAvailableRefactoringsWriter{
 	
 		assertEquals(1,refactorings.size());
 		assertEquals(refactorings.get("ExtractMethod"),
-				RefactoringConstants.DYNAMIC_REFACTORING_DIR	
+				RefactoringPlugin.getDynamicRefactoringsDir()	
 				+ "" + File.separatorChar + "ExtractMethod" + File.separatorChar + "ExtractMethod.xml");
 		
-		//Reponemos las refactorizaciones que habia antes
-		FileManager.copyFolder("./testdata/XML/Writer/availableRefactorings/DynamicRefactorings",
-				new File(RefactoringConstants.DYNAMIC_REFACTORING_DIR).getParent());
-		//Borramos la carpeta con las refactorizaciones del directorio temporal
-		FileManager.emptyDirectories("./testdata/XML/Writer/availableRefactorings/DynamicRefactorings");
-		FileManager.deleteDirectories("./testdata/XML/Writer/availableRefactorings/DynamicRefactorings", true);
-		//Borramos el archivo generado para dejar la aplicación como se encontraba.
-		FileManager.deleteFile(RefactoringConstants.REFACTORING_TYPES_FILE);
 	}
-	
+
 	/**
 	 * Comprueba la eliminación de una refactorización dentro del fichero de
 	 * refactorizaciones disponibles.
-	 *
-	 * @throws Exception si se produce un error al escribir.
+	 * 
+	 * @throws Exception
+	 *             si se produce un error al escribir.
 	 */
 	@Test
 	public void testDeleteRefactoringInformation() throws Exception{
-		FileManager.copyFolder(RefactoringConstants.DYNAMIC_REFACTORING_DIR, 
-				"./testdata/XML/Writer/availableRefactorings");
-		FileManager.emptyDirectories(RefactoringConstants.DYNAMIC_REFACTORING_DIR);
-		FileManager.deleteDirectories(RefactoringConstants.DYNAMIC_REFACTORING_DIR, false);
 		
 		JDOMXMLRefactoringWriterImp writer = new JDOMXMLRefactoringWriterImp(null);
 		writer.writeFileToLoadRefactoringTypes();
 		writer.addNewRefactoringToXml(SelectRefactoringWindow.SCOPE_CLASS, "EnumeratedTypes"
-				,RefactoringConstants.DYNAMIC_REFACTORING_DIR+ "" + File.separatorChar + "EnumeratedTypes" + File.separatorChar + "EnumeratedTypes.xml");
+				,RefactoringPlugin.getDynamicRefactoringsDir()+ "" + File.separatorChar + "EnumeratedTypes" + File.separatorChar + "EnumeratedTypes.xml");
 		writer.deleteRefactoringFromXml(SelectRefactoringWindow.SCOPE_CLASS, "EnumeratedTypes");
 		writer.addNewRefactoringToXml(SelectRefactoringWindow.SCOPE_METHOD,"Add Parameter"
-				, RefactoringConstants.DYNAMIC_REFACTORING_DIR + "" + File.separatorChar + "Add Parameter" + File.separatorChar + "Add Parameter.xml");
+				, RefactoringPlugin.getDynamicRefactoringsDir() + "" + File.separatorChar + "Add Parameter" + File.separatorChar + "Add Parameter.xml");
 		writer.deleteRefactoringFromXml(SelectRefactoringWindow.SCOPE_METHOD, "Add Parameter");
 		writer.addNewRefactoringToXml(SelectRefactoringWindow.SCOPE_ATTRIBUTE, "Move Field",
-				RefactoringConstants.DYNAMIC_REFACTORING_DIR+ "" + File.separatorChar + "Move Field" + File.separatorChar + "Move Field.xml");
+				RefactoringPlugin.getDynamicRefactoringsDir()+ "" + File.separatorChar + "Move Field" + File.separatorChar + "Move Field.xml");
 		writer.deleteRefactoringFromXml(SelectRefactoringWindow.SCOPE_ATTRIBUTE, "Move Field");
 		writer.addNewRefactoringToXml(SelectRefactoringWindow.SCOPE_FORMAL_ARG, "Remove Parameter",
-				RefactoringConstants.DYNAMIC_REFACTORING_DIR
+				RefactoringPlugin.getDynamicRefactoringsDir()
 				+ "" + File.separatorChar + "Remove Parameter" + File.separatorChar + "Remove Parameter.xml");
 		writer.deleteRefactoringFromXml(SelectRefactoringWindow.SCOPE_FORMAL_ARG, "Remove Parameter");
 	    writer.addNewRefactoringToXml(SelectRefactoringWindow.SCOPE_FORMAL_PAR, "Specialize Bound S",
-	    		RefactoringConstants.DYNAMIC_REFACTORING_DIR	
+	    		RefactoringPlugin.getDynamicRefactoringsDir()	
 	    		+ "" + File.separatorChar + "Specialize Bound S" + File.separatorChar + "Specialize Bound S.xml");
 	    writer.deleteRefactoringFromXml(SelectRefactoringWindow.SCOPE_FORMAL_PAR, "Specialize Bound S");
 	    writer.addNewRefactoringToXml(SelectRefactoringWindow.SCOPE_CODE_FRAGMENT, "ExtractMethod",
-	    		RefactoringConstants.DYNAMIC_REFACTORING_DIR	
+	    		RefactoringPlugin.getDynamicRefactoringsDir()	
 	    		+ "" + File.separatorChar + "ExtractMethod" + File.separatorChar + "ExtractMethod.xml");
 	    writer.deleteRefactoringFromXml(SelectRefactoringWindow.SCOPE_CODE_FRAGMENT, "ExtractMethod");
 		
@@ -426,58 +442,46 @@ public class TestAvailableRefactoringsWriter{
 		}
 		fr1.close();
 		fr2.close();
-
 		
-		//Reponemos las refactorizaciones que habia antes
-		FileManager.copyFolder("./testdata/XML/Writer/availableRefactorings/DynamicRefactorings",
-				new File(RefactoringConstants.DYNAMIC_REFACTORING_DIR).getParent());
-		//Borramos la carpeta con las refactorizaciones del directorio temporal
-		FileManager.emptyDirectories("./testdata/XML/Writer/availableRefactorings/DynamicRefactorings");
-		FileManager.deleteDirectories("./testdata/XML/Writer/availableRefactorings/DynamicRefactorings", true);
-		//Borramos el archivo generado para dejar la aplicación como se encontraba.
-		FileManager.deleteFile(RefactoringConstants.REFACTORING_TYPES_FILE);
 	}
 
 	/**
 	 * Comprueba el renombrado de una refactorización dentro del fichero de
 	 * refactorizaciones disponibles.
-	 *
-	 * @throws Exception si se produce un error al escribir.
+	 * 
+	 * @throws Exception
+	 *             si se produce un error al escribir.
 	 */
 	@Test
 	public void testRenameRefactoring() throws Exception{
-		FileManager.copyFolder(RefactoringConstants.DYNAMIC_REFACTORING_DIR, 
-				"./testdata/XML/Writer/availableRefactorings");
-		FileManager.emptyDirectories(RefactoringConstants.DYNAMIC_REFACTORING_DIR);
-		FileManager.deleteDirectories(RefactoringConstants.DYNAMIC_REFACTORING_DIR, false);
 		
 		JDOMXMLRefactoringWriterImp writer = new JDOMXMLRefactoringWriterImp(null);
 		writer.writeFileToLoadRefactoringTypes();
 		
 		writer.addNewRefactoringToXml(SelectRefactoringWindow.SCOPE_CLASS, "EnumeratedTypes"
-				,RefactoringConstants.DYNAMIC_REFACTORING_DIR+ "" + File.separatorChar + "EnumeratedTypes" + File.separatorChar + "EnumeratedTypes.xml");
+				,RefactoringPlugin.getDynamicRefactoringsDir()+ "" + File.separatorChar + "EnumeratedTypes" + File.separatorChar + "EnumeratedTypes.xml");
 		writer.renameRefactoringIntoXml(SelectRefactoringWindow.SCOPE_CLASS
 				,"OtherName", "EnumeratedTypes");
 		writer.addNewRefactoringToXml(SelectRefactoringWindow.SCOPE_METHOD,"Add Parameter"
-				, RefactoringConstants.DYNAMIC_REFACTORING_DIR + "" + File.separatorChar + "Add Parameter" + File.separatorChar + "Add Parameter.xml");
+				, RefactoringPlugin.getDynamicRefactoringsDir() + "" + File.separatorChar + "Add Parameter" + File.separatorChar + "Add Parameter.xml");
 		writer.renameRefactoringIntoXml(SelectRefactoringWindow.SCOPE_METHOD
 				,"OtherName1", "Add Parameter");
 		writer.addNewRefactoringToXml(SelectRefactoringWindow.SCOPE_ATTRIBUTE, "Move Field",
-				RefactoringConstants.DYNAMIC_REFACTORING_DIR+ "" + File.separatorChar + "Move Field" + File.separatorChar + "Move Field.xml");
+				RefactoringPlugin.getDynamicRefactoringsDir()+ "" + File.separatorChar + "Move Field" + File.separatorChar + "Move Field.xml");
 		writer.renameRefactoringIntoXml(SelectRefactoringWindow.SCOPE_ATTRIBUTE
 				,"OtherName2", "Move Field");
 		writer.addNewRefactoringToXml(SelectRefactoringWindow.SCOPE_FORMAL_ARG, "Remove Parameter",
-				RefactoringConstants.DYNAMIC_REFACTORING_DIR
+				RefactoringPlugin.getDynamicRefactoringsDir()
 				+ "" + File.separatorChar + "Remove Parameter" + File.separatorChar + "Remove Parameter.xml");
 		writer.renameRefactoringIntoXml(SelectRefactoringWindow.SCOPE_FORMAL_ARG
 				,"OtherName3", "Remove Parameter");
 	    writer.addNewRefactoringToXml(SelectRefactoringWindow.SCOPE_FORMAL_PAR, "Specialize Bound S",
-	    		RefactoringConstants.DYNAMIC_REFACTORING_DIR	
+	    		RefactoringPlugin.getDynamicRefactoringsDir()	
 	    		+ "" + File.separatorChar + "Specialize Bound S" + File.separatorChar + "Specialize Bound S.xml");
 	    writer.renameRefactoringIntoXml(SelectRefactoringWindow.SCOPE_FORMAL_PAR
 				,"OtherName4", "Specialize Bound S");
 	    writer.addNewRefactoringToXml(SelectRefactoringWindow.SCOPE_CODE_FRAGMENT, "ExtractMethod",
-	    		RefactoringConstants.DYNAMIC_REFACTORING_DIR	
+	    		RefactoringPlugin.getDynamicRefactoringsDir()	
 	    		+ "" + File.separatorChar + "ExtractMethod" + File.separatorChar + "ExtractMethod.xml");
 	    writer.renameRefactoringIntoXml(SelectRefactoringWindow.SCOPE_CODE_FRAGMENT
 				,"OtherName5", "ExtractMethod");
@@ -490,7 +494,7 @@ public class TestAvailableRefactoringsWriter{
 	
 		assertEquals(1,refactorings.size());
 		assertEquals(refactorings.get("OtherName"),
-				RefactoringConstants.DYNAMIC_REFACTORING_DIR 
+				RefactoringPlugin.getDynamicRefactoringsDir() 
 				+ "/OtherName/OtherName.xml");
 		
 		refactorings 
@@ -500,7 +504,7 @@ public class TestAvailableRefactoringsWriter{
 	
 		assertEquals(1,refactorings.size());
 		assertEquals(refactorings.get("OtherName1"),
-				RefactoringConstants.DYNAMIC_REFACTORING_DIR 
+				RefactoringPlugin.getDynamicRefactoringsDir() 
 				+ "/OtherName1/OtherName1.xml");
 
 		
@@ -511,7 +515,7 @@ public class TestAvailableRefactoringsWriter{
 	
 		assertEquals(1,refactorings.size());
 		assertEquals(refactorings.get("OtherName2"),
-				RefactoringConstants.DYNAMIC_REFACTORING_DIR 
+				RefactoringPlugin.getDynamicRefactoringsDir() 
 				+ "/OtherName2/OtherName2.xml");
 		
 		refactorings 
@@ -521,7 +525,7 @@ public class TestAvailableRefactoringsWriter{
 	
 		assertEquals(1,refactorings.size());
 		assertEquals(refactorings.get("OtherName3"),
-				RefactoringConstants.DYNAMIC_REFACTORING_DIR 
+				RefactoringPlugin.getDynamicRefactoringsDir() 
 				+ "/OtherName3/OtherName3.xml");
 
 		refactorings 
@@ -531,7 +535,7 @@ public class TestAvailableRefactoringsWriter{
 	
 		assertEquals(1,refactorings.size());
 		assertEquals(refactorings.get("OtherName4"),
-				RefactoringConstants.DYNAMIC_REFACTORING_DIR 
+				RefactoringPlugin.getDynamicRefactoringsDir() 
 				+ "/OtherName4/OtherName4.xml");
 		
 		refactorings 
@@ -541,19 +545,9 @@ public class TestAvailableRefactoringsWriter{
 		
 		assertEquals(1,refactorings.size());
 		assertEquals(refactorings.get("OtherName5"),
-				RefactoringConstants.DYNAMIC_REFACTORING_DIR	
+				RefactoringPlugin.getDynamicRefactoringsDir()	
 				+ "/OtherName5/OtherName5.xml");
 		
-
-		
-		//Reponemos las refactorizaciones que habia antes
-		FileManager.copyFolder("./testdata/XML/Writer/availableRefactorings/DynamicRefactorings",
-				new File(RefactoringConstants.DYNAMIC_REFACTORING_DIR).getParent());
-		//Borramos la carpeta con las refactorizaciones del directorio temporal
-		FileManager.emptyDirectories("./testdata/XML/Writer/availableRefactorings/DynamicRefactorings");
-		FileManager.deleteDirectories("./testdata/XML/Writer/availableRefactorings/DynamicRefactorings", true);
-		//Borramos el archivo generado para dejar la aplicación como se encontraba.
-		FileManager.deleteFile(RefactoringConstants.REFACTORING_TYPES_FILE);
 	}
 	
 	

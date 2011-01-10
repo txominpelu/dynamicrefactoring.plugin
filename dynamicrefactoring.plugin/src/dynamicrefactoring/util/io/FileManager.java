@@ -24,6 +24,8 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
 import java.net.URL;
 import java.util.Collections;
 import java.util.Enumeration;
@@ -31,6 +33,8 @@ import java.util.StringTokenizer;
 
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.IOUtils;
+import org.eclipse.core.runtime.FileLocator;
+import org.eclipse.core.runtime.Path;
 import org.eclipse.core.runtime.Platform;
 import org.osgi.framework.Bundle;
 
@@ -409,11 +413,12 @@ public class FileManager {
     }
 
 	/**
-	 * Copia un directorio empaquetado en el plugin en un directorio
-	 * del sistema de ficheros.
+	 * Copia un directorio empaquetado en el plugin en un directorio del sistema
+	 * de ficheros.
 	 * 
 	 * @param bundleDir
 	 * @param fileSystemDir
+	 * @throws IOException
 	 */
 	public static void copyBundleDirToFileSystem(String bundleDir,
 			String fileSystemDir) {
@@ -424,18 +429,49 @@ public class FileManager {
 			URL entry = (URL) entrada;
 			File fichero = new File(entry.getFile());
 			if (!entry.toString().endsWith("/")) {
+				InputStream inputStream = null;
+				OutputStream outputStream = null;
 				try {
 					FileUtils.forceMkdir(new File(fileSystemDir
 							+ File.separator + fichero.getParent()));
-					IOUtils.copy(entry.openStream(), new FileOutputStream(
-							new File(fileSystemDir + entry.getFile())));
+					inputStream = entry.openStream();
+					outputStream = new FileOutputStream(new File(fileSystemDir
+							+ entry.getFile()));
+					IOUtils.copy(inputStream, outputStream);
+					inputStream.close();
+					outputStream.close();
 				} catch (IllegalStateException e) {
 					e.printStackTrace();
 				} catch (IOException e) {
 					e.printStackTrace();
+				} finally {
+					IOUtils.closeQuietly(inputStream);
+					IOUtils.closeQuietly(outputStream);
 				}
 	
 			}
 		}
+	}
+
+	/**
+	 * Obtiene la URL que permite acceder a un recurso contenido dentro
+	 * de un plugin.
+	 * 
+	 * @param pluginId Identificador del plugin
+	 * @param fullPath Ruta del recurso dentro del contenedor del plugin
+	 * @return URL con la ruta de acceso al recurso
+	 */
+	public static URL getURLForPluginResource(String pluginId, String fullPath) {
+		Bundle bundle = Platform.getBundle(pluginId);
+		Path path = new Path(fullPath);
+		URL fileURL = FileLocator.find(bundle, path, null);
+		return fileURL;
+	}
+
+	public static void copyResourceToDir(String resourcePath, String dirPath) throws IOException {
+		FileUtils.copyInputStreamToFile(
+				dynamicrefactoring.util.io.FileManager.class
+						.getResourceAsStream(resourcePath), new File(dirPath
+						+ resourcePath));
 	}
 }

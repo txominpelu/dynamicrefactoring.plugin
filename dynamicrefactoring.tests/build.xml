@@ -1,0 +1,37 @@
+<project name="Example" xmlns:jacoco="antlib:org.jacoco.ant">
+    
+       <property name="test-dir" location="."/>
+       <property name="plugin-dir" location="../dynamicrefactoring.plugin"/>
+
+       <taskdef uri="antlib:org.jacoco.ant" resource="org/jacoco/ant/antlib.xml">
+            <classpath path="${test-dir}/lib/jacocoant.jar"/>
+        </taskdef>
+
+	<target name="generate-cobertura-report" description="Generates cobertura html report.">
+
+		<jacoco:report>
+				  
+			<executiondata>
+			    <file file="${test-dir}/target/cobertura/jacoco.exec"/>
+			</executiondata>
+					    
+			<structure name="Example Project">
+			    <classfiles>
+				<fileset dir="${plugin-dir}/target/classes"/>
+				<fileset dir="${test-dir}/target/classes"/>
+			   </classfiles>
+			   <sourcefiles encoding="UTF-8">
+			       <fileset dir="${plugin-dir}/src"/>
+			       <fileset dir="${test-dir}/src"/>
+			   </sourcefiles>
+			</structure>
+					   
+			<html destdir="${test-dir}/target/cobertura/"/>
+
+			<xml destfile="${test-dir}/target/cobertura/coverage.xml"/>
+				   
+		</jacoco:report>
+
+	</target>
+        
+</project>

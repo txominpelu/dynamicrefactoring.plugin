@@ -25,23 +25,19 @@ import java.io.FileOutputStream;
 import java.io.PrintStream;
 import java.net.MalformedURLException;
 
-import dynamicrefactoring.RefactoringConstants;
-
-import dynamicrefactoring.domain.DynamicRefactoringDefinition;
-
-
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.browser.Browser;
 import org.eclipse.swt.custom.ScrolledComposite;
-
-import com.java2html.Java2HTML;
-
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.TabFolder;
 import org.eclipse.swt.widgets.TabItem;
 
+import com.java2html.Java2HTML;
 import com.swtdesigner.SWTResourceManager;
+
+import dynamicrefactoring.RefactoringPlugin;
+import dynamicrefactoring.domain.DynamicRefactoringDefinition;
 
 /**
  * Pestaña con los ejemplos de una refactorización.
@@ -49,23 +45,24 @@ import com.swtdesigner.SWTResourceManager;
  * @author <A HREF="mailto:lfd0002@alu.ubu.es">Laura Fuente de la Fuente</A>
  */
 public class DynamicExamplesTab {
-	
-	
+
 	/**
 	 * Pestaña asociada a los ejemplos de la refactorización.
 	 */
 	private TabItem tab;
-	
+
 	/**
 	 * La definición de la refactorización.
 	 */
 	protected DynamicRefactoringDefinition refactoringDefinition;
-	
+
 	/**
 	 * Crea la pestaña con el resumen de la refactorización.
 	 * 
-	 * @param parent el contenedor de pestañas que contendrá esta pestaña.
-	 * @param definition la definición de la refactorización.
+	 * @param parent
+	 *            el contenedor de pestañas que contendrá esta pestaña.
+	 * @param definition
+	 *            la definición de la refactorización.
 	 */
 	public DynamicExamplesTab(TabFolder parent,
 			DynamicRefactoringDefinition definition){
@@ -122,11 +119,11 @@ public class DynamicExamplesTab {
 			ejemplo_despues.setBounds(443,76,414,307);
 			
 			try{
-				ejemplo_antes.setUrl(new File(RefactoringConstants.DYNAMIC_REFACTORING_DIR 
+				ejemplo_antes.setUrl(new File(RefactoringPlugin.getDynamicRefactoringsDir() 
 						+ File.separator + definition.getName() 
 						+ File.separator + definition.getExamples().get(0)[0].replace(".txt",".java") 
 							+ ".html" ).toURI().toURL().toString());
-				ejemplo_despues.setUrl(new File(RefactoringConstants.DYNAMIC_REFACTORING_DIR 
+				ejemplo_despues.setUrl(new File(RefactoringPlugin.getDynamicRefactoringsDir() 
 						+ File.separator + definition.getName() 
 						+ File.separator + definition.getExamples().get(0)[1].replace(".txt",".java") 
 							+ ".html" ).toURI().toURL().toString());
@@ -188,19 +185,19 @@ public class DynamicExamplesTab {
 			ejemplo_despues2.setBounds(443,248,414,135);
 			
 			try{
-				ejemplo_antes1.setUrl(new File(RefactoringConstants.DYNAMIC_REFACTORING_DIR 
+				ejemplo_antes1.setUrl(new File(RefactoringPlugin.getDynamicRefactoringsDir() 
 						+ File.separator + definition.getName() 
 						+ File.separator + definition.getExamples().get(0)[0].replace(".txt",".java") 
 							+ ".html" ).toURI().toURL().toString());
-				ejemplo_despues1.setUrl(new File(RefactoringConstants.DYNAMIC_REFACTORING_DIR 
+				ejemplo_despues1.setUrl(new File(RefactoringPlugin.getDynamicRefactoringsDir() 
 						+ File.separator + definition.getName() 
 						+ File.separator + definition.getExamples().get(0)[1].replace(".txt",".java") 
 							+ ".html" ).toURI().toURL().toString());
-				ejemplo_antes2.setUrl(new File(RefactoringConstants.DYNAMIC_REFACTORING_DIR 
+				ejemplo_antes2.setUrl(new File(RefactoringPlugin.getDynamicRefactoringsDir() 
 						+ File.separator + definition.getName() 
 						+ File.separator + definition.getExamples().get(1)[0].replace(".txt",".java") 
 							+ ".html" ).toURI().toURL().toString());
-				ejemplo_despues2.setUrl(new File(RefactoringConstants.DYNAMIC_REFACTORING_DIR 
+				ejemplo_despues2.setUrl(new File(RefactoringPlugin.getDynamicRefactoringsDir() 
 						+ File.separator + definition.getName() 
 						+ File.separator + definition.getExamples().get(1)[1].replace(".txt",".java") 
 							+ ".html" ).toURI().toURL().toString());
@@ -208,15 +205,15 @@ public class DynamicExamplesTab {
 		}
 
 	}
-	
+
 	/**
-	 * Renombra los ficheros de ejemplo de la refactorización acabados en 
-	 * <code>.txt</code> a ficheros acabados en <code>.java</code> para que puedan 
-	 * ser interpretados por java2html.
+	 * Renombra los ficheros de ejemplo de la refactorización acabados en
+	 * <code>.txt</code> a ficheros acabados en <code>.java</code> para que
+	 * puedan ser interpretados por java2html.
 	 */
 	private void renameTxtToJava(){
 		//directorio de la refactorizacion
-		String dirRefactoring = RefactoringConstants.DYNAMIC_REFACTORING_DIR + File.separator 
+		String dirRefactoring = RefactoringPlugin.getDynamicRefactoringsDir() + File.separator 
 			+ refactoringDefinition.getName();
 		
 		for(String[] ejemplos : refactoringDefinition.getExamples()){
@@ -227,14 +224,14 @@ public class DynamicExamplesTab {
 			}
 		}
 	}
-	
+
 	/**
-	 * Reestable la extensión de los ejemplos <code>.txt</code> modificados para generar
-	 * sus htmls asociados.
+	 * Reestable la extensión de los ejemplos <code>.txt</code> modificados para
+	 * generar sus htmls asociados.
 	 */
 	private void renameJavaToTxt(){
 		//directorio de la refactorizacion
-		String dirRefactoring = RefactoringConstants.DYNAMIC_REFACTORING_DIR + File.separator 
+		String dirRefactoring = RefactoringPlugin.getDynamicRefactoringsDir() + File.separator 
 			+ refactoringDefinition.getName();
 		
 		for(String[] ejemplos : refactoringDefinition.getExamples()){
@@ -246,18 +243,19 @@ public class DynamicExamplesTab {
 			}
 		}
 	}
-	
+
 	/**
-	 * Genera htmls mediante java2html para visualizar los ejemplos de la 
+	 * Genera htmls mediante java2html para visualizar los ejemplos de la
 	 * refactorización en un navegador html.
 	 */
 	private void generarHTMLS(){
 		//directorio de la refactorizacion
-		String dirRefactoring = RefactoringConstants.DYNAMIC_REFACTORING_DIR + File.separator 
+		String dirRefactoring = RefactoringPlugin.getDynamicRefactoringsDir() + File.separator 
 			+ refactoringDefinition.getName();
 			
 		
-		//Cambiamos de extensión los ficheros .txt por .java para que puedan ser interpretados
+		// Cambiamos de extensión los ficheros .txt por .java para que puedan
+		// ser interpretados
 		//por java2HTML
 		renameTxtToJava();
 		

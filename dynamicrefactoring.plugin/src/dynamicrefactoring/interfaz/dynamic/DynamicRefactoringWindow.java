@@ -1060,7 +1060,7 @@ public class DynamicRefactoringWindow extends Dialog {
 	 */
 	private void deleteHTMLS(){
 		//directorio de la refactorizacion
-		String dirRefactoring = RefactoringConstants.DYNAMIC_REFACTORING_DIR + File.separator 
+		String dirRefactoring = RefactoringPlugin.getDynamicRefactoringsDir() + File.separator 
 			+ refactoringDefinition.getName();
 		
 		for(String[] ejemplos : refactoringDefinition.getExamples()){

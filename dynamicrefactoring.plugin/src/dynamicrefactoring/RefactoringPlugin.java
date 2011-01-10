@@ -22,7 +22,6 @@ package dynamicrefactoring;
 
 import java.io.File;
 import java.io.IOException;
-import java.net.URL;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
 import java.util.List;
@@ -33,18 +32,15 @@ import moon.core.classdef.ClassDef;
 import moon.core.classdef.FormalArgument;
 import moon.core.classdef.MethDec;
 
-import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.FilenameUtils;
 import org.apache.log4j.Logger;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.runtime.CoreException;
-import org.eclipse.core.runtime.FileLocator;
 import org.eclipse.core.runtime.IConfigurationElement;
 import org.eclipse.core.runtime.IExtension;
 import org.eclipse.core.runtime.IExtensionPoint;
 import org.eclipse.core.runtime.IExtensionRegistry;
 import org.eclipse.core.runtime.ListenerList;
-import org.eclipse.core.runtime.Path;
 import org.eclipse.core.runtime.Platform;
 import org.eclipse.jdt.core.IJavaProject;
 import org.eclipse.jdt.ui.JavaUI;
@@ -219,27 +215,31 @@ public class RefactoringPlugin extends AbstractUIPlugin
 		super.start(context);
 		MOONRefactoring.resetModel();
 		LogManager.getInstance().loadLogConfig();
+		copyDefaultDynamicRefactoringsToStateLocation();
 		loadRefactoringTypes();
 		RefactoringPlanWriter.getInstance();
-		copyDefaultDynamicRefactoringsToStateLocation();
+
 	}
-	
+
 	/**
 	 * Copia las refactorizaciones que vienen por defecto incluidas en el plugin
 	 * en el directorio de estado de este si no existen todavia en dicho
 	 * directorio.
+	 * 
+	 * @throws IOException
 	 */
-	private void copyDefaultDynamicRefactoringsToStateLocation() {
-		if (!new File(getDynamicRefactoringsDir()).exists()) {
-			try {
-				FileUtils.forceMkdir(new File(getDynamicRefactoringsDir()));
-				FileManager.copyBundleDirToFileSystem(
+	private void copyDefaultDynamicRefactoringsToStateLocation()
+			throws IOException {
+		FileManager.copyResourceToDir("/refactoringsDTD.dtd",
+				getStateLocation().toOSString());
+		FileManager.copyResourceToDir("/refactoringPlanDTD.dtd",
+				getStateLocation().toOSString());
+
+		FileManager.copyBundleDirToFileSystem(
 						DYNAMIC_REFACTORINGS_FOLDER_NAME,
 						getStateLocation().toOSString());
-			} catch (IOException e) {
-				e.printStackTrace();
-			}
-		}
+		FileManager.copyBundleDirToFileSystem("/bin/", getStateLocation()
+				.toOSString());
 	}
 
 	/**
@@ -934,20 +934,5 @@ public class RefactoringPlugin extends AbstractUIPlugin
 
 		currentRefactoring = name + "_" + hour + "." + minutes  //$NON-NLS-1$ //$NON-NLS-2$
 			+ "." + seconds + ".mod";  //$NON-NLS-1$ //$NON-NLS-2$
-	}
-
-	/**
-	 * Obtiene la URL que permite acceder a un recurso contenido dentro
-	 * de un plugin.
-	 * 
-	 * @param pluginId Identificador del plugin
-	 * @param fullPath Ruta del recurso dentro del contenedor del plugin
-	 * @return URL con la ruta de acceso al recurso
-	 */
-	public URL getURLForPluginResource(String pluginId, String fullPath) {
-		Bundle bundle = Platform.getBundle(pluginId);
-		Path path = new Path(fullPath);
-		URL fileURL = FileLocator.find(bundle, path, null);
-		return fileURL;
 	}
 }

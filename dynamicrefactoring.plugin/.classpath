@@ -4,7 +4,7 @@
 	<classpathentry kind="con" path="org.eclipse.pde.core.requiredPlugins"/>
 	<classpathentry kind="src" path="src"/>
 	<classpathentry exported="true" kind="lib" path="lib/log4j-1.2.15.jar"/>
-	<classpathentry exported="true" kind="lib" path="lib/jdom.jar"/>
+	<classpathentry exported="true" kind="lib" path="lib/jdom.jar" sourcepath="/home/imediava/Escritorio/Proyecto/libs/jdom-1.1.1.zip"/>
 	<classpathentry exported="true" kind="lib" path="lib/swtdesigner.jar"/>
 	<classpathentry exported="true" kind="lib" path="lib/junit-4.4.jar" sourcepath="/home/imediava/.m2/repository/junit/junit/4.4/junit-4.4-sources.jar"/>
 	<classpathentry exported="true" kind="lib" path="lib/refactoringengine-1.1.1.jar"/>

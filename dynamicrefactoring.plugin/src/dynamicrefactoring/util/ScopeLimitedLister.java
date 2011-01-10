@@ -20,25 +20,22 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.*/
 
 package dynamicrefactoring.util;
 
-import dynamicrefactoring.RefactoringConstants;
-
-import dynamicrefactoring.domain.DynamicRefactoringDefinition;
-import dynamicrefactoring.domain.RefactoringException;
-import dynamicrefactoring.interfaz.SelectRefactoringWindow;
-
-
 import java.io.IOException;
-
 import java.util.HashMap;
 import java.util.Map;
 
 import org.apache.log4j.Logger;
 
+import dynamicrefactoring.RefactoringPlugin;
+import dynamicrefactoring.domain.DynamicRefactoringDefinition;
+import dynamicrefactoring.domain.RefactoringException;
+import dynamicrefactoring.interfaz.SelectRefactoringWindow;
+
 /**
  * Permite obtener el conjunto de refactorizaciones dinámicas disponibles y
  * aplicables sobre un único ámbito (de clase, de método, etc.).
- *
- * @author <A HREF="mailto:lfd0002@alu.ubu.es">Laura Fuente de la Fuente</A> 
+ * 
+ * @author <A HREF="mailto:lfd0002@alu.ubu.es">Laura Fuente de la Fuente</A>
  * @author <A HREF="mailto:sfd0009@alu.ubu.es">Sonia Fuente de la Fuente</A>
  * @author <A HREF="mailto:ehp0001@alu.ubu.es">Enrique Herrero Paredes</A>
  */
@@ -49,56 +46,60 @@ public class ScopeLimitedLister {
 	 */
 	private static final Logger logger = 
 		Logger.getLogger(ScopeLimitedLister.class);
-	
+
 	/**
 	 * Ámbito de refactorizaciones cuya entrada principal es un atributo.
 	 */
 	private final static String ATTRIBUTE_SCOPE = "moon.core.classdef.AttDec"; //$NON-NLS-1$
-	
+
 	/**
 	 * Ámbito de refactorizaciones cuya entrada principal es una clase.
 	 */
 	private final static String CLASS_SCOPE = "moon.core.classdef.ClassDef"; //$NON-NLS-1$
-	
+
 	/**
-	 * Ámbito de refactorizaciones cuya entrada principal es un argumento formal.
+	 * Ámbito de refactorizaciones cuya entrada principal es un argumento
+	 * formal.
 	 */
 	private final static String FORMAL_ARG_SCOPE = "moon.core.classdef.FormalArgument"; //$NON-NLS-1$
-	
+
 	/**
-	 * Ámbito de refactorizaciones cuya entrada principal es un parámetro formal.
+	 * Ámbito de refactorizaciones cuya entrada principal es un parámetro
+	 * formal.
 	 */
 	private final static String FORMAL_PAR_SCOPE = "moon.core.genericity.FormalPar"; //$NON-NLS-1$
-	
+
 	/**
 	 * Ámbito de refactorizaciones cuya entrada principal es un método.
 	 */
 	private final static String METHOD_SCOPE = "moon.core.classdef.MethDec"; //$NON-NLS-1$
-	
+
 	/**
 	 * Ámbito de refactorizaciones cuya entrada principal es un parámetro formal
 	 * acotado.
 	 */
 	private final static String BOUNDED_PAR_SCOPE = "moon.core.genericity.BoundS"; //$NON-NLS-1$
-	
+
 	/**
-	 * Ámbito de refactorizaciones cuya entrada principal es un fragmento de código.
+	 * Ámbito de refactorizaciones cuya entrada principal es un fragmento de
+	 * código.
 	 */
 	private final static String CODE_FRAGMENT_SCOPE = "moon.core.instruction.CodeFragment"; //$NON-NLS-1$
-	
+
 	/**
 	 * Filtra la lista de refactorizaciones dinámicas disponibles a aquéllas que
 	 * pertenezcan a un determinado ámbito (de atributo, de clase, de argumento
 	 * formal, de parámetro formal o de método).
 	 * 
-	 * @param scope código del ámbito para el que deben obtenerse las 
-	 * refactorizaciones disponibles, según se codifican en 
-	 * {@link SelectRefactoringWindow}.
+	 * @param scope
+	 *            código del ámbito para el que deben obtenerse las
+	 *            refactorizaciones disponibles, según se codifican en
+	 *            {@link SelectRefactoringWindow}.
 	 * 
-	 * @return una tabla <i>hash</i> con la lista de refactorizaciones aplicables
-	 * al ámbito indicado. En la tabla se sigue el convenio de utilizar como
-	 * clave el nombre de la refactorización y como valor la ruta del fichero que
-	 * la contiene.
+	 * @return una tabla <i>hash</i> con la lista de refactorizaciones
+	 *         aplicables al ámbito indicado. En la tabla se sigue el convenio
+	 *         de utilizar como clave el nombre de la refactorización y como
+	 *         valor la ruta del fichero que la contiene.
 	 */
 	public static HashMap<String, String> getAvailableRefactorings(int scope){
 		
@@ -111,7 +112,7 @@ public class ScopeLimitedLister {
 			// Se obtiene la lista de todas las refactorizaciones disponibles.
 			HashMap<String, String> allRefactorings = 
 				listing.getDynamicRefactoringNameList(
-					RefactoringConstants.DYNAMIC_REFACTORING_DIR, true, null);
+					RefactoringPlugin.getDynamicRefactoringsDir(), true, null);
 			
 			for (Map.Entry<String, String> nextRef : allRefactorings.entrySet()){
 				
@@ -155,11 +156,12 @@ public class ScopeLimitedLister {
 			return null;
 		}	
 	}
-	
+
 	/**
 	 * Devuelve el ámbito al que pertenece una refactorización.
 	 * 
-	 * @param definition definición de la refactorización.
+	 * @param definition
+	 *            definición de la refactorización.
 	 * @return ámbito de la refactorización.
 	 */
 	public int getRefactoringScope(DynamicRefactoringDefinition definition){
@@ -173,17 +175,19 @@ public class ScopeLimitedLister {
 		}
 		return 0;
 	}
-	
+
 	/**
-	 * Convierte los códigos de ámbito de refactorización utilizados en la capa de 
-	 * interfaz por los nombres completamente cualificados utilizados en la
+	 * Convierte los códigos de ámbito de refactorización utilizados en la capa
+	 * de interfaz por los nombres completamente cualificados utilizados en la
 	 * representación XML de las refactorizaciones.
 	 * 
-	 * @param scope código del ámbito de la refactorización según se especifican
-	 * en {@link SelectRefactoringWindow}.
+	 * @param scope
+	 *            código del ámbito de la refactorización según se especifican
+	 *            en {@link SelectRefactoringWindow}.
 	 * 
-	 * @return el nombre completamente cualificado del tipo de objeto para el cual
-	 * se define el ámbito de refactorizaciones según el valor de #scope.
+	 * @return el nombre completamente cualificado del tipo de objeto para el
+	 *         cual se define el ámbito de refactorizaciones según el valor de
+	 *         #scope.
 	 */
 	private static String convertScope(int scope){
 		switch(scope){
@@ -205,17 +209,19 @@ public class ScopeLimitedLister {
 			return ""; //$NON-NLS-1$
 		}
 	}
-	
+
 	/**
 	 * Convierte los nombres completamente cualificados utilizados en la
-	 * representación XML de las refactorizaciones por los códigos de ámbito de refactorización 
-	 * utilizados en la capa de interfaz.
+	 * representación XML de las refactorizaciones por los códigos de ámbito de
+	 * refactorización utilizados en la capa de interfaz.
 	 * 
-	 * @param name nombre completamente cualificado del tipo de objeto para el cual
-	 * se define el ámbito de refactorizaciones según el valor de #scope.
+	 * @param name
+	 *            nombre completamente cualificado del tipo de objeto para el
+	 *            cual se define el ámbito de refactorizaciones según el valor
+	 *            de #scope.
 	 * 
-	 * @return código del ámbito de la refactorización según se especifican
-	 * en {@link SelectRefactoringWindow}.
+	 * @return código del ámbito de la refactorización según se especifican en
+	 *         {@link SelectRefactoringWindow}.
 	 */
 	private static int getScope(String name){
 		try{

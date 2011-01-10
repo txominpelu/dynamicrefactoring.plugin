@@ -260,7 +260,7 @@ public abstract class SelectDynamicRefactoringWindow extends DynamicRefactoringL
 			if (refactoring.getMotivation() != null)
 				t_Motivation.setText(refactoring.getMotivation());
 			if (refactoring.getImage() != null && ! refactoring.getImage().equals("")){ //$NON-NLS-1$
-				String path = RefactoringConstants.DYNAMIC_REFACTORING_DIR
+				String path = RefactoringPlugin.getDynamicRefactoringsDir()
 					+ System.getProperty("file.separator") //$NON-NLS-1$
 					+ refactoring.getName() + System.getProperty("file.separator") //$NON-NLS-1$
 					+ refactoring.getImage();

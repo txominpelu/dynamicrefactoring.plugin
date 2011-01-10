@@ -31,6 +31,7 @@ import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.FilenameUtils;
 
 import dynamicrefactoring.RefactoringConstants;
+import dynamicrefactoring.RefactoringPlugin;
 import dynamicrefactoring.reader.JDOMXMLRefactoringReaderImp;
 import dynamicrefactoring.reader.RefactoringPlanReader;
 import dynamicrefactoring.reader.XMLRefactoringReaderException;
@@ -74,7 +75,7 @@ public class ExportImportUtilities {
 			
 
 			File currentFile = new File(
-					RefactoringConstants.REFACTORING_CLASSES
+					RefactoringConstants.REFACTORING_CLASSES_DIR
 							+ File.separatorChar + rulePath + ".class"); //$NON-NLS-1$
 			File destinationFile = new File(destination + File.separatorChar
 					+ definitionFolderName + File.separatorChar + className
@@ -171,7 +172,7 @@ public class ExportImportUtilities {
 		ArrayList<String> refactorings = RefactoringPlanReader.readAllRefactoringsFromThePlan();
 		HashMap<String, String> allRefactorings = 
 			DynamicRefactoringLister.getInstance().getDynamicRefactoringNameList(
-				RefactoringConstants.DYNAMIC_REFACTORING_DIR, true, null);
+				RefactoringPlugin.getDynamicRefactoringsDir(), true, null);
 		
 		for(String next : refactorings){
 			String key = next + " (" + next + ".xml)"; //$NON-NLS-1$ //$NON-NLS-2$
@@ -203,7 +204,7 @@ public class ExportImportUtilities {
 		String namefolder = definitionFile.getParentFile().getName();
 		
 		FileUtils.copyDirectoryToDirectory(new File(originalFolder), new File(
-				RefactoringConstants.DYNAMIC_REFACTORING_DIR));
+				RefactoringPlugin.getDynamicRefactoringsDir()));
 		
 		//Pasamos a copiar los .class de las precondiciones, postcondiciones
 		// y acciones en su lugar
@@ -221,12 +222,12 @@ public class ExportImportUtilities {
 
 		if (importingFromPlan) {
 			FileManager
-					.emptyDirectories(RefactoringConstants.DYNAMIC_REFACTORING_DIR
+					.emptyDirectories(RefactoringPlugin.getDynamicRefactoringsDir()
 							+ File.separatorChar
 							+ namefolder
 							+ File.separatorChar + "repository");
 			FileManager.deleteDirectories(
-					RefactoringConstants.DYNAMIC_REFACTORING_DIR
+					RefactoringPlugin.getDynamicRefactoringsDir()
 							+ File.separatorChar + namefolder
 							+ File.separatorChar + "repository", true);
 
@@ -254,7 +255,7 @@ public class ExportImportUtilities {
 	private static void copyRefactoringFileClassIfNeeded(boolean importingFromPlan,
 			final String originalFolder, String predicateName)
 			throws IOException {
-		final String rutaDirectorioPredicadoClass = RefactoringConstants.REFACTORING_CLASSES
+		final String rutaDirectorioPredicadoClass = RefactoringConstants.REFACTORING_CLASSES_DIR
 				+ File.separatorChar
 				+ predicateName.replace('.', File.separatorChar) + ".class";
 		if (!(new File(rutaDirectorioPredicadoClass).exists())) {
@@ -302,11 +303,11 @@ public class ExportImportUtilities {
 			JDOMXMLRefactoringReaderImp reader) {
 		for (String element : reader.readMechanismRefactoring()) {
 			String name = splitGetLast(element, "."); //$NON-NLS-1$
-			if (new File(RefactoringConstants.DYNAMIC_REFACTORING_DIR
+			if (new File(RefactoringPlugin.getDynamicRefactoringsDir()
 					+ File.separatorChar + namefolder + File.separatorChar
 					+ name + ".class").exists()) //$NON-NLS-1$
 				FileManager
-						.deleteFile(RefactoringConstants.DYNAMIC_REFACTORING_DIR
+						.deleteFile(RefactoringPlugin.getDynamicRefactoringsDir()
 								+ File.separatorChar
 								+ namefolder
 								+ File.separatorChar + name + ".class"); //$NON-NLS-1$

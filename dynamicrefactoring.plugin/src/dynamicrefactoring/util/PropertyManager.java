@@ -27,6 +27,7 @@ import java.util.Properties;
 import org.apache.log4j.Logger;
 
 import dynamicrefactoring.RefactoringPlugin;
+import dynamicrefactoring.util.io.FileManager;
 
 /**
  * Proporciona acceso a las propiedades del fichero de propiedades.
@@ -81,12 +82,8 @@ public class PropertyManager {
 		try {
 			
 			String pluginId = RefactoringPlugin.BUNDLE_NAME;
-			URL fileURL = RefactoringPlugin.getDefault().getURLForPluginResource(pluginId, CONFIGURATION_FILE);
+			URL fileURL = FileManager.getURLForPluginResource(pluginId, CONFIGURATION_FILE);
 			InputStream in = fileURL.openStream();
-			
-			//FileInputStream configFile = new FileInputStream(
-				//RefactoringPlugin.getDefault().getBundleRootDir()
-				//+ CONFIGURATION_FILE);
 			
 			properties = new Properties();
 			properties.load(in);
