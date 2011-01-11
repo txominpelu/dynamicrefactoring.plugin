@@ -4,11 +4,14 @@
   <modelVersion>4.0.0</modelVersion>
   <groupId>dynamicrefactoring</groupId>
   <artifactId>dynamic-refactoring-plugin</artifactId>
-  <version>0.0.1-SNAPSHOT</version>
+  <version>0.0.2-SNAPSHOT</version>
   <packaging>pom</packaging>
 
   <properties>
 	<tycho-version>0.10.0</tycho-version>
+	<jacoco.agent.path>lib/jacocoagent.jar</jacoco.agent.path>
+	<jacoco.file.path>target/cobertura/jacoco.exec</jacoco.file.path>
+	<sonar.skippedModules>dynamicrefactoring.targetplatform</sonar.skippedModules>
   </properties>
 
   <modules>
@@ -18,11 +21,14 @@
     <module>dynamicrefactoring.targetplatform</module>
   </modules>
   <build>
+
+    <sourceDirectory>src</sourceDirectory>
+
     <plugins>
       <plugin>
         <groupId>org.sonatype.tycho</groupId>
         <artifactId>tycho-maven-plugin</artifactId>
-        <version>0.10.0</version>
+        <version>${tycho-version}</version>
         <extensions>true</extensions>
       </plugin>
 
@@ -54,9 +60,38 @@
   			<target>1.6</target>
 		</configuration>
 	</plugin>
+<!-- Para generar el javadoc -->
+
+
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-javadoc-plugin</artifactId>
+        <version>2.7</version>
+        <configuration>
+          ...
+        </configuration>
+      </plugin>
+
+<!-- Especificar tests a ejecutar-->
+
+    <plugin>
+      <groupId>org.sonatype.tycho</groupId>
+      <artifactId>maven-osgi-test-plugin</artifactId>
+      <version>${tycho-version}</version>
+      <configuration>
+	<argLine>-javaagent:${jacoco.agent.path}=destfile=${jacoco.file.path}</argLine>
+      </configuration>
+    </plugin>
+
+	
 
     </plugins>
   </build>
+
+
+
+
+
 <!-- Maven dependencies -->
 
 </project>
