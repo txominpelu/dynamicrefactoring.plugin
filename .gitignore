@@ -4,4 +4,7 @@ dynamicrefactoring.plugin/target/*
 dynamicrefactoring.plugin/bin/*
 dynamicrefactoring.tests/target/*
 dynamicrefactoring.tests/bin/*
-External Plug-in Libraries/
+borrar-ficheros.sh
+large-files.perl
+target/*
+External Plug-in Libraries/.searchable

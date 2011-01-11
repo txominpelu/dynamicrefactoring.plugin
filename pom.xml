@@ -12,6 +12,7 @@
 	<jacoco.agent.path>lib/jacocoagent.jar</jacoco.agent.path>
 	<jacoco.file.path>target/cobertura/jacoco.exec</jacoco.file.path>
 	<sonar.skippedModules>dynamicrefactoring.targetplatform</sonar.skippedModules>
+	<jdk-version>1.6</jdk-version>
   </properties>
 
   <modules>
@@ -56,8 +57,8 @@
 		<artifactId>maven-osgi-compiler-plugin</artifactId>
 		<version>${tycho-version}</version>
 		<configuration>
-  			<source>1.6</source>
-  			<target>1.6</target>
+  			<source>${jdk-version}</source>
+  			<target>${jdk-version}</target>
 		</configuration>
 	</plugin>
 <!-- Para generar el javadoc -->
@@ -83,13 +84,21 @@
       </configuration>
     </plugin>
 
-	
-
     </plugins>
   </build>
 
-
-
+<!-- Configuracion de las metricas del codigo -->
+ <reporting>
+    <plugins>
+      <plugin>
+	<artifactId>maven-pmd-plugin</artifactId>
+	<version>2.5</version>
+	<configuration>
+	  <targetJdk>${jdk-version}</targetJdk>
+	</configuration>
+      </plugin>
+    </plugins>
+  </reporting>
 
 
 <!-- Maven dependencies -->
