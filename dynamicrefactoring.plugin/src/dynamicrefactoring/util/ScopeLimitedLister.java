@@ -30,6 +30,7 @@ import dynamicrefactoring.RefactoringPlugin;
 import dynamicrefactoring.domain.DynamicRefactoringDefinition;
 import dynamicrefactoring.domain.RefactoringException;
 import dynamicrefactoring.interfaz.SelectRefactoringWindow;
+import dynamicrefactoring.interfaz.SelectRefactoringWindow.SCOPE;
 
 /**
  * Permite obtener el conjunto de refactorizaciones dinámicas disponibles y
@@ -101,7 +102,7 @@ public class ScopeLimitedLister {
 	 *         de utilizar como clave el nombre de la refactorización y como
 	 *         valor la ruta del fichero que la contiene.
 	 */
-	public static HashMap<String, String> getAvailableRefactorings(int scope){
+	public static HashMap<String, String> getAvailableRefactorings(SelectRefactoringWindow.SCOPE scope){
 		
 		// Refactorizaciones seleccionadas por ser del ámbito adecuado.
 		HashMap<String, String> selected = new HashMap<String, String>();
@@ -164,7 +165,7 @@ public class ScopeLimitedLister {
 	 *            definición de la refactorización.
 	 * @return ámbito de la refactorización.
 	 */
-	public int getRefactoringScope(DynamicRefactoringDefinition definition){
+	public SCOPE getRefactoringScope(DynamicRefactoringDefinition definition){
 		for(String[] nextInput : definition.getInputs()){
 			// Para su entrada de tipo "raíz".
 			if (nextInput[4] != null && nextInput[4].equals("true")){ //$NON-NLS-1$
@@ -173,7 +174,8 @@ public class ScopeLimitedLister {
 				return getScope(nextInput[0]);
 			}
 		}
-		return 0;
+		//FIXME: ELiminar null
+		return null;
 	}
 
 	/**
@@ -189,21 +191,22 @@ public class ScopeLimitedLister {
 	 *         cual se define el ámbito de refactorizaciones según el valor de
 	 *         #scope.
 	 */
-	private static String convertScope(int scope){
+	private static String convertScope(SelectRefactoringWindow.SCOPE scope){
+		//FIXME: Sustituir por nombre de enum SelectRefactoringWindow.SCOPE
 		switch(scope){
-		case SelectRefactoringWindow.SCOPE_ATTRIBUTE:
+		case SCOPE_ATTRIBUTE:
 			return ATTRIBUTE_SCOPE;
-		case SelectRefactoringWindow.SCOPE_CLASS:
+		case SCOPE_CLASS:
 			return CLASS_SCOPE;
-		case SelectRefactoringWindow.SCOPE_FORMAL_ARG:
+		case SCOPE_FORMAL_ARG:
 			return FORMAL_ARG_SCOPE;
-		case SelectRefactoringWindow.SCOPE_FORMAL_PAR:
+		case SCOPE_FORMAL_PAR:
 			return FORMAL_PAR_SCOPE;
-		case SelectRefactoringWindow.SCOPE_METHOD:
+		case SCOPE_METHOD:
 			return METHOD_SCOPE;
-		case SelectRefactoringWindow.SCOPE_BOUNDED_PAR:
+		case SCOPE_BOUNDED_PAR:
 			return BOUNDED_PAR_SCOPE;
-		case SelectRefactoringWindow.SCOPE_CODE_FRAGMENT:
+		case SCOPE_CODE_FRAGMENT:
 			return CODE_FRAGMENT_SCOPE;
 		default:
 			return ""; //$NON-NLS-1$
@@ -223,32 +226,33 @@ public class ScopeLimitedLister {
 	 * @return código del ámbito de la refactorización según se especifican en
 	 *         {@link SelectRefactoringWindow}.
 	 */
-	private static int getScope(String name){
+	private static SelectRefactoringWindow.SCOPE getScope(String name){
 		try{
 		if(Class.forName(ATTRIBUTE_SCOPE).isAssignableFrom(Class.forName(name)))
-			return SelectRefactoringWindow.SCOPE_ATTRIBUTE;
+			return SelectRefactoringWindow.SCOPE.SCOPE_ATTRIBUTE;
 		else 
 			if(Class.forName(CLASS_SCOPE).isAssignableFrom(Class.forName(name)))
-				return SelectRefactoringWindow.SCOPE_CLASS;
+				return SelectRefactoringWindow.SCOPE.SCOPE_CLASS;
 			else
 				if(Class.forName(FORMAL_ARG_SCOPE).isAssignableFrom(Class.forName(name)))
-					return SelectRefactoringWindow.SCOPE_FORMAL_ARG;
+					return SelectRefactoringWindow.SCOPE.SCOPE_FORMAL_ARG;
 				else
 					if(Class.forName(FORMAL_PAR_SCOPE).isAssignableFrom(Class.forName(name)))
-						return SelectRefactoringWindow.SCOPE_FORMAL_PAR;
+						return SelectRefactoringWindow.SCOPE.SCOPE_FORMAL_PAR;
 					else
 						if(Class.forName(METHOD_SCOPE).isAssignableFrom(Class.forName(name)))
-							return SelectRefactoringWindow.SCOPE_METHOD; 
+							return SelectRefactoringWindow.SCOPE.SCOPE_METHOD; 
 						else
 							if(Class.forName(BOUNDED_PAR_SCOPE).isAssignableFrom(Class.forName(name)))
-								return SelectRefactoringWindow.SCOPE_BOUNDED_PAR;
+								return SelectRefactoringWindow.SCOPE.SCOPE_BOUNDED_PAR;
 							else
 								if(Class.forName(CODE_FRAGMENT_SCOPE).isAssignableFrom(Class.forName(name)))
-									return SelectRefactoringWindow.SCOPE_CODE_FRAGMENT;
+									return SelectRefactoringWindow.SCOPE.SCOPE_CODE_FRAGMENT;
 		}catch(ClassNotFoundException exception){
 			logger.error(Messages.ScopeLimitedLister_ErrorLoading
 					+ ".\n" + exception.getMessage());
 		}
-		return 0;
+		//FIXME: ELiminar null
+		return null;
 	}
 }

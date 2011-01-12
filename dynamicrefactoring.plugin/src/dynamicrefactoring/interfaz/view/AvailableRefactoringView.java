@@ -222,21 +222,21 @@ public class AvailableRefactoringView extends ViewPart {
 					if(selection.isClassSelection()){
 						refactorings =
 							new JDOMXMLRefactoringReaderImp().readAvailableRefactorings
-							(SelectRefactoringWindow.SCOPE_CLASS
+							(SelectRefactoringWindow.SCOPE.SCOPE_CLASS
 									, RefactoringConstants.REFACTORING_TYPES_FILE);
 						fillTree(refactorings);
 					}
 					else if(selection.isMethodSelection()){
 						refactorings =
 							new JDOMXMLRefactoringReaderImp().readAvailableRefactorings
-							(SelectRefactoringWindow.SCOPE_METHOD,
+							(SelectRefactoringWindow.SCOPE.SCOPE_METHOD,
 									RefactoringConstants.REFACTORING_TYPES_FILE);
 						fillTree(refactorings);
 					}
 					else if(selection.isFieldSelection()){
 						refactorings =
 							new JDOMXMLRefactoringReaderImp().readAvailableRefactorings
-							(SelectRefactoringWindow.SCOPE_ATTRIBUTE,
+							(SelectRefactoringWindow.SCOPE.SCOPE_ATTRIBUTE,
 									RefactoringConstants.REFACTORING_TYPES_FILE);
 						fillTree(refactorings);
 
@@ -244,7 +244,7 @@ public class AvailableRefactoringView extends ViewPart {
 					else if(selection.isFormalArgumentSelection()){
 						refactorings =
 							new JDOMXMLRefactoringReaderImp().readAvailableRefactorings
-							(SelectRefactoringWindow.SCOPE_FORMAL_ARG,
+							(SelectRefactoringWindow.SCOPE.SCOPE_FORMAL_ARG,
 									RefactoringConstants.REFACTORING_TYPES_FILE);
 						fillTree(refactorings);
 
@@ -252,14 +252,14 @@ public class AvailableRefactoringView extends ViewPart {
 					else if(selection.isFormalParameterSelection()){
 						refactorings =
 							new JDOMXMLRefactoringReaderImp().readAvailableRefactorings
-							(SelectRefactoringWindow.SCOPE_FORMAL_PAR,
+							(SelectRefactoringWindow.SCOPE.SCOPE_FORMAL_PAR,
 									RefactoringConstants.REFACTORING_TYPES_FILE);
 						fillTree(refactorings);
 
 					}else if(selection.isTextSelection()){
 						refactorings =
 							new JDOMXMLRefactoringReaderImp().readAvailableRefactorings
-							(SelectRefactoringWindow.SCOPE_CODE_FRAGMENT,
+							(SelectRefactoringWindow.SCOPE.SCOPE_CODE_FRAGMENT,
 									RefactoringConstants.REFACTORING_TYPES_FILE);
 						fillTree(refactorings);
 

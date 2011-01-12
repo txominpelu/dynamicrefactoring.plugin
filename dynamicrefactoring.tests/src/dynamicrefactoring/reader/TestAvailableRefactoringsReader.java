@@ -50,7 +50,7 @@ public class TestAvailableRefactoringsReader {
 	@Test(expected=XMLRefactoringReaderException.class)
 	public void testReadingFileWithIncompleteInformation() throws Exception{
 		new JDOMXMLRefactoringReaderImp().readAvailableRefactorings
-		(SelectRefactoringWindow.SCOPE_ATTRIBUTE,
+		(SelectRefactoringWindow.SCOPE.SCOPE_ATTRIBUTE,
 				"./testdata/XML/Reader/availableRefactorings/incompleteInformation.xml");
 	}
 
@@ -65,7 +65,7 @@ public class TestAvailableRefactoringsReader {
 	@Test(expected=XMLRefactoringReaderException.class)
 	public void testReadingIncorrectStructure() throws Exception{
 		new JDOMXMLRefactoringReaderImp().readAvailableRefactorings
-		(SelectRefactoringWindow.SCOPE_ATTRIBUTE,
+		(SelectRefactoringWindow.SCOPE.SCOPE_ATTRIBUTE,
 				"./testdata/XML/Reader/availableRefactorings/diferentStructure.xml");
 	}
 
@@ -82,35 +82,35 @@ public class TestAvailableRefactoringsReader {
 		
 		HashMap<String,String> refactorings 
 		=new JDOMXMLRefactoringReaderImp().readAvailableRefactorings
-		(SelectRefactoringWindow.SCOPE_CLASS,
+		(SelectRefactoringWindow.SCOPE.SCOPE_CLASS,
 		"./testdata/XML/Reader/availableRefactorings/minimunInformation.xml");
 	
 		assertEquals(0,refactorings.size());
 		
 		refactorings 
 		=new JDOMXMLRefactoringReaderImp().readAvailableRefactorings
-		(SelectRefactoringWindow.SCOPE_METHOD,
+		(SelectRefactoringWindow.SCOPE.SCOPE_METHOD,
 		"./testdata/XML/Reader/availableRefactorings/minimunInformation.xml");
 	
 		assertEquals(0,refactorings.size());
 		
 		refactorings 
 		=new JDOMXMLRefactoringReaderImp().readAvailableRefactorings
-		(SelectRefactoringWindow.SCOPE_ATTRIBUTE,
+		(SelectRefactoringWindow.SCOPE.SCOPE_ATTRIBUTE,
 		"./testdata/XML/Reader/availableRefactorings/minimunInformation.xml");
 	
 		assertEquals(0,refactorings.size());
 		
 		refactorings 
 		=new JDOMXMLRefactoringReaderImp().readAvailableRefactorings
-		(SelectRefactoringWindow.SCOPE_FORMAL_PAR,
+		(SelectRefactoringWindow.SCOPE.SCOPE_FORMAL_PAR,
 		"./testdata/XML/Reader/availableRefactorings/minimunInformation.xml");
 	
 		assertEquals(0,refactorings.size());
 		
 		refactorings 
 		=new JDOMXMLRefactoringReaderImp().readAvailableRefactorings
-		(SelectRefactoringWindow.SCOPE_FORMAL_ARG,
+		(SelectRefactoringWindow.SCOPE.SCOPE_FORMAL_ARG,
 		"./testdata/XML/Reader/availableRefactorings/minimunInformation.xml");
 	
 		assertEquals(0,refactorings.size());
@@ -129,7 +129,7 @@ public class TestAvailableRefactoringsReader {
 		
 		HashMap<String,String> refactorings 
 		=new JDOMXMLRefactoringReaderImp().readAvailableRefactorings
-			(SelectRefactoringWindow.SCOPE_CLASS,
+			(SelectRefactoringWindow.SCOPE.SCOPE_CLASS,
 				"./testdata/XML/Reader/availableRefactorings/completedInformation.xml");
 	
 		assertEquals(3,refactorings.size());
@@ -142,7 +142,7 @@ public class TestAvailableRefactoringsReader {
 		
 		refactorings 
 		=new JDOMXMLRefactoringReaderImp().readAvailableRefactorings
-			(SelectRefactoringWindow.SCOPE_METHOD,
+			(SelectRefactoringWindow.SCOPE.SCOPE_METHOD,
 				"./testdata/XML/Reader/availableRefactorings/completedInformation.xml");
 	
 		assertEquals(4,refactorings.size());
@@ -157,7 +157,7 @@ public class TestAvailableRefactoringsReader {
 		
 		refactorings 
 		=new JDOMXMLRefactoringReaderImp().readAvailableRefactorings
-			(SelectRefactoringWindow.SCOPE_ATTRIBUTE,
+			(SelectRefactoringWindow.SCOPE.SCOPE_ATTRIBUTE,
 				"./testdata/XML/Reader/availableRefactorings/completedInformation.xml");
 	
 		assertEquals(1,refactorings.size());
@@ -166,7 +166,7 @@ public class TestAvailableRefactoringsReader {
 		
 		refactorings 
 		=new JDOMXMLRefactoringReaderImp().readAvailableRefactorings
-		(SelectRefactoringWindow.SCOPE_FORMAL_ARG,
+		(SelectRefactoringWindow.SCOPE.SCOPE_FORMAL_ARG,
 			"./testdata/XML/Reader/availableRefactorings/completedInformation.xml");
 	
 		assertEquals(2,refactorings.size());
@@ -177,7 +177,7 @@ public class TestAvailableRefactoringsReader {
 		
 		refactorings 
 		=new JDOMXMLRefactoringReaderImp().readAvailableRefactorings
-			(SelectRefactoringWindow.SCOPE_FORMAL_PAR,
+			(SelectRefactoringWindow.SCOPE.SCOPE_FORMAL_PAR,
 				"./testdata/XML/Reader/availableRefactorings/completedInformation.xml");
 	
 		assertEquals(3,refactorings.size());
@@ -192,7 +192,7 @@ public class TestAvailableRefactoringsReader {
 		
 		refactorings 
 		=new JDOMXMLRefactoringReaderImp().readAvailableRefactorings
-			(SelectRefactoringWindow.SCOPE_CODE_FRAGMENT,
+			(SelectRefactoringWindow.SCOPE.SCOPE_CODE_FRAGMENT,
 				"./testdata/XML/Reader/availableRefactorings/completedInformation.xml");
 		
 		assertEquals(1,refactorings.size());

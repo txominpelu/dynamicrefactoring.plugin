@@ -23,6 +23,7 @@ package dynamicrefactoring.interfaz;
 import java.text.MessageFormat;
 
 import dynamicrefactoring.domain.DynamicRefactoringDefinition;
+import dynamicrefactoring.interfaz.SelectRefactoringWindow.SCOPE;
 import dynamicrefactoring.util.io.FileManager;
 import dynamicrefactoring.writer.JDOMXMLRefactoringWriterImp;
 import dynamicrefactoring.util.ScopeLimitedLister;
@@ -107,7 +108,7 @@ public class SelectForDeletingWindow extends SelectDynamicRefactoringWindow {
 				
 				if (isConfirmed(refactoring.getName())){
 					String name = refactoring.getName();
-					int scope = new ScopeLimitedLister().getRefactoringScope(refactoring);
+					SCOPE scope = new ScopeLimitedLister().getRefactoringScope(refactoring);
 					String filePath = refactoringLocations.get(
 						l_Available.getSelection()[0]);
 					String dirPath = filePath.substring(0, filePath.lastIndexOf(

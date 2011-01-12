@@ -35,6 +35,7 @@ import dynamicrefactoring.writer.XMLRefactoringWriterException;
 import dynamicrefactoring.writer.XMLRefactoringWriterFactory;
 
 import dynamicrefactoring.domain.DynamicRefactoringDefinition;
+import dynamicrefactoring.interfaz.SelectRefactoringWindow.SCOPE;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -108,7 +109,7 @@ public class RefactoringWizard extends Wizard implements INewWizard {
 	/**
 	 * Ámbito original de la clase que se edita.
 	 */
-	private int originalScope;
+	private SCOPE originalScope;
 	
 	/**
 	 * Primera página del asistente.
@@ -164,7 +165,8 @@ public class RefactoringWizard extends Wizard implements INewWizard {
 		operation = (refactoring == null) ? CREATE : EDIT;
 		this.refactoring = refactoring;
 		this.originalName = (refactoring != null) ? refactoring.getName() : ""; //$NON-NLS-1$
-		this.originalScope = (refactoring != null) ? new ScopeLimitedLister().getRefactoringScope(refactoring) : 0;
+		//FIXME: Eliminar el null con la enum SCOPE
+		this.originalScope = (refactoring != null) ? new ScopeLimitedLister().getRefactoringScope(refactoring) : null;
 	}
 	
 	/**
@@ -358,7 +360,7 @@ public class RefactoringWizard extends Wizard implements INewWizard {
 				
 				//actualizamos el fichero refactorings.xml que guarda la información de las refactorizaciones
 				//de la aplicación.
-				int scope = new ScopeLimitedLister().getRefactoringScope(refactoring);
+				SCOPE scope = new ScopeLimitedLister().getRefactoringScope(refactoring);
 				new JDOMXMLRefactoringWriterImp(null).addNewRefactoringToXml(scope,refactoring.getName()
 						,RefactoringPlugin.getDynamicRefactoringsDir() + "/" + refactoring.getName()
 							+ "/" + refactoring.getName() + ".xml");
@@ -366,7 +368,7 @@ public class RefactoringWizard extends Wizard implements INewWizard {
 			
 			else if(operation == EDIT){
 				
-				int scope = new ScopeLimitedLister().getRefactoringScope(refactoring);
+				SCOPE scope = new ScopeLimitedLister().getRefactoringScope(refactoring);
 				// Si se ha renombrado la refactorización.
 				if (!refactoring.getName().equals(originalName)){
 					renameResources(destination);

@@ -79,45 +79,41 @@ import dynamicrefactoring.RefactoringPlugin;
  */
 public class SelectRefactoringWindow extends Dialog {
 	
-	/**
-	 * Ámbito de clase.
-	 */
-	public static final int SCOPE_CLASS = 1;
-	
-	/**
-	 * Ámbito de método.
-	 */
-	public static final int SCOPE_METHOD = 2;
-	
-	/**
-	 * Ámbito de atributo.
-	 */
-	public static final int SCOPE_ATTRIBUTE = 3;
-	
-	/**
-	 * Ámbito de argumento formal.
-	 */
-	public static final int SCOPE_FORMAL_ARG = 4;
-	
-	/**
-	 * Ámbito de parámetro formal.
-	 */
-	public static final int SCOPE_FORMAL_PAR = 5;
-	
-	/**
-	 * Ámbito de parámetro formal acotado.
-	 */
-	public static final int SCOPE_BOUNDED_PAR = 6;
-	
-	/**
-	 * Ámbito de bloque de texto.
-	 */
-	public static final int SCOPE_CODE_FRAGMENT = 7;
-	
+	public static enum SCOPE {
+		/**
+		 * Ámbito de clase.
+		 */
+		SCOPE_CLASS,
+		/**
+		 * Ámbito de método.
+		 */
+		SCOPE_METHOD,
+		/**
+		 * Ámbito de atributo.
+		 */
+		SCOPE_ATTRIBUTE,
+		/**
+		 * Ámbito de argumento formal.
+		 */
+		SCOPE_FORMAL_ARG,
+		/**
+		 * Ámbito de parámetro formal.
+		 */
+		SCOPE_FORMAL_PAR,
+		/**
+		 * Ámbito de parámetro formal acotado.
+		 */
+		SCOPE_BOUNDED_PAR,
+		/**
+		 * Ámbito de bloque de texto.
+		 */
+		SCOPE_CODE_FRAGMENT,
+	}
+
 	/**
 	 * Ámbito de aplicación de refactorizaciones con el que trabajará la ventana.
 	 */
-	private int scope;
+	private SCOPE scope;
 	
 	/**
 	 * Objeto seleccionado como entrada principal al proceso de refactorización. 
@@ -152,25 +148,25 @@ public class SelectRefactoringWindow extends Dialog {
 		this.mainObject = mainObject;
 	
 		if(mainObject instanceof ClassDef){
-			scope = SCOPE_CLASS;
+			scope = SCOPE.SCOPE_CLASS;
 		}
 		else if(mainObject instanceof MethDec){
-			scope = SCOPE_METHOD;
+			scope = SCOPE.SCOPE_METHOD;
 		}
 		else if(mainObject instanceof AttDec){
-			scope = SCOPE_ATTRIBUTE;
+			scope = SCOPE.SCOPE_ATTRIBUTE;
 		}
 		else if(mainObject instanceof FormalArgument){
-			scope = SCOPE_FORMAL_ARG;
+			scope = SCOPE.SCOPE_FORMAL_ARG;
 		}
 		else if(mainObject instanceof BoundS && 
 				((BoundS)mainObject).getBounds().size() > 0){
-			scope = SCOPE_BOUNDED_PAR;
+			scope = SCOPE.SCOPE_BOUNDED_PAR;
 		}
 		else if(mainObject instanceof FormalPar){
-			scope = SCOPE_FORMAL_PAR;
+			scope = SCOPE.SCOPE_FORMAL_PAR;
 		}else if(mainObject instanceof CodeFragment){
-			scope = SCOPE_CODE_FRAGMENT;
+			scope = SCOPE.SCOPE_CODE_FRAGMENT;
 		}
 		
 		
@@ -179,9 +175,9 @@ public class SelectRefactoringWindow extends Dialog {
 		fillInDynamicRefactorings(dynamicRefactorings);
 		// Para un parámetro formal acotado valen también las refactorizaciones
 		// generales sobre parámetros formales.
-		if (scope == SCOPE_BOUNDED_PAR){
+		if (scope == SCOPE.SCOPE_BOUNDED_PAR){
 			HashMap <String, String> tempMap =
-				ScopeLimitedLister.getAvailableRefactorings(SCOPE_FORMAL_PAR);
+				ScopeLimitedLister.getAvailableRefactorings(SCOPE.SCOPE_FORMAL_PAR);
 			dynamicRefactorings.putAll(tempMap);				
 			fillInDynamicRefactorings(tempMap);
 		}

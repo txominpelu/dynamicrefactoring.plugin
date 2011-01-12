@@ -32,6 +32,7 @@ import org.apache.commons.io.FilenameUtils;
 
 import dynamicrefactoring.RefactoringConstants;
 import dynamicrefactoring.RefactoringPlugin;
+import dynamicrefactoring.interfaz.SelectRefactoringWindow.SCOPE;
 import dynamicrefactoring.reader.JDOMXMLRefactoringReaderImp;
 import dynamicrefactoring.reader.RefactoringPlanReader;
 import dynamicrefactoring.reader.XMLRefactoringReaderException;
@@ -285,7 +286,7 @@ public class ExportImportUtilities {
 		try{
 			DynamicRefactoringDefinition r_definition = DynamicRefactoringDefinition.getRefactoringDefinition(
 				definition);
-			int scope = new ScopeLimitedLister().getRefactoringScope(r_definition);
+			SCOPE scope = new ScopeLimitedLister().getRefactoringScope(r_definition);
 			new dynamicrefactoring.writer.JDOMXMLRefactoringWriterImp(null).addNewRefactoringToXml(scope,namefolder,definition);
 		}catch(RefactoringException e){
 			e.printStackTrace();

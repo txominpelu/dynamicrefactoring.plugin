@@ -23,6 +23,7 @@ package dynamicrefactoring.reader;
 import dynamicrefactoring.RefactoringConstants;
 import dynamicrefactoring.domain.DynamicRefactoringDefinition;
 import dynamicrefactoring.interfaz.SelectRefactoringWindow;
+import dynamicrefactoring.interfaz.SelectRefactoringWindow.SCOPE;
 
 import java.io.File;
 import java.io.IOException;
@@ -382,14 +383,14 @@ public class JDOMXMLRefactoringReaderImp implements XMLRefactoringReaderImp {
 	 * Obtiene del fichero temporal que guarda las refactorizaciones disponibles, aquellas que son 
 	 * ejecutables con el parámetro de entrada del tipo señalado por el parámetro scope.
 	 * 
-	 * @param scope tipo de la entrada principal de la refactorización.
+	 * @param scopeClass tipo de la entrada principal de la refactorización.
 	 * @param path_file ruta del fichero xml en donde estan descritas las refactorizaciones disponibles.
 	 * @return <code>HashMap</code> cuyas claves son el nombre de las refactorizaciones y 
 	 * los valores la ruta del fichero que contiene la definición de la refactorización en caso
 	 * de ser dinámica o la cadena vacia en caso de ser estática.
 	 * @throws XMLRefactoringReaderException lanzado en caso de que no se pueda leer el fichero xml.
 	 */
-	public HashMap<String, String> readAvailableRefactorings(int scope, String path_file) throws XMLRefactoringReaderException {
+	public HashMap<String, String> readAvailableRefactorings(SCOPE scopeClass, String path_file) throws XMLRefactoringReaderException {
 		
 		HashMap<String, String> refactorings = new HashMap<String, String>(); 
 		
@@ -405,7 +406,7 @@ public class JDOMXMLRefactoringReaderImp implements XMLRefactoringReaderImp {
 		catch (IOException ioexception) {
 			throw new XMLRefactoringReaderException(ioexception.getMessage());
 		}	
-		if(scope == SelectRefactoringWindow.SCOPE_CLASS){
+		if(scopeClass == SelectRefactoringWindow.SCOPE.SCOPE_CLASS){
 			Element classdef = root.getChild("classdef");
 			for(int i=0;  i < classdef.getChildren().size(); i++){
 				Element refactor = (Element)classdef.getChildren().get(i);
@@ -414,7 +415,7 @@ public class JDOMXMLRefactoringReaderImp implements XMLRefactoringReaderImp {
 				refactorings.put(name, path);
 			}
 		}
-		else if(scope == SelectRefactoringWindow.SCOPE_METHOD){
+		else if(scopeClass == SelectRefactoringWindow.SCOPE.SCOPE_METHOD){
 			Element classdef = root.getChild("methdec");
 			for(int i=0;  i < classdef.getChildren().size(); i++){
 				Element refactor = (Element)classdef.getChildren().get(i);
@@ -423,7 +424,7 @@ public class JDOMXMLRefactoringReaderImp implements XMLRefactoringReaderImp {
 				refactorings.put(name, path);
 			}
 		}
-		else if(scope == SelectRefactoringWindow.SCOPE_ATTRIBUTE){
+		else if(scopeClass == SelectRefactoringWindow.SCOPE.SCOPE_ATTRIBUTE){
 			Element classdef = root.getChild("attdec");
 			for(int i=0;  i < classdef.getChildren().size(); i++){
 				Element refactor = (Element)classdef.getChildren().get(i);
@@ -432,7 +433,7 @@ public class JDOMXMLRefactoringReaderImp implements XMLRefactoringReaderImp {
 				refactorings.put(name, path);
 			}
 		}
-		else if(scope == SelectRefactoringWindow.SCOPE_FORMAL_ARG){
+		else if(scopeClass == SelectRefactoringWindow.SCOPE.SCOPE_FORMAL_ARG){
 			Element classdef = root.getChild("formalArgument");
 			for(int i=0;  i < classdef.getChildren().size(); i++){
 				Element refactor = (Element)classdef.getChildren().get(i);
@@ -441,7 +442,7 @@ public class JDOMXMLRefactoringReaderImp implements XMLRefactoringReaderImp {
 				refactorings.put(name, path);
 			}
 		}
-		else if(scope == SelectRefactoringWindow.SCOPE_FORMAL_PAR){
+		else if(scopeClass == SelectRefactoringWindow.SCOPE.SCOPE_FORMAL_PAR){
 			Element classdef = root.getChild("formalPar");
 			for(int i=0;  i < classdef.getChildren().size(); i++){
 				Element refactor = (Element)classdef.getChildren().get(i);
@@ -450,7 +451,7 @@ public class JDOMXMLRefactoringReaderImp implements XMLRefactoringReaderImp {
 				refactorings.put(name, path);
 			}
 		}
-		else if(scope == SelectRefactoringWindow.SCOPE_CODE_FRAGMENT){
+		else if(scopeClass == SelectRefactoringWindow.SCOPE.SCOPE_CODE_FRAGMENT){
 			Element classdef = root.getChild("codeFragment");
 			for(int i=0;  i < classdef.getChildren().size(); i++){
 				Element refactor = (Element)classdef.getChildren().get(i);
