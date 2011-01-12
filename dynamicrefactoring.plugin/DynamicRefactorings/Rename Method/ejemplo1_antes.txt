@@ -1,8 +1,0 @@
-public class Customer {
-
-	private float creditLimit;
-
-	public float getcrdtlmt(){
-		return creditLimit;
-	}
-}

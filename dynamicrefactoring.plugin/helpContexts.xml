@@ -1,6 +1,0 @@
-<contexts>
-<context  id="wizardhelp" title="Wizard">
-        <description>Gets help about this wizard</description>
-        <topic href=".\help\topics\index.html"  label="Wizard help"/>>
-</context>
-</contexts>

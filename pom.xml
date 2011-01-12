@@ -4,10 +4,11 @@
   <modelVersion>4.0.0</modelVersion>
   <groupId>dynamicrefactoring</groupId>
   <artifactId>dynamic-refactoring-plugin</artifactId>
-  <version>0.0.2-SNAPSHOT</version>
+  <version>${app-version}</version>
   <packaging>pom</packaging>
 
   <properties>
+	<app-version>0.0.2</app-version>
 	<tycho-version>0.10.0</tycho-version>
 	<jacoco.agent.path>lib/jacocoagent.jar</jacoco.agent.path>
 	<jacoco.file.path>target/cobertura/jacoco.exec</jacoco.file.path>
@@ -44,7 +45,7 @@
 				<artifact>
 					<groupId>dynamicrefactoring</groupId>
 					<artifactId>dynamicrefactoring.targetplatform</artifactId>
-					<version>0.0.1-SNAPSHOT</version>
+					<version>${app-version}</version>
 					<classifier>dynamicrefactoring</classifier>
 				</artifact>
 			</target>

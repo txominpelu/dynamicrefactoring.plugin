@@ -1,8 +1,0 @@
-moon.core
-moon.core.classdef
-moon.core.entity
-moon.core.expression
-moon.core.expression.constant
-moon.core.genericity
-moon.core.inheritance
-moon.core.instruction

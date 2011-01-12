@@ -1,8 +1,0 @@
-bin/**/*
-temp/**/*
-/temp
-/target
-/target/**/*
-/log
-/model.mod
-/out.mod
