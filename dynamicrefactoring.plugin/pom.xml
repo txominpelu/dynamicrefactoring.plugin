@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd" xmlns="http://maven.apache.org/POM/4.0.0"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <modelVersion>4.0.0</modelVersion>
+  <parent>
+    <artifactId>dynamic-refactoring-plugin</artifactId>
+    <groupId>dynamicrefactoring</groupId>
+    <version>${app-version}</version>
+  </parent>
+  <groupId>dynamicrefactoring</groupId>
+  <artifactId>dynamicrefactoring.plugin</artifactId>
+  <version>${app-version}</version>
+  <packaging>eclipse-plugin</packaging>
+	
+  <build>
+	<plugins>
+	<!-- Copy binary files to bin directory -->
+		<plugin>
+		        <groupId>org.apache.maven.plugins</groupId>
+		        <artifactId>maven-antrun-plugin</artifactId>
+		        <executions>
+		            <execution>
+		                <phase>compile</phase>
+		                <configuration>
+		                    <tasks>
+		                        <ant target="copy-classes-to-bin" inheritRefs="true"/>
+		                    </tasks>
+		                </configuration>
+		                <goals>
+		                    <goal>run</goal>
+		                </goals>
+		            </execution>
+		        </executions>
+
+	       </plugin>
+  	</plugins>
+  </build>
+
+</project>

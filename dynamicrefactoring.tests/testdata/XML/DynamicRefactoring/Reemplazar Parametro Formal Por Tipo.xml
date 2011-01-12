@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!DOCTYPE refactoring SYSTEM "refactoringDTD.dtd">
+
+<refactoring name="Reemplazar Parametro Formal Por Tipo">
+	<information>
+		<description>Descripción.</description>
+		<image src="imagen.gif" />
+		<motivation>Motivación.</motivation>
+	</information>
+	<inputs>
+		<input type="proyecto.mooncore.classs.ClassDef" name="Clase" method="getAllClassDefs" />
+		<input type="proyecto.mooncore.generic.FormalPar" name="Parámetro" from="Clase" method="getFormalPar" />
+		<input type="proyecto.mooncore.classs.ClassType" name="Nuevo_Tipo" method="getAllTypes" />
+		<input type="proyecto.construct.Modelo" />
+	</inputs>
+	<mechanism>
+		<preconditions>
+			<precondition name="IsFormalPar" />
+			<precondition name="IsSingleGenericInstance" />
+		</preconditions>
+		<actions>
+			<action name="DeleteFormalParameter" />
+			<action name="SubstituteFormalParameter" />
+			<action name="DeleteRealParameter">
+				<param type="java.util.Collection" from="proyecto.construct.Modelo" method="getAllTypes" />
+			</action>
+		</actions>
+		<postconditions>
+			<postcondition name="IsNotFormalPar" />
+		</postconditions>
+	</mechanism>
+	<examples>
+		<example before="ejemplo1_antes.txt" after="ejemplo1_despues.txt" />
+		<example before="ejemplo2_antes.txt" after="ejemplo2_despues.txt" />
+	</examples>
+</refactoring>
+

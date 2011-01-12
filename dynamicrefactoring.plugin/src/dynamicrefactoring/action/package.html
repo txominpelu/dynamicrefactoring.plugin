@@ -1,0 +1,35 @@
+<html>
+<body bgcolor="white">
+
+<p>Proporciona la implementación de las acciones que integran la funcionalidad del <i>plugin</i>
+en la interfaz de Eclipse.</p>
+
+<p>Contiene las clases que implementan el enganche básico entre el <i>plugin</i> y Eclipse. 
+Son clases que representan la funcionalidad disponible del sistema, a las que invocará Eclipse 
+cuando se utilicen las opciones de los menús correspondientes al <i>plugin</i>.</p>
+
+<p>La declaración de estas clases a través del fichero de definición del <i>plugin</i>, <code>plugin.xml</code>
+permite a Eclipse conocer qué menús y desplegables debe poner a disposición del usuario para que pueda 
+utilizar las funciones del <i>plugin</i>. Se crean automáticamente sobre la interfaz dichos menús a partir 
+de un objeto que representa la acción correspondiente a modo de <i>proxy</i>. El objeto real con la acción 
+que se debe ejecutar solo se instancia una vez el usuario ha elegido la opción correspondiente; 
+hasta ese momento, Eclipse tiene suficiente con conocer el lugar donde debe aparecer el menú, y el texto, 
+icono, etc. que lleva asociados.</p>
+
+<p>Todas las acciones mantienen una interfaz común, definida en Eclipse por <code>IActionDelegate</code>.</p>
+
+<p>El método fundamental de las acciones es run(), invocado desde el <i>proxy</i> asociado cada vez que se debe 
+lanzar la acción. Las subclases deben implementar aquí la tarea que ejecuta su acción.</p>
+
+<h2>Package Specification</h2>
+
+El kit de compatibilidad de Java no necesita ninguna especificación para este paquete.<p>
+
+<h2>Related Documentation</h2>
+
+Para más documentación, diríjase a la documentación anexa al producto.
+
+@since Julio 2009
+
+</body>
+</html>

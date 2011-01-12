@@ -1,0 +1,186 @@
+<project name="refactorizaciones_dinamicas" default="compile" basedir=".">
+
+	<property file="build.properties"/>
+	<property name="javamoon" location="${basedir}\lib\javamoon_1.3.5.jar"/>
+	<property name="test" location="test"/>
+
+
+	<!-- ========================= All Target ============================== -->
+	<target name="all" description="Compila y genera la documentacion." depends="clean, init, compile" />
+ 			
+ 	
+ 	<!-- ========================= Clean Target ============================ -->
+  	<target description="Borra los directorios generados." name="clean">
+    		<delete dir="${build}"/>
+    		<delete dir="${html}"/>
+    		<delete dir="${backup}"/>
+    		<delete dir="${src_html}"/>
+    		<delete dir="${javadoc}" />
+		<delete dir="${doccheck}"/>
+		<delete dir="${doc}"/>
+    		<delete dir="${test}"/>
+  	</target>
+	
+
+	<!-- ======================== Init Target ============================== -->
+	<target name="init" description="Crea la estructura de directorios.">
+		<mkdir dir="${build}"/>
+	</target>
+	
+	
+	<!-- ======================== Compile Target =========================== -->
+	<target name="compile" depends="init" description="Compila los fuentes.">
+		<javac  
+			srcdir="${src}"
+			classpath="${src};${build};${javamoon};
+					   ${basedir}\lib\ant.jar;
+					   ${basedir}\lib\ostermillerutils_1_04_03.jar;
+					   ${basedir}\lib\core.jar;
+					   ${basedir}\lib\log4j-1.2.9.jar;
+					   ${basedir}\lib\jcoverage.jar;
+					   ${basedir}\lib\junit.jar;
+					   ${basedir}\lib\jdom.jar"
+			destdir="${build}"
+			deprecation="on">
+		</javac>
+	</target>
+
+
+	<!-- ===================== Run Application Target ====================== -->
+	<target name="runApp" depends="compile" description="Lanza la aplicacion.">
+		<java classname="interfaz.Aplicacion"
+			classpath="${basedir};${build};${javamoon};
+					   ${basedir}\lib\ostermillerutils_1_04_03.jar;
+					   ${basedir}\lib\ant.jar;${basedir}\lib\ant-launcher.jar;
+					   ${basedir}\lib\core.jar;${basedir}\lib\java2html.jar;
+					   ${basedir}\lib\log4j-1.2.9.jar;
+					   ${basedir}\lib\jdom.jar"
+			fork="yes">  		
+			<jvmarg value="-ea"/>
+			<assertions>
+				<enable/>
+			</assertions>
+		</java>
+	</target>
+
+
+	<!-- ======================== Run Tests Target ========================= -->
+	<target name="tests" depends="compile" description="Lanza los tests.">
+		<java classname="engine.repository.concreterefactoring.TestSuiteRefactorizaciones"
+			  classpath="${src};${build};${javamoon};
+			  			 ${basedir}\lib\core.jar;
+						 ${basedir}\lib\junit.jar;
+	 	  				 ${basedir}\lib\jdom.jar;
+			  			 ${basedir}\lib\log4j-1.2.9.jar"
+			  fork="yes">
+			  <env key="path" value="${build}\engine.repository.concreterefactoring"/>
+			  <jvmarg value="-ea"/>
+			  <assertions>
+			  	<enable/>
+			  </assertions>
+		</java>
+	</target>
+
+
+	<!-- ======================= All Doc Targets =========================== -->
+	<target name="allDoc" depends="javadoc, docCheck, java2html"/>
+	
+	
+	<!-- ======================= Doc Init Target =========================== -->
+	<target name="docinit" description="Crea la estructura de carpetas de documentacion.">
+		<mkdir dir="${doc}"/>
+		<mkdir dir="${src_html}"/>
+		<mkdir dir="${javadoc}"/>
+		<mkdir dir="${doccheck}"/>
+	</target>
+		
+
+	<!-- ========================= Javadoc Target ========================== -->
+	<target name="javadoc" depends="docinit" description="JavaDoc.">
+		<copy file="stylesheet.css" todir="${doc}"/>
+  	  <javadoc
+  	  	packagenames = "*.*"
+  	  	sourcepath = "${src}"
+  	  	destdir = "${javadoc}"
+  	  	classpath = "${src};${build};${javamoon};
+  	  				 ${basedir}\lib\core.jar;
+  	  				 ${basedir}\lib\ant.jar;
+  	  				 ${basedir}\lib\ostermillerutils_1_04_03.jar;
+					 ${basedir}\lib\log4j-1.2.9.jar;
+  	  				 ${basedir}\lib\jdom.jar;
+  	  				 ${basedir}\lib\junit.jar"
+  	  	private = "true"
+  	  	verbose = "false"
+  	  	use = "true"
+  	  	author = "true"
+  	  	windowtitle = "Documentaci&#243;n t&#233;cnica de la Herramienta de Refactorizaciones dinamicas"
+  	  	doctitle="&lt;img src=&quot;..\..\Aplicacion\images\logo.jpg&quot;/>
+  	  			  &lt;h1>Herramienta de Refactorizaciones dinamicas&lt;/h1>"
+  	  	header = "Herramienta de Refactorizaciones dinamicas"
+  	  	link = "http://java.sun.com/j2se/1.5.0/docs/api"
+  	  	stylesheetfile = "${doc}\stylesheet.css"
+  	  	source = "1.5">
+  	  </javadoc>
+	</target>
+	
+	
+	<!-- ========================= DocCheck Target ========================= -->
+	<target name="docCheck" depends="docinit" description="Comprueba la documentacion java.">
+		<mkdir dir="${doccheck}"/>
+
+		<javadoc
+			packagenames = "*.*"
+			sourcepath = "${src}"
+			destdir = "${doccheck}"
+			classpath = "${src};${build};${javamoon};${basedir}\lib\core.jar;${basedir}\lib\ant.jar;
+  	  				${basedir}\lib\ostermillerutils_1_04_03.jar;${basedir}\lib\doccheck.jar;
+					${basedir}\lib\log4j-1.2.9.jar;
+ 	  				${basedir}\lib\jdom.jar;
+  	  				${basedir}\lib\junit.jar;
+  	  				${basedir}\lib\jcoverage.jar"
+  	  		private = "true"
+  	  		author = "true"
+  	  		verbose = "false"
+  	  		source = "1.5">
+  	  		<doclet name="com.sun.tools.doclets.doccheck.DocCheck"
+             		path="${basedir}\lib\doccheck.jar"/>
+		</javadoc>
+	</target>
+		
+	
+	<!-- ======================== Java2Html Target ========================= -->
+	<target name="java2html" depends="docinit" description="Genera los HTML con la documentacion del codigo.">
+			
+		<java2html title="Herramienta de Refactorizaciones dinamicas&lt;p>"
+			simple="no"
+            		tabsize="4"
+			marginsize="4"
+			header="true"
+			footer="true"
+			destination="${src_html}">
+			<fileset dir="${src}">
+				<include name="**/*.java"/> 
+			</fileset>
+		<javadoc localRef="." httpRef="http://java.sun.com/docs/api"/>
+		</java2html>
+	</target>	
+
+	<target name="runtest" description="Lanza la aplicacion.">
+		<java classname="dynamicrefactoring.refactoringreader.TestCaseRefactoringReader"
+			classpath="${basedir};${build};${javamoon};
+					   ${basedir}\lib\ostermillerutils_1_04_03.jar;
+					   ${basedir}\lib\ant.jar;${basedir}\lib\ant-launcher.jar;
+					   ${basedir}\lib\core.jar;${basedir}\lib\java2html.jar;
+					   ${basedir}\lib\log4j-1.2.9.jar;
+					   ${basedir}\lib\junit.jar;
+					   ${basedir}\lib\jdom.jar"
+			fork="yes">  		
+			<jvmarg value="-ea"/>
+			<assertions>
+				<enable/>
+			</assertions>
+		</java>
+	</target>
+
+</project>
+

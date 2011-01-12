@@ -1,0 +1,6 @@
+Created /home/imediava/Escritorio/workspace-proyecto/dynamic-refactoring-plugin/dynamicrefactoring.plugin/DynamicRefactorings/Rename Method/stylesheet.css
+Created /home/imediava/Escritorio/workspace-proyecto/dynamic-refactoring-plugin/dynamicrefactoring.plugin/DynamicRefactorings/Rename Method/front.html
+Created: /home/imediava/Escritorio/workspace-proyecto/dynamic-refactoring-plugin/dynamicrefactoring.plugin/DynamicRefactorings/Rename Method/ejemplo2_despues.java.html
+Created: /home/imediava/Escritorio/workspace-proyecto/dynamic-refactoring-plugin/dynamicrefactoring.plugin/DynamicRefactorings/Rename Method/ejemplo1_despues.java.html
+Created: /home/imediava/Escritorio/workspace-proyecto/dynamic-refactoring-plugin/dynamicrefactoring.plugin/DynamicRefactorings/Rename Method/ejemplo1_antes.java.html
+Created: /home/imediava/Escritorio/workspace-proyecto/dynamic-refactoring-plugin/dynamicrefactoring.plugin/DynamicRefactorings/Rename Method/ejemplo2_antes.java.html

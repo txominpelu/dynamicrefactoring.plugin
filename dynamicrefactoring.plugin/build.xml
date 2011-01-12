@@ -1,0 +1,15 @@
+<project name="Example" xmlns:jacoco="antlib:org.jacoco.ant">
+
+	<target name="copy-classes-to-bin" description="Copying classes to bin directory.">
+		<property name="bin-dir" location="bin"/>
+		<property name="target-classes-dir" location="target/classes"/>
+
+		<mkdir dir="${bin-dir}"/>
+
+		<copy todir="${bin-dir}">
+			<fileset dir="${target-classes-dir}/"/>
+		</copy>
+	</target>
+
+</project>
+

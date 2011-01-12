@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="ISO-8859-1" standalone="no"?>
+<project default="allDoc" basedir=".">
+<property name="src.dir" value="${basedir}\src" />
+<property name="test.dir" value="${basedir}\test" />
+<property name="lib.dir" value="${basedir}\lib" />
+<property name="doclib.dir" value="${basedir}\doclib" />
+<property name="eclipse.dir" value=""/>
+<property name="eclipse.lib" value="${eclipse.dir}\plugins"/>
+
+<!-- ==================== Definition of CLASSPATH ====================== -->
+<path id="doc.classpath">
+	<pathelement location="${lib.dir}"/>
+	<pathelement location="${src.dir}"/>
+	<fileset dir="${lib.dir}">
+		<include name="*.jar"/>
+	</fileset>
+	<fileset dir="${eclipse.lib}">
+		<include name="*.jar"/>
+	</fileset>
+</path>
+
+<!-- ======================= All Doc Targets =========================== -->
+<target name="allDoc" depends="init, javadoc, doccheck, java2html" />
+
+<!-- ======================== Init Target ============================== -->
+<target name="init" description="Operaciones de inicialización" depends="clean">
+	<mkdir dir="${basedir}\doc" />
+	<mkdir dir="${basedir}\doc\javadoc" />
+	<mkdir dir="${basedir}\doc\javadoc\moon" />
+	<mkdir dir="${basedir}\doc\javadoc\javamoon" />
+	<copy todir="${basedir}\doc\javadoc\moon">
+		<fileset dir="${basedir}\moon"/>
+	</copy>
+	<copy todir="${basedir}\doc\javadoc\javamoon">
+		<fileset dir="${basedir}\javamoon"/>
+	</copy>
+	<delete dir="${basedir}\javamoon" />
+	<delete dir="${basedir}\moon" />
+	<mkdir dir="${basedir}\doc\doccheck" />
+	<mkdir dir="${basedir}\doc\src_html" />		
+   	<copy file="${basedir}\help\topics\images\3.png" todir="${basedir}\doc\javadoc" />
+</target>
+	
+<!-- ========================= Clean Target ============================ -->
+<target description="Borra los directorios generados" name="clean">
+	<mkdir dir="${basedir}\doc\javadoc\moon" />
+	<mkdir dir="${basedir}\doc\javadoc\javamoon" />
+	<copy todir="${basedir}\moon">
+		<fileset dir="${basedir}\doc\javadoc\moon"/>
+	</copy>
+	<copy todir="${basedir}\javamoon">
+		<fileset dir="${basedir}\doc\javadoc\javamoon"/>
+	</copy>
+	<delete dir="${basedir}\doc" />
+</target>
+	
+<!-- ========================= Javadoc Target ========================== -->
+<target name="javadoc" depends="init" description="Genera la documentación del código fuente java">
+	<mkdir dir="${basedir}\doc" />
+    <javadoc access="public" author="true" 
+    	destdir="${basedir}\doc\javadoc"
+		doctitle="&lt;img src=.\3.png/&gt; " 
+		nodeprecated="false" 
+		nodeprecatedlist="false" 
+		noindex="false" 
+		nonavbar="false" 
+		notree="false" 
+		packagenames="*.*"
+		source="1.6" 
+		sourcepath="${src.dir};${test.dir}"
+		splitindex="true" 
+		stylesheetfile="${basedir}\stylesheet.css" 
+		use="true" 
+		version="true"
+		windowtitle="Documentación técnica del plugin Dinamyc refactoring" 
+		header="Dinamyc Refactoring Plugin">
+		<classpath refid="doc.classpath"/>
+	</javadoc>
+</target>
+    
+<!-- ========================= DocCheck Target ========================= -->
+<target name="doccheck" depends="init" description="Comprueba la documentación del código fuente java">		
+	<javadoc packagenames="*.*" sourcepath="${src.dir};${test.dir}"
+		destdir="${basedir}\doc\doccheck"
+		private="true" 
+		author="true" 
+		verbose="false" 
+		source="1.6">
+		<classpath refid="doc.classpath"/>
+		<doclet name="com.sun.tools.doclets.doccheck.DocCheck" path="${doclib.dir}\doccheck.jar" />
+	</javadoc>
+</target>
+	
+<!-- ======================== Java2Html Target ========================= -->
+<target name="java2html" depends="init" description="Genera los ficheros HTML del código fuente">
+	<taskdef name="java2html" classname="de.java2html.anttasks.Java2HtmlTask"
+		classpath="${doclib.dir}\java2html.jar" />
+
+	<java2html srcdir="${src.dir}" destdir="${basedir}\doc\src_html" 
+		includes="**/*.java" 
+		style="eclipse" 
+		showLineNumbers="no" 
+		showFileName="no" 
+		showTableBorder="no" />
+</target>
+</project>
