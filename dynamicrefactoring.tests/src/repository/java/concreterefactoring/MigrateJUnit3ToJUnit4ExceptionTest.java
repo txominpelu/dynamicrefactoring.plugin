@@ -73,79 +73,90 @@ public class MigrateJUnit3ToJUnit4ExceptionTest extends RefactoringTemplateAbstr
 		check("usualRun");		
 	}
 	
-	/**
-	 * Tests a correct running without problems. Final result
-	 * must be the initial JUnit4 method test.
-	 * 
-	 * @throws Exception if something goes wrong
-	 */
-	
-	public void testUsualUndo() throws Exception{
-		undo("usualRun");		
-	}
-	
-	
-	
-	/**
-	 * Tests a correct running without problems. Final result
-	 * must be the new JUnit4 test.
-	 * 
-	 * @throws Exception if something goes wrong
-	 */
-	
-	public void testUsualRun2() throws Exception{
-		check("usualRun2");		
-	}
-	
-	
-	/**
-	 * Tests a correct running without problems. Final result
-	 * must be the initial JUnit4 method test.
-	 * 
-	 * @throws Exception if something goes wrong
-	 */
-	
-	public void testUsualUndo2() throws Exception{
-		undo("usualRun2");		
-	}
-	
-	
-
-	
-	
-	/**
-	 * Tests a correct running without problems. Final result
-	 * must be the initial JUnit4 method test.
-	 * 
-	 * @throws Exception if something goes wrong
-	 */
-	
-	public void testUsualUndo3() throws Exception{
-		undo("usualRun3");		
-	}
-
-	/**
-	 * Tests a correct running without problems. Final result
-	 * must be the new JUnit4 test.
-	 * 
-	 * @throws Exception if something goes wrong
-	 */
-	
-	public void testUsualRun4() throws Exception{
-		check("usualRun4");		
-	}
-	
-	
-	/**
-	 * Tests a correct running without problems. Final result
-	 * must be the initial JUnit4 method test.
-	 * 
-	 * @throws Exception if something goes wrong
-	 */
-	
-	public void testUsualUndo4() throws Exception{
-		undo("usualRun4");		
-	}
+//	/**
+//	 * Tests a correct running without problems. Final result
+//	 * must be the initial JUnit4 method test.
+//	 * 
+//	 * @throws Exception if something goes wrong
+//	 */
+//	
+//	public void testUsualUndo() throws Exception{
+//		undo("usualRun");		
+//	}
+//	
+//	
+//	
+//	/**
+//	 * Tests a correct running without problems. Final result
+//	 * must be the new JUnit4 test.
+//	 * 
+//	 * @throws Exception if something goes wrong
+//	 */
+//	
+//	public void testUsualRun2() throws Exception{
+//		check("usualRun2");		
+//	}
+//	
+//	
+//	/**
+//	 * Tests a correct running without problems. Final result
+//	 * must be the initial JUnit4 method test.
+//	 * 
+//	 * @throws Exception if something goes wrong
+//	 */
+//	
+//	public void testUsualUndo2() throws Exception{
+//		undo("usualRun2");		
+//	}
+//	
+//	
+//
+//	
+//	
+//	/**
+//	 * Tests a correct running without problems. Final result
+//	 * must be the initial JUnit4 method test.
+//	 * 
+//	 * @throws Exception if something goes wrong
+//	 */
+//	
+//	public void testUsualUndo3() throws Exception{
+//		undo("usualRun3");		
+//	}
+//
+//	/**
+//	 * Tests a correct running without problems. Final result
+//	 * must be the new JUnit4 test.
+//	 * 
+//	 * @throws Exception if something goes wrong
+//	 */
+//	
+//	public void testUsualRun4() throws Exception{
+//		check("usualRun4");		
+//	}
+//	
+//	
+//	/**
+//	 * Tests a correct running without problems. Final result
+//	 * must be the initial JUnit4 method test.
+//	 * 
+//	 * @throws Exception if something goes wrong
+//	 */
+//	
+//	public void testUsualUndo4() throws Exception{
+//		undo("usualRun4");		
+//	}
+//	
+//	/**
+//	 * Tests a correct running without problems. Final result
+//	 * must be the new JUnit4 test.
+//	 * 
+//	 * @throws Exception if something goes wrong
+//	 */
+//	
+//	public void testUsualRun3() throws Exception{
+//		check("usualRun3");		
+//	}
 	
 	
 	/**
@@ -228,15 +239,6 @@ public class MigrateJUnit3ToJUnit4ExceptionTest extends RefactoringTemplateAbstr
 				+ File.separator + dir + File.separator + "before" + File.separator + "OldOtherTest.java");
     }
 
-	/**
-	 * Tests a correct running without problems. Final result
-	 * must be the new JUnit4 test.
-	 * 
-	 * @throws Exception if something goes wrong
-	 */
-	
-	public void testUsualRun3() throws Exception{
-		check("usualRun3");		
-	}
+
 
 }

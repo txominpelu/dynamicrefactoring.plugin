@@ -4,22 +4,13 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
-import moon.core.classdef.ClassType;
-import moon.core.expression.Expr;
-import moon.core.instruction.CompoundInstr;
-import moon.core.instruction.Instr;
-
 import javamoon.core.DefinitionLanguage;
-import javamoon.core.JavaModel;
-import javamoon.core.JavaName;
-import javamoon.core.entity.JavaArtificialEntity;
 import javamoon.core.entity.JavaRoutineDec;
-import javamoon.core.expression.JavaCallExpr;
-import javamoon.core.instruction.InstrNoMoon;
-import javamoon.core.instruction.JavaFalseAssignmentInstr;
 import javamoon.core.instruction.JavaFalseLocalDec;
 import javamoon.core.instruction.JavaInstrNoMoon;
-
+import moon.core.classdef.ClassType;
+import moon.core.instruction.CompoundInstr;
+import moon.core.instruction.Instr;
 import refactoring.engine.Function;
 import repository.java.concretepredicate.HasNotFail;
 
@@ -89,7 +80,7 @@ public class CatchExceptionWithFailCollector extends Function{
 						list.add((ClassType) jfld.getJavaLocalDec().getType());
 					}*/
 					JavaFalseLocalDec jfld =  (JavaFalseLocalDec) lista.get(i+2);					
-					if (!(new HasNotFail( ((CompoundInstr) lista.get(i+4))).isValid())){
+					if (!(new HasNotFail( (lista.get(i+4))).isValid())){
 						list.add((ClassType) jfld.getJavaLocalDec().getType());
 					}
 					

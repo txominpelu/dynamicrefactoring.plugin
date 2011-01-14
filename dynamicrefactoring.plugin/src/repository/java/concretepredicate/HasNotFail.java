@@ -1,10 +1,6 @@
 package repository.java.concretepredicate;
 
-import javamoon.core.entity.JavaArtificialEntity;
-import javamoon.core.entity.JavaFunctionResult;
-import javamoon.core.expression.JavaCallExpr;
-import javamoon.core.instruction.JavaFalseAssignmentInstr;
-import moon.core.expression.Expr;
+import javamoon.core.instruction.JavaCallInstr;
 import moon.core.instruction.CompoundInstr;
 import moon.core.instruction.Instr;
 import refactoring.engine.Predicate;
@@ -47,6 +43,7 @@ public class HasNotFail extends Predicate{
 	 * @return true if not contains fail, false other case
 	 */
 	private boolean notContainFail(Instr instr){
+		
 		if (instr instanceof CompoundInstr){
 			boolean result = true;
 			for (Instr instr2 : ((CompoundInstr) instr).getInstructions()){
@@ -56,14 +53,9 @@ public class HasNotFail extends Predicate{
 			return result;
 		}
 		else{
-			
-			
-			if (instr instanceof JavaFalseAssignmentInstr){
-				
-				Expr expr = ((JavaFalseAssignmentInstr) instr).getRighSide();
-				// FIXME: Que devuelve la void.toString()?
-				String name = ((JavaFunctionResult) (((JavaCallExpr) expr)).getFirstElement()).toString();
-				if (name.toString().equals("fail")){
+			if (instr instanceof JavaCallInstr){
+				String name = ((JavaCallInstr) instr).getRoutineDec().getName().toString();
+				if (name.toString().equals("fail")){					
 					return false;
 				}
 			}
