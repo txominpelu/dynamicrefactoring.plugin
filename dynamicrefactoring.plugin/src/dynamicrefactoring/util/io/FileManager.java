@@ -29,9 +29,11 @@ import java.io.OutputStream;
 import java.net.URL;
 import java.util.Collections;
 import java.util.Enumeration;
+import java.util.List;
 import java.util.StringTokenizer;
 
 import org.apache.commons.io.FileUtils;
+import org.apache.commons.io.FilenameUtils;
 import org.apache.commons.io.IOUtils;
 import org.eclipse.core.runtime.FileLocator;
 import org.eclipse.core.runtime.Path;
@@ -424,8 +426,10 @@ public class FileManager {
 			String fileSystemDir) {
 		// TODO: Test para este método
 		final Bundle bundle = Platform.getBundle(RefactoringPlugin.BUNDLE_NAME);
-		final Enumeration<?> entries = bundle.findEntries(bundleDir, "*", true);
-		for (Object entrada : Collections.list(entries)) {
+		final Enumeration<?> entries = bundle.findEntries(FilenameUtils.separatorsToUnix(bundleDir), "*", true);
+		//FIXME: Falla si no existe la carpeta o no hay nada en ella solucionar y agregar tests
+		final List<?> lista = Collections.list(entries);
+		for (Object entrada : lista) {
 			URL entry = (URL) entrada;
 			File fichero = new File(entry.getFile());
 			if (!entry.toString().endsWith("/")) {
