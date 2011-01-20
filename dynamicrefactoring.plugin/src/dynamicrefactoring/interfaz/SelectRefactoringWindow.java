@@ -20,6 +20,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.*/
 
 package dynamicrefactoring.interfaz;
 
+import dynamicrefactoring.domain.Scope;
 import dynamicrefactoring.interfaz.dynamic.DynamicRefactoringWindowLauncher;
 
 import dynamicrefactoring.util.ScopeLimitedLister;
@@ -79,41 +80,10 @@ import dynamicrefactoring.RefactoringPlugin;
  */
 public class SelectRefactoringWindow extends Dialog {
 	
-	public static enum SCOPE {
-		/**
-		 * Ámbito de clase.
-		 */
-		SCOPE_CLASS,
-		/**
-		 * Ámbito de método.
-		 */
-		SCOPE_METHOD,
-		/**
-		 * Ámbito de atributo.
-		 */
-		SCOPE_ATTRIBUTE,
-		/**
-		 * Ámbito de argumento formal.
-		 */
-		SCOPE_FORMAL_ARG,
-		/**
-		 * Ámbito de parámetro formal.
-		 */
-		SCOPE_FORMAL_PAR,
-		/**
-		 * Ámbito de parámetro formal acotado.
-		 */
-		SCOPE_BOUNDED_PAR,
-		/**
-		 * Ámbito de bloque de texto.
-		 */
-		SCOPE_CODE_FRAGMENT,
-	}
-
 	/**
 	 * Ámbito de aplicación de refactorizaciones con el que trabajará la ventana.
 	 */
-	private SCOPE scope;
+	private Scope scope;
 	
 	/**
 	 * Objeto seleccionado como entrada principal al proceso de refactorización. 
@@ -148,25 +118,25 @@ public class SelectRefactoringWindow extends Dialog {
 		this.mainObject = mainObject;
 	
 		if(mainObject instanceof ClassDef){
-			scope = SCOPE.SCOPE_CLASS;
+			scope = Scope.SCOPE_CLASS;
 		}
 		else if(mainObject instanceof MethDec){
-			scope = SCOPE.SCOPE_METHOD;
+			scope = Scope.SCOPE_METHOD;
 		}
 		else if(mainObject instanceof AttDec){
-			scope = SCOPE.SCOPE_ATTRIBUTE;
+			scope = Scope.SCOPE_ATTRIBUTE;
 		}
 		else if(mainObject instanceof FormalArgument){
-			scope = SCOPE.SCOPE_FORMAL_ARG;
+			scope = Scope.SCOPE_FORMAL_ARG;
 		}
 		else if(mainObject instanceof BoundS && 
 				((BoundS)mainObject).getBounds().size() > 0){
-			scope = SCOPE.SCOPE_BOUNDED_PAR;
+			scope = Scope.SCOPE_BOUNDED_PAR;
 		}
 		else if(mainObject instanceof FormalPar){
-			scope = SCOPE.SCOPE_FORMAL_PAR;
+			scope = Scope.SCOPE_FORMAL_PAR;
 		}else if(mainObject instanceof CodeFragment){
-			scope = SCOPE.SCOPE_CODE_FRAGMENT;
+			scope = Scope.SCOPE_CODE_FRAGMENT;
 		}
 		
 		
@@ -175,9 +145,9 @@ public class SelectRefactoringWindow extends Dialog {
 		fillInDynamicRefactorings(dynamicRefactorings);
 		// Para un parámetro formal acotado valen también las refactorizaciones
 		// generales sobre parámetros formales.
-		if (scope == SCOPE.SCOPE_BOUNDED_PAR){
+		if (scope == Scope.SCOPE_BOUNDED_PAR){
 			HashMap <String, String> tempMap =
-				ScopeLimitedLister.getAvailableRefactorings(SCOPE.SCOPE_FORMAL_PAR);
+				ScopeLimitedLister.getAvailableRefactorings(Scope.SCOPE_FORMAL_PAR);
 			dynamicRefactorings.putAll(tempMap);				
 			fillInDynamicRefactorings(tempMap);
 		}

@@ -35,7 +35,8 @@ import dynamicrefactoring.writer.XMLRefactoringWriterException;
 import dynamicrefactoring.writer.XMLRefactoringWriterFactory;
 
 import dynamicrefactoring.domain.DynamicRefactoringDefinition;
-import dynamicrefactoring.interfaz.SelectRefactoringWindow.SCOPE;
+import dynamicrefactoring.domain.Scope;
+import dynamicrefactoring.domain.Scope;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -109,7 +110,7 @@ public class RefactoringWizard extends Wizard implements INewWizard {
 	/**
 	 * Ámbito original de la clase que se edita.
 	 */
-	private SCOPE originalScope;
+	private Scope originalScope;
 	
 	/**
 	 * Primera página del asistente.
@@ -360,7 +361,7 @@ public class RefactoringWizard extends Wizard implements INewWizard {
 				
 				//actualizamos el fichero refactorings.xml que guarda la información de las refactorizaciones
 				//de la aplicación.
-				SCOPE scope = new ScopeLimitedLister().getRefactoringScope(refactoring);
+				Scope scope = new ScopeLimitedLister().getRefactoringScope(refactoring);
 				new JDOMXMLRefactoringWriterImp(null).addNewRefactoringToXml(scope,refactoring.getName()
 						,RefactoringPlugin.getDynamicRefactoringsDir() + "/" + refactoring.getName()
 							+ "/" + refactoring.getName() + ".xml");
@@ -368,7 +369,7 @@ public class RefactoringWizard extends Wizard implements INewWizard {
 			
 			else if(operation == EDIT){
 				
-				SCOPE scope = new ScopeLimitedLister().getRefactoringScope(refactoring);
+				Scope scope = new ScopeLimitedLister().getRefactoringScope(refactoring);
 				// Si se ha renombrado la refactorización.
 				if (!refactoring.getName().equals(originalName)){
 					renameResources(destination);

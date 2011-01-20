@@ -20,7 +20,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.*/
 
 package dynamicrefactoring.reader;
 
-import dynamicrefactoring.interfaz.SelectRefactoringWindow;
+import dynamicrefactoring.domain.Scope;
 import dynamicrefactoring.reader.JDOMXMLRefactoringReaderImp;
 import dynamicrefactoring.reader.XMLRefactoringReaderException;
 
@@ -40,77 +40,77 @@ import org.junit.Test;
 public class TestAvailableRefactoringsReader {
 
 	/**
-	 * Comprueba que la lectura no se realiza cuando la definición no contiene
-	 * toda la información mínima necesaria (no cumple las reglas del DTD).
+	 * Comprueba que la lectura no se realiza cuando la definiciï¿½n no contiene
+	 * toda la informaciï¿½n mï¿½nima necesaria (no cumple las reglas del DTD).
 	 * 
-	 * Para ello se realiza una lectura del documento para un ámbito determinado.
+	 * Para ello se realiza una lectura del documento para un ï¿½mbito determinado.
 	 * 
 	 * @throws Exception si se produce un error durante la lectura.
 	 */
 	@Test(expected=XMLRefactoringReaderException.class)
 	public void testReadingFileWithIncompleteInformation() throws Exception{
 		new JDOMXMLRefactoringReaderImp().readAvailableRefactorings
-		(SelectRefactoringWindow.SCOPE.SCOPE_ATTRIBUTE,
+		(Scope.SCOPE_ATTRIBUTE,
 				"./testdata/XML/Reader/availableRefactorings/incompleteInformation.xml");
 	}
 
 	/**
-	 * Comprueba que la lectura no se realiza cuando la definición utiliza otra
+	 * Comprueba que la lectura no se realiza cuando la definiciï¿½n utiliza otra
 	 * estructura que la que se define en el DTD.
 	 * 
-	 * Para ello se realiza una lectura del documento para un ámbito determinado.
+	 * Para ello se realiza una lectura del documento para un ï¿½mbito determinado.
 	 * 
 	 * @throws Exception si se produce un error durante la lectura.
 	 */
 	@Test(expected=XMLRefactoringReaderException.class)
 	public void testReadingIncorrectStructure() throws Exception{
 		new JDOMXMLRefactoringReaderImp().readAvailableRefactorings
-		(SelectRefactoringWindow.SCOPE.SCOPE_ATTRIBUTE,
+		(Scope.SCOPE_ATTRIBUTE,
 				"./testdata/XML/Reader/availableRefactorings/diferentStructure.xml");
 	}
 
 	/**
 	 * Comprueba que la lectura se realiza correctamente cuando el fichero xml
-	 * contiene la información mínima necesaria.Es decir que el fichero no
-	 * tiene ninguna refactorización de ningún ámbito.
+	 * contiene la informaciï¿½n mï¿½nima necesaria.Es decir que el fichero no
+	 * tiene ninguna refactorizaciï¿½n de ningï¿½n ï¿½mbito.
 	 * 
 	 * @throws Exception si se produce un error durante la lectura.
 	 */
 	@Test
 	public void testReadingWithMinimumInformation() throws Exception{
-		//Comprueba que no hay ninguna refactorización en ningún ámbito
+		//Comprueba que no hay ninguna refactorizaciï¿½n en ningï¿½n ï¿½mbito
 		
 		HashMap<String,String> refactorings 
 		=new JDOMXMLRefactoringReaderImp().readAvailableRefactorings
-		(SelectRefactoringWindow.SCOPE.SCOPE_CLASS,
+		(Scope.SCOPE_CLASS,
 		"./testdata/XML/Reader/availableRefactorings/minimunInformation.xml");
 	
 		assertEquals(0,refactorings.size());
 		
 		refactorings 
 		=new JDOMXMLRefactoringReaderImp().readAvailableRefactorings
-		(SelectRefactoringWindow.SCOPE.SCOPE_METHOD,
+		(Scope.SCOPE_METHOD,
 		"./testdata/XML/Reader/availableRefactorings/minimunInformation.xml");
 	
 		assertEquals(0,refactorings.size());
 		
 		refactorings 
 		=new JDOMXMLRefactoringReaderImp().readAvailableRefactorings
-		(SelectRefactoringWindow.SCOPE.SCOPE_ATTRIBUTE,
+		(Scope.SCOPE_ATTRIBUTE,
 		"./testdata/XML/Reader/availableRefactorings/minimunInformation.xml");
 	
 		assertEquals(0,refactorings.size());
 		
 		refactorings 
 		=new JDOMXMLRefactoringReaderImp().readAvailableRefactorings
-		(SelectRefactoringWindow.SCOPE.SCOPE_FORMAL_PAR,
+		(Scope.SCOPE_FORMAL_PAR,
 		"./testdata/XML/Reader/availableRefactorings/minimunInformation.xml");
 	
 		assertEquals(0,refactorings.size());
 		
 		refactorings 
 		=new JDOMXMLRefactoringReaderImp().readAvailableRefactorings
-		(SelectRefactoringWindow.SCOPE.SCOPE_FORMAL_ARG,
+		(Scope.SCOPE_FORMAL_ARG,
 		"./testdata/XML/Reader/availableRefactorings/minimunInformation.xml");
 	
 		assertEquals(0,refactorings.size());
@@ -118,18 +118,18 @@ public class TestAvailableRefactoringsReader {
 
 	/**
 	 * Comprueba que la lectura se realiza correctamente cuando el plan
-	 * contiene la información completa. Hay refactorizaciones para cada uno de
-	 * los ámbitos.
+	 * contiene la informaciï¿½n completa. Hay refactorizaciones para cada uno de
+	 * los ï¿½mbitos.
 	 * 
 	 * @throws Exception si se produce un error durante la lectura.
 	 */
 	@Test
 	public void testReadingWithCompleteInformation() throws Exception{
-		//Comprueba que no hay ninguna refactorización en ningún ámbito
+		//Comprueba que no hay ninguna refactorizaciï¿½n en ningï¿½n ï¿½mbito
 		
 		HashMap<String,String> refactorings 
 		=new JDOMXMLRefactoringReaderImp().readAvailableRefactorings
-			(SelectRefactoringWindow.SCOPE.SCOPE_CLASS,
+			(Scope.SCOPE_CLASS,
 				"./testdata/XML/Reader/availableRefactorings/completedInformation.xml");
 	
 		assertEquals(3,refactorings.size());
@@ -142,7 +142,7 @@ public class TestAvailableRefactoringsReader {
 		
 		refactorings 
 		=new JDOMXMLRefactoringReaderImp().readAvailableRefactorings
-			(SelectRefactoringWindow.SCOPE.SCOPE_METHOD,
+			(Scope.SCOPE_METHOD,
 				"./testdata/XML/Reader/availableRefactorings/completedInformation.xml");
 	
 		assertEquals(4,refactorings.size());
@@ -157,7 +157,7 @@ public class TestAvailableRefactoringsReader {
 		
 		refactorings 
 		=new JDOMXMLRefactoringReaderImp().readAvailableRefactorings
-			(SelectRefactoringWindow.SCOPE.SCOPE_ATTRIBUTE,
+			(Scope.SCOPE_ATTRIBUTE,
 				"./testdata/XML/Reader/availableRefactorings/completedInformation.xml");
 	
 		assertEquals(1,refactorings.size());
@@ -166,7 +166,7 @@ public class TestAvailableRefactoringsReader {
 		
 		refactorings 
 		=new JDOMXMLRefactoringReaderImp().readAvailableRefactorings
-		(SelectRefactoringWindow.SCOPE.SCOPE_FORMAL_ARG,
+		(Scope.SCOPE_FORMAL_ARG,
 			"./testdata/XML/Reader/availableRefactorings/completedInformation.xml");
 	
 		assertEquals(2,refactorings.size());
@@ -177,7 +177,7 @@ public class TestAvailableRefactoringsReader {
 		
 		refactorings 
 		=new JDOMXMLRefactoringReaderImp().readAvailableRefactorings
-			(SelectRefactoringWindow.SCOPE.SCOPE_FORMAL_PAR,
+			(Scope.SCOPE_FORMAL_PAR,
 				"./testdata/XML/Reader/availableRefactorings/completedInformation.xml");
 	
 		assertEquals(3,refactorings.size());
@@ -192,7 +192,7 @@ public class TestAvailableRefactoringsReader {
 		
 		refactorings 
 		=new JDOMXMLRefactoringReaderImp().readAvailableRefactorings
-			(SelectRefactoringWindow.SCOPE.SCOPE_CODE_FRAGMENT,
+			(Scope.SCOPE_CODE_FRAGMENT,
 				"./testdata/XML/Reader/availableRefactorings/completedInformation.xml");
 		
 		assertEquals(1,refactorings.size());

@@ -35,15 +35,15 @@ import org.junit.Test;
 
 import dynamicrefactoring.RefactoringConstants;
 import dynamicrefactoring.RefactoringPlugin;
-import dynamicrefactoring.interfaz.SelectRefactoringWindow;
-import dynamicrefactoring.interfaz.SelectRefactoringWindow.SCOPE;
+import dynamicrefactoring.domain.Scope;
+
 import dynamicrefactoring.reader.JDOMXMLRefactoringReaderImp;
 import dynamicrefactoring.reader.XMLRefactoringReaderException;
 import dynamicrefactoring.util.io.FileManager;
 
 /**
  * Comprueba que funciona correctamente el proceso de escritura de las
- * refactorizaciones disponibles para cada ámbito.
+ * refactorizaciones disponibles para cada ï¿½mbito.
  * 
  * @author <A HREF="mailto:lfd0002@alu.ubu.es">Laura Fuente de la Fuente</A>
  * 
@@ -98,15 +98,15 @@ public class TestAvailableRefactoringsWriter{
 				.deleteDirectories(
 						"./testdata/XML/Writer/availableRefactorings/DynamicRefactorings",
 						true);
-		// Borramos el archivo generado para dejar la aplicación como se
+		// Borramos el archivo generado para dejar la aplicaciï¿½n como se
 		// encontraba.
 		FileManager.deleteFile(RefactoringConstants.REFACTORING_TYPES_FILE);
 	}
 
 	/**
-	 * Comprueba que la escritura se realiza correctamente cuando se añade la
-	 * información mínima necesaria. Es decir no hay ninguna refactorización en
-	 * la aplicación.
+	 * Comprueba que la escritura se realiza correctamente cuando se aï¿½ade la
+	 * informaciï¿½n mï¿½nima necesaria. Es decir no hay ninguna refactorizaciï¿½n en
+	 * la aplicaciï¿½n.
 	 * 
 	 * 
 	 * @throws Exception
@@ -138,7 +138,7 @@ public class TestAvailableRefactoringsWriter{
 
 	/**
 	 * Comprueba que la escritura se realiza correctamente cuando solo hay
-	 * refactorizaciones de algunos ámbitos y de otros no.
+	 * refactorizaciones de algunos ï¿½mbitos y de otros no.
 	 * 
 	 * 
 	 * @throws Exception
@@ -154,25 +154,25 @@ public class TestAvailableRefactoringsWriter{
 
 		new JDOMXMLRefactoringWriterImp(null).writeFileToLoadRefactoringTypes();
 		
-		assertNumberOfRefactoringsExpectedForScope(availableRefactoringsSomeScopesDir, SelectRefactoringWindow.SCOPE.SCOPE_CLASS,0);
+		assertNumberOfRefactoringsExpectedForScope(availableRefactoringsSomeScopesDir, Scope.SCOPE_CLASS,0);
 		
-		assertNumberOfRefactoringsExpectedForScope(availableRefactoringsSomeScopesDir, SelectRefactoringWindow.SCOPE.SCOPE_METHOD,2);
+		assertNumberOfRefactoringsExpectedForScope(availableRefactoringsSomeScopesDir, Scope.SCOPE_METHOD,2);
 		
-		compareRefactoringPath(SCOPE.SCOPE_METHOD, availableRefactoringsSomeScopesDir, "Add Parameter");
-		compareRefactoringPath(SCOPE.SCOPE_METHOD, availableRefactoringsSomeScopesDir, "AddOverrideAnnotation");
+		compareRefactoringPath(Scope.SCOPE_METHOD, availableRefactoringsSomeScopesDir, "Add Parameter");
+		compareRefactoringPath(Scope.SCOPE_METHOD, availableRefactoringsSomeScopesDir, "AddOverrideAnnotation");
 		
-		assertNumberOfRefactoringsExpectedForScope(availableRefactoringsSomeScopesDir, SelectRefactoringWindow.SCOPE.SCOPE_ATTRIBUTE, 1);
-		compareRefactoringPath(SCOPE.SCOPE_ATTRIBUTE, availableRefactoringsSomeScopesDir, "Move Field");
+		assertNumberOfRefactoringsExpectedForScope(availableRefactoringsSomeScopesDir, Scope.SCOPE_ATTRIBUTE, 1);
+		compareRefactoringPath(Scope.SCOPE_ATTRIBUTE, availableRefactoringsSomeScopesDir, "Move Field");
 				
-		assertNumberOfRefactoringsExpectedForScope(availableRefactoringsSomeScopesDir, SelectRefactoringWindow.SCOPE.SCOPE_FORMAL_ARG,0);
+		assertNumberOfRefactoringsExpectedForScope(availableRefactoringsSomeScopesDir, Scope.SCOPE_FORMAL_ARG,0);
 		
-		assertNumberOfRefactoringsExpectedForScope(availableRefactoringsSomeScopesDir, SelectRefactoringWindow.SCOPE.SCOPE_FORMAL_PAR,0);
+		assertNumberOfRefactoringsExpectedForScope(availableRefactoringsSomeScopesDir, Scope.SCOPE_FORMAL_PAR,0);
 
 	}
 
 	/**
 	 * Comprueba que la escritura se realiza correctamente cuando hay
-	 * refactoriozaciones de todos los ámbitos.
+	 * refactoriozaciones de todos los ï¿½mbitos.
 	 * 
 	 * 
 	 * @throws Exception
@@ -188,23 +188,23 @@ public class TestAvailableRefactoringsWriter{
 
 		new JDOMXMLRefactoringWriterImp(null).writeFileToLoadRefactoringTypes();
 		
-		assertNumberOfRefactoringsExpectedForScope(availableRefactoringsSomeScopesDir, SelectRefactoringWindow.SCOPE.SCOPE_CLASS,1);
-		compareRefactoringPath(SCOPE.SCOPE_CLASS,availableRefactoringsSomeScopesDir,"EnumeratedTypes");
+		assertNumberOfRefactoringsExpectedForScope(availableRefactoringsSomeScopesDir, Scope.SCOPE_CLASS,1);
+		compareRefactoringPath(Scope.SCOPE_CLASS,availableRefactoringsSomeScopesDir,"EnumeratedTypes");
 		
-		assertNumberOfRefactoringsExpectedForScope(availableRefactoringsSomeScopesDir, SCOPE.SCOPE_METHOD,1);
-		compareRefactoringPath(SCOPE.SCOPE_METHOD,availableRefactoringsSomeScopesDir,"Add Parameter");
+		assertNumberOfRefactoringsExpectedForScope(availableRefactoringsSomeScopesDir, Scope.SCOPE_METHOD,1);
+		compareRefactoringPath(Scope.SCOPE_METHOD,availableRefactoringsSomeScopesDir,"Add Parameter");
 		
-		assertNumberOfRefactoringsExpectedForScope(availableRefactoringsSomeScopesDir, SelectRefactoringWindow.SCOPE.SCOPE_ATTRIBUTE,1);
-		compareRefactoringPath(SCOPE.SCOPE_ATTRIBUTE,availableRefactoringsSomeScopesDir,"Move Field");
+		assertNumberOfRefactoringsExpectedForScope(availableRefactoringsSomeScopesDir, Scope.SCOPE_ATTRIBUTE,1);
+		compareRefactoringPath(Scope.SCOPE_ATTRIBUTE,availableRefactoringsSomeScopesDir,"Move Field");
 		
-		assertNumberOfRefactoringsExpectedForScope(availableRefactoringsSomeScopesDir, SelectRefactoringWindow.SCOPE.SCOPE_FORMAL_ARG,1);
-		compareRefactoringPath(SCOPE.SCOPE_FORMAL_ARG,availableRefactoringsSomeScopesDir,"Remove Parameter");
+		assertNumberOfRefactoringsExpectedForScope(availableRefactoringsSomeScopesDir, Scope.SCOPE_FORMAL_ARG,1);
+		compareRefactoringPath(Scope.SCOPE_FORMAL_ARG,availableRefactoringsSomeScopesDir,"Remove Parameter");
 		
-		assertNumberOfRefactoringsExpectedForScope(availableRefactoringsSomeScopesDir, SelectRefactoringWindow.SCOPE.SCOPE_FORMAL_PAR,1);
-		compareRefactoringPath(SCOPE.SCOPE_FORMAL_PAR,availableRefactoringsSomeScopesDir,"Specialize Bound S");
+		assertNumberOfRefactoringsExpectedForScope(availableRefactoringsSomeScopesDir, Scope.SCOPE_FORMAL_PAR,1);
+		compareRefactoringPath(Scope.SCOPE_FORMAL_PAR,availableRefactoringsSomeScopesDir,"Specialize Bound S");
 		
-		assertNumberOfRefactoringsExpectedForScope(availableRefactoringsSomeScopesDir, SelectRefactoringWindow.SCOPE.SCOPE_CODE_FRAGMENT,1);
-		compareRefactoringPath(SCOPE.SCOPE_CODE_FRAGMENT,availableRefactoringsSomeScopesDir,"ExtractMethod");
+		assertNumberOfRefactoringsExpectedForScope(availableRefactoringsSomeScopesDir, Scope.SCOPE_CODE_FRAGMENT,1);
+		compareRefactoringPath(Scope.SCOPE_CODE_FRAGMENT,availableRefactoringsSomeScopesDir,"ExtractMethod");
 
 	}
 
@@ -220,7 +220,7 @@ public class TestAvailableRefactoringsWriter{
 	 * @throws XMLRefactoringReaderException
 	 */
 	private void assertNumberOfRefactoringsExpectedForScope(
-			String availableRefactoringsSomeScopesDir, SelectRefactoringWindow.SCOPE scope,
+			String availableRefactoringsSomeScopesDir, Scope scope,
 			int numberOfExpectedRefactorings)
 			throws XMLRefactoringReaderException {
 		HashMap<String,String> refactorings 
@@ -240,7 +240,7 @@ public class TestAvailableRefactoringsWriter{
 	 * @param refactoringName nombre de la refactorizacion
 	 * @throws XMLRefactoringReaderException 
 	 */
-	private void compareRefactoringPath(SCOPE scope,
+	private void compareRefactoringPath(Scope scope,
 			String availableRefactoringsSomeScopesDir, String refactoringName) throws XMLRefactoringReaderException {
 		HashMap<String,String> refactorings 
 		=new JDOMXMLRefactoringReaderImp().readAvailableRefactorings
@@ -254,9 +254,9 @@ public class TestAvailableRefactoringsWriter{
 	}
 
 	/**
-	 * Comprueba la adicción de una nueva refactorización dentro del fichero de
-	 * refactorizaciones disponibles. Para ello añade una refactorización por
-	 * cada ámbito disponible para el elemento principal de la refactorización.
+	 * Comprueba la adicciï¿½n de una nueva refactorizaciï¿½n dentro del fichero de
+	 * refactorizaciones disponibles. Para ello aï¿½ade una refactorizaciï¿½n por
+	 * cada ï¿½mbito disponible para el elemento principal de la refactorizaciï¿½n.
 	 * 
 	 * @throws Exception
 	 *             si se produce un error al escribir.
@@ -266,25 +266,25 @@ public class TestAvailableRefactoringsWriter{
 		
 		JDOMXMLRefactoringWriterImp writer = new JDOMXMLRefactoringWriterImp(null);
 		writer.writeFileToLoadRefactoringTypes();
-		writer.addNewRefactoringToXml(SelectRefactoringWindow.SCOPE.SCOPE_CLASS, "EnumeratedTypes"
+		writer.addNewRefactoringToXml(Scope.SCOPE_CLASS, "EnumeratedTypes"
 				,RefactoringPlugin.getDynamicRefactoringsDir()+ "" + File.separatorChar + "EnumeratedTypes" + File.separatorChar + "EnumeratedTypes.xml");
-		writer.addNewRefactoringToXml(SelectRefactoringWindow.SCOPE.SCOPE_METHOD,"Add Parameter"
+		writer.addNewRefactoringToXml(Scope.SCOPE_METHOD,"Add Parameter"
 				, RefactoringPlugin.getDynamicRefactoringsDir() + "" + File.separatorChar + "Add Parameter" + File.separatorChar + "Add Parameter.xml");
-		writer.addNewRefactoringToXml(SelectRefactoringWindow.SCOPE.SCOPE_ATTRIBUTE, "Move Field",
+		writer.addNewRefactoringToXml(Scope.SCOPE_ATTRIBUTE, "Move Field",
 				RefactoringPlugin.getDynamicRefactoringsDir()+ "" + File.separatorChar + "Move Field" + File.separatorChar + "Move Field.xml");
-		writer.addNewRefactoringToXml(SelectRefactoringWindow.SCOPE.SCOPE_FORMAL_ARG, "Remove Parameter",
+		writer.addNewRefactoringToXml(Scope.SCOPE_FORMAL_ARG, "Remove Parameter",
 				RefactoringPlugin.getDynamicRefactoringsDir()
 				+ "" + File.separatorChar + "Remove Parameter" + File.separatorChar + "Remove Parameter.xml");
-	    writer.addNewRefactoringToXml(SelectRefactoringWindow.SCOPE.SCOPE_FORMAL_PAR, "Specialize Bound S",
+	    writer.addNewRefactoringToXml(Scope.SCOPE_FORMAL_PAR, "Specialize Bound S",
 	    		RefactoringPlugin.getDynamicRefactoringsDir()	
 	    		+ "" + File.separatorChar + "Specialize Bound S" + File.separatorChar + "Specialize Bound S.xml");
-	    writer.addNewRefactoringToXml(SelectRefactoringWindow.SCOPE.SCOPE_CODE_FRAGMENT, "ExtractMethod",
+	    writer.addNewRefactoringToXml(Scope.SCOPE_CODE_FRAGMENT, "ExtractMethod",
 	    		RefactoringPlugin.getDynamicRefactoringsDir()	
 	    		+ "" + File.separatorChar + "ExtractMethod" + File.separatorChar + "ExtractMethod.xml");
 		
 		HashMap<String,String> refactorings 
 		=new JDOMXMLRefactoringReaderImp().readAvailableRefactorings
-			(SelectRefactoringWindow.SCOPE.SCOPE_CLASS,
+			(Scope.SCOPE_CLASS,
 					 RefactoringConstants.REFACTORING_TYPES_FILE);
 	
 		assertEquals(1,refactorings.size());
@@ -294,7 +294,7 @@ public class TestAvailableRefactoringsWriter{
 		
 		refactorings 
 		=new JDOMXMLRefactoringReaderImp().readAvailableRefactorings
-			(SelectRefactoringWindow.SCOPE.SCOPE_METHOD,
+			(Scope.SCOPE_METHOD,
 					RefactoringConstants.REFACTORING_TYPES_FILE);
 	
 		assertEquals(1,refactorings.size());
@@ -305,7 +305,7 @@ public class TestAvailableRefactoringsWriter{
 		
 		refactorings 
 		=new JDOMXMLRefactoringReaderImp().readAvailableRefactorings
-			(SelectRefactoringWindow.SCOPE.SCOPE_ATTRIBUTE,
+			(Scope.SCOPE_ATTRIBUTE,
 					RefactoringConstants.REFACTORING_TYPES_FILE);
 	
 		assertEquals(1,refactorings.size());
@@ -315,7 +315,7 @@ public class TestAvailableRefactoringsWriter{
 		
 		refactorings 
 		=new JDOMXMLRefactoringReaderImp().readAvailableRefactorings
-		(SelectRefactoringWindow.SCOPE.SCOPE_FORMAL_ARG,
+		(Scope.SCOPE_FORMAL_ARG,
 				RefactoringConstants.REFACTORING_TYPES_FILE);
 	
 		assertEquals(1,refactorings.size());
@@ -325,7 +325,7 @@ public class TestAvailableRefactoringsWriter{
 
 		refactorings 
 		=new JDOMXMLRefactoringReaderImp().readAvailableRefactorings
-		(SelectRefactoringWindow.SCOPE.SCOPE_FORMAL_PAR,
+		(Scope.SCOPE_FORMAL_PAR,
 				RefactoringConstants.REFACTORING_TYPES_FILE);
 	
 		assertEquals(1,refactorings.size());
@@ -335,7 +335,7 @@ public class TestAvailableRefactoringsWriter{
 		
 		refactorings 
 		=new JDOMXMLRefactoringReaderImp().readAvailableRefactorings
-		(SelectRefactoringWindow.SCOPE.SCOPE_CODE_FRAGMENT,
+		(Scope.SCOPE_CODE_FRAGMENT,
 				RefactoringConstants.REFACTORING_TYPES_FILE);
 	
 		assertEquals(1,refactorings.size());
@@ -346,7 +346,7 @@ public class TestAvailableRefactoringsWriter{
 	}
 
 	/**
-	 * Comprueba la eliminación de una refactorización dentro del fichero de
+	 * Comprueba la eliminaciï¿½n de una refactorizaciï¿½n dentro del fichero de
 	 * refactorizaciones disponibles.
 	 * 
 	 * @throws Exception
@@ -357,27 +357,27 @@ public class TestAvailableRefactoringsWriter{
 		
 		JDOMXMLRefactoringWriterImp writer = new JDOMXMLRefactoringWriterImp(null);
 		writer.writeFileToLoadRefactoringTypes();
-		writer.addNewRefactoringToXml(SelectRefactoringWindow.SCOPE.SCOPE_CLASS, "EnumeratedTypes"
+		writer.addNewRefactoringToXml(Scope.SCOPE_CLASS, "EnumeratedTypes"
 				,RefactoringPlugin.getDynamicRefactoringsDir()+ "" + File.separatorChar + "EnumeratedTypes" + File.separatorChar + "EnumeratedTypes.xml");
-		writer.deleteRefactoringFromXml(SelectRefactoringWindow.SCOPE.SCOPE_CLASS, "EnumeratedTypes");
-		writer.addNewRefactoringToXml(SelectRefactoringWindow.SCOPE.SCOPE_METHOD,"Add Parameter"
+		writer.deleteRefactoringFromXml(Scope.SCOPE_CLASS, "EnumeratedTypes");
+		writer.addNewRefactoringToXml(Scope.SCOPE_METHOD,"Add Parameter"
 				, RefactoringPlugin.getDynamicRefactoringsDir() + "" + File.separatorChar + "Add Parameter" + File.separatorChar + "Add Parameter.xml");
-		writer.deleteRefactoringFromXml(SelectRefactoringWindow.SCOPE.SCOPE_METHOD, "Add Parameter");
-		writer.addNewRefactoringToXml(SelectRefactoringWindow.SCOPE.SCOPE_ATTRIBUTE, "Move Field",
+		writer.deleteRefactoringFromXml(Scope.SCOPE_METHOD, "Add Parameter");
+		writer.addNewRefactoringToXml(Scope.SCOPE_ATTRIBUTE, "Move Field",
 				RefactoringPlugin.getDynamicRefactoringsDir()+ "" + File.separatorChar + "Move Field" + File.separatorChar + "Move Field.xml");
-		writer.deleteRefactoringFromXml(SelectRefactoringWindow.SCOPE.SCOPE_ATTRIBUTE, "Move Field");
-		writer.addNewRefactoringToXml(SelectRefactoringWindow.SCOPE.SCOPE_FORMAL_ARG, "Remove Parameter",
+		writer.deleteRefactoringFromXml(Scope.SCOPE_ATTRIBUTE, "Move Field");
+		writer.addNewRefactoringToXml(Scope.SCOPE_FORMAL_ARG, "Remove Parameter",
 				RefactoringPlugin.getDynamicRefactoringsDir()
 				+ "" + File.separatorChar + "Remove Parameter" + File.separatorChar + "Remove Parameter.xml");
-		writer.deleteRefactoringFromXml(SelectRefactoringWindow.SCOPE.SCOPE_FORMAL_ARG, "Remove Parameter");
-	    writer.addNewRefactoringToXml(SelectRefactoringWindow.SCOPE.SCOPE_FORMAL_PAR, "Specialize Bound S",
+		writer.deleteRefactoringFromXml(Scope.SCOPE_FORMAL_ARG, "Remove Parameter");
+	    writer.addNewRefactoringToXml(Scope.SCOPE_FORMAL_PAR, "Specialize Bound S",
 	    		RefactoringPlugin.getDynamicRefactoringsDir()	
 	    		+ "" + File.separatorChar + "Specialize Bound S" + File.separatorChar + "Specialize Bound S.xml");
-	    writer.deleteRefactoringFromXml(SelectRefactoringWindow.SCOPE.SCOPE_FORMAL_PAR, "Specialize Bound S");
-	    writer.addNewRefactoringToXml(SelectRefactoringWindow.SCOPE.SCOPE_CODE_FRAGMENT, "ExtractMethod",
+	    writer.deleteRefactoringFromXml(Scope.SCOPE_FORMAL_PAR, "Specialize Bound S");
+	    writer.addNewRefactoringToXml(Scope.SCOPE_CODE_FRAGMENT, "ExtractMethod",
 	    		RefactoringPlugin.getDynamicRefactoringsDir()	
 	    		+ "" + File.separatorChar + "ExtractMethod" + File.separatorChar + "ExtractMethod.xml");
-	    writer.deleteRefactoringFromXml(SelectRefactoringWindow.SCOPE.SCOPE_CODE_FRAGMENT, "ExtractMethod");
+	    writer.deleteRefactoringFromXml(Scope.SCOPE_CODE_FRAGMENT, "ExtractMethod");
 		
 		FileReader fr1 = null;
 		FileReader fr2 = null;
@@ -400,7 +400,7 @@ public class TestAvailableRefactoringsWriter{
 	}
 
 	/**
-	 * Comprueba el renombrado de una refactorización dentro del fichero de
+	 * Comprueba el renombrado de una refactorizaciï¿½n dentro del fichero de
 	 * refactorizaciones disponibles.
 	 * 
 	 * @throws Exception
@@ -412,38 +412,38 @@ public class TestAvailableRefactoringsWriter{
 		JDOMXMLRefactoringWriterImp writer = new JDOMXMLRefactoringWriterImp(null);
 		writer.writeFileToLoadRefactoringTypes();
 		
-		writer.addNewRefactoringToXml(SelectRefactoringWindow.SCOPE.SCOPE_CLASS, "EnumeratedTypes"
+		writer.addNewRefactoringToXml(Scope.SCOPE_CLASS, "EnumeratedTypes"
 				,RefactoringPlugin.getDynamicRefactoringsDir()+ "" + File.separatorChar + "EnumeratedTypes" + File.separatorChar + "EnumeratedTypes.xml");
-		writer.renameRefactoringIntoXml(SelectRefactoringWindow.SCOPE.SCOPE_CLASS
+		writer.renameRefactoringIntoXml(Scope.SCOPE_CLASS
 				,"OtherName", "EnumeratedTypes");
-		writer.addNewRefactoringToXml(SelectRefactoringWindow.SCOPE.SCOPE_METHOD,"Add Parameter"
+		writer.addNewRefactoringToXml(Scope.SCOPE_METHOD,"Add Parameter"
 				, RefactoringPlugin.getDynamicRefactoringsDir() + "" + File.separatorChar + "Add Parameter" + File.separatorChar + "Add Parameter.xml");
-		writer.renameRefactoringIntoXml(SelectRefactoringWindow.SCOPE.SCOPE_METHOD
+		writer.renameRefactoringIntoXml(Scope.SCOPE_METHOD
 				,"OtherName1", "Add Parameter");
-		writer.addNewRefactoringToXml(SelectRefactoringWindow.SCOPE.SCOPE_ATTRIBUTE, "Move Field",
+		writer.addNewRefactoringToXml(Scope.SCOPE_ATTRIBUTE, "Move Field",
 				RefactoringPlugin.getDynamicRefactoringsDir()+ "" + File.separatorChar + "Move Field" + File.separatorChar + "Move Field.xml");
-		writer.renameRefactoringIntoXml(SelectRefactoringWindow.SCOPE.SCOPE_ATTRIBUTE
+		writer.renameRefactoringIntoXml(Scope.SCOPE_ATTRIBUTE
 				,"OtherName2", "Move Field");
-		writer.addNewRefactoringToXml(SelectRefactoringWindow.SCOPE.SCOPE_FORMAL_ARG, "Remove Parameter",
+		writer.addNewRefactoringToXml(Scope.SCOPE_FORMAL_ARG, "Remove Parameter",
 				RefactoringPlugin.getDynamicRefactoringsDir()
 				+ "" + File.separatorChar + "Remove Parameter" + File.separatorChar + "Remove Parameter.xml");
-		writer.renameRefactoringIntoXml(SelectRefactoringWindow.SCOPE.SCOPE_FORMAL_ARG
+		writer.renameRefactoringIntoXml(Scope.SCOPE_FORMAL_ARG
 				,"OtherName3", "Remove Parameter");
-	    writer.addNewRefactoringToXml(SelectRefactoringWindow.SCOPE.SCOPE_FORMAL_PAR, "Specialize Bound S",
+	    writer.addNewRefactoringToXml(Scope.SCOPE_FORMAL_PAR, "Specialize Bound S",
 	    		RefactoringPlugin.getDynamicRefactoringsDir()	
 	    		+ "" + File.separatorChar + "Specialize Bound S" + File.separatorChar + "Specialize Bound S.xml");
-	    writer.renameRefactoringIntoXml(SelectRefactoringWindow.SCOPE.SCOPE_FORMAL_PAR
+	    writer.renameRefactoringIntoXml(Scope.SCOPE_FORMAL_PAR
 				,"OtherName4", "Specialize Bound S");
-	    writer.addNewRefactoringToXml(SelectRefactoringWindow.SCOPE.SCOPE_CODE_FRAGMENT, "ExtractMethod",
+	    writer.addNewRefactoringToXml(Scope.SCOPE_CODE_FRAGMENT, "ExtractMethod",
 	    		RefactoringPlugin.getDynamicRefactoringsDir()	
 	    		+ "" + File.separatorChar + "ExtractMethod" + File.separatorChar + "ExtractMethod.xml");
-	    writer.renameRefactoringIntoXml(SelectRefactoringWindow.SCOPE.SCOPE_CODE_FRAGMENT
+	    writer.renameRefactoringIntoXml(Scope.SCOPE_CODE_FRAGMENT
 				,"OtherName5", "ExtractMethod");
 	    
 	
 		HashMap<String,String> refactorings 
 		=new JDOMXMLRefactoringReaderImp().readAvailableRefactorings
-			(SelectRefactoringWindow.SCOPE.SCOPE_CLASS,
+			(Scope.SCOPE_CLASS,
 					 RefactoringConstants.REFACTORING_TYPES_FILE);
 	
 		assertEquals(1,refactorings.size());
@@ -453,7 +453,7 @@ public class TestAvailableRefactoringsWriter{
 		
 		refactorings 
 		=new JDOMXMLRefactoringReaderImp().readAvailableRefactorings
-			(SelectRefactoringWindow.SCOPE.SCOPE_METHOD,
+			(Scope.SCOPE_METHOD,
 					RefactoringConstants.REFACTORING_TYPES_FILE);
 	
 		assertEquals(1,refactorings.size());
@@ -464,7 +464,7 @@ public class TestAvailableRefactoringsWriter{
 		
 		refactorings 
 		=new JDOMXMLRefactoringReaderImp().readAvailableRefactorings
-			(SelectRefactoringWindow.SCOPE.SCOPE_ATTRIBUTE,
+			(Scope.SCOPE_ATTRIBUTE,
 					RefactoringConstants.REFACTORING_TYPES_FILE);
 	
 		assertEquals(1,refactorings.size());
@@ -474,7 +474,7 @@ public class TestAvailableRefactoringsWriter{
 		
 		refactorings 
 		=new JDOMXMLRefactoringReaderImp().readAvailableRefactorings
-		(SelectRefactoringWindow.SCOPE.SCOPE_FORMAL_ARG,
+		(Scope.SCOPE_FORMAL_ARG,
 				RefactoringConstants.REFACTORING_TYPES_FILE);
 	
 		assertEquals(1,refactorings.size());
@@ -484,7 +484,7 @@ public class TestAvailableRefactoringsWriter{
 
 		refactorings 
 		=new JDOMXMLRefactoringReaderImp().readAvailableRefactorings
-		(SelectRefactoringWindow.SCOPE.SCOPE_FORMAL_PAR,
+		(Scope.SCOPE_FORMAL_PAR,
 				RefactoringConstants.REFACTORING_TYPES_FILE);
 	
 		assertEquals(1,refactorings.size());
@@ -494,7 +494,7 @@ public class TestAvailableRefactoringsWriter{
 		
 		refactorings 
 		=new JDOMXMLRefactoringReaderImp().readAvailableRefactorings
-		(SelectRefactoringWindow.SCOPE.SCOPE_CODE_FRAGMENT,
+		(Scope.SCOPE_CODE_FRAGMENT,
 				RefactoringConstants.REFACTORING_TYPES_FILE);
 		
 		assertEquals(1,refactorings.size());

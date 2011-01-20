@@ -29,8 +29,9 @@ import org.apache.log4j.Logger;
 import dynamicrefactoring.RefactoringPlugin;
 import dynamicrefactoring.domain.DynamicRefactoringDefinition;
 import dynamicrefactoring.domain.RefactoringException;
+import dynamicrefactoring.domain.Scope;
+import dynamicrefactoring.domain.Scope;
 import dynamicrefactoring.interfaz.SelectRefactoringWindow;
-import dynamicrefactoring.interfaz.SelectRefactoringWindow.SCOPE;
 
 /**
  * Permite obtener el conjunto de refactorizaciones dinámicas disponibles y
@@ -102,7 +103,7 @@ public class ScopeLimitedLister {
 	 *         de utilizar como clave el nombre de la refactorización y como
 	 *         valor la ruta del fichero que la contiene.
 	 */
-	public static HashMap<String, String> getAvailableRefactorings(SelectRefactoringWindow.SCOPE scope){
+	public static HashMap<String, String> getAvailableRefactorings(Scope scope){
 		
 		// Refactorizaciones seleccionadas por ser del ámbito adecuado.
 		HashMap<String, String> selected = new HashMap<String, String>();
@@ -165,7 +166,7 @@ public class ScopeLimitedLister {
 	 *            definición de la refactorización.
 	 * @return ámbito de la refactorización.
 	 */
-	public SCOPE getRefactoringScope(DynamicRefactoringDefinition definition){
+	public Scope getRefactoringScope(DynamicRefactoringDefinition definition){
 		for(String[] nextInput : definition.getInputs()){
 			// Para su entrada de tipo "raíz".
 			if (nextInput[4] != null && nextInput[4].equals("true")){ //$NON-NLS-1$
@@ -191,7 +192,7 @@ public class ScopeLimitedLister {
 	 *         cual se define el ámbito de refactorizaciones según el valor de
 	 *         #scope.
 	 */
-	private static String convertScope(SelectRefactoringWindow.SCOPE scope){
+	private static String convertScope(Scope scope){
 		//FIXME: Sustituir por nombre de enum SelectRefactoringWindow.SCOPE
 		switch(scope){
 		case SCOPE_ATTRIBUTE:
@@ -226,28 +227,28 @@ public class ScopeLimitedLister {
 	 * @return código del ámbito de la refactorización según se especifican en
 	 *         {@link SelectRefactoringWindow}.
 	 */
-	private static SelectRefactoringWindow.SCOPE getScope(String name){
+	private static Scope getScope(String name){
 		try{
 		if(Class.forName(ATTRIBUTE_SCOPE).isAssignableFrom(Class.forName(name)))
-			return SelectRefactoringWindow.SCOPE.SCOPE_ATTRIBUTE;
+			return Scope.SCOPE_ATTRIBUTE;
 		else 
 			if(Class.forName(CLASS_SCOPE).isAssignableFrom(Class.forName(name)))
-				return SelectRefactoringWindow.SCOPE.SCOPE_CLASS;
+				return Scope.SCOPE_CLASS;
 			else
 				if(Class.forName(FORMAL_ARG_SCOPE).isAssignableFrom(Class.forName(name)))
-					return SelectRefactoringWindow.SCOPE.SCOPE_FORMAL_ARG;
+					return Scope.SCOPE_FORMAL_ARG;
 				else
 					if(Class.forName(FORMAL_PAR_SCOPE).isAssignableFrom(Class.forName(name)))
-						return SelectRefactoringWindow.SCOPE.SCOPE_FORMAL_PAR;
+						return Scope.SCOPE_FORMAL_PAR;
 					else
 						if(Class.forName(METHOD_SCOPE).isAssignableFrom(Class.forName(name)))
-							return SelectRefactoringWindow.SCOPE.SCOPE_METHOD; 
+							return Scope.SCOPE_METHOD; 
 						else
 							if(Class.forName(BOUNDED_PAR_SCOPE).isAssignableFrom(Class.forName(name)))
-								return SelectRefactoringWindow.SCOPE.SCOPE_BOUNDED_PAR;
+								return Scope.SCOPE_BOUNDED_PAR;
 							else
 								if(Class.forName(CODE_FRAGMENT_SCOPE).isAssignableFrom(Class.forName(name)))
-									return SelectRefactoringWindow.SCOPE.SCOPE_CODE_FRAGMENT;
+									return Scope.SCOPE_CODE_FRAGMENT;
 		}catch(ClassNotFoundException exception){
 			logger.error(Messages.ScopeLimitedLister_ErrorLoading
 					+ ".\n" + exception.getMessage());

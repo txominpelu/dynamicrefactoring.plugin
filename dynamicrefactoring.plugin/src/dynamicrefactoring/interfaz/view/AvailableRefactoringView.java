@@ -47,10 +47,10 @@ import dynamicrefactoring.SelectionListenerRegistry;
 import dynamicrefactoring.listener.IMainSelectionListener;
 import dynamicrefactoring.domain.DynamicRefactoringDefinition;
 import dynamicrefactoring.domain.RefactoringException;
+import dynamicrefactoring.domain.Scope;
 import dynamicrefactoring.integration.ModelGenerator;
 import dynamicrefactoring.integration.selectionhandler.ISelectionHandler;
 import dynamicrefactoring.integration.selectionhandler.SelectionHandlerFactory;
-import dynamicrefactoring.interfaz.SelectRefactoringWindow;
 import dynamicrefactoring.interfaz.TreeEditor;
 import dynamicrefactoring.util.io.FileManager;
 import dynamicrefactoring.util.selection.SelectionInfo;
@@ -222,21 +222,21 @@ public class AvailableRefactoringView extends ViewPart {
 					if(selection.isClassSelection()){
 						refactorings =
 							new JDOMXMLRefactoringReaderImp().readAvailableRefactorings
-							(SelectRefactoringWindow.SCOPE.SCOPE_CLASS
+							(Scope.SCOPE_CLASS
 									, RefactoringConstants.REFACTORING_TYPES_FILE);
 						fillTree(refactorings);
 					}
 					else if(selection.isMethodSelection()){
 						refactorings =
 							new JDOMXMLRefactoringReaderImp().readAvailableRefactorings
-							(SelectRefactoringWindow.SCOPE.SCOPE_METHOD,
+							(Scope.SCOPE_METHOD,
 									RefactoringConstants.REFACTORING_TYPES_FILE);
 						fillTree(refactorings);
 					}
 					else if(selection.isFieldSelection()){
 						refactorings =
 							new JDOMXMLRefactoringReaderImp().readAvailableRefactorings
-							(SelectRefactoringWindow.SCOPE.SCOPE_ATTRIBUTE,
+							(Scope.SCOPE_ATTRIBUTE,
 									RefactoringConstants.REFACTORING_TYPES_FILE);
 						fillTree(refactorings);
 
@@ -244,7 +244,7 @@ public class AvailableRefactoringView extends ViewPart {
 					else if(selection.isFormalArgumentSelection()){
 						refactorings =
 							new JDOMXMLRefactoringReaderImp().readAvailableRefactorings
-							(SelectRefactoringWindow.SCOPE.SCOPE_FORMAL_ARG,
+							(Scope.SCOPE_FORMAL_ARG,
 									RefactoringConstants.REFACTORING_TYPES_FILE);
 						fillTree(refactorings);
 
@@ -252,14 +252,14 @@ public class AvailableRefactoringView extends ViewPart {
 					else if(selection.isFormalParameterSelection()){
 						refactorings =
 							new JDOMXMLRefactoringReaderImp().readAvailableRefactorings
-							(SelectRefactoringWindow.SCOPE.SCOPE_FORMAL_PAR,
+							(Scope.SCOPE_FORMAL_PAR,
 									RefactoringConstants.REFACTORING_TYPES_FILE);
 						fillTree(refactorings);
 
 					}else if(selection.isTextSelection()){
 						refactorings =
 							new JDOMXMLRefactoringReaderImp().readAvailableRefactorings
-							(SelectRefactoringWindow.SCOPE.SCOPE_CODE_FRAGMENT,
+							(Scope.SCOPE_CODE_FRAGMENT,
 									RefactoringConstants.REFACTORING_TYPES_FILE);
 						fillTree(refactorings);
 

@@ -37,8 +37,8 @@ import org.jdom.output.XMLOutputter;
 import dynamicrefactoring.RefactoringConstants;
 import dynamicrefactoring.RefactoringPlugin;
 import dynamicrefactoring.domain.DynamicRefactoringDefinition;
-import dynamicrefactoring.interfaz.SelectRefactoringWindow;
-import dynamicrefactoring.interfaz.SelectRefactoringWindow.SCOPE;
+import dynamicrefactoring.domain.Scope;
+import dynamicrefactoring.domain.Scope;
 import dynamicrefactoring.interfaz.dynamic.RepositoryElementProcessor;
 import dynamicrefactoring.reader.XMLRefactoringReaderException;
 import dynamicrefactoring.reader.XMLRefactoringReaderImp;
@@ -100,7 +100,7 @@ public class JDOMXMLRefactoringWriterImp implements XMLRefactoringWriterImp {
 			// añdimos las refactorizaciones dinámicas al grupo de classdef
 			for (Map.Entry<String, String> n_refactoring : ScopeLimitedLister
 					.getAvailableRefactorings(
-							SelectRefactoringWindow.SCOPE.SCOPE_CLASS).entrySet()) {
+							Scope.SCOPE_CLASS).entrySet()) {
 				refactoring = new Element("refactoring");
 				refactoring.setAttribute("name", n_refactoring.getKey());
 				refactoring.setAttribute("path", n_refactoring.getValue());
@@ -116,7 +116,7 @@ public class JDOMXMLRefactoringWriterImp implements XMLRefactoringWriterImp {
 			// añdimos las refactorizaciones dinámicas al grupo de methdec
 			for (Map.Entry<String, String> n_refactoring : ScopeLimitedLister
 					.getAvailableRefactorings(
-							SelectRefactoringWindow.SCOPE.SCOPE_METHOD).entrySet()) {
+							Scope.SCOPE_METHOD).entrySet()) {
 				refactoring = new Element("refactoring");
 				refactoring.setAttribute("name", n_refactoring.getKey());
 				refactoring.setAttribute("path", n_refactoring.getValue());
@@ -132,7 +132,7 @@ public class JDOMXMLRefactoringWriterImp implements XMLRefactoringWriterImp {
 			// añdimos las refactorizaciones dinámicas al grupo de attdec
 			for (Map.Entry<String, String> n_refactoring : ScopeLimitedLister
 					.getAvailableRefactorings(
-							SelectRefactoringWindow.SCOPE.SCOPE_ATTRIBUTE).entrySet()) {
+							Scope.SCOPE_ATTRIBUTE).entrySet()) {
 				refactoring = new Element("refactoring");
 				refactoring.setAttribute("name", n_refactoring.getKey());
 				refactoring.setAttribute("path", n_refactoring.getValue());
@@ -150,7 +150,7 @@ public class JDOMXMLRefactoringWriterImp implements XMLRefactoringWriterImp {
 			// formalArgument
 			for (Map.Entry<String, String> n_refactoring : ScopeLimitedLister
 					.getAvailableRefactorings(
-							SelectRefactoringWindow.SCOPE.SCOPE_FORMAL_ARG)
+							Scope.SCOPE_FORMAL_ARG)
 					.entrySet()) {
 				refactoring = new Element("refactoring");
 				refactoring.setAttribute("name", n_refactoring.getKey());
@@ -168,7 +168,7 @@ public class JDOMXMLRefactoringWriterImp implements XMLRefactoringWriterImp {
 			// añdimos las refactorizaciones dinámicas al grupo de formalpar
 			for (Map.Entry<String, String> n_refactoring : ScopeLimitedLister
 					.getAvailableRefactorings(
-							SelectRefactoringWindow.SCOPE.SCOPE_FORMAL_PAR)
+							Scope.SCOPE_FORMAL_PAR)
 					.entrySet()) {
 				refactoring = new Element("refactoring");
 				refactoring.setAttribute("name", n_refactoring.getKey());
@@ -185,7 +185,7 @@ public class JDOMXMLRefactoringWriterImp implements XMLRefactoringWriterImp {
 			// añdimos las refactorizaciones dinámicas al grupo de attdec
 			for (Map.Entry<String, String> n_refactoring : ScopeLimitedLister
 					.getAvailableRefactorings(
-							SelectRefactoringWindow.SCOPE.SCOPE_CODE_FRAGMENT)
+							Scope.SCOPE_CODE_FRAGMENT)
 					.entrySet()) {
 				refactoring = new Element("refactoring");
 				refactoring.setAttribute("name", n_refactoring.getKey());
@@ -235,7 +235,7 @@ public class JDOMXMLRefactoringWriterImp implements XMLRefactoringWriterImp {
 	 * @throws XMLRefactoringReaderException
 	 *             XMLRefactoringReaderException.
 	 */
-	public void deleteRefactoringFromXml(SCOPE scope, String name) throws XMLRefactoringReaderException{
+	public void deleteRefactoringFromXml(Scope scope, String name) throws XMLRefactoringReaderException{
 		try {
 			SAXBuilder builder = new SAXBuilder(true);
 			builder.setIgnoringElementContentWhitespace(true);
@@ -243,7 +243,7 @@ public class JDOMXMLRefactoringWriterImp implements XMLRefactoringWriterImp {
 					.REFACTORING_TYPES_FILE).toURI().toString());
 			Element root = doc.getRootElement();
 			
-			if(scope == SelectRefactoringWindow.SCOPE.SCOPE_CLASS){
+			if(scope == Scope.SCOPE_CLASS){
 				Element classdef = root.getChild("classdef");
 				for(int i=0;  i < classdef.getChildren().size(); i++){
 					Element refactor = (Element)classdef.getChildren().get(i);
@@ -253,7 +253,7 @@ public class JDOMXMLRefactoringWriterImp implements XMLRefactoringWriterImp {
 					}	
 				}
 			}
-			else if(scope == SelectRefactoringWindow.SCOPE.SCOPE_METHOD){
+			else if(scope == Scope.SCOPE_METHOD){
 				Element methdec = root.getChild("methdec");
 				for(int i=0;  i < methdec.getChildren().size(); i++){
 					Element refactor = (Element)methdec.getChildren().get(i);
@@ -263,7 +263,7 @@ public class JDOMXMLRefactoringWriterImp implements XMLRefactoringWriterImp {
 					}	
 				}
 			}
-			else if(scope == SelectRefactoringWindow.SCOPE.SCOPE_ATTRIBUTE){
+			else if(scope == Scope.SCOPE_ATTRIBUTE){
 				Element attdec = root.getChild("attdec");
 				for(int i=0;  i < attdec.getChildren().size(); i++){
 					Element refactor = (Element)attdec.getChildren().get(i);
@@ -273,7 +273,7 @@ public class JDOMXMLRefactoringWriterImp implements XMLRefactoringWriterImp {
 					}	
 				}
 			}
-			else if(scope == SelectRefactoringWindow.SCOPE.SCOPE_FORMAL_ARG){
+			else if(scope == Scope.SCOPE_FORMAL_ARG){
 				Element formalArg = root.getChild("formalArgument");
 				for(int i=0;  i < formalArg.getChildren().size(); i++){
 					Element refactor = (Element)formalArg.getChildren().get(i);
@@ -283,7 +283,7 @@ public class JDOMXMLRefactoringWriterImp implements XMLRefactoringWriterImp {
 					}	
 				}
 			}
-			else if(scope == SelectRefactoringWindow.SCOPE.SCOPE_FORMAL_PAR){
+			else if(scope == Scope.SCOPE_FORMAL_PAR){
 				Element formalPar = root.getChild("formalPar");
 				for(int i=0;  i < formalPar.getChildren().size(); i++){
 					Element refactor = (Element)formalPar.getChildren().get(i);
@@ -293,7 +293,7 @@ public class JDOMXMLRefactoringWriterImp implements XMLRefactoringWriterImp {
 					}	
 				}
 			}
-			else if(scope == SelectRefactoringWindow.SCOPE.SCOPE_CODE_FRAGMENT){
+			else if(scope == Scope.SCOPE_CODE_FRAGMENT){
 				Element codeFragment = root.getChild("codeFragment");
 				for(int i=0;  i < codeFragment.getChildren().size(); i++){
 					Element refactor = (Element)codeFragment.getChildren().get(i);
@@ -327,7 +327,7 @@ public class JDOMXMLRefactoringWriterImp implements XMLRefactoringWriterImp {
 	 * @throws XMLRefactoringReaderException
 	 *             XMLRefactoringReaderException.
 	 */
-	public void renameRefactoringIntoXml(SCOPE scope, String newName, String originalName) throws XMLRefactoringReaderException{
+	public void renameRefactoringIntoXml(Scope scope, String newName, String originalName) throws XMLRefactoringReaderException{
 		
 		String path = RefactoringPlugin.getDynamicRefactoringsDir() + "/" + newName
 		+ "/" + newName + ".xml";
@@ -338,7 +338,7 @@ public class JDOMXMLRefactoringWriterImp implements XMLRefactoringWriterImp {
 					.REFACTORING_TYPES_FILE).toURI().toString());
 			Element root = doc.getRootElement();
 			
-			if(scope == SelectRefactoringWindow.SCOPE.SCOPE_CLASS){
+			if(scope == Scope.SCOPE_CLASS){
 				Element classdef = root.getChild("classdef");
 				for(int i=0;  i < classdef.getChildren().size(); i++){
 					Element refactor = (Element)classdef.getChildren().get(i);
@@ -349,7 +349,7 @@ public class JDOMXMLRefactoringWriterImp implements XMLRefactoringWriterImp {
 					}	
 				}
 			}
-			else if(scope == SelectRefactoringWindow.SCOPE.SCOPE_METHOD){
+			else if(scope == Scope.SCOPE_METHOD){
 				Element methdec = root.getChild("methdec");
 				for(int i=0;  i < methdec.getChildren().size(); i++){
 					Element refactor = (Element)methdec.getChildren().get(i);
@@ -360,7 +360,7 @@ public class JDOMXMLRefactoringWriterImp implements XMLRefactoringWriterImp {
 					}	
 				}
 			}
-			else if(scope == SelectRefactoringWindow.SCOPE.SCOPE_ATTRIBUTE){
+			else if(scope == Scope.SCOPE_ATTRIBUTE){
 				Element attdec = root.getChild("attdec");
 				for(int i=0;  i < attdec.getChildren().size(); i++){
 					Element refactor = (Element)attdec.getChildren().get(i);
@@ -371,7 +371,7 @@ public class JDOMXMLRefactoringWriterImp implements XMLRefactoringWriterImp {
 					}	
 				}
 			}
-			else if(scope == SelectRefactoringWindow.SCOPE.SCOPE_FORMAL_ARG){
+			else if(scope == Scope.SCOPE_FORMAL_ARG){
 				Element formalArg = root.getChild("formalArgument");
 				for(int i=0;  i < formalArg.getChildren().size(); i++){
 					Element refactor = (Element)formalArg.getChildren().get(i);
@@ -382,7 +382,7 @@ public class JDOMXMLRefactoringWriterImp implements XMLRefactoringWriterImp {
 					}	
 				}
 			}
-			else if(scope == SelectRefactoringWindow.SCOPE.SCOPE_FORMAL_PAR){
+			else if(scope == Scope.SCOPE_FORMAL_PAR){
 				Element formalPar = root.getChild("formalPar");
 				for(int i=0;  i < formalPar.getChildren().size(); i++){
 					Element refactor = (Element)formalPar.getChildren().get(i);
@@ -393,7 +393,7 @@ public class JDOMXMLRefactoringWriterImp implements XMLRefactoringWriterImp {
 					}	
 				}
 			}
-			else if(scope == SelectRefactoringWindow.SCOPE.SCOPE_CODE_FRAGMENT){
+			else if(scope == Scope.SCOPE_CODE_FRAGMENT){
 				Element codeFragment = root.getChild("codeFragment");
 				for(int i=0;  i < codeFragment.getChildren().size(); i++){
 					Element refactor = (Element)codeFragment.getChildren().get(i);
@@ -425,7 +425,7 @@ public class JDOMXMLRefactoringWriterImp implements XMLRefactoringWriterImp {
 	 *            Nombre de la ruta del fichero de definición de la
 	 *            refactorización.
 	 */
-	public void addNewRefactoringToXml(SCOPE scope, String name, String path){
+	public void addNewRefactoringToXml(Scope scope, String name, String path){
 		try {
 			SAXBuilder builder = new SAXBuilder(true);
 			builder.setIgnoringElementContentWhitespace(true);
