@@ -2,11 +2,6 @@ package dynamicrefactoring.domain;
 
 import java.util.Arrays;
 
-import com.google.common.base.Predicate;
-import com.google.common.collect.Collections2;
-
-import dynamicrefactoring.interfaz.Messages;
-
 import moon.core.ObjectMoon;
 import moon.core.classdef.AttDec;
 import moon.core.classdef.ClassDef;
@@ -15,6 +10,11 @@ import moon.core.classdef.MethDec;
 import moon.core.genericity.BoundS;
 import moon.core.genericity.FormalPar;
 import moon.core.instruction.CodeFragment;
+
+import com.google.common.base.Predicate;
+import com.google.common.collect.Collections2;
+
+import dynamicrefactoring.interfaz.Messages;
 
 public enum Scope {
 	/**
@@ -51,7 +51,7 @@ public enum Scope {
 	 * Clase de JavaMoon que se corresponde con el ambito.
 	 */
 	private final Class<? extends ObjectMoon> correspondingClass;
-	
+
 	/**
 	 * Descripción del ambito.
 	 */
@@ -61,10 +61,9 @@ public enum Scope {
 	 * Etiqueta xml que describe al ambito.
 	 */
 	private String xmlTag;
-	
+
 	/**
-	 * Obtiene la clase de moon que se corresponde con el 
-	 * ámbito declarado.
+	 * Obtiene la clase de moon que se corresponde con el ámbito declarado.
 	 * 
 	 * @return the corresponding class
 	 */
@@ -93,7 +92,8 @@ public enum Scope {
 	/**
 	 * Constructor de un ámbito.
 	 * 
-	 * @param correspondinClass clase de moon que se corresponde con el ámbito
+	 * @param correspondinClass
+	 *            clase de moon que se corresponde con el ámbito
 	 */
 	Scope(final Class<? extends ObjectMoon> correspondinClass, final String description,final String xmlTag){
 		this.correspondingClass = correspondinClass;
@@ -118,4 +118,5 @@ public enum Scope {
 		}).iterator().next();
 	}
 	
+
 }

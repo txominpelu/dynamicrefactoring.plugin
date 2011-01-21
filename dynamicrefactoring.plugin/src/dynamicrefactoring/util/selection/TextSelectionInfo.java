@@ -112,7 +112,7 @@ public class TextSelectionInfo extends SelectionInfo {
 	public boolean isClassSelection(){
 		// Se debe haber seleccionado un fragmento que Eclipse considere parte
 		// de una selección de clase.
-		if (getSelectionType().equals(typeName)){
+		if (getSelectionType().equals(TYPE_NAME)){
 			// Eclipse considera también las cláusulas de importación como 
 			// selección de clase. Hay que filtrar esos casos.
 			IJavaElement selectedElement = getSelectedJavaElement();
@@ -135,7 +135,7 @@ public class TextSelectionInfo extends SelectionInfo {
 	public boolean isMethodSelection(){
 		// Se debe haber seleccionado un fragmento que Eclipse considere parte
 		// de una selección de método.
-		if (getSelectionType().equals(methodName)){
+		if (getSelectionType().equals(METHOD_NAME)){
 			// Eclipse considera también las llamadas a métodos como selección
 			// de método. Hay que filtrar esos casos.
 			try {
