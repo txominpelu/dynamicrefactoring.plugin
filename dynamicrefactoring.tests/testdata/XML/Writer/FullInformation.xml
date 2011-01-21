@@ -40,7 +40,7 @@
 				<param name="Class" />
 				<param name="New_name" />
 			</action>
-			<action name="repository.java.concreteaction.RenameJavaFile">
+			<action name="repository.moon.concreteaction.RenameJavaFile">
 				<param name="Class" />
 				<param name="New_name" />
 			</action>
