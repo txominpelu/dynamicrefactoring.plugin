@@ -21,6 +21,29 @@ class RefactoringTreeUtils {
 	 * 
 	 * @param refactOrderInBranch
 	 *            posicion en la que se agregagra la rama
+	 * @param definition
+	 *            definicion de la refactorizacion
+	 * @param arbol
+	 *            arbol al que se agregara la rama con la refactorizacion
+	 * 
+	 * @throws RefactoringException
+	 *             si hay algun fallo leyendo el fichero con la refactorizacion
+	 */
+	protected static void createRefactoringDefinitionTreeItemFromParentTree(
+			int refactOrderInBranch, DynamicRefactoringDefinition definition,
+			Tree arbol) {
+		TreeItem refactoring = TreeEditor.createBranch(arbol,
+				refactOrderInBranch, definition.getName(),
+				"icons" + System.getProperty("file.separator") + "ref.png"); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
+		createTree(refactoring, definition);
+	}
+
+	/**
+	 * Crea una representacion de una refactorizacion en formato de arbol
+	 * agregandola al arbol que se pasa.
+	 * 
+	 * @param refactOrderInBranch
+	 *            posicion en la que se agregagra la rama
 	 * @param refactName
 	 *            nombre de la refactorizacion
 	 * @param refactDefinitionFile
@@ -87,21 +110,25 @@ class RefactoringTreeUtils {
 			DynamicRefactoringDefinition definition = DynamicRefactoringDefinition
 					.getRefactoringDefinition(refactDefinitionFile);
 
-			// Descripcion de la refactorizacion
-			TreeItem description = new TreeItem(refactoring, SWT.NONE);
-			description
-					.setText(Messages.AvailableRefactoringView_Description
-							+ ":" + definition.getDescription());
-
-			// Motivacion de la refactorizacion
-			TreeItem motivation = new TreeItem(refactoring, SWT.NONE);
-			motivation.setText(Messages.AvailableRefactoringView_Motivation
-					+ ":" + definition.getMotivation());
-
-			// Crea precondiciones, acciones y postcondiciones en el
-			// arbol
-			createRefactoringMechanishmTree(refactoring, definition);
+			createTree(refactoring, definition);
 		}
+	}
+
+	private static void createTree(TreeItem refactoring,
+			DynamicRefactoringDefinition definition) {
+		// Descripcion de la refactorizacion
+		TreeItem description = new TreeItem(refactoring, SWT.NONE);
+		description.setText(Messages.AvailableRefactoringView_Description + ":"
+				+ definition.getDescription());
+
+		// Motivacion de la refactorizacion
+		TreeItem motivation = new TreeItem(refactoring, SWT.NONE);
+		motivation.setText(Messages.AvailableRefactoringView_Motivation + ":"
+				+ definition.getMotivation());
+
+		// Crea precondiciones, acciones y postcondiciones en el
+		// arbol
+		createRefactoringMechanishmTree(refactoring, definition);
 	}
 
 	/**
