@@ -20,22 +20,20 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.*/
 
 package dynamicrefactoring.reader;
 
+import static org.junit.Assert.assertEquals;
+
+import java.util.HashMap;
+
+import org.junit.Test;
+
 import dynamicrefactoring.domain.Scope;
-import dynamicrefactoring.reader.JDOMXMLRefactoringReaderImp;
-import dynamicrefactoring.reader.XMLRefactoringReaderException;
-
-import java.io.File;
-import java.util.*;
-
-import static org.junit.Assert.*;
-import org.junit.Test; 
 
 /**
  * Comprueba que funciona correctamente el proceso de lectura del conjunto de
  * refactorizaciones disponibles.
  * 
  * @author <A HREF="mailto:lfd0002@alu.ubu.es">Laura Fuente de la Fuente</A>
- *
+ * 
  */
 public class TestAvailableRefactoringsReader {
 
@@ -43,162 +41,173 @@ public class TestAvailableRefactoringsReader {
 	 * Comprueba que la lectura no se realiza cuando la definici�n no contiene
 	 * toda la informaci�n m�nima necesaria (no cumple las reglas del DTD).
 	 * 
-	 * Para ello se realiza una lectura del documento para un �mbito determinado.
+	 * Para ello se realiza una lectura del documento para un �mbito
+	 * determinado.
 	 * 
-	 * @throws Exception si se produce un error durante la lectura.
+	 * @throws Exception
+	 *             si se produce un error durante la lectura.
 	 */
-	@Test(expected=XMLRefactoringReaderException.class)
-	public void testReadingFileWithIncompleteInformation() throws Exception{
-		new JDOMXMLRefactoringReaderImp().readAvailableRefactorings
-		(Scope.SCOPE_ATTRIBUTE,
-				"./testdata/XML/Reader/availableRefactorings/incompleteInformation.xml");
+	@Test(expected = XMLRefactoringReaderException.class)
+	public void testReadingFileWithIncompleteInformation() throws Exception {
+		JDOMXMLRefactoringReaderImp
+				.readAvailableRefactorings(Scope.SCOPE_ATTRIBUTE,
+						"./testdata/XML/Reader/availableRefactorings/incompleteInformation.xml");
 	}
 
 	/**
 	 * Comprueba que la lectura no se realiza cuando la definici�n utiliza otra
 	 * estructura que la que se define en el DTD.
 	 * 
-	 * Para ello se realiza una lectura del documento para un �mbito determinado.
+	 * Para ello se realiza una lectura del documento para un �mbito
+	 * determinado.
 	 * 
-	 * @throws Exception si se produce un error durante la lectura.
+	 * @throws Exception
+	 *             si se produce un error durante la lectura.
 	 */
-	@Test(expected=XMLRefactoringReaderException.class)
-	public void testReadingIncorrectStructure() throws Exception{
-		new JDOMXMLRefactoringReaderImp().readAvailableRefactorings
-		(Scope.SCOPE_ATTRIBUTE,
-				"./testdata/XML/Reader/availableRefactorings/diferentStructure.xml");
+	@Test(expected = XMLRefactoringReaderException.class)
+	public void testReadingIncorrectStructure() throws Exception {
+		JDOMXMLRefactoringReaderImp
+				.readAvailableRefactorings(Scope.SCOPE_ATTRIBUTE,
+						"./testdata/XML/Reader/availableRefactorings/diferentStructure.xml");
 	}
 
 	/**
 	 * Comprueba que la lectura se realiza correctamente cuando el fichero xml
-	 * contiene la informaci�n m�nima necesaria.Es decir que el fichero no
-	 * tiene ninguna refactorizaci�n de ning�n �mbito.
+	 * contiene la informaci�n m�nima necesaria.Es decir que el fichero no tiene
+	 * ninguna refactorizaci�n de ning�n �mbito.
 	 * 
-	 * @throws Exception si se produce un error durante la lectura.
+	 * @throws Exception
+	 *             si se produce un error durante la lectura.
 	 */
 	@Test
-	public void testReadingWithMinimumInformation() throws Exception{
-		//Comprueba que no hay ninguna refactorizaci�n en ning�n �mbito
-		
-		HashMap<String,String> refactorings 
-		=new JDOMXMLRefactoringReaderImp().readAvailableRefactorings
-		(Scope.SCOPE_CLASS,
-		"./testdata/XML/Reader/availableRefactorings/minimunInformation.xml");
-	
-		assertEquals(0,refactorings.size());
-		
-		refactorings 
-		=new JDOMXMLRefactoringReaderImp().readAvailableRefactorings
-		(Scope.SCOPE_METHOD,
-		"./testdata/XML/Reader/availableRefactorings/minimunInformation.xml");
-	
-		assertEquals(0,refactorings.size());
-		
-		refactorings 
-		=new JDOMXMLRefactoringReaderImp().readAvailableRefactorings
-		(Scope.SCOPE_ATTRIBUTE,
-		"./testdata/XML/Reader/availableRefactorings/minimunInformation.xml");
-	
-		assertEquals(0,refactorings.size());
-		
-		refactorings 
-		=new JDOMXMLRefactoringReaderImp().readAvailableRefactorings
-		(Scope.SCOPE_FORMAL_PAR,
-		"./testdata/XML/Reader/availableRefactorings/minimunInformation.xml");
-	
-		assertEquals(0,refactorings.size());
-		
-		refactorings 
-		=new JDOMXMLRefactoringReaderImp().readAvailableRefactorings
-		(Scope.SCOPE_FORMAL_ARG,
-		"./testdata/XML/Reader/availableRefactorings/minimunInformation.xml");
-	
-		assertEquals(0,refactorings.size());
+	public void testReadingWithMinimumInformation() throws Exception {
+		// Comprueba que no hay ninguna refactorizaci�n en ning�n �mbito
+
+		HashMap<String, String> refactorings = JDOMXMLRefactoringReaderImp
+				.readAvailableRefactorings(Scope.SCOPE_CLASS,
+						"./testdata/XML/Reader/availableRefactorings/minimunInformation.xml");
+
+		assertEquals(0, refactorings.size());
+
+		refactorings = JDOMXMLRefactoringReaderImp
+				.readAvailableRefactorings(Scope.SCOPE_METHOD,
+						"./testdata/XML/Reader/availableRefactorings/minimunInformation.xml");
+
+		assertEquals(0, refactorings.size());
+
+		refactorings = JDOMXMLRefactoringReaderImp
+				.readAvailableRefactorings(Scope.SCOPE_ATTRIBUTE,
+						"./testdata/XML/Reader/availableRefactorings/minimunInformation.xml");
+
+		assertEquals(0, refactorings.size());
+
+		refactorings = JDOMXMLRefactoringReaderImp
+				.readAvailableRefactorings(Scope.SCOPE_FORMAL_PAR,
+						"./testdata/XML/Reader/availableRefactorings/minimunInformation.xml");
+
+		assertEquals(0, refactorings.size());
+
+		refactorings = JDOMXMLRefactoringReaderImp
+				.readAvailableRefactorings(Scope.SCOPE_FORMAL_ARG,
+						"./testdata/XML/Reader/availableRefactorings/minimunInformation.xml");
+
+		assertEquals(0, refactorings.size());
 	}
 
 	/**
-	 * Comprueba que la lectura se realiza correctamente cuando el plan
-	 * contiene la informaci�n completa. Hay refactorizaciones para cada uno de
-	 * los �mbitos.
+	 * Comprueba que la lectura se realiza correctamente cuando el plan contiene
+	 * la informaci�n completa. Hay refactorizaciones para cada uno de los
+	 * �mbitos.
 	 * 
-	 * @throws Exception si se produce un error durante la lectura.
+	 * @throws Exception
+	 *             si se produce un error durante la lectura.
 	 */
 	@Test
-	public void testReadingWithCompleteInformation() throws Exception{
-		//Comprueba que no hay ninguna refactorizaci�n en ning�n �mbito
-		
-		HashMap<String,String> refactorings 
-		=new JDOMXMLRefactoringReaderImp().readAvailableRefactorings
-			(Scope.SCOPE_CLASS,
-				"./testdata/XML/Reader/availableRefactorings/completedInformation.xml");
-	
-		assertEquals(3,refactorings.size());
-		assertEquals(refactorings.get("EnumeratedTypes"),
-				"." + "\\" + "DynamicRefactorings" + "\\" + "EnumeratedTypes" + "\\" + "EnumeratedTypes.xml");
-		assertEquals(refactorings.get("MigrateJUnit3ToJUnit4"),
-				"." + "\\" + "DynamicRefactorings" + "\\" + "MigrateJUnit3ToJUnit4" + "\\" + "MigrateJUnit3ToJUnit4.xml");
-		assertEquals(refactorings.get("Rename Class"),
-				"." + "\\" + "DynamicRefactorings" + "\\" + "Rename Class" + "\\" + "Rename Class.xml");
-		
-		refactorings 
-		=new JDOMXMLRefactoringReaderImp().readAvailableRefactorings
-			(Scope.SCOPE_METHOD,
-				"./testdata/XML/Reader/availableRefactorings/completedInformation.xml");
-	
-		assertEquals(4,refactorings.size());
-		assertEquals(refactorings.get("MigrateJUnit3ToJUni4TestException"),
-			"." + "\\" + "DynamicRefactorings" + "\\" + "MigrateJUnit3ToJUni4TestException" + "\\" + "MigrateJUnit3ToJUni4TestException.xml");
-		assertEquals(refactorings.get("Rename Method"),
-			"." + "\\" + "DynamicRefactorings" + "\\" + "Rename Method" + "\\" + "Rename Method.xml");
-		assertEquals(refactorings.get("Add Parameter"),
-			"." + "\\" + "DynamicRefactorings" + "\\" + "Add Parameter" + "\\" + "Add Parameter.xml");
-		assertEquals(refactorings.get("AddOverrideAnnotation"),
-			"." + "\\" + "DynamicRefactorings" + "\\" + "AddOverrideAnnotation" + "\\" + "AddOverrideAnnotation.xml");
-		
-		refactorings 
-		=new JDOMXMLRefactoringReaderImp().readAvailableRefactorings
-			(Scope.SCOPE_ATTRIBUTE,
-				"./testdata/XML/Reader/availableRefactorings/completedInformation.xml");
-	
-		assertEquals(1,refactorings.size());
-		assertEquals(refactorings.get("Move Field"),
-			"." + "\\" + "DynamicRefactorings" + "\\" + "Move Field" + "\\" + "Move Field.xml");
-		
-		refactorings 
-		=new JDOMXMLRefactoringReaderImp().readAvailableRefactorings
-		(Scope.SCOPE_FORMAL_ARG,
-			"./testdata/XML/Reader/availableRefactorings/completedInformation.xml");
-	
-		assertEquals(2,refactorings.size());
-		assertEquals(refactorings.get("Rename Parameter"),
-			"." + "\\" + "DynamicRefactorings" + "\\" + "Rename Parameter" + "\\" + "Rename Parameter.xml");
-		assertEquals(refactorings.get("Remove Parameter"),
-			"." + "\\" + "DynamicRefactorings" + "\\" + "Remove Parameter" + "\\" + "Remove Parameter.xml");
-		
-		refactorings 
-		=new JDOMXMLRefactoringReaderImp().readAvailableRefactorings
-			(Scope.SCOPE_FORMAL_PAR,
-				"./testdata/XML/Reader/availableRefactorings/completedInformation.xml");
-	
-		assertEquals(3,refactorings.size());
-		assertEquals(refactorings.get("Specialize Bound S"),
-			"." + "\\" + "DynamicRefactorings" + "\\" + "Specialize Bound S" + "\\" + "Specialize Bound S.xml");
+	public void testReadingWithCompleteInformation() throws Exception {
+		// Comprueba que no hay ninguna refactorizaci�n en ning�n �mbito
+
+		HashMap<String, String> refactorings = JDOMXMLRefactoringReaderImp
+				.readAvailableRefactorings(Scope.SCOPE_CLASS,
+						"./testdata/XML/Reader/availableRefactorings/completedInformation.xml");
+
+		assertEquals(3, refactorings.size());
+		assertEquals(refactorings.get("EnumeratedTypes"), "." + "\\"
+				+ "DynamicRefactorings" + "\\" + "EnumeratedTypes" + "\\"
+				+ "EnumeratedTypes.xml");
+		assertEquals(refactorings.get("MigrateJUnit3ToJUnit4"), "." + "\\"
+				+ "DynamicRefactorings" + "\\" + "MigrateJUnit3ToJUnit4" + "\\"
+				+ "MigrateJUnit3ToJUnit4.xml");
+		assertEquals(refactorings.get("Rename Class"), "." + "\\"
+				+ "DynamicRefactorings" + "\\" + "Rename Class" + "\\"
+				+ "Rename Class.xml");
+
+		refactorings = JDOMXMLRefactoringReaderImp
+				.readAvailableRefactorings(Scope.SCOPE_METHOD,
+						"./testdata/XML/Reader/availableRefactorings/completedInformation.xml");
+
+		assertEquals(4, refactorings.size());
+		assertEquals(refactorings.get("MigrateJUnit3ToJUni4TestException"), "."
+				+ "\\" + "DynamicRefactorings" + "\\"
+				+ "MigrateJUnit3ToJUni4TestException" + "\\"
+				+ "MigrateJUnit3ToJUni4TestException.xml");
+		assertEquals(refactorings.get("Rename Method"), "." + "\\"
+				+ "DynamicRefactorings" + "\\" + "Rename Method" + "\\"
+				+ "Rename Method.xml");
+		assertEquals(refactorings.get("Add Parameter"), "." + "\\"
+				+ "DynamicRefactorings" + "\\" + "Add Parameter" + "\\"
+				+ "Add Parameter.xml");
+		assertEquals(refactorings.get("AddOverrideAnnotation"), "." + "\\"
+				+ "DynamicRefactorings" + "\\" + "AddOverrideAnnotation" + "\\"
+				+ "AddOverrideAnnotation.xml");
+
+		refactorings = JDOMXMLRefactoringReaderImp
+				.readAvailableRefactorings(Scope.SCOPE_ATTRIBUTE,
+						"./testdata/XML/Reader/availableRefactorings/completedInformation.xml");
+
+		assertEquals(1, refactorings.size());
+		assertEquals(refactorings.get("Move Field"), "." + "\\"
+				+ "DynamicRefactorings" + "\\" + "Move Field" + "\\"
+				+ "Move Field.xml");
+
+		refactorings = JDOMXMLRefactoringReaderImp
+				.readAvailableRefactorings(Scope.SCOPE_FORMAL_ARG,
+						"./testdata/XML/Reader/availableRefactorings/completedInformation.xml");
+
+		assertEquals(2, refactorings.size());
+		assertEquals(refactorings.get("Rename Parameter"), "." + "\\"
+				+ "DynamicRefactorings" + "\\" + "Rename Parameter" + "\\"
+				+ "Rename Parameter.xml");
+		assertEquals(refactorings.get("Remove Parameter"), "." + "\\"
+				+ "DynamicRefactorings" + "\\" + "Remove Parameter" + "\\"
+				+ "Remove Parameter.xml");
+
+		refactorings = JDOMXMLRefactoringReaderImp
+				.readAvailableRefactorings(Scope.SCOPE_FORMAL_PAR,
+						"./testdata/XML/Reader/availableRefactorings/completedInformation.xml");
+
+		assertEquals(3, refactorings.size());
+		assertEquals(refactorings.get("Specialize Bound S"), "." + "\\"
+				+ "DynamicRefactorings" + "\\" + "Specialize Bound S" + "\\"
+				+ "Specialize Bound S.xml");
 		assertEquals(refactorings.get("Replace Formal Parameter With Type"),
-			"." + "\\" + "DynamicRefactorings" + "\\" + "Replace Formal Parameter With Type" +
-			"" + "\\" + "Replace Formal Parameter With Type.xml");
-		assertEquals(refactorings.get("Replace Formal Parameter With Bounding Type"),
-			"." + "\\" + "DynamicRefactorings" + "\\" + "Replace Formal Parameter With Bounding Type" +
-			"" + "\\" + "Replace Formal Parameter With Bounding Type.xml");
-		
-		refactorings 
-		=new JDOMXMLRefactoringReaderImp().readAvailableRefactorings
-			(Scope.SCOPE_CODE_FRAGMENT,
-				"./testdata/XML/Reader/availableRefactorings/completedInformation.xml");
-		
-		assertEquals(1,refactorings.size());
-		assertEquals(refactorings.get("ExtractMethod"),
-			"." + "\\" + "DynamicRefactorings" + "\\" + "ExtractMethod" + "\\" + "ExtractMethod.xml");
-		
-		
+				"." + "\\" + "DynamicRefactorings" + "\\"
+						+ "Replace Formal Parameter With Type" + "" + "\\"
+						+ "Replace Formal Parameter With Type.xml");
+		assertEquals(
+				refactorings.get("Replace Formal Parameter With Bounding Type"),
+				"." + "\\" + "DynamicRefactorings" + "\\"
+						+ "Replace Formal Parameter With Bounding Type" + ""
+						+ "\\"
+						+ "Replace Formal Parameter With Bounding Type.xml");
+
+		refactorings = JDOMXMLRefactoringReaderImp
+				.readAvailableRefactorings(Scope.SCOPE_CODE_FRAGMENT,
+						"./testdata/XML/Reader/availableRefactorings/completedInformation.xml");
+
+		assertEquals(1, refactorings.size());
+		assertEquals(refactorings.get("ExtractMethod"), "." + "\\"
+				+ "DynamicRefactorings" + "\\" + "ExtractMethod" + "\\"
+				+ "ExtractMethod.xml");
+
 	}
 }

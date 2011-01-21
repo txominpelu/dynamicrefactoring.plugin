@@ -20,31 +20,31 @@ public enum Scope {
 	/**
 	 * Ámbito de clase.
 	 */
-	SCOPE_CLASS (ClassDef.class, Messages.SelectRefactoringWindow_ClassScope),
+	SCOPE_CLASS (ClassDef.class, Messages.SelectRefactoringWindow_ClassScope,"classdef"),
 	/**
 	 * Ámbito de método.
 	 */
-	SCOPE_METHOD (MethDec.class, Messages.SelectRefactoringWindow_MethodScope),
+	SCOPE_METHOD (MethDec.class, Messages.SelectRefactoringWindow_MethodScope,"methdec"),
 	/**
 	 * Ámbito de atributo.
 	 */
-	SCOPE_ATTRIBUTE (AttDec.class, Messages.SelectRefactoringWindow_FieldScope),
+	SCOPE_ATTRIBUTE (AttDec.class, Messages.SelectRefactoringWindow_FieldScope,"attdec"),
 	/**
 	 * Ámbito de argumento formal.
 	 */
-	SCOPE_FORMAL_ARG (FormalArgument.class, Messages.SelectRefactoringWindow_FormalArgumentScope),
+	SCOPE_FORMAL_ARG (FormalArgument.class, Messages.SelectRefactoringWindow_FormalArgumentScope,"formalArgument"),
 	/**
 	 * Ámbito de parámetro formal.
 	 */
-	SCOPE_FORMAL_PAR (FormalPar.class, Messages.SelectRefactoringWindow_FormalParameterScope),
+	SCOPE_FORMAL_PAR (FormalPar.class, Messages.SelectRefactoringWindow_FormalParameterScope,"formalPar"),
 	/**
 	 * Ámbito de parámetro formal acotado.
 	 */
-	SCOPE_BOUNDED_PAR (BoundS.class, Messages.SelectRefactoringWindow_BoundedParameterScope),
+	SCOPE_BOUNDED_PAR (BoundS.class, Messages.SelectRefactoringWindow_BoundedParameterScope,""),
 	/**
 	 * Ámbito de bloque de texto.
 	 */
-	SCOPE_CODE_FRAGMENT (CodeFragment.class, Messages.SelectRefactoringWindow_CodeFragmentScope);
+	SCOPE_CODE_FRAGMENT (CodeFragment.class, Messages.SelectRefactoringWindow_CodeFragmentScope,"codeFragment");
 	
 	
 	/**
@@ -56,6 +56,11 @@ public enum Scope {
 	 * Descripción del ambito.
 	 */
 	private final String description;
+
+	/**
+	 * Etiqueta xml que describe al ambito.
+	 */
+	private String xmlTag;
 	
 	/**
 	 * Obtiene la clase de moon que se corresponde con el 
@@ -75,15 +80,25 @@ public enum Scope {
 	public String getDescription() {
 		return description;
 	}
+	
+	/**
+	 * Etiqueta xml que describe al ambito.
+	 * 
+	 * @return Etiqueta xml que describe al ambito.
+	 */
+	public String getXmlTag(){
+		return this.xmlTag;
+	}
 
 	/**
 	 * Constructor de un ámbito.
 	 * 
 	 * @param correspondinClass clase de moon que se corresponde con el ámbito
 	 */
-	Scope(final Class<? extends ObjectMoon> correspondinClass, final String description){
+	Scope(final Class<? extends ObjectMoon> correspondinClass, final String description,final String xmlTag){
 		this.correspondingClass = correspondinClass;
 		this.description = description;
+		this.xmlTag = xmlTag;
 	}
 	
 	/**

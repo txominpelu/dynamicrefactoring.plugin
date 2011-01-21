@@ -38,7 +38,6 @@ import dynamicrefactoring.RefactoringConstants;
 import dynamicrefactoring.RefactoringPlugin;
 import dynamicrefactoring.domain.DynamicRefactoringDefinition;
 import dynamicrefactoring.domain.Scope;
-import dynamicrefactoring.domain.Scope;
 import dynamicrefactoring.interfaz.dynamic.RepositoryElementProcessor;
 import dynamicrefactoring.reader.XMLRefactoringReaderException;
 import dynamicrefactoring.reader.XMLRefactoringReaderImp;
@@ -84,7 +83,7 @@ public class JDOMXMLRefactoringWriterImp implements XMLRefactoringWriterImp {
 	 * para los diferentes tipos de entrada pricipal de la refactorización
 	 * posibles.
 	 */
-	public void writeFileToLoadRefactoringTypes(){
+	public void writeFileToLoadRefactoringTypes() {
 		try{
 			Element refactoring;
 
