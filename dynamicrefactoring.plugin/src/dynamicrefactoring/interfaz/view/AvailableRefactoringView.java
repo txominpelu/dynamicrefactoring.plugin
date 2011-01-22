@@ -25,9 +25,11 @@ import java.util.HashMap;
 import org.apache.log4j.Logger;
 import org.eclipse.core.runtime.NullProgressMonitor;
 import org.eclipse.jface.dialogs.MessageDialog;
+import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.MouseEvent;
 import org.eclipse.swt.events.MouseListener;
 import org.eclipse.swt.widgets.Composite;
+import org.eclipse.swt.widgets.Tree;
 import org.eclipse.swt.widgets.TreeItem;
 import org.eclipse.ui.IEditorPart;
 import org.eclipse.ui.IWorkbenchWindow;
@@ -37,6 +39,7 @@ import org.eclipse.ui.part.ViewPart;
 import dynamicrefactoring.RefactoringConstants;
 import dynamicrefactoring.RefactoringPlugin;
 import dynamicrefactoring.SelectionListenerRegistry;
+import dynamicrefactoring.domain.RefactoringException;
 import dynamicrefactoring.integration.ModelGenerator;
 import dynamicrefactoring.integration.selectionhandler.ISelectionHandler;
 import dynamicrefactoring.integration.selectionhandler.SelectionHandlerFactory;
@@ -44,6 +47,7 @@ import dynamicrefactoring.interfaz.dynamic.DynamicRefactoringWindowLauncher;
 import dynamicrefactoring.listener.IMainSelectionListener;
 import dynamicrefactoring.reader.JDOMXMLRefactoringReaderImp;
 import dynamicrefactoring.reader.XMLRefactoringReaderException;
+import dynamicrefactoring.util.RefactoringTreeManager;
 import dynamicrefactoring.util.io.FileManager;
 import dynamicrefactoring.util.selection.SelectionInfo;
 
@@ -78,7 +82,11 @@ public class AvailableRefactoringView extends ViewPart {
 	 */
 	private SelectionInfo select;
 
-	private RefactoringTree tree;
+	/**
+	 * Árbol sobre el que se mostrarán de forma estructurada las diferentes refactorizaciones disponibles
+	 * para el elemento selecionado en el espacio de trabajo.
+	 */
+	private Tree tr_Refactorings;
 
 	/**
 	 * Crea los controles SWT para este componente del espacio de trabajo.
@@ -94,7 +102,8 @@ public class AvailableRefactoringView extends ViewPart {
 		SelectionListenerRegistry.getInstance().addListener(
 				new MainSelectionListener());
 
-		tree = new RefactoringTree(parent, new TreeMouseListener(), logger);
+		tr_Refactorings = new Tree(parent, SWT.NULL);
+		tr_Refactorings.addMouseListener(new TreeMouseListener());
 
 	}
 
@@ -137,14 +146,19 @@ public class AvailableRefactoringView extends ViewPart {
 								.readAvailableRefactorings(
 										selection.getSelectionScope(),
 										RefactoringConstants.REFACTORING_TYPES_FILE);
-						tree.fillTree(refactorings);
+						try {
+							RefactoringTreeManager.fillTree(refactorings, tr_Refactorings);
+						} catch (RefactoringException e) {
+							logger.error(Messages.AvailableRefactoringView_NotRepresented
+									+ ".\n" + e.getMessage()); //$NON-NLS-1$
+						}
 					}
 				} catch (XMLRefactoringReaderException e) {
 					logger.error(Messages.AvailableRefactoringView_ReaderFail
 							+ ".\n" + e.getMessage()); //$NON-NLS-1$
 				}
 			} else {
-				tree.cleanView();
+				RefactoringTreeManager.cleanTree(tr_Refactorings);
 			}
 		}
 	}
@@ -167,7 +181,7 @@ public class AvailableRefactoringView extends ViewPart {
 		 * @see MouseListener#mouseDoubleClick(MouseEvent)
 		 */
 		public void mouseDoubleClick(MouseEvent e) {
-			TreeItem[] selection = tree.getSelection();
+			TreeItem[] selection = tr_Refactorings.getSelection();
 			// Si se ha señalado el nombre de la refactorización
 			String selectedName = selection[0].getText();
 			if (selection[0].getParentItem() == null) {
@@ -257,7 +271,7 @@ public class AvailableRefactoringView extends ViewPart {
 	 * Limpia la vista.
 	 */
 	public void cleanView() {
-		tree.cleanView();
+		RefactoringTreeManager.cleanTree(tr_Refactorings);
 	}
 
 }

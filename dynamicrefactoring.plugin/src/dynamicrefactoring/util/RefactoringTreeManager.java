@@ -1,6 +1,8 @@
-package dynamicrefactoring.interfaz.view;
+package dynamicrefactoring.util;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.widgets.Tree;
@@ -12,9 +14,49 @@ import dynamicrefactoring.RefactoringPlugin;
 import dynamicrefactoring.domain.DynamicRefactoringDefinition;
 import dynamicrefactoring.domain.RefactoringException;
 import dynamicrefactoring.interfaz.TreeEditor;
+import dynamicrefactoring.interfaz.view.Messages;
 
-class RefactoringTreeUtils {
+public class RefactoringTreeManager {
+	
+	/**
+	 * Elima los componentes del árbol.
+	 */
+	public static void cleanTree(Tree tree) {
+		if (tree.getItemCount() > 0) {
+			TreeItem[] items = tree.getItems();
+			for (int i = items.length - 1; i >= 0; i--)
+				items[i].dispose();
+		}
+	}
+	
+	/**
+	 * Rellena el árbol con las refactorizaciones disponibles para el elemento
+	 * seleccionado.
+	 * 
+	 * @param refactorings
+	 *            refactorizaciones disponibles.
+	 * @throws RefactoringException 
+	 */
+	public static void fillTree(HashMap<String, String> refactorings, Tree tree) throws RefactoringException {
+		
+		int refactOrderInBranch = 0;
+		String refactName = null;
+		String refactDefinitionFile = null;
+		
+		cleanTree(tree);
+		
+		for (Map.Entry<String, String> nextRef : refactorings.entrySet()) {
+			refactName = nextRef.getKey();
+			refactDefinitionFile = nextRef.getValue();
+			
+			createRefactoringDefinitionTreeItemFromParentTree(
+								refactOrderInBranch, refactName,
+								refactDefinitionFile, tree);
+			refactOrderInBranch++;
 
+		}
+	}
+	
 	/**
 	 * Crea una representacion de una refactorizacion en formato de arbol
 	 * agregandola al arbol que se pasa.
@@ -29,7 +71,7 @@ class RefactoringTreeUtils {
 	 * @throws RefactoringException
 	 *             si hay algun fallo leyendo el fichero con la refactorizacion
 	 */
-	protected static void createRefactoringDefinitionTreeItemFromParentTree(
+	public static void createRefactoringDefinitionTreeItemFromParentTree(
 			int refactOrderInBranch, DynamicRefactoringDefinition definition,
 			Tree arbol) {
 		TreeItem refactoring = TreeEditor.createBranch(arbol,
@@ -56,7 +98,7 @@ class RefactoringTreeUtils {
 	 *             si hay algun fallo leyendo el fichero con la
 	 *             refactorizacion
 	 */
-	protected static void createRefactoringDefinitionTreeItemFromParentTree(
+	public static void createRefactoringDefinitionTreeItemFromParentTree(
 			int refactOrderInBranch, String refactName,
 			String refactDefinitionFile, Tree arbol)
 			throws RefactoringException {
@@ -84,7 +126,7 @@ class RefactoringTreeUtils {
 	 *             si hay algun fallo leyendo el fichero con la
 	 *             refactorizacion
 	 */
-	protected static void createRefactoringDefinitionTreeItemFromParentTree(
+	public static void createRefactoringDefinitionTreeItemFromParentTree(
 			int refactOrderInBranch, String refactName,
 			String refactDefinitionFile, TreeItem item)
 			throws RefactoringException {
