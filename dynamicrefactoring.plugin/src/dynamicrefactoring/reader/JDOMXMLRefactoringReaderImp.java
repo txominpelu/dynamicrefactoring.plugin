@@ -435,6 +435,8 @@ public class JDOMXMLRefactoringReaderImp implements XMLRefactoringReaderImp {
 	 */
 	private static HashMap<String, String> readRefactoringData(Element root,
 			Scope scope) {
+		// FIXME: Si se pasa como scope SCOPE_BOUNDED_PAR debe devolver null o
+		// algo asi
 		HashMap<String, String> refactorings = new HashMap<String, String>();
 		Element classdef = root.getChild(scope.getXmlTag());
 		for(int i=0;  i < classdef.getChildren().size(); i++){

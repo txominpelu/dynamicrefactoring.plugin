@@ -27,10 +27,13 @@ import java.util.Arrays;
 import java.util.HashMap;
 
 import dynamicrefactoring.RefactoringConstants;
+import dynamicrefactoring.domain.metadata.interfaces.Category;
+import dynamicrefactoring.domain.metadata.interfaces.Element;
 import dynamicrefactoring.reader.JDOMXMLRefactoringReaderFactory;
 import dynamicrefactoring.reader.XMLRefactoringReader;
 import dynamicrefactoring.reader.XMLRefactoringReaderFactory;
 import dynamicrefactoring.reader.XMLRefactoringReaderImp;
+import dynamicrefactoring.util.ScopeLimitedLister;
 
 /**
  * Contiene la definición de una refactorización dinámica.
@@ -40,13 +43,13 @@ import dynamicrefactoring.reader.XMLRefactoringReaderImp;
  * @author <A HREF="mailto:sfd0009@alu.ubu.es">Sonia Fuente de la Fuente</A>
  * @author <A HREF="mailto:ehp0001@alu.ubu.es">Enrique Herrero Paredes</A>
  */
-public class DynamicRefactoringDefinition {
+public class DynamicRefactoringDefinition implements Element {
 
 	/**
 	 * Nombre de la refactorización.
 	 */
 	private String name;
-	
+
 	/**
 	 * Descripción de la refactorización.
 	 */
@@ -76,7 +79,7 @@ public class DynamicRefactoringDefinition {
 	 * Los nombres de las acciones de la refactorización.
 	 */
 	private ArrayList<String> actions;
-	
+
 	/**
 	 * Los nombres de las postcondiciones de la refactorización.
 	 */
@@ -130,14 +133,15 @@ public class DynamicRefactoringDefinition {
 	/**
 	 * Asigna el nombre de la refactorización.
 	 * 
-	 * @param name una cadena con el nombre de la refactorización.
+	 * @param name
+	 *            una cadena con el nombre de la refactorización.
 	 * 
 	 * @see #getName
 	 */
 	public void setName(String name){
 		this.name = name;
 	}
-	
+
 	/**
 	 * Devuelve la descripción de la refactorización.
 	 * 
@@ -148,18 +152,19 @@ public class DynamicRefactoringDefinition {
 	public String getDescription() {
 		return description;
 	}
-	
+
 	/**
 	 * Asigna la descripción de la refactorización.
 	 * 
-	 * @param description una cadena con la descripción.
+	 * @param description
+	 *            una cadena con la descripción.
 	 * 
 	 * @see #getDescription
 	 */
 	public void setDescription(String description){		
 		this.description = description;
 	}
-	
+
 	/**
 	 * Devuelve la ruta de la imagen asociada a la refactorización.
 	 * 
@@ -170,11 +175,12 @@ public class DynamicRefactoringDefinition {
 	public String getImage() {
 		return image;
 	}
-	
+
 	/**
 	 * Asigna la ruta de la imagen asociada a la refactorización.
 	 * 
-	 * @param image una cadena con la ruta a la imagen.
+	 * @param image
+	 *            una cadena con la ruta a la imagen.
 	 * 
 	 * @see #getImage
 	 */
@@ -196,36 +202,37 @@ public class DynamicRefactoringDefinition {
 	/**
 	 * Establece la motivación de la refactorización.
 	 * 
-	 * @param motivation una cadena con la motivación de la refactorización.
+	 * @param motivation
+	 *            una cadena con la motivación de la refactorización.
 	 * 
 	 * @see #getMotivation
 	 */
 	public void setMotivation(String motivation){		
 		this.motivation = motivation;
-	}	
+	}
 
 	/**
-	 * Devuelve las entradas que se deben solicitar al usuario para construir
-	 * la refactorización.
+	 * Devuelve las entradas que se deben solicitar al usuario para construir la
+	 * refactorización.
 	 * 
-	 * @return una lista de <i>arrays</i> de cadenas con la información de esas 
-	 * entradas.
+	 * @return una lista de <i>arrays</i> de cadenas con la información de esas
+	 *         entradas.
 	 * 
 	 * @see #setInputs
 	 */
 	public ArrayList<String[]> getInputs() {
 		return inputs;
 	}
-	
+
 	/**
-	 * Devuelve las entradas que se deben solicitar al usuario para construir
-	 * la refactorización en una tabla asociativa de tipo <i>hash</i> que permite
+	 * Devuelve las entradas que se deben solicitar al usuario para construir la
+	 * refactorización en una tabla asociativa de tipo <i>hash</i> que permite
 	 * encontrar la entrada con un nombre determinado de forma fácil.
 	 * 
-	 * @return un mapa asociativo <i>hash</i> organizado de tal modo que las claves
-	 * son los nombres de cada una de las entradas, y el valor en cada caso un
-	 * <i>array</i> de cadenas con todos los atributos de la entrada con el nombre
-	 * especificado. 
+	 * @return un mapa asociativo <i>hash</i> organizado de tal modo que las
+	 *         claves son los nombres de cada una de las entradas, y el valor en
+	 *         cada caso un <i>array</i> de cadenas con todos los atributos de
+	 *         la entrada con el nombre especificado.
 	 * 
 	 * @see #getInputs para obtener las entradas como una lista.
 	 */
@@ -238,19 +245,20 @@ public class DynamicRefactoringDefinition {
 		
 		return map;
 	}
-	
+
 	/**
-	 * Asigna las entradas que se deben solicitar al usuario para construir
-	 * la refactorización.
+	 * Asigna las entradas que se deben solicitar al usuario para construir la
+	 * refactorización.
 	 * 
-	 * @param inputs lista de cadenas con la información de esas entradas.
+	 * @param inputs
+	 *            lista de cadenas con la información de esas entradas.
 	 * 
 	 * @see #getInputs
 	 */
 	public void setInputs(ArrayList<String[]> inputs){
 		this.inputs = inputs;
 	}
-	
+
 	/**
 	 * Devuelve los nombres de las precondiciones de la refactorización.
 	 * 
@@ -265,14 +273,15 @@ public class DynamicRefactoringDefinition {
 	/**
 	 * Establece los nombres de las precondiciones de la refactorización.
 	 * 
-	 * @param preconditions lista de cadenas con los nombres de las precondiciones.
-
+	 * @param preconditions
+	 *            lista de cadenas con los nombres de las precondiciones.
+	 * 
 	 * @see #getPreconditions
 	 */
 	public void setPreconditions(ArrayList<String> preconditions){		
 		this.preconditions = preconditions;
 	}
-	
+
 	/**
 	 * Devuelve los nombres de las acciones de la refactorización.
 	 * 
@@ -287,14 +296,15 @@ public class DynamicRefactoringDefinition {
 	/**
 	 * Establece los nombres de las acciones de la refactorización.
 	 * 
-	 * @param actions lista de cadenas con los nombres de las acciones.
+	 * @param actions
+	 *            lista de cadenas con los nombres de las acciones.
 	 * 
 	 * @see #getActions
 	 */
 	public void setActions(ArrayList<String> actions){
 		this.actions = actions;
 	}
-	
+
 	/**
 	 * Devuelve los nombres de las postcondiciones de la refactorización.
 	 * 
@@ -309,15 +319,15 @@ public class DynamicRefactoringDefinition {
 	/**
 	 * Establece los nombres de las postcondiciones de la refactorización.
 	 * 
-	 * @param postconditions lista de cadenas con los nombres de las 
-	 * postcondiciones.
+	 * @param postconditions
+	 *            lista de cadenas con los nombres de las postcondiciones.
 	 * 
 	 * @see #getPostconditions
 	 */
 	public void setPostconditions(ArrayList<String> postconditions){		
 		this.postconditions = postconditions;
 	}
-	
+
 	/**
 	 * Devuelve los parámetros ambiguos de la refactorización.
 	 * 
@@ -333,14 +343,16 @@ public class DynamicRefactoringDefinition {
 	 * Devuelve los parámetros ambiguos para una precondición, acción o
 	 * postcondición determinada.
 	 * 
-	 * @param name nombre simple de la precondición, acción o postcondición cuyos
-	 * parámetros ambiguos se deben obtener.
-	 * @param typePart {@link RefactoringConstants#PRECONDITION}, 
-	 * {@link RefactoringConstants#ACTION} o 
-	 * {@link RefactoringConstants#POSTCONDITION}.
+	 * @param name
+	 *            nombre simple de la precondición, acción o postcondición cuyos
+	 *            parámetros ambiguos se deben obtener.
+	 * @param typePart
+	 *            {@link RefactoringConstants#PRECONDITION},
+	 *            {@link RefactoringConstants#ACTION} o
+	 *            {@link RefactoringConstants#POSTCONDITION}.
 	 * 
-	 * @return lista de <i>arrays</i> de cadenas con los atributos de dichos 
-	 * parámetros.
+	 * @return lista de <i>arrays</i> de cadenas con los atributos de dichos
+	 *         parámetros.
 	 * 
 	 * @see #setAmbiguousParameters
 	 */
@@ -363,54 +375,59 @@ public class DynamicRefactoringDefinition {
 		}
 		return null;
 	}
-		
+
 	/**
 	 * Establece los parámetros ambiguos de la refactorización.
 	 * 
-	 * @param ambiguousParameters los parámetros ambiguos de la refactorización.
+	 * @param ambiguousParameters
+	 *            los parámetros ambiguos de la refactorización.
 	 * 
-	 * @see #getAmbiguousParameters 
+	 * @see #getAmbiguousParameters
 	 */
 	public void setAmbiguousParameters(
 		HashMap<String, ArrayList<String[]>>[] ambiguousParameters){
 		
 		this.ambiguousParameters = ambiguousParameters;
 	}
-		
+
 	/**
 	 * Devuelve los ejemplos de la refactorización.
 	 * 
 	 * @return una lista de arrays de cadenas con los atributos de cada ejemplo.
-	 *  
+	 * 
 	 * @see #setExamples
 	 */
 	public ArrayList<String[]> getExamples() {
 		return examples;
 	}
-	
+
 	/**
 	 * Establece los ejemplos a la refactorización.
 	 * 
-	 * @param examples lista de arrays de cadenas con los atributos de cada 
-	 * ejemplo. Cada array de cadenas contendrá dos cadenas, una con la ruta del
-	 * fichero que contiene el estado del ejemplo antes de la refactorización, y 
-	 * otra con la ruta del que contiene el estado después de la refactorización.
+	 * @param examples
+	 *            lista de arrays de cadenas con los atributos de cada ejemplo.
+	 *            Cada array de cadenas contendrá dos cadenas, una con la ruta
+	 *            del fichero que contiene el estado del ejemplo antes de la
+	 *            refactorización, y otra con la ruta del que contiene el estado
+	 *            después de la refactorización.
 	 * 
 	 * @see #getExamples
 	 */
 	public void setExamples(ArrayList<String[]> examples){
 		this.examples = examples;
-	}	
-	
+	}
+
 	/**
 	 * Devuelve la definición de una refactorización a partir de un fichero.
 	 * 
-	 * @param refactoringFilePath ruta al fichero que define la refactorización.
+	 * @param refactoringFilePath
+	 *            ruta al fichero que define la refactorización.
 	 * 
 	 * @return la definición de la refactorización descrita en el fichero.
 	 * 
-	 * @throws RefactoringException si se produce un error al cargar la
-	 * refactorización desde el fichero indicado.
+	 * @throws RefactoringException
+	 *             si se produce un error al cargar la refactorización desde el
+	 *             fichero indicado.
 	 */
 	public static DynamicRefactoringDefinition getRefactoringDefinition(
 		String refactoringFilePath) throws RefactoringException {
@@ -433,5 +450,11 @@ public class DynamicRefactoringDefinition {
 				e.getMessage());
 		}	
 		return definition;
+	}
+
+	@Override
+	public boolean belongsTo(Category category) {
+		Scope scope = new ScopeLimitedLister().getRefactoringScope(this);
+		return category.getName().equals("scope." + scope.toString());
 	}
 }
