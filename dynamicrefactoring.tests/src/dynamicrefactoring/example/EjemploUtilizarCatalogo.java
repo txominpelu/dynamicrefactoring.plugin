@@ -26,6 +26,9 @@ import dynamicrefactoring.reader.XMLRefactoringReaderException;
 
 public class EjemploUtilizarCatalogo {
 
+	/*
+	 * Catalogo.
+	 * */
 	private ElementCatalog<DynamicRefactoringDefinition> catalog;
 
 	@Before
