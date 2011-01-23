@@ -43,7 +43,7 @@ import dynamicrefactoring.util.ScopeLimitedLister;
  * @author <A HREF="mailto:sfd0009@alu.ubu.es">Sonia Fuente de la Fuente</A>
  * @author <A HREF="mailto:ehp0001@alu.ubu.es">Enrique Herrero Paredes</A>
  */
-public class DynamicRefactoringDefinition implements Element {
+public class DynamicRefactoringDefinition implements Element,Comparable<DynamicRefactoringDefinition> {
 
 	/**
 	 * Nombre de la refactorización.
@@ -105,14 +105,14 @@ public class DynamicRefactoringDefinition implements Element {
 		description = new String();
 		image = new String();
 		motivation = new String();
-		
+
 		inputs = new ArrayList<String[]>();
 		preconditions = new ArrayList<String>();
 		actions = new ArrayList<String>();
 		postconditions = new ArrayList<String>();
-		
+
 		ambiguousParameters = (HashMap<String, ArrayList<String[]>>[]) 
-			new HashMap[3];		
+		new HashMap[3];		
 		for (int i = 0; i < ambiguousParameters.length; i++)
 			ambiguousParameters[i] = new HashMap<String, ArrayList<String[]>>();
 
@@ -238,11 +238,11 @@ public class DynamicRefactoringDefinition implements Element {
 	 */
 	public HashMap<String, String[]> getInputsAsHash() {
 		HashMap<String, String[]> map = new HashMap<String, String[]>();
-		
+
 		for (String[] input : inputs)
 			// El nombre es el segundo atributo (posición 1 del array).
 			map.put(input[1], input);
-		
+
 		return map;
 	}
 
@@ -357,19 +357,19 @@ public class DynamicRefactoringDefinition implements Element {
 	 * @see #setAmbiguousParameters
 	 */
 	public ArrayList<String[]> getAmbiguousParameters(String name, int typePart){
-		
+
 		// Se obtienen todas las entradas del predicado o acción.
 		ArrayList<String[]> inputs = ambiguousParameters[typePart].get(name);
-		
+
 		if(inputs != null){
 			ArrayList<String[]> params = new ArrayList<String[]>();
-			
+
 			// Se crea una copia de la lista de entradas del predicado o acción.
 			for (String[] param : inputs){
 				String[] temp = Arrays.copyOf(param, param.length);
 				params.add(temp);					
 			}
-			
+
 			if(params.size() > 0)
 				return params;
 		}
@@ -385,8 +385,8 @@ public class DynamicRefactoringDefinition implements Element {
 	 * @see #getAmbiguousParameters
 	 */
 	public void setAmbiguousParameters(
-		HashMap<String, ArrayList<String[]>>[] ambiguousParameters){
-		
+			HashMap<String, ArrayList<String[]>>[] ambiguousParameters){
+
 		this.ambiguousParameters = ambiguousParameters;
 	}
 
@@ -430,8 +430,8 @@ public class DynamicRefactoringDefinition implements Element {
 	 *             fichero indicado.
 	 */
 	public static DynamicRefactoringDefinition getRefactoringDefinition(
-		String refactoringFilePath) throws RefactoringException {
-			
+			String refactoringFilePath) throws RefactoringException {
+
 		DynamicRefactoringDefinition definition;
 		try {
 			XMLRefactoringReaderFactory f = new JDOMXMLRefactoringReaderFactory();
@@ -443,11 +443,11 @@ public class DynamicRefactoringDefinition implements Element {
 			Object[] messageArgs = {refactoringFilePath};
 			MessageFormat formatter = new MessageFormat(""); //$NON-NLS-1$
 			formatter.applyPattern(
-				Messages.DynamicRefactoringDefinition_ErrorLoading);
-			
+					Messages.DynamicRefactoringDefinition_ErrorLoading);
+
 			throw new RefactoringException(
-				formatter.format(messageArgs) + ".\n" + //$NON-NLS-1$
-				e.getMessage());
+					formatter.format(messageArgs) + ".\n" + //$NON-NLS-1$
+					e.getMessage());
 		}	
 		return definition;
 	}
@@ -455,6 +455,15 @@ public class DynamicRefactoringDefinition implements Element {
 	@Override
 	public boolean belongsTo(Category category) {
 		Scope scope = new ScopeLimitedLister().getRefactoringScope(this);
-		return category.getName().equals("scope." + scope.toString());
+		//FIXME: provisionalmente hasta corregir que devuelve nulo
+		if(scope==null)
+			return false;
+		else
+			return category.getName().equals("scope." + scope.toString());
+	}
+
+	@Override
+	public int compareTo(DynamicRefactoringDefinition o) {
+		return name.compareTo(o.getName());
 	}
 }

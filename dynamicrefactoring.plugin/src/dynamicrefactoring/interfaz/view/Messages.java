@@ -56,6 +56,8 @@ public class Messages extends NLS {
 	public static String RefactoringListView_NotAllListed;
 	public static String RefactoringListView_Error;
 	public static String RefactoringListView_AvailableNotListed;
+	public static String RefactoringListView_SelectFromClassification;
+	public static String RefactoringListView_Classification;
 	
 	static {
 		// initialize resource bundle

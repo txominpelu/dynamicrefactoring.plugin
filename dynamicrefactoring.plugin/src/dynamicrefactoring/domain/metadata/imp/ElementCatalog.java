@@ -141,4 +141,12 @@ elementsToClassify);
 		return new ArrayList<Predicate<K>>(this.filter);
 	}
 
+	/**
+	 * Devuelve el nombre de la clasificación.
+	 * 
+	 * @return una cadena con el nombre de la clasificación.
+	 */
+	public String getClassificationName() {
+		return classificationName;
+	}
 }

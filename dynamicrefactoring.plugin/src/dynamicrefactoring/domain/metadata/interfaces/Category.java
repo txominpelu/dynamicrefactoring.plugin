@@ -2,7 +2,7 @@ package dynamicrefactoring.domain.metadata.interfaces;
 
 
 
-public final class Category {
+public final class Category implements Comparable<Category> {
 	
 	public final static Category NONE_CATEGORY = new Category("None");
 
@@ -51,6 +51,11 @@ public final class Category {
 	@Override
 	public int hashCode() {
 		return this.getName().hashCode();
+	}
+
+	@Override
+	public int compareTo(Category o) {
+		return name.compareTo(o.getName());
 	}
 
 }

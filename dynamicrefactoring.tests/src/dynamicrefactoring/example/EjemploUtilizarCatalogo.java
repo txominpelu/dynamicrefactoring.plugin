@@ -26,14 +26,14 @@ import dynamicrefactoring.reader.XMLRefactoringReaderException;
 
 public class EjemploUtilizarCatalogo {
 
-	/*
-	 * Catalogo.
-	 * */
+	/**
+	 * Catálogo.
+	 */
 	private ElementCatalog<DynamicRefactoringDefinition> catalog;
 
 	@Before
 	public void setUp() throws XMLRefactoringReaderException,
-			RefactoringException {
+	RefactoringException {
 
 		Set<Category> categories = new HashSet<Category>();
 		Set<DynamicRefactoringDefinition> refactorings = new HashSet<DynamicRefactoringDefinition>();
@@ -41,8 +41,8 @@ public class EjemploUtilizarCatalogo {
 			if (!scope.equals(Scope.SCOPE_BOUNDED_PAR)) {
 				categories.add(new Category("scope." + scope.toString()));
 				final HashMap<String, String> refactoringsNamePathMap = JDOMXMLRefactoringReaderImp
-						.readAvailableRefactorings(scope,
-								RefactoringConstants.REFACTORING_TYPES_FILE);
+				.readAvailableRefactorings(scope,
+						RefactoringConstants.REFACTORING_TYPES_FILE);
 				for (Map.Entry<String, String> entry : refactoringsNamePathMap
 						.entrySet()) {
 					refactorings.add(DynamicRefactoringDefinition
@@ -62,7 +62,7 @@ public class EjemploUtilizarCatalogo {
 		list(true);
 
 		catalog.addConditionToFilter(new NameContainsTextCondition<DynamicRefactoringDefinition>(
-				"Extract"));
+		"Extract"));
 
 		list(true);
 		catalog.removeConditionFromFilter(new CategoryCondition<DynamicRefactoringDefinition>(
@@ -72,7 +72,7 @@ public class EjemploUtilizarCatalogo {
 
 	private void list(boolean showFiltered) {
 		ClassifiedElements<DynamicRefactoringDefinition> classifiedElements = catalog
-				.getClassificationOfElements(showFiltered);
+		.getClassificationOfElements(showFiltered);
 		SortedSet<Category> listaOrdenada = new TreeSet<Category>(
 				new Comparator<Category>() {
 
@@ -88,7 +88,7 @@ public class EjemploUtilizarCatalogo {
 
 					private boolean isSpecialCategory(Category arg0) {
 						return arg0.equals(Category.FILTERED_CATEGORY)
-								|| arg0.equals(Category.NONE_CATEGORY);
+						|| arg0.equals(Category.NONE_CATEGORY);
 					}
 
 				});
