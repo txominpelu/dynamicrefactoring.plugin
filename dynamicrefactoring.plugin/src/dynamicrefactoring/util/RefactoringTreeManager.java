@@ -1,6 +1,7 @@
 package dynamicrefactoring.util;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -13,6 +14,7 @@ import com.swtdesigner.ResourceManager;
 import dynamicrefactoring.RefactoringPlugin;
 import dynamicrefactoring.domain.DynamicRefactoringDefinition;
 import dynamicrefactoring.domain.RefactoringException;
+import dynamicrefactoring.domain.metadata.interfaces.Category;
 import dynamicrefactoring.interfaz.TreeEditor;
 import dynamicrefactoring.interfaz.view.Messages;
 
@@ -40,14 +42,15 @@ public class RefactoringTreeManager {
 	throws RefactoringException {
 
 		int refactOrderInBranch = 0;
-		String refactName = null;
 		String refactDefinitionFile = null;
 
 		cleanTree(tree);
 		
-		for (Map.Entry<String, String> nextRef : refactorings.entrySet()) {
-			refactName = nextRef.getKey();
-			refactDefinitionFile = nextRef.getValue();
+		ArrayList<String> refactNames= new ArrayList<String>(refactorings.keySet());
+		Collections.sort(refactNames);
+		
+		for (String refactName : refactNames) {
+			refactDefinitionFile = refactorings.get(refactName);
 
 			createRefactoringDefinitionTreeItemFromParentTree(
 					refactOrderInBranch, refactName,
