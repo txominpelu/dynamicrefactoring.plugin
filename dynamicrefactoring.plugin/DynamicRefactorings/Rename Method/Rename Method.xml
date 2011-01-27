@@ -1,46 +1,229 @@
-<?xml version="1.0" encoding="ISO-8859-1"?>
-<!DOCTYPE refactoring SYSTEM "refactoringDTD.dtd">
-
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE refactoring
+  SYSTEM 'refactoringDTD.dtd'>
 <refactoring name="Rename Method">
+	
+	
+	
+	
 	<information>
-		<description>Change the name of the method.</description>
-		<image src="renamemethod.JPG" />
-		<motivation>The name of a method does not reveal its purpose.</motivation>
+		
+		
+		
+		
+		<description>
+			
+			Change the name of the method.
+		
+		</description>
+		
+		
+		
+		
+		<image src="renamemethod.JPG"/>
+		
+		
+		
+		
+		<motivation>
+			
+			The name of a method does not reveal its purpose.
+		
+		</motivation>
+		
+		
+	
+		
+		<categories>
+			
+			
+			<category>
+				
+				Fowler.MakingMethodCallsSimpler
+			
+			</category>
+			
+		
+		</categories>
+		
 	</information>
+	
+	
+	
+	
 	<inputs>
-		<input type="moon.core.Name" name="New_name" root="false" />
-		<input type="moon.core.classdef.ClassDef" name="Class" from="Method" method="getClassDef" root="false" />
-		<input type="moon.core.Name" name="Old_name" from="Method" method="getUniqueName" root="false" />
-		<input type="moon.core.classdef.MethDec" name="Method" root="true" />
-		<input type="moon.core.Model" name="Model" root="false" />
+		
+		
+		
+		
+		<input name="New_name" root="false" type="moon.core.Name"/>
+		
+		
+		
+		
+		<input from="Method" method="getClassDef" name="Class" root="false" type="moon.core.classdef.ClassDef"/>
+		
+		
+		
+		
+		<input from="Method" method="getUniqueName" name="Old_name" root="false" type="moon.core.Name"/>
+		
+		
+		
+		
+		<input name="Method" root="true" type="moon.core.classdef.MethDec"/>
+		
+		
+		
+		
+		<input name="Model" root="false" type="moon.core.Model"/>
+		
+		
+	
+	
 	</inputs>
+	
+	
+	
+	
 	<mechanism>
+		
+		
+		
+		
 		<preconditions>
+			
+			
+			
+			
 			<precondition name="repository.moon.concretepredicate.ExistsMethodInClass">
-				<param name="Method" />
-				<param name="Class" />
+				
+				
+				
+				
+				<param name="Method"/>
+				
+				
+				
+				
+				<param name="Class"/>
+				
+				
+			
+			
 			</precondition>
+			
+			
+			
+			
 			<precondition name="repository.moon.concretepredicate.MethodIsNotConstructor">
-				<param name="Method" />
+				
+				
+				
+				
+				<param name="Method"/>
+				
+				
+			
+			
 			</precondition>
+			
+			
+		
+		
 		</preconditions>
+		
+		
+		
+		
 		<actions>
+			
+			
+			
+			
 			<action name="repository.moon.concreteaction.RenameMethod">
-				<param name="Method" />
-				<param name="Class" />
-				<param name="New_name" />
+				
+				
+				
+				
+				<param name="Method"/>
+				
+				
+				
+				
+				<param name="Class"/>
+				
+				
+				
+				
+				<param name="New_name"/>
+				
+				
+			
+			
 			</action>
+			
+			
+		
+		
 		</actions>
+		
+		
+		
+		
 		<postconditions>
+			
+			
+			
+			
 			<postcondition name="repository.moon.concretepredicate.NotExistsMethodWithNameInClass">
-				<param name="Class" />
-				<param name="Old_name" />
+				
+				
+				
+				
+				<param name="Class"/>
+				
+				
+				
+				
+				<param name="Old_name"/>
+				
+				
+			
+			
 			</postcondition>
+			
+			
+		
+		
 		</postconditions>
+		
+		
+	
+	
 	</mechanism>
+	
+	
+	
+	
 	<examples>
-		<example before="ejemplo1_antes.txt" after="ejemplo1_despues.txt" />
-		<example before="ejemplo2_antes.java" after="ejemplo2_despues.java" />
+		
+		
+		
+		
+		<example after="ejemplo1_despues.txt" before="ejemplo1_antes.txt"/>
+		
+		
+		
+		
+		<example after="ejemplo2_despues.java" before="ejemplo2_antes.java"/>
+		
+		
+	
+	
 	</examples>
-</refactoring>
+	
+	
 
+
+</refactoring>

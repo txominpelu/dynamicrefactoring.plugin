@@ -35,8 +35,8 @@ import dynamicrefactoring.util.RefactoringTreeManager;
 
 /**
  * Proporcia una vista de Eclipse la cual muestra la lista de todas las
- * refactorizaciones asi como la información asociada a las mismas.
- * Sobre estas se pueden realizar clasificaciones y filtros.
+ * refactorizaciones asi como la información asociada a las mismas. Sobre estas
+ * se pueden realizar clasificaciones y filtros.
  */
 public class RefactoringListView extends ViewPart {
 
@@ -44,7 +44,7 @@ public class RefactoringListView extends ViewPart {
 	 * Elemento de registro de errores y otros eventos de la clase.
 	 */
 	private static final Logger logger = Logger
-	.getLogger(RefactoringListView.class);
+			.getLogger(RefactoringListView.class);
 
 	/**
 	 * Identificador de la vista.
@@ -76,7 +76,8 @@ public class RefactoringListView extends ViewPart {
 	/**
 	 * Catálogo Scope.
 	 */
-	//TODO: Catalogo Scope que deberá ser independiente a la clasificacion = Set<ElementCatalog<DynamicRefactoringDefinition>>
+	// TODO: Catalogo Scope que deberá ser independiente a la clasificacion =
+	// Set<ElementCatalog<DynamicRefactoringDefinition>>
 	private ElementCatalog<DynamicRefactoringDefinition> scopeCatalog;
 
 	/**
@@ -90,10 +91,11 @@ public class RefactoringListView extends ViewPart {
 	 */
 	private Label classLabel;
 	private Label stateClassLabel;
-	
+
 	/**
-	 * Árbol sobre el que se mostrarán de forma estructurada las diferentes refactorizaciones 
-	 * conforme a la clasificación seleccionada y los filtros aplicados.
+	 * Árbol sobre el que se mostrarán de forma estructurada las diferentes
+	 * refactorizaciones conforme a la clasificación seleccionada y los filtros
+	 * aplicados.
 	 */
 	private Tree tr_Refactorings;
 
@@ -190,10 +192,10 @@ public class RefactoringListView extends ViewPart {
 		}
 	}
 
-	//TODO: Este metodo deberá ser independiente al tipo de clasificacion
+	// TODO: Este metodo deberá ser independiente al tipo de clasificacion
 	/**
-	 * Obtiene las categorias y refactorizaciones disponibles y 
-	 * con ello crea el catálogo para la clasificación de Scope.
+	 * Obtiene las categorias y refactorizaciones disponibles y con ello crea el
+	 * catálogo para la clasificación de Scope.
 	 */
 	private void createScopeCatalog(){
 		Set<Category> categories = new HashSet<Category>();
@@ -208,7 +210,7 @@ public class RefactoringListView extends ViewPart {
 				drd, categories, "scope");
 	}
 
-	//TODO: refactorizar extrayendo la parte común a otro metodo.
+	// TODO: refactorizar extrayendo la parte común a otro metodo.
 	//TODO: conseguir que se quede expandido el arbol en el primer nivel.
 	private void showTree(String classificationName){
 	
@@ -271,8 +273,8 @@ public class RefactoringListView extends ViewPart {
 	}
 
 	/**
-	 * Actualiza el árbol de refactorización para representarlas conforme
-	 * a la clasificación que ha sido seleccionada en el combo.
+	 * Actualiza el árbol de refactorización para representarlas conforme a la
+	 * clasificación que ha sido seleccionada en el combo.
 	 */
 	private class ClassComboSelectionListener implements SelectionListener {
 

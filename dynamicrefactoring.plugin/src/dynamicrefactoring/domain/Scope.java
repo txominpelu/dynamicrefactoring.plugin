@@ -20,7 +20,8 @@ public enum Scope {
 	/**
 	 * Ámbito de clase.
 	 */
-	SCOPE_CLASS (ClassDef.class, Messages.SelectRefactoringWindow_ClassScope,"classdef"),
+	SCOPE_CLASS(ClassDef.class, Messages.SelectRefactoringWindow_ClassScope,
+			"classdef"),
 	/**
 	 * Ámbito de método.
 	 */

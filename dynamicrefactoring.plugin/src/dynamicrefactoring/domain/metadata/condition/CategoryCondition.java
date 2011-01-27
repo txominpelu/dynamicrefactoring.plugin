@@ -52,6 +52,11 @@ public class CategoryCondition<K extends Element> implements Predicate<K> {
 		return getCategory().getName().hashCode();
 	}
 
+	@Override
+	public String toString() {
+		return "filter:category=" + this.getCategory().toString();
+	}
+
 	
 
 }

@@ -1,8 +1,8 @@
 package dynamicrefactoring.domain.metadata.imp;
 
 
-import static org.junit.Assert.*;
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
 import java.util.Map;
 import java.util.Set;
@@ -41,9 +41,8 @@ public class ElementCatalogTest {
 
 	@Test
 	public void filteringForExtractTestAndUnfilter() {
-		final ClassifiedElements<Element> expected = new SimpleClassifiedElements<Element>(
-				StubDataUtils.FOWLER_CLASSIFICATION_NAME,
-				StubDataUtils.readClassifiedElements("./testdata/entradafiltradaporextract.txt"));
+		final ClassifiedElements<Element> expected = catalog
+				.getClassificationOfElements(true);
 		catalog.addConditionToFilter(new CategoryCondition<Element>("Extract"));
 		catalog.removeConditionFromFilter(new CategoryCondition<Element>(
 				"Extract"));

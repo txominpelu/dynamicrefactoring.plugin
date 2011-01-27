@@ -1,4 +1,4 @@
-<!ELEMENT refactoring ( information, inputs, mechanism, examples? ) >
+<!ELEMENT refactoring ( information, inputs, mechanism, examples?, categories? ) >
 <!ATTLIST refactoring name NMTOKENS #REQUIRED >
 <!ATTLIST refactoring version CDATA #IMPLIED>
 
@@ -10,6 +10,9 @@
 <!ATTLIST image src CDATA #REQUIRED >
 
 <!ELEMENT motivation ( #PCDATA ) >
+
+<!ELEMENT categories ( category+ ) >
+<!ELEMENT category ( #PCDATA ) >
 
 <!ELEMENT inputs ( input+ ) >
 <!ELEMENT input EMPTY >

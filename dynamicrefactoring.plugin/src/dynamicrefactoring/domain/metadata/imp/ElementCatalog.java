@@ -102,16 +102,30 @@ elementsToClassify);
 		this.filter.add(condition);
 	}
 
+	/**
+	 * Devuelve un predicado con todas las condiciones del filtro juntas.
+	 * 
+	 * @return predicado con todas las condiciones
+	 */
+	private Predicate<K> getPredicateForAllConditions() {
+		return Predicates.and(filter);
+	}
 
 	@Override
 	public void removeConditionFromFilter(Predicate<K> conditionToRemove) {
+		this.filter.remove(conditionToRemove);
+		Collection<K> filter = ImmutableList.copyOf(Collections2.filter(
+				classifiedElements.get(Category.FILTERED_CATEGORY),
+				Predicates.not(getPredicateForAllConditions())));
+
 		Collection<K> toUnfilter = ImmutableList.copyOf(Collections2.filter(
 				classifiedElements.get(Category.FILTERED_CATEGORY),
-				conditionToRemove));
-		classifiedElements.get(Category.FILTERED_CATEGORY)
-				.removeAll(toUnfilter);
+				getPredicateForAllConditions()));
+
+		classifiedElements.put(Category.FILTERED_CATEGORY, new HashSet<K>(
+				filter));
 		classify(toUnfilter);
-		this.filter.remove(conditionToRemove);
+
 	}
 
 	/**

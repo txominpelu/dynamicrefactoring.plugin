@@ -1,45 +1,216 @@
-<?xml version="1.0" encoding="ISO-8859-1"?>
-<!DOCTYPE refactoring SYSTEM "refactoringDTD.dtd">
-
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE refactoring
+  SYSTEM 'refactoringDTD.dtd'>
 <refactoring name="ExtractMethod">
+	
+	
+	
+	
 	<information>
-		<description>Permite generar un nuevo método a partir de un conjunto de instrucciones de otro método diferente.</description>
-		<motivation>Permite reducir la complejidad de un método extrayendo parte de su tarea a otro método nuevo. También facilita la reducción de código duplicado al permitir la reutilización del nuevo método generado.</motivation>
+		
+		
+		
+		
+		<description>
+			
+			Permite generar un nuevo método a partir de un conjunto de instrucciones de otro método diferente.
+		
+		</description>
+		
+		
+		
+		
+		<motivation>
+			
+			Permite reducir la complejidad de un método extrayendo parte de su tarea a otro método nuevo. También facilita la reducción de código duplicado al permitir la reutilización del nuevo método generado.
+		
+		</motivation>
+		
+	
+		<categories>
+			<category>
+				Fowler.ComposingMethods
+			</category>
+		</categories>
+		
 	</information>
+	
+	
+	
+	
 	<inputs>
-		<input type="moon.core.Name" name="Name" root="false" />
-		<input type="javamoon.core.instruction.JavaCodeFragment" name="Fragment" root="true" />
-		<input type="moon.core.Model" name="Model" root="false" />
+		
+		
+		
+		
+		<input name="Name" root="false" type="moon.core.Name"/>
+		
+		
+		
+		
+		<input name="Fragment" root="true" type="javamoon.core.instruction.JavaCodeFragment"/>
+		
+		
+		
+		
+		<input name="Model" root="false" type="moon.core.Model"/>
+		
+		
+	
+	
 	</inputs>
+	
+	
+	
+	
 	<mechanism>
+		
+		
+		
+		
 		<preconditions>
+			
+			
+			
+			
 			<precondition name="repository.moon.concretepredicate.IsCodeFragmentInMethodBody">
-				<param name="Fragment" />
+				
+				
+				
+				
+				<param name="Fragment"/>
+				
+				
+			
+			
 			</precondition>
+			
+			
+			
+			
 			<precondition name="repository.moon.concretepredicate.JustOneReturn">
-				<param name="Fragment" />
+				
+				
+				
+				
+				<param name="Fragment"/>
+				
+				
+			
+			
 			</precondition>
+			
+			
+		
+		
 		</preconditions>
+		
+		
+		
+		
 		<actions>
+			
+			
+			
+			
 			<action name="repository.moon.concreteaction.AddExtractedMethod">
-				<param name="Name" />
-				<param name="Fragment" />
+				
+				
+				
+				
+				<param name="Name"/>
+				
+				
+				
+				
+				<param name="Fragment"/>
+				
+				
+			
+			
 			</action>
+			
+			
+			
+			
 			<action name="repository.moon.concreteaction.AddExtractedFormalArgToMethod">
-				<param name="Name" />
-				<param name="Fragment" />
+				
+				
+				
+				
+				<param name="Name"/>
+				
+				
+				
+				
+				<param name="Fragment"/>
+				
+				
+			
+			
 			</action>
+			
+			
+			
+			
 			<action name="repository.moon.concreteaction.AddReturnCode">
-				<param name="Name" />
-				<param name="Fragment" />
+				
+				
+				
+				
+				<param name="Name"/>
+				
+				
+				
+				
+				<param name="Fragment"/>
+				
+				
+			
+			
 			</action>
+			
+			
+			
+			
 			<action name="repository.moon.concreteaction.ReplaceCodeFragment">
-				<param name="Name" />
-				<param name="Fragment" />
+				
+				
+				
+				
+				<param name="Name"/>
+				
+				
+				
+				
+				<param name="Fragment"/>
+				
+				
+			
+			
 			</action>
+			
+			
+		
+		
 		</actions>
-		<postconditions />
+		
+		
+		
+		
+		<postconditions/>
+		
+		
+	
+	
 	</mechanism>
-	<examples />
-</refactoring>
+	
+	
+	
+	
+	<examples/>
+	
+	
 
+
+</refactoring>

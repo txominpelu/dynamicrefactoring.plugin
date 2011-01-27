@@ -25,6 +25,8 @@ import java.text.MessageFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Set;
 
 import dynamicrefactoring.RefactoringConstants;
 import dynamicrefactoring.domain.metadata.interfaces.Category;
@@ -97,6 +99,11 @@ public class DynamicRefactoringDefinition implements Element,Comparable<DynamicR
 	private ArrayList<String[]> examples;
 
 	/**
+	 * Lista de categorias a las que la refactorizacion pertenece.
+	 */
+	private Set<Category> categories;
+
+	/**
 	 * Constructor.
 	 */
 	@SuppressWarnings({"unchecked"}) //$NON-NLS-1$
@@ -105,6 +112,7 @@ public class DynamicRefactoringDefinition implements Element,Comparable<DynamicR
 		description = new String();
 		image = new String();
 		motivation = new String();
+		categories = new HashSet<Category>();
 
 		inputs = new ArrayList<String[]>();
 		preconditions = new ArrayList<String>();
@@ -456,14 +464,29 @@ public class DynamicRefactoringDefinition implements Element,Comparable<DynamicR
 	public boolean belongsTo(Category category) {
 		Scope scope = new ScopeLimitedLister().getRefactoringScope(this);
 		//FIXME: provisionalmente hasta corregir que devuelve nulo
-		if(scope==null)
-			return false;
-		else
-			return category.getName().equals("scope." + scope.toString());
+		Set<Category> categoriesItBelongs = new HashSet<Category>(
+				getCategories());
+		if (scope != null)
+			categoriesItBelongs.add(new Category("scope." + scope.toString()));
+
+		return categoriesItBelongs.contains(category);
 	}
 
 	@Override
 	public int compareTo(DynamicRefactoringDefinition o) {
 		return name.compareTo(o.getName());
+	}
+
+
+	@Override
+	public Set<Category> getCategories() {
+		return new HashSet<Category>(categories);
+	}
+
+	/**
+	 * @param categories the categories to set
+	 */
+	public void setCategories(Set<Category> categories) {
+		this.categories = categories;
 	}
 }

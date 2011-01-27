@@ -32,17 +32,18 @@ import dynamicrefactoring.domain.DynamicRefactoringDefinition;
  * @author <A HREF="mailto:ehp0001@alu.ubu.es">Enrique Herrero Paredes</A>
  */
 public interface XMLRefactoringReaderImp {
-	
+
 	/**
-	 * Nombre de la etiqueta raíz de la especificación XML de una refactorización.
+	 * Nombre de la etiqueta raíz de la especificación XML de una
+	 * refactorización.
 	 */
 	public static final String REFACTORING_TAG = "refactoring"; //$NON-NLS-1$
-	
+
 	/**
 	 * Nombre del atributo con el nombre de la refactorización.
 	 */
 	public static final String NAME_ATTRIBUTE = "name"; //$NON-NLS-1$
-	
+
 	/**
 	 * Nombre del atributo con el número de versión de la refactorización.
 	 */
@@ -74,7 +75,17 @@ public interface XMLRefactoringReaderImp {
 	public static final String MOTIVATION_ELEMENT = "motivation"; //$NON-NLS-1$
 
 	/**
-	 * Nombre de la etiqueta bajo la cual se especifican las entradas de la 
+	 * Nombre de la etiqueta con las categorías de la refactorización.
+	 */
+	public static final String CATEGORIES_ELEMENT = "categories"; //$NON-NLS-1$
+
+	/**
+	 * Nombre de la etiqueta con la motivación de la refactorización.
+	 */
+	public static final String CATEGORY_ELEMENT = "category"; //$NON-NLS-1$
+
+	/**
+	 * Nombre de la etiqueta bajo la cual se especifican las entradas de la
 	 * refactorización.
 	 */
 	public static final String INPUTS_ELEMENT = "inputs"; //$NON-NLS-1$
@@ -89,17 +100,17 @@ public interface XMLRefactoringReaderImp {
 	 * Nombre del atributo con el tipo de una entrada de la refactorización.
 	 */
 	public static final String TYPE_INPUT_ATTRIBUTE = "type"; //$NON-NLS-1$
-	
+
 	/**
 	 * Nombre del atributo con el nombre de una entrada de la refactorización.
 	 */
 	public static final String NAME_INPUT_ATTRIBUTE = "name"; //$NON-NLS-1$
-	
+
 	/**
 	 * Apuntador al nombre de otra entrada de la que obtener el valor de ésta.
 	 */
 	public static final String FROM_INPUT_ATTRIBUTE = "from"; //$NON-NLS-1$
-	
+
 	/**
 	 * Nombre del método que permite obtener el valor que se debe asignar a la
 	 * entrada o la lista de valores entre los que se puede elegir su valor.
@@ -107,59 +118,59 @@ public interface XMLRefactoringReaderImp {
 	public static final String METHOD_INPUT_ATTRIBUTE = "method"; //$NON-NLS-1$
 
 	/**
-	 * Nombre del atributo que indica si una entrada es la entrada principal
-	 * de la refactorización.
+	 * Nombre del atributo que indica si una entrada es la entrada principal de
+	 * la refactorización.
 	 */
 	public static final String ROOT_INPUT_ATTRIBUTE = "root"; //$NON-NLS-1$
-	
+
 	/**
-	 * Nombre de la etiqueta bajo la que se especifica el mecanismo de 
+	 * Nombre de la etiqueta bajo la que se especifica el mecanismo de
 	 * funcionamiento de la refactorización.
 	 */
 	public static final String MECHANISM_ELEMENT = "mechanism"; //$NON-NLS-1$
 
 	/**
-	 * Nombre de la etiqueta bajo la que se listan las precondiciones de la 
+	 * Nombre de la etiqueta bajo la que se listan las precondiciones de la
 	 * refactorización.
 	 */
 	public static final String PRECONDITIONS_ELEMENT = "preconditions"; //$NON-NLS-1$
 
 	/**
-	 * Nombre de la etiqueta que especifica una precondición concreta de la 
+	 * Nombre de la etiqueta que especifica una precondición concreta de la
 	 * refactorización.
 	 */
 	public static final String PRECONDITION_ELEMENT = "precondition"; //$NON-NLS-1$
 
 	/**
-	 * Nombre de la etiqueta bajo la que se listan las acciones de la 
+	 * Nombre de la etiqueta bajo la que se listan las acciones de la
 	 * refactorización.
 	 */
 	public static final String ACTIONS_ELEMENT = "actions"; //$NON-NLS-1$
 
 	/**
-	 * Nombre de la etiqueta que especifica una acción concreta de la 
+	 * Nombre de la etiqueta que especifica una acción concreta de la
 	 * refactorización.
 	 */
 	public static final String ACTION_ELEMENT = "action"; //$NON-NLS-1$
 
 	/**
-	 * Nombre de la etiqueta bajo la que se listan las postcondiciones de la 
+	 * Nombre de la etiqueta bajo la que se listan las postcondiciones de la
 	 * refactorización.
 	 */
 	public static final String POSTCONDITIONS_ELEMENT = "postconditions"; //$NON-NLS-1$
 
 	/**
-	 * Nombre de la etiqueta que especifica una postcondición concreta de la 
+	 * Nombre de la etiqueta que especifica una postcondición concreta de la
 	 * refactorización.
 	 */
 	public static final String POSTCONDITION_ELEMENT = "postcondition"; //$NON-NLS-1$
 
 	/**
-	 * Nombre de la etiqueta que define un parámetro ambiguo para una 
+	 * Nombre de la etiqueta que define un parámetro ambiguo para una
 	 * precondición, acción o postcondición de la refactorización.
 	 */
 	public static final String PARAM_ELEMENT = "param"; //$NON-NLS-1$
-	
+
 	/**
 	 * Nombre del atributo con el nombre de un parámetro ambiguo.
 	 */
@@ -171,23 +182,23 @@ public interface XMLRefactoringReaderImp {
 	public static final String EXAMPLES_ELEMENT = "examples"; //$NON-NLS-1$
 
 	/**
-	 * Nombre de la etiqueta que especifica un ejemplo concreto de la 
+	 * Nombre de la etiqueta que especifica un ejemplo concreto de la
 	 * refactorización.
 	 */
 	public static final String EXAMPLE_ELEMENT = "example"; //$NON-NLS-1$
 
 	/**
-	 * Nombre del atributo con un ejemplo de la situación antes de aplicar
-	 * la refactorización.
+	 * Nombre del atributo con un ejemplo de la situación antes de aplicar la
+	 * refactorización.
 	 */
 	public static final String BEFORE_EXAMPLE_ATTRIBUTE = "before"; //$NON-NLS-1$
 
 	/**
-	 * Nombre del atributo con un ejemplo de la situación después de aplicar
-	 * la refactorización.
+	 * Nombre del atributo con un ejemplo de la situación después de aplicar la
+	 * refactorización.
 	 */
 	public static final String AFTER_EXAMPLE_ATTRIBUTE = "after"; //$NON-NLS-1$
-	
+
 	/**
 	 * Devuelve la definición de la refactorización.
 	 * 

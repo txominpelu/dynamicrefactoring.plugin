@@ -57,14 +57,6 @@ public class StubDataUtils {
 		return new SimpleRefactoringDefinition(elementName, refCategories);
 	}
 
-	public static Set<Category> getFowlerClassification() {
-		Set<Category> subcategories = new HashSet<Category>();
-		subcategories.add(new Category("Fowler.ComposingMethods"));
-		subcategories.add(new Category("Fowler.MovingFeatures"));
-		subcategories.add(new Category("Fowler.OrganizingData"));
-		return subcategories;
-	}
-
 	public static final String FOWLER_CLASSIFICATION_NAME = "Fowler";
 	public static final String TESTDATA_ENTRADASINFILTRAR_FILE = "./testdata/entradasinfiltrar.txt";
 	public static Set<Element> readRefactoringsFromFile(String file) {
@@ -88,5 +80,12 @@ public class StubDataUtils {
 	}
 
 
+	public static Set<Category> getFowlerClassification() {
+		Set<Category> subcategories = new HashSet<Category>();
+		subcategories.add(new Category("Fowler.ComposingMethods"));
+		subcategories.add(new Category("Fowler.MovingFeatures"));
+		subcategories.add(new Category("Fowler.OrganizingData"));
+		return subcategories;
+	}
 
 }

@@ -16,4 +16,11 @@ public interface Element {
 	 */
 	boolean belongsTo(Category category);
 
+	/**
+	 * Obtiene las categorías a las que el elemento pertenece.
+	 * 
+	 * @return conjunto de categorias a las que el elemento pertenece.
+	 */
+	Set<Category> getCategories();
+
 }

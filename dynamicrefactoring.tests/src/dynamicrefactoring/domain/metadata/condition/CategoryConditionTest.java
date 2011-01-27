@@ -1,10 +1,12 @@
 package dynamicrefactoring.domain.metadata.condition;
 
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
+
 import java.util.Set;
 
 import org.junit.Before;
 import org.junit.Test;
-import static org.junit.Assert.*;
 
 import dynamicrefactoring.domain.metadata.interfaces.Category;
 import dynamicrefactoring.domain.metadata.interfaces.Element;
@@ -35,6 +37,11 @@ public class CategoryConditionTest {
 			public boolean belongsTo(Category category) {
 				return true;
 			}
+
+			@Override
+			public Set<Category> getCategories() {
+				return null;
+			}
 			
 		};
 		assertTrue(condition.apply(element));
@@ -53,6 +60,11 @@ public class CategoryConditionTest {
 			@Override
 			public boolean belongsTo(Category category) {
 				return false;
+			}
+
+			@Override
+			public Set<Category> getCategories() {
+				return null;
 			}
 			
 		};

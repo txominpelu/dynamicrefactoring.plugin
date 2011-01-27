@@ -24,7 +24,9 @@ import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 import java.util.StringTokenizer;
 
 import org.jdom.Document;
@@ -35,6 +37,7 @@ import org.jdom.input.SAXBuilder;
 import dynamicrefactoring.RefactoringConstants;
 import dynamicrefactoring.domain.DynamicRefactoringDefinition;
 import dynamicrefactoring.domain.Scope;
+import dynamicrefactoring.domain.metadata.interfaces.Category;
 
 /**
  * Utiliza la implementación basada en JDOM para leer los ficheros XML que
@@ -134,9 +137,33 @@ public class JDOMXMLRefactoringReaderImp implements XMLRefactoringReaderImp {
 			refactoringDefinition.setImage(
 				imageElement.getAttributeValue(SRC_IMAGE_ATTRIBUTE));
 
+		// Se obtiene la imagen que describe la refactorización.
+		Element categoryElement = information.getChild(CATEGORIES_ELEMENT);
+
+		if (categoryElement != null)
+			refactoringDefinition
+					.setCategories(readCategoriesElements(categoryElement
+							.getChildren(CATEGORY_ELEMENT)));
+
 		// Se obtiene la motivacion de la refactorización.
 		refactoringDefinition.setMotivation(
 			information.getChildTextTrim(MOTIVATION_ELEMENT));
+	}
+
+	/**
+	 * Crea la lista de categorias a las que la refactorización pertenece.
+	 * 
+	 * @param children
+	 *            lista de elementos de tipo category
+	 * @return conjunto de categorias a las que la refactorización pertenece
+	 */
+	private Set<Category> readCategoriesElements(List<Element> children) {
+		Set<Category> categorias = new HashSet<Category>();
+		for (Element category : children) {
+			categorias.add(new Category(category.getTextTrim()));
+
+		}
+		return categorias;
 	}
 
 	/**

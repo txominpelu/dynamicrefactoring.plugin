@@ -1,5 +1,6 @@
 package dynamicrefactoring.domain.metadata.imp;
 
+import java.util.HashSet;
 import java.util.Set;
 
 import dynamicrefactoring.domain.metadata.interfaces.Category;
@@ -72,5 +73,9 @@ public class SimpleRefactoringDefinition implements Element {
 		return this.getName().hashCode();
 	}
 
+	@Override
+	public Set<Category> getCategories() {
+		return new HashSet<Category>(categories);
+	}
 
 }

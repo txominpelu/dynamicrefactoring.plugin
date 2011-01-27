@@ -53,4 +53,9 @@ public class NameContainsTextCondition<K extends Element> implements Predicate<K
 		return text;
 	}
 
+	@Override
+	public String toString() {
+		return "filter:name=" + this.getText();
+	}
+
 }
