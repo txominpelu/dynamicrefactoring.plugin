@@ -7,7 +7,7 @@ import dynamicrefactoring.domain.metadata.interfaces.Category;
 import dynamicrefactoring.domain.metadata.interfaces.Classification;
 import dynamicrefactoring.domain.metadata.interfaces.ClassifiedElements;
 
-final class SimpleClassifiedElements<K> implements ClassifiedElements<K> {
+public final class SimpleClassifiedElements<K> implements ClassifiedElements<K> {
 
 	private final Map<Category, Set<K>> classifiedElements;
 	private final SimpleUniLevelClassification classification;

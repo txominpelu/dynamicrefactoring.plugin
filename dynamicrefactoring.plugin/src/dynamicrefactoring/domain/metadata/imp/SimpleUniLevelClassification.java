@@ -61,4 +61,9 @@ public final class SimpleUniLevelClassification implements Classification {
 		return getCategories().hashCode() + this.getName().hashCode();
 	}
 
+	@Override
+	public String toString() {
+		return getName() + "=" + getCategories();
+	}
+
 }

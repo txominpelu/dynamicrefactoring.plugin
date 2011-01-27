@@ -16,11 +16,13 @@ import com.google.common.collect.ImmutableList;
 
 import dynamicrefactoring.domain.metadata.condition.CategoryCondition;
 import dynamicrefactoring.domain.metadata.interfaces.Category;
+import dynamicrefactoring.domain.metadata.interfaces.Classification;
 import dynamicrefactoring.domain.metadata.interfaces.ClassifiedElements;
 import dynamicrefactoring.domain.metadata.interfaces.ClassifiedFilterableCatalog;
 import dynamicrefactoring.domain.metadata.interfaces.Element;
 
-public class ElementCatalog<K extends Element> implements ClassifiedFilterableCatalog<K> {
+public class ElementCatalog<K extends Element> implements
+		ClassifiedFilterableCatalog<K> {
 
 	/**
 	 * Lista de condiciones que conforman el filtro actual aplicado
@@ -33,9 +35,9 @@ public class ElementCatalog<K extends Element> implements ClassifiedFilterableCa
 	private Map<Category, Set<K>> classifiedElements;
 
 	/**
-	 * Nombre de la clasificacion que divide por categorias los elementos.
+	 * Clasificacion que divide por categorias los elementos.
 	 */
-	private final String classificationName;
+	private final Classification classification;
 
 	/**
 	 * Crea un catalog de elementos con los elementos que se le pasa y
@@ -46,13 +48,13 @@ public class ElementCatalog<K extends Element> implements ClassifiedFilterableCa
 	 * @param categories
 	 *            conjunto de categorias que contiene la clasificacion en la que
 	 *            se basa este catalogo
-	 * @param classificationName nombre de la clasificacion
+	 * @param classificationName
+	 *            nombre de la clasificacion
 	 */
-	public ElementCatalog(Set<K> allElements, Set<Category> categories,
-			String classificationName) {
+	public ElementCatalog(Set<K> allElements, Classification classification) {
 		this.filter = new ArrayList<Predicate<K>>();
-		this.classificationName = classificationName;
-		initializeClassifiedElements(categories);
+		this.classification = classification;
+		initializeClassifiedElements(classification.getCategories());
 		classify(allElements);
 	}
 
@@ -74,7 +76,7 @@ public class ElementCatalog<K extends Element> implements ClassifiedFilterableCa
 	 */
 	private void classify(Collection<K> elementsToClassify) {
 		ArrayList<K> elementsLeftWithNoCategory = new ArrayList<K>(
-elementsToClassify);
+				elementsToClassify);
 		for (Category category : classifiedElements.keySet()) {
 			Collection<K> belongToCategory = Collections2.filter(
 					elementsLeftWithNoCategory, new CategoryCondition<K>(
@@ -86,11 +88,9 @@ elementsToClassify);
 				elementsLeftWithNoCategory);
 	}
 
-
 	@Override
 	public void addConditionToFilter(Predicate<K> condition) {
-		for (Entry<Category, Set<K>> entry : this.classifiedElements
-				.entrySet()) {
+		for (Entry<Category, Set<K>> entry : this.classifiedElements.entrySet()) {
 			if (!entry.getKey().equals(Category.FILTERED_CATEGORY)) {
 				Collection<K> toFilter = new HashSet<K>(Collections2.filter(
 						entry.getValue(), Predicates.not(condition)));
@@ -128,26 +128,16 @@ elementsToClassify);
 
 	}
 
-	/**
-	 * Elimina la condicion cuyo indice es el pasado.
-	 * 
-	 * @param index
-	 *            indice de la condicion a eliminar
-	 */
 	@Override
-	public void removeConditionFromFilter(int index) {
-		Predicate<K> condition = getAllFilterConditions().get(index);
-		this.removeConditionFromFilter(condition);
-	}
-
-	@Override
-	public ClassifiedElements<K> getClassificationOfElements(boolean showFiltered) {
+	public ClassifiedElements<K> getClassificationOfElements(
+			boolean showFiltered) {
 		HashMap<Category, Set<K>> toReturn = new HashMap<Category, Set<K>>(
 				classifiedElements);
 		if (!showFiltered) {
 			toReturn.remove(Category.FILTERED_CATEGORY);
 		}
-		return new SimpleClassifiedElements<K>(this.classificationName, toReturn);
+		return new SimpleClassifiedElements<K>(this.classification.getName(),
+				toReturn);
 	}
 
 	@Override
@@ -156,11 +146,43 @@ elementsToClassify);
 	}
 
 	/**
-	 * Devuelve el nombre de la clasificación.
+	 * Construye una catálogo con los mismos filtros y elementos que el actual
+	 * pero con una clasificacion distinta.
 	 * 
-	 * @return una cadena con el nombre de la clasificación.
+	 * @param classification
+	 *            clasificacion a aplicar al nuevo catalogo
+	 * @return nuevo catalogo en el que solo cambia que se le aplica una nueva
+	 *         clasificacion
 	 */
-	public String getClassificationName() {
-		return classificationName;
+	@Override
+	public ClassifiedFilterableCatalog<K> newInstance(
+			Classification classification) {
+		Set<K> allElements = getAllElements();
+		return new ElementCatalog<K>(allElements, classification);
+	}
+
+	/**
+	 * Obtiene todos los elementos del catalogo. Util para los tests.
+	 * 
+	 * @return todos los elementos contenidos en el catalogo.
+	 */
+	protected Set<K> getAllElements() {
+		Set<K> allElements = new HashSet<K>();
+		for (Category c : classifiedElements.keySet()) {
+			allElements.addAll(classifiedElements.get(c));
+		}
+		return allElements;
+	}
+
+	/**
+	 * Devuelve la clasificación que divide en categorias los elementos de este
+	 * catalogo.
+	 * 
+	 * @return clasificacion que divide en categorias el catalogo.
+	 */
+	@Override
+	public Classification getClassification() {
+		return new SimpleUniLevelClassification(classification.getName(),
+				classification.getCategories());
 	}
 }

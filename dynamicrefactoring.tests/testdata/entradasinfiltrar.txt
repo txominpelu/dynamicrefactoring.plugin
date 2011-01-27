@@ -5,6 +5,7 @@ InlineMethod=Fowler.ComposingMethods,Scope.Method,Inline
 MoveMethod=Fowler.MovingFeatures,Scope.MethodMove,Move
 MoveField=Fowler.MovingFeatures,Scope.AttributeMove,Move
 ExtractClass=Fowler.MovingFeatures,Scope.Class,Extract
+#Fowler.OrganizingData
 #None
 EncapsulateField=Scope.Attribute,Encapsulate
 #Filtered

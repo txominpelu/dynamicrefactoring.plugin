@@ -13,15 +13,6 @@ public interface ClassifiedFilterableCatalog<K> {
 	 */
 	void addConditionToFilter(Predicate<K> filter);
 
-	/**
-	 * Elimina una condicion ya existente en el filtro actual aplicado al
-	 * catalogo. La funcionalida es equivalente a removeConditionFromFilter
-	 * pasando la propia condicion.
-	 * 
-	 * @param index
-	 *            indice de la coleccion a
-	 */
-	void removeConditionFromFilter(int index);
 
 	/**
 	 * Elimina una condicion ya existente en el filtro actual aplicado al
@@ -48,6 +39,24 @@ public interface ClassifiedFilterableCatalog<K> {
 	 */
 	ClassifiedElements<K> getClassificationOfElements(boolean showFiltered);
 
+	/**
+	 * Construye una catálogo con los mismos filtros y elementos que el actual
+	 * pero con una clasificacion distinta.
+	 * 
+	 * @param classification
+	 *            clasificacion a aplicar al nuevo catalogo
+	 * @return nuevo catalogo en el que solo cambia que se le aplica una nueva
+	 *         clasificacion
+	 */
+	ClassifiedFilterableCatalog<K> newInstance(Classification classification);
+
+	/**
+	 * Devuelve la clasificación que divide en categorias los elementos de este
+	 * catalogo.
+	 * 
+	 * @return clasificacion que divide en categorias el catalogo.
+	 */
+	Classification getClassification();
 
 
 }

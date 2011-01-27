@@ -9,13 +9,17 @@ import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
 
+import dynamicrefactoring.domain.metadata.imp.SimpleClassifiedElements;
 import dynamicrefactoring.domain.metadata.imp.SimpleRefactoringDefinition;
+import dynamicrefactoring.domain.metadata.imp.SimpleUniLevelClassification;
 import dynamicrefactoring.domain.metadata.interfaces.Category;
+import dynamicrefactoring.domain.metadata.interfaces.Classification;
+import dynamicrefactoring.domain.metadata.interfaces.ClassifiedElements;
 import dynamicrefactoring.domain.metadata.interfaces.Element;
 
 public class StubDataUtils {
 
-	public static Map<Category, Set<Element>> readClassifiedElements(
+	public static ClassifiedElements<Element> readClassifiedElements(
 			String file) {
 		Map<Category, Set<Element>> classifiedElements = null;
 		try{
@@ -43,7 +47,8 @@ public class StubDataUtils {
 		    }catch (Exception e){//Catch exception if any
 		      System.err.println("Error: " + e.getMessage());
 		    }
-		return classifiedElements;
+		return new SimpleClassifiedElements<Element>("Fowler",
+				classifiedElements);
 	
 	}
 
@@ -80,12 +85,12 @@ public class StubDataUtils {
 	}
 
 
-	public static Set<Category> getFowlerClassification() {
+	public static Classification getOtherClassification() {
 		Set<Category> subcategories = new HashSet<Category>();
-		subcategories.add(new Category("Fowler.ComposingMethods"));
-		subcategories.add(new Category("Fowler.MovingFeatures"));
-		subcategories.add(new Category("Fowler.OrganizingData"));
-		return subcategories;
+		subcategories.add(new Category("MiClasif.Tal"));
+		subcategories.add(new Category("MiClasif.MovingFeatures"));
+		subcategories.add(new Category("MiClasif.OrganizingData"));
+		return new SimpleUniLevelClassification("MiClasif", subcategories);
 	}
 
 }
