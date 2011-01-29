@@ -1,8 +1,8 @@
-<!ELEMENT refactoring ( information, inputs, mechanism, examples?, categories? ) >
+<!ELEMENT refactoring ( information, inputs, mechanism, examples? ) >
 <!ATTLIST refactoring name NMTOKENS #REQUIRED >
 <!ATTLIST refactoring version CDATA #IMPLIED>
 
-<!ELEMENT information ( description, image?, motivation ) >
+<!ELEMENT information ( description, image?, motivation, categorization? ) >
 
 <!ELEMENT description ( #PCDATA ) >
 
@@ -11,7 +11,9 @@
 
 <!ELEMENT motivation ( #PCDATA ) >
 
-<!ELEMENT categories ( category+ ) >
+<!ELEMENT categorization ( classification+ ) >
+<!ELEMENT classification ( category+ ) >
+<!ATTLIST classification name CDATA #REQUIRED >
 <!ELEMENT category ( #PCDATA ) >
 
 <!ELEMENT inputs ( input+ ) >

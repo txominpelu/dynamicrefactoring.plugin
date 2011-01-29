@@ -40,8 +40,8 @@ public class ElementCatalog<K extends Element> implements
 	private final Classification classification;
 
 	/**
-	 * Crea un catalog de elementos con los elementos que se le pasa y
-	 * clasificando los elementos en las categorias pasadas.
+	 * Crea un catalog de elementos con los elementos que se le pasa sin ningun
+	 * filtro y clasificando los elementos en las categorias pasadas.
 	 * 
 	 * @param allElements
 	 *            elementos que componen el catalogo
@@ -52,12 +52,31 @@ public class ElementCatalog<K extends Element> implements
 	 *            nombre de la clasificacion
 	 */
 	public ElementCatalog(Set<K> allElements, Classification classification) {
-		this.filter = new ArrayList<Predicate<K>>();
+		this(allElements, classification, new ArrayList<Predicate<K>>());
+		
+	}
+
+	/**
+	 * Crea un catalog de elementos con los elementos que se le pasa con los filtros pasados y clasificando los elementos en las categorias pasadas.
+	 * 
+	 * @param allElements
+	 *            elementos que componen el catalogo
+	 * @param categories
+	 *            conjunto de categorias que contiene la clasificacion en la que
+	 *            se basa este catalogo
+	 * @param filterConditionList condiciones de filtrado del nuevo catalogo de elementos
+	 * @param classificationName
+	 *            nombre de la clasificacion
+	 */
+	public ElementCatalog(Set<K> allElements, Classification classification,
+			List<Predicate<K>> filterConditionList) {
+		this.filter = filterConditionList;
 		this.classification = classification;
 		initializeClassifiedElements(classification.getCategories());
 		classify(allElements);
 	}
 
+	
 	private void initializeClassifiedElements(
 			Set<Category> classificationCategories) {
 		this.classifiedElements = new HashMap<Category, Set<K>>();
@@ -158,7 +177,7 @@ public class ElementCatalog<K extends Element> implements
 	public ClassifiedFilterableCatalog<K> newInstance(
 			Classification classification) {
 		Set<K> allElements = getAllElements();
-		return new ElementCatalog<K>(allElements, classification);
+		return new ElementCatalog<K>(allElements, classification, new ArrayList<Predicate<K>>(this.filter));
 	}
 
 	/**

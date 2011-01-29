@@ -94,6 +94,7 @@ public class ElementCatalogTest {
 	 */
 	@Test
 	public void newInstanceTest() {
+		catalog.addConditionToFilter(new CategoryCondition<Element>("Move"));
 		ElementCatalog<Element> copia = (ElementCatalog<Element>) catalog
 				.newInstance(StubDataUtils.getOtherClassification());
 		assertEquals(catalog.getAllElements(), copia.getAllElements());

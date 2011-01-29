@@ -77,13 +77,25 @@ public interface XMLRefactoringReaderImp {
 	/**
 	 * Nombre de la etiqueta con las categorías de la refactorización.
 	 */
-	public static final String CATEGORIES_ELEMENT = "categories"; //$NON-NLS-1$
+	public static final String CATEGORIZATION_ELEMENT = "categorization"; //$NON-NLS-1$
+	
+	/**
+	 * Nombre de la etiqueta con las categorías de la refactorización.
+	 */
+	public static final String CLASSIFICATION_ELEMENT = "classification"; //$NON-NLS-1$
 
 	/**
 	 * Nombre de la etiqueta con la motivación de la refactorización.
 	 */
 	public static final String CATEGORY_ELEMENT = "category"; //$NON-NLS-1$
 
+	/**
+	 * Nombre de la etiqueta con la clasificacion a la que pertenece una de las categorias
+	 * de la refactorizacion.
+	 */
+	public static final String CLASSIFICATION_NAME_ATTRIBUTE = "name"; //$NON-NLS-1$
+
+	
 	/**
 	 * Nombre de la etiqueta bajo la cual se especifican las entradas de la
 	 * refactorización.

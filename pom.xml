@@ -13,7 +13,9 @@
 	<jacoco.agent.path>lib/jacocoagent.jar</jacoco.agent.path>
 	<jacoco.file.path>target/cobertura/jacoco.exec</jacoco.file.path>
 	<sonar.skippedModules>dynamicrefactoring.targetplatform</sonar.skippedModules>
+	<targetJdk>1.6</targetJdk>
 	<jdk-version>1.6</jdk-version>
+    	<project.build.sourceEncoding>ISO-8859-1</project.build.sourceEncoding>
   </properties>
 
   <modules>
@@ -69,9 +71,6 @@
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-javadoc-plugin</artifactId>
         <version>2.7</version>
-        <configuration>
-          ...
-        </configuration>
       </plugin>
 
 <!-- Especificar tests a ejecutar-->
@@ -84,6 +83,8 @@
 	<argLine>-javaagent:${jacoco.agent.path}=destfile=${jacoco.file.path}</argLine>
       </configuration>
     </plugin>
+
+
 
     </plugins>
   </build>
@@ -100,6 +101,7 @@
       </plugin>
     </plugins>
   </reporting>
+
 
 
 <!-- Maven dependencies -->

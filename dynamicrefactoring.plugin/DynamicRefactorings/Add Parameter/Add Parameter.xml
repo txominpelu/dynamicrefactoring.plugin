@@ -1,8 +1,8 @@
-<?xml version="1.0" encoding="iso-8859-1"?>
-<!DOCTYPE refactoring
-  SYSTEM 'refactoringDTD.dtd'>
-<refactoring name="Add Parameter">
+<?xml version="1.0" encoding="iso-8859-1"?><!DOCTYPE refactoring  SYSTEM 'refactoringDTD.dtd'><refactoring name="Add Parameter">
 	
+	
+	
+																										
 	
 	
 	
@@ -10,13 +10,23 @@
 		
 		
 		
+																																																				
+		
+		
 		
 		<description>
 			
-			Add a parameter for an object that can pass on this information.
+			
+			
+																																							Add a parameter for an object that can pass on this information.																								
+		
+		
 		
 		</description>
 		
+		
+		
+																																																				
 		
 		
 		
@@ -24,22 +34,34 @@
 		
 		
 		
+																																																				
+		
+		
 		
 		<motivation>
 			
-			A method needs more information from its caller..
+			
+			
+																																							A method needs more information from its caller..																								
+		
+		
 		
 		</motivation>
 		
 		
+		
+																																																															
+			
+	
 	
 		
-		<categories>			
-			<category>Fowler.MakingMethodCallsSimpler</category>
-		</categories>
 		
-	</information>
 	
+	<categorization><classification name="Fowler"><category>MakingMethodCallsSimpler</category></classification></categorization></information>
+	
+	
+	
+																										
 	
 	
 	
@@ -47,9 +69,15 @@
 		
 		
 		
+																																																				
+		
+		
 		
 		<input name="Name" root="false" type="moon.core.Name"/>
 		
+		
+		
+																																																				
 		
 		
 		
@@ -57,9 +85,15 @@
 		
 		
 		
+																																																				
+		
+		
 		
 		<input from="Method" method="getClassDef" name="Class" root="false" type="moon.core.classdef.ClassDef"/>
 		
+		
+		
+																																																				
 		
 		
 		
@@ -67,14 +101,23 @@
 		
 		
 		
+																																																				
+		
+		
 		
 		<input from="Model" method="getTypes" name="Type" root="false" type="moon.core.classdef.Type"/>
 		
 		
+		
+																																							
+	
 	
 	
 	</inputs>
 	
+	
+	
+																										
 	
 	
 	
@@ -82,9 +125,15 @@
 		
 		
 		
+																																																				
+		
+		
 		
 		<preconditions>
 			
+			
+			
+																																																																														
 			
 			
 			
@@ -92,19 +141,31 @@
 				
 				
 				
+																																																																																																								
+				
+				
 				
 				<param name="Method"/>
 				
+				
+				
+																																																																																																								
 				
 				
 				
 				<param name="Name"/>
 				
 				
+				
+																																																																																											
+			
 			
 			
 			</precondition>
 			
+			
+			
+																																																																														
 			
 			
 			
@@ -112,24 +173,39 @@
 				
 				
 				
+																																																																																																								
+				
+				
 				
 				<param name="Method"/>
 				
+				
+				
+																																																																																																								
 				
 				
 				
 				<param name="Name"/>
 				
 				
+				
+																																																																																											
+			
 			
 			
 			</precondition>
 			
 			
+			
+																																																																	
+		
 		
 		
 		</preconditions>
 		
+		
+		
+																																																				
 		
 		
 		
@@ -137,9 +213,15 @@
 			
 			
 			
+																																																																														
+			
+			
 			
 			<action name="repository.moon.concreteaction.AddFormalArg">
 				
+				
+				
+																																																																																																								
 				
 				
 				
@@ -147,19 +229,31 @@
 				
 				
 				
+																																																																																																								
+				
+				
 				
 				<param name="Name"/>
 				
+				
+				
+																																																																																																								
 				
 				
 				
 				<param name="Type"/>
 				
 				
+				
+																																																																																											
+			
 			
 			
 			</action>
 			
+			
+			
+																																																																														
 			
 			
 			
@@ -167,24 +261,39 @@
 				
 				
 				
+																																																																																																								
+				
+				
 				
 				<param name="Class"/>
 				
+				
+				
+																																																																																																								
 				
 				
 				
 				<param name="Type"/>
 				
 				
+				
+																																																																																											
+			
 			
 			
 			</action>
 			
 			
+			
+																																																																	
+		
 		
 		
 		</actions>
 		
+		
+		
+																																																				
 		
 		
 		
@@ -192,9 +301,15 @@
 			
 			
 			
+																																																																														
+			
+			
 			
 			<postcondition name="repository.moon.concretepredicate.HasFormalArgWithName">
 				
+				
+				
+																																																																																																								
 				
 				
 				
@@ -202,30 +317,48 @@
 				
 				
 				
+																																																																																																								
+				
+				
 				
 				<param name="Name"/>
 				
 				
+				
+																																																																																											
+			
 			
 			
 			</postcondition>
 			
 			
+			
+																																																																	
+		
 		
 		
 		</postconditions>
 		
 		
+		
+																																							
+	
 	
 	
 	</mechanism>
 	
 	
 	
+																										
+	
+	
 	
 	<examples/>
 	
 	
+	
+													
+
 
 
 </refactoring>

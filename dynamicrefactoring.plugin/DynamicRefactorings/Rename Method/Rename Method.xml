@@ -1,8 +1,8 @@
-<?xml version="1.0" encoding="iso-8859-1"?>
-<!DOCTYPE refactoring
-  SYSTEM 'refactoringDTD.dtd'>
-<refactoring name="Rename Method">
+<?xml version="1.0" encoding="iso-8859-1"?><!DOCTYPE refactoring  SYSTEM 'refactoringDTD.dtd'><refactoring name="Rename Method">
 	
+	
+	
+																										
 	
 	
 	
@@ -10,13 +10,23 @@
 		
 		
 		
+																																																				
+		
+		
 		
 		<description>
 			
-			Change the name of the method.
+			
+			
+																																							Change the name of the method.																								
+		
+		
 		
 		</description>
 		
+		
+		
+																																																				
 		
 		
 		
@@ -24,30 +34,34 @@
 		
 		
 		
+																																																				
+		
+		
 		
 		<motivation>
 			
-			The name of a method does not reveal its purpose.
+			
+			
+																																							The name of a method does not reveal its purpose.																								
+		
+		
 		
 		</motivation>
 		
 		
+		
+																																																															
+			
+	
 	
 		
-		<categories>
-			
-			
-			<category>
-				
-				Fowler.MakingMethodCallsSimpler
-			
-			</category>
-			
 		
-		</categories>
-		
-	</information>
 	
+	<categorization><classification name="Fowler"><category>MakingMethodCallsSimpler</category></classification></categorization></information>
+	
+	
+	
+																										
 	
 	
 	
@@ -55,9 +69,15 @@
 		
 		
 		
+																																																				
+		
+		
 		
 		<input name="New_name" root="false" type="moon.core.Name"/>
 		
+		
+		
+																																																				
 		
 		
 		
@@ -65,9 +85,15 @@
 		
 		
 		
+																																																				
+		
+		
 		
 		<input from="Method" method="getUniqueName" name="Old_name" root="false" type="moon.core.Name"/>
 		
+		
+		
+																																																				
 		
 		
 		
@@ -75,14 +101,23 @@
 		
 		
 		
+																																																				
+		
+		
 		
 		<input name="Model" root="false" type="moon.core.Model"/>
 		
 		
+		
+																																							
+	
 	
 	
 	</inputs>
 	
+	
+	
+																										
 	
 	
 	
@@ -90,9 +125,15 @@
 		
 		
 		
+																																																				
+		
+		
 		
 		<preconditions>
 			
+			
+			
+																																																																														
 			
 			
 			
@@ -100,19 +141,31 @@
 				
 				
 				
+																																																																																																								
+				
+				
 				
 				<param name="Method"/>
 				
+				
+				
+																																																																																																								
 				
 				
 				
 				<param name="Class"/>
 				
 				
+				
+																																																																																											
+			
 			
 			
 			</precondition>
 			
+			
+			
+																																																																														
 			
 			
 			
@@ -120,19 +173,31 @@
 				
 				
 				
+																																																																																																								
+				
+				
 				
 				<param name="Method"/>
 				
 				
+				
+																																																																																											
+			
 			
 			
 			</precondition>
 			
 			
+			
+																																																																	
+		
 		
 		
 		</preconditions>
 		
+		
+		
+																																																				
 		
 		
 		
@@ -140,9 +205,15 @@
 			
 			
 			
+																																																																														
+			
+			
 			
 			<action name="repository.moon.concreteaction.RenameMethod">
 				
+				
+				
+																																																																																																								
 				
 				
 				
@@ -150,24 +221,39 @@
 				
 				
 				
+																																																																																																								
+				
+				
 				
 				<param name="Class"/>
 				
+				
+				
+																																																																																																								
 				
 				
 				
 				<param name="New_name"/>
 				
 				
+				
+																																																																																											
+			
 			
 			
 			</action>
 			
 			
+			
+																																																																	
+		
 		
 		
 		</actions>
 		
+		
+		
+																																																				
 		
 		
 		
@@ -175,9 +261,15 @@
 			
 			
 			
+																																																																														
+			
+			
 			
 			<postcondition name="repository.moon.concretepredicate.NotExistsMethodWithNameInClass">
 				
+				
+				
+																																																																																																								
 				
 				
 				
@@ -185,24 +277,39 @@
 				
 				
 				
+																																																																																																								
+				
+				
 				
 				<param name="Old_name"/>
 				
 				
+				
+																																																																																											
+			
 			
 			
 			</postcondition>
 			
 			
+			
+																																																																	
+		
 		
 		
 		</postconditions>
 		
 		
+		
+																																							
+	
 	
 	
 	</mechanism>
 	
+	
+	
+																										
 	
 	
 	
@@ -210,20 +317,32 @@
 		
 		
 		
+																																																				
+		
+		
 		
 		<example after="ejemplo1_despues.txt" before="ejemplo1_antes.txt"/>
 		
+		
+		
+																																																				
 		
 		
 		
 		<example after="ejemplo2_despues.java" before="ejemplo2_antes.java"/>
 		
 		
+		
+																																							
+	
 	
 	
 	</examples>
 	
 	
+	
+													
+
 
 
 </refactoring>

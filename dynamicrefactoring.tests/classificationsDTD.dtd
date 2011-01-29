@@ -1,0 +1,10 @@
+<!ELEMENT classifications ( classification+ ) >
+<!ATTLIST classifications version CDATA #IMPLIED>
+
+<!ELEMENT classification ( categories+ ) >
+<!ATTLIST classification name NMTOKENS #REQUIRED >
+
+<!ELEMENT categories ( category+ ) >
+
+<!ELEMENT category ( #PCDATA ) >
+

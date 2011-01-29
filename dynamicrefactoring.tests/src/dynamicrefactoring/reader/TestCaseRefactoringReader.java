@@ -23,6 +23,7 @@ package dynamicrefactoring.reader;
 import dynamicrefactoring.RefactoringConstants;
 import dynamicrefactoring.domain.RefactoringException;
 import dynamicrefactoring.domain.DynamicRefactoringDefinition;
+import dynamicrefactoring.domain.metadata.interfaces.Category;
 import dynamicrefactoring.reader.JDOMXMLRefactoringReaderFactory;
 import dynamicrefactoring.reader.XMLRefactoringReader;
 import dynamicrefactoring.reader.XMLRefactoringReaderFactory;
@@ -102,6 +103,32 @@ public class TestCaseRefactoringReader {
 
 		assertEquals(definition.getName(), "MinimumInformation"); //$NON-NLS-1$
 
+		assertMinimumInformationEqual(definition);
+
+	}
+	
+	@Test
+	public void testReadingWithMinimunInformationWithCategories() throws Exception{
+
+
+		DynamicRefactoringDefinition definition = DynamicRefactoringDefinition
+		.getRefactoringDefinition("./testdata/XML/Reader/RefactoringWithClassification.xml"); //$NON-NLS-1$
+
+		assertEquals(definition.getName(), "RefactoringWithClassification"); //$NON-NLS-1$
+
+		assertMinimumInformationEqual(definition);
+		
+		//Comprobar categorias
+		Set<Category> expectedCategories = new HashSet<Category>();
+		expectedCategories.add(new Category("MiClassification.MiCategoria1"));
+		expectedCategories.add(new Category("MiClassification.MiCategoria2"));
+		
+		assertEquals (expectedCategories,definition.getCategories());
+
+	}
+
+	private void assertMinimumInformationEqual(
+			DynamicRefactoringDefinition definition) {
 		assertEquals(definition.getDescription(), "Descripcion."); //$NON-NLS-1$
 
 		assertEquals(definition.getImage(), ""); //$NON-NLS-1$
@@ -142,8 +169,9 @@ public class TestCaseRefactoringReader {
 
 		Iterator<String[]> examples = definition.getExamples().iterator();
 		assertFalse(examples.hasNext());
-
 	}
+	
+	
 
 	/**
 	 * Comprueba que la lectura se realiza correctamente cuando la definición

@@ -1,8 +1,8 @@
-<?xml version="1.0" encoding="iso-8859-1"?>
-<!DOCTYPE refactoring
-  SYSTEM 'refactoringDTD.dtd'>
-<refactoring name="ExtractMethod">
+<?xml version="1.0" encoding="iso-8859-1"?><!DOCTYPE refactoring  SYSTEM 'refactoringDTD.dtd'><refactoring name="ExtractMethod">
 	
+	
+	
+																										
 	
 	
 	
@@ -10,31 +10,50 @@
 		
 		
 		
+																																																				
+		
+		
 		
 		<description>
 			
-			Permite generar un nuevo método a partir de un conjunto de instrucciones de otro método diferente.
+			
+			
+																																							Permite generar un nuevo método a partir de un conjunto de instrucciones de otro método diferente.																								
+		
+		
 		
 		</description>
 		
 		
 		
+																																																				
+		
+		
 		
 		<motivation>
 			
-			Permite reducir la complejidad de un método extrayendo parte de su tarea a otro método nuevo. También facilita la reducción de código duplicado al permitir la reutilización del nuevo método generado.
+			
+			
+																																							Permite reducir la complejidad de un método extrayendo parte de su tarea a otro método nuevo. También facilita la reducción de código duplicado al permitir la reutilización del nuevo método generado.																								
+		
+		
 		
 		</motivation>
 		
-	
-		<categories>
-			<category>
-				Fowler.ComposingMethods
-			</category>
-		</categories>
 		
-	</information>
+		
+																																																											
+			
 	
+	
+		
+		
+	
+	<categorization><classification name="Fowler"><category>ComposingMethods</category></classification></categorization></information>
+	
+	
+	
+																										
 	
 	
 	
@@ -42,9 +61,15 @@
 		
 		
 		
+																																																				
+		
+		
 		
 		<input name="Name" root="false" type="moon.core.Name"/>
 		
+		
+		
+																																																				
 		
 		
 		
@@ -52,14 +77,23 @@
 		
 		
 		
+																																																				
+		
+		
 		
 		<input name="Model" root="false" type="moon.core.Model"/>
 		
 		
+		
+																																							
+	
 	
 	
 	</inputs>
 	
+	
+	
+																										
 	
 	
 	
@@ -67,9 +101,15 @@
 		
 		
 		
+																																																				
+		
+		
 		
 		<preconditions>
 			
+			
+			
+																																																																														
 			
 			
 			
@@ -77,14 +117,23 @@
 				
 				
 				
+																																																																																																								
+				
+				
 				
 				<param name="Fragment"/>
 				
 				
+				
+																																																																																											
+			
 			
 			
 			</precondition>
 			
+			
+			
+																																																																														
 			
 			
 			
@@ -92,19 +141,31 @@
 				
 				
 				
+																																																																																																								
+				
+				
 				
 				<param name="Fragment"/>
 				
 				
+				
+																																																																																											
+			
 			
 			
 			</precondition>
 			
 			
+			
+																																																																	
+		
 		
 		
 		</preconditions>
 		
+		
+		
+																																																				
 		
 		
 		
@@ -112,9 +173,15 @@
 			
 			
 			
+																																																																														
+			
+			
 			
 			<action name="repository.moon.concreteaction.AddExtractedMethod">
 				
+				
+				
+																																																																																																								
 				
 				
 				
@@ -122,14 +189,23 @@
 				
 				
 				
+																																																																																																								
+				
+				
 				
 				<param name="Fragment"/>
 				
 				
+				
+																																																																																											
+			
 			
 			
 			</action>
 			
+			
+			
+																																																																														
 			
 			
 			
@@ -137,19 +213,31 @@
 				
 				
 				
+																																																																																																								
+				
+				
 				
 				<param name="Name"/>
 				
+				
+				
+																																																																																																								
 				
 				
 				
 				<param name="Fragment"/>
 				
 				
+				
+																																																																																											
+			
 			
 			
 			</action>
 			
+			
+			
+																																																																														
 			
 			
 			
@@ -157,19 +245,31 @@
 				
 				
 				
+																																																																																																								
+				
+				
 				
 				<param name="Name"/>
 				
+				
+				
+																																																																																																								
 				
 				
 				
 				<param name="Fragment"/>
 				
 				
+				
+																																																																																											
+			
 			
 			
 			</action>
 			
+			
+			
+																																																																														
 			
 			
 			
@@ -177,40 +277,64 @@
 				
 				
 				
+																																																																																																								
+				
+				
 				
 				<param name="Name"/>
 				
+				
+				
+																																																																																																								
 				
 				
 				
 				<param name="Fragment"/>
 				
 				
+				
+																																																																																											
+			
 			
 			
 			</action>
 			
 			
+			
+																																																																	
+		
 		
 		
 		</actions>
 		
 		
 		
+																																																				
+		
+		
 		
 		<postconditions/>
 		
 		
+		
+																																							
+	
 	
 	
 	</mechanism>
 	
 	
 	
+																										
+	
+	
 	
 	<examples/>
 	
 	
+	
+													
+
 
 
 </refactoring>

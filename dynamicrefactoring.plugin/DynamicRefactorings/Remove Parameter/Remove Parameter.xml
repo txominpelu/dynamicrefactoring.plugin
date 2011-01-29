@@ -1,8 +1,8 @@
-<?xml version="1.0" encoding="iso-8859-1"?>
-<!DOCTYPE refactoring
-  SYSTEM 'refactoringDTD.dtd'>
-<refactoring name="Remove Parameter">
+<?xml version="1.0" encoding="iso-8859-1"?><!DOCTYPE refactoring  SYSTEM 'refactoringDTD.dtd'><refactoring name="Remove Parameter">
 	
+	
+	
+																										
 	
 	
 	
@@ -10,13 +10,23 @@
 		
 		
 		
+																																																				
+		
+		
 		
 		<description>
 			
-			Remove a given parameter from a method's signature.
+			
+			
+																																							Remove a given parameter from a method's signature.																								
+		
+		
 		
 		</description>
 		
+		
+		
+																																																				
 		
 		
 		
@@ -24,32 +34,42 @@
 		
 		
 		
+																																																				
+		
+		
 		
 		<motivation>
 			
-			A parameter is no longer used by the method body.
+			
+			
+																																							A parameter is no longer used by the method body.																								
+		
+		
 		
 		</motivation>
 		
 		
+		
+																																																															
+			
+	
 	
 		
-		<categories>
-			
-			
-			<category>
-				
-				Fowler.MakingMethodCallsSimpler
-			
-			</category>
-			
 		
-		</categories>
-		
-	</information>
+	
+	<categorization><classification name="Fowler"><category>MakingMethodCallsSimpler</category></classification></categorization></information>
+	
+	
+	
+																							
+	
+	
 	
 	<inputs>
 		
+		
+		
+																																																				
 		
 		
 		
@@ -57,19 +77,31 @@
 		
 		
 		
+																																																				
+		
+		
 		
 		<input from="Argument" method="getMethDec" name="Method" root="false" type="moon.core.classdef.MethDec"/>
 		
+		
+		
+																																																				
 		
 		
 		
 		<input name="Argument" root="true" type="moon.core.classdef.FormalArgument"/>
 		
 		
+		
+																																							
+	
 	
 	
 	</inputs>
 	
+	
+	
+																										
 	
 	
 	
@@ -77,9 +109,15 @@
 		
 		
 		
+																																																				
+		
+		
 		
 		<preconditions>
 			
+			
+			
+																																																																														
 			
 			
 			
@@ -87,24 +125,39 @@
 				
 				
 				
+																																																																																																								
+				
+				
 				
 				<param name="Argument"/>
 				
+				
+				
+																																																																																																								
 				
 				
 				
 				<param name="Method"/>
 				
 				
+				
+																																																																																											
+			
 			
 			
 			</precondition>
 			
 			
+			
+																																																																	
+		
 		
 		
 		</preconditions>
 		
+		
+		
+																																																				
 		
 		
 		
@@ -112,9 +165,15 @@
 			
 			
 			
+																																																																														
+			
+			
 			
 			<action name="repository.moon.concreteaction.RemoveFormalA">
 				
+				
+				
+																																																																																																								
 				
 				
 				
@@ -122,19 +181,31 @@
 				
 				
 				
+																																																																																																								
+				
+				
 				
 				<param name="Method"/>
 				
 				
+				
+																																																																																											
+			
 			
 			
 			</action>
 			
 			
+			
+																																																																	
+		
 		
 		
 		</actions>
 		
+		
+		
+																																																				
 		
 		
 		
@@ -142,9 +213,15 @@
 			
 			
 			
+																																																																														
+			
+			
 			
 			<postcondition name="repository.moon.concretepredicate.HasNotFormalA">
 				
+				
+				
+																																																																																																								
 				
 				
 				
@@ -152,30 +229,48 @@
 				
 				
 				
+																																																																																																								
+				
+				
 				
 				<param name="Argument"/>
 				
 				
+				
+																																																																																											
+			
 			
 			
 			</postcondition>
 			
 			
+			
+																																																																	
+		
 		
 		
 		</postconditions>
 		
 		
+		
+																																							
+	
 	
 	
 	</mechanism>
 	
 	
 	
+																										
+	
+	
 	
 	<examples/>
 	
 	
+	
+													
+
 
 
 </refactoring>

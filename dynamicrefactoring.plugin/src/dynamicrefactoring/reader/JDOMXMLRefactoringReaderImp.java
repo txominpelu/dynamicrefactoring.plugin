@@ -138,12 +138,12 @@ public class JDOMXMLRefactoringReaderImp implements XMLRefactoringReaderImp {
 				imageElement.getAttributeValue(SRC_IMAGE_ATTRIBUTE));
 
 		// Se obtiene la imagen que describe la refactorización.
-		Element categoryElement = information.getChild(CATEGORIES_ELEMENT);
+		Element categoryElement = information.getChild(CATEGORIZATION_ELEMENT);
 
 		if (categoryElement != null)
 			refactoringDefinition
 					.setCategories(readCategoriesElements(categoryElement
-							.getChildren(CATEGORY_ELEMENT)));
+							.getChildren(CLASSIFICATION_ELEMENT)));
 
 		// Se obtiene la motivacion de la refactorización.
 		refactoringDefinition.setMotivation(
@@ -159,10 +159,14 @@ public class JDOMXMLRefactoringReaderImp implements XMLRefactoringReaderImp {
 	 */
 	private Set<Category> readCategoriesElements(List<Element> children) {
 		Set<Category> categorias = new HashSet<Category>();
-		for (Element category : children) {
-			categorias.add(new Category(category.getTextTrim()));
-
+		for (Element classification : children){
+			String classificationName = classification.getAttributeValue(CLASSIFICATION_NAME_ATTRIBUTE);
+			List<Element> categoryList = classification.getChildren(CATEGORY_ELEMENT);
+			for (Element category : categoryList) {
+				categorias.add(new Category(classificationName + "." + category.getTextTrim()));
+			}
 		}
+		
 		return categorias;
 	}
 

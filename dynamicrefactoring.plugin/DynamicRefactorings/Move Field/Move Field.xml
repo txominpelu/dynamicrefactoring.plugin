@@ -1,8 +1,8 @@
-<?xml version="1.0" encoding="iso-8859-1"?>
-<!DOCTYPE refactoring
-  SYSTEM 'refactoringDTD.dtd'>
-<refactoring name="Move Field">
+<?xml version="1.0" encoding="iso-8859-1"?><!DOCTYPE refactoring  SYSTEM 'refactoringDTD.dtd'><refactoring name="Move Field">
 	
+	
+	
+																										
 	
 	
 	
@@ -10,13 +10,23 @@
 		
 		
 		
+																																																				
+		
+		
 		
 		<description>
 			
-			Create a new field in the target class, and change all its users.
+			
+			
+																																							Create a new field in the target class, and change all its users.																								
+		
+		
 		
 		</description>
 		
+		
+		
+																																																				
 		
 		
 		
@@ -24,30 +34,34 @@
 		
 		
 		
+																																																				
+		
+		
 		
 		<motivation>
 			
-			A field is, or will be, used by another class more than the class on which it is defined.
+			
+			
+																																							A field is, or will be, used by another class more than the class on which it is defined.																								
+		
+		
 		
 		</motivation>
 		
 		
+		
+																																																															
+			
+	
 	
 		
-		<categories>
-			
-			
-			<category>
-				
-				Fowler.MovingFeatures
-			
-			</category>
-			
 		
-		</categories>
-		
-	</information>
 	
+	<categorization><classification name="Fowler"><category>MovingFeatures</category></classification></categorization></information>
+	
+	
+	
+																										
 	
 	
 	
@@ -55,9 +69,15 @@
 		
 		
 		
+																																																				
+		
+		
 		
 		<input name="Model" root="false" type="moon.core.Model"/>
 		
+		
+		
+																																																				
 		
 		
 		
@@ -65,19 +85,31 @@
 		
 		
 		
+																																																				
+		
+		
 		
 		<input from="Attribute" method="getClassDef" name="Source_class" root="false" type="moon.core.classdef.ClassDef"/>
 		
+		
+		
+																																																				
 		
 		
 		
 		<input name="Attribute" root="true" type="moon.core.classdef.AttDec"/>
 		
 		
+		
+																																							
+	
 	
 	
 	</inputs>
 	
+	
+	
+																										
 	
 	
 	
@@ -85,9 +117,15 @@
 		
 		
 		
+																																																				
+		
+		
 		
 		<preconditions>
 			
+			
+			
+																																																																														
 			
 			
 			
@@ -95,19 +133,31 @@
 				
 				
 				
+																																																																																																								
+				
+				
 				
 				<param name="Source_class"/>
 				
+				
+				
+																																																																																																								
 				
 				
 				
 				<param name="Target_class"/>
 				
 				
+				
+																																																																																											
+			
 			
 			
 			</precondition>
 			
+			
+			
+																																																																														
 			
 			
 			
@@ -115,14 +165,23 @@
 				
 				
 				
+																																																																																																								
+				
+				
 				
 				<param name="Target_class"/>
 				
 				
+				
+																																																																																											
+			
 			
 			
 			</precondition>
 			
+			
+			
+																																																																														
 			
 			
 			
@@ -130,19 +189,31 @@
 				
 				
 				
+																																																																																																								
+				
+				
 				
 				<param name="Attribute"/>
 				
+				
+				
+																																																																																																								
 				
 				
 				
 				<param name="Target_class"/>
 				
 				
+				
+																																																																																											
+			
 			
 			
 			</precondition>
 			
+			
+			
+																																																																														
 			
 			
 			
@@ -150,19 +221,31 @@
 				
 				
 				
+																																																																																																								
+				
+				
 				
 				<param name="Attribute"/>
 				
+				
+				
+																																																																																																								
 				
 				
 				
 				<param name="Source_class"/>
 				
 				
+				
+																																																																																											
+			
 			
 			
 			</precondition>
 			
+			
+			
+																																																																														
 			
 			
 			
@@ -170,19 +253,31 @@
 				
 				
 				
+																																																																																																								
+				
+				
 				
 				<param name="Attribute"/>
 				
 				
+				
+																																																																																											
+			
 			
 			
 			</precondition>
 			
 			
+			
+																																																																	
+		
 		
 		
 		</preconditions>
 		
+		
+		
+																																																				
 		
 		
 		
@@ -190,9 +285,15 @@
 			
 			
 			
+																																																																														
+			
+			
 			
 			<action name="repository.moon.concreteaction.MoveAttribute">
 				
+				
+				
+																																																																																																								
 				
 				
 				
@@ -200,19 +301,31 @@
 				
 				
 				
+																																																																																																								
+				
+				
 				
 				<param name="Target_class"/>
 				
 				
+				
+																																																																																											
+			
 			
 			
 			</action>
 			
 			
+			
+																																																																	
+		
 		
 		
 		</actions>
 		
+		
+		
+																																																				
 		
 		
 		
@@ -220,9 +333,15 @@
 			
 			
 			
+																																																																														
+			
+			
 			
 			<postcondition name="repository.moon.concretepredicate.AttributeIsNotAlreadyInClass">
 				
+				
+				
+																																																																																																								
 				
 				
 				
@@ -230,14 +349,23 @@
 				
 				
 				
+																																																																																																								
+				
+				
 				
 				<param name="Source_class"/>
 				
 				
+				
+																																																																																											
+			
 			
 			
 			</postcondition>
 			
+			
+			
+																																																																														
 			
 			
 			
@@ -245,35 +373,56 @@
 				
 				
 				
+																																																																																																								
+				
+				
 				
 				<param name="Attribute"/>
 				
+				
+				
+																																																																																																								
 				
 				
 				
 				<param name="Target_class"/>
 				
 				
+				
+																																																																																											
+			
 			
 			
 			</postcondition>
 			
 			
+			
+																																																																	
+		
 		
 		
 		</postconditions>
 		
 		
+		
+																																							
+	
 	
 	
 	</mechanism>
 	
 	
 	
+																										
+	
+	
 	
 	<examples/>
 	
 	
+	
+													
+
 
 
 </refactoring>
