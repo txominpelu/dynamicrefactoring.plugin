@@ -156,7 +156,7 @@ public class RefactoringListView extends ViewPart {
 
 		loadClassifications();
 		loadRefactorings();
-		createCatalogs();
+		createCatalog();
 
 		classLabel=new Label(parent, SWT.LEFT);
 		classLabel.setText(Messages.RefactoringListView_Classification+": ");
@@ -325,7 +325,7 @@ public class RefactoringListView extends ViewPart {
 	 * Obtiene las clasificaciones, categorias y refactorizaciones disponibles y 
 	 * con ello crea los catálogos correspondientes para cada una de las clasificaciones.
 	 */
-	private void createCatalogs(){
+	private void createCatalog(){
 		catalogs=new HashMap<String,ElementCatalog<DynamicRefactoringDefinition>>();
 		Set<Category> catScope = new HashSet<Category>();
 		Set<DynamicRefactoringDefinition> drd = new HashSet<DynamicRefactoringDefinition>(refactorings.values());

@@ -19,8 +19,8 @@ import dynamicrefactoring.plugin.xml.classifications.XmlClassificationsReader;
 
 public abstract class AbstractClassificationsReaderTest {
 	
-	private static final String TESTDATA_INVALIDCLASSIFICATIONS_XML = "/testdata/ClassificationsXmlReading/invalidclassifications.xml";
-	private static final String TESTDATA_CLASSIFICATIONS_XML = "/testdata/ClassificationsXmlReading/classifications.xml";
+	private static final String TESTDATA_INVALIDCLASSIFICATIONS_XML = "./testdata/ClassificationsXmlReading/invalidclassifications.xml";
+	private static final String TESTDATA_CLASSIFICATIONS_XML = "./testdata/ClassificationsXmlReading/classifications.xml";
 	protected XmlClassificationsReader lector;
 
 	@Test(expected=ValidationException.class)
