@@ -6,6 +6,8 @@ import java.util.HashMap;
 import java.util.Map;
 
 import org.eclipse.swt.SWT;
+import org.eclipse.swt.graphics.Color;
+import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Tree;
 import org.eclipse.swt.widgets.TreeItem;
 
@@ -19,9 +21,23 @@ import dynamicrefactoring.interfaz.TreeEditor;
 import dynamicrefactoring.interfaz.view.Messages;
 
 public class RefactoringTreeManager {
-
+	
+	/**
+	 * Cambia el color del texto de todos los componentes del subárbol.
+	 * @param tItem subárbol
+	 * @param c color nuevo que se quiere dar al texto
+	 */
+	public static void setForegroundTreeItem(TreeItem tItem, Color c){
+		TreeItem childItems[]=tItem.getItems();
+		for(TreeItem childItem: childItems){
+			childItem.setForeground(c);
+			setForegroundTreeItem(childItem,c);
+		}
+	}
+	
 	/**
 	 * Elima todos los componentes del árbol.
+	 * @param tree árbol del cual eliminar todos sus componentes
 	 */
 	public static void cleanTree(Tree tree) {
 		if (tree.getItemCount() > 0) {
@@ -30,13 +46,12 @@ public class RefactoringTreeManager {
 				items[i].dispose();
 		}
 	}
-
+	
 	/**
 	 * Rellena el árbol con las refactorizaciones disponibles.
-	 * 
-	 * @param refactorings
-	 *            refactorizaciones disponibles.
-	 * @throws RefactoringException 
+	 * @param refactorings refactorizaciones disponibles
+	 * @param tree árbol sobre el que añadir subárboles
+	 * @throws RefactoringException
 	 */
 	public static void fillTree(HashMap<String, String> refactorings, Tree tree) 
 	throws RefactoringException {
@@ -65,14 +80,13 @@ public class RefactoringTreeManager {
 	 * agregandola al arbol que se pasa.
 	 * 
 	 * @param refactOrderInBranch
-	 *            posicion en la que se agregagra la rama
+	 * 		      posicion en la que se agregagra la rama
 	 * @param definition
 	 *            definicion de la refactorizacion
 	 * @param tree
 	 *            arbol al que se agregara la rama con la refactorizacion
 	 * 
 	 * @throws RefactoringException
-	 *             si hay algun fallo leyendo el fichero con la refactorizacion
 	 */
 	public static void createRefactoringDefinitionTreeItemFromParentTree(
 			int refactOrderInBranch, DynamicRefactoringDefinition definition,
@@ -95,7 +109,6 @@ public class RefactoringTreeManager {
 	 *            item al que se agregara la rama con la refactorizacion
 	 * 
 	 * @throws RefactoringException
-	 *             si hay algun fallo leyendo el fichero con la refactorizacion
 	 */
 	public static void createRefactoringDefinitionTreeItemFromParentTreeItem(
 			int refactOrderInBranch, DynamicRefactoringDefinition definition,
@@ -121,8 +134,6 @@ public class RefactoringTreeManager {
 	 *            arbol al que se agregara la rama con la refactorizacion
 	 * 
 	 * @throws RefactoringException
-	 *             si hay algun fallo leyendo el fichero con la
-	 *             refactorizacion
 	 */
 	public static void createRefactoringDefinitionTreeItemFromParentTree(
 			int refactOrderInBranch, String refactName,
@@ -149,8 +160,6 @@ public class RefactoringTreeManager {
 	 *            item al que se agregara la rama con la refactorizacion
 	 * 
 	 * @throws RefactoringException
-	 *             si hay algun fallo leyendo el fichero con la
-	 *             refactorizacion
 	 */
 	public static void createRefactoringDefinitionTreeItemFromParentTreeItem(
 			int refactOrderInBranch, String refactName,

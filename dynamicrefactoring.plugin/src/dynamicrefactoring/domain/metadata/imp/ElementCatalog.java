@@ -137,12 +137,12 @@ public class ElementCatalog<K extends Element> implements
 				classifiedElements.get(Category.FILTERED_CATEGORY),
 				Predicates.not(getPredicateForAllConditions())));
 
-		Collection<K> toUnfilter = ImmutableList.copyOf(Collections2.filter(
-				classifiedElements.get(Category.FILTERED_CATEGORY),
+		Collection<K> toUnfilter = ImmutableList.copyOf(Collections2.filter(classifiedElements.get(Category.FILTERED_CATEGORY),
 				getPredicateForAllConditions()));
 
 		classifiedElements.put(Category.FILTERED_CATEGORY, new HashSet<K>(
 				filter));
+
 		classify(toUnfilter);
 
 	}
