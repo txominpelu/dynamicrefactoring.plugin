@@ -1,11 +1,8 @@
 package dynamicrefactoring.plugin.xml.classifications;
 
-import java.io.IOException;
-import java.io.InputStream;
-import java.net.URL;
+import java.io.File;
 import java.util.Set;
 
-import javax.xml.bind.UnmarshalException;
 import javax.xml.bind.ValidationException;
 
 import dynamicrefactoring.domain.metadata.interfaces.Classification;
@@ -23,11 +20,11 @@ public interface XmlClassificationsReader {
 	 * 
 	 * Lanza NullPointerException si la URL es nula.
 	 * 
-	 * @param resourceUrl
-	 *            URL que describe la ruta al fichero xml
+	 * @param path_file
+	 *            URL que describe la ruta al fichero
 	 * @return conjunto de clasificaciones contenidas en el fichero.
 	 * @throws ValidationException si el xml no cumple las especificaciones del esquema
 	 */
-	public Set<Classification> readClassifications(InputStream resourceUrl) throws ValidationException;
+	public Set<Classification> readClassifications(String path_file) throws ValidationException;
 
 }

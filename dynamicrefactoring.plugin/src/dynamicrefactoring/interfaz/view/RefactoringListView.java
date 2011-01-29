@@ -1,6 +1,9 @@
 package dynamicrefactoring.interfaz.view;
 
+import static org.junit.Assert.assertEquals;
+
 import java.io.IOException;
+import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
@@ -8,11 +11,11 @@ import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
 
+import javax.xml.bind.ValidationException;
+
 import org.apache.log4j.Logger;
 import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.swt.SWT;
-import org.eclipse.swt.events.FocusEvent;
-import org.eclipse.swt.events.FocusListener;
 import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.events.SelectionListener;
@@ -33,6 +36,7 @@ import org.eclipse.ui.part.ViewPart;
 
 import com.swtdesigner.ResourceManager;
 
+import dynamicrefactoring.RefactoringConstants;
 import dynamicrefactoring.RefactoringPlugin;
 import dynamicrefactoring.domain.DynamicRefactoringDefinition;
 import dynamicrefactoring.domain.RefactoringException;
@@ -41,8 +45,11 @@ import dynamicrefactoring.domain.metadata.condition.CategoryCondition;
 import dynamicrefactoring.domain.metadata.imp.ElementCatalog;
 import dynamicrefactoring.domain.metadata.imp.SimpleUniLevelClassification;
 import dynamicrefactoring.domain.metadata.interfaces.Category;
+import dynamicrefactoring.domain.metadata.interfaces.Classification;
 import dynamicrefactoring.domain.metadata.interfaces.ClassifiedElements;
 import dynamicrefactoring.interfaz.TreeEditor;
+import dynamicrefactoring.plugin.xml.classifications.XmlClassificationsReader;
+import dynamicrefactoring.plugin.xml.classifications.imp.ClassificationsReaderFactory;
 import dynamicrefactoring.util.DynamicRefactoringLister;
 import dynamicrefactoring.util.RefactoringTreeManager;
 
@@ -86,6 +93,11 @@ public class RefactoringListView extends ViewPart {
 	//TODO: revisar si no es necesario para eliminarlo
 	private ArrayList<String> refactoringNames;
 
+	/**
+	 * Clasificaciones disponibles.
+	 */
+	private Set<Classification> classifications;
+	
 	/**
 	 * Tabla con los catálogos asociados a clasificaciones disponibles.
 	 */
@@ -142,6 +154,7 @@ public class RefactoringListView extends ViewPart {
 	public void createPartControl(Composite parent) {
 		setPartName(Messages.RefactoringListView_title);
 
+		loadClassifications();
 		loadRefactorings();
 		createCatalogs();
 
@@ -150,7 +163,12 @@ public class RefactoringListView extends ViewPart {
 
 		classCombo=new Combo(parent, SWT.READ_ONLY);
 		classCombo.add(Category.NONE_CATEGORY.getName(),0);
-		classCombo.add("scope",1);
+		int i=1;
+		for(Classification classification: classifications){
+			System.out.println(classification.toString());
+			classCombo.add(classification.getName(),i);
+			i++;
+		}
 		classCombo.setToolTipText(
 				Messages.RefactoringListView_SelectFromClassification);
 		classCombo.addSelectionListener(new ClassComboSelectionListener());
@@ -234,6 +252,23 @@ public class RefactoringListView extends ViewPart {
 	public void setFocus() {
 	}
 
+	private void loadClassifications(){
+		XmlClassificationsReader classReader = 
+			ClassificationsReaderFactory.getReader(
+					ClassificationsReaderFactory.ClassificationsReaderTypes.JDOM_READER);
+		try {
+			classifications=classReader.readClassifications(RefactoringConstants.CLASSIFICATION_TYPES_FILE);
+		} catch (ValidationException e) {
+			e.printStackTrace();
+			IWorkbenchWindow window = PlatformUI.getWorkbench().getActiveWorkbenchWindow();
+			String message = 
+				Messages.RefactoringListView_ClassificationsNotListed + 
+				".\n" + e.getMessage(); //$NON-NLS-1$
+			logger.error(message);
+			MessageDialog.openError(window.getShell(), Messages.RefactoringListView_Error, message);
+		}
+	}
+		
 	/**
 	 * Carga la lista de refactorizaciones dinámicas disponibles.
 	 */

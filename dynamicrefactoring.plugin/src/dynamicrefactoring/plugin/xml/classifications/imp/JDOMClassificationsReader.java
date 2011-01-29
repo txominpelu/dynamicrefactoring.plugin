@@ -1,5 +1,6 @@
 package dynamicrefactoring.plugin.xml.classifications.imp;
 
+import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URL;
@@ -38,19 +39,20 @@ class JDOMClassificationsReader implements XmlClassificationsReader {
 	 * 
 	 * Lanza NullPointerException si el stream es nulo.
 	 * 
-	 * @param resourceStream
-	 *            stream al fichero xml
+	 * @param path_file
+	 *            ruta del fichero de clasificaciones.
 	 * @return conjunto de clasificaciones contenidas en el fichero.
 	 * @throws ValidationException
 	 *             si el xml no cumple las especificaciones del esquema
 	 */
-	public Set<Classification> readClassifications(InputStream resourceStream)
+	public Set<Classification> readClassifications(String path_file)
 			throws ValidationException {
-		Preconditions.checkNotNull(resourceStream);
+		File file=new File(path_file);
+		Preconditions.checkNotNull(file);
 		SAXBuilder builder = new SAXBuilder(true);
 		builder.setIgnoringElementContentWhitespace(true);
 		try {
-			Document doc = builder.build(resourceStream);
+			Document doc = builder.build(file.toURI().toString());
 			Element root = doc.getRootElement();
 			return readInputsRefactoring(root);
 		} catch (JDOMException e) {

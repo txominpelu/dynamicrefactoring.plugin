@@ -25,24 +25,21 @@ public abstract class AbstractClassificationsReaderTest {
 
 	@Test(expected=ValidationException.class)
 	public final void testReadClassificationsNonValidXml() throws ValidationException {
-		InputStream ficheroInvalido = getClass().getResourceAsStream(TESTDATA_INVALIDCLASSIFICATIONS_XML);
-		lector.readClassifications(ficheroInvalido);
+		lector.readClassifications(TESTDATA_INVALIDCLASSIFICATIONS_XML);
 	}
 	
 	@Test
 	public final void testReadClassificationsXml() throws ValidationException {
-		InputStream ficheroInvalido = getClass().getResourceAsStream(TESTDATA_CLASSIFICATIONS_XML);
-		assertEquals(getExpectedClassification(),lector.readClassifications(ficheroInvalido));
+		assertEquals(getExpectedClassification(),lector.readClassifications(TESTDATA_CLASSIFICATIONS_XML));
 	}
 	
 	@Test
 	public final void testReadClassificationsDosLecturas() throws ValidationException {
 		try{
-			lector.readClassifications(getClass().getResourceAsStream(TESTDATA_INVALIDCLASSIFICATIONS_XML));
+			lector.readClassifications(TESTDATA_INVALIDCLASSIFICATIONS_XML);
 			fail("Deberia saltar la excepcion de xml invalido. (ValidationException)");
 		}catch(ValidationException e){}
-		InputStream ficheroInvalido = getClass().getResourceAsStream(TESTDATA_CLASSIFICATIONS_XML);
-		assertEquals(getExpectedClassification(),lector.readClassifications(ficheroInvalido));
+		assertEquals(getExpectedClassification(),lector.readClassifications(TESTDATA_CLASSIFICATIONS_XML));
 	}
 	
 	

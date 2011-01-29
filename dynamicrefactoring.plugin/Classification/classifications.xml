@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!DOCTYPE classifications SYSTEM "classificationsDTD.dtd">
+
+<classifications>
+	<classification name="scope">
+		<categories>
+			<category>SCOPE_CLASS</category>
+			<category>SCOPE_METHOD</category>
+			<category>SCOPE_ATTRIBUTE</category>
+			<category>SCOPE_CODE_FRAGMENT</category>
+			<category>SCOPE_FORMAL_PAR</category>
+			<category>SCOPE_FORMAL_ARG</category>
+		</categories>		
+	</classification>
+	<classification name="Fowler">
+		<categories>
+			<category>ComposingMethods</category>
+			<category>MakingMethodCallsSimpler</category>
+			<category>MovingFeatures</category>
+			<category>Organizing data</category>
+			<category>Symplifying conditional expressions</category>
+		</categories>		
+	</classification>
+</classifications>

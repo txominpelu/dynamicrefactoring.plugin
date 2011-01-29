@@ -1,5 +1,6 @@
 package dynamicrefactoring.plugin.xml.classifications.imp;
 
+import java.io.File;
 import java.io.InputStream;
 import java.net.URL;
 import java.util.HashSet;
@@ -46,17 +47,18 @@ class JAXBClassificationsReader implements XmlClassificationsReader {
 	 * 
 	 * Lanza NullPointerException si el stream es nulo.
 	 * 
-	 * @param resourceStream
-	 *            stream al fichero xml
+	 * @param path_file
+	 * 			url del fichero de clasificaciones
 	 * @return conjunto de clasificaciones contenidas en el fichero.
 	 * @throws ValidationException si el xml no cumple las especificaciones del esquema
 	 */
 	@Override
-	public Set<Classification> readClassifications(InputStream resourceStream) throws ValidationException {
-		Preconditions.checkNotNull(resourceStream);
+	public Set<Classification> readClassifications(String path_file) throws ValidationException {
+		File file=new File(path_file);
+		Preconditions.checkNotNull(file);
 		Set<Classification> availableClassifications = new HashSet<Classification>();
 		ClassificationsType classifications = generateClassificationsXmlType(
-				resourceStream);
+				file);
 		for (ClassificationType clasif : classifications.getClassification()) {
 			Set<Category> categories = new HashSet<Category>();
 			for (String categoryName : clasif.getCategories().getCategory()) {
@@ -74,14 +76,14 @@ class JAXBClassificationsReader implements XmlClassificationsReader {
 	 * Genera un objeto con las clasificaciones obtenidos del fichero xml cuya
 	 * url es pasada.
 	 * 
-	 * @param resourceUrl
-	 *            url del fichero xml con las clasificaciones disponibles
+	 * @param file
+	 *            fichero xml con las clasificaciones disponibles
 	 * @param validationEventHandler
 	 * 
 	 * @return objeto con la informacion de las clasificaciones disponibles
 	 * @throws ValidationException si el xml no cumple las especificaciones del esquema
 	 */
-	private ClassificationsType generateClassificationsXmlType(InputStream resourceUrl) throws ValidationException{
+	private ClassificationsType generateClassificationsXmlType(File file) throws ValidationException{
 		ValidationEventCollector validationEventHandler = new ValidationEventCollector();
 		try {
 			JAXBContext jc = JAXBContext.newInstance(ObjectFactory.class.getPackage().getName());
@@ -92,7 +94,7 @@ class JAXBClassificationsReader implements XmlClassificationsReader {
 			unmarshaller.setSchema(schema);
 			unmarshaller.setEventHandler(validationEventHandler);
 			JAXBElement<?> doc = (JAXBElement<?>) unmarshaller
-					.unmarshal(resourceUrl);
+					.unmarshal(file);
 			ClassificationsType classifications = (ClassificationsType) doc
 					.getValue();
 
