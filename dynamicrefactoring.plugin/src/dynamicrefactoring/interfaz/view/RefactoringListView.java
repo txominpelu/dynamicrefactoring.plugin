@@ -153,6 +153,9 @@ public class RefactoringListView extends ViewPart {
 		classCombo.setToolTipText(
 				Messages.RefactoringListView_SelectFromClassification);
 		classCombo.addSelectionListener(new ClassComboSelectionListener());
+		
+		descClassLabel=new Label(parent, SWT.LEFT);
+		descClassLabel.setText("Esta es la descripción de la clasificación");
 
 		final Composite composite_1 = new Composite(parent, SWT.NONE);
 		final FormData fd_composite_1 = new FormData();
@@ -347,7 +350,7 @@ public class RefactoringListView extends ViewPart {
 					if(dRefactDef.size()>0){
 						filTreeItem = TreeEditor.createBranch(refactoringsTree,
 								orderInBranchClass, Category.FILTERED_CATEGORY.getName(),
-								"icons" + System.getProperty("file.separator") + "fil.gif");
+								"icons" + System.getProperty("file.separator") + "fil.png");
 						orderInBranchClass++;
 						filTreeItem.setForeground(Display.getCurrent().getSystemColor(SWT.COLOR_DARK_GRAY));
 						createTreeItemFromParent(dRefactDef, filTreeItem,true);
@@ -366,8 +369,6 @@ public class RefactoringListView extends ViewPart {
 			orderInBranchRef++;
 		}
 		if(filtered)
-			//TODO: elegir entre una u otra forma de representar los elementos filtrados en el arbol
-		    //i.setBackground(Display.getCurrent().getSystemColor(SWT.COLOR_GRAY));
 			RefactoringTreeManager.setForegroundTreeItem(catTreeItem, 
 					Display.getCurrent().getSystemColor(SWT.COLOR_DARK_GRAY));
 	}
