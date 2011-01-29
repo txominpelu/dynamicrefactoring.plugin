@@ -86,7 +86,6 @@ elementsToClassify);
 				elementsLeftWithNoCategory);
 	}
 
-
 	@Override
 	public void addConditionToFilter(Predicate<K> condition) {
 		for (Entry<Category, Set<K>> entry : this.classifiedElements
@@ -106,8 +105,7 @@ elementsToClassify);
 	@Override
 	public void removeConditionFromFilter(Predicate<K> conditionToRemove) {
 		Collection<K> toUnfilter = ImmutableList.copyOf(Collections2.filter(
-				classifiedElements.get(Category.FILTERED_CATEGORY),
-				conditionToRemove));
+				classifiedElements.get(Category.FILTERED_CATEGORY),Predicates.not(conditionToRemove)));
 		classifiedElements.get(Category.FILTERED_CATEGORY)
 				.removeAll(toUnfilter);
 		classify(toUnfilter);

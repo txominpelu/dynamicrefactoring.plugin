@@ -22,6 +22,7 @@ import org.eclipse.swt.layout.FormLayout;
 import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Combo;
 import org.eclipse.swt.widgets.Composite;
+import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Text;
 import org.eclipse.swt.widgets.Tree;
@@ -37,7 +38,6 @@ import dynamicrefactoring.domain.DynamicRefactoringDefinition;
 import dynamicrefactoring.domain.RefactoringException;
 import dynamicrefactoring.domain.Scope;
 import dynamicrefactoring.domain.metadata.condition.CategoryCondition;
-import dynamicrefactoring.domain.metadata.condition.NameContainsTextCondition;
 import dynamicrefactoring.domain.metadata.imp.ElementCatalog;
 import dynamicrefactoring.domain.metadata.interfaces.Category;
 import dynamicrefactoring.domain.metadata.interfaces.ClassifiedElements;
@@ -99,8 +99,7 @@ public class RefactoringListView extends ViewPart {
 	//List<Predicate>
 
 	/**
-	 * Combo que contiene los tipos de clasificaciones de refactorizaciones
-	 * que se encuentran disponibles para realizar.
+	 * Combo que contiene los tipos de clasificaciones de refactorizaciones disponibles.
 	 */
 	private Combo classCombo;
 
@@ -108,19 +107,27 @@ public class RefactoringListView extends ViewPart {
 	 * Etiqueta clasificación.
 	 */
 	private Label classLabel;
-	//private Label stateClassLabel;
-	//private Text findText;
-	//private Button findButton;
+	
+	/**
+	 * Etiqueta con la descripción de la clasificación 
+	 */
+	private Label descClassLabel;
 
-	private Text tSearch;
-	private Button bSearch;
-	private Button bDefault;
+	/**
+	 * Cuadro de texto que permite introducir al usuario el patrón de búsqueda.
+	 */
+	private Text searchText;
+	
+	/**
+	 * Botón que permite activar un proceso de búsqueda al usuario.
+	 */
+	private Button searchButton;
 
 	/**
 	 * Árbol sobre el que se mostrarán de forma estructurada las diferentes refactorizaciones 
 	 * conforme a la clasificación seleccionada y los filtros aplicados.
 	 */
-	private Tree tr_Refactorings;
+	private Tree refactoringsTree;
 
 	//TODO: conseguir que los componentes queden bien presentados (layout)
 	//TODO: por defecto marcado en el combo None y mostrar asi el arbol??
@@ -161,38 +168,28 @@ public class RefactoringListView extends ViewPart {
 		fd_search.top = new FormAttachment(0, 29);
 		fd_search.left = new FormAttachment(0, 15);
 		search.setLayoutData(fd_search);
-		//search.setText("Search:");
 
-		tSearch = new Text(composite_1,SWT.BORDER);
+		searchText = new Text(composite_1,SWT.BORDER);
 		final FormData fd_tsearch = new FormData();
 		fd_tsearch.right = new FormAttachment(0, 185);
 		fd_tsearch.top = new FormAttachment(0, 28);
 		fd_tsearch.left = new FormAttachment(search, 0, SWT.RIGHT);
-		tSearch.setMessage("Search");
-		tSearch.setLayoutData(fd_tsearch);
-		tSearch.addFocusListener(new FocusListener(){
-			public void focusGained(FocusEvent e){
-				bDefault=e.display.getShells()[0].getDefaultButton(); 
-				e.display.getShells()[0].setDefaultButton(bSearch);
-			}
-			public void focusLost(FocusEvent e){
-				e.display.getShells()[0].setDefaultButton(bDefault);
-			}
-		});
+		searchText.setMessage("Search");
+		searchText.setLayoutData(fd_tsearch);
 
 
-		bSearch = new Button(composite_1, SWT.PUSH);
+		searchButton = new Button(composite_1, SWT.PUSH);
 		final FormData fd_bsearch = new FormData();
 		fd_bsearch.right = new FormAttachment(0, 225);
 		fd_bsearch.top = new FormAttachment(0, 26);//28
-		fd_bsearch.left = new FormAttachment(tSearch, 3, SWT.RIGHT);
-		bSearch.setLayoutData(fd_bsearch);
-		bSearch.setImage(ResourceManager.getPluginImage(
+		fd_bsearch.left = new FormAttachment(searchText, 3, SWT.RIGHT);
+		searchButton.setLayoutData(fd_bsearch);
+		searchButton.setImage(ResourceManager.getPluginImage(
 				RefactoringPlugin.getDefault(),
 				"icons" + System.getProperty("file.separator") + "search.png"));
-		bSearch.addSelectionListener(new SelectionAdapter() {
+		searchButton.addSelectionListener(new SelectionAdapter() {
 			public void widgetSelected(SelectionEvent e) {
-				search(tSearch.getText());	
+				search(searchText.getText());	
 			}
 
 			private void search(String text) {
@@ -216,19 +213,7 @@ public class RefactoringListView extends ViewPart {
 
 			}
 		});
-
-		//		findText=new Text(parent,SWT.SINGLE | SWT.BORDER);
-		//		findText.setMessage("Find");
-		//		findText.setSize(10,20);
-		//		findText.setToolTipText("Find");
-		//		findButton=new Button(parent, SWT.PUSH);
-		//		findButton.setBackgroundImage(ResourceManager.getPluginImage(
-		//				RefactoringPlugin.getDefault(),"icons" + System.getProperty("file.separator") + "search.png"));
-		//		findText.setBackgroundImage(ResourceManager.getPluginImage(
-		//				RefactoringPlugin.getDefault(),				"icons" + System.getProperty("file.separator") + "find.png"));
-		//		//stateClassLabel=new Label(parent, SWT.LEFT);
-
-		tr_Refactorings = new Tree(parent, SWT.NULL);
+		refactoringsTree = new Tree(parent, SWT.NULL);
 	}
 
 	/**
@@ -322,13 +307,13 @@ public class RefactoringListView extends ViewPart {
 
 	private void showTree(String classificationName){
 
-		RefactoringTreeManager.cleanTree(tr_Refactorings);
+		RefactoringTreeManager.cleanTree(refactoringsTree);
 
 		ClassifiedElements<DynamicRefactoringDefinition> classifiedElements = 
 			catalogInUse.getClassificationOfElements(true);
 
 		int orderInBranchClass = 0;
-		TreeItem classTreeItem = TreeEditor.createBranch(tr_Refactorings,
+		TreeItem classTreeItem = TreeEditor.createBranch(refactoringsTree,
 				orderInBranchClass, classificationName,
 				"icons" + System.getProperty("file.separator") + "class.gif"); 
 		orderInBranchClass++;
@@ -357,21 +342,22 @@ public class RefactoringListView extends ViewPart {
 								"icons" + System.getProperty("file.separator") + "cat.gif"); 
 						orderInBranchCat++;
 					}
-					createTreeItemFromParent(dRefactDef, catTreeItem);
+					createTreeItemFromParent(dRefactDef, catTreeItem,false);
 				}else{
 					if(dRefactDef.size()>0){
-						filTreeItem = TreeEditor.createBranch(tr_Refactorings,
+						filTreeItem = TreeEditor.createBranch(refactoringsTree,
 								orderInBranchClass, Category.FILTERED_CATEGORY.getName(),
 								"icons" + System.getProperty("file.separator") + "fil.gif");
 						orderInBranchClass++;
+						filTreeItem.setForeground(Display.getCurrent().getSystemColor(SWT.COLOR_DARK_GRAY));
+						createTreeItemFromParent(dRefactDef, filTreeItem,true);
 					}
-					createTreeItemFromParent(dRefactDef, filTreeItem);
 				}
 			}
 		classTreeItem.setExpanded(true);
 	}
 
-	private void createTreeItemFromParent(ArrayList<DynamicRefactoringDefinition> dRefactDef,TreeItem catTreeItem) {
+	private void createTreeItemFromParent(ArrayList<DynamicRefactoringDefinition> dRefactDef,TreeItem catTreeItem, boolean filtered) {
 		int orderInBranchRef = 0;
 		for(DynamicRefactoringDefinition ref: dRefactDef){
 			RefactoringTreeManager.
@@ -379,6 +365,11 @@ public class RefactoringListView extends ViewPart {
 					ref, catTreeItem);
 			orderInBranchRef++;
 		}
+		if(filtered)
+			//TODO: elegir entre una u otra forma de representar los elementos filtrados en el arbol
+		    //i.setBackground(Display.getCurrent().getSystemColor(SWT.COLOR_GRAY));
+			RefactoringTreeManager.setForegroundTreeItem(catTreeItem, 
+					Display.getCurrent().getSystemColor(SWT.COLOR_DARK_GRAY));
 	}
 
 
