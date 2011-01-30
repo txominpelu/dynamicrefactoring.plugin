@@ -136,7 +136,6 @@ public class RefactoringListView extends ViewPart {
 	private Tree refactoringsTree;
 
 	//TODO: conseguir que los componentes queden bien presentados (layout)
-	//TODO: por defecto marcado en el combo None y mostrar asi el arbol??
 	/**
 	 * Crea los controles SWT para este componente del espacio de trabajo.
 	 * 
@@ -231,6 +230,10 @@ public class RefactoringListView extends ViewPart {
 			}
 		});
 		refactoringsTree = new Tree(parent, SWT.NULL);
+		
+		//mostrar por defecto la clasificacion None
+		classCombo.select(0);
+		showTree(classCombo.getText());
 	}
 
 	/**
