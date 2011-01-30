@@ -50,7 +50,7 @@ public class TestAvailableRefactoringsReader {
 	@Test(expected = XMLRefactoringReaderException.class)
 	public void testReadingFileWithIncompleteInformation() throws Exception {
 		JDOMXMLRefactoringReaderImp
-				.readAvailableRefactorings(Scope.SCOPE_ATTRIBUTE,
+				.readAvailableRefactorings(Scope.ATTRIBUTE,
 						"./testdata/XML/Reader/availableRefactorings/incompleteInformation.xml");
 	}
 
@@ -67,7 +67,7 @@ public class TestAvailableRefactoringsReader {
 	@Test(expected = XMLRefactoringReaderException.class)
 	public void testReadingIncorrectStructure() throws Exception {
 		JDOMXMLRefactoringReaderImp
-				.readAvailableRefactorings(Scope.SCOPE_ATTRIBUTE,
+				.readAvailableRefactorings(Scope.ATTRIBUTE,
 						"./testdata/XML/Reader/availableRefactorings/diferentStructure.xml");
 	}
 
@@ -84,31 +84,31 @@ public class TestAvailableRefactoringsReader {
 		// Comprueba que no hay ninguna refactorizaci�n en ning�n �mbito
 
 		HashMap<String, String> refactorings = JDOMXMLRefactoringReaderImp
-				.readAvailableRefactorings(Scope.SCOPE_CLASS,
+				.readAvailableRefactorings(Scope.CLASS,
 						"./testdata/XML/Reader/availableRefactorings/minimunInformation.xml");
 
 		assertEquals(0, refactorings.size());
 
 		refactorings = JDOMXMLRefactoringReaderImp
-				.readAvailableRefactorings(Scope.SCOPE_METHOD,
+				.readAvailableRefactorings(Scope.METHOD,
 						"./testdata/XML/Reader/availableRefactorings/minimunInformation.xml");
 
 		assertEquals(0, refactorings.size());
 
 		refactorings = JDOMXMLRefactoringReaderImp
-				.readAvailableRefactorings(Scope.SCOPE_ATTRIBUTE,
+				.readAvailableRefactorings(Scope.ATTRIBUTE,
 						"./testdata/XML/Reader/availableRefactorings/minimunInformation.xml");
 
 		assertEquals(0, refactorings.size());
 
 		refactorings = JDOMXMLRefactoringReaderImp
-				.readAvailableRefactorings(Scope.SCOPE_FORMAL_PAR,
+				.readAvailableRefactorings(Scope.FORMAL_PAR,
 						"./testdata/XML/Reader/availableRefactorings/minimunInformation.xml");
 
 		assertEquals(0, refactorings.size());
 
 		refactorings = JDOMXMLRefactoringReaderImp
-				.readAvailableRefactorings(Scope.SCOPE_FORMAL_ARG,
+				.readAvailableRefactorings(Scope.FORMAL_ARG,
 						"./testdata/XML/Reader/availableRefactorings/minimunInformation.xml");
 
 		assertEquals(0, refactorings.size());
@@ -127,7 +127,7 @@ public class TestAvailableRefactoringsReader {
 		// Comprueba que no hay ninguna refactorizaci�n en ning�n �mbito
 
 		HashMap<String, String> refactorings = JDOMXMLRefactoringReaderImp
-				.readAvailableRefactorings(Scope.SCOPE_CLASS,
+				.readAvailableRefactorings(Scope.CLASS,
 						"./testdata/XML/Reader/availableRefactorings/completedInformation.xml");
 
 		assertEquals(3, refactorings.size());
@@ -142,7 +142,7 @@ public class TestAvailableRefactoringsReader {
 				+ "Rename Class.xml");
 
 		refactorings = JDOMXMLRefactoringReaderImp
-				.readAvailableRefactorings(Scope.SCOPE_METHOD,
+				.readAvailableRefactorings(Scope.METHOD,
 						"./testdata/XML/Reader/availableRefactorings/completedInformation.xml");
 
 		assertEquals(4, refactorings.size());
@@ -161,7 +161,7 @@ public class TestAvailableRefactoringsReader {
 				+ "AddOverrideAnnotation.xml");
 
 		refactorings = JDOMXMLRefactoringReaderImp
-				.readAvailableRefactorings(Scope.SCOPE_ATTRIBUTE,
+				.readAvailableRefactorings(Scope.ATTRIBUTE,
 						"./testdata/XML/Reader/availableRefactorings/completedInformation.xml");
 
 		assertEquals(1, refactorings.size());
@@ -170,7 +170,7 @@ public class TestAvailableRefactoringsReader {
 				+ "Move Field.xml");
 
 		refactorings = JDOMXMLRefactoringReaderImp
-				.readAvailableRefactorings(Scope.SCOPE_FORMAL_ARG,
+				.readAvailableRefactorings(Scope.FORMAL_ARG,
 						"./testdata/XML/Reader/availableRefactorings/completedInformation.xml");
 
 		assertEquals(2, refactorings.size());
@@ -182,7 +182,7 @@ public class TestAvailableRefactoringsReader {
 				+ "Remove Parameter.xml");
 
 		refactorings = JDOMXMLRefactoringReaderImp
-				.readAvailableRefactorings(Scope.SCOPE_FORMAL_PAR,
+				.readAvailableRefactorings(Scope.FORMAL_PAR,
 						"./testdata/XML/Reader/availableRefactorings/completedInformation.xml");
 
 		assertEquals(3, refactorings.size());
@@ -201,7 +201,7 @@ public class TestAvailableRefactoringsReader {
 						+ "Replace Formal Parameter With Bounding Type.xml");
 
 		refactorings = JDOMXMLRefactoringReaderImp
-				.readAvailableRefactorings(Scope.SCOPE_CODE_FRAGMENT,
+				.readAvailableRefactorings(Scope.CODE_FRAGMENT,
 						"./testdata/XML/Reader/availableRefactorings/completedInformation.xml");
 
 		assertEquals(1, refactorings.size());

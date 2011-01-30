@@ -59,7 +59,7 @@ public abstract class AbstractClassificationsReaderTest {
 		categories.add(new Category("Fowler" ,"Symplifying conditional expressions"));
 		Set<Category> categoriesScope = new HashSet<Category>();
 		for(Scope s: Scope.values()){
-			if(!s.equals(Scope.SCOPE_BOUNDED_PAR)){
+			if(!s.equals(Scope.BOUNDED_PAR)){
 				categoriesScope.add(new Category("scope" ,s.toString()));
 			}
 		}
