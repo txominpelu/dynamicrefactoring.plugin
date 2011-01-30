@@ -2,7 +2,7 @@
 <!DOCTYPE classifications SYSTEM "classificationsDTD.dtd">
 
 <classifications>
-	<classification name="scope">
+	<classification name="scope"  description="MiDescripcion">
 		<categories>
 			<category>SCOPE_CLASS</category>
 			<category>SCOPE_METHOD</category>
@@ -12,7 +12,7 @@
 			<category>SCOPE_FORMAL_ARG</category>
 		</categories>		
 	</classification>
-	<classification name="Fowler">
+	<classification name="Fowler" description="">
 		<categories>
 			<category>ComposingMethods</category>
 			<category>MakingMethodCallsSimpler</category>

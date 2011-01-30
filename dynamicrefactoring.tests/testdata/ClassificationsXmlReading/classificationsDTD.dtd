@@ -3,8 +3,10 @@
 
 <!ELEMENT classification ( categories+ ) >
 <!ATTLIST classification name NMTOKENS #REQUIRED >
+<!ATTLIST classification description CDATA #REQUIRED >
 
 <!ELEMENT categories ( category+ ) >
 
 <!ELEMENT category ( #PCDATA ) >
+
 

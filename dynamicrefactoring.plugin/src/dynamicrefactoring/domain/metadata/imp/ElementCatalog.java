@@ -13,6 +13,7 @@ import com.google.common.base.Predicate;
 import com.google.common.base.Predicates;
 import com.google.common.collect.Collections2;
 import com.google.common.collect.ImmutableList;
+import com.google.common.collect.ImmutableSet;
 
 import dynamicrefactoring.domain.metadata.condition.CategoryCondition;
 import dynamicrefactoring.domain.metadata.interfaces.Category;
@@ -21,7 +22,7 @@ import dynamicrefactoring.domain.metadata.interfaces.ClassifiedElements;
 import dynamicrefactoring.domain.metadata.interfaces.ClassifiedFilterableCatalog;
 import dynamicrefactoring.domain.metadata.interfaces.Element;
 
-public class ElementCatalog<K extends Element> implements
+public final class ElementCatalog<K extends Element> implements
 		ClassifiedFilterableCatalog<K> {
 
 	/**
@@ -70,10 +71,13 @@ public class ElementCatalog<K extends Element> implements
 	 */
 	public ElementCatalog(Set<K> allElements, Classification classification,
 			List<Predicate<K>> filterConditionList) {
-		this.filter = filterConditionList;
+		this.filter = new ArrayList<Predicate<K>>();
 		this.classification = classification;
 		initializeClassifiedElements(classification.getCategories());
 		classify(allElements);
+		for(Predicate<K> condition: filterConditionList){
+			this.addConditionToFilter(condition);
+		}
 	}
 
 	
@@ -146,14 +150,29 @@ public class ElementCatalog<K extends Element> implements
 		classify(toUnfilter);
 
 	}
+	
+	/**
+	 * Genera un catalogo nuevo con los mismos elementos y categorias pero
+	 * inicialmente ninguna condicion.
+	 * 
+	 * @return catalogo con los mismos elementos y clasificaciones que el actual
+	 *         pero sin condiciones
+	 */
+	@Override
+	public ClassifiedFilterableCatalog<K> removeAllFilterConditions() {
+		return new ElementCatalog<K>(getAllElements(), classification);
+	}
 
 	@Override
 	public ClassifiedElements<K> getClassificationOfElements(
 			boolean showFiltered) {
-		HashMap<Category, Set<K>> toReturn = new HashMap<Category, Set<K>>(
-				classifiedElements);
+		HashMap<Category, Set<K>> toReturn = new HashMap<Category, Set<K>>();
 		if (!showFiltered) {
 			toReturn.remove(Category.FILTERED_CATEGORY);
+		}
+		//Hacemos copias defensivas de los sets
+		for(Category category: classifiedElements.keySet()){
+			toReturn.put(category, ImmutableSet.copyOf(classifiedElements.get(category)));
 		}
 		return new SimpleClassifiedElements<K>(this.classification.getName(),
 				toReturn);
@@ -176,8 +195,7 @@ public class ElementCatalog<K extends Element> implements
 	@Override
 	public ClassifiedFilterableCatalog<K> newInstance(
 			Classification classification) {
-		Set<K> allElements = getAllElements();
-		return new ElementCatalog<K>(allElements, classification, filter);
+		return new ElementCatalog<K>(getAllElements(), classification, filter);
 	}
 
 	/**

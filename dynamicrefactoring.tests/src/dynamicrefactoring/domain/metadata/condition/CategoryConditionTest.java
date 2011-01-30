@@ -19,7 +19,7 @@ public class CategoryConditionTest {
 
 	@Before
 	public void setUp(){
-		category = new Category("mycategory");
+		category = new Category("myparent" , "mycategory");
 		condition = new CategoryCondition<Element>(category);
 	}
 	

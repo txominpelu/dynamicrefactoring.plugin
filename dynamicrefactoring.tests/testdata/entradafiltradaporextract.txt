@@ -1,11 +1,17 @@
+#Fowler
 #Fowler.ComposingMethods
 ExtractMethod=Fowler.ComposingMethods,Scope.Method,Extract
+-
 #Fowler.MovingFeatures
 ExtractClass=Fowler.MovingFeatures,Scope.Class,Extract
+-
 #Fowler.OrganizingData
+-
 #None
+-
 #Filtered
 MoveMethod=Fowler.MovingFeatures,Scope.MethodMove,Move
 MoveField=Fowler.MovingFeatures,Scope.AttributeMove,Move
 InlineMethod=Fowler.ComposingMethods,Scope.Method,Inline
 EncapsulateField=Scope.Attribute,Encapsulate
+-

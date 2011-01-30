@@ -3,10 +3,15 @@ package dynamicrefactoring.domain.metadata.imp;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Set;
 
 import org.junit.Before;
 import org.junit.Test;
+
+import com.google.common.base.Predicate;
 
 import dynamicrefactoring.domain.metadata.condition.CategoryCondition;
 import dynamicrefactoring.domain.metadata.interfaces.Category;
@@ -16,6 +21,9 @@ import dynamicrefactoring.interfaz.cli.test.utils.StubDataUtils;
 
 public class ElementCatalogTest {
 
+	private static final Category CATEGORY_MOVE = new Category("", "Move");
+	private static final CategoryCondition<Element> CATEGORY_CONDITION_EXTRACT = new CategoryCondition<Element>(
+					"", "Extract");
 	private ClassifiedElements<Element> classifiedElements;
 	private Set<Element> refactorings;
 	private ElementCatalog<Element> catalog;
@@ -33,10 +41,10 @@ public class ElementCatalogTest {
 	}
 
 	@Test
-	public void filteringForExtractTest() {
+	public void filteringForExtractTest() throws IOException {
 		final ClassifiedElements<Element> expected = StubDataUtils
 				.readClassifiedElements("./testdata/entradafiltradaporextract.txt");
-		catalog.addConditionToFilter(new CategoryCondition<Element>("Extract"));
+		catalog.addConditionToFilter(CATEGORY_CONDITION_EXTRACT);
 		assertEquals(expected, catalog.getClassificationOfElements(true));
 	}
 
@@ -44,16 +52,14 @@ public class ElementCatalogTest {
 	public void filteringForExtractTestAndUnfilter() {
 		final ClassifiedElements<Element> expected = catalog
 				.getClassificationOfElements(true);
-		catalog.addConditionToFilter(new CategoryCondition<Element>("Extract"));
-		catalog.removeConditionFromFilter(new CategoryCondition<Element>(
-				"Extract"));
+		catalog.addConditionToFilter(CATEGORY_CONDITION_EXTRACT);
+		catalog.removeConditionFromFilter(CATEGORY_CONDITION_EXTRACT);
 		assertEquals(expected, catalog.getClassificationOfElements(true));
 	}
 
 	@Test
 	public void removeConditionTests() {
-		CategoryCondition<Element> condition = new CategoryCondition<Element>(
-				"Extract");
+		CategoryCondition<Element> condition = CATEGORY_CONDITION_EXTRACT;
 		catalog.addConditionToFilter(condition);
 		assertTrue(catalog.getAllFilterConditions().contains(condition));
 		catalog.removeConditionFromFilter(condition);
@@ -67,23 +73,21 @@ public class ElementCatalogTest {
 	 */
 	@Test
 	public void removeConditionWhenTwoApplyToFilteredTests() {
-		CategoryCondition<Element> conditionExtract = new CategoryCondition<Element>(
-				"Extract");
+		CategoryCondition<Element> conditionExtract = CATEGORY_CONDITION_EXTRACT;
 		CategoryCondition<Element> conditionMove = new CategoryCondition<Element>(
-				"Move");
+				"", "Move");
 		catalog.addConditionToFilter(conditionExtract);
 		Set<Element> expected = catalog.getClassificationOfElements(true)
-				.getCategoryChildren(new Category("Move"));
+				.getCategoryChildren(CATEGORY_MOVE);
 		catalog.addConditionToFilter(conditionMove);
 		catalog.removeConditionFromFilter(conditionMove);
 		assertEquals(expected, catalog.getClassificationOfElements(true)
-				.getCategoryChildren(new Category("Move")));
+				.getCategoryChildren(CATEGORY_MOVE));
 	}
 
 	@Test
 	public void conditionIsAddedTests() {
-		CategoryCondition<Element> condition = new CategoryCondition<Element>(
-				"Extract");
+		CategoryCondition<Element> condition = CATEGORY_CONDITION_EXTRACT;
 		catalog.addConditionToFilter(condition);
 		assertTrue(catalog.getAllFilterConditions().contains(condition));
 	}
@@ -94,7 +98,7 @@ public class ElementCatalogTest {
 	 */
 	@Test
 	public void newInstanceTest() {
-		catalog.addConditionToFilter(new CategoryCondition<Element>("Move"));
+		catalog.addConditionToFilter(new CategoryCondition<Element>(CATEGORY_MOVE));
 		ElementCatalog<Element> copia = (ElementCatalog<Element>) catalog
 				.newInstance(StubDataUtils.getOtherClassification());
 		assertEquals(catalog.getAllElements(), copia.getAllElements());
@@ -103,6 +107,31 @@ public class ElementCatalogTest {
 		assertEquals(StubDataUtils.getOtherClassification(),
 				copia.getClassification());
 
+	}
+
+	@Test
+	public void seAplicanFiltrosEnConstructorTest() throws IOException {
+		CategoryCondition<Element> condition = CATEGORY_CONDITION_EXTRACT;
+		List<Predicate<Element>> filterConditions = new ArrayList<Predicate<Element>>();
+		filterConditions.add(condition);
+		ElementCatalog<Element> otroCatalogo = new ElementCatalog<Element>(
+				refactorings,
+				new SimpleUniLevelClassification(
+						StubDataUtils.FOWLER_CLASSIFICATION_NAME,
+						classifiedElements.getClassification().getCategories()),
+				filterConditions);
+		final ClassifiedElements<Element> expected = StubDataUtils
+				.readClassifiedElements("./testdata/entradafiltradaporextract.txt");
+		assertEquals(expected, otroCatalogo.getClassificationOfElements(true));
+	}
+
+	@Test
+	public void removeAllFilterConditionsTest() {
+		final ClassifiedElements<Element> expected = catalog
+				.getClassificationOfElements(true);
+		catalog.addConditionToFilter(CATEGORY_CONDITION_EXTRACT);
+		assertEquals(expected, catalog.removeAllFilterConditions()
+				.getClassificationOfElements(true));
 	}
 
 }

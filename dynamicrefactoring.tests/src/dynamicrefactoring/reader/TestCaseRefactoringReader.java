@@ -120,8 +120,8 @@ public class TestCaseRefactoringReader {
 		
 		//Comprobar categorias
 		Set<Category> expectedCategories = new HashSet<Category>();
-		expectedCategories.add(new Category("MiClassification.MiCategoria1"));
-		expectedCategories.add(new Category("MiClassification.MiCategoria2"));
+		expectedCategories.add(new Category("MiClassification", "MiCategoria1"));
+		expectedCategories.add(new Category("MiClassification", "MiCategoria2"));
 		
 		assertEquals (expectedCategories,definition.getCategories());
 

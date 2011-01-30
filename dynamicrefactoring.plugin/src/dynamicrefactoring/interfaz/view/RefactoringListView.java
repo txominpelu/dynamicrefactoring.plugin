@@ -216,7 +216,7 @@ public class RefactoringListView extends ViewPart {
 					System.out.println("categoria");
 					System.out.println(text_aux);
 					catalog.addConditionToFilter(new CategoryCondition<DynamicRefactoringDefinition>(
-							"scope." + text_aux));
+							"scope" , text_aux));
 					showTree(classCombo.getText());
 				}else{
 					//					if(text.toLowerCase().contains("name:")){

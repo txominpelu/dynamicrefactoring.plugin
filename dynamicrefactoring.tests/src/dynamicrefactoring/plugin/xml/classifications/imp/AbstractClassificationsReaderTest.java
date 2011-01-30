@@ -52,19 +52,19 @@ public abstract class AbstractClassificationsReaderTest {
 	 */
 	public Set<Classification> getExpectedClassification(){
 		Set<Category> categories = new HashSet<Category>();
-		categories.add(new Category("Fowler.ComposingMethods"));
-		categories.add(new Category("Fowler.MakingMethodCallsSimpler"));
-		categories.add(new Category("Fowler.MovingFeatures"));
-		categories.add(new Category("Fowler.Organizing data"));
-		categories.add(new Category("Fowler.Symplifying conditional expressions"));
+		categories.add(new Category("Fowler" , "ComposingMethods"));
+		categories.add(new Category("Fowler" ,"MakingMethodCallsSimpler"));
+		categories.add(new Category("Fowler" ,"MovingFeatures"));
+		categories.add(new Category("Fowler" ,"Organizing data"));
+		categories.add(new Category("Fowler" ,"Symplifying conditional expressions"));
 		Set<Category> categoriesScope = new HashSet<Category>();
 		for(Scope s: Scope.values()){
 			if(!s.equals(Scope.SCOPE_BOUNDED_PAR)){
-				categoriesScope.add(new Category("scope." + s.toString()));
+				categoriesScope.add(new Category("scope" ,s.toString()));
 			}
 		}
 		Set<Classification> classifications = new HashSet<Classification>();
-		classifications.add(new SimpleUniLevelClassification("scope", categoriesScope));
+		classifications.add(new SimpleUniLevelClassification("scope", "MiDescripcion", categoriesScope));
 		classifications.add(new SimpleUniLevelClassification("Fowler", categories));
 		return classifications;
 		
