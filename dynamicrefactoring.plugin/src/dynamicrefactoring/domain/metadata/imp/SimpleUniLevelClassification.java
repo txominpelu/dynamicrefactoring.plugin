@@ -66,4 +66,9 @@ public final class SimpleUniLevelClassification implements Classification {
 		return getName() + "=" + getCategories();
 	}
 
+	@Override
+	public int compareTo(Classification o) {
+		return name.compareTo(o.getName());
+	}
+
 }

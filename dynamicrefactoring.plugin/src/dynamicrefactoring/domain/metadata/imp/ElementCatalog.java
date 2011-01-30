@@ -40,7 +40,7 @@ public class ElementCatalog<K extends Element> implements
 	private final Classification classification;
 
 	/**
-	 * Crea un catalog de elementos con los elementos que se le pasa sin ningun
+	 * Crea un catalogo de elementos con los elementos que se le pasa sin ningun
 	 * filtro y clasificando los elementos en las categorias pasadas.
 	 * 
 	 * @param allElements
@@ -177,7 +177,7 @@ public class ElementCatalog<K extends Element> implements
 	public ClassifiedFilterableCatalog<K> newInstance(
 			Classification classification) {
 		Set<K> allElements = getAllElements();
-		return new ElementCatalog<K>(allElements, classification, new ArrayList<Predicate<K>>(this.filter));
+		return new ElementCatalog<K>(allElements, classification, filter);
 	}
 
 	/**

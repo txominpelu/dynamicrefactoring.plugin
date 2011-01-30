@@ -1,13 +1,11 @@
 package dynamicrefactoring.interfaz.view;
 
-import static org.junit.Assert.assertEquals;
-
 import java.io.IOException;
-import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.Iterator;
 import java.util.Map;
 import java.util.Set;
 
@@ -96,31 +94,26 @@ public class RefactoringListView extends ViewPart {
 	/**
 	 * Clasificaciones disponibles.
 	 */
-	private Set<Classification> classifications;
-	
-	/**
-	 * Tabla con los catálogos asociados a clasificaciones disponibles.
-	 */
-	private HashMap<String,ElementCatalog<DynamicRefactoringDefinition>> catalogs;
-	
+	private ArrayList<Classification> classifications;
+
 	/**
 	 * Catálogo que esta siendo utilizado conforme a las clasificación seleccionada.
 	 */
-	private ElementCatalog<DynamicRefactoringDefinition> catalogInUse;
-	
-	//TODO: Mantener una lista de predicados contruidos a partir de los filtros
+	private ElementCatalog<DynamicRefactoringDefinition> catalog;
+
+	//TODO: Mantener una lista de predicados construidos a partir de los filtros
 	//List<Predicate>
+
+	/**
+	 * Etiqueta clasificación.
+	 */
+	private Label classLabel;
 
 	/**
 	 * Combo que contiene los tipos de clasificaciones de refactorizaciones disponibles.
 	 */
 	private Combo classCombo;
 
-	/**
-	 * Etiqueta clasificación.
-	 */
-	private Label classLabel;
-	
 	/**
 	 * Etiqueta con la descripción de la clasificación 
 	 */
@@ -130,7 +123,7 @@ public class RefactoringListView extends ViewPart {
 	 * Cuadro de texto que permite introducir al usuario el patrón de búsqueda.
 	 */
 	private Text searchText;
-	
+
 	/**
 	 * Botón que permite activar un proceso de búsqueda al usuario.
 	 */
@@ -162,17 +155,20 @@ public class RefactoringListView extends ViewPart {
 		classLabel.setText(Messages.RefactoringListView_Classification+": ");
 
 		classCombo=new Combo(parent, SWT.READ_ONLY);
-		classCombo.add(Category.NONE_CATEGORY.getName(),0);
-		int i=1;
-		for(Classification classification: classifications){
-			System.out.println(classification.toString());
-			classCombo.add(classification.getName(),i);
-			i++;
-		}
+		classCombo.add(Category.NONE_CATEGORY.getName());
 		classCombo.setToolTipText(
 				Messages.RefactoringListView_SelectFromClassification);
 		classCombo.addSelectionListener(new ClassComboSelectionListener());
 		
+		Collections.sort(classifications);
+		for(Classification classification: classifications)
+			classCombo.add(classification.getName());
+		
+		//añadimos la clasificacion por defecto
+		Set<Category> catNone = new HashSet<Category>();
+		catNone.add(Category.NONE_CATEGORY);
+		classifications.add(new SimpleUniLevelClassification(Category.NONE_CATEGORY.getName(),catNone));
+
 		descClassLabel=new Label(parent, SWT.LEFT);
 		descClassLabel.setText("Esta es la descripción de la clasificación");
 
@@ -199,7 +195,6 @@ public class RefactoringListView extends ViewPart {
 		searchText.setMessage("Search");
 		searchText.setLayoutData(fd_tsearch);
 
-
 		searchButton = new Button(composite_1, SWT.PUSH);
 		final FormData fd_bsearch = new FormData();
 		fd_bsearch.right = new FormAttachment(0, 225);
@@ -220,7 +215,7 @@ public class RefactoringListView extends ViewPart {
 					text_aux=text.substring(9);
 					System.out.println("categoria");
 					System.out.println(text_aux);
-					catalogInUse.addConditionToFilter(new CategoryCondition<DynamicRefactoringDefinition>(
+					catalog.addConditionToFilter(new CategoryCondition<DynamicRefactoringDefinition>(
 							"scope." + text_aux));
 					showTree(classCombo.getText());
 				}else{
@@ -252,12 +247,16 @@ public class RefactoringListView extends ViewPart {
 	public void setFocus() {
 	}
 
+	/**
+	 * Carga las clasificaciones disponibles.
+	 */
 	private void loadClassifications(){
 		XmlClassificationsReader classReader = 
 			ClassificationsReaderFactory.getReader(
 					ClassificationsReaderFactory.ClassificationsReaderTypes.JDOM_READER);
 		try {
-			classifications=classReader.readClassifications(RefactoringConstants.CLASSIFICATION_TYPES_FILE);
+			classifications=new ArrayList<Classification>(
+					classReader.readClassifications(RefactoringConstants.CLASSIFICATION_TYPES_FILE));
 		} catch (ValidationException e) {
 			e.printStackTrace();
 			IWorkbenchWindow window = PlatformUI.getWorkbench().getActiveWorkbenchWindow();
@@ -268,7 +267,7 @@ public class RefactoringListView extends ViewPart {
 			MessageDialog.openError(window.getShell(), Messages.RefactoringListView_Error, message);
 		}
 	}
-		
+
 	/**
 	 * Carga la lista de refactorizaciones dinámicas disponibles.
 	 */
@@ -318,38 +317,30 @@ public class RefactoringListView extends ViewPart {
 		}
 	}
 
-	//TODO: Este metodo deberá ser independiente al tipo de clasificacion
-	// para ello se debera usar el reader de los xml de las refactorizaciones
-	//y categorias disponibles
 	/**
-	 * Obtiene las clasificaciones, categorias y refactorizaciones disponibles y 
-	 * con ello crea los catálogos correspondientes para cada una de las clasificaciones.
+	 * Crea el catálogo por defecto para las refactorizaciones disponibles.
 	 */
 	private void createCatalog(){
-		catalogs=new HashMap<String,ElementCatalog<DynamicRefactoringDefinition>>();
-		Set<Category> catScope = new HashSet<Category>();
 		Set<DynamicRefactoringDefinition> drd = new HashSet<DynamicRefactoringDefinition>(refactorings.values());
-
-		for (Scope scope : Scope.values()) {
-			if (!scope.equals(Scope.SCOPE_BOUNDED_PAR)) {
-				catScope.add(new Category("scope." + scope.toString()));
-			}
-		}
-		catalogs.put("scope", new ElementCatalog<DynamicRefactoringDefinition>(
-				drd, new SimpleUniLevelClassification("scope",catScope)));
-		
 		Set<Category> catNone = new HashSet<Category>();
 		catNone.add(Category.NONE_CATEGORY);
-		catalogs.put(Category.NONE_CATEGORY.getName(), new ElementCatalog<DynamicRefactoringDefinition>(
-				drd,  new SimpleUniLevelClassification(Category.NONE_CATEGORY.getName(),catNone)));
+		catalog=new ElementCatalog<DynamicRefactoringDefinition>(
+				drd,
+				new SimpleUniLevelClassification(Category.NONE_CATEGORY.getName(),catNone));
 	}
 
+	/**
+	 * Muestra en forma de árbol la clasificación de las refactorizaciones según
+	 * las categorias a las que pertenece, pudiendo aparecer en un grupo de filtrados
+	 * si no cumplen con las condiciones establecidas. 
+	 * @param classificationName nombre de la clasificación
+	 */
 	private void showTree(String classificationName){
 
 		RefactoringTreeManager.cleanTree(refactoringsTree);
 
 		ClassifiedElements<DynamicRefactoringDefinition> classifiedElements = 
-			catalogInUse.getClassificationOfElements(true);
+			catalog.getClassificationOfElements(true);
 
 		int orderInBranchClass = 0;
 		TreeItem classTreeItem = TreeEditor.createBranch(refactoringsTree,
@@ -365,38 +356,47 @@ public class RefactoringListView extends ViewPart {
 		TreeItem catTreeItem, filTreeItem=null;
 		int orderInBranchCat = 0;
 
-		
-			for(Category c : categories){
-				dRefactDef=
-					new ArrayList<DynamicRefactoringDefinition>(classifiedElements.getCategoryChildren(c));
-				Collections.sort(dRefactDef);
-				if(!c.equals(Category.FILTERED_CATEGORY)){
-					catTreeItem=classTreeItem;
-					if(!(classificationName.equalsIgnoreCase(Category.NONE_CATEGORY.getName())&&
-							c.equals(Category.NONE_CATEGORY))
-							&&
-							dRefactDef.size()>0){
-						catTreeItem = TreeEditor.createBranch(classTreeItem,
-								orderInBranchCat, c.getName(),
-								"icons" + System.getProperty("file.separator") + "cat.gif"); 
-						orderInBranchCat++;
-					}
-					createTreeItemFromParent(dRefactDef, catTreeItem,false);
-				}else{
-					if(dRefactDef.size()>0){
-						filTreeItem = TreeEditor.createBranch(refactoringsTree,
-								orderInBranchClass, Category.FILTERED_CATEGORY.getName(),
-								"icons" + System.getProperty("file.separator") + "fil.png");
-						orderInBranchClass++;
-						filTreeItem.setForeground(Display.getCurrent().getSystemColor(SWT.COLOR_DARK_GRAY));
-						createTreeItemFromParent(dRefactDef, filTreeItem,true);
-					}
+		for(Category c : categories){
+			dRefactDef=
+				new ArrayList<DynamicRefactoringDefinition>(classifiedElements.getCategoryChildren(c));
+			Collections.sort(dRefactDef);
+			if(!c.equals(Category.FILTERED_CATEGORY)){
+				catTreeItem=classTreeItem;
+				if(!(classificationName.equalsIgnoreCase(Category.NONE_CATEGORY.getName())&&
+						c.equals(Category.NONE_CATEGORY))
+						&&
+						dRefactDef.size()>0){
+					catTreeItem = TreeEditor.createBranch(classTreeItem,
+							orderInBranchCat, c.getName(),
+							"icons" + System.getProperty("file.separator") + "cat.gif"); 
+					orderInBranchCat++;
+				}
+				createTreeItemFromParent(dRefactDef, catTreeItem,false);
+			}else{
+				if(dRefactDef.size()>0){
+					filTreeItem = TreeEditor.createBranch(refactoringsTree,
+							orderInBranchClass, Category.FILTERED_CATEGORY.getName(),
+							"icons" + System.getProperty("file.separator") + "fil.png");
+					orderInBranchClass++;
+					filTreeItem.setForeground(Display.getCurrent().getSystemColor(SWT.COLOR_DARK_GRAY));
+					createTreeItemFromParent(dRefactDef, filTreeItem,true);
 				}
 			}
+		}
 		classTreeItem.setExpanded(true);
 	}
 
-	private void createTreeItemFromParent(ArrayList<DynamicRefactoringDefinition> dRefactDef,TreeItem catTreeItem, boolean filtered) {
+	/**
+	 * Crea una representación en formato de arbol de cada una de las refactorizaciones,
+	 * agregandolas al arbol que se pasa. En caso de tratarse de una refactorización
+	 * filtrada pone de color gris el texto de todos sus componentes.
+	 * @param dRefactDef lista de refactorizaciones
+	 * @param catTreeItem 
+	 * @param filtered indicador de filtrado. Si es verdadero se trata de
+	 * 			refactorizaciones filtradas, falso en caso contrario.
+	 */
+	private void createTreeItemFromParent(ArrayList<DynamicRefactoringDefinition> dRefactDef,
+			TreeItem catTreeItem, boolean filtered) {
 		int orderInBranchRef = 0;
 		for(DynamicRefactoringDefinition ref: dRefactDef){
 			RefactoringTreeManager.
@@ -411,22 +411,27 @@ public class RefactoringListView extends ViewPart {
 
 
 	/**
-	 * Actualiza el árbol de refactorización para representarlas conforme
+	 * Actualiza el árbol de refactorizaciones para representarlas conforme
 	 * a la clasificación que ha sido seleccionada en el combo.
 	 */
 	private class ClassComboSelectionListener implements SelectionListener {
 
 		@Override
 		public void widgetSelected(SelectionEvent e) {
-			//stateClassLabel.setText("Selected: " + classCombo.getText());
+			Classification classSelected=null;
+			
+			Iterator<Classification> iter=classifications.iterator();
+			boolean found=false;
+			while(iter.hasNext() && found==false){
+				classSelected=iter.next();
+				if(classSelected.getName().equals(classCombo.getText()))
+				  found=true;
+			}
+			
 			//TODO:hay que implementar esto cuando lo tengamos:
-			//si catalogoInUse no es nulo (es nulo cuando es la primera vez)
-			//eliminar todos los filtros del catalogoInUse antes de asignar
-			//la variable al nuevo catalogo a usar segun la clasificacion elegida.
-			catalogInUse=catalogs.get(classCombo.getText());
-			//TODO:hay que implementar esto cuando lo tengamos:
-			//añadir toda la lista de predicados si no es nula o vacia
-			showTree(classCombo.getText());
+			// poner la descripcion en descClassLabel
+			catalog=(ElementCatalog<DynamicRefactoringDefinition>)catalog.newInstance(classSelected);
+			showTree(classSelected.getName());
 		}
 
 		@Override
