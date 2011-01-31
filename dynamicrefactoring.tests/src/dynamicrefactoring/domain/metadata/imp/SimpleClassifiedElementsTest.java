@@ -13,7 +13,6 @@ import dynamicrefactoring.domain.metadata.interfaces.Category;
 import dynamicrefactoring.domain.metadata.interfaces.Classification;
 import dynamicrefactoring.domain.metadata.interfaces.ClassifiedElements;
 import dynamicrefactoring.domain.metadata.interfaces.Element;
-import dynamicrefactoring.interfaz.cli.test.utils.StubDataUtils;
 
 public class SimpleClassifiedElementsTest {
 
@@ -29,13 +28,13 @@ public class SimpleClassifiedElementsTest {
 
 	@Before
 	public void setUp() throws Exception {
-		Set<Element> refactorings = StubDataUtils
-				.readRefactoringsFromFile(StubDataUtils.TESTDATA_ENTRADASINFILTRAR_FILE);
-		classification = StubDataUtils.readClassifiedElements(
-				StubDataUtils.TESTDATA_ENTRADASINFILTRAR_FILE)
+		Set<Element> refactorings = MetadataDomainTestUtils
+				.readRefactoringsFromFile(MetadataDomainTestUtils.TESTDATA_ENTRADASINFILTRAR_FILE);
+		classification = MetadataDomainTestUtils.readClassifiedElements(
+				MetadataDomainTestUtils.TESTDATA_ENTRADASINFILTRAR_FILE)
 				.getClassification();
-		classifiedElements = StubDataUtils
-				.readClassifiedElements(StubDataUtils.TESTDATA_ENTRADASINFILTRAR_FILE);
+		classifiedElements = MetadataDomainTestUtils
+				.readClassifiedElements(MetadataDomainTestUtils.TESTDATA_ENTRADASINFILTRAR_FILE);
 		Map<Category, Set<Element>> mapa = new HashMap<Category, Set<Element>>();
 		for (Category c : classifiedElements.getClassification()
 				.getCategories()) {

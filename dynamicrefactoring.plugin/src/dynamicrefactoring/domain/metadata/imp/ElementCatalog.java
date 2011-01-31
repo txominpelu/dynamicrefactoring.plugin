@@ -71,6 +71,8 @@ public final class ElementCatalog<K extends Element> implements
 	 */
 	public ElementCatalog(Set<K> allElements, Classification classification,
 			List<Predicate<K>> filterConditionList) {
+		//TODO: Precondicion: cuando se pasa una clasificacion que no permite multiples
+		//elementos por categoria, no haya ningun elemento que este en varias categorias
 		this.filter = new ArrayList<Predicate<K>>();
 		this.classification = classification;
 		initializeClassifiedElements(classification.getCategories());
@@ -102,7 +104,7 @@ public final class ElementCatalog<K extends Element> implements
 				elementsToClassify);
 		for (Category category : classifiedElements.keySet()) {
 			Collection<K> belongToCategory = Collections2.filter(
-					elementsLeftWithNoCategory, new CategoryCondition<K>(
+					elementsToClassify, new CategoryCondition<K>(
 							category));
 			classifiedElements.get(category).addAll(belongToCategory);
 			elementsLeftWithNoCategory.removeAll(belongToCategory);

@@ -1,4 +1,4 @@
-package dynamicrefactoring.interfaz.cli.test.utils;
+package dynamicrefactoring.domain.metadata.imp;
 
 import java.io.BufferedReader;
 import java.io.DataInputStream;
@@ -15,15 +15,16 @@ import com.google.common.base.Preconditions;
 import com.google.common.collect.Iterators;
 
 import dynamicrefactoring.domain.metadata.imp.SimpleClassifiedElements;
-import dynamicrefactoring.domain.metadata.imp.SimpleRefactoringDefinition;
 import dynamicrefactoring.domain.metadata.imp.SimpleUniLevelClassification;
 import dynamicrefactoring.domain.metadata.interfaces.Category;
 import dynamicrefactoring.domain.metadata.interfaces.Classification;
 import dynamicrefactoring.domain.metadata.interfaces.ClassifiedElements;
 import dynamicrefactoring.domain.metadata.interfaces.Element;
 
-public class StubDataUtils {
-
+class MetadataDomainTestUtils {
+	
+	public static final String FOWLER_CLASSIFICATION_NAME = "Fowler";
+	
 	public static ClassifiedElements<Element> readClassifiedElements(String file)
 			throws IOException {
 		Map<Category, Set<Element>> classifiedElements = new HashMap<Category, Set<Element>>();
@@ -48,16 +49,15 @@ public class StubDataUtils {
 
 	}
 
-	private static Set<Element> readNextCategoryElements(BufferedReader br)
-			throws IOException {
-		String strLine;
-		Set<Element> toAddToNextCategory = new HashSet<Element>();
-		while ((strLine = br.readLine()) != null && !strLine.startsWith("-")) {
-			toAddToNextCategory.add(StubDataUtils
-					.createRefDefinitionFromLine(strLine));
-		}
-		return toAddToNextCategory;
+	
+	public static Classification getOtherClassification() {
+		Set<Category> subcategories = new HashSet<Category>();
+		subcategories.add(new Category("MiClasif", "Tal"));
+		subcategories.add(new Category("MiClasif", "MovingFeatures"));
+		subcategories.add(new Category("MiClasif", "OrganizingData"));
+		return new SimpleUniLevelClassification("MiClasif", subcategories);
 	}
+	
 
 	/**
 	 * Obtiene la categoria definida como una clase de un paquete de java:
@@ -115,8 +115,7 @@ public class StubDataUtils {
 		return new SimpleRefactoringDefinition(elementName, refCategories);
 	}
 
-	public static final String FOWLER_CLASSIFICATION_NAME = "Fowler";
-	public static final String TESTDATA_ENTRADASINFILTRAR_FILE = "./testdata/entradasinfiltrar.txt";
+	
 
 	public static Set<Element> readRefactoringsFromFile(String file) throws IOException {
 		Set<Element> allElements = new HashSet<Element>();
@@ -134,12 +133,30 @@ public class StubDataUtils {
 		return allElements;
 	}
 
-	public static Classification getOtherClassification() {
-		Set<Category> subcategories = new HashSet<Category>();
-		subcategories.add(new Category("MiClasif", "Tal"));
-		subcategories.add(new Category("MiClasif", "MovingFeatures"));
-		subcategories.add(new Category("MiClasif", "OrganizingData"));
-		return new SimpleUniLevelClassification("MiClasif", subcategories);
+	
+	
+	/**
+	 * Obtiene los siguientes elementos de la categoria leyendo
+	 * linea por linea has que se acabe el fichero o se encuentre
+	 * una linea que empiece por "-".
+	 * 
+	 * @param br buffer de lectura
+	 * @return lista de elementos leidos
+	 * @throws IOException si hay algun problema al leer el buffer
+	 */
+	private static Set<Element> readNextCategoryElements(BufferedReader br)
+			throws IOException {
+		String strLine;
+		Set<Element> toAddToNextCategory = new HashSet<Element>();
+		while ((strLine = br.readLine()) != null && !strLine.startsWith("-")) {
+			toAddToNextCategory.add(MetadataDomainTestUtils
+					.createRefDefinitionFromLine(strLine));
+		}
+		return toAddToNextCategory;
 	}
+
+
+
+	public static final String TESTDATA_ENTRADASINFILTRAR_FILE = "./testdata/ElementCatalogTests/entradasinfiltrar.txt";
 
 }

@@ -17,33 +17,34 @@ import dynamicrefactoring.domain.metadata.condition.CategoryCondition;
 import dynamicrefactoring.domain.metadata.interfaces.Category;
 import dynamicrefactoring.domain.metadata.interfaces.ClassifiedElements;
 import dynamicrefactoring.domain.metadata.interfaces.Element;
-import dynamicrefactoring.interfaz.cli.test.utils.StubDataUtils;
 
 public class ElementCatalogTest {
 
 	private static final Category CATEGORY_MOVE = new Category("", "Move");
-	private static final CategoryCondition<Element> CATEGORY_CONDITION_EXTRACT = new CategoryCondition<Element>(
+	public static final CategoryCondition<Element> CATEGORY_CONDITION_EXTRACT = new CategoryCondition<Element>(
 					"", "Extract");
 	private ClassifiedElements<Element> classifiedElements;
 	private Set<Element> refactorings;
 	private ElementCatalog<Element> catalog;
 
+	public static final String TESTDATA_ENTRADA_FILTRADA_POR_EXTRACT = "./testdata/ElementCatalogTests/entradafiltradaporextract.txt";
+
 	@Before
 	public void setUp() throws Exception {
-		refactorings = StubDataUtils
-				.readRefactoringsFromFile(StubDataUtils.TESTDATA_ENTRADASINFILTRAR_FILE);
-		classifiedElements = StubDataUtils
-				.readClassifiedElements(StubDataUtils.TESTDATA_ENTRADASINFILTRAR_FILE);
+		refactorings = MetadataDomainTestUtils
+				.readRefactoringsFromFile(MetadataDomainTestUtils.TESTDATA_ENTRADASINFILTRAR_FILE);
+		classifiedElements = MetadataDomainTestUtils
+				.readClassifiedElements(MetadataDomainTestUtils.TESTDATA_ENTRADASINFILTRAR_FILE);
 		catalog = new ElementCatalog<Element>(refactorings,
 				new SimpleUniLevelClassification(
-						StubDataUtils.FOWLER_CLASSIFICATION_NAME,
+						MetadataDomainTestUtils.FOWLER_CLASSIFICATION_NAME,
 						classifiedElements.getClassification().getCategories()));
 	}
 
 	@Test
 	public void filteringForExtractTest() throws IOException {
-		final ClassifiedElements<Element> expected = StubDataUtils
-				.readClassifiedElements("./testdata/entradafiltradaporextract.txt");
+		final ClassifiedElements<Element> expected = MetadataDomainTestUtils
+				.readClassifiedElements(ElementCatalogTest.TESTDATA_ENTRADA_FILTRADA_POR_EXTRACT);
 		catalog.addConditionToFilter(CATEGORY_CONDITION_EXTRACT);
 		assertEquals(expected, catalog.getClassificationOfElements(true));
 	}
@@ -100,11 +101,11 @@ public class ElementCatalogTest {
 	public void newInstanceTest() {
 		catalog.addConditionToFilter(new CategoryCondition<Element>(CATEGORY_MOVE));
 		ElementCatalog<Element> copia = (ElementCatalog<Element>) catalog
-				.newInstance(StubDataUtils.getOtherClassification());
+				.newInstance(MetadataDomainTestUtils.getOtherClassification());
 		assertEquals(catalog.getAllElements(), copia.getAllElements());
 		assertEquals(catalog.getAllFilterConditions(),
 				copia.getAllFilterConditions());
-		assertEquals(StubDataUtils.getOtherClassification(),
+		assertEquals(MetadataDomainTestUtils.getOtherClassification(),
 				copia.getClassification());
 
 	}
@@ -117,11 +118,11 @@ public class ElementCatalogTest {
 		ElementCatalog<Element> otroCatalogo = new ElementCatalog<Element>(
 				refactorings,
 				new SimpleUniLevelClassification(
-						StubDataUtils.FOWLER_CLASSIFICATION_NAME,
+						MetadataDomainTestUtils.FOWLER_CLASSIFICATION_NAME,
 						classifiedElements.getClassification().getCategories()),
 				filterConditions);
-		final ClassifiedElements<Element> expected = StubDataUtils
-				.readClassifiedElements("./testdata/entradafiltradaporextract.txt");
+		final ClassifiedElements<Element> expected = MetadataDomainTestUtils
+				.readClassifiedElements(ElementCatalogTest.TESTDATA_ENTRADA_FILTRADA_POR_EXTRACT);
 		assertEquals(expected, otroCatalogo.getClassificationOfElements(true));
 	}
 
