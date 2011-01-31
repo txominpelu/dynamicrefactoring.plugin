@@ -65,7 +65,7 @@ public abstract class AbstractClassificationsReaderTest {
 		}
 		Set<Classification> classifications = new HashSet<Classification>();
 		classifications.add(new SimpleUniLevelClassification("scope", "MiDescripcion", categoriesScope));
-		classifications.add(new SimpleUniLevelClassification("Fowler", categories));
+		classifications.add(new SimpleUniLevelClassification("Fowler", "", categories, true));
 		return classifications;
 		
 	}

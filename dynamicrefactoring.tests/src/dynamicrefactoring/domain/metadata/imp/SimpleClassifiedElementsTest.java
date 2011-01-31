@@ -40,8 +40,8 @@ public class SimpleClassifiedElementsTest {
 				.getCategories()) {
 			mapa.put(c, classifiedElements.getCategoryChildren(c));
 		}
-		copiaClassifiedElements = new SimpleClassifiedElements<Element>(
-				classifiedElements.getClassification().getName(), mapa);
+		copiaClassifiedElements = new SimpleClassifiedElements<Element>(new SimpleUniLevelClassification(
+				classifiedElements.getClassification().getName(),ElementCatalogTest.MI_CLASSIFICATION_DESCRIPTION,mapa.keySet()), mapa);
 	}
 
 	@Test

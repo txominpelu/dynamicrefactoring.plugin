@@ -9,11 +9,13 @@ import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Set;
 
+import com.google.common.base.Preconditions;
 import com.google.common.base.Predicate;
 import com.google.common.base.Predicates;
 import com.google.common.collect.Collections2;
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.ImmutableSet;
+import com.google.common.collect.Sets;
 
 import dynamicrefactoring.domain.metadata.condition.CategoryCondition;
 import dynamicrefactoring.domain.metadata.interfaces.Category;
@@ -54,35 +56,61 @@ public final class ElementCatalog<K extends Element> implements
 	 */
 	public ElementCatalog(Set<K> allElements, Classification classification) {
 		this(allElements, classification, new ArrayList<Predicate<K>>());
-		
+
 	}
 
 	/**
-	 * Crea un catalog de elementos con los elementos que se le pasa con los filtros pasados y clasificando los elementos en las categorias pasadas.
+	 * Crea un catalog de elementos con los elementos que se le pasa con los
+	 * filtros pasados y clasificando los elementos en las categorias pasadas.
 	 * 
 	 * @param allElements
 	 *            elementos que componen el catalogo
 	 * @param categories
 	 *            conjunto de categorias que contiene la clasificacion en la que
 	 *            se basa este catalogo
-	 * @param filterConditionList condiciones de filtrado del nuevo catalogo de elementos
+	 * @param filterConditionList
+	 *            condiciones de filtrado del nuevo catalogo de elementos
 	 * @param classificationName
 	 *            nombre de la clasificacion
 	 */
 	public ElementCatalog(Set<K> allElements, Classification classification,
 			List<Predicate<K>> filterConditionList) {
-		//TODO: Precondicion: cuando se pasa una clasificacion que no permite multiples
-		//elementos por categoria, no haya ningun elemento que este en varias categorias
+		Preconditions
+				.checkArgument(classification.isMultiCategory()
+								|| !hasMultiCategoryElements(allElements,
+										classification.getCategories()),
+						"Some of the elements belong to more than one category" + "" +
+								" though the classification doesn't allow multiple-category elements");
 		this.filter = new ArrayList<Predicate<K>>();
 		this.classification = classification;
 		initializeClassifiedElements(classification.getCategories());
 		classify(allElements);
-		for(Predicate<K> condition: filterConditionList){
+		for (Predicate<K> condition : filterConditionList) {
 			this.addConditionToFilter(condition);
 		}
 	}
 
-	
+	/**
+	 * Devuelve si alguno de los elementos pertenece a mas de una de las
+	 * categorias.
+	 * 
+	 * @param allElements
+	 *            conjunto de elementos
+	 * @param categories
+	 *            conjunto de categorias
+	 * @return si alguno de los elementos pertenece a mas de una de las
+	 *         categorias
+	 */
+	private boolean hasMultiCategoryElements(Set<K> allElements,
+			Set<Category> categories) {
+		for (K element : allElements) {
+			if (Sets.intersection(element.getCategories(), categories).size() > 1) {
+				return true;
+			}
+		}
+		return false;
+	}
+
 	private void initializeClassifiedElements(
 			Set<Category> classificationCategories) {
 		this.classifiedElements = new HashMap<Category, Set<K>>();
@@ -104,8 +132,7 @@ public final class ElementCatalog<K extends Element> implements
 				elementsToClassify);
 		for (Category category : classifiedElements.keySet()) {
 			Collection<K> belongToCategory = Collections2.filter(
-					elementsToClassify, new CategoryCondition<K>(
-							category));
+					elementsToClassify, new CategoryCondition<K>(category));
 			classifiedElements.get(category).addAll(belongToCategory);
 			elementsLeftWithNoCategory.removeAll(belongToCategory);
 		}
@@ -143,7 +170,8 @@ public final class ElementCatalog<K extends Element> implements
 				classifiedElements.get(Category.FILTERED_CATEGORY),
 				Predicates.not(getPredicateForAllConditions())));
 
-		Collection<K> toUnfilter = ImmutableList.copyOf(Collections2.filter(classifiedElements.get(Category.FILTERED_CATEGORY),
+		Collection<K> toUnfilter = ImmutableList.copyOf(Collections2.filter(
+				classifiedElements.get(Category.FILTERED_CATEGORY),
 				getPredicateForAllConditions()));
 
 		classifiedElements.put(Category.FILTERED_CATEGORY, new HashSet<K>(
@@ -152,7 +180,7 @@ public final class ElementCatalog<K extends Element> implements
 		classify(toUnfilter);
 
 	}
-	
+
 	/**
 	 * Genera un catalogo nuevo con los mismos elementos y categorias pero
 	 * inicialmente ninguna condicion.
@@ -172,11 +200,14 @@ public final class ElementCatalog<K extends Element> implements
 		if (!showFiltered) {
 			toReturn.remove(Category.FILTERED_CATEGORY);
 		}
-		//Hacemos copias defensivas de los sets
-		for(Category category: classifiedElements.keySet()){
-			toReturn.put(category, ImmutableSet.copyOf(classifiedElements.get(category)));
+		// Hacemos copias defensivas de los sets
+		for (Category category : classifiedElements.keySet()) {
+			toReturn.put(category,
+					ImmutableSet.copyOf(classifiedElements.get(category)));
 		}
-		return new SimpleClassifiedElements<K>(this.classification.getName(),
+		return new SimpleClassifiedElements<K>(
+				new SimpleUniLevelClassification(this.classification.getName(),
+						this.classification.getDescription(), toReturn.keySet()),
 				toReturn);
 	}
 
@@ -222,6 +253,6 @@ public final class ElementCatalog<K extends Element> implements
 	@Override
 	public Classification getClassification() {
 		return new SimpleUniLevelClassification(classification.getName(),
-				classification.getCategories());
+				classification.getDescription(), classification.getCategories());
 	}
 }

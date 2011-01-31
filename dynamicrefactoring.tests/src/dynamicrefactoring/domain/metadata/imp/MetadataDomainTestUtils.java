@@ -44,7 +44,7 @@ class MetadataDomainTestUtils {
 		}
 		// Close the input stream
 		in.close();
-		return new SimpleClassifiedElements<Element>(classificationName,
+		return new SimpleClassifiedElements<Element>(new SimpleUniLevelClassification(classificationName, ElementCatalogTest.MI_CLASSIFICATION_DESCRIPTION, classifiedElements.keySet()),
 				classifiedElements);
 
 	}
@@ -55,7 +55,7 @@ class MetadataDomainTestUtils {
 		subcategories.add(new Category("MiClasif", "Tal"));
 		subcategories.add(new Category("MiClasif", "MovingFeatures"));
 		subcategories.add(new Category("MiClasif", "OrganizingData"));
-		return new SimpleUniLevelClassification("MiClasif", subcategories);
+		return new SimpleUniLevelClassification("MiClasif", ElementCatalogTest.MI_CLASSIFICATION_DESCRIPTION, subcategories);
 	}
 	
 

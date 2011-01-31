@@ -10,6 +10,7 @@ import org.junit.Test;
 
 import dynamicrefactoring.domain.metadata.condition.CategoryCondition;
 import dynamicrefactoring.domain.metadata.interfaces.ClassifiedElements;
+import dynamicrefactoring.domain.metadata.interfaces.ClassifiedFilterableCatalog;
 import dynamicrefactoring.domain.metadata.interfaces.Element;
 
 public class ElementCatalogWithMultiCategoryElementTest {
@@ -31,10 +32,23 @@ public class ElementCatalogWithMultiCategoryElementTest {
 				.readClassifiedElements(INICIAL_MULT_SIN_FILTRAR);
 		catalog = new ElementCatalog<Element>(refactorings,
 				new SimpleUniLevelClassification(
-						"BadSmells",
-						classifiedElements.getClassification().getCategories()));
+						"BadSmells",ElementCatalogTest.MI_CLASSIFICATION_DESCRIPTION,
+						classifiedElements.getClassification().getCategories(),true));
 	}
 
+	
+	@Test(expected=IllegalArgumentException.class)
+	public final void throwsExceptionIfNotMultiCategory() throws IOException {
+		Set<Element> refactorings = MetadataDomainTestUtils
+		.readRefactoringsFromFile(INICIAL_MULT_SIN_FILTRAR);
+		ClassifiedElements<Element> classifiedElements = MetadataDomainTestUtils
+		.readClassifiedElements(INICIAL_MULT_SIN_FILTRAR);
+		ClassifiedFilterableCatalog<Element > otroCatalogo = new ElementCatalog<Element>(refactorings,
+		new SimpleUniLevelClassification(
+				"BadSmells",ElementCatalogTest.MI_CLASSIFICATION_DESCRIPTION,
+				classifiedElements.getClassification().getCategories(),false));
+	}
+	
 	@Test
 	public final void testCargaInicial() throws IOException {
 		final ClassifiedElements<Element> expected = MetadataDomainTestUtils

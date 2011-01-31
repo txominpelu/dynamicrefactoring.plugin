@@ -12,7 +12,7 @@
 			<category>FormalArg</category>
 		</categories>		
 	</classification>
-	<classification name="Fowler" description="">
+	<classification multicategory="true" name="Fowler" description="">
 		<categories>
 			<category>ComposingMethods</category>
 			<category>MakingMethodCallsSimpler</category>

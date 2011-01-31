@@ -20,6 +20,7 @@ import dynamicrefactoring.domain.metadata.interfaces.Element;
 
 public class ElementCatalogTest {
 
+	public static final String MI_CLASSIFICATION_DESCRIPTION = "Midescripcion";
 	private static final Category CATEGORY_MOVE = new Category("", "Move");
 	public static final CategoryCondition<Element> CATEGORY_CONDITION_EXTRACT = new CategoryCondition<Element>(
 					"", "Extract");
@@ -37,7 +38,7 @@ public class ElementCatalogTest {
 				.readClassifiedElements(MetadataDomainTestUtils.TESTDATA_ENTRADASINFILTRAR_FILE);
 		catalog = new ElementCatalog<Element>(refactorings,
 				new SimpleUniLevelClassification(
-						MetadataDomainTestUtils.FOWLER_CLASSIFICATION_NAME,
+						MetadataDomainTestUtils.FOWLER_CLASSIFICATION_NAME,MI_CLASSIFICATION_DESCRIPTION,
 						classifiedElements.getClassification().getCategories()));
 	}
 
@@ -118,7 +119,7 @@ public class ElementCatalogTest {
 		ElementCatalog<Element> otroCatalogo = new ElementCatalog<Element>(
 				refactorings,
 				new SimpleUniLevelClassification(
-						MetadataDomainTestUtils.FOWLER_CLASSIFICATION_NAME,
+						MetadataDomainTestUtils.FOWLER_CLASSIFICATION_NAME,MI_CLASSIFICATION_DESCRIPTION,
 						classifiedElements.getClassification().getCategories()),
 				filterConditions);
 		final ClassifiedElements<Element> expected = MetadataDomainTestUtils

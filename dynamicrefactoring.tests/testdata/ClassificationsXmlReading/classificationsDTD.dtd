@@ -1,12 +1,22 @@
+
+<!-- ========== Defined Types ============================================= -->
+
+<!-- A "Boolean" is the string representation of a boolean (true or false)
+     variable.
+-->
+<!ENTITY % Boolean "(true|false)">
+
+<!-- ========== Top Level Elements ======================================== -->
+
+
 <!ELEMENT classifications ( classification+ ) >
 <!ATTLIST classifications version CDATA #IMPLIED>
 
 <!ELEMENT classification ( categories+ ) >
 <!ATTLIST classification name NMTOKENS #REQUIRED >
 <!ATTLIST classification description CDATA #REQUIRED >
+<!ATTLIST classification multicategory %Boolean; "false" >
 
 <!ELEMENT categories ( category+ ) >
 
 <!ELEMENT category ( #PCDATA ) >
-
-
