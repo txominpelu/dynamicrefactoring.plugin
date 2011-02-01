@@ -6,6 +6,7 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Iterator;
+import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
@@ -32,13 +33,13 @@ import org.eclipse.ui.IWorkbenchWindow;
 import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.part.ViewPart;
 
+import com.google.common.base.Predicate;
 import com.swtdesigner.ResourceManager;
 
 import dynamicrefactoring.RefactoringConstants;
 import dynamicrefactoring.RefactoringPlugin;
 import dynamicrefactoring.domain.DynamicRefactoringDefinition;
 import dynamicrefactoring.domain.RefactoringException;
-import dynamicrefactoring.domain.Scope;
 import dynamicrefactoring.domain.metadata.condition.CategoryCondition;
 import dynamicrefactoring.domain.metadata.imp.ElementCatalog;
 import dynamicrefactoring.domain.metadata.imp.SimpleUniLevelClassification;
@@ -101,8 +102,10 @@ public class RefactoringListView extends ViewPart {
 	 */
 	private ElementCatalog<DynamicRefactoringDefinition> catalog;
 
-	//TODO: Mantener una lista de predicados construidos a partir de los filtros
-	//List<Predicate>
+	/**
+	 * Lista de condiciones que conforman el filtro actual aplicado
+	 */
+	private List<Predicate<DynamicRefactoringDefinition>> filter;
 
 	/**
 	 * Etiqueta clasificación.
