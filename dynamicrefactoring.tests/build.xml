@@ -12,7 +12,7 @@
 		<jacoco:report>
 				  
 			<executiondata>
-			    <file file="${test-dir}/target/cobertura/jacoco.exec"/>
+			    <file file="../cobertura/jacoco.exec"/>
 			</executiondata>
 					    
 			<structure name="Example Project">

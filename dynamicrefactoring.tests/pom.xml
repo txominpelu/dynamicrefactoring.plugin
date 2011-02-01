@@ -13,10 +13,6 @@
   <packaging>eclipse-test-plugin</packaging>
   <properties>
 	<tycho-version>0.10.0</tycho-version>
-	<sonar.dynamicAnalysis>reuseReports</sonar.dynamicAnalysis>
-	<sonar.surefire.reportsPath>target/surefire-reports/</sonar.surefire.reportsPath>
-	<sonar.core.codeCoveragePlugin>jacoco</sonar.core.codeCoveragePlugin>
-	<sonar.jacoco.itReportPath>target/cobertura/jacoco.exec</sonar.jacoco.itReportPath>
   </properties>
 
   <dependencies>

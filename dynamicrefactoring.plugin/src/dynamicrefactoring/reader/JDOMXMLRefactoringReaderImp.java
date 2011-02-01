@@ -163,7 +163,7 @@ public class JDOMXMLRefactoringReaderImp implements XMLRefactoringReaderImp {
 			String classificationName = classification.getAttributeValue(CLASSIFICATION_NAME_ATTRIBUTE);
 			List<Element> categoryList = classification.getChildren(CATEGORY_ELEMENT);
 			for (Element category : categoryList) {
-				categorias.add(new Category(classificationName + "." + category.getTextTrim()));
+				categorias.add(new Category(classificationName , category.getTextTrim()));
 			}
 		}
 		

@@ -195,19 +195,19 @@ public class ScopeLimitedLister {
 	private static String convertScope(Scope scope){
 		//FIXME: Sustituir por nombre de enum SelectRefactoringWindow.SCOPE
 		switch(scope){
-		case SCOPE_ATTRIBUTE:
+		case ATTRIBUTE:
 			return ATTRIBUTE_SCOPE;
-		case SCOPE_CLASS:
+		case CLASS:
 			return CLASS_SCOPE;
-		case SCOPE_FORMAL_ARG:
+		case FORMAL_ARG:
 			return FORMAL_ARG_SCOPE;
-		case SCOPE_FORMAL_PAR:
+		case FORMAL_PAR:
 			return FORMAL_PAR_SCOPE;
-		case SCOPE_METHOD:
+		case METHOD:
 			return METHOD_SCOPE;
-		case SCOPE_BOUNDED_PAR:
+		case BOUNDED_PAR:
 			return BOUNDED_PAR_SCOPE;
-		case SCOPE_CODE_FRAGMENT:
+		case CODE_FRAGMENT:
 			return CODE_FRAGMENT_SCOPE;
 		default:
 			return ""; //$NON-NLS-1$
@@ -230,25 +230,25 @@ public class ScopeLimitedLister {
 	private static Scope getScope(String name){
 		try{
 		if(Class.forName(ATTRIBUTE_SCOPE).isAssignableFrom(Class.forName(name)))
-			return Scope.SCOPE_ATTRIBUTE;
+			return Scope.ATTRIBUTE;
 		else 
 			if(Class.forName(CLASS_SCOPE).isAssignableFrom(Class.forName(name)))
-				return Scope.SCOPE_CLASS;
+				return Scope.CLASS;
 			else
 				if(Class.forName(FORMAL_ARG_SCOPE).isAssignableFrom(Class.forName(name)))
-					return Scope.SCOPE_FORMAL_ARG;
+					return Scope.FORMAL_ARG;
 				else
 					if(Class.forName(FORMAL_PAR_SCOPE).isAssignableFrom(Class.forName(name)))
-						return Scope.SCOPE_FORMAL_PAR;
+						return Scope.FORMAL_PAR;
 					else
 						if(Class.forName(METHOD_SCOPE).isAssignableFrom(Class.forName(name)))
-							return Scope.SCOPE_METHOD; 
+							return Scope.METHOD; 
 						else
 							if(Class.forName(BOUNDED_PAR_SCOPE).isAssignableFrom(Class.forName(name)))
-								return Scope.SCOPE_BOUNDED_PAR;
+								return Scope.BOUNDED_PAR;
 							else
 								if(Class.forName(CODE_FRAGMENT_SCOPE).isAssignableFrom(Class.forName(name)))
-									return Scope.SCOPE_CODE_FRAGMENT;
+									return Scope.CODE_FRAGMENT;
 		}catch(ClassNotFoundException exception){
 			logger.error(Messages.ScopeLimitedLister_ErrorLoading
 					+ ".\n" + exception.getMessage());

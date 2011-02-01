@@ -230,6 +230,10 @@ public class RefactoringPlugin extends AbstractUIPlugin
 	 */
 	private void copyDefaultDynamicRefactoringsToStateLocation()
 			throws IOException {
+		FileManager.copyResourceToDir("/Classification/classifications.xml",
+				getStateLocation().toOSString());
+		FileManager.copyResourceToDir("/Classification/classificationsDTD.dtd",
+				getStateLocation().toOSString());
 		FileManager.copyResourceToDir("/refactoringsDTD.dtd",
 				getStateLocation().toOSString());
 		FileManager.copyResourceToDir("/refactoringPlanDTD.dtd",

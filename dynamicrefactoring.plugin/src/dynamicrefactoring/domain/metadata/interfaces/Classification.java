@@ -8,7 +8,7 @@ import java.util.Set;
  * @author imediava
  * 
  */
-public interface Classification {
+public interface Classification extends Comparable<Classification>{
 
 	/**
 	 * Obtiene un conjunto con las categorias de la clasificacion.
@@ -26,14 +26,28 @@ public interface Classification {
 	String getName();
 
 	/**
-	 * Dos clasificacion seran iguales si tienen el mismo nombre y las mismas
-	 * categorias.
+	 * Dos clasificaciones son iguales si tienen las mismas categorias,
+	 * el mismo nombre, la misma descripcion y ambas tienen el mismo
+	 * criterio a la hora de permitir o no que sus elementos
+	 * pertenezcan a mas de una categoria.
 	 * 
-	 * @param o
-	 *            objeto a comparar
-	 * @return verdadero si las classificaciones tienen el mismo nombre y las
-	 *         mismas categorias falso en caso contrario
+	 * @param o objeto a comparar
+	 * @return verdadero si sus atributos son iguales
 	 */
 	boolean equals(Object o);
+
+	/**
+	 * Obtener la descripcion de la clasificacion.
+	 * 
+	 * @return descripcion de la clasificacion
+	 */
+	String getDescription();
+
+	/**
+	 * Si la clasificacion admite o no elementos en mas de una categoria.
+	 * 
+	 * @return verdadero si la clasificacion admite o no elementos en mas de una categoria.
+	 */
+	boolean isMultiCategory();
 
 }

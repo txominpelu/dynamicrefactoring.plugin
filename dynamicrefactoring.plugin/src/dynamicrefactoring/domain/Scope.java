@@ -11,6 +11,7 @@ import moon.core.genericity.BoundS;
 import moon.core.genericity.FormalPar;
 import moon.core.instruction.CodeFragment;
 
+import com.google.common.base.CaseFormat;
 import com.google.common.base.Predicate;
 import com.google.common.collect.Collections2;
 
@@ -20,33 +21,45 @@ public enum Scope {
 	/**
 	 * Ámbito de clase.
 	 */
-	SCOPE_CLASS(ClassDef.class, Messages.SelectRefactoringWindow_ClassScope,
+	CLASS(ClassDef.class, Messages.SelectRefactoringWindow_ClassScope,
 			"classdef"),
 	/**
 	 * Ámbito de método.
 	 */
-	SCOPE_METHOD (MethDec.class, Messages.SelectRefactoringWindow_MethodScope,"methdec"),
+	METHOD (MethDec.class, Messages.SelectRefactoringWindow_MethodScope,"methdec"),
 	/**
 	 * Ámbito de atributo.
 	 */
-	SCOPE_ATTRIBUTE (AttDec.class, Messages.SelectRefactoringWindow_FieldScope,"attdec"),
+	ATTRIBUTE (AttDec.class, Messages.SelectRefactoringWindow_FieldScope,"attdec"),
 	/**
 	 * Ámbito de argumento formal.
 	 */
-	SCOPE_FORMAL_ARG (FormalArgument.class, Messages.SelectRefactoringWindow_FormalArgumentScope,"formalArgument"),
+	FORMAL_ARG (FormalArgument.class, Messages.SelectRefactoringWindow_FormalArgumentScope,"formalArgument"),
 	/**
 	 * Ámbito de parámetro formal.
 	 */
-	SCOPE_FORMAL_PAR (FormalPar.class, Messages.SelectRefactoringWindow_FormalParameterScope,"formalPar"),
+	FORMAL_PAR (FormalPar.class, Messages.SelectRefactoringWindow_FormalParameterScope,"formalPar"),
 	/**
 	 * Ámbito de parámetro formal acotado.
 	 */
-	SCOPE_BOUNDED_PAR (BoundS.class, Messages.SelectRefactoringWindow_BoundedParameterScope,""),
+	BOUNDED_PAR (BoundS.class, Messages.SelectRefactoringWindow_BoundedParameterScope,""),
 	/**
 	 * Ámbito de bloque de texto.
 	 */
-	SCOPE_CODE_FRAGMENT (CodeFragment.class, Messages.SelectRefactoringWindow_CodeFragmentScope,"codeFragment");
+	CODE_FRAGMENT (CodeFragment.class, Messages.SelectRefactoringWindow_CodeFragmentScope,"codeFragment");
 	
+
+	/**
+	 * Obtiene una representacion en formato cadena
+	 * sin "_" entre palabras y con las palabras en mayusculas
+	 * del nombre del valor de la enumeracion.
+	 * 
+	 * @return formato adecuado para impresion del nombre del ambito
+	 */
+	@Override
+	public String toString(){
+		return CaseFormat.UPPER_UNDERSCORE.to(CaseFormat.UPPER_CAMEL, super.toString()).replace("_", "");
+	}
 	
 	/**
 	 * Clase de JavaMoon que se corresponde con el ambito.

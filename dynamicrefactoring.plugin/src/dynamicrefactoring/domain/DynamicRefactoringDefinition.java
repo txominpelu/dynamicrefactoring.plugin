@@ -467,7 +467,7 @@ public class DynamicRefactoringDefinition implements Element,Comparable<DynamicR
 		Set<Category> categoriesItBelongs = new HashSet<Category>(
 				getCategories());
 		if (scope != null)
-			categoriesItBelongs.add(new Category("scope." + scope.toString()));
+			categoriesItBelongs.add(new Category("scope" , scope.toString()));
 
 		return categoriesItBelongs.contains(category);
 	}

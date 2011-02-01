@@ -62,11 +62,11 @@ class JAXBClassificationsReader implements XmlClassificationsReader {
 		for (ClassificationType clasif : classifications.getClassification()) {
 			Set<Category> categories = new HashSet<Category>();
 			for (String categoryName : clasif.getCategories().getCategory()) {
-				categories.add(new Category(clasif.getName() + "."
-						+ categoryName));
+				categories.add(new Category(clasif.getName(),
+						categoryName));
 			}
 			Classification cl = new SimpleUniLevelClassification(
-					clasif.getName(), categories);
+					clasif.getName(), clasif.getDescription(), categories, clasif.isMulticategory());
 			availableClassifications.add(cl);
 		}
 		return availableClassifications;

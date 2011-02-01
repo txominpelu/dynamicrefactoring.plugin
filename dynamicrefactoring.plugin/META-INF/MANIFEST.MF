@@ -116,6 +116,8 @@ Export-Package: .,
    org.eclipse.jface.dialogs",
  dynamicrefactoring.interfaz.wizard.listener;uses:="org.eclipse.swt.events,org.eclipse.swt.widgets",
  dynamicrefactoring.listener;uses:="dynamicrefactoring.domain,dynamicrefactoring.util.selection",
+ dynamicrefactoring.plugin.xml.classifications,
+ dynamicrefactoring.plugin.xml.classifications.imp,
  dynamicrefactoring.preferences;
   uses:="org.eclipse.osgi.util,
    org.eclipse.jface.preference,

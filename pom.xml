@@ -11,9 +11,12 @@
 	<app-version>0.0.2</app-version>
 	<tycho-version>0.10.0</tycho-version>
 	<jacoco.agent.path>lib/jacocoagent.jar</jacoco.agent.path>
-	<jacoco.file.path>target/cobertura/jacoco.exec</jacoco.file.path>
+	<jacoco.file.path>../cobertura/jacoco.exec</jacoco.file.path>
+	<sonar.dynamicAnalysis>reuseReports</sonar.dynamicAnalysis>
+	<sonar.surefire.reportsPath>target/surefire-reports/</sonar.surefire.reportsPath>
+	<sonar.core.codeCoveragePlugin>jacoco</sonar.core.codeCoveragePlugin>
+	<sonar.jacoco.itReportPath>../cobertura/jacoco.exec</sonar.jacoco.itReportPath>
 	<sonar.skippedModules>dynamicrefactoring.targetplatform</sonar.skippedModules>
-	<targetJdk>1.6</targetJdk>
 	<jdk-version>1.6</jdk-version>
     	<project.build.sourceEncoding>ISO-8859-1</project.build.sourceEncoding>
   </properties>
@@ -84,24 +87,19 @@
       </configuration>
     </plugin>
 
+<!-- Esto es necesario para que se hagan bien los analisis de codigo de sonar-->
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-compiler-plugin</artifactId>
+        <configuration>
+          <source>${jdk-version}</source>
+          <target>${jdk-version}</target>
+        </configuration>
+      </plugin>
 
 
     </plugins>
   </build>
-
-<!-- Configuracion de las metricas del codigo -->
- <reporting>
-    <plugins>
-      <plugin>
-	<artifactId>maven-pmd-plugin</artifactId>
-	<version>2.5</version>
-	<configuration>
-	  <targetJdk>${jdk-version}</targetJdk>
-	</configuration>
-      </plugin>
-    </plugins>
-  </reporting>
-
 
 
 <!-- Maven dependencies -->

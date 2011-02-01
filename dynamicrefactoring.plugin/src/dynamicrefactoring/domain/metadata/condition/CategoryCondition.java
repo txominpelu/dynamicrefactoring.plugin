@@ -23,8 +23,8 @@ public class CategoryCondition<K extends Element> implements Predicate<K> {
 		this.category = category;
 	}
 
-	public CategoryCondition(String categoryName) {
-		this.category = new Category(categoryName);
+	public CategoryCondition(String parent, String categoryName) {
+		this.category = new Category(parent, categoryName);
 	}
 
 	@Override

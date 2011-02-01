@@ -29,7 +29,9 @@ class JDOMClassificationsReader implements XmlClassificationsReader {
 	private static final String XML_TAG_CATEGORY = "category";
 	private static final String XML_TAG_CATEGORIES = "categories";
 	private static final String XML_ATTRIBUTE_NAME = "name";
-	private static final String XML_TAG_CLASSIFICATIONS = "classifications";
+	private static final String XML_ATTRIBUTE_DESCRIPTION = "description";
+	private static final String XML_ATTRIBUTE_MULTICATEGORY = "multicategory";
+	
 	private static XmlClassificationsReader instancia = new JDOMClassificationsReader();
 
 	private JDOMClassificationsReader(){}
@@ -81,18 +83,19 @@ class JDOMClassificationsReader implements XmlClassificationsReader {
 		for (Element classifElement : classificationsList) {
 			String classifName = classifElement
 					.getAttributeValue(XML_ATTRIBUTE_NAME);
+			String classifDescription = classifElement.getAttributeValue(XML_ATTRIBUTE_DESCRIPTION);
+			boolean classifMulticategory = Boolean.valueOf(classifElement.getAttributeValue(XML_ATTRIBUTE_MULTICATEGORY));
 			Set<Category> categorySet = new HashSet<Category>();
 			List<Element> categoriesList = classifElement
 					.getChildren(XML_TAG_CATEGORIES);
 			for (Element categoriesEl : categoriesList) {
 				List<Element> categoryList = categoriesEl.getChildren(XML_TAG_CATEGORY);
 				for (Element category : categoryList) {
-					categorySet.add(new Category(classifName + "."
-							+ category.getText()));
+					categorySet.add(new Category(classifName, category.getText()));
 				}
 			}
-			clasificationsSet.add(new SimpleUniLevelClassification(classifName,
-					categorySet));
+			clasificationsSet.add(new SimpleUniLevelClassification(classifName, classifDescription,
+					categorySet, classifMulticategory));
 		}
 		return clasificationsSet;
 

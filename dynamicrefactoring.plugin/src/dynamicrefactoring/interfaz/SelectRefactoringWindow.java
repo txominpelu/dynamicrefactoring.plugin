@@ -118,25 +118,25 @@ public class SelectRefactoringWindow extends Dialog {
 		this.mainObject = mainObject;
 	
 		if(mainObject instanceof ClassDef){
-			scope = Scope.SCOPE_CLASS;
+			scope = Scope.CLASS;
 		}
 		else if(mainObject instanceof MethDec){
-			scope = Scope.SCOPE_METHOD;
+			scope = Scope.METHOD;
 		}
 		else if(mainObject instanceof AttDec){
-			scope = Scope.SCOPE_ATTRIBUTE;
+			scope = Scope.ATTRIBUTE;
 		}
 		else if(mainObject instanceof FormalArgument){
-			scope = Scope.SCOPE_FORMAL_ARG;
+			scope = Scope.FORMAL_ARG;
 		}
 		else if(mainObject instanceof BoundS && 
 				((BoundS)mainObject).getBounds().size() > 0){
-			scope = Scope.SCOPE_BOUNDED_PAR;
+			scope = Scope.BOUNDED_PAR;
 		}
 		else if(mainObject instanceof FormalPar){
-			scope = Scope.SCOPE_FORMAL_PAR;
+			scope = Scope.FORMAL_PAR;
 		}else if(mainObject instanceof CodeFragment){
-			scope = Scope.SCOPE_CODE_FRAGMENT;
+			scope = Scope.CODE_FRAGMENT;
 		}
 		
 		
@@ -145,9 +145,9 @@ public class SelectRefactoringWindow extends Dialog {
 		fillInDynamicRefactorings(dynamicRefactorings);
 		// Para un parámetro formal acotado valen también las refactorizaciones
 		// generales sobre parámetros formales.
-		if (scope == Scope.SCOPE_BOUNDED_PAR){
+		if (scope == Scope.BOUNDED_PAR){
 			HashMap <String, String> tempMap =
-				ScopeLimitedLister.getAvailableRefactorings(Scope.SCOPE_FORMAL_PAR);
+				ScopeLimitedLister.getAvailableRefactorings(Scope.FORMAL_PAR);
 			dynamicRefactorings.putAll(tempMap);				
 			fillInDynamicRefactorings(tempMap);
 		}
@@ -266,25 +266,25 @@ public class SelectRefactoringWindow extends Dialog {
 		super.configureShell(newShell);
 		
 		switch(scope){
-		case SCOPE_CLASS:
+		case CLASS:
 			newShell.setText(Messages.SelectRefactoringWindow_ClassScope);
 			break;
-		case SCOPE_METHOD:
+		case METHOD:
 			newShell.setText(Messages.SelectRefactoringWindow_MethodScope);
 			break;
-		case SCOPE_ATTRIBUTE:
+		case ATTRIBUTE:
 			newShell.setText(Messages.SelectRefactoringWindow_FieldScope);
 			break;
-		case SCOPE_FORMAL_ARG:
+		case FORMAL_ARG:
 			newShell.setText(Messages.SelectRefactoringWindow_FormalArgumentScope);
 			break;
-		case SCOPE_FORMAL_PAR:
+		case FORMAL_PAR:
 			newShell.setText(Messages.SelectRefactoringWindow_FormalParameterScope);
 			break;
-		case SCOPE_BOUNDED_PAR:
+		case BOUNDED_PAR:
 			newShell.setText(Messages.SelectRefactoringWindow_BoundedParameterScope);
 			break;
-		case SCOPE_CODE_FRAGMENT:
+		case CODE_FRAGMENT:
 			newShell.setText(Messages.SelectRefactoringWindow_CodeFragmentScope);
 			break;
 		}

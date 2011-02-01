@@ -59,4 +59,7 @@ public interface ClassifiedFilterableCatalog<K> {
 	Classification getClassification();
 
 
+	ClassifiedFilterableCatalog<K> removeAllFilterConditions();
+
+
 }

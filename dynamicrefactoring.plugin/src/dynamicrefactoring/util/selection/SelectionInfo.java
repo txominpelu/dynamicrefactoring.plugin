@@ -323,17 +323,17 @@ public abstract class SelectionInfo {
 	 */
 	public Scope getSelectionScope() {
 		if (isClassSelection())
-			return Scope.SCOPE_CLASS;
+			return Scope.CLASS;
 		else if (isMethodSelection())
-			return Scope.SCOPE_METHOD;
+			return Scope.METHOD;
 		else if (isFieldSelection())
-			return Scope.SCOPE_ATTRIBUTE;
+			return Scope.ATTRIBUTE;
 		else if (isFormalArgumentSelection())
-			return Scope.SCOPE_FORMAL_ARG;
+			return Scope.FORMAL_ARG;
 		else if (isFormalParameterSelection())
-			return Scope.SCOPE_FORMAL_PAR;
+			return Scope.FORMAL_PAR;
 		else if (isTextSelection())
-			return Scope.SCOPE_CODE_FRAGMENT;
+			return Scope.CODE_FRAGMENT;
 
 		return null;
 	}
