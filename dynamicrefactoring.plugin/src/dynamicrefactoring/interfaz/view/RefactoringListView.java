@@ -15,6 +15,7 @@ import javax.xml.bind.ValidationException;
 import org.apache.log4j.Logger;
 import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.swt.SWT;
+import org.eclipse.swt.custom.ScrolledComposite;
 import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.events.SelectionListener;
@@ -54,7 +55,7 @@ import dynamicrefactoring.util.RefactoringTreeManager;
 
 /**
  * Proporcia una vista de Eclipse la cual muestra la lista de todas las
- * refactorizaciones asi como la informaci髇 asociada a las mismas.
+ * refactorizaciones asi como la informaci贸n asociada a las mismas.
  * Sobre estas se pueden realizar clasificaciones y filtros.
  */
 public class RefactoringListView extends ViewPart {
@@ -74,8 +75,8 @@ public class RefactoringListView extends ViewPart {
 	 * Tabla de refactorizaciones disponibles.
 	 * 
 	 * <p>
-	 * Se utiliza como clave el nombre de la refactorizaci髇 y como valor la
-	 * propia representaci髇 de la definici髇 de la refactorizaci髇.
+	 * Se utiliza como clave el nombre de la refactorizaci贸n y como valor la
+	 * propia representaci贸n de la definici贸n de la refactorizaci贸n.
 	 * </p>
 	 */
 	private HashMap<String, DynamicRefactoringDefinition> refactorings;
@@ -98,7 +99,7 @@ public class RefactoringListView extends ViewPart {
 	private ArrayList<Classification> classifications;
 
 	/**
-	 * Cat醠ogo que esta siendo utilizado conforme a las clasificaci髇 seleccionada.
+	 * Cat谩logo que esta siendo utilizado conforme a las clasificaci贸n seleccionada.
 	 */
 	private ElementCatalog<DynamicRefactoringDefinition> catalog;
 
@@ -108,7 +109,7 @@ public class RefactoringListView extends ViewPart {
 	private List<Predicate<DynamicRefactoringDefinition>> filter;
 
 	/**
-	 * Etiqueta clasificaci髇.
+	 * Etiqueta clasificaci贸n.
 	 */
 	private Label classLabel;
 
@@ -118,27 +119,32 @@ public class RefactoringListView extends ViewPart {
 	private Combo classCombo;
 
 	/**
-	 * Etiqueta con la descripci髇 de la clasificaci髇 
+	 * Etiqueta con la descripci贸n de la clasificaci贸n 
 	 */
 	private Label descClassLabel;
 
 	/**
-	 * Cuadro de texto que permite introducir al usuario el patr髇 de b鷖queda.
+	 * Cuadro de texto que permite introducir al usuario el patr贸n de b煤squeda.
 	 */
 	private Text searchText;
 
 	/**
-	 * Bot髇 que permite activar un proceso de b鷖queda al usuario.
+	 * Bot贸n que permite activar un proceso de b煤squeda al usuario.
 	 */
 	private Button searchButton;
 
 	/**
-	 * 羠bol sobre el que se mostrar醤 de forma estructurada las diferentes refactorizaciones 
-	 * conforme a la clasificaci髇 seleccionada y los filtros aplicados.
+	 * 脕rbol sobre el que se mostrar谩n de forma estructurada las diferentes refactorizaciones 
+	 * conforme a la clasificaci贸n seleccionada y los filtros aplicados.
 	 */
 	private Tree refactoringsTree;
+	
+	/**
+	 * CheckBox que permite seleccionar al usuario si desea que se muestren en el arbol
+	 * tambi茅n las refactorizaciones filtradas.
+	 */
+	private Button filteredButton;
 
-	//TODO: conseguir que los componentes queden bien presentados (layout)
 	/**
 	 * Crea los controles SWT para este componente del espacio de trabajo.
 	 * 
@@ -148,64 +154,78 @@ public class RefactoringListView extends ViewPart {
 	@Override
 	public void createPartControl(Composite parent) {
 		setPartName(Messages.RefactoringListView_title);
-
+		parent.setLayout(new FormLayout());
+		
+		//carga de datos
 		loadClassifications();
 		loadRefactorings();
 		createCatalog();
-
-		classLabel=new Label(parent, SWT.LEFT);
-		classLabel.setText(Messages.RefactoringListView_Classification+": ");
-
-		classCombo=new Combo(parent, SWT.READ_ONLY);
-		classCombo.add(Category.NONE_CATEGORY.getName());
-		classCombo.setToolTipText(
-				Messages.RefactoringListView_SelectFromClassification);
-		classCombo.addSelectionListener(new ClassComboSelectionListener());
 		
+		final ScrolledComposite scrolledComp = new ScrolledComposite(parent, SWT.H_SCROLL | SWT.V_SCROLL);
+		FormData classFormData = new FormData();
+		classFormData.top = new FormAttachment(0, 5);
+		classFormData.left = new FormAttachment(0, 5);
+		classFormData.right=new FormAttachment(100, -5);
+		classFormData.bottom=new FormAttachment(100, -5);
+		scrolledComp.setLayoutData(classFormData);
+		
+		final Composite classComp = new Composite(scrolledComp, SWT.NONE);
+		classComp.setLayout(new FormLayout());
+		
+		//classLabel
+		classLabel=new Label(classComp, SWT.LEFT);
+		classLabel.setText(Messages.RefactoringListView_Classification);
+		classFormData=new FormData();
+		classFormData.top=new FormAttachment(0,10);
+		classFormData.left=new FormAttachment(0,5);
+		classLabel.setLayoutData(classFormData);
+
+		//classCombo
+		classCombo=new Combo(classComp, SWT.READ_ONLY);
+		classCombo.add(Category.NONE_CATEGORY.getName());
+		classCombo.setToolTipText(Messages.RefactoringListView_SelectFromClassification);
 		Collections.sort(classifications);
 		for(Classification classification: classifications)
 			classCombo.add(classification.getName());
+		classFormData=new FormData();
+		classFormData.top=new FormAttachment(0,5);
+		classFormData.left=new FormAttachment(classLabel,15);
+		classFormData.width=100;
+		classCombo.setLayoutData(classFormData);
+		classCombo.addSelectionListener(new ClassComboSelectionListener());
 		
-		//a馻dimos la clasificacion por defecto
+		//a帽adimos la clasificacion por defecto
 		Set<Category> catNone = new HashSet<Category>();
 		catNone.add(Category.NONE_CATEGORY);
 		classifications.add(new SimpleUniLevelClassification(Category.NONE_CATEGORY.getName(),catNone));
 
-		descClassLabel=new Label(parent, SWT.LEFT);
-		descClassLabel.setText("Esta es la descripci髇 de la clasificaci髇");
+		//descClassLabel
+		descClassLabel=new Label(classComp, SWT.LEFT);
+		descClassLabel.setText("Esta es la descripci贸n de la clasificaci贸n");
+		classFormData=new FormData();
+		classFormData.top=new FormAttachment(classLabel,10);
+		classFormData.left=new FormAttachment(0,5);
+		descClassLabel.setLayoutData(classFormData);
+		
 
-		final Composite composite_1 = new Composite(parent, SWT.NONE);
-		final FormData fd_composite_1 = new FormData();
-		fd_composite_1.right = new FormAttachment(0, 245);
-		fd_composite_1.top = new FormAttachment(0, 5);
-		fd_composite_1.left = new FormAttachment(0, 5);
-		composite_1.setLayoutData(fd_composite_1);
-		composite_1.setLayout(new FormLayout());
+		//searchText
+		searchText = new Text(classComp, SWT.BORDER);
+		searchText.setMessage(Messages.RefactoringListView_Search);
+		classFormData = new FormData();
+		classFormData.top = new FormAttachment(0, 6);
+		classFormData.left = new FormAttachment(classCombo, 175);
+		classFormData.width=150;
+		searchText.setLayoutData(classFormData);
 
-		Label search = new Label(composite_1, SWT.NONE);
-		final FormData fd_search = new FormData();
-		fd_search.bottom = new FormAttachment(0,58);
-		fd_search.top = new FormAttachment(0, 29);
-		fd_search.left = new FormAttachment(0, 15);
-		search.setLayoutData(fd_search);
-
-		searchText = new Text(composite_1,SWT.BORDER);
-		final FormData fd_tsearch = new FormData();
-		fd_tsearch.right = new FormAttachment(0, 185);
-		fd_tsearch.top = new FormAttachment(0, 28);
-		fd_tsearch.left = new FormAttachment(search, 0, SWT.RIGHT);
-		searchText.setMessage("Search");
-		searchText.setLayoutData(fd_tsearch);
-
-		searchButton = new Button(composite_1, SWT.PUSH);
-		final FormData fd_bsearch = new FormData();
-		fd_bsearch.right = new FormAttachment(0, 225);
-		fd_bsearch.top = new FormAttachment(0, 26);//28
-		fd_bsearch.left = new FormAttachment(searchText, 3, SWT.RIGHT);
-		searchButton.setLayoutData(fd_bsearch);
+		//searchButton 
+		searchButton = new Button(classComp, SWT.PUSH);
 		searchButton.setImage(ResourceManager.getPluginImage(
 				RefactoringPlugin.getDefault(),
 				"icons" + System.getProperty("file.separator") + "search.png"));
+		classFormData = new FormData();
+		classFormData.top = new FormAttachment(0, 3);
+		classFormData.left = new FormAttachment(searchText, 5);
+		searchButton.setLayoutData(classFormData);
 		searchButton.addSelectionListener(new SelectionAdapter() {
 			public void widgetSelected(SelectionEvent e) {
 				search(searchText.getText());	
@@ -232,11 +252,41 @@ public class RefactoringListView extends ViewPart {
 
 			}
 		});
-		refactoringsTree = new Tree(parent, SWT.NULL);
+		
+		
+		//refactoringTree
+		refactoringsTree = new Tree(classComp, SWT.BORDER);
+		classFormData=new FormData();
+		classFormData.top=new FormAttachment(descClassLabel,5);
+		classFormData.left=new FormAttachment(0,5);
+		classFormData.right=new FormAttachment(100,-5);
+		refactoringsTree.setLayoutData(classFormData);
+		
+		//filteredButton
+		filteredButton = new Button(classComp, SWT.CHECK | SWT.CENTER);
+		filteredButton.setText(Messages.RefactoringListView_ShowFiltered);
+		filteredButton.setSelection(true);
+		classFormData=new FormData();
+		classFormData.top=new FormAttachment(refactoringsTree,5);
+		classFormData.left=new FormAttachment(0,15);
+		filteredButton.setLayoutData(classFormData);
+		filteredButton.addSelectionListener(new SelectionAdapter() {
+			public void widgetSelected(SelectionEvent e) {
+				showTree(catalog.getClassification().getName());	
+			}
+		});
 		
 		//mostrar por defecto la clasificacion None
 		classCombo.select(0);
 		showTree(classCombo.getText());
+		
+		//scrolledComp
+		scrolledComp.setContent(classComp);
+		scrolledComp.setExpandHorizontal(true);
+		scrolledComp.setExpandVertical(true);
+		scrolledComp.setMinSize(classComp.computeSize(SWT.DEFAULT, SWT.DEFAULT));
+		scrolledComp.setShowFocusedControl(true);
+		
 	}
 
 	/**
@@ -275,7 +325,7 @@ public class RefactoringListView extends ViewPart {
 	}
 
 	/**
-	 * Carga la lista de refactorizaciones din醡icas disponibles.
+	 * Carga la lista de refactorizaciones din谩micas disponibles.
 	 */
 	private void loadRefactorings() {
 		DynamicRefactoringLister listing = DynamicRefactoringLister.getInstance();
@@ -293,7 +343,7 @@ public class RefactoringListView extends ViewPart {
 			for (Map.Entry<String, String> nextRef : allRefactorings.entrySet()){
 
 				try {
-					// Se obtiene la definici髇 de la siguiente refactorizaci髇.
+					// Se obtiene la definici贸n de la siguiente refactorizaci贸n.
 					DynamicRefactoringDefinition definition = 
 						DynamicRefactoringDefinition.getRefactoringDefinition(
 								nextRef.getValue());
@@ -324,7 +374,7 @@ public class RefactoringListView extends ViewPart {
 	}
 
 	/**
-	 * Crea el cat醠ogo por defecto para las refactorizaciones disponibles.
+	 * Crea el cat谩logo por defecto para las refactorizaciones disponibles.
 	 */
 	private void createCatalog(){
 		Set<DynamicRefactoringDefinition> drd = new HashSet<DynamicRefactoringDefinition>(refactorings.values());
@@ -336,10 +386,10 @@ public class RefactoringListView extends ViewPart {
 	}
 
 	/**
-	 * Muestra en forma de 醨bol la clasificaci髇 de las refactorizaciones seg鷑
+	 * Muestra en forma de 谩rbol la clasificaci贸n de las refactorizaciones seg煤n
 	 * las categorias a las que pertenece, pudiendo aparecer en un grupo de filtrados
 	 * si no cumplen con las condiciones establecidas. 
-	 * @param classificationName nombre de la clasificaci髇
+	 * @param classificationName nombre de la clasificaci贸n
 	 */
 	private void showTree(String classificationName){
 
@@ -379,7 +429,7 @@ public class RefactoringListView extends ViewPart {
 				}
 				createTreeItemFromParent(dRefactDef, catTreeItem,false);
 			}else{
-				if(dRefactDef.size()>0){
+				if(dRefactDef.size()>0 && filteredButton.getSelection()){
 					filTreeItem = TreeEditor.createBranch(refactoringsTree,
 							orderInBranchClass, Category.FILTERED_CATEGORY.getName(),
 							"icons" + System.getProperty("file.separator") + "fil.png");
@@ -393,8 +443,8 @@ public class RefactoringListView extends ViewPart {
 	}
 
 	/**
-	 * Crea una representaci髇 en formato de arbol de cada una de las refactorizaciones,
-	 * agregandolas al arbol que se pasa. En caso de tratarse de una refactorizaci髇
+	 * Crea una representaci贸n en formato de arbol de cada una de las refactorizaciones,
+	 * agregandolas al arbol que se pasa. En caso de tratarse de una refactorizaci贸n
 	 * filtrada pone de color gris el texto de todos sus componentes.
 	 * @param dRefactDef lista de refactorizaciones
 	 * @param catTreeItem 
@@ -417,8 +467,8 @@ public class RefactoringListView extends ViewPart {
 
 
 	/**
-	 * Actualiza el 醨bol de refactorizaciones para representarlas conforme
-	 * a la clasificaci髇 que ha sido seleccionada en el combo.
+	 * Actualiza el 谩rbol de refactorizaciones para representarlas conforme
+	 * a la clasificaci贸n que ha sido seleccionada en el combo.
 	 */
 	private class ClassComboSelectionListener implements SelectionListener {
 
