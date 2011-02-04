@@ -112,7 +112,7 @@ public class RefactoringListView extends ViewPart {
 	private ArrayList<Classification> classifications;
 
 	/**
-	 * Catálogo que esta siendo utilizado conforme a las clasificación seleccionada.
+	 * Catálogo que esta siendo utilizado conforme a la clasificación seleccionada.
 	 */
 	private ElementCatalog<DynamicRefactoringDefinition> catalog;
 
