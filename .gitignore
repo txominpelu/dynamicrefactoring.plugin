@@ -1,5 +1,6 @@
 .metadata/
 .settings/
+cobertura/*
 dynamicrefactoring.plugin/target/*
 dynamicrefactoring.plugin/bin/*
 dynamicrefactoring.tests/target/*
