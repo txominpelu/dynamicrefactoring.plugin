@@ -15,6 +15,7 @@ import javax.xml.bind.ValidationException;
 import org.apache.log4j.Logger;
 import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.swt.SWT;
+import org.eclipse.swt.custom.SashForm;
 import org.eclipse.swt.custom.ScrolledComposite;
 import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
@@ -176,17 +177,38 @@ public class RefactoringListView extends ViewPart {
 		loadRefactorings();
 		createCatalog();
 
+		//scrolledComp
 		final ScrolledComposite scrolledComp = 
 			new ScrolledComposite(parent, SWT.H_SCROLL | SWT.V_SCROLL);
-		FormData classFormData = new FormData();
-		classFormData.top = new FormAttachment(0, 5);
-		classFormData.left = new FormAttachment(0, 5);
-		classFormData.right=new FormAttachment(100, -5);
-		classFormData.bottom=new FormAttachment(100, -5);
-		scrolledComp.setLayoutData(classFormData);
+		FormData scrolledFormData = new FormData();
+		scrolledFormData.top = new FormAttachment(0, 5);
+		scrolledFormData.left = new FormAttachment(0, 5);
+		scrolledFormData.right=new FormAttachment(100, -5);
+		scrolledFormData.bottom=new FormAttachment(100, -5);
+		scrolledComp.setLayoutData(scrolledFormData);
 
-		final Composite classComp = new Composite(scrolledComp, SWT.NONE);
+		//sashForm
+	    SashForm sashForm = new SashForm(scrolledComp, SWT.HORIZONTAL | SWT.SMOOTH |SWT.BORDER);
+	    sashForm.setSashWidth(2);
+	    sashForm.setBackground(parent.getDisplay().getSystemColor(SWT.COLOR_DARK_GRAY));
+		
+	    //sashForm Left: classComp
+		FormData classFormData=null;
+		final Composite classComp = new Composite(sashForm, SWT.NONE);
 		classComp.setLayout(new FormLayout());
+		
+		//sashForm Rigth: refComp
+		FormData refFormData=null;
+		final Composite refComp = new Composite(sashForm, SWT.NONE);
+		refComp.setLayout(new FormLayout());
+		
+		//TODO: ELIMINAR; ES UNA PRUEBA
+		classLabel=new Label(refComp, SWT.LEFT);
+		classLabel.setText("Adios");
+		refFormData=new FormData();
+		refFormData.top=new FormAttachment(0,10);
+		refFormData.left=new FormAttachment(0,5);
+		classLabel.setLayoutData(refFormData);
 
 		//classLabel
 		classLabel=new Label(classComp, SWT.LEFT);
@@ -298,11 +320,14 @@ public class RefactoringListView extends ViewPart {
 		descClassLabel.setText(NONE_CLASSIFICATION.getDescription());
 		showTree(classCombo.getText());
 
+		//sashForm
+	    sashForm.setWeights(new int[] {60,40});
+		
 		//scrolledComp
-		scrolledComp.setContent(classComp);
+		scrolledComp.setContent(sashForm);
 		scrolledComp.setExpandHorizontal(true);
 		scrolledComp.setExpandVertical(true);
-		scrolledComp.setMinSize(classComp.computeSize(SWT.DEFAULT, SWT.DEFAULT));
+		scrolledComp.setMinSize(sashForm.computeSize(SWT.DEFAULT, SWT.DEFAULT));
 		scrolledComp.setShowFocusedControl(true);
 
 	}
