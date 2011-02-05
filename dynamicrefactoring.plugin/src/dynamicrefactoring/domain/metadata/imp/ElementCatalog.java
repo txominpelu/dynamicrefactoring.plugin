@@ -197,14 +197,17 @@ public final class ElementCatalog<K extends Element> implements
 	public ClassifiedElements<K> getClassificationOfElements(
 			boolean showFiltered) {
 		HashMap<Category, Set<K>> toReturn = new HashMap<Category, Set<K>>();
-		if (!showFiltered) {
-			toReturn.remove(Category.FILTERED_CATEGORY);
-		}
+
 		// Hacemos copias defensivas de los sets
 		for (Category category : classifiedElements.keySet()) {
 			toReturn.put(category,
 					ImmutableSet.copyOf(classifiedElements.get(category)));
 		}
+		
+		if (!showFiltered) {
+			toReturn.remove(Category.FILTERED_CATEGORY);
+		}
+		
 		return new SimpleClassifiedElements<K>(
 				new SimpleUniLevelClassification(this.classification.getName(),
 						this.classification.getDescription(), toReturn.keySet()),
