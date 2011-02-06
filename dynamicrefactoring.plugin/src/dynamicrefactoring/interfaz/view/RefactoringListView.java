@@ -6,15 +6,19 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Iterator;
-import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
 import javax.xml.bind.ValidationException;
 
 import org.apache.log4j.Logger;
+import org.eclipse.jface.action.Action;
+import org.eclipse.jface.action.IToolBarManager;
+import org.eclipse.jface.action.Separator;
 import org.eclipse.jface.dialogs.MessageDialog;
+import org.eclipse.jface.resource.ImageDescriptor;
 import org.eclipse.swt.SWT;
+import org.eclipse.swt.custom.SashForm;
 import org.eclipse.swt.custom.ScrolledComposite;
 import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
@@ -30,6 +34,7 @@ import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Text;
 import org.eclipse.swt.widgets.Tree;
 import org.eclipse.swt.widgets.TreeItem;
+import org.eclipse.ui.IActionBars;
 import org.eclipse.ui.IWorkbenchWindow;
 import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.part.ViewPart;
@@ -159,6 +164,27 @@ public class RefactoringListView extends ViewPart {
 	 * también las refactorizaciones filtradas.
 	 */
 	private Button filteredButton;
+	
+	/**
+	 * Split que separa en dos partes la vista.
+	 */
+	private SashForm sashForm;
+	
+	/**
+	 * Acción que muestra en la vista solo la parte referente a la clasificación.
+	 */
+	private Action classAction;
+	
+	/**
+	 * Acción que muestra en la vista solo la parte referente a la refactorización.
+	 */
+	private Action refAction;
+	
+	/**
+	 * Acción que muestra en la vista las dos partes.
+	 */
+	private Action classRefAction;
+	
 
 	/**
 	 * Crea los controles SWT para este componente del espacio de trabajo.
@@ -176,17 +202,77 @@ public class RefactoringListView extends ViewPart {
 		loadRefactorings();
 		createCatalog();
 
+		//scrolledComp
 		final ScrolledComposite scrolledComp = 
 			new ScrolledComposite(parent, SWT.H_SCROLL | SWT.V_SCROLL);
-		FormData classFormData = new FormData();
-		classFormData.top = new FormAttachment(0, 5);
-		classFormData.left = new FormAttachment(0, 5);
-		classFormData.right=new FormAttachment(100, -5);
-		classFormData.bottom=new FormAttachment(100, -5);
-		scrolledComp.setLayoutData(classFormData);
+		FormData scrolledFormData = new FormData();
+		scrolledFormData.top = new FormAttachment(0, 5);
+		scrolledFormData.left = new FormAttachment(0, 5);
+		scrolledFormData.right=new FormAttachment(100, -5);
+		scrolledFormData.bottom=new FormAttachment(100, -5);
+		scrolledComp.setLayoutData(scrolledFormData);
 
-		final Composite classComp = new Composite(scrolledComp, SWT.NONE);
+		//sashForm
+	    sashForm = new SashForm(scrolledComp, SWT.HORIZONTAL | SWT.SMOOTH );
+	    sashForm.setSashWidth(2);
+	    sashForm.setBackground(parent.getDisplay().getSystemColor(SWT.COLOR_DARK_GRAY));
+		
+	    //sashForm Left: classComp
+		FormData classFormData=null;
+		final Composite classComp = new Composite(sashForm, SWT.NONE);
 		classComp.setLayout(new FormLayout());
+		
+		//sashForm Rigth: refComp
+		FormData refFormData=null;
+		final Composite refComp = new Composite(sashForm, SWT.NONE);
+		refComp.setLayout(new FormLayout());
+		
+		classAction=new Action(){
+			public void run() {
+				sashForm.setMaximizedControl(classComp);
+				classAction.setEnabled(false);
+				refAction.setEnabled(true);
+				classRefAction.setEnabled(true);
+			}};
+		classAction.setToolTipText(Messages.RefactoringListView_ClassAction);
+		classAction.setImageDescriptor(ImageDescriptor.createFromImage(
+				ResourceManager.getPluginImage(RefactoringPlugin.getDefault(),
+						"icons" + System.getProperty("file.separator") + "split_l.png")));//$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
+		
+		refAction=new Action(){
+			public void run() {
+				sashForm.setMaximizedControl(refComp);
+				refAction.setEnabled(false);
+				classAction.setEnabled(true);
+				classRefAction.setEnabled(true);
+			}};
+		refAction.setToolTipText(Messages.RefactoringListView_RefAction);
+		refAction.setImageDescriptor(ImageDescriptor.createFromImage(
+				ResourceManager.getPluginImage(RefactoringPlugin.getDefault(),
+						"icons" + System.getProperty("file.separator") + "split_r.png")));//$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
+		
+		classRefAction=new Action(){
+			public void run() {
+				sashForm.setMaximizedControl(null);
+				classRefAction.setEnabled(false);
+				classAction.setEnabled(true);
+				refAction.setEnabled(true);
+			}};
+		classRefAction.setToolTipText(Messages.RefactoringListView_ClassRefAction);
+		classRefAction.setImageDescriptor(ImageDescriptor.createFromImage(
+				ResourceManager.getPluginImage(RefactoringPlugin.getDefault(),
+						"icons" + System.getProperty("file.separator") + "split.png")));//$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
+		
+		IActionBars bars = getViewSite().getActionBars();
+		fillLocalToolBar(bars.getToolBarManager());
+		
+		//TODO: ELIMINAR; ES UNA PRUEBA
+		classLabel=new Label(refComp, SWT.LEFT);
+		classLabel.setText("Adios");
+		refFormData=new FormData();
+		refFormData.top=new FormAttachment(0,10);
+		refFormData.left=new FormAttachment(0,5);
+		classLabel.setLayoutData(refFormData);
 
 		//classLabel
 		classLabel=new Label(classComp, SWT.LEFT);
@@ -298,11 +384,15 @@ public class RefactoringListView extends ViewPart {
 		descClassLabel.setText(NONE_CLASSIFICATION.getDescription());
 		showTree(classCombo.getText());
 
+		//sashForm
+	    sashForm.setWeights(new int[] {60,40});
+	    classRefAction.setEnabled(false);
+		
 		//scrolledComp
-		scrolledComp.setContent(classComp);
+		scrolledComp.setContent(sashForm);
 		scrolledComp.setExpandHorizontal(true);
 		scrolledComp.setExpandVertical(true);
-		scrolledComp.setMinSize(classComp.computeSize(SWT.DEFAULT, SWT.DEFAULT));
+		scrolledComp.setMinSize(sashForm.computeSize(SWT.DEFAULT, SWT.DEFAULT));
 		scrolledComp.setShowFocusedControl(true);
 
 	}
@@ -482,6 +572,17 @@ public class RefactoringListView extends ViewPart {
 					Display.getCurrent().getSystemColor(SWT.COLOR_DARK_GRAY));
 	}
 
+	/**
+	 * Añade las diferentes acciones a la barra de herramientas de la vista.
+	 * @param manager gestor de la barra de herramientas de la vista
+	 */
+	private void fillLocalToolBar(IToolBarManager manager) {
+		manager.add(classAction);
+		manager.add(refAction);
+		manager.add(new Separator());
+		manager.add(classRefAction);
+	}
+	
 	/**
 	 * Actualiza el árbol de refactorizaciones para representarlas conforme
 	 * a la clasificación que ha sido seleccionada en el combo.
