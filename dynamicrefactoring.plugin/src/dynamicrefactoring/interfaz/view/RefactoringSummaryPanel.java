@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.custom.ScrolledComposite;
+import org.eclipse.swt.custom.TableEditor;
 import org.eclipse.swt.events.PaintEvent;
 import org.eclipse.swt.events.PaintListener;
 import org.eclipse.swt.graphics.Font;
@@ -12,18 +13,23 @@ import org.eclipse.swt.graphics.ImageLoader;
 import org.eclipse.swt.graphics.Point;
 import org.eclipse.swt.layout.FormAttachment;
 import org.eclipse.swt.layout.FormData;
+import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Canvas;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.TabFolder;
 import org.eclipse.swt.widgets.TabItem;
+import org.eclipse.swt.widgets.Table;
+import org.eclipse.swt.widgets.TableColumn;
+import org.eclipse.swt.widgets.TableItem;
 import org.eclipse.swt.widgets.Tree;
 import org.eclipse.swt.widgets.TreeItem;
 
 import dynamicrefactoring.RefactoringPlugin;
 import dynamicrefactoring.domain.DynamicRefactoringDefinition;
 import dynamicrefactoring.interfaz.TreeEditor;
+import dynamicrefactoring.interfaz.wizard.RefactoringWizardPage2;
 import dynamicrefactoring.util.RefactoringTreeManager;
 
 /**
@@ -49,6 +55,11 @@ public class RefactoringSummaryPanel {
 	private DynamicRefactoringDefinition refactoring;
 
 	/**
+	 * Tabla en que se mostrarán las entradas de la refactorización.
+	 */
+	private Table inputsTable;
+
+	/**
 	 * Árbol sobre el que se mostrarán de forma estructurada los diferentes elementos
 	 * del repositorio que componen la refactorización (precondiciones, acciones y 
 	 * postcondiciones).
@@ -60,7 +71,9 @@ public class RefactoringSummaryPanel {
 	 */
 	private Canvas imageCanvas ;
 
-	private int NUM_MIN_TAB=1;
+	private int minNumTabs;
+	
+	ArrayList<Button> b=new ArrayList<Button>();
 
 	public RefactoringSummaryPanel(Composite parent){
 
@@ -86,9 +99,34 @@ public class RefactoringSummaryPanel {
 		refTabFolder.setVisible(false);
 
 		//TabItems
+		createInputsTabItem();
 		createMechanismTabItem();
 
-		//refTabFolder.pack();
+		minNumTabs=refTabFolder.getItemCount();
+	}
+
+	private void createInputsTabItem(){
+		inputsTable = new Table(refTabFolder, SWT.BORDER);
+		inputsTable.setBackground(Display.getCurrent().getSystemColor(SWT.COLOR_WHITE));
+		inputsTable.setEnabled(true);
+		inputsTable.setLinesVisible(true);
+		inputsTable.setHeaderVisible(true);
+
+		//se crean las columnas de la tabla
+		TableColumn nameCol = new TableColumn(inputsTable, SWT.NONE);
+		nameCol.setText(Messages.RefactoringSummaryPanel_Name);
+		TableColumn typeCol = new TableColumn(inputsTable, SWT.NONE);
+		typeCol.setText(Messages.RefactoringSummaryPanel_Type);
+		TableColumn fromCol = new TableColumn(inputsTable, SWT.NONE);
+		fromCol.setText(Messages.RefactoringSummaryPanel_From);
+		TableColumn rootCol = new TableColumn(inputsTable, SWT.NONE);
+		rootCol.setResizable(false);
+		rootCol.setText(Messages.RefactoringSummaryPanel_Main);
+		rootCol.setToolTipText(Messages.RefactoringSummaryPanel_MainTooltip);
+
+		TabItem item = new TabItem (refTabFolder, SWT.NONE);
+		item.setText(Messages.RefactoringSummaryPanel_Inputs);
+		item.setControl(inputsTable);
 	}
 
 	private void createMechanismTabItem(){
@@ -136,9 +174,48 @@ public class RefactoringSummaryPanel {
 	}
 
 	private void clear(){
+
+		//inputsTable
+		if(inputsTable.getItemCount()>0){
+			TableItem[] items=inputsTable.getItems();
+			for(int i=items.length-1; i>=0; i--)
+				items[i].dispose();
+		}
+
+		for(Button bu:b)
+			bu.dispose();
+
+		//componentsTree
 		RefactoringTreeManager.cleanTree(componentsTree);
-		if(refTabFolder.getItemCount()!=NUM_MIN_TAB)
-			refTabFolder.getItem(NUM_MIN_TAB).dispose();
+
+		//ImageTab
+		if(refTabFolder.getItemCount()!=minNumTabs)
+			refTabFolder.getItem(minNumTabs).dispose();
+	}
+
+	private void fillInputsTable(){
+		ArrayList<String[]> inputs=refactoring.getInputs();
+		Button checkButton=null;
+		TableEditor editor;
+		for(String[] input : inputs){
+			TableItem item=new TableItem(inputsTable, SWT.BORDER);
+			item.setText(new String[]{input[1], input[0], input[2], "", ""}); //$NON-NLS-1$ //$NON-NLS-2$
+
+			editor = new TableEditor(inputsTable);
+			checkButton = new Button(inputsTable, SWT.CHECK);
+			if(input[4]!=null && input[4].equals("true")) //$NON-NLS-1$
+				checkButton.setSelection(true);
+			checkButton.setEnabled(false);
+			checkButton.pack();
+			b.add(checkButton);
+			editor.minimumWidth = checkButton.getSize().x;
+			editor.horizontalAlignment = SWT.CENTER;
+			editor.setEditor(checkButton, item, 3);
+		}
+		TableColumn cols[]=inputsTable.getColumns();
+		for(TableColumn col : cols){
+			col.pack();
+		}
 	}
 
 	private void fillComponentsTree(){
@@ -181,12 +258,16 @@ public class RefactoringSummaryPanel {
 
 	public void showRefactoringSummary(){
 
+		refTabFolder.setVisible(false);
 		clear();
+
+		fillInputsTable();
 		fillComponentsTree();
 		if(refactoring.getImage()!=null && 
 				!refactoring.getImage().equals("")){ //$NON-NLS-1$
 			createAndFillImageTabItem();
 		}
+
 		titleLabel.setText(Messages.RefactoringSummaryPanel_Title + refactoring.getName());
 		refTabFolder.setVisible(true);
 	}

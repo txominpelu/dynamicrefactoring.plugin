@@ -3,11 +3,9 @@ package dynamicrefactoring.util;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
-import java.util.Map;
 
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.graphics.Color;
-import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Tree;
 import org.eclipse.swt.widgets.TreeItem;
 
@@ -16,9 +14,8 @@ import com.swtdesigner.ResourceManager;
 import dynamicrefactoring.RefactoringPlugin;
 import dynamicrefactoring.domain.DynamicRefactoringDefinition;
 import dynamicrefactoring.domain.RefactoringException;
-import dynamicrefactoring.domain.metadata.interfaces.Category;
 import dynamicrefactoring.interfaz.TreeEditor;
-import dynamicrefactoring.interfaz.view.Messages;
+import dynamicrefactoring.util.Messages;
 
 public class RefactoringTreeManager {
 	
@@ -195,12 +192,12 @@ public class RefactoringTreeManager {
 			DynamicRefactoringDefinition definition) {
 		// Descripcion de la refactorizacion
 		TreeItem description = new TreeItem(refactoring, SWT.NONE);
-		description.setText(Messages.AvailableRefactoringView_Description + ":"
+		description.setText(Messages.RefactoringTreeManager_Description + ":"
 				+ definition.getDescription());
 
 		// Motivacion de la refactorizacion
 		TreeItem motivation = new TreeItem(refactoring, SWT.NONE);
-		motivation.setText(Messages.AvailableRefactoringView_Motivation + ":"
+		motivation.setText(Messages.RefactoringTreeManager_Motivation + ":"
 				+ definition.getMotivation());
 
 		// Crea precondiciones, acciones y postcondiciones en el
@@ -223,20 +220,20 @@ public class RefactoringTreeManager {
 				definition.getPreconditions(),
 				"icons" + System.getProperty("file.separator")
 				+ "check.gif",
-				Messages.AvailableRefactoringView_Preconditions);
+				Messages.RefactoringTreeManager_Preconditions);
 
 		// Acciones
 		createElementItemWithChildren(refactoring, definition.getActions(),
 				"icons" //$NON-NLS-1$
 				+ System.getProperty("file.separator") + "run.gif",
-				Messages.AvailableRefactoringView_Action);
+				Messages.RefactoringTreeManager_Action);
 
 		// Postcondiciones
 		createElementItemWithChildren(refactoring,
 				definition.getPostconditions(), "icons" //$NON-NLS-1$
 				+ System.getProperty("file.separator")
 				+ "validate.gif",
-				Messages.AvailableRefactoringView_Postconditions);
+				Messages.RefactoringTreeManager_Postconditions);
 	}
 
 	/**

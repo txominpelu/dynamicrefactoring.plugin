@@ -39,6 +39,12 @@ public class Messages extends NLS {
 	public static String RepositoryElementLister_RepositoryDirNotExists;
 	public static String ScopeLimitedLister_NotListed;
 	public static String ScopeLimitedLister_ErrorLoading;
+	public static String RefactoringTreeManager_Description;
+	public static String RefactoringTreeManager_Motivation;
+	public static String RefactoringTreeManager_Preconditions;
+	public static String RefactoringTreeManager_Action;
+	public static String RefactoringTreeManager_Postconditions;
+	
 	static {
 		// initialize resource bundle
 		NLS.initializeMessages(BUNDLE_NAME, Messages.class);

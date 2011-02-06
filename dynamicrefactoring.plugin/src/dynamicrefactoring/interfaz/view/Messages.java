@@ -61,6 +61,12 @@ public class Messages extends NLS {
 	public static String RefactoringListView_RefAction;
 	public static String RefactoringListView_ClassRefAction;
 	public static String RefactoringSummaryPanel_Title;
+	public static String RefactoringSummaryPanel_Inputs;
+	public static String RefactoringSummaryPanel_Name;
+	public static String RefactoringSummaryPanel_Type;
+	public static String RefactoringSummaryPanel_From;
+	public static String RefactoringSummaryPanel_Main;
+	public static String RefactoringSummaryPanel_MainTooltip;
 	public static String RefactoringSummaryPanel_Mechanism;
 	public static String RefactoringSummaryPanel_Preconditions;
 	public static String RefactoringSummaryPanel_Action;
