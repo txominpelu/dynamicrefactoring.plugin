@@ -76,6 +76,9 @@
       <artifactId>maven-osgi-test-plugin</artifactId>
       <version>${tycho-version}</version>
       <configuration>
+	<!--<includes>
+		<include>**/TestCaseRefactoringWriter.java</include>
+	</includes>-->
 	<argLine>-javaagent:${jacoco.agent.path}=destfile=${jacoco.file.path}</argLine>
       </configuration>
     </plugin>
