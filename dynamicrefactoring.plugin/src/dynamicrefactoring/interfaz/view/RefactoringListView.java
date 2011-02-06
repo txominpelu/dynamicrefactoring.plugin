@@ -232,10 +232,7 @@ public class RefactoringListView extends ViewPart {
 		
 		//sashForm Rigth: refComp
 		final Composite refComp = new Composite(sashForm, SWT.NONE);
-		FormLayout formLayout=new FormLayout();
-		formLayout.marginWidth=20;
-		formLayout.marginHeight=20;
-		refComp.setLayout(formLayout);
+		refComp.setLayout(new FormLayout());
 		
 		//actions
 		classAction=new Action(){
@@ -310,7 +307,7 @@ public class RefactoringListView extends ViewPart {
 		//descClassLabel
 		descClassLabel=new Label(classComp, SWT.LEFT);
 		classFormData=new FormData();
-		classFormData.top=new FormAttachment(classLabel,10);
+		classFormData.top=new FormAttachment(classLabel,15);
 		classFormData.left=new FormAttachment(0,5);
 		descClassLabel.setLayoutData(classFormData);
 

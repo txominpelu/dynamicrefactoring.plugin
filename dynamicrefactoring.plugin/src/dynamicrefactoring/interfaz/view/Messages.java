@@ -24,11 +24,6 @@ import org.eclipse.osgi.util.NLS;
 
 public class Messages extends NLS {
 	private static final String BUNDLE_NAME = "dynamicrefactoring.interfaz.view.messages"; //$NON-NLS-1$
-	public static String AvailableRefactoringView_Action;
-	public static String AvailableRefactoringView_Description;
-	public static String AvailableRefactoringView_Motivation;
-	public static String AvailableRefactoringView_Postconditions;
-	public static String AvailableRefactoringView_Preconditions;
 	public static String HistoryView_Error;
 	public static String HistoryView_ErrorOpening;
 	public static String HistoryView_NameCompleted;
@@ -65,6 +60,12 @@ public class Messages extends NLS {
 	public static String RefactoringListView_ClassAction;
 	public static String RefactoringListView_RefAction;
 	public static String RefactoringListView_ClassRefAction;
+	public static String RefactoringSummaryPanel_Title;
+	public static String RefactoringSummaryPanel_Mechanism;
+	public static String RefactoringSummaryPanel_Preconditions;
+	public static String RefactoringSummaryPanel_Action;
+	public static String RefactoringSummaryPanel_Postconditions;
+	public static String RefactoringSummaryPanel_Image;
 	
 	static {
 		// initialize resource bundle
