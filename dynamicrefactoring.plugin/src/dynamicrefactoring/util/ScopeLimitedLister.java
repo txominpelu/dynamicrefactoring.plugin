@@ -167,6 +167,7 @@ public class ScopeLimitedLister {
 	 * @return ámbito de la refactorización.
 	 */
 	public Scope getRefactoringScope(DynamicRefactoringDefinition definition){
+		//FIXME: Una refactorizacion pertenece al ambito definido en su fichero xml
 		for(String[] nextInput : definition.getInputs()){
 			// Para su entrada de tipo "raíz".
 			if (nextInput[4] != null && nextInput[4].equals("true")){ //$NON-NLS-1$
