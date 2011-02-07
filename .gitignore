@@ -1,6 +1,7 @@
 .metadata/
 .settings/
 cobertura/*
+dynamicrefactoring.plugin/log/dynamicrefactoring.plugin.properties
 dynamicrefactoring.plugin/target/*
 dynamicrefactoring.plugin/bin/*
 dynamicrefactoring.tests/target/*
