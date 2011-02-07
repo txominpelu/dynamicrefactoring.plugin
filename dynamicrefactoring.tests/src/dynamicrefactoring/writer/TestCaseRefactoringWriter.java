@@ -20,11 +20,14 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.*/
 
 package dynamicrefactoring.writer;
 
+import static org.junit.Assert.*;
 import static org.junit.Assert.assertFalse;
 
 import java.io.File;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Set;
 
 import org.apache.commons.io.FileUtils;
 import org.jdom.Document;
@@ -33,6 +36,7 @@ import org.junit.Test;
 
 import dynamicrefactoring.RefactoringConstants;
 import dynamicrefactoring.domain.DynamicRefactoringDefinition;
+import dynamicrefactoring.domain.metadata.interfaces.Category;
 
 /**
  * Comprueba que funciona correctamente el proceso de escritura de la definición
@@ -101,20 +105,62 @@ public class TestCaseRefactoringWriter {
 	@Test
 	public void testWritingWithMinimunInformation() throws Exception {
 
+		String refactoringName = "MinimumInformation";
 		DynamicRefactoringDefinition rd = createRefactoringDefinition(
-				"MinimumInformation", "Descripcion.", "Motivacion.");
+				refactoringName, "Descripcion.", "Motivacion.");
 
-		ArrayList<String[]> entradas = addSimpleInputs();
-
-		rd.setInputs(entradas);
+		rd.setInputs(addSimpleInputs());
 
 		addSimplePredicates(rd);
 
 		writeRefactoring(rd);
 
-		FileUtils
+		assertTrue(FileUtils
 				.contentEquals(
-						new File("./testdata/XML/Reader/MinimumInformation.xml"), new File("./testdata/XML/Writer/MinimumInformation.xml")); //$NON-NLS-1$
+						new File(String.format("./testdata/XML/Reader/%s.xml",refactoringName)), //$NON-NLS-1$
+						new File(String.format("./testdata/XML/Writer/%s.xml",refactoringName)))); //$NON-NLS-1$
+
+	}
+	
+	/**
+	 * Comprueba que la escritura se realiza correctamente cuando se añade la
+	 * información mínima necesaria. Para ello se da valor a los campos de un
+	 * objeto de tipo DynamicRefactoringDefinition y luego se realiza la
+	 * escritura; posteriormente se hace una comprobación del contenido del
+	 * fichero creado con el contenido que debería tener.
+	 * 
+	 * Esta información es: el nombre, la descripción, la motivación, una
+	 * entrada, una precondición, una acción y una postcondición; no tiene ni
+	 * imagen, ni parámetros ambiguos ni ejemplos. También tiene categorias
+	 * a las que pertenece.
+	 * 
+	 * @throws Exception
+	 *             si se produce un error al escribir la definición de la
+	 *             refactorización.
+	 */
+	@Test
+	public void testWritingWithMinimunInformationAndCategories() throws Exception {
+
+		String refactoringName = "RefactoringWithClassification";
+		DynamicRefactoringDefinition rd = createRefactoringDefinition(
+				refactoringName, "Descripcion.", "Motivacion.");
+
+		rd.setInputs(addSimpleInputs());
+		
+		Set<Category> categories = new HashSet<Category>();
+		categories.add(new Category("MiClassification","MiCategoria1"));
+		categories.add(new Category("MiClassification","MiCategoria2"));
+		
+		rd.setCategories(categories);
+
+		addSimplePredicates(rd);
+
+		writeRefactoring(rd);
+
+		assertTrue(FileUtils
+				.contentEquals(
+						new File(String.format("./testdata/XML/Reader/%s.xml",refactoringName)), //$NON-NLS-1$
+						new File(String.format("./testdata/XML/Writer/%s.xml",refactoringName)))); //$NON-NLS-1$
 
 	}
 
@@ -287,9 +333,9 @@ public class TestCaseRefactoringWriter {
 
 		writeRefactoring(rd);
 
-		FileUtils
+		assertTrue(FileUtils
 				.contentEquals(
-						new File("./testdata/XML/Reader/FullInformation.xml"), new File("./testdata/XML/Writer/FullInformation.xml")); //$NON-NLS-1$
+						new File("./testdata/XML/Reader/FullInformation.xml"), new File("./testdata/XML/Writer/FullInformation.xml"))); //$NON-NLS-1$
 	}
 
 	/**

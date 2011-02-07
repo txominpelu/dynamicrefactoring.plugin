@@ -5,7 +5,9 @@ import static org.junit.Assert.assertTrue;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 
 import org.junit.Before;
@@ -15,6 +17,7 @@ import com.google.common.base.Predicate;
 
 import dynamicrefactoring.domain.metadata.condition.CategoryCondition;
 import dynamicrefactoring.domain.metadata.interfaces.Category;
+import dynamicrefactoring.domain.metadata.interfaces.Classification;
 import dynamicrefactoring.domain.metadata.interfaces.ClassifiedElements;
 import dynamicrefactoring.domain.metadata.interfaces.Element;
 
@@ -48,6 +51,23 @@ public class ElementCatalogTest {
 				.readClassifiedElements(ElementCatalogTest.TESTDATA_ENTRADA_FILTRADA_POR_EXTRACT);
 		catalog.addConditionToFilter(CATEGORY_CONDITION_EXTRACT);
 		assertEquals(expected, catalog.getClassificationOfElements(true));
+	}
+	
+	@Test
+	public void filteringForExtractAndGetWithoutFilteredTest() throws IOException {
+		final ClassifiedElements<Element> withFiltered = MetadataDomainTestUtils
+				.readClassifiedElements(ElementCatalogTest.TESTDATA_ENTRADA_FILTRADA_POR_EXTRACT);
+		// Eliminamos la categoria filtered de los elementos clasificados
+		HashMap<Category, Set<Element>> expected = new HashMap<Category,Set<Element>>();
+		for(Category c : withFiltered.getClassification().getCategories()){
+			if(! c.equals(Category.FILTERED_CATEGORY)){
+				expected.put(c, withFiltered.getCategoryChildren(c));
+			}
+		}
+		Classification clasif = new SimpleUniLevelClassification(withFiltered.getClassification().getName(), withFiltered.getClassification().getDescription(), expected.keySet());
+		
+		catalog.addConditionToFilter(CATEGORY_CONDITION_EXTRACT);
+		assertEquals(new SimpleClassifiedElements<Element>(clasif, expected), catalog.getClassificationOfElements(false));
 	}
 
 	@Test

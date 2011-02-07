@@ -20,6 +20,8 @@ import org.eclipse.jface.resource.ImageDescriptor;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.custom.SashForm;
 import org.eclipse.swt.custom.ScrolledComposite;
+import org.eclipse.swt.events.MouseEvent;
+import org.eclipse.swt.events.MouseListener;
 import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.events.SelectionListener;
@@ -185,6 +187,12 @@ public class RefactoringListView extends ViewPart {
 	 */
 	private Action classRefAction;
 	
+	/**
+	 * Organizador de pestañas para mostrar la información
+	 * relativa a la refactorización seleccionada en el árbol.
+	 */
+	private RefactoringSummaryPanel refSummaryPanel;
+	
 
 	/**
 	 * Crea los controles SWT para este componente del espacio de trabajo.
@@ -223,10 +231,10 @@ public class RefactoringListView extends ViewPart {
 		classComp.setLayout(new FormLayout());
 		
 		//sashForm Rigth: refComp
-		FormData refFormData=null;
 		final Composite refComp = new Composite(sashForm, SWT.NONE);
 		refComp.setLayout(new FormLayout());
 		
+		//actions
 		classAction=new Action(){
 			public void run() {
 				sashForm.setMaximizedControl(classComp);
@@ -265,15 +273,10 @@ public class RefactoringListView extends ViewPart {
 		
 		IActionBars bars = getViewSite().getActionBars();
 		fillLocalToolBar(bars.getToolBarManager());
-		
-		//TODO: ELIMINAR; ES UNA PRUEBA
-		classLabel=new Label(refComp, SWT.LEFT);
-		classLabel.setText("Adios");
-		refFormData=new FormData();
-		refFormData.top=new FormAttachment(0,10);
-		refFormData.left=new FormAttachment(0,5);
-		classLabel.setLayoutData(refFormData);
 
+		//refSummaryPanel
+		refSummaryPanel=new RefactoringSummaryPanel(refComp);
+		
 		//classLabel
 		classLabel=new Label(classComp, SWT.LEFT);
 		classLabel.setText(Messages.RefactoringListView_Classification);
@@ -304,7 +307,7 @@ public class RefactoringListView extends ViewPart {
 		//descClassLabel
 		descClassLabel=new Label(classComp, SWT.LEFT);
 		classFormData=new FormData();
-		classFormData.top=new FormAttachment(classLabel,10);
+		classFormData.top=new FormAttachment(classLabel,15);
 		classFormData.left=new FormAttachment(0,5);
 		descClassLabel.setLayoutData(classFormData);
 
@@ -363,6 +366,7 @@ public class RefactoringListView extends ViewPart {
 		classFormData.left=new FormAttachment(0,5);
 		classFormData.right=new FormAttachment(100,-5);
 		refactoringsTree.setLayoutData(classFormData);
+		refactoringsTree.addMouseListener(new TreeMouseListener());
 
 		//filteredButton
 		filteredButton = new Button(classComp, SWT.CHECK | SWT.CENTER);
@@ -613,4 +617,47 @@ public class RefactoringListView extends ViewPart {
 		}
 
 	}
+	
+	/**
+	 * Recibe notificaciones cuando uno de los elementos de la lista de
+	 * refactorizaciones es seleccionado.
+	 */
+	private class TreeMouseListener implements MouseListener {
+
+		/**
+		 * Recibe una notificación de que un elemento del árbol que forma la
+		 * vista ha sido presionado doblemente con el ratón.
+		 * 
+		 * @param e
+		 *            el evento de selección disparado en la ventana.
+		 * 
+		 * @see MouseListener#mouseDoubleClick(MouseEvent)
+		 */
+		public void mouseDoubleClick(MouseEvent e) {
+			TreeItem[] selection = refactoringsTree.getSelection();
+			
+			String selectedName = selection[0].getText();
+			DynamicRefactoringDefinition refSelected=refactorings.get(selectedName);
+			
+			//comprobamos si se trata de una refactorización
+			if(refSelected!=null){
+				refSummaryPanel.setRefactoringDefinition(refSelected);
+				refSummaryPanel.showRefactoringSummary();
+			}
+			
+		}
+
+		/**
+		 * @see MouseListener#mouseDown(MouseEvent)
+		 */
+		public void mouseDown(MouseEvent e) {
+		}
+
+		/**
+		 * @see MouseListener#mouseUp(MouseEvent)
+		 */
+		public void mouseUp(MouseEvent e) {
+		}
+	}
+
 }

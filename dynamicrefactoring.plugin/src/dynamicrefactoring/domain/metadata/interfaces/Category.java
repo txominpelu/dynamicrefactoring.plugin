@@ -53,7 +53,7 @@ public final class Category implements Comparable<Category> {
 	}
 
 	
-	private String getParent() {
+	public String getParent() {
 		return this.parent;
 	}
 

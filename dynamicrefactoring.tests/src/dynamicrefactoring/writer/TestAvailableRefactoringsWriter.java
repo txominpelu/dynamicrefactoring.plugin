@@ -20,6 +20,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.*/
 
 package dynamicrefactoring.writer;
 
+import static org.junit.Assert.*;
 import static org.junit.Assert.assertEquals;
 
 import java.io.BufferedReader;
@@ -28,6 +29,7 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.util.HashMap;
 
+import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.FilenameUtils;
 import org.junit.After;
 import org.junit.Before;
@@ -116,23 +118,8 @@ public class TestAvailableRefactoringsWriter {
 
 		new JDOMXMLRefactoringWriterImp(null).writeFileToLoadRefactoringTypes();
 
-		FileReader fr1 = null;
-		FileReader fr2 = null;
-
-		File archivo1 = new File(RefactoringConstants.REFACTORING_TYPES_FILE); //$NON-NLS-1$
-		File archivo2 = new File(
-				"./testdata/XML/Reader/availableRefactorings/minimunInformation.xml"); //$NON-NLS-1$
-		String linea1, linea2;
-		fr1 = new FileReader(archivo1);
-		fr2 = new FileReader(archivo2);
-		BufferedReader br1 = new BufferedReader(fr1);
-		BufferedReader br2 = new BufferedReader(fr2);
-		while ((linea1 = br1.readLine()) != null
-				&& (linea2 = br2.readLine()) != null) {
-			assertEquals(linea1, linea2);
-		}
-		fr1.close();
-		fr2.close();
+		assertTrue(FileUtils.contentEquals(new File(RefactoringConstants.REFACTORING_TYPES_FILE), new File(
+		"./testdata/XML/Reader/availableRefactorings/minimunInformation.xml")));
 	}
 
 	/**

@@ -287,6 +287,8 @@ public class RefactoringWizard extends Wizard implements INewWizard {
 		refactoring.setActions(pageD.getActions());
 		refactoring.setPostconditions(pageE.getPostconditions());
 		
+		refactoring.setCategories(pageA.getCategories());
+		
 		HashMap<String, ArrayList<String[]>>[] map = 
 			(HashMap<String, ArrayList<String[]>>[])new HashMap[3];
 		
