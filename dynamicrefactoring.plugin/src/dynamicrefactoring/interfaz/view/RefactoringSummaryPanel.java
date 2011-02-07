@@ -29,6 +29,7 @@ import org.eclipse.swt.widgets.Text;
 import org.eclipse.swt.widgets.Tree;
 import org.eclipse.swt.widgets.TreeItem;
 
+import dynamicrefactoring.RefactoringImages;
 import dynamicrefactoring.RefactoringPlugin;
 import dynamicrefactoring.domain.DynamicRefactoringDefinition;
 import dynamicrefactoring.domain.Scope;
@@ -38,81 +39,81 @@ import dynamicrefactoring.util.RefactoringTreeManager;
 import dynamicrefactoring.util.ScopeLimitedLister;
 
 /**
- * Proporciona un organizador de pestañas, en el cual se muestra
- * la información relativa a la refactorización.
+ * Proporciona un organizador de pestaï¿½as, en el cual se muestra
+ * la informaciï¿½n relativa a la refactorizaciï¿½n.
  * @author XPMUser
  */
 public class RefactoringSummaryPanel {
 
 	/**
-	 * Etiqueta título.
+	 * Etiqueta tï¿½tulo.
 	 */
 	private Label titleLabel;
 	
 	/**
-	 * Número mínimo de pestañas, es el número de pestañas fijas a mostrar.
+	 * Nï¿½mero mï¿½nimo de pestaï¿½as, es el nï¿½mero de pestaï¿½as fijas a mostrar.
 	 */
 	private int minNumTabs;
 
 	/**
-	 * Organizador de pestañas.
+	 * Organizador de pestaï¿½as.
 	 */
 	private TabFolder refTabFolder;
 	
 	/**
-	 * Etiqueta descripción de la refactorización.
+	 * Etiqueta descripciï¿½n de la refactorizaciï¿½n.
 	 */
 	private Label descriptionLabel;
 	
 	/**
-	 * Cuadro de texto en que se mostrará la descripción de la refactorización.
+	 * Cuadro de texto en que se mostrarï¿½ la descripciï¿½n de la refactorizaciï¿½n.
 	 */
 	private Text descriptionText;
 	
 	/**
-	 * Etiqueta motivación de la refactorización.
+	 * Etiqueta motivaciï¿½n de la refactorizaciï¿½n.
 	 */
 	private Label motivationLabel;
 	
 	/**
-	 * Cuadro de texto en que se mostrará la motivación de la refactorización.
+	 * Cuadro de texto en que se mostrarï¿½ la motivaciï¿½n de la refactorizaciï¿½n.
 	 */
 	private Text motivationText;
 	
 	/**
-	 * Etiqueta categorias de la refactorización.
+	 * Etiqueta categorias de la refactorizaciï¿½n.
 	 */
 	private Label categoriesLabel;
 	
 	/**
-	 * Cuadro de texto en que se mostrará las categorias a las que pertenece la refactorización.
+	 * Cuadro de texto en que se mostrarï¿½ las categorias a las que pertenece la refactorizaciï¿½n.
 	 */
 	private Text categoriesText;
 	
 	/**
-	 * Conjunto de checkButton que se muestran en la pestaña de entradas.
+	 * Conjunto de checkButton que se muestran en la pestaï¿½a de entradas.
 	 */
 	private ArrayList<Button> checkButtonsInputsTab=new ArrayList<Button>();
 
 	/**
-	 * Tabla en que se mostrarán las entradas de la refactorización.
+	 * Tabla en que se mostrarï¿½n las entradas de la refactorizaciï¿½n.
 	 */
 	private Table inputsTable;
 
 	/**
-	 * Árbol sobre el que se mostrarán de forma estructurada los diferentes elementos
-	 * del repositorio que componen la refactorización (precondiciones, acciones y 
+	 * ï¿½rbol sobre el que se mostrarï¿½n de forma estructurada los diferentes elementos
+	 * del repositorio que componen la refactorizaciï¿½n (precondiciones, acciones y 
 	 * postcondiciones).
 	 */
 	private Tree componentsTree;
 
 	/**
-	 * Área en que se muestra la imagen asociada a la refactorización.
+	 * ï¿½rea en que se muestra la imagen asociada a la refactorizaciï¿½n.
 	 */
 	private Canvas imageCanvas ;
 	
 	/**
-	 * Definición de la refactorización.
+	 * Definiciï¿½n de la refactorizaciï¿½n.
 	 */
 	private DynamicRefactoringDefinition refactoring;
 
@@ -367,22 +368,22 @@ public class RefactoringSummaryPanel {
 		ArrayList<String> postconditions=refactoring.getPostconditions();
 
 		TreeItem preconditionsChild = TreeEditor.createBranch(componentsTree, 0,
-				Messages.RefactoringSummaryPanel_Preconditions, "icons" + System.getProperty("file.separator") + "check.gif"); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
+				Messages.RefactoringSummaryPanel_Preconditions, RefactoringImages.CHECK_ICON_PATH);
 		TreeItem actionsChild = TreeEditor.createBranch(componentsTree, 1, 
-				Messages.RefactoringSummaryPanel_Action, "icons" + System.getProperty("file.separator") + "run.gif"); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
+				Messages.RefactoringSummaryPanel_Action, RefactoringImages.RUN_ICON_PATH);
 		TreeItem postconditionsChild = TreeEditor.createBranch(componentsTree, 2,
-				Messages.RefactoringSummaryPanel_Postconditions, "icons" + System.getProperty("file.separator") + "validate.gif"); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
+				Messages.RefactoringSummaryPanel_Postconditions, RefactoringImages.VALIDATE_ICON_PATH);
 
 		TreeEditor.fillInTreeBranch(preconditions, preconditionsChild, 
-				"icons" + System.getProperty("file.separator") + "check.gif"); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
+				RefactoringImages.CHECK_ICON_PATH);
 		preconditionsChild.setExpanded(true);
 
 		TreeEditor.fillInTreeBranch(actions, actionsChild, 
-				"icons" + System.getProperty("file.separator") + "run.gif"); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
+				RefactoringImages.RUN_ICON_PATH);
 		actionsChild.setExpanded(true);
 
 		TreeEditor.fillInTreeBranch(postconditions, postconditionsChild, 
-				"icons" + System.getProperty("file.separator") + "validate.gif"); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
+				RefactoringImages.VALIDATE_ICON_PATH);
 		postconditionsChild.setExpanded(true);
 
 		componentsTree.setVisible(true);
@@ -390,8 +391,8 @@ public class RefactoringSummaryPanel {
 	}
 
 	/**
-	 * Establece la refactorización a mostrar.
-	 * @param ref definición de la refactorización a mostrar
+	 * Establece la refactorizaciï¿½n a mostrar.
+	 * @param ref definiciï¿½n de la refactorizaciï¿½n a mostrar
 	 */
 	public void setRefactoringDefinition(DynamicRefactoringDefinition ref) {
 		refactoring=ref;
@@ -415,3 +416,4 @@ public class RefactoringSummaryPanel {
 	}
 
 }
+
