@@ -20,6 +20,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.*/
 
 package dynamicrefactoring.interfaz.wizard;
 
+import dynamicrefactoring.PluginImages;
 import dynamicrefactoring.RefactoringPlugin;
 import dynamicrefactoring.interfaz.ButtonTextProvider;
 
@@ -89,6 +90,6 @@ public class CustomWizardDialog extends WizardDialog {
 		super.configureShell(newShell);
 		
 		newShell.setImage(ResourceManager.getPluginImage(RefactoringPlugin.getDefault(),
-			"icons" + System.getProperty("file.separator") + "ref.png")); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
+			PluginImages.REF_PNG_ICON_PATH)); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
 	}
 }

@@ -44,6 +44,7 @@ import org.eclipse.ui.part.ViewPart;
 import com.google.common.base.Predicate;
 import com.swtdesigner.ResourceManager;
 
+import dynamicrefactoring.PluginImages;
 import dynamicrefactoring.RefactoringConstants;
 import dynamicrefactoring.RefactoringPlugin;
 import dynamicrefactoring.domain.DynamicRefactoringDefinition;
@@ -511,7 +512,7 @@ public class RefactoringListView extends ViewPart {
 		int orderInBranchClass = 0;
 		TreeItem classTreeItem = TreeEditor.createBranch(refactoringsTree,
 				orderInBranchClass, classificationName,
-				"icons" + System.getProperty("file.separator") + "class.gif"); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
+				PluginImages.CLASS_GIF_ICON_PATH); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
 		orderInBranchClass++;
 
 		ArrayList<Category> categories = new ArrayList<Category>(

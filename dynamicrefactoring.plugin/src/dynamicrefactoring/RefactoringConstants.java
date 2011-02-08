@@ -275,4 +275,10 @@ public class RefactoringConstants {
 			"repository" + System.getProperty("file.separator") +  //$NON-NLS-1$ //$NON-NLS-2$
 			"java" + System.getProperty("file.separator") + "concretepredicate"; //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
 	}
+	
+	/**
+	 * Constructor privado que se asegura de que nadie
+	 * pueda crear instancias de esta clase.
+	 */
+	private RefactoringConstants(){}
 }

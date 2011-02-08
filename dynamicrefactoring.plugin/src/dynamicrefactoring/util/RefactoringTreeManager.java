@@ -11,6 +11,7 @@ import org.eclipse.swt.widgets.TreeItem;
 
 import com.swtdesigner.ResourceManager;
 
+import dynamicrefactoring.PluginImages;
 import dynamicrefactoring.RefactoringPlugin;
 import dynamicrefactoring.domain.DynamicRefactoringDefinition;
 import dynamicrefactoring.domain.RefactoringException;
@@ -90,7 +91,7 @@ public class RefactoringTreeManager {
 			Tree tree) {
 		TreeItem refactoring = TreeEditor.createBranch(tree,
 				refactOrderInBranch, definition.getName(),
-				"icons" + System.getProperty("file.separator") + "ref.png"); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
+				PluginImages.REF_PNG_ICON_PATH); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
 		createRefactoringTree(refactoring, definition);
 	}
 
@@ -112,7 +113,7 @@ public class RefactoringTreeManager {
 			TreeItem itemParent) {
 		TreeItem refactoring = TreeEditor.createBranch(itemParent,
 				refactOrderInBranch, definition.getName(),
-				"icons" + System.getProperty("file.separator") + "ref.png"); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
+				PluginImages.REF_PNG_ICON_PATH); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
 		createRefactoringTree(refactoring, definition);
 	}
 	
@@ -138,7 +139,7 @@ public class RefactoringTreeManager {
 	throws RefactoringException {
 		TreeItem refactoring = TreeEditor.createBranch(tree,
 				refactOrderInBranch, refactName,
-				"icons" + System.getProperty("file.separator") + "ref.png"); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
+				PluginImages.REF_PNG_ICON_PATH); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
 		createRefactoringDefinitionItems(refactDefinitionFile, refactoring);
 	}
 
@@ -164,7 +165,7 @@ public class RefactoringTreeManager {
 	throws RefactoringException {
 		TreeItem refactoring = TreeEditor.createBranch(itemParent,
 				refactOrderInBranch, refactName,
-				"icons" + System.getProperty("file.separator") + "ref.png"); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
+				PluginImages.REF_PNG_ICON_PATH); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
 		createRefactoringDefinitionItems(refactDefinitionFile, refactoring);
 	}
 

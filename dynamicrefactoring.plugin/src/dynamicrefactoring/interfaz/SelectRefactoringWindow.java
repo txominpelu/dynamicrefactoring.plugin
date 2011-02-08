@@ -60,6 +60,7 @@ import moon.core.instruction.CodeFragment;
 
 import moon.core.genericity.BoundS;
 import moon.core.genericity.FormalPar;
+import dynamicrefactoring.PluginImages;
 import dynamicrefactoring.RefactoringPlugin;
 
 /**
@@ -289,7 +290,7 @@ public class SelectRefactoringWindow extends Dialog {
 			break;
 		}
 		newShell.setImage(ResourceManager.getPluginImage(RefactoringPlugin.getDefault(),
-			"icons" + System.getProperty("file.separator") + "ref.png")); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
+				PluginImages.REF_PNG_ICON_PATH)); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
 	}
 	
 	/**
