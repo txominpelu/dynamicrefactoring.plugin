@@ -13,6 +13,8 @@ import org.eclipse.swt.graphics.ImageLoader;
 import org.eclipse.swt.graphics.Point;
 import org.eclipse.swt.layout.FormAttachment;
 import org.eclipse.swt.layout.FormData;
+import org.eclipse.swt.layout.GridData;
+import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Canvas;
 import org.eclipse.swt.widgets.Composite;
@@ -23,14 +25,17 @@ import org.eclipse.swt.widgets.TabItem;
 import org.eclipse.swt.widgets.Table;
 import org.eclipse.swt.widgets.TableColumn;
 import org.eclipse.swt.widgets.TableItem;
+import org.eclipse.swt.widgets.Text;
 import org.eclipse.swt.widgets.Tree;
 import org.eclipse.swt.widgets.TreeItem;
 
 import dynamicrefactoring.RefactoringPlugin;
 import dynamicrefactoring.domain.DynamicRefactoringDefinition;
+import dynamicrefactoring.domain.Scope;
+import dynamicrefactoring.domain.metadata.interfaces.Category;
 import dynamicrefactoring.interfaz.TreeEditor;
-import dynamicrefactoring.interfaz.wizard.RefactoringWizardPage2;
 import dynamicrefactoring.util.RefactoringTreeManager;
+import dynamicrefactoring.util.ScopeLimitedLister;
 
 /**
  * Proporciona un organizador de pestañas, en el cual se muestra
@@ -43,16 +48,51 @@ public class RefactoringSummaryPanel {
 	 * Etiqueta título.
 	 */
 	private Label titleLabel;
+	
+	/**
+	 * Número mínimo de pestañas, es el número de pestañas fijas a mostrar.
+	 */
+	private int minNumTabs;
 
 	/**
 	 * Organizador de pestañas.
 	 */
 	private TabFolder refTabFolder;
-
+	
 	/**
-	 * Definición de la refactorización.
+	 * Etiqueta descripción de la refactorización.
 	 */
-	private DynamicRefactoringDefinition refactoring;
+	private Label descriptionLabel;
+	
+	/**
+	 * Cuadro de texto en que se mostrará la descripción de la refactorización.
+	 */
+	private Text descriptionText;
+	
+	/**
+	 * Etiqueta motivación de la refactorización.
+	 */
+	private Label motivationLabel;
+	
+	/**
+	 * Cuadro de texto en que se mostrará la motivación de la refactorización.
+	 */
+	private Text motivationText;
+	
+	/**
+	 * Etiqueta categorias de la refactorización.
+	 */
+	private Label categoriesLabel;
+	
+	/**
+	 * Cuadro de texto en que se mostrará las categorias a las que pertenece la refactorización.
+	 */
+	private Text categoriesText;
+	
+	/**
+	 * Conjunto de checkButton que se muestran en la pestaña de entradas.
+	 */
+	private ArrayList<Button> checkButtonsInputsTab=new ArrayList<Button>();
 
 	/**
 	 * Tabla en que se mostrarán las entradas de la refactorización.
@@ -70,10 +110,11 @@ public class RefactoringSummaryPanel {
 	 * Área en que se muestra la imagen asociada a la refactorización.
 	 */
 	private Canvas imageCanvas ;
-
-	private int minNumTabs;
 	
-	ArrayList<Button> b=new ArrayList<Button>();
+	/**
+	 * Definición de la refactorización.
+	 */
+	private DynamicRefactoringDefinition refactoring;
 
 	public RefactoringSummaryPanel(Composite parent){
 
@@ -99,12 +140,98 @@ public class RefactoringSummaryPanel {
 		refTabFolder.setVisible(false);
 
 		//TabItems
+		createOverviewTabItem();
 		createInputsTabItem();
 		createMechanismTabItem();
 
 		minNumTabs=refTabFolder.getItemCount();
 	}
 
+	private void createOverviewTabItem(){
+
+		//comp
+		final Composite comp = new Composite(refTabFolder, SWT.NONE);
+		GridLayout g=new GridLayout();
+		g.numColumns=1;
+		g.marginHeight=10;
+		g.marginWidth=10;
+		g.verticalSpacing=10;
+		comp.setLayout(g);
+		
+		//descriptionComp
+		final Composite descriptionComp = new Composite(comp, SWT.NONE);
+		GridData gd=new GridData();
+		gd.verticalAlignment = GridData.FILL;
+		gd.grabExcessVerticalSpace = true;
+		gd.horizontalAlignment = GridData.FILL;
+		gd.grabExcessHorizontalSpace = true;
+		descriptionComp.setLayoutData(gd);
+		descriptionComp.setLayout(new GridLayout());
+		
+		descriptionLabel = new Label(descriptionComp, SWT.LEFT);
+		descriptionLabel.setText(Messages.RefactoringSummaryPanel_Description);
+		
+		descriptionText = new Text(descriptionComp, SWT.WRAP | SWT.V_SCROLL | SWT.READ_ONLY | SWT.MULTI | SWT.BORDER);
+		descriptionText.setBackground(Display.getCurrent().getSystemColor(SWT.COLOR_WHITE));
+		descriptionText.setEditable(false);
+		gd=new GridData();
+		gd.verticalAlignment = GridData.FILL;
+		gd.grabExcessVerticalSpace = true;
+		gd.horizontalAlignment = GridData.FILL;
+		gd.grabExcessHorizontalSpace = true;
+		descriptionText.setLayoutData(gd);
+
+		//motivationComp
+		final Composite motivationComp = new Composite(comp, SWT.NONE);
+		gd=new GridData();
+		gd.verticalAlignment = GridData.FILL;
+		gd.grabExcessVerticalSpace = true;
+		gd.horizontalAlignment = GridData.FILL;
+		gd.grabExcessHorizontalSpace = true;
+		motivationComp.setLayoutData(gd);
+		motivationComp.setLayout(new GridLayout());
+		
+		motivationLabel = new Label(motivationComp, SWT.CENTER);
+		motivationLabel.setText(Messages.RefactoringSummaryPanel_Motivation);
+		
+		motivationText = new Text(motivationComp, SWT.WRAP | SWT.V_SCROLL | SWT.READ_ONLY | SWT.MULTI | SWT.BORDER);
+		motivationText.setBackground(Display.getCurrent().getSystemColor(SWT.COLOR_WHITE));
+		motivationText.setEditable(false);
+		gd=new GridData();
+		gd.verticalAlignment = GridData.FILL;
+		gd.grabExcessVerticalSpace = true;
+		gd.horizontalAlignment = GridData.FILL;
+		gd.grabExcessHorizontalSpace = true;
+		motivationText.setLayoutData(gd);
+		
+		//categoriesComp
+		final Composite categoriesComp = new Composite(comp, SWT.NONE);
+		gd=new GridData();
+		gd.verticalAlignment = GridData.FILL;
+		gd.grabExcessVerticalSpace = true;
+		gd.horizontalAlignment = GridData.FILL;
+		gd.grabExcessHorizontalSpace = true;
+		categoriesComp.setLayoutData(gd);
+		categoriesComp.setLayout(new GridLayout());
+		
+		categoriesLabel = new Label(categoriesComp, SWT.CENTER);
+		categoriesLabel.setText(Messages.RefactoringSummaryPanel_Categories);
+		
+		categoriesText = new Text(categoriesComp, SWT.WRAP | SWT.V_SCROLL | SWT.READ_ONLY | SWT.MULTI | SWT.BORDER);
+		categoriesText.setBackground(Display.getCurrent().getSystemColor(SWT.COLOR_WHITE));
+		categoriesText.setEditable(false);
+		gd=new GridData();
+		gd.verticalAlignment = GridData.FILL;
+		gd.grabExcessVerticalSpace = true;
+		gd.horizontalAlignment = GridData.FILL;
+		gd.grabExcessHorizontalSpace = true;
+		categoriesText.setLayoutData(gd);
+		
+		TabItem item = new TabItem (refTabFolder, SWT.NONE);
+		item.setText(Messages.RefactoringSummaryPanel_Overview);
+		item.setControl(comp);
+	}
+	
 	private void createInputsTabItem(){
 		inputsTable = new Table(refTabFolder, SWT.BORDER);
 		inputsTable.setBackground(Display.getCurrent().getSystemColor(SWT.COLOR_WHITE));
@@ -182,17 +309,31 @@ public class RefactoringSummaryPanel {
 				items[i].dispose();
 		}
 
-		for(Button bu:b)
+		for(Button bu:checkButtonsInputsTab)
 			bu.dispose();
 
 		//componentsTree
 		RefactoringTreeManager.cleanTree(componentsTree);
 
 		//ImageTab
-		if(refTabFolder.getItemCount()!=minNumTabs)
+		if(refTabFolder.getItemCount()>minNumTabs)
 			refTabFolder.getItem(minNumTabs).dispose();
 	}
 
+	private void fillOverview(){
+		descriptionText.setText(refactoring.getDescription().trim());
+		motivationText.setText(refactoring.getMotivation().trim());
+		Scope scope = new ScopeLimitedLister().getRefactoringScope(refactoring);
+		String cat="";
+		if(scope!=null)
+			cat+="Scope."+scope.toString();
+		ArrayList<Category> categories = new ArrayList<Category>(refactoring.getCategories());
+		for (Category c : categories){
+		 cat+="\n" + c.getParent()+"."+c.getName();
+		}
+		categoriesText.setText(cat.trim());
+	}
+	
 	private void fillInputsTable(){
 		ArrayList<String[]> inputs=refactoring.getInputs();
 		Button checkButton=null;
@@ -207,7 +348,7 @@ public class RefactoringSummaryPanel {
 				checkButton.setSelection(true);
 			checkButton.setEnabled(false);
 			checkButton.pack();
-			b.add(checkButton);
+			checkButtonsInputsTab.add(checkButton);
 			editor.minimumWidth = checkButton.getSize().x;
 			editor.horizontalAlignment = SWT.CENTER;
 			editor.setEditor(checkButton, item, 3);
@@ -261,6 +402,7 @@ public class RefactoringSummaryPanel {
 		refTabFolder.setVisible(false);
 		clear();
 
+		fillOverview();
 		fillInputsTable();
 		fillComponentsTree();
 		if(refactoring.getImage()!=null && 
