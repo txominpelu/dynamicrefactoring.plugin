@@ -423,7 +423,7 @@ public class FileManager {
 	 * @throws IOException
 	 */
 	public static void copyBundleDirToFileSystem(String bundleDir,
-			String fileSystemDir) {
+			String fileSystemDir) throws IOException {
 		// TODO: Test para este método
 		final Bundle bundle = Platform.getBundle(RefactoringPlugin.BUNDLE_NAME);
 		final Enumeration<?> entries = bundle.findEntries(FilenameUtils.separatorsToUnix(bundleDir), "*", true);
@@ -433,25 +433,8 @@ public class FileManager {
 			URL entry = (URL) entrada;
 			File fichero = new File(entry.getFile());
 			if (!entry.toString().endsWith("/")) {
-				InputStream inputStream = null;
-				OutputStream outputStream = null;
-				try {
-					FileUtils.forceMkdir(new File(fileSystemDir
-							+ File.separator + fichero.getParent()));
-					inputStream = entry.openStream();
-					outputStream = new FileOutputStream(new File(fileSystemDir
-							+ entry.getFile()));
-					IOUtils.copy(inputStream, outputStream);
-					inputStream.close();
-					outputStream.close();
-				} catch (IllegalStateException e) {
-					e.printStackTrace();
-				} catch (IOException e) {
-					e.printStackTrace();
-				} finally {
-					IOUtils.closeQuietly(inputStream);
-					IOUtils.closeQuietly(outputStream);
-				}
+				FileUtils.copyURLToFile(entry, new File(fileSystemDir
+						+ entry.getFile()));
 	
 			}
 		}

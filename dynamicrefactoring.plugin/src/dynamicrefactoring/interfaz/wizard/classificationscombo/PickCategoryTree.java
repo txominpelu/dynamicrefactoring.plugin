@@ -1,20 +1,29 @@
 package dynamicrefactoring.interfaz.wizard.classificationscombo;
 
+import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Set;
 
+import org.eclipse.jface.resource.ImageDescriptor;
 import org.eclipse.jface.viewers.CheckStateChangedEvent;
 import org.eclipse.jface.viewers.CheckboxTreeViewer;
+import org.eclipse.jface.viewers.IBaseLabelProvider;
 import org.eclipse.jface.viewers.ICheckStateListener;
+import org.eclipse.jface.viewers.ICheckStateProvider;
+import org.eclipse.jface.viewers.ILabelProvider;
+import org.eclipse.jface.viewers.ILabelProviderListener;
 import org.eclipse.jface.viewers.LabelProvider;
 import org.eclipse.swt.SWT;
+import org.eclipse.swt.graphics.Image;
 import org.eclipse.swt.layout.FillLayout;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.widgets.Composite;
 
 import com.google.common.base.Predicate;
 import com.google.common.collect.Collections2;
+import com.google.common.collect.Sets;
 
+import dynamicrefactoring.PluginImages;
 import dynamicrefactoring.domain.DynamicRefactoringDefinition;
 import dynamicrefactoring.domain.metadata.interfaces.Category;
 import dynamicrefactoring.domain.metadata.interfaces.Classification;
@@ -42,26 +51,45 @@ public final class PickCategoryTree {
 	public PickCategoryTree(Composite parent,
 			Set<Classification> availableClassifications,
 			DynamicRefactoringDefinition refact) {
-		tv = new CheckboxTreeViewer(parent, SWT.V_SCROLL );
-		//tv.getTree().setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, false, 2, 1));
-		tv.getTree().setBounds(80, 317, 534, 160);
+		tv = new CheckboxTreeViewer(parent, SWT.V_SCROLL | SWT.BORDER
+				| SWT.CHECK);
+		// tv.getTree().setLayoutData(new GridData(SWT.FILL, SWT.FILL, true,
+		// false, 2, 1));
+		tv.getTree().setBounds(80, 320, 534, 160);
 		tv.setContentProvider(new ClassificationsTreeContentProvider());
-		tv.setLabelProvider(new LabelProvider() {
-			@Override
-			public String getText(Object element) {
-				if (element instanceof Classification) {
-					return ((Classification) element).getName();
-				}
-				return element.toString();
-			}
-		});
-		tv.addCheckStateListener(new ClassificationsCheckBoxTreeListener(
-				availableClassifications));
+		tv.setLabelProvider(new PickCategoryTreeLabelProvider());
+		ClassificationsCheckBoxTreeListener checkStateListener = new ClassificationsCheckBoxTreeListener(
+				availableClassifications);
+		tv.addCheckStateListener(checkStateListener);
 		tv.setInput(availableClassifications);
-		if(refact != null){
-			tv.setCheckedElements(refact.getCategories().toArray());
-		}
+		setTreeInitialState(availableClassifications, refact,
+				checkStateListener);
 		this.availableClassifications = availableClassifications;
+	}
+
+	/**
+	 * Marca las categorias a las que la refactorizacion pertenece y las
+	 * clasificaciones en las que hay categorías marcadas como gris.
+	 * 
+	 * @param availableClassifications
+	 *            clasificaciones disponibles
+	 * @param refact
+	 *            refactorizacion
+	 * @param checkStateListener
+	 *            encargado de lidiar con los eventos de cambio de estado del
+	 *            arbol
+	 */
+	private void setTreeInitialState(
+			Set<Classification> availableClassifications,
+			DynamicRefactoringDefinition refact,
+			ClassificationsCheckBoxTreeListener checkStateListener) {
+		if (refact != null) {
+
+			tv.setCheckedElements(refact.getCategories().toArray());
+			for (Classification classification : availableClassifications) {
+				checkStateListener.grayParentIfNeeded(classification, tv);
+			}
+		}
 	}
 
 	/**
@@ -144,75 +172,42 @@ public final class PickCategoryTree {
 		return elemento instanceof Category;
 	}
 
-	/**
-	 * Comprueba los cambios que se producen cuando alguna de las categorias es
-	 * marcada. Evita que varias categorias sean seleccionadas cuando la
-	 * clasificacion no es multicategoria.
-	 * 
-	 * @author imediava
-	 * 
-	 */
-	static class ClassificationsCheckBoxTreeListener implements
-			ICheckStateListener {
+	
 
-		private final Set<Classification> availableClassifications;
-
-		private ClassificationsCheckBoxTreeListener(
-				Set<Classification> availableClassifications) {
-			this.availableClassifications = availableClassifications;
-		}
+	private static class PickCategoryTreeLabelProvider extends LabelProvider
+			implements ILabelProvider {
 
 		/**
-		 * Evento de cambio de estado.
+		 * Dado el elemento devuelve el texto que se debe mostar en el arbol de
+		 * seleccion de categorias para el elemento. Sera el nombre de la
+		 * categoría o clasificacion.
 		 * 
-		 * Si el evento corresponde a una clasificacion
-		 * {@link dealWithParentCheckStateChange} se ocupa de tratarlo.
-		 * 
-		 * Si el evento corresponde a una categoria solo permitira marcar una si
-		 * su padre no permite refactorizaciones que pertenecen a multiples
-		 * categorias (refact. multicategoria).
+		 * @param element
+		 *            elemento
+		 * @return texto a mostrar en el arbol para el elemento
 		 */
 		@Override
-		public void checkStateChanged(CheckStateChangedEvent event) {
-			Object elemento = event.getElement();
-			CheckboxTreeViewer viewer = (CheckboxTreeViewer) event.getSource();
-			if (PickCategoryTree.isParentElement(elemento)) {
-				dealWithParentCheckStateChange(event,
-						(Classification) elemento, viewer);
-			} else if (PickCategoryTree.isChildElement(elemento)
-					&& !PickCategoryTree.getParent(elemento,
-							this.availableClassifications).isMultiCategory()
-					&& event.getChecked()) {
-				viewer.setSubtreeChecked(PickCategoryTree.getParent(elemento,
-						this.availableClassifications), false);
-				viewer.setChecked(elemento, true);
+		public String getText(Object element) {
+			if (element instanceof Classification) {
+				return ((Classification) element).getName();
 			}
+			return element.toString();
 		}
 
 		/**
-		 * Gestiona un evento en el que una clasificacion ha sido
-		 * marcada/desmarcada.
+		 * Dado el elemento devuelve la imagen que se debe mostar en el arbol de
+		 * seleccion de categorias para el elemento.
 		 * 
-		 * Si la clasificacion es multicategoria aplica a sus categorias el
-		 * mismo estado que se le ha aplicado a ella.
-		 * 
-		 * Si no es multicategoria se deja el arbol como estaba antes del
-		 * evento.
-		 * 
-		 * @param event
-		 *            evento
-		 * @param classification
-		 *            clasification objeto del evento
-		 * @param viewer
+		 * @param element
+		 *            elemento
+		 * @return imagen a mostrar en el arbol para el elemento
 		 */
-		private void dealWithParentCheckStateChange(
-				CheckStateChangedEvent event, Classification classification,
-				CheckboxTreeViewer viewer) {
-			if (classification.isMultiCategory()) {
-				viewer.setSubtreeChecked(classification, event.getChecked());
-			} else {
-				viewer.setChecked(classification, false);
+		@Override
+		public Image getImage(Object element) {
+			if (element instanceof Classification) {
+				return PluginImages.getClassGifIcon();
 			}
+			return PluginImages.getRefPngIcon();
 		}
 
 	}

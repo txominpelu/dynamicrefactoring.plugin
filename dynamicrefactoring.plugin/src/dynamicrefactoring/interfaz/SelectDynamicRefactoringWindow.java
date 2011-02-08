@@ -22,6 +22,7 @@ package dynamicrefactoring.interfaz;
 
 import java.text.MessageFormat;
 
+import dynamicrefactoring.PluginImages;
 import dynamicrefactoring.RefactoringConstants;
 import dynamicrefactoring.domain.DynamicRefactoringDefinition;
 
@@ -244,7 +245,7 @@ public abstract class SelectDynamicRefactoringWindow extends DynamicRefactoringL
 		super.configureShell(newShell);
 		newShell.setText(Messages.SelectDynamicRefactoringWindow_RefactoringSelection);
 		newShell.setImage(ResourceManager.getPluginImage(RefactoringPlugin.getDefault(),
-			"icons" + System.getProperty("file.separator") + "ref.png")); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
+				PluginImages.REF_PNG_ICON_PATH)); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
 	}
 
 	/**
