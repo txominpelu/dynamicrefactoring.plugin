@@ -15,6 +15,7 @@ import org.eclipse.jface.viewers.ILabelProviderListener;
 import org.eclipse.jface.viewers.LabelProvider;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.graphics.Image;
+import org.eclipse.swt.graphics.Rectangle;
 import org.eclipse.swt.layout.FillLayout;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.widgets.Composite;
@@ -50,20 +51,21 @@ public final class PickCategoryTree {
 	 */
 	public PickCategoryTree(Composite parent,
 			Set<Classification> availableClassifications,
-			DynamicRefactoringDefinition refact) {
+			Set<Category> categories, Rectangle bounds, boolean enabled) {
 		tv = new CheckboxTreeViewer(parent, SWT.V_SCROLL | SWT.BORDER
 				| SWT.CHECK);
 		// tv.getTree().setLayoutData(new GridData(SWT.FILL, SWT.FILL, true,
 		// false, 2, 1));
-		tv.getTree().setBounds(80, 320, 534, 160);
+		tv.getTree().setBounds(bounds);
 		tv.setContentProvider(new ClassificationsTreeContentProvider());
 		tv.setLabelProvider(new PickCategoryTreeLabelProvider());
 		ClassificationsCheckBoxTreeListener checkStateListener = new ClassificationsCheckBoxTreeListener(
 				availableClassifications);
 		tv.addCheckStateListener(checkStateListener);
 		tv.setInput(availableClassifications);
-		setTreeInitialState(availableClassifications, refact,
+		setTreeInitialState(availableClassifications, categories,
 				checkStateListener);
+		tv.getTree().setEnabled(enabled);
 		this.availableClassifications = availableClassifications;
 	}
 
@@ -73,22 +75,19 @@ public final class PickCategoryTree {
 	 * 
 	 * @param availableClassifications
 	 *            clasificaciones disponibles
-	 * @param refact
-	 *            refactorizacion
+	 * @param categories
+	 *            categorias a las que pertenece inicialmente la refactorizacion
 	 * @param checkStateListener
 	 *            encargado de lidiar con los eventos de cambio de estado del
 	 *            arbol
 	 */
 	private void setTreeInitialState(
 			Set<Classification> availableClassifications,
-			DynamicRefactoringDefinition refact,
+			Set<Category> categories,
 			ClassificationsCheckBoxTreeListener checkStateListener) {
-		if (refact != null) {
-
-			tv.setCheckedElements(refact.getCategories().toArray());
-			for (Classification classification : availableClassifications) {
-				checkStateListener.grayParentIfNeeded(classification, tv);
-			}
+		tv.setCheckedElements(categories.toArray());
+		for (Classification classification : availableClassifications) {
+			checkStateListener.grayParentIfNeeded(classification, tv);
 		}
 	}
 
