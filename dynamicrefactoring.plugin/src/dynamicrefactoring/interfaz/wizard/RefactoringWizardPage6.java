@@ -315,9 +315,9 @@ public class RefactoringWizardPage6 extends WizardPage {
 	 * <code>false</code> si tiene contenido y termina en una de dichas extensiones. 
 	 */
 	private boolean isNotValidString(Text field) {
-		return (field.getText() != "" &&  //$NON-NLS-1$
+		return (!field.getText().isEmpty()) &&  //$NON-NLS-1$
 			!  (field.getText().toLowerCase().endsWith(".txt") || //$NON-NLS-1$
-				field.getText().toLowerCase().endsWith(".java"))); //$NON-NLS-1$
+				field.getText().toLowerCase().endsWith(".java")); //$NON-NLS-1$
 	}
 
 	/**

@@ -21,6 +21,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.*/
 package dynamicrefactoring.interfaz.wizard;
 
 import java.text.MessageFormat;
+import java.util.HashSet;
 import java.util.Set;
 
 import javax.xml.bind.ValidationException;
@@ -43,6 +44,7 @@ import org.eclipse.swt.events.ModifyEvent;
 import org.eclipse.swt.events.ModifyListener;
 import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.events.SelectionListener;
+import org.eclipse.swt.graphics.Rectangle;
 
 import org.eclipse.swt.layout.FillLayout;
 import org.eclipse.swt.layout.FormAttachment;
@@ -198,10 +200,11 @@ public class RefactoringWizardPage1 extends WizardPage {
 		t_Motivation.setBounds(80, 207, 534, 97);
 		
 		try {
+			Set<Category> categories = (refactoring == null ? new HashSet<Category>() : refactoring.getCategories());
 			picker = new PickCategoryTree(composite,ClassificationsReaderFactory
 					.getReader(
 							ClassificationsReaderFactory.ClassificationsReaderTypes.JAXB_READER)
-					.readClassifications(RefactoringConstants.CLASSIFICATION_TYPES_FILE),refactoring);
+					.readClassifications(RefactoringConstants.CLASSIFICATION_TYPES_FILE),categories, new Rectangle(80, 320, 534, 160), true);
 		} catch (ValidationException e1) {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
