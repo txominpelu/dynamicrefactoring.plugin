@@ -292,11 +292,11 @@ public class RefactoringListView extends ViewPart {
 
 		//añadimos la clasificacion por defecto
 		classCombo.add(NONE_CLASSIFICATION.getName());
-		classifications.add(NONE_CLASSIFICATION);
 
 		Collections.sort(classifications);
 		for (Classification classification : classifications)
 			classCombo.add(classification.getName());
+		classifications.add(NONE_CLASSIFICATION);
 
 		classFormData=new FormData();
 		classFormData.top=new FormAttachment(0,5);
