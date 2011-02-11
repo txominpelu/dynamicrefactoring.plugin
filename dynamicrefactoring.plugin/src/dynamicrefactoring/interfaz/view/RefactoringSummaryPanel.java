@@ -29,6 +29,7 @@ import org.eclipse.swt.widgets.Text;
 import org.eclipse.swt.widgets.Tree;
 import org.eclipse.swt.widgets.TreeItem;
 
+import dynamicrefactoring.RefactoringImages;
 import dynamicrefactoring.RefactoringPlugin;
 import dynamicrefactoring.domain.DynamicRefactoringDefinition;
 import dynamicrefactoring.domain.Scope;
@@ -367,22 +368,22 @@ public class RefactoringSummaryPanel {
 		ArrayList<String> postconditions=refactoring.getPostconditions();
 
 		TreeItem preconditionsChild = TreeEditor.createBranch(componentsTree, 0,
-				Messages.RefactoringSummaryPanel_Preconditions, "icons" + System.getProperty("file.separator") + "check.gif"); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
+				Messages.RefactoringSummaryPanel_Preconditions, RefactoringImages.CHECK_ICON_PATH);
 		TreeItem actionsChild = TreeEditor.createBranch(componentsTree, 1, 
-				Messages.RefactoringSummaryPanel_Action, "icons" + System.getProperty("file.separator") + "run.gif"); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
+				Messages.RefactoringSummaryPanel_Action, RefactoringImages.RUN_ICON_PATH);
 		TreeItem postconditionsChild = TreeEditor.createBranch(componentsTree, 2,
-				Messages.RefactoringSummaryPanel_Postconditions, "icons" + System.getProperty("file.separator") + "validate.gif"); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
+				Messages.RefactoringSummaryPanel_Postconditions, RefactoringImages.VALIDATE_ICON_PATH);
 
 		TreeEditor.fillInTreeBranch(preconditions, preconditionsChild, 
-				"icons" + System.getProperty("file.separator") + "check.gif"); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
+				RefactoringImages.CHECK_ICON_PATH);
 		preconditionsChild.setExpanded(true);
 
 		TreeEditor.fillInTreeBranch(actions, actionsChild, 
-				"icons" + System.getProperty("file.separator") + "run.gif"); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
+				RefactoringImages.RUN_ICON_PATH);
 		actionsChild.setExpanded(true);
 
 		TreeEditor.fillInTreeBranch(postconditions, postconditionsChild, 
-				"icons" + System.getProperty("file.separator") + "validate.gif"); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
+				RefactoringImages.VALIDATE_ICON_PATH);
 		postconditionsChild.setExpanded(true);
 
 		componentsTree.setVisible(true);

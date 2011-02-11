@@ -21,6 +21,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.*/
 package dynamicrefactoring.interfaz.wizard;
 
 import dynamicrefactoring.RefactoringConstants;
+import dynamicrefactoring.RefactoringImages;
 import dynamicrefactoring.interfaz.TreeEditor;
 import dynamicrefactoring.interfaz.wizard.classificationscombo.PickCategoryTree;
 import dynamicrefactoring.plugin.xml.classifications.imp.ClassificationsReaderFactory;
@@ -234,18 +235,18 @@ public class RefactoringWizardPage7 extends WizardPage {
 								
 				
 				TreeItem preconditionsChild = TreeEditor.createBranch(tr_Components, 0,
-					Messages.RefactoringWizardPage7_Preconditions, "icons" + System.getProperty("file.separator") + "check.gif"); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
+					Messages.RefactoringWizardPage7_Preconditions, RefactoringImages.CHECK_ICON_PATH); 
 				TreeItem actionsChild = TreeEditor.createBranch(tr_Components, 1, 
-					Messages.RefactoringWizardPage7_Actions, "icons" + System.getProperty("file.separator") + "run.gif"); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
+					Messages.RefactoringWizardPage7_Actions, RefactoringImages.RUN_ICON_PATH); 
 				TreeItem postconditionsChild = TreeEditor.createBranch(tr_Components, 2,
-					Messages.RefactoringWizardPage7_Postconditions, "icons" + System.getProperty("file.separator") + "validate.gif"); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
+					Messages.RefactoringWizardPage7_Postconditions, RefactoringImages.VALIDATE_ICON_PATH); 
 				
 				TreeEditor.fillInTreeBranch(preconditions, preconditionsChild, 
-					"icons" + System.getProperty("file.separator") + "check.gif"); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
+						RefactoringImages.CHECK_ICON_PATH); 
 				TreeEditor.fillInTreeBranch(actions, actionsChild, 
-					"icons" + System.getProperty("file.separator") + "run.gif"); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
+						RefactoringImages.RUN_ICON_PATH); 
 				TreeEditor.fillInTreeBranch(postconditions, postconditionsChild, 
-					"icons" + System.getProperty("file.separator") + "validate.gif"); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
+						RefactoringImages.VALIDATE_ICON_PATH); 
 			}
 		}
 	}

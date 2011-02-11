@@ -44,7 +44,7 @@ import org.eclipse.ui.part.ViewPart;
 import com.google.common.base.Predicate;
 import com.swtdesigner.ResourceManager;
 
-import dynamicrefactoring.PluginImages;
+import dynamicrefactoring.RefactoringImages;
 import dynamicrefactoring.RefactoringConstants;
 import dynamicrefactoring.RefactoringPlugin;
 import dynamicrefactoring.domain.DynamicRefactoringDefinition;
@@ -246,7 +246,7 @@ public class RefactoringListView extends ViewPart {
 		classAction.setToolTipText(Messages.RefactoringListView_ClassAction);
 		classAction.setImageDescriptor(ImageDescriptor.createFromImage(
 				ResourceManager.getPluginImage(RefactoringPlugin.getDefault(),
-						"icons" + System.getProperty("file.separator") + "split_l.png")));//$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
+						RefactoringImages.SPLIT_L_ICON_PATH)));
 		
 		refAction=new Action(){
 			public void run() {
@@ -258,7 +258,7 @@ public class RefactoringListView extends ViewPart {
 		refAction.setToolTipText(Messages.RefactoringListView_RefAction);
 		refAction.setImageDescriptor(ImageDescriptor.createFromImage(
 				ResourceManager.getPluginImage(RefactoringPlugin.getDefault(),
-						"icons" + System.getProperty("file.separator") + "split_r.png")));//$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
+						RefactoringImages.SPLIT_R_ICON_PATH)));
 		
 		classRefAction=new Action(){
 			public void run() {
@@ -270,7 +270,7 @@ public class RefactoringListView extends ViewPart {
 		classRefAction.setToolTipText(Messages.RefactoringListView_ClassRefAction);
 		classRefAction.setImageDescriptor(ImageDescriptor.createFromImage(
 				ResourceManager.getPluginImage(RefactoringPlugin.getDefault(),
-						"icons" + System.getProperty("file.separator") + "split.png")));//$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
+						RefactoringImages.SPLIT_ICON_PATH)));
 		
 		IActionBars bars = getViewSite().getActionBars();
 		fillLocalToolBar(bars.getToolBarManager());
@@ -325,7 +325,7 @@ public class RefactoringListView extends ViewPart {
 		searchButton = new Button(classComp, SWT.PUSH);
 		searchButton.setImage(ResourceManager.getPluginImage(
 				RefactoringPlugin.getDefault(),
-				"icons" + System.getProperty("file.separator") + "search.png"));//$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
+				RefactoringImages.SEARCH_ICON_PATH));
 		classFormData = new FormData();
 		classFormData.top = new FormAttachment(0, 3);
 		classFormData.left = new FormAttachment(searchText, 5);
@@ -512,7 +512,7 @@ public class RefactoringListView extends ViewPart {
 		int orderInBranchClass = 0;
 		TreeItem classTreeItem = TreeEditor.createBranch(refactoringsTree,
 				orderInBranchClass, classificationName,
-				PluginImages.CLASS_GIF_ICON_PATH); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
+				RefactoringImages.CLASS_ICON_PATH);
 		orderInBranchClass++;
 
 		ArrayList<Category> categories = new ArrayList<Category>(
@@ -534,7 +534,7 @@ public class RefactoringListView extends ViewPart {
 						&& dRefactDef.size()>0){
 					catTreeItem = TreeEditor.createBranch(classTreeItem,
 							orderInBranchCat, c.getName(),
-							"icons" + System.getProperty("file.separator")+ "cat.gif"); //$NON-NLS-1$ //$NON-NLS-2$
+							RefactoringImages.CAT_ICON_PATH); 
 					orderInBranchCat++;
 				}
 				createTreeItemFromParent(dRefactDef, catTreeItem, false);
@@ -542,7 +542,7 @@ public class RefactoringListView extends ViewPart {
 				if(dRefactDef.size()>0){
 					filTreeItem = TreeEditor.createBranch(refactoringsTree,
 							orderInBranchClass, Category.FILTERED_CATEGORY.getName(), 
-							"icons" + System.getProperty("file.separator") + "fil.png"); //$NON-NLS-1$
+							RefactoringImages.FIL_ICON_PATH);
 					orderInBranchClass++;
 					filTreeItem.setForeground(
 							Display.getCurrent().getSystemColor(SWT.COLOR_DARK_GRAY));
@@ -560,7 +560,7 @@ public class RefactoringListView extends ViewPart {
 	 * @param dRefactDef lista de refactorizaciones
 	 * @param catTreeItem 
 	 * @param filtered indicador de filtrado. Si es verdadero se trata de
-	 * 			refactorizaciones filtradas, falso en caso contrario.
+	 * 			refactorizaciones filtradas, falso en caso contrario;
 	 */
 	private void createTreeItemFromParent(
 			ArrayList<DynamicRefactoringDefinition> dRefactDef,

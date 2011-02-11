@@ -11,7 +11,7 @@ import org.eclipse.swt.widgets.TreeItem;
 
 import com.swtdesigner.ResourceManager;
 
-import dynamicrefactoring.PluginImages;
+import dynamicrefactoring.RefactoringImages;
 import dynamicrefactoring.RefactoringPlugin;
 import dynamicrefactoring.domain.DynamicRefactoringDefinition;
 import dynamicrefactoring.domain.RefactoringException;
@@ -91,7 +91,7 @@ public class RefactoringTreeManager {
 			Tree tree) {
 		TreeItem refactoring = TreeEditor.createBranch(tree,
 				refactOrderInBranch, definition.getName(),
-				PluginImages.REF_PNG_ICON_PATH); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
+				RefactoringImages.REF_ICON_PATH); 
 		createRefactoringTree(refactoring, definition);
 	}
 
@@ -113,7 +113,7 @@ public class RefactoringTreeManager {
 			TreeItem itemParent) {
 		TreeItem refactoring = TreeEditor.createBranch(itemParent,
 				refactOrderInBranch, definition.getName(),
-				PluginImages.REF_PNG_ICON_PATH); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
+				RefactoringImages.REF_ICON_PATH); 
 		createRefactoringTree(refactoring, definition);
 	}
 	
@@ -139,7 +139,7 @@ public class RefactoringTreeManager {
 	throws RefactoringException {
 		TreeItem refactoring = TreeEditor.createBranch(tree,
 				refactOrderInBranch, refactName,
-				PluginImages.REF_PNG_ICON_PATH); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
+				RefactoringImages.REF_ICON_PATH); 
 		createRefactoringDefinitionItems(refactDefinitionFile, refactoring);
 	}
 
@@ -165,7 +165,7 @@ public class RefactoringTreeManager {
 	throws RefactoringException {
 		TreeItem refactoring = TreeEditor.createBranch(itemParent,
 				refactOrderInBranch, refactName,
-				PluginImages.REF_PNG_ICON_PATH); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
+				RefactoringImages.REF_ICON_PATH); 
 		createRefactoringDefinitionItems(refactDefinitionFile, refactoring);
 	}
 
@@ -219,21 +219,18 @@ public class RefactoringTreeManager {
 		// Precondiciones
 		createElementItemWithChildren(refactoring,
 				definition.getPreconditions(),
-				"icons" + System.getProperty("file.separator")
-				+ "check.gif",
+				RefactoringImages.CHECK_ICON_PATH,
 				Messages.RefactoringTreeManager_Preconditions);
 
 		// Acciones
 		createElementItemWithChildren(refactoring, definition.getActions(),
-				"icons" //$NON-NLS-1$
-				+ System.getProperty("file.separator") + "run.gif",
+				RefactoringImages.RUN_ICON_PATH,
 				Messages.RefactoringTreeManager_Action);
 
 		// Postcondiciones
 		createElementItemWithChildren(refactoring,
-				definition.getPostconditions(), "icons" //$NON-NLS-1$
-				+ System.getProperty("file.separator")
-				+ "validate.gif",
+				definition.getPostconditions(), 
+				RefactoringImages.VALIDATE_ICON_PATH,
 				Messages.RefactoringTreeManager_Postconditions);
 	}
 
@@ -254,9 +251,8 @@ public class RefactoringTreeManager {
 		TreeItem postconditionsChild = new TreeItem(itemParent, SWT.NONE);
 		postconditionsChild.setText(itemText);
 		postconditionsChild.setImage(ResourceManager.getPluginImage(
-				RefactoringPlugin.getDefault(), iconPath)); //$NON-NLS-1$ //$NON-NLS-2$
-		TreeEditor.fillInTreeBranch(childrenNames, postconditionsChild,
-				iconPath); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
+				RefactoringPlugin.getDefault(), iconPath)); 
+		TreeEditor.fillInTreeBranch(childrenNames, postconditionsChild, iconPath); 
 	}
 
 }

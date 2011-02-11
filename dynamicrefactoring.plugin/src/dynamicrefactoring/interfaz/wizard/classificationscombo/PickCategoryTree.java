@@ -1,31 +1,20 @@
 package dynamicrefactoring.interfaz.wizard.classificationscombo;
 
-import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Set;
 
-import org.eclipse.jface.resource.ImageDescriptor;
-import org.eclipse.jface.viewers.CheckStateChangedEvent;
 import org.eclipse.jface.viewers.CheckboxTreeViewer;
-import org.eclipse.jface.viewers.IBaseLabelProvider;
-import org.eclipse.jface.viewers.ICheckStateListener;
-import org.eclipse.jface.viewers.ICheckStateProvider;
 import org.eclipse.jface.viewers.ILabelProvider;
-import org.eclipse.jface.viewers.ILabelProviderListener;
 import org.eclipse.jface.viewers.LabelProvider;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.graphics.Image;
 import org.eclipse.swt.graphics.Rectangle;
-import org.eclipse.swt.layout.FillLayout;
-import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.widgets.Composite;
 
 import com.google.common.base.Predicate;
 import com.google.common.collect.Collections2;
-import com.google.common.collect.Sets;
 
-import dynamicrefactoring.PluginImages;
-import dynamicrefactoring.domain.DynamicRefactoringDefinition;
+import dynamicrefactoring.RefactoringImages;
 import dynamicrefactoring.domain.metadata.interfaces.Category;
 import dynamicrefactoring.domain.metadata.interfaces.Classification;
 
@@ -147,16 +136,16 @@ public final class PickCategoryTree {
 			Set<Classification> availableClassifications) {
 		final Category category = (Category) categoryObject;
 		return Collections2
-				.filter(availableClassifications,
-						new Predicate<Classification>() {
+		.filter(availableClassifications,
+				new Predicate<Classification>() {
 
-							@Override
-							public boolean apply(Classification arg0) {
-								return arg0.getName().equals(
-										category.getParent());
-							}
+			@Override
+			public boolean apply(Classification arg0) {
+				return arg0.getName().equals(
+						category.getParent());
+			}
 
-						}).iterator().next();
+		}).iterator().next();
 
 	}
 
@@ -171,10 +160,10 @@ public final class PickCategoryTree {
 		return elemento instanceof Category;
 	}
 
-	
+
 
 	private static class PickCategoryTreeLabelProvider extends LabelProvider
-			implements ILabelProvider {
+	implements ILabelProvider {
 
 		/**
 		 * Dado el elemento devuelve el texto que se debe mostar en el arbol de
@@ -204,9 +193,9 @@ public final class PickCategoryTree {
 		@Override
 		public Image getImage(Object element) {
 			if (element instanceof Classification) {
-				return PluginImages.getClassGifIcon();
+				return RefactoringImages.getClassIcon();
 			}
-			return PluginImages.getRefPngIcon();
+			return RefactoringImages.getCatIcon();
 		}
 
 	}
