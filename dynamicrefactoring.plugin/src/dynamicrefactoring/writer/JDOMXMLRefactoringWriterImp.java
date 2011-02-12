@@ -367,7 +367,34 @@ public class JDOMXMLRefactoringWriterImp implements XMLRefactoringWriterImp {
 
 		}
 		
+		// Agrega las palabras clave que describen la refactorizacion
+		if (refactoringDefinition.getKeywords().size() > 0){
+			Element keywordsElement = createKeywordsElement();
+			information.addContent(keywordsElement);
+
+		}
+		
 		refactoringElement.addContent(information);
+	}
+
+	/**
+	 * Crea el elemento xml con la lista de palabras
+	 * clave de la refactorizacion.
+	 * 
+	 * @return elemento xml con la lista de palabras
+	 * 	clave de la refactorizacion
+	 */
+	private Element createKeywordsElement() {
+		Element keywordsElement = new Element(
+				XMLRefactoringReaderImp.KEYWORDS_ELEMENT);
+		for (String keyword : refactoringDefinition.getKeywords()) {
+
+			Element keywordElem = new Element(
+					XMLRefactoringReaderImp.KEYWORD_ELEMENT);
+			keywordElem.setText(keyword);
+			keywordsElement.addContent(keywordElem);
+		}
+		return keywordsElement;
 	}
 
 	/**

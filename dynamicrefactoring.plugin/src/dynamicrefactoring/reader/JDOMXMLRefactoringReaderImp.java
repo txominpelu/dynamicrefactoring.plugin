@@ -51,6 +51,7 @@ import dynamicrefactoring.domain.metadata.interfaces.Category;
  */
 public class JDOMXMLRefactoringReaderImp implements XMLRefactoringReaderImp {
 
+
 	/**
 	 * La definición de la refactorización obtenida.
 	 */
@@ -137,17 +138,42 @@ public class JDOMXMLRefactoringReaderImp implements XMLRefactoringReaderImp {
 			refactoringDefinition.setImage(
 				imageElement.getAttributeValue(SRC_IMAGE_ATTRIBUTE));
 
-		// Se obtiene la imagen que describe la refactorización.
+		// Se obtiene la categorizacion de la refactorización.
 		Element categoryElement = information.getChild(CATEGORIZATION_ELEMENT);
 
-		if (categoryElement != null)
+		if (categoryElement != null){
 			refactoringDefinition
 					.setCategories(readCategoriesElements(categoryElement
 							.getChildren(CLASSIFICATION_ELEMENT)));
+		}
+		
+		// Se obtienen las palabras claves que describe la refactorización.
+		Element keywordElement = information.getChild(KEYWORDS_ELEMENT);
+		
+		if (keywordElement != null){
+			refactoringDefinition
+					.setKeywords(readKeywordElements(keywordElement
+							.getChildren(KEYWORD_ELEMENT)));
+		}
 
 		// Se obtiene la motivacion de la refactorización.
 		refactoringDefinition.setMotivation(
 			information.getChildTextTrim(MOTIVATION_ELEMENT));
+	}
+
+	/**
+	 * Obtiene una lista de las palabras claves definidas
+	 * en el fichero xml para la refactorización.
+	 *  
+	 * @param children lista de elementos "keyword" en el fichero xml
+	 * @return conjunto de palabras clave
+	 */
+	private List<String> readKeywordElements(List<Element> children) {
+		List<String> keywords = new ArrayList<String>();
+		for (Element keywordElement : children){
+			keywords.add(keywordElement.getTextTrim());
+		}
+		return keywords;
 	}
 
 	/**

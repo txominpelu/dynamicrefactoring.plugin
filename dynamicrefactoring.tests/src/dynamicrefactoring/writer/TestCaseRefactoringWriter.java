@@ -24,19 +24,25 @@ import static org.junit.Assert.*;
 import static org.junit.Assert.assertFalse;
 
 import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
+import java.util.TreeSet;
 
 import org.apache.commons.io.FileUtils;
 import org.jdom.Document;
 import org.jdom.filter.ElementFilter;
 import org.junit.Test;
 
+import com.google.common.base.Preconditions;
+
 import dynamicrefactoring.RefactoringConstants;
 import dynamicrefactoring.domain.DynamicRefactoringDefinition;
 import dynamicrefactoring.domain.metadata.interfaces.Category;
+import dynamicrefactoring.reader.TestCaseRefactoringReader;
 
 /**
  * Comprueba que funciona correctamente el proceso de escritura de la definición
@@ -52,10 +58,12 @@ import dynamicrefactoring.domain.metadata.interfaces.Category;
  */
 public class TestCaseRefactoringWriter {
 
+	private static final String MOTIVACION = "Motivacion.";
+	private static final String DESCRIPCION = "Descripcion.";
 	/**
 	 * Ruta al directorio en que se exportan las refactorizaciones.
 	 */
-	private static final String TESTDATA_XML_WRITER_DIR = "./testdata/XML/Writer";
+	private static final String TESTDATA_XML_WRITER_DIR = "./testdata/XML/Writer/";
 
 	/**
 	 * Comprueba el lanzamiento de una excepción cuando hay un fallo en
@@ -67,7 +75,8 @@ public class TestCaseRefactoringWriter {
 	@Test(expected = dynamicrefactoring.writer.XMLRefactoringWriterException.class)
 	public void testWritingException() throws Exception {
 		DynamicRefactoringDefinition rd = createRefactoringDefinition(
-				"MinimumInformation", "Descripcion.", "Motivacion.");
+				TestCaseRefactoringReader.MINIMUM_INFORMATION_REFACTORING,
+				DESCRIPCION, MOTIVACION);
 
 		// Añadir entradas
 		ArrayList<String[]> entradas = new ArrayList<String[]>();
@@ -104,64 +113,88 @@ public class TestCaseRefactoringWriter {
 	 */
 	@Test
 	public void testWritingWithMinimunInformation() throws Exception {
-
-		String refactoringName = "MinimumInformation";
-		DynamicRefactoringDefinition rd = createRefactoringDefinition(
-				refactoringName, "Descripcion.", "Motivacion.");
-
-		rd.setInputs(addSimpleInputs());
-
-		addSimplePredicates(rd);
-
-		writeRefactoring(rd);
-
-		assertTrue(FileUtils
-				.contentEquals(
-						new File(String.format("./testdata/XML/Reader/%s.xml",refactoringName)), //$NON-NLS-1$
-						new File(String.format("./testdata/XML/Writer/%s.xml",refactoringName)))); //$NON-NLS-1$
+		assertMinimumInformationDefinition(
+				TestCaseRefactoringReader.MINIMUM_INFORMATION_REFACTORING,
+				new ArrayList<String>(), new HashSet<Category>());
 
 	}
-	
+
 	/**
-	 * Comprueba que la escritura se realiza correctamente cuando se añade la
-	 * información mínima necesaria. Para ello se da valor a los campos de un
-	 * objeto de tipo DynamicRefactoringDefinition y luego se realiza la
-	 * escritura; posteriormente se hace una comprobación del contenido del
-	 * fichero creado con el contenido que debería tener.
-	 * 
-	 * Esta información es: el nombre, la descripción, la motivación, una
-	 * entrada, una precondición, una acción y una postcondición; no tiene ni
-	 * imagen, ni parámetros ambiguos ni ejemplos. También tiene categorias
-	 * a las que pertenece.
+	 * Similar a {@link #testWritingWithMinimunInformation} pero en este caso el
+	 * fichero xml tiene palabras clave definidas por lo tanto tambien hay que
+	 * comprobar que estas se escriben bien.
 	 * 
 	 * @throws Exception
 	 *             si se produce un error al escribir la definición de la
 	 *             refactorización.
 	 */
 	@Test
-	public void testWritingWithMinimunInformationAndCategories() throws Exception {
+	public void testWritingWithMinimunInformationAndKeyWords() throws Exception {
+		List<String> keywords = new ArrayList<String>();
+		keywords.add(TestCaseRefactoringReader.KEY_WORD1);
+		keywords.add(TestCaseRefactoringReader.KEY_WORD2);
+		assertMinimumInformationDefinition(
+				TestCaseRefactoringReader.MINIMUM_INFORMATION_WITH_KEYWORDS,
+				keywords, new HashSet<Category>());
 
-		String refactoringName = "RefactoringWithClassification";
-		DynamicRefactoringDefinition rd = createRefactoringDefinition(
-				refactoringName, "Descripcion.", "Motivacion.");
+	}
 
-		rd.setInputs(addSimpleInputs());
-		
+	/**
+	 * Similar a {@link #testWritingWithMinimumInformation} pero en este caso el
+	 * fichero xml tiene categorias definidas por lo tanto tambien hay que
+	 * comprobar que estas se escriben bien.
+	 * 
+	 * @throws Exception
+	 *             si se produce un error al escribir la definición de la
+	 *             refactorización.
+	 */
+	@Test
+	public void testWritingWithMinimunInformationAndCategories()
+			throws Exception {
+
 		Set<Category> categories = new HashSet<Category>();
-		categories.add(new Category("MiClassification","MiCategoria1"));
-		categories.add(new Category("MiClassification","MiCategoria2"));
-		
+		categories.add(new Category(
+				TestCaseRefactoringReader.MI_CLASSIFICATION,
+				TestCaseRefactoringReader.MI_CATEGORIA1));
+		categories.add(new Category(
+				TestCaseRefactoringReader.MI_CLASSIFICATION,
+				TestCaseRefactoringReader.MI_CATEGORIA2));
+		assertMinimumInformationDefinition(
+				TestCaseRefactoringReader.REFACTORING_WITH_CLASSIFICATION,
+				new ArrayList<String>(), categories);
+
+	}
+
+	/**
+	 * Crea una refactorizacion dinamica con la informacion que le pasamos
+	 * y cierta informacion que asume por defecto para las 
+	 * MinimumInformationDefinition y escribe la refactorizacion a un fichero
+	 * comprobando que lo escrito es lo esperado.
+	 * 
+	 * @param refactoringName nombre de la refactorizacion
+	 * @param keywords palabras clave de la refactorizacion
+	 * @param categories categorias de la refactorizacion
+	 * @throws Exception
+	 *             si se produce un error al escribir la definición de la
+	 *             refactorización.
+	 */
+	private void assertMinimumInformationDefinition(String refactoringName,
+			List<String> keywords, Set<Category> categories)
+			throws Exception {
+		Preconditions.checkNotNull(keywords);
+		Preconditions.checkNotNull(categories);
+		Preconditions.checkNotNull(refactoringName);
+		DynamicRefactoringDefinition rd = createRefactoringDefinition(
+				refactoringName, DESCRIPCION, MOTIVACION);
+		rd.setInputs(addSimpleInputs());
 		rd.setCategories(categories);
-
+		rd.setKeywords(keywords);
 		addSimplePredicates(rd);
-
 		writeRefactoring(rd);
-
-		assertTrue(FileUtils
-				.contentEquals(
-						new File(String.format("./testdata/XML/Reader/%s.xml",refactoringName)), //$NON-NLS-1$
-						new File(String.format("./testdata/XML/Writer/%s.xml",refactoringName)))); //$NON-NLS-1$
-
+		assertTrue(FileUtils.contentEquals(new File(
+				TestCaseRefactoringReader.TESTDATA_XML_READER_DIR
+						+ refactoringName + TestCaseRefactoringReader.XML_EXTENSION), //$NON-NLS-1$
+				new File(TESTDATA_XML_WRITER_DIR + refactoringName + TestCaseRefactoringReader.XML_EXTENSION))); //$NON-NLS-1$
 	}
 
 	/**
@@ -335,7 +368,9 @@ public class TestCaseRefactoringWriter {
 
 		assertTrue(FileUtils
 				.contentEquals(
-						new File("./testdata/XML/Reader/FullInformation.xml"), new File("./testdata/XML/Writer/FullInformation.xml"))); //$NON-NLS-1$
+						new File(
+								TestCaseRefactoringReader.TESTDATA_XML_READER_DIR
+										+ "FullInformation.xml"), new File(TESTDATA_XML_WRITER_DIR + "FullInformation.xml"))); //$NON-NLS-1$
 	}
 
 	/**
@@ -349,7 +384,7 @@ public class TestCaseRefactoringWriter {
 	public void testNotGenerateEmptyExamples()
 			throws XMLRefactoringWriterException {
 		DynamicRefactoringDefinition rd = createRefactoringDefinition(
-				"NotGenerateEmptyExamples", "Descripcion.", "Motivacion.");
+				"NotGenerateEmptyExamples", DESCRIPCION, MOTIVACION);
 
 		// Agregamos las entradas
 		ArrayList<String[]> entradas = addSimpleInputs();
@@ -359,7 +394,6 @@ public class TestCaseRefactoringWriter {
 		ArrayList<String[]> ejemplos = new ArrayList<String[]>();
 		ejemplos.add(new String[] { "", "" });
 		rd.setExamples(ejemplos);
-
 
 		addSimplePredicates(rd);
 
@@ -443,12 +477,13 @@ public class TestCaseRefactoringWriter {
 		entradas.add(entrada2);
 		return entradas;
 	}
-	
+
 	/**
-	 * Agrega un conjunto de precondiciones, acciones y poscondiciones
-	 * de prueba.
+	 * Agrega un conjunto de precondiciones, acciones y poscondiciones de
+	 * prueba.
 	 * 
-	 * @param rd definicion de la refactorizacion
+	 * @param rd
+	 *            definicion de la refactorizacion
 	 */
 	private void addSimplePredicates(DynamicRefactoringDefinition rd) {
 		// añadir precondiciones,acciones y postcondiciones

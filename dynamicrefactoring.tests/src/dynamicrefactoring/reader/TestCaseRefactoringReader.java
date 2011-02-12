@@ -48,6 +48,24 @@ import org.junit.Test;
  */
 public class TestCaseRefactoringReader {
 
+	
+	public static final String MI_CATEGORIA2 = "MiCategoria2";
+	public static final String MI_CATEGORIA1 = "MiCategoria1";
+	public static final String MI_CLASSIFICATION = "MiClassification";
+	public static final String KEY_WORD2 = "PalabraClave2";
+	public static final String KEY_WORD1 = "PalabraClave1";
+	public static final String XML_EXTENSION = ".xml";
+	public static final String MINIMUM_INFORMATION_WITH_KEYWORDS = "MinimumInformationWithKeywords";
+	public static final String REFACTORING_WITH_CLASSIFICATION = "RefactoringWithClassification";
+	public static final String MINIMUM_INFORMATION_REFACTORING = "MinimumInformation";
+	
+	/**
+	 * Directorio XML con los datos de entrada de los tests.
+	 */
+	public static final String TESTDATA_XML_READER_DIR = "./testdata/XML/Reader/";
+
+
+
 	/**
 	 * Comprueba que la lectura no se realiza cuando la definición no contiene
 	 * toda la información mínima necesaria (no cumple las reglas del DTD).
@@ -62,7 +80,7 @@ public class TestCaseRefactoringReader {
 	public void testReadingWithIncompleteInformation() throws Exception{
 
 		DynamicRefactoringDefinition.getRefactoringDefinition(
-			"./testdata/XML/Reader/IncompleteInformation.xml"); //$NON-NLS-1$
+			TESTDATA_XML_READER_DIR + "IncompleteInformation" + XML_EXTENSION); //$NON-NLS-1$
 	}
 
 	/**
@@ -79,7 +97,7 @@ public class TestCaseRefactoringReader {
 	public void testReadingNotARefactoring() throws Exception{
 
 		DynamicRefactoringDefinition.getRefactoringDefinition(
-			"./testdata/XML/Reader/NotARefactoring.xml"); //$NON-NLS-1$
+			TESTDATA_XML_READER_DIR + "NotARefactoring" + XML_EXTENSION); //$NON-NLS-1$
 	}
 
 	/**
@@ -99,9 +117,9 @@ public class TestCaseRefactoringReader {
 
 
 		DynamicRefactoringDefinition definition = DynamicRefactoringDefinition
-		.getRefactoringDefinition("./testdata/XML/Reader/MinimumInformation.xml"); //$NON-NLS-1$
+		.getRefactoringDefinition(TESTDATA_XML_READER_DIR + MINIMUM_INFORMATION_REFACTORING + XML_EXTENSION); //$NON-NLS-1$
 
-		assertEquals(definition.getName(), "MinimumInformation"); //$NON-NLS-1$
+		assertEquals(definition.getName(), MINIMUM_INFORMATION_REFACTORING); //$NON-NLS-1$
 
 		assertMinimumInformationEqual(definition);
 
@@ -112,18 +130,38 @@ public class TestCaseRefactoringReader {
 
 
 		DynamicRefactoringDefinition definition = DynamicRefactoringDefinition
-		.getRefactoringDefinition("./testdata/XML/Reader/RefactoringWithClassification.xml"); //$NON-NLS-1$
+		.getRefactoringDefinition(TESTDATA_XML_READER_DIR + REFACTORING_WITH_CLASSIFICATION + XML_EXTENSION); //$NON-NLS-1$
 
-		assertEquals(definition.getName(), "RefactoringWithClassification"); //$NON-NLS-1$
+		assertEquals(definition.getName(), REFACTORING_WITH_CLASSIFICATION); //$NON-NLS-1$
 
 		assertMinimumInformationEqual(definition);
 		
 		//Comprobar categorias
 		Set<Category> expectedCategories = new HashSet<Category>();
-		expectedCategories.add(new Category("MiClassification", "MiCategoria1"));
-		expectedCategories.add(new Category("MiClassification", "MiCategoria2"));
+		expectedCategories.add(new Category(MI_CLASSIFICATION, MI_CATEGORIA1));
+		expectedCategories.add(new Category(MI_CLASSIFICATION, MI_CATEGORIA2));
 		
 		assertEquals (expectedCategories,definition.getCategories());
+
+	}
+	
+	@Test
+	public void testReadingWithMinimunInformationWithKeyWords() throws Exception{
+
+
+		DynamicRefactoringDefinition definition = DynamicRefactoringDefinition
+		.getRefactoringDefinition(TESTDATA_XML_READER_DIR + MINIMUM_INFORMATION_WITH_KEYWORDS + XML_EXTENSION); //$NON-NLS-1$
+
+		assertEquals(definition.getName(), MINIMUM_INFORMATION_WITH_KEYWORDS); //$NON-NLS-1$
+
+		assertMinimumInformationEqual(definition);
+		
+		//Comprobar categorias
+		List<String> expectedKeywords = new ArrayList<String>();
+		expectedKeywords.add(KEY_WORD1);
+		expectedKeywords.add(KEY_WORD2);
+		
+		assertEquals (expectedKeywords,definition.getKeywords());
 
 	}
 
@@ -190,7 +228,7 @@ public class TestCaseRefactoringReader {
 
 		XMLRefactoringReaderFactory f = new JDOMXMLRefactoringReaderFactory();
 		XMLRefactoringReaderImp implementor = f
-		.makeXMLRefactoringReaderImp(new File("./testdata/XML/Reader/FullInformation.xml")); //$NON-NLS-1$
+		.makeXMLRefactoringReaderImp(new File(TESTDATA_XML_READER_DIR + "FullInformation" + XML_EXTENSION)); //$NON-NLS-1$
 		XMLRefactoringReader temporaryReader = new XMLRefactoringReader(
 				implementor);
 		DynamicRefactoringDefinition definition = temporaryReader
