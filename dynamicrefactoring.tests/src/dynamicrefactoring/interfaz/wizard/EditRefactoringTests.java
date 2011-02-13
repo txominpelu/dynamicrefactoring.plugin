@@ -1,49 +1,77 @@
 package dynamicrefactoring.interfaz.wizard;
 
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
 
-import org.eclipse.core.runtime.Platform;
-import org.eclipse.swtbot.eclipse.finder.SWTWorkbenchBot;
 import org.eclipse.swtbot.swt.finder.junit.SWTBotJunit4ClassRunner;
-import org.eclipse.swtbot.swt.finder.widgets.SWTBotMenu;
+import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
-import dynamicrefactoring.RefactoringPlugin;
-import dynamicrefactoring.interfaz.wizard.Messages;
-
 @RunWith(SWTBotJunit4ClassRunner.class)
 public class EditRefactoringTests {
 	
-	private static final String DYNAMIC_REFACTORING_MENU = Platform.getResourceString(RefactoringPlugin.getDefault().getBundle(), "%dynamicrefactoring.menu.main");
-	
+	private static final String MAKING_METHOD_CALLS_SIMPLER_CATEGORY = "MakingMethodCallsSimpler";
 
-	private SWTWorkbenchBot bot;
+	private static final String COMPOSING_METHODS_TREE_ITEM_TEXT = "ComposingMethods";
 
-	private SWTBotMenu dinamicRefactoringMenu;
+	private static final String FOWLER_CLASSIF = "Fowler";
 
+	private static final String SCOPE_CLASSIF = "scope";
+
+	private static final String METHOD_CATEGORY = "Method";
+
+	private static final String CODE_FRAGMENT_CATEGORY = "CodeFragment";
+
+	private RefactoringWizardPage1Object refactoringWizardPageObject;
+
+	/**
+	 * Crea la primera pagina del wizard de crear/editar una refactorizacion.
+	 */
 	@Before
-	public void setUp() throws Exception {
-		bot = new SWTWorkbenchBot();
-		bot.viewByTitle("Welcome").close();
-		dinamicRefactoringMenu = bot.menu(EditRefactoringTests.DYNAMIC_REFACTORING_MENU);
+	public final void setUp(){
+		refactoringWizardPageObject = new RefactoringWizardPage1Object();
+		//bot.viewByTitle("Welcome").close();
 	}
 	
+	/**
+	 * Cierra el wizard de crear/editar una refactorizacion.
+	 */
+	@After
+	public final void tearDown(){
+		refactoringWizardPageObject.finish();
+	}
+	
+	/**
+	 * Comprueba que no se pueden asignar dos categorias a una clasificacion
+	 * uni-categoria.
+	 */
 	@Test
-	public void cantMarkTwoCategoriesInUniCategoryClassifications() throws Exception {
-		bot.sleep(2000);
-		dinamicRefactoringMenu.menu("New Refactoring...").click();
+	public final void cantMarkTwoCategoriesInUniCategoryClassifications() {
  
+		refactoringWizardPageObject.checkCategory(SCOPE_CLASSIF,CODE_FRAGMENT_CATEGORY);
+		refactoringWizardPageObject.checkCategory(SCOPE_CLASSIF,METHOD_CATEGORY);
 		
-		bot.tree().expandNode("scope").getNode("CodeFragment").check();
-		bot.tree().expandNode("scope").getNode("Method").check();
+		assertFalse(refactoringWizardPageObject.isCategoryChecked(SCOPE_CLASSIF,CODE_FRAGMENT_CATEGORY));
+		assertTrue(refactoringWizardPageObject.isCategoryChecked(SCOPE_CLASSIF,METHOD_CATEGORY));
 		
-		assertFalse(bot.tree().expandNode("scope").getNode("CodeFragment").isChecked());
-		assertTrue(bot.tree().expandNode("scope").getNode("Method").isChecked());
+	}
+	
+	/**
+	 * Comprueba que se pueden asignar dos categorias a una clasificacion
+	 * multi-categoria.
+	 */
+	@Test
+	public final void markTwoCategoriesInMultiCategoryClassificationsTest(){
+ 
+		refactoringWizardPageObject.checkCategory(FOWLER_CLASSIF,COMPOSING_METHODS_TREE_ITEM_TEXT);
+		refactoringWizardPageObject.checkCategory(FOWLER_CLASSIF,MAKING_METHOD_CALLS_SIMPLER_CATEGORY);
 		
-		// FIXME: assert that the project is actually created, for later
+		assertTrue(refactoringWizardPageObject.isCategoryChecked(FOWLER_CLASSIF,COMPOSING_METHODS_TREE_ITEM_TEXT));
+		assertTrue(refactoringWizardPageObject.isCategoryChecked(FOWLER_CLASSIF,MAKING_METHOD_CALLS_SIMPLER_CATEGORY));
+		
 	}
 
 }
