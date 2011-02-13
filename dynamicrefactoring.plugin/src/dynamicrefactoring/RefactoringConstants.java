@@ -97,9 +97,7 @@ public class RefactoringConstants {
 	/**
 	 * Ruta al directorio donde se encuentran los documentos javadoc.
 	 */
-	public static final String REFACTORING_JAVADOC = 
-		RefactoringPlugin.getDefault().getBundleRootDir() +
-		"doc" + File.separatorChar + "javadoc"; //$NON-NLS-1$
+	public static final String REFACTORING_JAVADOC = "/doc/javadoc"; //$NON-NLS-1$
 	
 	/**
 	 * Nombre completamente cualificado del paquete que contiene las acciones

@@ -20,26 +20,25 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.*/
 
 package dynamicrefactoring.interfaz.wizard;
 
-import dynamicrefactoring.RefactoringConstants;
-import dynamicrefactoring.interfaz.TreeEditor;
-import dynamicrefactoring.interfaz.wizard.classificationscombo.PickCategoryTree;
-import dynamicrefactoring.plugin.xml.classifications.imp.ClassificationsReaderFactory;
-
 import java.text.MessageFormat;
 import java.util.ArrayList;
+import java.util.Collection;
 
 import javax.xml.bind.ValidationException;
 
+import org.eclipse.jface.viewers.CheckStateChangedEvent;
+import org.eclipse.jface.viewers.ICheckStateListener;
+import org.eclipse.jface.viewers.IStructuredContentProvider;
+import org.eclipse.jface.viewers.LabelProvider;
+import org.eclipse.jface.viewers.TableViewer;
+import org.eclipse.jface.viewers.Viewer;
 import org.eclipse.jface.wizard.IWizardPage;
 import org.eclipse.jface.wizard.WizardPage;
-
 import org.eclipse.swt.SWT;
-
 import org.eclipse.swt.custom.TableEditor;
 import org.eclipse.swt.graphics.Rectangle;
-
-import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Button;
+import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Table;
@@ -48,6 +47,13 @@ import org.eclipse.swt.widgets.TableItem;
 import org.eclipse.swt.widgets.Text;
 import org.eclipse.swt.widgets.Tree;
 import org.eclipse.swt.widgets.TreeItem;
+
+import com.google.common.base.Preconditions;
+
+import dynamicrefactoring.RefactoringConstants;
+import dynamicrefactoring.interfaz.TreeEditor;
+import dynamicrefactoring.interfaz.wizard.classificationscombo.PickCategoryTree;
+import dynamicrefactoring.plugin.xml.classifications.imp.ClassificationsReaderFactory;
 
 /**
  * Séptima página del asistente de creación o edición de refactorizaciones.
@@ -91,6 +97,12 @@ public class RefactoringWizardPage7 extends WizardPage {
 	 */
 	private RefactoringWizardPage1 firstPage;
 
+	private TableViewer table_Keywords;
+
+	private TableColumn col_Keywords;
+
+	private PickCategoryTree picker;
+
 	/**
 	 * Constructor.
 	 * 
@@ -117,38 +129,7 @@ public class RefactoringWizardPage7 extends WizardPage {
 		
 		setControl(container);
 
-		tb_Inputs = new Table(container, SWT.BORDER);
-		tb_Inputs.setBackground(Display.getCurrent().getSystemColor(SWT.COLOR_WHITE));
-		tb_Inputs.setEnabled(false);
-		tb_Inputs.setLinesVisible(true);
-		tb_Inputs.setHeaderVisible(true);
-		tb_Inputs.setBounds(0, 185, 381, 116);
-		
-		try {
-			PickCategoryTree picker = new PickCategoryTree(container,ClassificationsReaderFactory
-					.getReader(
-							ClassificationsReaderFactory.ClassificationsReaderTypes.JAXB_READER)
-					.readClassifications(RefactoringConstants.CLASSIFICATION_TYPES_FILE),firstPage.getCategories(), new Rectangle(0, 330, 381, 116), false);
-		} catch (ValidationException e) {
-			// FIXME Reemplazar por catalogo de clasificaciones
-			e.printStackTrace();
-		}
-		
-		// Se crean las columnas de la tabla de entradas.
-		TableColumn cl_Name = new TableColumn(tb_Inputs, SWT.NONE);
-		cl_Name.setText(Messages.RefactoringWizardPage7_Name);
-		cl_Name.setWidth(102);
-		TableColumn cl_Type = new TableColumn(tb_Inputs, SWT.NONE);
-		cl_Type.setText(Messages.RefactoringWizardPage7_Type);
-		cl_Type.setWidth(150);
-		TableColumn cl_From = new TableColumn(tb_Inputs, SWT.NONE);
-		cl_From.setText(Messages.RefactoringWizardPage7_From);
-		cl_From.setWidth(100);
-		TableColumn cl_Root = new TableColumn(tb_Inputs, SWT.NONE);
-		cl_Root.setResizable(false);
-		cl_Root.setText(Messages.RefactoringWizardPage7_Main);
-		cl_Root.setWidth(23);
-		cl_Root.setToolTipText(Messages.RefactoringWizardPage7_MainTooltip);
+		createInputTable(container);
 
 		final Label lb_Description = new Label(container, SWT.CENTER);
 		lb_Description.setAlignment(SWT.CENTER);
@@ -175,6 +156,7 @@ public class RefactoringWizardPage7 extends WizardPage {
 		tr_Components = new Tree(container, SWT.BORDER);
 		tr_Components.setBounds(397, 19, 237, 282);
 
+
 		final Label lb_Inputs = new Label(container, SWT.CENTER);
 		lb_Inputs.setAlignment(SWT.CENTER);
 		lb_Inputs.setText(Messages.RefactoringWizardPage7_Inputs);
@@ -184,8 +166,123 @@ public class RefactoringWizardPage7 extends WizardPage {
 		lb_Mechanism.setText(Messages.RefactoringWizardPage7_Mechanism);
 		lb_Mechanism.setBounds(397, 0, 237, 13);
 		
+		final Label lb_Keywords = new Label(container, SWT.CENTER);
+		//FIXME: Internacionalizar
+		lb_Keywords.setText("Keywords");
+		lb_Keywords.setBounds(new Rectangle(397, 330, 237, 20));
+		
+		fillInKeywordsTableData(t_Motivation.getParent(), new Rectangle(397, 355, 237, 140));
+		
+		final Label lb_Categories = new Label(container, SWT.CENTER);
+		//FIXME: Internacionalizar
+		lb_Categories.setText("Categories");
+		lb_Categories.setBounds(new Rectangle(0, 330, 381, 20));
+		createNotEditableCategoryTree(container, new Rectangle(0, 355, 381, 140));
+		
 		setPageComplete(false);
 	}
+
+	/**
+	 * Crea la tabla de entradas.
+	 * 
+	 * @param container control contenedor de la tabla de entradas
+	 */
+	private void createInputTable(Composite container) {
+		tb_Inputs = new Table(container, SWT.BORDER);
+		tb_Inputs.setBackground(Display.getCurrent().getSystemColor(SWT.COLOR_WHITE));
+		tb_Inputs.setEnabled(false);
+		tb_Inputs.setLinesVisible(true);
+		tb_Inputs.setHeaderVisible(true);
+		tb_Inputs.setBounds(0, 185, 381, 116);
+		
+		
+		// Se crean las columnas de la tabla de entradas.
+		TableColumn cl_Name = new TableColumn(tb_Inputs, SWT.NONE);
+		cl_Name.setText(Messages.RefactoringWizardPage7_Name);
+		cl_Name.setWidth(102);
+		TableColumn cl_Type = new TableColumn(tb_Inputs, SWT.NONE);
+		cl_Type.setText(Messages.RefactoringWizardPage7_Type);
+		cl_Type.setWidth(150);
+		TableColumn cl_From = new TableColumn(tb_Inputs, SWT.NONE);
+		cl_From.setText(Messages.RefactoringWizardPage7_From);
+		cl_From.setWidth(100);
+		TableColumn cl_Root = new TableColumn(tb_Inputs, SWT.NONE);
+		cl_Root.setResizable(false);
+		cl_Root.setText(Messages.RefactoringWizardPage7_Main);
+		cl_Root.setWidth(23);
+		cl_Root.setToolTipText(Messages.RefactoringWizardPage7_MainTooltip);
+	}
+	
+	/**
+	 * Rellena los datos de la tabla con la lista
+	 * de palabras claves.
+	 */
+	private void fillInKeywordsTableData(Composite container, Rectangle bounds) {
+		
+		// Creamos la tabla con las palabras clave
+		table_Keywords = new TableViewer(container, SWT.BORDER);
+		table_Keywords.getTable().setLinesVisible(true);
+		table_Keywords.getTable().setBounds(bounds);
+		
+		table_Keywords.setContentProvider(new IStructuredContentProvider(){
+
+			
+			@Override
+			public void inputChanged(Viewer viewer, Object oldInput, Object newInput) {				
+			}
+			
+			@Override
+			public void dispose() {
+			}
+
+			@Override
+			public Object[] getElements(Object inputElement) {
+				Preconditions.checkArgument(inputElement instanceof Collection<?>);
+				return ((Collection<?>)inputElement).toArray();
+			}
+		});
+		
+		table_Keywords.setLabelProvider(new LabelProvider());
+		
+		col_Keywords = new TableColumn(table_Keywords.getTable(), SWT.NONE);
+		col_Keywords.setText("Keywords");
+		
+		col_Keywords.pack();
+	}
+	
+	/**
+	 * Crea el arbol con las categorias asignadas a la refactorizacion
+	 * editadas en la primera pagina del wizard.
+	 * 
+	 * El arbol es similar al que permitia editar las categorias pero 
+	 * en este caso las categorias seleccionadas para la refactorizacion
+	 * no son editables.
+	 * 
+	 * @param container contenedor del arbol
+	 */
+	private void createNotEditableCategoryTree(Composite container, Rectangle bounds) {
+		try {
+			
+			picker = new PickCategoryTree(container,ClassificationsReaderFactory
+					.getReader(
+							ClassificationsReaderFactory.ClassificationsReaderTypes.JAXB_READER)
+					.readClassifications(RefactoringConstants.CLASSIFICATION_TYPES_FILE),firstPage.getCategories(), new ICheckStateListener(){
+				
+						@Override
+						public void checkStateChanged(CheckStateChangedEvent event) {
+							//Desactiva cualquier evento de edicion del arbol
+							event.getCheckable().setChecked(event.getElement(), !event.getChecked());
+						}
+					});
+			picker.getControl().setBounds(bounds);
+			
+		} catch (ValidationException e) {
+			// FIXME Reemplazar por catalogo de clasificaciones
+			e.printStackTrace();
+		}
+	}
+
+
 
 	/**
 	 * Puebla los campos de la página del asistente con la información que se
@@ -199,6 +296,12 @@ public class RefactoringWizardPage7 extends WizardPage {
 		
 		t_Description.setText(firstPage.getDescriptionText().getText().trim());
 		t_Motivation.setText(firstPage.getMotivationText().getText().trim());
+		
+		// Actualizamos el contenido de la tabla de palabras clave
+		table_Keywords.setInput(firstPage.getKeywords());
+		// Actualizamos el contenido  de la lista de categorias
+		picker.setSelectedCategories(firstPage.getCategories());
+		
 		
 		IWizardPage secondPage = firstPage.getNextPage();
 		if (secondPage != null && secondPage instanceof RefactoringWizardPage2){
@@ -249,6 +352,9 @@ public class RefactoringWizardPage7 extends WizardPage {
 			}
 		}
 	}
+
+	
+	
 		
 	/**
 	 * Hace visible o invisible la página del asistente.

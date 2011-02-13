@@ -62,9 +62,11 @@ public class RepositoryElementProcessor {
 			return javaActions.containsKey(actionName);
 		}
 		catch (IOException exception){
+			
 			logger.error(
 				Messages.RepositoryElementProcessor_ErrorAccessingRepository + 
 				":\n\n" + exception.getMessage()); //$NON-NLS-1$
+			//FIXME: Este logger y el return false ocultan errores del programador
 			return false;
 		}
 	}

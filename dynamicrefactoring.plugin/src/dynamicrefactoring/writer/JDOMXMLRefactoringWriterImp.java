@@ -24,12 +24,8 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
 import java.util.Map;
-import java.util.Map.Entry;
 
-import org.jdom.Attribute;
 import org.jdom.DocType;
 import org.jdom.Document;
 import org.jdom.Element;
@@ -38,11 +34,8 @@ import org.jdom.input.SAXBuilder;
 import org.jdom.output.Format;
 import org.jdom.output.XMLOutputter;
 
-import com.google.common.base.Function;
 import com.google.common.collect.ImmutableListMultimap;
 import com.google.common.collect.ImmutableListMultimap.Builder;
-import com.google.common.collect.ImmutableMap;
-import com.google.common.collect.Maps;
 
 import dynamicrefactoring.RefactoringConstants;
 import dynamicrefactoring.RefactoringPlugin;
@@ -360,17 +353,48 @@ public class JDOMXMLRefactoringWriterImp implements XMLRefactoringWriterImp {
 			information.addContent(motivation);
 		}
 
+
+		// Agrega las palabras clave que describen la refactorizacion
+		if (refactoringDefinition.getKeywords().size() > 0){
+			Element keywordsElement = createKeywordsElement();
+			information.addContent(keywordsElement);
+
+		}
+		
 		// Agrega las categorias a las que pertence la refactorizacion
 		if (refactoringDefinition.getCategories().size() > 0){
 			Element categorizationElement = createCategorizationElement(createCategoriesMapByParent());
 			information.addContent(categorizationElement);
 
 		}
-		
+
 		refactoringElement.addContent(information);
 	}
 
 	/**
+<<<<<<< HEAD
+=======
+	 * Crea el elemento xml con la lista de palabras
+	 * clave de la refactorizacion.
+	 * 
+	 * @return elemento xml con la lista de palabras
+	 * 	clave de la refactorizacion
+	 */
+	private Element createKeywordsElement() {
+		Element keywordsElement = new Element(
+				XMLRefactoringReaderImp.KEYWORDS_ELEMENT);
+		for (String keyword : refactoringDefinition.getKeywords()) {
+
+			Element keywordElem = new Element(
+					XMLRefactoringReaderImp.KEYWORD_ELEMENT);
+			keywordElem.setText(keyword);
+			keywordsElement.addContent(keywordElem);
+		}
+		return keywordsElement;
+	}
+
+	/**
+>>>>>>> caso-76
 	 * Crea el elemento categorization que contiene las categorias a las que
 	 * pertenece una refactorizacion dentro de las clasificaciones existentes.
 	 * 

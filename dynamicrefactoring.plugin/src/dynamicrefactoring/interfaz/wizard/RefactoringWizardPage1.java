@@ -21,10 +21,31 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.*/
 package dynamicrefactoring.interfaz.wizard;
 
 import java.text.MessageFormat;
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 import javax.xml.bind.ValidationException;
+
+import org.eclipse.core.runtime.Platform;
+import org.eclipse.jface.wizard.WizardPage;
+import org.eclipse.swt.SWT;
+import org.eclipse.swt.events.ModifyEvent;
+import org.eclipse.swt.events.ModifyListener;
+import org.eclipse.swt.events.SelectionEvent;
+import org.eclipse.swt.events.SelectionListener;
+import org.eclipse.swt.layout.FormAttachment;
+import org.eclipse.swt.layout.FormData;
+import org.eclipse.swt.layout.FormLayout;
+import org.eclipse.swt.widgets.Button;
+import org.eclipse.swt.widgets.Composite;
+import org.eclipse.swt.widgets.FileDialog;
+import org.eclipse.swt.widgets.Label;
+import org.eclipse.swt.widgets.Text;
+import org.eclipse.ui.PlatformUI;
+
+import com.google.common.base.Joiner;
 
 import dynamicrefactoring.RefactoringConstants;
 import dynamicrefactoring.domain.DynamicRefactoringDefinition;
@@ -32,34 +53,6 @@ import dynamicrefactoring.domain.metadata.interfaces.Category;
 import dynamicrefactoring.interfaz.wizard.classificationscombo.PickCategoryTree;
 import dynamicrefactoring.plugin.xml.classifications.imp.ClassificationsReaderFactory;
 import dynamicrefactoring.util.io.filter.ImageFilter;
-
-import org.eclipse.jface.viewers.CheckboxTreeViewer;
-import org.eclipse.jface.wizard.WizardPage;
-
-import org.eclipse.core.runtime.Platform;
-
-import org.eclipse.swt.SWT;
-
-import org.eclipse.swt.events.ModifyEvent;
-import org.eclipse.swt.events.ModifyListener;
-import org.eclipse.swt.events.SelectionEvent;
-import org.eclipse.swt.events.SelectionListener;
-import org.eclipse.swt.graphics.Rectangle;
-
-import org.eclipse.swt.layout.FillLayout;
-import org.eclipse.swt.layout.FormAttachment;
-import org.eclipse.swt.layout.FormData;
-import org.eclipse.swt.layout.FormLayout;
-import org.eclipse.swt.layout.GridData;
-import org.eclipse.swt.layout.GridLayout;
-
-import org.eclipse.swt.widgets.Button;
-import org.eclipse.swt.widgets.Composite;
-import org.eclipse.swt.widgets.FileDialog;
-import org.eclipse.swt.widgets.Group;
-import org.eclipse.swt.widgets.Label;
-import org.eclipse.swt.widgets.Text;
-import org.eclipse.ui.PlatformUI;
 
 /**
  * Primera página del asistente de creación o edición de refactorizaciones.
@@ -91,24 +84,34 @@ public class RefactoringWizardPage1 extends WizardPage {
 	/**
 	 * Motivación asociada la refactorización.
 	 */
-	private Text t_Motivation;
+	private Text motivationText;
 
 	/**
 	 * Ruta a un fichero de imagen con un esquema de la refactorización.
 	 */
-	private Text t_Image;
+	private Text imageText;
 	
 	/**
 	 * Descripción de la refactorización.
 	 */
-	private Text t_Description;
+	private Text descriptionText;
 	
 	/**
 	 * Nombre de la refactorización.
 	 */
-	private Text t_Name;
+	private Text nameText;
 
-	private PickCategoryTree picker;
+	/**
+	 * Arbol que permite escoger las categorias
+	 * de una refactorizacion.
+	 */
+	private PickCategoryTree categoryTree;
+
+	/**
+	 * Palabras clave que identifican la
+	 * refactorización.
+	 */
+	private Text keywordsText;
 
 	/**
 	 * Constructor.
@@ -162,72 +165,88 @@ public class RefactoringWizardPage1 extends WizardPage {
 		fd_composite.right = new FormAttachment(100, -5);
 		composite.setLayoutData(fd_composite);
 
+		
 		final Label nameLabel = new Label(composite, SWT.NONE);
 		nameLabel.setText(Messages.RefactoringWizardPage1_Name);
 		nameLabel.setBounds(10, 20, 52, 13);
 
+		nameText = new Text(composite, SWT.BORDER);
+		nameText.setToolTipText(Messages.RefactoringWizardPage1_FillInName);
+		nameText.setBounds(80, 15, 534, 25);
+
 		final Label descriptionLabel = new Label(composite, SWT.NONE);
 		descriptionLabel.setText(Messages.RefactoringWizardPage1_Description);
 		descriptionLabel.setBounds(10, 54, 57, 13);
+		
+		descriptionText = new Text(composite, SWT.BORDER | SWT.MULTI | SWT.WRAP);
+		descriptionText.setToolTipText(Messages.RefactoringWizardPage1_GiveDescription);
+		descriptionText.setBounds(80, 55, 534, 97);
 
 		final Label imageLabel = new Label(composite, SWT.NONE);
 		imageLabel.setText(Messages.RefactoringWizardPage1_Image);
 		imageLabel.setBounds(10, 170, 52, 13);
-
-		final Label motivationLabel = new Label(composite, SWT.NONE);
-		motivationLabel.setText(Messages.RefactoringWizardPage1_Motivation);
-		motivationLabel.setBounds(12, 210, 50, 13);
 		
-		final Label categoriesLabel = new Label(composite, SWT.NONE);
-		//FIXME: Internacionalizar el texto
-		categoriesLabel.setText("Categories");
-		categoriesLabel.setBounds(12, 320, 50, 13);
-
-		t_Name = new Text(composite, SWT.BORDER);
-		t_Name.setToolTipText(Messages.RefactoringWizardPage1_FillInName);
-		t_Name.setBounds(80, 15, 534, 25);
-
-		t_Description = new Text(composite, SWT.BORDER | SWT.MULTI | SWT.WRAP);
-		t_Description.setToolTipText(Messages.RefactoringWizardPage1_GiveDescription);
-		t_Description.setBounds(80, 55, 534, 97);
-
-		t_Image = new Text(composite, SWT.BORDER);
-		t_Image.setToolTipText(Messages.RefactoringWizardPage1_SelectImage);
-		t_Image.setBounds(80, 167, 498, 25);
-
-		t_Motivation = new Text(composite, SWT.BORDER | SWT.MULTI | SWT.WRAP);
-		t_Motivation.setToolTipText(Messages.RefactoringWizardPage1_GiveMotivation);
-		t_Motivation.setBounds(80, 207, 534, 97);
+		imageText = new Text(composite, SWT.BORDER);
+		imageText.setToolTipText(Messages.RefactoringWizardPage1_SelectImage);
+		imageText.setBounds(80, 167, 498, 25);
 		
-		try {
-			Set<Category> categories = (refactoring == null ? new HashSet<Category>() : refactoring.getCategories());
-			picker = new PickCategoryTree(composite,ClassificationsReaderFactory
-					.getReader(
-							ClassificationsReaderFactory.ClassificationsReaderTypes.JAXB_READER)
-					.readClassifications(RefactoringConstants.CLASSIFICATION_TYPES_FILE),categories, new Rectangle(80, 320, 534, 160), true);
-		} catch (ValidationException e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
-		}
-
 		final Button examineButton = new Button(composite, SWT.NONE);
 		examineButton.setText("..."); //$NON-NLS-1$
 		examineButton.setBounds(584, 167, 30, 25);
 		examineButton.addSelectionListener(new ImageChooserAction());
 
-		this.t_Name.addModifyListener(new ModifyListener(){
+		final Label motivationLabel = new Label(composite, SWT.NONE);
+		motivationLabel.setText(Messages.RefactoringWizardPage1_Motivation);
+		motivationLabel.setBounds(12, 210, 50, 13);
+		
+		motivationText = new Text(composite, SWT.BORDER | SWT.MULTI | SWT.WRAP);
+		motivationText.setToolTipText(Messages.RefactoringWizardPage1_GiveMotivation);
+		motivationText.setBounds(80, 207, 534, 97);
+		
+
+		final Label keywordsLabel = new Label(composite, SWT.NONE);
+		//FIXME: Internacionalizar
+		keywordsLabel.setText("Keywords");
+		keywordsLabel.setBounds(12, 320, 50, 13);
+		
+		keywordsText = new Text(composite, SWT.BORDER | SWT.MULTI | SWT.WRAP);
+		//FIXME: Internacionalizar
+		keywordsText.setToolTipText("Establish a set of KeyWords to identify the refactoring.");
+		keywordsText.setBounds(80, 317, 534, 57);
+
+		
+		final Label categoriesLabel = new Label(composite, SWT.NONE);
+		//FIXME: Internacionalizar el texto
+		categoriesLabel.setText("Categories");
+		categoriesLabel.setBounds(12, 390, 50, 13);
+		
+		try {
+			Set<Category> categories = (refactoring == null ? new HashSet<Category>() : refactoring.getCategories());
+			categoryTree = new PickCategoryTree(composite,ClassificationsReaderFactory
+					.getReader(
+							ClassificationsReaderFactory.ClassificationsReaderTypes.JAXB_READER)
+					.readClassifications(RefactoringConstants.CLASSIFICATION_TYPES_FILE),categories);
+			categoryTree.getControl().setBounds(80, 390, 534, 160);
+		} catch (ValidationException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+
+		
+
+		this.nameText.addModifyListener(new ModifyListener(){
 			public void modifyText(ModifyEvent e) {
 				dialogChanged();
 			}
 		});
 
-		this.t_Description.addModifyListener(new ModifyListener(){
+		this.descriptionText.addModifyListener(new ModifyListener(){
 			public void modifyText(ModifyEvent e) {
 				dialogChanged();
 			}
 		});
 
-		this.t_Motivation.addModifyListener(new ModifyListener(){
+		this.motivationText.addModifyListener(new ModifyListener(){
 			public void modifyText(ModifyEvent e) {
 				dialogChanged();
 			}
@@ -243,13 +262,15 @@ public class RefactoringWizardPage1 extends WizardPage {
 	 */
 	private void fillInRefactoringData(){
 		if (refactoring.getName() != null)
-			t_Name.setText(refactoring.getName());
+			nameText.setText(refactoring.getName());
 		if (refactoring.getImage() != null)
-			t_Image.setText(refactoring.getImage());
+			imageText.setText(refactoring.getImage());
 		if (refactoring.getMotivation() != null)
-			t_Motivation.setText(refactoring.getMotivation());
+			motivationText.setText(refactoring.getMotivation());
 		if (refactoring.getDescription() != null)
-			t_Description.setText(refactoring.getDescription());
+			descriptionText.setText(refactoring.getDescription());
+		if (refactoring.getKeywords() != null && refactoring.getKeywords().size() > 0 )
+			keywordsText.setText(Joiner.on(",").join(refactoring.getKeywords()));
 		dialogChanged();
 	}
 	
@@ -279,17 +300,32 @@ public class RefactoringWizardPage1 extends WizardPage {
 	 * @param message mensaje asociado al estado actual de la pantalla.
 	 */
 	private void updateStatus(String message) {
+		//TODO: Comprobar que las palabras claves tienen sintaxis correcta
 		setErrorMessage(message);
 		setPageComplete(message == null);
 	}
 
+	/**
+	 * Obtiene las palabras clave definidas
+	 * por el usuario.
+	 * 
+	 * @return conjunto de palabras clave
+	 */
+	List<String> getKeywords(){
+		List<String> keywords = new ArrayList<String>();
+		for(String keyword: keywordsText.getText().split(",")){
+			keywords.add(keyword);
+		}
+		return keywords;
+	}
+	
 	/**
 	 * Obtiene el campo de texto con la descripción de la refactorización.
 	 * 
 	 * @return el campo de texto con la descripción de la refactorización.
 	 */
 	public Text getDescriptionText(){
-		return this.t_Description;
+		return this.descriptionText;
 	}
 
 	/**
@@ -298,7 +334,7 @@ public class RefactoringWizardPage1 extends WizardPage {
 	 * @return el campo de texto con la motivación asociada a la refactorización.
 	 */
 	public Text getMotivationText(){
-		return this.t_Motivation;
+		return this.motivationText;
 	}
 
 	/**
@@ -307,7 +343,7 @@ public class RefactoringWizardPage1 extends WizardPage {
 	 * @return el campo de texto con el nombre de la refactorización.
 	 */
 	public Text getNameText(){
-		return this.t_Name;
+		return this.nameText;
 	}
 
 	/**
@@ -318,7 +354,7 @@ public class RefactoringWizardPage1 extends WizardPage {
 	 * refactorización.
 	 */
 	public Text getImageNameText(){
-		return this.t_Image;
+		return this.imageText;
 	}
 	
 	/**
@@ -329,7 +365,7 @@ public class RefactoringWizardPage1 extends WizardPage {
 	 * @return categorias a las que pertenece la refactorizacion
 	 */
 	public Set<Category> getCategories(){
-		return picker.getRefactoringCategories();
+		return categoryTree.getRefactoringCategories();
 	}
 	
 	/**
@@ -365,7 +401,7 @@ public class RefactoringWizardPage1 extends WizardPage {
 		    
 		    String returnVal = chooser.open();
 		    if (returnVal != null)
-		    	t_Image.setText(returnVal);
+		    	imageText.setText(returnVal);
 		}
 		
 		/**

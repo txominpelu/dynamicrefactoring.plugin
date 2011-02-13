@@ -37,10 +37,12 @@ import java.util.Map;
 import java.util.Vector;
 import java.util.StringTokenizer;
 import java.io.File;
+import java.io.IOException;
 import java.lang.Class;
 import java.net.MalformedURLException;
 
 import org.apache.log4j.Logger;
+import org.eclipse.core.runtime.FileLocator;
 import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.jface.wizard.IWizardPage;
 import org.eclipse.jface.wizard.WizardPage;
@@ -431,8 +433,8 @@ public class RepositoryElementComposite {
 		fd_navegador.left = new FormAttachment(0, 10);
 		navegador.setLayoutData(fd_navegador);
 		try{
-			navegador.setUrl(new File(RefactoringConstants.REFACTORING_JAVADOC + "/overview-summary.html" ).toURI().toURL().toString());
-		}catch(MalformedURLException e){}
+			navegador.setUrl(FileLocator.toFileURL(getClass().getResource(RefactoringConstants.REFACTORING_JAVADOC + "/overview-summary.html" )).toString());
+		}catch(IOException e){}
 		
 		sash_form.setWeights(new int[] {5 , 2 });
 		
@@ -475,7 +477,7 @@ public class RepositoryElementComposite {
 	protected void fillSearchTypesList(String patron, Boolean qualified){
 		l_Available.removeAll();
 		for(String element : a_Available){
-			if((qualified==false && cb_qualified.getSelection()==false) ){
+			if(!(qualified && cb_qualified.getSelection()) ){
 				if(patron == "" || element.matches(patron))
 					l_Available.add(element);
 		    }else{
@@ -498,7 +500,7 @@ public class RepositoryElementComposite {
 					if(patron == "" || element.matches(patron))
 						l_Available.add(qualified_name);
 				}if(patron == "" || qualified_name.matches(patron)){
-					if(cb_qualified.getSelection()==false)
+					if(!cb_qualified.getSelection())
 						l_Available.add(element);
 					else
 						l_Available.add(qualified_name);
@@ -670,7 +672,7 @@ public class RepositoryElementComposite {
 		//En caso de estar seleccionado el checkbox nos quedamos solamente
 		//con la parte final del nombre que es el nombre simple
 		//del elemento.
-		if(this.cb_qualified.getSelection()==true){
+		if(this.cb_qualified.getSelection()){
 			for(int i=0; i < selected.length; i++ ){
 				String element = "";
 				StringTokenizer st_element = new StringTokenizer(selected[i],".");
@@ -1109,7 +1111,7 @@ public class RepositoryElementComposite {
 				RepositoryItem element = 
 					selectedTable.get(l_Selected.getSelection()[0]);
 
-				if (element != null && element instanceof RepositoryItem){
+				if (element != null){
 					if(element.getParameters().isEmpty()){
 						//inicializamos los parámetros del elemento
 						InputParameter input = new InputParameter("","","","","");
@@ -1194,10 +1196,10 @@ public class RepositoryElementComposite {
 			
 			try{
 				if(new File(path).exists())
-					navegador.setUrl(new File(path).toURI().toURL().toString() + "#skip-navbar_top");
+					navegador.setUrl(FileLocator.toFileURL(getClass().getResource(path)) + "#skip-navbar_top");
 				else
-					navegador.setUrl(new File(RefactoringConstants.REFACTORING_JAVADOC + "/moon/notFound.html" ).toURI().toURL().toString());
-			}catch(MalformedURLException excp){
+					navegador.setUrl(FileLocator.toFileURL(getClass().getResource(RefactoringConstants.REFACTORING_JAVADOC + "/moon/notFound.html" )).toString());
+			}catch(IOException excp){
 				excp.printStackTrace();
 			}
 			

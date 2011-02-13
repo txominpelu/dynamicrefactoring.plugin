@@ -289,6 +289,7 @@ public class RefactoringWizard extends Wizard implements INewWizard {
 		
 		refactoring.setCategories(pageA.getCategories());
 		
+		refactoring.setKeywords(pageA.getKeywords());
 		HashMap<String, ArrayList<String[]>>[] map = 
 			(HashMap<String, ArrayList<String[]>>[])new HashMap[3];
 		
@@ -302,6 +303,7 @@ public class RefactoringWizard extends Wizard implements INewWizard {
 		refactoring.setAmbiguousParameters(map);
 		
 		refactoring.setExamples(pageF.getExamples());
+		
 	}
 	
 	/**
@@ -353,13 +355,15 @@ public class RefactoringWizard extends Wizard implements INewWizard {
 
 				// Se copian los ejemplos que se hayan incluído.
 				ArrayList<String[]> examples = refactoring.getExamples();
-				for (String[] example : examples)
-					for (int i = 0; i < example.length; i++)
+				for (String[] example : examples){
+					for (int i = 0; i < example.length; i++){
 						if (example[i] != null && example[i].length() > 0){
 							FileManager.copyFile(new File(example[i]), 
 								buildFile(destination, example[i]));
 							example[i] = FileManager.getFileName(example[i]);
 						}
+					}
+				}
 				
 				//actualizamos el fichero refactorings.xml que guarda la información de las refactorizaciones
 				//de la aplicación.
@@ -421,8 +425,9 @@ public class RefactoringWizard extends Wizard implements INewWizard {
 							FileManager.getFileName(refactoring.getImage()));
 						// Si el origen es distinto del destino.
 						if (! sourceFile.getAbsolutePath().equals(
-							newFile.getAbsolutePath()))
+							newFile.getAbsolutePath())){
 							FileManager.copyFile(sourceFile, newFile);
+						}
 					}
 					refactoring.setImage(FileManager.getFileName(
 						refactoring.getImage()));
@@ -450,10 +455,11 @@ public class RefactoringWizard extends Wizard implements INewWizard {
 										formatter.format(messageArgs) + "."); //$NON-NLS-1$
 								}
 							}
-							else 
+							else {
 								FileManager.copyFile(file, buildFile(
 									destination, FileManager.getFileName(
 									example[i])));
+							}
 						}
 					}
 				}
@@ -544,18 +550,17 @@ public class RefactoringWizard extends Wizard implements INewWizard {
 			RefactoringPlugin.getDynamicRefactoringsDir() +
 			System.getProperty("file.separator") + originalName); //$NON-NLS-1$
 		// Si se encuentra.
-		if (folder.exists() && folder.isDirectory())
-			// Se renombra.
-			if (folder.renameTo(destination)){
+		if (folder.exists() && folder.isDirectory() && folder.renameTo(destination)){
+
 			
 				// Se busca el fichero XML de la refactorización original.			
 				File refactoringFile = buildFile(destination, originalName + ".xml"); //$NON-NLS-1$
 				// Si se encuentra.
-				if (refactoringFile.exists())
+				if (refactoringFile.exists()){
 					// Se renombra.
 					refactoringFile.renameTo(buildFile(destination, 
 						refactoring.getName() + ".xml")); //$NON-NLS-1$
-			
+				}
 				String fragment = originalName + System.getProperty("file.separator"); //$NON-NLS-1$
 				
 				int index = refactoring.getImage().indexOf(fragment); 
@@ -565,7 +570,7 @@ public class RefactoringWizard extends Wizard implements INewWizard {
 					refactoring.setImage(path);
 				}
 				
-				for(String[] example : refactoring.getExamples())
+				for(String[] example : refactoring.getExamples()){
 					for (int i = 0; i < example.length; i++){
 						index = example[i].indexOf(fragment); 
 						if (index > -1){
@@ -573,6 +578,7 @@ public class RefactoringWizard extends Wizard implements INewWizard {
 							example[i] = buildFile(destination, name).getAbsolutePath();
 						}
 					}
+				}
 		}
 	}
 }

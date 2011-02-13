@@ -6,9 +6,9 @@ import com.google.common.base.Objects;
 
 public final class Category implements Comparable<Category> {
 	
-	public final static Category NONE_CATEGORY = new Category("", "None");
+	public static final Category NONE_CATEGORY = new Category("", "None");
 
-	public final static Category FILTERED_CATEGORY = new Category("", "Filtered");
+	public static final Category FILTERED_CATEGORY = new Category("", "Filtered");
 
 	private final String name;
 
@@ -41,7 +41,8 @@ public final class Category implements Comparable<Category> {
 	}
 
 	/**
-	 * Dos categorias son iguales si tienen el mismo nombre.
+	 * Dos categorias son iguales si tienen el mismo nombre
+	 * y el mismo padre.
 	 */
 	@Override 
 	public boolean equals(Object o) {
@@ -52,6 +53,11 @@ public final class Category implements Comparable<Category> {
 		return false;
 	}
 
+	/**
+	 * Obtiene la clasificacion padre
+	 * a la que esta categoria pertenece.
+	 * @return
+	 */
 	public String getParent() {
 		return this.parent;
 	}

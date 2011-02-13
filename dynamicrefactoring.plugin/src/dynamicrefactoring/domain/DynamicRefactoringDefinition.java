@@ -26,7 +26,10 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
+
+import com.java2html.Java2HTML;
 
 import dynamicrefactoring.RefactoringConstants;
 import dynamicrefactoring.domain.metadata.interfaces.Category;
@@ -45,7 +48,8 @@ import dynamicrefactoring.util.ScopeLimitedLister;
  * @author <A HREF="mailto:sfd0009@alu.ubu.es">Sonia Fuente de la Fuente</A>
  * @author <A HREF="mailto:ehp0001@alu.ubu.es">Enrique Herrero Paredes</A>
  */
-public class DynamicRefactoringDefinition implements Element,Comparable<DynamicRefactoringDefinition> {
+public class DynamicRefactoringDefinition implements Element,
+		Comparable<DynamicRefactoringDefinition> {
 
 	/**
 	 * Nombre de la refactorización.
@@ -103,24 +107,26 @@ public class DynamicRefactoringDefinition implements Element,Comparable<DynamicR
 	 */
 	private Set<Category> categories;
 
+	private List<String> keywords;
+
 	/**
 	 * Constructor.
 	 */
-	@SuppressWarnings({"unchecked"}) //$NON-NLS-1$
-	public DynamicRefactoringDefinition(){
+	@SuppressWarnings({ "unchecked" })//$NON-NLS-1$
+	public DynamicRefactoringDefinition() {
 		name = new String();
 		description = new String();
 		image = new String();
 		motivation = new String();
 		categories = new HashSet<Category>();
+		keywords = new ArrayList<String>();
 
 		inputs = new ArrayList<String[]>();
 		preconditions = new ArrayList<String>();
 		actions = new ArrayList<String>();
 		postconditions = new ArrayList<String>();
 
-		ambiguousParameters = (HashMap<String, ArrayList<String[]>>[]) 
-		new HashMap[3];		
+		ambiguousParameters = (HashMap<String, ArrayList<String[]>>[]) new HashMap[3];
 		for (int i = 0; i < ambiguousParameters.length; i++)
 			ambiguousParameters[i] = new HashMap<String, ArrayList<String[]>>();
 
@@ -146,7 +152,7 @@ public class DynamicRefactoringDefinition implements Element,Comparable<DynamicR
 	 * 
 	 * @see #getName
 	 */
-	public void setName(String name){
+	public void setName(String name) {
 		this.name = name;
 	}
 
@@ -169,7 +175,7 @@ public class DynamicRefactoringDefinition implements Element,Comparable<DynamicR
 	 * 
 	 * @see #getDescription
 	 */
-	public void setDescription(String description){		
+	public void setDescription(String description) {
 		this.description = description;
 	}
 
@@ -192,7 +198,7 @@ public class DynamicRefactoringDefinition implements Element,Comparable<DynamicR
 	 * 
 	 * @see #getImage
 	 */
-	public void setImage(String image){		
+	public void setImage(String image) {
 		this.image = image;
 	}
 
@@ -215,7 +221,7 @@ public class DynamicRefactoringDefinition implements Element,Comparable<DynamicR
 	 * 
 	 * @see #getMotivation
 	 */
-	public void setMotivation(String motivation){		
+	public void setMotivation(String motivation) {
 		this.motivation = motivation;
 	}
 
@@ -263,7 +269,7 @@ public class DynamicRefactoringDefinition implements Element,Comparable<DynamicR
 	 * 
 	 * @see #getInputs
 	 */
-	public void setInputs(ArrayList<String[]> inputs){
+	public void setInputs(ArrayList<String[]> inputs) {
 		this.inputs = inputs;
 	}
 
@@ -286,7 +292,7 @@ public class DynamicRefactoringDefinition implements Element,Comparable<DynamicR
 	 * 
 	 * @see #getPreconditions
 	 */
-	public void setPreconditions(ArrayList<String> preconditions){		
+	public void setPreconditions(ArrayList<String> preconditions) {
 		this.preconditions = preconditions;
 	}
 
@@ -309,7 +315,7 @@ public class DynamicRefactoringDefinition implements Element,Comparable<DynamicR
 	 * 
 	 * @see #getActions
 	 */
-	public void setActions(ArrayList<String> actions){
+	public void setActions(ArrayList<String> actions) {
 		this.actions = actions;
 	}
 
@@ -332,7 +338,7 @@ public class DynamicRefactoringDefinition implements Element,Comparable<DynamicR
 	 * 
 	 * @see #getPostconditions
 	 */
-	public void setPostconditions(ArrayList<String> postconditions){		
+	public void setPostconditions(ArrayList<String> postconditions) {
 		this.postconditions = postconditions;
 	}
 
@@ -343,7 +349,7 @@ public class DynamicRefactoringDefinition implements Element,Comparable<DynamicR
 	 * 
 	 * @see #setAmbiguousParameters
 	 */
-	public HashMap<String, ArrayList<String[]>>[] getAmbiguousParameters() {		
+	public HashMap<String, ArrayList<String[]>>[] getAmbiguousParameters() {
 		return ambiguousParameters;
 	}
 
@@ -364,21 +370,21 @@ public class DynamicRefactoringDefinition implements Element,Comparable<DynamicR
 	 * 
 	 * @see #setAmbiguousParameters
 	 */
-	public ArrayList<String[]> getAmbiguousParameters(String name, int typePart){
+	public ArrayList<String[]> getAmbiguousParameters(String name, int typePart) {
 
 		// Se obtienen todas las entradas del predicado o acción.
 		ArrayList<String[]> inputs = ambiguousParameters[typePart].get(name);
 
-		if(inputs != null){
+		if (inputs != null) {
 			ArrayList<String[]> params = new ArrayList<String[]>();
 
 			// Se crea una copia de la lista de entradas del predicado o acción.
-			for (String[] param : inputs){
+			for (String[] param : inputs) {
 				String[] temp = Arrays.copyOf(param, param.length);
-				params.add(temp);					
+				params.add(temp);
 			}
 
-			if(params.size() > 0)
+			if (params.size() > 0)
 				return params;
 		}
 		return null;
@@ -393,7 +399,7 @@ public class DynamicRefactoringDefinition implements Element,Comparable<DynamicR
 	 * @see #getAmbiguousParameters
 	 */
 	public void setAmbiguousParameters(
-			HashMap<String, ArrayList<String[]>>[] ambiguousParameters){
+			HashMap<String, ArrayList<String[]>>[] ambiguousParameters) {
 
 		this.ambiguousParameters = ambiguousParameters;
 	}
@@ -421,7 +427,7 @@ public class DynamicRefactoringDefinition implements Element,Comparable<DynamicR
 	 * 
 	 * @see #getExamples
 	 */
-	public void setExamples(ArrayList<String[]> examples){
+	public void setExamples(ArrayList<String[]> examples) {
 		this.examples = examples;
 	}
 
@@ -443,40 +449,46 @@ public class DynamicRefactoringDefinition implements Element,Comparable<DynamicR
 		DynamicRefactoringDefinition definition;
 		try {
 			XMLRefactoringReaderFactory f = new JDOMXMLRefactoringReaderFactory();
-			XMLRefactoringReaderImp implementor = f.makeXMLRefactoringReaderImp(new File(refactoringFilePath));
-			XMLRefactoringReader temporaryReader = new XMLRefactoringReader(implementor);
+			XMLRefactoringReaderImp implementor = f
+					.makeXMLRefactoringReaderImp(new File(refactoringFilePath));
+			XMLRefactoringReader temporaryReader = new XMLRefactoringReader(
+					implementor);
 			definition = temporaryReader.getDynamicRefactoringDefinition();
-		}
-		catch (Exception e) {
-			Object[] messageArgs = {refactoringFilePath};
+		} catch (Exception e) {
+			Object[] messageArgs = { refactoringFilePath };
 			MessageFormat formatter = new MessageFormat(""); //$NON-NLS-1$
-			formatter.applyPattern(
-					Messages.DynamicRefactoringDefinition_ErrorLoading);
+			formatter
+					.applyPattern(Messages.DynamicRefactoringDefinition_ErrorLoading);
 
-			throw new RefactoringException(
-					formatter.format(messageArgs) + ".\n" + //$NON-NLS-1$
+			throw new RefactoringException(formatter.format(messageArgs)
+					+ ".\n" + //$NON-NLS-1$
 					e.getMessage());
-		}	
+		}
 		return definition;
 	}
 
 	@Override
 	public boolean belongsTo(Category category) {
 		Scope scope = new ScopeLimitedLister().getRefactoringScope(this);
-		//FIXME: provisionalmente hasta corregir que devuelve nulo
+		// FIXME: provisionalmente hasta corregir que devuelve nulo
 		Set<Category> categoriesItBelongs = new HashSet<Category>(
 				getCategories());
 		if (scope != null)
-			categoriesItBelongs.add(new Category("scope" , scope.toString()));
+			categoriesItBelongs.add(new Category("scope", scope.toString()));
 
 		return categoriesItBelongs.contains(category);
 	}
 
+	/**
+	 * Las refactorizaciones se  ordenan en base a su nombre.
+	 * 
+	 * @param refactorToCompare refactorizacion a comparar con la actual
+	 * @return sigue el criterio de {@link java.lang.String#compareTo(String)} al comparar los nombres
+	 */
 	@Override
-	public int compareTo(DynamicRefactoringDefinition o) {
-		return name.compareTo(o.getName());
+	public int compareTo(DynamicRefactoringDefinition refactorToCompare) {
+		return name.compareTo(refactorToCompare.getName());
 	}
-
 
 	@Override
 	public Set<Category> getCategories() {
@@ -484,9 +496,33 @@ public class DynamicRefactoringDefinition implements Element,Comparable<DynamicR
 	}
 
 	/**
-	 * @param categories the categories to set
+	 * Establece el conjunto de categorías a las que el elemento va a
+	 * pertenecer.
+	 * 
+	 * @param categories
+	 *            categorias a las que el elemento pertenecera
 	 */
 	public void setCategories(Set<Category> categories) {
 		this.categories = categories;
+	}
+
+	/**
+	 * Obtiene el conjunto de palabras claves que describen la refactorización.
+	 * 
+	 * @return conjunto de palabras claves
+	 */
+	public List<String> getKeywords() {
+		return new ArrayList<String>(keywords);
+	}
+
+	/**
+	 * Asigna la lista de palabras claves que describen 
+	 * la refactorización.
+	 * 
+	 * @param keywords conjunto de palabras clave
+	 */
+	public void setKeywords(List<String> keywords) {
+		this.keywords = keywords;
+		
 	}
 }
