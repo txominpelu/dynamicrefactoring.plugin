@@ -360,6 +360,13 @@ public class JDOMXMLRefactoringWriterImp implements XMLRefactoringWriterImp {
 			information.addContent(motivation);
 		}
 
+		// Agrega las palabras clave que describen la refactorizacion
+		if (refactoringDefinition.getKeywords().size() > 0){
+			Element keywordsElement = createKeywordsElement();
+			information.addContent(keywordsElement);
+
+		}
+		
 		// Agrega las categorias a las que pertence la refactorizacion
 		if (refactoringDefinition.getCategories().size() > 0){
 			Element categorizationElement = createCategorizationElement(createCategoriesMapByParent());
@@ -367,12 +374,7 @@ public class JDOMXMLRefactoringWriterImp implements XMLRefactoringWriterImp {
 
 		}
 		
-		// Agrega las palabras clave que describen la refactorizacion
-		if (refactoringDefinition.getKeywords().size() > 0){
-			Element keywordsElement = createKeywordsElement();
-			information.addContent(keywordsElement);
-
-		}
+		
 		
 		refactoringElement.addContent(information);
 	}

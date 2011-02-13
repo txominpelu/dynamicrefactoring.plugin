@@ -21,7 +21,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.*/
 package dynamicrefactoring.interfaz.wizard;
 
 import java.text.MessageFormat;
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 import javax.xml.bind.ValidationException;
@@ -60,6 +62,9 @@ import org.eclipse.swt.widgets.Group;
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Text;
 import org.eclipse.ui.PlatformUI;
+
+import com.google.common.base.Joiner;
+import com.google.common.base.Strings;
 
 /**
  * Primera página del asistente de creación o edición de refactorizaciones.
@@ -108,7 +113,17 @@ public class RefactoringWizardPage1 extends WizardPage {
 	 */
 	private Text t_Name;
 
+	/**
+	 * Arbol que permite escoger las categorias
+	 * de una refactorizacion.
+	 */
 	private PickCategoryTree picker;
+
+	/**
+	 * Palabras clave que identifican la
+	 * refactorización.
+	 */
+	private Text t_Keywords;
 
 	/**
 	 * Constructor.
@@ -162,58 +177,73 @@ public class RefactoringWizardPage1 extends WizardPage {
 		fd_composite.right = new FormAttachment(100, -5);
 		composite.setLayoutData(fd_composite);
 
+		
 		final Label nameLabel = new Label(composite, SWT.NONE);
 		nameLabel.setText(Messages.RefactoringWizardPage1_Name);
 		nameLabel.setBounds(10, 20, 52, 13);
+		
+		t_Name = new Text(composite, SWT.BORDER);
+		t_Name.setToolTipText(Messages.RefactoringWizardPage1_FillInName);
+		t_Name.setBounds(80, 15, 534, 25);
 
 		final Label descriptionLabel = new Label(composite, SWT.NONE);
 		descriptionLabel.setText(Messages.RefactoringWizardPage1_Description);
 		descriptionLabel.setBounds(10, 54, 57, 13);
+		
+		t_Description = new Text(composite, SWT.BORDER | SWT.MULTI | SWT.WRAP);
+		t_Description.setToolTipText(Messages.RefactoringWizardPage1_GiveDescription);
+		t_Description.setBounds(80, 55, 534, 97);
 
 		final Label imageLabel = new Label(composite, SWT.NONE);
 		imageLabel.setText(Messages.RefactoringWizardPage1_Image);
 		imageLabel.setBounds(10, 170, 52, 13);
+		
+		t_Image = new Text(composite, SWT.BORDER);
+		t_Image.setToolTipText(Messages.RefactoringWizardPage1_SelectImage);
+		t_Image.setBounds(80, 167, 498, 25);
+		
+		final Button examineButton = new Button(composite, SWT.NONE);
+		examineButton.setText("..."); //$NON-NLS-1$
+		examineButton.setBounds(584, 167, 30, 25);
+		examineButton.addSelectionListener(new ImageChooserAction());
 
 		final Label motivationLabel = new Label(composite, SWT.NONE);
 		motivationLabel.setText(Messages.RefactoringWizardPage1_Motivation);
 		motivationLabel.setBounds(12, 210, 50, 13);
 		
-		final Label categoriesLabel = new Label(composite, SWT.NONE);
-		//FIXME: Internacionalizar el texto
-		categoriesLabel.setText("Categories");
-		categoriesLabel.setBounds(12, 320, 50, 13);
-
-		t_Name = new Text(composite, SWT.BORDER);
-		t_Name.setToolTipText(Messages.RefactoringWizardPage1_FillInName);
-		t_Name.setBounds(80, 15, 534, 25);
-
-		t_Description = new Text(composite, SWT.BORDER | SWT.MULTI | SWT.WRAP);
-		t_Description.setToolTipText(Messages.RefactoringWizardPage1_GiveDescription);
-		t_Description.setBounds(80, 55, 534, 97);
-
-		t_Image = new Text(composite, SWT.BORDER);
-		t_Image.setToolTipText(Messages.RefactoringWizardPage1_SelectImage);
-		t_Image.setBounds(80, 167, 498, 25);
-
 		t_Motivation = new Text(composite, SWT.BORDER | SWT.MULTI | SWT.WRAP);
 		t_Motivation.setToolTipText(Messages.RefactoringWizardPage1_GiveMotivation);
 		t_Motivation.setBounds(80, 207, 534, 97);
+		
+		final Label keywordsLabel = new Label(composite, SWT.NONE);
+		//FIXME: Internacionalizar
+		keywordsLabel.setText("Keywords");
+		keywordsLabel.setBounds(12, 320, 50, 13);
+		
+		t_Keywords = new Text(composite, SWT.BORDER | SWT.MULTI | SWT.WRAP);
+		//FIXME: Internacionalizar
+		t_Keywords.setToolTipText("Establish a set of KeyWords to identify the refactoring.");
+		t_Keywords.setBounds(80, 317, 534, 57);
+
+		
+		final Label categoriesLabel = new Label(composite, SWT.NONE);
+		//FIXME: Internacionalizar el texto
+		categoriesLabel.setText("Categories");
+		categoriesLabel.setBounds(12, 390, 50, 13);
 		
 		try {
 			Set<Category> categories = (refactoring == null ? new HashSet<Category>() : refactoring.getCategories());
 			picker = new PickCategoryTree(composite,ClassificationsReaderFactory
 					.getReader(
 							ClassificationsReaderFactory.ClassificationsReaderTypes.JAXB_READER)
-					.readClassifications(RefactoringConstants.CLASSIFICATION_TYPES_FILE),categories, new Rectangle(80, 320, 534, 160), true);
+					.readClassifications(RefactoringConstants.CLASSIFICATION_TYPES_FILE),categories);
+			picker.getControl().setBounds(80, 390, 534, 160);
 		} catch (ValidationException e1) {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
 		}
 
-		final Button examineButton = new Button(composite, SWT.NONE);
-		examineButton.setText("..."); //$NON-NLS-1$
-		examineButton.setBounds(584, 167, 30, 25);
-		examineButton.addSelectionListener(new ImageChooserAction());
+		
 
 		this.t_Name.addModifyListener(new ModifyListener(){
 			public void modifyText(ModifyEvent e) {
@@ -250,6 +280,8 @@ public class RefactoringWizardPage1 extends WizardPage {
 			t_Motivation.setText(refactoring.getMotivation());
 		if (refactoring.getDescription() != null)
 			t_Description.setText(refactoring.getDescription());
+		if (refactoring.getKeywords() != null && refactoring.getKeywords().size() > 0 )
+			t_Keywords.setText(Joiner.on(",").join(refactoring.getKeywords()));
 		dialogChanged();
 	}
 	
@@ -279,10 +311,25 @@ public class RefactoringWizardPage1 extends WizardPage {
 	 * @param message mensaje asociado al estado actual de la pantalla.
 	 */
 	private void updateStatus(String message) {
+		//TODO: Comprobar que las palabras claves tienen sintaxis correcta
 		setErrorMessage(message);
 		setPageComplete(message == null);
 	}
 
+	/**
+	 * Obtiene las palabras clave definidas
+	 * por el usuario.
+	 * 
+	 * @return conjunto de palabras clave
+	 */
+	List<String> getKeywords(){
+		List<String> keywords = new ArrayList<String>();
+		for(String keyword: t_Keywords.getText().split(",")){
+			keywords.add(keyword);
+		}
+		return keywords;
+	}
+	
 	/**
 	 * Obtiene el campo de texto con la descripción de la refactorización.
 	 * 

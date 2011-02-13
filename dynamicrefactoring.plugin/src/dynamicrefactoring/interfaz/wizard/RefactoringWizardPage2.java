@@ -46,6 +46,7 @@ import java.util.Arrays;
 import java.util.Hashtable;
 
 import org.apache.log4j.Logger;
+import org.eclipse.core.runtime.FileLocator;
 import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.jface.wizard.WizardPage;
 
@@ -321,8 +322,10 @@ public class RefactoringWizardPage2 extends WizardPage {
 		fd_navegador.left = new FormAttachment(0, 10);
 		navegador.setLayoutData(fd_navegador);
 		try{
-			navegador.setUrl(new File(RefactoringConstants.REFACTORING_JAVADOC + "/moon/overview-summary.html" ).toURI().toURL().toString());
-		}catch(MalformedURLException e){}
+			navegador.setUrl(FileLocator.toFileURL(getClass().getResource(RefactoringConstants.REFACTORING_JAVADOC + "/moon/overview-summary.html" )).toString());
+		}catch(IOException e){
+			//FIXME: No se puede capturar una excepcion y no hacer nada con ella
+		}
 
 		final Group typesGroup = new Group(composite_1, SWT.NONE);
 		typesGroup.setText(Messages.RefactoringWizardPage2_Types);
@@ -1124,10 +1127,10 @@ public class RefactoringWizardPage2 extends WizardPage {
 
 			try{
 				if(new File(path).exists())
-					navegador.setUrl(new File(path).toURI().toURL().toString()+ "#skip-navbar_top");
+					navegador.setUrl(FileLocator.toFileURL(getClass().getResource(path)) + "#skip-navbar_top");
 				else
-					navegador.setUrl(new File(RefactoringConstants.REFACTORING_JAVADOC + "/moon/notFound.html" ).toURI().toURL().toString());
-			}catch(MalformedURLException excp){
+					navegador.setUrl(FileLocator.toFileURL(getClass().getResource(RefactoringConstants.REFACTORING_JAVADOC + "/moon/notFound.html" )).toString());
+			}catch(IOException excp){
 				excp.printStackTrace();
 			}
 			//tInformation.setText(getJavadocInformation(path));

@@ -289,6 +289,8 @@ public class RefactoringWizard extends Wizard implements INewWizard {
 		
 		refactoring.setCategories(pageA.getCategories());
 		
+		refactoring.setKeywords(pageA.getKeywords());
+		
 		HashMap<String, ArrayList<String[]>>[] map = 
 			(HashMap<String, ArrayList<String[]>>[])new HashMap[3];
 		
@@ -302,6 +304,7 @@ public class RefactoringWizard extends Wizard implements INewWizard {
 		refactoring.setAmbiguousParameters(map);
 		
 		refactoring.setExamples(pageF.getExamples());
+		
 	}
 	
 	/**

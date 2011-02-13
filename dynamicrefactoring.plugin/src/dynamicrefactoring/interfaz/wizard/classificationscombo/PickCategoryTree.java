@@ -13,13 +13,19 @@ import org.eclipse.jface.viewers.ICheckStateProvider;
 import org.eclipse.jface.viewers.ILabelProvider;
 import org.eclipse.jface.viewers.ILabelProviderListener;
 import org.eclipse.jface.viewers.LabelProvider;
+import org.eclipse.jface.viewers.TreeViewer;
+import org.eclipse.jface.viewers.TreeViewerColumn;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.graphics.Image;
 import org.eclipse.swt.graphics.Rectangle;
 import org.eclipse.swt.layout.FillLayout;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.widgets.Composite;
+import org.eclipse.swt.widgets.Control;
+import org.eclipse.swt.widgets.TableColumn;
+import org.eclipse.swt.widgets.TreeColumn;
 
+import com.google.common.base.Preconditions;
 import com.google.common.base.Predicate;
 import com.google.common.collect.Collections2;
 import com.google.common.collect.Sets;
@@ -33,9 +39,11 @@ public final class PickCategoryTree {
 
 	private final CheckboxTreeViewer tv;
 	private final Set<Classification> availableClassifications;
-
+	private Composite parent;
+	private ICheckStateListener checkStateListener;
+	
 	/**
-	 * Crea el arbol que permite escoger las categorÃ­as a las que pertenece la
+	 * Crea el arbol que permite escoger las categori­as a las que pertenece la
 	 * refactorizacion.
 	 * 
 	 * @param parent
@@ -51,22 +59,113 @@ public final class PickCategoryTree {
 	 */
 	public PickCategoryTree(Composite parent,
 			Set<Classification> availableClassifications,
-			Set<Category> categories, Rectangle bounds, boolean enabled) {
+			Set<Category> categories) {
+		this(parent, availableClassifications, categories,
+				new ClassificationsCheckBoxTreeListener(
+						availableClassifications));
+	}
+
+	/**
+	 * Crea el arbol que permite escoger las categori­as a las que pertenece la
+	 * refactorizacion.
+	 * 
+	 * @param parent
+	 *            elemento de la GUI en la que se incrustara el arbol
+	 * @param availableClassifications
+	 *            conjunto de clasificaciones existentes
+	 * @param refact
+	 *            refactorizacion sobre la que se va a crear el arbol. Si la
+	 *            refactorizacion ya pertenece a alguna categoria esas
+	 *            apareceran marcadas en el arbol
+	 * @param checkStateListener
+	 *            gestionara los eventos del arbol
+	 * @return arbol para escoger las categorias a las que pertenece una
+	 *         refactorizacion
+	 */
+	public PickCategoryTree(Composite parent,
+			Set<Classification> availableClassifications,
+			Set<Category> categories, ICheckStateListener checkStateListener) {
+		Preconditions.checkArgument(allCategoriesExistInAClassification(
+				availableClassifications, categories));
 		tv = new CheckboxTreeViewer(parent, SWT.V_SCROLL | SWT.BORDER
 				| SWT.CHECK);
-		// tv.getTree().setLayoutData(new GridData(SWT.FILL, SWT.FILL, true,
-		// false, 2, 1));
-		tv.getTree().setBounds(bounds);
 		tv.setContentProvider(new ClassificationsTreeContentProvider());
 		tv.setLabelProvider(new PickCategoryTreeLabelProvider());
-		ClassificationsCheckBoxTreeListener checkStateListener = new ClassificationsCheckBoxTreeListener(
-				availableClassifications);
 		tv.addCheckStateListener(checkStateListener);
 		tv.setInput(availableClassifications);
+
 		setTreeInitialState(availableClassifications, categories,
 				checkStateListener);
-		tv.getTree().setEnabled(enabled);
+		
 		this.availableClassifications = availableClassifications;
+		this.parent = parent;
+		this.checkStateListener = checkStateListener;
+
+	}
+
+	/**
+	 * Se asegura de que todas las categorias pasadas existen entre las
+	 * clasificaciones pasadas.
+	 * 
+	 * @param availableClassifications2
+	 *            clasificaciones
+	 * @param categories
+	 *            categorias
+	 * @return devuelve si todas las categorias se corresponden con alguna
+	 *         clasificacion
+	 */
+	private boolean allCategoriesExistInAClassification(
+			Set<Classification> availableClassifications2,
+			Set<Category> categories) {
+		for(final Category c: categories){
+			if(notCategoryExistInAvailableClassifications(availableClassifications2, c)){
+				return false;
+			}
+		}
+		return true;
+	}
+
+	/**
+	 * Devuelve si una categoria pertenece o no a una de las 
+	 * clasificaciones disponibles.
+	 * 
+	 * @param availableClassifications2 clasificaciones disponibles
+	 * @param category categoria
+	 * @return
+	 */
+	private boolean notCategoryExistInAvailableClassifications(
+			Set<Classification> availableClassifications2, final Category category) {
+		return Collections2.filter(availableClassifications2, new Predicate<Classification>(){
+
+			@Override
+			public boolean apply(Classification arg0) {
+				return category.getParent().equals(arg0.getName()) && arg0.getCategories().contains(category);
+			}
+			
+		}).isEmpty();
+	}
+
+	/**
+	 * Cambia las categorias seleccionadas de un
+	 * arbol.
+	 * 
+	 * @param selectedCategories categorias seleccionadas
+	 */
+	public void setSelectedCategories(
+			Set<Category> selectedCategories) {
+		setTreeInitialState(availableClassifications, selectedCategories, checkStateListener);
+	}
+
+	
+
+	/**
+	 * Obtiene el control que permite escoger las categorías de una
+	 * clasificación.
+	 * 
+	 * @return control
+	 */
+	public Control getControl() {
+		return tv.getControl();
 	}
 
 	/**
@@ -83,11 +182,11 @@ public final class PickCategoryTree {
 	 */
 	private void setTreeInitialState(
 			Set<Classification> availableClassifications,
-			Set<Category> categories,
-			ClassificationsCheckBoxTreeListener checkStateListener) {
+			Set<Category> categories, ICheckStateListener checkStateListener) {
 		tv.setCheckedElements(categories.toArray());
 		for (Classification classification : availableClassifications) {
-			checkStateListener.grayParentIfNeeded(classification, tv);
+			ClassificationsCheckBoxTreeListener.grayParentIfNeeded(
+					classification, tv);
 		}
 	}
 
@@ -170,8 +269,6 @@ public final class PickCategoryTree {
 	static boolean isChildElement(Object elemento) {
 		return elemento instanceof Category;
 	}
-
-	
 
 	private static class PickCategoryTreeLabelProvider extends LabelProvider
 			implements ILabelProvider {
