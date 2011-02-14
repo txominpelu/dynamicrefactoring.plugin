@@ -20,60 +20,59 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.*/
 
 package dynamicrefactoring.interfaz;
 
-import dynamicrefactoring.domain.Scope;
-import dynamicrefactoring.interfaz.dynamic.DynamicRefactoringWindowLauncher;
-
-import dynamicrefactoring.util.ScopeLimitedLister;
-import dynamicrefactoring.util.io.FileManager;
-
+import java.io.BufferedWriter;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
+import java.util.Map.Entry;
 import java.util.Vector;
-
-import org.eclipse.jface.dialogs.Dialog;
-import org.eclipse.jface.dialogs.IDialogConstants;
-
-import org.eclipse.swt.graphics.Point;
-
-import org.eclipse.swt.layout.FormAttachment;
-import org.eclipse.swt.layout.FormData;
-import org.eclipse.swt.layout.FormLayout;
-import org.eclipse.swt.layout.GridData;
-import org.eclipse.swt.layout.GridLayout;
-
-import org.eclipse.swt.SWT;
-
-import org.eclipse.swt.widgets.Composite;
-import org.eclipse.swt.widgets.Control;
-import org.eclipse.swt.widgets.Label;
-import org.eclipse.swt.widgets.List;
-import org.eclipse.swt.widgets.Shell;
-import com.swtdesigner.ResourceManager;
 
 import moon.core.ObjectMoon;
 import moon.core.classdef.AttDec;
 import moon.core.classdef.ClassDef;
 import moon.core.classdef.FormalArgument;
 import moon.core.classdef.MethDec;
-import moon.core.instruction.CodeFragment;
-
 import moon.core.genericity.BoundS;
 import moon.core.genericity.FormalPar;
+import moon.core.instruction.CodeFragment;
+
+import org.eclipse.jface.dialogs.Dialog;
+import org.eclipse.jface.dialogs.IDialogConstants;
+import org.eclipse.swt.SWT;
+import org.eclipse.swt.graphics.Point;
+import org.eclipse.swt.layout.FormAttachment;
+import org.eclipse.swt.layout.FormData;
+import org.eclipse.swt.layout.FormLayout;
+import org.eclipse.swt.layout.GridData;
+import org.eclipse.swt.layout.GridLayout;
+import org.eclipse.swt.widgets.Composite;
+import org.eclipse.swt.widgets.Control;
+import org.eclipse.swt.widgets.Label;
+import org.eclipse.swt.widgets.List;
+import org.eclipse.swt.widgets.Shell;
+
+import com.swtdesigner.ResourceManager;
+
 import dynamicrefactoring.PluginImages;
 import dynamicrefactoring.RefactoringPlugin;
+import dynamicrefactoring.domain.Scope;
+import dynamicrefactoring.interfaz.dynamic.DynamicRefactoringWindowLauncher;
+import dynamicrefactoring.util.ScopeLimitedLister;
+import dynamicrefactoring.util.io.FileManager;
 
 /**
  * Proporciona una interfaz sencilla sobre la que el usuario puede seleccionar
- * la refactorización que desea ejecutar a continuación sobre el elemento
+ * la refactorizaciï¿½n que desea ejecutar a continuaciï¿½n sobre el elemento
  * seleccionado.
  * 
- * <p>Muestra un listado poblado de forma dinámica con las refactorizaciones
- * estáticas y dinámicas disponibles y que se puedan ejecutar en el ámbito del
+ * <p>Muestra un listado poblado de forma dinï¿½mica con las refactorizaciones
+ * estï¿½ticas y dinï¿½micas disponibles y que se puedan ejecutar en el ï¿½mbito del
  * objeto seleccionado en la interfaz en ese momento.</p>
  * 
- * <p>El objeto seleccionado en la interfaz constituirá la entrada principal de
- * la refactorización que se seleccione para ser ejecutada.</p>
+ * <p>El objeto seleccionado en la interfaz constituirï¿½ la entrada principal de
+ * la refactorizaciï¿½n que se seleccione para ser ejecutada.</p>
  * 
  * @author <A HREF="mailto:lfd0002@alu.ubu.es">Laura Fuente de la Fuente</A>
  * @author <A HREF="mailto:sfd0009@alu.ubu.es">Sonia Fuente de la Fuente</A>
@@ -82,12 +81,12 @@ import dynamicrefactoring.RefactoringPlugin;
 public class SelectRefactoringWindow extends Dialog {
 	
 	/**
-	 * Ámbito de aplicación de refactorizaciones con el que trabajará la ventana.
+	 * ï¿½mbito de aplicaciï¿½n de refactorizaciones con el que trabajarï¿½ la ventana.
 	 */
 	private Scope scope;
 	
 	/**
-	 * Objeto seleccionado como entrada principal al proceso de refactorización. 
+	 * Objeto seleccionado como entrada principal al proceso de refactorizaciï¿½n. 
 	 */
 	private ObjectMoon mainObject;
 	
@@ -97,7 +96,7 @@ public class SelectRefactoringWindow extends Dialog {
 	private Vector<String> available_refactors;
 	
 	/**
-	 * Lista de refactorizaciones dinámicas cargadas.
+	 * Lista de refactorizaciones dinï¿½micas cargadas.
 	 */
 	HashMap<String, String> dynamicRefactorings;
 	
@@ -109,7 +108,7 @@ public class SelectRefactoringWindow extends Dialog {
 	/**
 	 * Constructor.
 	 * 
-	 * @param parentShell shell a la que pertenece la ventana de diálogo.
+	 * @param parentShell shell a la que pertenece la ventana de diï¿½logo.
 	 * @param mainObject objeto seleccionado como entrada principal.
 	 */
 	public SelectRefactoringWindow(Shell parentShell, ObjectMoon mainObject) {
@@ -143,9 +142,27 @@ public class SelectRefactoringWindow extends Dialog {
 		
 		dynamicRefactorings = 
 			ScopeLimitedLister.getAvailableRefactorings(scope);
+		
+		try {
+			BufferedWriter outputStream = new BufferedWriter(new FileWriter("/home/imediava/Escritorio/PruebasProgramacion/addCategories-Refactorings/classifiedbyscope.txt"));
+			for(Scope sc: Scope.values()){
+				outputStream.write("#" + sc.toString() + "\n");
+				for(Entry<String, String>  refactEntry: ScopeLimitedLister.getAvailableRefactorings(sc).entrySet()){
+					outputStream.write(refactEntry.getKey());
+					outputStream.newLine();
+				}
+				
+			}
+			outputStream.close();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		
 		fillInDynamicRefactorings(dynamicRefactorings);
-		// Para un parámetro formal acotado valen también las refactorizaciones
-		// generales sobre parámetros formales.
+		// Para un parï¿½metro formal acotado valen tambiï¿½n las refactorizaciones
+		// generales sobre parï¿½metros formales.
 		if (scope == Scope.BOUNDED_PAR){
 			HashMap <String, String> tempMap =
 				ScopeLimitedLister.getAvailableRefactorings(Scope.FORMAL_PAR);
@@ -159,7 +176,7 @@ public class SelectRefactoringWindow extends Dialog {
 	 * incluidas en una tabla asociativa en el formato devuelto por <code>
 	 * ScopeLimitedLister</code>.
 	 * 
-	 * @param refactorings tabla de refactorizaciones que se deben añadir
+	 * @param refactorings tabla de refactorizaciones que se deben aï¿½adir
 	 * a la lista de disponibles.
 	 */
 	private void fillInDynamicRefactorings(HashMap<String, String> refactorings) {
@@ -174,11 +191,11 @@ public class SelectRefactoringWindow extends Dialog {
 	}
 
 	/**
-	 * Crea el contenido de la ventana de diálogo.
+	 * Crea el contenido de la ventana de diï¿½logo.
 	 * 
-	 * @param parent el elemento compuesto padre de esta ventana de diálogo.
+	 * @param parent el elemento compuesto padre de esta ventana de diï¿½logo.
 	 * 
-	 * @return el control asociado al área de diálogo.
+	 * @return el control asociado al ï¿½rea de diï¿½logo.
 	 */
 	@Override
 	protected Control createDialogArea(Composite parent) {
@@ -216,8 +233,8 @@ public class SelectRefactoringWindow extends Dialog {
 	}
 	
 	/**
-	 * Devuelve las refactorizaciones dinámicas.
-	 * @return refactorizaciones dinámicas.
+	 * Devuelve las refactorizaciones dinï¿½micas.
+	 * @return refactorizaciones dinï¿½micas.
 	 */
 	public Vector<String> getAvailableRefactors() {
 		return available_refactors;
@@ -245,9 +262,9 @@ public class SelectRefactoringWindow extends Dialog {
 	}
 
 	/**
-	 * Obtiene el tamaño inicial de la ventana de diálogo.
+	 * Obtiene el tamaï¿½o inicial de la ventana de diï¿½logo.
 	 * 
-	 * @return el tamaño inicial de la ventana de diálogo.
+	 * @return el tamaï¿½o inicial de la ventana de diï¿½logo.
 	 * 
 	 * @see Dialog#getInitialSize
 	 */
@@ -257,7 +274,7 @@ public class SelectRefactoringWindow extends Dialog {
 	}
 	
 	/**
-	 * Configura la shell dada, preparándola para abrir esta ventana de diálogo
+	 * Configura la shell dada, preparï¿½ndola para abrir esta ventana de diï¿½logo
 	 * sobre ella.
 	 * 
 	 * @param newShell la shell que se ha de configurar.
@@ -294,10 +311,10 @@ public class SelectRefactoringWindow extends Dialog {
 	}
 	
 	/**
-	 * Notifica que el botón de este diálogo con el identificador especificado
+	 * Notifica que el botï¿½n de este diï¿½logo con el identificador especificado
 	 * ha sido pulsado.
 	 * 
-	 * @param buttonId el identificador del botón que ha sido pulsado (véanse
+	 * @param buttonId el identificador del botï¿½n que ha sido pulsado (vï¿½anse
 	 * las constantes <code>IDialogConstants.*ID</code>).
 	 * 
 	 * @see Dialog#buttonPressed

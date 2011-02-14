@@ -51,11 +51,11 @@ public class EditRefactoringTests {
 	@Test
 	public final void cantMarkTwoCategoriesInUniCategoryClassifications() {
  
-		refactoringWizardPageObject.checkCategory(SCOPE_CLASSIF,CODE_FRAGMENT_CATEGORY);
-		refactoringWizardPageObject.checkCategory(SCOPE_CLASSIF,METHOD_CATEGORY);
+		refactoringWizardPageObject.checkCategory(FOWLER_CLASSIF,COMPOSING_METHODS_TREE_ITEM_TEXT);
+		refactoringWizardPageObject.checkCategory(FOWLER_CLASSIF,MAKING_METHOD_CALLS_SIMPLER_CATEGORY);
 		
-		assertFalse(refactoringWizardPageObject.isCategoryChecked(SCOPE_CLASSIF,CODE_FRAGMENT_CATEGORY));
-		assertTrue(refactoringWizardPageObject.isCategoryChecked(SCOPE_CLASSIF,METHOD_CATEGORY));
+		assertFalse(refactoringWizardPageObject.isCategoryChecked(FOWLER_CLASSIF,COMPOSING_METHODS_TREE_ITEM_TEXT));
+		assertTrue(refactoringWizardPageObject.isCategoryChecked(FOWLER_CLASSIF,MAKING_METHOD_CALLS_SIMPLER_CATEGORY));
 		
 	}
 	
@@ -65,12 +65,14 @@ public class EditRefactoringTests {
 	 */
 	@Test
 	public final void markTwoCategoriesInMultiCategoryClassificationsTest(){
- 
-		refactoringWizardPageObject.checkCategory(FOWLER_CLASSIF,COMPOSING_METHODS_TREE_ITEM_TEXT);
-		refactoringWizardPageObject.checkCategory(FOWLER_CLASSIF,MAKING_METHOD_CALLS_SIMPLER_CATEGORY);
 		
-		assertTrue(refactoringWizardPageObject.isCategoryChecked(FOWLER_CLASSIF,COMPOSING_METHODS_TREE_ITEM_TEXT));
-		assertTrue(refactoringWizardPageObject.isCategoryChecked(FOWLER_CLASSIF,MAKING_METHOD_CALLS_SIMPLER_CATEGORY));
+		refactoringWizardPageObject.checkCategory(SCOPE_CLASSIF,CODE_FRAGMENT_CATEGORY);
+		refactoringWizardPageObject.checkCategory(SCOPE_CLASSIF,METHOD_CATEGORY);
+		
+		assertTrue(refactoringWizardPageObject.isCategoryChecked(SCOPE_CLASSIF,CODE_FRAGMENT_CATEGORY));
+		assertTrue(refactoringWizardPageObject.isCategoryChecked(SCOPE_CLASSIF,METHOD_CATEGORY));
+ 
+		
 		
 	}
 

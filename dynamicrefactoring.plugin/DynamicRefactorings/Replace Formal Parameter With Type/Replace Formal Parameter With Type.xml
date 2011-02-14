@@ -1,17 +1,14 @@
-<?xml version="1.0" encoding="ISO-8859-1"?>
-<!DOCTYPE refactoring SYSTEM "refactoringDTD.dtd">
-
-<refactoring name="Replace Formal Parameter With Type" version="1.2">
+<?xml version="1.0" encoding="iso-8859-1"?><!DOCTYPE refactoring  SYSTEM 'refactoringDTD.dtd'><refactoring name="Replace Formal Parameter With Type" version="1.2">
 	<information>
 		<description>Removes the formal parameter from the class declaration, replacing the generic type for the completely instantiated type.</description>
-		<image src="image.JPG" />
+		<image src="image.JPG"/>
 		<motivation>Given a generic class with subtype bounds, the actual substitution for one of its formal parameters is always the same.</motivation>
-	</information>
+	<categorization><classification name="scope"><category>FormalPar</category></classification></categorization></information>
 	<inputs>
-		<input type="moon.core.genericity.FormalPar" name="Parameter" root="true"/>
-		<input type="moon.core.classdef.ClassType" name="New_type" from="Model" method="getClassDef"/>
-		<input type="moon.core.classdef.ClassDef" name="Class" from="Parameter" method="getClassDef"/>
-		<input type="moon.core.Model" name="Model" />
+		<input name="Parameter" root="true" type="moon.core.genericity.FormalPar"/>
+		<input from="Model" method="getClassDef" name="New_type" type="moon.core.classdef.ClassType"/>
+		<input from="Parameter" method="getClassDef" name="Class" type="moon.core.classdef.ClassDef"/>
+		<input name="Model" type="moon.core.Model"/>
 	</inputs>
 	<mechanism>
 		<preconditions>
@@ -39,5 +36,5 @@
 			</postcondition>
 		</postconditions>
 	</mechanism>
-	<examples />
+	<examples/>
 </refactoring>

@@ -1,51 +1,47 @@
-<?xml version="1.0" encoding="ISO-8859-1"?>
-<!DOCTYPE refactoring SYSTEM "refactoringDTD.dtd">
-
-<refactoring name="Rename Parameter">
+<?xml version="1.0" encoding="iso-8859-1"?><!DOCTYPE refactoring  SYSTEM 'refactoringDTD.dtd'><refactoring name="Rename Parameter">
 	<information>
 		<description>Change the name of the parameter.</description>
-		<image src="renameparameter.JPG" />
+		<image src="renameparameter.JPG"/>
 		<motivation>The name of a parameter within a method's signature does not reveal its purpose.</motivation>
-	</information>
+	<categorization><classification name="scope"><category>FormalArg</category></classification></categorization></information>
 	<inputs>
-		<input type="moon.core.classdef.FormalArgument" name="Parameter" root="true" />
-		<input type="moon.core.Name" name="Old_name" from="Parameter" method="getName" root="false" />
-		<input type="moon.core.Name" name="New_name" root="false" />
-		<input type="moon.core.classdef.MethDec" name="Method" from="Parameter" method="getMethDec" root="false" />
-		<input type="moon.core.Model" name="Model" root="false" />
+		<input name="Parameter" root="true" type="moon.core.classdef.FormalArgument"/>
+		<input from="Parameter" method="getName" name="Old_name" root="false" type="moon.core.Name"/>
+		<input name="New_name" root="false" type="moon.core.Name"/>
+		<input from="Parameter" method="getMethDec" name="Method" root="false" type="moon.core.classdef.MethDec"/>
+		<input name="Model" root="false" type="moon.core.Model"/>
 	</inputs>
 	<mechanism>
 		<preconditions>
 			<precondition name="repository.moon.concretepredicate.ExistsFormalArgInMethod">
-				<param name="Parameter" />
-				<param name="Method" />
+				<param name="Parameter"/>
+				<param name="Method"/>
 			</precondition>
 			<precondition name="repository.moon.concretepredicate.HasNotFormalArgWithName">
-				<param name="Method" />
-				<param name="New_name" />
+				<param name="Method"/>
+				<param name="New_name"/>
 			</precondition>
 			<precondition name="repository.moon.concretepredicate.NotExistsLocalDecWithName">
-				<param name="Method" />
-				<param name="New_name" />
+				<param name="Method"/>
+				<param name="New_name"/>
 			</precondition>
 		</preconditions>
 		<actions>
 			<action name="repository.moon.concreteaction.RenameFormalArg">
-				<param name="Parameter" />
-				<param name="New_name" />
+				<param name="Parameter"/>
+				<param name="New_name"/>
 			</action>
 		</actions>
 		<postconditions>
 			<postcondition name="repository.moon.concretepredicate.HasNotFormalArgWithName">
-				<param name="Method" />
-				<param name="Old_name" />
+				<param name="Method"/>
+				<param name="Old_name"/>
 			</postcondition>
 			<postcondition name="repository.moon.concretepredicate.ExistsFormalArgInMethod">
-				<param name="Parameter" />
-				<param name="Method" />
+				<param name="Parameter"/>
+				<param name="Method"/>
 			</postcondition>
 		</postconditions>
 	</mechanism>
-	<examples />
+	<examples/>
 </refactoring>
-

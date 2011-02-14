@@ -1,44 +1,40 @@
-<?xml version="1.0" encoding="ISO-8859-1"?>
-<!DOCTYPE refactoring SYSTEM "refactoringDTD.dtd">
-
-<refactoring name="MigrateJUnit3ToJUnit4">
+<?xml version="1.0" encoding="iso-8859-1"?><!DOCTYPE refactoring  SYSTEM 'refactoringDTD.dtd'><refactoring name="MigrateJUnit3ToJUnit4">
 	<information>
 		<description>Migración de tests realizados en la version JUnit 3.x a una versión JUnit 4.x utilizando anotaciones.</description>
 		<motivation>La migración entre versiones es un problema habitual.</motivation>
-	</information>
+	<categorization><classification name="scope"><category>Class</category></classification></categorization></information>
 	<inputs>
-		<input type="moon.core.classdef.ClassDef" name="Class" root="true" />
-		<input type="moon.core.classdef.ClassType" name="Class_type" from="Class" method="getClassType" root="false" />
-		<input type="moon.core.classdef.ClassType" name="JUnit_TestCase_type" from="Model" method="getTypes" root="false" />
-		<input type="moon.core.Model" name="Model" root="false" />
+		<input name="Class" root="true" type="moon.core.classdef.ClassDef"/>
+		<input from="Class" method="getClassType" name="Class_type" root="false" type="moon.core.classdef.ClassType"/>
+		<input from="Model" method="getTypes" name="JUnit_TestCase_type" root="false" type="moon.core.classdef.ClassType"/>
+		<input name="Model" root="false" type="moon.core.Model"/>
 	</inputs>
 	<mechanism>
 		<preconditions>
 			<precondition name="repository.moon.concretepredicate.ExistsClass">
-				<param name="Class" />
+				<param name="Class"/>
 			</precondition>
 			<precondition name="repository.moon.concretepredicate.IsSubtype">
-				<param name="Class_type" />
-				<param name="JUnit_TestCase_type" />
+				<param name="Class_type"/>
+				<param name="JUnit_TestCase_type"/>
 			</precondition>
 		</preconditions>
 		<actions>
 			<action name="repository.java.concreteaction.RemoveJUnit3Imports">
-				<param name="Class" />
+				<param name="Class"/>
 			</action>
 			<action name="repository.java.concreteaction.AddJUnit4Imports">
-				<param name="Class" />
+				<param name="Class"/>
 			</action>
 			<action name="repository.moon.concreteaction.RemoveInheritanceClause">
-				<param name="Class" />
-				<param name="JUnit_TestCase_type" />
+				<param name="Class"/>
+				<param name="JUnit_TestCase_type"/>
 			</action>
 			<action name="repository.java.concreteaction.AddJUnit4Annotation">
-				<param name="Class" />
+				<param name="Class"/>
 			</action>
 		</actions>
-		<postconditions />
+		<postconditions/>
 	</mechanism>
-	<examples />
+	<examples/>
 </refactoring>
-

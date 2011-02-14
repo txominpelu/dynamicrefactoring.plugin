@@ -2,7 +2,7 @@
 <!DOCTYPE classifications SYSTEM "classificationsDTD.dtd">
 
 <classifications>
-	<classification name="scope" description="Clasificacion basada en el ambito de las refactorizaciones.">
+	<classification name="scope" multicategory="true" description="Clasificacion basada en el ambito de las refactorizaciones.">
 		<categories>
 			<category>Class</category>
 			<category>Method</category>
@@ -12,7 +12,7 @@
 			<category>FormalArg</category>
 		</categories>		
 	</classification>
-	<classification name="Fowler" description="Clasificacion basada en el libro de Martin Fowler." multicategory="true">
+	<classification name="Fowler" description="Clasificacion basada en el libro de Martin Fowler.">
 		<categories>
 			<category>ComposingMethods</category>
 			<category>MakingMethodCallsSimpler</category>
