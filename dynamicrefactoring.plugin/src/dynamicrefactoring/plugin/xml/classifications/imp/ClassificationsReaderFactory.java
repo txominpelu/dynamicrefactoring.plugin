@@ -2,7 +2,7 @@ package dynamicrefactoring.plugin.xml.classifications.imp;
 
 import dynamicrefactoring.plugin.xml.classifications.XmlClassificationsReader;
 
-public class ClassificationsReaderFactory {
+class ClassificationsReaderFactory {
 	
 	public enum ClassificationsReaderTypes{
 		JAXB_READER

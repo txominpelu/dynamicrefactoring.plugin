@@ -9,6 +9,7 @@
 				<category>BoundedPar</category>
 			</classification>
 		</categorization>
+	 </information>
 	<inputs>
 		<input name="Model" root="false" type="moon.core.Model"/>
 		<input from="Model" method="getTypes" name="New_bounding_type" root="false" type="moon.core.classdef.ClassType"/>

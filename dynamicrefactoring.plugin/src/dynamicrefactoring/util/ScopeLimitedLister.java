@@ -30,172 +30,150 @@ import dynamicrefactoring.RefactoringPlugin;
 import dynamicrefactoring.domain.DynamicRefactoringDefinition;
 import dynamicrefactoring.domain.RefactoringException;
 import dynamicrefactoring.domain.Scope;
-import dynamicrefactoring.domain.Scope;
 import dynamicrefactoring.interfaz.SelectRefactoringWindow;
 
 /**
- * Permite obtener el conjunto de refactorizaciones dinámicas disponibles y
- * aplicables sobre un único ámbito (de clase, de método, etc.).
+ * Permite obtener el conjunto de refactorizaciones dinï¿½micas disponibles y
+ * aplicables sobre un ï¿½nico ï¿½mbito (de clase, de mï¿½todo, etc.).
  * 
  * @author <A HREF="mailto:lfd0002@alu.ubu.es">Laura Fuente de la Fuente</A>
  * @author <A HREF="mailto:sfd0009@alu.ubu.es">Sonia Fuente de la Fuente</A>
  * @author <A HREF="mailto:ehp0001@alu.ubu.es">Enrique Herrero Paredes</A>
  */
 public class ScopeLimitedLister {
-	
+
 	/**
 	 * Elemento de registro de errores y otros eventos de la clase.
 	 */
-	private static final Logger logger = 
-		Logger.getLogger(ScopeLimitedLister.class);
+	private static final Logger logger = Logger
+			.getLogger(ScopeLimitedLister.class);
 
 	/**
-	 * Ámbito de refactorizaciones cuya entrada principal es un atributo.
+	 * ï¿½mbito de refactorizaciones cuya entrada principal es un atributo.
 	 */
 	private final static String ATTRIBUTE_SCOPE = "moon.core.classdef.AttDec"; //$NON-NLS-1$
 
 	/**
-	 * Ámbito de refactorizaciones cuya entrada principal es una clase.
+	 * ï¿½mbito de refactorizaciones cuya entrada principal es una clase.
 	 */
 	private final static String CLASS_SCOPE = "moon.core.classdef.ClassDef"; //$NON-NLS-1$
 
 	/**
-	 * Ámbito de refactorizaciones cuya entrada principal es un argumento
+	 * ï¿½mbito de refactorizaciones cuya entrada principal es un argumento
 	 * formal.
 	 */
 	private final static String FORMAL_ARG_SCOPE = "moon.core.classdef.FormalArgument"; //$NON-NLS-1$
 
 	/**
-	 * Ámbito de refactorizaciones cuya entrada principal es un parámetro
+	 * ï¿½mbito de refactorizaciones cuya entrada principal es un parï¿½metro
 	 * formal.
 	 */
 	private final static String FORMAL_PAR_SCOPE = "moon.core.genericity.FormalPar"; //$NON-NLS-1$
 
 	/**
-	 * Ámbito de refactorizaciones cuya entrada principal es un método.
+	 * ï¿½mbito de refactorizaciones cuya entrada principal es un mï¿½todo.
 	 */
 	private final static String METHOD_SCOPE = "moon.core.classdef.MethDec"; //$NON-NLS-1$
 
 	/**
-	 * Ámbito de refactorizaciones cuya entrada principal es un parámetro formal
+	 * ï¿½mbito de refactorizaciones cuya entrada principal es un parï¿½metro formal
 	 * acotado.
 	 */
 	private final static String BOUNDED_PAR_SCOPE = "moon.core.genericity.BoundS"; //$NON-NLS-1$
 
 	/**
-	 * Ámbito de refactorizaciones cuya entrada principal es un fragmento de
-	 * código.
+	 * ï¿½mbito de refactorizaciones cuya entrada principal es un fragmento de
+	 * cï¿½digo.
 	 */
 	private final static String CODE_FRAGMENT_SCOPE = "moon.core.instruction.CodeFragment"; //$NON-NLS-1$
 
 	/**
-	 * Filtra la lista de refactorizaciones dinámicas disponibles a aquéllas que
-	 * pertenezcan a un determinado ámbito (de atributo, de clase, de argumento
-	 * formal, de parámetro formal o de método).
+	 * Filtra la lista de refactorizaciones dinï¿½micas disponibles a aquï¿½llas que
+	 * pertenezcan a un determinado ï¿½mbito (de atributo, de clase, de argumento
+	 * formal, de parï¿½metro formal o de mï¿½todo).
 	 * 
 	 * @param scope
-	 *            código del ámbito para el que deben obtenerse las
-	 *            refactorizaciones disponibles, según se codifican en
+	 *            cï¿½digo del ï¿½mbito para el que deben obtenerse las
+	 *            refactorizaciones disponibles, segï¿½n se codifican en
 	 *            {@link SelectRefactoringWindow}.
 	 * 
 	 * @return una tabla <i>hash</i> con la lista de refactorizaciones
-	 *         aplicables al ámbito indicado. En la tabla se sigue el convenio
-	 *         de utilizar como clave el nombre de la refactorización y como
+	 *         aplicables al ï¿½mbito indicado. En la tabla se sigue el convenio
+	 *         de utilizar como clave el nombre de la refactorizaciï¿½n y como
 	 *         valor la ruta del fichero que la contiene.
 	 */
-	public static HashMap<String, String> getAvailableRefactorings(Scope scope){
-		
-		// Refactorizaciones seleccionadas por ser del ámbito adecuado.
+	public static HashMap<String, String> getAvailableRefactorings(Scope scope) {
+
+		// Refactorizaciones seleccionadas por ser del ï¿½mbito adecuado.
 		HashMap<String, String> selected = new HashMap<String, String>();
-		
-		DynamicRefactoringLister listing = DynamicRefactoringLister.getInstance();
-		
+
+		DynamicRefactoringLister listing = DynamicRefactoringLister
+				.getInstance();
+
 		try {
 			// Se obtiene la lista de todas las refactorizaciones disponibles.
-			HashMap<String, String> allRefactorings = 
-				listing.getDynamicRefactoringNameList(
-					RefactoringPlugin.getDynamicRefactoringsDir(), true, null);
-			
-			for (Map.Entry<String, String> nextRef : allRefactorings.entrySet()){
-				
-				try {
-					// Se obtiene la definición de la siguiente refactorización.
-					DynamicRefactoringDefinition definition = 
-						DynamicRefactoringDefinition.getRefactoringDefinition(
-							nextRef.getValue());
+			HashMap<String, String> allRefactorings = listing
+					.getDynamicRefactoringNameList(
+							RefactoringPlugin.getDynamicRefactoringsDir(),
+							true, null);
 
-					for(String[] nextInput : definition.getInputs()){
-						// Para su entrada de tipo "raíz".
-						if (nextInput[4] != null && nextInput[4].equals("true")){ //$NON-NLS-1$
+			for (Map.Entry<String, String> nextRef : allRefactorings.entrySet()) {
+
+				try {
+					// Se obtiene la definiciï¿½n de la siguiente refactorizaciï¿½n.
+					DynamicRefactoringDefinition definition = DynamicRefactoringDefinition
+							.getRefactoringDefinition(nextRef.getValue());
+
+					for (String[] nextInput : definition.getInputs()) {
+						// Para su entrada de tipo "raï¿½z".
+						if (nextInput[4] != null && nextInput[4].equals("true")) { //$NON-NLS-1$
 							// Si el tipo de la entrada es el que corresponde al
-							// ámbito seleccionado.
-							try{
-								if (Class.forName(convertScope(scope)).isAssignableFrom(Class.forName(nextInput[0]))){
-									
-									selected.put(definition.getName(), nextRef.getValue());
+							// ï¿½mbito seleccionado.
+							try {
+								if (Class.forName(convertScope(scope))
+										.isAssignableFrom(
+												Class.forName(nextInput[0]))) {
+
+									selected.put(definition.getName(),
+											nextRef.getValue());
 									break;
 								}
-							}catch(ClassNotFoundException exception){
+							} catch (ClassNotFoundException exception) {
 								logger.error(Messages.ScopeLimitedLister_ErrorLoading
 										+ ".\n" + exception.getMessage());
-						    }
+							}
 						}
 					}
+				} catch (RefactoringException e) {
+					logger.error(Messages.ScopeLimitedLister_NotListed
+							+ ".\n" + e.getMessage()); //$NON-NLS-1$
 				}
-				catch(RefactoringException e){
-					logger.error(
-						Messages.ScopeLimitedLister_NotListed
-						+ ".\n" + e.getMessage()); //$NON-NLS-1$
-				}				
 			}
-			
+
 			return selected;
-		}		
-		catch(IOException e){
-			logger.error(
-				Messages.ScopeLimitedLister_NotListed
-				+ ".\n" + e.getMessage()); //$NON-NLS-1$
+		} catch (IOException e) {
+			logger.error(Messages.ScopeLimitedLister_NotListed
+					+ ".\n" + e.getMessage()); //$NON-NLS-1$
 			return null;
-		}	
-	}
-
-	/**
-	 * Devuelve el ámbito al que pertenece una refactorización.
-	 * 
-	 * @param definition
-	 *            definición de la refactorización.
-	 * @return ámbito de la refactorización.
-	 */
-	public Scope getRefactoringScope(DynamicRefactoringDefinition definition){
-		//FIXME: Una refactorizacion pertenece al ambito definido en su fichero xml
-		for(String[] nextInput : definition.getInputs()){
-			// Para su entrada de tipo "raíz".
-			if (nextInput[4] != null && nextInput[4].equals("true")){ //$NON-NLS-1$
-				// Si el tipo de la entrada es el que corresponde al
-				// ámbito seleccionado.
-				return getScope(nextInput[0]);
-			}
 		}
-		//FIXME: ELiminar null
-		return null;
 	}
 
 	/**
-	 * Convierte los códigos de ámbito de refactorización utilizados en la capa
+	 * Convierte los cï¿½digos de ï¿½mbito de refactorizaciï¿½n utilizados en la capa
 	 * de interfaz por los nombres completamente cualificados utilizados en la
-	 * representación XML de las refactorizaciones.
+	 * representaciï¿½n XML de las refactorizaciones.
 	 * 
 	 * @param scope
-	 *            código del ámbito de la refactorización según se especifican
+	 *            cï¿½digo del ï¿½mbito de la refactorizaciï¿½n segï¿½n se especifican
 	 *            en {@link SelectRefactoringWindow}.
 	 * 
 	 * @return el nombre completamente cualificado del tipo de objeto para el
-	 *         cual se define el ámbito de refactorizaciones según el valor de
+	 *         cual se define el ï¿½mbito de refactorizaciones segï¿½n el valor de
 	 *         #scope.
 	 */
-	private static String convertScope(Scope scope){
-		//FIXME: Sustituir por nombre de enum SelectRefactoringWindow.SCOPE
-		switch(scope){
+	private static String convertScope(Scope scope) {
+		// FIXME: Sustituir por nombre de enum SelectRefactoringWindow.SCOPE
+		switch (scope) {
 		case ATTRIBUTE:
 			return ATTRIBUTE_SCOPE;
 		case CLASS:
@@ -217,44 +195,45 @@ public class ScopeLimitedLister {
 
 	/**
 	 * Convierte los nombres completamente cualificados utilizados en la
-	 * representación XML de las refactorizaciones por los códigos de ámbito de
-	 * refactorización utilizados en la capa de interfaz.
+	 * representaciï¿½n XML de las refactorizaciones por los cï¿½digos de ï¿½mbito de
+	 * refactorizaciï¿½n utilizados en la capa de interfaz.
 	 * 
 	 * @param name
 	 *            nombre completamente cualificado del tipo de objeto para el
-	 *            cual se define el ámbito de refactorizaciones según el valor
+	 *            cual se define el ï¿½mbito de refactorizaciones segï¿½n el valor
 	 *            de #scope.
 	 * 
-	 * @return código del ámbito de la refactorización según se especifican en
+	 * @return cï¿½digo del ï¿½mbito de la refactorizaciï¿½n segï¿½n se especifican en
 	 *         {@link SelectRefactoringWindow}.
 	 */
-	private static Scope getScope(String name){
-		try{
-		if(Class.forName(ATTRIBUTE_SCOPE).isAssignableFrom(Class.forName(name)))
-			return Scope.ATTRIBUTE;
-		else 
-			if(Class.forName(CLASS_SCOPE).isAssignableFrom(Class.forName(name)))
+	private static Scope getScope(String name) {
+		try {
+			if (Class.forName(ATTRIBUTE_SCOPE).isAssignableFrom(
+					Class.forName(name)))
+				return Scope.ATTRIBUTE;
+			else if (Class.forName(CLASS_SCOPE).isAssignableFrom(
+					Class.forName(name)))
 				return Scope.CLASS;
-			else
-				if(Class.forName(FORMAL_ARG_SCOPE).isAssignableFrom(Class.forName(name)))
-					return Scope.FORMAL_ARG;
-				else
-					if(Class.forName(FORMAL_PAR_SCOPE).isAssignableFrom(Class.forName(name)))
-						return Scope.FORMAL_PAR;
-					else
-						if(Class.forName(METHOD_SCOPE).isAssignableFrom(Class.forName(name)))
-							return Scope.METHOD; 
-						else
-							if(Class.forName(BOUNDED_PAR_SCOPE).isAssignableFrom(Class.forName(name)))
-								return Scope.BOUNDED_PAR;
-							else
-								if(Class.forName(CODE_FRAGMENT_SCOPE).isAssignableFrom(Class.forName(name)))
-									return Scope.CODE_FRAGMENT;
-		}catch(ClassNotFoundException exception){
-			logger.error(Messages.ScopeLimitedLister_ErrorLoading
-					+ ".\n" + exception.getMessage());
+			else if (Class.forName(FORMAL_ARG_SCOPE).isAssignableFrom(
+					Class.forName(name)))
+				return Scope.FORMAL_ARG;
+			else if (Class.forName(FORMAL_PAR_SCOPE).isAssignableFrom(
+					Class.forName(name)))
+				return Scope.FORMAL_PAR;
+			else if (Class.forName(METHOD_SCOPE).isAssignableFrom(
+					Class.forName(name)))
+				return Scope.METHOD;
+			else if (Class.forName(BOUNDED_PAR_SCOPE).isAssignableFrom(
+					Class.forName(name)))
+				return Scope.BOUNDED_PAR;
+			else if (Class.forName(CODE_FRAGMENT_SCOPE).isAssignableFrom(
+					Class.forName(name)))
+				return Scope.CODE_FRAGMENT;
+		} catch (ClassNotFoundException exception) {
+			logger.error(Messages.ScopeLimitedLister_ErrorLoading + ".\n"
+					+ exception.getMessage());
 		}
-		//FIXME: ELiminar null
+		// FIXME: ELiminar null
 		return null;
 	}
 }

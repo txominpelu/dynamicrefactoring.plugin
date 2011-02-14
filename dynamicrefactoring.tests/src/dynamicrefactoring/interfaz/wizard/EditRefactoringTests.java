@@ -10,6 +10,8 @@ import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
+import dynamicrefactoring.domain.Scope;
+
 @RunWith(SWTBotJunit4ClassRunner.class)
 public class EditRefactoringTests {
 	
@@ -20,10 +22,6 @@ public class EditRefactoringTests {
 	private static final String FOWLER_CLASSIF = "Fowler";
 
 	private static final String SCOPE_CLASSIF = "scope";
-
-	private static final String METHOD_CATEGORY = "Method";
-
-	private static final String CODE_FRAGMENT_CATEGORY = "CodeFragment";
 
 	private RefactoringWizardPage1Object refactoringWizardPageObject;
 
@@ -41,7 +39,7 @@ public class EditRefactoringTests {
 	 */
 	@After
 	public final void tearDown(){
-		refactoringWizardPageObject.finish();
+		refactoringWizardPageObject.cancelWizard();
 	}
 	
 	/**
@@ -66,13 +64,69 @@ public class EditRefactoringTests {
 	@Test
 	public final void markTwoCategoriesInMultiCategoryClassificationsTest(){
 		
-		refactoringWizardPageObject.checkCategory(SCOPE_CLASSIF,CODE_FRAGMENT_CATEGORY);
-		refactoringWizardPageObject.checkCategory(SCOPE_CLASSIF,METHOD_CATEGORY);
+		refactoringWizardPageObject.checkCategory(SCOPE_CLASSIF,Scope.CODE_FRAGMENT.toString());
+		refactoringWizardPageObject.checkCategory(SCOPE_CLASSIF, Scope.METHOD.toString());
 		
-		assertTrue(refactoringWizardPageObject.isCategoryChecked(SCOPE_CLASSIF,CODE_FRAGMENT_CATEGORY));
-		assertTrue(refactoringWizardPageObject.isCategoryChecked(SCOPE_CLASSIF,METHOD_CATEGORY));
+		assertTrue(refactoringWizardPageObject.isCategoryChecked(SCOPE_CLASSIF, Scope.CODE_FRAGMENT.toString()));
+		assertTrue(refactoringWizardPageObject.isCategoryChecked(SCOPE_CLASSIF, Scope.METHOD.toString()));
  
 		
+		
+	}
+	
+	/**
+	 * Comprueba que se pueden marcar todas las categorias
+	 * de una multicategory.
+	 */
+	@Test
+	public final void markAllCategoriesInMultiCategory(){
+		
+		refactoringWizardPageObject.checkClassification(SCOPE_CLASSIF);
+		
+		for (Scope scope : Scope.values()) {
+			if (! scope.equals(Scope.BOUNDED_PAR)) {
+				assertTrue(refactoringWizardPageObject.isCategoryChecked(SCOPE_CLASSIF, scope.toString()));
+			}
+		}
+ 
+		
+		
+	}
+	
+	/**
+	 * Comprueba que no se pueden marcar todas las categorias
+	 * de una unicategory.
+	 */
+	@Test
+	public final void markAllCategoriesInUniCategory(){
+		
+		refactoringWizardPageObject.checkClassification(FOWLER_CLASSIF);
+		
+		assertFalse(refactoringWizardPageObject.isCategoryChecked(FOWLER_CLASSIF, COMPOSING_METHODS_TREE_ITEM_TEXT));
+		assertFalse(refactoringWizardPageObject.isCategoryChecked(FOWLER_CLASSIF, MAKING_METHOD_CALLS_SIMPLER_CATEGORY));
+		
+	}
+	
+	/**
+	 * Comprueba que no se pueden marcar todas las categorias
+	 * de una unicategory.
+	 */
+	@Test
+	public final void unmarkCategories(){
+		
+		for (Scope scope : Scope.values()) {
+			if (! scope.equals(Scope.BOUNDED_PAR)) {
+				refactoringWizardPageObject.checkCategory(SCOPE_CLASSIF, scope.toString());
+			}
+		}
+		
+		refactoringWizardPageObject.checkClassification(SCOPE_CLASSIF);
+		
+		for (Scope scope : Scope.values()) {
+			if (! scope.equals(Scope.BOUNDED_PAR)) {
+				assertFalse(refactoringWizardPageObject.isCategoryChecked(SCOPE_CLASSIF, scope.toString()));
+			}
+		}
 		
 	}
 

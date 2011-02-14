@@ -22,32 +22,26 @@ package dynamicrefactoring.interfaz;
 
 import java.text.MessageFormat;
 
-import dynamicrefactoring.domain.DynamicRefactoringDefinition;
-import dynamicrefactoring.domain.Scope;
-
-import dynamicrefactoring.util.io.FileManager;
-import dynamicrefactoring.writer.JDOMXMLRefactoringWriterImp;
-import dynamicrefactoring.util.ScopeLimitedLister;
-import dynamicrefactoring.reader.XMLRefactoringReaderException;
-
 import org.apache.log4j.Logger;
-
 import org.eclipse.jface.dialogs.Dialog;
 import org.eclipse.jface.dialogs.IDialogConstants;
 import org.eclipse.jface.dialogs.MessageDialog;
-
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Shell;
-
 import org.eclipse.ui.PlatformUI;
 
+import dynamicrefactoring.domain.DynamicRefactoringDefinition;
+import dynamicrefactoring.reader.XMLRefactoringReaderException;
+import dynamicrefactoring.util.io.FileManager;
+import dynamicrefactoring.writer.JDOMXMLRefactoringWriterImp;
+
 /**
- * Permite seleccionar una de las refactorizaciones dinámicas disponibles para ser
+ * Permite seleccionar una de las refactorizaciones dinï¿½micas disponibles para ser
  * eliminada.
  * 
- * <p>Muestra en todo momento un resumen con las características principales de la
- * refactorización seleccionada, hasta que se pulsa el botón que inicia el 
- * borrado de la refactorización.</p>
+ * <p>Muestra en todo momento un resumen con las caracterï¿½sticas principales de la
+ * refactorizaciï¿½n seleccionada, hasta que se pulsa el botï¿½n que inicia el 
+ * borrado de la refactorizaciï¿½n.</p>
  *
  * @author <A HREF="mailto:lfd0002@alu.ubu.es">Laura Fuente de la Fuente</A>
  * @author <A HREF="mailto:sfd0009@alu.ubu.es">Sonia Fuente de la Fuente</A>
@@ -56,9 +50,9 @@ import org.eclipse.ui.PlatformUI;
 public class SelectForDeletingWindow extends SelectDynamicRefactoringWindow {
 
 	/**
-	 * Crea la ventana de diálogo.
+	 * Crea la ventana de diï¿½logo.
 	 * 
-	 * @param parentShell la <i>shell</i> padre de esta ventana de diálogo.
+	 * @param parentShell la <i>shell</i> padre de esta ventana de diï¿½logo.
 	 */
 	public SelectForDeletingWindow(Shell parentShell) {
 		super(parentShell);
@@ -67,8 +61,8 @@ public class SelectForDeletingWindow extends SelectDynamicRefactoringWindow {
 	}
 
 	/**
-	 * Crea el botón que permite lanzar la ejecución del borrado de la 
-	 * refactorización seleccionada.
+	 * Crea el botï¿½n que permite lanzar la ejecuciï¿½n del borrado de la 
+	 * refactorizaciï¿½n seleccionada.
 	 * 
 	 * @see SelectDynamicRefactoringWindow#createOKButton(Composite)
 	 */
@@ -79,8 +73,8 @@ public class SelectForDeletingWindow extends SelectDynamicRefactoringWindow {
 	}
 	
 	/**
-	 * Obtiene el verbo asociado a la acción que permite iniciar la ventana
-	 * de diálogo sobre la refactorización seleccionada.
+	 * Obtiene el verbo asociado a la acciï¿½n que permite iniciar la ventana
+	 * de diï¿½logo sobre la refactorizaciï¿½n seleccionada.
 	 */
 	@Override
 	protected String getOperation(){
@@ -88,10 +82,10 @@ public class SelectForDeletingWindow extends SelectDynamicRefactoringWindow {
 	}
 
 	/**
-	 * Notifica que el botón de este diálogo con el identificador especificado
+	 * Notifica que el botï¿½n de este diï¿½logo con el identificador especificado
 	 * ha sido pulsado.
 	 * 
-	 * @param buttonId el identificador del botón que ha sido pulsado (véanse
+	 * @param buttonId el identificador del botï¿½n que ha sido pulsado (vï¿½anse
 	 * las constantes <code>IDialogConstants.*ID</code>).
 	 * 
 	 * @see Dialog#buttonPressed
@@ -109,7 +103,6 @@ public class SelectForDeletingWindow extends SelectDynamicRefactoringWindow {
 				
 				if (isConfirmed(refactoring.getName())){
 					String name = refactoring.getName();
-					Scope scope = new ScopeLimitedLister().getRefactoringScope(refactoring);
 					String filePath = refactoringLocations.get(
 						l_Available.getSelection()[0]);
 					String dirPath = filePath.substring(0, filePath.lastIndexOf(
@@ -118,17 +111,17 @@ public class SelectForDeletingWindow extends SelectDynamicRefactoringWindow {
 					
 					try{
 						JDOMXMLRefactoringWriterImp writer = new JDOMXMLRefactoringWriterImp(null);
-						writer.deleteRefactoringFromXml(scope ,name );
+						writer.deleteRefactoringFromXml(refactoring.getRefactoringScope() ,name );
 					}catch(XMLRefactoringReaderException e){
 						
 					}
 					
 					boolean deleted = false;
-					// Si el fichero de la refactorización no se encuentra en un
+					// Si el fichero de la refactorizaciï¿½n no se encuentra en un
 					// subdirectorio, se borra solamente dicho fichero.
 					if (dirPath.length() == 0)
 						deleted = FileManager.deleteFile(filePath);
-					// Si se encuentra en un directorio, se borra éste y todo su 
+					// Si se encuentra en un directorio, se borra ï¿½ste y todo su 
 					// contenido.
 					else {
 						FileManager.emptyDirectories(dirPath);
@@ -163,13 +156,13 @@ public class SelectForDeletingWindow extends SelectDynamicRefactoringWindow {
 	}
 	
 	/**
-	 * Pide confirmación al usuario para proceder a eliminar una refactorización
-	 * dinámica.
+	 * Pide confirmaciï¿½n al usuario para proceder a eliminar una refactorizaciï¿½n
+	 * dinï¿½mica.
 	 * 
-	 * @param name nombre de la refactorización seleccionada para ser eliminada.
+	 * @param name nombre de la refactorizaciï¿½n seleccionada para ser eliminada.
 	 * 
-	 * @return <code>true</code> si el usuario da su confirmación para eliminar la
-	 * refactorización seleccionada; <code>false</code> en caso contrario. 
+	 * @return <code>true</code> si el usuario da su confirmaciï¿½n para eliminar la
+	 * refactorizaciï¿½n seleccionada; <code>false</code> en caso contrario. 
 	 */
 	private boolean isConfirmed(String name) {
 		Object[] messageArgs = {"\"" + name + "\""}; //$NON-NLS-1$ //$NON-NLS-2$

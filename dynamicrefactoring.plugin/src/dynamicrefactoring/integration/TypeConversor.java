@@ -25,7 +25,7 @@ import java.util.Hashtable;
 import org.eclipse.jdt.core.Signature;
 
 /**
- * Proporciona funciones de conversión entre las convenciones de nombres de 
+ * Proporciona funciones de conversiï¿½n entre las convenciones de nombres de 
  * tipos utilizadas por el metamodelo MOON y por el metamodelo empleado de
  * forma interna por Eclipse.
  * 
@@ -45,7 +45,7 @@ public class TypeConversor {
 	private final String MOON_BYTE = "byte"; //$NON-NLS-1$
 	
 	/**
-	 * Signatura MOON del tipo primitivo carácter <code>char</code>.
+	 * Signatura MOON del tipo primitivo carï¿½cter <code>char</code>.
 	 */
 	private final String MOON_CHAR = "char"; //$NON-NLS-1$
 	
@@ -85,7 +85,7 @@ public class TypeConversor {
 	private final String MOON_BYTE_WRAP = "Byte"; //$NON-NLS-1$
 	
 	/**
-	 * Signatura MOON del tipo de envoltura carácter <code>Character</code>.
+	 * Signatura MOON del tipo de envoltura carï¿½cter <code>Character</code>.
 	 */
 	private final String MOON_CHAR_WRAP = "Character"; //$NON-NLS-1$
 	
@@ -125,49 +125,49 @@ public class TypeConversor {
 	private final String MOON_OBJECT = "Object"; //$NON-NLS-1$
 	
 	/**
-	 * Signatura MOON del tipo excepción genérica <code>Exception</code>.
+	 * Signatura MOON del tipo excepciï¿½n genï¿½rica <code>Exception</code>.
 	 */
 	private final String MOON_EXCEPTION = "Exception"; //$NON-NLS-1$
 	
 	/**
-	 * Tabla de conversión entre los tipos primitivos utilizados por Eclipse 
-	 * para la determinación de las signaturas y los empleados en el modelo MOON.
+	 * Tabla de conversiï¿½n entre los tipos primitivos utilizados por Eclipse 
+	 * para la determinaciï¿½n de las signaturas y los empleados en el modelo MOON.
 	 * 
-	 * Se utiliza como clave la cadena utilizada en la representación de Eclipse.
+	 * Se utiliza como clave la cadena utilizada en la representaciï¿½n de Eclipse.
 	 * El valor asignado a cada clave es la cadena utilizada en el equivalente 
 	 * en MOON.
 	 */
 	private Hashtable<String, String> primitiveConversionTable;
 	
 	/**
-	 * Tabla de conversión entre los tipos de envoltura de tipos primitivos 
-	 * utilizados por Eclipse para la determinación de las signaturas y los
+	 * Tabla de conversiï¿½n entre los tipos de envoltura de tipos primitivos 
+	 * utilizados por Eclipse para la determinaciï¿½n de las signaturas y los
 	 * empleados en el modelo MOON.
 	 * 
-	 * Se utiliza como clave la cadena utilizada en la representación de Eclipse.
+	 * Se utiliza como clave la cadena utilizada en la representaciï¿½n de Eclipse.
 	 * El valor asignado a cada clave es la cadena utilizada en el equivalente
 	 * en MOON.
 	 */
 	private Hashtable<String, String> wrapperConversionTable;
 	
 	/**
-	 * Tabla de conversión de tipos no primitivos adicionales.
+	 * Tabla de conversiï¿½n de tipos no primitivos adicionales.
 	 * 
-	 * Se utiliza como clave la cadena utilizada en la representación de Eclipse
+	 * Se utiliza como clave la cadena utilizada en la representaciï¿½n de Eclipse
 	 * para los tipos no resueltos. El valor asignado a cada clave es la cadena
 	 * utilizada en el equivalente MOON.
 	 */
 	private Hashtable<String, String> additionalConversions;
 	
 	/**
-	 * Instancia única del conversor (patrón Singleton).
+	 * Instancia ï¿½nica del conversor (patrï¿½n Singleton).
 	 */
 	private static TypeConversor myInstance;
 	
 	/**
 	 * Constructor.
 	 * 
-	 * Privado, siguiendo la estructura del patrón Singleton.
+	 * Privado, siguiendo la estructura del patrï¿½n Singleton.
 	 */
 	private TypeConversor(){
 		primitiveConversionTable 	= new Hashtable<String, String>();
@@ -177,11 +177,11 @@ public class TypeConversor {
 	}
 
 	/**
-	 * Obtiene la instancia única del conversor.
+	 * Obtiene la instancia ï¿½nica del conversor.
 	 * 
-	 * Método definido por el patrón de diseño Singleton.
+	 * Mï¿½todo definido por el patrï¿½n de diseï¿½o Singleton.
 	 * 
-	 * @return la instancia única del conversor.
+	 * @return la instancia ï¿½nica del conversor.
 	 */
 	public static TypeConversor getInstance(){
 		if (myInstance == null)
@@ -190,8 +190,8 @@ public class TypeConversor {
 	}
 	
 	/**
-	 * Carga las tablas asociativas de conversión con los valores utilizados
-	 * por la convención de nombres de tipos del metamodelo MOON.
+	 * Carga las tablas asociativas de conversiï¿½n con los valores utilizados
+	 * por la convenciï¿½n de nombres de tipos del metamodelo MOON.
 	 */
 	private void loadConversionTables(){
 		primitiveConversionTable.put(Signature.SIG_BOOLEAN, MOON_BOOLEAN);
@@ -218,54 +218,54 @@ public class TypeConversor {
 	}
 	
 	/**
-	 * Realiza la conversión entre la convención utilizada por Eclipse para la
-	 * representación de las signaturas de los tipos y la utilizada por el modelo
+	 * Realiza la conversiï¿½n entre la convenciï¿½n utilizada por Eclipse para la
+	 * representaciï¿½n de las signaturas de los tipos y la utilizada por el modelo
 	 * MOON.
 	 * 
-	 * @param type la cadena de caracteres con el tipo representado según la 
-	 * convención utilizada por Eclipse.
+	 * @param type la cadena de caracteres con el tipo representado segï¿½n la 
+	 * convenciï¿½n utilizada por Eclipse.
 	 * 
-	 * @return la cadena de caracteres con la representación del tipo según la
-	 * convención utilizada en MOON.
+	 * @return la cadena de caracteres con la representaciï¿½n del tipo segï¿½n la
+	 * convenciï¿½n utilizada en MOON.
 	 * 
 	 * @see org.eclipse.jdt.core.Signature
 	 */
 	public String convertType(String type){
 		if(primitiveConversionTable.containsKey(type))
 			return primitiveConversionTable.get(type);
-		if(type.startsWith(new Character(Signature.C_ARRAY).toString()))
+		if(type.startsWith(Character.valueOf(Signature.C_ARRAY).toString()))
 			return convertType(type.substring(1)) + "[]"; //$NON-NLS-1$
 		
-		if(type.contains(new Character(Signature.C_GENERIC_START).toString())
+		if(type.contains(Character.valueOf(Signature.C_GENERIC_START).toString())
 			&& type.endsWith(
-				new Character(Signature.C_GENERIC_END).toString() + 
+				Character.valueOf(Signature.C_GENERIC_END).toString() + 
 				Signature.C_SEMICOLON)){
 			
-			// MOON no incluye los tipos paramétricos en el nombre único.
-			// Solo se incluye el nombre del tipo genérico, la clase.
+			// MOON no incluye los tipos paramï¿½tricos en el nombre ï¿½nico.
+			// Solo se incluye el nombre del tipo genï¿½rico, la clase.
 			String parametricType = convertType(type.substring(
 				0, type.indexOf(Signature.C_GENERIC_START)));
 						
 			return parametricType;
 		}
 							
-		if(type.startsWith(new Character(Signature.C_UNRESOLVED).toString()))
+		if(type.startsWith(Character.valueOf(Signature.C_UNRESOLVED).toString()))
 			return convertNonPrimitiveType(type.substring(1));
 		return null;
 	
 	}
 	
 	/**
-	 * Realiza la conversión entre la convención utilizada por Eclipse para la
-	 * representación de los tipos no primitivos en las signaturas y la utilizada
+	 * Realiza la conversiï¿½n entre la convenciï¿½n utilizada por Eclipse para la
+	 * representaciï¿½n de los tipos no primitivos en las signaturas y la utilizada
 	 * por el modelo MOON.
 	 * 
-	 * @param npType la cadena de caracteres con el tipo representado según la
-	 * convención utilizada por Eclipse, sin el prefijo que indica que se trata 
+	 * @param npType la cadena de caracteres con el tipo representado segï¿½n la
+	 * convenciï¿½n utilizada por Eclipse, sin el prefijo que indica que se trata 
 	 * de un tipo no resuelto ({@link Signature#C_UNRESOLVED}.
 	 * 
-	 * @return la cadena de caracteres con la representación del tipo según la
-	 * convención utilizada en MOON, si se pudo realizar la conversión. Si no,
+	 * @return la cadena de caracteres con la representaciï¿½n del tipo segï¿½n la
+	 * convenciï¿½n utilizada en MOON, si se pudo realizar la conversiï¿½n. Si no,
 	 * la cadena original.
 	 * 
 	 * @see org.eclipse.jdt.core.Signature

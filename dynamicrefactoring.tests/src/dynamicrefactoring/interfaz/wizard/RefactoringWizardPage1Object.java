@@ -11,7 +11,7 @@ public class RefactoringWizardPage1Object {
 	private static final String DYNAMIC_REFACTORING_MENU_TEXT = Platform.getResourceString(RefactoringPlugin.getDefault().getBundle(), "%dynamicrefactoring.menu.main");
 	private static final String NEW_REFACTORING_MENU_TEXT = "New Refactoring...";
 	
-	private static final SWTWorkbenchBot bot = new SWTWorkbenchBot();
+	private static final SWTWorkbenchBot BOT = new SWTWorkbenchBot();
 	
 
 	/**
@@ -19,19 +19,40 @@ public class RefactoringWizardPage1Object {
 	 * acceder a la primera pagina del interfaz de crear/editar una refactorizacion.
 	 */
 	public RefactoringWizardPage1Object(){
-		bot.menu(DYNAMIC_REFACTORING_MENU_TEXT).menu(NEW_REFACTORING_MENU_TEXT).click();
-		bot.shell(DYNAMIC_REFACTORING_WIZARD_SHELL_TEXT).activate();
+		BOT.menu(DYNAMIC_REFACTORING_MENU_TEXT).menu(NEW_REFACTORING_MENU_TEXT).click();
+		BOT.shell(DYNAMIC_REFACTORING_WIZARD_SHELL_TEXT).activate();
 	}
 	
 	/**
-	 * Hace check en una categoria del arbol
+	 * Cambia el estado checked en una categoria del arbol
 	 * de categorias a las que la refactorizacion pertenece.
 	 * 
 	 * @param classification clasificacion a la que la categoria pertenece.
 	 * @param category categoria
 	 */
-	public void checkCategory(String classification, String category){
-		bot.tree().expandNode(classification).getNode(category).check();
+	public final void checkCategory(String classification, String category){
+		if (BOT.tree().expandNode(classification).getNode(category).isChecked()){
+			BOT.tree().expandNode(classification).getNode(category).uncheck();
+		}else {
+			BOT.tree().expandNode(classification).getNode(category).check();
+		}
+	}
+	
+	
+	/**
+	 * Cambia el estado checked en una clasificacion del arbol
+	 * de categorias a las que la refactorizacion pertenece.
+	 * 
+	 * @param classification clasificacion a la que la categoria pertenece.
+	 * @param category categoria
+	 */
+	public final void checkClassification(String classification){
+		if(BOT.tree().getTreeItem(classification).isChecked()){
+			BOT.tree().getTreeItem(classification).uncheck();
+		}else{
+			BOT.tree().getTreeItem(classification).check();
+		}
+		
 	}
 	
 	/**
@@ -41,15 +62,15 @@ public class RefactoringWizardPage1Object {
 	 * @param classification clasificacion a la que la categoria pertenece.
 	 * @param category categoria
 	 */
-	public boolean isCategoryChecked(String classification, String category){
-		return bot.tree().expandNode(classification).getNode(category).isChecked();
+	public final boolean isCategoryChecked(String classification, String category){
+		return BOT.tree().expandNode(classification).getNode(category).isChecked();
 	}
 	
 	/**
 	 * Cierra la ventana y finaliza el wizard de refactorizacion.
 	 */
-	public void finish(){
-		bot.activeShell().close();
+	public final void cancelWizard(){
+		BOT.activeShell().close();
 	}
 
 }

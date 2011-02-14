@@ -29,15 +29,12 @@ import org.eclipse.swt.widgets.Text;
 import org.eclipse.swt.widgets.Tree;
 import org.eclipse.swt.widgets.TreeItem;
 
-
 import dynamicrefactoring.RefactoringImages;
 import dynamicrefactoring.RefactoringPlugin;
 import dynamicrefactoring.domain.DynamicRefactoringDefinition;
-import dynamicrefactoring.domain.Scope;
 import dynamicrefactoring.domain.metadata.interfaces.Category;
 import dynamicrefactoring.interfaz.TreeEditor;
 import dynamicrefactoring.util.RefactoringTreeManager;
-import dynamicrefactoring.util.ScopeLimitedLister;
 
 /**
  * Proporciona un organizador de pestañas, en el cual se muestra
@@ -325,10 +322,7 @@ public class RefactoringSummaryPanel {
 	private void fillOverview(){
 		descriptionText.setText(refactoring.getDescription().trim());
 		motivationText.setText(refactoring.getMotivation().trim());
-		Scope scope = new ScopeLimitedLister().getRefactoringScope(refactoring);
-		String cat="";
-		if(scope!=null)
-			cat+="Scope."+scope.toString();
+		String cat= "Scope."+ refactoring.getRefactoringScope().toString();
 		ArrayList<Category> categories = new ArrayList<Category>(refactoring.getCategories());
 		for (Category c : categories){
 		 cat+="\n" + c.getParent()+"."+c.getName();

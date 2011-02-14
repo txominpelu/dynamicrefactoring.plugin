@@ -9,8 +9,6 @@ import java.util.Iterator;
 import java.util.Map;
 import java.util.Set;
 
-import javax.xml.bind.ValidationException;
-
 import org.apache.log4j.Logger;
 import org.eclipse.jface.action.Action;
 import org.eclipse.jface.action.IToolBarManager;
@@ -45,7 +43,6 @@ import com.google.common.base.Predicate;
 import com.swtdesigner.ResourceManager;
 
 import dynamicrefactoring.PluginImages;
-import dynamicrefactoring.RefactoringConstants;
 import dynamicrefactoring.RefactoringPlugin;
 import dynamicrefactoring.domain.DynamicRefactoringDefinition;
 import dynamicrefactoring.domain.RefactoringException;
@@ -56,8 +53,7 @@ import dynamicrefactoring.domain.metadata.interfaces.Category;
 import dynamicrefactoring.domain.metadata.interfaces.Classification;
 import dynamicrefactoring.domain.metadata.interfaces.ClassifiedElements;
 import dynamicrefactoring.interfaz.TreeEditor;
-import dynamicrefactoring.plugin.xml.classifications.XmlClassificationsReader;
-import dynamicrefactoring.plugin.xml.classifications.imp.ClassificationsReaderFactory;
+import dynamicrefactoring.plugin.xml.classifications.imp.ClassificationsStore;
 import dynamicrefactoring.util.DynamicRefactoringLister;
 import dynamicrefactoring.util.RefactoringTreeManager;
 
@@ -420,21 +416,7 @@ public class RefactoringListView extends ViewPart {
 	 * Carga las clasificaciones disponibles.
 	 */
 	private void loadClassifications() {
-		XmlClassificationsReader classReader = 
-			ClassificationsReaderFactory.getReader(
-					ClassificationsReaderFactory.ClassificationsReaderTypes.JDOM_READER);
-		try {
-			classifications = new ArrayList<Classification>(
-					classReader.readClassifications(RefactoringConstants.CLASSIFICATION_TYPES_FILE));
-		} catch (ValidationException e) {
-			e.printStackTrace();
-			IWorkbenchWindow window = PlatformUI.getWorkbench().getActiveWorkbenchWindow();
-			String message = Messages.RefactoringListView_ClassificationsNotListed + 
-			".\n" + e.getMessage(); //$NON-NLS-1$
-			logger.error(message);
-			MessageDialog.openError(window.getShell(),
-					Messages.RefactoringListView_Error, message);
-		}
+		classifications = new ArrayList<Classification> (ClassificationsStore.getInstance().getAllClassifications());
 	}
 
 	/**
