@@ -13,7 +13,7 @@ import org.junit.runner.RunWith;
 import dynamicrefactoring.domain.Scope;
 
 @RunWith(SWTBotJunit4ClassRunner.class)
-public class EditRefactoringTests {
+public class EditRefactoringTest {
 	
 	private static final String MAKING_METHOD_CALLS_SIMPLER_CATEGORY = "MakingMethodCallsSimpler";
 
@@ -30,7 +30,11 @@ public class EditRefactoringTests {
 	 */
 	@Before
 	public final void setUp(){
-		refactoringWizardPageObject = new RefactoringWizardPage1Object();
+		try {
+			refactoringWizardPageObject = new RefactoringWizardPage1Object();
+		}catch (Exception e){
+			e.printStackTrace();
+		}
 		//bot.viewByTitle("Welcome").close();
 	}
 	

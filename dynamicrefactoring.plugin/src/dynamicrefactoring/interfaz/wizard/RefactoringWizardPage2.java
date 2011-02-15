@@ -20,26 +20,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.*/
 
 package dynamicrefactoring.interfaz.wizard;
 
-import com.swtdesigner.ResourceManager;
-
-import dynamicrefactoring.RefactoringConstants;
-import dynamicrefactoring.RefactoringPlugin;
-
-import dynamicrefactoring.domain.DynamicRefactoringDefinition;
-
-import dynamicrefactoring.interfaz.dynamic.InputProcessor;
-import dynamicrefactoring.interfaz.wizard.listener.ListDownListener;
-import dynamicrefactoring.interfaz.wizard.listener.ListUpListener;
-
-import dynamicrefactoring.util.MOONTypeLister;
-
-import java.io.IOException;
 import java.io.File;
-
+import java.io.IOException;
 import java.lang.reflect.Method;
-
-import java.net.MalformedURLException;
-
 import java.text.MessageFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -49,20 +32,17 @@ import org.apache.log4j.Logger;
 import org.eclipse.core.runtime.FileLocator;
 import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.jface.wizard.WizardPage;
-
 import org.eclipse.swt.SWT;
+import org.eclipse.swt.browser.Browser;
+import org.eclipse.swt.custom.SashForm;
 import org.eclipse.swt.events.FocusEvent;
 import org.eclipse.swt.events.FocusListener;
 import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.events.SelectionListener;
-import org.eclipse.swt.events.KeyEvent;
-import org.eclipse.swt.events.KeyAdapter;
-
 import org.eclipse.swt.layout.FormAttachment;
 import org.eclipse.swt.layout.FormData;
 import org.eclipse.swt.layout.FormLayout;
-
 import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Combo;
 import org.eclipse.swt.widgets.Composite;
@@ -70,22 +50,29 @@ import org.eclipse.swt.widgets.Group;
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.List;
 import org.eclipse.swt.widgets.Text;
-import org.eclipse.swt.browser.Browser;
-
-import org.eclipse.swt.custom.SashForm;
-
-import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.ISharedImages;
+import org.eclipse.ui.PlatformUI;
+
+import com.google.common.base.Throwables;
+import com.swtdesigner.ResourceManager;
+
+import dynamicrefactoring.RefactoringConstants;
+import dynamicrefactoring.RefactoringPlugin;
+import dynamicrefactoring.domain.DynamicRefactoringDefinition;
+import dynamicrefactoring.interfaz.dynamic.InputProcessor;
+import dynamicrefactoring.interfaz.wizard.listener.ListDownListener;
+import dynamicrefactoring.interfaz.wizard.listener.ListUpListener;
+import dynamicrefactoring.util.MOONTypeLister;
 
 
 
 /**
- * Segunda página del asistente de creación o edición de refactorizaciones.
+ * Segunda pï¿½gina del asistente de creaciï¿½n o ediciï¿½n de refactorizaciones.
  * 
  * <p>Permite definir las entradas de la refactorizacion, asociarles un tipo y
- * un nombre, determinar a partir de qué otra entrada y mediante la llamada
- * a qué método se puede obtener su valor, así como establecer cuál de todas
- * constituirá la entrada principal a la refactorización.</p>
+ * un nombre, determinar a partir de quï¿½ otra entrada y mediante la llamada
+ * a quï¿½ mï¿½todo se puede obtener su valor, asï¿½ como establecer cuï¿½l de todas
+ * constituirï¿½ la entrada principal a la refactorizaciï¿½n.</p>
  * 
  * @author <A HREF="mailto:lfd0002@alu.ubu.es">Laura Fuente de la Fuente</A>
  * @author <A HREF="mailto:sfd0009@alu.ubu.es">Sonia Fuente de la Fuente</A>
@@ -100,63 +87,63 @@ public class RefactoringWizardPage2 extends WizardPage {
 		Logger.getLogger(RefactoringWizardPage2.class);
 	
 	/**
-	 * Botón que permite añadir una nueva entrada.
+	 * Botï¿½n que permite aï¿½adir una nueva entrada.
 	 */
 	private Button addButton; 
 	
 	/**
-	 * Botón que permite eliminar entradas previamente añadidas.
+	 * Botï¿½n que permite eliminar entradas previamente aï¿½adidas.
 	 */
 	private Button delButton;
 	
 	/**
-	 * Botón que permite desplazar una entrada de la refactorización hacia abajo.
+	 * Botï¿½n que permite desplazar una entrada de la refactorizaciï¿½n hacia abajo.
 	 */
 	private Button downButton;
 	
 	/**
-	 * Botón que permite desplazar una entrada de la refactorización hacia abajo.
+	 * Botï¿½n que permite desplazar una entrada de la refactorizaciï¿½n hacia abajo.
 	 */
 	private Button upButton;
 	
 	/**
-	 * Refactorización configurada a través del asistente y que debe ser creada
-	 * finalmente (si se trata de una nueva refactorización) o modificada (si se
-	 * está editando una ya existente).
+	 * Refactorizaciï¿½n configurada a travï¿½s del asistente y que debe ser creada
+	 * finalmente (si se trata de una nueva refactorizaciï¿½n) o modificada (si se
+	 * estï¿½ editando una ya existente).
 	 */
 	private DynamicRefactoringDefinition refactoring = null;
 	
 	/**
-	 * Lista desplegable con los nombres de los métodos del objeto seleccionado
+	 * Lista desplegable con los nombres de los mï¿½todos del objeto seleccionado
 	 * en {@link #cFrom} que permiten obtener iteradores o colecciones.
 	 */
 	private Combo cMethod;
 
 	/**
-	 * Lista desplegable con los identificadores de parámetros disponibles ya 
+	 * Lista desplegable con los identificadores de parï¿½metros disponibles ya 
 	 * en la lista de elegidos.
 	 */
 	private Combo cFrom;
 	
 	/**
-	 * Campo de texto en que se muestra el nombre del parámetro de entrada
+	 * Campo de texto en que se muestra el nombre del parï¿½metro de entrada
 	 * seleccionado sobre la lista de entradas.
 	 */
 	private Text tName;
 	
 	/**
-	 * Marca de selección que permite indicar si una entrada es la entrada 
-	 * principal de la refactorización o no.
+	 * Marca de selecciï¿½n que permite indicar si una entrada es la entrada 
+	 * principal de la refactorizaciï¿½n o no.
 	 */
 	private Button ch_Root;
 	
 	/**
-	 * Lista de entradas elegidas para la refactorización.
+	 * Lista de entradas elegidas para la refactorizaciï¿½n.
 	 */
 	private List lInputs;
 	
 	/**
-	 * Lista de tipos disponibles como tipos de los parámetros de entrada.
+	 * Lista de tipos disponibles como tipos de los parï¿½metros de entrada.
 	 */
 	private List lTypes;
 	
@@ -164,39 +151,39 @@ public class RefactoringWizardPage2 extends WizardPage {
 	 * Lista de posibles tipos del modelo.
 	 * 
 	 * <p>Se utiliza como clave el nombre completamente cualificado del tipo,
-	 * y como valor, el número de entradas que tienen el tipo seleccionado, menos 1.
+	 * y como valor, el nï¿½mero de entradas que tienen el tipo seleccionado, menos 1.
 	 * </p>
 	 */
 	private Hashtable<String, Integer> listModelTypes;
 	
 	/**
-	 * Tabla de parámetros de entrada ya introducidos.
+	 * Tabla de parï¿½metros de entrada ya introducidos.
 	 *  
 	 * <p>Se utiliza como clave el nombre completamente cualificado del tipo
-	 * de cada entrada concatenado con un espacio en blanco y el número de entrada
+	 * de cada entrada concatenado con un espacio en blanco y el nï¿½mero de entrada
 	 * que utiliza ese tipo, y como valor, un objeto de tipo <code>InputParameter
-	 * </code> con toda la información asociada a la entrada.</p>
+	 * </code> con toda la informaciï¿½n asociada a la entrada.</p>
 	 */
 	private Hashtable<String, InputParameter> inputsTable;
 	
 	/**
-	 * Navegador en el que se muestra información relativa al elemento seleccionado dentro de
-	 * la lista de tipos con el fin de ayudar al usuario a la compresión de la interfaz.
+	 * Navegador en el que se muestra informaciï¿½n relativa al elemento seleccionado dentro de
+	 * la lista de tipos con el fin de ayudar al usuario a la compresiï¿½n de la interfaz.
 	 */
 	private Browser navegador;
 	
 	/**
-	 * Caja de texto que permite introducir al usuario el patrón de la búsqueda.
+	 * Caja de texto que permite introducir al usuario el patrï¿½n de la bï¿½squeda.
 	 */
 	private Text tSearch;
 	
 	/**
-	 * Botón que permite activar un proceso de búsqueda al usuario.
+	 * Botï¿½n que permite activar un proceso de bï¿½squeda al usuario.
 	 */
 	private Button bSearch;
 	
 	/**
-	 * Botón por defecto de esta página del wizard.
+	 * Botï¿½n por defecto de esta pï¿½gina del wizard.
 	 */
 	private Button bDefault;
 	
@@ -204,8 +191,8 @@ public class RefactoringWizardPage2 extends WizardPage {
 	/**
 	 * Constructor.
 	 * 
-	 * @param refactoring refactorización que se está editando o <code>null
-	 * </code> si se está creando una nueva.
+	 * @param refactoring refactorizaciï¿½n que se estï¿½ editando o <code>null
+	 * </code> si se estï¿½ creando una nueva.
 	 */
 	public RefactoringWizardPage2(DynamicRefactoringDefinition refactoring) {
 		super("Wizard page"); //$NON-NLS-1$
@@ -216,9 +203,9 @@ public class RefactoringWizardPage2 extends WizardPage {
 	}
 	
 	/**
-	 * Hace visible o invisible la página del asistente.
+	 * Hace visible o invisible la pï¿½gina del asistente.
 	 * 
-	 * @param visible si la página se debe hacer visible o no.
+	 * @param visible si la pï¿½gina se debe hacer visible o no.
 	 */
 	@Override
 	public void setVisible(boolean visible){
@@ -234,9 +221,9 @@ public class RefactoringWizardPage2 extends WizardPage {
 	}
 
 	/**
-	 * Crea el contenido de la página del asistente.
+	 * Crea el contenido de la pï¿½gina del asistente.
 	 * 
-	 * @param parent el elemento padre de esta página del asistente.
+	 * @param parent el elemento padre de esta pï¿½gina del asistente.
 	 */
 	@Override
 	public void createControl(Composite parent) {
@@ -250,33 +237,33 @@ public class RefactoringWizardPage2 extends WizardPage {
 		
 		final Composite composite = new Composite(sash_form, SWT.NONE);
 		composite.setLayout(new FormLayout());
-		final FormData fd_composite = new FormData();
-		fd_composite.top = new FormAttachment(0, 0);
-		fd_composite.left = new FormAttachment(0, 0);
-		composite.setLayoutData(fd_composite);
+		final FormData fdCompo = new FormData();
+		fdCompo.top = new FormAttachment(0, 0);
+		fdCompo.left = new FormAttachment(0, 0);
+		composite.setLayoutData(fdCompo);
 
-		final Composite composite_1 = new Composite(composite, SWT.NONE);
-		final FormData fd_composite_1 = new FormData();
-		fd_composite_1.right = new FormAttachment(0, 245);
-		fd_composite_1.top = new FormAttachment(0, 5);
-		fd_composite_1.left = new FormAttachment(0, 5);
-		composite_1.setLayoutData(fd_composite_1);
-		composite_1.setLayout(new FormLayout());
+		final Composite composite1 = new Composite(composite, SWT.NONE);
+		final FormData fdComposite1 = new FormData();
+		fdComposite1.right = new FormAttachment(0, 245);
+		fdComposite1.top = new FormAttachment(0, 5);
+		fdComposite1.left = new FormAttachment(0, 5);
+		composite1.setLayoutData(fdComposite1);
+		composite1.setLayout(new FormLayout());
 
-		Label search = new Label(composite_1, SWT.NONE);
-		final FormData fd_search = new FormData();
-		fd_search.bottom = new FormAttachment(0,58);
-		fd_search.top = new FormAttachment(0, 29);
-		fd_search.left = new FormAttachment(0, 15);
-		search.setLayoutData(fd_search);
+		Label search = new Label(composite1, SWT.NONE);
+		final FormData fdSearch = new FormData();
+		fdSearch.bottom = new FormAttachment(0,58);
+		fdSearch.top = new FormAttachment(0, 29);
+		fdSearch.left = new FormAttachment(0, 15);
+		search.setLayoutData(fdSearch);
 		search.setText(Messages.RefactoringWizardPage2_Search);
 		
-		tSearch = new Text(composite_1,SWT.BORDER);
-		final FormData fd_tsearch = new FormData();
-		fd_tsearch.right = new FormAttachment(0, 185);
-		fd_tsearch.top = new FormAttachment(0, 28);
-		fd_tsearch.left = new FormAttachment(search, 0, SWT.RIGHT);
-		tSearch.setLayoutData(fd_tsearch);
+		tSearch = new Text(composite1,SWT.BORDER);
+		final FormData fdTextSearch = new FormData();
+		fdTextSearch.right = new FormAttachment(0, 185);
+		fdTextSearch.top = new FormAttachment(0, 28);
+		fdTextSearch.left = new FormAttachment(search, 0, SWT.RIGHT);
+		tSearch.setLayoutData(fdTextSearch);
 		tSearch.addFocusListener(new FocusListener(){
 			public void focusGained(FocusEvent e){
 				bDefault=e.display.getShells()[0].getDefaultButton(); 
@@ -288,12 +275,12 @@ public class RefactoringWizardPage2 extends WizardPage {
 		});
 
 		
-		bSearch = new Button(composite_1, SWT.PUSH);
-		final FormData fd_bsearch = new FormData();
-		fd_bsearch.right = new FormAttachment(0, 225);
-		fd_bsearch.top = new FormAttachment(0, 26);//28
-		fd_bsearch.left = new FormAttachment(tSearch, 3, SWT.RIGHT);
-		bSearch.setLayoutData(fd_bsearch);
+		bSearch = new Button(composite1, SWT.PUSH);
+		final FormData fdButtonSearch = new FormData();
+		fdButtonSearch.right = new FormAttachment(0, 225);
+		fdButtonSearch.top = new FormAttachment(0, 26);//28
+		fdButtonSearch.left = new FormAttachment(tSearch, 3, SWT.RIGHT);
+		bSearch.setLayoutData(fdButtonSearch);
 		bSearch.setImage(ResourceManager.getPluginImage(
 				RefactoringPlugin.getDefault(),
 				"icons" + System.getProperty("file.separator") + "search.png"));
@@ -303,13 +290,13 @@ public class RefactoringWizardPage2 extends WizardPage {
 			}
 		});
 		
-		lTypes = new List(composite_1, SWT.MULTI | SWT.V_SCROLL | SWT.H_SCROLL | SWT.BORDER);
-		final FormData fd_list = new FormData();
-		fd_list.bottom = new FormAttachment(0,247);
-		fd_list.right = new FormAttachment(0, 225);
-		fd_list.top = new FormAttachment(0, 59);//28
-		fd_list.left = new FormAttachment(0, 10);
-		lTypes.setLayoutData(fd_list);
+		lTypes = new List(composite1, SWT.MULTI | SWT.V_SCROLL | SWT.H_SCROLL | SWT.BORDER);
+		final FormData fdList = new FormData();
+		fdList.bottom = new FormAttachment(0,247);
+		fdList.right = new FormAttachment(0, 225);
+		fdList.top = new FormAttachment(0, 59);//28
+		fdList.left = new FormAttachment(0, 10);
+		lTypes.setLayoutData(fdList);
 		lTypes.addSelectionListener(new TypeSelectionListener());
 		lTypes.setToolTipText(Messages.RefactoringWizardPage2_SelectTypes);
 		
@@ -322,12 +309,12 @@ public class RefactoringWizardPage2 extends WizardPage {
 		fd_navegador.left = new FormAttachment(0, 10);
 		navegador.setLayoutData(fd_navegador);
 		try{
-			navegador.setUrl(FileLocator.toFileURL(getClass().getResource(RefactoringConstants.REFACTORING_JAVADOC + "/moon/overview-summary.html" )).toString());
+			navegador.setUrl(FileLocator.toFileURL(RefactoringPlugin.getDefault().getBundle().getEntry(RefactoringConstants.REFACTORING_JAVADOC + "/moon/overview-summary.html" )).toString());
 		}catch(IOException e){
 			//FIXME: No se puede capturar una excepcion y no hacer nada con ella
 		}
 
-		final Group typesGroup = new Group(composite_1, SWT.NONE);
+		final Group typesGroup = new Group(composite1, SWT.NONE);
 		typesGroup.setText(Messages.RefactoringWizardPage2_Types);
 		final FormData fd_typwsGroup = new FormData();
 		fd_typwsGroup.bottom = new FormAttachment(100, -5);
@@ -339,21 +326,21 @@ public class RefactoringWizardPage2 extends WizardPage {
 
 		Composite composite_2;
 		composite_2 = new Composite(composite, SWT.NONE);
-		fd_composite_1.bottom = new FormAttachment(composite_2, 0, SWT.BOTTOM);
+		fdComposite1.bottom = new FormAttachment(composite_2, 0, SWT.BOTTOM);
 		composite_2.setLayout(new FormLayout());
-		final FormData fd_composite_2 = new FormData();
-		fd_composite_2.bottom = new FormAttachment(100, -5);
-		fd_composite_2.right = new FormAttachment(100, -5);
-		fd_composite_2.top = new FormAttachment(0, 1);
-		fd_composite_2.left = new FormAttachment(0, 300);
-		composite_2.setLayoutData(fd_composite_2);
+		final FormData fdComposite2 = new FormData();
+		fdComposite2.bottom = new FormAttachment(100, -5);
+		fdComposite2.right = new FormAttachment(100, -5);
+		fdComposite2.top = new FormAttachment(0, 1);
+		fdComposite2.left = new FormAttachment(0, 300);
+		composite_2.setLayoutData(fdComposite2);
 
 		lInputs = new List(composite_2, SWT.MULTI | SWT.V_SCROLL | SWT.H_SCROLL | SWT.BORDER);
-		final FormData fd_list_1 = new FormData();
-		fd_list_1.right = new FormAttachment(100, -83);
-		fd_list_1.left = new FormAttachment(0, 15);
-		fd_list_1.top = new FormAttachment(0, 30);
-		lInputs.setLayoutData(fd_list_1);
+		final FormData fdList1 = new FormData();
+		fdList1.right = new FormAttachment(100, -83);
+		fdList1.left = new FormAttachment(0, 15);
+		fdList1.top = new FormAttachment(0, 30);
+		lInputs.setLayoutData(fdList1);
 		lInputs.addSelectionListener(new InputSelectionListener());
 
 		Group parametersGroup;
@@ -372,14 +359,14 @@ public class RefactoringWizardPage2 extends WizardPage {
 		
 
 		Label nameLabel = new Label(parametersGroup, SWT.NONE);
-		final FormData fd_nameLabel = new FormData();
-		fd_nameLabel.bottom = new FormAttachment(0, 30);
-		fd_nameLabel.top = new FormAttachment(0, 10);
-		nameLabel.setLayoutData(fd_nameLabel);
+		final FormData fdNameLabel = new FormData();
+		fdNameLabel.bottom = new FormAttachment(0, 30);
+		fdNameLabel.top = new FormAttachment(0, 10);
+		nameLabel.setLayoutData(fdNameLabel);
 		nameLabel.setText(Messages.RefactoringWizardPage2_Name);
 
 		tName = new Text(parametersGroup, SWT.BORDER);
-		fd_nameLabel.left = new FormAttachment(tName, 0, SWT.LEFT);
+		fdNameLabel.left = new FormAttachment(tName, 0, SWT.LEFT);
 		final FormData fd_tName = new FormData();
 		fd_tName.top = new FormAttachment(0, 30);
 		tName.setLayoutData(fd_tName);
@@ -388,84 +375,84 @@ public class RefactoringWizardPage2 extends WizardPage {
 
 		Label fromLabel;
 		fromLabel = new Label(parametersGroup, SWT.NONE);
-		fd_nameLabel.right = new FormAttachment(fromLabel, 0, SWT.RIGHT);
+		fdNameLabel.right = new FormAttachment(fromLabel, 0, SWT.RIGHT);
 		fd_tName.left = new FormAttachment(fromLabel, 0, SWT.LEFT);
 		fd_tName.bottom = new FormAttachment(fromLabel, -5, SWT.TOP);
-		final FormData fd_fromLabel = new FormData();
-		fd_fromLabel.right = new FormAttachment(0, 145);
-		fromLabel.setLayoutData(fd_fromLabel);
+		final FormData fdFromLabel = new FormData();
+		fdFromLabel.right = new FormAttachment(0, 145);
+		fromLabel.setLayoutData(fdFromLabel);
 		fromLabel.setText(Messages.RefactoringWizardPage2_From);
 
 		cFrom = new Combo(parametersGroup, SWT.NONE);
-		fd_fromLabel.top = new FormAttachment(cFrom, -18, SWT.TOP);
-		fd_fromLabel.bottom = new FormAttachment(cFrom, -5, SWT.TOP);
-		fd_fromLabel.left = new FormAttachment(cFrom, 0, SWT.LEFT);
-		final FormData fd_cFrom = new FormData();
-		cFrom.setLayoutData(fd_cFrom);
+		fdFromLabel.top = new FormAttachment(cFrom, -18, SWT.TOP);
+		fdFromLabel.bottom = new FormAttachment(cFrom, -5, SWT.TOP);
+		fdFromLabel.left = new FormAttachment(cFrom, 0, SWT.LEFT);
+		final FormData fdCFrom = new FormData();
+		cFrom.setLayoutData(fdCFrom);
 		cFrom.addFocusListener(new FromFocusListener());
 		cFrom.setToolTipText(
 			Messages.RefactoringWizardPage2_SelectFromInput);
 
 		Label methodLabel = new Label(parametersGroup, SWT.NONE);
-		fd_cFrom.top = new FormAttachment(methodLabel, -26, SWT.TOP);
-		fd_cFrom.bottom = new FormAttachment(methodLabel, -5, SWT.TOP);
-		fd_cFrom.right = new FormAttachment(methodLabel, 207, SWT.LEFT);
-		fd_cFrom.left = new FormAttachment(methodLabel, 0, SWT.LEFT);
-		final FormData fd_methodLabel = new FormData();
-		fd_methodLabel.right = new FormAttachment(0, 150);
-		fd_methodLabel.bottom = new FormAttachment(0, 113);
-		fd_methodLabel.top = new FormAttachment(0, 100);
-		methodLabel.setLayoutData(fd_methodLabel);
+		fdCFrom.top = new FormAttachment(methodLabel, -26, SWT.TOP);
+		fdCFrom.bottom = new FormAttachment(methodLabel, -5, SWT.TOP);
+		fdCFrom.right = new FormAttachment(methodLabel, 207, SWT.LEFT);
+		fdCFrom.left = new FormAttachment(methodLabel, 0, SWT.LEFT);
+		final FormData fdMethodLabel = new FormData();
+		fdMethodLabel.right = new FormAttachment(0, 150);
+		fdMethodLabel.bottom = new FormAttachment(0, 113);
+		fdMethodLabel.top = new FormAttachment(0, 100);
+		methodLabel.setLayoutData(fdMethodLabel);
 		methodLabel.setText(Messages.RefactoringWizardPage2_Method);
 
 		cMethod = new Combo(parametersGroup, SWT.NONE);
-		fd_methodLabel.left = new FormAttachment(cMethod, 0, SWT.LEFT);
-		final FormData fd_cMethod = new FormData();
-		fd_cMethod.bottom = new FormAttachment(0, 136);
-		fd_cMethod.top = new FormAttachment(0, 115);
-		fd_cMethod.right = new FormAttachment(methodLabel, 207, SWT.LEFT);
-		fd_cMethod.left = new FormAttachment(methodLabel, 0, SWT.LEFT);
-		cMethod.setLayoutData(fd_cMethod);
+		fdMethodLabel.left = new FormAttachment(cMethod, 0, SWT.LEFT);
+		final FormData fdCMethod = new FormData();
+		fdCMethod.bottom = new FormAttachment(0, 136);
+		fdCMethod.top = new FormAttachment(0, 115);
+		fdCMethod.right = new FormAttachment(methodLabel, 207, SWT.LEFT);
+		fdCMethod.left = new FormAttachment(methodLabel, 0, SWT.LEFT);
+		cMethod.setLayoutData(fdCMethod);
 		cMethod.addFocusListener(new MethodFocusListener());
 		cMethod.setToolTipText(
 			Messages.RefactoringWizardPage2_SelectMethod);
 
 		ch_Root = new Button(parametersGroup, SWT.CHECK);
 		fd_tName.right = new FormAttachment(ch_Root, -5, SWT.LEFT);
-		final FormData fd_ch_Root = new FormData();
-		fd_ch_Root.left = new FormAttachment(cFrom, -44, SWT.RIGHT);
-		fd_ch_Root.right = new FormAttachment(cFrom, 0, SWT.RIGHT);
-		fd_ch_Root.bottom = new FormAttachment(tName, 21, SWT.TOP);
-		fd_ch_Root.top = new FormAttachment(tName, 0, SWT.TOP);
-		ch_Root.setLayoutData(fd_ch_Root);
+		final FormData fdChRoot = new FormData();
+		fdChRoot.left = new FormAttachment(cFrom, -44, SWT.RIGHT);
+		fdChRoot.right = new FormAttachment(cFrom, 0, SWT.RIGHT);
+		fdChRoot.bottom = new FormAttachment(tName, 21, SWT.TOP);
+		fdChRoot.top = new FormAttachment(tName, 0, SWT.TOP);
+		ch_Root.setLayoutData(fdChRoot);
 		ch_Root.setText(Messages.RefactoringWizardPage2_Main);
 		ch_Root.addSelectionListener(new RootSelectionListener());
 		ch_Root.setToolTipText(
 			Messages.RefactoringWizardPage2_SelectMainBox);
 		
 		inputsGroup.setText(Messages.RefactoringWizardPage2_Inputs);
-		final FormData fd_inputsGroup = new FormData();
-		fd_inputsGroup.bottom = new FormAttachment(parametersGroup, 0, SWT.TOP);
-		fd_inputsGroup.right = new FormAttachment(100, -75);
-		fd_inputsGroup.left = new FormAttachment(0, 10);
-		fd_inputsGroup.top = new FormAttachment(0, 10);
-		inputsGroup.setLayoutData(fd_inputsGroup);
+		final FormData fdInputsGroup = new FormData();
+		fdInputsGroup.bottom = new FormAttachment(parametersGroup, 0, SWT.TOP);
+		fdInputsGroup.right = new FormAttachment(100, -75);
+		fdInputsGroup.left = new FormAttachment(0, 10);
+		fdInputsGroup.top = new FormAttachment(0, 10);
+		inputsGroup.setLayoutData(fdInputsGroup);
 		inputsGroup.setLayout(new FormLayout());
 
 		upButton = new Button(composite_2, SWT.NONE);
-		final FormData fd_button_2 = new FormData();
-		fd_button_2.left = new FormAttachment(0, 250);
-		fd_button_2.top = new FormAttachment(0, 35);
-		fd_button_2.bottom = new FormAttachment(0, 58);
-		upButton.setLayoutData(fd_button_2);
+		final FormData fdButton2 = new FormData();
+		fdButton2.left = new FormAttachment(0, 250);
+		fdButton2.top = new FormAttachment(0, 35);
+		fdButton2.bottom = new FormAttachment(0, 58);
+		upButton.setLayoutData(fdButton2);
 		upButton.setImage(ResourceManager.getPluginImage(
 			RefactoringPlugin.getDefault(),
 			"icons" + System.getProperty("file.separator") + "arrow_up.gif")); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
 		upButton.addSelectionListener(new ListUpListener(lInputs));
 
 		downButton = new Button(composite_2, SWT.NONE);
-		fd_list_1.bottom = new FormAttachment(downButton, 0, SWT.BOTTOM);
-		fd_button_2.right = new FormAttachment(downButton, 0, SWT.RIGHT);
+		fdList1.bottom = new FormAttachment(downButton, 0, SWT.BOTTOM);
+		fdButton2.right = new FormAttachment(downButton, 0, SWT.RIGHT);
 		final FormData fd_vButton = new FormData();
 		fd_vButton.left = new FormAttachment(0, 250);
 		fd_vButton.bottom = new FormAttachment(0, 100);
@@ -478,22 +465,22 @@ public class RefactoringWizardPage2 extends WizardPage {
 		downButton.addSelectionListener(new ListDownListener(lInputs));
 		
 		delButton = new Button(composite, SWT.NONE);
-		final FormData fd_button = new FormData();
-		fd_button.right = new FormAttachment(0, 290);
-		fd_button.left = new FormAttachment(0, 250);
-		fd_button.bottom = new FormAttachment(0, 102);//138
-		fd_button.top = new FormAttachment(0, 79);//115
-		delButton.setLayoutData(fd_button);
+		final FormData fdButton = new FormData();
+		fdButton.right = new FormAttachment(0, 290);
+		fdButton.left = new FormAttachment(0, 250);
+		fdButton.bottom = new FormAttachment(0, 102);//138
+		fdButton.top = new FormAttachment(0, 79);//115
+		delButton.setLayoutData(fdButton);
 		delButton.setImage(PlatformUI.getWorkbench().getSharedImages().getImage(
 			ISharedImages.IMG_TOOL_DELETE));
 		
 		addButton = new Button(composite, SWT.NONE);
-		final FormData fd_button_1 = new FormData();
-		fd_button_1.bottom = new FormAttachment(0, 61);
-		fd_button_1.top = new FormAttachment(0, 40 );
-		fd_button_1.right = new FormAttachment(composite_1, 45, SWT.RIGHT);
-		fd_button_1.left = new FormAttachment(composite_1, 5, SWT.RIGHT);
-		addButton.setLayoutData(fd_button_1);
+		final FormData fdButton1 = new FormData();
+		fdButton1.bottom = new FormAttachment(0, 61);
+		fdButton1.top = new FormAttachment(0, 40 );
+		fdButton1.right = new FormAttachment(composite1, 45, SWT.RIGHT);
+		fdButton1.left = new FormAttachment(composite1, 5, SWT.RIGHT);
+		addButton.setLayoutData(fdButton1);
 		addButton.setImage(ResourceManager.getPluginImage(
 			RefactoringPlugin.getDefault(),
 			"icons" + System.getProperty("file.separator") + "arrow_right.gif")); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
@@ -521,7 +508,7 @@ public class RefactoringWizardPage2 extends WizardPage {
 	}
 	
 	/**
-	 * Obtiene la lista de entradas seleccionadas para la refactorización.
+	 * Obtiene la lista de entradas seleccionadas para la refactorizaciï¿½n.
 	 * 
 	 * <p>El formato devuelve es el de una lista de <i>arrays</i> de cadenas en la
 	 * que cada <i>array</i> se corresponde con una entrada y se compone de 5 
@@ -531,15 +518,15 @@ public class RefactoringWizardPage2 extends WizardPage {
 	 * <ol>El nombre identificativo dado a la entrada.</ol>
 	 * <ol>El nombre identificativo de la entrada a partir de la cual se obtiene
 	 * el valor o posibles valores para la entrada actual (si hay alguna).</ol>
-	 * <ol>El nombre simple del métod mediante el cual se obtendrían dichos valores
+	 * <ol>El nombre simple del mï¿½tod mediante el cual se obtendrï¿½an dichos valores
 	 * a partir de la entrada apuntada por el valor del atributo "from".</ol>
 	 * <ol>El valor que indica si la entrada es la entrada principal de la 
-	 * refactorización (en cuyo caso vale <code>"true"</code>) o no (si tiene
-	 * cualquier otro valor, como <code>"false"</code>, una cadena vacía o 
+	 * refactorizaciï¿½n (en cuyo caso vale <code>"true"</code>) o no (si tiene
+	 * cualquier otro valor, como <code>"false"</code>, una cadena vacï¿½a o 
 	 * incluso <code>null</code>).</ol>
 	 * </p>
 	 * 
-	 * @return la lista de entradas seleccionadas para la refactorización.
+	 * @return la lista de entradas seleccionadas para la refactorizaciï¿½n.
 	 */
 	public ArrayList<String[]> getInputs(){
 		ArrayList<String[]> inputs = new ArrayList<String[]>();
@@ -550,17 +537,17 @@ public class RefactoringWizardPage2 extends WizardPage {
 	}
 	
 	/**
-	 * Obtiene la tabla temporal de parámetros.
+	 * Obtiene la tabla temporal de parï¿½metros.
 	 * 
-	 * @return la tabla temporal de parámetros.
+	 * @return la tabla temporal de parï¿½metros.
 	 */
 	public InputParameter[] getInputTable(){
 		return inputsTable.values().toArray(new InputParameter[inputsTable.size()]);
 	}
 	
 	/**
-	 * Puebla los campos del formulario del asistente con la información que se
-	 * pueda obtener de la refactorización existente que se está editando.
+	 * Puebla los campos del formulario del asistente con la informaciï¿½n que se
+	 * pueda obtener de la refactorizaciï¿½n existente que se estï¿½ editando.
 	 */
 	private void fillInRefactoringData(){
 		if (refactoring.getInputs() != null)
@@ -568,8 +555,8 @@ public class RefactoringWizardPage2 extends WizardPage {
 				InputParameter input = new InputParameter(nextInput[0], 
 					nextInput[1], nextInput[2], nextInput[3], nextInput[4]);
 
-				// Se añade a la tabla de parámetros.
-				// Si el tipo no está en la lista de tipos disponibles, se añade.
+				// Se aï¿½ade a la tabla de parï¿½metros.
+				// Si el tipo no estï¿½ en la lista de tipos disponibles, se aï¿½ade.
 				if (listModelTypes.get(input.getType()) == null){
 					listModelTypes.put(input.getType(), 1);
 					lTypes.add(input.getType());
@@ -581,7 +568,7 @@ public class RefactoringWizardPage2 extends WizardPage {
 				inputsTable.put(input.getType() + " (" + number + ")", input); //$NON-NLS-1$
 				listModelTypes.put(input.getType(), number + 1);
 				
-				// Se añade a la lista de parámetros elegidos.
+				// Se aï¿½ade a la lista de parï¿½metros elegidos.
 				lInputs.add(input.getType() + " (" + number + ")");								 //$NON-NLS-1$
 			}
 		lInputs.deselectAll();
@@ -590,10 +577,10 @@ public class RefactoringWizardPage2 extends WizardPage {
 		checkForCompletion();
 		
 		// Se comprueba que ninguna entrada de las cargadas apunte en el campo
-		// "from" a un nombre que no pertenece a ningún parámetro.
+		// "from" a un nombre que no pertenece a ningï¿½n parï¿½metro.
 		for (InputParameter nextInput : inputsTable.values())
 			// Si tiene un campo a partir del cual se obtiene.
-			if (nextInput.getFrom() != null && nextInput.getFrom() != ""){ //$NON-NLS-1$
+			if (nextInput.getFrom() != null && ! nextInput.getFrom().equals("")){ //$NON-NLS-1$
 				boolean found = false;
 				for (InputParameter subInput : inputsTable.values())
 					if (nextInput.getFrom().equals(subInput.getName())){
@@ -614,10 +601,10 @@ public class RefactoringWizardPage2 extends WizardPage {
 	}
 
 	/**
-	 * Añade tantas entradas a la lista de entradas elegidas como tipos se encuentren
+	 * Aï¿½ade tantas entradas a la lista de entradas elegidas como tipos se encuentren
 	 * seleccionados en la lista de tipos disponibles en el modelo.
 	 * 
-	 * <p>Para cada entrada añadida, le asocia un número, que será el número de 
+	 * <p>Para cada entrada aï¿½adida, le asocia un nï¿½mero, que serï¿½ el nï¿½mero de 
 	 * entrada con el mismo tipo, al tiempo que actualiza las tablas de referencia
 	 * de entradas seleccionadas y de tipos de datos disponibles.</p>
 	 */
@@ -640,7 +627,7 @@ public class RefactoringWizardPage2 extends WizardPage {
 	}
 
 	/**
-	 * Elimina de la lista de entradas elegidas aquéllas que se encuentren 
+	 * Elimina de la lista de entradas elegidas aquï¿½llas que se encuentren 
 	 * seleccionadas y actualiza las tablas de referencia de entradas y tipos.
 	 */
 	private void removeElements(){
@@ -664,14 +651,14 @@ public class RefactoringWizardPage2 extends WizardPage {
 
 	
 	/**
-	 * Puebla la lista de tipos disponibles para los parámetros de entrada con 
+	 * Puebla la lista de tipos disponibles para los parï¿½metros de entrada con 
 	 * los tipos disponibles en el modelo MOON.
 	 * 
-	 * <p>Solo se tienen en cuenta los tipos de representación de los paquetes
+	 * <p>Solo se tienen en cuenta los tipos de representaciï¿½n de los paquetes
 	 * <code>moon.core.classdef</code>, <code>moon.core.genericity</code> y
 	 * algunos otros.</p>
 	 * 
-	 * @param patron Expresion regular de búsqueda.
+	 * @param patron Expresion regular de bï¿½squeda.
 	 */
 	private void fillSearchTypesList(String patron){
 		String[] itemList;
@@ -689,8 +676,8 @@ public class RefactoringWizardPage2 extends WizardPage {
 			for(int i=0; i < itemList.length; i++){
 				String typeName = itemList[i].replaceAll("/" , "."); //$NON-NLS-1$ //$NON-NLS-2$
 				
-				//En caso de que el tipo coincida con el patrón de búsqueda lo añadimos a la lista.
-				if(patron=="" || typeName.matches(patron))
+				//En caso de que el tipo coincida con el patrï¿½n de bï¿½squeda lo aï¿½adimos a la lista.
+				if(patron.equals("") || typeName.matches(patron))
 					lTypes.add(typeName);
 			}
 		}
@@ -705,10 +692,10 @@ public class RefactoringWizardPage2 extends WizardPage {
 	
 	
 	/**
-	 * Puebla la lista de tipos disponibles para los parámetros de entrada con 
+	 * Puebla la lista de tipos disponibles para los parï¿½metros de entrada con 
 	 * los tipos disponibles en el modelo MOON.
 	 * 
-	 * <p>Solo se tienen en cuenta los tipos de representación de los paquetes
+	 * <p>Solo se tienen en cuenta los tipos de representaciï¿½n de los paquetes
 	 * <code>moon.core.classdef</code>, <code>moon.core.genericity</code> y
 	 * algunos otros.</p>
 	 */
@@ -731,10 +718,10 @@ public class RefactoringWizardPage2 extends WizardPage {
 				listModelTypes.put(typeName, 1);
 				lTypes.add(typeName);
 					
-				// Si se está creando una nueva refactorización.
+				// Si se estï¿½ creando una nueva refactorizaciï¿½n.
 				if (((RefactoringWizard)getWizard()).getOperation() == 
 					RefactoringWizard.CREATE){
-					// Se busca y añade automáticamente el modelo MOON.
+					// Se busca y aï¿½ade automï¿½ticamente el modelo MOON.
 					if (itemList[i].replaceAll("/", ".").equals( //$NON-NLS-1$ //$NON-NLS-2$
 						RefactoringConstants.MODEL_PATH)){
 						lInputs.add(typeName + " (" + 1 + ")"); //$NON-NLS-1$
@@ -762,8 +749,8 @@ public class RefactoringWizardPage2 extends WizardPage {
 	}
 
 	/**
-	 * Activa o desactiva todos los campos del formulario para la introducción 
-	 * de datos de un parámetro seleccionado.
+	 * Activa o desactiva todos los campos del formulario para la introducciï¿½n 
+	 * de datos de un parï¿½metro seleccionado.
 	 * 
 	 * @param enable <code>true</code> si se deben habilitar todos los campos;
 	 * <code>false</code> si se deben deshabilitar.
@@ -789,14 +776,14 @@ public class RefactoringWizardPage2 extends WizardPage {
 	}
 
 	/**
-	 * Completa los campos referentes al parámetro seleccionado en un cierto
+	 * Completa los campos referentes al parï¿½metro seleccionado en un cierto
 	 * instante con los datos de la entrada representada por #parameter.
 	 * 
 	 * @param parameter la entrada cuyos datos se deben mostrar.
 	 */
 	private void fillInputData(InputParameter parameter) {
 		if(parameter.getName() == null)
-			tName.setText(new String("")); //$NON-NLS-1$
+			tName.setText(""); //$NON-NLS-1$
 		else
 			tName.setText(parameter.getName());
 		
@@ -814,7 +801,7 @@ public class RefactoringWizardPage2 extends WizardPage {
 	
 	/**
 	 * Rellena la lista desplegable de posibles objetos de origen para un valor
-	 * con los identificadores de los parámetros ya disponibles. 
+	 * con los identificadores de los parï¿½metros ya disponibles. 
 	 */
 	private void fillFromComboBox() {
 		for(InputParameter nextParameter : inputsTable.values())
@@ -823,28 +810,28 @@ public class RefactoringWizardPage2 extends WizardPage {
 				nextParameter.getName().compareTo("") != 0) //$NON-NLS-1$
 				cFrom.add(nextParameter.getName());
 
-		cFrom.add(new String(""), 0); //$NON-NLS-1$
+		cFrom.add(String.valueOf(""), 0); //$NON-NLS-1$
 	}
 	
 	/**
-	 * Rellena el desplegable con los nombres de los métodos disponibles para la 
-	 * obtención del parámetro de entrada seleccionado a partir de la entrada
-	 * especificada en la sección <i>from</i>.
+	 * Rellena el desplegable con los nombres de los mï¿½todos disponibles para la 
+	 * obtenciï¿½n del parï¿½metro de entrada seleccionado a partir de la entrada
+	 * especificada en la secciï¿½n <i>from</i>.
 	 * 
-	 * @param fromName nombre de la entrada a partir de la cual se obtendría 
-	 * el valor de esta entrada mediante la aplicación del método seleccionado.
-	 * @param returnType tipo del resultado que deben devolver los métodos en caso de que
-	 * devuelvan un valor único en lugar de un conjunto.
+	 * @param fromName nombre de la entrada a partir de la cual se obtendrï¿½a 
+	 * el valor de esta entrada mediante la aplicaciï¿½n del mï¿½todo seleccionado.
+	 * @param returnType tipo del resultado que deben devolver los mï¿½todos en caso de que
+	 * devuelvan un valor ï¿½nico en lugar de un conjunto.
 	 */
 	private void fillMethodComboBox(String fromName, String returnType) {
 		
 		String[] methods = new String[0];
 		
 		// Nombre completamente cualificado del tipo de la entrada a partir de
-		// la que se debería obtener el valor del parámetro tratado.
-		String type = new String();
+		// la que se deberï¿½a obtener el valor del parï¿½metro tratado.
+		String type = "";
 		
-		// Si no se especifica otra entrada como origen, se intentará obtener
+		// Si no se especifica otra entrada como origen, se intentarï¿½ obtener
 		// la nueva entrada directamente desde el modelo MOON.
 		if (fromName == null || fromName.length() == 0)
 			type = RefactoringConstants.MODEL_PATH;
@@ -860,20 +847,20 @@ public class RefactoringWizardPage2 extends WizardPage {
 		if(type.length() > 0)
 			methods = getMethodsFromType(type, returnType);
 
-		// Se rellena el desplegable con todos los métodos encontrados.
+		// Se rellena el desplegable con todos los mï¿½todos encontrados.
 		for (int i = 0; i < methods.length; i++)
 			cMethod.add(methods[i]);
 	}
 	
 	/**
-	 * Obtiene los nombres de los métodos de una clase que devuelven objetos
+	 * Obtiene los nombres de los mï¿½todos de una clase que devuelven objetos
 	 * de tipo <code>Iterator</code> ,<code>Collection</code> o <code>List</code>,
-	 * así como aquéllos que devuelven un único valor del tipo especificado.
+	 * asï¿½ como aquï¿½llos que devuelven un ï¿½nico valor del tipo especificado.
 	 * 
-	 * @param className nombre de la clase cuyos métodos se deben obtener.
-	 * @param type tipo del valor único que pueden devolver los métodos.
+	 * @param className nombre de la clase cuyos mï¿½todos se deben obtener.
+	 * @param type tipo del valor ï¿½nico que pueden devolver los mï¿½todos.
 	 * 
-	 * @return un <i>array</i> de cadenas con los nombres de los métodos.
+	 * @return un <i>array</i> de cadenas con los nombres de los mï¿½todos.
 	 */
 	private String[] getMethodsFromType(String className, String type) {
 		
@@ -889,7 +876,7 @@ public class RefactoringWizardPage2 extends WizardPage {
 				if (InputProcessor.isMethodValid(methods[i], type))
 					temp.add((from.getMethods()[i]).getName());
 			
-			temp.add(0, new String("")); //$NON-NLS-1$
+			temp.add(0, ""); //$NON-NLS-1$
 		}
 		catch(Exception e) {}
 		
@@ -898,7 +885,7 @@ public class RefactoringWizardPage2 extends WizardPage {
 	}
 	
 	/**
-	 * Actualiza el estado de la pantalla de diálogo del asistente.
+	 * Actualiza el estado de la pantalla de diï¿½logo del asistente.
 	 * 
 	 * @param message mensaje asociado al estado actual de la pantalla.
 	 */
@@ -914,9 +901,9 @@ public class RefactoringWizardPage2 extends WizardPage {
 	private void checkForCompletion() {
 		int rootInputs = 0;
 		
-		// Se comprueban todos los parámetros de entrada.
+		// Se comprueban todos los parï¿½metros de entrada.
 		for (InputParameter nextInput : inputsTable.values()){
-			// Todos los parámetros deben tener nombre.
+			// Todos los parï¿½metros deben tener nombre.
 			if (! nextInput.getType().equals(
 				RefactoringConstants.MODEL_PATH) &&
 				nextInput.getName().equals("")){ //$NON-NLS-1$
@@ -932,14 +919,14 @@ public class RefactoringWizardPage2 extends WizardPage {
 			
 			if (nextInput.getRoot() != null && nextInput.getRoot().equals("true")){ //$NON-NLS-1$
 				rootInputs++;
-				// El parámetro principal no puede obtenerse a partir de otro.
+				// El parï¿½metro principal no puede obtenerse a partir de otro.
 				if ((nextInput.getFrom() != null && nextInput.getFrom().length() != 0) ||
 					(nextInput.getMethod() != null && nextInput.getMethod().length() != 0)){
 					updateStatus(Messages.RefactoringWizardPage2_MainCannotBeObtained +
 						"."); //$NON-NLS-1$
 					return;
 				}
-				// El parámetro principal no puede ser de cualquier tipo.
+				// El parï¿½metro principal no puede ser de cualquier tipo.
 				MainInputValidator validator = new MainInputValidator();
 				if (! validator.checkMainType(nextInput.getType())){
 					
@@ -979,7 +966,7 @@ public class RefactoringWizardPage2 extends WizardPage {
 				"."); //$NON-NLS-1$
 			return;
 		}
-		// No puede haber más de una entrada principal.
+		// No puede haber mï¿½s de una entrada principal.
 		if (rootInputs > 1){
 			updateStatus(Messages.RefactoringWizardPage2_OnlyOneMain +
 				"."); //$NON-NLS-1$
@@ -991,8 +978,8 @@ public class RefactoringWizardPage2 extends WizardPage {
 
 	/**
 	 * Actualiza el panel inferior para mostrar en cada uno de los campos del
-	 * formulario la información apropiada acerca del parámetro seleccionado en
-	 * la lista del panel de parámetros.
+	 * formulario la informaciï¿½n apropiada acerca del parï¿½metro seleccionado en
+	 * la lista del panel de parï¿½metros.
 	 * 
 	 * @author <A HREF="mailto:lfd0002@alu.ubu.es">Laura Fuente de la Fuente</A>
 	 * @author <A HREF="mailto:sfd0009@alu.ubu.es">Sonia Fuente de la Fuente</A>
@@ -1001,14 +988,14 @@ public class RefactoringWizardPage2 extends WizardPage {
 	private class InputSelectionListener implements SelectionListener {
 
 		/**
-		 * Recibe una notificación de que un elemento de la lista de parámetros
+		 * Recibe una notificaciï¿½n de que un elemento de la lista de parï¿½metros
 		 * de entrada ha sido seleccionado.
 		 * 
 		 * <p>Inicia las acciones que sean necesarias para actualizar la 
-		 * información mostrada en el panel inferior acerca del parámetro
+		 * informaciï¿½n mostrada en el panel inferior acerca del parï¿½metro
 		 * seleccionado.</p>
 		 * 
-		 * @param e el evento de selección disparado en la ventana.
+		 * @param e el evento de selecciï¿½n disparado en la ventana.
 		 * 
 		 * @see SelectionListener#widgetSelected(SelectionEvent)
 		 */
@@ -1027,7 +1014,7 @@ public class RefactoringWizardPage2 extends WizardPage {
 					InputParameter input = 
 						inputsTable.get(lInputs.getSelection()[0]);
 				
-					if (input != null && input instanceof InputParameter){
+					if (input != null){
 						enableFields(true);
 						fillInputData(input);
 					}
@@ -1038,7 +1025,7 @@ public class RefactoringWizardPage2 extends WizardPage {
 					}
 				}
 			}
-			// Si no hay ningún elemento seleccionado.
+			// Si no hay ningï¿½n elemento seleccionado.
 			else {
 				enableFields(false);
 				enableInputButtons(false);
@@ -1055,7 +1042,7 @@ public class RefactoringWizardPage2 extends WizardPage {
 	
 	/**
 	 * Actualiza el valor del atributo de la entrada seleccionada que indica si
-	 * se trata de la entrada principal de la refactorización o no.
+	 * se trata de la entrada principal de la refactorizaciï¿½n o no.
 	 * 
 	 * @author <A HREF="mailto:lfd0002@alu.ubu.es">Laura Fuente de la Fuente</A>
 	 * @author <A HREF="mailto:sfd0009@alu.ubu.es">Sonia Fuente de la Fuente</A>
@@ -1064,10 +1051,10 @@ public class RefactoringWizardPage2 extends WizardPage {
 	private class RootSelectionListener implements SelectionListener {
 
 		/**
-		 * Recibe una notificación de que la marca de selección ha sido
+		 * Recibe una notificaciï¿½n de que la marca de selecciï¿½n ha sido
 		 * seleccionada o deseleccionada.
 		 * 
-		 * @param e el evento de selección disparado en la ventana.
+		 * @param e el evento de selecciï¿½n disparado en la ventana.
 		 * 
 		 * @see SelectionListener#widgetSelected(SelectionEvent)
 		 */
@@ -1105,13 +1092,13 @@ public class RefactoringWizardPage2 extends WizardPage {
 	private class TypeSelectionListener implements SelectionListener {
 
 		/**
-		 * Recibe una notificación de que un elemento de la lista de tipos
+		 * Recibe una notificaciï¿½n de que un elemento de la lista de tipos
 		 * disponibles ha sido seleccionado.
 		 * 
-		 * <p>Activa el botón que permite añadir el o los tipos seleccionados
+		 * <p>Activa el botï¿½n que permite aï¿½adir el o los tipos seleccionados
 		 * a la lista de entradas.</p>
 		 * 
-		 * @param e el evento de selección disparado en la ventana.
+		 * @param e el evento de selecciï¿½n disparado en la ventana.
 		 * 
 		 * @see SelectionListener#widgetSelected(SelectionEvent)
 		 */
@@ -1126,12 +1113,13 @@ public class RefactoringWizardPage2 extends WizardPage {
 			}
 
 			try{
-				if(new File(path).exists())
-					navegador.setUrl(FileLocator.toFileURL(getClass().getResource(path)) + "#skip-navbar_top");
-				else
-					navegador.setUrl(FileLocator.toFileURL(getClass().getResource(RefactoringConstants.REFACTORING_JAVADOC + "/moon/notFound.html" )).toString());
+				if(new File(path).exists()) {
+					navegador.setUrl(FileLocator.toFileURL(RefactoringPlugin.getDefault().getBundle().getEntry(path)) + "#skip-navbar_top");
+				}else {
+					navegador.setUrl(FileLocator.toFileURL(RefactoringPlugin.getDefault().getBundle().getEntry(RefactoringConstants.REFACTORING_JAVADOC + "/moon/notFound.html" )).toString());
+				}
 			}catch(IOException excp){
-				excp.printStackTrace();
+				Throwables.propagate(excp);
 			}
 			//tInformation.setText(getJavadocInformation(path));
 			if (lTypes.getSelectionCount() > 0 &&
@@ -1151,10 +1139,10 @@ public class RefactoringWizardPage2 extends WizardPage {
 
 	/**
 	 * Permite observar y controlar los cambios realizados sobre el contenido 
-	 * del campo que contiene el nombre del parámetro de entrada seleccionado.
+	 * del campo que contiene el nombre del parï¿½metro de entrada seleccionado.
 	 * 
 	 * <p>Cuando se modifica el contenido de dicho campo, se actualiza el nombre
-	 * del parámetro, a menos que se trate de un nombre ya asignado a otra
+	 * del parï¿½metro, a menos que se trate de un nombre ya asignado a otra
 	 * entrada.</p>
 	 * 
 	 * @author <A HREF="mailto:lfd0002@alu.ubu.es">Laura Fuente de la Fuente</A>
@@ -1164,11 +1152,11 @@ public class RefactoringWizardPage2 extends WizardPage {
 	private class NameFocusListener implements FocusListener {
 	
 		/**
-		 * Recibe una notificación indicando que el texto observado ha recibido
+		 * Recibe una notificaciï¿½n indicando que el texto observado ha recibido
 		 * el foco (en este caso, el texto que contiene el nombre del
-		 * parámetro seleccionado).
+		 * parï¿½metro seleccionado).
 		 *
-		 * @param e evento con la información referente a la recepción del foco.
+		 * @param e evento con la informaciï¿½n referente a la recepciï¿½n del foco.
 		 * 
 		 * @see FocusListener#focusGained(FocusEvent)
 		 */
@@ -1176,10 +1164,10 @@ public class RefactoringWizardPage2 extends WizardPage {
 		public void focusGained(FocusEvent e){}
 		
 		/**
-		 * Recibe una notificación indicando que el texto observado ha perdido
+		 * Recibe una notificaciï¿½n indicando que el texto observado ha perdido
 		 * el foco.
 		 * 
-		 * @param e evento con la información referente a la pérdida del foco.
+		 * @param e evento con la informaciï¿½n referente a la pï¿½rdida del foco.
 		 * 
 		 * @see FocusListener#focusLost(FocusEvent)
 		 */
@@ -1209,12 +1197,12 @@ public class RefactoringWizardPage2 extends WizardPage {
 		}
 		
 		/**
-		 * Comprueba que un nombre dado no pertenezca a algún otro elemento
+		 * Comprueba que un nombre dado no pertenezca a algï¿½n otro elemento
 		 * distinto del indicado.
 		 * 
 		 * @param name el nombre cuya unicidad se debe verificar.
-		 * @param current el único parámetro de entrada para el que se admite el
-		 * nombre como válido.
+		 * @param current el ï¿½nico parï¿½metro de entrada para el que se admite el
+		 * nombre como vï¿½lido.
 		 * 
 		 * @return <code>false</code> si el nombre ya existe; <code>true
 		 * </code> en caso contrario.
@@ -1234,7 +1222,7 @@ public class RefactoringWizardPage2 extends WizardPage {
 	 * puede obtener a su vez la entrada actual.
 	 * 
 	 * <p>Cuando se modifica el contenido de dicho campo, se actualiza el apuntador
-	 * del parámetro al objeto a partir del que se puede obtener su valor.</p>
+	 * del parï¿½metro al objeto a partir del que se puede obtener su valor.</p>
 	 * 
 	 * @author <A HREF="mailto:sfd0009@alu.ubu.es">Sonia Fuente de la Fuente</A>
 	 * @author <A HREF="mailto:ehp0001@alu.ubu.es">Enrique Herrero Paredes</A>
@@ -1242,11 +1230,11 @@ public class RefactoringWizardPage2 extends WizardPage {
 	private class FromFocusListener implements FocusListener {
 	
 		/**
-		 * Recibe una notificación indicando que el elemento observado ha recibido
+		 * Recibe una notificaciï¿½n indicando que el elemento observado ha recibido
 		 * el foco (en este caso, el desplegable que contiene los nombres de las
 		 * entradas).
 		 *
-		 * @param e evento con la información referente a la recepción del foco.
+		 * @param e evento con la informaciï¿½n referente a la recepciï¿½n del foco.
 		 * 
 		 * @see FocusListener#focusGained(FocusEvent)
 		 */
@@ -1254,10 +1242,10 @@ public class RefactoringWizardPage2 extends WizardPage {
 		public void focusGained(FocusEvent e){}
 		
 		/**
-		 * Recibe una notificación indicando que el elemento observado ha perdido
+		 * Recibe una notificaciï¿½n indicando que el elemento observado ha perdido
 		 * el foco.
 		 * 
-		 * @param e evento con la información referente a la pérdida del foco.
+		 * @param e evento con la informaciï¿½n referente a la pï¿½rdida del foco.
 		 * 
 		 * @see FocusListener#focusLost(FocusEvent)
 		 */
@@ -1284,11 +1272,11 @@ public class RefactoringWizardPage2 extends WizardPage {
 	
 	/**
 	 * Permite observar y controlar los cambios realizados sobre el contenido 
-	 * del campo desplegable que contiene el método mediante el que se 
+	 * del campo desplegable que contiene el mï¿½todo mediante el que se 
 	 * puede obtener a su vez el valor de la entrada actual.
 	 * 
 	 * <p>Cuando se modifica el contenido de dicho campo, se actualiza el apuntador
-	 * del parámetro al método mediante el que se puede obtener su valor.</p>
+	 * del parï¿½metro al mï¿½todo mediante el que se puede obtener su valor.</p>
 	 * 
 	 * @author <A HREF="mailto:sfd0009@alu.ubu.es">Sonia Fuente de la Fuente</A>
 	 * @author <A HREF="mailto:ehp0001@alu.ubu.es">Enrique Herrero Paredes</A>
@@ -1296,11 +1284,11 @@ public class RefactoringWizardPage2 extends WizardPage {
 	private class MethodFocusListener implements FocusListener {
 	
 		/**
-		 * Recibe una notificación indicando que el elemento observado ha recibido
-		 * el foco (en este caso, el desplegable que contiene los métodos de la
+		 * Recibe una notificaciï¿½n indicando que el elemento observado ha recibido
+		 * el foco (en este caso, el desplegable que contiene los mï¿½todos de la
 		 * entrada seleccionada como origen).
 		 *
-		 * @param e evento con la información referente a la recepción del foco.
+		 * @param e evento con la informaciï¿½n referente a la recepciï¿½n del foco.
 		 * 
 		 * @see FocusListener#focusGained(FocusEvent)
 		 */
@@ -1308,10 +1296,10 @@ public class RefactoringWizardPage2 extends WizardPage {
 		public void focusGained(FocusEvent e){}
 		
 		/**
-		 * Recibe una notificación indicando que el elemento observado ha perdido
+		 * Recibe una notificaciï¿½n indicando que el elemento observado ha perdido
 		 * el foco.
 		 * 
-		 * @param e evento con la información referente a la pérdida del foco.
+		 * @param e evento con la informaciï¿½n referente a la pï¿½rdida del foco.
 		 * 
 		 * @see FocusListener#focusLost(FocusEvent)
 		 */
