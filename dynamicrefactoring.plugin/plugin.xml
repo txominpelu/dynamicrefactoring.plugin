@@ -229,7 +229,6 @@
 			closeable="true"
 			moveable="false">
 		</stickyView>
-		
 		<view
         	category="dynamicrefactoring.views.refactoringViewsCategory"
         	class="dynamicrefactoring.interfaz.view.AvailableRefactoringView"
@@ -257,20 +256,20 @@
 			closeable="true"
 			moveable="false">
 		</stickyView>
-  <view
-        category="dynamicrefactoring.views.refactoringViewsCategory"
-        class="dynamicrefactoring.interfaz.view.RefactoringListView"
-        fastViewWidthRatio="0.05"
-        icon="icons/ref.png"
-        id="dynamicrefactoring.views.refactoringListView"
-        name="%dynamicrefactoring.view.refactoringList">
-  </view>
-  <stickyView
-        closeable="true"
-        id="dynamicrefactoring.views.refactoringListView"
-        location="RIGHT"
-        moveable="false">
-  </stickyView>
+  		<view
+        	category="dynamicrefactoring.views.refactoringViewsCategory"
+        	class="dynamicrefactoring.interfaz.view.RefactoringCatalogBrowserView"
+        	fastViewWidthRatio="0.05"
+        	icon="icons/ref.png"
+        	id="dynamicrefactoring.views.refactoringCatalogBrowserView"
+        	name="%dynamicrefactoring.view.refactoringCatalogBrowserView">
+  		</view>
+  		<stickyView
+        	closeable="true"
+        	id="dynamicrefactoring.views.refactoringCatalogBrowserView"
+        	location="RIGHT"
+        	moveable="true">
+  		</stickyView>
 	</extension>
 
 	<extension point="org.eclipse.ui.viewActions">
