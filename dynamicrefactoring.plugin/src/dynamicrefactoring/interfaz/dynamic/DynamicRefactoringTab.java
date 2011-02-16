@@ -50,6 +50,7 @@ import org.eclipse.swt.widgets.TreeItem;
 
 import com.swtdesigner.SWTResourceManager;
 
+import dynamicrefactoring.RefactoringImages;
 import dynamicrefactoring.RefactoringPlugin;
 import dynamicrefactoring.domain.DynamicRefactoringDefinition;
 import dynamicrefactoring.interfaz.TreeEditor;
@@ -309,17 +310,17 @@ public class DynamicRefactoringTab {
 		ArrayList<String> postconditions = refactoringDefinition.getPostconditions();
 				
 		TreeItem preconditionsChild = TreeEditor.createBranch(tr_Components, 0,
-			Messages.DynamicRefactoringTab_Preconditions, "icons" + System.getProperty("file.separator") + "check.gif"); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$ 
+			Messages.DynamicRefactoringTab_Preconditions, RefactoringImages.CHECK_ICON_PATH);
 		TreeItem actionsChild = TreeEditor.createBranch(tr_Components, 1, 
-			Messages.DynamicRefactoringTab_Actions, "icons" + System.getProperty("file.separator") + "run.gif"); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
+			Messages.DynamicRefactoringTab_Actions, RefactoringImages.RUN_ICON_PATH);
 		TreeItem postconditionsChild = TreeEditor.createBranch(tr_Components, 2,
-			Messages.DynamicRefactoringTab_Postconditions, "icons" + System.getProperty("file.separator") + "validate.gif"); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
+			Messages.DynamicRefactoringTab_Postconditions, RefactoringImages.VALIDATE_ICON_PATH); 
 				
 		TreeEditor.fillInTreeBranch(preconditions, preconditionsChild, 
-			"icons" + System.getProperty("file.separator") + "check.gif"); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
+				RefactoringImages.CHECK_ICON_PATH); 
 		TreeEditor.fillInTreeBranch(actions, actionsChild, 
-			"icons" + System.getProperty("file.separator") + "run.gif"); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
+				RefactoringImages.RUN_ICON_PATH); 
 		TreeEditor.fillInTreeBranch(postconditions, postconditionsChild,
-			"icons" + System.getProperty("file.separator") + "validate.gif"); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
+				RefactoringImages.VALIDATE_ICON_PATH); 
 	}
 }

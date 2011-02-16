@@ -11,84 +11,146 @@ import com.swtdesigner.ResourceManager;
  * @author imediava
  * 
  */
-public class RefactoringImages {
+public final class RefactoringImages {
 
-	private static final String ICONS_DIR = "icons";
+	private static final String ICONS_DIR = "/icons/";
 
-	public static final String REF_ICON_PATH = ICONS_DIR + System.getProperty("file.separator") + "ref.png"; //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
+	public static final String REF_ICON_PATH = ICONS_DIR + "ref.png"; //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
 
-	public static final String CLASS_ICON_PATH = ICONS_DIR + System.getProperty("file.separator") + "class.gif"; //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
+	public static final String CLASS_ICON_PATH = ICONS_DIR + "class.gif"; //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
 
-	public static final String CAT_ICON_PATH = ICONS_DIR + System.getProperty("file.separator") + "cat.gif"; //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
+	public static final String CAT_ICON_PATH = ICONS_DIR + "cat.gif"; //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
 
-	public static final String CHECK_ICON_PATH = ICONS_DIR + System.getProperty("file.separator") + "check.gif"; //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
+	public static final String CHECK_ICON_PATH = ICONS_DIR + "check.gif"; //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
 
-	public static final String RUN_ICON_PATH = ICONS_DIR + System.getProperty("file.separator") + "run.gif"; //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
+	public static final String RUN_ICON_PATH = ICONS_DIR + "run.gif"; //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
 
-	public static final String VALIDATE_ICON_PATH = ICONS_DIR + System.getProperty("file.separator") + "validate.gif"; //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
+	public static final String VALIDATE_ICON_PATH = ICONS_DIR + "validate.gif"; //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
 
-	public static final String SPLIT_ICON_PATH = ICONS_DIR + System.getProperty("file.separator") + "split.png"; //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
+	public static final String SPLIT_ICON_PATH = ICONS_DIR + "split.png"; //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
 
-	public static final String SPLIT_R_ICON_PATH = ICONS_DIR + System.getProperty("file.separator") + "split_r.png"; //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
+	public static final String SPLIT_R_ICON_PATH = ICONS_DIR + "split_r.png"; //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
 
-	public static final String SPLIT_L_ICON_PATH = ICONS_DIR + System.getProperty("file.separator") + "split_l.png"; //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
+	public static final String SPLIT_L_ICON_PATH = ICONS_DIR + "split_l.png"; //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
 
-	public static final String SEARCH_ICON_PATH = ICONS_DIR + System.getProperty("file.separator") + "search.png"; //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
+	public static final String SEARCH_ICON_PATH = ICONS_DIR + "search.png"; //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
 
-	public static final String FIL_ICON_PATH = ICONS_DIR + System.getProperty("file.separator") + "fil.png"; //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
+	public static final String FIL_ICON_PATH = ICONS_DIR + "fil.png"; //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
 
-	public static Image getRefIcon() {
-		return ResourceManager.getPluginImage(RefactoringPlugin.getDefault(),
-				RefactoringImages.REF_ICON_PATH);
+	/**
+	 * Evita que se creen instancias del objeto.
+	 */
+	private RefactoringImages() {
 	}
 
-	public static Image getClassIcon() {
+	/**
+	 * Obtiene la imagen dada una ruta de un fichero de imagen en el plugin.
+	 * 
+	 * @param path
+	 *            ruta del fichero de imagen
+	 * @return imagen
+	 */
+	public final static Image getImageForPath(String path) {
 		return ResourceManager.getPluginImage(RefactoringPlugin.getDefault(),
-				CLASS_ICON_PATH);
+				path);
 	}
 
-	public static Image getCatIcon() {
-		return ResourceManager.getPluginImage(RefactoringPlugin.getDefault(),
-				CAT_ICON_PATH);
+	/**
+	 * Obtiene el icono referencia.
+	 * 
+	 * @return imagen del icono
+	 */
+	public final static Image getRefIcon() {
+		return getImageForPath(RefactoringImages.REF_ICON_PATH);
 	}
 
-	public static Image getCheckIcon() {
-		return ResourceManager.getPluginImage(RefactoringPlugin.getDefault(),
-				CHECK_ICON_PATH);
+	/**
+	 * Obtiene el icono class.
+	 * 
+	 * @return imagen del icono
+	 */
+	public final static Image getClassIcon() {
+		return getImageForPath(CLASS_ICON_PATH);
 	}
 
-	public static Image getRunIcon() {
-		return ResourceManager.getPluginImage(RefactoringPlugin.getDefault(),
-				RUN_ICON_PATH);
+	/**
+	 * Obtiene el icono cat.
+	 * 
+	 * @return imagen del icono
+	 */
+	public final static Image getCatIcon() {
+		return getImageForPath(CAT_ICON_PATH);
 	}
 
-	public static Image getValidateIcon() {
-		return ResourceManager.getPluginImage(RefactoringPlugin.getDefault(),
-				VALIDATE_ICON_PATH);
+	/**
+	 * Obtiene el icono Check.
+	 * 
+	 * @return imagen del icono
+	 */
+	public final static Image getCheckIcon() {
+		return getImageForPath(CHECK_ICON_PATH);
 	}
 
-	public static Image getSplitIcon() {
-		return ResourceManager.getPluginImage(RefactoringPlugin.getDefault(),
-				SPLIT_ICON_PATH);
+	/**
+	 * Obtiene el icono Run.
+	 * 
+	 * @return imagen del icono
+	 */
+	public final static Image getRunIcon() {
+		return getImageForPath(RUN_ICON_PATH);
 	}
 
-	public static Image getSplitRIcon() {
-		return ResourceManager.getPluginImage(RefactoringPlugin.getDefault(),
-				SPLIT_R_ICON_PATH);
+	/**
+	 * Obtiene el icono Validate.
+	 * 
+	 * @return imagen del icono
+	 */
+	public final static Image getValidateIcon() {
+		return getImageForPath(VALIDATE_ICON_PATH);
 	}
 
-	public static Image getSplitLIcon() {
-		return ResourceManager.getPluginImage(RefactoringPlugin.getDefault(),
-				SPLIT_L_ICON_PATH);
+	/**
+	 * Obtiene el icono splitI.
+	 * 
+	 * @return imagen del icono
+	 */
+	public final static Image getSplitIcon() {
+		return getImageForPath(SPLIT_ICON_PATH);
 	}
 
-	public static Image getSearchIcon() {
-		return ResourceManager.getPluginImage(RefactoringPlugin.getDefault(),
-				SEARCH_ICON_PATH);
+	/**
+	 * Obtiene el icono SplitRI.
+	 * 
+	 * @return imagen del icono
+	 */
+	public final static Image getSplitRIcon() {
+		return getImageForPath(SPLIT_R_ICON_PATH);
 	}
 
-	public static Image getFilIcon() {
-		return ResourceManager.getPluginImage(RefactoringPlugin.getDefault(),
-				FIL_ICON_PATH);
+	/**
+	 * Obtiene el icono splitLI.
+	 * 
+	 * @return imagen del icono
+	 */
+	public final static Image getSplitLIcon() {
+		return getImageForPath(SPLIT_L_ICON_PATH);
+	}
+
+	/**
+	 * Obtiene el icono search.
+	 * 
+	 * @return imagen del icono
+	 */
+	public final static Image getSearchIcon() {
+		return getImageForPath(SEARCH_ICON_PATH);
+	}
+
+	/**
+	 * Obtiene el icono fil.
+	 * 
+	 * @return imagen del icono
+	 */
+	public final static Image getFilIcon() {
+		return getImageForPath(FIL_ICON_PATH);
 	}
 }

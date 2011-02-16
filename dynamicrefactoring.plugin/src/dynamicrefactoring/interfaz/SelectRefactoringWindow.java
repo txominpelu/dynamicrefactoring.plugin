@@ -55,7 +55,7 @@ import org.eclipse.swt.widgets.Shell;
 
 import com.swtdesigner.ResourceManager;
 
-import dynamicrefactoring.PluginImages;
+import dynamicrefactoring.RefactoringImages;
 import dynamicrefactoring.RefactoringPlugin;
 import dynamicrefactoring.domain.Scope;
 import dynamicrefactoring.interfaz.dynamic.DynamicRefactoringWindowLauncher;
@@ -307,7 +307,7 @@ public class SelectRefactoringWindow extends Dialog {
 			break;
 		}
 		newShell.setImage(ResourceManager.getPluginImage(RefactoringPlugin.getDefault(),
-				PluginImages.REF_PNG_ICON_PATH)); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
+				RefactoringImages.REF_ICON_PATH)); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
 	}
 	
 	/**

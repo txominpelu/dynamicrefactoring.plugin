@@ -42,7 +42,7 @@ import org.eclipse.ui.part.ViewPart;
 import com.google.common.base.Predicate;
 import com.swtdesigner.ResourceManager;
 
-import dynamicrefactoring.PluginImages;
+import dynamicrefactoring.RefactoringImages;
 import dynamicrefactoring.RefactoringPlugin;
 import dynamicrefactoring.domain.DynamicRefactoringDefinition;
 import dynamicrefactoring.domain.RefactoringException;
@@ -58,11 +58,11 @@ import dynamicrefactoring.util.DynamicRefactoringLister;
 import dynamicrefactoring.util.RefactoringTreeManager;
 
 /**
- * Proporcia una vista de Eclipse la cual muestra la lista de todas las
+ * Proporciona una vista de Eclipse la cual muestra la lista de todas las
  * refactorizaciones asi como la información asociada a las mismas.
  * Sobre estas se pueden realizar clasificaciones y filtros.
  */
-public class RefactoringListView extends ViewPart {
+public class RefactoringCatalogBrowserView extends ViewPart {
 
 	/**
 	 * Clasificacion cuya unica categoria es NONE_CATEGORY.
@@ -74,19 +74,19 @@ public class RefactoringListView extends ViewPart {
 		catNone.add(Category.NONE_CATEGORY);
 		NONE_CLASSIFICATION = new SimpleUniLevelClassification(
 				Category.NONE_CATEGORY.getName(),
-				Messages.RefactoringListView_None_Classification_Description, catNone);
+				Messages.RefactoringCatalogBrowserView_None_ClassDescription, catNone);
 	}
 
 	/**
 	 * Elemento de registro de errores y otros eventos de la clase.
 	 */
 	private static final Logger logger = 
-		Logger.getLogger(RefactoringListView.class);
+		Logger.getLogger(RefactoringCatalogBrowserView.class);
 
 	/**
 	 * Identificador de la vista.
 	 */
-	public static final String ID = "dynamicrefactoring.views.refactoringListView"; //$NON-NLS-1$
+	public static final String ID = "dynamicrefactoring.views.refactoringCatalogBrowserView"; //$NON-NLS-1$
 
 	/**
 	 * Tabla de refactorizaciones disponibles.
@@ -199,7 +199,7 @@ public class RefactoringListView extends ViewPart {
 	 */
 	@Override
 	public void createPartControl(Composite parent) {
-		setPartName(Messages.RefactoringListView_title);
+		setPartName(Messages.RefactoringCatalogBrowserView_title);
 		parent.setLayout(new FormLayout());
 
 		//carga de datos
@@ -239,10 +239,10 @@ public class RefactoringListView extends ViewPart {
 				refAction.setEnabled(true);
 				classRefAction.setEnabled(true);
 			}};
-		classAction.setToolTipText(Messages.RefactoringListView_ClassAction);
+		classAction.setToolTipText(Messages.RefactoringCatalogBrowserView_ClassAction);
 		classAction.setImageDescriptor(ImageDescriptor.createFromImage(
 				ResourceManager.getPluginImage(RefactoringPlugin.getDefault(),
-						"icons" + System.getProperty("file.separator") + "split_l.png")));//$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
+						RefactoringImages.SPLIT_L_ICON_PATH)));
 		
 		refAction=new Action(){
 			public void run() {
@@ -251,10 +251,10 @@ public class RefactoringListView extends ViewPart {
 				classAction.setEnabled(true);
 				classRefAction.setEnabled(true);
 			}};
-		refAction.setToolTipText(Messages.RefactoringListView_RefAction);
+		refAction.setToolTipText(Messages.RefactoringCatalogBrowserView_RefAction);
 		refAction.setImageDescriptor(ImageDescriptor.createFromImage(
 				ResourceManager.getPluginImage(RefactoringPlugin.getDefault(),
-						"icons" + System.getProperty("file.separator") + "split_r.png")));//$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
+						RefactoringImages.SPLIT_R_ICON_PATH)));
 		
 		classRefAction=new Action(){
 			public void run() {
@@ -263,10 +263,10 @@ public class RefactoringListView extends ViewPart {
 				classAction.setEnabled(true);
 				refAction.setEnabled(true);
 			}};
-		classRefAction.setToolTipText(Messages.RefactoringListView_ClassRefAction);
+		classRefAction.setToolTipText(Messages.RefactoringCatalogBrowserView_ClassRefAction);
 		classRefAction.setImageDescriptor(ImageDescriptor.createFromImage(
 				ResourceManager.getPluginImage(RefactoringPlugin.getDefault(),
-						"icons" + System.getProperty("file.separator") + "split.png")));//$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
+						RefactoringImages.SPLIT_ICON_PATH)));
 		
 		IActionBars bars = getViewSite().getActionBars();
 		fillLocalToolBar(bars.getToolBarManager());
@@ -276,7 +276,7 @@ public class RefactoringListView extends ViewPart {
 		
 		//classLabel
 		classLabel=new Label(classComp, SWT.LEFT);
-		classLabel.setText(Messages.RefactoringListView_Classification);
+		classLabel.setText(Messages.RefactoringCatalogBrowserView_Classification);
 		classFormData=new FormData();
 		classFormData.top=new FormAttachment(0,10);
 		classFormData.left=new FormAttachment(0,5);
@@ -284,7 +284,7 @@ public class RefactoringListView extends ViewPart {
 
 		//classCombo
 		classCombo=new Combo(classComp, SWT.READ_ONLY);
-		classCombo.setToolTipText(Messages.RefactoringListView_SelectFromClassification);
+		classCombo.setToolTipText(Messages.RefactoringCatalogBrowserView_SelectFromClassification);
 
 		//añadimos la clasificacion por defecto
 		classCombo.add(NONE_CLASSIFICATION.getName());
@@ -310,7 +310,7 @@ public class RefactoringListView extends ViewPart {
 
 		//searchText
 		searchText = new Text(classComp, SWT.BORDER);
-		searchText.setMessage(Messages.RefactoringListView_Search);
+		searchText.setMessage(Messages.RefactoringCatalogBrowserView_Search);
 		classFormData = new FormData();
 		classFormData.top = new FormAttachment(0, 6);
 		classFormData.left = new FormAttachment(classCombo, 175);
@@ -321,7 +321,7 @@ public class RefactoringListView extends ViewPart {
 		searchButton = new Button(classComp, SWT.PUSH);
 		searchButton.setImage(ResourceManager.getPluginImage(
 				RefactoringPlugin.getDefault(),
-				"icons" + System.getProperty("file.separator") + "search.png"));//$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
+				RefactoringImages.SEARCH_ICON_PATH));
 		classFormData = new FormData();
 		classFormData.top = new FormAttachment(0, 3);
 		classFormData.left = new FormAttachment(searchText, 5);
@@ -367,7 +367,7 @@ public class RefactoringListView extends ViewPart {
 
 		//filteredButton
 		filteredButton = new Button(classComp, SWT.CHECK | SWT.CENTER);
-		filteredButton.setText(Messages.RefactoringListView_ShowFiltered);
+		filteredButton.setText(Messages.RefactoringCatalogBrowserView_ShowFiltered);
 		filteredButton.setSelection(true);
 		classFormData=new FormData();
 		classFormData.top=new FormAttachment(refactoringsTree,5);
@@ -454,15 +454,15 @@ public class RefactoringListView extends ViewPart {
 					IWorkbenchWindow window = PlatformUI.getWorkbench()
 					.getActiveWorkbenchWindow();
 					String message = 
-						Messages.RefactoringListView_NotAllListed + 
+						Messages.RefactoringCatalogBrowserView_NotAllListed + 
 						".\n" + e.getMessage(); //$NON-NLS-1$
 					logger.error(message);
 					MessageDialog.openError(window.getShell(),
-							Messages.RefactoringListView_Error, message);
+							Messages.RefactoringCatalogBrowserView_Error, message);
 				}
 			}
 		} catch (IOException e) {
-			logger.error(Messages.RefactoringListView_AvailableNotListed + 
+			logger.error(Messages.RefactoringCatalogBrowserView_AvailableNotListed + 
 					".\n" + e.getMessage()); //$NON-NLS-1$
 		}
 	}
@@ -494,7 +494,7 @@ public class RefactoringListView extends ViewPart {
 		int orderInBranchClass = 0;
 		TreeItem classTreeItem = TreeEditor.createBranch(refactoringsTree,
 				orderInBranchClass, classificationName,
-				PluginImages.CLASS_GIF_ICON_PATH); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
+				RefactoringImages.CLASS_ICON_PATH);
 		orderInBranchClass++;
 
 		ArrayList<Category> categories = new ArrayList<Category>(
@@ -516,7 +516,7 @@ public class RefactoringListView extends ViewPart {
 						&& dRefactDef.size()>0){
 					catTreeItem = TreeEditor.createBranch(classTreeItem,
 							orderInBranchCat, c.getName(),
-							"icons" + System.getProperty("file.separator")+ "cat.gif"); //$NON-NLS-1$ //$NON-NLS-2$
+							RefactoringImages.CAT_ICON_PATH); 
 					orderInBranchCat++;
 				}
 				createTreeItemFromParent(dRefactDef, catTreeItem, false);
@@ -524,7 +524,7 @@ public class RefactoringListView extends ViewPart {
 				if(dRefactDef.size()>0){
 					filTreeItem = TreeEditor.createBranch(refactoringsTree,
 							orderInBranchClass, Category.FILTERED_CATEGORY.getName(), 
-							"icons" + System.getProperty("file.separator") + "fil.png"); //$NON-NLS-1$
+							RefactoringImages.FIL_ICON_PATH);
 					orderInBranchClass++;
 					filTreeItem.setForeground(
 							Display.getCurrent().getSystemColor(SWT.COLOR_DARK_GRAY));
@@ -542,7 +542,7 @@ public class RefactoringListView extends ViewPart {
 	 * @param dRefactDef lista de refactorizaciones
 	 * @param catTreeItem 
 	 * @param filtered indicador de filtrado. Si es verdadero se trata de
-	 * 			refactorizaciones filtradas, falso en caso contrario.
+	 * 			refactorizaciones filtradas, falso en caso contrario;
 	 */
 	private void createTreeItemFromParent(
 			ArrayList<DynamicRefactoringDefinition> dRefactDef,

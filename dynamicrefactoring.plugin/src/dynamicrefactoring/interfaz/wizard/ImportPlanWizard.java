@@ -60,7 +60,6 @@ import org.eclipse.swt.widgets.Text;
 
 import com.swtdesigner.ResourceManager;
 
-import dynamicrefactoring.RefactoringConstants;
 import dynamicrefactoring.RefactoringPlugin;
 import dynamicrefactoring.domain.DynamicRefactoringDefinition;
 import dynamicrefactoring.domain.ExportImportUtilities;
@@ -73,7 +72,7 @@ import dynamicrefactoring.util.io.FileManager;
 
 /**
  * Proporciona un asistente que permite buscar e importar un plan de
- * refactorizaciones dinámicas existentes fuera del <i>plugin</i>.
+ * refactorizaciones dinï¿½micas existentes fuera del <i>plugin</i>.
  * 
  * @author <A HREF="mailto:lfd0002@alu.ubu.es">Laura Fuente de la Fuente</A>
  */
@@ -86,7 +85,7 @@ public class ImportPlanWizard extends Dialog {
 
 	/**
 	 * Tabla con la lista de refactorizaciones que conforman el plan de
-	 * refactorización.
+	 * refactorizaciï¿½n.
 	 */
 	private Table tb_Refactorings;
 	
@@ -96,12 +95,12 @@ public class ImportPlanWizard extends Dialog {
 	private Text t_Input;
 
 	/**
-	 * Botón que lanza el proceso de ejecución de la refactorización.
+	 * Botï¿½n que lanza el proceso de ejecuciï¿½n de la refactorizaciï¿½n.
 	 */
 	private Button bt_Execute;
 
 	/**
-	 * Propiedad asociada a las filas de la tabla que indica qué botón tienen
+	 * Propiedad asociada a las filas de la tabla que indica quï¿½ botï¿½n tienen
 	 * asociado cada una.
 	 */
 	private final String BUTTON_PROPERTY = "Button"; //$NON-NLS-1$
@@ -122,7 +121,7 @@ public class ImportPlanWizard extends Dialog {
 	private HashMap<String, String> existing;
 
 	/**
-	 * Consejo mostrado al usuario sobre la búsqueda de refactorizaciones.
+	 * Consejo mostrado al usuario sobre la bï¿½squeda de refactorizaciones.
 	 */
 	private String advise;
 	
@@ -140,7 +139,7 @@ public class ImportPlanWizard extends Dialog {
 	/**
 	 * Refactorizaciones que van a ser ejecutadas.
 	 */
-	HashMap<String,String> refactorings_to_execute;
+	Map<String,String> refactorings_to_execute;
 	
 	/**
 	 * Refactorizaciones que van a ser importadas.
@@ -148,22 +147,22 @@ public class ImportPlanWizard extends Dialog {
 	HashMap<String,String> refactorings_to_import;
 
 	/**
-	 * Crea la ventana de diálogo.
+	 * Crea la ventana de diï¿½logo.
 	 * 
 	 * @param parentShell
-	 *            <i>shell</i> padre de la ventana de diálogo.
+	 *            <i>shell</i> padre de la ventana de diï¿½logo.
 	 */
 	public ImportPlanWizard(Shell parentShell) {
 		super(parentShell);
 	}
 
 	/**
-	 * Crea el contenido de la ventana de diálogo.
+	 * Crea el contenido de la ventana de diï¿½logo.
 	 * 
 	 * @param parent
 	 *            componente padre de los contenidos de la ventana.
 	 * 
-	 * @return el control asociado al área de diálogo.
+	 * @return el control asociado al ï¿½rea de diï¿½logo.
 	 */
 	@Override
 	protected Control createDialogArea(Composite parent) {
@@ -178,10 +177,10 @@ public class ImportPlanWizard extends Dialog {
 		t_Input.addModifyListener(new InputListener());
 		
 
-		final Button bt_Examine = new Button(container, SWT.NONE);
-		bt_Examine.setText("..."); //$NON-NLS-1$
-		bt_Examine.setBounds(352, 36, 24, 23);
-		bt_Examine.addSelectionListener(new FolderSelectionListener(
+		final Button btExamine = new Button(container, SWT.NONE);
+		btExamine.setText("..."); //$NON-NLS-1$
+		btExamine.setBounds(352, 36, 24, 23);
+		btExamine.addSelectionListener(new FolderSelectionListener(
 			t_Input, getShell(), Messages.ImportPlanWizard_SelectImportFolder+
 			".")); //$NON-NLS-1$
 
@@ -263,7 +262,7 @@ public class ImportPlanWizard extends Dialog {
 	}
 
 	/**
-	 * Obtiene el tamaño inicial de la ventana de diálogo.
+	 * Obtiene el tamaï¿½o inicial de la ventana de diï¿½logo.
 	 */
 	@Override
 	protected Point getInitialSize() {
@@ -271,10 +270,10 @@ public class ImportPlanWizard extends Dialog {
 	}
 
 	/**
-	 * Prepara la ventana de diálogo para su apertura.
+	 * Prepara la ventana de diï¿½logo para su apertura.
 	 * 
 	 * @param newShell
-	 *            <i>shell</i> que abrirá la ventana.
+	 *            <i>shell</i> que abrirï¿½ la ventana.
 	 */
 	@Override
 	protected void configureShell(Shell newShell) {
@@ -308,7 +307,7 @@ public class ImportPlanWizard extends Dialog {
 					int row = ((Integer)execute.getData("Row")).intValue(); //$NON-NLS-1$
 					TableItem item = tb_Refactorings.getItem(row);
 					String refactoring = item.getText(0);
-					if(selected==true){
+					if(selected){
 						refactorings_to_execute.put(refactoring,refactorings.get(refactoring));
 					}else{
 						refactorings_to_execute.remove(refactoring);
@@ -337,10 +336,10 @@ public class ImportPlanWizard extends Dialog {
 					int row = ((Integer)btimport.getData("Row")).intValue(); //$NON-NLS-1$
 					TableItem item = tb_Refactorings.getItem(row);
 					String refactoring = item.getText(0);
-					if(selected==true){
+					if(selected){
 						refactorings_to_import.put(refactoring,refactorings.get(refactoring));
 
-						// Si ya hay una refactorización con ese nombre.
+						// Si ya hay una refactorizaciï¿½n con ese nombre.
 						if (existing.containsKey(refactoring)){
 							Object[] messageArgs = {refactoring};
 							MessageFormat formatter = new MessageFormat(""); //$NON-NLS-1$
@@ -393,11 +392,11 @@ public class ImportPlanWizard extends Dialog {
 	}
 
 	/**
-	 * Implementa la funcionalidad de importación, lanzada como respuesta a la
-	 * pulsación del botón correspondiente.
+	 * Implementa la funcionalidad de importaciï¿½n, lanzada como respuesta a la
+	 * pulsaciï¿½n del botï¿½n correspondiente.
 	 * 
 	 * @param buttonId
-	 *            identificador del botón que ha sido pulsado en el diálogo.
+	 *            identificador del botï¿½n que ha sido pulsado en el diï¿½logo.
 	 */
 	@Override
 	protected void buttonPressed(int buttonId) {
@@ -405,10 +404,10 @@ public class ImportPlanWizard extends Dialog {
 			
 			String imported = ""; //$NON-NLS-1$
 
-				 String[] names = refactorings_to_import.keySet().toArray(new String[0]);
+				 String[] names = refactorings_to_import.keySet().toArray(new String[refactorings_to_import.keySet().size()]);
 				 HashMap<String,String> notExecuted = new HashMap<String,String>();
 				try {
-				// Ejecutamos la importación de las refactorizaciones señaladas
+				// Ejecutamos la importaciï¿½n de las refactorizaciones seï¿½aladas
 				// para ser importadas.
 					if(names.length>0){
 						ImportJob job = new ImportJob(names);				
@@ -429,7 +428,7 @@ public class ImportPlanWizard extends Dialog {
 					}
 					
 					if(refactorings_to_execute.size()>0){
-					// Ejecutamos las refactorizaciones señaladas para ser
+					// Ejecutamos las refactorizaciones seï¿½aladas para ser
 					// ejecutadas
 						RefactoringPlanExecutor executeJob = new RefactoringPlanExecutor(refactorings_to_execute,plan,t_Input.getText());
 						new CustomProgressDialog(getShell()).run(true, false, executeJob);
@@ -466,30 +465,30 @@ public class ImportPlanWizard extends Dialog {
 								problems = Messages.ImportPlanWizard_ProblemExecuting + ":" + e.getKey(); //$NON-NLS-2$ //$NON-NLS-1$
 							}
 					    }
-						String details =Messages.ImportPlanWizard_Problems + ": "; //$NON-NLS-1$
+						StringBuffer details = new StringBuffer(Messages.ImportPlanWizard_Problems + ": "); //$NON-NLS-1$
 								for(Map.Entry<String,String> e: notExecuted.entrySet()){
-									details = details + "\n\n\t- "+ Messages.ImportPlanWizard_Refactoring + " " + e.getKey() + " :\n\t" + e.getValue() + "."; //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$ //$NON-NLS-4$
+									details.append("\n\n\t- "+ Messages.ImportPlanWizard_Refactoring + " " + e.getKey() + " :\n\t" + e.getValue() + "."); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$ //$NON-NLS-4$
 								}
 						
 						if((refactorings_to_execute.size() - notExecuted.size())>0){
-							details =details +  "\n\n" + Messages.ImportPlanWizard_Executed+ ":"; //$NON-NLS-1$ //$NON-NLS-2$
+							details.append("\n\n" + Messages.ImportPlanWizard_Executed+ ":"); //$NON-NLS-1$ //$NON-NLS-2$
 							for(Map.Entry<String,String> e: refactorings_to_execute.entrySet()){
 								if(!notExecuted.containsKey(e.getKey().substring(0,e.getKey().indexOf("(")-1))){ //$NON-NLS-1$
-								    details = details + "\n\n\t- " + e.getKey() + " : " + e.getValue() + "."; //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
+								    details.append("\n\n\t- " + e.getKey() + " : " + e.getValue() + "." ); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
 								}
 							}
 						}
 
 						
 						if(refactorings_to_import.size()>0){
-							details =details +  "\n\n" + Messages.ImportPlanWizard_Imported + ":"; //$NON-NLS-1$ //$NON-NLS-2$
+							details.append("\n\n" + Messages.ImportPlanWizard_Imported + ":"); //$NON-NLS-1$ //$NON-NLS-2$
 								for(Map.Entry<String,String> e: refactorings_to_import.entrySet()){
-									details = details + "\n\n\t- " + e.getKey() + " : " + e.getValue() + "."; //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
+									details.append("\n\n\t- " + e.getKey() + " : " + e.getValue() + "."); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
 								}
 						}
 						String message= problems + ".\n" +executed + "\n" + imported; //$NON-NLS-1$ //$NON-NLS-2$
 
-						new InformationDialog(getShell(),Messages.ImportWizard_ImportDone,message,details).open(); //$NON-NLS-1$ //$NON-NLS-3$
+						new InformationDialog(getShell(),Messages.ImportWizard_ImportDone,message,details.toString()).open(); //$NON-NLS-1$ //$NON-NLS-3$
 						
 				}else{
 					double limits[] = {0, 1, ChoiceFormat.nextDouble(1)};
@@ -527,7 +526,7 @@ public class ImportPlanWizard extends Dialog {
 					}
 				}
 				catch (InterruptedException e) {
-				// El usuario canceló el proceso.
+				// El usuario cancelï¿½ el proceso.
 					logger.warn(e.getMessage());
 				}
 				catch (Exception exception){
@@ -575,7 +574,7 @@ public class ImportPlanWizard extends Dialog {
 	}
 
 	/**
-	 * Establece el estado del botón que permite ejecutar la importación del
+	 * Establece el estado del botï¿½n que permite ejecutar la importaciï¿½n del
 	 * plan.
 	 */
 	private void updateButton(){
@@ -597,7 +596,7 @@ public class ImportPlanWizard extends Dialog {
 		 * Recibe notificaciones cada vez que se modifica el texto observado.
 		 * 
 		 * @param e
-		 *            el evento de modificación del texto.
+		 *            el evento de modificaciï¿½n del texto.
 		 */
 		@Override
 		public void modifyText(ModifyEvent e){
@@ -619,7 +618,7 @@ public class ImportPlanWizard extends Dialog {
 						for(String refactoring: plan)
 							if(!refactorings.containsKey(refactoring + " (" + refactoring + ".xml)" )) //$NON-NLS-1$ //$NON-NLS-2$
 								all=false;
-						if(all==true){
+						if(all){
 							cleanTable();
 							fillInTable();
 							advise = Messages.ImportPlanWizard_InitialAdvise;
@@ -642,7 +641,7 @@ public class ImportPlanWizard extends Dialog {
 	}
 
 	/**
-	 * Permite lanzar el trabajo de importación de refactorizaciones y hacer un
+	 * Permite lanzar el trabajo de importaciï¿½n de refactorizaciones y hacer un
 	 * seguimiento de su progreso.
 	 * 
 	 * @author <A HREF="mailto:lfd0002@alu.ubu.es">Laura Fuente de la Fuente</A>
@@ -662,24 +661,24 @@ public class ImportPlanWizard extends Dialog {
 		 * @param names nombres de las refactorizaciones que se deben importar.
 		 */
 		public ImportJob(String[] names){
-			this.names = names;
+			this.names = names.clone();
 		}
 
 		/**
-		 * Ejecuta el trabajo de importación de refactorizaciones.
+		 * Ejecuta el trabajo de importaciï¿½n de refactorizaciones.
 		 * 
 		 * @param monitor
-		 *            el monitor de progreso que deberá usarse para mostrar el
+		 *            el monitor de progreso que deberï¿½ usarse para mostrar el
 		 *            progreso.
 		 * 
 		 * @throws InvocationTargetException
-		 *             utilizada como envoltura si el método debe propagar una
-		 *             excepción (<i>checked exception</i>). Las excepciones de
+		 *             utilizada como envoltura si el mï¿½todo debe propagar una
+		 *             excepciï¿½n (<i>checked exception</i>). Las excepciones de
 		 *             tipo <i>runtime exception</i> se envuelven
-		 *             automáticamente en una excepción de este tipo por el
-		 *             contexto que efectúa la llamada.
+		 *             automï¿½ticamente en una excepciï¿½n de este tipo por el
+		 *             contexto que efectï¿½a la llamada.
 		 * @throws InterruptedException
-		 *             si la operación detecta una solicitud de cancelación (no
+		 *             si la operaciï¿½n detecta una solicitud de cancelaciï¿½n (no
 		 *             disponible).
 		 * 
 		 * @see IRunnableWithProgress#run(IProgressMonitor)
@@ -699,7 +698,7 @@ public class ImportPlanWizard extends Dialog {
 					monitor.subTask(formatter.format(messageArgs) + "..."); //$NON-NLS-1$
 
 					
-					// Se obtiene la ruta del fichero con la definición.
+					// Se obtiene la ruta del fichero con la definiciï¿½n.
 					String definition = refactorings.get(next);
 					String folder = new File(definition).getParent();
 				
@@ -707,7 +706,7 @@ public class ImportPlanWizard extends Dialog {
 						ExportImportUtilities.ImportRefactoring(
 								definition, true);
 					} catch (FileNotFoundException e) {
-						// Elimina la carpeta de la refactorización ya que
+						// Elimina la carpeta de la refactorizaciï¿½n ya que
 							// si ha llegado
 							//a este punto quiere decir que no se ha podido completar la tarea
 							//adecuadamente.
@@ -743,7 +742,7 @@ public class ImportPlanWizard extends Dialog {
 	}
 
 	/**
-	 * Permite lanzar el trabajo de búsqueda de refactorizaciones y hacer un
+	 * Permite lanzar el trabajo de bï¿½squeda de refactorizaciones y hacer un
 	 * seguimiento de su progreso.
 	 * 
 	 * @author <A HREF="mailto:sfd0009@alu.ubu.es">Sonia Fuente de la Fuente</A>
@@ -757,7 +756,7 @@ public class ImportPlanWizard extends Dialog {
 		private String folder;
 
 		/**
-		 * Si la búsqueda ha de ser recursiva o no.
+		 * Si la bï¿½squeda ha de ser recursiva o no.
 		 */
 		private boolean recursive;
 
@@ -768,7 +767,7 @@ public class ImportPlanWizard extends Dialog {
 		 *            directorio a partir del que se deben buscar las
 		 *            refactorizaciones.
 		 * @param recursive
-		 *            si la búsqueda debe ser recursiva o no.
+		 *            si la bï¿½squeda debe ser recursiva o no.
 		 */
 		public RefactoringSearchJob(String folder, boolean recursive){
 			this.folder = folder;
@@ -776,20 +775,20 @@ public class ImportPlanWizard extends Dialog {
 		}
 
 		/**
-		 * Ejecuta el trabajo de búsqueda de refactorizaciones.
+		 * Ejecuta el trabajo de bï¿½squeda de refactorizaciones.
 		 * 
 		 * @param monitor
-		 *            el monitor de progreso que deberá usarse para mostrar el
+		 *            el monitor de progreso que deberï¿½ usarse para mostrar el
 		 *            progreso.
 		 * 
 		 * @throws InvocationTargetException
-		 *             utilizada como envoltura si el método debe propagar una
-		 *             excepción (<i>checked exception</i>). Las excepciones de
+		 *             utilizada como envoltura si el mï¿½todo debe propagar una
+		 *             excepciï¿½n (<i>checked exception</i>). Las excepciones de
 		 *             tipo <i>runtime exception</i> se envuelven
-		 *             automáticamente en una excepción de este tipo por el
-		 *             contexto que efectúa la llamada.
+		 *             automï¿½ticamente en una excepciï¿½n de este tipo por el
+		 *             contexto que efectï¿½a la llamada.
 		 * @throws InterruptedException
-		 *             si la operación detecta una solicitud de cancelación (no
+		 *             si la operaciï¿½n detecta una solicitud de cancelaciï¿½n (no
 		 *             disponible).
 		 * 
 		 * @see IRunnableWithProgress#run(IProgressMonitor)
@@ -806,7 +805,7 @@ public class ImportPlanWizard extends Dialog {
 					folder, recursive, monitor);
 				monitor.worked(1);
 				
-				String[] names = refactorings.keySet().toArray(new String[0]);
+				String[] names = refactorings.keySet().toArray(new String[refactorings.keySet().size()]);
 				monitor.beginTask(Messages.ImportWizard_Validating, names.length);
 				for (int i = 0; i < names.length; i++){
 					String path = refactorings.get(names[i]);
@@ -817,8 +816,8 @@ public class ImportPlanWizard extends Dialog {
 					monitor.subTask(formatter.format(messageArgs) + "..."); //$NON-NLS-1$
 					
 					try {
-						// Se intenta obtener la definición de la siguiente
-						// refactorización.
+						// Se intenta obtener la definiciï¿½n de la siguiente
+						// refactorizaciï¿½n.
 						DynamicRefactoringDefinition.getRefactoringDefinition(path);
 						
 						// Solo se recogen refactorizaciones cuya carpeta se

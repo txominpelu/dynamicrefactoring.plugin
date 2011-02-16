@@ -20,6 +20,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.*/
 
 package dynamicrefactoring.interfaz.wizard;
 
+
 import java.text.MessageFormat;
 import java.util.ArrayList;
 import java.util.Collection;
@@ -48,6 +49,7 @@ import org.eclipse.swt.widgets.TreeItem;
 
 import com.google.common.base.Preconditions;
 
+import dynamicrefactoring.RefactoringImages;
 import dynamicrefactoring.interfaz.TreeEditor;
 import dynamicrefactoring.interfaz.wizard.classificationscombo.PickCategoryTree;
 import dynamicrefactoring.plugin.xml.classifications.imp.ClassificationsStore;
@@ -327,48 +329,28 @@ public class RefactoringWizardPage7 extends WizardPage {
 			if (thirdPage != null
 					&& thirdPage instanceof RefactoringWizardPage3
 					&& fourthPage instanceof RefactoringWizardPage4
-					&& fifthPage instanceof RefactoringWizardPage5) {
-				ArrayList<String> preconditions = ((RefactoringWizardPage3) thirdPage)
-						.getPreconditions();
-				ArrayList<String> actions = ((RefactoringWizardPage4) fourthPage)
-						.getActions();
-				ArrayList<String> postconditions = ((RefactoringWizardPage5) fifthPage)
-						.getPostconditions();
-
-				TreeItem preconditionsChild = TreeEditor
-						.createBranch(
-								tr_Components,
-								0,
-								Messages.RefactoringWizardPage7_Preconditions,
-								"icons"	+ System.getProperty("file.separator") + "check.gif"); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
-				TreeItem actionsChild = TreeEditor
-						.createBranch(
-								tr_Components,
-								1,
-								Messages.RefactoringWizardPage7_Actions,
-								"icons"	+ System.getProperty("file.separator") + "run.gif"); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
-				TreeItem postconditionsChild = TreeEditor
-						.createBranch(
-								tr_Components,
-								2,
-								Messages.RefactoringWizardPage7_Postconditions,
-								"icons"	+ System.getProperty("file.separator") + "validate.gif"); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
-
-				TreeEditor
-						.fillInTreeBranch(
-								preconditions,
-								preconditionsChild,
-								"icons"	+ System.getProperty("file.separator") + "check.gif"); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
-				TreeEditor
-						.fillInTreeBranch(
-								actions,
-								actionsChild,
-								"icons"	+ System.getProperty("file.separator") + "run.gif"); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
-				TreeEditor
-						.fillInTreeBranch(
-								postconditions,
-								postconditionsChild,
-								"icons"	+ System.getProperty("file.separator") + "validate.gif"); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
+					&& fifthPage instanceof RefactoringWizardPage5){
+				ArrayList<String> preconditions = 
+					((RefactoringWizardPage3)thirdPage).getPreconditions();
+				ArrayList<String> actions = 
+					((RefactoringWizardPage4)fourthPage).getActions();
+				ArrayList<String> postconditions = 
+					((RefactoringWizardPage5)fifthPage).getPostconditions();
+								
+				
+				TreeItem preconditionsChild = TreeEditor.createBranch(tr_Components, 0,
+					Messages.RefactoringWizardPage7_Preconditions, RefactoringImages.CHECK_ICON_PATH); 
+				TreeItem actionsChild = TreeEditor.createBranch(tr_Components, 1, 
+					Messages.RefactoringWizardPage7_Actions, RefactoringImages.RUN_ICON_PATH); 
+				TreeItem postconditionsChild = TreeEditor.createBranch(tr_Components, 2,
+					Messages.RefactoringWizardPage7_Postconditions, RefactoringImages.VALIDATE_ICON_PATH); 
+				
+				TreeEditor.fillInTreeBranch(preconditions, preconditionsChild, 
+						RefactoringImages.CHECK_ICON_PATH); 
+				TreeEditor.fillInTreeBranch(actions, actionsChild, 
+						RefactoringImages.RUN_ICON_PATH); 
+				TreeEditor.fillInTreeBranch(postconditions, postconditionsChild, 
+						RefactoringImages.VALIDATE_ICON_PATH); 
 			}
 		}
 	}

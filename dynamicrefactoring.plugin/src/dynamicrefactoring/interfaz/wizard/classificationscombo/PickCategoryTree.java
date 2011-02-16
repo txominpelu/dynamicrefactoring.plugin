@@ -16,7 +16,7 @@ import com.google.common.base.Preconditions;
 import com.google.common.base.Predicate;
 import com.google.common.collect.Collections2;
 
-import dynamicrefactoring.PluginImages;
+import dynamicrefactoring.RefactoringImages;
 import dynamicrefactoring.domain.metadata.interfaces.Category;
 import dynamicrefactoring.domain.metadata.interfaces.Classification;
 
@@ -28,7 +28,7 @@ public final class PickCategoryTree {
 	private ICheckStateListener checkStateListener;
 	
 	/**
-	 * Crea el arbol que permite escoger las categori­as a las que pertenece la
+	 * Crea el arbol que permite escoger las categoriï¿½as a las que pertenece la
 	 * refactorizacion.
 	 * 
 	 * @param parent
@@ -51,7 +51,7 @@ public final class PickCategoryTree {
 	}
 
 	/**
-	 * Crea el arbol que permite escoger las categori­as a las que pertenece la
+	 * Crea el arbol que permite escoger las categoriï¿½as a las que pertenece la
 	 * refactorizacion.
 	 * 
 	 * @param parent
@@ -143,8 +143,8 @@ public final class PickCategoryTree {
 	
 
 	/**
-	 * Obtiene el control que permite escoger las categorías de una
-	 * clasificación.
+	 * Obtiene el control que permite escoger las categorï¿½as de una
+	 * clasificaciï¿½n.
 	 * 
 	 * @return control
 	 */
@@ -154,7 +154,7 @@ public final class PickCategoryTree {
 
 	/**
 	 * Marca las categorias a las que la refactorizacion pertenece y las
-	 * clasificaciones en las que hay categorías marcadas como gris.
+	 * clasificaciones en las que hay categorï¿½as marcadas como gris.
 	 * 
 	 * @param availableClassifications
 	 *            clasificaciones disponibles
@@ -230,16 +230,16 @@ public final class PickCategoryTree {
 			Set<Classification> availableClassifications) {
 		final Category category = (Category) categoryObject;
 		return Collections2
-				.filter(availableClassifications,
-						new Predicate<Classification>() {
+		.filter(availableClassifications,
+				new Predicate<Classification>() {
 
-							@Override
-							public boolean apply(Classification arg0) {
-								return arg0.getName().equals(
-										category.getParent());
-							}
+			@Override
+			public boolean apply(Classification arg0) {
+				return arg0.getName().equals(
+						category.getParent());
+			}
 
-						}).iterator().next();
+		}).iterator().next();
 
 	}
 
@@ -254,13 +254,14 @@ public final class PickCategoryTree {
 		return elemento instanceof Category;
 	}
 
+
 	private static class PickCategoryTreeLabelProvider extends LabelProvider
-			implements ILabelProvider {
+	implements ILabelProvider {
 
 		/**
 		 * Dado el elemento devuelve el texto que se debe mostar en el arbol de
 		 * seleccion de categorias para el elemento. Sera el nombre de la
-		 * categoría o clasificacion.
+		 * categorï¿½a o clasificacion.
 		 * 
 		 * @param element
 		 *            elemento
@@ -285,9 +286,9 @@ public final class PickCategoryTree {
 		@Override
 		public Image getImage(Object element) {
 			if (element instanceof Classification) {
-				return PluginImages.getClassGifIcon();
+				return RefactoringImages.getClassIcon();
 			}
-			return PluginImages.getRefPngIcon();
+			return RefactoringImages.getCatIcon();
 		}
 
 	}

@@ -380,7 +380,6 @@ public class RefactoringSummaryPanel {
 
 		TreeEditor.fillInTreeBranch(postconditions, postconditionsChild, 
 				RefactoringImages.VALIDATE_ICON_PATH);
-
 		postconditionsChild.setExpanded(true);
 
 		componentsTree.setVisible(true);

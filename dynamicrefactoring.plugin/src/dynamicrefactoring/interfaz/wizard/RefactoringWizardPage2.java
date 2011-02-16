@@ -20,6 +20,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.*/
 
 package dynamicrefactoring.interfaz.wizard;
 
+
 import java.io.File;
 import java.io.IOException;
 import java.lang.reflect.Method;
@@ -57,6 +58,7 @@ import com.google.common.base.Throwables;
 import com.swtdesigner.ResourceManager;
 
 import dynamicrefactoring.RefactoringConstants;
+import dynamicrefactoring.RefactoringImages;
 import dynamicrefactoring.RefactoringPlugin;
 import dynamicrefactoring.domain.DynamicRefactoringDefinition;
 import dynamicrefactoring.interfaz.dynamic.InputProcessor;
@@ -283,7 +285,7 @@ public class RefactoringWizardPage2 extends WizardPage {
 		bSearch.setLayoutData(fdButtonSearch);
 		bSearch.setImage(ResourceManager.getPluginImage(
 				RefactoringPlugin.getDefault(),
-				"icons" + System.getProperty("file.separator") + "search.png"));
+				RefactoringImages.SEARCH_ICON_PATH));
 		bSearch.addSelectionListener(new SelectionAdapter() {
 			public void widgetSelected(SelectionEvent e) {
 				fillSearchTypesList(tSearch.getText());	
