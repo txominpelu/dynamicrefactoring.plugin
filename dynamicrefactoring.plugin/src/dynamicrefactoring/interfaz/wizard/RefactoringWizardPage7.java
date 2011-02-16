@@ -20,10 +20,16 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.*/
 
 package dynamicrefactoring.interfaz.wizard;
 
+import dynamicrefactoring.RefactoringConstants;
+import dynamicrefactoring.RefactoringImages;
 import dynamicrefactoring.interfaz.TreeEditor;
+import dynamicrefactoring.interfaz.wizard.classificationscombo.PickCategoryTree;
+import dynamicrefactoring.plugin.xml.classifications.imp.ClassificationsReaderFactory;
 
 import java.text.MessageFormat;
 import java.util.ArrayList;
+
+import javax.xml.bind.ValidationException;
 
 import org.eclipse.jface.wizard.IWizardPage;
 import org.eclipse.jface.wizard.WizardPage;
@@ -31,6 +37,7 @@ import org.eclipse.jface.wizard.WizardPage;
 import org.eclipse.swt.SWT;
 
 import org.eclipse.swt.custom.TableEditor;
+import org.eclipse.swt.graphics.Rectangle;
 
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Button;
@@ -117,6 +124,16 @@ public class RefactoringWizardPage7 extends WizardPage {
 		tb_Inputs.setLinesVisible(true);
 		tb_Inputs.setHeaderVisible(true);
 		tb_Inputs.setBounds(0, 185, 381, 116);
+		
+		try {
+			PickCategoryTree picker = new PickCategoryTree(container,ClassificationsReaderFactory
+					.getReader(
+							ClassificationsReaderFactory.ClassificationsReaderTypes.JAXB_READER)
+					.readClassifications(RefactoringConstants.CLASSIFICATION_TYPES_FILE),firstPage.getCategories(), new Rectangle(0, 330, 381, 116), false);
+		} catch (ValidationException e) {
+			// FIXME Reemplazar por catalogo de clasificaciones
+			e.printStackTrace();
+		}
 		
 		// Se crean las columnas de la tabla de entradas.
 		TableColumn cl_Name = new TableColumn(tb_Inputs, SWT.NONE);
@@ -218,18 +235,18 @@ public class RefactoringWizardPage7 extends WizardPage {
 								
 				
 				TreeItem preconditionsChild = TreeEditor.createBranch(tr_Components, 0,
-					Messages.RefactoringWizardPage7_Preconditions, "icons" + System.getProperty("file.separator") + "check.gif"); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
+					Messages.RefactoringWizardPage7_Preconditions, RefactoringImages.CHECK_ICON_PATH); 
 				TreeItem actionsChild = TreeEditor.createBranch(tr_Components, 1, 
-					Messages.RefactoringWizardPage7_Actions, "icons" + System.getProperty("file.separator") + "run.gif"); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
+					Messages.RefactoringWizardPage7_Actions, RefactoringImages.RUN_ICON_PATH); 
 				TreeItem postconditionsChild = TreeEditor.createBranch(tr_Components, 2,
-					Messages.RefactoringWizardPage7_Postconditions, "icons" + System.getProperty("file.separator") + "validate.gif"); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
+					Messages.RefactoringWizardPage7_Postconditions, RefactoringImages.VALIDATE_ICON_PATH); 
 				
 				TreeEditor.fillInTreeBranch(preconditions, preconditionsChild, 
-					"icons" + System.getProperty("file.separator") + "check.gif"); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
+						RefactoringImages.CHECK_ICON_PATH); 
 				TreeEditor.fillInTreeBranch(actions, actionsChild, 
-					"icons" + System.getProperty("file.separator") + "run.gif"); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
+						RefactoringImages.RUN_ICON_PATH); 
 				TreeEditor.fillInTreeBranch(postconditions, postconditionsChild, 
-					"icons" + System.getProperty("file.separator") + "validate.gif"); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
+						RefactoringImages.VALIDATE_ICON_PATH); 
 			}
 		}
 	}

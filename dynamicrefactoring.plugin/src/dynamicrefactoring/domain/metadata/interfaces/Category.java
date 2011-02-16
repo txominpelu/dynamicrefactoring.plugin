@@ -52,7 +52,6 @@ public final class Category implements Comparable<Category> {
 		return false;
 	}
 
-	//TODO: Lo que puesto publico para obtener el nombre de la clasificacion
 	public String getParent() {
 		return this.parent;
 	}

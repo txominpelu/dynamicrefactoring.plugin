@@ -23,6 +23,7 @@ package dynamicrefactoring.interfaz.wizard;
 import com.swtdesigner.ResourceManager;
 
 import dynamicrefactoring.RefactoringConstants;
+import dynamicrefactoring.RefactoringImages;
 import dynamicrefactoring.RefactoringPlugin;
 
 import dynamicrefactoring.domain.DynamicRefactoringDefinition;
@@ -295,7 +296,7 @@ public class RefactoringWizardPage2 extends WizardPage {
 		bSearch.setLayoutData(fd_bsearch);
 		bSearch.setImage(ResourceManager.getPluginImage(
 				RefactoringPlugin.getDefault(),
-				"icons" + System.getProperty("file.separator") + "search.png"));
+				RefactoringImages.SEARCH_ICON_PATH));
 		bSearch.addSelectionListener(new SelectionAdapter() {
 			public void widgetSelected(SelectionEvent e) {
 				fillSearchTypesList(tSearch.getText());	

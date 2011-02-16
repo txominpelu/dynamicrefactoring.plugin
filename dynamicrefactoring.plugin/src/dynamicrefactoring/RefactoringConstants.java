@@ -232,8 +232,7 @@ public class RefactoringConstants {
 	 *         de los predicados concretos del repositorio.
 	 */
 	public static String getPrePostDir(){
-		return RefactoringPlugin.getDefault().getBundleRootDir()
-			+ "bin" + System.getProperty("file.separator") +  //$NON-NLS-1$ //$NON-NLS-2$
+		return REFACTORING_CLASSES_DIR + System.getProperty("file.separator") +  //$NON-NLS-1$ //$NON-NLS-2$
 			"repository" + System.getProperty("file.separator") +  //$NON-NLS-1$ //$NON-NLS-2$
 			"moon" + System.getProperty("file.separator") + "concretepredicate"; //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
 	}
@@ -246,8 +245,7 @@ public class RefactoringConstants {
 	 *         de las acciones concretas del repositorio.
 	 */
 	public static String getActionDir(){
-		return RefactoringPlugin.getDefault().getBundleRootDir()
-			+ "bin" + System.getProperty("file.separator") +  //$NON-NLS-1$ //$NON-NLS-2$
+		return REFACTORING_CLASSES_DIR + System.getProperty("file.separator") +  //$NON-NLS-1$ //$NON-NLS-2$
 			"repository" + System.getProperty("file.separator") +  //$NON-NLS-1$ //$NON-NLS-2$
 			"moon" + System.getProperty("file.separator") + "concreteaction"; //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
 	}
@@ -260,8 +258,7 @@ public class RefactoringConstants {
 	 *         de las acciones concretas del repositorio dependientes de Java.
 	 */
 	public static String getJavaActionDir(){
-		return RefactoringPlugin.getDefault().getBundleRootDir()
-			+ "bin" + System.getProperty("file.separator") +  //$NON-NLS-1$ //$NON-NLS-2$
+		return REFACTORING_CLASSES_DIR + System.getProperty("file.separator") +  //$NON-NLS-1$ //$NON-NLS-2$
 			"repository" + System.getProperty("file.separator") +  //$NON-NLS-1$ //$NON-NLS-2$
 			"java" + System.getProperty("file.separator") + "concreteaction"; //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
 	}
@@ -274,9 +271,14 @@ public class RefactoringConstants {
 	 *         de los predicados concretos del repositorio dependientes de Java.
 	 */
 	public static String getJavaPredicateDir(){
-		return RefactoringPlugin.getDefault().getBundleRootDir()
-			+ "bin" + System.getProperty("file.separator") +  //$NON-NLS-1$ //$NON-NLS-2$
+		return REFACTORING_CLASSES_DIR + System.getProperty("file.separator") +  //$NON-NLS-1$ //$NON-NLS-2$
 			"repository" + System.getProperty("file.separator") +  //$NON-NLS-1$ //$NON-NLS-2$
 			"java" + System.getProperty("file.separator") + "concretepredicate"; //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
 	}
+	
+	/**
+	 * Constructor privado que se asegura de que nadie
+	 * pueda crear instancias de esta clase.
+	 */
+	private RefactoringConstants(){}
 }
