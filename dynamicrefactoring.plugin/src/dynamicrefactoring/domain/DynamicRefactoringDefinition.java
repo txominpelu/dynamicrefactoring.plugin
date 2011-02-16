@@ -38,63 +38,63 @@ import dynamicrefactoring.reader.XMLRefactoringReaderImp;
 import dynamicrefactoring.util.ScopeLimitedLister;
 
 /**
- * Contiene la definición de una refactorización dinámica.
+ * Contiene la definiciï¿½n de una refactorizaciï¿½n dinï¿½mica.
  * 
- * @author <A HREF="mailto:alc0022@alu.ubu.es">Ángel López Campo</A>
- * @author <A HREF="mailto:epf0006@alu.ubu.es">Eduardo Peña Fernández</A>
+ * @author <A HREF="mailto:alc0022@alu.ubu.es">ï¿½ngel Lï¿½pez Campo</A>
+ * @author <A HREF="mailto:epf0006@alu.ubu.es">Eduardo Peï¿½a Fernï¿½ndez</A>
  * @author <A HREF="mailto:sfd0009@alu.ubu.es">Sonia Fuente de la Fuente</A>
  * @author <A HREF="mailto:ehp0001@alu.ubu.es">Enrique Herrero Paredes</A>
  */
 public class DynamicRefactoringDefinition implements Element,Comparable<DynamicRefactoringDefinition> {
 
 	/**
-	 * Nombre de la refactorización.
+	 * Nombre de la refactorizaciï¿½n.
 	 */
 	private String name;
 
 	/**
-	 * Descripción de la refactorización.
+	 * Descripciï¿½n de la refactorizaciï¿½n.
 	 */
 	private String description;
 
 	/**
-	 * Ruta de la imagen asociada a la refactorización.
+	 * Ruta de la imagen asociada a la refactorizaciï¿½n.
 	 */
 	private String image;
 
 	/**
-	 * Motivación de la refactorización.
+	 * Motivaciï¿½n de la refactorizaciï¿½n.
 	 */
 	private String motivation;
 
 	/**
-	 * Las entradas que debe proporcionar el usuario a la refactorización.
+	 * Las entradas que debe proporcionar el usuario a la refactorizaciï¿½n.
 	 */
 	private ArrayList<String[]> inputs;
 
 	/**
-	 * Los nombres de las precondiciones de la refactorización.
+	 * Los nombres de las precondiciones de la refactorizaciï¿½n.
 	 */
 	private ArrayList<String> preconditions;
 
 	/**
-	 * Los nombres de las acciones de la refactorización.
+	 * Los nombres de las acciones de la refactorizaciï¿½n.
 	 */
 	private ArrayList<String> actions;
 
 	/**
-	 * Los nombres de las postcondiciones de la refactorización.
+	 * Los nombres de las postcondiciones de la refactorizaciï¿½n.
 	 */
 	private ArrayList<String> postconditions;
 
 	/**
-	 * Los valores para los parámetros ambiguos, que se obtienen de la
-	 * definición de la refactorización.
+	 * Los valores para los parï¿½metros ambiguos, que se obtienen de la
+	 * definiciï¿½n de la refactorizaciï¿½n.
 	 */
 	private HashMap<String, ArrayList<String[]>>[] ambiguousParameters;
 
 	/**
-	 * Los ejemplos de esta refactorización.
+	 * Los ejemplos de esta refactorizaciï¿½n.
 	 */
 	private ArrayList<String[]> examples;
 
@@ -128,9 +128,9 @@ public class DynamicRefactoringDefinition implements Element,Comparable<DynamicR
 	}
 
 	/**
-	 * Devuelve el nombre de la refactorización.
+	 * Devuelve el nombre de la refactorizaciï¿½n.
 	 * 
-	 * @return una cadena con el nombre de la refactorización.
+	 * @return una cadena con el nombre de la refactorizaciï¿½n.
 	 * 
 	 * @see #setName
 	 */
@@ -139,10 +139,10 @@ public class DynamicRefactoringDefinition implements Element,Comparable<DynamicR
 	}
 
 	/**
-	 * Asigna el nombre de la refactorización.
+	 * Asigna el nombre de la refactorizaciï¿½n.
 	 * 
 	 * @param name
-	 *            una cadena con el nombre de la refactorización.
+	 *            una cadena con el nombre de la refactorizaciï¿½n.
 	 * 
 	 * @see #getName
 	 */
@@ -151,9 +151,9 @@ public class DynamicRefactoringDefinition implements Element,Comparable<DynamicR
 	}
 
 	/**
-	 * Devuelve la descripción de la refactorización.
+	 * Devuelve la descripciï¿½n de la refactorizaciï¿½n.
 	 * 
-	 * @return una cadena con la descripción.
+	 * @return una cadena con la descripciï¿½n.
 	 * 
 	 * @see #setDescription
 	 */
@@ -162,10 +162,10 @@ public class DynamicRefactoringDefinition implements Element,Comparable<DynamicR
 	}
 
 	/**
-	 * Asigna la descripción de la refactorización.
+	 * Asigna la descripciï¿½n de la refactorizaciï¿½n.
 	 * 
 	 * @param description
-	 *            una cadena con la descripción.
+	 *            una cadena con la descripciï¿½n.
 	 * 
 	 * @see #getDescription
 	 */
@@ -174,7 +174,7 @@ public class DynamicRefactoringDefinition implements Element,Comparable<DynamicR
 	}
 
 	/**
-	 * Devuelve la ruta de la imagen asociada a la refactorización.
+	 * Devuelve la ruta de la imagen asociada a la refactorizaciï¿½n.
 	 * 
 	 * @return una cadena con la ruta a la imagen.
 	 * 
@@ -185,7 +185,7 @@ public class DynamicRefactoringDefinition implements Element,Comparable<DynamicR
 	}
 
 	/**
-	 * Asigna la ruta de la imagen asociada a la refactorización.
+	 * Asigna la ruta de la imagen asociada a la refactorizaciï¿½n.
 	 * 
 	 * @param image
 	 *            una cadena con la ruta a la imagen.
@@ -197,9 +197,9 @@ public class DynamicRefactoringDefinition implements Element,Comparable<DynamicR
 	}
 
 	/**
-	 * Devuelve la motivación de la refactorización.
+	 * Devuelve la motivaciï¿½n de la refactorizaciï¿½n.
 	 * 
-	 * @return una cadena con la motivación de la refactorización.
+	 * @return una cadena con la motivaciï¿½n de la refactorizaciï¿½n.
 	 * 
 	 * @see #setMotivation
 	 */
@@ -208,10 +208,10 @@ public class DynamicRefactoringDefinition implements Element,Comparable<DynamicR
 	}
 
 	/**
-	 * Establece la motivación de la refactorización.
+	 * Establece la motivaciï¿½n de la refactorizaciï¿½n.
 	 * 
 	 * @param motivation
-	 *            una cadena con la motivación de la refactorización.
+	 *            una cadena con la motivaciï¿½n de la refactorizaciï¿½n.
 	 * 
 	 * @see #getMotivation
 	 */
@@ -221,9 +221,9 @@ public class DynamicRefactoringDefinition implements Element,Comparable<DynamicR
 
 	/**
 	 * Devuelve las entradas que se deben solicitar al usuario para construir la
-	 * refactorización.
+	 * refactorizaciï¿½n.
 	 * 
-	 * @return una lista de <i>arrays</i> de cadenas con la información de esas
+	 * @return una lista de <i>arrays</i> de cadenas con la informaciï¿½n de esas
 	 *         entradas.
 	 * 
 	 * @see #setInputs
@@ -234,8 +234,8 @@ public class DynamicRefactoringDefinition implements Element,Comparable<DynamicR
 
 	/**
 	 * Devuelve las entradas que se deben solicitar al usuario para construir la
-	 * refactorización en una tabla asociativa de tipo <i>hash</i> que permite
-	 * encontrar la entrada con un nombre determinado de forma fácil.
+	 * refactorizaciï¿½n en una tabla asociativa de tipo <i>hash</i> que permite
+	 * encontrar la entrada con un nombre determinado de forma fï¿½cil.
 	 * 
 	 * @return un mapa asociativo <i>hash</i> organizado de tal modo que las
 	 *         claves son los nombres de cada una de las entradas, y el valor en
@@ -248,7 +248,7 @@ public class DynamicRefactoringDefinition implements Element,Comparable<DynamicR
 		HashMap<String, String[]> map = new HashMap<String, String[]>();
 
 		for (String[] input : inputs)
-			// El nombre es el segundo atributo (posición 1 del array).
+			// El nombre es el segundo atributo (posiciï¿½n 1 del array).
 			map.put(input[1], input);
 
 		return map;
@@ -256,10 +256,10 @@ public class DynamicRefactoringDefinition implements Element,Comparable<DynamicR
 
 	/**
 	 * Asigna las entradas que se deben solicitar al usuario para construir la
-	 * refactorización.
+	 * refactorizaciï¿½n.
 	 * 
 	 * @param inputs
-	 *            lista de cadenas con la información de esas entradas.
+	 *            lista de cadenas con la informaciï¿½n de esas entradas.
 	 * 
 	 * @see #getInputs
 	 */
@@ -268,7 +268,7 @@ public class DynamicRefactoringDefinition implements Element,Comparable<DynamicR
 	}
 
 	/**
-	 * Devuelve los nombres de las precondiciones de la refactorización.
+	 * Devuelve los nombres de las precondiciones de la refactorizaciï¿½n.
 	 * 
 	 * @return un <code>ArrayList</code> de cadenas con los nombres.
 	 * 
@@ -279,7 +279,7 @@ public class DynamicRefactoringDefinition implements Element,Comparable<DynamicR
 	}
 
 	/**
-	 * Establece los nombres de las precondiciones de la refactorización.
+	 * Establece los nombres de las precondiciones de la refactorizaciï¿½n.
 	 * 
 	 * @param preconditions
 	 *            lista de cadenas con los nombres de las precondiciones.
@@ -291,7 +291,7 @@ public class DynamicRefactoringDefinition implements Element,Comparable<DynamicR
 	}
 
 	/**
-	 * Devuelve los nombres de las acciones de la refactorización.
+	 * Devuelve los nombres de las acciones de la refactorizaciï¿½n.
 	 * 
 	 * @return un <code>ArrayList</code> de cadenas con los nombres.
 	 * 
@@ -302,7 +302,7 @@ public class DynamicRefactoringDefinition implements Element,Comparable<DynamicR
 	}
 
 	/**
-	 * Establece los nombres de las acciones de la refactorización.
+	 * Establece los nombres de las acciones de la refactorizaciï¿½n.
 	 * 
 	 * @param actions
 	 *            lista de cadenas con los nombres de las acciones.
@@ -314,7 +314,7 @@ public class DynamicRefactoringDefinition implements Element,Comparable<DynamicR
 	}
 
 	/**
-	 * Devuelve los nombres de las postcondiciones de la refactorización.
+	 * Devuelve los nombres de las postcondiciones de la refactorizaciï¿½n.
 	 * 
 	 * @return un <code>ArrayList</code> de cadenas con los nombres.
 	 * 
@@ -325,7 +325,7 @@ public class DynamicRefactoringDefinition implements Element,Comparable<DynamicR
 	}
 
 	/**
-	 * Establece los nombres de las postcondiciones de la refactorización.
+	 * Establece los nombres de las postcondiciones de la refactorizaciï¿½n.
 	 * 
 	 * @param postconditions
 	 *            lista de cadenas con los nombres de las postcondiciones.
@@ -337,9 +337,9 @@ public class DynamicRefactoringDefinition implements Element,Comparable<DynamicR
 	}
 
 	/**
-	 * Devuelve los parámetros ambiguos de la refactorización.
+	 * Devuelve los parï¿½metros ambiguos de la refactorizaciï¿½n.
 	 * 
-	 * @return los parámetros ambiguos de la refactorización.
+	 * @return los parï¿½metros ambiguos de la refactorizaciï¿½n.
 	 * 
 	 * @see #setAmbiguousParameters
 	 */
@@ -348,31 +348,31 @@ public class DynamicRefactoringDefinition implements Element,Comparable<DynamicR
 	}
 
 	/**
-	 * Devuelve los parámetros ambiguos para una precondición, acción o
-	 * postcondición determinada.
+	 * Devuelve los parï¿½metros ambiguos para una precondiciï¿½n, acciï¿½n o
+	 * postcondiciï¿½n determinada.
 	 * 
 	 * @param name
-	 *            nombre simple de la precondición, acción o postcondición cuyos
-	 *            parámetros ambiguos se deben obtener.
+	 *            nombre simple de la precondiciï¿½n, acciï¿½n o postcondiciï¿½n cuyos
+	 *            parï¿½metros ambiguos se deben obtener.
 	 * @param typePart
 	 *            {@link RefactoringConstants#PRECONDITION},
 	 *            {@link RefactoringConstants#ACTION} o
 	 *            {@link RefactoringConstants#POSTCONDITION}.
 	 * 
 	 * @return lista de <i>arrays</i> de cadenas con los atributos de dichos
-	 *         parámetros.
+	 *         parï¿½metros.
 	 * 
 	 * @see #setAmbiguousParameters
 	 */
 	public ArrayList<String[]> getAmbiguousParameters(String name, int typePart){
 
-		// Se obtienen todas las entradas del predicado o acción.
+		// Se obtienen todas las entradas del predicado o acciï¿½n.
 		ArrayList<String[]> inputs = ambiguousParameters[typePart].get(name);
 
 		if(inputs != null){
 			ArrayList<String[]> params = new ArrayList<String[]>();
 
-			// Se crea una copia de la lista de entradas del predicado o acción.
+			// Se crea una copia de la lista de entradas del predicado o acciï¿½n.
 			for (String[] param : inputs){
 				String[] temp = Arrays.copyOf(param, param.length);
 				params.add(temp);					
@@ -385,10 +385,10 @@ public class DynamicRefactoringDefinition implements Element,Comparable<DynamicR
 	}
 
 	/**
-	 * Establece los parámetros ambiguos de la refactorización.
+	 * Establece los parï¿½metros ambiguos de la refactorizaciï¿½n.
 	 * 
 	 * @param ambiguousParameters
-	 *            los parámetros ambiguos de la refactorización.
+	 *            los parï¿½metros ambiguos de la refactorizaciï¿½n.
 	 * 
 	 * @see #getAmbiguousParameters
 	 */
@@ -399,7 +399,7 @@ public class DynamicRefactoringDefinition implements Element,Comparable<DynamicR
 	}
 
 	/**
-	 * Devuelve los ejemplos de la refactorización.
+	 * Devuelve los ejemplos de la refactorizaciï¿½n.
 	 * 
 	 * @return una lista de arrays de cadenas con los atributos de cada ejemplo.
 	 * 
@@ -410,14 +410,14 @@ public class DynamicRefactoringDefinition implements Element,Comparable<DynamicR
 	}
 
 	/**
-	 * Establece los ejemplos a la refactorización.
+	 * Establece los ejemplos a la refactorizaciï¿½n.
 	 * 
 	 * @param examples
 	 *            lista de arrays de cadenas con los atributos de cada ejemplo.
-	 *            Cada array de cadenas contendrá dos cadenas, una con la ruta
+	 *            Cada array de cadenas contendrï¿½ dos cadenas, una con la ruta
 	 *            del fichero que contiene el estado del ejemplo antes de la
-	 *            refactorización, y otra con la ruta del que contiene el estado
-	 *            después de la refactorización.
+	 *            refactorizaciï¿½n, y otra con la ruta del que contiene el estado
+	 *            despuï¿½s de la refactorizaciï¿½n.
 	 * 
 	 * @see #getExamples
 	 */
@@ -426,15 +426,15 @@ public class DynamicRefactoringDefinition implements Element,Comparable<DynamicR
 	}
 
 	/**
-	 * Devuelve la definición de una refactorización a partir de un fichero.
+	 * Devuelve la definiciï¿½n de una refactorizaciï¿½n a partir de un fichero.
 	 * 
 	 * @param refactoringFilePath
-	 *            ruta al fichero que define la refactorización.
+	 *            ruta al fichero que define la refactorizaciï¿½n.
 	 * 
-	 * @return la definición de la refactorización descrita en el fichero.
+	 * @return la definiciï¿½n de la refactorizaciï¿½n descrita en el fichero.
 	 * 
 	 * @throws RefactoringException
-	 *             si se produce un error al cargar la refactorización desde el
+	 *             si se produce un error al cargar la refactorizaciï¿½n desde el
 	 *             fichero indicado.
 	 */
 	public static DynamicRefactoringDefinition getRefactoringDefinition(
@@ -473,6 +473,21 @@ public class DynamicRefactoringDefinition implements Element,Comparable<DynamicR
 	}
 
 	@Override
+	public boolean belongsTo(String keyWord) {
+		//TODO: comprobar si contiene la palabra clave
+		//asegurarnos de que cuando se lee y guardan las palabras clave se hace en minusculas
+		return true;
+	}
+	
+	@Override
+	public boolean containsText(String text) {
+		text=text.toLowerCase().trim();
+		return name.toLowerCase().contains(text) ||
+			   description.toLowerCase().contains(text) ||
+			   motivation.toLowerCase().contains(text);
+	}
+	
+	@Override
 	public int compareTo(DynamicRefactoringDefinition o) {
 		return name.compareTo(o.getName());
 	}
@@ -489,4 +504,6 @@ public class DynamicRefactoringDefinition implements Element,Comparable<DynamicR
 	public void setCategories(Set<Category> categories) {
 		this.categories = categories;
 	}
+
+
 }

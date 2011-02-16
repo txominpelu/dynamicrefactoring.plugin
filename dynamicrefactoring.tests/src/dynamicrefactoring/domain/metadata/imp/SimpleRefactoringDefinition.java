@@ -78,4 +78,16 @@ public class SimpleRefactoringDefinition implements Element {
 		return new HashSet<Category>(categories);
 	}
 
+	@Override
+	public boolean belongsTo(String keyWord) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public boolean containsText(String text) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
 }

@@ -77,13 +77,13 @@ public class AvailableRefactoringView extends ViewPart {
 	private HashMap<String, String> refactorings;
 
 	/**
-	 * Última seleción válida como entrada para una refactorizacion en el
+	 * ï¿½ltima seleciï¿½n vï¿½lida como entrada para una refactorizacion en el
 	 * espacio de trabajo.
 	 */
 	private SelectionInfo select;
 
 	/**
-	 * Árbol sobre el que se mostrarán de forma estructurada las diferentes refactorizaciones disponibles
+	 * ï¿½rbol sobre el que se mostrarï¿½n de forma estructurada las diferentes refactorizaciones disponibles
 	 * para el elemento selecionado en el espacio de trabajo.
 	 */
 	private Tree tr_Refactorings;
@@ -96,7 +96,7 @@ public class AvailableRefactoringView extends ViewPart {
 	 */
 	@Override
 	public void createPartControl(Composite parent) {
-		this.setPartName(Messages.AvailableRefactoringView_title);
+		this.setPartName(Messages.AvailableRefactoringView_Title);
 
 		// Registramos el listener de la vista
 		SelectionListenerRegistry.getInstance().addListener(
@@ -122,8 +122,8 @@ public class AvailableRefactoringView extends ViewPart {
 	}
 
 	/**
-	 * Permite responder a los eventos generados por la selección de un elemento
-	 * válido como entrada para una refactorización
+	 * Permite responder a los eventos generados por la selecciï¿½n de un elemento
+	 * vï¿½lido como entrada para una refactorizaciï¿½n
 	 * {@link AvailableRefactoringView}.
 	 * 
 	 * @author <A HREF="mailto:lfd0002@alu.ubu.es">Laura Fuente de la Fuente</A>
@@ -131,11 +131,11 @@ public class AvailableRefactoringView extends ViewPart {
 	private class MainSelectionListener implements IMainSelectionListener {
 
 		/**
-		 * Notifica al <i>listener</i> que un objeto válido como entrada para la
-		 * refactorización ha sido seleccionado.
+		 * Notifica al <i>listener</i> que un objeto vï¿½lido como entrada para la
+		 * refactorizaciï¿½n ha sido seleccionado.
 		 * 
 		 * @param selection
-		 *            selección del espacio de trabajo.
+		 *            selecciï¿½n del espacio de trabajo.
 		 */
 		public void elementSelected(SelectionInfo selection) {
 			if (selection.isValidSelectionType()) {
@@ -172,17 +172,17 @@ public class AvailableRefactoringView extends ViewPart {
 	private class TreeMouseListener implements MouseListener {
 
 		/**
-		 * Recibe una notificación de que un elemento del árbol que forma la
-		 * vista ha sido presionado doblemente con el ratón.
+		 * Recibe una notificaciï¿½n de que un elemento del ï¿½rbol que forma la
+		 * vista ha sido presionado doblemente con el ratï¿½n.
 		 * 
 		 * @param e
-		 *            el evento de selección disparado en la ventana.
+		 *            el evento de selecciï¿½n disparado en la ventana.
 		 * 
 		 * @see MouseListener#mouseDoubleClick(MouseEvent)
 		 */
 		public void mouseDoubleClick(MouseEvent e) {
 			TreeItem[] selection = tr_Refactorings.getSelection();
-			// Si se ha señalado el nombre de la refactorización
+			// Si se ha seï¿½alado el nombre de la refactorizaciï¿½n
 			String selectedName = selection[0].getText();
 			if (selection[0].getParentItem() == null) {
 				try {
@@ -237,12 +237,12 @@ public class AvailableRefactoringView extends ViewPart {
 	}
 
 	/**
-	 * Pide confirmación al usuario para guardar los cambios pendientes antes de
-	 * continuar. Si obtiene la confirmación, guarda los cambios de todos los
+	 * Pide confirmaciï¿½n al usuario para guardar los cambios pendientes antes de
+	 * continuar. Si obtiene la confirmaciï¿½n, guarda los cambios de todos los
 	 * editores abiertos con cambios pendientes.
 	 * 
 	 * @return <code>true</code> si se guardaron las modificaciones pendientes o
-	 *         si no había ninguna pendiente; <code>false</code> en caso
+	 *         si no habï¿½a ninguna pendiente; <code>false</code> en caso
 	 *         contrario.
 	 */
 	public boolean saveUnsavedChanges() {

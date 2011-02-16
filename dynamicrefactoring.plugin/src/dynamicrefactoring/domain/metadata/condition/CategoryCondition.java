@@ -13,23 +13,25 @@ import dynamicrefactoring.domain.metadata.interfaces.Element;
  */
 public class CategoryCondition<K extends Element> implements Predicate<K> {
 
-	private Category category;
+	public static final String NAME="category";
 	
-	public Category getCategory() {
-		return category;
-	}
+	private Category category;
 
 	public CategoryCondition(Category category) {
 		this.category = category;
 	}
 
 	public CategoryCondition(String parent, String categoryName) {
-		this.category = new Category(parent, categoryName);
+		this.category = new Category(parent.trim(), categoryName.trim());
 	}
 
+	public Category getCategory() {
+		return category;
+	}
+	
 	@Override
 	public boolean apply(K arg0) {
-		return arg0.belongsTo(getCategory());
+		return arg0.belongsTo(category);
 	}
 	
 	/**
@@ -42,19 +44,19 @@ public class CategoryCondition<K extends Element> implements Predicate<K> {
 	public boolean equals(Object o){
 		if (o instanceof CategoryCondition){
 			CategoryCondition<?> otra = (CategoryCondition<?>) o;
-			return otra.getCategory().equals(getCategory());
+			return otra.getCategory().equals(category);
 		}
 		return false;
 	}
 	
 	@Override
 	public int hashCode(){
-		return getCategory().getName().hashCode();
+		return category.hashCode();
 	}
 
 	@Override
 	public String toString() {
-		return "filter:category=" + this.getCategory().toString();
+		return NAME + ":" + category.toString();
 	}
 
 	
