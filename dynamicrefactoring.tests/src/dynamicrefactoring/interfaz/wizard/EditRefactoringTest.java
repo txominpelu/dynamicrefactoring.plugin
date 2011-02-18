@@ -30,11 +30,7 @@ public class EditRefactoringTest {
 	 */
 	@Before
 	public final void setUp(){
-		try {
-			refactoringWizardPageObject = new RefactoringWizardPage1Object();
-		}catch (Exception e){
-			e.printStackTrace();
-		}
+		refactoringWizardPageObject = new RefactoringWizardPage1Object();
 		//bot.viewByTitle("Welcome").close();
 	}
 	

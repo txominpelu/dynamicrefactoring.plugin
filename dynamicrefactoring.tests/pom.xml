@@ -49,6 +49,7 @@
 	<argLine>-javaagent:${jacoco.agent.path}=destfile=${jacoco.file.path}</argLine>
 	<useUIHarness>true</useUIHarness>
 	  <includes>
+		<include>**/MyFirstTest.java</include>
 		<include>**/EditRefactoringTest.java</include>
 	  </includes>
           <useUIThread>false</useUIThread>
