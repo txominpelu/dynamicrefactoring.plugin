@@ -42,6 +42,18 @@ public class CategoryConditionTest {
 			public Set<Category> getCategories() {
 				return null;
 			}
+
+			@Override
+			public boolean belongsTo(String keyWord) {
+				// TODO Auto-generated method stub
+				return false;
+			}
+
+			@Override
+			public boolean containsText(String text) {
+				// TODO Auto-generated method stub
+				return false;
+			}
 			
 		};
 		assertTrue(condition.apply(element));
@@ -65,6 +77,18 @@ public class CategoryConditionTest {
 			@Override
 			public Set<Category> getCategories() {
 				return null;
+			}
+
+			@Override
+			public boolean belongsTo(String keyWord) {
+				// TODO Auto-generated method stub
+				return false;
+			}
+
+			@Override
+			public boolean containsText(String text) {
+				// TODO Auto-generated method stub
+				return false;
 			}
 			
 		};

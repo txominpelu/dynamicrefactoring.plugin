@@ -12,12 +12,31 @@ public interface Element {
 	 * 
 	 * @param category
 	 *            categoria
-	 * @return si esta refactorizacion pertenece a la categoria
+	 * @return si el elemento pertenece a la categoria
 	 */
 	boolean belongsTo(Category category);
+	
+	/**
+	 * Devuelve si el elemento pertenece a la palabra clave pasada.
+	 * 
+	 * @param keyWord
+	 *            palabra clave
+	 * @return si el elemento pertenece a la palabra clave
+	 */
+	boolean belongsTo(String keyWord);
 
 	/**
-	 * Obtiene las categor�as a las que el elemento pertenece.
+	 * Devuelve en la información relativa al elemento se encuentra 
+	 * el texto pasado.
+	 * 
+	 * @param text
+	 *            texto
+	 * @return si en la información relativa al elemento se encuentra el texto
+	 */
+	boolean containsText(String text);
+	
+	/**
+	 * Obtiene las categor�as a las que el elemento pertenece.
 	 * 
 	 * @return conjunto de categorias a las que el elemento pertenece.
 	 */
