@@ -2,6 +2,9 @@ package dynamicrefactoring.interfaz.wizard;
 
 import org.eclipse.core.runtime.Platform;
 import org.eclipse.swtbot.eclipse.finder.SWTWorkbenchBot;
+import org.eclipse.swtbot.swt.finder.finders.UIThreadRunnable;
+import org.eclipse.swtbot.swt.finder.results.VoidResult;
+import org.eclipse.ui.PlatformUI;
 
 import dynamicrefactoring.RefactoringPlugin;
 
@@ -19,8 +22,14 @@ public class RefactoringWizardPage1Object {
 	 * acceder a la primera pagina del interfaz de crear/editar una refactorizacion.
 	 */
 	public RefactoringWizardPage1Object(){
+		UIThreadRunnable.syncExec(new VoidResult() {
+            public void run() {
+            	PlatformUI.getWorkbench().getActiveWorkbenchWindow().getShell()
+                        .forceActive();
+            }
+        });
+
 		BOT.menu(DYNAMIC_REFACTORING_MENU_TEXT).menu(NEW_REFACTORING_MENU_TEXT).click();
-		BOT.shell(DYNAMIC_REFACTORING_WIZARD_SHELL_TEXT).activate();
 	}
 	
 	/**
