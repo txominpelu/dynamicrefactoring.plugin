@@ -4,6 +4,7 @@ cobertura/*
 dynamicrefactoring.plugin/log/dynamicrefactoring.plugin.properties
 dynamicrefactoring.plugin/target/*
 dynamicrefactoring.plugin/bin/*
+dynamicrefactoring.tests/screenshots/*
 dynamicrefactoring.tests/target/*
 dynamicrefactoring.tests/bin/*
 borrar-ficheros.sh
