@@ -48,7 +48,8 @@ public final class Category implements Comparable<Category> {
 	public boolean equals(Object o) {
 		if (o instanceof Category) {
 			Category otra = (Category) o;
-			return otra.getName().equals(this.getName()) && otra.getParent().equals(this.getParent());
+			return otra.getName().equalsIgnoreCase(this.getName()) && 
+				   otra.getParent().equalsIgnoreCase(this.getParent());
 		}
 		return false;
 	}

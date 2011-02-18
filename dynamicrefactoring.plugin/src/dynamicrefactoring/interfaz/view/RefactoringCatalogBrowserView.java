@@ -47,6 +47,8 @@ import dynamicrefactoring.RefactoringPlugin;
 import dynamicrefactoring.domain.DynamicRefactoringDefinition;
 import dynamicrefactoring.domain.RefactoringException;
 import dynamicrefactoring.domain.metadata.condition.CategoryCondition;
+import dynamicrefactoring.domain.metadata.condition.KeyWordCondition;
+import dynamicrefactoring.domain.metadata.condition.TextCondition;
 import dynamicrefactoring.domain.metadata.imp.ElementCatalog;
 import dynamicrefactoring.domain.metadata.imp.SimpleUniLevelClassification;
 import dynamicrefactoring.domain.metadata.interfaces.Category;
@@ -74,7 +76,7 @@ public class RefactoringCatalogBrowserView extends ViewPart {
 		catNone.add(Category.NONE_CATEGORY);
 		NONE_CLASSIFICATION = new SimpleUniLevelClassification(
 				Category.NONE_CATEGORY.getName(),
-				Messages.RefactoringCatalogBrowserView_None_ClassDescription, catNone);
+				Messages.RefactoringCatalogBrowserView_NoneClassDescription, catNone);
 	}
 
 	/**
@@ -163,33 +165,33 @@ public class RefactoringCatalogBrowserView extends ViewPart {
 	 * también las refactorizaciones filtradas.
 	 */
 	private Button filteredButton;
-	
+
 	/**
 	 * Split que separa en dos partes la vista.
 	 */
 	private SashForm sashForm;
-	
+
 	/**
 	 * Acción que muestra en la vista solo la parte referente a la clasificación.
 	 */
 	private Action classAction;
-	
+
 	/**
 	 * Acción que muestra en la vista solo la parte referente a la refactorización.
 	 */
 	private Action refAction;
-	
+
 	/**
 	 * Acción que muestra en la vista las dos partes.
 	 */
 	private Action classRefAction;
-	
+
 	/**
 	 * Organizador de pestañas para mostrar la información
 	 * relativa a la refactorización seleccionada en el árbol.
 	 */
 	private RefactoringSummaryPanel refSummaryPanel;
-	
+
 
 	/**
 	 * Crea los controles SWT para este componente del espacio de trabajo.
@@ -199,7 +201,7 @@ public class RefactoringCatalogBrowserView extends ViewPart {
 	 */
 	@Override
 	public void createPartControl(Composite parent) {
-		setPartName(Messages.RefactoringCatalogBrowserView_title);
+		setPartName(Messages.RefactoringCatalogBrowserView_Title);
 		parent.setLayout(new FormLayout());
 
 		//carga de datos
@@ -218,19 +220,19 @@ public class RefactoringCatalogBrowserView extends ViewPart {
 		scrolledComp.setLayoutData(scrolledFormData);
 
 		//sashForm
-	    sashForm = new SashForm(scrolledComp, SWT.HORIZONTAL | SWT.SMOOTH );
-	    sashForm.setSashWidth(2);
-	    sashForm.setBackground(parent.getDisplay().getSystemColor(SWT.COLOR_DARK_GRAY));
-		
-	    //sashForm Left: classComp
+		sashForm = new SashForm(scrolledComp, SWT.HORIZONTAL | SWT.SMOOTH );
+		sashForm.setSashWidth(2);
+		sashForm.setBackground(parent.getDisplay().getSystemColor(SWT.COLOR_DARK_GRAY));
+
+		//sashForm Left: classComp
 		FormData classFormData=null;
 		final Composite classComp = new Composite(sashForm, SWT.NONE);
 		classComp.setLayout(new FormLayout());
-		
+
 		//sashForm Rigth: refComp
 		final Composite refComp = new Composite(sashForm, SWT.NONE);
 		refComp.setLayout(new FormLayout());
-		
+
 		//actions
 		classAction=new Action(){
 			public void run() {
@@ -239,10 +241,11 @@ public class RefactoringCatalogBrowserView extends ViewPart {
 				refAction.setEnabled(true);
 				classRefAction.setEnabled(true);
 			}};
+		
 		classAction.setToolTipText(Messages.RefactoringCatalogBrowserView_ClassAction);
 		classAction.setImageDescriptor(ImageDescriptor.createFromImage(
-				ResourceManager.getPluginImage(RefactoringPlugin.getDefault(),
-						RefactoringImages.SPLIT_L_ICON_PATH)));
+					ResourceManager.getPluginImage(RefactoringPlugin.getDefault(),
+					RefactoringImages.SPLIT_L_ICON_PATH)));
 		
 		refAction=new Action(){
 			public void run() {
@@ -251,10 +254,11 @@ public class RefactoringCatalogBrowserView extends ViewPart {
 				classAction.setEnabled(true);
 				classRefAction.setEnabled(true);
 			}};
+		
 		refAction.setToolTipText(Messages.RefactoringCatalogBrowserView_RefAction);
 		refAction.setImageDescriptor(ImageDescriptor.createFromImage(
-				ResourceManager.getPluginImage(RefactoringPlugin.getDefault(),
-						RefactoringImages.SPLIT_R_ICON_PATH)));
+					ResourceManager.getPluginImage(RefactoringPlugin.getDefault(),
+					RefactoringImages.SPLIT_R_ICON_PATH)));
 		
 		classRefAction=new Action(){
 			public void run() {
@@ -263,17 +267,18 @@ public class RefactoringCatalogBrowserView extends ViewPart {
 				classAction.setEnabled(true);
 				refAction.setEnabled(true);
 			}};
+		
 		classRefAction.setToolTipText(Messages.RefactoringCatalogBrowserView_ClassRefAction);
 		classRefAction.setImageDescriptor(ImageDescriptor.createFromImage(
-				ResourceManager.getPluginImage(RefactoringPlugin.getDefault(),
-						RefactoringImages.SPLIT_ICON_PATH)));
+					ResourceManager.getPluginImage(RefactoringPlugin.getDefault(),
+					RefactoringImages.SPLIT_ICON_PATH)));
 		
 		IActionBars bars = getViewSite().getActionBars();
 		fillLocalToolBar(bars.getToolBarManager());
 
 		//refSummaryPanel
 		refSummaryPanel=new RefactoringSummaryPanel(refComp);
-		
+
 		//classLabel
 		classLabel=new Label(classComp, SWT.LEFT);
 		classLabel.setText(Messages.RefactoringCatalogBrowserView_Classification);
@@ -326,35 +331,7 @@ public class RefactoringCatalogBrowserView extends ViewPart {
 		classFormData.top = new FormAttachment(0, 3);
 		classFormData.left = new FormAttachment(searchText, 5);
 		searchButton.setLayoutData(classFormData);
-		searchButton.addSelectionListener(new SelectionAdapter() {
-			public void widgetSelected(SelectionEvent e) {
-				search(searchText.getText());
-			}
-
-			private void search(String text) {
-				String text_aux = null;
-				if (text.toLowerCase().contains("category:")) { //$NON-NLS-1$
-					text_aux = text.substring(9);
-					CategoryCondition<DynamicRefactoringDefinition> catCondition=
-						new CategoryCondition<DynamicRefactoringDefinition>(
-								"scope", text_aux); //$NON-NLS-1$
-					filter.add(catCondition);
-					catalog.addConditionToFilter(catCondition);
-					showTree(classCombo.getText());
-				} else {
-					// if(text.toLowerCase().contains("name:")){
-					// text_aux=text.substring(5);
-					// System.out.println("nombre");
-					// System.out.println(text_aux);
-					// scopeCatalog.addConditionToFilter(new
-					// NameContainsTextCondition<DynamicRefactoringDefinition>(
-					// text_aux));
-					// }
-				}
-
-			}
-		});
-
+		searchButton.addSelectionListener(new SearchTextSelectionListener());
 
 		//refactoringTree
 		refactoringsTree = new Tree(classComp, SWT.BORDER);
@@ -386,9 +363,9 @@ public class RefactoringCatalogBrowserView extends ViewPart {
 		showTree(classCombo.getText());
 
 		//sashForm
-	    sashForm.setWeights(new int[] {60,40});
-	    classRefAction.setEnabled(false);
-		
+		sashForm.setWeights(new int[] {60,40});
+		classRefAction.setEnabled(false);
+
 		//scrolledComp
 		scrolledComp.setContent(sashForm);
 		scrolledComp.setExpandHorizontal(true);
@@ -520,8 +497,7 @@ public class RefactoringCatalogBrowserView extends ViewPart {
 					orderInBranchCat++;
 				}
 				createTreeItemFromParent(dRefactDef, catTreeItem, false);
-			}else{
-				if(dRefactDef.size()>0){
+			}else if(dRefactDef.size()>0){
 					filTreeItem = TreeEditor.createBranch(refactoringsTree,
 							orderInBranchClass, Category.FILTERED_CATEGORY.getName(), 
 							RefactoringImages.FIL_ICON_PATH);
@@ -529,7 +505,6 @@ public class RefactoringCatalogBrowserView extends ViewPart {
 					filTreeItem.setForeground(
 							Display.getCurrent().getSystemColor(SWT.COLOR_DARK_GRAY));
 					createTreeItemFromParent(dRefactDef, filTreeItem, true);
-				}
 			}
 		}
 		classTreeItem.setExpanded(true);
@@ -569,7 +544,7 @@ public class RefactoringCatalogBrowserView extends ViewPart {
 		manager.add(new Separator());
 		manager.add(classRefAction);
 	}
-	
+
 	/**
 	 * Actualiza el árbol de refactorizaciones para representarlas conforme
 	 * a la clasificación que ha sido seleccionada en el combo.
@@ -600,7 +575,67 @@ public class RefactoringCatalogBrowserView extends ViewPart {
 		}
 
 	}
-	
+
+	private class SearchTextSelectionListener implements SelectionListener{
+
+		private final char SEARCH_SEPARATOR=':';
+		private final char CAT_SEPARATOR='@';
+		private Predicate<DynamicRefactoringDefinition> condition;
+
+		@Override
+		public void widgetSelected(SelectionEvent e) {
+			if(search(searchText.getText())){
+				filter.add(condition);
+				catalog.addConditionToFilter(condition);
+				showTree(classCombo.getText());
+			}else{
+				IWorkbenchWindow window = PlatformUI.getWorkbench()
+				.getActiveWorkbenchWindow();
+				MessageDialog.openError(window.getShell(),
+						Messages.RefactoringCatalogBrowserView_Error,
+						Messages.RefactoringCatalogBrowserView_SearchError);
+			}
+		}
+
+		@Override
+		public void widgetDefaultSelected(SelectionEvent e) {
+			widgetSelected(e);
+		}
+		
+		private boolean search(String text){
+			boolean searchOk=false;
+			int indexSearchSep=text.indexOf(SEARCH_SEPARATOR);
+
+			if(indexSearchSep>0){
+				String word=text.substring(0,indexSearchSep).toLowerCase();
+				String value=text.substring(indexSearchSep+1);
+
+				if(word.equals(TextCondition.NAME)){
+					condition=new TextCondition<DynamicRefactoringDefinition>(value);
+					searchOk=true;
+				}else{
+					if(word.equals(CategoryCondition.NAME)){
+						int indexCatSep=value.indexOf(CAT_SEPARATOR);
+						if(indexCatSep>0){
+							String valueClass=value.substring(0,indexCatSep);
+							String valueCat=value.substring(indexCatSep+1);
+							condition=new CategoryCondition<DynamicRefactoringDefinition>(valueClass, valueCat);
+							searchOk=true;
+						}
+					}else{
+						if(word.equals(KeyWordCondition.NAME)){
+							condition=new KeyWordCondition<DynamicRefactoringDefinition>(value);
+							searchOk=true;
+						}
+					}
+				}
+
+			}
+			return searchOk;
+
+		}
+	}
+
 	/**
 	 * Recibe notificaciones cuando uno de los elementos de la lista de
 	 * refactorizaciones es seleccionado.
@@ -616,31 +651,35 @@ public class RefactoringCatalogBrowserView extends ViewPart {
 		 * 
 		 * @see MouseListener#mouseDoubleClick(MouseEvent)
 		 */
+		@Override
 		public void mouseDoubleClick(MouseEvent e) {
 			TreeItem[] selection = refactoringsTree.getSelection();
-			
+
 			String selectedName = selection[0].getText();
 			DynamicRefactoringDefinition refSelected=refactorings.get(selectedName);
-			
+
 			//comprobamos si se trata de una refactorización
 			if(refSelected!=null){
 				refSummaryPanel.setRefactoringDefinition(refSelected);
 				refSummaryPanel.showRefactoringSummary();
 			}
-			
+
 		}
 
 		/**
 		 * @see MouseListener#mouseDown(MouseEvent)
 		 */
+		@Override
 		public void mouseDown(MouseEvent e) {
 		}
 
 		/**
 		 * @see MouseListener#mouseUp(MouseEvent)
 		 */
+		@Override
 		public void mouseUp(MouseEvent e) {
 		}
 	}
 
 }
+

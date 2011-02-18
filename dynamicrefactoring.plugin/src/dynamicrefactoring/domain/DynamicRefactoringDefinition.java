@@ -376,14 +376,14 @@ public class DynamicRefactoringDefinition implements Element,
 	 */
 	public ArrayList<String[]> getAmbiguousParameters(String name, int typePart) {
 
-		// Se obtienen todas las entradas del predicado o acci�n.
+		// Se obtienen todas las entradas del predicado o accion.
 		ArrayList<String[]> inputs = ambiguousParameters[typePart].get(name);
 
 		if (inputs != null) {
 			ArrayList<String[]> params = new ArrayList<String[]>();
 
-			// Se crea una copia de la lista de entradas del predicado o acci�n.
-			for (String[] param : inputs) {
+			// Se crea una copia de la lista de entradas del predicado o accion.
+			for (String[] param : inputs){
 				String[] temp = Arrays.copyOf(param, param.length);
 				params.add(temp);
 			}
@@ -519,7 +519,22 @@ public class DynamicRefactoringDefinition implements Element,
 	public final boolean belongsTo(Category category) {
 		return getCategories().contains(category);
 	}
+	
 
+	public boolean belongsTo(String keyWord) {
+		//TODO: comprobar si contiene la palabra clave
+		//asegurarnos de que cuando se lee y guardan las palabras clave se hace en minusculas
+		return true;
+	}
+	
+	@Override
+	public boolean containsText(String text) {
+		text=text.toLowerCase().trim();
+		return name.toLowerCase().contains(text) ||
+			   description.toLowerCase().contains(text) ||
+			   motivation.toLowerCase().contains(text);
+	}
+	
 	/**
 	 * Las refactorizaciones se  ordenan en base a su nombre.
 	 * 
@@ -566,4 +581,5 @@ public class DynamicRefactoringDefinition implements Element,
 		this.keywords = keywords;
 		
 	}
+
 }
