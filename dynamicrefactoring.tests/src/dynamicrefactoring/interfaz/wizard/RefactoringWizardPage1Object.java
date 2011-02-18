@@ -8,19 +8,20 @@ import dynamicrefactoring.RefactoringPlugin;
 public class RefactoringWizardPage1Object {
 	
 	private static final String DYNAMIC_REFACTORING_WIZARD_SHELL_TEXT = "Dynamic Refactoring Wizard";
-	private static final String DYNAMIC_REFACTORING_MENU_TEXT = Platform.getResourceString(RefactoringPlugin.getDefault().getBundle(), "%dynamicrefactoring.menu.main");
+	public static final String DYNAMIC_REFACTORING_MENU_TEXT = Platform.getResourceString(RefactoringPlugin.getDefault().getBundle(), "%dynamicrefactoring.menu.main");
 	private static final String NEW_REFACTORING_MENU_TEXT = "New Refactoring...";
 	
-	private static final SWTWorkbenchBot BOT = new SWTWorkbenchBot();
+	private final SWTWorkbenchBot swtBot;
 	
 
 	/**
 	 * Crea un PageObject que permite a los tests de interfaz
 	 * acceder a la primera pagina del interfaz de crear/editar una refactorizacion.
 	 */
-	public RefactoringWizardPage1Object(){
-		BOT.menu(DYNAMIC_REFACTORING_MENU_TEXT).menu(NEW_REFACTORING_MENU_TEXT).click();
-		BOT.shell(DYNAMIC_REFACTORING_WIZARD_SHELL_TEXT).activate();
+	public RefactoringWizardPage1Object(SWTWorkbenchBot bot){
+		swtBot = bot;
+		swtBot.menu(DYNAMIC_REFACTORING_MENU_TEXT).menu(NEW_REFACTORING_MENU_TEXT).click();
+		swtBot.shell(DYNAMIC_REFACTORING_WIZARD_SHELL_TEXT).activate();
 	}
 	
 	/**
@@ -31,10 +32,10 @@ public class RefactoringWizardPage1Object {
 	 * @param category categoria
 	 */
 	public final void checkCategory(String classification, String category){
-		if (BOT.tree().expandNode(classification).getNode(category).isChecked()){
-			BOT.tree().expandNode(classification).getNode(category).uncheck();
+		if (swtBot.tree().expandNode(classification).getNode(category).isChecked()){
+			swtBot.tree().expandNode(classification).getNode(category).uncheck();
 		}else {
-			BOT.tree().expandNode(classification).getNode(category).check();
+			swtBot.tree().expandNode(classification).getNode(category).check();
 		}
 	}
 	
@@ -47,10 +48,10 @@ public class RefactoringWizardPage1Object {
 	 * @param category categoria
 	 */
 	public final void checkClassification(String classification){
-		if(BOT.tree().getTreeItem(classification).isChecked()){
-			BOT.tree().getTreeItem(classification).uncheck();
+		if(swtBot.tree().getTreeItem(classification).isChecked()){
+			swtBot.tree().getTreeItem(classification).uncheck();
 		}else{
-			BOT.tree().getTreeItem(classification).check();
+			swtBot.tree().getTreeItem(classification).check();
 		}
 		
 	}
@@ -63,14 +64,14 @@ public class RefactoringWizardPage1Object {
 	 * @param category categoria
 	 */
 	public final boolean isCategoryChecked(String classification, String category){
-		return BOT.tree().expandNode(classification).getNode(category).isChecked();
+		return swtBot.tree().expandNode(classification).getNode(category).isChecked();
 	}
 	
 	/**
 	 * Cierra la ventana y finaliza el wizard de refactorizacion.
 	 */
 	public final void cancelWizard(){
-		BOT.activeShell().close();
+		swtBot.activeShell().close();
 	}
 
 }

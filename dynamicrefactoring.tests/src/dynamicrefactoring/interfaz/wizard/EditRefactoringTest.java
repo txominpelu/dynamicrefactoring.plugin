@@ -4,7 +4,12 @@ package dynamicrefactoring.interfaz.wizard;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
+import org.eclipse.swtbot.eclipse.finder.SWTWorkbenchBot;
+import org.eclipse.swtbot.swt.finder.finders.UIThreadRunnable;
 import org.eclipse.swtbot.swt.finder.junit.SWTBotJunit4ClassRunner;
+import org.eclipse.swtbot.swt.finder.results.VoidResult;
+import org.eclipse.swtbot.swt.finder.waits.DefaultCondition;
+import org.eclipse.ui.PlatformUI;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -25,12 +30,32 @@ public class EditRefactoringTest {
 
 	private RefactoringWizardPage1Object refactoringWizardPageObject;
 
+	private SWTWorkbenchBot bot;
+
 	/**
 	 * Crea la primera pagina del wizard de crear/editar una refactorizacion.
 	 */
 	@Before
 	public final void setUp(){
-		refactoringWizardPageObject = new RefactoringWizardPage1Object();
+		bot = new SWTWorkbenchBot();
+		 UIThreadRunnable.syncExec(new VoidResult() {
+	            public void run() {
+	                PlatformUI.getWorkbench().getActiveWorkbenchWindow().getShell()
+	                        .forceActive();
+	            }
+	        });
+
+			bot .waitUntil(new DefaultCondition() {
+
+				public boolean test() throws Exception {
+					return bot.menu(RefactoringWizardPage1Object.DYNAMIC_REFACTORING_MENU_TEXT).isEnabled();
+				}
+
+				public String getFailureMessage() {
+					return "Menu bar not available";
+				}
+			});
+		refactoringWizardPageObject = new RefactoringWizardPage1Object(bot);
 		//bot.viewByTitle("Welcome").close();
 	}
 	
