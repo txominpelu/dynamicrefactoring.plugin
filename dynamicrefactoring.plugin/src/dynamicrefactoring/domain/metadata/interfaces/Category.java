@@ -32,12 +32,12 @@ public final class Category implements Comparable<Category> {
 	 * @return nombre de la categoria
 	 */
 	public String getName() {
-		return this.name;
+		return name;
 	}
 
 	@Override
 	public String toString() {
-		return this.getName();
+		return parent+"@"+name;
 	}
 
 	/**
@@ -60,7 +60,7 @@ public final class Category implements Comparable<Category> {
 	 * @return
 	 */
 	public String getParent() {
-		return this.parent;
+		return parent;
 	}
 
 	@Override

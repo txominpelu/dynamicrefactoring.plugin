@@ -131,4 +131,13 @@ public final class SimpleUniLevelClassification implements Classification {
 		return this.description;
 	}
 
+	@Override
+	public boolean containsCategory(Category cat) {
+		for(Category c : categories){
+			if(c.equals(cat))
+				return true;
+		}
+		return false;
+	}
+
 }

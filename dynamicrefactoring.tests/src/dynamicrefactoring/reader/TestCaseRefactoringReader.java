@@ -36,10 +36,10 @@ import static org.junit.Assert.*;
 import org.junit.Test; 
 
 /**
- * Comprueba que funciona correctamente el proceso de lectura de la definición
- * de una refactorización dinámica.
+ * Comprueba que funciona correctamente el proceso de lectura de la definiciï¿½n
+ * de una refactorizaciï¿½n dinï¿½mica.
  * 
- * Indirectamente, se comprueba también el funcionamiento de las clases que
+ * Indirectamente, se comprueba tambiï¿½n el funcionamiento de las clases que
  * implementan los patrones Bridge y Factory Method.
  * 
  * @author <A HREF="mailto:sfd0009@alu.ubu.es">Sonia Fuente de la Fuente</A>
@@ -67,11 +67,11 @@ public class TestCaseRefactoringReader {
 
 
 	/**
-	 * Comprueba que la lectura no se realiza cuando la definición no contiene
-	 * toda la información mínima necesaria (no cumple las reglas del DTD).
+	 * Comprueba que la lectura no se realiza cuando la definiciï¿½n no contiene
+	 * toda la informaciï¿½n mï¿½nima necesaria (no cumple las reglas del DTD).
 	 * 
-	 * Para ello se realiza la carga de una definición incompleta desde un
-	 * fichero XML y luego se comprueba que se lanza una excepción de tipo
+	 * Para ello se realiza la carga de una definiciï¿½n incompleta desde un
+	 * fichero XML y luego se comprueba que se lanza una excepciï¿½n de tipo
 	 * DynamicRefactoringException.
 	 * 
 	 * @throws Exception si se produce un error durante la lectura.
@@ -84,11 +84,11 @@ public class TestCaseRefactoringReader {
 	}
 
 	/**
-	 * Comprueba que la lectura no se realiza cuando la definición utiliza otra
+	 * Comprueba que la lectura no se realiza cuando la definiciï¿½n utiliza otra
 	 * estructura que la que se define en el DTD.
 	 * 
 	 * Para ello se realiza la carga de un fichero XML con una estructura
-	 * distinta a la del DTD y luego se comprueba que se lanza una excepción de
+	 * distinta a la del DTD y luego se comprueba que se lanza una excepciï¿½n de
 	 * tipo DynamicRefactoringException.
 	 * 
 	 * @throws Exception si se produce un error durante la lectura.
@@ -101,14 +101,14 @@ public class TestCaseRefactoringReader {
 	}
 
 	/**
-	 * Comprueba que la lectura se realiza correctamente cuando la definición
-	 * contiene la información mínima necesaria. Para ello se realiza la carga
-	 * de la definición de una refactorización desde un fichero XML y luego se
+	 * Comprueba que la lectura se realiza correctamente cuando la definiciï¿½n
+	 * contiene la informaciï¿½n mï¿½nima necesaria. Para ello se realiza la carga
+	 * de la definiciï¿½n de una refactorizaciï¿½n desde un fichero XML y luego se
 	 * comprueba el valor de todos los campos recuperados.
 	 * 
-	 * Esta información es: el nombre, la descripción, la motivación, una
-	 * entrada, una precondición, una acción y una postcondición; no tiene ni
-	 * imagen, ni parámetros ambiguos ni ejemplos.
+	 * Esta informaciï¿½n es: el nombre, la descripciï¿½n, la motivaciï¿½n, una
+	 * entrada, una precondiciï¿½n, una acciï¿½n y una postcondiciï¿½n; no tiene ni
+	 * imagen, ni parï¿½metros ambiguos ni ejemplos.
 	 * 
 	 * @throws Exception si se produce un error durante la lectura.
 	 */
@@ -157,7 +157,7 @@ public class TestCaseRefactoringReader {
 		assertMinimumInformationEqual(definition);
 		
 		//Comprobar categorias
-		List<String> expectedKeywords = new ArrayList<String>();
+		Set<String> expectedKeywords = new HashSet<String>();
 		expectedKeywords.add(KEY_WORD1);
 		expectedKeywords.add(KEY_WORD2);
 		
@@ -212,13 +212,13 @@ public class TestCaseRefactoringReader {
 	
 
 	/**
-	 * Comprueba que la lectura se realiza correctamente cuando la definición
-	 * contiene toda la información posible. Para ello se realiza la carga de la
-	 * definición de una refactorización desde un fichero XML y luego se
+	 * Comprueba que la lectura se realiza correctamente cuando la definiciï¿½n
+	 * contiene toda la informaciï¿½n posible. Para ello se realiza la carga de la
+	 * definiciï¿½n de una refactorizaciï¿½n desde un fichero XML y luego se
 	 * comprueba el valor de todos los campos recuperados.
 	 * 
-	 * Esta información es: el nombre, la descripción, la imagen, la motivación,
-	 * varias entradas, precondiciones, acciones, postcondiciones, parámetros
+	 * Esta informaciï¿½n es: el nombre, la descripciï¿½n, la imagen, la motivaciï¿½n,
+	 * varias entradas, precondiciones, acciones, postcondiciones, parï¿½metros
 	 * ambiguos y ejemplos.
 	 * 
 	 * @throws Exception si se produce un error durante la lectura.
