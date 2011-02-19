@@ -243,9 +243,8 @@ public class RefactoringCatalogBrowserView extends ViewPart {
 			}};
 		
 		classAction.setToolTipText(Messages.RefactoringCatalogBrowserView_ClassAction);
-		classAction.setImageDescriptor(ImageDescriptor.createFromImage(
-					ResourceManager.getPluginImage(RefactoringPlugin.getDefault(),
-					RefactoringImages.SPLIT_L_ICON_PATH)));
+		classAction.setImageDescriptor(
+				ImageDescriptor.createFromImage(RefactoringImages.getSplitLIcon()));
 		
 		refAction=new Action(){
 			public void run() {
@@ -256,9 +255,8 @@ public class RefactoringCatalogBrowserView extends ViewPart {
 			}};
 		
 		refAction.setToolTipText(Messages.RefactoringCatalogBrowserView_RefAction);
-		refAction.setImageDescriptor(ImageDescriptor.createFromImage(
-					ResourceManager.getPluginImage(RefactoringPlugin.getDefault(),
-					RefactoringImages.SPLIT_R_ICON_PATH)));
+		refAction.setImageDescriptor(
+				ImageDescriptor.createFromImage(RefactoringImages.getSplitRIcon()));
 		
 		classRefAction=new Action(){
 			public void run() {
@@ -269,9 +267,8 @@ public class RefactoringCatalogBrowserView extends ViewPart {
 			}};
 		
 		classRefAction.setToolTipText(Messages.RefactoringCatalogBrowserView_ClassRefAction);
-		classRefAction.setImageDescriptor(ImageDescriptor.createFromImage(
-					ResourceManager.getPluginImage(RefactoringPlugin.getDefault(),
-					RefactoringImages.SPLIT_ICON_PATH)));
+		classRefAction.setImageDescriptor(
+				ImageDescriptor.createFromImage(RefactoringImages.getSplitIcon()));
 		
 		IActionBars bars = getViewSite().getActionBars();
 		fillLocalToolBar(bars.getToolBarManager());
@@ -324,9 +321,7 @@ public class RefactoringCatalogBrowserView extends ViewPart {
 
 		//searchButton 
 		searchButton = new Button(classComp, SWT.PUSH);
-		searchButton.setImage(ResourceManager.getPluginImage(
-				RefactoringPlugin.getDefault(),
-				RefactoringImages.SEARCH_ICON_PATH));
+		searchButton.setImage(RefactoringImages.getSearchIcon());
 		classFormData = new FormData();
 		classFormData.top = new FormAttachment(0, 3);
 		classFormData.left = new FormAttachment(searchText, 5);

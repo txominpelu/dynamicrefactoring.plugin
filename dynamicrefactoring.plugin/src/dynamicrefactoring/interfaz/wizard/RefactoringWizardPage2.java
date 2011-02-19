@@ -283,9 +283,7 @@ public class RefactoringWizardPage2 extends WizardPage {
 		fdButtonSearch.top = new FormAttachment(0, 26);//28
 		fdButtonSearch.left = new FormAttachment(tSearch, 3, SWT.RIGHT);
 		bSearch.setLayoutData(fdButtonSearch);
-		bSearch.setImage(ResourceManager.getPluginImage(
-				RefactoringPlugin.getDefault(),
-				RefactoringImages.SEARCH_ICON_PATH));
+		bSearch.setImage(RefactoringImages.getSearchIcon());
 		bSearch.addSelectionListener(new SelectionAdapter() {
 			public void widgetSelected(SelectionEvent e) {
 				fillSearchTypesList(tSearch.getText());	

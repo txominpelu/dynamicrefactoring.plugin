@@ -57,6 +57,7 @@ import org.eclipse.swt.widgets.Text;
 import com.swtdesigner.ResourceManager;
 
 import dynamicrefactoring.RefactoringConstants;
+import dynamicrefactoring.RefactoringImages;
 import dynamicrefactoring.RefactoringPlugin;
 import dynamicrefactoring.domain.DynamicRefactoringDefinition;
 import dynamicrefactoring.domain.ExportImportUtilities;
@@ -67,7 +68,7 @@ import dynamicrefactoring.util.io.FileManager;
 
 /**
  * Proporciona un asistente que permite buscar e importar refactorizaciones
- * dinámicas existentes fuera del <i>plugin</i>.
+ * dinï¿½micas existentes fuera del <i>plugin</i>.
  * 
  * @author <A HREF="mailto:lfd0002@alu.ubu.es">Laura Fuente de la Fuente</A>
  * @author <A HREF="mailto:sfd0009@alu.ubu.es">Sonia Fuente de la Fuente</A>
@@ -91,12 +92,12 @@ public class ImportWizard extends Dialog {
 	private Text t_Input;
 
 	/**
-	 * Botón que lanza el proceso de importación.
+	 * Botï¿½n que lanza el proceso de importaciï¿½n.
 	 */
 	private Button bt_Import;
 
 	/**
-	 * Casilla de selección que indica si la búsqueda ha de ser recursiva o no.
+	 * Casilla de selecciï¿½n que indica si la bï¿½squeda ha de ser recursiva o no.
 	 */
 	private Button cbt_Recursive;
 	
@@ -111,13 +112,13 @@ public class ImportWizard extends Dialog {
 	private HashMap<String, String> existing;
 
 	/**
-	 * Nombres de las refactorizaciones que, de importarse, sobreescribirían
+	 * Nombres de las refactorizaciones que, de importarse, sobreescribirï¿½an
 	 * otras ya existentes.
 	 */
 	private ArrayList<String> overwritten;
 
 	/**
-	 * Consejo mostrado al usuario sobre la búsqueda de refactorizaciones.
+	 * Consejo mostrado al usuario sobre la bï¿½squeda de refactorizaciones.
 	 */
 	private String advise;
 	
@@ -132,22 +133,22 @@ public class ImportWizard extends Dialog {
 	private HashMap<String, String> refactorings;
 
 	/**
-	 * Crea la ventana de diálogo.
+	 * Crea la ventana de diï¿½logo.
 	 * 
 	 * @param parentShell
-	 *            <i>shell</i> padre de la ventana de diálogo.
+	 *            <i>shell</i> padre de la ventana de diï¿½logo.
 	 */
 	public ImportWizard(Shell parentShell) {
 		super(parentShell);
 	}
 
 	/**
-	 * Crea el contenido de la ventana de diálogo.
+	 * Crea el contenido de la ventana de diï¿½logo.
 	 * 
 	 * @param parent
 	 *            componente padre de los contenidos de la ventana.
 	 * 
-	 * @return el control asociado al área de diálogo.
+	 * @return el control asociado al ï¿½rea de diï¿½logo.
 	 */
 	@Override
 	protected Control createDialogArea(Composite parent) {
@@ -208,8 +209,7 @@ public class ImportWizard extends Dialog {
 				formatter.applyPattern(form.format(count));
 				
 				t_Message.setText(formatter.format(messageArgs) + "."); //$NON-NLS-1$
-				lb_Icon.setImage(ResourceManager.getPluginImage(RefactoringPlugin.getDefault(),
-					"icons" + System.getProperty("file.separator") + "info.gif")); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
+				lb_Icon.setImage(RefactoringImages.getInfoIconPath());
 			}
 		});
 
@@ -229,8 +229,7 @@ public class ImportWizard extends Dialog {
 
 		cbt_Recursive = new Button(container, SWT.CHECK);
 		cbt_Recursive.setToolTipText(Messages.ImportWizard_SelectRecursive);
-		cbt_Recursive.setImage(ResourceManager.getPluginImage(RefactoringPlugin.getDefault(),
-			"icons" + System.getProperty("file.separator") + "recursive.gif")); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
+		cbt_Recursive.setImage(RefactoringImages.getRecursiveIconPath());
 		cbt_Recursive.setText(Messages.ImportWizard_Recursive);
 		cbt_Recursive.setBounds(294, 40, 107, 16);
 		
@@ -262,7 +261,7 @@ public class ImportWizard extends Dialog {
 	}
 
 	/**
-	 * Obtiene el tamaño inicial de la ventana de diálogo.
+	 * Obtiene el tamaï¿½o inicial de la ventana de diï¿½logo.
 	 */
 	@Override
 	protected Point getInitialSize() {
@@ -270,17 +269,16 @@ public class ImportWizard extends Dialog {
 	}
 
 	/**
-	 * Prepara la ventana de diálogo para su apertura.
+	 * Prepara la ventana de diï¿½logo para su apertura.
 	 * 
 	 * @param newShell
-	 *            <i>shell</i> que abrirá la ventana.
+	 *            <i>shell</i> que abrirï¿½ la ventana.
 	 */
 	@Override
 	protected void configureShell(Shell newShell) {
 		super.configureShell(newShell);
 		newShell.setText(Messages.ImportWizard_ImportRefactorings);
-		newShell.setImage(ResourceManager.getPluginImage(RefactoringPlugin.getDefault(),
-			"icons" + System.getProperty("file.separator") + "import.ico")); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
+		newShell.setImage(RefactoringImages.getImportIconPath());
 	}
 	
 	/**
@@ -303,11 +301,11 @@ public class ImportWizard extends Dialog {
 	}
 
 	/**
-	 * Implementa la funcionalidad de importación, lanzada como respuesta a la
-	 * pulsación del botón correspondiente.
+	 * Implementa la funcionalidad de importaciï¿½n, lanzada como respuesta a la
+	 * pulsaciï¿½n del botï¿½n correspondiente.
 	 * 
 	 * @param buttonId
-	 *            identificador del botón que ha sido pulsado en el diálogo.
+	 *            identificador del botï¿½n que ha sido pulsado en el diï¿½logo.
 	 */
 	@Override
 	protected void buttonPressed(int buttonId) {
@@ -342,7 +340,7 @@ public class ImportWizard extends Dialog {
 						formatter.format(messageArgs) + "."); //$NON-NLS-1$
 				}
 				catch (InterruptedException e) {
-					// El usuario canceló el proceso.
+					// El usuario cancelï¿½ el proceso.
 					logger.warn(e.getMessage());
 				}
 				catch (Exception exception){
@@ -357,8 +355,8 @@ public class ImportWizard extends Dialog {
 	}
 
 	/**
-	 * Actualiza el mensaje de aviso mostrado en la ventana, en función de los
-	 * valores de configuración actuales resultantes de la última búsqueda.
+	 * Actualiza el mensaje de aviso mostrado en la ventana, en funciï¿½n de los
+	 * valores de configuraciï¿½n actuales resultantes de la ï¿½ltima bï¿½squeda.
 	 */
 	private void updateMessage() {
 		if (overwritten != null && overwritten.size() > 0){
@@ -374,8 +372,7 @@ public class ImportWizard extends Dialog {
 			t_Message.setText(formatter.format(messageArgs) + ". " + //$NON-NLS-1$
 				Messages.ImportWizard_WillOverwrite +
 				"."); //$NON-NLS-1$
-			lb_Icon.setImage(ResourceManager.getPluginImage(RefactoringPlugin.getDefault(),
-				"icons" + System.getProperty("file.separator") + "warning.gif")); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
+			lb_Icon.setImage(RefactoringImages.getWarningIconPath());
 			
 		}						
 		else if (advise == null){
@@ -384,13 +381,11 @@ public class ImportWizard extends Dialog {
 			formatter.applyPattern(Messages.ImportWizard_NumberFound);
 			
 			t_Message.setText(formatter.format(messageArgs) + "."); //$NON-NLS-1$
-			lb_Icon.setImage(ResourceManager.getPluginImage(RefactoringPlugin.getDefault(),
-				"icons" + System.getProperty("file.separator") + "info.gif")); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
+			lb_Icon.setImage(RefactoringImages.getInfoIconPath());
 		}
 		else{
 			t_Message.setText(advise);
-			lb_Icon.setImage(ResourceManager.getPluginImage(RefactoringPlugin.getDefault(),
-				"icons" + System.getProperty("file.separator") + "warning.gif")); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
+			lb_Icon.setImage(RefactoringImages.getWarningIconPath());
 		}
 	}
 
@@ -406,7 +401,7 @@ public class ImportWizard extends Dialog {
 		 * Recibe notificaciones cada vez que se modifica el texto observado.
 		 * 
 		 * @param e
-		 *            el evento de modificación del texto.
+		 *            el evento de modificaciï¿½n del texto.
 		 */
 		@Override
 		public void modifyText(ModifyEvent e){
@@ -426,7 +421,7 @@ public class ImportWizard extends Dialog {
 					updateMessage();
 				}
 				catch (InterruptedException exception) {
-					// El usuario canceló el proceso.
+					// El usuario cancelï¿½ el proceso.
 					logger.warn(exception.getMessage());
 				}
 				catch (Exception exception){
@@ -440,14 +435,13 @@ public class ImportWizard extends Dialog {
 				String message = Messages.ImportWizard_FolderCannotBeAccessed;
 				logger.error(message + ": " + exception.getMessage()); //$NON-NLS-1$
 				t_Message.setText(message);
-				lb_Icon.setImage(ResourceManager.getPluginImage(RefactoringPlugin.getDefault(),
-					"icons" + System.getProperty("file.separator") + "error.gif")); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
+				lb_Icon.setImage(RefactoringImages.getErrorIconPath());
 			}
 		}
 	}
 
 	/**
-	 * Permite lanzar el trabajo de importación de refactorizaciones y hacer un
+	 * Permite lanzar el trabajo de importaciï¿½n de refactorizaciones y hacer un
 	 * seguimiento de su progreso.
 	 * 
 	 * @author <A HREF="mailto:sfd0009@alu.ubu.es">Sonia Fuente de la Fuente</A>
@@ -470,20 +464,20 @@ public class ImportWizard extends Dialog {
 		}
 
 		/**
-		 * Ejecuta el trabajo de importación de refactorizaciones.
+		 * Ejecuta el trabajo de importaciï¿½n de refactorizaciones.
 		 * 
 		 * @param monitor
-		 *            el monitor de progreso que deberá usarse para mostrar el
+		 *            el monitor de progreso que deberï¿½ usarse para mostrar el
 		 *            progreso.
 		 * 
 		 * @throws InvocationTargetException
-		 *             utilizada como envoltura si el método debe propagar una
-		 *             excepción (<i>checked exception</i>). Las excepciones de
+		 *             utilizada como envoltura si el mï¿½todo debe propagar una
+		 *             excepciï¿½n (<i>checked exception</i>). Las excepciones de
 		 *             tipo <i>runtime exception</i> se envuelven
-		 *             automáticamente en una excepción de este tipo por el
-		 *             contexto que efectúa la llamada.
+		 *             automï¿½ticamente en una excepciï¿½n de este tipo por el
+		 *             contexto que efectï¿½a la llamada.
 		 * @throws InterruptedException
-		 *             si la operación detecta una solicitud de cancelación (no
+		 *             si la operaciï¿½n detecta una solicitud de cancelaciï¿½n (no
 		 *             disponible).
 		 * 
 		 * @see IRunnableWithProgress#run(IProgressMonitor)
@@ -502,7 +496,7 @@ public class ImportWizard extends Dialog {
 					formatter.applyPattern(Messages.ImportWizard_ImportingFile);					
 					monitor.subTask(formatter.format(messageArgs) + "..."); //$NON-NLS-1$
 
-					// Se obtiene la ruta del fichero con la definición.
+					// Se obtiene la ruta del fichero con la definiciï¿½n.
 					String definition = refactorings.get(next);
 					String folder = new File(definition).getParent();
 				
@@ -511,7 +505,7 @@ public class ImportWizard extends Dialog {
 								definition, false);
 					} catch (FileNotFoundException e) {
 
-						// Elimina la carpeta de la refactorización ya que
+						// Elimina la carpeta de la refactorizaciï¿½n ya que
 							// si ha llegado
 							//a este punto quiere decir que no se ha podido completar la tarea
 							//adecuadamente.
@@ -547,7 +541,7 @@ public class ImportWizard extends Dialog {
 	}
 
 	/**
-	 * Permite lanzar el trabajo de búsqueda de refactorizaciones y hacer un
+	 * Permite lanzar el trabajo de bï¿½squeda de refactorizaciones y hacer un
 	 * seguimiento de su progreso.
 	 * 
 	 * @author <A HREF="mailto:sfd0009@alu.ubu.es">Sonia Fuente de la Fuente</A>
@@ -561,7 +555,7 @@ public class ImportWizard extends Dialog {
 		private String folder;
 
 		/**
-		 * Si la búsqueda ha de ser recursiva o no.
+		 * Si la bï¿½squeda ha de ser recursiva o no.
 		 */
 		private boolean recursive;
 
@@ -572,7 +566,7 @@ public class ImportWizard extends Dialog {
 		 *            directorio a partir del que se deben buscar las
 		 *            refactorizaciones.
 		 * @param recursive
-		 *            si la búsqueda debe ser recursiva o no.
+		 *            si la bï¿½squeda debe ser recursiva o no.
 		 */
 		public RefactoringSearchJob(String folder, boolean recursive){
 			this.folder = folder;
@@ -580,20 +574,20 @@ public class ImportWizard extends Dialog {
 		}
 
 		/**
-		 * Ejecuta el trabajo de búsqueda de refactorizaciones.
+		 * Ejecuta el trabajo de bï¿½squeda de refactorizaciones.
 		 * 
 		 * @param monitor
-		 *            el monitor de progreso que deberá usarse para mostrar el
+		 *            el monitor de progreso que deberï¿½ usarse para mostrar el
 		 *            progreso.
 		 * 
 		 * @throws InvocationTargetException
-		 *             utilizada como envoltura si el método debe propagar una
-		 *             excepción (<i>checked exception</i>). Las excepciones de
+		 *             utilizada como envoltura si el mï¿½todo debe propagar una
+		 *             excepciï¿½n (<i>checked exception</i>). Las excepciones de
 		 *             tipo <i>runtime exception</i> se envuelven
-		 *             automáticamente en una excepción de este tipo por el
-		 *             contexto que efectúa la llamada.
+		 *             automï¿½ticamente en una excepciï¿½n de este tipo por el
+		 *             contexto que efectï¿½a la llamada.
 		 * @throws InterruptedException
-		 *             si la operación detecta una solicitud de cancelación (no
+		 *             si la operaciï¿½n detecta una solicitud de cancelaciï¿½n (no
 		 *             disponible).
 		 * 
 		 * @see IRunnableWithProgress#run(IProgressMonitor)
@@ -622,8 +616,8 @@ public class ImportWizard extends Dialog {
 					monitor.subTask(formatter.format(messageArgs) + "..."); //$NON-NLS-1$
 					
 					try {
-						// Se intenta obtener la definición de la siguiente
-						// refactorización.
+						// Se intenta obtener la definiciï¿½n de la siguiente
+						// refactorizaciï¿½n.
 						DynamicRefactoringDefinition.getRefactoringDefinition(path);
 						
 						// Solo se recogen refactorizaciones cuya carpeta se
@@ -640,14 +634,14 @@ public class ImportWizard extends Dialog {
 							throw new Exception();
 						}
 						
-						// Si ya hay una refactorización con ese nombre.
+						// Si ya hay una refactorizaciï¿½n con ese nombre.
 						if (existing.containsKey(names[i])){
 							String old = new File(existing.get(names[i])).getCanonicalPath();
 							String now = new File(path).getCanonicalPath();
 							// Si es una de las existentes, se descarta.
 							if (old.equals(now))
 								refactorings.remove(names[i]);
-							// Si no, se añade un aviso de sobreescritura.
+							// Si no, se aï¿½ade un aviso de sobreescritura.
 							else
 								overwritten.add(names[i].substring(0, 
 									names[i].indexOf(" ("))); //$NON-NLS-1$

@@ -306,8 +306,7 @@ public class SelectRefactoringWindow extends Dialog {
 			newShell.setText(Messages.SelectRefactoringWindow_CodeFragmentScope);
 			break;
 		}
-		newShell.setImage(ResourceManager.getPluginImage(RefactoringPlugin.getDefault(),
-				RefactoringImages.REF_ICON_PATH)); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
+		newShell.setImage(RefactoringImages.getRefIcon());
 	}
 	
 	/**

@@ -43,6 +43,7 @@ import org.eclipse.ui.IWorkbenchWizard;
 import com.swtdesigner.ResourceManager;
 
 import dynamicrefactoring.RefactoringConstants;
+import dynamicrefactoring.RefactoringImages;
 import dynamicrefactoring.RefactoringPlugin;
 import dynamicrefactoring.domain.DynamicRefactoringDefinition;
 import dynamicrefactoring.domain.Scope;
@@ -151,9 +152,8 @@ public class RefactoringWizard extends Wizard implements INewWizard {
 		super();
 		setNeedsProgressMonitor(true);
 		
-		setDefaultPageImageDescriptor(ImageDescriptor.createFromImage(
-			ResourceManager.getPluginImage(RefactoringPlugin.getDefault(),
-				"icons" + System.getProperty("file.separator") + "siicon.png"))); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
+		setDefaultPageImageDescriptor(
+				ImageDescriptor.createFromImage(RefactoringImages.getSIIconPath()));
 		
 		setWindowTitle(Messages.RefactoringWizard_WizardTitle);
 		

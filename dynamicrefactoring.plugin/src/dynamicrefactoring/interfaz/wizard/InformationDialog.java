@@ -29,6 +29,8 @@ import org.eclipse.swt.widgets.Control;
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Shell;
 import com.swtdesigner.ResourceManager;
+
+import dynamicrefactoring.RefactoringImages;
 import dynamicrefactoring.RefactoringPlugin;
 
 /**
@@ -41,26 +43,26 @@ import dynamicrefactoring.RefactoringPlugin;
 public class InformationDialog extends Dialog {
 
 	/**
-	 * Título asociado al diálogo.
+	 * Tï¿½tulo asociado al diï¿½logo.
 	 */
 	String title;
 	
 	/**
-	 * Mensaje que muestra el diálogo.
+	 * Mensaje que muestra el diï¿½logo.
 	 */
 	String message;
 	
 	/**
-	 * Detalles que muestra en diálogo.
+	 * Detalles que muestra en diï¿½logo.
 	 */
 	String details;
 	
 	/**
-	 * Crea el diálogo.
+	 * Crea el diï¿½logo.
 	 * 
-	 * @param parentShell Venta sobre la que se abrirá el diálogo.
+	 * @param parentShell Venta sobre la que se abrirï¿½ el diï¿½logo.
 	 * @param title titulo.
-	 * @param message mensaje del diálogo.
+	 * @param message mensaje del diï¿½logo.
 	 * @param details detalles.
 	 */
 	public InformationDialog(Shell parentShell, String title, String message,String details) {
@@ -71,7 +73,7 @@ public class InformationDialog extends Dialog {
 	}
 
 	/**
-	 * Crea los contenidos del diálogo.
+	 * Crea los contenidos del diï¿½logo.
 	 * 
 	 * @param parent Compuesto padre.
 	 * @return  un objeto Control.
@@ -90,8 +92,7 @@ public class InformationDialog extends Dialog {
 		styledText.setText(details);
 
 		final Label icon = new Label(container, SWT.NONE);
-		icon.setImage(ResourceManager.getPluginImage(RefactoringPlugin.getDefault(),
-				"icons" + System.getProperty("file.separator") + "info.png"));
+		icon.setImage(RefactoringImages.getInfoIconPath());
 		icon.setBounds(10, 10, 41, 57);
 		
 		final Label details = new Label(container, SWT.NONE);
@@ -113,7 +114,7 @@ public class InformationDialog extends Dialog {
 	}
 
 	/**
-	 * Devuelve el tamaño inicial del diálogo.
+	 * Devuelve el tamaï¿½o inicial del diï¿½logo.
 	 */
 	@Override
 	protected Point getInitialSize() {
@@ -121,7 +122,7 @@ public class InformationDialog extends Dialog {
 	}
 	
 	/**
-	 * Configuración inicial de la ventana.
+	 * Configuraciï¿½n inicial de la ventana.
 	 */
 	protected void configureShell(Shell newShell) {
 		super.configureShell(newShell);

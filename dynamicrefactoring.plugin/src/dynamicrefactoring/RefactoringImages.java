@@ -37,6 +37,25 @@ public final class RefactoringImages {
 
 	public static final String FIL_ICON_PATH = ICONS_DIR + "fil.png"; //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
 
+	public static final String EXPORT_PLAN_ICON_PATH = ICONS_DIR + "export_plan.ico"; //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
+	
+	public static final String EXPORT_ICON_PATH = ICONS_DIR + "export.ico"; //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
+	
+	public static final String IMPORT_PLAN_ICON_PATH = ICONS_DIR + "import_plan.ico"; //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
+	
+	public static final String IMPORT_ICON_PATH = ICONS_DIR + "import.ico"; //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
+	
+	public static final String INFO_ICON_PATH = ICONS_DIR + "info.gif"; //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
+	
+	public static final String WARNING_ICON_PATH = ICONS_DIR + "warning.gif"; //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
+	
+	public static final String RECURSIVE_ICON_PATH = ICONS_DIR + "recursive.gif"; //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
+	
+	public static final String ERROR_ICON_PATH = ICONS_DIR + "error.gif"; //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
+	
+	public static final String SI_ICON_PATH = ICONS_DIR + "siicon.png"; //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
+	
+	
 	/**
 	 * Evita que se creen instancias del objeto.
 	 */
@@ -56,7 +75,7 @@ public final class RefactoringImages {
 	}
 
 	/**
-	 * Obtiene el icono referencia.
+	 * Obtiene el icono Refactoring.
 	 * 
 	 * @return imagen del icono
 	 */
@@ -65,7 +84,7 @@ public final class RefactoringImages {
 	}
 
 	/**
-	 * Obtiene el icono class.
+	 * Obtiene el icono Classification.
 	 * 
 	 * @return imagen del icono
 	 */
@@ -74,7 +93,7 @@ public final class RefactoringImages {
 	}
 
 	/**
-	 * Obtiene el icono cat.
+	 * Obtiene el icono categoria.
 	 * 
 	 * @return imagen del icono
 	 */
@@ -110,7 +129,7 @@ public final class RefactoringImages {
 	}
 
 	/**
-	 * Obtiene el icono splitI.
+	 * Obtiene el icono Split.
 	 * 
 	 * @return imagen del icono
 	 */
@@ -119,7 +138,7 @@ public final class RefactoringImages {
 	}
 
 	/**
-	 * Obtiene el icono SplitRI.
+	 * Obtiene el icono Split Right.
 	 * 
 	 * @return imagen del icono
 	 */
@@ -128,7 +147,7 @@ public final class RefactoringImages {
 	}
 
 	/**
-	 * Obtiene el icono splitLI.
+	 * Obtiene el icono Split Left.
 	 * 
 	 * @return imagen del icono
 	 */
@@ -137,7 +156,7 @@ public final class RefactoringImages {
 	}
 
 	/**
-	 * Obtiene el icono search.
+	 * Obtiene el icono Search.
 	 * 
 	 * @return imagen del icono
 	 */
@@ -146,11 +165,91 @@ public final class RefactoringImages {
 	}
 
 	/**
-	 * Obtiene el icono fil.
+	 * Obtiene el icono Filtered.
 	 * 
 	 * @return imagen del icono
 	 */
 	public final static Image getFilIcon() {
 		return getImageForPath(FIL_ICON_PATH);
+	}
+	
+	/**
+	 * Obtiene el icono  Export Plan.
+	 * @return imagen del icono
+	 */
+	public final static Image getExportPlanIconPath(){
+		return getImageForPath(EXPORT_PLAN_ICON_PATH);
+	};
+	
+	/**
+	 * Obtiene el icono Export.
+	 * 
+	 * @return imagen del icono
+	 */
+	public final static Image getExportIconPath(){
+		return getImageForPath(EXPORT_ICON_PATH);
+	}
+	
+	/**
+	 * Obtiene el icono Import Plan.
+	 * 
+	 * @return imagen del icono
+	 */
+	public final static Image getImportPlanIconPath(){
+		return getImageForPath(IMPORT_PLAN_ICON_PATH);
+	}
+	
+	/**
+	 * Obtiene el icono Import.
+	 * 
+	 * @return imagen del icono
+	 */
+	public final static Image getImportIconPath(){
+		return getImageForPath(IMPORT_ICON_PATH);
+	}
+	
+	/**
+	 * Obtiene el icono Info.
+	 * 
+	 * @return imagen del icono
+	 */
+	public final static Image getInfoIconPath(){
+		return getImageForPath(INFO_ICON_PATH);
+	}
+	
+	/**
+	 * Obtiene el icono Warning.
+	 * 
+	 * @return imagen del icono
+	 */
+	public final static Image getWarningIconPath(){
+		return getImageForPath(WARNING_ICON_PATH);
+	}	
+	
+	/**
+	 * Obtiene el icono Recursive.
+	 * 
+	 * @return imagen del icono
+	 */
+	public final static Image getRecursiveIconPath(){
+		return getImageForPath(RECURSIVE_ICON_PATH);
+	}
+	
+	/**
+	 * Obtiene el icono Error.
+	 * 
+	 * @return imagen del icono
+	 */
+	public final static Image getErrorIconPath(){
+		return getImageForPath(ERROR_ICON_PATH);
+	}
+	
+	/**
+	 * Obtiene el icono SI.
+	 * 
+	 * @return imagen del icono
+	 */
+	public final static Image getSIIconPath(){
+		return getImageForPath(SI_ICON_PATH);
 	}
 }
