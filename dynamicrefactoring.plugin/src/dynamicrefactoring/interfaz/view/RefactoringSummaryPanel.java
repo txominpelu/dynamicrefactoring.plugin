@@ -91,7 +91,7 @@ public class RefactoringSummaryPanel {
 	/**
 	 * Conjunto de checkButton que se muestran en la pesta�a de entradas.
 	 */
-	private ArrayList<Button> checkButtonsInputsTab=new ArrayList<Button>();
+	private ArrayList<Button> checkButtonsInputsTab;
 
 	/**
 	 * Tabla en que se mostrar�n las entradas de la refactorizaci�n.
@@ -117,6 +117,7 @@ public class RefactoringSummaryPanel {
 
 	public RefactoringSummaryPanel(Composite parent){
 
+		checkButtonsInputsTab=new ArrayList<Button>();
 		FormData refFormData=null;
 
 		//titleLabel

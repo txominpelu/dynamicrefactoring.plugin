@@ -31,6 +31,14 @@ public interface ClassifiedFilterableCatalog<K> {
 	List<Predicate<K>> getAllFilterConditions();
 
 	/**
+	 * Determina si se encuentra vacio el filtro de condiciones.
+	 * 
+	 * @return devuelve verdadero si el filtro se encuentra vacio de condiciones, 
+	 * falso en caso contrario.
+	 */
+	boolean isEmptyFilter();
+	
+	/**
 	 * Devuelve el conjunto de los elementos que contiene el catalogo
 	 * clasificado por categorias.
 	 * 
@@ -40,7 +48,7 @@ public interface ClassifiedFilterableCatalog<K> {
 	ClassifiedElements<K> getClassificationOfElements(boolean showFiltered);
 
 	/**
-	 * Construye una catálogo con los mismos filtros y elementos que el actual
+	 * Construye una catï¿½logo con los mismos filtros y elementos que el actual
 	 * pero con una clasificacion distinta.
 	 * 
 	 * @param classification
@@ -51,7 +59,7 @@ public interface ClassifiedFilterableCatalog<K> {
 	ClassifiedFilterableCatalog<K> newInstance(Classification classification);
 
 	/**
-	 * Devuelve la clasificación que divide en categorias los elementos de este
+	 * Devuelve la clasificaciï¿½n que divide en categorias los elementos de este
 	 * catalogo.
 	 * 
 	 * @return clasificacion que divide en categorias el catalogo.

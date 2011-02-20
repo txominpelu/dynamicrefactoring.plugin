@@ -29,9 +29,9 @@ public final class RefactoringImages {
 
 	public static final String SPLIT_ICON_PATH = ICONS_DIR + "split.png"; //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
 
-	public static final String SPLIT_R_ICON_PATH = ICONS_DIR + "split_r.png"; //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
+	public static final String SPLIT_RIGHT_ICON_PATH = ICONS_DIR + "split_right.png"; //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
 
-	public static final String SPLIT_L_ICON_PATH = ICONS_DIR + "split_l.png"; //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
+	public static final String SPLIT_LEFT_ICON_PATH = ICONS_DIR + "split_left.png"; //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
 
 	public static final String SEARCH_ICON_PATH = ICONS_DIR + "search.png"; //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
 
@@ -55,6 +55,17 @@ public final class RefactoringImages {
 	
 	public static final String SI_ICON_PATH = ICONS_DIR + "siicon.png"; //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
 	
+	public static final String CONFIGURE_ICON_PATH = ICONS_DIR + "configure.ico"; //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
+	
+	public static final String UNDO_ICON_PATH = ICONS_DIR + "undo.ico"; //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
+	
+	public static final String ARROW_UP_ICON_PATH = ICONS_DIR + "arrow_up.gif"; //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
+	
+	public static final String ARROW_DOWN_ICON_PATH = ICONS_DIR + "arrow_down.gif"; //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
+	
+	public static final String ARROW_RIGHT_ICON_PATH = ICONS_DIR + "arrow_right.gif"; //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
+	
+	public static final String ARROW_LEFT_ICON_PATH = ICONS_DIR + "arrow_left.gif"; //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
 	
 	/**
 	 * Evita que se creen instancias del objeto.
@@ -142,8 +153,8 @@ public final class RefactoringImages {
 	 * 
 	 * @return imagen del icono
 	 */
-	public final static Image getSplitRIcon() {
-		return getImageForPath(SPLIT_R_ICON_PATH);
+	public final static Image getSplitRightIcon() {
+		return getImageForPath(SPLIT_RIGHT_ICON_PATH);
 	}
 
 	/**
@@ -151,8 +162,8 @@ public final class RefactoringImages {
 	 * 
 	 * @return imagen del icono
 	 */
-	public final static Image getSplitLIcon() {
-		return getImageForPath(SPLIT_L_ICON_PATH);
+	public final static Image getSplitLeftIcon() {
+		return getImageForPath(SPLIT_LEFT_ICON_PATH);
 	}
 
 	/**
@@ -252,4 +263,59 @@ public final class RefactoringImages {
 	public final static Image getSIIconPath(){
 		return getImageForPath(SI_ICON_PATH);
 	}
+	
+	/**
+	 * Obtiene el icono Configure.
+	 * 
+	 * @return imagen del icono
+	 */
+	public final static Image getConfigureIconPath(){
+		return getImageForPath(CONFIGURE_ICON_PATH);
+	}
+	
+	/**
+	 * Obtiene el icono Undo.
+	 * 
+	 * @return imagen del icono
+	 */
+	public final static Image getUndoIconPath(){
+		return getImageForPath(UNDO_ICON_PATH);
+	}
+	
+	/**
+	 * Obtiene el icono Arrow Up.
+	 * 
+	 * @return imagen del icono
+	 */
+	public final static Image getArrowUpIconPath(){
+		return getImageForPath(ARROW_UP_ICON_PATH);
+	}
+	
+	/**
+	 * Obtiene el icono Arrow Down.
+	 * 
+	 * @return imagen del icono
+	 */
+	public final static Image getArrowDownIconPath(){
+		return getImageForPath(ARROW_DOWN_ICON_PATH);
+	}
+	
+	/**
+	 * Obtiene el icono Arrow Right.
+	 * 
+	 * @return imagen del icono
+	 */
+	public final static Image getArrowRightIconPath(){
+		return getImageForPath(ARROW_RIGHT_ICON_PATH);
+	}
+	
+	/**
+	 * Obtiene el icono Arrow Left.
+	 * 
+	 * @return imagen del icono
+	 */
+	public final static Image getArrowLeftIconPath(){
+		return getImageForPath(ARROW_LEFT_ICON_PATH);
+	}
+		
 }

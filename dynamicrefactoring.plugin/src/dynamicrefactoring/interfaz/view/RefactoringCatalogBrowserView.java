@@ -19,11 +19,13 @@ import org.eclipse.jface.resource.ImageDescriptor;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.custom.SashForm;
 import org.eclipse.swt.custom.ScrolledComposite;
+import org.eclipse.swt.custom.TableEditor;
 import org.eclipse.swt.events.MouseEvent;
 import org.eclipse.swt.events.MouseListener;
 import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.events.SelectionListener;
+import org.eclipse.swt.graphics.Color;
 import org.eclipse.swt.layout.FormAttachment;
 import org.eclipse.swt.layout.FormData;
 import org.eclipse.swt.layout.FormLayout;
@@ -32,6 +34,9 @@ import org.eclipse.swt.widgets.Combo;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Label;
+import org.eclipse.swt.widgets.Table;
+import org.eclipse.swt.widgets.TableColumn;
+import org.eclipse.swt.widgets.TableItem;
 import org.eclipse.swt.widgets.Text;
 import org.eclipse.swt.widgets.Tree;
 import org.eclipse.swt.widgets.TreeItem;
@@ -130,7 +135,7 @@ public class RefactoringCatalogBrowserView extends ViewPart {
 	/**
 	 * Lista de condiciones que conforman el filtro actual aplicado.
 	 */
-	private Set<Predicate<DynamicRefactoringDefinition>> filter;
+	private ArrayList<Predicate<DynamicRefactoringDefinition>> filter;
 
 	/**
 	 * Etiqueta clasificación.
@@ -169,6 +174,18 @@ public class RefactoringCatalogBrowserView extends ViewPart {
 	 * también las refactorizaciones filtradas.
 	 */
 	private Button filteredButton;
+	
+	/**
+	 * Propiedad asociada a los botones de seleccion de condiciones
+	 * que indica en qué fila de la tabla se encuentran.
+	 */
+	private final String ROW_PROPERTY = "Row"; //$NON-NLS-1$
+	
+	/**
+	 * Tabla en la que se mostraránn las condiciones del filtro a aplicar
+	 * a las refactorizaciones para mostrar en el árbol.
+	 */
+	private Table conditionsTable;
 
 	/**
 	 * Split que separa en dos partes la vista.
@@ -248,7 +265,7 @@ public class RefactoringCatalogBrowserView extends ViewPart {
 		
 		classAction.setToolTipText(Messages.RefactoringCatalogBrowserView_ClassAction);
 		classAction.setImageDescriptor(
-				ImageDescriptor.createFromImage(RefactoringImages.getSplitLIcon()));
+				ImageDescriptor.createFromImage(RefactoringImages.getSplitLeftIcon()));
 		
 		refAction=new Action(){
 			public void run() {
@@ -260,7 +277,7 @@ public class RefactoringCatalogBrowserView extends ViewPart {
 		
 		refAction.setToolTipText(Messages.RefactoringCatalogBrowserView_RefAction);
 		refAction.setImageDescriptor(
-				ImageDescriptor.createFromImage(RefactoringImages.getSplitRIcon()));
+				ImageDescriptor.createFromImage(RefactoringImages.getSplitRightIcon()));
 		
 		classRefAction=new Action(){
 			public void run() {
@@ -351,11 +368,41 @@ public class RefactoringCatalogBrowserView extends ViewPart {
 		filteredButton.setLayoutData(classFormData);
 		filteredButton.addSelectionListener(new SelectionAdapter() {
 			public void widgetSelected(SelectionEvent e) {
-				if(!filter.isEmpty())
+				if(!catalog.isEmptyFilter())
 					showTree(catalog.getClassification().getName());	
 			}
 		});
 
+		//conditionsTable
+		conditionsTable = new Table(classComp, SWT.BORDER);
+		conditionsTable.setBackground(Display.getCurrent().getSystemColor(SWT.COLOR_WHITE));
+		conditionsTable.setEnabled(true);
+		conditionsTable.setLinesVisible(true);
+		conditionsTable.setHeaderVisible(true);
+		classFormData=new FormData();
+		classFormData.top=new FormAttachment(filteredButton,15);
+		classFormData.left=new FormAttachment(0,5);
+		classFormData.right=new FormAttachment(100,-5);
+		classFormData.bottom=new FormAttachment(100,-5);
+		conditionsTable.setLayoutData(classFormData);
+		
+		//se crean las columnas de la tabla
+		TableColumn selectedCol = new TableColumn(conditionsTable, SWT.NONE);
+		selectedCol.setText(Messages.RefactoringCatalogBrowserView_SelectedCol);
+		selectedCol.setResizable(false);
+		selectedCol.setToolTipText(Messages.RefactoringCatalogBrowserView_SelectedColToolTip);
+		TableColumn nameCol = new TableColumn(conditionsTable, SWT.NONE);
+		nameCol.setText(Messages.RefactoringCatalogBrowserView_NameCol);
+		TableColumn clearCol = new TableColumn(conditionsTable, SWT.NONE);
+		clearCol.setText(Messages.RefactoringCatalogBrowserView_ClearCol);
+		clearCol.setResizable(false);
+		clearCol.setToolTipText(Messages.RefactoringCatalogBrowserView_ClearColToolTip);
+		
+		TableColumn cols[]=conditionsTable.getColumns();
+		for(TableColumn col : cols){
+			col.pack();
+		}
+		
 		//mostrar por defecto la clasificacion None
 		classCombo.select(0);
 		descClassLabel.setText(NONE_CLASSIFICATION.getDescription());
@@ -450,7 +497,7 @@ public class RefactoringCatalogBrowserView extends ViewPart {
 	private void createCatalog(){
 		Set<DynamicRefactoringDefinition> drd = 
 			new HashSet<DynamicRefactoringDefinition>(refactorings.values());
-		filter=new HashSet<Predicate<DynamicRefactoringDefinition>>();
+		filter=new ArrayList<Predicate<DynamicRefactoringDefinition>>();
 		catalog=new ElementCatalog<DynamicRefactoringDefinition>(
 				drd, NONE_CLASSIFICATION);
 	}
@@ -517,7 +564,7 @@ public class RefactoringCatalogBrowserView extends ViewPart {
 	 * @param dRefactDef lista de refactorizaciones
 	 * @param catTreeItem 
 	 * @param filtered indicador de filtrado. Si es verdadero se trata de
-	 * 			refactorizaciones filtradas, falso en caso contrario;
+	 * 			refactorizaciones filtradas, falso en caso contrario.
 	 */
 	private void createTreeItemFromParent(
 			ArrayList<DynamicRefactoringDefinition> dRefactDef,
@@ -565,8 +612,8 @@ public class RefactoringCatalogBrowserView extends ViewPart {
 			}
 
 			descClassLabel.setText(classSelected.getDescription());
-			catalog=(ElementCatalog<DynamicRefactoringDefinition>) 
-			catalog.newInstance(classSelected);
+			catalog=
+				(ElementCatalog<DynamicRefactoringDefinition>)catalog.newInstance(classSelected);
 			showTree(classSelected.getName());
 		}
 
@@ -601,10 +648,52 @@ public class RefactoringCatalogBrowserView extends ViewPart {
 			widgetSelected(e);
 		}
 		
+		private void addConditionToTable(Predicate<DynamicRefactoringDefinition> condition){
+			
+			TableItem item=new TableItem(conditionsTable, SWT.BORDER);
+			item.setText (1, condition.toString());
+			
+			final TableEditor editor = new TableEditor(conditionsTable);
+			
+			Button checkButton= new Button(conditionsTable, SWT.CHECK);
+			checkButton.addSelectionListener(new SelectionAdapter() {
+				public void widgetSelected(SelectionEvent e) {
+					if(e.getSource() instanceof Button){
+						Button button=(Button)e.getSource();
+						int row=((Integer)button.getData(ROW_PROPERTY)).intValue();
+						Color c;
+						if(button.getSelection()){
+							catalog.addConditionToFilter(filter.get(row));
+							c=Display.getCurrent().getSystemColor(SWT.COLOR_BLACK);
+						}else{
+							catalog.removeConditionFromFilter(filter.get(row));
+							c=Display.getCurrent().getSystemColor(SWT.COLOR_DARK_GRAY);
+						}
+						conditionsTable.getItem(row).setForeground(c);
+						showTree(classCombo.getText());
+					}
+				}
+			});
+			checkButton.setData(ROW_PROPERTY, conditionsTable.indexOf(item));
+			checkButton.setSelection(true);
+			checkButton.setEnabled(true);
+			checkButton.pack();
+			
+			editor.minimumWidth = checkButton.getSize().x;
+			editor.horizontalAlignment = SWT.CENTER;
+			editor.setEditor(checkButton, item, 0);
+			
+			TableColumn cols[]=conditionsTable.getColumns();
+			for(TableColumn col : cols){
+				col.pack();
+			}
+		}
+		
 		private void addConditionToFilter(Predicate<DynamicRefactoringDefinition> condition){
 			if(condition!=null){
 				if(!filter.contains(condition)){
 					filter.add(condition);
+					addConditionToTable(condition);
 					catalog.addConditionToFilter(condition);
 					showTree(classCombo.getText());
 				}else{

@@ -70,6 +70,7 @@ import repository.moon.MOONRefactoring;
 import com.swtdesigner.ResourceManager;
 
 import dynamicrefactoring.RefactoringConstants;
+import dynamicrefactoring.RefactoringImages;
 import dynamicrefactoring.RefactoringPlugin;
 import dynamicrefactoring.domain.DynamicRefactoring;
 import dynamicrefactoring.domain.DynamicRefactoringDefinition;
@@ -649,9 +650,7 @@ public class DynamicRefactoringWindow extends Dialog {
 	protected void configureShell(Shell newShell) {
 		super.configureShell(newShell);
 		newShell.setText(Messages.DynamicRefactoringWindow_Refactoring + refactoringName);
-		newShell.setImage(ResourceManager.getPluginImage(
-			RefactoringPlugin.getDefault(), 
-			"icons" + System.getProperty("file.separator") + "configure.ico")); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
+		newShell.setImage(RefactoringImages.getConfigureIconPath());
 	}
 
 	/**

@@ -65,12 +65,12 @@ public final class Category implements Comparable<Category> {
 
 	@Override
 	public int hashCode() {
-		return Objects.hashCode(this.getName(), this.getParent());
+		return Objects.hashCode(name.toLowerCase(), parent.toLowerCase());
 	}
 
 	@Override
 	public int compareTo(Category o) {
-		return name.compareTo(o.getName());
+		return name.toLowerCase().compareTo(o.getName().toLowerCase());
 	}
 
 }
