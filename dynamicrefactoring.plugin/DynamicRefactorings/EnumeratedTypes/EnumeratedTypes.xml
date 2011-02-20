@@ -2,7 +2,7 @@
 	<information>
 		<description>Convierte una clase con una serie de atributos finales y características en un tipo enumerado.</description>
 		<motivation>A partir de la versión 1.5 de java aparecen los tipos enumerados que antes se tenían que resolver a partir de clases. Se accede a los valores de la enumeración de la forma Nota.DO (siendo Nota el nombre tipo enumerado y DO uno de los elementos quelos componen) en cualquiera de las dos soluciones y el resto del código no sufre ninguna modificación.</motivation>
-	<categorization><classification name="scope"><category>Class</category></classification></categorization></information>
+	<categorization><classification name="Scope"><category>Class</category></classification></categorization></information>
 	<inputs>
 		<input from="clase" method="getName" name="className" root="false" type="moon.core.Name"/>
 		<input name="clase" root="true" type="javamoon.core.classdef.JavaClassDef"/>

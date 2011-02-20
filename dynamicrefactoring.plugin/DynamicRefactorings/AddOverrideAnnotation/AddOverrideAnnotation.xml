@@ -3,7 +3,7 @@
 		<description>Añade una anotación indicando que el cuerpo de el método de la superclase ha sido sobrescrito.</description>
 		<image src="imagen.tiff"/>
 		<motivation>La herencia de clases es una de las propiedades más importantes dentro de la programación orientada a objetos , por ello poder detectar los métodos que sobrescriben a los de la superclase puede facilitar la visión de conjunto cuando trabajemos con polimorfismo.</motivation>
-	<categorization><classification name="scope"><category>Method</category></classification></categorization></information>
+	<categorization><classification name="Scope"><category>Method</category></classification></categorization></information>
 	<inputs>
 		<input name="Model" root="false" type="moon.core.Model"/>
 		<input from="method" method="getClassDef" name="class" root="false" type="moon.core.classdef.ClassDef"/>

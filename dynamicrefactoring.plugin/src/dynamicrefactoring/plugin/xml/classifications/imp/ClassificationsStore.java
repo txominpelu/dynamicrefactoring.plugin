@@ -25,7 +25,7 @@ public class ClassificationsStore {
 
 	private Set<Classification> classifications;
 
-	public static final String SCOPE_CLASSIFICATION = "scope";
+	public static final String SCOPE_CLASSIFICATION = "Scope";
 
 	/**
 	 * Crea el almacen y lee las clasificaciones del fichero de clasificaciones

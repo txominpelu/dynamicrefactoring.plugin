@@ -26,7 +26,7 @@ public class EditRefactoringTest {
 
 	private static final String FOWLER_CLASSIF = "Fowler";
 
-	private static final String SCOPE_CLASSIF = "scope";
+	private static final String SCOPE_CLASSIF = "Scope";
 
 	private RefactoringWizardPage1Object refactoringWizardPageObject;
 

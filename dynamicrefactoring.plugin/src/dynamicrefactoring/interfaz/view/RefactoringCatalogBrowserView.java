@@ -311,6 +311,7 @@ public class RefactoringCatalogBrowserView extends ViewPart {
 		classFormData=new FormData();
 		classFormData.top=new FormAttachment(classLabel,15);
 		classFormData.left=new FormAttachment(0,5);
+		classFormData.right=new FormAttachment(100,-5);
 		descClassLabel.setLayoutData(classFormData);
 
 		//searchText

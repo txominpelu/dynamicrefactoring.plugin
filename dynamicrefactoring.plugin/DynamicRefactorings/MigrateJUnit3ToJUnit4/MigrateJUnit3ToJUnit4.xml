@@ -2,7 +2,7 @@
 	<information>
 		<description>Migración de tests realizados en la version JUnit 3.x a una versión JUnit 4.x utilizando anotaciones.</description>
 		<motivation>La migración entre versiones es un problema habitual.</motivation>
-	<categorization><classification name="scope"><category>Class</category></classification></categorization></information>
+	<categorization><classification name="Scope"><category>Class</category></classification></categorization></information>
 	<inputs>
 		<input name="Class" root="true" type="moon.core.classdef.ClassDef"/>
 		<input from="Class" method="getClassType" name="Class_type" root="false" type="moon.core.classdef.ClassType"/>
