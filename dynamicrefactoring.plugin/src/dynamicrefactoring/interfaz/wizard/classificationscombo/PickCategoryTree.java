@@ -272,6 +272,9 @@ public final class PickCategoryTree {
 			if (element instanceof Classification) {
 				return ((Classification) element).getName();
 			}
+			if (element instanceof Category) {
+				return ((Category) element).getName();
+			}
 			return element.toString();
 		}
 

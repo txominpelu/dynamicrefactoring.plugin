@@ -33,7 +33,9 @@ import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Combo;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Display;
+import org.eclipse.swt.widgets.Event;
 import org.eclipse.swt.widgets.Label;
+import org.eclipse.swt.widgets.Listener;
 import org.eclipse.swt.widgets.Table;
 import org.eclipse.swt.widgets.TableColumn;
 import org.eclipse.swt.widgets.TableItem;
@@ -180,6 +182,18 @@ public class RefactoringCatalogBrowserView extends ViewPart {
 	 * que indica en qué fila de la tabla se encuentran.
 	 */
 	private final String ROW_PROPERTY = "Row"; //$NON-NLS-1$
+	
+	/**
+	 * Propiedad asociada a las filas de la tabla que indica qué botón check tienen 
+	 * asociado cada una.
+	 */
+	private final String CHECKBUTTON_PROPERTY = "checkButton"; //$NON-NLS-1$
+	
+	/**
+	 * Propiedad asociada a las filas de la tabla que indica qué botón clear tienen 
+	 * asociado cada una.
+	 */
+	private final String CLEARBUTTON_PROPERTY = "clearButton"; //$NON-NLS-1$
 	
 	/**
 	 * Tabla en la que se mostraránn las condiciones del filtro a aplicar
@@ -650,19 +664,23 @@ public class RefactoringCatalogBrowserView extends ViewPart {
 		
 		private void addConditionToTable(Predicate<DynamicRefactoringDefinition> condition){
 			
+			conditionsTable.setVisible(false);
+			
 			TableItem item=new TableItem(conditionsTable, SWT.BORDER);
 			item.setText (1, condition.toString());
 			
-			final TableEditor editor = new TableEditor(conditionsTable);
+			TableEditor editor = null;
 			
+			//checkButton
+			editor = new TableEditor(conditionsTable);
 			Button checkButton= new Button(conditionsTable, SWT.CHECK);
 			checkButton.addSelectionListener(new SelectionAdapter() {
 				public void widgetSelected(SelectionEvent e) {
 					if(e.getSource() instanceof Button){
-						Button button=(Button)e.getSource();
-						int row=((Integer)button.getData(ROW_PROPERTY)).intValue();
+						Button checkB=(Button)e.getSource();
+						int row=((Integer)checkB.getData(ROW_PROPERTY)).intValue();
 						Color c;
-						if(button.getSelection()){
+						if(checkB.getSelection()){
 							catalog.addConditionToFilter(filter.get(row));
 							c=Display.getCurrent().getSystemColor(SWT.COLOR_BLACK);
 						}else{
@@ -676,17 +694,68 @@ public class RefactoringCatalogBrowserView extends ViewPart {
 			});
 			checkButton.setData(ROW_PROPERTY, conditionsTable.indexOf(item));
 			checkButton.setSelection(true);
-			checkButton.setEnabled(true);
 			checkButton.pack();
-			
+			item.setData(CHECKBUTTON_PROPERTY, checkButton);
 			editor.minimumWidth = checkButton.getSize().x;
+			editor.minimumHeight = checkButton.getSize().y-1;
 			editor.horizontalAlignment = SWT.CENTER;
 			editor.setEditor(checkButton, item, 0);
+			
+			//clearButton
+			editor = new TableEditor(conditionsTable);
+			Button clearButton = new Button(conditionsTable, SWT.NONE | SWT.BORDER_SOLID);
+			clearButton.setImage(RefactoringImages.getClearIconPath());
+			clearButton.addSelectionListener(new SelectionAdapter() {
+				public void widgetSelected(SelectionEvent e) {
+					if(e.getSource() instanceof Button){
+						Button clearB=(Button)e.getSource();
+						int row=((Integer)clearB.getData(ROW_PROPERTY)).intValue();
+						
+						TableItem itemSelected = conditionsTable.getItem(row);
+						TableItem itemLast = conditionsTable.getItem(conditionsTable.getItemCount()-1);
+						
+						System.out.println("selected: " + row);
+//						int i=conditionsTable.getItemCount()-1;
+//						System.out.println("last:" + i);
+//						
+//						//recuperamos los botones check y clear asociados 
+//						//a la última fila para eliminarlo
+//						Object checkBLast=itemLast.getData(CHECKBUTTON_PROPERTY);
+//						Object clearBLast=itemLast.getData(CLEARBUTTON_PROPERTY);
+//						
+//						conditionsTable.setVisible(false);
+//						if (checkBLast instanceof Button){
+//							System.out.println("checkB: " +((Integer)((Button)checkBLast).getData(ROW_PROPERTY)).intValue());
+//							((Button)checkBLast).dispose();
+//						}
+//						if (clearBLast instanceof Button){
+//							System.out.println("clearB: " +((Integer)((Button)clearBLast).getData(ROW_PROPERTY)).intValue());
+//							((Button)clearBLast).dispose();
+//							}
+//						//elimiamos la propia fila
+//						conditionsTable.remove(row);
+//						itemSelected.dispose();
+//						conditionsTable.setVisible(true);
+//						
+//						catalog.removeConditionFromFilter(filter.get(row));
+//						filter.remove(row);
+//						showTree(classCombo.getText());
+					}
+				}
+			});
+			clearButton.setData(ROW_PROPERTY, conditionsTable.indexOf(item));
+			clearButton.pack();
+			item.setData(CLEARBUTTON_PROPERTY, clearButton);
+			editor.grabHorizontal=true;
+			editor.minimumHeight=15;
+			editor.setEditor(clearButton, item, 2);
 			
 			TableColumn cols[]=conditionsTable.getColumns();
 			for(TableColumn col : cols){
 				col.pack();
 			}
+			
+			conditionsTable.setVisible(true);
 		}
 		
 		private void addConditionToFilter(Predicate<DynamicRefactoringDefinition> condition){
