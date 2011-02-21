@@ -89,9 +89,10 @@ public class RefactoringSummaryPanel {
 	private Text categoriesText;
 	
 	/**
-	 * Conjunto de checkButton que se muestran en la pesta�a de entradas.
+	 * Propiedad asociada a las filas de la tabla que indica qué botón check tienen 
+	 * asociado cada una.
 	 */
-	private ArrayList<Button> checkButtonsInputsTab;
+	private final String CHECKBUTTON_PROPERTY = "checkButton"; //$NON-NLS-1$
 
 	/**
 	 * Tabla en que se mostrar�n las entradas de la refactorizaci�n.
@@ -117,7 +118,6 @@ public class RefactoringSummaryPanel {
 
 	public RefactoringSummaryPanel(Composite parent){
 
-		checkButtonsInputsTab=new ArrayList<Button>();
 		FormData refFormData=null;
 
 		//titleLabel
@@ -239,7 +239,7 @@ public class RefactoringSummaryPanel {
 		inputsTable.setLinesVisible(true);
 		inputsTable.setHeaderVisible(true);
 
-		//se crean las columnas de la tabla
+		//se crean las columnas de la tabla	
 		TableColumn nameCol = new TableColumn(inputsTable, SWT.NONE);
 		nameCol.setText(Messages.RefactoringSummaryPanel_Name);
 		TableColumn typeCol = new TableColumn(inputsTable, SWT.NONE);
@@ -305,12 +305,14 @@ public class RefactoringSummaryPanel {
 		//inputsTable
 		if(inputsTable.getItemCount()>0){
 			TableItem[] items=inputsTable.getItems();
-			for(int i=items.length-1; i>=0; i--)
+			for(int i=items.length-1; i>=0; i--){
+				//recuperamos elbotón check asociado a la fila para eliminarlo
+				Object checkB=items[i].getData(CHECKBUTTON_PROPERTY);
+				if(checkB instanceof Button)
+					((Button)checkB).dispose();
 				items[i].dispose();
+			}
 		}
-
-		for(Button bu:checkButtonsInputsTab)
-			bu.dispose();
 
 		//componentsTree
 		RefactoringTreeManager.cleanTree(componentsTree);
@@ -345,7 +347,7 @@ public class RefactoringSummaryPanel {
 				checkButton.setSelection(true);
 			checkButton.setEnabled(false);
 			checkButton.pack();
-			checkButtonsInputsTab.add(checkButton);
+			item.setData(CHECKBUTTON_PROPERTY, checkButton);
 			editor.minimumWidth = checkButton.getSize().x;
 			editor.horizontalAlignment = SWT.CENTER;
 			editor.setEditor(checkButton, item, 3);

@@ -33,9 +33,7 @@ import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Combo;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Display;
-import org.eclipse.swt.widgets.Event;
 import org.eclipse.swt.widgets.Label;
-import org.eclipse.swt.widgets.Listener;
 import org.eclipse.swt.widgets.Table;
 import org.eclipse.swt.widgets.TableColumn;
 import org.eclipse.swt.widgets.TableItem;
@@ -106,18 +104,6 @@ public class RefactoringCatalogBrowserView extends ViewPart {
 	 * </p>
 	 */
 	private HashMap<String, DynamicRefactoringDefinition> refactorings;
-
-	/**
-	 * Tabla con las rutas de los ficheros asociados a las refactorizaciones.
-	 */
-	// TODO: revisar si no es necesario para eliminarlo
-	private HashMap<String, String> refactoringLocations;
-
-	/**
-	 * Nombres de las refactorizaciones disponibles.
-	 */
-	// TODO: revisar si no es necesario para eliminarlo
-	private ArrayList<String> refactoringNames;
 
 	/**
 	 * Almacen con todas las clasificaciones.
@@ -469,8 +455,6 @@ public class RefactoringCatalogBrowserView extends ViewPart {
 				listing.getDynamicRefactoringNameList(
 						RefactoringPlugin.getDynamicRefactoringsDir(),true, null);
 
-			refactoringNames = new ArrayList<String>();
-			refactoringLocations = new HashMap<String, String>();
 			refactorings = new HashMap<String, DynamicRefactoringDefinition>();
 
 			for (Map.Entry<String, String> nextRef : allRefactorings.entrySet()) {
@@ -483,9 +467,6 @@ public class RefactoringCatalogBrowserView extends ViewPart {
 
 					if (definition != null && definition.getName() != null) {
 						refactorings.put(definition.getName(), definition);
-						refactoringLocations.put(definition.getName(),
-								nextRef.getValue());
-						refactoringNames.add(definition.getName());
 					}
 				} catch (RefactoringException e) {
 					e.printStackTrace();
@@ -667,7 +648,7 @@ public class RefactoringCatalogBrowserView extends ViewPart {
 			conditionsTable.setVisible(false);
 			
 			TableItem item=new TableItem(conditionsTable, SWT.BORDER);
-			item.setText (1, condition.toString());
+			item.setText(1, condition.toString());
 			
 			TableEditor editor = null;
 			
@@ -711,35 +692,29 @@ public class RefactoringCatalogBrowserView extends ViewPart {
 						Button clearB=(Button)e.getSource();
 						int row=((Integer)clearB.getData(ROW_PROPERTY)).intValue();
 						
-						TableItem itemSelected = conditionsTable.getItem(row);
 						TableItem itemLast = conditionsTable.getItem(conditionsTable.getItemCount()-1);
+						//recuperamos los botones check y clear asociados a la última fila
+						Object checkBLast=itemLast.getData(CHECKBUTTON_PROPERTY);
+						Object clearBLast=itemLast.getData(CLEARBUTTON_PROPERTY);
 						
-						System.out.println("selected: " + row);
-//						int i=conditionsTable.getItemCount()-1;
-//						System.out.println("last:" + i);
-//						
-//						//recuperamos los botones check y clear asociados 
-//						//a la última fila para eliminarlo
-//						Object checkBLast=itemLast.getData(CHECKBUTTON_PROPERTY);
-//						Object clearBLast=itemLast.getData(CLEARBUTTON_PROPERTY);
-//						
-//						conditionsTable.setVisible(false);
-//						if (checkBLast instanceof Button){
-//							System.out.println("checkB: " +((Integer)((Button)checkBLast).getData(ROW_PROPERTY)).intValue());
-//							((Button)checkBLast).dispose();
-//						}
-//						if (clearBLast instanceof Button){
-//							System.out.println("clearB: " +((Integer)((Button)clearBLast).getData(ROW_PROPERTY)).intValue());
-//							((Button)clearBLast).dispose();
-//							}
-//						//elimiamos la propia fila
-//						conditionsTable.remove(row);
-//						itemSelected.dispose();
-//						conditionsTable.setVisible(true);
-//						
-//						catalog.removeConditionFromFilter(filter.get(row));
-//						filter.remove(row);
-//						showTree(classCombo.getText());
+						conditionsTable.setVisible(false);
+						//eliminamos los botones recuperados
+						if(checkBLast instanceof Button)
+							((Button)checkBLast).dispose();
+						if(clearBLast instanceof Button)
+							((Button)clearBLast).dispose();
+						//reestablecemos los nombres de las condiciones
+						String nameCondition=null;
+						for(int i=row+1;i<conditionsTable.getItemCount();i++){
+							nameCondition=conditionsTable.getItem(i).getText(1);
+							conditionsTable.getItem(i-1).setText(1,nameCondition);	
+						}
+						itemLast.dispose();
+						conditionsTable.setVisible(true);
+		
+						catalog.removeConditionFromFilter(filter.get(row));
+						filter.remove(row);
+						showTree(classCombo.getText());
 					}
 				}
 			});
@@ -765,6 +740,7 @@ public class RefactoringCatalogBrowserView extends ViewPart {
 					addConditionToTable(condition);
 					catalog.addConditionToFilter(condition);
 					showTree(classCombo.getText());
+					searchText.setText(""); //reseteamos el Text al ser la condición válida
 				}else{
 					Object[] messageArgs = {condition.toString()};
 					MessageFormat formatter = new MessageFormat(""); //$NON-NLS-1$
