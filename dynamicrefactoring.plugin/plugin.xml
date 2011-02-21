@@ -265,9 +265,9 @@
         	name="%dynamicrefactoring.view.refactoringCatalogBrowserView">
   		</view>
   		<stickyView
-        	closeable="true"
         	id="dynamicrefactoring.views.refactoringCatalogBrowserView"
-        	location="RIGHT"
+        	location="BOTTOM"
+        	closeable="true"
         	moveable="true">
   		</stickyView>
 	</extension>

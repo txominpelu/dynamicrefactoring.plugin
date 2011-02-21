@@ -182,6 +182,11 @@ public class RefactoringCatalogBrowserView extends ViewPart {
 	private final String CLEARBUTTON_PROPERTY = "clearButton"; //$NON-NLS-1$
 	
 	/**
+	 * Botón que permite al usuario eliminar todas las condiciones del filtro.
+	 */
+	private Button clearAllButton;
+	
+	/**
 	 * Tabla en la que se mostraránn las condiciones del filtro a aplicar
 	 * a las refactorizaciones para mostrar en el árbol.
 	 */
@@ -373,6 +378,20 @@ public class RefactoringCatalogBrowserView extends ViewPart {
 			}
 		});
 
+		//clearAllButton
+		clearAllButton = new Button(classComp, SWT.CHECK | SWT.CENTER);
+		clearAllButton.setText(Messages.RefactoringCatalogBrowserView_ClearAll);
+		clearAllButton.setEnabled(false);
+		classFormData=new FormData();
+		classFormData.top=new FormAttachment(filteredButton,10);
+		classFormData.right=new FormAttachment(100,-5);
+		clearAllButton.setLayoutData(classFormData);
+		clearAllButton.addSelectionListener(new SelectionAdapter() {
+			public void widgetSelected(SelectionEvent e) {
+				removeAllConditionToFilter();
+			}
+		});
+		
 		//conditionsTable
 		conditionsTable = new Table(classComp, SWT.BORDER);
 		conditionsTable.setBackground(Display.getCurrent().getSystemColor(SWT.COLOR_WHITE));
@@ -380,7 +399,7 @@ public class RefactoringCatalogBrowserView extends ViewPart {
 		conditionsTable.setLinesVisible(true);
 		conditionsTable.setHeaderVisible(true);
 		classFormData=new FormData();
-		classFormData.top=new FormAttachment(filteredButton,15);
+		classFormData.top=new FormAttachment(clearAllButton,5);
 		classFormData.left=new FormAttachment(0,5);
 		classFormData.right=new FormAttachment(100,-5);
 		classFormData.bottom=new FormAttachment(100,-5);
@@ -397,11 +416,7 @@ public class RefactoringCatalogBrowserView extends ViewPart {
 		clearCol.setText(Messages.RefactoringCatalogBrowserView_ClearCol);
 		clearCol.setResizable(false);
 		clearCol.setToolTipText(Messages.RefactoringCatalogBrowserView_ClearColToolTip);
-		
-		TableColumn cols[]=conditionsTable.getColumns();
-		for(TableColumn col : cols){
-			col.pack();
-		}
+		packTableColumns();
 		
 		//mostrar por defecto la clasificacion None
 		classCombo.select(0);
@@ -587,7 +602,48 @@ public class RefactoringCatalogBrowserView extends ViewPart {
 		manager.add(classRefAction);
 	}
 
+	private void removeAllConditionToTable(){
+
+		TableItem item=null;
+		Object checkB,clearB=null;
 		
+		conditionsTable.setVisible(false);
+		
+		for(int i=conditionsTable.getItemCount()-1; i>=0;i--){
+			item=conditionsTable.getItem(i);
+			//recuperamos los botones check y clear asociados a la fila
+			checkB=item.getData(CHECKBUTTON_PROPERTY);
+			clearB=item.getData(CLEARBUTTON_PROPERTY);
+			//eliminamos los botones recuperados
+			if(checkB instanceof Button)
+				((Button)checkB).dispose();
+			if(clearB instanceof Button)
+				((Button)clearB).dispose();
+			item.dispose();
+		}
+		packTableColumns();
+		
+		conditionsTable.setVisible(true);
+		
+		clearAllButton.setSelection(false);
+		clearAllButton.setEnabled(false);
+		
+	}
+	
+	private void removeAllConditionToFilter(){
+		removeAllConditionToTable();
+		catalog=(ElementCatalog<DynamicRefactoringDefinition>)catalog.removeAllFilterConditions();
+		filter.clear();
+		showTree(classCombo.getText());
+	}
+	
+	private void packTableColumns(){
+		TableColumn cols[]=conditionsTable.getColumns();
+		for(TableColumn col : cols){
+			col.pack();
+		}
+	}
+
 	/**
 	 * Actualiza el árbol de refactorizaciones para representarlas conforme
 	 * a la clasificación que ha sido seleccionada en el combo.
@@ -698,18 +754,24 @@ public class RefactoringCatalogBrowserView extends ViewPart {
 						Object clearBLast=itemLast.getData(CLEARBUTTON_PROPERTY);
 						
 						conditionsTable.setVisible(false);
+						
 						//eliminamos los botones recuperados
 						if(checkBLast instanceof Button)
 							((Button)checkBLast).dispose();
 						if(clearBLast instanceof Button)
 							((Button)clearBLast).dispose();
-						//reestablecemos los nombres de las condiciones
+						//reestablecemos los nombres de las condiciones en las filas correspondientes
 						String nameCondition=null;
 						for(int i=row+1;i<conditionsTable.getItemCount();i++){
 							nameCondition=conditionsTable.getItem(i).getText(1);
 							conditionsTable.getItem(i-1).setText(1,nameCondition);	
 						}
 						itemLast.dispose();
+						packTableColumns();
+						
+						if(conditionsTable.getItemCount()==0)
+							clearAllButton.setEnabled(false);
+						
 						conditionsTable.setVisible(true);
 		
 						catalog.removeConditionFromFilter(filter.get(row));
@@ -725,10 +787,7 @@ public class RefactoringCatalogBrowserView extends ViewPart {
 			editor.minimumHeight=15;
 			editor.setEditor(clearButton, item, 2);
 			
-			TableColumn cols[]=conditionsTable.getColumns();
-			for(TableColumn col : cols){
-				col.pack();
-			}
+			packTableColumns();
 			
 			conditionsTable.setVisible(true);
 		}
@@ -741,6 +800,7 @@ public class RefactoringCatalogBrowserView extends ViewPart {
 					catalog.addConditionToFilter(condition);
 					showTree(classCombo.getText());
 					searchText.setText(""); //reseteamos el Text al ser la condición válida
+					clearAllButton.setEnabled(true);
 				}else{
 					Object[] messageArgs = {condition.toString()};
 					MessageFormat formatter = new MessageFormat(""); //$NON-NLS-1$
