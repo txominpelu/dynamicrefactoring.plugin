@@ -20,12 +20,31 @@ import org.eclipse.swt.SWT;
 import org.eclipse.swt.custom.SashForm;
 import org.eclipse.swt.custom.ScrolledComposite;
 import org.eclipse.swt.custom.TableEditor;
+import org.eclipse.swt.events.FocusAdapter;
+import org.eclipse.swt.events.FocusEvent;
+import org.eclipse.swt.events.FocusListener;
+import org.eclipse.swt.events.HelpEvent;
+import org.eclipse.swt.events.HelpListener;
+import org.eclipse.swt.events.MenuDetectEvent;
+import org.eclipse.swt.events.MenuDetectListener;
+import org.eclipse.swt.events.ModifyEvent;
+import org.eclipse.swt.events.ModifyListener;
+import org.eclipse.swt.events.MouseAdapter;
 import org.eclipse.swt.events.MouseEvent;
 import org.eclipse.swt.events.MouseListener;
+import org.eclipse.swt.events.MouseMoveListener;
+import org.eclipse.swt.events.MouseTrackAdapter;
+import org.eclipse.swt.events.MouseTrackListener;
+import org.eclipse.swt.events.MouseWheelListener;
 import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.events.SelectionListener;
+import org.eclipse.swt.events.TraverseEvent;
+import org.eclipse.swt.events.TraverseListener;
+import org.eclipse.swt.events.VerifyEvent;
+import org.eclipse.swt.events.VerifyListener;
 import org.eclipse.swt.graphics.Color;
+import org.eclipse.swt.graphics.Point;
 import org.eclipse.swt.layout.FormAttachment;
 import org.eclipse.swt.layout.FormData;
 import org.eclipse.swt.layout.FormLayout;
@@ -38,6 +57,8 @@ import org.eclipse.swt.widgets.Table;
 import org.eclipse.swt.widgets.TableColumn;
 import org.eclipse.swt.widgets.TableItem;
 import org.eclipse.swt.widgets.Text;
+import org.eclipse.swt.widgets.ToolTip;
+import org.eclipse.swt.widgets.Tray;
 import org.eclipse.swt.widgets.Tree;
 import org.eclipse.swt.widgets.TreeItem;
 import org.eclipse.ui.IActionBars;
@@ -141,6 +162,16 @@ public class RefactoringCatalogBrowserView extends ViewPart {
 	 */
 	private Label descClassLabel;
 
+	/**
+	 * Etiqueta de ayuda para el cuadro de texto donde el usuario introduce la condición.
+	 */
+	private Label helpLabel;
+	
+	/**
+	 * ToolTip de ayuda para el cuadro de texto donde el usuario introduce la condición.
+	 */
+	private ToolTip searchToolTip;
+	
 	/**
 	 * Cuadro de texto que permite introducir al usuario el patrón de búsqueda.
 	 */
@@ -335,7 +366,7 @@ public class RefactoringCatalogBrowserView extends ViewPart {
 		classFormData.left=new FormAttachment(0,5);
 		classFormData.right=new FormAttachment(100,-5);
 		descClassLabel.setLayoutData(classFormData);
-
+		
 		//searchText
 		searchText = new Text(classComp, SWT.BORDER);
 		searchText.setMessage(Messages.RefactoringCatalogBrowserView_Search);
@@ -344,7 +375,55 @@ public class RefactoringCatalogBrowserView extends ViewPart {
 		classFormData.left = new FormAttachment(classCombo, 175);
 		classFormData.width=150;
 		searchText.setLayoutData(classFormData);
+		searchText.addFocusListener(new FocusListener(){
+			@Override
+			public void focusGained(FocusEvent e) {
+				helpLabel.setVisible(true);
+			}
+			@Override
+			public void focusLost(FocusEvent e) {
+				helpLabel.setVisible(false);
+			}
+		});
+		searchText.addHelpListener(new HelpListener(){
+			@Override
+			public void helpRequested(HelpEvent e) {
+				Point pt = e.display.map(searchText, null, 0, 10);
+				searchToolTip.setLocation(pt);
+				searchToolTip.setVisible(true);
+			}
+		});
 
+		//helpLabel
+		helpLabel=new Label(classComp, SWT.LEFT);
+		helpLabel.setImage(RefactoringImages.getHelpIconPath());
+		helpLabel.setVisible(false);
+		classFormData=new FormData();
+		classFormData.top = new FormAttachment(0, 8);
+		classFormData.right=new FormAttachment(searchText,0);
+		helpLabel.setLayoutData(classFormData);
+		helpLabel.addMouseTrackListener(new MouseTrackAdapter(){
+			@Override
+			public void mouseEnter(MouseEvent e) {
+				Point pt = e.display.map(searchText, null, 0, 10);
+				searchToolTip.setLocation(pt);
+				searchToolTip.setVisible(true);
+			}
+			@Override
+			public void mouseExit(MouseEvent e) {
+				searchToolTip.setVisible(false);
+			}		
+		});
+		
+		//searchToolTip
+		searchToolTip=new ToolTip(searchText.getShell(), SWT.BALLOON | SWT.ICON_INFORMATION );
+		searchToolTip.setText(Messages.RefactoringCatalogBrowserView_TextSearchToolTip);
+		String message="category:'classification'@'category'  e.g. category:scope@method \n" +
+					   "text:'text'  e.g. text:add \n" +
+					   "key:'keyword'  e.g. key:annotation"; //$NON-NLS-1$ 
+		searchToolTip.setMessage(message);
+		searchToolTip.setAutoHide(true);
+		
 		//searchButton 
 		searchButton = new Button(classComp, SWT.PUSH);
 		searchButton.setImage(RefactoringImages.getSearchIcon());

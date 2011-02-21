@@ -67,7 +67,10 @@ public final class RefactoringImages {
 	
 	public static final String ARROW_LEFT_ICON_PATH = ICONS_DIR + "arrow_left.gif"; //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
 	
-	public static final String CLEAR_ICON_PATH = ICONS_DIR + "clear.gif"; //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
+	public static final String CLEAR_ICON_PATH = ICONS_DIR + "clear.png"; //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
+	
+	public static final String HELP_ICON_PATH = ICONS_DIR + "help.png"; //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
+	
 	
 	/**
 	 * Evita que se creen instancias del objeto.
@@ -327,6 +330,15 @@ public final class RefactoringImages {
 	 */
 	public final static Image getClearIconPath(){
 		return getImageForPath(CLEAR_ICON_PATH);
+	}
+	
+	/**
+	 * Obtiene el icono Help.
+	 * 
+	 * @return imagen del icono
+	 */
+	public final static Image getHelpIconPath(){
+		return getImageForPath(HELP_ICON_PATH);
 	}
 	
 }
