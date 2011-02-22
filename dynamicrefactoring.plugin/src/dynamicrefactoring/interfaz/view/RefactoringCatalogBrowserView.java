@@ -20,29 +20,16 @@ import org.eclipse.swt.SWT;
 import org.eclipse.swt.custom.SashForm;
 import org.eclipse.swt.custom.ScrolledComposite;
 import org.eclipse.swt.custom.TableEditor;
-import org.eclipse.swt.events.FocusAdapter;
 import org.eclipse.swt.events.FocusEvent;
 import org.eclipse.swt.events.FocusListener;
 import org.eclipse.swt.events.HelpEvent;
 import org.eclipse.swt.events.HelpListener;
-import org.eclipse.swt.events.MenuDetectEvent;
-import org.eclipse.swt.events.MenuDetectListener;
-import org.eclipse.swt.events.ModifyEvent;
-import org.eclipse.swt.events.ModifyListener;
-import org.eclipse.swt.events.MouseAdapter;
 import org.eclipse.swt.events.MouseEvent;
 import org.eclipse.swt.events.MouseListener;
-import org.eclipse.swt.events.MouseMoveListener;
 import org.eclipse.swt.events.MouseTrackAdapter;
-import org.eclipse.swt.events.MouseTrackListener;
-import org.eclipse.swt.events.MouseWheelListener;
 import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.events.SelectionListener;
-import org.eclipse.swt.events.TraverseEvent;
-import org.eclipse.swt.events.TraverseListener;
-import org.eclipse.swt.events.VerifyEvent;
-import org.eclipse.swt.events.VerifyListener;
 import org.eclipse.swt.graphics.Color;
 import org.eclipse.swt.graphics.Point;
 import org.eclipse.swt.layout.FormAttachment;
@@ -58,7 +45,6 @@ import org.eclipse.swt.widgets.TableColumn;
 import org.eclipse.swt.widgets.TableItem;
 import org.eclipse.swt.widgets.Text;
 import org.eclipse.swt.widgets.ToolTip;
-import org.eclipse.swt.widgets.Tray;
 import org.eclipse.swt.widgets.Tree;
 import org.eclipse.swt.widgets.TreeItem;
 import org.eclipse.ui.IActionBars;
@@ -474,7 +460,6 @@ public class RefactoringCatalogBrowserView extends ViewPart {
 		//conditionsTable
 		conditionsTable = new Table(classComp, SWT.BORDER);
 		conditionsTable.setBackground(Display.getCurrent().getSystemColor(SWT.COLOR_WHITE));
-		conditionsTable.setEnabled(true);
 		conditionsTable.setLinesVisible(true);
 		conditionsTable.setHeaderVisible(true);
 		classFormData=new FormData();
@@ -789,7 +774,7 @@ public class RefactoringCatalogBrowserView extends ViewPart {
 			
 			//checkButton
 			editor = new TableEditor(conditionsTable);
-			Button checkButton= new Button(conditionsTable, SWT.CHECK);
+			Button checkButton= new Button(conditionsTable, SWT.CHECK );
 			checkButton.addSelectionListener(new SelectionAdapter() {
 				public void widgetSelected(SelectionEvent e) {
 					if(e.getSource() instanceof Button){
@@ -814,8 +799,9 @@ public class RefactoringCatalogBrowserView extends ViewPart {
 			item.setData(CHECKBUTTON_PROPERTY, checkButton);
 			editor.minimumWidth = checkButton.getSize().x;
 			editor.minimumHeight = checkButton.getSize().y-1;
-			editor.horizontalAlignment = SWT.CENTER;
+			editor.horizontalAlignment = SWT.LEFT;
 			editor.setEditor(checkButton, item, 0);
+
 			
 			//clearButton
 			editor = new TableEditor(conditionsTable);
@@ -840,19 +826,18 @@ public class RefactoringCatalogBrowserView extends ViewPart {
 						if(clearBLast instanceof Button)
 							((Button)clearBLast).dispose();
 						//reestablecemos los nombres de las condiciones en las filas correspondientes
-						String nameCondition=null;
+						String nameCondition=null;	
 						for(int i=row+1;i<conditionsTable.getItemCount();i++){
 							nameCondition=conditionsTable.getItem(i).getText(1);
 							conditionsTable.getItem(i-1).setText(1,nameCondition);	
 						}
 						itemLast.dispose();
-						packTableColumns();
-						
 						if(conditionsTable.getItemCount()==0)
 							clearAllButton.setEnabled(false);
 						
 						conditionsTable.setVisible(true);
-		
+						packTableColumns();
+						
 						catalog.removeConditionFromFilter(filter.get(row));
 						filter.remove(row);
 						showTree(classCombo.getText());

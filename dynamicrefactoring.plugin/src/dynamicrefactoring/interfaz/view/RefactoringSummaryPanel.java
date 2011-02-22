@@ -235,7 +235,6 @@ public class RefactoringSummaryPanel {
 	private void createInputsTabItem(){
 		inputsTable = new Table(refTabFolder, SWT.BORDER);
 		inputsTable.setBackground(Display.getCurrent().getSystemColor(SWT.COLOR_WHITE));
-		inputsTable.setEnabled(true);
 		inputsTable.setLinesVisible(true);
 		inputsTable.setHeaderVisible(true);
 
