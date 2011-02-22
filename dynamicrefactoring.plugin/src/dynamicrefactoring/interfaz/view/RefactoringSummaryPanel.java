@@ -28,10 +28,21 @@ import org.eclipse.swt.widgets.TableItem;
 import org.eclipse.swt.widgets.Text;
 import org.eclipse.swt.widgets.Tree;
 import org.eclipse.swt.widgets.TreeItem;
+import org.eclipse.ui.forms.events.ExpansionAdapter;
+import org.eclipse.ui.forms.events.ExpansionEvent;
+import org.eclipse.ui.forms.events.HyperlinkAdapter;
+import org.eclipse.ui.forms.events.HyperlinkEvent;
+import org.eclipse.ui.forms.widgets.FormToolkit;
+import org.eclipse.ui.forms.widgets.Hyperlink;
+import org.eclipse.ui.forms.widgets.ScrolledForm;
+import org.eclipse.ui.forms.widgets.Section;
+
 
 import dynamicrefactoring.RefactoringImages;
 import dynamicrefactoring.RefactoringPlugin;
 import dynamicrefactoring.domain.DynamicRefactoringDefinition;
+import dynamicrefactoring.domain.metadata.condition.CategoryCondition;
+import dynamicrefactoring.domain.metadata.condition.TextCondition;
 import dynamicrefactoring.domain.metadata.interfaces.Category;
 import dynamicrefactoring.interfaz.TreeEditor;
 import dynamicrefactoring.util.RefactoringTreeManager;
@@ -78,15 +89,9 @@ public class RefactoringSummaryPanel {
 	 */
 	private Text motivationText;
 	
-	/**
-	 * Etiqueta categorias de la refactorizaci�n.
-	 */
-	private Label categoriesLabel;
-	
-	/**
-	 * Cuadro de texto en que se mostrar� las categorias a las que pertenece la refactorizaci�n.
-	 */
-	private Text categoriesText;
+	private FormToolkit toolkit;
+	private Section keyWordsSection;
+	private Section categoriesSection;
 	
 	/**
 	 * Propiedad asociada a las filas de la tabla que indica qué botón check tienen 
@@ -115,9 +120,13 @@ public class RefactoringSummaryPanel {
 	 * Definici�n de la refactorizaci�n.
 	 */
 	private DynamicRefactoringDefinition refactoring;
+	
+	private RefactoringCatalogBrowserView rcbView;
 
-	public RefactoringSummaryPanel(Composite parent){
+	public RefactoringSummaryPanel(Composite parent, RefactoringCatalogBrowserView rcbView){
 
+		this.rcbView=rcbView;
+		
 		FormData refFormData=null;
 
 		//titleLabel
@@ -203,29 +212,42 @@ public class RefactoringSummaryPanel {
 		gd.horizontalAlignment = GridData.FILL;
 		gd.grabExcessHorizontalSpace = true;
 		motivationText.setLayoutData(gd);
+
+		//toolkit
+		toolkit = new FormToolkit(comp.getDisplay());
+		final ScrolledForm form = toolkit.createScrolledForm(comp);
+		form.getBody().setLayout(new GridLayout());
 		
-		//categoriesComp
-		final Composite categoriesComp = new Composite(comp, SWT.NONE);
-		gd=new GridData();
-		gd.verticalAlignment = GridData.FILL;
-		gd.grabExcessVerticalSpace = true;
-		gd.horizontalAlignment = GridData.FILL;
-		gd.grabExcessHorizontalSpace = true;
-		categoriesComp.setLayoutData(gd);
-		categoriesComp.setLayout(new GridLayout());
+		//categoriesSection 
+		categoriesSection = toolkit.createSection(form.getBody(), 
+							Section.DESCRIPTION|Section.TWISTIE|Section.EXPANDED);
+		categoriesSection.setText(Messages.RefactoringSummaryPanel_Categories);
+		categoriesSection.addExpansionListener(new ExpansionAdapter() {
+			public void expansionStateChanged(ExpansionEvent e) {
+				form.reflow(true);
+			}
+		});
+		toolkit.createCompositeSeparator(categoriesSection);
+		categoriesSection.setDescription("This is the description categories");
+		Composite catSectionClient = toolkit.createComposite(categoriesSection);
+		catSectionClient.setLayout(new GridLayout());
+		categoriesSection.setClient(catSectionClient);
 		
-		categoriesLabel = new Label(categoriesComp, SWT.CENTER);
-		categoriesLabel.setText(Messages.RefactoringSummaryPanel_Categories);
 		
-		categoriesText = new Text(categoriesComp, SWT.WRAP | SWT.V_SCROLL | SWT.READ_ONLY | SWT.MULTI | SWT.BORDER);
-		categoriesText.setBackground(Display.getCurrent().getSystemColor(SWT.COLOR_WHITE));
-		categoriesText.setEditable(false);
-		gd=new GridData();
-		gd.verticalAlignment = GridData.FILL;
-		gd.grabExcessVerticalSpace = true;
-		gd.horizontalAlignment = GridData.FILL;
-		gd.grabExcessHorizontalSpace = true;
-		categoriesText.setLayoutData(gd);
+		//keyWordsSection 
+		keyWordsSection = toolkit.createSection(form.getBody(), 
+							Section.DESCRIPTION|Section.TWISTIE|Section.EXPANDED);
+		keyWordsSection.setText(Messages.RefactoringSummaryPanel_KeyWords);
+		keyWordsSection.addExpansionListener(new ExpansionAdapter() {
+			public void expansionStateChanged(ExpansionEvent e) {
+				form.reflow(true);
+			}
+		});
+		toolkit.createCompositeSeparator(keyWordsSection);
+		keyWordsSection.setDescription("This is the description keywords");
+		Composite kwSectionClient = toolkit.createComposite(keyWordsSection);
+		kwSectionClient.setLayout(new GridLayout());
+		keyWordsSection.setClient(kwSectionClient);
 		
 		TabItem item = new TabItem (refTabFolder, SWT.NONE);
 		item.setText(Messages.RefactoringSummaryPanel_Overview);
@@ -324,12 +346,45 @@ public class RefactoringSummaryPanel {
 	private void fillOverview(){
 		descriptionText.setText(refactoring.getDescription().trim());
 		motivationText.setText(refactoring.getMotivation().trim());
-		String cat= "";
+		
+		categoriesSection.setVisible(false);
 		ArrayList<Category> categories = new ArrayList<Category>(refactoring.getCategories());
-		for (Category c : categories){
-		 cat+=c.getParent()+"."+c.getName() + "\n";
+		Hyperlink catHyperlink=null;
+		for(Category c : categories){
+			catHyperlink = toolkit.createHyperlink((Composite)categoriesSection.getClient(),
+								c.toString(),SWT.WRAP);
+			catHyperlink.setData(c);
+			catHyperlink.addHyperlinkListener(new HyperlinkAdapter(){
+				public void linkActivated(HyperlinkEvent e){
+					if(e.getSource() instanceof Hyperlink){
+						Hyperlink hlink=(Hyperlink)e.getSource();
+						Category c=(Category)hlink.getData();
+						rcbView.addConditionToFilter(new CategoryCondition<DynamicRefactoringDefinition>(c));
+					}
+				}
+			});
 		}
-		categoriesText.setText(cat.trim());
+		categoriesSection.setExpanded(!categories.isEmpty());
+		categoriesSection.setVisible(true);
+		
+		keyWordsSection.setVisible(false);
+		ArrayList<String> keyWords = new ArrayList<String>(refactoring.getKeywords());
+		Hyperlink kwHyperlink=null;
+		for(String kw : keyWords){
+			kwHyperlink = toolkit.createHyperlink((Composite)keyWordsSection.getClient(),
+							kw.toString(),SWT.WRAP);
+			kwHyperlink.setText(kw);
+			kwHyperlink.addHyperlinkListener(new HyperlinkAdapter(){
+				public void linkActivated(HyperlinkEvent e){
+					if(e.getSource() instanceof Hyperlink){
+						Hyperlink hlink=(Hyperlink)e.getSource();
+						rcbView.addConditionToFilter(new TextCondition<DynamicRefactoringDefinition>(hlink.getText()));
+					}
+				}
+			});
+		}
+		keyWordsSection.setExpanded(!keyWords.isEmpty());
+		keyWordsSection.setVisible(true);
 	}
 	
 	private void fillInputsTable(){

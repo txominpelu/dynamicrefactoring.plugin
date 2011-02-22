@@ -317,7 +317,7 @@ public class RefactoringCatalogBrowserView extends ViewPart {
 		fillLocalToolBar(bars.getToolBarManager());
 
 		//refSummaryPanel
-		refSummaryPanel=new RefactoringSummaryPanel(refComp);
+		refSummaryPanel=new RefactoringSummaryPanel(refComp,this);
 
 		//classLabel
 		classLabel=new Label(classComp, SWT.LEFT);
@@ -708,6 +708,121 @@ public class RefactoringCatalogBrowserView extends ViewPart {
 		}
 	}
 
+	private void addConditionToTable(Predicate<DynamicRefactoringDefinition> condition){
+		
+		conditionsTable.setVisible(false);
+		
+		TableItem item=new TableItem(conditionsTable, SWT.BORDER);
+		item.setText(1, condition.toString());
+		
+		TableEditor editor = null;
+		
+		//checkButton
+		editor = new TableEditor(conditionsTable);
+		Button checkButton= new Button(conditionsTable, SWT.CHECK );
+		checkButton.addSelectionListener(new SelectionAdapter() {
+			public void widgetSelected(SelectionEvent e) {
+				if(e.getSource() instanceof Button){
+					Button checkB=(Button)e.getSource();
+					int row=((Integer)checkB.getData(ROW_PROPERTY)).intValue();
+					Color c;
+					if(checkB.getSelection()){
+						catalog.addConditionToFilter(filter.get(row));
+						c=Display.getCurrent().getSystemColor(SWT.COLOR_BLACK);
+					}else{
+						catalog.removeConditionFromFilter(filter.get(row));
+						c=Display.getCurrent().getSystemColor(SWT.COLOR_DARK_GRAY);
+					}
+					conditionsTable.getItem(row).setForeground(c);
+					showTree(classCombo.getText());
+				}
+			}
+		});
+		checkButton.setData(ROW_PROPERTY, conditionsTable.indexOf(item));
+		checkButton.setSelection(true);
+		checkButton.pack();
+		item.setData(CHECKBUTTON_PROPERTY, checkButton);
+		editor.minimumWidth = checkButton.getSize().x;
+		editor.minimumHeight = checkButton.getSize().y-1;
+		editor.horizontalAlignment = SWT.LEFT;
+		editor.setEditor(checkButton, item, 0);
+
+		
+		//clearButton
+		editor = new TableEditor(conditionsTable);
+		Button clearButton = new Button(conditionsTable, SWT.NONE | SWT.BORDER_SOLID);
+		clearButton.setImage(RefactoringImages.getClearIconPath());
+		clearButton.addSelectionListener(new SelectionAdapter() {
+			public void widgetSelected(SelectionEvent e) {
+				if(e.getSource() instanceof Button){
+					Button clearB=(Button)e.getSource();
+					int row=((Integer)clearB.getData(ROW_PROPERTY)).intValue();
+					
+					TableItem itemLast = conditionsTable.getItem(conditionsTable.getItemCount()-1);
+					//recuperamos los botones check y clear asociados a la última fila
+					Object checkBLast=itemLast.getData(CHECKBUTTON_PROPERTY);
+					Object clearBLast=itemLast.getData(CLEARBUTTON_PROPERTY);
+					
+					conditionsTable.setVisible(false);
+					
+					//eliminamos los botones recuperados
+					if(checkBLast instanceof Button)
+						((Button)checkBLast).dispose();
+					if(clearBLast instanceof Button)
+						((Button)clearBLast).dispose();
+					//reestablecemos los nombres de las condiciones en las filas correspondientes
+					String nameCondition=null;	
+					for(int i=row+1;i<conditionsTable.getItemCount();i++){
+						nameCondition=conditionsTable.getItem(i).getText(1);
+						conditionsTable.getItem(i-1).setText(1,nameCondition);	
+					}
+					itemLast.dispose();
+					if(conditionsTable.getItemCount()==0)
+						clearAllButton.setEnabled(false);
+					
+					conditionsTable.setVisible(true);
+					packTableColumns();
+					
+					catalog.removeConditionFromFilter(filter.get(row));
+					filter.remove(row);
+					showTree(classCombo.getText());
+				}
+			}
+		});
+		clearButton.setData(ROW_PROPERTY, conditionsTable.indexOf(item));
+		clearButton.pack();
+		item.setData(CLEARBUTTON_PROPERTY, clearButton);
+		editor.grabHorizontal=true;
+		editor.minimumHeight=15;
+		editor.setEditor(clearButton, item, 2);
+		
+		packTableColumns();
+		
+		conditionsTable.setVisible(true);
+	}
+	
+	protected void addConditionToFilter(Predicate<DynamicRefactoringDefinition> condition){
+		if(condition!=null){
+			if(!filter.contains(condition)){
+				filter.add(condition);
+				addConditionToTable(condition);
+				catalog.addConditionToFilter(condition);
+				showTree(classCombo.getText());
+				searchText.setText(""); //reseteamos el Text al ser la condición válida
+				clearAllButton.setEnabled(true);
+			}else{
+				Object[] messageArgs = {condition.toString()};
+				MessageFormat formatter = new MessageFormat(""); //$NON-NLS-1$
+				formatter.applyPattern(Messages.RefactoringCatalogBrowserView_SearchConditionAlreadyExist);		
+				
+				IWorkbenchWindow window = PlatformUI.getWorkbench().getActiveWorkbenchWindow();
+				MessageDialog.openInformation(window.getShell(), 
+							Messages.RefactoringCatalogBrowserView_SearchWarning,
+							formatter.format(messageArgs));
+			}
+		}
+	}
+	
 	/**
 	 * Actualiza el árbol de refactorizaciones para representarlas conforme
 	 * a la clasificación que ha sido seleccionada en el combo.
@@ -763,120 +878,6 @@ public class RefactoringCatalogBrowserView extends ViewPart {
 			widgetSelected(e);
 		}
 		
-		private void addConditionToTable(Predicate<DynamicRefactoringDefinition> condition){
-			
-			conditionsTable.setVisible(false);
-			
-			TableItem item=new TableItem(conditionsTable, SWT.BORDER);
-			item.setText(1, condition.toString());
-			
-			TableEditor editor = null;
-			
-			//checkButton
-			editor = new TableEditor(conditionsTable);
-			Button checkButton= new Button(conditionsTable, SWT.CHECK );
-			checkButton.addSelectionListener(new SelectionAdapter() {
-				public void widgetSelected(SelectionEvent e) {
-					if(e.getSource() instanceof Button){
-						Button checkB=(Button)e.getSource();
-						int row=((Integer)checkB.getData(ROW_PROPERTY)).intValue();
-						Color c;
-						if(checkB.getSelection()){
-							catalog.addConditionToFilter(filter.get(row));
-							c=Display.getCurrent().getSystemColor(SWT.COLOR_BLACK);
-						}else{
-							catalog.removeConditionFromFilter(filter.get(row));
-							c=Display.getCurrent().getSystemColor(SWT.COLOR_DARK_GRAY);
-						}
-						conditionsTable.getItem(row).setForeground(c);
-						showTree(classCombo.getText());
-					}
-				}
-			});
-			checkButton.setData(ROW_PROPERTY, conditionsTable.indexOf(item));
-			checkButton.setSelection(true);
-			checkButton.pack();
-			item.setData(CHECKBUTTON_PROPERTY, checkButton);
-			editor.minimumWidth = checkButton.getSize().x;
-			editor.minimumHeight = checkButton.getSize().y-1;
-			editor.horizontalAlignment = SWT.LEFT;
-			editor.setEditor(checkButton, item, 0);
-
-			
-			//clearButton
-			editor = new TableEditor(conditionsTable);
-			Button clearButton = new Button(conditionsTable, SWT.NONE | SWT.BORDER_SOLID);
-			clearButton.setImage(RefactoringImages.getClearIconPath());
-			clearButton.addSelectionListener(new SelectionAdapter() {
-				public void widgetSelected(SelectionEvent e) {
-					if(e.getSource() instanceof Button){
-						Button clearB=(Button)e.getSource();
-						int row=((Integer)clearB.getData(ROW_PROPERTY)).intValue();
-						
-						TableItem itemLast = conditionsTable.getItem(conditionsTable.getItemCount()-1);
-						//recuperamos los botones check y clear asociados a la última fila
-						Object checkBLast=itemLast.getData(CHECKBUTTON_PROPERTY);
-						Object clearBLast=itemLast.getData(CLEARBUTTON_PROPERTY);
-						
-						conditionsTable.setVisible(false);
-						
-						//eliminamos los botones recuperados
-						if(checkBLast instanceof Button)
-							((Button)checkBLast).dispose();
-						if(clearBLast instanceof Button)
-							((Button)clearBLast).dispose();
-						//reestablecemos los nombres de las condiciones en las filas correspondientes
-						String nameCondition=null;	
-						for(int i=row+1;i<conditionsTable.getItemCount();i++){
-							nameCondition=conditionsTable.getItem(i).getText(1);
-							conditionsTable.getItem(i-1).setText(1,nameCondition);	
-						}
-						itemLast.dispose();
-						if(conditionsTable.getItemCount()==0)
-							clearAllButton.setEnabled(false);
-						
-						conditionsTable.setVisible(true);
-						packTableColumns();
-						
-						catalog.removeConditionFromFilter(filter.get(row));
-						filter.remove(row);
-						showTree(classCombo.getText());
-					}
-				}
-			});
-			clearButton.setData(ROW_PROPERTY, conditionsTable.indexOf(item));
-			clearButton.pack();
-			item.setData(CLEARBUTTON_PROPERTY, clearButton);
-			editor.grabHorizontal=true;
-			editor.minimumHeight=15;
-			editor.setEditor(clearButton, item, 2);
-			
-			packTableColumns();
-			
-			conditionsTable.setVisible(true);
-		}
-		
-		private void addConditionToFilter(Predicate<DynamicRefactoringDefinition> condition){
-			if(condition!=null){
-				if(!filter.contains(condition)){
-					filter.add(condition);
-					addConditionToTable(condition);
-					catalog.addConditionToFilter(condition);
-					showTree(classCombo.getText());
-					searchText.setText(""); //reseteamos el Text al ser la condición válida
-					clearAllButton.setEnabled(true);
-				}else{
-					Object[] messageArgs = {condition.toString()};
-					MessageFormat formatter = new MessageFormat(""); //$NON-NLS-1$
-					formatter.applyPattern(Messages.RefactoringCatalogBrowserView_SearchConditionAlreadyExist);		
-					
-					IWorkbenchWindow window = PlatformUI.getWorkbench().getActiveWorkbenchWindow();
-					MessageDialog.openInformation(window.getShell(), 
-								Messages.RefactoringCatalogBrowserView_SearchWarning,
-								formatter.format(messageArgs));
-				}
-			}
-		}
 		
 		/**
 		 * Comprueba que la clasificación y categoria indicadas por parámetro

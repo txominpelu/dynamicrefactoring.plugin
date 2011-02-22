@@ -77,6 +77,7 @@ public class Messages extends NLS {
 	public static String RefactoringSummaryPanel_Description;
 	public static String RefactoringSummaryPanel_Motivation;
 	public static String RefactoringSummaryPanel_Categories;
+	public static String RefactoringSummaryPanel_KeyWords;
 	public static String RefactoringSummaryPanel_Overview;
 	public static String RefactoringSummaryPanel_Inputs;
 	public static String RefactoringSummaryPanel_Name;
