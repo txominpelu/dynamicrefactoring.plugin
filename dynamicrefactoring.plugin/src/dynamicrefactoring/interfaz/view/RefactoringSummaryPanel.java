@@ -92,6 +92,8 @@ public class RefactoringSummaryPanel {
 	private FormToolkit toolkit;
 	private Section keyWordsSection;
 	private Section categoriesSection;
+	//TODO:intentar hacerlo de otra forma
+	private ArrayList<Hyperlink> links;
 	
 	/**
 	 * Propiedad asociada a las filas de la tabla que indica qué botón check tienen 
@@ -126,6 +128,7 @@ public class RefactoringSummaryPanel {
 	public RefactoringSummaryPanel(Composite parent, RefactoringCatalogBrowserView rcbView){
 
 		this.rcbView=rcbView;
+		links=new ArrayList<Hyperlink>();
 		
 		FormData refFormData=null;
 
@@ -213,14 +216,36 @@ public class RefactoringSummaryPanel {
 		gd.grabExcessHorizontalSpace = true;
 		motivationText.setLayoutData(gd);
 
-		//toolkit
-		toolkit = new FormToolkit(comp.getDisplay());
-		final ScrolledForm form = toolkit.createScrolledForm(comp);
-		form.getBody().setLayout(new GridLayout());
 		
+		//toolkitComp
+		final Composite toolkitComp = new Composite(comp, SWT.NONE);
+		gd=new GridData();
+//		gd.verticalAlignment = GridData.FILL;
+//		gd.grabExcessVerticalSpace = true;
+		gd.horizontalAlignment = GridData.FILL;
+		gd.grabExcessHorizontalSpace = true;
+		toolkitComp.setLayoutData(gd);
+		toolkitComp.setLayout(new GridLayout());
+		
+		toolkit = new FormToolkit(toolkitComp.getDisplay());
+		final ScrolledForm form = toolkit.createScrolledForm(toolkitComp);
+		gd=new GridData();
+//		gd.verticalAlignment = GridData.FILL;
+//		gd.grabExcessVerticalSpace = true;
+		gd.horizontalAlignment = GridData.FILL;
+		gd.grabExcessHorizontalSpace = true;
+		form.setLayoutData(gd);
+		form.setLayout(new GridLayout());
+		form.getBody().setLayoutData(gd);
+		g=new GridLayout();
+		g.numColumns=1;
+		g.marginHeight=10;
+		g.verticalSpacing=20;
+		form.getBody().setLayout(g);
+
 		//categoriesSection 
 		categoriesSection = toolkit.createSection(form.getBody(), 
-							Section.DESCRIPTION|Section.TWISTIE|Section.EXPANDED);
+							Section.TWISTIE|Section.EXPANDED);
 		categoriesSection.setText(Messages.RefactoringSummaryPanel_Categories);
 		categoriesSection.addExpansionListener(new ExpansionAdapter() {
 			public void expansionStateChanged(ExpansionEvent e) {
@@ -228,15 +253,13 @@ public class RefactoringSummaryPanel {
 			}
 		});
 		toolkit.createCompositeSeparator(categoriesSection);
-		categoriesSection.setDescription("This is the description categories");
 		Composite catSectionClient = toolkit.createComposite(categoriesSection);
 		catSectionClient.setLayout(new GridLayout());
 		categoriesSection.setClient(catSectionClient);
 		
-		
 		//keyWordsSection 
 		keyWordsSection = toolkit.createSection(form.getBody(), 
-							Section.DESCRIPTION|Section.TWISTIE|Section.EXPANDED);
+							Section.TWISTIE|Section.EXPANDED);
 		keyWordsSection.setText(Messages.RefactoringSummaryPanel_KeyWords);
 		keyWordsSection.addExpansionListener(new ExpansionAdapter() {
 			public void expansionStateChanged(ExpansionEvent e) {
@@ -244,7 +267,6 @@ public class RefactoringSummaryPanel {
 			}
 		});
 		toolkit.createCompositeSeparator(keyWordsSection);
-		keyWordsSection.setDescription("This is the description keywords");
 		Composite kwSectionClient = toolkit.createComposite(keyWordsSection);
 		kwSectionClient.setLayout(new GridLayout());
 		keyWordsSection.setClient(kwSectionClient);
@@ -323,6 +345,11 @@ public class RefactoringSummaryPanel {
 
 	private void clear(){
 
+		//hyperLinks
+		//TODO
+		for(Hyperlink h:links)
+			h.dispose();
+		
 		//inputsTable
 		if(inputsTable.getItemCount()>0){
 			TableItem[] items=inputsTable.getItems();
@@ -353,6 +380,8 @@ public class RefactoringSummaryPanel {
 		for(Category c : categories){
 			catHyperlink = toolkit.createHyperlink((Composite)categoriesSection.getClient(),
 								c.toString(),SWT.WRAP);
+			//TODO:intentar hacerlo de otra forma
+			links.add(catHyperlink);
 			catHyperlink.setData(c);
 			catHyperlink.addHyperlinkListener(new HyperlinkAdapter(){
 				public void linkActivated(HyperlinkEvent e){
@@ -373,6 +402,8 @@ public class RefactoringSummaryPanel {
 		for(String kw : keyWords){
 			kwHyperlink = toolkit.createHyperlink((Composite)keyWordsSection.getClient(),
 							kw.toString(),SWT.WRAP);
+			//TODO:intentar hacerlo de otra forma
+			links.add(kwHyperlink);
 			kwHyperlink.setText(kw);
 			kwHyperlink.addHyperlinkListener(new HyperlinkAdapter(){
 				public void linkActivated(HyperlinkEvent e){
