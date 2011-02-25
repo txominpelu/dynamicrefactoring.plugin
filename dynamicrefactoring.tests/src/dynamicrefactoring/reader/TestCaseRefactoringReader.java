@@ -20,26 +20,29 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.*/
 
 package dynamicrefactoring.reader;
 
-import dynamicrefactoring.RefactoringConstants;
-import dynamicrefactoring.domain.RefactoringException;
-import dynamicrefactoring.domain.DynamicRefactoringDefinition;
-import dynamicrefactoring.domain.metadata.interfaces.Category;
-import dynamicrefactoring.reader.JDOMXMLRefactoringReaderFactory;
-import dynamicrefactoring.reader.XMLRefactoringReader;
-import dynamicrefactoring.reader.XMLRefactoringReaderFactory;
-import dynamicrefactoring.reader.XMLRefactoringReaderImp;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNull;
 
 import java.io.File;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Set;
 
-import static org.junit.Assert.*;
-import org.junit.Test; 
+import org.junit.Test;
+
+import dynamicrefactoring.RefactoringConstants;
+import dynamicrefactoring.domain.DynamicRefactoringDefinition;
+import dynamicrefactoring.domain.RefactoringException;
+import dynamicrefactoring.domain.metadata.interfaces.Category;
 
 /**
- * Comprueba que funciona correctamente el proceso de lectura de la definición
- * de una refactorización dinámica.
+ * Comprueba que funciona correctamente el proceso de lectura de la definiciï¿½n
+ * de una refactorizaciï¿½n dinï¿½mica.
  * 
- * Indirectamente, se comprueba también el funcionamiento de las clases que
+ * Indirectamente, se comprueba tambiï¿½n el funcionamiento de las clases que
  * implementan los patrones Bridge y Factory Method.
  * 
  * @author <A HREF="mailto:sfd0009@alu.ubu.es">Sonia Fuente de la Fuente</A>
@@ -52,26 +55,29 @@ public class TestCaseRefactoringReader {
 	public static final String MI_CATEGORIA2 = "MiCategoria2";
 	public static final String MI_CATEGORIA1 = "MiCategoria1";
 	public static final String MI_CLASSIFICATION = "MiClassification";
+	public static final String MI_CLASSIFICATION2 = "MiClassification2";
 	public static final String KEY_WORD2 = "PalabraClave2";
 	public static final String KEY_WORD1 = "PalabraClave1";
 	public static final String XML_EXTENSION = ".xml";
 	public static final String MINIMUM_INFORMATION_WITH_KEYWORDS = "MinimumInformationWithKeywords";
 	public static final String REFACTORING_WITH_CLASSIFICATION = "RefactoringWithClassification";
+	public static final String REFACTORING_WITH_TWO_CLASSIFICATIONS = "RefactoringWithTwoClassifications";
 	public static final String MINIMUM_INFORMATION_REFACTORING = "MinimumInformation";
 	
 	/**
 	 * Directorio XML con los datos de entrada de los tests.
 	 */
 	public static final String TESTDATA_XML_READER_DIR = "./testdata/XML/Reader/";
+	
 
 
 
 	/**
-	 * Comprueba que la lectura no se realiza cuando la definición no contiene
-	 * toda la información mínima necesaria (no cumple las reglas del DTD).
+	 * Comprueba que la lectura no se realiza cuando la definiciï¿½n no contiene
+	 * toda la informaciï¿½n mï¿½nima necesaria (no cumple las reglas del DTD).
 	 * 
-	 * Para ello se realiza la carga de una definición incompleta desde un
-	 * fichero XML y luego se comprueba que se lanza una excepción de tipo
+	 * Para ello se realiza la carga de una definiciï¿½n incompleta desde un
+	 * fichero XML y luego se comprueba que se lanza una excepciï¿½n de tipo
 	 * DynamicRefactoringException.
 	 * 
 	 * @throws Exception si se produce un error durante la lectura.
@@ -84,11 +90,11 @@ public class TestCaseRefactoringReader {
 	}
 
 	/**
-	 * Comprueba que la lectura no se realiza cuando la definición utiliza otra
+	 * Comprueba que la lectura no se realiza cuando la definiciï¿½n utiliza otra
 	 * estructura que la que se define en el DTD.
 	 * 
 	 * Para ello se realiza la carga de un fichero XML con una estructura
-	 * distinta a la del DTD y luego se comprueba que se lanza una excepción de
+	 * distinta a la del DTD y luego se comprueba que se lanza una excepciï¿½n de
 	 * tipo DynamicRefactoringException.
 	 * 
 	 * @throws Exception si se produce un error durante la lectura.
@@ -101,14 +107,14 @@ public class TestCaseRefactoringReader {
 	}
 
 	/**
-	 * Comprueba que la lectura se realiza correctamente cuando la definición
-	 * contiene la información mínima necesaria. Para ello se realiza la carga
-	 * de la definición de una refactorización desde un fichero XML y luego se
+	 * Comprueba que la lectura se realiza correctamente cuando la definiciï¿½n
+	 * contiene la informaciï¿½n mï¿½nima necesaria. Para ello se realiza la carga
+	 * de la definiciï¿½n de una refactorizaciï¿½n desde un fichero XML y luego se
 	 * comprueba el valor de todos los campos recuperados.
 	 * 
-	 * Esta información es: el nombre, la descripción, la motivación, una
-	 * entrada, una precondición, una acción y una postcondición; no tiene ni
-	 * imagen, ni parámetros ambiguos ni ejemplos.
+	 * Esta informaciï¿½n es: el nombre, la descripciï¿½n, la motivaciï¿½n, una
+	 * entrada, una precondiciï¿½n, una acciï¿½n y una postcondiciï¿½n; no tiene ni
+	 * imagen, ni parï¿½metros ambiguos ni ejemplos.
 	 * 
 	 * @throws Exception si se produce un error durante la lectura.
 	 */
@@ -140,6 +146,28 @@ public class TestCaseRefactoringReader {
 		Set<Category> expectedCategories = new HashSet<Category>();
 		expectedCategories.add(new Category(MI_CLASSIFICATION, MI_CATEGORIA1));
 		expectedCategories.add(new Category(MI_CLASSIFICATION, MI_CATEGORIA2));
+		
+		assertEquals (expectedCategories,definition.getCategories());
+
+	}
+	
+	@Test
+	public void testReadingWithMinimunInformationWithTwoCategories() throws Exception{
+
+
+		DynamicRefactoringDefinition definition = DynamicRefactoringDefinition
+		.getRefactoringDefinition(TESTDATA_XML_READER_DIR + REFACTORING_WITH_TWO_CLASSIFICATIONS + XML_EXTENSION); //$NON-NLS-1$
+
+		assertEquals(definition.getName(), REFACTORING_WITH_TWO_CLASSIFICATIONS); //$NON-NLS-1$
+
+		assertMinimumInformationEqual(definition);
+		
+		//Comprobar categorias
+		Set<Category> expectedCategories = new HashSet<Category>();
+		expectedCategories.add(new Category(MI_CLASSIFICATION, MI_CATEGORIA1));
+		expectedCategories.add(new Category(MI_CLASSIFICATION, MI_CATEGORIA2));
+		expectedCategories.add(new Category(MI_CLASSIFICATION2, MI_CATEGORIA1));
+		expectedCategories.add(new Category(MI_CLASSIFICATION2, MI_CATEGORIA2));
 		
 		assertEquals (expectedCategories,definition.getCategories());
 
@@ -212,13 +240,13 @@ public class TestCaseRefactoringReader {
 	
 
 	/**
-	 * Comprueba que la lectura se realiza correctamente cuando la definición
-	 * contiene toda la información posible. Para ello se realiza la carga de la
-	 * definición de una refactorización desde un fichero XML y luego se
+	 * Comprueba que la lectura se realiza correctamente cuando la definiciï¿½n
+	 * contiene toda la informaciï¿½n posible. Para ello se realiza la carga de la
+	 * definiciï¿½n de una refactorizaciï¿½n desde un fichero XML y luego se
 	 * comprueba el valor de todos los campos recuperados.
 	 * 
-	 * Esta información es: el nombre, la descripción, la imagen, la motivación,
-	 * varias entradas, precondiciones, acciones, postcondiciones, parámetros
+	 * Esta informaciï¿½n es: el nombre, la descripciï¿½n, la imagen, la motivaciï¿½n,
+	 * varias entradas, precondiciones, acciones, postcondiciones, parï¿½metros
 	 * ambiguos y ejemplos.
 	 * 
 	 * @throws Exception si se produce un error durante la lectura.

@@ -36,6 +36,8 @@
   <modules>
     <module>dynamicrefactoring.plugin</module>
     <module>dynamicrefactoring.tests</module>
+    <module>dynamicrefactoring.feature</module>
+    <module>dynamicrefactoring.p2repository</module>
     <!-- Debe tomar la target platform de ahi -->
     <module>dynamicrefactoring.targetplatform</module>
   </modules>
