@@ -21,8 +21,8 @@ import dynamicrefactoring.util.Messages;
 public class RefactoringTreeManager {
 	
 	/**
-	 * Cambia el color del texto de todos los componentes del subárbol.
-	 * @param tItem subárbol
+	 * Cambia el color del texto de todos los componentes del subï¿½rbol.
+	 * @param tItem subï¿½rbol
 	 * @param c color nuevo que se quiere dar al texto
 	 */
 	public static void setForegroundTreeItem(TreeItem tItem, Color c){
@@ -34,8 +34,8 @@ public class RefactoringTreeManager {
 	}
 	
 	/**
-	 * Elima todos los componentes del árbol.
-	 * @param tree árbol del cual eliminar todos sus componentes
+	 * Elima todos los componentes del ï¿½rbol.
+	 * @param tree ï¿½rbol del cual eliminar todos sus componentes
 	 */
 	public static void cleanTree(Tree tree) {
 		if (tree.getItemCount() > 0) {
@@ -46,9 +46,9 @@ public class RefactoringTreeManager {
 	}
 	
 	/**
-	 * Rellena el árbol con las refactorizaciones disponibles.
+	 * Rellena el ï¿½rbol con las refactorizaciones disponibles.
 	 * @param refactorings refactorizaciones disponibles
-	 * @param tree árbol sobre el que añadir subárboles
+	 * @param tree ï¿½rbol sobre el que aï¿½adir subï¿½rboles
 	 * @throws RefactoringException
 	 */
 	public static void fillTree(HashMap<String, String> refactorings, Tree tree) 
@@ -250,8 +250,7 @@ public class RefactoringTreeManager {
 			ArrayList<String> childrenNames, String iconPath, String itemText) {
 		TreeItem postconditionsChild = new TreeItem(itemParent, SWT.NONE);
 		postconditionsChild.setText(itemText);
-		postconditionsChild.setImage(ResourceManager.getPluginImage(
-				RefactoringPlugin.getDefault(), iconPath)); 
+		postconditionsChild.setImage(RefactoringImages.getImageForPath(iconPath)); 
 		TreeEditor.fillInTreeBranch(childrenNames, postconditionsChild, iconPath); 
 	}
 

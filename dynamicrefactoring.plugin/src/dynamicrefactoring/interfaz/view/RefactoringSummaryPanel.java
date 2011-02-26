@@ -28,10 +28,21 @@ import org.eclipse.swt.widgets.TableItem;
 import org.eclipse.swt.widgets.Text;
 import org.eclipse.swt.widgets.Tree;
 import org.eclipse.swt.widgets.TreeItem;
+import org.eclipse.ui.forms.events.ExpansionAdapter;
+import org.eclipse.ui.forms.events.ExpansionEvent;
+import org.eclipse.ui.forms.events.HyperlinkAdapter;
+import org.eclipse.ui.forms.events.HyperlinkEvent;
+import org.eclipse.ui.forms.widgets.FormToolkit;
+import org.eclipse.ui.forms.widgets.Hyperlink;
+import org.eclipse.ui.forms.widgets.ScrolledForm;
+import org.eclipse.ui.forms.widgets.Section;
+
 
 import dynamicrefactoring.RefactoringImages;
 import dynamicrefactoring.RefactoringPlugin;
 import dynamicrefactoring.domain.DynamicRefactoringDefinition;
+import dynamicrefactoring.domain.metadata.condition.CategoryCondition;
+import dynamicrefactoring.domain.metadata.condition.TextCondition;
 import dynamicrefactoring.domain.metadata.interfaces.Category;
 import dynamicrefactoring.interfaz.TreeEditor;
 import dynamicrefactoring.util.RefactoringTreeManager;
@@ -78,20 +89,17 @@ public class RefactoringSummaryPanel {
 	 */
 	private Text motivationText;
 	
-	/**
-	 * Etiqueta categorias de la refactorizaci�n.
-	 */
-	private Label categoriesLabel;
+	private FormToolkit toolkit;
+	private Section keyWordsSection;
+	private Section categoriesSection;
+	//TODO:intentar hacerlo de otra forma
+	private ArrayList<Hyperlink> links;
 	
 	/**
-	 * Cuadro de texto en que se mostrar� las categorias a las que pertenece la refactorizaci�n.
+	 * Propiedad asociada a las filas de la tabla que indica qué botón check tienen 
+	 * asociado cada una.
 	 */
-	private Text categoriesText;
-	
-	/**
-	 * Conjunto de checkButton que se muestran en la pesta�a de entradas.
-	 */
-	private ArrayList<Button> checkButtonsInputsTab=new ArrayList<Button>();
+	private final String CHECKBUTTON_PROPERTY = "checkButton"; //$NON-NLS-1$
 
 	/**
 	 * Tabla en que se mostrar�n las entradas de la refactorizaci�n.
@@ -114,9 +122,14 @@ public class RefactoringSummaryPanel {
 	 * Definici�n de la refactorizaci�n.
 	 */
 	private DynamicRefactoringDefinition refactoring;
+	
+	private RefactoringCatalogBrowserView rcbView;
 
-	public RefactoringSummaryPanel(Composite parent){
+	public RefactoringSummaryPanel(Composite parent, RefactoringCatalogBrowserView rcbView){
 
+		this.rcbView=rcbView;
+		links=new ArrayList<Hyperlink>();
+		
 		FormData refFormData=null;
 
 		//titleLabel
@@ -202,29 +215,61 @@ public class RefactoringSummaryPanel {
 		gd.horizontalAlignment = GridData.FILL;
 		gd.grabExcessHorizontalSpace = true;
 		motivationText.setLayoutData(gd);
+
 		
-		//categoriesComp
-		final Composite categoriesComp = new Composite(comp, SWT.NONE);
+		//toolkitComp
+		final Composite toolkitComp = new Composite(comp, SWT.NONE);
 		gd=new GridData();
-		gd.verticalAlignment = GridData.FILL;
-		gd.grabExcessVerticalSpace = true;
+//		gd.verticalAlignment = GridData.FILL;
+//		gd.grabExcessVerticalSpace = true;
 		gd.horizontalAlignment = GridData.FILL;
 		gd.grabExcessHorizontalSpace = true;
-		categoriesComp.setLayoutData(gd);
-		categoriesComp.setLayout(new GridLayout());
+		toolkitComp.setLayoutData(gd);
+		toolkitComp.setLayout(new GridLayout());
 		
-		categoriesLabel = new Label(categoriesComp, SWT.CENTER);
-		categoriesLabel.setText(Messages.RefactoringSummaryPanel_Categories);
-		
-		categoriesText = new Text(categoriesComp, SWT.WRAP | SWT.V_SCROLL | SWT.READ_ONLY | SWT.MULTI | SWT.BORDER);
-		categoriesText.setBackground(Display.getCurrent().getSystemColor(SWT.COLOR_WHITE));
-		categoriesText.setEditable(false);
+		toolkit = new FormToolkit(toolkitComp.getDisplay());
+		final ScrolledForm form = toolkit.createScrolledForm(toolkitComp);
 		gd=new GridData();
-		gd.verticalAlignment = GridData.FILL;
-		gd.grabExcessVerticalSpace = true;
+//		gd.verticalAlignment = GridData.FILL;
+//		gd.grabExcessVerticalSpace = true;
 		gd.horizontalAlignment = GridData.FILL;
 		gd.grabExcessHorizontalSpace = true;
-		categoriesText.setLayoutData(gd);
+		form.setLayoutData(gd);
+		form.setLayout(new GridLayout());
+		form.getBody().setLayoutData(gd);
+		g=new GridLayout();
+		g.numColumns=1;
+		g.marginHeight=10;
+		g.verticalSpacing=20;
+		form.getBody().setLayout(g);
+
+		//categoriesSection 
+		categoriesSection = toolkit.createSection(form.getBody(), 
+							Section.TWISTIE|Section.EXPANDED);
+		categoriesSection.setText(Messages.RefactoringSummaryPanel_Categories);
+		categoriesSection.addExpansionListener(new ExpansionAdapter() {
+			public void expansionStateChanged(ExpansionEvent e) {
+				form.reflow(true);
+			}
+		});
+		toolkit.createCompositeSeparator(categoriesSection);
+		Composite catSectionClient = toolkit.createComposite(categoriesSection);
+		catSectionClient.setLayout(new GridLayout());
+		categoriesSection.setClient(catSectionClient);
+		
+		//keyWordsSection 
+		keyWordsSection = toolkit.createSection(form.getBody(), 
+							Section.TWISTIE|Section.EXPANDED);
+		keyWordsSection.setText(Messages.RefactoringSummaryPanel_KeyWords);
+		keyWordsSection.addExpansionListener(new ExpansionAdapter() {
+			public void expansionStateChanged(ExpansionEvent e) {
+				form.reflow(true);
+			}
+		});
+		toolkit.createCompositeSeparator(keyWordsSection);
+		Composite kwSectionClient = toolkit.createComposite(keyWordsSection);
+		kwSectionClient.setLayout(new GridLayout());
+		keyWordsSection.setClient(kwSectionClient);
 		
 		TabItem item = new TabItem (refTabFolder, SWT.NONE);
 		item.setText(Messages.RefactoringSummaryPanel_Overview);
@@ -234,11 +279,10 @@ public class RefactoringSummaryPanel {
 	private void createInputsTabItem(){
 		inputsTable = new Table(refTabFolder, SWT.BORDER);
 		inputsTable.setBackground(Display.getCurrent().getSystemColor(SWT.COLOR_WHITE));
-		inputsTable.setEnabled(true);
 		inputsTable.setLinesVisible(true);
 		inputsTable.setHeaderVisible(true);
 
-		//se crean las columnas de la tabla
+		//se crean las columnas de la tabla	
 		TableColumn nameCol = new TableColumn(inputsTable, SWT.NONE);
 		nameCol.setText(Messages.RefactoringSummaryPanel_Name);
 		TableColumn typeCol = new TableColumn(inputsTable, SWT.NONE);
@@ -301,15 +345,22 @@ public class RefactoringSummaryPanel {
 
 	private void clear(){
 
+		//hyperLinks
+		//TODO
+		for(Hyperlink h:links)
+			h.dispose();
+		
 		//inputsTable
 		if(inputsTable.getItemCount()>0){
 			TableItem[] items=inputsTable.getItems();
-			for(int i=items.length-1; i>=0; i--)
+			for(int i=items.length-1; i>=0; i--){
+				//recuperamos elbotón check asociado a la fila para eliminarlo
+				Object checkB=items[i].getData(CHECKBUTTON_PROPERTY);
+				if(checkB instanceof Button)
+					((Button)checkB).dispose();
 				items[i].dispose();
+			}
 		}
-
-		for(Button bu:checkButtonsInputsTab)
-			bu.dispose();
 
 		//componentsTree
 		RefactoringTreeManager.cleanTree(componentsTree);
@@ -322,12 +373,49 @@ public class RefactoringSummaryPanel {
 	private void fillOverview(){
 		descriptionText.setText(refactoring.getDescription().trim());
 		motivationText.setText(refactoring.getMotivation().trim());
-		String cat= "";
+		
+		categoriesSection.setVisible(false);
 		ArrayList<Category> categories = new ArrayList<Category>(refactoring.getCategories());
-		for (Category c : categories){
-		 cat+=c.getParent()+"."+c.getName() + "\n";
+		Hyperlink catHyperlink=null;
+		for(Category c : categories){
+			catHyperlink = toolkit.createHyperlink((Composite)categoriesSection.getClient(),
+								c.toString(),SWT.WRAP);
+			//TODO:intentar hacerlo de otra forma
+			links.add(catHyperlink);
+			catHyperlink.setData(c);
+			catHyperlink.addHyperlinkListener(new HyperlinkAdapter(){
+				public void linkActivated(HyperlinkEvent e){
+					if(e.getSource() instanceof Hyperlink){
+						Hyperlink hlink=(Hyperlink)e.getSource();
+						Category c=(Category)hlink.getData();
+						rcbView.addConditionToFilter(new CategoryCondition<DynamicRefactoringDefinition>(c));
+					}
+				}
+			});
 		}
-		categoriesText.setText(cat.trim());
+		categoriesSection.setExpanded(!categories.isEmpty());
+		categoriesSection.setVisible(true);
+		
+		keyWordsSection.setVisible(false);
+		ArrayList<String> keyWords = new ArrayList<String>(refactoring.getKeywords());
+		Hyperlink kwHyperlink=null;
+		for(String kw : keyWords){
+			kwHyperlink = toolkit.createHyperlink((Composite)keyWordsSection.getClient(),
+							kw.toString(),SWT.WRAP);
+			//TODO:intentar hacerlo de otra forma
+			links.add(kwHyperlink);
+			kwHyperlink.setText(kw);
+			kwHyperlink.addHyperlinkListener(new HyperlinkAdapter(){
+				public void linkActivated(HyperlinkEvent e){
+					if(e.getSource() instanceof Hyperlink){
+						Hyperlink hlink=(Hyperlink)e.getSource();
+						rcbView.addConditionToFilter(new TextCondition<DynamicRefactoringDefinition>(hlink.getText()));
+					}
+				}
+			});
+		}
+		keyWordsSection.setExpanded(!keyWords.isEmpty());
+		keyWordsSection.setVisible(true);
 	}
 	
 	private void fillInputsTable(){
@@ -344,7 +432,7 @@ public class RefactoringSummaryPanel {
 				checkButton.setSelection(true);
 			checkButton.setEnabled(false);
 			checkButton.pack();
-			checkButtonsInputsTab.add(checkButton);
+			item.setData(CHECKBUTTON_PROPERTY, checkButton);
 			editor.minimumWidth = checkButton.getSize().x;
 			editor.horizontalAlignment = SWT.CENTER;
 			editor.setEditor(checkButton, item, 3);

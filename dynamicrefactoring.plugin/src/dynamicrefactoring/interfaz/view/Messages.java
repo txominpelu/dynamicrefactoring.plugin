@@ -62,7 +62,14 @@ public class Messages extends NLS {
 	public static String RefactoringCatalogBrowserView_SelectFromClassification;
 	public static String RefactoringCatalogBrowserView_Classification;
 	public static String RefactoringCatalogBrowserView_Search;
+	public static String RefactoringCatalogBrowserView_TextSearchToolTip;
 	public static String RefactoringCatalogBrowserView_ShowFiltered;
+	public static String RefactoringCatalogBrowserView_ClearAll;
+	public static String RefactoringCatalogBrowserView_SelectedCol;
+	public static String RefactoringCatalogBrowserView_SelectedColToolTip;
+	public static String RefactoringCatalogBrowserView_NameCol;
+	public static String RefactoringCatalogBrowserView_ClearCol;
+	public static String RefactoringCatalogBrowserView_ClearColToolTip;
 	public static String RefactoringCatalogBrowserView_ClassAction;
 	public static String RefactoringCatalogBrowserView_RefAction;
 	public static String RefactoringCatalogBrowserView_ClassRefAction;
@@ -70,6 +77,7 @@ public class Messages extends NLS {
 	public static String RefactoringSummaryPanel_Description;
 	public static String RefactoringSummaryPanel_Motivation;
 	public static String RefactoringSummaryPanel_Categories;
+	public static String RefactoringSummaryPanel_KeyWords;
 	public static String RefactoringSummaryPanel_Overview;
 	public static String RefactoringSummaryPanel_Inputs;
 	public static String RefactoringSummaryPanel_Name;

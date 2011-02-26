@@ -36,7 +36,7 @@ public class KeyWordCondition<K extends Element> implements Predicate<K> {
 	 */
 	@Override
 	public boolean equals(Object o){
-		if (o instanceof TextCondition){
+		if (o instanceof KeyWordCondition){
 			KeyWordCondition<?> otra = (KeyWordCondition<?>) o;
 			return otra.getKeyWord().equals(keyWord);
 		}

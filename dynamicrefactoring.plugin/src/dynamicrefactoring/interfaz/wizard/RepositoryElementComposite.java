@@ -340,9 +340,7 @@ public class RepositoryElementComposite {
 		fd_bt_addElement.left = new FormAttachment(0, 250);
 		bt_addElement = new Button(control, SWT.NONE);
 		bt_addElement.setLayoutData(fd_bt_addElement);
-		bt_addElement.setImage(ResourceManager.getPluginImage(
-			RefactoringPlugin.getDefault(), 
-			"icons" + System.getProperty("file.separator") + "arrow_right.gif")); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
+		bt_addElement.setImage(RefactoringImages.getArrowRightIconPath());
 		bt_addElement.setEnabled(false);
 		
 		final FormData fd_bt_delElement = new FormData();
@@ -352,9 +350,7 @@ public class RepositoryElementComposite {
 		fd_bt_delElement.left = new FormAttachment(bt_addElement, 0, SWT.LEFT);
 		bt_delElement = new Button(control, SWT.NONE);		
 		bt_delElement.setLayoutData(fd_bt_delElement);
-		bt_delElement.setImage(ResourceManager.getPluginImage(
-			RefactoringPlugin.getDefault(),
-			"icons" + System.getProperty("file.separator") + "arrow_left.gif")); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
+		bt_delElement.setImage(RefactoringImages.getArrowLeftIconPath());
 		
 		bt_addElement.addSelectionListener(new SelectionAdapter() {
 			public void widgetSelected(SelectionEvent e) {
@@ -408,9 +404,7 @@ public class RepositoryElementComposite {
 		fd_bt_moveUp.bottom = new FormAttachment(bt_addElement, 0, SWT.BOTTOM);
 		bt_moveUp = new Button(control, SWT.NONE);
 		bt_moveUp.setLayoutData(fd_bt_moveUp);
-		bt_moveUp.setImage(ResourceManager.getPluginImage(
-			RefactoringPlugin.getDefault(), 
-			"icons" + System.getProperty("file.separator") + "arrow_up.gif")); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
+		bt_moveUp.setImage(RefactoringImages.getArrowUpIconPath());
 		bt_moveUp.addSelectionListener(new ListUpListener(l_Selected));
 		
 		final FormData fd_bt_moveDown = new FormData();
@@ -419,9 +413,7 @@ public class RepositoryElementComposite {
 		fd_bt_moveDown.left = new FormAttachment(bt_moveUp, 0, SWT.LEFT);
 		bt_moveDown = new Button(control, SWT.NONE);		
 		bt_moveDown.setLayoutData(fd_bt_moveDown);
-		bt_moveDown.setImage(ResourceManager.getPluginImage(
-			RefactoringPlugin.getDefault(),
-			"icons" + System.getProperty("file.separator") + "arrow_down.gif")); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
+		bt_moveDown.setImage(RefactoringImages.getArrowDownIconPath());
 		bt_moveDown.addSelectionListener(new ListDownListener(l_Selected));
 		
 		navegador = new Browser(sash_form,SWT.BORDER);

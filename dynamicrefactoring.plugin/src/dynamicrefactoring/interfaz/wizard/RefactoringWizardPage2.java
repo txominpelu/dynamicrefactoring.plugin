@@ -445,9 +445,7 @@ public class RefactoringWizardPage2 extends WizardPage {
 		fdButton2.top = new FormAttachment(0, 35);
 		fdButton2.bottom = new FormAttachment(0, 58);
 		upButton.setLayoutData(fdButton2);
-		upButton.setImage(ResourceManager.getPluginImage(
-			RefactoringPlugin.getDefault(),
-			"icons" + System.getProperty("file.separator") + "arrow_up.gif")); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
+		upButton.setImage(RefactoringImages.getArrowUpIconPath());
 		upButton.addSelectionListener(new ListUpListener(lInputs));
 
 		downButton = new Button(composite_2, SWT.NONE);
@@ -459,9 +457,7 @@ public class RefactoringWizardPage2 extends WizardPage {
 		fd_vButton.top = new FormAttachment(0, 77);
 		fd_vButton.right = new FormAttachment(parametersGroup, 50, SWT.RIGHT);
 		downButton.setLayoutData(fd_vButton);
-		downButton.setImage(ResourceManager.getPluginImage(
-			RefactoringPlugin.getDefault(),
-			"icons" + System.getProperty("file.separator") + "arrow_down.gif")); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
+		downButton.setImage(RefactoringImages.getArrowDownIconPath());
 		downButton.addSelectionListener(new ListDownListener(lInputs));
 		
 		delButton = new Button(composite, SWT.NONE);
@@ -481,9 +477,7 @@ public class RefactoringWizardPage2 extends WizardPage {
 		fdButton1.right = new FormAttachment(composite1, 45, SWT.RIGHT);
 		fdButton1.left = new FormAttachment(composite1, 5, SWT.RIGHT);
 		addButton.setLayoutData(fdButton1);
-		addButton.setImage(ResourceManager.getPluginImage(
-			RefactoringPlugin.getDefault(),
-			"icons" + System.getProperty("file.separator") + "arrow_right.gif")); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
+		addButton.setImage(RefactoringImages.getArrowRightIconPath());
 
 		addButton.addSelectionListener(new SelectionAdapter() {
 			public void widgetSelected(SelectionEvent e) {
