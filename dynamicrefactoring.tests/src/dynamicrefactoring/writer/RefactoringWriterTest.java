@@ -54,7 +54,7 @@ import dynamicrefactoring.reader.TestCaseRefactoringReader;
  * @author <A HREF="mailto:ehp0001@alu.ubu.es">Enrique Herrero Paredes</A>
  * 
  */
-public class TestCaseRefactoringWriter {
+public class RefactoringWriterTest {
 
 	private static final String MOTIVACION = "Motivacion.";
 	private static final String DESCRIPCION = "Descripcion.";

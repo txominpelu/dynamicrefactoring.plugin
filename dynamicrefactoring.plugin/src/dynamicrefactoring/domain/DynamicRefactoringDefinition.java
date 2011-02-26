@@ -27,6 +27,7 @@ import java.util.Arrays;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 import com.google.common.base.Function;
@@ -570,8 +571,8 @@ public class DynamicRefactoringDefinition implements Element,
 	 * 
 	 * @return conjunto de palabras claves
 	 */
-	public Set<String> getKeywords() {
-		return new HashSet<String>(keywords);
+	public List<String> getKeywords() {
+		return new ArrayList<String>(keywords);
 	}
 
 	/**
