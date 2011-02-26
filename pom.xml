@@ -81,20 +81,6 @@
 	</plugin>
 
 
-<!-- Especificar tests a ejecutar-->
-
-    <plugin>
-      <groupId>org.sonatype.tycho</groupId>
-      <artifactId>maven-osgi-test-plugin</artifactId>
-      <version>${tycho-version}</version>
-      <configuration>
-	<!--<includes>
-		<include>**/TestCaseRefactoringWriter.java</include>
-	</includes>-->
-	<argLine>-javaagent:${jacoco.agent.path}=destfile=${jacoco.file.path}</argLine>
-      </configuration>
-    </plugin>
-
 <!-- Esto es necesario para que se hagan bien los analisis de codigo de sonar-->
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>

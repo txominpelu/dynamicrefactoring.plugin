@@ -32,32 +32,30 @@ import org.apache.commons.io.FilenameUtils;
 
 import dynamicrefactoring.RefactoringConstants;
 import dynamicrefactoring.RefactoringPlugin;
-
 import dynamicrefactoring.reader.JDOMXMLRefactoringReaderImp;
 import dynamicrefactoring.reader.RefactoringPlanReader;
 import dynamicrefactoring.reader.XMLRefactoringReaderException;
 import dynamicrefactoring.util.DynamicRefactoringLister;
-import dynamicrefactoring.util.ScopeLimitedLister;
 import dynamicrefactoring.util.io.FileManager;
 
 /**
- * Proporciona una serie de métodos que se encargan de la exportación e
- * importación de refactorizaciones dinámicas.
+ * Proporciona una serie de mï¿½todos que se encargan de la exportaciï¿½n e
+ * importaciï¿½n de refactorizaciones dinï¿½micas.
  * 
  * @author <A HREF="mailto:lfd0002@alu.ubu.es">Laura Fuente de la Fuente</A>
  */
 public class ExportImportUtilities {
 
 	/**
-	 * Se encarga del proceso de exportación de una refactorización dinámica.
+	 * Se encarga del proceso de exportaciï¿½n de una refactorizaciï¿½n dinï¿½mica.
 	 * 
 	 * @param destination
-	 *            directorio a donde se quiere exportar la refactorización.
+	 *            directorio a donde se quiere exportar la refactorizaciï¿½n.
 	 * @param definition
-	 *            ruta del fichero con la definición de la refactorización.
+	 *            ruta del fichero con la definiciï¿½n de la refactorizaciï¿½n.
 	 * @param createFolders
-	 *            indica si los ficheros .class se copian en al carpeta raíz o
-	 *            si se generá la estructura de carpetas correspondiente.
+	 *            indica si los ficheros .class se copian en al carpeta raï¿½z o
+	 *            si se generï¿½ la estructura de carpetas correspondiente.
 	 * @throws IOException
 	 *             IOException.
 	 * @throws XMLRefactoringReaderException
@@ -98,10 +96,10 @@ public class ExportImportUtilities {
 				}
 			}else{
 				if(! currentFile.exists()){
-					// falta algún fichero .class necesario en esta
-					// refactorización
+					// falta algï¿½n fichero .class necesario en esta
+					// refactorizaciï¿½n
 					//En este caso se borra la carpeta generada en destino ya
-					// que no estará completa
+					// que no estarï¿½ completa
 					FileManager.emptyDirectories(destination + File.separatorChar + definitionFolderName);
 					FileManager.deleteDirectories(destination + File.separatorChar + definitionFolderName, true);
 					throw new IOException(
@@ -117,7 +115,7 @@ public class ExportImportUtilities {
 
 	/**
 	 * Divide la cadena en partes utilizando como token delim y devuelve la
-	 * última de las particiones hechas.
+	 * ï¿½ltima de las particiones hechas.
 	 * 
 	 * @param cadena
 	 *            Cadena a dividir
@@ -135,8 +133,8 @@ public class ExportImportUtilities {
 	}
 
 	/**
-	 * Se encarga del proceso de exportación de un plan de refactorizaciones
-	 * dinámicas.
+	 * Se encarga del proceso de exportaciï¿½n de un plan de refactorizaciones
+	 * dinï¿½micas.
 	 * 
 	 * @param destination
 	 *            directorio a donde se quiere exportar el plan.
@@ -151,9 +149,9 @@ public class ExportImportUtilities {
 			FileManager.deleteDirectories(
 					destination + "/refactoringPlan", true); //$NON-NLS-1$
 		}
-		// Creamos el directorio donde se guardará el plan.
+		// Creamos el directorio donde se guardarï¿½ el plan.
 		new File(destination + "/refactoringPlan").mkdir(); //$NON-NLS-1$
-		// Copiamos el fichero xml que guarda la información relativa al plan.
+		// Copiamos el fichero xml que guarda la informaciï¿½n relativa al plan.
 		String planFile = new String(RefactoringConstants.REFACTORING_PLAN_FILE);
 		String dtdFile = new String(RefactoringConstants.REFACTORING_PLAN_DTD);
 		FileManager.copyFile(new File(RefactoringConstants.REFACTORING_PLAN_FILE)
@@ -178,19 +176,19 @@ public class ExportImportUtilities {
 		for(String next : refactorings){
 			String key = next + " (" + next + ".xml)"; //$NON-NLS-1$ //$NON-NLS-2$
 			String definition = allRefactorings.get(key);// ruta del fichero de
-															// definición de al
-															// refactorización
+															// definiciï¿½n de al
+															// refactorizaciï¿½n
 			ExportRefactoring(refactoringDestination ,definition,true);
 		}
 	}
 
 	/**
-	 * Se encarga del proceso de importación de una refactorización dinámica.
+	 * Se encarga del proceso de importaciï¿½n de una refactorizaciï¿½n dinï¿½mica.
 	 * 
 	 * @param definition
-	 *            ruta del fichero con la definición de la refactorización.
+	 *            ruta del fichero con la definiciï¿½n de la refactorizaciï¿½n.
 	 * @param importingFromPlan
-	 *            indica si la importación de la refactorización ha sido
+	 *            indica si la importaciï¿½n de la refactorizaciï¿½n ha sido
 	 *            solicitada cuando se importaba un plan de refactorizaciones.
 	 * @throws IOException
 	 *             IOException en caso de fallo al copiar la carpeta
@@ -216,9 +214,9 @@ public class ExportImportUtilities {
 						predicado);
 		}
 		
-		// actualizamos el fichero refactorings.xml que guarda la información de
+		// actualizamos el fichero refactorings.xml que guarda la informaciï¿½n de
 		// las refactorizaciones
-		// de la aplicación.
+		// de la aplicaciï¿½n.
 		updateRefactoringsXml(definition, namefolder);
 
 		if (importingFromPlan) {
@@ -233,7 +231,7 @@ public class ExportImportUtilities {
 							+ File.separatorChar + "repository", true);
 
 		} else {
-			// Borramos los .class para no tener almacenada la misma información
+			// Borramos los .class para no tener almacenada la misma informaciï¿½n
 			// en dos sitios
 			deleteClassFilesFromRefactoringsDir(namefolder, reader);
 		}
@@ -284,10 +282,9 @@ public class ExportImportUtilities {
 	private static void updateRefactoringsXml(String definition,
 			String namefolder) {
 		try{
-			DynamicRefactoringDefinition r_definition = DynamicRefactoringDefinition.getRefactoringDefinition(
+			DynamicRefactoringDefinition refactDefinition = DynamicRefactoringDefinition.getRefactoringDefinition(
 				definition);
-			Scope scope = new ScopeLimitedLister().getRefactoringScope(r_definition);
-			new dynamicrefactoring.writer.JDOMXMLRefactoringWriterImp(null).addNewRefactoringToXml(scope,namefolder,definition);
+			new dynamicrefactoring.writer.JDOMXMLRefactoringWriterImp(null).addNewRefactoringToXml(refactDefinition.getRefactoringScope(),namefolder,definition);
 		}catch(RefactoringException e){
 			e.printStackTrace();
 		}

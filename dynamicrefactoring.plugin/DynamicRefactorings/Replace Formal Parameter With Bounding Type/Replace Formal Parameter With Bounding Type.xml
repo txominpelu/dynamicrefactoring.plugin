@@ -1,38 +1,40 @@
-<?xml version="1.0" encoding="ISO-8859-1"?>
-<!DOCTYPE refactoring SYSTEM "refactoringDTD.dtd">
-
-<refactoring name="Replace Formal Parameter With Bounding Type">
+<?xml version="1.0" encoding="iso-8859-1"?><!DOCTYPE refactoring  SYSTEM 'refactoringDTD.dtd'><refactoring name="Replace Formal Parameter With Bounding Type">
 	<information>
 		<description>Replace the formal parameter for one of its bounding types.</description>
 		<motivation>Genericity must be removed from a class.</motivation>
-	</information>
+		<categorization>
+			<classification name="Scope">
+				<category>FormalPar</category>
+				<category>BoundedPar</category>
+			</classification>
+		</categorization>
+	 </information>
 	<inputs>
-		<input type="moon.core.Model" name="Model" root="false" />
-		<input type="moon.core.classdef.ClassDef" name="Class" from="Parameter" method="getClassDef" root="false" />
-		<input type="moon.core.classdef.ClassType" name="Bounding_type" from="Parameter" method="getBounds" root="false" />
-		<input type="moon.core.genericity.BoundS" name="Parameter" root="true" />
+		<input name="Model" root="false" type="moon.core.Model"/>
+		<input from="Parameter" method="getClassDef" name="Class" root="false" type="moon.core.classdef.ClassDef"/>
+		<input from="Parameter" method="getBounds" name="Bounding_type" root="false" type="moon.core.classdef.ClassType"/>
+		<input name="Parameter" root="true" type="moon.core.genericity.BoundS"/>
 	</inputs>
 	<mechanism>
-		<preconditions />
+		<preconditions/>
 		<actions>
 			<action name="repository.moon.concreteaction.RemoveFormalParameter">
-				<param name="Parameter" />
+				<param name="Parameter"/>
 			</action>
 			<action name="repository.moon.concreteaction.SubstituteFormalParameter">
-				<param name="Parameter" />
-				<param name="Bounding_type" />
+				<param name="Parameter"/>
+				<param name="Bounding_type"/>
 			</action>
 			<action name="repository.moon.concreteaction.RemoveRealParameter">
-				<param name="Parameter" />
+				<param name="Parameter"/>
 			</action>
 		</actions>
 		<postconditions>
 			<postcondition name="repository.moon.concretepredicate.IsNotFormalPar">
-				<param name="Parameter" />
-				<param name="Class" />
+				<param name="Parameter"/>
+				<param name="Class"/>
 			</postcondition>
 		</postconditions>
 	</mechanism>
-	<examples />
+	<examples/>
 </refactoring>
-

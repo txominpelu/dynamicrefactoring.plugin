@@ -21,51 +21,38 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.*/
 package dynamicrefactoring.domain;
 
 
-import java.text.MessageFormat;
-
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.ArrayList;
 import java.io.File;
 import java.io.IOException;
 import java.lang.reflect.Method;
+import java.text.MessageFormat;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.Map;
 
-
-
-
-
-
-import org.apache.log4j.Logger;
-
-
-import moon.core.NamedObject;
-import moon.core.Name;
-import moon.core.classdef.MethDec;
-import moon.core.classdef.ClassDef;
-import moon.core.classdef.AttDec;
-import moon.core.classdef.FormalArgument;
-import moon.core.instruction.CodeFragment;
-
-import dynamicrefactoring.RefactoringConstants;
-
-import dynamicrefactoring.integration.CodeRegenerator;
-import dynamicrefactoring.integration.ModelGenerator;
 import javamoon.core.JavaModel;
 import javamoon.core.JavaMoonFactory;
-import dynamicrefactoring.reader.RefactoringPlanReader;
-import dynamicrefactoring.reader.XMLRefactoringReaderException;
+import moon.core.Name;
+import moon.core.NamedObject;
+import moon.core.classdef.AttDec;
+import moon.core.classdef.ClassDef;
+import moon.core.classdef.FormalArgument;
+import moon.core.classdef.MethDec;
+import moon.core.instruction.CodeFragment;
 
+import org.apache.log4j.Logger;
+import org.eclipse.core.runtime.IProgressMonitor;
+import org.eclipse.jface.operation.IRunnableWithProgress;
+
+import dynamicrefactoring.RefactoringConstants;
+import dynamicrefactoring.integration.CodeRegenerator;
+import dynamicrefactoring.integration.ModelGenerator;
 import dynamicrefactoring.interfaz.dynamic.DynamicRefactoringRunner;
 import dynamicrefactoring.interfaz.dynamic.DynamicRefactoringWindow;
-import dynamicrefactoring.util.io.FileManager;
-
-
-
-
-import org.eclipse.jface.operation.IRunnableWithProgress;
-import org.eclipse.core.runtime.IProgressMonitor;
-
 import dynamicrefactoring.interfaz.view.AvailableRefactoringView;
+import dynamicrefactoring.reader.RefactoringPlanReader;
+import dynamicrefactoring.reader.XMLRefactoringReaderException;
+import dynamicrefactoring.util.io.FileManager;
 
 /**
  * Permite ejecutar un conjunto de refactorizaciones que conforman un plan de 
@@ -78,7 +65,7 @@ public class RefactoringPlanExecutor implements IRunnableWithProgress{
 	/**
 	 * Conjunto de refactorizaciones que tienen que ser ejecutadas.
 	 */
-	private HashMap<String,String> refactorings;
+	private Map<String,String> refactorings;
 	
 	/**
 	 * Modelo actual sobre el que ejecutar el plan.
@@ -107,7 +94,7 @@ public class RefactoringPlanExecutor implements IRunnableWithProgress{
 	private final String TYPE_NAME = "moon.core.classdef.Type"; //$NON-NLS-1$
 	
 	/**
-	 * Nombre completamente cualificado del tipo MOON que representa un método de
+	 * Nombre completamente cualificado del tipo MOON que representa un mï¿½todo de
 	 * una clase. 
 	 */
 	private final String METHOD_NAME = "moon.core.classdef.MethDec"; //$NON-NLS-1$
@@ -120,7 +107,7 @@ public class RefactoringPlanExecutor implements IRunnableWithProgress{
 	
 	/**
 	 * Nombre completamente cualificado del tipo MOON que representa un argumento de
-	 * un método. 
+	 * un mï¿½todo. 
 	 */
 	private final String FORMALARGUMENT_NAME = "moon.core.classdef.FormalArgument"; //$NON-NLS-1$
 	
@@ -131,18 +118,18 @@ public class RefactoringPlanExecutor implements IRunnableWithProgress{
 	private final String NAME_NAME = "moon.core.Name"; //$NON-NLS-1$
 	
 	/**
-	 * Nombre completamente cualificado del tipo MOON que representa un fragmento de código.
+	 * Nombre completamente cualificado del tipo MOON que representa un fragmento de cï¿½digo.
 	 */
 	private final String CODEFRAGMENT_NAME = "moon.core.instruction.CodeFragment"; //$NON-NLS-1$
 	
 	/**
-	 * Refactorizaciones con problemas durante la ejecución del plan de refactorizaciones.
+	 * Refactorizaciones con problemas durante la ejecuciï¿½n del plan de refactorizaciones.
 	 */
 	private HashMap<String,String> notExecuted=new HashMap<String,String>();
 	
 	/**
-	 * Devuelve el conjunto de refactorizaciones que han sufrido algún problema 
-	 * durante la ejecución del plan de refactorizaciones.
+	 * Devuelve el conjunto de refactorizaciones que han sufrido algï¿½n problema 
+	 * durante la ejecuciï¿½n del plan de refactorizaciones.
 	 * @return refactorizaciones con problemas y la traza del problema.
 	 */
     public HashMap<String,String> getNotExecuted(){
@@ -156,7 +143,7 @@ public class RefactoringPlanExecutor implements IRunnableWithProgress{
 	 * @param plan conjunto de refactorizaciones que conforman el plan.
 	 * @param path ruta del directorio en el que se encuentra en plan de refactorizaciones.
 	 */
-	public RefactoringPlanExecutor(HashMap<String,String> refactorings, ArrayList<String> plan, String path){
+	public RefactoringPlanExecutor(Map<String,String> refactorings, ArrayList<String> plan, String path){
 		this.refactorings=refactorings;
 		this.plan=plan;
 		new AvailableRefactoringView().saveUnsavedChanges();
@@ -217,7 +204,7 @@ public class RefactoringPlanExecutor implements IRunnableWithProgress{
 		monitor.subTask(Messages.RefactoringPlanExecutor_Regenerating + " ...");
 		CodeRegenerator.getInstance().refresh();
 		//Dejamos el classpath como estaba, para ello borramos de temp los ficheros .class
-		//que hemos añadido temporalmente para ejecutar el plan.
+		//que hemos aï¿½adido temporalmente para ejecutar el plan.
 		FileManager.emptyDirectories(RefactoringConstants.TEMP_DIRECTORY);
 		FileManager.deleteDirectories(RefactoringConstants.TEMP_DIRECTORY,false);
 		monitor.worked(1);
@@ -228,7 +215,7 @@ public class RefactoringPlanExecutor implements IRunnableWithProgress{
 	
 	
 	/**
-	 * Obtiene las entradas de una refactorización.
+	 * Obtiene las entradas de una refactorizaciï¿½n.
 	 * 
 	 * @param refactoring refactorizacion de la que se quiere obtener las entradas.
 	 * @return una tabla asociativa con los valores de las entradas. Se utiliza
@@ -314,11 +301,11 @@ public class RefactoringPlanExecutor implements IRunnableWithProgress{
 	
 	/**
 	 * Intenta obtener un objeto MOON asociado a una entrada cuyo valor especifica
-	 * el usuario a través de un campo de texto.
+	 * el usuario a travï¿½s de un campo de texto.
 	 * 
 	 * <p>Por defecto, se interpreta que los campos de texto solo pueden contener
-	 * nombres (<code>moon.core.Name</code>) , nombres únicos de clases (<code>
-	 * moon.core.classdef.ClassDef</code>) o nombres únicos de métodos (<code>
+	 * nombres (<code>moon.core.Name</code>) , nombres ï¿½nicos de clases (<code>
+	 * moon.core.classdef.ClassDef</code>) o nombres ï¿½nicos de mï¿½todos (<code>
 	 * moon.core.classdef.MethDec</code>).</p>
 	 * 
 	 * @param input entrada cuyo valor asociado se intenta obtener.
@@ -326,11 +313,11 @@ public class RefactoringPlanExecutor implements IRunnableWithProgress{
 	 * asigna valor a la entrada.
 	 * 
 	 * @return un objeto MOON asociado a la entrada, o <code>null</code> si no se
-	 * pudo cargar ningún objeto adecuado.
+	 * pudo cargar ningï¿½n objeto adecuado.
 	 */
 	private Object computeValue(String[] input, String source){
 		
-		// Se obtiene el nombre del elemento que habrá que buscar.
+		// Se obtiene el nombre del elemento que habrï¿½ que buscar.
 		String name = source.trim();
 		
 		// Si la entrada es de tipo moon.core.Name.
@@ -342,7 +329,7 @@ public class RefactoringPlanExecutor implements IRunnableWithProgress{
 			Class<?> classdef = Class.forName(CLASSDEF_NAME);
 			Class<?> declaration = Class.forName(input[0]);
 			
-			// Si no, se comprueba si es algún subtipo de moon.core.classdef.ClassDef.
+			// Si no, se comprueba si es algï¿½n subtipo de moon.core.classdef.ClassDef.
 			if (classdef.isAssignableFrom(declaration)){
 				Name className = model.getMoonFactory().createName(name);
 				return model.getClassDef(className);				
@@ -396,12 +383,12 @@ public class RefactoringPlanExecutor implements IRunnableWithProgress{
 	
 	/**
 	 * Busca un objeto entre un grupo de objetos que se corresponada con la
-	 * entrada de la refactorización.
+	 * entrada de la refactorizaciï¿½n.
 	 * 
-	 * @param group Colección que posiblemente contiene el objeto buscado.
-	 * @param input parámetro que se esta procesando.
-	 * @param refactoring nombre de la refactorización.
-	 * @return objeto que se corresponde con el parámetro.
+	 * @param group Colecciï¿½n que posiblemente contiene el objeto buscado.
+	 * @param input parï¿½metro que se esta procesando.
+	 * @param refactoring nombre de la refactorizaciï¿½n.
+	 * @return objeto que se corresponde con el parï¿½metro.
 	 */
 	private Object selectFromGroup( Object group, String[] input, String refactoring){
 		try{
@@ -418,14 +405,14 @@ public class RefactoringPlanExecutor implements IRunnableWithProgress{
 				    + " (" + refactoring +".xml)")).getParent()).getParent()).getParent()
 				    + "/refactoringPlan.xml" );
 			
-			// Si los valores están contenidos en una colección.
+			// Si los valores estï¿½n contenidos en una colecciï¿½n.
 			if (collection.isAssignableFrom(container))
 				for (Object next : ((java.util.Collection<?>)group)){
 					if(((NamedObject)next).getUniqueName().toString().equals(name))
 						return next;
 				}
 			
-			// Si los valores están contenidos en un iterador.
+			// Si los valores estï¿½n contenidos en un iterador.
 			else if (iterator.isAssignableFrom(container)){
 				Iterator<?> valueIterator = (java.util.Iterator<?>)group;
 				while(valueIterator.hasNext())
@@ -449,11 +436,11 @@ public class RefactoringPlanExecutor implements IRunnableWithProgress{
 	
 	
 	/**
-	 * Obtiene el método del modelo correspondiente al nombre cualificado del mismo que
+	 * Obtiene el mï¿½todo del modelo correspondiente al nombre cualificado del mismo que
 	 * se le pasa como entrada.
 	 * 
-	 * @param uniqueName nombre cualificado del método a obtener.
-	 * @return método del modelo correspondiente con uniqueName.
+	 * @param uniqueName nombre cualificado del mï¿½todo a obtener.
+	 * @return mï¿½todo del modelo correspondiente con uniqueName.
 	 */
 	private MethDec processMethod(String uniqueName){
 		String s_methodName="";
@@ -492,11 +479,11 @@ public class RefactoringPlanExecutor implements IRunnableWithProgress{
 	}
 	
 	/**
-	 * Obtiene el parámetro de un método del modelo correspondiente al nombre cualificado del mismo 
+	 * Obtiene el parï¿½metro de un mï¿½todo del modelo correspondiente al nombre cualificado del mismo 
 	 * que se le pasa como entrada.
 	 * 
-	 * @param uniqueName nombre cualificado del parámetro a obtener.
-	 * @return parámetro del modelo correspondiente con uniqueName.
+	 * @param uniqueName nombre cualificado del parï¿½metro a obtener.
+	 * @return parï¿½metro del modelo correspondiente con uniqueName.
 	 */
 	private FormalArgument processFormalArgument(String uniqueName){
 		String s_methodName = uniqueName.substring(uniqueName.indexOf('~')+1,uniqueName.indexOf('%'));
@@ -520,10 +507,10 @@ public class RefactoringPlanExecutor implements IRunnableWithProgress{
 	
 	/**
 	 * Obtiene el CodeFragment correspondiente a la entrada principal de 
-	 * una refactorización.
+	 * una refactorizaciï¿½n.
 	 * 
-	 * @param data datos sobre el frgamento de código a obtener.
-	 * @return parámetro del modelo correspondiente con uniqueName.
+	 * @param data datos sobre el frgamento de cï¿½digo a obtener.
+	 * @return parï¿½metro del modelo correspondiente con uniqueName.
 	 */
 	private CodeFragment processCodeFragment(String data){
 		int beginLine = Integer.valueOf(data.substring(0,data.indexOf(',')));
@@ -555,9 +542,9 @@ public class RefactoringPlanExecutor implements IRunnableWithProgress{
 	 * del classpath.
 	 * 
 	 * <p>Para ello introduce dicha carpeta dentro de una carpeta temporal llamada ./temp
-	 * que está agragada al classpath del plugin.<p> 
+	 * que estï¿½ agragada al classpath del plugin.<p> 
 	 * 
-	 * @param directory directorio en el que se encuentran los ficheros .class a añadir.
+	 * @param directory directorio en el que se encuentran los ficheros .class a aï¿½adir.
 	 */
 	private void setFilesIntoClasspath(String directory){
 		try{

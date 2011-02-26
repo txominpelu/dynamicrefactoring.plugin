@@ -57,7 +57,7 @@
 		
 		
 	
-	<categorization><classification name="Fowler"><category>MakingMethodCallsSimpler</category></classification></categorization></information>
+	<categorization><classification name="Fowler"><category>MakingMethodCallsSimpler</category></classification><classification name="Scope"><category>Method</category></classification></categorization></information>
 	
 	
 	

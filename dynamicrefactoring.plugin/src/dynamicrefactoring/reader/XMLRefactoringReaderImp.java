@@ -95,7 +95,16 @@ public interface XMLRefactoringReaderImp {
 	 */
 	public static final String CLASSIFICATION_NAME_ATTRIBUTE = "name"; //$NON-NLS-1$
 
-	
+	/**
+	 * Nombre de la etiqueta con las palabras clave que describen
+	 * la refactorizacion.
+	 */
+	public static final String KEYWORD_ELEMENT = "keyword";
+
+	/**
+	 * Etiqueta contenedora de las palabras clave.
+	 */
+	public static final String KEYWORDS_ELEMENT = "keywords";
 	/**
 	 * Nombre de la etiqueta bajo la cual se especifican las entradas de la
 	 * refactorización.

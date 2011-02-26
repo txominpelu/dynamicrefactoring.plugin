@@ -49,7 +49,7 @@
 		
 		
 	
-	<categorization><classification name="Fowler"><category>ComposingMethods</category></classification></categorization></information>
+	<categorization><classification name="Fowler"><category>ComposingMethods</category></classification><classification name="Scope"><category>CodeFragment</category></classification></categorization></information>
 	
 	
 	

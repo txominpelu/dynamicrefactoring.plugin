@@ -6,6 +6,7 @@ dynamicrefactoring.plugin/target/*
 dynamicrefactoring.plugin/bin/*
 dynamicrefactoring.tests/screenshots/*
 dynamicrefactoring.tests/target/*
+dynamicrefactoring.tests/screenshots/*
 dynamicrefactoring.tests/bin/*
 borrar-ficheros.sh
 large-files.perl

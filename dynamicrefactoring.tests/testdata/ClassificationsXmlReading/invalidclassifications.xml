@@ -3,7 +3,7 @@
 
 <!-- Fichero xml de clasificaciones invalido -->
 <classificationsa>
-	<classification name="scope">
+	<classification name="Scope">
 		<categories>
 			<category>SCOPE_CLASS</category>
 			<category>SCOPE_METHOD</category>

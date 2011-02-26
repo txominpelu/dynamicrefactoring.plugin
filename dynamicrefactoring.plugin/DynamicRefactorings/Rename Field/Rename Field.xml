@@ -1,50 +1,46 @@
-<?xml version="1.0" encoding="ISO-8859-1"?>
-<!DOCTYPE refactoring SYSTEM "refactoringDTD.dtd">
-
-<refactoring name="Rename Field">
+<?xml version="1.0" encoding="iso-8859-1"?><!DOCTYPE refactoring  SYSTEM 'refactoringDTD.dtd'><refactoring name="Rename Field">
 	<information>
 		<description>Renombra un atributo determinado teniendo en cuenta que no exista un atributo con el mismo nombre dentro de la clase.</description>
 		<motivation>En determinadas ocasiones es interesante cambiar el nombre de las propiedades con el fin de generar un convenio de nombres común.</motivation>
-	</information>
+	<categorization><classification name="Scope"><category>Attribute</category></classification></categorization></information>
 	<inputs>
-		<input type="moon.core.Name" name="New_name" root="false" />
-		<input type="moon.core.classdef.ClassDef" name="Class" from="Attribute" method="getClassDef" root="false" />
-		<input type="moon.core.Name" name="Old_name" from="Attribute" method="getName" root="false" />
-		<input type="moon.core.classdef.AttDec" name="Attribute" root="true" />
-		<input type="moon.core.Model" name="Model" root="false" />
+		<input name="New_name" root="false" type="moon.core.Name"/>
+		<input from="Attribute" method="getClassDef" name="Class" root="false" type="moon.core.classdef.ClassDef"/>
+		<input from="Attribute" method="getName" name="Old_name" root="false" type="moon.core.Name"/>
+		<input name="Attribute" root="true" type="moon.core.classdef.AttDec"/>
+		<input name="Model" root="false" type="moon.core.Model"/>
 	</inputs>
 	<mechanism>
 		<preconditions>
 			<precondition name="repository.moon.concretepredicate.ExistsAttributeInClass">
-				<param name="Attribute" />
-				<param name="Class" />
+				<param name="Attribute"/>
+				<param name="Class"/>
 			</precondition>
 			<precondition name="repository.moon.concretepredicate.ExistsAttributeWithNameInClass">
-				<param name="Class" />
-				<param name="Old_name" />
+				<param name="Class"/>
+				<param name="Old_name"/>
 			</precondition>
 			<precondition name="repository.moon.concretepredicate.NotExistsAttributeWithNameInClass">
-				<param name="Class" />
-				<param name="New_name" />
+				<param name="Class"/>
+				<param name="New_name"/>
 			</precondition>
 		</preconditions>
 		<actions>
 			<action name="repository.moon.concreteaction.RenameField">
-				<param name="Attribute" />
-				<param name="New_name" />
+				<param name="Attribute"/>
+				<param name="New_name"/>
 			</action>
 		</actions>
 		<postconditions>
 			<postcondition name="repository.moon.concretepredicate.ExistsAttributeWithNameInClass">
-				<param name="Class" />
-				<param name="New_name" />
+				<param name="Class"/>
+				<param name="New_name"/>
 			</postcondition>
 			<postcondition name="repository.moon.concretepredicate.NotExistsAttributeWithNameInClass">
-				<param name="Class" />
-				<param name="Old_name" />
+				<param name="Class"/>
+				<param name="Old_name"/>
 			</postcondition>
 		</postconditions>
 	</mechanism>
-	<examples />
+	<examples/>
 </refactoring>
-

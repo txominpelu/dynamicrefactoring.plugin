@@ -239,9 +239,12 @@ public class RefactoringPlugin extends AbstractUIPlugin
 		FileManager.copyResourceToDir("/refactoringPlanDTD.dtd",
 				getStateLocation().toOSString());
 
-		FileManager.copyBundleDirToFileSystem(
-						DYNAMIC_REFACTORINGS_FOLDER_NAME,
-						getStateLocation().toOSString());
+		if(!new File(getStateLocation().toOSString() + DYNAMIC_REFACTORINGS_FOLDER_NAME).exists()){
+			FileManager.copyBundleDirToFileSystem(
+					DYNAMIC_REFACTORINGS_FOLDER_NAME,
+					getStateLocation().toOSString());
+	
+		}
 		FileManager.copyBundleDirToFileSystem("/bin/", getStateLocation()
 				.toOSString());
 	}

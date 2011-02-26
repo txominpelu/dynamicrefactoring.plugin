@@ -96,7 +96,8 @@ class ClassificationsCheckBoxTreeListener implements
 	 *            elemento padre
 	 * @param viewer
 	 */
-	protected void grayParentIfNeeded(Classification classification,
+
+	protected static void grayParentIfNeeded(Classification classification,
 			CheckboxTreeViewer viewer) {
 		// Si alguno de los hijos de la clasificacion tiene algun hijo
 		// marcado

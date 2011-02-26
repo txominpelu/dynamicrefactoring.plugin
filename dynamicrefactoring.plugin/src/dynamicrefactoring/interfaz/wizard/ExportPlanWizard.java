@@ -23,6 +23,7 @@ package dynamicrefactoring.interfaz.wizard;
 import com.swtdesigner.ResourceManager;
 
 import dynamicrefactoring.domain.ExportImportUtilities;
+import dynamicrefactoring.RefactoringImages;
 import dynamicrefactoring.RefactoringPlugin;
 import dynamicrefactoring.interfaz.ButtonTextProvider;
 import dynamicrefactoring.interfaz.CustomProgressDialog;
@@ -52,7 +53,7 @@ import org.eclipse.swt.widgets.Text;
 
 /**
  * Proporciona un asistente que permite exportar un plan formado por un conjunto de 
- * refactorizaciones dinámicas existentes.
+ * refactorizaciones dinï¿½micas existentes.
  * 
  * @author <A HREF="mailto:lfd0002@alu.ubu.es">Laura Fuente de la Fuente</A>
  */
@@ -65,17 +66,17 @@ public class ExportPlanWizard extends Dialog {
 	
 	/**
 	 * Campo de texto en que se almacena la ruta del directorio al que se
-	 * exportarán las refactorizaciones.
+	 * exportarï¿½n las refactorizaciones.
 	 */
 	private Text t_Output;
 	
 	/**
-	 * Botón que permite iniciar la exportación.
+	 * Botï¿½n que permite iniciar la exportaciï¿½n.
 	 */
 	private Button bt_Export;
 		
 	/**
-	 * Crea la ventana de diálogo.
+	 * Crea la ventana de diï¿½logo.
 	 * 
 	 * @param parentShell la <i>shell</i> padre de esta ventana.
 	 */
@@ -84,11 +85,11 @@ public class ExportPlanWizard extends Dialog {
 	}
 
 	/**
-	 * Crea el contenido de la ventana de diálogo.
+	 * Crea el contenido de la ventana de diï¿½logo.
 	 * 
 	 * @param parent el elemento padre para los contenidos de la ventana.
 	 * 
-	 * @return el control del área de diálogo.
+	 * @return el control del ï¿½rea de diï¿½logo.
 	 */
 	@Override
 	protected Control createDialogArea(Composite parent) {
@@ -140,9 +141,9 @@ public class ExportPlanWizard extends Dialog {
 	}
 
 	/**
-	 * Obtiene el tamaño inicial de la ventana de diálogo.
+	 * Obtiene el tamaï¿½o inicial de la ventana de diï¿½logo.
 	 * 
-	 * @return el tamaño inicial de la ventana de diálogo.
+	 * @return el tamaï¿½o inicial de la ventana de diï¿½logo.
 	 */
 	@Override
 	protected Point getInitialSize() {
@@ -155,17 +156,16 @@ public class ExportPlanWizard extends Dialog {
 	protected void configureShell(Shell newShell) {
 		super.configureShell(newShell);
 		newShell.setText(Messages.ExportPlanWizard_ExportRefactoringPlan);
-		newShell.setImage(ResourceManager.getPluginImage(RefactoringPlugin.getDefault(),
-			"icons" + System.getProperty("file.separator") + "export_plan.ico")); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
+		newShell.setImage(RefactoringImages.getExportPlanIconPath());
 	}
 	
 	
 
 	/**
-	 * Implementa la funcionalidad de exportación de un plan de refactorizaciones, lanzada como 
-	 * respuesta a la pulsación del botón correspondiente.
+	 * Implementa la funcionalidad de exportaciï¿½n de un plan de refactorizaciones, lanzada como 
+	 * respuesta a la pulsaciï¿½n del botï¿½n correspondiente.
 	 * 
-	 * @param buttonId identificador del botón que ha sido pulsado en el diálogo.
+	 * @param buttonId identificador del botï¿½n que ha sido pulsado en el diï¿½logo.
 	 */
 	@Override
 	protected void buttonPressed(int buttonId) {
@@ -182,7 +182,7 @@ public class ExportPlanWizard extends Dialog {
 							Messages.ExportWizard_Successfully ); //$NON-NLS-1$
 				}
 				catch (InterruptedException e) {
-					// El usuario canceló el proceso.			 
+					// El usuario cancelï¿½ el proceso.			 
 					logger.warn(e.getMessage());
 				}
 				catch (Exception exception){
@@ -196,7 +196,7 @@ public class ExportPlanWizard extends Dialog {
 	}
 	
 	/**
-	 * Permite lanzar el trabajo de exportación de refactorizaciones y hacer un
+	 * Permite lanzar el trabajo de exportaciï¿½n de refactorizaciones y hacer un
 	 * seguimiento de su progreso.
 	 * 
 	 * @author <A HREF="mailto:lfd0002@alu.ubu.es">Laura Fuente de la Fuente</A>
@@ -204,7 +204,7 @@ public class ExportPlanWizard extends Dialog {
 	private class ExportPlanJob implements IRunnableWithProgress{
 		
 		/**
-		 * Directorio donde se crearán las copias de las carpetas de cada una de
+		 * Directorio donde se crearï¿½n las copias de las carpetas de cada una de
 		 * las refactorizaciones exportadas.
 		 */
 		String destination;
@@ -212,7 +212,7 @@ public class ExportPlanWizard extends Dialog {
 		/**
 		 * Constructor.
 		 * 
-		 * @param destination directorio donde se crearán las copias de las
+		 * @param destination directorio donde se crearï¿½n las copias de las
 		 * refactorizaciones exportadas.
 		 */
 		public ExportPlanJob(String destination){
@@ -220,17 +220,17 @@ public class ExportPlanWizard extends Dialog {
 		}
 
 		/**
-		 * Ejecuta el trabajo de exportación de refactorizaciones.
+		 * Ejecuta el trabajo de exportaciï¿½n de refactorizaciones.
 		 * 
-		 * @param monitor el monitor de progreso que deberá usarse para mostrar
+		 * @param monitor el monitor de progreso que deberï¿½ usarse para mostrar
 		 * el progreso.
 		 * 
-		 * @throws InvocationTargetException utilizada como envoltura si el método 
-		 * debe propagar una excepción (<i>checked exception</i>). Las excepciones
-		 * de tipo <i>runtime exception</i> se envuelven automáticamente en una
-		 * excepción de este tipo por el contexto que efectúa la llamada.
-		 * @throws InterruptedException si la operación detecta una solicitud de 
-		 * cancelación (no disponible).
+		 * @throws InvocationTargetException utilizada como envoltura si el mï¿½todo 
+		 * debe propagar una excepciï¿½n (<i>checked exception</i>). Las excepciones
+		 * de tipo <i>runtime exception</i> se envuelven automï¿½ticamente en una
+		 * excepciï¿½n de este tipo por el contexto que efectï¿½a la llamada.
+		 * @throws InterruptedException si la operaciï¿½n detecta una solicitud de 
+		 * cancelaciï¿½n (no disponible).
 		 * 
 		 * @see IRunnableWithProgress#run(IProgressMonitor)
 		 */

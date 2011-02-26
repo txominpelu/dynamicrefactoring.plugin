@@ -1,42 +1,38 @@
-<?xml version="1.0" encoding="ISO-8859-1"?>
-<!DOCTYPE refactoring SYSTEM "refactoringDTD.dtd">
-
-<refactoring name="MigrateJUnit3ToJUni4TestException">
+<?xml version="1.0" encoding="iso-8859-1"?><!DOCTYPE refactoring  SYSTEM 'refactoringDTD.dtd'><refactoring name="MigrateJUnit3ToJUni4TestException">
 	<information>
 		<description>El mecanismo de gestión de excepciones en los métodos cambia completamente entre versiones, eliminando los try catch finally en la versión JUnit4</description>
 		<motivation>El mecanismo de gestión de excepciones en los métodos cambia completamente entre versiones, eliminando los try catch finally en la versión JUnit4</motivation>
-	</information>
+	<categorization><classification name="Scope"><category>Method</category></classification></categorization></information>
 	<inputs>
-		<input type="moon.core.classdef.ClassDef" name="clase" from="Method" method="getClassDef" root="false" />
-		<input type="moon.core.classdef.MethDec" name="Method" root="true" />
-		<input type="moon.core.Model" name="Modelo" root="false" />
+		<input from="Method" method="getClassDef" name="clase" root="false" type="moon.core.classdef.ClassDef"/>
+		<input name="Method" root="true" type="moon.core.classdef.MethDec"/>
+		<input name="Modelo" root="false" type="moon.core.Model"/>
 	</inputs>
 	<mechanism>
 		<preconditions>
 			<precondition name="repository.moon.concretepredicate.ExistsMethodInClass">
-				<param name="Method" />
+				<param name="Method"/>
 			</precondition>
 			<precondition name="repository.java.concretepredicate.IsJUnit4TestMethod">
-				<param name="Method" />
+				<param name="Method"/>
 			</precondition>
 		</preconditions>
 		<actions>
 			<action name="repository.java.concreteaction.AddJUnit4AnnotationTestExceptionValue">
-				<param name="Method" />
+				<param name="Method"/>
 			</action>
 			<action name="repository.java.concreteaction.RemoveTryCatchFinally">
-				<param name="Method" />
+				<param name="Method"/>
 			</action>
 			<action name="repository.java.concreteaction.RemoveJUnit3FailInstructions">
-				<param name="Method" />
+				<param name="Method"/>
 			</action>
 		</actions>
 		<postconditions>
 			<postcondition name="repository.java.concretepredicate.IsJUnit4TestMethod">
-				<param name="Method" />
+				<param name="Method"/>
 			</postcondition>
 		</postconditions>
 	</mechanism>
-	<examples />
+	<examples/>
 </refactoring>
-

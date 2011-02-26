@@ -7,8 +7,8 @@
 		<motivation>Motivacion.</motivation>
 		<categorization>
 			<classification name="MiClassification">
-				<category>MiCategoria1</category>
 				<category>MiCategoria2</category>
+				<category>MiCategoria1</category>
 			</classification>
 		</categorization>
 	</information>

@@ -50,4 +50,10 @@ public interface Classification extends Comparable<Classification>{
 	 */
 	boolean isMultiCategory();
 
+	/**
+	 * Determina si la clasificación contiente la categoria pasada parámetro.
+	 * @param categoria
+	 * @return verdadero si la clasificación contien la categoria, falso en caso contrario.
+	 */
+	boolean containsCategory(Category cat);
 }

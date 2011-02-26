@@ -28,10 +28,11 @@ import org.eclipse.swt.widgets.TreeItem;
 
 import com.swtdesigner.ResourceManager;
 
+import dynamicrefactoring.RefactoringImages;
 import dynamicrefactoring.RefactoringPlugin;
 
 /**
- * Proporciona métodos de edición de elementos gráficos de tipo árbol
+ * Proporciona mï¿½todos de ediciï¿½n de elementos grï¿½ficos de tipo ï¿½rbol
  * desplegable.
  * 
  * @author <A HREF="mailto:sfd0009@alu.ubu.es">Sonia Fuente de la Fuente</A>
@@ -40,14 +41,14 @@ import dynamicrefactoring.RefactoringPlugin;
 public class TreeEditor {
 
 	/**
-	 * Puebla una rama de un árbol a partir de los elementos de una lista.
+	 * Puebla una rama de un ï¿½rbol a partir de los elementos de una lista.
 	 * 
 	 * @param elements
-	 *            elementos cuyos nombres aparecerán como hojas del árbol
+	 *            elementos cuyos nombres aparecerï¿½n como hojas del ï¿½rbol
 	 * @param parent
-	 *            rama del árbol en la que se insertarán los elementos.
+	 *            rama del ï¿½rbol en la que se insertarï¿½n los elementos.
 	 * @param icon
-	 *            ruta relativa al <i>plugin</i> del icono que se asociará a
+	 *            ruta relativa al <i>plugin</i> del icono que se asociarï¿½ a
 	 *            cada uno de los elementos que se inserten.
 	 */
 	public static void fillInTreeBranch(ArrayList<String> elements, TreeItem parent,
@@ -56,25 +57,24 @@ public class TreeEditor {
 		for(int i = 0; i < elements.size(); i++){
 			TreeItem leaf = new TreeItem(parent, SWT.NONE, i);
 			leaf.setText(elements.get(i));
-			leaf.setImage(ResourceManager.getPluginImage(
-				RefactoringPlugin.getDefault(), icon));
+			leaf.setImage(RefactoringImages.getImageForPath(icon));
 		}
 	}
 
 	/**
-	 * Crea una rama en un árbol de elementos.
+	 * Crea una rama en un ï¿½rbol de elementos.
 	 * 
 	 * @param parent
-	 *            árbol al que se le añadirá una rama.
+	 *            ï¿½rbol al que se le aï¿½adirï¿½ una rama.
 	 * @param position
-	 *            posición de la rama en el árbol (empezando en 0).
+	 *            posiciï¿½n de la rama en el ï¿½rbol (empezando en 0).
 	 * @param text
 	 *            texto asociado a la nueva rama.
 	 * @param icon
 	 *            ruta relativa al <i>plugin</i> del icono asociado a la nueva
 	 *            rama.
 	 * 
-	 * @return el elemento que actúa como raíz de la rama.
+	 * @return el elemento que actï¿½a como raï¿½z de la rama.
 	 */
 	public static TreeItem createBranch(Tree parent, int position, String text, String icon){
 		TreeItem child = new TreeItem(parent, SWT.NONE, position);
@@ -85,16 +85,16 @@ public class TreeEditor {
 	 * Crea una subrama de un arbol dada la rama padre.
 	 * 
 	 * @param parent
-	 *            rama padre a la que se añadirá una rama.
+	 *            rama padre a la que se aï¿½adirï¿½ una rama.
 	 * @param position
-	 *            posición de la rama en el árbol (empezando en 0).
+	 *            posiciï¿½n de la rama en el ï¿½rbol (empezando en 0).
 	 * @param text
 	 *            texto asociado a la nueva rama.
 	 * @param icon
 	 *            ruta relativa al <i>plugin</i> del icono asociado a la nueva
 	 *            rama.
 	 * 
-	 * @return el elemento que actúa como raíz de la rama.
+	 * @return el elemento que actï¿½a como raï¿½z de la rama.
 	 */
 	public static TreeItem createBranch(TreeItem parent, int position,
 			String text, String icon) {
@@ -116,8 +116,7 @@ public class TreeEditor {
 	private static TreeItem addItemProperties(String text, String icon,
 			TreeItem child) {
 		child.setText(text);
-		child.setImage(ResourceManager.getPluginImage(
-			RefactoringPlugin.getDefault(), icon));
+		child.setImage(RefactoringImages.getImageForPath(icon));
 		return child;
 	}
 }

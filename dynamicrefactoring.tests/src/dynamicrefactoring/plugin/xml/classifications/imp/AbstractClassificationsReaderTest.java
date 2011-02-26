@@ -60,11 +60,11 @@ public abstract class AbstractClassificationsReaderTest {
 		Set<Category> categoriesScope = new HashSet<Category>();
 		for(Scope s: Scope.values()){
 			if(!s.equals(Scope.BOUNDED_PAR)){
-				categoriesScope.add(new Category("scope" ,s.toString()));
+				categoriesScope.add(new Category("Scope" ,s.toString()));
 			}
 		}
 		Set<Classification> classifications = new HashSet<Classification>();
-		classifications.add(new SimpleUniLevelClassification("scope", "MiDescripcion", categoriesScope));
+		classifications.add(new SimpleUniLevelClassification("Scope", "MiDescripcion", categoriesScope));
 		classifications.add(new SimpleUniLevelClassification("Fowler", "", categories, true));
 		return classifications;
 		

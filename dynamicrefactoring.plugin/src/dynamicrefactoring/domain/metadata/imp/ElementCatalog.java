@@ -220,7 +220,7 @@ public final class ElementCatalog<K extends Element> implements
 	}
 
 	/**
-	 * Construye una catálogo con los mismos filtros y elementos que el actual
+	 * Construye una catï¿½logo con los mismos filtros y elementos que el actual
 	 * pero con una clasificacion distinta.
 	 * 
 	 * @param classification
@@ -248,7 +248,7 @@ public final class ElementCatalog<K extends Element> implements
 	}
 
 	/**
-	 * Devuelve la clasificación que divide en categorias los elementos de este
+	 * Devuelve la clasificaciï¿½n que divide en categorias los elementos de este
 	 * catalogo.
 	 * 
 	 * @return clasificacion que divide en categorias el catalogo.
@@ -257,5 +257,16 @@ public final class ElementCatalog<K extends Element> implements
 	public Classification getClassification() {
 		return new SimpleUniLevelClassification(classification.getName(),
 				classification.getDescription(), classification.getCategories());
+	}
+
+	/**
+	 * Determina si se encuentra vacio el filtro de condiciones.
+	 * 
+	 * @return devuelve verdadero si el filtro se encuentra vacio de condiciones, 
+	 * falso en caso contrario.
+	 */
+	@Override
+	public boolean isEmptyFilter() {
+		return filter.isEmpty();
 	}
 }
