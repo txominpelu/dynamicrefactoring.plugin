@@ -26,15 +26,14 @@ import moon.core.classdef.ClassType;
 import moon.core.classdef.Type;
 import moon.core.genericity.BoundS;
 import moon.core.genericity.FormalPar;
-
 import refactoring.engine.Predicate;
 
 /**
- * Comprueba que un parámetro formal de una clase presenta acotación F.
+ * Comprueba que un parï¿½metro formal de una clase presenta acotaciï¿½n F.
  * 
- * <p>Para que un parámetro formal presente acotación F deberá estar acotado por una
- * derivación o instanciación genérica no completa donde se utilice - recursivamente -
- * el propio parámetro formal.</p>
+ * <p>Para que un parï¿½metro formal presente acotaciï¿½n F deberï¿½ estar acotado por una
+ * derivaciï¿½n o instanciaciï¿½n genï¿½rica no completa donde se utilice - recursivamente -
+ * el propio parï¿½metro formal.</p>
  * 
  * @author <A HREF="mailto:sfd0009@alu.ubu.es">Sonia Fuente de la Fuente</A>
  * @author <A HREF="mailto:ehp0001@alu.ubu.es">Enrique Herrero Paredes</A>
@@ -42,7 +41,7 @@ import refactoring.engine.Predicate;
 public class IsBoundF extends Predicate {
 
 	/**
-	 * Parámetro formal para el que se busca una acotación F.
+	 * Parï¿½metro formal para el que se busca una acotaciï¿½n F.
 	 */
 	private FormalPar formalParam;
 		
@@ -51,8 +50,8 @@ public class IsBoundF extends Predicate {
 	 *
 	 * Devuelve una nueva instancia del predicado <code>IsBoundF</code>.
 	 *
-	 * @param formalParam parámetro formal sobre el que se estudia la presencia
-	 * de una acotación F.
+	 * @param formalParam parï¿½metro formal sobre el que se estudia la presencia
+	 * de una acotaciï¿½n F.
 	 */
 	public IsBoundF(FormalPar formalParam) {
 		super("IsBoundF:\n\t" + //$NON-NLS-1$
@@ -66,28 +65,28 @@ public class IsBoundF extends Predicate {
 	/**
 	 * Comprueba el valor de verdad del predicado.
 	 * 
-	 * @return <code>true</code> si el parámetro formal contiene una acotación F;
+	 * @return <code>true</code> si el parï¿½metro formal contiene una acotaciï¿½n F;
 	 * <code>false</code> en caso contrario.
 	 */
 	@Override
 	public boolean isValid() {
-		// El parámetro formal tiene que estar acotado.
+		// El parï¿½metro formal tiene que estar acotado.
 		if (! (formalParam instanceof BoundS))
 			return false;
 		
 		List<Type> bounds = ((BoundS)formalParam).getBounds();
 		
-		// Para cada acotación.
+		// Para cada acotaciï¿½n.
 		for(Type nextBound : bounds)
-			// Se busca una acotación por un tipo genérico.
+			// Se busca una acotaciï¿½n por un tipo genï¿½rico.
 			if(nextBound.getClassDef().isGeneric())
-				// Además, debe ser un tipo obtenido a partir de una clase.
+				// Ademï¿½s, debe ser un tipo obtenido a partir de una clase.
 				if(nextBound instanceof ClassType){
-					// Se obtienen los parámetros con los que se instancia el tipo
-					// genérico en la acotación.
+					// Se obtienen los parï¿½metros con los que se instancia el tipo
+					// genï¿½rico en la acotaciï¿½n.
 					List<Type> a = ((ClassType)nextBound).getRealParameters();
 					
-					// Si uno de los parámetros es el parámetro formal en cuestión...
+					// Si uno de los parï¿½metros es el parï¿½metro formal en cuestiï¿½n...
 					if (a.contains(formalParam))
 						return true;
 				}						

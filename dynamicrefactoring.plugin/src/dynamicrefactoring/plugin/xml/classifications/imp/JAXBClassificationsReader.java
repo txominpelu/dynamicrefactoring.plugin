@@ -1,24 +1,18 @@
 package dynamicrefactoring.plugin.xml.classifications.imp;
 
 import java.io.File;
-import java.io.InputStream;
 import java.net.URL;
 import java.util.HashSet;
 import java.util.Set;
 
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBElement;
-import javax.xml.bind.JAXBException;
 import javax.xml.bind.UnmarshalException;
 import javax.xml.bind.Unmarshaller;
-import javax.xml.bind.ValidationEventHandler;
 import javax.xml.bind.ValidationException;
-import javax.xml.bind.helpers.DefaultValidationEventHandler;
 import javax.xml.bind.util.ValidationEventCollector;
 import javax.xml.validation.Schema;
 import javax.xml.validation.SchemaFactory;
-
-import org.xml.sax.SAXException;
 
 import com.google.common.base.Preconditions;
 import com.google.common.base.Throwables;

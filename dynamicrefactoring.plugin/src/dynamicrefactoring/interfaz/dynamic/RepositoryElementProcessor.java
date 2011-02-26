@@ -20,17 +20,16 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.*/
 
 package dynamicrefactoring.interfaz.dynamic;
 
-import dynamicrefactoring.util.RepositoryElementLister;
-
 import java.io.IOException;
-
 import java.util.HashMap;
 
 import org.apache.log4j.Logger;
 
+import dynamicrefactoring.util.RepositoryElementLister;
+
 /**
  * Proporciona funciones de procesamiento de los elementos del repositorio 
- * que componen una refactorización dinámica.
+ * que componen una refactorizaciï¿½n dinï¿½mica.
  * 
  * @author <A HREF="mailto:sfd0009@alu.ubu.es">Sonia Fuente de la Fuente</A>
  * @author <A HREF="mailto:ehp0001@alu.ubu.es">Enrique Herrero Paredes</A>
@@ -44,13 +43,13 @@ public class RepositoryElementProcessor {
 		Logger.getLogger(RepositoryElementProcessor.class);
 
 	/**
-	 * Determina si un nombre de acción corresponde con una acción del repositorio
+	 * Determina si un nombre de acciï¿½n corresponde con una acciï¿½n del repositorio
 	 * dependiente de Java.
 	 * 
-	 * @param actionName nombre de la acción cuya dependencia del lenguaje se 
+	 * @param actionName nombre de la acciï¿½n cuya dependencia del lenguaje se 
 	 * quiere determinar.
 	 * 
-	 * @return <code>true</code> si la acción es dependiente de Java; <code>false
+	 * @return <code>true</code> si la acciï¿½n es dependiente de Java; <code>false
 	 * </code> en caso contrario.
 	 */
 	public static boolean isActionJavaDependent(String actionName){

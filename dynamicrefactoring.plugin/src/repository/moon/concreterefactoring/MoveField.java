@@ -21,34 +21,39 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.*/
 package repository.moon.concreterefactoring;
 
 
-import moon.core.classdef.*;
 import moon.core.Model;
-
+import moon.core.classdef.AttDec;
+import moon.core.classdef.ClassDef;
 import repository.moon.MOONRefactoring;
-import repository.moon.concreteaction.*;
-import repository.moon.concretepredicate.*;
+import repository.moon.concreteaction.MoveAttribute;
+import repository.moon.concretepredicate.AttributeIsNotUsedInClass;
+import repository.moon.concretepredicate.AttributeIsNotUsedInModel;
+import repository.moon.concretepredicate.ExistsAttributeInClass;
+import repository.moon.concretepredicate.ExistsClass;
+import repository.moon.concretepredicate.NotEqualClasses;
+import repository.moon.concretepredicate.NotExistsAttributeInClass;
 
 /**
  * Permite mover un campo de una clase de un modelo a otra clase del modelo.<p>
  *
  * Comprueba que el atributo pertenezca a la clase indicada, y que no exista ya 
  * otro atributo en la clase de destino con el mismo nombre que el atributo de 
- * la clase de origen que se va a mover. También verifica que el atributo no 
- * esté siendo utilizado desde ninguna clase del modelo. Las clases de origen
+ * la clase de origen que se va a mover. Tambiï¿½n verifica que el atributo no 
+ * estï¿½ siendo utilizado desde ninguna clase del modelo. Las clases de origen
  * y de destino no pueden ser la misma.<p>
  *
- * Si las comprobaciones no fallan, se lleva a cabo la refactorización.<p>
+ * Si las comprobaciones no fallan, se lleva a cabo la refactorizaciï¿½n.<p>
  *
- * Finalmente, comprueba que el proceso se ha llevado a cabo con éxito.
+ * Finalmente, comprueba que el proceso se ha llevado a cabo con ï¿½xito.
  *
- * @author <A HREF="mailto:alc0022@alu.ubu.es">Ángel López Campo</A>
+ * @author <A HREF="mailto:alc0022@alu.ubu.es">ï¿½ngel Lï¿½pez Campo</A>
  * @author <A HREF="mailto:ehp0001@alu.ubu.es">Enrique Herrero Paredes</A>
  * @author <A HREF="mailto:sfd0009@alu.ubu.es">Sonia Fuente de la Fuente</A>
  */
 public class MoveField extends MOONRefactoring {
 	
 	/**
-	 * Nombre de la refactorización concreta.
+	 * Nombre de la refactorizaciï¿½n concreta.
 	 */
 	private static final String NAME = "MoveField"; //$NON-NLS-1$
 	

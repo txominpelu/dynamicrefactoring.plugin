@@ -22,21 +22,20 @@ package repository.moon.concretepredicate;
 
 import moon.core.Name;
 import moon.core.classdef.MethDec;
-
 import refactoring.engine.Predicate;
 
 /**
- * Permite verificar que existe un parámetro cuyo nombre coincide con el 
- * especificado, dentro de la signatura de un método.
+ * Permite verificar que existe un parï¿½metro cuyo nombre coincide con el 
+ * especificado, dentro de la signatura de un mï¿½todo.
  *
  * @author <A HREF="mailto:ehp0001@alu.ubu.es">Enrique Herrero Paredes</A>
- * @author <A HREF="mailto:alc0022@alu.ubu.es">Ángel López Campo</A>
+ * @author <A HREF="mailto:alc0022@alu.ubu.es">ï¿½ngel Lï¿½pez Campo</A>
  * @author <A HREF="mailto:sfd0009@alu.ubu.es">Sonia Fuente de la Fuente</A>
  */ 
 public class HasFormalArgWithName extends Predicate {
 	
 	/**
-	 * Condición opuesta a la que se comprueba.
+	 * Condiciï¿½n opuesta a la que se comprueba.
 	 */
 	private Predicate oppositePredicate;
 		
@@ -45,8 +44,8 @@ public class HasFormalArgWithName extends Predicate {
 	 *
 	 * Obtiene una nueva instancia de HasFormalArgWithName.
 	 *
-	 * @param methDec el método en cuya signatura se busca el parámetro.
-	 * @param name el nombre del parámetro que se busca.
+	 * @param methDec el mï¿½todo en cuya signatura se busca el parï¿½metro.
+	 * @param name el nombre del parï¿½metro que se busca.
 	 */
 	public HasFormalArgWithName(MethDec methDec, Name name) {
 		
@@ -61,7 +60,7 @@ public class HasFormalArgWithName extends Predicate {
 	/**
 	 * Comprueba el valor de verdad del predicado.
 	 * 
-	 * @return <code>true</code> si no existe el parámetro en el método 
+	 * @return <code>true</code> si no existe el parï¿½metro en el mï¿½todo 
 	 * especificado, <code>false</code> en caso contrario.
 	 */	 
 	public boolean isValid() {

@@ -24,11 +24,8 @@ import java.text.MessageFormat;
 import java.util.ArrayList;
 
 import org.eclipse.core.runtime.Platform;
-
 import org.eclipse.jface.wizard.WizardPage;
-
 import org.eclipse.swt.SWT;
-
 import org.eclipse.swt.events.ModifyEvent;
 import org.eclipse.swt.events.ModifyListener;
 import org.eclipse.swt.events.SelectionEvent;
@@ -36,7 +33,6 @@ import org.eclipse.swt.events.SelectionListener;
 import org.eclipse.swt.layout.FormAttachment;
 import org.eclipse.swt.layout.FormData;
 import org.eclipse.swt.layout.FormLayout;
-
 import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.FileDialog;
@@ -47,11 +43,11 @@ import org.eclipse.swt.widgets.Text;
 import dynamicrefactoring.domain.DynamicRefactoringDefinition;
 
 /**
- * Sexta página del asistente de creación o edición de refactorizaciones.
+ * Sexta pï¿½gina del asistente de creaciï¿½n o ediciï¿½n de refactorizaciones.
  * 
- * <p>Permite asociar hasta un máximo de dos ejemplos concretos a la 
- * refactorización. Cada uno de los ejemplos vendrá definido por un fichero
- * con el estado del sistema antes de la refactorización, y otro con su 
+ * <p>Permite asociar hasta un mï¿½ximo de dos ejemplos concretos a la 
+ * refactorizaciï¿½n. Cada uno de los ejemplos vendrï¿½ definido por un fichero
+ * con el estado del sistema antes de la refactorizaciï¿½n, y otro con su 
  * estado posterior, una vez ejecutada.</p>
  * 
  * <p>Los ficheros aceptados pueden ser ficheros de texto <code>.TXT</code> o
@@ -65,45 +61,45 @@ public class RefactoringWizardPage6 extends WizardPage {
 
 	/**
 	 * Campo de texto con la ruta del fichero que contiene el estado del primer 
-	 * ejemplo antes de la refactorización.
+	 * ejemplo antes de la refactorizaciï¿½n.
 	 */
 	private Text t_Before1;
 	
 	/**
 	 * Campo de texto con la ruta del fichero que contiene el estado del primer 
-	 * ejemplo después de la refactorización.
+	 * ejemplo despuï¿½s de la refactorizaciï¿½n.
 	 */
 	private Text t_After1;
 	
 	/**
 	 * Campo de texto con la ruta del fichero que contiene el estado del segundo 
-	 * ejemplo antes de la refactorización.
+	 * ejemplo antes de la refactorizaciï¿½n.
 	 */
 	private Text t_Before2;
 	
 	/**
 	 * Campo de texto con la ruta del fichero que contiene el estado del segundo 
-	 * ejemplo después de la refactorización.
+	 * ejemplo despuï¿½s de la refactorizaciï¿½n.
 	 */
 	private Text t_After2;
 	
 	/**
-	 * Refactorización configurada a través del asistente y que debe ser creada
-	 * finalmente (si se trata de una nueva refactorización) o modificada (si se
-	 * está editando una ya existente).
+	 * Refactorizaciï¿½n configurada a travï¿½s del asistente y que debe ser creada
+	 * finalmente (si se trata de una nueva refactorizaciï¿½n) o modificada (si se
+	 * estï¿½ editando una ya existente).
 	 */
 	private DynamicRefactoringDefinition refactoring = null;
 	
 	/**
-	 * Última ruta en la que se seleccionó un archivo de ejemplo.
+	 * ï¿½ltima ruta en la que se seleccionï¿½ un archivo de ejemplo.
 	 */
 	private String lastSelectionPath = null;
 	
 	/**
 	 * Constructor.
 	 * 
-	 * @param refactoring refactorización que se está editando o <code>null
-	 * </code> si se está creando una nueva.
+	 * @param refactoring refactorizaciï¿½n que se estï¿½ editando o <code>null
+	 * </code> si se estï¿½ creando una nueva.
 	 */
 	public RefactoringWizardPage6(DynamicRefactoringDefinition refactoring) {
 		super("Wizard page"); //$NON-NLS-1$
@@ -113,9 +109,9 @@ public class RefactoringWizardPage6 extends WizardPage {
 	}
 	
 	/**
-	 * Hace visible o invisible la página del asistente.
+	 * Hace visible o invisible la pï¿½gina del asistente.
 	 * 
-	 * @param visible si la página se debe hacer visible o no.
+	 * @param visible si la pï¿½gina se debe hacer visible o no.
 	 */
 	@Override
 	public void setVisible(boolean visible){
@@ -131,9 +127,9 @@ public class RefactoringWizardPage6 extends WizardPage {
 	}
 
 	/**
-	 * Crea el contenido de la página del asistente.
+	 * Crea el contenido de la pï¿½gina del asistente.
 	 * 
-	 * @param parent el elemento padre de esta página del asistente.
+	 * @param parent el elemento padre de esta pï¿½gina del asistente.
 	 */
 	public void createControl(Composite parent) {
 		Composite container = new Composite(parent, SWT.NULL);
@@ -235,8 +231,8 @@ public class RefactoringWizardPage6 extends WizardPage {
 	}
 	
 	/**
-	 * Puebla los campos del formulario del asistente con la información que se
-	 * pueda obtener de la refactorización existente que se está editando.
+	 * Puebla los campos del formulario del asistente con la informaciï¿½n que se
+	 * pueda obtener de la refactorizaciï¿½n existente que se estï¿½ editando.
 	 */
 	private void fillInRefactoringData(){
 		if (refactoring.getExamples() != null){
@@ -265,12 +261,12 @@ public class RefactoringWizardPage6 extends WizardPage {
 	}
 	
 	/**
-	 * Obtiene los ejemplos asociados a la refactorización.
+	 * Obtiene los ejemplos asociados a la refactorizaciï¿½n.
 	 * 
 	 * @return una lista de arrays de cadenas en que cada array contiene dos 
 	 * cadenas: una con la ruta del fichero que contiene el estado del ejemplo
-	 * antes de la refactorización, y otra con la ruta del fichero que contiene
-	 * el estado del ejemplo después de la refactorización.
+	 * antes de la refactorizaciï¿½n, y otra con la ruta del fichero que contiene
+	 * el estado del ejemplo despuï¿½s de la refactorizaciï¿½n.
 	 */
 	public ArrayList<String[]> getExamples(){
 		ArrayList<String[]> examples = new ArrayList<String[]>();
@@ -282,8 +278,8 @@ public class RefactoringWizardPage6 extends WizardPage {
 	}
 
 	/**
-	 * Se asegura de que ambos ejemplos estén completos o vacíos, es decir, no se
-	 * admite la asociación de solo uno de los dos ficheros que componen el ejemplo.
+	 * Se asegura de que ambos ejemplos estï¿½n completos o vacï¿½os, es decir, no se
+	 * admite la asociaciï¿½n de solo uno de los dos ficheros que componen el ejemplo.
 	 */
 	private void dialogChanged() {
 		if (isNotValidString(t_Before1) || isNotValidString(t_After1) || 
@@ -305,13 +301,13 @@ public class RefactoringWizardPage6 extends WizardPage {
 	}
 
 	/**
-	 * Comprueba si un campo de texto no vacío contiene una cadena terminada en la
-	 * extensión <i>.txt</i> o <i>.java</i>.
+	 * Comprueba si un campo de texto no vacï¿½o contiene una cadena terminada en la
+	 * extensiï¿½n <i>.txt</i> o <i>.java</i>.
 	 * 
 	 * @param field campo de texto cuyo contenido se debe verificar.
 	 * 
-	 * @return <code>true</code> si el campo de texto no está vacío y su contenido
-	 * no termina en la extensión <i>.txt</i> ni <i>.java</i>, o está vacío. 
+	 * @return <code>true</code> si el campo de texto no estï¿½ vacï¿½o y su contenido
+	 * no termina en la extensiï¿½n <i>.txt</i> ni <i>.java</i>, o estï¿½ vacï¿½o. 
 	 * <code>false</code> si tiene contenido y termina en una de dichas extensiones. 
 	 */
 	private boolean isNotValidString(Text field) {
@@ -321,7 +317,7 @@ public class RefactoringWizardPage6 extends WizardPage {
 	}
 
 	/**
-	 * Actualiza el estado de la pantalla de diálogo del asistente.
+	 * Actualiza el estado de la pantalla de diï¿½logo del asistente.
 	 * 
 	 * @param message mensaje asociado al estado actual de la pantalla.
 	 */
@@ -331,7 +327,7 @@ public class RefactoringWizardPage6 extends WizardPage {
 	}
 	
 	/**
-	 * Implementa el proceso de elección de uno de los ficheros de texto o Java con 
+	 * Implementa el proceso de elecciï¿½n de uno de los ficheros de texto o Java con 
 	 * el estado del modelo de uno de los ejemplos.
 	 * 
 	 * @author <A HREF="mailto:sfd0009@alu.ubu.es">Sonia Fuente de la Fuente</A>
@@ -340,7 +336,7 @@ public class RefactoringWizardPage6 extends WizardPage {
 	private class ExampleChooserAction implements SelectionListener {
 		
 		/**
-		 * Plantillas con alguna de las cuales deberán conformar los ficheros
+		 * Plantillas con alguna de las cuales deberï¿½n conformar los ficheros
 		 * para poder pasar el filtro y poder ser seleccionados. 
 		 */
 		private final String[] extensions = {"*.java", "*.txt"}; //$NON-NLS-1$ //$NON-NLS-2$
@@ -351,14 +347,14 @@ public class RefactoringWizardPage6 extends WizardPage {
 		private final String[] descriptions = {Messages.RefactoringWizardPage6_JavaFile, Messages.RefactoringWizardPage6_TextFile};
 
 		/**
-		 * Campo de texto en que se guardará la ruta del fichero seleccionado.
+		 * Campo de texto en que se guardarï¿½ la ruta del fichero seleccionado.
 		 */
 		private Text textField; 
 		
 		/**
 		 * Constructor.<p>
 		 * 
-		 * @param textField campo de texto en que se guardará la ruta del 
+		 * @param textField campo de texto en que se guardarï¿½ la ruta del 
 		 * fichero seleccionado.
 		 */
 		public ExampleChooserAction(Text textField) {
@@ -367,14 +363,14 @@ public class RefactoringWizardPage6 extends WizardPage {
 		}
 		
 		/**
-		 * Recibe una notificación de que se ha pulsado el botón que permite 
-		 * seleccionar un fichero de ejemplo asociado a la refactorización.
+		 * Recibe una notificaciï¿½n de que se ha pulsado el botï¿½n que permite 
+		 * seleccionar un fichero de ejemplo asociado a la refactorizaciï¿½n.
 		 * 
-		 * <p>Abre una ventana de selección de fichero con un filtro que permite
-		 * seleccionar solamente ficheros Java con extensión <i>.java</i> o
-		 * ficheros de texto con extensión <i>.txt</i>.</p>
+		 * <p>Abre una ventana de selecciï¿½n de fichero con un filtro que permite
+		 * seleccionar solamente ficheros Java con extensiï¿½n <i>.java</i> o
+		 * ficheros de texto con extensiï¿½n <i>.txt</i>.</p>
 		 * 
-		 * @param e el evento de selección disparado.
+		 * @param e el evento de selecciï¿½n disparado.
 		 * 
 		 * @see SelectionListener#widgetSelected(SelectionEvent)
 		 */

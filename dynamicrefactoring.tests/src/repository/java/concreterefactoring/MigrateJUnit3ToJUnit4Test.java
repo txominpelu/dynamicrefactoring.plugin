@@ -34,12 +34,9 @@ import javamoon.regenerate.Regenerate;
 import javamoon.utils.EclipsePrettyPrinter;
 import junit.framework.TestSuite;
 import moon.core.classdef.ClassType;
-
-
 import refactoring.engine.PostconditionException;
 import refactoring.engine.PreconditionException;
 import refactoring.engine.Refactoring;
-import repository.java.concreterefactoring.MigrateJUnit3ToJUnit4;
 
 /**
  * Tests the refactoring that migrates fromo JUnit 3 test

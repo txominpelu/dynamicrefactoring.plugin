@@ -23,14 +23,16 @@ package repository.moon.concreterefactoring;
 import moon.core.Model;
 import moon.core.classdef.ClassType;
 import moon.core.genericity.FormalPar;
-
 import repository.java.concreteaction.AddImportClause;
 import repository.moon.MOONRefactoring;
-import repository.moon.concreteaction.*;
-import repository.moon.concretepredicate.*;
+import repository.moon.concreteaction.ReplaceBoundType;
+import repository.moon.concretepredicate.IsBoundF;
+import repository.moon.concretepredicate.IsBoundType;
+import repository.moon.concretepredicate.IsSingleGenericInstance;
+import repository.moon.concretepredicate.IsSubtypeBoundDesc;
 
 /**
- * Permite establecer los parámetros para una refactorización "SpecializeBoundF".
+ * Permite establecer los parï¿½metros para una refactorizaciï¿½n "SpecializeBoundF".
  *
  * @author <A HREF="mailto:sfd0009@alu.ubu.es">Sonia Fuente de la Fuente</A>
  * @author <A HREF="mailto:ehp0001@alu.ubu.es">Enrique Herrero Paredes</A>
@@ -46,13 +48,13 @@ public class SpecializeBoundF extends MOONRefactoring {
 	 * Constructor.<p>
 	 *
 	 * Obtiene una nueva instancia de <code>SpecializeBoundF</code>.
-	 * @param formalPar parámetro formal sobre el que se quiere eliminar la acotación F.
-	 * @param oldInstantiation tipo de acotación original, instanciado a partir de
-	 * una clase genérica y el propio parámetro formal como parámetro real de
-	 * instanciación.
-	 * @param newInstantiation nuevo tipo de acotación instanciado con el subtipo
-	 * de la propia clase genérica adecuado.
-	 * @param model el modelo sobre el que se va a efectuar la refactorización.
+	 * @param formalPar parï¿½metro formal sobre el que se quiere eliminar la acotaciï¿½n F.
+	 * @param oldInstantiation tipo de acotaciï¿½n original, instanciado a partir de
+	 * una clase genï¿½rica y el propio parï¿½metro formal como parï¿½metro real de
+	 * instanciaciï¿½n.
+	 * @param newInstantiation nuevo tipo de acotaciï¿½n instanciado con el subtipo
+	 * de la propia clase genï¿½rica adecuado.
+	 * @param model el modelo sobre el que se va a efectuar la refactorizaciï¿½n.
 	 */
 	public SpecializeBoundF(FormalPar formalPar, ClassType oldInstantiation, 
 		ClassType newInstantiation, Model model){

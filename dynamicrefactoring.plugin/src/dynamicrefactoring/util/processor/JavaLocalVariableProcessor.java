@@ -20,14 +20,14 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.*/
 
 package dynamicrefactoring.util.processor;
 
-import dynamicrefactoring.util.selection.SelectionInfo;
-
 import org.eclipse.jdt.core.ILocalVariable;
 import org.eclipse.jdt.core.IMethod;
 
+import dynamicrefactoring.util.selection.SelectionInfo;
+
 /**
  * Proporciona funciones que permiten manejar una variable local Java tal y 
- * como la define Eclipse en su representación interna.
+ * como la define Eclipse en su representaciï¿½n interna.
  * 
  * @author <A HREF="mailto:sfd0009@alu.ubu.es">Sonia Fuente de la Fuente</A>
  * @author <A HREF="mailto:ehp0001@alu.ubu.es">Enrique Herrero Paredes</A>
@@ -52,20 +52,20 @@ public class JavaLocalVariableProcessor extends JavaElementProcessor {
 
 	/**
 	 * Determina si una variable local de Eclipse se corresponde con un argumento
-	 * formal de un método o con una variable local en si.
+	 * formal de un mï¿½todo o con una variable local en si.
 	 * 
 	 * @return {@link SelectionInfo#FORMAL_ARGUMENT} si se trata de un
-	 * argumento formal de un método; {@link SelectionInfo#LOCAL_VARIABLE}
-	 * si se trata de una variable local de método.
+	 * argumento formal de un mï¿½todo; {@link SelectionInfo#LOCAL_VARIABLE}
+	 * si se trata de una variable local de mï¿½todo.
 	 */
 	public int discernLocalVariable(){
-		// El elemento padre de la variable, debería ser un método.
+		// El elemento padre de la variable, deberï¿½a ser un mï¿½todo.
 		if (variable.getParent() instanceof IMethod)
 			try {
 				String names[] = 
 					((IMethod)variable.getParent()).getParameterNames();
-				// Si entre los argumentos formales del método hay alguno con el
-				// mismo nombre que la variable, ha de ser ésta misma.
+				// Si entre los argumentos formales del mï¿½todo hay alguno con el
+				// mismo nombre que la variable, ha de ser ï¿½sta misma.
 				for (int i = 0; i < names.length; i++)
 					if (names[i].equals(variable.getElementName()))
 						return SelectionInfo.FORMAL_ARGUMENT;
@@ -79,10 +79,10 @@ public class JavaLocalVariableProcessor extends JavaElementProcessor {
 	}
 
 	/**
-	 * Obtiene un procesador de información para el método al que pertenece la
+	 * Obtiene un procesador de informaciï¿½n para el mï¿½todo al que pertenece la
 	 * variable local.
 	 * 
-	 * @return un procesador de información para el método al que pertenece la 
+	 * @return un procesador de informaciï¿½n para el mï¿½todo al que pertenece la 
 	 * variable local.
 	 * 
 	 * @see JavaMethodProcessor

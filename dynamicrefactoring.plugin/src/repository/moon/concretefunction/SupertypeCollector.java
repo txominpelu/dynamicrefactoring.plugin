@@ -20,11 +20,13 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.*/
 
 package repository.moon.concretefunction;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.List;
 
-import moon.core.classdef.*;
-import moon.core.inheritance.*;
-
+import moon.core.classdef.ClassDef;
+import moon.core.classdef.ClassType;
+import moon.core.inheritance.InheritanceClause;
 import refactoring.engine.Function;
 
 /**
@@ -36,7 +38,7 @@ import refactoring.engine.Function;
 public class SupertypeCollector extends Function {
 	
 	/**
-	 * El <code>ClassType</code> del que se obtendrán los supertipos.
+	 * El <code>ClassType</code> del que se obtendrï¿½n los supertipos.
 	 */
 	private ClassType classType;
     
@@ -54,7 +56,7 @@ public class SupertypeCollector extends Function {
 	}
 	
 	/**
-	 * Función que devuelve el valor.
+	 * Funciï¿½n que devuelve el valor.
 	 *  
 	 * @return <code>null</code>.
 	 */
@@ -65,12 +67,12 @@ public class SupertypeCollector extends Function {
 
 	/**
 	 * Obtiene todos los supertipos del <code>ClassType</code> representado por
-	 * {@link #classType}, incluyendo aquéllos que se puedan obtener 
-	 * recursivamente a través de sus supertipos directos.
+	 * {@link #classType}, incluyendo aquï¿½llos que se puedan obtener 
+	 * recursivamente a travï¿½s de sus supertipos directos.
 	 * 
 	 * @return los supertipos del <code>ClassType</code> representado por
-	 * {@link #classType}, incluyendo aquéllos que se puedan obtener
-	 * recursivamente a través de sus supertipos directos.
+	 * {@link #classType}, incluyendo aquï¿½llos que se puedan obtener
+	 * recursivamente a travï¿½s de sus supertipos directos.
 	 */	
 	@Override
 	public Collection<ClassType> getCollection() {
@@ -84,10 +86,10 @@ public class SupertypeCollector extends Function {
 	}
 
 	/**
-	 * Añade recursivamente los supertipos.
+	 * Aï¿½ade recursivamente los supertipos.
 	 * 
 	 * @param ct <code>ClassType</code> cuyos supertipos se quieren obtener.
-	 * @param supertypes colección a la que añadir los supertipos hallados.
+	 * @param supertypes colecciï¿½n a la que aï¿½adir los supertipos hallados.
 	 */
 	private void recursiveAdd(ClassType ct, Collection<ClassType> supertypes) {
 

@@ -20,22 +20,21 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.*/
 
 package repository.moon.concretepredicate;
 
-import moon.core.classdef.ClassDef;
 import moon.core.classdef.AttDec;
-
+import moon.core.classdef.ClassDef;
 import refactoring.engine.Predicate;
 
 /**
  * Permite verificar que no existe un cierto atributo en una clase determinada.
  *
- * @author <A HREF="mailto:alc0022@alu.ubu.es">Ángel López Campo</A>
+ * @author <A HREF="mailto:alc0022@alu.ubu.es">ï¿½ngel Lï¿½pez Campo</A>
  * @author <A HREF="mailto:ehp0001@alu.ubu.es">Enrique Herrero Paredes</A>
  * @author <A HREF="mailto:sfd0009@alu.ubu.es">Sonia Fuente de la Fuente</A>
  */ 
 public class NotExistsAttributeInClass extends Predicate {
 	
 	/**
-	 * Condición opuesta a la que se comprueba.
+	 * Condiciï¿½n opuesta a la que se comprueba.
 	 */
 	private Predicate oppositePredicate;
 		

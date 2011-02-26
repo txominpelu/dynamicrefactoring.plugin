@@ -21,20 +21,19 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.*/
 package repository.moon.concretepredicate;
 
 import moon.core.classdef.MethDec;
-
 import refactoring.engine.Predicate;
 
 /**
- * Permite verificar que un cierto método no es abstracto.
+ * Permite verificar que un cierto mï¿½todo no es abstracto.
  *
- * @author <A HREF="mailto:alc0022@alu.ubu.es">Ángel López Campo</A>
+ * @author <A HREF="mailto:alc0022@alu.ubu.es">ï¿½ngel Lï¿½pez Campo</A>
  * @author <A HREF="mailto:ehp0001@alu.ubu.es">Enrique Herrero Paredes</A>
  * @author <A HREF="mailto:sfd0009@alu.ubu.es">Sonia Fuente de la Fuente</A>
  */ 
 public class MethodIsNotDeferred extends Predicate {
 	
 	/**
-	 * Método cuyo carácter de método abstracto se quiere verificar.
+	 * Mï¿½todo cuyo carï¿½cter de mï¿½todo abstracto se quiere verificar.
 	 */
 	private MethDec method;
 	
@@ -43,7 +42,7 @@ public class MethodIsNotDeferred extends Predicate {
 	 *
 	 * Obtiene una nueva instancia de MethodIsNotDeferred.
 	 *
-	 * @param method el método cuyo carácter de método abstracto se quiere 
+	 * @param method el mï¿½todo cuyo carï¿½cter de mï¿½todo abstracto se quiere 
 	 * verificar.
 	 */
 	public MethodIsNotDeferred(MethDec method) {
@@ -57,7 +56,7 @@ public class MethodIsNotDeferred extends Predicate {
 	/**
 	 * Comprueba el valor de verdad del predicado.
 	 * 
-	 * @return <code>true</code> si el método no es abstracto; <code>false
+	 * @return <code>true</code> si el mï¿½todo no es abstracto; <code>false
 	 * </code> en caso contrario.
 	 */	 
 	@Override

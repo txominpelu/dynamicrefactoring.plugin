@@ -9,14 +9,10 @@ import org.eclipse.swt.graphics.Color;
 import org.eclipse.swt.widgets.Tree;
 import org.eclipse.swt.widgets.TreeItem;
 
-import com.swtdesigner.ResourceManager;
-
 import dynamicrefactoring.RefactoringImages;
-import dynamicrefactoring.RefactoringPlugin;
 import dynamicrefactoring.domain.DynamicRefactoringDefinition;
 import dynamicrefactoring.domain.RefactoringException;
 import dynamicrefactoring.interfaz.TreeEditor;
-import dynamicrefactoring.util.Messages;
 
 public class RefactoringTreeManager {
 	

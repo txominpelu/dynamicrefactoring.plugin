@@ -24,8 +24,6 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.io.InputStream;
-import java.io.OutputStream;
 import java.net.URL;
 import java.util.Collections;
 import java.util.Enumeration;
@@ -34,7 +32,6 @@ import java.util.StringTokenizer;
 
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.FilenameUtils;
-import org.apache.commons.io.IOUtils;
 import org.eclipse.core.runtime.FileLocator;
 import org.eclipse.core.runtime.Path;
 import org.eclipse.core.runtime.Platform;
@@ -53,12 +50,12 @@ import dynamicrefactoring.RefactoringPlugin;
 public class FileManager {
 
 	/**
-	 * Vacía un directorio y todos sus subdirectorios.
+	 * Vacï¿½a un directorio y todos sus subdirectorios.
 	 * 
 	 * @param rootDirectory
-	 *            ruta o nombre del directorio raíz.
+	 *            ruta o nombre del directorio raï¿½z.
 	 * 
-	 * @return <code>true</code> si se pudo completar la operación con éxito.
+	 * @return <code>true</code> si se pudo completar la operaciï¿½n con ï¿½xito.
 	 *         <code>false</code> en caso contrario.
 	 */
 	public static boolean emptyDirectories(String rootDirectory){
@@ -86,15 +83,15 @@ public class FileManager {
 	}
 
 	/**
-	 * Borra un directorio y todos sus subdirectorios, siempre y cuando estén
-	 * vacíos.
+	 * Borra un directorio y todos sus subdirectorios, siempre y cuando estï¿½n
+	 * vacï¿½os.
 	 * 
 	 * @param rootDirectory
 	 *            el nombre o la ruta del directorio.
 	 * @param deleteRoot
-	 *            si se debe borrar el directorio raíz al acabar.
+	 *            si se debe borrar el directorio raï¿½z al acabar.
 	 * 
-	 * @return <code>true</code> si se consiguió completar el borrado; <code>
+	 * @return <code>true</code> si se consiguiï¿½ completar el borrado; <code>
 	 * false</code> si alguno de los directorios no pudo ser borrado.
 	 */
 	public static boolean deleteDirectories(String rootDirectory, boolean deleteRoot) {
@@ -189,7 +186,7 @@ public class FileManager {
 	 * @param in
 	 *            el fichero original.
 	 * @param out
-	 *            el fichero que se deberá crear como copia.
+	 *            el fichero que se deberï¿½ crear como copia.
 	 * 
 	 * @throws IOException
 	 *             si no se encuentra alguno de los dos ficheros.
@@ -220,11 +217,11 @@ public class FileManager {
 	 * @param original
 	 *            directorio que se debe copiar.
 	 * @param destination
-	 *            directorio en que se creará la copia del original y todo su
+	 *            directorio en que se crearï¿½ la copia del original y todo su
 	 *            contenido.
 	 * 
 	 * @return <code>true</code> si se consigue realizar la copia completa con
-	 *         éxito; <code>false</code> en caso contrario.
+	 *         ï¿½xito; <code>false</code> en caso contrario.
 	 * 
 	 * @throws IOException
 	 *             si se produce un error al crear el directorio destino o al
@@ -261,13 +258,13 @@ public class FileManager {
 	}
 
 	/**
-	 * Obtiene la ruta completa de un fichero determinado, sin la extensión del
+	 * Obtiene la ruta completa de un fichero determinado, sin la extensiï¿½n del
 	 * fichero.
 	 * 
 	 * @param filePath
 	 *            la ruta del fichero.
 	 * 
-	 * @return la ruta del fichero con el nombre del fichero sin extensión.
+	 * @return la ruta del fichero con el nombre del fichero sin extensiï¿½n.
 	 */
     public static String getFilePathWithoutExtension(String filePath) {
     	
@@ -276,7 +273,7 @@ public class FileManager {
     		temp = temp.concat(
     			filePath.substring(0, filePath.lastIndexOf("."))); //$NON-NLS-1$
 
-		// Si es un fichero sin extensión.
+		// Si es un fichero sin extensiï¿½n.
     	else
       		temp = temp.concat(filePath);
     	
@@ -284,13 +281,13 @@ public class FileManager {
     }
 
 	/**
-	 * Obtiene la ruta del directorio donde está contenido un fichero
+	 * Obtiene la ruta del directorio donde estï¿½ contenido un fichero
 	 * determinado.
 	 * 
 	 * @param filePath
 	 *            la ruta del fichero.
 	 * 
-	 * @return la ruta del directorio donde está contenido el fichero.
+	 * @return la ruta del directorio donde estï¿½ contenido el fichero.
 	 */
     public static String getDirectoryPath(String filePath) {
     	
@@ -330,12 +327,12 @@ public class FileManager {
     }
 
 	/**
-	 * Obtiene el nombre de un fichero determinado, sin la ruta hasta él.
+	 * Obtiene el nombre de un fichero determinado, sin la ruta hasta ï¿½l.
 	 * 
 	 * @param filePath
 	 *            la ruta del fichero.
 	 * 
-	 * @return el nombre del fichero sin la ruta para llegar hasta él.
+	 * @return el nombre del fichero sin la ruta para llegar hasta ï¿½l.
 	 */
     public static String getFileName(String filePath) {
     	String temp = new String();
@@ -344,7 +341,7 @@ public class FileManager {
     			filePath.substring(
     				filePath.lastIndexOf(System.getProperty("file.separator")) + 1, filePath.length())); //$NON-NLS-1$
 
-		// Si el fichero no está en un directorio.
+		// Si el fichero no estï¿½ en un directorio.
     	else
       		temp = filePath;
 
@@ -358,7 +355,7 @@ public class FileManager {
 	 * @param rutaAbsoluta
 	 *            ruta absoluta de un fichero.
 	 * @return devuelve la ruta relativa del fichero cuya rutaAbsoluta se ha
-	 *         introducido en al función.
+	 *         introducido en al funciï¿½n.
 	 */
     public static String AbsoluteToRelative(String rutaAbsoluta){
     	String rutaRelativa ="";
@@ -424,7 +421,7 @@ public class FileManager {
 	 */
 	public static void copyBundleDirToFileSystem(String bundleDir,
 			String fileSystemDir) throws IOException {
-		// TODO: Test para este método
+		// TODO: Test para este mï¿½todo
 		final Bundle bundle = Platform.getBundle(RefactoringPlugin.BUNDLE_NAME);
 		final Enumeration<?> entries = bundle.findEntries(FilenameUtils.separatorsToUnix(bundleDir), "*", true);
 		//FIXME: Falla si no existe la carpeta o no hay nada en ella solucionar y agregar tests

@@ -22,27 +22,19 @@ package dynamicrefactoring.interfaz;
 
 import java.text.MessageFormat;
 
-import dynamicrefactoring.RefactoringImages;
-import dynamicrefactoring.RefactoringConstants;
-import dynamicrefactoring.domain.DynamicRefactoringDefinition;
-
 import org.eclipse.jface.dialogs.IDialogConstants;
-
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.PaintEvent;
 import org.eclipse.swt.events.PaintListener;
 import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.events.SelectionListener;
-
 import org.eclipse.swt.graphics.Image;
 import org.eclipse.swt.graphics.ImageLoader;
 import org.eclipse.swt.graphics.Point;
 import org.eclipse.swt.graphics.Rectangle;
-
 import org.eclipse.swt.layout.FillLayout;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
-
 import org.eclipse.swt.widgets.Canvas;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Control;
@@ -55,8 +47,10 @@ import org.eclipse.swt.widgets.Listener;
 import org.eclipse.swt.widgets.ScrollBar;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.Text;
-import com.swtdesigner.ResourceManager;
+
+import dynamicrefactoring.RefactoringImages;
 import dynamicrefactoring.RefactoringPlugin;
+import dynamicrefactoring.domain.DynamicRefactoringDefinition;
 
 /**
  * Proporciona la funcionalidad com�n a las ventanas que permiten seleccionar una

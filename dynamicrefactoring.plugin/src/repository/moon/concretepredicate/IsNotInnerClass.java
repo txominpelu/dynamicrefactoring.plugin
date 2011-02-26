@@ -21,7 +21,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.*/
 package repository.moon.concretepredicate;
 
 import moon.core.classdef.ClassDef;
-
 import refactoring.engine.Predicate;
 
 /**
@@ -33,7 +32,7 @@ import refactoring.engine.Predicate;
 public class IsNotInnerClass extends Predicate {
 	
 	/**
-	 * Clase cuyo carácter de clase no interna se debe comprobar.
+	 * Clase cuyo carï¿½cter de clase no interna se debe comprobar.
 	 */
 	private ClassDef classDef;
 	
@@ -42,7 +41,7 @@ public class IsNotInnerClass extends Predicate {
 	 *
 	 * Devuelve una nueva instancia del predicado <code>IsNotInnerClass</code>.
 	 *
-	 * @param classDef clase cuyo carácter de clase no interna se debe comprobar.
+	 * @param classDef clase cuyo carï¿½cter de clase no interna se debe comprobar.
 	 */
 	public IsNotInnerClass(ClassDef classDef) {
 

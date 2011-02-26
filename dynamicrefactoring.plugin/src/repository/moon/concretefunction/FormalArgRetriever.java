@@ -20,30 +20,30 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.*/
 
 package repository.moon.concretefunction;
 
+import java.util.Collection;
+import java.util.List;
+
+import moon.core.classdef.FormalArgument;
+import moon.core.classdef.MethDec;
 import refactoring.engine.Function;
 
-import moon.core.classdef.MethDec;
-import moon.core.classdef.FormalArgument;
-
-import java.util.*;
-
 /**
- * Permite obtener un parámetro con un nombre concreto (en el caso de que exista)
- * de la signatura de un método de una clase determinada.
+ * Permite obtener un parï¿½metro con un nombre concreto (en el caso de que exista)
+ * de la signatura de un mï¿½todo de una clase determinada.
  *
  * @author <A HREF="mailto:ehp0001@alu.ubu.es">Enrique Herrero Paredes</A>
- * @author <A HREF="mailto:alc0022@alu.ubu.es">Ángel López Campo</A>
+ * @author <A HREF="mailto:alc0022@alu.ubu.es">ï¿½ngel Lï¿½pez Campo</A>
  * @author <A HREF="mailto:sfd0009@alu.ubu.es">Sonia Fuente de la Fuente</A>
  */ 
 public class FormalArgRetriever extends Function {
 	
 	/**
-	 * Método del que se quiere obtener un parámetro con un nombre concreto.
+	 * Mï¿½todo del que se quiere obtener un parï¿½metro con un nombre concreto.
 	 */
 	private MethDec methDec;
 	
 	/**
-	 * Parámetro cuya existencia dentro de la signatura de un método se quiere 
+	 * Parï¿½metro cuya existencia dentro de la signatura de un mï¿½todo se quiere 
 	 * verificar.
 	 */
 	private FormalArgument formalArg;
@@ -52,9 +52,9 @@ public class FormalArgRetriever extends Function {
 	 * Constructor.<p>
 	 *
 	 * Obtiene una nueva instancia de FormalArgRetriever.
-	 * @param formalArg el parámetro cuya existencia en la signatura del método
+	 * @param formalArg el parï¿½metro cuya existencia en la signatura del mï¿½todo
 	 * se quiere comprobar.
-	 * @param methDec el método de cuya signatura se quiere obtener el parámetro 
+	 * @param methDec el mï¿½todo de cuya signatura se quiere obtener el parï¿½metro 
 	 * formal con un nombre concreto.
 	 */
 	public FormalArgRetriever(FormalArgument formalArg, MethDec methDec) {
@@ -65,7 +65,7 @@ public class FormalArgRetriever extends Function {
 	}
 
 	/**
-	 * Sin implementación.
+	 * Sin implementaciï¿½n.
 	 *
 	 * @return null.
 	 */
@@ -74,10 +74,10 @@ public class FormalArgRetriever extends Function {
 	}
 	
 	/**
-	 * Obtiene el parámetro formal con un nombre concreto de la signatura de un
-	 * método en caso de que exista.
+	 * Obtiene el parï¿½metro formal con un nombre concreto de la signatura de un
+	 * mï¿½todo en caso de que exista.
 	 *
-	 * @return el parámetro con el nombre especificado.
+	 * @return el parï¿½metro con el nombre especificado.
 	 */
 	public Object getValue() {
 			

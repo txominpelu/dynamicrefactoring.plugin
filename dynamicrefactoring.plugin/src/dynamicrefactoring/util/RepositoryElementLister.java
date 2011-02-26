@@ -20,30 +20,29 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.*/
 
 package dynamicrefactoring.util;
 
+import java.io.File;
+import java.io.FilenameFilter;
+import java.io.IOException;
+import java.util.HashMap;
+
 import dynamicrefactoring.RefactoringConstants;
 import dynamicrefactoring.util.io.FileManager;
 import dynamicrefactoring.util.io.filter.ClassFilter;
 
-import java.io.File;
-import java.io.IOException;
-import java.io.FilenameFilter;
-
-import java.util.HashMap;
-
 /**
  * Obtiene la lista de predicados y acciones disponibles.
  *
- * @author <A HREF="mailto:alc0022@alu.ubu.es">Ángel López Campo</A>
- * @author <A HREF="mailto:epf0006@alu.ubu.es">Eduardo Peña Fernández</A>
+ * @author <A HREF="mailto:alc0022@alu.ubu.es">ï¿½ngel Lï¿½pez Campo</A>
+ * @author <A HREF="mailto:epf0006@alu.ubu.es">Eduardo Peï¿½a Fernï¿½ndez</A>
  * @author <A HREF="mailto:sfd0009@alu.ubu.es">Sonia Fuente de la Fuente</A>
  * @author <A HREF="mailto:ehp0001@alu.ubu.es">Enrique Herrero Paredes</A>
  */
 public class RepositoryElementLister {
 
 	/**
-	 * La instancia única de la clase.
+	 * La instancia ï¿½nica de la clase.
 	 * 
-	 * Patrón de diseño Singleton.
+	 * Patrï¿½n de diseï¿½o Singleton.
 	 */
 	private static RepositoryElementLister instance;
 	
@@ -80,7 +79,7 @@ public class RepositoryElementLister {
 	/**
 	 * Constructor.
 	 * 
-	 * Patrón de diseño Singleton.
+	 * Patrï¿½n de diseï¿½o Singleton.
 	 */
 	private RepositoryElementLister() {		
 		sourcePreconditionDir = 
@@ -98,11 +97,11 @@ public class RepositoryElementLister {
 	}
 	
 	/**
-	 * Devuelve la instancia única de la clase.
+	 * Devuelve la instancia ï¿½nica de la clase.
 	 * 
-	 * Patrón de diseño Singleton.
+	 * Patrï¿½n de diseï¿½o Singleton.
 	 * 
-	 * @return la instancia única de la clase.
+	 * @return la instancia ï¿½nica de la clase.
 	 */
 	public static RepositoryElementLister getInstance() {		
 		if(instance == null)
@@ -114,7 +113,7 @@ public class RepositoryElementLister {
 	 * Obtiene un conjunto de pares nombre-fichero de los ficheros con 
 	 * precondiciones disponibles en un directorio.
 	 * 
-	 * @return una tabla de pares en la que se usa como índice el nombre 
+	 * @return una tabla de pares en la que se usa como ï¿½ndice el nombre 
 	 * comprensible del fichero y como contenido la ruta del fichero; 
 	 * para cada fichero encontrado.
 	 * 
@@ -141,7 +140,7 @@ public class RepositoryElementLister {
 	 * Obtiene un conjunto de pares nombre-fichero de los ficheros con 
 	 * postcondiciones disponibles en un directorio.
 	 * 
-	 * @return una tabla en la que se usa como índice el nombre comprensible 
+	 * @return una tabla en la que se usa como ï¿½ndice el nombre comprensible 
 	 * del fichero y como contenido la ruta del fichero; 
 	 * para cada fichero encontrado.
 	 * 
@@ -168,10 +167,10 @@ public class RepositoryElementLister {
 	 * Obtiene un conjunto de pares nombre-fichero de los ficheros con 
 	 * acciones o predicados disponibles en un directorio.
 	 * 
-	 * @param sourceDir ruta del directorio en que se buscarán los elementos
+	 * @param sourceDir ruta del directorio en que se buscarï¿½n los elementos
 	 * del repositorio.
 	 * 
-	 * @return una tabla en la que se usa como índice el nombre comprensible 
+	 * @return una tabla en la que se usa como ï¿½ndice el nombre comprensible 
 	 * del fichero y como contenido la ruta del fichero; para cada fichero 
 	 * encontrado.
 	 * 
@@ -205,7 +204,7 @@ public class RepositoryElementLister {
      * de las acciones independientes del lenguaje encontradas.
      * 
      * @throws IOException si se el directorio de acciones por defecto no 
-     * existe o no se consigue acceder a él.
+     * existe o no se consigue acceder a ï¿½l.
      */
     public HashMap<String, String> getIndependentActionList() throws IOException {
     	return getElementList(sourceActionDir);
@@ -219,7 +218,7 @@ public class RepositoryElementLister {
      * de las precondiciones independientes del lenguaje encontradas.
      * 
      * @throws IOException si se el directorio de precondiciones por defecto no 
-     * existe o no se consigue acceder a él.
+     * existe o no se consigue acceder a ï¿½l.
      */
     public HashMap<String, String> getIndependentPreconditionList() throws IOException {
     	return getElementList(sourcePreconditionDir);
@@ -233,7 +232,7 @@ public class RepositoryElementLister {
      * de las postcondiciones independientes del lenguaje encontradas.
      * 
      * @throws IOException si se el directorio de postcondiciones por defecto no 
-     * existe o no se consigue acceder a él.
+     * existe o no se consigue acceder a ï¿½l.
      */
     public HashMap<String, String> getIndependentPostconditionList() throws IOException {
     	return getElementList(sourcePostconditionDir);
@@ -248,7 +247,7 @@ public class RepositoryElementLister {
      * de las acciones dependientes de Java encontradas.
      * 
      * @throws IOException si se el directorio de acciones para Java por defecto 
-     * no existe o no se consigue acceder a él.
+     * no existe o no se consigue acceder a ï¿½l.
      */
     public HashMap<String, String> getJavaActionList() throws IOException {
     	return getElementList(sourceJavaActionDir);
@@ -263,7 +262,7 @@ public class RepositoryElementLister {
      * de los predicados dependientes de Java encontrados.
      * 
      * @throws IOException si se el directorio de predicados para Java por defecto 
-     * no existe o no se consigue acceder a él.
+     * no existe o no se consigue acceder a ï¿½l.
      */
     public HashMap<String, String> getJavaPredicateList() throws IOException {
     	return getElementList(sourceJavaPredicateDir);
@@ -314,19 +313,19 @@ public class RepositoryElementLister {
     /**
      * Genera una tabla con los ficheros de un directorio.
 	 * 
-	 * @param dir el directorio raíz desde donde se comienza el listado.
+	 * @param dir el directorio raï¿½z desde donde se comienza el listado.
 	 * @param h una tabla con el nombre del fichero como clave y la ruta 
 	 * al mismo como contenido. Se usa como valor de retorno.
 	 */
     private void listFiles(File dir, HashMap<String, String> h) {
 
-    	// Si es un directorio se continúa recursivamente.
+    	// Si es un directorio se continï¿½a recursivamente.
         if (dir.isDirectory()) {
             String[] hijos = dir.list();
             for (int i=0; i < hijos.length; i++)
             	listFiles(new File(dir, hijos[i]), h);
         }
-    	// Si es un fichero de refactorización se almacena en la tabla.
+    	// Si es un fichero de refactorizaciï¿½n se almacena en la tabla.
         else if(fileFilter.accept(dir, dir.getName()) == true){
         	h.put(FileManager.getFilePathWithoutExtension(
         		dir.getName()), dir.getName());        		

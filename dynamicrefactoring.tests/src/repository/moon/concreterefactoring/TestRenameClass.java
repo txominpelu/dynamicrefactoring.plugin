@@ -20,30 +20,37 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.*/
 
 package repository.moon.concreterefactoring;
 
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertNull;
+import static org.junit.Assert.assertTrue;
+
+import java.util.ArrayList;
+import java.util.List;
+
 import javamoon.construct.source.SourceLoader;
 import javamoon.core.JavaModel;
-
-import java.util.*;
-
 import moon.core.MoonFactory;
-import moon.core.classdef.*;
-import moon.core.inheritance.InheritanceClause;
 import moon.core.Name;
+import moon.core.classdef.AttDec;
+import moon.core.classdef.ClassDef;
+import moon.core.classdef.MethDec;
+import moon.core.classdef.Type;
+import moon.core.inheritance.InheritanceClause;
 
-import static org.junit.Assert.*;
-import org.junit.Test; 
+import org.junit.Test;
 
 import refactoring.engine.PreconditionException;
-
 import repository.RefactoringTemplateAbstractTest;
 import repository.moon.MOONRefactoring;
 
 /** 
- * Comprueba que funciona correctamente la refactorización que renombra una
+ * Comprueba que funciona correctamente la refactorizaciï¿½n que renombra una
  * clase.
  * 
- * <p>Indirectamente, se comprueba también la corrección de las funciones,
- * acciones y predicados utilizados por la refactorización.</p>
+ * <p>Indirectamente, se comprueba tambiï¿½n la correcciï¿½n de las funciones,
+ * acciones y predicados utilizados por la refactorizaciï¿½n.</p>
  *
  * @author <A HREF="mailto:sfd0009@alu.ubu.es">Sonia Fuente de la Fuente</A>
  * @author <A HREF="mailto:ehp0001@alu.ubu.es">Enrique Herrero Paredes</A>
@@ -53,13 +60,13 @@ import repository.moon.MOONRefactoring;
 public class TestRenameClass extends RefactoringTemplateAbstractTest { 
 
 	/** 
-	 * Comprueba que la refactorización funciona correctamente al hacer un
+	 * Comprueba que la refactorizaciï¿½n funciona correctamente al hacer un
 	 * renombrado sencillo de una clase.
 	 * 
-	 * <p>Se renombra una clase en un modelo en que es la única clase contenida. Se
+	 * <p>Se renombra una clase en un modelo en que es la ï¿½nica clase contenida. Se
 	 * le asigna un nombre correcto.</p>
 	 * 
-	 * @throws Exception si se produce un error durante la ejecución de la prueba.
+	 * @throws Exception si se produce un error durante la ejecuciï¿½n de la prueba.
 	 */    
 	@Test
 	public void testSimple() throws Exception{
@@ -78,7 +85,7 @@ public class TestRenameClass extends RefactoringTemplateAbstractTest {
 		
 		// Comienzan las comprobaciones
 		ClassDef classDef2 = jm.getClassDef(factory.createName("paqueteA.ClaseA")); //$NON-NLS-1$
-		assertNull("Test renombrar clase simple: todavía existe la clase " + //$NON-NLS-1$
+		assertNull("Test renombrar clase simple: todavï¿½a existe la clase " + //$NON-NLS-1$
 			"con el nombre anterior.", classDef2); //$NON-NLS-1$
 
 		ClassDef classDef3 = jm.getClassDef(factory.createName("paqueteA.nuevoNombre")); //$NON-NLS-1$
@@ -87,10 +94,10 @@ public class TestRenameClass extends RefactoringTemplateAbstractTest {
 	}
 	
 	/** 
-	 * Comprueba que la refactorización funciona correctamente al hacer un
-	 * renombrado de una clase genérica.
+	 * Comprueba que la refactorizaciï¿½n funciona correctamente al hacer un
+	 * renombrado de una clase genï¿½rica.
 	 * 
-	 * @throws Exception si se produce un error durante la ejecución de la prueba.
+	 * @throws Exception si se produce un error durante la ejecuciï¿½n de la prueba.
 	 */    
 	@Test
 	public void testRenameGeneric() throws Exception{
@@ -109,11 +116,11 @@ public class TestRenameClass extends RefactoringTemplateAbstractTest {
 
 		// Comienzan las comprobaciones
 		ClassDef oldclass = jm.getClassDef(factory.createName("<anonymous>.Clase")); //$NON-NLS-1$
-		assertNull("Test renombrar clase genérica: todavía existe la clase " + //$NON-NLS-1$
+		assertNull("Test renombrar clase genï¿½rica: todavï¿½a existe la clase " + //$NON-NLS-1$
 			"con el nombre anterior al renombrado.", oldclass); //$NON-NLS-1$
 
 		ClassDef newclass = jm.getClassDef(factory.createName("<anonymous>.Renombrada")); //$NON-NLS-1$
-		assertNotNull("Test renombrar clase genérica: no existe la clase " + //$NON-NLS-1$
+		assertNotNull("Test renombrar clase genï¿½rica: no existe la clase " + //$NON-NLS-1$
 			"con el nuevo nombre.", newclass); //$NON-NLS-1$
 		
 		ArrayList<String> types = new ArrayList<String>();
@@ -131,11 +138,11 @@ public class TestRenameClass extends RefactoringTemplateAbstractTest {
 		
 		// Comienzan las comprobaciones
 		oldclass = jm.getClassDef(factory.createName("<anonymous>.Clase")); //$NON-NLS-1$
-		assertNotNull("Test deshacer renombrar clase genérica: " + //$NON-NLS-1$
+		assertNotNull("Test deshacer renombrar clase genï¿½rica: " + //$NON-NLS-1$
 			"no se encuentra la clase con el nombre original.", oldclass); //$NON-NLS-1$
 
 		newclass = jm.getClassDef(factory.createName("<anonymous>.Renombrada")); //$NON-NLS-1$
-		assertNull("Test deshacer renombrar clase genérica: " + //$NON-NLS-1$
+		assertNull("Test deshacer renombrar clase genï¿½rica: " + //$NON-NLS-1$
 			"sigue existiendo la clase renombrada.", newclass); //$NON-NLS-1$
 		
 		types = new ArrayList<String>();
@@ -151,14 +158,14 @@ public class TestRenameClass extends RefactoringTemplateAbstractTest {
 	}
 
 	/** 
-	 * Comprueba que la refactorización funciona correctamente al renombrar una
-	 * clase que forma parte de una jerarquía de herencia.
+	 * Comprueba que la refactorizaciï¿½n funciona correctamente al renombrar una
+	 * clase que forma parte de una jerarquï¿½a de herencia.
 	 * 
 	 * <p>En un modelo con dos clases, en el que una hereda de la otra, se renombra
-	 * la superclase y se verifica que la relación de herencia se mantenga 
+	 * la superclase y se verifica que la relaciï¿½n de herencia se mantenga 
 	 * correctamente.</p>
 	 * 
-	 * @throws Exception si se produce un error durante la ejecución de la prueba.
+	 * @throws Exception si se produce un error durante la ejecuciï¿½n de la prueba.
 	 */ 
 	@Test
 	public void testWithInheritance() throws Exception{
@@ -177,7 +184,7 @@ public class TestRenameClass extends RefactoringTemplateAbstractTest {
 
 		// Comienzan las comprobaciones sobre la superClase
 		ClassDef classDef2 = jm.getClassDef(factory.createName("paqueteA.ClaseA")); //$NON-NLS-1$
-		assertNull("Test renombrar clase con herencia: todavía existe la clase " + //$NON-NLS-1$
+		assertNull("Test renombrar clase con herencia: todavï¿½a existe la clase " + //$NON-NLS-1$
 			"con el nombre anterior.", classDef2); //$NON-NLS-1$
 
 		ClassDef classDef3 = jm.getClassDef(factory.createName("paqueteA.nuevoNombre")); //$NON-NLS-1$
@@ -197,13 +204,13 @@ public class TestRenameClass extends RefactoringTemplateAbstractTest {
 	}
 
 	/** 
-	 * Comprueba que la refactorización funciona correctamente al renombrar una
+	 * Comprueba que la refactorizaciï¿½n funciona correctamente al renombrar una
 	 * clase de la que se usan instancias en otras clases.
 	 * 
 	 * <p>En un modelo con dos clases, renombra una clase de cuyo tipo existe un
 	 * atributo en la otra clase.</p>
 	 * 
-	 * @throws Exception si se produce un error durante la ejecución de la prueba.
+	 * @throws Exception si se produce un error durante la ejecuciï¿½n de la prueba.
 	 */   
 	@Test
 	public void testUsedAsField() throws Exception{
@@ -222,7 +229,7 @@ public class TestRenameClass extends RefactoringTemplateAbstractTest {
 
 		// Comprobaciones sobre la clase renombrada.
 		ClassDef classDef2 = jm.getClassDef(factory.createName("paqueteA.ClaseA")); //$NON-NLS-1$
-		assertNull("Test renombrar clase en atributo: todavía existe la clase " + //$NON-NLS-1$
+		assertNull("Test renombrar clase en atributo: todavï¿½a existe la clase " + //$NON-NLS-1$
 			"con el nombre anterior", classDef2); //$NON-NLS-1$
 
 		ClassDef classDef3 = jm.getClassDef(factory.createName("paqueteA.nuevoNombre")); //$NON-NLS-1$
@@ -239,13 +246,13 @@ public class TestRenameClass extends RefactoringTemplateAbstractTest {
 	}
 
 	/** 
-	 * Comprueba que la refactorización funciona correctamente al hacer un
+	 * Comprueba que la refactorizaciï¿½n funciona correctamente al hacer un
 	 * renombrado de una clase con dos constructores.
 	 * 
-	 * <p>Se renombra una clase con dos constructores, y después se deshace la
-	 * operación.</p>
+	 * <p>Se renombra una clase con dos constructores, y despuï¿½s se deshace la
+	 * operaciï¿½n.</p>
 	 * 
-	 * @throws Exception si se produce un error durante la ejecución de la prueba.
+	 * @throws Exception si se produce un error durante la ejecuciï¿½n de la prueba.
 	 */    
 	@Test
 	public void testConstructors() throws Exception{
@@ -284,13 +291,13 @@ public class TestRenameClass extends RefactoringTemplateAbstractTest {
 	}
 
 	/**
-	 * Verifica el funcionamiento de las precondiciones de la refactorización.
+	 * Verifica el funcionamiento de las precondiciones de la refactorizaciï¿½n.
 	 *
-	 * <p>Comprueba que se lanza una excepción cuando se intenta renombrar una 
+	 * <p>Comprueba que se lanza una excepciï¿½n cuando se intenta renombrar una 
 	 * clase para darle un nombre que ya se corresponda con otra clase del 
 	 * modelo.</p>
 	 * 
-	 * @throws Exception si se produce un error durante la ejecución de la prueba.
+	 * @throws Exception si se produce un error durante la ejecuciï¿½n de la prueba.
 	 */
 	@Test(expected=PreconditionException.class)
 	public void testCheckNotExistsClassWithSameName() throws Exception{
@@ -309,13 +316,13 @@ public class TestRenameClass extends RefactoringTemplateAbstractTest {
 	}
 	
 	/** 
-	 * Comprueba que la refactorización funciona correctamente al deshacer un
+	 * Comprueba que la refactorizaciï¿½n funciona correctamente al deshacer un
 	 * renombrado sencillo de una clase.
 	 * 
-	 * <p>Se renombra una clase en un modelo en que es la única clase contenida. Se
+	 * <p>Se renombra una clase en un modelo en que es la ï¿½nica clase contenida. Se
 	 * le asigna un nombre correcto.</p>
 	 * 
-	 * @throws Exception si se produce un error durante la ejecución de la prueba.
+	 * @throws Exception si se produce un error durante la ejecuciï¿½n de la prueba.
 	 */    
 	@Test
 	public void testUndoSimple() throws Exception{
@@ -340,6 +347,6 @@ public class TestRenameClass extends RefactoringTemplateAbstractTest {
 
 		ClassDef classDef3 = jm.getClassDef(factory.createName("paqueteA.nuevoNombre")); //$NON-NLS-1$
 		assertNull("Test deshacer renombrado de clase simple: " + //$NON-NLS-1$
-			"todavía existe la clase con el nuevo nobmre.", classDef3); //$NON-NLS-1$
+			"todavï¿½a existe la clase con el nuevo nobmre.", classDef3); //$NON-NLS-1$
 	}
 }

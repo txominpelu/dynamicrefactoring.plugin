@@ -20,11 +20,10 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.*/
 
 package dynamicrefactoring.integration.selectionhandler;
 
-import dynamicrefactoring.util.selection.TextSelectionInfo;
-
 import java.io.IOException;
 
 import moon.core.ObjectMoon;
+import dynamicrefactoring.util.selection.TextSelectionInfo;
 
 /**
  * Proporciona las funciones necesarias para obtener la clase MOON con la que
@@ -36,17 +35,17 @@ import moon.core.ObjectMoon;
 public class TextClassSelectionHandler extends ClassSelectionHandler {
 	
 	/**
-	 * El proveedor de información concreto para la selección de texto.
+	 * El proveedor de informaciï¿½n concreto para la selecciï¿½n de texto.
 	 */
 	private TextSelectionInfo infoProvider;
 	
 	/**
 	 * Constructor.
 	 * 
-	 * @param selectionInfo contenedor de la selección que se desea manejar.
+	 * @param selectionInfo contenedor de la selecciï¿½n que se desea manejar.
 	 * 
-	 * @throws Exception si la selección contenida en #selectionInfo no es una
-	 * selección de una clase sobre una representación textual.
+	 * @throws Exception si la selecciï¿½n contenida en #selectionInfo no es una
+	 * selecciï¿½n de una clase sobre una representaciï¿½n textual.
 	 */
 	public TextClassSelectionHandler (TextSelectionInfo selectionInfo)
 		throws Exception{

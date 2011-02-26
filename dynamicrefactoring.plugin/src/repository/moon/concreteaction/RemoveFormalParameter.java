@@ -20,41 +20,40 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.*/
 
 package repository.moon.concreteaction;
 
+import moon.core.classdef.ClassDef;
+import moon.core.genericity.FormalPar;
 import refactoring.engine.Action;
 import repository.RelayListenerRegistry;
 
-import moon.core.classdef.*;
-import moon.core.genericity.FormalPar;
-
 /**
- * Permite borrar un parámetro formal de una clase.
+ * Permite borrar un parï¿½metro formal de una clase.
  *
- * @author <A HREF="mailto:sam0006@alu.ubu.es">Sara Alcalá Martín</A>
- * @author <A HREF="mailto:dbm0005@alu.ubu.es">Diego Bañuelos Molledo</A>
+ * @author <A HREF="mailto:sam0006@alu.ubu.es">Sara Alcalï¿½ Martï¿½n</A>
+ * @author <A HREF="mailto:dbm0005@alu.ubu.es">Diego Baï¿½uelos Molledo</A>
  * @author <A HREF="mailto:sfd0009@alu.ubu.es">Sonia Fuente de la Fuente</A>
  * @author <A HREF="mailto:ehp0001@alu.ubu.es">Enrique Herrero Paredes</A>
  */
 public class RemoveFormalParameter extends Action {
  
 	/**
-	 * Clase de la que eliminar el parámetro formal.
+	 * Clase de la que eliminar el parï¿½metro formal.
 	 */
 	private ClassDef classDef;
 	
 	/**
-	 * Parámetro formal que se debe eliminar.
+	 * Parï¿½metro formal que se debe eliminar.
 	 */
 	private FormalPar formalPar;
 	
 	/**
-	 * Receptor de los mensajes enviados por la acción concreta.
+	 * Receptor de los mensajes enviados por la acciï¿½n concreta.
 	 */
 	private RelayListenerRegistry listenerReg;
 	
 	/**
-	 * Constructor de la acción eliminar parámetro formal.
+	 * Constructor de la acciï¿½n eliminar parï¿½metro formal.
 	 *
-	 * @param formalPar parámetro formal que se debe eliminar.
+	 * @param formalPar parï¿½metro formal que se debe eliminar.
 	 */	
 	public RemoveFormalParameter(FormalPar formalPar) {
 		super();
@@ -65,7 +64,7 @@ public class RemoveFormalParameter extends Action {
 	}
 
 	/**
-	 * Ejecuta la eliminación del parámetro formal.
+	 * Ejecuta la eliminaciï¿½n del parï¿½metro formal.
 	 */
 	@Override
 	public void run() {
@@ -81,7 +80,7 @@ public class RemoveFormalParameter extends Action {
 	}
 
 	/**
-	 * Deshace la eliminación del parámetro formal, incluyéndolo de nuevo en 
+	 * Deshace la eliminaciï¿½n del parï¿½metro formal, incluyï¿½ndolo de nuevo en 
 	 * la clase.
 	 */
 	@Override

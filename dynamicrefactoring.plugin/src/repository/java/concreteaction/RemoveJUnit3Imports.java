@@ -23,16 +23,15 @@ package repository.java.concreteaction;
 import java.util.ArrayList;
 import java.util.List;
 
-import moon.core.classdef.ClassDef;
-
 import javamoon.core.classdef.JavaClassDef;
 import javamoon.core.classdef.JavaImport;
+import moon.core.classdef.ClassDef;
 import refactoring.engine.Action;
 
 /**
  * Removes the JUnit3 imports.
  * 
- * @author Raúl Marticorena
+ * @author Raï¿½l Marticorena
  *
  */
 public class RemoveJUnit3Imports extends Action{

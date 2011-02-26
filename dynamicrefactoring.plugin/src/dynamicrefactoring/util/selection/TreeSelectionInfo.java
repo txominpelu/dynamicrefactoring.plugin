@@ -20,19 +20,16 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.*/
 package dynamicrefactoring.util.selection;
 
 import org.eclipse.core.resources.IProject;
-
 import org.eclipse.jdt.core.IJavaElement;
 import org.eclipse.jdt.core.IJavaProject;
-
 import org.eclipse.jface.viewers.TreePath;
 import org.eclipse.jface.viewers.TreeSelection;
-
 import org.eclipse.ui.IWorkbenchWindow;
 
 /**
  * Proporciona funciones capaces de determinar el tipo de elemento que se 
- * encuentra seleccionado en una ventana sobre un árbol desplegable, así como
- * otra información adicional relativa al mismo.
+ * encuentra seleccionado en una ventana sobre un ï¿½rbol desplegable, asï¿½ como
+ * otra informaciï¿½n adicional relativa al mismo.
  * 
  * @author <A HREF="mailto:sfd0009@alu.ubu.es">Sonia Fuente de la Fuente</A>
  * @author <A HREF="mailto:ehp0001@alu.ubu.es">Enrique Herrero Paredes</A>
@@ -40,17 +37,17 @@ import org.eclipse.ui.IWorkbenchWindow;
 public class TreeSelectionInfo extends SelectionInfo {
 		
 	/**
-	 * Selección sobre un árbol de selección cuya información se desea consultar.
+	 * Selecciï¿½n sobre un ï¿½rbol de selecciï¿½n cuya informaciï¿½n se desea consultar.
 	 */
 	private TreeSelection treeSelection;
 	
 	/**
 	 * Constructor.
 	 * 
-	 * @param selection selección actual sobre un árbol de selección.
+	 * @param selection selecciï¿½n actual sobre un ï¿½rbol de selecciï¿½n.
 	 * @param window ventana de la interfaz con la que interaccionar. 
 	 * 
-	 * @throws Exception si #selection no es una selección sobre un árbol.
+	 * @throws Exception si #selection no es una selecciï¿½n sobre un ï¿½rbol.
 	 */
 	public TreeSelectionInfo (TreeSelection selection, 
 		IWorkbenchWindow window) throws Exception {
@@ -67,7 +64,7 @@ public class TreeSelectionInfo extends SelectionInfo {
 	
 	/**
 	 * Determina el tipo de elemento seleccionado en una ventana.
-	 * Solo tiene en consideración los tipos indicados por #typeName, #methodName 
+	 * Solo tiene en consideraciï¿½n los tipos indicados por #typeName, #methodName 
 	 * y #fieldName.
 	 * 
 	 * @return el nombre completamente cualificado del tipo de elemento 

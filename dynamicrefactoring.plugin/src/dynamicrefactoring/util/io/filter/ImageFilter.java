@@ -21,17 +21,18 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.*/
 package dynamicrefactoring.util.io.filter;
 
 import java.io.File;
+
 import javax.swing.filechooser.FileFilter;
 
 /**
- * Implementa un filtro de elección de imágenes que permite seleccionar solamente
+ * Implementa un filtro de elecciï¿½n de imï¿½genes que permite seleccionar solamente
  * archivos de tipo imagen.
  * 
  * El criterio seguido es que los archivos tengan una de las extensiones asociadas
  * habitualmente a los ficheros de imagen.
  * 
- * @author <A HREF="mailto:alc0022@alu.ubu.es">Ángel López Campo</A>
- * @author <A HREF="mailto:epf0006@alu.ubu.es">Eduardo Peña Fernández</A>
+ * @author <A HREF="mailto:alc0022@alu.ubu.es">ï¿½ngel Lï¿½pez Campo</A>
+ * @author <A HREF="mailto:epf0006@alu.ubu.es">Eduardo Peï¿½a Fernï¿½ndez</A>
  * @author <A HREF="mailto:sfd0009@alu.ubu.es">Sonia Fuente de la Fuente</A>
  * @author <A HREF="mailto:ehp0001@alu.ubu.es">Enrique Herrero Paredes</A>
  */	
@@ -44,7 +45,7 @@ public class ImageFilter extends FileFilter {
 		".jpg", ".png"}; //$NON-NLS-1$ //$NON-NLS-2$
 	
 	/**
-	 * Plantillas con alguna de las que deberán corresponderse los archivos de
+	 * Plantillas con alguna de las que deberï¿½n corresponderse los archivos de
 	 * imagen para pasar el filtro.
 	 */
 	public static final String[] templates = {"*.tiff", "*.tif", "*.gif", "*.jpeg", //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$ //$NON-NLS-4$
@@ -64,8 +65,8 @@ public class ImageFilter extends FileFilter {
 
     /**
      * Acepta todos los directorios, y los ficheros <i>.gif</i>, <i>jpg</i>, 
-     * <i>tiff</i>, o <i>png</i>. Acepta también sus versiones en mayúsculas y
-     * la versión de cuatro caracteres de <i>jpg</i>, <i>jpeg</i>.
+     * <i>tiff</i>, o <i>png</i>. Acepta tambiï¿½n sus versiones en mayï¿½sculas y
+     * la versiï¿½n de cuatro caracteres de <i>jpg</i>, <i>jpeg</i>.
      * 
      * @param f el fichero que debe pasar por el filtro.
      * 
@@ -94,9 +95,9 @@ public class ImageFilter extends FileFilter {
     }
 
     /**
-     * Devuelve la descripción del filtro.
+     * Devuelve la descripciï¿½n del filtro.
      * 
-     * @return una cadena con la descripción del filtro.
+     * @return una cadena con la descripciï¿½n del filtro.
      */
 	@Override
     public String getDescription() {        

@@ -20,67 +20,73 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.*/
 
 package repository.moon.concreteaction;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Vector;
 
-
-import moon.core.classdef.*;
-import moon.core.instruction.*;
 import moon.core.Name;
-
+import moon.core.classdef.ClassDef;
+import moon.core.classdef.FormalArgument;
+import moon.core.classdef.MethDec;
+import moon.core.classdef.Type;
+import moon.core.instruction.Instr;
 import refactoring.engine.Action;
 import repository.RelayListenerRegistry;
 import repository.moon.MOONRefactoring;
-import repository.moon.concretefunction.*;
+import repository.moon.concretefunction.ClassesAffectedByMethRenameCollector;
+import repository.moon.concretefunction.MethodCollector;
 
 /**
- * Permite incluir un nuevo argumento formal en la signatura de un método.<p>
+ * Permite incluir un nuevo argumento formal en la signatura de un mï¿½todo.<p>
  *
- * Se ocupa de incluir como parámetro real un valor por defecto en todas las 
- * llamadas al método que existan en las clases del modelo. Si el argumento
- * es de alguno de los tipos primitivos, se asignará como valor real el valor 
- * habitual por defecto de cada tipo; si no, se le asignará un valor nulo.
+ * Se ocupa de incluir como parï¿½metro real un valor por defecto en todas las 
+ * llamadas al mï¿½todo que existan en las clases del modelo. Si el argumento
+ * es de alguno de los tipos primitivos, se asignarï¿½ como valor real el valor 
+ * habitual por defecto de cada tipo; si no, se le asignarï¿½ un valor nulo.
  *
  * @author <A HREF="mailto:ehp0001@alu.ubu.es">Enrique Herrero Paredes</A>
- * @author <A HREF="mailto:alc0022@alu.ubu.es">Ángel López Campo</A>
+ * @author <A HREF="mailto:alc0022@alu.ubu.es">ï¿½ngel Lï¿½pez Campo</A>
  * @author <A HREF="mailto:sfd0009@alu.ubu.es">Sonia Fuente de la Fuente</A>
  */ 
 public class AddFormalArg extends Action {
 
 	/**
-	 * El nuevo parámetro formal que se va a añadir al método.
+	 * El nuevo parï¿½metro formal que se va a aï¿½adir al mï¿½todo.
 	 */
 	FormalArgument newParameter;
 	
 	/**
-	 * El método a cuya lista de parámetros se va a añadir el nuevo argumento.
+	 * El mï¿½todo a cuya lista de parï¿½metros se va a aï¿½adir el nuevo argumento.
 	 */
 	MethDec method;
 	
 	/**
-	 * La clase a la que pertenece el método que se va a modificar.
+	 * La clase a la que pertenece el mï¿½todo que se va a modificar.
 	 */
 	private ClassDef classDef;
 		
 	/**
-	 * El nombre único del método modificado antes del cambio de signatura.
+	 * El nombre ï¿½nico del mï¿½todo modificado antes del cambio de signatura.
 	 */
 	private String originalUniqueName;
 	
 	/**
-	 * Elemento auxiliar para extender el cambio en el método a otras clases,
-	 * en caso de que aparezca en clases superiores o inferiores en la jerarquía
+	 * Elemento auxiliar para extender el cambio en el mï¿½todo a otras clases,
+	 * en caso de que aparezca en clases superiores o inferiores en la jerarquï¿½a
 	 * de herencia.
 	 */
 	private Vector<AddFormalArgWithoutHierarchy> addParInOtherClassVec;
 	
 	/**
-	 * Elemento auxiliar para extender el cambio en el método a todas las
-	 * instrucciones con llamadas al método.
+	 * Elemento auxiliar para extender el cambio en el mï¿½todo a todas las
+	 * instrucciones con llamadas al mï¿½todo.
 	 */
 	private ArrayList<AddFormalArgIntoInstructions> addIntoInstr;
 	
 	/**
-	 * Receptor de los mensajes enviados por la acción concreta.
+	 * Receptor de los mensajes enviados por la acciï¿½n concreta.
 	 */
 	private RelayListenerRegistry listenerReg;
 			 
@@ -89,9 +95,9 @@ public class AddFormalArg extends Action {
 	 *
 	 * Obtiene una nueva instancia de AddFormalArg.
 	 *
-	 * @param method el método a cuya signatura se va a añadir un argumento.
-	 * @param name el nombre del nuevo parámetro formal.
-	 * @param type el tipo del nuevo parámetro formal.
+	 * @param method el mï¿½todo a cuya signatura se va a aï¿½adir un argumento.
+	 * @param name el nombre del nuevo parï¿½metro formal.
+	 * @param type el tipo del nuevo parï¿½metro formal.
 	 */	
 	public AddFormalArg(MethDec method, Name name, Type type){
 		
@@ -111,7 +117,7 @@ public class AddFormalArg extends Action {
 	}	
 	
 	/**
-	 * Añade un parámetro formal a la signatura de un método.
+	 * Aï¿½ade un parï¿½metro formal a la signatura de un mï¿½todo.
 	 */
 	public void run() {
 		
@@ -146,7 +152,7 @@ public class AddFormalArg extends Action {
 	}
 
 	/**
-	 * Extiende la adición del argumento formal a las clases de la jerarquía. 
+	 * Extiende la adiciï¿½n del argumento formal a las clases de la jerarquï¿½a. 
 	 */
 	void addIntoHierarchy() {
 		Collection<ClassDef> alreadyFoundClasses = new Vector<ClassDef>(10,1);
@@ -165,7 +171,7 @@ public class AddFormalArg extends Action {
 	}
 
 	/**
-	 * Elimina el nuevo parámetro formal de la signatura del método.
+	 * Elimina el nuevo parï¿½metro formal de la signatura del mï¿½todo.
 	 */
 	public void undo() {
 		
@@ -186,14 +192,14 @@ public class AddFormalArg extends Action {
 	}
 	
 	/**
-	 * Añade el parámetro en la signatura del método en las clases inferiores 
-	 * y superiores de la jerarquía de herencia que, a través de herencia, 
-	 * posean el mismo método (clases que hereden de la que posee el método
-	 * afectado o superclases de la misma que contengan el mismo método, y a su
+	 * Aï¿½ade el parï¿½metro en la signatura del mï¿½todo en las clases inferiores 
+	 * y superiores de la jerarquï¿½a de herencia que, a travï¿½s de herencia, 
+	 * posean el mismo mï¿½todo (clases que hereden de la que posee el mï¿½todo
+	 * afectado o superclases de la misma que contengan el mismo mï¿½todo, y a su
 	 * vez, recursivamente, subclases o superclases de las mismas).
 	 *
-	 * @param affectedClasses las clases de la jerarquía de herencia que se ven 
-	 * afectadas por el cambio de la signatura del método.
+	 * @param affectedClasses las clases de la jerarquï¿½a de herencia que se ven 
+	 * afectadas por el cambio de la signatura del mï¿½todo.
 	 */
 	private void addFormalArgIntoSubAndSuperclasses (
 		Collection<ClassDef> affectedClasses){

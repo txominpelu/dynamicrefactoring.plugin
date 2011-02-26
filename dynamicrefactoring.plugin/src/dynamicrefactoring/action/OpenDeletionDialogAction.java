@@ -20,16 +20,18 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.*/
 
 package dynamicrefactoring.action;
 
+import org.eclipse.jface.action.IAction;
+import org.eclipse.jface.viewers.ISelection;
+import org.eclipse.ui.IActionDelegate;
+import org.eclipse.ui.IWorkbenchWindow;
+import org.eclipse.ui.IWorkbenchWindowActionDelegate;
+import org.eclipse.ui.PlatformUI;
+
 import dynamicrefactoring.interfaz.SelectDynamicRefactoringWindow;
 import dynamicrefactoring.interfaz.SelectForDeletingWindow;
 
-import org.eclipse.jface.action.IAction;
-import org.eclipse.jface.viewers.*;
-
-import org.eclipse.ui.*;
-
 /**
- * Acción que inicia el asistente de eliminación de una refactorización existente.
+ * Acciï¿½n que inicia el asistente de eliminaciï¿½n de una refactorizaciï¿½n existente.
  */
 public class OpenDeletionDialogAction implements IWorkbenchWindowActionDelegate  {
 

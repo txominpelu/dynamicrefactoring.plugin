@@ -20,21 +20,22 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.*/
 
 package repository.moon.concretepredicate;
 
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
 import javamoon.construct.source.SourceLoader;
 import javamoon.core.JavaModel;
-
 import moon.core.MoonFactory;
-import moon.core.classdef.*;
+import moon.core.classdef.ClassDef;
+import moon.core.classdef.FormalArgument;
+import moon.core.classdef.MethDec;
 
-import static org.junit.Assert.*;
-
-import org.junit.Test; 
+import org.junit.Test;
 
 import repository.RefactoringTemplateAbstractTest;
 
 /** 
  * Comprueba que funciona correctamente el predicado que comprueba que no 
- * exista en la signatura de un método ningún argumento formal con el mismo 
+ * exista en la signatura de un mï¿½todo ningï¿½n argumento formal con el mismo 
  * nombre que el argumento indicado.
  * 
  * @author <A HREF="mailto:sfd0009@alu.ubu.es">Sonia Fuente de la Fuente</A>
@@ -43,14 +44,14 @@ import repository.RefactoringTemplateAbstractTest;
 public class TestHasNotFormalArg extends RefactoringTemplateAbstractTest {
 
 	/**
-	 * Comprueba que el predicado funciona correctamente cuando sí existe ya
-	 * un argumento formal del método con el mismo nombre que el argumento
+	 * Comprueba que el predicado funciona correctamente cuando sï¿½ existe ya
+	 * un argumento formal del mï¿½todo con el mismo nombre que el argumento
 	 * indicado.<p>
 	 * 
-	 * En un método con dos argumentos, ejecuta la comprobación sobre uno de los
-	 * propios argumentos del método.
+	 * En un mï¿½todo con dos argumentos, ejecuta la comprobaciï¿½n sobre uno de los
+	 * propios argumentos del mï¿½todo.
 	 * 
-	 * @throws Exception si se produce un error durante la ejecución de la prueba.
+	 * @throws Exception si se produce un error durante la ejecuciï¿½n de la prueba.
 	 */
 	@Test
 	public void testArgumentExists() throws Exception{
@@ -73,14 +74,14 @@ public class TestHasNotFormalArg extends RefactoringTemplateAbstractTest {
 	}
 
 	/**
-	 * Comprueba que el predicado funciona correctamente cuando no existe aún
-	 * un argumento formal del método con el mismo nombre que el argumento
+	 * Comprueba que el predicado funciona correctamente cuando no existe aï¿½n
+	 * un argumento formal del mï¿½todo con el mismo nombre que el argumento
 	 * indicado.<p>
 	 * 
-	 * En un método con dos argumentos, ejecuta la comprobación sobre un argumento
+	 * En un mï¿½todo con dos argumentos, ejecuta la comprobaciï¿½n sobre un argumento
 	 * formal externo con distinto nombre a ambos.
 	 * 
-	 * @throws Exception si se produce un error durante la ejecución de la prueba.
+	 * @throws Exception si se produce un error durante la ejecuciï¿½n de la prueba.
 	 */
 	@Test
 	public void testArgumentNotExists() throws Exception{

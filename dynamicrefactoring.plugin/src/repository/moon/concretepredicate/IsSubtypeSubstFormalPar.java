@@ -20,34 +20,33 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.*/
 
 package repository.moon.concretepredicate;
 
-import java.util.*;
+import java.util.Collection;
+import java.util.Iterator;
 
-
-import moon.core.genericity.FormalPar;
 import moon.core.classdef.ClassType;
-
+import moon.core.genericity.FormalPar;
 import refactoring.engine.Predicate;
 import repository.moon.concretefunction.FormalParSubstitutionCollector;
 import repository.moon.concretefunction.SupertypeCollector;
 
 /**
- * Comprueba si todas las sustituciones de un parámetro formal en un modelo
+ * Comprueba si todas las sustituciones de un parï¿½metro formal en un modelo
  * son descendientes de un tipo determinado.
  *
- * @author <A HREF="mailto:sam0006@alu.ubu.es">Sara Alcalá Martín</A>
- * @author <A HREF="mailto:dbm0005@alu.ubu.es">Diego Bañuelos Molledo</A>
+ * @author <A HREF="mailto:sam0006@alu.ubu.es">Sara Alcalï¿½ Martï¿½n</A>
+ * @author <A HREF="mailto:dbm0005@alu.ubu.es">Diego Baï¿½uelos Molledo</A>
  * @author <A HREF="mailto:sfd0009@alu.ubu.es">Sonia Fuente de la Fuente</A>
  * @author <A HREF="mailto:ehp0001@alu.ubu.es">Enrique Herrero Paredes</A>
  */
 public class IsSubtypeSubstFormalPar extends Predicate {
    
 	/**
-	 * Parámetro formal cuyas sustituciones en el modelo se deben estudiar.
+	 * Parï¿½metro formal cuyas sustituciones en el modelo se deben estudiar.
 	 */
     private FormalPar formalPar;
     
 	/**
-	 * Supertipo que deben tener en común todas las sustituciones del parámetro.
+	 * Supertipo que deben tener en comï¿½n todas las sustituciones del parï¿½metro.
 	 */
     private ClassType classType;
     
@@ -57,9 +56,9 @@ public class IsSubtypeSubstFormalPar extends Predicate {
 	 * Devuelve una nueva instancia del predicado <code>IsSubtypeSubstFormalPar
 	 * </code>.
 	 * 
-	 * @param formalPar parámetro formal cuyas sustituciones se deben estudiar.
-	 * @param classType supertipo que deben tener en común todas las sustituciones
-	 * del parámetro.
+	 * @param formalPar parï¿½metro formal cuyas sustituciones se deben estudiar.
+	 * @param classType supertipo que deben tener en comï¿½n todas las sustituciones
+	 * del parï¿½metro.
 	 */
     public IsSubtypeSubstFormalPar(FormalPar formalPar, ClassType classType) {
     	
@@ -89,7 +88,7 @@ public class IsSubtypeSubstFormalPar extends Predicate {
         Collection<ClassType> substitutions = collector.getCollection();
         Iterator<ClassType> substitutionsIt = substitutions.iterator();
 
-        // Para cada sustitución.
+        // Para cada sustituciï¿½n.
         while (substitutionsIt.hasNext()) {
         	
             ClassType ct = (ClassType) substitutionsIt.next();
@@ -99,7 +98,7 @@ public class IsSubtypeSubstFormalPar extends Predicate {
             Collection<ClassType> supertypes = superTypeCollector.getCollection();
             Iterator<ClassType> superTypesIt = supertypes.iterator();
             
-            // El supertipo común buscado debería estar en la lista.
+            // El supertipo comï¿½n buscado deberï¿½a estar en la lista.
             boolean found = false;
             while (superTypesIt.hasNext()) {
                 ClassType nextSuperType = (ClassType) superTypesIt.next();
@@ -109,7 +108,7 @@ public class IsSubtypeSubstFormalPar extends Predicate {
                 }
             }
             
-            // En cuanto se encuentre una sustitución que no cumple la condición
+            // En cuanto se encuentre una sustituciï¿½n que no cumple la condiciï¿½n
             // se puede devolver falso.
             if (!found)
                 return false;

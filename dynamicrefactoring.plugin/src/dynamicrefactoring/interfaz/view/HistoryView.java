@@ -20,44 +20,35 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.*/
 
 package dynamicrefactoring.interfaz.view;
 
-import dynamicrefactoring.RefactoringImages;
-import dynamicrefactoring.RefactoringPlugin;
-import dynamicrefactoring.RefactoringUndoSystem;
-
-import dynamicrefactoring.domain.RefactoringSummary;
-import dynamicrefactoring.listener.IRefactoringRunListener;
-import dynamicrefactoring.reader.XMLRefactoringReaderException;
-import dynamicrefactoring.writer.RefactoringPlanWriter;
-
 import java.util.HashMap;
 
 import org.apache.log4j.Logger;
 import org.eclipse.jface.action.IToolBarManager;
-
 import org.eclipse.jface.dialogs.MessageDialog;
-import org.eclipse.swt.layout.GridData;
-
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.custom.TableEditor;
-
 import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.events.SelectionListener;
-
+import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Event;
 import org.eclipse.swt.widgets.Listener;
+import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.Table;
 import org.eclipse.swt.widgets.TableColumn;
 import org.eclipse.swt.widgets.TableItem;
-
 import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.part.ViewPart;
-import org.eclipse.swt.widgets.Shell;
 
-
-import com.swtdesigner.ResourceManager;
+import dynamicrefactoring.RefactoringImages;
+import dynamicrefactoring.RefactoringPlugin;
+import dynamicrefactoring.RefactoringUndoSystem;
+import dynamicrefactoring.domain.RefactoringSummary;
+import dynamicrefactoring.listener.IRefactoringRunListener;
+import dynamicrefactoring.reader.XMLRefactoringReaderException;
+import dynamicrefactoring.writer.RefactoringPlanWriter;
 
 /**
  * Proporciona una vista de Eclipse en la que quedan reflejadas todas las 

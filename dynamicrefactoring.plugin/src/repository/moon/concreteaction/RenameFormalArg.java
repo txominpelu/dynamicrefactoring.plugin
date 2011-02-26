@@ -20,39 +20,38 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.*/
 
 package repository.moon.concreteaction;
 
-import moon.core.classdef.FormalArgument;
 import moon.core.Name;
-
+import moon.core.classdef.FormalArgument;
 import refactoring.engine.Action;
 import repository.RelayListenerRegistry;
 
 /**
- * Permite renombrar un argumento formal de un método en una representación MOON
+ * Permite renombrar un argumento formal de un mï¿½todo en una representaciï¿½n MOON
  * de un modelo Java.
  *
  * @author <A HREF="mailto:ehp0001@alu.ubu.es">Enrique Herrero Paredes</A>
- * @author <A HREF="mailto:alc0022@alu.ubu.es">Ángel López Campo</A>
+ * @author <A HREF="mailto:alc0022@alu.ubu.es">ï¿½ngel Lï¿½pez Campo</A>
  * @author <A HREF="mailto:sfd0009@alu.ubu.es">Sonia Fuente de la Fuente</A>
  */ 
 public class RenameFormalArg extends Action {
 
 	/**
-	 * Parámetro formal que se debe renombrar.
+	 * Parï¿½metro formal que se debe renombrar.
 	 */
 	private FormalArgument formalArg;
 		
 	/**
-	 * Nuevo nombre que se dará al parámetro.
+	 * Nuevo nombre que se darï¿½ al parï¿½metro.
 	 */
 	private Name newName;
 	
 	/**
-	 * Nombre del parámetro antes del renombrado.
+	 * Nombre del parï¿½metro antes del renombrado.
 	 */
 	private Name originalName;
 	
 	/**
-	 * Receptor de los mensajes enviados por la acción concreta.
+	 * Receptor de los mensajes enviados por la acciï¿½n concreta.
 	 */
 	private RelayListenerRegistry listenerReg;
 		
@@ -61,8 +60,8 @@ public class RenameFormalArg extends Action {
 	 *
 	 * Obtiene una nueva instancia de RenameFormalArg.
 	 *
-	 * @param formalArg el parámetro cuyo nombre se desea cambiar.
-	 * @param newName el nuevo nombre que se dará al parámetro.
+	 * @param formalArg el parï¿½metro cuyo nombre se desea cambiar.
+	 * @param newName el nuevo nombre que se darï¿½ al parï¿½metro.
 	 */	
 	public RenameFormalArg(FormalArgument formalArg, Name newName){	
 		super();
@@ -75,7 +74,7 @@ public class RenameFormalArg extends Action {
 	}
 	
 	/**
-	 * Ejecuta el renombrado del parámetro formal.
+	 * Ejecuta el renombrado del parï¿½metro formal.
 	 */
 	public void run() {		
 		listenerReg.notify("# run():RenameFormalArg #"); //$NON-NLS-1$

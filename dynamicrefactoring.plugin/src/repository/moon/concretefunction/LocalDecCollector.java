@@ -20,24 +20,23 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.*/
 
 package repository.moon.concretefunction;
 
-import java.util.*;
+import java.util.Collection;
 
-import moon.core.classdef.MethDec;
 import moon.core.classdef.LocalDec;
-
+import moon.core.classdef.MethDec;
 import refactoring.engine.Function;
 
 /**
- * Permite obtener el conjunto de variables locales de un método determinado.
+ * Permite obtener el conjunto de variables locales de un mï¿½todo determinado.
  *
  * @author <A HREF="mailto:ehp0001@alu.ubu.es">Enrique Herrero Paredes</A>
- * @author <A HREF="mailto:alc0022@alu.ubu.es">Ángel López Campo</A>
+ * @author <A HREF="mailto:alc0022@alu.ubu.es">ï¿½ngel Lï¿½pez Campo</A>
  * @author <A HREF="mailto:sfd0009@alu.ubu.es">Sonia Fuente de la Fuente</A>
  */ 
 public class LocalDecCollector extends Function {
 	
 	/**
-	 * Método cuyas variables locales se desea obtener.
+	 * Mï¿½todo cuyas variables locales se desea obtener.
 	 */
 	private MethDec methDec;
 	
@@ -46,7 +45,7 @@ public class LocalDecCollector extends Function {
 	 *
 	 * Obtiene una nueva instancia de LocalDecCollector.
 	 *
-	 * @param methDec el método cuyas variables locales se quieren obtener.
+	 * @param methDec el mï¿½todo cuyas variables locales se quieren obtener.
 	 */
 	public LocalDecCollector(MethDec methDec) {
 		super();
@@ -55,7 +54,7 @@ public class LocalDecCollector extends Function {
 	}
 
 	/**
-	 * Sin implementación.
+	 * Sin implementaciï¿½n.
 	 *
 	 * @return null.
 	 */
@@ -64,9 +63,9 @@ public class LocalDecCollector extends Function {
 	}
 	
 	/**
-	 * Obtiene el conjunto de variables locales de un método.
+	 * Obtiene el conjunto de variables locales de un mï¿½todo.
 	 *
-	 * @return el conjunto de variables locales del método.
+	 * @return el conjunto de variables locales del mï¿½todo.
 	 */
 	public Collection<LocalDec> getCollection() {
 		return methDec.getLocalDecs();

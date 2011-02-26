@@ -21,30 +21,29 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.*/
 package repository.moon.concretepredicate;
 
 
-import moon.core.classdef.MethDec;
 import moon.core.classdef.FormalArgument;
-
-import refactoring.engine.Predicate;
+import moon.core.classdef.MethDec;
 import refactoring.engine.Function;
+import refactoring.engine.Predicate;
 import repository.moon.concretefunction.FormalArgRetriever;
 
 /**
- * Permite verificar que existe el parámetro especificado dentro de la signatura
- * de un método.
+ * Permite verificar que existe el parï¿½metro especificado dentro de la signatura
+ * de un mï¿½todo.
  *
  * @author <A HREF="mailto:ehp0001@alu.ubu.es">Enrique Herrero Paredes</A>
- * @author <A HREF="mailto:alc0022@alu.ubu.es">Ángel López Campo</A>
+ * @author <A HREF="mailto:alc0022@alu.ubu.es">ï¿½ngel Lï¿½pez Campo</A>
  * @author <A HREF="mailto:sfd0009@alu.ubu.es">Sonia Fuente de la Fuente</A>
  */ 
 public class ExistsFormalArgInMethod extends Predicate {
 	
 	/**
-	 * Parámetro formal cuya presencia en un método se quiere comprobar.
+	 * Parï¿½metro formal cuya presencia en un mï¿½todo se quiere comprobar.
 	 */
 	private FormalArgument formalArg;
 	
 	/**
-	 * Método en el que se busca un cierto parámetro formal.
+	 * Mï¿½todo en el que se busca un cierto parï¿½metro formal.
 	 */
 	private MethDec methDec;
 	
@@ -53,8 +52,8 @@ public class ExistsFormalArgInMethod extends Predicate {
 	 *
 	 * Obtiene una nueva instancia del predicado ExistsFormalArgInMethod.
 	 *
-	 * @param formalArg el parámetro formal que se desea buscar.
-	 * @param methDec el método en que se busca el parámetro formal.
+	 * @param formalArg el parï¿½metro formal que se desea buscar.
+	 * @param methDec el mï¿½todo en que se busca el parï¿½metro formal.
 	 */
 	public ExistsFormalArgInMethod(FormalArgument formalArg, MethDec methDec) {
 		

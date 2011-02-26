@@ -20,15 +20,13 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.*/
 
 package repository.moon.concretepredicate;
 
-import java.util.List;
-
+import static org.junit.Assert.assertTrue;
 import javamoon.construct.source.SourceLoader;
 import javamoon.core.JavaModel;
-
 import moon.core.MoonFactory;
-import moon.core.classdef.*;
-
-import static org.junit.Assert.*;
+import moon.core.classdef.ClassDef;
+import moon.core.classdef.FormalArgument;
+import moon.core.classdef.MethDec;
 
 import org.junit.Test;
 
@@ -38,7 +36,7 @@ import repository.moon.MOONRefactoring;
 /** 
  * Comprueba que funciona correctamente el predicado que verifica que una entidad
  * de signatura (un argumento formal o una variable local) no se utilice en un
- * método.
+ * mï¿½todo.
  * 
  * @author <A HREF="mailto:sfd0009@alu.ubu.es">Sonia Fuente de la Fuente</A>
  * @author <A HREF="mailto:ehp0001@alu.ubu.es">Enrique Herrero Paredes</A>
@@ -47,10 +45,10 @@ public class TestSignatureEntityIsUsedInMethod extends RefactoringTemplateAbstra
 
 	/**
 	 * Comprueba que el predicado funciona correctamente cuando se utiliza un
-	 * argumento formal en la sentencia de retorno del método, que devuelve el
-	 * resultado de invocar un método sobre el argumento formal.
+	 * argumento formal en la sentencia de retorno del mï¿½todo, que devuelve el
+	 * resultado de invocar un mï¿½todo sobre el argumento formal.
 	 * 
-	 * @throws Exception si se produce un error durante la ejecución de la prueba.
+	 * @throws Exception si se produce un error durante la ejecuciï¿½n de la prueba.
 	 */
 	@Test
 	public void testSignatureUsedA() throws Exception{
@@ -76,9 +74,9 @@ public class TestSignatureEntityIsUsedInMethod extends RefactoringTemplateAbstra
 	
 	/**
 	 * Comprueba que el predicado funciona correctamente cuando se utiliza un
-	 * argumento formal en el lado derecho de una sentencia de asignación.
+	 * argumento formal en el lado derecho de una sentencia de asignaciï¿½n.
 	 * 
-	 * @throws Exception si se produce un error durante la ejecución de la prueba.
+	 * @throws Exception si se produce un error durante la ejecuciï¿½n de la prueba.
 	 */
 	@Test
 	public void testSignatureUsedB() throws Exception{
@@ -99,15 +97,15 @@ public class TestSignatureEntityIsUsedInMethod extends RefactoringTemplateAbstra
 				
 		// Comienzan las comprobaciones
 		assertTrue("Comprobar uso de entidad de signatura: no se han detectado " + //$NON-NLS-1$
-			"el uso del argumento en la sentencia de asignación.", predicate.isValid()); //$NON-NLS-1$
+			"el uso del argumento en la sentencia de asignaciï¿½n.", predicate.isValid()); //$NON-NLS-1$
 	}
 	
 	/**
 	 * Comprueba que el predicado funciona correctamente cuando se utiliza un
-	 * argumento formal como parte de una operación matemática en una sentencia
+	 * argumento formal como parte de una operaciï¿½n matemï¿½tica en una sentencia
 	 * de retorno.
 	 * 
-	 * @throws Exception si se produce un error durante la ejecución de la prueba.
+	 * @throws Exception si se produce un error durante la ejecuciï¿½n de la prueba.
 	 */
 	@Test
 	public void testSignatureUsedC() throws Exception{
@@ -128,14 +126,14 @@ public class TestSignatureEntityIsUsedInMethod extends RefactoringTemplateAbstra
 				
 		// Comienzan las comprobaciones
 		assertTrue("Comprobar uso de entidad de signatura: no se han detectado " + //$NON-NLS-1$
-			"el uso del argumento en la operación de retorno.", predicate.isValid()); //$NON-NLS-1$
+			"el uso del argumento en la operaciï¿½n de retorno.", predicate.isValid()); //$NON-NLS-1$
 	}
 	
 	/**
 	 * Comprueba que el predicado funciona correctamente cuando se utiliza un
-	 * argumento formal como argumento de una instrucción de creación.
+	 * argumento formal como argumento de una instrucciï¿½n de creaciï¿½n.
 	 * 
-	 * @throws Exception si se produce un error durante la ejecución de la prueba.
+	 * @throws Exception si se produce un error durante la ejecuciï¿½n de la prueba.
 	 */
 	@Test
 	public void testSignatureUsedD() throws Exception{
@@ -156,6 +154,6 @@ public class TestSignatureEntityIsUsedInMethod extends RefactoringTemplateAbstra
 				
 		// Comienzan las comprobaciones
 		assertTrue("Comprobar uso de entidad de signatura: no se han detectado " + //$NON-NLS-1$
-			"el uso del argumento en la operación de creación.", predicate.isValid()); //$NON-NLS-1$
+			"el uso del argumento en la operaciï¿½n de creaciï¿½n.", predicate.isValid()); //$NON-NLS-1$
 	}
 }

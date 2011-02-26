@@ -21,11 +21,11 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.*/
 package repository.java.concretepredicate;
 
 import java.util.List;
-import moon.core.classdef.MethDec;
+
 import javamoon.core.ModifierSet;
 import javamoon.core.classdef.JavaClassDef;
 import javamoon.core.entity.JavaFunctionDec;
-
+import moon.core.classdef.MethDec;
 import refactoring.engine.Predicate;
 
 /**

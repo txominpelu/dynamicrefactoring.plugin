@@ -20,24 +20,23 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.*/
 
 package repository.moon.concretefunction;
 
-import refactoring.engine.Function;
+import java.util.Collection;
 
 import moon.core.classdef.ClassDef;
 import moon.core.classdef.MethDec;
-
-import java.util.*;
+import refactoring.engine.Function;
 
 /**
- * Permite obtener el conjunto de todos los métodos de una clase determinada.
+ * Permite obtener el conjunto de todos los mï¿½todos de una clase determinada.
  *
  * @author <A HREF="mailto:ehp0001@alu.ubu.es">Enrique Herrero Paredes</A>
- * @author <A HREF="mailto:alc0022@alu.ubu.es">Ángel López Campo</A>
+ * @author <A HREF="mailto:alc0022@alu.ubu.es">ï¿½ngel Lï¿½pez Campo</A>
  * @author <A HREF="mailto:sfd0009@alu.ubu.es">Sonia Fuente de la Fuente</A>
  */ 
 public class MethodCollector extends Function {
 	
 	/**
-	 * Clase cuyos métodos se quieren obtener.
+	 * Clase cuyos mï¿½todos se quieren obtener.
 	 */
 	private ClassDef classDef;
 		
@@ -46,7 +45,7 @@ public class MethodCollector extends Function {
 	 *
 	 * Obtiene una nueva instancia de MethodCollector.
 	 *
-	 * @param classDef la clase cuyos métodos se quieren obtener.
+	 * @param classDef la clase cuyos mï¿½todos se quieren obtener.
 	 */
 	public MethodCollector(ClassDef classDef) {
 		super();
@@ -54,7 +53,7 @@ public class MethodCollector extends Function {
 	}
 
 	/**
-	 * Sin implementación.
+	 * Sin implementaciï¿½n.
 	 *
 	 * @return null.
 	 */
@@ -63,9 +62,9 @@ public class MethodCollector extends Function {
 	}
 	
 	/**
-	 * Obtiene el conjunto de métodos de una clase dada.
+	 * Obtiene el conjunto de mï¿½todos de una clase dada.
 	 *
-	 * @return El conjunto de métodos de una clase.
+	 * @return El conjunto de mï¿½todos de una clase.
 	 */
 	public Collection<MethDec> getCollection() {
 		return classDef.getMethDec();

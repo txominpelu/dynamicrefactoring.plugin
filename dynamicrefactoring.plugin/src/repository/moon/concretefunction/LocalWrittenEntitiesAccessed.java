@@ -11,7 +11,6 @@ import javamoon.core.expression.operation.JavaOperationInfix;
 import javamoon.core.expression.operation.JavaOperationPostfix;
 import javamoon.core.expression.operation.JavaOperationPrefix;
 import javamoon.core.instruction.JavaFalseAssignmentInstr;
-
 import moon.core.classdef.FormalArgument;
 import moon.core.classdef.LocalDec;
 import moon.core.entity.Entity;

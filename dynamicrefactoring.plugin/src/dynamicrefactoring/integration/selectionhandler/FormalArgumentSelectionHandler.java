@@ -21,13 +21,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.*/
 package dynamicrefactoring.integration.selectionhandler;
 
 import java.io.IOException;
-
 import java.util.List;
-
-import dynamicrefactoring.util.processor.JavaLocalVariableProcessor;
-import dynamicrefactoring.util.processor.JavaMethodProcessor;
-import dynamicrefactoring.util.selection.TextSelectionInfo;
-
 
 import moon.core.ObjectMoon;
 import moon.core.classdef.ClassDef;
@@ -37,10 +31,13 @@ import moon.core.classdef.MethDec;
 import org.eclipse.jdt.core.ILocalVariable;
 
 import repository.moon.concretefunction.MethodRetriever;
+import dynamicrefactoring.util.processor.JavaLocalVariableProcessor;
+import dynamicrefactoring.util.processor.JavaMethodProcessor;
+import dynamicrefactoring.util.selection.TextSelectionInfo;
 
 /**
  * Proporciona las funciones necesarias para obtener el argumento formal de un
- * método MOON con el que se corresponde un argumento formal seleccionado en 
+ * mï¿½todo MOON con el que se corresponde un argumento formal seleccionado en 
  * Eclipse.
  * 
  * @author <A HREF="mailto:sfd0009@alu.ubu.es">Sonia Fuente de la Fuente</A>
@@ -49,28 +46,28 @@ import repository.moon.concretefunction.MethodRetriever;
 public class FormalArgumentSelectionHandler implements ISelectionHandler {
 	
 	/**
-	 * El proveedor de información concreto para la selección de texto.
+	 * El proveedor de informaciï¿½n concreto para la selecciï¿½n de texto.
 	 */
 	private TextSelectionInfo infoProvider;
 	
 	/**
-	 * Procesador de información de la variable local con que se identifica el
+	 * Procesador de informaciï¿½n de la variable local con que se identifica el
 	 * argumento formal seleccionado.
 	 */
 	private JavaLocalVariableProcessor variableProcessor;
 	
 	/**
-	 * La descripción MOON del argumento formal seleccionado.
+	 * La descripciï¿½n MOON del argumento formal seleccionado.
 	 */
 	private FormalArgument formalArgument;
 	
 	/**
-	 * La descripción MOON del método al que pertenece el argumento formal.
+	 * La descripciï¿½n MOON del mï¿½todo al que pertenece el argumento formal.
 	 */
 	private MethDec method;
 	
 	/**
-	 * La descripción MOON de la clase a la que pertenece el método uno de cuyos
+	 * La descripciï¿½n MOON de la clase a la que pertenece el mï¿½todo uno de cuyos
 	 * argumentos formales se ha seleccionado.
 	 */
 	private ClassDef methodClass;
@@ -78,10 +75,10 @@ public class FormalArgumentSelectionHandler implements ISelectionHandler {
 	/**
 	 * Constructor.
 	 * 
-	 * @param selectionInfo contenedor de la selección que se desea manejar.
+	 * @param selectionInfo contenedor de la selecciï¿½n que se desea manejar.
 	 * 
-	 * @throws Exception si la selección contenida en #selectionInfo no es una
-	 * selección de un argumento formal sobre una representación textual.
+	 * @throws Exception si la selecciï¿½n contenida en #selectionInfo no es una
+	 * selecciï¿½n de un argumento formal sobre una representaciï¿½n textual.
 	 */
 	public FormalArgumentSelectionHandler (TextSelectionInfo selectionInfo) 
 		throws Exception{
@@ -103,15 +100,15 @@ public class FormalArgumentSelectionHandler implements ISelectionHandler {
 	}
 	
 	/**
-	 * Obtiene la descripción MOON del argumento formal representado por una 
-	 * selección del interfaz gráfico.
+	 * Obtiene la descripciï¿½n MOON del argumento formal representado por una 
+	 * selecciï¿½n del interfaz grï¿½fico.
 	 * 
-	 * @return la descripción MOON del argumento formal representado por una 
-	 * selección del interfaz gráfico.
+	 * @return la descripciï¿½n MOON del argumento formal representado por una 
+	 * selecciï¿½n del interfaz grï¿½fico.
 	 * 
 	 * @throws ClassNotFoundException si se no se consigue encontrar la clase
 	 * del argumento formal en el modelo MOON cargado.
-	 * @throws IOException si se produce algún error al acceder al modelo MOON.
+	 * @throws IOException si se produce algï¿½n error al acceder al modelo MOON.
 	 * 
 	 * @see ISelectionHandler#getMainObject()
 	 */
@@ -136,15 +133,15 @@ public class FormalArgumentSelectionHandler implements ISelectionHandler {
 	}
 	
 	/**
-	 * Obtiene la descripción MOON del método al que pertenece el argumento formal
+	 * Obtiene la descripciï¿½n MOON del mï¿½todo al que pertenece el argumento formal
 	 * seleccionado.
 	 * 
-	 * @return la descripción MOON del método al que pertenece el argumento formal
+	 * @return la descripciï¿½n MOON del mï¿½todo al que pertenece el argumento formal
 	 * seleccionado.
 	 * 
 	 * @throws ClassNotFoundException si se no se consigue encontrar la clase a
-	 * la que pertenece el método en el modelo MOON cargado.
-	 * @throws IOException si se produce algún error al acceder al modelo MOON.
+	 * la que pertenece el mï¿½todo en el modelo MOON cargado.
+	 * @throws IOException si se produce algï¿½n error al acceder al modelo MOON.
 	 */
 	public MethDec getFormalArgumentMethod() 
 		throws IOException, ClassNotFoundException {
@@ -163,15 +160,15 @@ public class FormalArgumentSelectionHandler implements ISelectionHandler {
 	}
 	
 	/**
-	 * Obtiene la descripción MOON de la clase a la que pertenece el método uno de
+	 * Obtiene la descripciï¿½n MOON de la clase a la que pertenece el mï¿½todo uno de
 	 * cuyos argumentos formales se ha seleccionado.
 	 * 
-	 * @return la descripción MOON de la clase a la que pertenece el método uno de
+	 * @return la descripciï¿½n MOON de la clase a la que pertenece el mï¿½todo uno de
 	 * cuyos argumentos formales se ha seleccionado.
 	 * 
 	 * @throws ClassNotFoundException si se no se consigue encontrar la clase en
 	 * el modelo MOON cargado.
-	 * @throws IOException si se produce algún error al acceder al modelo MOON.
+	 * @throws IOException si se produce algï¿½n error al acceder al modelo MOON.
 	 */
 	public ClassDef getMethodClass() throws ClassNotFoundException, IOException {
 		if (methodClass == null)

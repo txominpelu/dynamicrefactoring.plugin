@@ -20,16 +20,16 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.*/
 
 package dynamicrefactoring.action;
 
-import dynamicrefactoring.interfaz.view.ProgressView;
-
 import org.eclipse.jface.action.IAction;
 import org.eclipse.jface.viewers.ISelection;
 import org.eclipse.ui.IViewActionDelegate;
 import org.eclipse.ui.IViewPart;
 
+import dynamicrefactoring.interfaz.view.ProgressView;
+
 /**
- * Implementa una acción capaz de vaciar la tabla asociada a la vista
- * de proceso de una refactorización.
+ * Implementa una acciï¿½n capaz de vaciar la tabla asociada a la vista
+ * de proceso de una refactorizaciï¿½n.
  * 
  * @author <A HREF="mailto:sfd0009@alu.ubu.es">Sonia Fuente de la Fuente</A>
  * @author <A HREF="mailto:ehp0001@alu.ubu.es">Enrique Herrero Paredes</A>
@@ -37,14 +37,14 @@ import org.eclipse.ui.IViewPart;
 public class CleanViewAction implements IViewActionDelegate {
 
 	/**
-	 * Vista para la que se implementa la acción de limpieza.
+	 * Vista para la que se implementa la acciï¿½n de limpieza.
 	 */
 	private IViewPart view;
 	
 	/**
-	 * Inicializa la acción con la vista a la que queda asociada.
+	 * Inicializa la acciï¿½n con la vista a la que queda asociada.
 	 * 
-	 * @param view la vista a la que se asocia la acción de limpieza.
+	 * @param view la vista a la que se asocia la acciï¿½n de limpieza.
 	 */
 	@Override
 	public void init(IViewPart view) {
@@ -52,13 +52,13 @@ public class CleanViewAction implements IViewActionDelegate {
 	}
 
 	/**
-	 * Ejecuta la acción de limpieza sobre la vista.
+	 * Ejecuta la acciï¿½n de limpieza sobre la vista.
 	 * 
-	 * <p>Vacía la tabla en que se muestran los pasos dados durante la 
-	 * ejecución de una refactorización.</p>
+	 * <p>Vacï¿½a la tabla en que se muestran los pasos dados durante la 
+	 * ejecuciï¿½n de una refactorizaciï¿½n.</p>
 	 * 
-	 * @param action el <i>proxy</i> que representa esta acción hasta su
-	 * activación.
+	 * @param action el <i>proxy</i> que representa esta acciï¿½n hasta su
+	 * activaciï¿½n.
 	 */
 	@Override
 	public void run(IAction action) {
@@ -67,7 +67,7 @@ public class CleanViewAction implements IViewActionDelegate {
 	}
 
 	/**
-	 * Sin implementación.
+	 * Sin implementaciï¿½n.
 	 */
 	@Override
 	public void selectionChanged(IAction action, ISelection selection) {

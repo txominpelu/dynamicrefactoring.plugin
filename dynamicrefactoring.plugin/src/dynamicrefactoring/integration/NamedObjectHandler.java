@@ -21,9 +21,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.*/
 package dynamicrefactoring.integration;
 
 import java.util.ArrayList;
-import java.util.List;
 import java.util.Collections;
 import java.util.Comparator;
+import java.util.List;
 
 import moon.core.NamedObject;
 
@@ -37,24 +37,24 @@ import moon.core.NamedObject;
 public class NamedObjectHandler {
 
 	/**
-	 * Obtiene una lista ordenada con los nombres únicos o representativos de cada
+	 * Obtiene una lista ordenada con los nombres ï¿½nicos o representativos de cada
 	 * uno de los elementos de una lista de objetos.
 	 * 
 	 * <p>El procedimiento seguido es el siguiente:
 	 * <li>
 	 * <ol>Primero se comprueba si todos los elementos de la lista son objetos de
-	 * subtipos de <code>moon.core.NamedObject</code>. Si es así, se ordena la 
-	 * lista en base a sus nombres únicos y se devuelve una lista ordenada con dichos
+	 * subtipos de <code>moon.core.NamedObject</code>. Si es asï¿½, se ordena la 
+	 * lista en base a sus nombres ï¿½nicos y se devuelve una lista ordenada con dichos
 	 * nombres.</ol>
-	 * <ol>Si la comprobación anterior falló, se ordena la lista basándose en las
-	 * cadenas de representación obtenidas por el método <code>toString()</code> para
+	 * <ol>Si la comprobaciï¿½n anterior fallï¿½, se ordena la lista basï¿½ndose en las
+	 * cadenas de representaciï¿½n obtenidas por el mï¿½todo <code>toString()</code> para
 	 * cada uno de los objetos de la misma. Finalmente, se devuelve una lista 
 	 * ordenada con dichas representaciones como cadenas de caracteres.</ol>
 	 * </li></p>
 	 * 
 	 * @param list lista original de elementos del modelo.
 	 * 
-	 * @return una lista ordenada de cadenas de texto con los nombres únicos de los
+	 * @return una lista ordenada de cadenas de texto con los nombres ï¿½nicos de los
 	 * objetos de la lista original (si lo tienen todos ellos) o con sus 
 	 * representaciones textuales (si no).
 	 */
@@ -64,7 +64,7 @@ public class NamedObjectHandler {
 		
 		// Si todos son objetos moon.core.NamedObject.
 		if (isNamedObjectList(list)){
-			// Se ordena la lista utilizando sus nombres únicos.
+			// Se ordena la lista utilizando sus nombres ï¿½nicos.
 			sortNamedObjectList(list);			
 			for (Object next : list)
 				nameList.add(((NamedObject)next).getUniqueName().toString());
@@ -79,8 +79,8 @@ public class NamedObjectHandler {
 	}
 
 	/**
-	 * Ordena una lista de objetos en función de su representación obtenida 
-	 * mediante el método <code>toString</code>.
+	 * Ordena una lista de objetos en funciï¿½n de su representaciï¿½n obtenida 
+	 * mediante el mï¿½todo <code>toString</code>.
 	 * 
 	 * @param list la lista que se debe ordenar.
 	 */
@@ -94,9 +94,9 @@ public class NamedObjectHandler {
 	}
 
 	/**
-	 * Ordena una lista de objetos basándose en la suposición de que todos sus
+	 * Ordena una lista de objetos basï¿½ndose en la suposiciï¿½n de que todos sus
 	 * elementos pertenecen a subtipos de <code>moon.core.NamedObject</code>. El
-	 * criterio de ordenación es ascendente según el nombre único de los objetos.
+	 * criterio de ordenaciï¿½n es ascendente segï¿½n el nombre ï¿½nico de los objetos.
 	 * 
 	 * @param list la lista cuyos elementos se deben ordenar.
 	 */
@@ -116,10 +116,10 @@ public class NamedObjectHandler {
 	 * <p>El procedimiento seguido es el siguiente:
 	 * <li>
 	 * <ol>Primero se comprueba si todos los elementos de la lista son objetos de
-	 * subtipos de <code>moon.core.NamedObject</code>. Si es así, se ordena la 
-	 * lista en base a sus nombres únicos.</ol>
-	 * <ol>Si la comprobación anterior falló, se ordena la lista basándose en las
-	 * cadenas de representación obtenidas por el método <code>toString()</code> para
+	 * subtipos de <code>moon.core.NamedObject</code>. Si es asï¿½, se ordena la 
+	 * lista en base a sus nombres ï¿½nicos.</ol>
+	 * <ol>Si la comprobaciï¿½n anterior fallï¿½, se ordena la lista basï¿½ndose en las
+	 * cadenas de representaciï¿½n obtenidas por el mï¿½todo <code>toString()</code> para
 	 * cada uno de los objetos de la misma.</ol>
 	 * </li></p>
 	 * 
@@ -131,7 +131,7 @@ public class NamedObjectHandler {
 		
 		// Si todos son objetos moon.core.NamedObject.
 		if (isNamedObjectList(list))
-			// Se ordena la lista utilizando sus nombres únicos.
+			// Se ordena la lista utilizando sus nombres ï¿½nicos.
 			sortNamedObjectList(list);
 		else 
 			sortGeneralList(list);
@@ -140,10 +140,10 @@ public class NamedObjectHandler {
 	}
 
 	/**
-	 * Comprueba si una lista de objetos está compuesta exclusivamente por objetos
-	 * de algún subtipo de <code>moon.core.NamedObject</code>.
+	 * Comprueba si una lista de objetos estï¿½ compuesta exclusivamente por objetos
+	 * de algï¿½n subtipo de <code>moon.core.NamedObject</code>.
 	 * 
-	 * @param list lista objeto de la comprobación.
+	 * @param list lista objeto de la comprobaciï¿½n.
 	 * 
 	 * @return <code>true</code> si todos los elementos de la lista heredan de
 	 * <code>moon.core.NamedObject</code>; <code>false</code> en caso contrario.
@@ -160,17 +160,17 @@ public class NamedObjectHandler {
 	}
 	
 	/**
-	 * Obtiene la representación más adecuada del nombre de un objeto.
+	 * Obtiene la representaciï¿½n mï¿½s adecuada del nombre de un objeto.
 	 * 
-	 * <p>Si se trata de un objeto de algún subtipo de <code>NamedObject</code>,
-	 * devuelve su nombre único como una cadena de caracteres. Si no, simplemente
+	 * <p>Si se trata de un objeto de algï¿½n subtipo de <code>NamedObject</code>,
+	 * devuelve su nombre ï¿½nico como una cadena de caracteres. Si no, simplemente
 	 * devuelve el resultado de la llamada a <code>toString()</code> sobre el 
-	 * objeto en cuestión.</p>
+	 * objeto en cuestiï¿½n.</p>
 	 * 
 	 * @param object objeto cuyo nombre se debe obtener.
 	 * 
-	 * @return una cadena de caracteres con el nombre único del objeto o con su
-	 * representación textual, si no es un objeto con nombre del modelo.
+	 * @return una cadena de caracteres con el nombre ï¿½nico del objeto o con su
+	 * representaciï¿½n textual, si no es un objeto con nombre del modelo.
 	 */
 	public static String getName(Object object){
 		return (NamedObject.class.isAssignableFrom(object.getClass())) ? 

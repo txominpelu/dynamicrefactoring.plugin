@@ -20,17 +20,16 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.*/
 
 package repository.moon.concretepredicate;
 
-import moon.core.classdef.MethDec;
 import moon.core.classdef.FormalArgument;
-
+import moon.core.classdef.MethDec;
 import refactoring.engine.Predicate;
 
 /**
- * Permite verificar que no existe ningun parámetro formal cuyo nombre coincida
- * con el del argumento formal indicado dentro de la signatura de un método.
+ * Permite verificar que no existe ningun parï¿½metro formal cuyo nombre coincida
+ * con el del argumento formal indicado dentro de la signatura de un mï¿½todo.
  *
  * @author <A HREF="mailto:ehp0001@alu.ubu.es">Enrique Herrero Paredes</A>
- * @author <A HREF="mailto:alc0022@alu.ubu.es">Ángel López Campo</A>
+ * @author <A HREF="mailto:alc0022@alu.ubu.es">ï¿½ngel Lï¿½pez Campo</A>
  * @author <A HREF="mailto:sfd0009@alu.ubu.es">Sonia Fuente de la Fuente</A>
  */ 
 public class HasNotFormalArg extends Predicate {
@@ -44,9 +43,9 @@ public class HasNotFormalArg extends Predicate {
 	 * Constructor.<p>
 	 *
 	 * Obtiene una nueva instancia del predicado HasNotFormalArgWithName.
-	 * @param formalArg el argumento formal con cuyo nombre se busca un parámetro 
-	 * en el método.
-	 * @param methDec el método en que se busca el parámetro.
+	 * @param formalArg el argumento formal con cuyo nombre se busca un parï¿½metro 
+	 * en el mï¿½todo.
+	 * @param methDec el mï¿½todo en que se busca el parï¿½metro.
 	 */
 	public HasNotFormalArg(FormalArgument formalArg, MethDec methDec) {
 		
@@ -62,7 +61,7 @@ public class HasNotFormalArg extends Predicate {
 	/**
 	 * Comprueba el valor de verdad del predicado.
 	 * 
-	 * @return <code>true</code> si no existe el parámetro en el método 
+	 * @return <code>true</code> si no existe el parï¿½metro en el mï¿½todo 
 	 * especificado; <code>false</code> en caso contrario.
 	 */	 
 	public boolean isValid() {

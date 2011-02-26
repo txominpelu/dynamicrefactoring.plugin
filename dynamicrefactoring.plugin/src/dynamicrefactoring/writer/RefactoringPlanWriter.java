@@ -24,9 +24,9 @@ package dynamicrefactoring.writer;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.ArrayList;
 
 import org.jdom.DocType;
 import org.jdom.Document;
@@ -41,7 +41,7 @@ import dynamicrefactoring.reader.XMLRefactoringReaderException;
 
 
 /**
- * Se encarga escribir la información almacenada en el xml que guarda el plan de 
+ * Se encarga escribir la informaciï¿½n almacenada en el xml que guarda el plan de 
  * refactorizaciones.
  * 
  * @author <A HREF="mailto:lfd0002@alu.ubu.es">Laura Fuente de la Fuente</A>
@@ -54,16 +54,16 @@ public class RefactoringPlanWriter {
 	private Format format;
 	
 	/**
-	 * Instancia única de la clase.
+	 * Instancia ï¿½nica de la clase.
 	 * 
-	 * Patrón de diseño Singleton.
+	 * Patrï¿½n de diseï¿½o Singleton.
 	 */
 	private static RefactoringPlanWriter myInstance;
 	
 	/**
 	 * Constructor.
 	 * 
-	 * Privado, según la estructura del patrón de diseño Singleton.
+	 * Privado, segï¿½n la estructura del patrï¿½n de diseï¿½o Singleton.
 	 */
 	private RefactoringPlanWriter(){
 		Element root = new Element("RefactoringPlan");
@@ -85,11 +85,11 @@ public class RefactoringPlanWriter {
 	}
 
 	/**
-	 * Obtiene la instancia única del generador.
+	 * Obtiene la instancia ï¿½nica del generador.
 	 * 
-	 * Patrón de diseño Singleton.
+	 * Patrï¿½n de diseï¿½o Singleton.
 	 * 
-	 * @return la instancia única del generador.
+	 * @return la instancia ï¿½nica del generador.
 	 */
 	public static RefactoringPlanWriter getInstance(){
 		if (myInstance == null)
@@ -128,21 +128,21 @@ public class RefactoringPlanWriter {
 	}
 	
 	/**
-	 * Escribe los datos de una refactorización dentro del fichero que guarda el plan de 
+	 * Escribe los datos de una refactorizaciï¿½n dentro del fichero que guarda el plan de 
 	 * refactorizaciones.
 	 * 
-	 * @param refactoringName Nombre de la refactorización.
-	 * @param fecha fecha en la ques e ejecuta la refactorización.
-	 * @param InputsParameters Parámetros de entrada de la refactorización.
+	 * @param refactoringName Nombre de la refactorizaciï¿½n.
+	 * @param fecha fecha en la ques e ejecuta la refactorizaciï¿½n.
+	 * @param InputsParameters Parï¿½metros de entrada de la refactorizaciï¿½n.
 	 */
 	public void writeRefactoring (String refactoringName,String fecha, HashMap<String, String> InputsParameters ){
 		try {
 			SAXBuilder builder = new SAXBuilder(true);
 			builder.setIgnoringElementContentWhitespace(true);
-			// El atributo SYSTEM del DOCTYPE de la definición XML de la
-			// refactorización es solo la parte relativa de la ruta del fichero
+			// El atributo SYSTEM del DOCTYPE de la definiciï¿½n XML de la
+			// refactorizaciï¿½n es solo la parte relativa de la ruta del fichero
 			// DTD. Se le antepone la ruta del directorio del plugin que 
-			// contiene los ficheros de refactorizaciones dinámicas.
+			// contiene los ficheros de refactorizaciones dinï¿½micas.
 			Document doc = builder.build(new File(RefactoringConstants
 					.REFACTORING_PLAN_FILE).toURI().toString());;
 			Element root = doc.getRootElement();
@@ -178,11 +178,11 @@ public class RefactoringPlanWriter {
 	}
 	
 	/**
-	 * Elimina una refactorización y las siguientes (ya que al deshacer la primera se deshacen 
+	 * Elimina una refactorizaciï¿½n y las siguientes (ya que al deshacer la primera se deshacen 
 	 * el resto) del fichero xml que contiene el plan de refactorizaciones.
 	 * 
-	 * @param refactoringName refactorización a eliminar
-	 * @param fecha fecha de ejecución de la refactorización.
+	 * @param refactoringName refactorizaciï¿½n a eliminar
+	 * @param fecha fecha de ejecuciï¿½n de la refactorizaciï¿½n.
 	 * @throws XMLRefactoringReaderException XMLRefactoringReaderException
 	 */
 	public void deleteRefactorings (String refactoringName, String fecha) throws XMLRefactoringReaderException {

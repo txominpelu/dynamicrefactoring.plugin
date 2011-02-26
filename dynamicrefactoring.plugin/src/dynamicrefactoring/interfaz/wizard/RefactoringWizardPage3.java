@@ -20,36 +20,32 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.*/
 
 package dynamicrefactoring.interfaz.wizard;
 
+import java.io.IOException;
+import java.text.MessageFormat;
+import java.util.ArrayList;
+import java.util.HashMap;
+
+import org.apache.log4j.Logger;
+import org.eclipse.jface.dialogs.MessageDialog;
+import org.eclipse.jface.wizard.WizardPage;
+import org.eclipse.swt.SWT;
+import org.eclipse.swt.layout.FormLayout;
+import org.eclipse.swt.widgets.Composite;
+
 import dynamicrefactoring.RefactoringConstants;
 import dynamicrefactoring.domain.DynamicRefactoringDefinition;
 import dynamicrefactoring.util.RepositoryElementLister;
 
-import java.io.IOException;
-import java.text.MessageFormat;
-import java.util.ArrayList;
-import java.util.HashMap; 
-
-import org.apache.log4j.Logger;
-
-import org.eclipse.jface.dialogs.MessageDialog;
-import org.eclipse.jface.wizard.WizardPage;
-
-import org.eclipse.swt.SWT;
-
-import org.eclipse.swt.layout.FormLayout;
-
-import org.eclipse.swt.widgets.Composite;
-
 
 /**
- * Tercera página del asistente de creación o edición de refactorizaciones.
+ * Tercera pï¿½gina del asistente de creaciï¿½n o ediciï¿½n de refactorizaciones.
  * 
- * <p>Permite componer la refactorización mediante la adición de predicados
+ * <p>Permite componer la refactorizaciï¿½n mediante la adiciï¿½n de predicados
  * a la lista de precondiciones.</p>
  * 
- * <p>Permite definir el orden en que se comprobarán los predicados y en que
- * se ejecutarán las acciones, así como la lista de entradas de la 
- * refactorización que deberán ser transmitidas a cada uno de los componentes.
+ * <p>Permite definir el orden en que se comprobarï¿½n los predicados y en que
+ * se ejecutarï¿½n las acciones, asï¿½ como la lista de entradas de la 
+ * refactorizaciï¿½n que deberï¿½n ser transmitidas a cada uno de los componentes.
  * </p>
  * 
  * @author <A HREF="mailto:lfd0002@alu.ubu.es">Laura Fuente de la Fuente</A>
@@ -59,15 +55,15 @@ import org.eclipse.swt.widgets.Composite;
 public class RefactoringWizardPage3 extends WizardPage implements IRefactoringWizardElementPage{
 
 	/**
-	 * Título de la opearación sobre la que se configuran las precondiciones de la 
-	 * refactorización.
+	 * Tï¿½tulo de la opearaciï¿½n sobre la que se configuran las precondiciones de la 
+	 * refactorizaciï¿½n.
 	 */
 	protected static final String PRECONDITIONS_TITLE = Messages.RefactoringWizardPage3_Preconditions;
 	
 	/**
-	 * Refactorización configurada a través del asistente y que debe ser creada
-	 * finalmente (si se trata de una nueva refactorización) o modificada (si se
-	 * está editando una ya existente).
+	 * Refactorizaciï¿½n configurada a travï¿½s del asistente y que debe ser creada
+	 * finalmente (si se trata de una nueva refactorizaciï¿½n) o modificada (si se
+	 * estï¿½ editando una ya existente).
 	 */
 	private DynamicRefactoringDefinition refactoring = null;
 
@@ -78,7 +74,7 @@ public class RefactoringWizardPage3 extends WizardPage implements IRefactoringWi
 		Logger.getLogger(RefactoringWizardPage3.class);
 	
 	/**
-	 * Pestaña para la configuración de las precondiciones de la refactorización.
+	 * Pestaï¿½a para la configuraciï¿½n de las precondiciones de la refactorizaciï¿½n.
 	 */
 	private RepositoryElementComposite preconditionsTab;
 	
@@ -86,8 +82,8 @@ public class RefactoringWizardPage3 extends WizardPage implements IRefactoringWi
 	/**
 	 * Constructor.
 	 * 
-	 * @param refactoring la refactorización que se está editando, o <code>
-	 * null</code> si se está construyendo una nueva.
+	 * @param refactoring la refactorizaciï¿½n que se estï¿½ editando, o <code>
+	 * null</code> si se estï¿½ construyendo una nueva.
 	 */
 	public RefactoringWizardPage3(DynamicRefactoringDefinition refactoring) {
 		super("Wizard page"); //$NON-NLS-1$
@@ -96,9 +92,9 @@ public class RefactoringWizardPage3 extends WizardPage implements IRefactoringWi
 	}
 	
 	/**
-	 * Hace visible o invisible la página del asistente.
+	 * Hace visible o invisible la pï¿½gina del asistente.
 	 * 
-	 * @param visible si la página se debe hacer visible o no.
+	 * @param visible si la pï¿½gina se debe hacer visible o no.
 	 */
 	@Override
 	public void setVisible(boolean visible){
@@ -116,9 +112,9 @@ public class RefactoringWizardPage3 extends WizardPage implements IRefactoringWi
 	}
 
 	/**
-	 * Crea el contenido de la página del asistente.
+	 * Crea el contenido de la pï¿½gina del asistente.
 	 * 
-	 * @param parent el elemento padre de esta página del asistente.
+	 * @param parent el elemento padre de esta pï¿½gina del asistente.
 	 */
 	@Override
 	public void createControl(Composite parent) {
@@ -126,8 +122,8 @@ public class RefactoringWizardPage3 extends WizardPage implements IRefactoringWi
 		container.setLayout(new FormLayout());
 		
 		setControl(container);
-		// Las precondiciones necesitan un elemento a través del que acceder a las
-		// entradas de la refactorización.
+		// Las precondiciones necesitan un elemento a travï¿½s del que acceder a las
+		// entradas de la refactorizaciï¿½n.
 		RefactoringWizardPage2 inputsPage = null;
 		if (getPreviousPage() instanceof RefactoringWizardPage2)
 			inputsPage = (RefactoringWizardPage2)getPreviousPage();
@@ -151,14 +147,14 @@ public class RefactoringWizardPage3 extends WizardPage implements IRefactoringWi
 	}
 	
 	/**
-	 * Obtiene el conjunto de parámetros asignados en cada una de las precondiciones
-	 * del repositorio seleccionadas para formar parte de la refactorización.
+	 * Obtiene el conjunto de parï¿½metros asignados en cada una de las precondiciones
+	 * del repositorio seleccionadas para formar parte de la refactorizaciï¿½n.
 	 * 
 	 * <p>El formato devuelto se corresponde con una tabla asociativa que sigue la estructura 
 	 * definida en {@link RepositoryElementComposite#getParameters()}.</p>
 	 * 
-	 * @return el conjunto de parámetros asignados a cada elemento concreto del
-	 * repositorio seleccionado para formar parte de la refactorización.
+	 * @return el conjunto de parï¿½metros asignados a cada elemento concreto del
+	 * repositorio seleccionado para formar parte de la refactorizaciï¿½n.
 	 * 
 	 * @see RepositoryElementComposite#getParameters()
 	 */
@@ -191,7 +187,7 @@ public class RefactoringWizardPage3 extends WizardPage implements IRefactoringWi
 	
 
 	/**
-	 * Actualiza el estado de la pantalla de diálogo del asistente.
+	 * Actualiza el estado de la pantalla de diï¿½logo del asistente.
 	 * 
 	 * @param message mensaje asociado al estado actual de la pantalla.
 	 */

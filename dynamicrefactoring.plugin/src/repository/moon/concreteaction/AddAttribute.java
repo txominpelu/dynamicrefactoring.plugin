@@ -21,22 +21,22 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.*/
 package repository.moon.concreteaction;
 
 
-import moon.core.classdef.*;
-
+import moon.core.classdef.AttDec;
+import moon.core.classdef.ClassDef;
 import refactoring.engine.Action;
 import repository.RelayListenerRegistry;
 
 /**
- * Permite añadir un atributo a una clase de un modelo MOON.<p>
+ * Permite aï¿½adir un atributo a una clase de un modelo MOON.<p>
  *
- * @author <A HREF="mailto:alc0022@alu.ubu.es">Ángel López Campo</A>
+ * @author <A HREF="mailto:alc0022@alu.ubu.es">ï¿½ngel Lï¿½pez Campo</A>
  * @author <A HREF="mailto:ehp0001@alu.ubu.es">Enrique Herrero Paredes</A>
  * @author <A HREF="mailto:sfd0009@alu.ubu.es">Sonia Fuente de la Fuente</A>
  */
 public class AddAttribute extends Action {
 	
 	/**
-	 * Atributo que se debe añadir a la clase destino.
+	 * Atributo que se debe aï¿½adir a la clase destino.
 	 */
 	private AttDec att;
 	
@@ -46,16 +46,16 @@ public class AddAttribute extends Action {
 	private ClassDef dest;
 	
 	/**
-	 * Receptor de los mensajes enviados por la acción concreta.
+	 * Receptor de los mensajes enviados por la acciï¿½n concreta.
 	 */
 	private RelayListenerRegistry listenerReg;
 		
 	/**
 	 * Constructor.<p>
 	 *
-	 * Obtiene una nueva instancia de la acción RenameJavaFile.
+	 * Obtiene una nueva instancia de la acciï¿½n RenameJavaFile.
 	 *
-	 * @param att el atributo que se va a añadir a una clase.
+	 * @param att el atributo que se va a aï¿½adir a una clase.
 	 * @param dest la clase de destino del atributo.
 	 */
 	public AddAttribute (AttDec att, ClassDef dest){
@@ -68,7 +68,7 @@ public class AddAttribute extends Action {
 	}
 	
 	/**
-	 * Ejecuta la adición del atributo a la clase destino.
+	 * Ejecuta la adiciï¿½n del atributo a la clase destino.
 	 */
 	public void run(){	
 		listenerReg.notify("# run():AddAttribute #"); //$NON-NLS-1$
@@ -78,7 +78,7 @@ public class AddAttribute extends Action {
 	}
 	
 	/**
-	 * Elimina el atributo añadido de la clase destino.
+	 * Elimina el atributo aï¿½adido de la clase destino.
 	 */
 	public void undo(){		
 		listenerReg.notify("# undo():AddAttribute #"); //$NON-NLS-1$

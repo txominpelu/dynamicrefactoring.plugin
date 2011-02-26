@@ -20,33 +20,21 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.*/
 
 package dynamicrefactoring.interfaz.wizard;
 
-import dynamicrefactoring.RefactoringConstants;
-import dynamicrefactoring.RefactoringImages;
-import dynamicrefactoring.RefactoringPlugin;
-
-import dynamicrefactoring.domain.DynamicRefactoringDefinition;
-import dynamicrefactoring.interfaz.dynamic.RepositoryElementProcessor;
-import dynamicrefactoring.interfaz.wizard.listener.ListDownListener;
-import dynamicrefactoring.interfaz.wizard.listener.ListUpListener;
-
+import java.io.File;
+import java.io.IOException;
 import java.text.MessageFormat;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.Hashtable;
 import java.util.Map;
-import java.util.Vector;
 import java.util.StringTokenizer;
-import java.io.File;
-import java.io.IOException;
-import java.lang.Class;
-import java.net.MalformedURLException;
+import java.util.Vector;
 
 import org.apache.log4j.Logger;
 import org.eclipse.core.runtime.FileLocator;
 import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.jface.wizard.IWizardPage;
-import org.eclipse.jface.wizard.WizardPage;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.browser.Browser;
 import org.eclipse.swt.custom.CCombo;
@@ -57,23 +45,25 @@ import org.eclipse.swt.events.FocusListener;
 import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.events.SelectionListener;
-import org.eclipse.swt.events.KeyEvent;
-import org.eclipse.swt.events.KeyAdapter;
-
 import org.eclipse.swt.layout.FormAttachment;
 import org.eclipse.swt.layout.FormData;
 import org.eclipse.swt.layout.FormLayout;
 import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Group;
-import org.eclipse.swt.widgets.List;
-import org.eclipse.swt.widgets.Text;
 import org.eclipse.swt.widgets.Label;
+import org.eclipse.swt.widgets.List;
 import org.eclipse.swt.widgets.Table;
 import org.eclipse.swt.widgets.TableColumn;
 import org.eclipse.swt.widgets.TableItem;
+import org.eclipse.swt.widgets.Text;
 
-import com.swtdesigner.ResourceManager;
+import dynamicrefactoring.RefactoringConstants;
+import dynamicrefactoring.RefactoringImages;
+import dynamicrefactoring.domain.DynamicRefactoringDefinition;
+import dynamicrefactoring.interfaz.dynamic.RepositoryElementProcessor;
+import dynamicrefactoring.interfaz.wizard.listener.ListDownListener;
+import dynamicrefactoring.interfaz.wizard.listener.ListUpListener;
 
 /**
  * Contenido de las p�ginas en la que se establecen los diferentes mecanismos de la refactorizaci�n.

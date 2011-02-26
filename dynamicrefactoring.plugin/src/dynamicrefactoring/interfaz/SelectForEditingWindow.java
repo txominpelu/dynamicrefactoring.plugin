@@ -20,26 +20,24 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.*/
 
 package dynamicrefactoring.interfaz;
 
-import dynamicrefactoring.domain.DynamicRefactoringDefinition;
-import dynamicrefactoring.interfaz.wizard.RefactoringWizard;
-
 import org.apache.log4j.Logger;
-
 import org.eclipse.jface.dialogs.Dialog;
 import org.eclipse.jface.dialogs.IDialogConstants;
 import org.eclipse.jface.wizard.WizardDialog;
-
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.ui.PlatformUI;
 
+import dynamicrefactoring.domain.DynamicRefactoringDefinition;
+import dynamicrefactoring.interfaz.wizard.RefactoringWizard;
+
 /**
- * Permite seleccionar una de las refactorizaciones dinámicas disponibles para ser
+ * Permite seleccionar una de las refactorizaciones dinï¿½micas disponibles para ser
  * editada.
  * 
- * <p>Muestra en todo momento un resumen con las características principales de la
- * refactorización seleccionada, hasta que se pulsa el botón que inicia el 
- * asistente para la edición de refactorizaciones.</p>
+ * <p>Muestra en todo momento un resumen con las caracterï¿½sticas principales de la
+ * refactorizaciï¿½n seleccionada, hasta que se pulsa el botï¿½n que inicia el 
+ * asistente para la ediciï¿½n de refactorizaciones.</p>
  * 
  * @author <A HREF="mailto:sfd0009@alu.ubu.es">Sonia Fuente de la Fuente</A>
  * @author <A HREF="mailto:ehp0001@alu.ubu.es">Enrique Herrero Paredes</A>
@@ -47,9 +45,9 @@ import org.eclipse.ui.PlatformUI;
 public class SelectForEditingWindow extends SelectDynamicRefactoringWindow {
 
 	/**
-	 * Crea la ventana de diálogo.
+	 * Crea la ventana de diï¿½logo.
 	 * 
-	 * @param parentShell la <i>shell</i> padre de esta ventana de diálogo.
+	 * @param parentShell la <i>shell</i> padre de esta ventana de diï¿½logo.
 	 */
 	public SelectForEditingWindow(Shell parentShell) {
 		super(parentShell);
@@ -58,10 +56,10 @@ public class SelectForEditingWindow extends SelectDynamicRefactoringWindow {
 	}
 
 	/**
-	 * Crea el botón que permite lanzar el asistente para la edición de la 
-	 * refactorización seleccionada.
+	 * Crea el botï¿½n que permite lanzar el asistente para la ediciï¿½n de la 
+	 * refactorizaciï¿½n seleccionada.
 	 * 
-	 * @param parent el componente padre del botón.
+	 * @param parent el componente padre del botï¿½n.
 	 * 
 	 * @see SelectDynamicRefactoringWindow#createOKButton(Composite)
 	 */
@@ -71,11 +69,11 @@ public class SelectForEditingWindow extends SelectDynamicRefactoringWindow {
 	}
 	
 	/**
-	 * Obtiene el verbo asociado a la acción que permite iniciar la ventana
-	 * de diálogo sobre la refactorización seleccionada.
+	 * Obtiene el verbo asociado a la acciï¿½n que permite iniciar la ventana
+	 * de diï¿½logo sobre la refactorizaciï¿½n seleccionada.
 	 * 
-	 * @return el verbo asociado a la acción que permite iniciar la ventana
-	 * de diálogo sobre la refactorización seleccionada.
+	 * @return el verbo asociado a la acciï¿½n que permite iniciar la ventana
+	 * de diï¿½logo sobre la refactorizaciï¿½n seleccionada.
 	 */
 	@Override
 	protected String getOperation(){
@@ -83,10 +81,10 @@ public class SelectForEditingWindow extends SelectDynamicRefactoringWindow {
 	}
 
 	/**
-	 * Notifica que el botón de este diálogo con el identificador especificado
+	 * Notifica que el botï¿½n de este diï¿½logo con el identificador especificado
 	 * ha sido pulsado.
 	 * 
-	 * @param buttonId el identificador del botón que ha sido pulsado (véanse
+	 * @param buttonId el identificador del botï¿½n que ha sido pulsado (vï¿½anse
 	 * las constantes <code>IDialogConstants.*ID</code>).
 	 * 
 	 * @see Dialog#buttonPressed

@@ -20,19 +20,18 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.*/
 
 package repository.java.concretepredicate;
 
-import moon.core.classdef.AttDec;
-import javamoon.core.classdef.JavaClassDef;
-import javamoon.core.entity.JavaAttDec;
-import javamoon.core.ModifierSet;
-
 import java.util.List;
 
+import javamoon.core.ModifierSet;
+import javamoon.core.classdef.JavaClassDef;
+import javamoon.core.entity.JavaAttDec;
+import moon.core.classdef.AttDec;
 import refactoring.engine.Predicate;
 
 
 /**
- * Permite comprobar que una clase tiene atributos públicos finales y 
- * estáticos cuyo tipo corresponde al tipo de la clase en la que son definidos.
+ * Permite comprobar que una clase tiene atributos pï¿½blicos finales y 
+ * estï¿½ticos cuyo tipo corresponde al tipo de la clase en la que son definidos.
  *
  * @author <A HREF="mailto:lfd0002@alu.ubu.es">Laura Fuente de la Fuente</A>
  */ 
@@ -65,7 +64,7 @@ public class HasPublicFinalStaticAttributes extends Predicate {
 	 * Comprueba el valor de verdad del predicado.
 	 * 
 	 * @return <code>true</code> si la clase posee un constructor con un entero 
-	 * como parámetro, <code>false</code> en caso contrario.
+	 * como parï¿½metro, <code>false</code> en caso contrario.
 	 */	 
 	public boolean isValid() {	
 		List<AttDec> attributes = classDef.getAttributes();

@@ -20,19 +20,24 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.*/
 
 package repository.moon.concretefunction;
 
+import java.util.Collection;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Vector;
+
+import moon.core.classdef.ClassDef;
+import moon.core.classdef.ClassType;
+import moon.core.classdef.MethDec;
+import moon.core.classdef.Type;
+import moon.core.inheritance.InheritanceClause;
 import refactoring.engine.Function;
-
-import moon.core.classdef.*;
-import moon.core.inheritance.*;
-
-import java.util.*;
 
 /**
  * Permite obtener las superclases de una clase dada que declaren un cierto 
- * método.
+ * mï¿½todo.
  *
  * @author <A HREF="mailto:ehp0001@alu.ubu.es">Enrique Herrero Paredes</A>
- * @author <A HREF="mailto:alc0022@alu.ubu.es">Ángel López Campo</A>
+ * @author <A HREF="mailto:alc0022@alu.ubu.es">ï¿½ngel Lï¿½pez Campo</A>
  * @author <A HREF="mailto:sfd0009@alu.ubu.es">Sonia Fuente de la Fuente</A>
  */ 
 public class SuperclassesWithMethodCollector extends Function {
@@ -43,7 +48,7 @@ public class SuperclassesWithMethodCollector extends Function {
 	private ClassDef classDef;
 	
 	/**
-	 * El nombre único del método cuyo equivalente en una superclase se busca.
+	 * El nombre ï¿½nico del mï¿½todo cuyo equivalente en una superclase se busca.
 	 */
 	private String methodUniqueName;
 		
@@ -53,7 +58,7 @@ public class SuperclassesWithMethodCollector extends Function {
 	 * Obtiene una nueva instancia de SuperclassesWithMethodCollector.
 	 *
 	 * @param classDef la clase cuyas superclases se van a explorar.
-	 * @param methodUniqueName el nombre único del método que se busca en una superclase.
+	 * @param methodUniqueName el nombre ï¿½nico del mï¿½todo que se busca en una superclase.
 	 */
 	public SuperclassesWithMethodCollector(ClassDef classDef, String methodUniqueName){
 		
@@ -63,15 +68,15 @@ public class SuperclassesWithMethodCollector extends Function {
 
 	/**
 	 * Obtiene las clases que se encuentra al recorrer hacia arriba la
-	 * jerarquía de herencia a partir de la clase <code>classDef</code>, y que
-	 * contengan un cierto método.<p>
+	 * jerarquï¿½a de herencia a partir de la clase <code>classDef</code>, y que
+	 * contengan un cierto mï¿½todo.<p>
 	 *
-	 * Si por una rama de herencia encuentra una clase que contiene el método,
+	 * Si por una rama de herencia encuentra una clase que contiene el mï¿½todo,
 	 * no sigue buscando hacia las superclases de la misma. En cambio, si 
-	 * encuentra superclases que no contienen el método, continúa buscando a su
+	 * encuentra superclases que no contienen el mï¿½todo, continï¿½a buscando a su
 	 * vez en las clases superiores de las mismas.
 	 *
-	 * @return Las clases encontradas o null, si no se encontró ninguna.
+	 * @return Las clases encontradas o null, si no se encontrï¿½ ninguna.
 	 */ 
 	public Collection<ClassDef> getCollection() {
 		
@@ -121,7 +126,7 @@ public class SuperclassesWithMethodCollector extends Function {
 	}
 	
 	/**
-	 * Sin implementación.
+	 * Sin implementaciï¿½n.
 	 *
 	 * @return null.
 	 */

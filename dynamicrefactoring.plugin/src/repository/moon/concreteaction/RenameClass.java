@@ -20,18 +20,17 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.*/
 
 package repository.moon.concreteaction;
 
-import moon.core.classdef.ClassDef;
 import moon.core.Name;
-
+import moon.core.classdef.ClassDef;
 import refactoring.engine.Action;
 import repository.RelayListenerRegistry;
 import repository.moon.MOONRefactoring;
 
 /**
- * Permite renombrar una clase de una representación MOON de un modelo Java.
+ * Permite renombrar una clase de una representaciï¿½n MOON de un modelo Java.
  *
  * @author <A HREF="mailto:ehp0001@alu.ubu.es">Enrique Herrero Paredes</A>
- * @author <A HREF="mailto:alc0022@alu.ubu.es">Ángel López Campo</A>
+ * @author <A HREF="mailto:alc0022@alu.ubu.es">ï¿½ngel Lï¿½pez Campo</A>
  * @author <A HREF="mailto:sfd0009@alu.ubu.es">Sonia Fuente de la Fuente</A>
  */ 
 public class RenameClass extends Action {
@@ -42,7 +41,7 @@ public class RenameClass extends Action {
 	private ClassDef classDef;
 		
 	/**
-	 * Nuevo nombre que se dará a la clase.
+	 * Nuevo nombre que se darï¿½ a la clase.
 	 */
 	private Name newName;
 		
@@ -52,7 +51,7 @@ public class RenameClass extends Action {
 	private Name originalName;
 	
 	/**
-	 * Receptor de los mensajes enviados por la acción concreta.
+	 * Receptor de los mensajes enviados por la acciï¿½n concreta.
 	 */
 	private RelayListenerRegistry listenerReg;
 	
@@ -62,7 +61,7 @@ public class RenameClass extends Action {
 	 * Obtiene una nueva instancia de RenameClass.
 	 *
 	 * @param classDef la clase cuyo nombre se desea cambiar.
-	 * @param newName el nuevo nombre que se dará a la clase.
+	 * @param newName el nuevo nombre que se darï¿½ a la clase.
 	 */	
 	public RenameClass(ClassDef classDef, Name newName){
 		super();

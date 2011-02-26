@@ -20,41 +20,41 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.*/
 
 package repository.moon.concretefunction;
 
-import java.util.*;
+import java.util.Collection;
+import java.util.Iterator;
 
-import moon.core.classdef.*;
-
+import moon.core.classdef.ClassDef;
 import refactoring.engine.Function;
 
 /**
- * Permite obtener las clases de una jerarquía de herencia que se podrían ver 
- * afectadas por un cambio en la signatura de un método en una cierta clase de 
- * la jerarquía.
+ * Permite obtener las clases de una jerarquï¿½a de herencia que se podrï¿½an ver 
+ * afectadas por un cambio en la signatura de un mï¿½todo en una cierta clase de 
+ * la jerarquï¿½a.
  *
  * @author <A HREF="mailto:ehp0001@alu.ubu.es">Enrique Herrero Paredes</A>
- * @author <A HREF="mailto:alc0022@alu.ubu.es">Ángel López Campo</A>
+ * @author <A HREF="mailto:alc0022@alu.ubu.es">ï¿½ngel Lï¿½pez Campo</A>
  * @author <A HREF="mailto:sfd0009@alu.ubu.es">Sonia Fuente de la Fuente</A>
  */ 
 public class ClassesAffectedByMethRenameCollector extends Function {
 	
 	/**
-	 * La clase a la que pertenece el método que se vería afectado por un cambio
+	 * La clase a la que pertenece el mï¿½todo que se verï¿½a afectado por un cambio
 	 * en su signatura.
 	 */
 	private ClassDef classDef;
 	
 	/**
-	 * El nombre único del método que sufriría un cambio en su signatura.
+	 * El nombre ï¿½nico del mï¿½todo que sufrirï¿½a un cambio en su signatura.
 	 */
 	private String methodUniqueName;
 	
 	/**
-	 * Clases que ya se han incluído como afectadas.
+	 * Clases que ya se han incluï¿½do como afectadas.
 	 */
 	private Collection<ClassDef> alreadyFound;
 	
 	/**
-	 * Booleano que indica si se quiere revisar también las subclases o solo se
+	 * Booleano que indica si se quiere revisar tambiï¿½n las subclases o solo se
 	 * quiere revisar las superclases.
 	 */
 	private Boolean subclases;
@@ -64,10 +64,10 @@ public class ClassesAffectedByMethRenameCollector extends Function {
 	 *
 	 * Obtiene una nueva instancia de ClassesAffectedByMethRenameCollector.
 	 *
-	 * @param classDef la clase que sufriría el cambio en la signatura de un método.
-	 * @param methodUniqueName el nombre único del método cuya signatura sufriría un cambio.
+	 * @param classDef la clase que sufrirï¿½a el cambio en la signatura de un mï¿½todo.
+	 * @param methodUniqueName el nombre ï¿½nico del mï¿½todo cuya signatura sufrirï¿½a un cambio.
 	 * @param alreadyFound la lista de clases ya incluidas como afectadas.
-	 * @param subclases indica si se quiere revisar también las subclases o solo se
+	 * @param subclases indica si se quiere revisar tambiï¿½n las subclases o solo se
 	 * quiere revisar las superclases.
 	 */
 	public ClassesAffectedByMethRenameCollector(ClassDef classDef, 
@@ -80,11 +80,11 @@ public class ClassesAffectedByMethRenameCollector extends Function {
 
 	/**
 	 * Obtiene las clases que se encuentra al recorrer recursivamente la
-	 * jerarquía de herencia de una clase y que, por tanto, podrían 
-	 * hipotéticamente verse afectadas por un cambio en la signatura de un 
-	 * método de la clase original.
+	 * jerarquï¿½a de herencia de una clase y que, por tanto, podrï¿½an 
+	 * hipotï¿½ticamente verse afectadas por un cambio en la signatura de un 
+	 * mï¿½todo de la clase original.
 	 *
-	 * @return Las clases encontradas o una colección vacía, si no se encontró ninguna.
+	 * @return Las clases encontradas o una colecciï¿½n vacï¿½a, si no se encontrï¿½ ninguna.
 	 */ 
 	public Collection<ClassDef> getCollection() {
 		
@@ -147,7 +147,7 @@ public class ClassesAffectedByMethRenameCollector extends Function {
 	}
 	
 	/**
-	 * Sin implementación.
+	 * Sin implementaciï¿½n.
 	 *
 	 * @return null.
 	 */

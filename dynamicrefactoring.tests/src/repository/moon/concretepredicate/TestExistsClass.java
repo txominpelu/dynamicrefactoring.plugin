@@ -20,15 +20,13 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.*/
 
 package repository.moon.concretepredicate;
 
+import static org.junit.Assert.assertFalse;
 import javamoon.construct.source.SourceLoader;
 import javamoon.core.JavaModel;
-
 import moon.core.MoonFactory;
-import moon.core.classdef.*;
+import moon.core.classdef.ClassDef;
 
-import static org.junit.Assert.*;
-
-import org.junit.Test; 
+import org.junit.Test;
 
 import repository.RefactoringTemplateAbstractTest;
 import repository.moon.MOONRefactoring;
@@ -46,10 +44,10 @@ public class TestExistsClass extends RefactoringTemplateAbstractTest {
 	 * Comprueba que el predicado funciona correctamente cuando la clase
 	 * no es parte del modelo.<p>
 	 * 
-	 * Ejecuta la comprobación sobre una clase obtenida a partir de una instancia
-	 * distinta del modelo utilizado en la verificación.
+	 * Ejecuta la comprobaciï¿½n sobre una clase obtenida a partir de una instancia
+	 * distinta del modelo utilizado en la verificaciï¿½n.
 	 * 
-	 * @throws Exception si se produce un error durante la ejecución de la prueba.
+	 * @throws Exception si se produce un error durante la ejecuciï¿½n de la prueba.
 	 */
 	@Test
 	public void testNotExists() throws Exception{

@@ -20,21 +20,20 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.*/
 
 package dynamicrefactoring.integration.selectionhandler;
 
-import dynamicrefactoring.util.processor.JavaFieldProcessor;
-import dynamicrefactoring.util.selection.TreeSelectionInfo;
-
 import java.io.IOException;
 
 import moon.core.classdef.ClassDef;
 
 import org.eclipse.jdt.core.IField;
-
 import org.eclipse.jface.viewers.TreeSelection;
+
+import dynamicrefactoring.util.processor.JavaFieldProcessor;
+import dynamicrefactoring.util.selection.TreeSelectionInfo;
 
 /**
  * Proporciona las funciones necesarias para obtener el atributo MOON de una
  * clase con el que se corresponde un atributo seleccionado en Eclipse sobre
- * un árbol desplegable.
+ * un ï¿½rbol desplegable.
  * 
  * @author <A HREF="mailto:sfd0009@alu.ubu.es">Sonia Fuente de la Fuente</A>
  * @author <A HREF="mailto:ehp0001@alu.ubu.es">Enrique Herrero Paredes</A>
@@ -42,17 +41,17 @@ import org.eclipse.jface.viewers.TreeSelection;
 public class TreeFieldSelectionHandler extends FieldSelectionHandler {
 
 	/**
-	 * La selección de un atributo sobre un árbol de selección.
+	 * La selecciï¿½n de un atributo sobre un ï¿½rbol de selecciï¿½n.
 	 */
 	private TreeSelectionInfo infoProvider;
 	
 	/**
 	 * Constructor.
 	 * 
-	 * @param selectionInfo contenedor de la selección que se desea manejar.
+	 * @param selectionInfo contenedor de la selecciï¿½n que se desea manejar.
 	 * 
-	 * @throws Exception si la selección contenida en #selectionInfo no es una
-	 * selección de un atributo sobre un árbol de selección.
+	 * @throws Exception si la selecciï¿½n contenida en #selectionInfo no es una
+	 * selecciï¿½n de un atributo sobre un ï¿½rbol de selecciï¿½n.
 	 */
 	public TreeFieldSelectionHandler (TreeSelectionInfo selectionInfo) 
 		throws Exception{
@@ -77,8 +76,8 @@ public class TreeFieldSelectionHandler extends FieldSelectionHandler {
 	}
 
 	/**
-	 * Implementación de la operación primitiva.
-	 * (Patrón de diseño Método Plantilla).
+	 * Implementaciï¿½n de la operaciï¿½n primitiva.
+	 * (Patrï¿½n de diseï¿½o Mï¿½todo Plantilla).
 	 * 
 	 * @see FieldSelectionHandler#getFieldProcessor()
 	 */

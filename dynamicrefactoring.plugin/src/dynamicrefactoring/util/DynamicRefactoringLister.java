@@ -23,7 +23,6 @@ package dynamicrefactoring.util;
 import java.io.File;
 import java.io.FilenameFilter;
 import java.io.IOException;
-
 import java.util.HashMap;
 
 import org.eclipse.core.runtime.IProgressMonitor;
@@ -32,17 +31,17 @@ import dynamicrefactoring.util.io.FileManager;
 import dynamicrefactoring.util.io.filter.DynamicRefactoringFilter;
 
 /**
- * Obtiene los ficheros XML con refactorizaciones dinámicas disponibles.
+ * Obtiene los ficheros XML con refactorizaciones dinï¿½micas disponibles.
  *
- * @author <A HREF="mailto:alc0022@alu.ubu.es">Ángel López Campo</A>
- * @author <A HREF="mailto:epf0006@alu.ubu.es">Eduardo Peña Fernández</A>
+ * @author <A HREF="mailto:alc0022@alu.ubu.es">ï¿½ngel Lï¿½pez Campo</A>
+ * @author <A HREF="mailto:epf0006@alu.ubu.es">Eduardo Peï¿½a Fernï¿½ndez</A>
  * @author <A HREF="mailto:sfd0009@alu.ubu.es">Sonia Fuente de la Fuente</A>
  * @author <A HREF="mailto:ehp0001@alu.ubu.es">Enrique Herrero Paredes</A>
  */
 public class DynamicRefactoringLister {
 
 	/**
-	 * La instancia única de la clase.
+	 * La instancia ï¿½nica de la clase.
 	 */
 	private static DynamicRefactoringLister instance;
 
@@ -52,7 +51,7 @@ public class DynamicRefactoringLister {
 	private FilenameFilter fileFilter;
 	
 	/**
-	 * Número de iteración actual en la búsqueda recursiva.
+	 * Nï¿½mero de iteraciï¿½n actual en la bï¿½squeda recursiva.
 	 */
 	private int iteration = 0;
 	
@@ -64,9 +63,9 @@ public class DynamicRefactoringLister {
 	}
 		
 	/**
-	 * Devuelve la instancia única de la clase.
+	 * Devuelve la instancia ï¿½nica de la clase.
 	 * 
-	 * @return la instancia única de la clase.
+	 * @return la instancia ï¿½nica de la clase.
 	 */
 	public static DynamicRefactoringLister getInstance() {
 		if(instance == null)
@@ -76,19 +75,19 @@ public class DynamicRefactoringLister {
 		
 	/**
 	 * Obtiene un conjunto de pares [nombre, ruta al fichero] de los ficheros XML
-	 * con refactorizaciones dinámicas encontrados (recursivamente) en un cierto
+	 * con refactorizaciones dinï¿½micas encontrados (recursivamente) en un cierto
 	 * directorio.
 	 * 
 	 * @param folder el directorio en que se buscan las refactorizaciones.
-	 * @param recursive si la búsqueda ha de ser recursiva o no.
-	 * @param monitor monitor al que deberá consultarse periódicamente si la
-	 * operación ha sido cancelada, en cuyo caso deberá detenerse.
+	 * @param recursive si la bï¿½squeda ha de ser recursiva o no.
+	 * @param monitor monitor al que deberï¿½ consultarse periï¿½dicamente si la
+	 * operaciï¿½n ha sido cancelada, en cuyo caso deberï¿½ detenerse.
 	 * 
 	 * @return una tabla de pares [clave, valor] en la que se utiliza como clave
 	 * el nombre comprensible del fichero y como valor la ruta del fichero; 
 	 * para cada fichero encontrado.
 	 * 
-	 * @throws IOException cuando no existe el directorio raíz de búsqueda, o 
+	 * @throws IOException cuando no existe el directorio raï¿½z de bï¿½squeda, o 
 	 * bien no es un directorio.
 	 */
     public HashMap<String, String> getDynamicRefactoringNameList(String folder,
@@ -117,18 +116,18 @@ public class DynamicRefactoringLister {
     
 	/**
 	 * Obtiene un conjunto de pares [nombre, ruta al fichero] de los ficheros XML 
-	 * con refactorizaciones dinámicas encontrados (de forma recursiva) a partir de
+	 * con refactorizaciones dinï¿½micas encontrados (de forma recursiva) a partir de
 	 * un directorio.
 	 * 
 	 * @param dir directorio desde a partir del que se comienza el listado.
-	 * @param h una tabla en la que se almacenarán los pares <nombre fichero,
+	 * @param h una tabla en la que se almacenarï¿½n los pares <nombre fichero,
 	 * ruta fichero> encontrados.
-	 * @param recursive si la búsqueda ha de ser recursiva en subdirectorios.
-	 * @param monitor monitor de progreso al que habrá que consultar periódicamente
-	 * si la búsqueda ha sido cancelada, en cuyo caso, habrá que detenerla y retornar.
+	 * @param recursive si la bï¿½squeda ha de ser recursiva en subdirectorios.
+	 * @param monitor monitor de progreso al que habrï¿½ que consultar periï¿½dicamente
+	 * si la bï¿½squeda ha sido cancelada, en cuyo caso, habrï¿½ que detenerla y retornar.
 	 * 
-	 * @throws InterruptedException si la búsqueda se está ejecutando bajo la
-	 * vigilancia de un monitor de progreso que ha detectado una orden de cancelación.
+	 * @throws InterruptedException si la bï¿½squeda se estï¿½ ejecutando bajo la
+	 * vigilancia de un monitor de progreso que ha detectado una orden de cancelaciï¿½n.
 	 */
     private void dynamicRefactoringNameList(File dir, HashMap<String, String> h, 
     	boolean recursive, IProgressMonitor monitor) throws InterruptedException {
@@ -136,7 +135,7 @@ public class DynamicRefactoringLister {
     	if (monitor != null)
     		checkForCancellation(monitor);
     	
-    	// Si es un directorio se continúa recursivamente.
+    	// Si es un directorio se continï¿½a recursivamente.
         if (dir.isDirectory() && (recursive || iteration < 2)) {
         	iteration++;
             String[] hijos = dir.list();
@@ -145,7 +144,7 @@ public class DynamicRefactoringLister {
             iteration--;
         }
         
-    	// Si es un fichero de refactorización se almacena en la tabla.
+    	// Si es un fichero de refactorizaciï¿½n se almacena en la tabla.
         else if(fileFilter.accept(dir, dir.getName()) == true)
     		h.put(FileManager.getReadableName(dir.getName()), 
     			dir.getPath());
@@ -153,12 +152,12 @@ public class DynamicRefactoringLister {
     
     /**
 	 * Comprueba si un monitor de progreso ha recibido una orden de 
-	 * cancelación por parte del usuario.
+	 * cancelaciï¿½n por parte del usuario.
 	 * 
-	 * @param monitor el monitor cuyo estado de cancelación se comprueba.
+	 * @param monitor el monitor cuyo estado de cancelaciï¿½n se comprueba.
 	 * 
 	 * @throws InterruptedException si el monitor ha recibido una orden de
-	 * cancelación por parte del usuario.
+	 * cancelaciï¿½n por parte del usuario.
 	 */
 	private void checkForCancellation(IProgressMonitor monitor) 
 		throws InterruptedException {

@@ -20,33 +20,35 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.*/
 
 package repository.moon.concreteaction;
 
-import java.util.*;
+import java.util.Collection;
+import java.util.Iterator;
+import java.util.List;
 
-
-import moon.core.classdef.*;
-import moon.core.genericity.*;
-
-import refactoring.engine.*;
+import moon.core.classdef.ClassDef;
+import moon.core.classdef.ClassType;
+import moon.core.classdef.Type;
+import moon.core.genericity.FormalPar;
+import refactoring.engine.Action;
 import repository.RelayListenerRegistry;
 import repository.moon.MOONRefactoring;
 
 /**
- * Permite borrar un parámetro real de una clase.
+ * Permite borrar un parï¿½metro real de una clase.
  *
- * @author <A HREF="mailto:sam0006@alu.ubu.es">Sara Alcalá Martín</A>
- * @author <A HREF="mailto:dbm0005@alu.ubu.es">Diego Bañuelos Molledo</A>
+ * @author <A HREF="mailto:sam0006@alu.ubu.es">Sara Alcalï¿½ Martï¿½n</A>
+ * @author <A HREF="mailto:dbm0005@alu.ubu.es">Diego Baï¿½uelos Molledo</A>
  * @author <A HREF="mailto:sfd0009@alu.ubu.es">Sonia Fuente de la Fuente</A>
  * @author <A HREF="mailto:ehp0001@alu.ubu.es">Enrique Herrero Paredes</A>
  */
 public class RemoveRealParameter extends Action{
 
 	/**
-	 * Clase sobre la que eliminar el parámetro formal.
+	 * Clase sobre la que eliminar el parï¿½metro formal.
 	 */
 	private ClassDef classDef;
 	
 	/**
-	 * Parámetro formal sobre el que se hacen las sustituciones del parámetro 
+	 * Parï¿½metro formal sobre el que se hacen las sustituciones del parï¿½metro 
 	 * real.
 	 */
 	private FormalPar formalPar;
@@ -57,15 +59,15 @@ public class RemoveRealParameter extends Action{
 	private Collection<Type> types;
 	
 	/**
-	 * Receptor de los mensajes enviados por la acción concreta.
+	 * Receptor de los mensajes enviados por la acciï¿½n concreta.
 	 */
 	private RelayListenerRegistry listenerReg;
 		
 	/**
-	 * Constructor de la acción que permite borrar un parámetro real.
+	 * Constructor de la acciï¿½n que permite borrar un parï¿½metro real.
 	 *
-	 * @param formalPar parámetro formal sobre el que se hacen las sustituciones 
-	 * del parámetro real.
+	 * @param formalPar parï¿½metro formal sobre el que se hacen las sustituciones 
+	 * del parï¿½metro real.
 	 */
 	public RemoveRealParameter(FormalPar formalPar) {
 		super();
@@ -77,13 +79,13 @@ public class RemoveRealParameter extends Action{
 	}
 	
 	/**
-	 * Ejecuta la eliminación del parámetro real.
+	 * Ejecuta la eliminaciï¿½n del parï¿½metro real.
 	 */
 	public void run() {
 		listenerReg.notify("# run():RemoveRealParameter #"); //$NON-NLS-1$
 		
-		// Se obtiene la posición del parámetro formal en la lista 
-		// de parámetros formales de la clase.
+		// Se obtiene la posiciï¿½n del parï¿½metro formal en la lista 
+		// de parï¿½metros formales de la clase.
 		int index = 0;
 		List<FormalPar> classParameters = this.classDef.getFormalPars();
 		for(FormalPar nextPar : classParameters){
@@ -127,10 +129,10 @@ public class RemoveRealParameter extends Action{
 	}
 
 	/**
-	 * Deshace la eliminación del parámetro real, incluyéndolo de nuevo en 
+	 * Deshace la eliminaciï¿½n del parï¿½metro real, incluyï¿½ndolo de nuevo en 
 	 * la clase.
 	 * 
-	 * ¡Sin implementación!
+	 * ï¿½Sin implementaciï¿½n!
 	 */
 	@Override
 	public void undo() {}

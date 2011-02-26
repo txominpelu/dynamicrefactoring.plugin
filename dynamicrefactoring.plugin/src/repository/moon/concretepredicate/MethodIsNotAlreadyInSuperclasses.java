@@ -26,27 +26,26 @@ import java.util.Iterator;
 import moon.core.Name;
 import moon.core.classdef.ClassDef;
 import moon.core.classdef.MethDec;
-
 import refactoring.engine.Predicate;
 import repository.moon.concretefunction.SuperclassCollector;
 
 /**
- * Permite verificar que no existe ningún método con una cierta signatura en 
+ * Permite verificar que no existe ningï¿½n mï¿½todo con una cierta signatura en 
  * ninguna de las superclases de una clase determinada.
  *
- * @author <A HREF="mailto:alc0022@alu.ubu.es">Ángel López Campo</A>
+ * @author <A HREF="mailto:alc0022@alu.ubu.es">ï¿½ngel Lï¿½pez Campo</A>
  * @author <A HREF="mailto:ehp0001@alu.ubu.es">Enrique Herrero Paredes</A>
  * @author <A HREF="mailto:sfd0009@alu.ubu.es">Sonia Fuente de la Fuente</A>
  */ 
 public class MethodIsNotAlreadyInSuperclasses extends Predicate {
 	
 	/**
-	 * La clase en cuyas superclases se busca el método.
+	 * La clase en cuyas superclases se busca el mï¿½todo.
 	 */
 	private ClassDef classDef;
 	
 	/**
-	 * El método cuyo equivalente en una superclase se busca.
+	 * El mï¿½todo cuyo equivalente en una superclase se busca.
 	 */
 	private MethDec method;
 	
@@ -55,8 +54,8 @@ public class MethodIsNotAlreadyInSuperclasses extends Predicate {
 	 *
 	 * Obtiene una nueva instancia de MethodIsNotAlreadyInSuperclasses.
 	 *
-	 * @param method el método cuyo equivalente en una superclase se desea buscar.
-	 * @param classDef la clase en cuyas superclases se busca el método.
+	 * @param method el mï¿½todo cuyo equivalente en una superclase se desea buscar.
+	 * @param classDef la clase en cuyas superclases se busca el mï¿½todo.
 	 */
 	public MethodIsNotAlreadyInSuperclasses(MethDec method, ClassDef classDef) {
 		
@@ -72,7 +71,7 @@ public class MethodIsNotAlreadyInSuperclasses extends Predicate {
 	/**
 	 * Comprueba el valor de verdad del predicado.
 	 * 
-	 * @return <code>true</code> si no existe el método en ninguna superclase 
+	 * @return <code>true</code> si no existe el mï¿½todo en ninguna superclase 
 	 * de la clase especificada; <code>false</code> en caso contrario.
 	 */	 
 	public boolean isValid() {
@@ -81,7 +80,7 @@ public class MethodIsNotAlreadyInSuperclasses extends Predicate {
 		ClassDef nextSuperclass;
 		Name uniqueName;
 		
-		// Se obtiene la lista de parámetros del método buscado.
+		// Se obtiene la lista de parï¿½metros del mï¿½todo buscado.
 		int parameterTypesFirstIndex =
 			method.getUniqueName().toString().indexOf('%');
 		

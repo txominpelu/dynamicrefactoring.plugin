@@ -20,35 +20,39 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.*/
 
 package repository.moon.concreteaction;
 
-import java.util.*;
+import java.util.List;
 
-
-import moon.core.classdef.*;
-import moon.core.genericity.FormalPar;
+import moon.core.classdef.AttDec;
+import moon.core.classdef.ClassDef;
+import moon.core.classdef.ClassType;
+import moon.core.classdef.FormalArgument;
+import moon.core.classdef.LocalDec;
+import moon.core.classdef.MethDec;
+import moon.core.classdef.Type;
 import moon.core.entity.Entity;
 import moon.core.entity.FunctionDec;
-
+import moon.core.genericity.FormalPar;
 import refactoring.engine.Action;
 import repository.RelayListenerRegistry;
 
 /**
- * Permite sustituir un parámetro formal de una clase por un tipo
+ * Permite sustituir un parï¿½metro formal de una clase por un tipo
  * totalmente instanciado.
  *
- * @author <A HREF="mailto:sam0006@alu.ubu.es">Sara Alcalá Martín</A>
- * @author <A HREF="mailto:dbm0005@alu.ubu.es">Diego Bañuelos Molledo</A>
+ * @author <A HREF="mailto:sam0006@alu.ubu.es">Sara Alcalï¿½ Martï¿½n</A>
+ * @author <A HREF="mailto:dbm0005@alu.ubu.es">Diego Baï¿½uelos Molledo</A>
  * @author <A HREF="mailto:sfd0009@alu.ubu.es">Sonia Fuente de la Fuente</A>
  * @author <A HREF="mailto:ehp0001@alu.ubu.es">Enrique Herrero Paredes</A>
  */
 public class SubstituteFormalParameter extends Action {
 
 	/**
-	 * Clase sobre la que sustituir el parámetro formal.
+	 * Clase sobre la que sustituir el parï¿½metro formal.
 	 */
 	private ClassDef classDef;
 	
 	/**
-	 * Parámetro formal que se debe sustituir.
+	 * Parï¿½metro formal que se debe sustituir.
 	 */
 	private FormalPar formalPar;
 	
@@ -58,16 +62,16 @@ public class SubstituteFormalParameter extends Action {
 	private ClassType classType;
 	
 	/**
-	 * Receptor de los mensajes enviados por la acción concreta.
+	 * Receptor de los mensajes enviados por la acciï¿½n concreta.
 	 */
 	private RelayListenerRegistry listenerReg;
 		
 	/**
-	 * Constructor de la acción sustituir parámetro formal.
+	 * Constructor de la acciï¿½n sustituir parï¿½metro formal.
 	 * 
-	 * @param formalPar parámetro formal que se debe sustituir.
+	 * @param formalPar parï¿½metro formal que se debe sustituir.
 	 * @param classType tipo completamente instanciado por el que sustituir el 
-	 * parámetro formal.
+	 * parï¿½metro formal.
 	 */
 	public SubstituteFormalParameter(FormalPar formalPar, ClassType classType) {
 
@@ -80,7 +84,7 @@ public class SubstituteFormalParameter extends Action {
 	}
 	
 	/**
-	 * Ejecuta la sustitución del parámetro formal.
+	 * Ejecuta la sustituciï¿½n del parï¿½metro formal.
 	 */
 	@Override
 	public void run() {
@@ -101,10 +105,10 @@ public class SubstituteFormalParameter extends Action {
 	}
 		
 	/**
-	 * Sustituye el parámetro formal dentro de los métodos.
+	 * Sustituye el parï¿½metro formal dentro de los mï¿½todos.
 	 * 
-	 * @param md método sobre el que hacer la sustitución.
-	 * @param ct nuevo tipo para el método.
+	 * @param md mï¿½todo sobre el que hacer la sustituciï¿½n.
+	 * @param ct nuevo tipo para el mï¿½todo.
 	 */
 	private void substitute(MethDec md, ClassType ct){
 		
@@ -114,7 +118,7 @@ public class SubstituteFormalParameter extends Action {
 		 
 		if (md instanceof FunctionDec){		
 			FunctionDec f = (FunctionDec) md;
-			// Si el tipo de retorno es el parámetro formal.
+			// Si el tipo de retorno es el parï¿½metro formal.
 			if (f.getReturnType().equals(this.formalPar)){
 				f.setFunctionResultEntity(ct);
 				// FIXME: Es necesario? f.getFunctionResultEntity().setType(ct);	
@@ -128,7 +132,7 @@ public class SubstituteFormalParameter extends Action {
 	} 
 	
 	/**
-	 * Sustituye el parámetro formal en las entidades.
+	 * Sustituye el parï¿½metro formal en las entidades.
 	 *
 	 * @param e entidad sobre la que hacer el cambio.
 	 * @param ct nuevo tipo para la entidad.
@@ -140,9 +144,9 @@ public class SubstituteFormalParameter extends Action {
 	}
 	
 	/**
-	 * Deshace la sustitución del parámetro formal.
+	 * Deshace la sustituciï¿½n del parï¿½metro formal.
 	 * 
-	 * ¡Sin implementación!
+	 * ï¿½Sin implementaciï¿½n!
 	 */
 	@Override
 	public void undo() {}

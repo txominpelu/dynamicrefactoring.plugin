@@ -21,13 +21,13 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.*/
 package repository.moon.concretepredicate;
 
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Collection;
 
 import moon.core.Name;
 import moon.core.classdef.ClassType;
-
 import refactoring.engine.Predicate;
-import repository.moon.concretefunction.*;
+import repository.moon.concretefunction.SupertypeCollector;
 
 /**
  * Comprueba si un tipo es subtipo de otro.	
@@ -39,12 +39,12 @@ import repository.moon.concretefunction.*;
 public class IsSubtype extends Predicate {
 
 	/**
-	 * Tipo cuyo carácter de subtipo de otro se debe estudiar.
+	 * Tipo cuyo carï¿½cter de subtipo de otro se debe estudiar.
 	 */
 	private ClassType subType;
 	
 	/**
-	 * Tipo del que debería ser subtipo {@link #subType}.  
+	 * Tipo del que deberï¿½a ser subtipo {@link #subType}.  
 	 */
 	private ClassType superType;
 
@@ -53,8 +53,8 @@ public class IsSubtype extends Predicate {
 	 *
 	 * Devuelve una nueva instancia del predicado <code>IsSubtype</code>.
 	 *
-	 * @param subType tipo cuyo carácter de subtipo de otro se debe estudiar.
-	 * @param superType tipo del que debería ser subtipo {@link #subType}.
+	 * @param subType tipo cuyo carï¿½cter de subtipo de otro se debe estudiar.
+	 * @param superType tipo del que deberï¿½a ser subtipo {@link #subType}.
 	 */
     public IsSubtype(ClassType subType, ClassType superType) {
     	super("IsSubtype:\n\t" +  //$NON-NLS-1$
@@ -79,7 +79,7 @@ public class IsSubtype extends Predicate {
 		
 		Name superUniqueName = superType.getUniqueName();
 
-		// Se busca la superclase a través de su nombre único para evitar
+		// Se busca la superclase a travï¿½s de su nombre ï¿½nico para evitar
 		// el problema de los tipos decorados, que aun conteniendo el mismo
 		// tipo interno, representan un objeto distinto, una "envoltura".
 		ArrayList<Name> superNames = new ArrayList<Name>();

@@ -21,9 +21,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.*/
 package repository.moon.concreteaction;
 
 
-import moon.core.classdef.ClassType;
 import moon.core.Name;
-
+import moon.core.classdef.ClassType;
 import refactoring.engine.Action;
 import repository.RelayListenerRegistry;
 import repository.moon.MOONRefactoring;
@@ -33,7 +32,7 @@ import repository.moon.MOONRefactoring;
  * ha cambiado de nombre, de manera que se mantenga la consistencia entre ambos.
  *
  * @author <A HREF="mailto:ehp0001@alu.ubu.es">Enrique Herrero Paredes</A>
- * @author <A HREF="mailto:alc0022@alu.ubu.es">Ángel López Campo</A>
+ * @author <A HREF="mailto:alc0022@alu.ubu.es">ï¿½ngel Lï¿½pez Campo</A>
  * @author <A HREF="mailto:sfd0009@alu.ubu.es">Sonia Fuente de la Fuente</A>
  */ 
 public class RenameType extends Action {
@@ -44,8 +43,8 @@ public class RenameType extends Action {
 	private ClassType classType;
 		
 	/**
-	 * Nuevo nombre que se dará al tipo de la clase, que coincide 
-	 * con el nombre de ésta.
+	 * Nuevo nombre que se darï¿½ al tipo de la clase, que coincide 
+	 * con el nombre de ï¿½sta.
 	 */
 	private Name newName;
 	
@@ -55,7 +54,7 @@ public class RenameType extends Action {
 	private Name originalName;
 	
 	/**
-	 * Receptor de los mensajes enviados por la acción concreta.
+	 * Receptor de los mensajes enviados por la acciï¿½n concreta.
 	 */
 	private RelayListenerRegistry listenerReg;
 				

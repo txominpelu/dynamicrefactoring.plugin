@@ -21,14 +21,15 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.*/
 package repository.moon.concreteaction;
 
 
-import moon.core.classdef.*;
-import moon.core.genericity.*;
-
+import moon.core.classdef.ClassDef;
+import moon.core.classdef.ClassType;
+import moon.core.genericity.BoundS;
+import moon.core.genericity.FormalPar;
 import refactoring.engine.Action;
 import repository.RelayListenerRegistry;
 
 /**
- * Permite sustituir la acotación de un parámetro formal por una acotación
+ * Permite sustituir la acotaciï¿½n de un parï¿½metro formal por una acotaciï¿½n
  * de otro tipo.
  *
  * @author <A HREF="mailto:sfd0009@alu.ubu.es">Sonia Fuente de la Fuente</A>
@@ -37,37 +38,37 @@ import repository.RelayListenerRegistry;
 public class ReplaceBoundType extends Action {
 
 	/**
-	 * Clase sobre la que sustituir la acotación.
+	 * Clase sobre la que sustituir la acotaciï¿½n.
 	 */
 	private ClassDef classDef;
 	
 	/**
-	 * Parámetro formal cuyo tipo de acotación se debe sustituir.
+	 * Parï¿½metro formal cuyo tipo de acotaciï¿½n se debe sustituir.
 	 */
 	private BoundS formalPar;
 	
 	/**
-	 * Nuevo tipo de acotación.
+	 * Nuevo tipo de acotaciï¿½n.
 	 */
 	private ClassType newBoundingType;
 	
 	/**
-	 * Tipo de acotación original.
+	 * Tipo de acotaciï¿½n original.
 	 */
 	private ClassType oldBoundingType;
 	
 	/**
-	 * Receptor de los mensajes enviados por la acción concreta.
+	 * Receptor de los mensajes enviados por la acciï¿½n concreta.
 	 */
 	private RelayListenerRegistry listenerReg;
 	
 	/**
 	 * Constructor.
 	 * 
-	 * @param formalPar parámetro formal cuyo tipo de acotación se debe sustituir.
-	 * @param oldBoundingType el tipo de acotación original.
+	 * @param formalPar parï¿½metro formal cuyo tipo de acotaciï¿½n se debe sustituir.
+	 * @param oldBoundingType el tipo de acotaciï¿½n original.
 	 * @param newBoundingType nuevo tipo completamente instanciado por el que 
-	 * sustituir el tipo de acotación original.
+	 * sustituir el tipo de acotaciï¿½n original.
 	 */
 	public ReplaceBoundType(FormalPar formalPar, 
 		ClassType oldBoundingType, ClassType newBoundingType) {
@@ -84,7 +85,7 @@ public class ReplaceBoundType extends Action {
 	}
 
 	/**
-	 * Ejecuta la sustitución de la acotación del  parámetro formal.
+	 * Ejecuta la sustituciï¿½n de la acotaciï¿½n del  parï¿½metro formal.
 	 */	
 	public void run() {	
 		listenerReg.notify("# run():ReplaceBoundType #"); //$NON-NLS-1$
@@ -107,7 +108,7 @@ public class ReplaceBoundType extends Action {
 	}
 
 	/**
-	 * Deshace la sustitución de la acotación del parámetro formal.
+	 * Deshace la sustituciï¿½n de la acotaciï¿½n del parï¿½metro formal.
 	 */
 	public void undo() {
 		listenerReg.notify("# undo():ReplaceBoundType #"); //$NON-NLS-1$

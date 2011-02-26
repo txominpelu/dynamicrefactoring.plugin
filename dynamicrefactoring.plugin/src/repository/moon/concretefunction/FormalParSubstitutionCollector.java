@@ -20,35 +20,36 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.*/
 
 package repository.moon.concretefunction;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Iterator;
+import java.util.List;
 
 import javamoon.core.classdef.JavaDecoratorType;
-
-import moon.core.genericity.FormalPar;
 import moon.core.classdef.ClassDef;
 import moon.core.classdef.ClassType;
 import moon.core.classdef.Type;
-
+import moon.core.genericity.FormalPar;
 import refactoring.engine.Function;
 import repository.moon.MOONRefactoring;
 
 /**
- * Permite obtener todas las sustituciones existentes de un parámetro formal.
+ * Permite obtener todas las sustituciones existentes de un parï¿½metro formal.
  *
- * @author <A HREF="mailto:sam0006@alu.ubu.es">Sara Alcalá Martín</A>
- * @author <A HREF="mailto:dbm0005@alu.ubu.es">Diego Bañuelos Molledo</A>
+ * @author <A HREF="mailto:sam0006@alu.ubu.es">Sara Alcalï¿½ Martï¿½n</A>
+ * @author <A HREF="mailto:dbm0005@alu.ubu.es">Diego Baï¿½uelos Molledo</A>
  * @author <A HREF="mailto:sfd0009@alu.ubu.es">Sonia Fuente de la Fuente</A>
  * @author <A HREF="mailto:ehp0001@alu.ubu.es">Enrique Herrero Paredes</A>
  */
 public class FormalParSubstitutionCollector extends Function {
 
 	/**
-	 * La clase a la que pertenece el parámetro formal.
+	 * La clase a la que pertenece el parï¿½metro formal.
 	 */
 	private ClassDef classDef;
 	
 	/**
-	 * El parámetro formal cuyas sustituciones se quieren obtener.
+	 * El parï¿½metro formal cuyas sustituciones se quieren obtener.
 	 */
 	private FormalPar formalPar;
 	
@@ -57,7 +58,7 @@ public class FormalParSubstitutionCollector extends Function {
 	 *
 	 * Obtiene una nueva instancia de FormalParSubstitutionCollector.
 	 *
-	 * @param formalPar el parámetro formal cuyas sustituciones se deben obtener.
+	 * @param formalPar el parï¿½metro formal cuyas sustituciones se deben obtener.
 	 */
 	public FormalParSubstitutionCollector(FormalPar formalPar) {
 		super();
@@ -66,7 +67,7 @@ public class FormalParSubstitutionCollector extends Function {
 	}
 	
 	/**
-	 * Sin implementación.
+	 * Sin implementaciï¿½n.
 	 *
 	 * @return null.
 	 */
@@ -76,16 +77,16 @@ public class FormalParSubstitutionCollector extends Function {
 	}
 	
 	/**
-	 * Devuelve todos las sustituciones del parámetro formal.
+	 * Devuelve todos las sustituciones del parï¿½metro formal.
 	 * 
-	 * @return todas las sustituciones del parámetro formal.
+	 * @return todas las sustituciones del parï¿½metro formal.
 	 */
 	@Override
 	public Collection<ClassType> getCollection() {
 		ArrayList<ClassType> substitutions = new ArrayList<ClassType>();
 		
-		// Se obtiene la posición del parámetro formal en la lista de 
-		// parámetros formales de la clase.
+		// Se obtiene la posiciï¿½n del parï¿½metro formal en la lista de 
+		// parï¿½metros formales de la clase.
 		int index = 0;
 		List<FormalPar> classParameters = this.classDef.getFormalPars();
 		for(FormalPar nextPar : classParameters){

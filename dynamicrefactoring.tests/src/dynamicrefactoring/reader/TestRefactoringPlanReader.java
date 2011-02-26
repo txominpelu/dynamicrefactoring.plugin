@@ -20,13 +20,11 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.*/
 
 package dynamicrefactoring.reader;
 
-import dynamicrefactoring.reader.XMLRefactoringReaderException;
-import dynamicrefactoring.reader.RefactoringPlanReader;
+import static org.junit.Assert.assertEquals;
 
-import java.util.*;
+import java.util.ArrayList;
 
-import static org.junit.Assert.*;
-import org.junit.Test; 
+import org.junit.Test;
 
 /**
  * Comprueba que funciona correctamente el proceso de lectura de un plan de 
@@ -38,8 +36,8 @@ import org.junit.Test;
 public class TestRefactoringPlanReader {
 
 	/**
-	 * Comprueba que la lectura no se realiza cuando la definición no contiene
-	 * toda la información mínima necesaria (no cumple las reglas del DTD).
+	 * Comprueba que la lectura no se realiza cuando la definiciï¿½n no contiene
+	 * toda la informaciï¿½n mï¿½nima necesaria (no cumple las reglas del DTD).
 	 * 
 	 * Para ello se realiza una lectura del documento para obtener todas las
 	 * refactorizaciones del mismo.
@@ -54,7 +52,7 @@ public class TestRefactoringPlanReader {
 	}
 
 	/**
-	 * Comprueba que la lectura no se realiza cuando la definición utiliza otra
+	 * Comprueba que la lectura no se realiza cuando la definiciï¿½n utiliza otra
 	 * estructura que la que se define en el DTD.
 	 * 
 	 * Para ello se realiza una lectura del documento para obtener todas las
@@ -71,8 +69,8 @@ public class TestRefactoringPlanReader {
 
 	/**
 	 * Comprueba que la lectura se realiza correctamente cuando el plan
-	 * contiene la información mínima necesaria.Es decir que el plan solo tiene
-	 * la etiqueta principal refactoring plan y ninguna refactorización.
+	 * contiene la informaciï¿½n mï¿½nima necesaria.Es decir que el plan solo tiene
+	 * la etiqueta principal refactoring plan y ninguna refactorizaciï¿½n.
 	 * 
 	 * @throws Exception si se produce un error durante la lectura.
 	 */
@@ -81,16 +79,16 @@ public class TestRefactoringPlanReader {
 		ArrayList<String> refactorings =RefactoringPlanReader
 			.readAllRefactoringsFromThePlan("./testdata/XML/Reader/refactoringPlan" +
 					"/minimunRefactoringPlan.xml");
-		//Comprueba que el plan no tiene ninguna refactorización.
+		//Comprueba que el plan no tiene ninguna refactorizaciï¿½n.
 		assertEquals(0,refactorings.size());
 	}
 
 	/**
 	 * Comprueba que la lectura se realiza correctamente cuando el plan
-	 * contiene toda la información posible. 
+	 * contiene toda la informaciï¿½n posible. 
 	 * 
-	 * Esta información es: un conjunto de refactorizaciones con su nombre, fecha
-	 * de ejecución y parámetros.
+	 * Esta informaciï¿½n es: un conjunto de refactorizaciones con su nombre, fecha
+	 * de ejecuciï¿½n y parï¿½metros.
 	 * 
 	 * @throws Exception si se produce un error durante la lectura.
 	 */
@@ -108,7 +106,7 @@ public class TestRefactoringPlanReader {
 		assertEquals("Move Field",refactorings.get(1));
 		assertEquals("ExtractMethod",refactorings.get(2));
 		
-		//Comprobamos que lee correctamente los parámetros de las refactorizaciones.
+		//Comprobamos que lee correctamente los parï¿½metros de las refactorizaciones.
 		assertEquals(RefactoringPlanReader.getInputValue("Add Parameter","Name","./testdata/XML" +
 				"/Reader/refactoringPlan/completeRefactoringPlan.xml"), "p4");
 		assertEquals(RefactoringPlanReader.getInputValue("Add Parameter","Method","./testdata/XML" +

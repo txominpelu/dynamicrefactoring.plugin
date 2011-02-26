@@ -20,39 +20,34 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.*/
 
 package dynamicrefactoring.integration;
 
-import dynamicrefactoring.RefactoringPlugin;
-import dynamicrefactoring.interfaz.CustomProgressDialog;
-import dynamicrefactoring.util.io.JavaFileManager;
-import dynamicrefactoring.util.selection.SelectionInfo;
-
 import java.lang.reflect.InvocationTargetException;
 import java.text.MessageFormat;
 import java.util.List;
 
 import javamoon.construct.binary.BinaryLoader;
 import javamoon.construct.source.SourceLoader;
-
 import javamoon.core.JavaModel;
 
 import org.apache.log4j.Logger;
-
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.IProgressMonitor;
-
 import org.eclipse.jdt.core.IClasspathEntry;
 import org.eclipse.jdt.core.IJavaProject;
 import org.eclipse.jdt.core.IPackageFragmentRoot;
-
 import org.eclipse.jdt.launching.JavaRuntime;
 import org.eclipse.jface.operation.IRunnableWithProgress;
-
 import org.eclipse.ui.PlatformUI;
+
+import dynamicrefactoring.RefactoringPlugin;
+import dynamicrefactoring.interfaz.CustomProgressDialog;
+import dynamicrefactoring.util.io.JavaFileManager;
+import dynamicrefactoring.util.selection.SelectionInfo;
 
 /**
  * Permite generar el modelo MOON correspondiente al proyecto Java sobre el
  * que se trabaja en un momento determinado.
  * 
- * <p>Determina qué bibliotecas básicas del API de Java formarán parte del
+ * <p>Determina quï¿½ bibliotecas bï¿½sicas del API de Java formarï¿½n parte del
  * modelo, y proporciona funciones de acceso al modelo MOON sobre el que se
  * trabaja en un instante determinado. 
  * 
@@ -62,21 +57,21 @@ import org.eclipse.ui.PlatformUI;
 public class ModelGenerator {
 
 	/**
-	 * El nombre con el que se crea por defecto el fichero .mod que contendrá
+	 * El nombre con el que se crea por defecto el fichero .mod que contendrï¿½
 	 * el modelo MOON-Java obtenido a partir de los fuentes .java.
 	 */
 	public final static String DEFAULT_MOD_NAME = "out.mod"; //$NON-NLS-1$
 	
 	/**
-	 * La ruta del fichero "rt.jar" de Java, relativa a la raíz del directorio de 
-	 * instalación de Java que utilice un proyecto.
+	 * La ruta del fichero "rt.jar" de Java, relativa a la raï¿½z del directorio de 
+	 * instalaciï¿½n de Java que utilice un proyecto.
 	 */
 	private final static String BASIC_JAR =  
 		System.getProperty("file.separator") + "lib" + //$NON-NLS-1$ //$NON-NLS-2$
 		System.getProperty("file.separator") + "rt.jar"; //$NON-NLS-1$ //$NON-NLS-2$
 	
 	/**
-	 * Extensión de los ficheros de bibliotecas JAR.
+	 * Extensiï¿½n de los ficheros de bibliotecas JAR.
 	 */
 	private final static String LIB_EXTENSION = ".jar"; //$NON-NLS-1$
 	
@@ -98,25 +93,25 @@ public class ModelGenerator {
 	private IJavaProject project;
 
 	/**
-	 * Instancia única del generador.
+	 * Instancia ï¿½nica del generador.
 	 * 
-	 * Patrón de diseño Singleton.
+	 * Patrï¿½n de diseï¿½o Singleton.
 	 */
 	private static ModelGenerator myInstance;
 	
 	/**
 	 * Constructor.
 	 * 
-	 * Privado, según la estructura del patrón de diseño Singleton.
+	 * Privado, segï¿½n la estructura del patrï¿½n de diseï¿½o Singleton.
 	 */
 	private ModelGenerator(){}
 
 	/**
-	 * Obtiene la instancia única del generador.
+	 * Obtiene la instancia ï¿½nica del generador.
 	 * 
-	 * Patrón de diseño Singleton.
+	 * Patrï¿½n de diseï¿½o Singleton.
 	 * 
-	 * @return la instancia única del generador.
+	 * @return la instancia ï¿½nica del generador.
 	 */
 	public static ModelGenerator getInstance(){
 		if (myInstance == null)
@@ -127,14 +122,14 @@ public class ModelGenerator {
 	/**
 	 * Genera el modelo MOON.
 	 * 
-	 * @param info proveedor de información sobre el elemento que se 
-	 * encuentre actualmente seleccionado en Eclipse, y que servirá para 
-	 * determinar el proyecto a partir del que se generará el modelo MOON.
+	 * @param info proveedor de informaciï¿½n sobre el elemento que se 
+	 * encuentre actualmente seleccionado en Eclipse, y que servirï¿½ para 
+	 * determinar el proyecto a partir del que se generarï¿½ el modelo MOON.
 	 * 
 	 * @param createwindow indica si se quiere mostrar al usuario una ventana
-	 * indicando el proceso de generación del modelo o no.
+	 * indicando el proceso de generaciï¿½n del modelo o no.
 	 * 
-	 * @param notFromSelection indica si el modelo se generá a partir de un elemento 
+	 * @param notFromSelection indica si el modelo se generï¿½ a partir de un elemento 
 	 * seleccionado o no.
 	 * 
 	 * @return <code>true</code> si se pudo generar el modelo correctamente; 
@@ -168,7 +163,7 @@ public class ModelGenerator {
 			return true;
 		} 
 		catch (InterruptedException e) {
-			// El usuario canceló el proceso.			 
+			// El usuario cancelï¿½ el proceso.			 
 			logger.warn(e.getMessage());
 		}
 		catch (Exception exception){
@@ -200,7 +195,7 @@ public class ModelGenerator {
 	}
 
 	/**
-	 * Realiza la carga de bibliotecas básicas del API de Java.
+	 * Realiza la carga de bibliotecas bï¿½sicas del API de Java.
 	 * 
 	 * Es un paso previo necesario para poder utilizar las clases de dichos
 	 * paquetes en las clases a partir de las cuales se quiere generar un modelo.
@@ -224,7 +219,7 @@ public class ModelGenerator {
 				IPath path = classpath[i].getPath();
 				if (path.toOSString().endsWith(BASIC_JAR))
 					rtPath = path.toOSString();
-				// Se añaden el resto de bibliotecas de forma normal.
+				// Se aï¿½aden el resto de bibliotecas de forma normal.
 				else if (path.toOSString().toLowerCase().endsWith(LIB_EXTENSION))
 					// Salvo las que pertenezcan al JRE o el JDK.
 					if (! path.toOSString().startsWith(JRE_root)){
@@ -256,16 +251,16 @@ public class ModelGenerator {
 	}
 	
 	/**
-	 * Obtiene el modelo MOON cargado en el momento de la invocación.
+	 * Obtiene el modelo MOON cargado en el momento de la invocaciï¿½n.
 	 * 
-	 * @return el modelo MOON cargado en el momento de la invocación.
+	 * @return el modelo MOON cargado en el momento de la invocaciï¿½n.
 	 */
 	public JavaModel getModel(){
 		return JavaModel.getInstance();
 	}
 
 	/**
-	 * Permite lanzar el trabajo de generación del modelo JavaMOON y hacer un
+	 * Permite lanzar el trabajo de generaciï¿½n del modelo JavaMOON y hacer un
 	 * seguimiento de su progreso.
 	 * 
 	 * @author <A HREF="mailto:sfd0009@alu.ubu.es">Sonia Fuente de la Fuente</A>
@@ -275,7 +270,7 @@ public class ModelGenerator {
 		
 		/**
 		 * Directorios que contienen los ficheros fuente Java a partir de los que
-		 * se generará el modelo JavaMOON. 
+		 * se generarï¿½ el modelo JavaMOON. 
 		 */
 		List<String> sourceDirectories;
 		
@@ -283,24 +278,24 @@ public class ModelGenerator {
 		 * Constructor.
 		 * 
 		 * @param sourceDirectories directorios que contienen los ficheros fuente
-		 * Java a partir de los que se generará el modelo JavaMOON.
+		 * Java a partir de los que se generarï¿½ el modelo JavaMOON.
 		 */
 		public GenerationJob(List<String> sourceDirectories){
 			this.sourceDirectories = sourceDirectories;
 		}
 
 		/**
-		 * Ejecuta el trabajo de generación del modelo MOON.
+		 * Ejecuta el trabajo de generaciï¿½n del modelo MOON.
 		 * 
-		 * @param monitor el monitor de progreso que deberá usarse para mostrar
-		 * el progreso y recibir solicitudes de cancelación.
+		 * @param monitor el monitor de progreso que deberï¿½ usarse para mostrar
+		 * el progreso y recibir solicitudes de cancelaciï¿½n.
 		 * 
-		 * @throws InvocationTargetException utilizada como envoltura si el método 
-		 * debe propagar una excepción (<i>checked exception</i>). Las excepciones
-		 * de tipo <i>runtime exception</i> se envuelven automáticamente en una
-		 * excepción de este tipo por el contexto que efectúa la llamada.
-		 * @throws InterruptedException si la operación detecta una solicitud de 
-		 * cancelación.
+		 * @throws InvocationTargetException utilizada como envoltura si el mï¿½todo 
+		 * debe propagar una excepciï¿½n (<i>checked exception</i>). Las excepciones
+		 * de tipo <i>runtime exception</i> se envuelven automï¿½ticamente en una
+		 * excepciï¿½n de este tipo por el contexto que efectï¿½a la llamada.
+		 * @throws InterruptedException si la operaciï¿½n detecta una solicitud de 
+		 * cancelaciï¿½n.
 		 * 
 		 * @see IRunnableWithProgress#run(IProgressMonitor)
 		 */
@@ -364,12 +359,12 @@ public class ModelGenerator {
 
 		/**
 		 * Comprueba si un monitor de progreso ha recibido una orden de 
-		 * cancelación por parte del usuario.
+		 * cancelaciï¿½n por parte del usuario.
 		 * 
-		 * @param monitor el monitor cuyo estado de cancelación se comprueba.
+		 * @param monitor el monitor cuyo estado de cancelaciï¿½n se comprueba.
 		 * 
 		 * @throws InterruptedException si el monitor ha recibido una orden de
-		 * cancelación por parte del usuario.
+		 * cancelaciï¿½n por parte del usuario.
 		 */
 		private void checkForCancellation(IProgressMonitor monitor) 
 			throws InterruptedException {

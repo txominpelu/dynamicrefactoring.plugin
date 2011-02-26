@@ -21,26 +21,29 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.*/
 package repository.moon.concreteaction;
 
 
-import java.util.*;
+import java.util.Iterator;
 
-import javamoon.core.entity.JavaFunctionResult;
-
-import moon.core.classdef.*;
-import moon.core.entity.*;
-import moon.core.instruction.*;
-import moon.core.expression.*;
-
+import moon.core.classdef.FormalArgument;
+import moon.core.classdef.MethDec;
+import moon.core.entity.FunctionDec;
+import moon.core.entity.Result;
+import moon.core.expression.CallExpr;
+import moon.core.expression.Expr;
+import moon.core.instruction.AssignmentInstr;
+import moon.core.instruction.CallInstr;
+import moon.core.instruction.CompoundInstr;
+import moon.core.instruction.Instr;
 import refactoring.engine.Action;
 import repository.RelayListenerRegistry;
 import repository.moon.RepositoryUtils;
 import repository.moon.concretefunction.FormalArgRetriever;
 
 /**
- * Permite eliminar un parámetro real de las instrucciones que contengan
- * una llamada a un determinado método.
+ * Permite eliminar un parï¿½metro real de las instrucciones que contengan
+ * una llamada a un determinado mï¿½todo.
  *
  * @author <A HREF="mailto:ehp0001@alu.ubu.es">Enrique Herrero Paredes</A>
- * @author <A HREF="mailto:alc0022@alu.ubu.es">Ángel López Campo</A>
+ * @author <A HREF="mailto:alc0022@alu.ubu.es">ï¿½ngel Lï¿½pez Campo</A>
  * @author <A HREF="mailto:sfd0009@alu.ubu.es">Sonia Fuente de la Fuente</A>
  */ 
 public class RemoveFormalArgFromInstructions extends Action {
@@ -51,22 +54,22 @@ public class RemoveFormalArgFromInstructions extends Action {
 	private Iterator<Instr> instructionIterator;
 	
 	/**
-	 * El parámetro formal que se trata de eliminar de las llamadas a un método.
+	 * El parï¿½metro formal que se trata de eliminar de las llamadas a un mï¿½todo.
 	 */
 	private FormalArgument deletedParameter;
 	
 	/**
-	 * El método de cuyas llamadas hay que eliminar un cierto parámetro real.
+	 * El mï¿½todo de cuyas llamadas hay que eliminar un cierto parï¿½metro real.
 	 */
 	private MethDec method;
 	
 	/**
-	 * La posición ocupada por el argumento formal en la signatura del método.
+	 * La posiciï¿½n ocupada por el argumento formal en la signatura del mï¿½todo.
 	 */
 	private int argPosition;
 	
 	/**
-	 * Receptor de los mensajes enviados por la acción concreta.
+	 * Receptor de los mensajes enviados por la acciï¿½n concreta.
 	 */
 	private RelayListenerRegistry listenerReg;
 			 
@@ -76,10 +79,10 @@ public class RemoveFormalArgFromInstructions extends Action {
 	 * Obtiene una nueva instancia de RemoveFormalArgFromInstructions.
 	 *
 	 * @param instrIt las instrucciones en las que, de contener llamadas al 
-	 * método, habrá que eliminar un argumento real.
-	 * @param parameter el parámetro formal del método cuyos valores actuales
-	 * deben eliminarse de las llamadas al método.
-	 * @param method el método de cuyas llamadas se va a eliminar un argumento.
+	 * mï¿½todo, habrï¿½ que eliminar un argumento real.
+	 * @param parameter el parï¿½metro formal del mï¿½todo cuyos valores actuales
+	 * deben eliminarse de las llamadas al mï¿½todo.
+	 * @param method el mï¿½todo de cuyas llamadas se va a eliminar un argumento.
 	 */	
 	public RemoveFormalArgFromInstructions(Iterator<Instr> instrIt, 
 		FormalArgument parameter, MethDec method){
@@ -97,7 +100,7 @@ public class RemoveFormalArgFromInstructions extends Action {
 	}
 	
 	/**
-	 * Elimina un determinado parámetro actual de las llamadas a un método.
+	 * Elimina un determinado parï¿½metro actual de las llamadas a un mï¿½todo.
 	 */
 	public void run() {
 		
@@ -154,24 +157,24 @@ public class RemoveFormalArgFromInstructions extends Action {
 	}
 
 	/**
-	 * Restaura los valores actuales del parámetro formal en las llamadas al 
-	 * método.<p>
+	 * Restaura los valores actuales del parï¿½metro formal en las llamadas al 
+	 * mï¿½todo.<p>
 	 *
-	 * Actualmente, sin implementación.
+	 * Actualmente, sin implementaciï¿½n.
 	 */
 	public void undo() {
 		listenerReg.notify(
-			"# undo():RemoveFormalArgFromInstructions - ¡NOT IMPLEMENTED! #");		 //$NON-NLS-1$
+			"# undo():RemoveFormalArgFromInstructions - ï¿½NOT IMPLEMENTED! #");		 //$NON-NLS-1$
 	}
 	
 	/**
-	 * Comprueba si una expresión de llamada de longitud uno contiene una
-	 * llamada al método especificado.
+	 * Comprueba si una expresiï¿½n de llamada de longitud uno contiene una
+	 * llamada al mï¿½todo especificado.
 	 *
-	 * @param exp la expresión de llamada de longitud uno.
+	 * @param exp la expresiï¿½n de llamada de longitud uno.
 	 *
-	 * @return <code>true</code> si la expresión contiene una llamada al
-	 * método, <code>false</code> en caso contrario.
+	 * @return <code>true</code> si la expresiï¿½n contiene una llamada al
+	 * mï¿½todo, <code>false</code> en caso contrario.
 	 */
 	private boolean checkCallExpr(CallExpr exp){
 		

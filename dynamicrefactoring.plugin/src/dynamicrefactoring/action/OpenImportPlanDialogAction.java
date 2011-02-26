@@ -20,15 +20,17 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.*/
 
 package dynamicrefactoring.action;
 
+import org.eclipse.jface.action.IAction;
+import org.eclipse.jface.viewers.ISelection;
+import org.eclipse.ui.IActionDelegate;
+import org.eclipse.ui.IWorkbenchWindow;
+import org.eclipse.ui.IWorkbenchWindowActionDelegate;
+import org.eclipse.ui.PlatformUI;
+
 import dynamicrefactoring.interfaz.wizard.ImportPlanWizard;
 
-import org.eclipse.jface.action.IAction;
-import org.eclipse.jface.viewers.*;
-
-import org.eclipse.ui.*;
-
 /**
- * Acción que inicia el asistente de importación de un plan refactorizaciones dinámicas.
+ * Acciï¿½n que inicia el asistente de importaciï¿½n de un plan refactorizaciones dinï¿½micas.
  * 
  * @author <A HREF="mailto:lfd0002@alu.ubu.es">Laura Fuente de la Fuente</A>
  */

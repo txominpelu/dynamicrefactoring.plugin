@@ -20,18 +20,18 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.*/
 
 package dynamicrefactoring.integration.selectionhandler;
 
-import dynamicrefactoring.util.processor.JavaMethodProcessor;
-import dynamicrefactoring.util.selection.TextSelectionInfo;
-
 import java.io.IOException;
 
 import moon.core.classdef.ClassDef;
 
 import org.eclipse.jdt.core.IMethod;
 
+import dynamicrefactoring.util.processor.JavaMethodProcessor;
+import dynamicrefactoring.util.selection.TextSelectionInfo;
+
 /**
- * Proporciona las funciones necesarias para obtener el método MOON con el que
- * se corresponde un método seleccionado en Eclipse sobre un editor de texto.
+ * Proporciona las funciones necesarias para obtener el mï¿½todo MOON con el que
+ * se corresponde un mï¿½todo seleccionado en Eclipse sobre un editor de texto.
  * 
  * @author <A HREF="mailto:sfd0009@alu.ubu.es">Sonia Fuente de la Fuente</A>
  * @author <A HREF="mailto:ehp0001@alu.ubu.es">Enrique Herrero Paredes</A>
@@ -39,17 +39,17 @@ import org.eclipse.jdt.core.IMethod;
 public class TextMethodSelectionHandler extends MethodSelectionHandler {
 	
 	/**
-	 * El proveedor de información concreto para la selección de texto.
+	 * El proveedor de informaciï¿½n concreto para la selecciï¿½n de texto.
 	 */
 	private TextSelectionInfo infoProvider;
 	
 	/**
 	 * Constructor.
 	 * 
-	 * @param selectionInfo contenedor de la selección que se desea manejar.
+	 * @param selectionInfo contenedor de la selecciï¿½n que se desea manejar.
 	 * 
-	 * @throws Exception si la selección contenida en #selectionInfo no es una
-	 * selección de un método sobre una representación textual.
+	 * @throws Exception si la selecciï¿½n contenida en #selectionInfo no es una
+	 * selecciï¿½n de un mï¿½todo sobre una representaciï¿½n textual.
 	 */
 	public TextMethodSelectionHandler (TextSelectionInfo selectionInfo) 
 		throws Exception{
@@ -74,8 +74,8 @@ public class TextMethodSelectionHandler extends MethodSelectionHandler {
 	}
 
 	/**
-	 * Implementación de la operación primitiva.
-	 * (Patrón de diseño Método Plantilla).
+	 * Implementaciï¿½n de la operaciï¿½n primitiva.
+	 * (Patrï¿½n de diseï¿½o Mï¿½todo Plantilla).
 	 * 
 	 * @see MethodSelectionHandler#getMethodProcessor()
 	 */

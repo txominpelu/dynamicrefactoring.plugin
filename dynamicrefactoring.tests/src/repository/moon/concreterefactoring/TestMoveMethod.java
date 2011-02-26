@@ -20,28 +20,29 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.*/
 
 package repository.moon.concreterefactoring;
 
-import java.util.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
+
+import java.util.List;
 
 import javamoon.construct.source.SourceLoader;
 import javamoon.core.JavaModel;
-
 import moon.core.MoonFactory;
-import moon.core.classdef.*;
+import moon.core.classdef.ClassDef;
+import moon.core.classdef.MethDec;
 
-import static org.junit.Assert.*;
-import org.junit.Test; 
+import org.junit.Test;
 
 import refactoring.engine.PreconditionException;
-
 import repository.RefactoringTemplateAbstractTest;
 import repository.moon.MOONRefactoring;
 
 /** 
- * Comprueba que funciona correctamente la refactorización que mueve un método
+ * Comprueba que funciona correctamente la refactorizaciï¿½n que mueve un mï¿½todo
  * de una clase del modelo a otra.
  * 
- * <p>Indirectamente, se comprueba también la corrección de las funciones,
- * acciones y predicados utilizados por la refactorización.</p>
+ * <p>Indirectamente, se comprueba tambiï¿½n la correcciï¿½n de las funciones,
+ * acciones y predicados utilizados por la refactorizaciï¿½n.</p>
  *
  * @author <A HREF="mailto:sfd0009@alu.ubu.es">Sonia Fuente de la Fuente</A>
  * @author <A HREF="mailto:ehp0001@alu.ubu.es">Enrique Herrero Paredes</A>
@@ -51,13 +52,13 @@ import repository.moon.MOONRefactoring;
 public class TestMoveMethod extends RefactoringTemplateAbstractTest {
 
 	/**
-	 * Comprueba que la refactorización funciona correctamente al mover un
-	 * método sencillo de una clase a otra.
+	 * Comprueba que la refactorizaciï¿½n funciona correctamente al mover un
+	 * mï¿½todo sencillo de una clase a otra.
 	 * 
-	 * <p>En un modelo con dos clases, se mueve un método que cumple todas las
+	 * <p>En un modelo con dos clases, se mueve un mï¿½todo que cumple todas las
 	 * precondiciones de una clase a la otra.</p>
 	 * 
-	 * @throws Exception si se produce un error durante la ejecución de la prueba.
+	 * @throws Exception si se produce un error durante la ejecuciï¿½n de la prueba.
 	 */  
 	@Test
 	public void testSimple() throws Exception{
@@ -80,23 +81,23 @@ public class TestMoveMethod extends RefactoringTemplateAbstractTest {
 		// Comienzan las comprobaciones
 		List <MethDec> lMetodo2 = classSource.getMethDecByName(factory.createName("metodo1")); //$NON-NLS-1$
 
-		assertTrue("Test mover método simple: no se ha eliminado el " + //$NON-NLS-1$
-			"método en la clase origen.", lMetodo2.isEmpty()); //$NON-NLS-1$
+		assertTrue("Test mover mï¿½todo simple: no se ha eliminado el " + //$NON-NLS-1$
+			"mï¿½todo en la clase origen.", lMetodo2.isEmpty()); //$NON-NLS-1$
 
 		List <MethDec> lMetodo3 = classDest.getMethDecByName(factory.createName("metodo1")); //$NON-NLS-1$
 
-		assertEquals("Test mover método simple: no se ha añadido el " + //$NON-NLS-1$
-			"método en la clase destino.", 1, lMetodo3.size()); //$NON-NLS-1$
+		assertEquals("Test mover mï¿½todo simple: no se ha aï¿½adido el " + //$NON-NLS-1$
+			"mï¿½todo en la clase destino.", 1, lMetodo3.size()); //$NON-NLS-1$
 	}
 	
 	/**
-	 * Comprueba que la refactorización funciona correctamente al mover un
-	 * método con argumentos formales de una clase a otra.
+	 * Comprueba que la refactorizaciï¿½n funciona correctamente al mover un
+	 * mï¿½todo con argumentos formales de una clase a otra.
 	 * 
-	 * <p>En un modelo con dos clases, se mueve un método que cumple todas las
+	 * <p>En un modelo con dos clases, se mueve un mï¿½todo que cumple todas las
 	 * precondiciones y tiene un argumento formal, de una clase a la otra.</p>
 	 * 
-	 * @throws Exception si se produce un error durante la ejecución de la prueba.
+	 * @throws Exception si se produce un error durante la ejecuciï¿½n de la prueba.
 	 */  
 	@Test
 	public void testMoveWithArguments() throws Exception{
@@ -117,21 +118,21 @@ public class TestMoveMethod extends RefactoringTemplateAbstractTest {
 
 		// Comienzan las comprobaciones
 		List<MethDec> old = source.getMethDecByName(factory.createName("metodoA")); //$NON-NLS-1$
-		assertTrue("Test mover método con argumentos: no se ha eliminado el " + //$NON-NLS-1$
-			"método en la clase origen.", old.isEmpty()); //$NON-NLS-1$
+		assertTrue("Test mover mï¿½todo con argumentos: no se ha eliminado el " + //$NON-NLS-1$
+			"mï¿½todo en la clase origen.", old.isEmpty()); //$NON-NLS-1$
 
 		List <MethDec> now = destination.getMethDecByName(factory.createName("metodoA")); //$NON-NLS-1$
-		assertEquals("Test mover método con argumentos: no se ha añadido el " + //$NON-NLS-1$
-			"método en la clase destino.", 1, now.size()); //$NON-NLS-1$
+		assertEquals("Test mover mï¿½todo con argumentos: no se ha aï¿½adido el " + //$NON-NLS-1$
+			"mï¿½todo en la clase destino.", 1, now.size()); //$NON-NLS-1$
 	}
 
 	/**
-	 * Verifica el funcionamiento de las precondiciones de la refactorización.
+	 * Verifica el funcionamiento de las precondiciones de la refactorizaciï¿½n.
 	 *
-	 * <p>Comprueba que se lanza una excepción cuando se intenta mover un método
+	 * <p>Comprueba que se lanza una excepciï¿½n cuando se intenta mover un mï¿½todo
 	 * a la misma clase en la que originalmente se encuentra.</p>
 	 * 
-	 * @throws Exception si se produce un error durante la ejecución de la prueba.
+	 * @throws Exception si se produce un error durante la ejecuciï¿½n de la prueba.
 	 */
 	@Test(expected=PreconditionException.class) 
 	public void testCheckNotEqualClasses() throws Exception{
@@ -152,13 +153,13 @@ public class TestMoveMethod extends RefactoringTemplateAbstractTest {
 	}
 
 	/**
-	 * Verifica el funcionamiento de las precondiciones de la refactorización.
+	 * Verifica el funcionamiento de las precondiciones de la refactorizaciï¿½n.
 	 *
-	 * <p>Comprueba que se lanza una excepción cuando se intenta mover un método a
-	 * una clase destino, cuya superclase contiene un método con la misma 
+	 * <p>Comprueba que se lanza una excepciï¿½n cuando se intenta mover un mï¿½todo a
+	 * una clase destino, cuya superclase contiene un mï¿½todo con la misma 
 	 * signatura que el que se desea mover.</p>
 	 * 
-	 * @throws Exception si se produce un error durante la ejecución de la prueba.
+	 * @throws Exception si se produce un error durante la ejecuciï¿½n de la prueba.
 	 */ 
 	@Test(expected=PreconditionException.class) 
 	public void testCheckMethodIsNotAlreadyInSuperclasses() throws Exception{
@@ -180,12 +181,12 @@ public class TestMoveMethod extends RefactoringTemplateAbstractTest {
 	}
 
 	/**
-	 * Verifica el funcionamiento de las precondiciones de la refactorización.
+	 * Verifica el funcionamiento de las precondiciones de la refactorizaciï¿½n.
 	 *
-	 * <p>Comprueba que se lanza una excepción cuando se intenta mover un método
+	 * <p>Comprueba que se lanza una excepciï¿½n cuando se intenta mover un mï¿½todo
 	 * constructor.</p>
 	 * 
-	 * @throws Exception si se produce un error durante la ejecución de la prueba.
+	 * @throws Exception si se produce un error durante la ejecuciï¿½n de la prueba.
 	 */  
 	@Test(expected=PreconditionException.class) 
 	public void testCheckMethodIsNotConstructor() throws Exception{
@@ -207,12 +208,12 @@ public class TestMoveMethod extends RefactoringTemplateAbstractTest {
 	}
 
 	/**
-	 * Verifica el funcionamiento de las precondiciones de la refactorización.
+	 * Verifica el funcionamiento de las precondiciones de la refactorizaciï¿½n.
 	 *
-	 * <p>Comprueba que se lanza una excepción cuando se intenta mover un método
+	 * <p>Comprueba que se lanza una excepciï¿½n cuando se intenta mover un mï¿½todo
 	 * al que existen llamadas en alguna clase del modelo.</p>
 	 * 
-	 * @throws Exception si se produce un error durante la ejecución de la prueba.
+	 * @throws Exception si se produce un error durante la ejecuciï¿½n de la prueba.
 	 */
 	@Test(expected=PreconditionException.class) 
 	public void testCheckNotExistsCallToThisMethod() throws Exception{
@@ -236,12 +237,12 @@ public class TestMoveMethod extends RefactoringTemplateAbstractTest {
 	}
 
 	/**
-	 * Verifica el funcionamiento de las precondiciones de la refactorización.
+	 * Verifica el funcionamiento de las precondiciones de la refactorizaciï¿½n.
 	 *
-	 * <p>Comprueba que se lanza una excepción cuando se intenta mover un método 
+	 * <p>Comprueba que se lanza una excepciï¿½n cuando se intenta mover un mï¿½todo 
 	 * cuyo cuerpo utiliza un atributo de la clase que lo contiene.</p>
 	 * 
-	 * @throws Exception si se produce un error durante la ejecución de la prueba.
+	 * @throws Exception si se produce un error durante la ejecuciï¿½n de la prueba.
 	 */ 
 	@Test(expected=PreconditionException.class) 
 	public void testCheckMethodNotUsesClassAttribute() throws Exception{
@@ -263,12 +264,12 @@ public class TestMoveMethod extends RefactoringTemplateAbstractTest {
 	}
 
 	/**
-	 * Verifica el funcionamiento de las precondiciones de la refactorización.
+	 * Verifica el funcionamiento de las precondiciones de la refactorizaciï¿½n.
 	 *
-	 * <p>Comprueba que se lanza una excepción cuando se intenta mover un método 
+	 * <p>Comprueba que se lanza una excepciï¿½n cuando se intenta mover un mï¿½todo 
 	 * abstracto.</p>
 	 * 
-	 * @throws Exception si se produce un error durante la ejecución de la prueba.
+	 * @throws Exception si se produce un error durante la ejecuciï¿½n de la prueba.
 	 */    
 	@Test(expected=PreconditionException.class)
 	public void testCheckMethodIsNotDeferred() throws Exception{ 
@@ -290,13 +291,13 @@ public class TestMoveMethod extends RefactoringTemplateAbstractTest {
 	}
 
 	/** 
-	 * Comprueba que funciona correctamente la operación que deshace el 
-	 * movimiento de un método de una clase a otra.
+	 * Comprueba que funciona correctamente la operaciï¿½n que deshace el 
+	 * movimiento de un mï¿½todo de una clase a otra.
 	 * 
-	 * <p>En un modelo con dos clases, se mueve un método que cumple todas las
-	 * precondiciones de una clase a la otra y después se deshace el movimiento.</p>
+	 * <p>En un modelo con dos clases, se mueve un mï¿½todo que cumple todas las
+	 * precondiciones de una clase a la otra y despuï¿½s se deshace el movimiento.</p>
 	 * 
-	 * @throws Exception si se produce un error durante la ejecución de la prueba.
+	 * @throws Exception si se produce un error durante la ejecuciï¿½n de la prueba.
 	 */  
 	@Test
 	public void testUndoSimple() throws Exception{
@@ -321,11 +322,11 @@ public class TestMoveMethod extends RefactoringTemplateAbstractTest {
 
 		// Comienzan las comprobaciones
 		List <MethDec> lMetodo2 = classSource.getMethDecByName(factory.createName("metodo1")); //$NON-NLS-1$
-		assertEquals("Test undo mover método simple: no se ha restaurado el " + //$NON-NLS-1$
-			"método a la clase de origen", 1, lMetodo2.size()); //$NON-NLS-1$
+		assertEquals("Test undo mover mï¿½todo simple: no se ha restaurado el " + //$NON-NLS-1$
+			"mï¿½todo a la clase de origen", 1, lMetodo2.size()); //$NON-NLS-1$
 
 		List <MethDec> lMetodo3 = classDest.getMethDecByName(factory.createName("metodo1")); //$NON-NLS-1$
-		assertTrue("Test undo mover método simple: no se ha eliminado el " + //$NON-NLS-1$
-			"método de la clase destino", lMetodo3.isEmpty()); //$NON-NLS-1$
+		assertTrue("Test undo mover mï¿½todo simple: no se ha eliminado el " + //$NON-NLS-1$
+			"mï¿½todo de la clase destino", lMetodo3.isEmpty()); //$NON-NLS-1$
 	}
 }

@@ -22,10 +22,8 @@ package repository.moon.concreterefactoring;
 
 import moon.core.Model;
 import moon.core.Name;
-import moon.core.classdef.MethDec;
 import moon.core.classdef.FormalArgument;
-
-
+import moon.core.classdef.MethDec;
 import repository.moon.MOONRefactoring;
 import repository.moon.concreteaction.RenameFormalArg;
 import repository.moon.concretepredicate.ExistsFormalArgInMethod;
@@ -33,19 +31,19 @@ import repository.moon.concretepredicate.HasNotFormalArgWithName;
 import repository.moon.concretepredicate.NotExistsLocalDecWithName;
 
 /**
- * Permite renombrar un parámetro formal dentro de la signatura de un método
+ * Permite renombrar un parï¿½metro formal dentro de la signatura de un mï¿½todo
  * perteneciente a una clase de un modelo.<p>
  *
- * Comprueba que exista el parámetro que se desea renombrar, que no exista ya 
- * otro parámetro en el método con el nuevo nombre y que no existen variables 
- * locales a ese método con nombre igual al nuevo.<p>
+ * Comprueba que exista el parï¿½metro que se desea renombrar, que no exista ya 
+ * otro parï¿½metro en el mï¿½todo con el nuevo nombre y que no existen variables 
+ * locales a ese mï¿½todo con nombre igual al nuevo.<p>
  *
- * Si la comprobación no falla, lleva a cabo el renombrado.<p>
+ * Si la comprobaciï¿½n no falla, lleva a cabo el renombrado.<p>
  *
- * Finalmente, comprueba que el renombrado se ha llevado a cabo con éxito.
+ * Finalmente, comprueba que el renombrado se ha llevado a cabo con ï¿½xito.
  *
  * @author <A HREF="mailto:ehp0001@alu.ubu.es">Enrique Herrero Paredes</A>
- * @author <A HREF="mailto:alc0022@alu.ubu.es">Ángel López Campo</A>
+ * @author <A HREF="mailto:alc0022@alu.ubu.es">ï¿½ngel Lï¿½pez Campo</A>
  * @author <A HREF="mailto:sfd0009@alu.ubu.es">Sonia Fuente de la Fuente</A>
  */
 public class RenameParameter extends MOONRefactoring {
@@ -61,9 +59,9 @@ public class RenameParameter extends MOONRefactoring {
 	 * Obtiene una nueva instancia de RenameParameter.
 	 *
 	 * @param newname el nuevo nombre que se le va a dar al argumento formal.
-	 * @param formalArg el parámetro que se desea renombrar.
-	 * @param meth el método que contiene el parámetro que se desea renombrar.
-	 * @param model el modelo sobre el que se ejecuta la refactorización.
+	 * @param formalArg el parï¿½metro que se desea renombrar.
+	 * @param meth el mï¿½todo que contiene el parï¿½metro que se desea renombrar.
+	 * @param model el modelo sobre el que se ejecuta la refactorizaciï¿½n.
 	 */
 	public RenameParameter(Name newname, FormalArgument formalArg, MethDec meth,
 		Model model) {

@@ -21,17 +21,15 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.*/
 package repository.moon.concreteaction;
 
 
-import java.util.*;
-
-import moon.core.classdef.*;
+import java.util.Vector;
 
 import moon.core.Name;
-
+import moon.core.classdef.AttDec;
 import refactoring.engine.Action;
 import repository.RelayListenerRegistry;
 
 /**
- * Permite renombrar un atributo de una representación MOON de un modelo Java.<p>
+ * Permite renombrar un atributo de una representaciï¿½n MOON de un modelo Java.<p>
  *
  * @author <A HREF="mailto:sfd0009@alu.ubu.es">Laura Fuente de la Fuente</A>
  */ 
@@ -44,7 +42,7 @@ public class RenameField extends Action {
 	
 	
 	/**
-	 * Nuevo nombre que se dará al atributo.
+	 * Nuevo nombre que se darï¿½ al atributo.
 	 */
 	private Name newName;
 	
@@ -55,13 +53,13 @@ public class RenameField extends Action {
 	
 	
 	/**
-	 * Elemento auxiliar para renombrar el método en caso de que aparezca en
-	 * clases superiores o inferiores en la jerarquía de herencia.
+	 * Elemento auxiliar para renombrar el mï¿½todo en caso de que aparezca en
+	 * clases superiores o inferiores en la jerarquï¿½a de herencia.
 	 */
 	private Vector<RenameMethodWithoutHierarchy> renMethInOtherClassVec;
 
 	/**
-	 * Receptor de los mensajes enviados por la acción concreta.
+	 * Receptor de los mensajes enviados por la acciï¿½n concreta.
 	 */
 	private RelayListenerRegistry listenerReg;
 		
@@ -70,7 +68,7 @@ public class RenameField extends Action {
 	 *
 	 * Obtiene una nueva instancia de RenameMethod.
 	 *
-	 * @param newName el nuevo nombre que se dará al atributo.
+	 * @param newName el nuevo nombre que se darï¿½ al atributo.
 	 * @param att atributo a ser modificado.
 	 */
 	public RenameField ( AttDec att, Name newName){
@@ -87,7 +85,7 @@ public class RenameField extends Action {
 	}
 	
 	/**
-	 * Ejecuta el renombrado del método.
+	 * Ejecuta el renombrado del mï¿½todo.
 	 */
 	public void run(){
 		

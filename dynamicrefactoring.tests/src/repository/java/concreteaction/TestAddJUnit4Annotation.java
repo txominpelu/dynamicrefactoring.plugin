@@ -20,17 +20,17 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.*/
 
 package repository.java.concreteaction;
 
+import static org.junit.Assert.assertEquals;
+
 import java.util.List;
 
 import javamoon.construct.source.SourceLoader;
 import javamoon.core.JavaModel;
 import javamoon.core.entity.JavaAnnotationReference;
 import javamoon.core.entity.JavaRoutineDec;
-
 import moon.core.MoonFactory;
-import moon.core.classdef.*;
-
-import static org.junit.Assert.*;
+import moon.core.classdef.ClassDef;
+import moon.core.classdef.MethDec;
 
 import org.junit.Test;
 
@@ -38,8 +38,8 @@ import repository.RefactoringTemplateAbstractTest;
 import repository.moon.MOONRefactoring;
 
 /** 
- * Comprueba que funciona correctamente la acción que añade las anotaciones
- * de JUnit4 a una clase basándose en la convención de nombres utilizada desde
+ * Comprueba que funciona correctamente la acciï¿½n que aï¿½ade las anotaciones
+ * de JUnit4 a una clase basï¿½ndose en la convenciï¿½n de nombres utilizada desde
  * JUnit3.
  * 
  * @author <A HREF="mailto:sfd0009@alu.ubu.es">Sonia Fuente de la Fuente</A>
@@ -48,10 +48,10 @@ import repository.moon.MOONRefactoring;
 public class TestAddJUnit4Annotation extends RefactoringTemplateAbstractTest {
 
 	/** 
-	 * Comprueba que la acción añade correctamente la anotación <code>@Before
-	 * </code> al método <code>setUp()</code>.
+	 * Comprueba que la acciï¿½n aï¿½ade correctamente la anotaciï¿½n <code>@Before
+	 * </code> al mï¿½todo <code>setUp()</code>.
 	 * 
-	 * @throws Exception si se produjo algún error durante la ejecución de la prueba.
+	 * @throws Exception si se produjo algï¿½n error durante la ejecuciï¿½n de la prueba.
 	 */
 	@Test
 	public void testSetUp() throws Exception{
@@ -73,17 +73,17 @@ public class TestAddJUnit4Annotation extends RefactoringTemplateAbstractTest {
 		MethDec setup = classdef.getMethDecByName(factory.createName("setUp")).get(0); //$NON-NLS-1$
 		List<JavaAnnotationReference> annotations = ((JavaRoutineDec)setup).getAnnotations();
 		
-		assertEquals("Test añadir anotaciones JUnit4: no se ha añadido" + //$NON-NLS-1$
-			" la anotación al método setUp()", 1, annotations.size()); //$NON-NLS-1$
-		assertEquals("Test añadir anotaciones JUnit4: no se ha añadido" + //$NON-NLS-1$
-			" la anotación @Before al método setUp()", "@Before", annotations.get(0).toString()); //$NON-NLS-1$ //$NON-NLS-2$
+		assertEquals("Test aï¿½adir anotaciones JUnit4: no se ha aï¿½adido" + //$NON-NLS-1$
+			" la anotaciï¿½n al mï¿½todo setUp()", 1, annotations.size()); //$NON-NLS-1$
+		assertEquals("Test aï¿½adir anotaciones JUnit4: no se ha aï¿½adido" + //$NON-NLS-1$
+			" la anotaciï¿½n @Before al mï¿½todo setUp()", "@Before", annotations.get(0).toString()); //$NON-NLS-1$ //$NON-NLS-2$
 	}
 	
 	/** 
-	 * Comprueba que la acción añade correctamente la anotación <code>@After
-	 * </code> al método <code>tearDown()</code>.
+	 * Comprueba que la acciï¿½n aï¿½ade correctamente la anotaciï¿½n <code>@After
+	 * </code> al mï¿½todo <code>tearDown()</code>.
 	 * 
-	 * @throws Exception si se produjo algún error durante la ejecución de la prueba.
+	 * @throws Exception si se produjo algï¿½n error durante la ejecuciï¿½n de la prueba.
 	 */
 	@Test
 	public void testTearDown() throws Exception{
@@ -105,17 +105,17 @@ public class TestAddJUnit4Annotation extends RefactoringTemplateAbstractTest {
 		MethDec tearDown = classdef.getMethDecByName(factory.createName("tearDown")).get(0); //$NON-NLS-1$
 		List<JavaAnnotationReference> annotations = ((JavaRoutineDec)tearDown).getAnnotations();
 		
-		assertEquals("Test añadir anotaciones JUnit4: no se ha añadido" + //$NON-NLS-1$
-			" la anotación al método tearDown()", 1, annotations.size()); //$NON-NLS-1$
-		assertEquals("Test añadir anotaciones JUnit4: no se ha añadido" + //$NON-NLS-1$
-			" la anotación @After al método tearDown()", "@After", annotations.get(0).toString()); //$NON-NLS-1$ //$NON-NLS-2$
+		assertEquals("Test aï¿½adir anotaciones JUnit4: no se ha aï¿½adido" + //$NON-NLS-1$
+			" la anotaciï¿½n al mï¿½todo tearDown()", 1, annotations.size()); //$NON-NLS-1$
+		assertEquals("Test aï¿½adir anotaciones JUnit4: no se ha aï¿½adido" + //$NON-NLS-1$
+			" la anotaciï¿½n @After al mï¿½todo tearDown()", "@After", annotations.get(0).toString()); //$NON-NLS-1$ //$NON-NLS-2$
 	}
 	
 	/** 
-	 * Comprueba que la acción añade correctamente las anotaciones <code>@Test
-	 * </code> a los métodos de test.
+	 * Comprueba que la acciï¿½n aï¿½ade correctamente las anotaciones <code>@Test
+	 * </code> a los mï¿½todos de test.
 	 * 
-	 * @throws Exception si se produjo algún error durante la ejecución de la prueba.
+	 * @throws Exception si se produjo algï¿½n error durante la ejecuciï¿½n de la prueba.
 	 */
 	@Test
 	public void testTestMethods() throws Exception{
@@ -137,25 +137,25 @@ public class TestAddJUnit4Annotation extends RefactoringTemplateAbstractTest {
 		MethDec test = classdef.getMethDecByName(factory.createName("testMetodo")).get(0); //$NON-NLS-1$
 		List<JavaAnnotationReference> annotations = ((JavaRoutineDec)test).getAnnotations();
 				
-		assertEquals("Test añadir anotaciones JUnit4: no se ha añadido" + //$NON-NLS-1$
-			" la anotación al método testMetodo()", 1, annotations.size()); //$NON-NLS-1$
-		assertEquals("Test añadir anotaciones JUnit4: no se ha añadido" + //$NON-NLS-1$
-			" la anotación @Test al método testMetodo()", "@Test", annotations.get(0).toString()); //$NON-NLS-1$ //$NON-NLS-2$
+		assertEquals("Test aï¿½adir anotaciones JUnit4: no se ha aï¿½adido" + //$NON-NLS-1$
+			" la anotaciï¿½n al mï¿½todo testMetodo()", 1, annotations.size()); //$NON-NLS-1$
+		assertEquals("Test aï¿½adir anotaciones JUnit4: no se ha aï¿½adido" + //$NON-NLS-1$
+			" la anotaciï¿½n @Test al mï¿½todo testMetodo()", "@Test", annotations.get(0).toString()); //$NON-NLS-1$ //$NON-NLS-2$
 	
 		test = classdef.getMethDecByName(factory.createName("testMetodo2")).get(0); //$NON-NLS-1$
 		annotations = ((JavaRoutineDec)test).getAnnotations();
 				
-		assertEquals("Test añadir anotaciones JUnit4: no se ha añadido" + //$NON-NLS-1$
-			" la anotación al método testMetodo2()", 1, annotations.size()); //$NON-NLS-1$
-		assertEquals("Test añadir anotaciones JUnit4: no se ha añadido" + //$NON-NLS-1$
-			" la anotación @Test al método testMetodo2()", "@Test", annotations.get(0).toString()); //$NON-NLS-1$ //$NON-NLS-2$
+		assertEquals("Test aï¿½adir anotaciones JUnit4: no se ha aï¿½adido" + //$NON-NLS-1$
+			" la anotaciï¿½n al mï¿½todo testMetodo2()", 1, annotations.size()); //$NON-NLS-1$
+		assertEquals("Test aï¿½adir anotaciones JUnit4: no se ha aï¿½adido" + //$NON-NLS-1$
+			" la anotaciï¿½n @Test al mï¿½todo testMetodo2()", "@Test", annotations.get(0).toString()); //$NON-NLS-1$ //$NON-NLS-2$
 	}
 	
 	/** 
-	 * Comprueba que la acción deshace correctamente las anotaciones <code>@Test
+	 * Comprueba que la acciï¿½n deshace correctamente las anotaciones <code>@Test
 	 * </code>, <code>@Before</code> y <code>@After</code>.
 	 * 
-	 * @throws Exception si se produjo algún error durante la ejecución de la prueba.
+	 * @throws Exception si se produjo algï¿½n error durante la ejecuciï¿½n de la prueba.
 	 */
 	@Test
 	public void testUndo() throws Exception {
@@ -183,10 +183,10 @@ public class TestAddJUnit4Annotation extends RefactoringTemplateAbstractTest {
 		List<JavaAnnotationReference> annTeardown = ((JavaRoutineDec)tearDown).getAnnotations();
 				
 		assertEquals("Test deshacer anotaciones JUnit4: no se ha eliminado" + //$NON-NLS-1$
-			" la anotación al método testMetodo()", 0, annTest.size()); //$NON-NLS-1$
+			" la anotaciï¿½n al mï¿½todo testMetodo()", 0, annTest.size()); //$NON-NLS-1$
 		assertEquals("Test deshacer anotaciones JUnit4: no se ha eliminado" + //$NON-NLS-1$
-			" la anotación al método setUp()", 0, annSetup.size()); //$NON-NLS-1$
+			" la anotaciï¿½n al mï¿½todo setUp()", 0, annSetup.size()); //$NON-NLS-1$
 		assertEquals("Test deshacer anotaciones JUnit4: no se ha eliminado" + //$NON-NLS-1$
-			" la anotación al método tearDown()", 0, annTeardown.size()); //$NON-NLS-1$
+			" la anotaciï¿½n al mï¿½todo tearDown()", 0, annTeardown.size()); //$NON-NLS-1$
 	}
 }

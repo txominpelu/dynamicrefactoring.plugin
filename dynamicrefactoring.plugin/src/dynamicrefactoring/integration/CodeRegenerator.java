@@ -20,12 +20,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.*/
 
 package dynamicrefactoring.integration;
 
-import java.io.*;
-
+import java.io.ByteArrayInputStream;
 import java.lang.reflect.InvocationTargetException;
-import java.lang.SuppressWarnings;
 import java.nio.charset.Charset;
-
 import java.text.MessageFormat;
 import java.util.ArrayList;
 import java.util.List;
@@ -34,29 +31,22 @@ import java.util.Map;
 import javamoon.regenerate.CodeVisitor;
 import javamoon.regenerate.RegenerateSourceFileStrategy;
 import javamoon.regenerate.SourceCode;
-
 import moon.traverse.Visitor;
 
 import org.apache.log4j.Logger;
-
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IResource;
-
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.NullProgressMonitor;
-
 import org.eclipse.jdt.core.JavaCore;
 import org.eclipse.jdt.core.ToolFactory;
 import org.eclipse.jdt.core.formatter.CodeFormatter;
 import org.eclipse.jdt.core.formatter.DefaultCodeFormatterConstants;
-
 import org.eclipse.jface.operation.IRunnableWithProgress;
-
 import org.eclipse.jface.text.Document;
 import org.eclipse.jface.text.IDocument;
 import org.eclipse.text.edits.TextEdit;
-
 import org.eclipse.ui.PlatformUI;
 
 import dynamicrefactoring.RefactoringPlugin;
@@ -64,9 +54,9 @@ import dynamicrefactoring.interfaz.CustomProgressDialog;
 import dynamicrefactoring.util.io.JavaFileManager;
 
 /**
- * Permite regenerar el código de los ficheros fuente del proyecto sobre el
+ * Permite regenerar el cï¿½digo de los ficheros fuente del proyecto sobre el
  * que se trabaja actualmente a partir del modelo MOON utilizado para su
- * representación durante las refactorizaciones.
+ * representaciï¿½n durante las refactorizaciones.
  * 
  * @author <A HREF="mailto:sfd0009@alu.ubu.es">Sonia Fuente de la Fuente</A>
  * @author <A HREF="mailto:ehp0001@alu.ubu.es">Enrique Herrero Paredes</A>
@@ -80,25 +70,25 @@ public class CodeRegenerator {
 		Logger.getLogger(CodeRegenerator.class);
 	
 	/**
-	 * Instancia única del regenerador.
+	 * Instancia ï¿½nica del regenerador.
 	 * 
-	 * Patrón de diseño Singleton.
+	 * Patrï¿½n de diseï¿½o Singleton.
 	 */
 	private static CodeRegenerator myInstance;
 	
 	/**
 	 * Constructor.
 	 * 
-	 * Privado, siguiendo la estructura del patrón de diseño Singleton.
+	 * Privado, siguiendo la estructura del patrï¿½n de diseï¿½o Singleton.
 	 */
 	private CodeRegenerator(){}
 
 	/**
-	 * Obtiene la instancia única del regenerador.
+	 * Obtiene la instancia ï¿½nica del regenerador.
 	 * 
-	 * Patrón de diseño Singleton.
+	 * Patrï¿½n de diseï¿½o Singleton.
 	 * 
-	 * @return la instancia única del regenerador.
+	 * @return la instancia ï¿½nica del regenerador.
 	 */
 	public static CodeRegenerator getInstance(){
 		if (myInstance == null)
@@ -107,8 +97,8 @@ public class CodeRegenerator {
 	}
 	
 	/**
-	 * Dirige la regeneración de código, mostrándosela al usuario a través de un
-	 * diálogo de progreso de Eclipse.
+	 * Dirige la regeneraciï¿½n de cï¿½digo, mostrï¿½ndosela al usuario a travï¿½s de un
+	 * diï¿½logo de progreso de Eclipse.
 	 */
 	public void refreshCode() {
 		
@@ -121,7 +111,7 @@ public class CodeRegenerator {
 			
 		} 
 		catch (InterruptedException e) {
-			// El usuario canceló el proceso.
+			// El usuario cancelï¿½ el proceso.
 			String message = Messages.CodeRegenerator_UserCancelled +
 				".\n"; //$NON-NLS-1$
 			logger.warn(message);
@@ -136,7 +126,7 @@ public class CodeRegenerator {
 	}
 	
 	/**
-	 * Dirige la regeneración de código.
+	 * Dirige la regeneraciï¿½n de cï¿½digo.
 	 */
 	public void refresh() {
 		
@@ -157,9 +147,9 @@ public class CodeRegenerator {
 	
 		
 	/**
-	 * Coordina la regeneración del código de las clases del modelo.
+	 * Coordina la regeneraciï¿½n del cï¿½digo de las clases del modelo.
 	 * 
-	 * Se encarga de recuperar el código de cada una de ellas y 
+	 * Se encarga de recuperar el cï¿½digo de cada una de ellas y 
 	 * notificar al resto del entorno de trabajo de los cambios realizados.
 	 */
 	private class CodeRegenerationJob implements IRunnableWithProgress{
@@ -170,7 +160,7 @@ public class CodeRegenerator {
 		ArrayList<IFile> javaFiles;
 		
 		/**
-		 * Directorios raíz de los ficheros fuente afectados.
+		 * Directorios raï¿½z de los ficheros fuente afectados.
 		 */
 		List<String> sourceDirs;
 		
@@ -187,15 +177,15 @@ public class CodeRegenerator {
 		}
 		
 		/**
-		 * Ejecuta la operación de recuperación de código.
+		 * Ejecuta la operaciï¿½n de recuperaciï¿½n de cï¿½digo.
 		 * 
-		 * @param monitor el monitor de progreso que mostrará el avance de la
-		 * operación de recuperación de código.
+		 * @param monitor el monitor de progreso que mostrarï¿½ el avance de la
+		 * operaciï¿½n de recuperaciï¿½n de cï¿½digo.
 		 * 
 		 * @throws InvocationTargetException si se produce cualquier clase de
-		 * excepción se relanza envuelta en una excepción de este tipo.
-		 * @throws InterruptedException si el usuario interrumpió el proceso
-		 * pulsando sobre el botón de cancelación.
+		 * excepciï¿½n se relanza envuelta en una excepciï¿½n de este tipo.
+		 * @throws InterruptedException si el usuario interrumpiï¿½ el proceso
+		 * pulsando sobre el botï¿½n de cancelaciï¿½n.
 		 */
 		@Override
 		public void run(IProgressMonitor monitor)
@@ -279,12 +269,12 @@ public class CodeRegenerator {
 	
 		/**
 		 * Comprueba si un monitor de progreso ha recibido una orden de 
-		 * cancelación por parte del usuario.
+		 * cancelaciï¿½n por parte del usuario.
 		 * 
-		 * @param monitor el monitor cuyo estado de cancelación se comprueba.
+		 * @param monitor el monitor cuyo estado de cancelaciï¿½n se comprueba.
 		 * 
 		 * @throws InterruptedException si el monitor ha recibido una orden de
-		 * cancelación por parte del usuario.
+		 * cancelaciï¿½n por parte del usuario.
 		 */
 		private void checkForCancellation(IProgressMonitor monitor) 
 			throws InterruptedException {
@@ -295,7 +285,7 @@ public class CodeRegenerator {
 		}
 		
 		/**
-		 * Regenera el código pero no crea un diálogo de progreso.
+		 * Regenera el cï¿½digo pero no crea un diï¿½logo de progreso.
 		 */
 		public void refresh(){
 			
@@ -330,12 +320,12 @@ public class CodeRegenerator {
 		}
 
 		/**
-		 * Formatea el código fuente correspondiente a una clase utilizando el 
-		 * API de Eclipse para el formateo de código fuente Java.
+		 * Formatea el cï¿½digo fuente correspondiente a una clase utilizando el 
+		 * API de Eclipse para el formateo de cï¿½digo fuente Java.
 		 * 
-		 * @param sourceCode el código fuente original de la clase.
+		 * @param sourceCode el cï¿½digo fuente original de la clase.
 		 * 
-		 * @return el código fuente formateado de la clase, o el código original
+		 * @return el cï¿½digo fuente formateado de la clase, o el cï¿½digo original
 		 * si se produjo un error durante el proceso.
 		 */
 		private String formatCompilationUnit(String sourceCode){

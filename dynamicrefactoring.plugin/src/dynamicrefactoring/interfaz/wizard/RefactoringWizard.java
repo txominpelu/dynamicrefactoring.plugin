@@ -40,8 +40,6 @@ import org.eclipse.ui.INewWizard;
 import org.eclipse.ui.IWorkbench;
 import org.eclipse.ui.IWorkbenchWizard;
 
-import com.swtdesigner.ResourceManager;
-
 import dynamicrefactoring.RefactoringConstants;
 import dynamicrefactoring.RefactoringImages;
 import dynamicrefactoring.RefactoringPlugin;

@@ -20,21 +20,21 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.*/
 
 package repository.moon.concretefunction;
 
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
 import javamoon.construct.source.SourceLoader;
 import javamoon.core.JavaModel;
-
 import moon.core.MoonFactory;
-import moon.core.classdef.*;
+import moon.core.classdef.ClassDef;
+import moon.core.classdef.MethDec;
 
-import static org.junit.Assert.*;
-
-import org.junit.Test; 
+import org.junit.Test;
 
 import repository.RefactoringTemplateAbstractTest;
 
 /** 
- * Comprueba que funciona correctamente la función que permite recuperar
- * un método de una clase en base a su nombre único.
+ * Comprueba que funciona correctamente la funciï¿½n que permite recuperar
+ * un mï¿½todo de una clase en base a su nombre ï¿½nico.
  * 
  * @author <A HREF="mailto:sfd0009@alu.ubu.es">Sonia Fuente de la Fuente</A>
  * @author <A HREF="mailto:ehp0001@alu.ubu.es">Enrique Herrero Paredes</A>
@@ -42,12 +42,12 @@ import repository.RefactoringTemplateAbstractTest;
 public class TestMethodRetriever extends RefactoringTemplateAbstractTest {
 
 	/**
-	 * Comprueba que la función obtiene correctamente un método sin argumentos.<p>
+	 * Comprueba que la funciï¿½n obtiene correctamente un mï¿½todo sin argumentos.<p>
 	 * 
-	 * En una clase con dos métodos, intenta obtener el método sin argumentos ni
+	 * En una clase con dos mï¿½todos, intenta obtener el mï¿½todo sin argumentos ni
 	 * tipo de retorno.
 	 * 
-	 * @throws Exception si se produce un error durante la ejecución de la prueba.
+	 * @throws Exception si se produce un error durante la ejecuciï¿½n de la prueba.
 	 */
 	@Test
 	public void testGetSimple() throws Exception{
@@ -66,20 +66,20 @@ public class TestMethodRetriever extends RefactoringTemplateAbstractTest {
 		MethDec recovered = (MethDec)function.getValue();
 		
 		// Comienzan las comprobaciones
-		assertNotNull("Recuperar método por nombre único: no se ha obtenido el " + //$NON-NLS-1$
-			"método simple sin argumentos.", recovered); //$NON-NLS-1$
-		assertEquals("Recuperar método por nombre único: el método obtenido no " + //$NON-NLS-1$
-			"es el método esperado.", method, recovered); //$NON-NLS-1$
+		assertNotNull("Recuperar mï¿½todo por nombre ï¿½nico: no se ha obtenido el " + //$NON-NLS-1$
+			"mï¿½todo simple sin argumentos.", recovered); //$NON-NLS-1$
+		assertEquals("Recuperar mï¿½todo por nombre ï¿½nico: el mï¿½todo obtenido no " + //$NON-NLS-1$
+			"es el mï¿½todo esperado.", method, recovered); //$NON-NLS-1$
 	}
 
 	/**
-	 * Comprueba que la función obtiene correctamente un método con argumentos
+	 * Comprueba que la funciï¿½n obtiene correctamente un mï¿½todo con argumentos
 	 * y tipo de retorno.<p>
 	 * 
-	 * En una clase con dos métodos, intenta obtener el método con argumentos y
+	 * En una clase con dos mï¿½todos, intenta obtener el mï¿½todo con argumentos y
 	 * tipo de retorno.
 	 * 
-	 * @throws Exception si se produce un error durante la ejecución de la prueba.
+	 * @throws Exception si se produce un error durante la ejecuciï¿½n de la prueba.
 	 */
 	@Test
 	public void testGetComplex() throws Exception{
@@ -98,9 +98,9 @@ public class TestMethodRetriever extends RefactoringTemplateAbstractTest {
 		MethDec recovered = (MethDec)function.getValue();
 		
 		// Comienzan las comprobaciones
-		assertNotNull("Recuperar método por nombre único: no se ha obtenido el " + //$NON-NLS-1$
-			"método con argumentos.", recovered); //$NON-NLS-1$
-		assertEquals("Recuperar método por nombre único: el método obtenido no " + //$NON-NLS-1$
-			"es el método esperado.", method, recovered); //$NON-NLS-1$
+		assertNotNull("Recuperar mï¿½todo por nombre ï¿½nico: no se ha obtenido el " + //$NON-NLS-1$
+			"mï¿½todo con argumentos.", recovered); //$NON-NLS-1$
+		assertEquals("Recuperar mï¿½todo por nombre ï¿½nico: el mï¿½todo obtenido no " + //$NON-NLS-1$
+			"es el mï¿½todo esperado.", method, recovered); //$NON-NLS-1$
 	}
 }

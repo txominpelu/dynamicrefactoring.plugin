@@ -22,34 +22,39 @@ package dynamicrefactoring.preferences;
 
 import org.eclipse.jface.preference.PreferencePage;
 import org.eclipse.swt.SWT;
-import org.eclipse.swt.widgets.*;
+import org.eclipse.swt.widgets.Button;
+import org.eclipse.swt.widgets.Composite;
+import org.eclipse.swt.widgets.Control;
+import org.eclipse.swt.widgets.Display;
+import org.eclipse.swt.widgets.Label;
+import org.eclipse.swt.widgets.Text;
 import org.eclipse.ui.IWorkbench;
 import org.eclipse.ui.IWorkbenchPreferencePage;
-import dynamicrefactoring.RefactoringPlugin;
 
+import dynamicrefactoring.RefactoringPlugin;
 import dynamicrefactoring.interfaz.wizard.FolderSelectionListener;
 
 /**
- * Página de preferencias para determinar el directorio de importación de un plan de refactorizaciones y el directorio de 
- * exportación del mismo .
+ * Pï¿½gina de preferencias para determinar el directorio de importaciï¿½n de un plan de refactorizaciones y el directorio de 
+ * exportaciï¿½n del mismo .
  * 
  * @author <A HREF="mailto:lfd0002@alu.ubu.es">Laura Fuente de la Fuente</A>
  */
 public class DirectoriesPreferencePage extends PreferencePage implements IWorkbenchPreferencePage {
 
 	/**
-	 * Directorio de importación de un plan de refactorizaciones.
+	 * Directorio de importaciï¿½n de un plan de refactorizaciones.
 	 */
 	private Text t_Import;
 	
 	/**
-	 * Directorio de exportación de un plan de refactorizaciones.
+	 * Directorio de exportaciï¿½n de un plan de refactorizaciones.
 	 */
 	private Text t_Export;
 	
 	
 	/**
-	 * Crea el contenido de la página de preferencias.
+	 * Crea el contenido de la pï¿½gina de preferencias.
 	 * 
 	 * @see PreferencePage#createContents(Composite)
 	 */
@@ -98,7 +103,7 @@ public class DirectoriesPreferencePage extends PreferencePage implements IWorkbe
 	}
 
 	/**
-	 * Inicializa el almacén de preferencias.
+	 * Inicializa el almacï¿½n de preferencias.
 	 * 
 	 * @see IWorkbenchPreferencePage#init(IWorkbench)
 	 */
@@ -108,17 +113,17 @@ public class DirectoriesPreferencePage extends PreferencePage implements IWorkbe
 	}
 
 	/**
-	 * Establece los valores por defecto de los directorioa de importación de un plan 
-	 * de refactorizaciones y de exportación del mismo.
+	 * Establece los valores por defecto de los directorioa de importaciï¿½n de un plan 
+	 * de refactorizaciones y de exportaciï¿½n del mismo.
 	 */
 	protected void performDefaults() {
 		t_Import.setText(RefactoringPlugin.getDefault().getDefaultImportRefactoringPlanPreference());
 		t_Export.setText(RefactoringPlugin.getDefault().getDefaultExportRefactoringPlanPreference());
 	}
 	/** 
-	 * Metodo declarado en <code>IPreferencePage</code>. Guarda en el almacén de preferencias 
-	 * el directorio de importación de un plan de refactorizaciones y el directorio de 
-	 * exportación del mismo.
+	 * Metodo declarado en <code>IPreferencePage</code>. Guarda en el almacï¿½n de preferencias 
+	 * el directorio de importaciï¿½n de un plan de refactorizaciones y el directorio de 
+	 * exportaciï¿½n del mismo.
 	 */
 	public boolean performOk() {
 		RefactoringPlugin.getDefault().setImportRefactoringPlanPreference(t_Import.getText());

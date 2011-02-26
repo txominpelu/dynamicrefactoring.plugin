@@ -20,22 +20,22 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.*/
 
 package dynamicrefactoring.writer;
 
-import dynamicrefactoring.RefactoringConstants;
-import dynamicrefactoring.writer.RefactoringPlanWriter;
-import dynamicrefactoring.util.io.FileManager;
+import static org.junit.Assert.assertEquals;
 
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
-import java.util.*;
+import java.util.HashMap;
 
-import static org.junit.Assert.*;
-import org.junit.Test; 
+import org.junit.Test;
+
+import dynamicrefactoring.RefactoringConstants;
+import dynamicrefactoring.util.io.FileManager;
 
 
 /**
  * Comprueba que funciona correctamente el proceso de escritura de un plan
- * de refactorizaciones dinámicas en un fichero XML.
+ * de refactorizaciones dinï¿½micas en un fichero XML.
  * 
  * @author <A HREF="mailto:lfd0002@alu.ubu.es">Laura Fuente de la Fuente</A>
  * 
@@ -43,8 +43,8 @@ import org.junit.Test;
 public class TestRefactoringPlanWriter{
 
 	/**
-	 * Comprueba que la escritura se realiza correctamente cuando se añade la
-	 * información mínima necesaria. Es decir se inicializa el fichero con el 
+	 * Comprueba que la escritura se realiza correctamente cuando se aï¿½ade la
+	 * informaciï¿½n mï¿½nima necesaria. Es decir se inicializa el fichero con el 
 	 * elemento RefactoringPlan.
 	 * 
 	 * @throws Exception si se produce un error al escribir el plan.
@@ -71,17 +71,17 @@ public class TestRefactoringPlanWriter{
 		fr1.close();
 		fr2.close();
 		RefactoringPlanWriter.getInstance().reset();
-		//Borramos el archivo generado para dejar la aplicación como se encontraba.
+		//Borramos el archivo generado para dejar la aplicaciï¿½n como se encontraba.
 		FileManager.deleteFile(RefactoringConstants.REFACTORING_PLAN_FILE);
 
 	}
 
 	/**
-	 * Comprueba que la escritura se realiza correctamente cuando se añade un par de 
+	 * Comprueba que la escritura se realiza correctamente cuando se aï¿½ade un par de 
 	 * refactorizaciones al plan de refactorizaciones.
 	 * 
-	 * Esta información es: la información de la refactorización consta de su nombre
-	 * , fecha de ejecución y parámetros.
+	 * Esta informaciï¿½n es: la informaciï¿½n de la refactorizaciï¿½n consta de su nombre
+	 * , fecha de ejecuciï¿½n y parï¿½metros.
 	 * 
 	 * @throws Exception si se produce un error durante la escritura del plan.
 	 */
@@ -129,12 +129,12 @@ public class TestRefactoringPlanWriter{
 		fr1.close();
 		fr2.close();
 		RefactoringPlanWriter.getInstance().reset();
-		//Borramos el archivo generado para dejar la aplicación como se encontraba.
+		//Borramos el archivo generado para dejar la aplicaciï¿½n como se encontraba.
 		FileManager.deleteFile(RefactoringConstants.REFACTORING_PLAN_FILE);
 	}
 	
 	/**
-	 * Comprueba que la eliminación de una refactorización del fichero del plan
+	 * Comprueba que la eliminaciï¿½n de una refactorizaciï¿½n del fichero del plan
 	 * de refactorizaciones se realiza de forma correcta.
 	 * 
 	 * @throws Exception si se produce un error durante la escritura del plan.
@@ -179,17 +179,17 @@ public class TestRefactoringPlanWriter{
 		fr1.close();
 		fr2.close();
 		RefactoringPlanWriter.getInstance().reset();
-		//Borramos el archivo generado para dejar la aplicación como se encontraba.
+		//Borramos el archivo generado para dejar la aplicaciï¿½n como se encontraba.
 		FileManager.deleteFile(RefactoringConstants.REFACTORING_PLAN_FILE);
 	}
 	
 	/**
-	 * Comprueba que la eliminación de un grupo de refactorizaciones del fichero del plan
+	 * Comprueba que la eliminaciï¿½n de un grupo de refactorizaciones del fichero del plan
 	 * de refactorizaciones se realiza de forma correcta.
 	 * 
 	 * Aunque se eliminen varias refactorizaciones del plan, solo se manda eliminar 
-	 * una. Pero el funcionamiento del método hace que también se borren las que se
-	 * han producido después.
+	 * una. Pero el funcionamiento del mï¿½todo hace que tambiï¿½n se borren las que se
+	 * han producido despuï¿½s.
 	 * 
 	 * @throws Exception si se produce un error durante la escritura del plan.
 	 */
@@ -225,7 +225,7 @@ public class TestRefactoringPlanWriter{
 		fr1.close();
 		fr2.close();
 		RefactoringPlanWriter.getInstance().reset();
-		//Borramos el archivo generado para dejar la aplicación como se encontraba.
+		//Borramos el archivo generado para dejar la aplicaciï¿½n como se encontraba.
 		FileManager.deleteFile(RefactoringConstants.REFACTORING_PLAN_FILE);
 	}
 	

@@ -20,18 +20,17 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.*/
 
 package repository.moon;
 
+import static org.junit.Assert.assertEquals;
 import javamoon.construct.source.SourceLoader;
 import javamoon.core.JavaModel;
 
-import org.junit.Test; 
-import static org.junit.Assert.*;
+import org.junit.Test;
 
 import repository.RefactoringTemplateAbstractTest;
-import repository.moon.MOONRefactoring;
 
 /** 
  * Comprueba que funciona correctamente la clase que representa una 
- * refactorización sobre MOON.<p>
+ * refactorizaciï¿½n sobre MOON.<p>
  * 
  * @author <A HREF="mailto:sfd0009@alu.ubu.es">Sonia Fuente de la Fuente</A>
  * @author <A HREF="mailto:ehp0001@alu.ubu.es">Enrique Herrero Paredes</A>
@@ -39,7 +38,7 @@ import repository.moon.MOONRefactoring;
 public class TestMOONRefactoring extends RefactoringTemplateAbstractTest {
 	
 	/**
-	 * Comprueba que se lanza una excepción <code>RuntimeException</code>
+	 * Comprueba que se lanza una excepciï¿½n <code>RuntimeException</code>
 	 * cuando se intentan instanciar dos refactorizaciones sucesivas sobre MOON
 	 * con diferentes metamodelos.
 	 * 
@@ -65,11 +64,11 @@ public class TestMOONRefactoring extends RefactoringTemplateAbstractTest {
 	}
 	
 	/**
-	 * Comprueba que no se lanza una excepción <code>RuntimeException</code>
+	 * Comprueba que no se lanza una excepciï¿½n <code>RuntimeException</code>
 	 * cuando se intentan instanciar dos refactorizaciones sucesivas sobre MOON
 	 * con diferentes metamodelos si entre ambas se resetea el modelo.
 	 * 
-	 * <p>Comprueba también que en cada momento se obtiene el modelo esperado
+	 * <p>Comprueba tambiï¿½n que en cada momento se obtiene el modelo esperado
 	 * al consultar a <code>MOONRefactoring</code>.
 	 * 
 	 * @throws Exception si se produce un fallo al cargar el modelo MOON.

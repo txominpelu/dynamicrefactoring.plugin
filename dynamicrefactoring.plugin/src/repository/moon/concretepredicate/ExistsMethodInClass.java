@@ -20,30 +20,29 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.*/
 
 package repository.moon.concretepredicate;
 
-import java.util.*;
+import java.util.List;
 
 import moon.core.classdef.ClassDef;
 import moon.core.classdef.MethDec;
-
 import refactoring.engine.Predicate;
 
 /**
- * Permite verificar que existe un método con un cierto nombre único (es decir,
+ * Permite verificar que existe un mï¿½todo con un cierto nombre ï¿½nico (es decir,
  * con una cierta signatura) en un clase determinada.
  *
- * @author <A HREF="mailto:alc0022@alu.ubu.es">Ángel López Campo</A>
+ * @author <A HREF="mailto:alc0022@alu.ubu.es">ï¿½ngel Lï¿½pez Campo</A>
  * @author <A HREF="mailto:ehp0001@alu.ubu.es">Enrique Herrero Paredes</A>
  * @author <A HREF="mailto:sfd0009@alu.ubu.es">Sonia Fuente de la Fuente</A>
  */ 
 public class ExistsMethodInClass extends Predicate {
 		
 	/**
-	 * Nombre único del método cuya presencia en una clase se quiere comprobar.
+	 * Nombre ï¿½nico del mï¿½todo cuya presencia en una clase se quiere comprobar.
 	 */
 	private MethDec method;
 	
 	/**
-	 * Clase en la que se busca un método con cierto nombre.
+	 * Clase en la que se busca un mï¿½todo con cierto nombre.
 	 */
 	private ClassDef classDef;
 		
@@ -51,7 +50,7 @@ public class ExistsMethodInClass extends Predicate {
 	 * Constructor.<p>
 	 *
 	 * Obtiene una nueva instancia del predicado ExistsMethodInClass.
-	 * @param method el nombre único del método que se desea buscar.
+	 * @param method el nombre ï¿½nico del mï¿½todo que se desea buscar.
 	 * @param clase clase en la que se comprueba la existe
 	 */
 	public ExistsMethodInClass(MethDec method, ClassDef clase) {
@@ -68,7 +67,7 @@ public class ExistsMethodInClass extends Predicate {
 	/**
 	 * Comprueba el valor de verdad del predicado.
 	 * 
-	 * @return <code>true</code> si existe el método en la clase especificada, 
+	 * @return <code>true</code> si existe el mï¿½todo en la clase especificada, 
 	 * <code>false</code> en caso contrario.
 	 */	 
 	public boolean isValid() {

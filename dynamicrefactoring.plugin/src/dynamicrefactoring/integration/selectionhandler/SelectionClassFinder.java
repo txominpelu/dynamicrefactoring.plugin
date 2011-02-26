@@ -20,18 +20,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.*/
 
 package dynamicrefactoring.integration.selectionhandler;
 
-import dynamicrefactoring.integration.ModelGenerator;
-
-import dynamicrefactoring.util.processor.JavaClassProcessor;
-import dynamicrefactoring.util.processor.JavaElementProcessor;
-import dynamicrefactoring.util.selection.TextSelectionInfo;
-import dynamicrefactoring.util.selection.TreeSelectionInfo;
-
-
 import java.io.IOException;
 
 import javamoon.core.JavaName;
-
 import moon.core.Model;
 import moon.core.classdef.ClassDef;
 
@@ -39,6 +30,12 @@ import org.eclipse.jdt.core.IJavaElement;
 import org.eclipse.jdt.core.IType;
 import org.eclipse.jface.viewers.TreePath;
 import org.eclipse.jface.viewers.TreeSelection;
+
+import dynamicrefactoring.integration.ModelGenerator;
+import dynamicrefactoring.util.processor.JavaClassProcessor;
+import dynamicrefactoring.util.processor.JavaElementProcessor;
+import dynamicrefactoring.util.selection.TextSelectionInfo;
+import dynamicrefactoring.util.selection.TreeSelectionInfo;
 
 /**
  * Proporciona las funciones necesarias para obtener la clase MOON a la que 
@@ -51,19 +48,19 @@ public class SelectionClassFinder {
 	
 	/**
 	 * Obtiene la clase del modelo MOON a la que pertenece el elemento seleccionado
-	 * en una representación textual del interfaz gráfico.
+	 * en una representaciï¿½n textual del interfaz grï¿½fico.
 	 * 
 	 * @param selectionClass apuntador sobre el que se almacena la referencia 
-	 * a la clase MOON a que pertenece la selección actual.
-	 * @param selectionInfo proveedor de información sobre el elemento 
+	 * a la clase MOON a que pertenece la selecciï¿½n actual.
+	 * @param selectionInfo proveedor de informaciï¿½n sobre el elemento 
 	 * seleccionado actualmente en Eclipse sobre un editor de texto.
 	 * 
 	 * @return la clase del modelo MOON a la que pertenece el elemento seleccionado
-	 * en una representación textual del interfaz gráfico.
+	 * en una representaciï¿½n textual del interfaz grï¿½fico.
 	 * 
 	 * @throws ClassNotFoundException si se no se consigue encontrar la clase en
 	 * el modelo MOON cargado.
-	 * @throws IOException si se produce algún error al acceder al modelo MOON.
+	 * @throws IOException si se produce algï¿½n error al acceder al modelo MOON.
 	 */
 	public static ClassDef getTextSelectionClass(ClassDef selectionClass, 
 		TextSelectionInfo selectionInfo)
@@ -84,19 +81,19 @@ public class SelectionClassFinder {
 	
 	/**
 	 * Obtiene la clase del modelo MOON a la que pertenece el elemento seleccionado
-	 * en una representación en árbol del interfaz gráfico.
+	 * en una representaciï¿½n en ï¿½rbol del interfaz grï¿½fico.
 	 * 
 	 * @param selectionClass apuntador sobre el que se almacena la referencia 
-	 * a la clase MOON a que pertenece la selección actual.
-	 * @param selectionInfo proveedor de información sobre el elemento 
-	 * seleccionado actualmente en Eclipse sobre un árbol desplegable.
+	 * a la clase MOON a que pertenece la selecciï¿½n actual.
+	 * @param selectionInfo proveedor de informaciï¿½n sobre el elemento 
+	 * seleccionado actualmente en Eclipse sobre un ï¿½rbol desplegable.
 	 * 
 	 * @return la clase del modelo MOON a la que pertenece el elemento seleccionado
-	 * en una representación en árbol del interfaz gráfico.
+	 * en una representaciï¿½n en ï¿½rbol del interfaz grï¿½fico.
 	 * 
 	 * @throws ClassNotFoundException si se no se consigue encontrar la clase en
 	 * el modelo MOON cargado.
-	 * @throws IOException si se produce algún error al acceder al modelo MOON.
+	 * @throws IOException si se produce algï¿½n error al acceder al modelo MOON.
 	 */
 	public static ClassDef getTreeSelectionClass(ClassDef selectionClass, 
 		TreeSelectionInfo selectionInfo)

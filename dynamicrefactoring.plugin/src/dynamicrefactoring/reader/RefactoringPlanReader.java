@@ -20,9 +20,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.*/
 
 package dynamicrefactoring.reader;
 
+import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.io.File;
 
 import org.jdom.Document;
 import org.jdom.Element;
@@ -33,7 +33,7 @@ import dynamicrefactoring.RefactoringConstants;
 import dynamicrefactoring.util.io.FileManager;
 
 /**
- * Se encarga de interpretar la información almacenada en el xml que guarda el plan de 
+ * Se encarga de interpretar la informaciï¿½n almacenada en el xml que guarda el plan de 
  * refactorizaciones actual.
  * 
  * @author <A HREF="mailto:lfd0002@alu.ubu.es">Laura Fuente de la Fuente</A>
@@ -41,8 +41,8 @@ import dynamicrefactoring.util.io.FileManager;
 public class RefactoringPlanReader {
 	
 	/**
-	 * Permite obtener el conjunto de refactorizaciones dinámicas que actualmente forman el plan
-	 * de refactorización. 
+	 * Permite obtener el conjunto de refactorizaciones dinï¿½micas que actualmente forman el plan
+	 * de refactorizaciï¿½n. 
 	 * 
 	 * @param path ruta del fichero que contiene el plan de refactorizaciones.
 	 * @return Conjunto de los nombres de las refactorizaciones del plan.
@@ -75,8 +75,8 @@ public class RefactoringPlanReader {
 	}
 	
 	/**
-	 * Permite obtener el conjunto de refactorizaciones dinámicas que actualmente forman el plan
-	 * de refactorización. 
+	 * Permite obtener el conjunto de refactorizaciones dinï¿½micas que actualmente forman el plan
+	 * de refactorizaciï¿½n. 
 	 * 
 	 * @return Conjunto de los nombres de las refactorizaciones del plan.
 	 * @throws XMLRefactoringReaderException XMLRefactoringReaderException.
@@ -86,12 +86,12 @@ public class RefactoringPlanReader {
 	}
 	
 	/**
-	 * Obtiene el valor de un determinado parámetro de una determinada refactorización.
+	 * Obtiene el valor de un determinado parï¿½metro de una determinada refactorizaciï¿½n.
 	 * 
-	 * @param refactoringName nombre de la refactorización.
-	 * @param inputName nombre del parámetro.
+	 * @param refactoringName nombre de la refactorizaciï¿½n.
+	 * @param inputName nombre del parï¿½metro.
 	 * @param path fichero xml donde esta almacenado el plan
-	 * @return valor del parámetro
+	 * @return valor del parï¿½metro
 	 * @throws XMLRefactoringReaderException XMLRefactoringReaderException
 	 */
 	public static String getInputValue(String refactoringName,String inputName, String path)throws XMLRefactoringReaderException {

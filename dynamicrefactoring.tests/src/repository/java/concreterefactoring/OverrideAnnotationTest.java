@@ -24,15 +24,14 @@ package repository.java.concreterefactoring;
 import java.io.File;
 import java.io.IOException;
 
-
 import javamoon.construct.binary.BinaryClassFileException;
 import javamoon.construct.source.SourceLoader;
 import javamoon.core.JavaModel;
 import javamoon.core.JavaName;
-import moon.core.classdef.MethDec;
 import javamoon.core.classdef.JavaClassDef;
 import javamoon.regenerate.Regenerate;
 import javamoon.utils.EclipsePrettyPrinter;
+import moon.core.classdef.MethDec;
 
 import org.junit.Test;
 

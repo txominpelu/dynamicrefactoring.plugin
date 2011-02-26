@@ -20,6 +20,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.*/
 
 package repository.java.concreteaction;
 
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -27,18 +30,16 @@ import javamoon.construct.source.SourceLoader;
 import javamoon.core.JavaModel;
 import javamoon.core.classdef.JavaClassDef;
 import javamoon.core.classdef.JavaImport;
-
 import moon.core.MoonFactory;
-import moon.core.classdef.*;
+import moon.core.classdef.ClassDef;
 
-import static org.junit.Assert.*;
-import org.junit.Test; 
+import org.junit.Test;
 
 import repository.RefactoringTemplateAbstractTest;
 import repository.moon.MOONRefactoring;
 
 /** 
- * Comprueba que funciona correctamente la acción que añade las importaciones
+ * Comprueba que funciona correctamente la acciï¿½n que aï¿½ade las importaciones
  * correspondientes a JUnit4 a una clase.
  * 
  * @author <A HREF="mailto:sfd0009@alu.ubu.es">Sonia Fuente de la Fuente</A>
@@ -47,10 +48,10 @@ import repository.moon.MOONRefactoring;
 public class TestAddJUnit4Imports extends RefactoringTemplateAbstractTest {
 
 	/** 
-	 * Comprueba que la acción añade correctamente todas las cláusulas de 
-	 * importación esperadas.
+	 * Comprueba que la acciï¿½n aï¿½ade correctamente todas las clï¿½usulas de 
+	 * importaciï¿½n esperadas.
 	 * 
-	 * @throws Exception si se produce un error durante la ejecución de la prueba.
+	 * @throws Exception si se produce un error durante la ejecuciï¿½n de la prueba.
 	 */
 	@Test
 	public void testAddImports() throws Exception{
@@ -79,32 +80,32 @@ public class TestAddJUnit4Imports extends RefactoringTemplateAbstractTest {
 		types.add("org.junit.Assert.fail"); //$NON-NLS-1$
 		types.add("junit.framework.TestCase"); //$NON-NLS-1$
 		
-		assertEquals("Test añadir importaciones JUnit4: " + //$NON-NLS-1$
-			"no se añadió el número de importaciones esperado", 8, imports.size()); //$NON-NLS-1$
+		assertEquals("Test aï¿½adir importaciones JUnit4: " + //$NON-NLS-1$
+			"no se aï¿½adiï¿½ el nï¿½mero de importaciones esperado", 8, imports.size()); //$NON-NLS-1$
 		for (JavaImport i : imports){
 			if (i.getType() != null)
 				if (i.hasPropertyName()){
-					assertTrue("Test añadir importaciones JUnit4: " + //$NON-NLS-1$
-							"se añadió un tipo no esperado.",  //$NON-NLS-1$
+					assertTrue("Test aï¿½adir importaciones JUnit4: " + //$NON-NLS-1$
+							"se aï¿½adiï¿½ un tipo no esperado.",  //$NON-NLS-1$
 							types.contains(i.getType().getUniqueName().toString() + "." + i.getPropertyName().toString()));
 				}else{
-					assertTrue("Test añadir importaciones JUnit4: " + //$NON-NLS-1$
-							"se añadió un tipo no esperado.",  //$NON-NLS-1$
+					assertTrue("Test aï¿½adir importaciones JUnit4: " + //$NON-NLS-1$
+							"se aï¿½adiï¿½ un tipo no esperado.",  //$NON-NLS-1$
 							types.contains(i.getType().getUniqueName().toString()));
 
 				}
 			else
-				assertTrue("Test añadir importacines JUnit4: " + //$NON-NLS-1$
-					"se añadió un tipo no esperado.", //$NON-NLS-1$
+				assertTrue("Test aï¿½adir importacines JUnit4: " + //$NON-NLS-1$
+					"se aï¿½adiï¿½ un tipo no esperado.", //$NON-NLS-1$
 					types.contains(i.getUniqueName().toString()));
 		}		
 	}
 	
 	/** 
-	 * Comprueba que la acción deshace correctamente la adición de todas las 
-	 * cláusulas de importación esperadas.
+	 * Comprueba que la acciï¿½n deshace correctamente la adiciï¿½n de todas las 
+	 * clï¿½usulas de importaciï¿½n esperadas.
 	 * 
-	 * @throws Exception si se produce un error durante la ejecución de la prueba.
+	 * @throws Exception si se produce un error durante la ejecuciï¿½n de la prueba.
 	 */
 	@Test
 	public void testUndo() throws Exception{
@@ -127,15 +128,15 @@ public class TestAddJUnit4Imports extends RefactoringTemplateAbstractTest {
 		List<String> types = new ArrayList<String>();
 		types.add("junit.framework.TestCase"); //$NON-NLS-1$
 		
-		assertEquals("Test deshacer añadir importaciones JUnit4: " + //$NON-NLS-1$
+		assertEquals("Test deshacer aï¿½adir importaciones JUnit4: " + //$NON-NLS-1$
 			"no se eliminaron las importaciones.", 1, imports.size()); //$NON-NLS-1$
 		for (JavaImport i : imports){
 			if (i.getType() != null)
-				assertTrue("Test deshacer añadir importaciones JUnit4: " + //$NON-NLS-1$
+				assertTrue("Test deshacer aï¿½adir importaciones JUnit4: " + //$NON-NLS-1$
 					"se mantuvo un tipo no esperado.",  //$NON-NLS-1$
 					types.contains(i.getType().getUniqueName().toString()));
 			else
-				assertTrue("Test deshacer añadir importacines JUnit4: " + //$NON-NLS-1$
+				assertTrue("Test deshacer aï¿½adir importacines JUnit4: " + //$NON-NLS-1$
 					"se mantuvo un tipo no esperado.", //$NON-NLS-1$
 					types.contains(i.getUniqueName().toString()));
 		}		

@@ -20,44 +20,43 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.*/
 
 package dynamicrefactoring.util;
 
-import dynamicrefactoring.RefactoringConstants;
-
 import java.io.File;
 import java.io.IOException;
-
 import java.util.Enumeration;
 import java.util.Vector;
 import java.util.jar.JarEntry;
 import java.util.jar.JarFile;
 
+import dynamicrefactoring.RefactoringConstants;
+
 /**
  * Obtiene las clases de MOON disponibles.
  *
- * @author <A HREF="mailto:alc0022@alu.ubu.es">Ángel López Campo</A>
- * @author <A HREF="mailto:epf0006@alu.ubu.es">Eduardo Peña Fernández</A>
+ * @author <A HREF="mailto:alc0022@alu.ubu.es">ï¿½ngel Lï¿½pez Campo</A>
+ * @author <A HREF="mailto:epf0006@alu.ubu.es">Eduardo Peï¿½a Fernï¿½ndez</A>
  * @author <A HREF="mailto:sfd0009@alu.ubu.es">Sonia Fuente de la Fuente</A>
  * @author <A HREF="mailto:ehp0001@alu.ubu.es">Enrique Herrero Paredes</A>
  */
 public class MOONTypeLister {
 
 	/**
-	 * La instancia única de la clase.
+	 * La instancia ï¿½nica de la clase.
 	 * 
-	 * Patrón de diseño Singleton.
+	 * Patrï¿½n de diseï¿½o Singleton.
 	 */
 	private static MOONTypeLister instance;
 	
 	/**
 	 * Constructor.
 	 * 
-	 * Patrón de diseño Singleton.
+	 * Patrï¿½n de diseï¿½o Singleton.
 	 */
 	private MOONTypeLister() {}
 		
 	/**
-	 * Devuelve la instancia única de la clase.
+	 * Devuelve la instancia ï¿½nica de la clase.
 	 * 
-	 * @return la instancia única de la clase.
+	 * @return la instancia ï¿½nica de la clase.
 	 */
 	public static MOONTypeLister getInstance() {		
 		if(instance == null)
@@ -66,20 +65,20 @@ public class MOONTypeLister {
 	}	
 	
 	/**
-	 * Obtiene la lista de clases MOON y de su extensión para Java.
+	 * Obtiene la lista de clases MOON y de su extensiï¿½n para Java.
 	 * 
 	 * @return un array con los nombres de las clases.
 	 * 
-	 * @throws IOException cuando no existe el fichero del núcleo de MOON o de la
-	 * extensión JavaMOON.
+	 * @throws IOException cuando no existe el fichero del nï¿½cleo de MOON o de la
+	 * extensiï¿½n JavaMOON.
 	 */
     public String[] getTypeNameList() throws IOException {
 
     	Vector<String> files = new Vector<String>();
     	
-    	// Biblioteca con el núcleo de MOON.
+    	// Biblioteca con el nï¿½cleo de MOON.
         addLibraryTypes(RefactoringConstants.MOONCORE_DIR, files);
-        // Biblioteca con la extensión para Java de MOON.
+        // Biblioteca con la extensiï¿½n para Java de MOON.
         addLibraryTypes(RefactoringConstants.JAVAEXTENSION_DIR, files);
         
         String[] retorno = new String[files.size()];
@@ -90,13 +89,13 @@ public class MOONTypeLister {
     }
     
     /**
-     * Añade a una colección las clases encontradas en una biblioteca <i>JAR</i>
-     * que pertenezcan a uno de los paquetes del núcleo de MOON o de JavaMOON
+     * Aï¿½ade a una colecciï¿½n las clases encontradas en una biblioteca <i>JAR</i>
+     * que pertenezcan a uno de los paquetes del nï¿½cleo de MOON o de JavaMOON
      * <code>moon.core.classdef</code>, <code>moon.core.genericity</code> o
      * <code>javamoon.core</code>.
      * 
      * @param library biblioteca <i>JAR</i> en que buscar nuevas clases.
-     * @param collection colección a la que se añaden las clases encontradas.
+     * @param collection colecciï¿½n a la que se aï¿½aden las clases encontradas.
      * 
      * @throws IOException si no se encuentra o no existe el fichero <code>.jar
      * </code> de la biblioteca.

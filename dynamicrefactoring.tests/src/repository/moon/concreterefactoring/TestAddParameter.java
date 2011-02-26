@@ -35,7 +35,6 @@ import moon.core.classdef.FormalArgument;
 import moon.core.classdef.MethDec;
 import moon.core.classdef.Type;
 import moon.core.instruction.CallInstr;
-import moon.core.instruction.CompoundInstr;
 import moon.core.instruction.Instr;
 
 import org.junit.Test;

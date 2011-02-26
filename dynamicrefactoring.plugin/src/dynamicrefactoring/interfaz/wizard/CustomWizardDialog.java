@@ -20,17 +20,13 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.*/
 
 package dynamicrefactoring.interfaz.wizard;
 
-import dynamicrefactoring.RefactoringImages;
-import dynamicrefactoring.RefactoringPlugin;
-import dynamicrefactoring.interfaz.ButtonTextProvider;
-
 import org.eclipse.jface.dialogs.IDialogConstants;
 import org.eclipse.jface.wizard.WizardDialog;
-
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Shell;
 
-import com.swtdesigner.ResourceManager;
+import dynamicrefactoring.RefactoringImages;
+import dynamicrefactoring.interfaz.ButtonTextProvider;
 
 /**
  * Proporciona una especializaci�n del di�logo de asistente de Eclipse.

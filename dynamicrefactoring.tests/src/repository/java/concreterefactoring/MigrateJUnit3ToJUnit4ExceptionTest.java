@@ -25,24 +25,17 @@ import java.io.File;
 import java.io.IOException;
 
 import javamoon.construct.binary.BinaryClassFileException;
-
 import javamoon.construct.source.SourceLoader;
 import javamoon.core.JavaModel;
 import javamoon.core.JavaName;
 import javamoon.core.classdef.JavaClassDef;
 import javamoon.regenerate.Regenerate;
 import javamoon.utils.EclipsePrettyPrinter;
-
 import junit.framework.TestSuite;
-
 import moon.core.classdef.MethDec;
-
-
 import refactoring.engine.PostconditionException;
 import refactoring.engine.PreconditionException;
 import refactoring.engine.Refactoring;
-
-import repository.java.concreterefactoring.MigrateJUnit3ToJUnit4TestException;
 
 /**
  * Tests the refactoring that migrates fromo JUnit 3 exception test

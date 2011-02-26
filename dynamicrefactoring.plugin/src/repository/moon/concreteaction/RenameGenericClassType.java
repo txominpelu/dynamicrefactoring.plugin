@@ -23,44 +23,42 @@ package repository.moon.concreteaction;
 import java.util.ArrayList;
 import java.util.Collection;
 
-
 import moon.core.Name;
 import moon.core.classdef.ClassDef;
 import moon.core.classdef.ClassType;
 import moon.core.classdef.Type;
-
 import refactoring.engine.Action;
 import repository.RelayListenerRegistry;
 import repository.moon.MOONRefactoring;
 
 /**
- * Permite renombrar el tipo de objetos definido por las clases genéricas de 
+ * Permite renombrar el tipo de objetos definido por las clases genï¿½ricas de 
  * una clase.
  *
  * @author <A HREF="mailto:ehp0001@alu.ubu.es">Enrique Herrero Paredes</A>
- * @author <A HREF="mailto:alc0022@alu.ubu.es">Ángel López Campo</A>
+ * @author <A HREF="mailto:alc0022@alu.ubu.es">ï¿½ngel Lï¿½pez Campo</A>
  * @author <A HREF="mailto:sfd0009@alu.ubu.es">Sonia Fuente de la Fuente</A>
  */ 
 public class RenameGenericClassType extends Action {
 
 	/**
 	 * Las acciones auxiliares utilizadas para el renombrado
-	 * en las clases genéricas.
+	 * en las clases genï¿½ricas.
 	 */
 	private ArrayList<Action> actions;
 	
 	/**
-	 * La clase cuyos tipos genéricos deben renombrarse.
+	 * La clase cuyos tipos genï¿½ricos deben renombrarse.
 	 */
 	private ClassDef classDef;
 	
 	/**
-	 * El nuevo nombre que debe asignarse a los tipos genéricos de la clase.
+	 * El nuevo nombre que debe asignarse a los tipos genï¿½ricos de la clase.
 	 */
 	private Name newName;
 	
 	/**
-	 * Receptor de los mensajes enviados por la acción concreta.
+	 * Receptor de los mensajes enviados por la acciï¿½n concreta.
 	 */
 	private RelayListenerRegistry listenerReg;
 	
@@ -69,7 +67,7 @@ public class RenameGenericClassType extends Action {
 	 *
 	 * Obtiene una nueva instancia de <code>RenameGenericClassType</code>.
 	 *
-	 * @param classDef la clase cuyos tipos genéricos se deben renombrar.
+	 * @param classDef la clase cuyos tipos genï¿½ricos se deben renombrar.
 	 * @param newName el nuevo que debe darse a los tipos renombrados.
 	 */	
 	public RenameGenericClassType(ClassDef classDef, Name newName){

@@ -21,49 +21,44 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.*/
 package repository.moon.concretepredicate;
 
 
-import java.util.*;
-
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.List;
 
 import javamoon.core.expression.JavaCallExpr;
-
 import moon.core.classdef.ClassDef;
 import moon.core.classdef.MethDec;
-
 import moon.core.entity.FunctionDec;
 import moon.core.entity.Result;
-
 import moon.core.expression.CallExpr;
 import moon.core.expression.Expr;
-import moon.core.expression.Expr;
-
 import moon.core.instruction.AssignmentInstr;
 import moon.core.instruction.CallInstr;
 import moon.core.instruction.Instr;
-
 import refactoring.engine.Predicate;
 import repository.moon.MOONRefactoring;
 import repository.moon.RepositoryUtils;
 import repository.moon.concretefunction.MethodInstructionsCollector;
 
 /**
- * Permite verificar que no existen llamadas a un determinado método en ninguna
+ * Permite verificar que no existen llamadas a un determinado mï¿½todo en ninguna
  * clase de un modelo MOON-Java.
  *
  * @author <A HREF="mailto:ehp0001@alu.ubu.es">Enrique Herrero Paredes</A>
- * @author <A HREF="mailto:alc0022@alu.ubu.es">Ángel López Campo</A>
+ * @author <A HREF="mailto:alc0022@alu.ubu.es">ï¿½ngel Lï¿½pez Campo</A>
  * @author <A HREF="mailto:sfd0009@alu.ubu.es">Sonia Fuente de la Fuente</A>
  */ 
 public class NotExistsCallToThisMethod extends Predicate {
 	
 	/**
-	 * El método cuyas llamadas se buscan.
+	 * El mï¿½todo cuyas llamadas se buscan.
 	 */
 	private MethDec method;
 	
 	/**
 	 * Identificadores de las expresiones ya analizadas, para evitar bucles debidos
 	 * a la posiblidad de que <code>leftSide</code> o <code>rightSide</code> apunten
-	 * a su vez a la expresión original.
+	 * a su vez a la expresiï¿½n original.
 	 */
 	private ArrayList<Integer> exprIds;
 		
@@ -72,7 +67,7 @@ public class NotExistsCallToThisMethod extends Predicate {
 	 *
 	 * Obtiene una nueva instancia de NotExistsCallToThisMethod.
 	 *
-	 * @param method el método cuyas llamadas se buscan.
+	 * @param method el mï¿½todo cuyas llamadas se buscan.
 	 */
 	public NotExistsCallToThisMethod(MethDec method) {
 		
@@ -88,7 +83,7 @@ public class NotExistsCallToThisMethod extends Predicate {
 	/**
 	 * Comprueba el valor de verdad del predicado.
 	 * 
-	 * @return <code>true</code> si no existen llamadas al método en todo el 
+	 * @return <code>true</code> si no existen llamadas al mï¿½todo en todo el 
 	 * modelo; <code>false</code>, en caso contrario.
 	 */	 
 	@Override
@@ -131,13 +126,13 @@ public class NotExistsCallToThisMethod extends Predicate {
 	}
 	
 	/**
-	 * Comprueba que una expresión de llamada de longitud uno no contiene una
-	 * llamada al método especificado.
+	 * Comprueba que una expresiï¿½n de llamada de longitud uno no contiene una
+	 * llamada al mï¿½todo especificado.
 	 *
-	 * @param exp la expresión de llamada de longitud uno.
+	 * @param exp la expresiï¿½n de llamada de longitud uno.
 	 *
-	 * @return <code>true</code> si la expresión no contiene ninguna llamada al
-	 * método; <code>false</code> en caso contrario.
+	 * @return <code>true</code> si la expresiï¿½n no contiene ninguna llamada al
+	 * mï¿½todo; <code>false</code> en caso contrario.
 	 */
 	private boolean checkCallExpr(CallExpr exp){
 		
@@ -179,14 +174,14 @@ public class NotExistsCallToThisMethod extends Predicate {
 	}
 
 	/**
-	 * Comprueba que una expresión no contiene una llamada al método 
+	 * Comprueba que una expresiï¿½n no contiene una llamada al mï¿½todo 
 	 * especificado.
 	 * 
-	 * @param expr la expresión en la que se estudia la posible presencia de 
-	 * llamadas al método.
+	 * @param expr la expresiï¿½n en la que se estudia la posible presencia de 
+	 * llamadas al mï¿½todo.
 	 * 
-	 * @return <code>true</code> si la expresión no contiene ninguna llamada al
-	 * método especificado; <code>false</code> en caso contrario.
+	 * @return <code>true</code> si la expresiï¿½n no contiene ninguna llamada al
+	 * mï¿½todo especificado; <code>false</code> en caso contrario.
 	 */
 	private boolean checkExpr(Expr expr){
 		if (expr instanceof CallExpr)
@@ -196,13 +191,13 @@ public class NotExistsCallToThisMethod extends Predicate {
 	}
 	
 	/**
-	 * Comprueba que una instrucción de llamada de longitud uno no contiene una
-	 * llamada al método especificado.
+	 * Comprueba que una instrucciï¿½n de llamada de longitud uno no contiene una
+	 * llamada al mï¿½todo especificado.
 	 *
-	 * @param instr la instrucción de llamada de longitud uno.
+	 * @param instr la instrucciï¿½n de llamada de longitud uno.
 	 *
-	 * @return <code>true</code> si la instrucción no contiene ninguna llamada 
-	 * al método; <code>false</code> en caso contrario.
+	 * @return <code>true</code> si la instrucciï¿½n no contiene ninguna llamada 
+	 * al mï¿½todo; <code>false</code> en caso contrario.
 	 */
 	private boolean checkCallInstr(CallInstr instr){
 		

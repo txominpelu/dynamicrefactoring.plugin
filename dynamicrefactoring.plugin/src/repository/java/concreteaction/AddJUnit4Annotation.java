@@ -23,14 +23,14 @@ package repository.java.concreteaction;
 import java.util.ArrayList;
 import java.util.List;
 
-import moon.core.classdef.ClassDef;
-import moon.core.classdef.MethDec;
 import javamoon.core.JavaName;
 import javamoon.core.classdef.JavaClassDef;
 import javamoon.core.classdef.JavaType;
 import javamoon.core.entity.JavaAnnotationReference;
 import javamoon.core.entity.JavaFunctionDec;
 import javamoon.core.entity.JavaRoutineDec;
+import moon.core.classdef.ClassDef;
+import moon.core.classdef.MethDec;
 import refactoring.engine.Action;
 import repository.moon.MOONRefactoring;
 
@@ -38,7 +38,7 @@ import repository.moon.MOONRefactoring;
  * Adds the JUnit4 annotations. For example, @Test,
  * @Before and @After depending on the name convention.
  * 
- * @author Raúl Marticorena
+ * @author Raï¿½l Marticorena
  *
  */
 public class AddJUnit4Annotation extends Action{
@@ -66,7 +66,7 @@ public class AddJUnit4Annotation extends Action{
 	/**
 	 * Constructor.
 	 * 
-	 * @param jcd Clase en la que se añadirá la anotación.
+	 * @param jcd Clase en la que se aï¿½adirï¿½ la anotaciï¿½n.
 	 */
 	public AddJUnit4Annotation(ClassDef jcd){
 		this.javaClassDef = (JavaClassDef) jcd;

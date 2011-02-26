@@ -20,22 +20,21 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.*/
 
 package repository.moon.concretepredicate;
 
+import static org.junit.Assert.assertFalse;
 import javamoon.construct.source.SourceLoader;
 import javamoon.core.JavaModel;
-
 import moon.core.MoonFactory;
-import moon.core.classdef.*;
+import moon.core.classdef.ClassDef;
+import moon.core.classdef.MethDec;
 
-import static org.junit.Assert.*;
-
-import org.junit.Test; 
+import org.junit.Test;
 
 import repository.RefactoringTemplateAbstractTest;
 import repository.moon.MOONRefactoring;
 
 /** 
  * Comprueba que funciona correctamente el predicado que comprueba que no existan
- * llamadas a un determinado método.
+ * llamadas a un determinado mï¿½todo.
  * 
  * @author <A HREF="mailto:sfd0009@alu.ubu.es">Sonia Fuente de la Fuente</A>
  * @author <A HREF="mailto:ehp0001@alu.ubu.es">Enrique Herrero Paredes</A>
@@ -44,10 +43,10 @@ public class TestNotExistsCallToMethod extends RefactoringTemplateAbstractTest {
 
 	/**
 	 * Comprueba que el predicado funciona correctamente cuando existen
-	 * llamadas al método dentro de distintos tipos de instrucciones y 
+	 * llamadas al mï¿½todo dentro de distintos tipos de instrucciones y 
 	 * expresiones.
 	 * 
-	 * @throws Exception si se produce un error durante la ejecución de la prueba.
+	 * @throws Exception si se produce un error durante la ejecuciï¿½n de la prueba.
 	 */
 	@Test
 	public void testCallExistToMethodA() throws Exception{
@@ -65,16 +64,16 @@ public class TestNotExistsCallToMethod extends RefactoringTemplateAbstractTest {
 		NotExistsCallToThisMethod predicate = new NotExistsCallToThisMethod(method);
 				
 		// Comienzan las comprobaciones
-		assertFalse("Comprobar llamadas a un método: no se han detectado " + //$NON-NLS-1$
-			"las llamadas existentes a un método.", predicate.isValid()); //$NON-NLS-1$
+		assertFalse("Comprobar llamadas a un mï¿½todo: no se han detectado " + //$NON-NLS-1$
+			"las llamadas existentes a un mï¿½todo.", predicate.isValid()); //$NON-NLS-1$
 	}
 
 	/**
 	 * Comprueba que el predicado funciona correctamente cuando existen
-	 * llamadas al método dentro de distintos tipos de instrucciones y 
+	 * llamadas al mï¿½todo dentro de distintos tipos de instrucciones y 
 	 * expresiones.
 	 * 
-	 * @throws Exception si se produce un error durante la ejecución de la prueba.
+	 * @throws Exception si se produce un error durante la ejecuciï¿½n de la prueba.
 	 */
 	@Test
 	public void testCallExistToMethodC() throws Exception {
@@ -93,16 +92,16 @@ public class TestNotExistsCallToMethod extends RefactoringTemplateAbstractTest {
 		NotExistsCallToThisMethod predicate = new NotExistsCallToThisMethod(method);
 				
 		// Comienzan las comprobaciones
-		assertFalse("Comprobar llamadas a un método: no se han detectado " + //$NON-NLS-1$
-			"las llamadas existentes a un método.", predicate.isValid()); //$NON-NLS-1$
+		assertFalse("Comprobar llamadas a un mï¿½todo: no se han detectado " + //$NON-NLS-1$
+			"las llamadas existentes a un mï¿½todo.", predicate.isValid()); //$NON-NLS-1$
 	}
 
 	/**
 	 * Comprueba que el predicado funciona correctamente cuando existen
-	 * llamadas al método dentro de distintos tipos de instrucciones y 
+	 * llamadas al mï¿½todo dentro de distintos tipos de instrucciones y 
 	 * expresiones.
 	 * 
-	 * @throws Exception si se produce un error durante la ejecución de la prueba.
+	 * @throws Exception si se produce un error durante la ejecuciï¿½n de la prueba.
 	 */
 	@Test
 	public void testCallExistToMethodB() throws Exception {
@@ -121,7 +120,7 @@ public class TestNotExistsCallToMethod extends RefactoringTemplateAbstractTest {
 		NotExistsCallToThisMethod predicate = new NotExistsCallToThisMethod(method);
 
 		// Comienzan las comprobaciones
-		assertFalse("Comprobar llamadas a un método: no se han detectado " + //$NON-NLS-1$
-				"las llamadas existentes a un método.", predicate.isValid()); //$NON-NLS-1$
+		assertFalse("Comprobar llamadas a un mï¿½todo: no se han detectado " + //$NON-NLS-1$
+				"las llamadas existentes a un mï¿½todo.", predicate.isValid()); //$NON-NLS-1$
 	}
 }

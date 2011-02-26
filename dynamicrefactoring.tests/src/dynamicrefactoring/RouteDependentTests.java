@@ -5,7 +5,6 @@ import org.junit.runners.Suite;
 
 import repository.java.concreterefactoring.ExtractMethodTest;
 import repository.java.concreterefactoring.ExtractMethodWithGenericsTest;
-
 import dynamicrefactoring.domain.TestExport;
 import dynamicrefactoring.domain.TestImport;
 import dynamicrefactoring.writer.TestAvailableRefactoringsWriter;

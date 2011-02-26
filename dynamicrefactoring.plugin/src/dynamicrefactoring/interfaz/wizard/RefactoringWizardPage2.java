@@ -55,7 +55,6 @@ import org.eclipse.ui.ISharedImages;
 import org.eclipse.ui.PlatformUI;
 
 import com.google.common.base.Throwables;
-import com.swtdesigner.ResourceManager;
 
 import dynamicrefactoring.RefactoringConstants;
 import dynamicrefactoring.RefactoringImages;

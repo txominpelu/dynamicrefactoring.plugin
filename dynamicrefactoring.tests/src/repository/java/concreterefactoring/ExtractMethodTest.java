@@ -2,6 +2,7 @@ package repository.java.concreterefactoring;
 
 
 import java.io.File;
+
 import javamoon.construct.source.SourceLoader;
 import javamoon.core.JavaModel;
 import javamoon.core.JavaName;
@@ -15,8 +16,6 @@ import moon.core.instruction.CodeFragment;
 import org.junit.Test;
 
 import refactoring.engine.PreconditionException;
-//import repository.RefactoringTemplateAbstractTest;
-import repository.java.concreterefactoring.RefactoringTemplateAbstractTest;
 import repository.moon.MOONRefactoring;
 import repository.moon.concreterefactoring.ExtractMethod;
 
@@ -57,7 +56,7 @@ public class ExtractMethodTest extends RefactoringTemplateAbstractTest{
 	/**
 	 * Extract method with return instruction.
 	 *    
-	 * @throws Exception si se produce un error durante la ejecución de la prueba.
+	 * @throws Exception si se produce un error durante la ejecuciï¿½n de la prueba.
 	 */
 	@Test
 	public void testExtractMethodWithReturn() throws Exception{
@@ -255,13 +254,13 @@ public class ExtractMethodTest extends RefactoringTemplateAbstractTest{
 
 	
 	/**
-	 * Ejecuta la refactorización sobre un caso determinado.
+	 * Ejecuta la refactorizaciï¿½n sobre un caso determinado.
 	 * 
 	 * @param dir directorio sobre el que se encuentra el caso a probar.
 	 * @param paquete paquete java de la clase sobre la que se esta probando 
-	 * 		  la refactorización.
-	 * @throws Exception Excepción en caso de haber algún problema durante
-	 * la ejecución de la refactorización.
+	 * 		  la refactorizaciï¿½n.
+	 * @throws Exception Excepciï¿½n en caso de haber algï¿½n problema durante
+	 * la ejecuciï¿½n de la refactorizaciï¿½n.
 	 */
 	private void check(String dir, String paquete, String nombreClase, Fragmento fragmento) throws PreconditionException,Exception{
 		SourceLoader sourceLoader = new SourceLoader();

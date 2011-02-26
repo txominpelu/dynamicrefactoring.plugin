@@ -22,25 +22,24 @@ package repository.java.concretepredicate;
 
 import java.util.List;
 
-import moon.core.classdef.AttDec;
-import moon.core.classdef.MethDec;
 import javamoon.core.ModifierSet;
 import javamoon.core.classdef.JavaClassDef;
-
 import javamoon.core.entity.JavaAttDec;
+import moon.core.classdef.AttDec;
+import moon.core.classdef.MethDec;
 import refactoring.engine.Predicate;
 
 /**
- * Compueba que los atributos que pasarán a ser constantes en el tipo enumerado 
- * están antes que el resto de los métodos y atributos.
+ * Compueba que los atributos que pasarï¿½n a ser constantes en el tipo enumerado 
+ * estï¿½n antes que el resto de los mï¿½todos y atributos.
  *
  * @author <A HREF="mailto:lfd0002@alu.ubu.es">LauraFuente de la Fuente</A>
  */ 
 public class EnumConstantsBeforeProperties extends Predicate {
 	
 	/**
-	 * Nombre de la clase sobre la que se quiere comprobar que los atributos que pasarán a 
-	 * ser constantes en el tipo enumerado están antes que el resto de los métodos y atributos.
+	 * Nombre de la clase sobre la que se quiere comprobar que los atributos que pasarï¿½n a 
+	 * ser constantes en el tipo enumerado estï¿½n antes que el resto de los mï¿½todos y atributos.
 	 */
 	private JavaClassDef clase;
 	
@@ -49,8 +48,8 @@ public class EnumConstantsBeforeProperties extends Predicate {
 	 *
 	 * Obtiene una nueva instancia del predicado EnumConstantsBeforeOthers.
 	 *
-	 * @param clase Clase sobre la que se quiere comprobar que los atributos que pasarán a 
-	 * ser constantes en el tipo enumerado están antes que el resto de los métodos y atributos.
+	 * @param clase Clase sobre la que se quiere comprobar que los atributos que pasarï¿½n a 
+	 * ser constantes en el tipo enumerado estï¿½n antes que el resto de los mï¿½todos y atributos.
 	 */
 	public EnumConstantsBeforeProperties(JavaClassDef clase) {
 		
@@ -65,13 +64,13 @@ public class EnumConstantsBeforeProperties extends Predicate {
 	/**
 	 * Comprueba el valor de verdad del predicado.
 	 * 
-	 * @return <code>true</code> si las constantes están ordenadas
+	 * @return <code>true</code> si las constantes estï¿½n ordenadas
 	 *  <code>false</code> en caso contrario.
 	 */
 	@Override
 	public boolean isValid() {
 		
-		long maxLineToEnum = 999999999;//valor máximo para long
+		long maxLineToEnum = 999999999;//valor mï¿½ximo para long
 		
 		List<AttDec> attributes = clase.getAttributes();
 		for(int i=0; i<attributes.size(); i++){

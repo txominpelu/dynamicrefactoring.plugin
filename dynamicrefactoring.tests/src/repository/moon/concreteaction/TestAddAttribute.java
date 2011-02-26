@@ -20,18 +20,18 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.*/
 
 package repository.moon.concreteaction;
 
+import static org.junit.Assert.assertEquals;
 import javamoon.construct.source.SourceLoader;
 import javamoon.core.JavaModel;
-import moon.core.classdef.*;
+import moon.core.classdef.AttDec;
+import moon.core.classdef.ClassDef;
 
-import static org.junit.Assert.*;
-
-import org.junit.Test; 
+import org.junit.Test;
 
 import repository.RefactoringTemplateAbstractTest;
 
 /** 
- * Comprueba que funciona correctamente la acción que añade un atributo a una clase. <p>
+ * Comprueba que funciona correctamente la acciï¿½n que aï¿½ade un atributo a una clase. <p>
  * 
  * @author <A HREF="mailto:sfd0009@alu.ubu.es">Sonia Fuente de la Fuente</A>
  * @author <A HREF="mailto:ehp0001@alu.ubu.es">Enrique Herrero Paredes</A>
@@ -39,10 +39,10 @@ import repository.RefactoringTemplateAbstractTest;
 public class TestAddAttribute extends RefactoringTemplateAbstractTest {
 
 	/** 
-	 * Comprueba que la acción funciona correctamente al añadir un atributo a una 
-	 * clase y deshacer después la operación. <p>
+	 * Comprueba que la acciï¿½n funciona correctamente al aï¿½adir un atributo a una 
+	 * clase y deshacer despuï¿½s la operaciï¿½n. <p>
 	 * 
-	 * @throws Exception si se produce un error durante la ejecución de la prueba.
+	 * @throws Exception si se produce un error durante la ejecuciï¿½n de la prueba.
 	 */
 	@Test
 	public void testUndo() throws Exception{

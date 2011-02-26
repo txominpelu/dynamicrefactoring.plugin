@@ -20,20 +20,20 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.*/
 
 package repository.moon.concreteaction;
 
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
 import javamoon.construct.source.SourceLoader;
 import javamoon.core.JavaModel;
-
 import moon.core.MoonFactory;
-import moon.core.classdef.*;
+import moon.core.classdef.AttDec;
+import moon.core.classdef.ClassDef;
 
-import static org.junit.Assert.*;
-
-import org.junit.Test; 
+import org.junit.Test;
 
 import repository.RefactoringTemplateAbstractTest;
 
 /** 
- * Comprueba que funciona correctamente la acción que eliminar un atributo 
+ * Comprueba que funciona correctamente la acciï¿½n que eliminar un atributo 
  * de una clase. <p>
  * 
  * @author <A HREF="mailto:sfd0009@alu.ubu.es">Sonia Fuente de la Fuente</A>
@@ -42,13 +42,13 @@ import repository.RefactoringTemplateAbstractTest;
 public class TestRemoveAttribute extends RefactoringTemplateAbstractTest {
 
 	/** 
-	 * Comprueba que la acción funciona correctamente al eliminar un atributo de 
-	 * una clase y deshacer después la operación.<p>
+	 * Comprueba que la acciï¿½n funciona correctamente al eliminar un atributo de 
+	 * una clase y deshacer despuï¿½s la operaciï¿½n.<p>
 	 * 
-	 * En una clase simple con un único atributo, elimina el atributo y después
-	 * deshace la eliminación.
+	 * En una clase simple con un ï¿½nico atributo, elimina el atributo y despuï¿½s
+	 * deshace la eliminaciï¿½n.
 	 * 
-	 * @throws Exception si se produce un error durante la ejecución de la prueba.
+	 * @throws Exception si se produce un error durante la ejecuciï¿½n de la prueba.
 	 */
 	@Test
 	public void testUndo() throws Exception{
@@ -67,16 +67,16 @@ public class TestRemoveAttribute extends RefactoringTemplateAbstractTest {
 		action.undo();
 
 		// Comienzan las comprobaciones
-		assertEquals("Deshacer eliminación de atributo: la clase no ha recuperado " + //$NON-NLS-1$
-			"el atributo único al deshacer.", 1, classdef.getAttributes().size()); //$NON-NLS-1$
+		assertEquals("Deshacer eliminaciï¿½n de atributo: la clase no ha recuperado " + //$NON-NLS-1$
+			"el atributo ï¿½nico al deshacer.", 1, classdef.getAttributes().size()); //$NON-NLS-1$
 		
 		AttDec recovered = classdef.getAttributes().get(0);
-		assertNotNull("Deshacer eliminación de atributo: el atributo no se " + //$NON-NLS-1$
+		assertNotNull("Deshacer eliminaciï¿½n de atributo: el atributo no se " + //$NON-NLS-1$
 			"ha recuperado.", recovered); //$NON-NLS-1$
-		assertEquals("Deshacer eliminación de atributo: el tipo del atributo " + //$NON-NLS-1$
+		assertEquals("Deshacer eliminaciï¿½n de atributo: el tipo del atributo " + //$NON-NLS-1$
 			"recuperado no es el correcto.", classdef.getClassType().getUniqueName(),  //$NON-NLS-1$
 			recovered.getType().getUniqueName());
-		assertEquals("Deshacer eliminación de atributo: el nombre del atributo " + //$NON-NLS-1$
+		assertEquals("Deshacer eliminaciï¿½n de atributo: el nombre del atributo " + //$NON-NLS-1$
 			"recuperado no es el original.", "attribute", recovered.getName().toString()); //$NON-NLS-1$ //$NON-NLS-2$
 	}
 }

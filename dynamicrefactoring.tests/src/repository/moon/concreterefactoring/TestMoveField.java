@@ -20,28 +20,29 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.*/
 
 package repository.moon.concreterefactoring;
 
-import java.util.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
+
+import java.util.List;
 
 import javamoon.construct.source.SourceLoader;
 import javamoon.core.JavaModel;
-
 import moon.core.MoonFactory;
-import moon.core.classdef.*;
+import moon.core.classdef.AttDec;
+import moon.core.classdef.ClassDef;
 
-import static org.junit.Assert.*;
-import org.junit.Test; 
+import org.junit.Test;
 
 import refactoring.engine.PreconditionException;
-
 import repository.RefactoringTemplateAbstractTest;
 import repository.moon.MOONRefactoring;
 
 /** 
- * Comprueba que funciona correctamente la refactorización que mueve un atributo
+ * Comprueba que funciona correctamente la refactorizaciï¿½n que mueve un atributo
  * de una clase del modelo a otra.
  * 
- * <p>Indirectamente, se comprueba también la corrección de las funciones,
- * acciones y predicados utilizados por la refactorización.</p>
+ * <p>Indirectamente, se comprueba tambiï¿½n la correcciï¿½n de las funciones,
+ * acciones y predicados utilizados por la refactorizaciï¿½n.</p>
  *
  * @author <A HREF="mailto:sfd0009@alu.ubu.es">Sonia Fuente de la Fuente</A>
  * @author <A HREF="mailto:ehp0001@alu.ubu.es">Enrique Herrero Paredes</A>
@@ -51,13 +52,13 @@ import repository.moon.MOONRefactoring;
 public class TestMoveField extends RefactoringTemplateAbstractTest {
 
 	/** 
-	 * Comprueba que la refactorización funciona correctamente al mover un
+	 * Comprueba que la refactorizaciï¿½n funciona correctamente al mover un
 	 * atributo de una clase a otra en un caso correcto.
 	 * 
 	 * <p>En un modelo con dos clases, se mueve un atributo que cumple todas las
 	 * precondiciones de una clase a la otra.</p>
 	 * 
-	 * @throws Exception si se produce un error durante la ejecución de la prueba.
+	 * @throws Exception si se produce un error durante la ejecuciï¿½n de la prueba.
 	 */
 	@Test
 	public void testSimple() throws Exception{
@@ -83,7 +84,7 @@ public class TestMoveField extends RefactoringTemplateAbstractTest {
 			"atributo de la clase origen.", lAtribute2.isEmpty()); //$NON-NLS-1$
 
 		List <AttDec> lAtribute3= classDest.getAttributes();
-		assertEquals("Test mover atributo simple: no se ha añadido el " + //$NON-NLS-1$
+		assertEquals("Test mover atributo simple: no se ha aï¿½adido el " + //$NON-NLS-1$
 			"atributo a la clase destino.", 1, lAtribute3.size()); //$NON-NLS-1$
 		
 		AttDec atribute3 = lAtribute3.get(0);
@@ -93,12 +94,12 @@ public class TestMoveField extends RefactoringTemplateAbstractTest {
 	}
 
 	/**
-	 * Verifica el funcionamiento de las precondiciones de la refactorización.
+	 * Verifica el funcionamiento de las precondiciones de la refactorizaciï¿½n.
 	 *
-	 * <p>Comprueba que se lanza una excepción cuando se intenta mover un atributo 
+	 * <p>Comprueba que se lanza una excepciï¿½n cuando se intenta mover un atributo 
 	 * a la misma clase que originalmente lo contiene.</p>
 	 * 
-	 * @throws Exception si se produce un error durante la ejecución de la prueba.
+	 * @throws Exception si se produce un error durante la ejecuciï¿½n de la prueba.
 	 */    
 	@Test(expected=PreconditionException.class) 
 	public void testCheckNotEqualClasses() throws Exception{
@@ -119,12 +120,12 @@ public class TestMoveField extends RefactoringTemplateAbstractTest {
 	}
 
 	/**
-	 * Verifica el funcionamiento de las precondiciones de la refactorización.
+	 * Verifica el funcionamiento de las precondiciones de la refactorizaciï¿½n.
 	 *
-	 * <p>Comprueba que se lanza una excepción cuando se intenta mover un atributo 
-	 * que está siendo utilizado en su clase de origen.</p>
+	 * <p>Comprueba que se lanza una excepciï¿½n cuando se intenta mover un atributo 
+	 * que estï¿½ siendo utilizado en su clase de origen.</p>
 	 * 
-	 * @throws Exception si se produce un error durante la ejecución de la prueba.
+	 * @throws Exception si se produce un error durante la ejecuciï¿½n de la prueba.
 	 */  
 	@Test(expected=PreconditionException.class) 
 	public void testCheckAttributeIsNotUsedInClass() throws Exception{
@@ -146,12 +147,12 @@ public class TestMoveField extends RefactoringTemplateAbstractTest {
 	}
 
 	/**
-	 * Verifica el funcionamiento de las precondiciones de la refactorización.
+	 * Verifica el funcionamiento de las precondiciones de la refactorizaciï¿½n.
 	 *
-	 * <p>Comprueba que se lanza una excepción cuando se intenta mover un atributo
-	 * que está siendo utilizado en algún punto del modelo.</p>
+	 * <p>Comprueba que se lanza una excepciï¿½n cuando se intenta mover un atributo
+	 * que estï¿½ siendo utilizado en algï¿½n punto del modelo.</p>
 	 * 
-	 * @throws Exception si se produce un error durante la ejecución de la prueba.
+	 * @throws Exception si se produce un error durante la ejecuciï¿½n de la prueba.
 	 */
 	@Test(expected=PreconditionException.class)
 	public void testAttributeIsNotUsedInModel() throws Exception{
@@ -173,14 +174,14 @@ public class TestMoveField extends RefactoringTemplateAbstractTest {
 	}
 
 	/** 
-	 * Comprueba que funciona correctamente la operación que deshace el
+	 * Comprueba que funciona correctamente la operaciï¿½n que deshace el
 	 * movimiento de un atributo de una clase a otra en un caso correcto
 	 * simple.
 	 * 
 	 * <p>En un modelo con dos clases, se mueve un atributo que cumple todas las
-	 * precondiciones de una clase a la otra y después se deshace el movimiento.</p>
+	 * precondiciones de una clase a la otra y despuï¿½s se deshace el movimiento.</p>
 	 * 
-	 * @throws Exception si se produce un error durante la ejecución de la prueba.
+	 * @throws Exception si se produce un error durante la ejecuciï¿½n de la prueba.
 	 */      
 	@Test
 	public void testUndoSimple() throws Exception{

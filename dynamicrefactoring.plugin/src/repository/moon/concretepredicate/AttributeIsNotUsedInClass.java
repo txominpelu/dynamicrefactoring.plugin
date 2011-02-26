@@ -20,19 +20,18 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.*/
 
 package repository.moon.concretepredicate;
 
-import moon.core.classdef.ClassDef;
 import moon.core.classdef.AttDec;
+import moon.core.classdef.ClassDef;
 import moon.core.classdef.MethDec;
-
 import refactoring.engine.Predicate;
 import repository.moon.concretefunction.MethodCollector;
 
 /**
  * Permite comprobar que un determinado atributo de clase no es utilizado en 
- * ningún punto de la misma.
+ * ningï¿½n punto de la misma.
  *
  * @author <A HREF="mailto:ehp0001@alu.ubu.es">Enrique Herrero Paredes</A>
- * @author <A HREF="mailto:alc0022@alu.ubu.es">Ángel López Campo</A>
+ * @author <A HREF="mailto:alc0022@alu.ubu.es">ï¿½ngel Lï¿½pez Campo</A>
  * @author <A HREF="mailto:sfd0009@alu.ubu.es">Sonia Fuente de la Fuente</A>
  */
 public class AttributeIsNotUsedInClass extends Predicate {
@@ -69,7 +68,7 @@ public class AttributeIsNotUsedInClass extends Predicate {
 	/**
 	 * Comprueba el valor de verdad del predicado.
 	 * 
-	 * @return <code>true</code> si el atributo no se emplea en ningún punto de 
+	 * @return <code>true</code> si el atributo no se emplea en ningï¿½n punto de 
 	 * la clase; <code>false</code> en caso contrario.
 	 */	 
 	public boolean isValid() {		

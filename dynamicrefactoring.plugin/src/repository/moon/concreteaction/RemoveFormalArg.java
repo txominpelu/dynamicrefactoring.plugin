@@ -21,62 +21,67 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.*/
 package repository.moon.concreteaction;
 
 
-import java.util.*;
+import java.util.Collection;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Vector;
 
-import moon.core.classdef.*;
-import moon.core.instruction.Instr;
 import moon.core.Name;
-
+import moon.core.classdef.ClassDef;
+import moon.core.classdef.FormalArgument;
+import moon.core.classdef.MethDec;
+import moon.core.instruction.Instr;
 import refactoring.engine.Action;
 import repository.RelayListenerRegistry;
 import repository.moon.MOONRefactoring;
-import repository.moon.concretefunction.*;
+import repository.moon.concretefunction.ClassesAffectedByMethRenameCollector;
+import repository.moon.concretefunction.MethodCollector;
 
 /**
- * Permite eliminar un argumento formal de la signatura de un método.<p>
+ * Permite eliminar un argumento formal de la signatura de un mï¿½todo.<p>
  *
- * Se ocupa de eliminarlo tanto en la definición del método, como en todas las
+ * Se ocupa de eliminarlo tanto en la definiciï¿½n del mï¿½todo, como en todas las
  * llamadas al mismo.<p>
  *
  * Extiende el cambio a todas las clases que, por herencia, se puedan ver 
- * afectadas por un cambio en la signatura del método afectado.
+ * afectadas por un cambio en la signatura del mï¿½todo afectado.
  *
  * @author <A HREF="mailto:ehp0001@alu.ubu.es">Enrique Herrero Paredes</A>
- * @author <A HREF="mailto:alc0022@alu.ubu.es">Ángel López Campo</A>
+ * @author <A HREF="mailto:alc0022@alu.ubu.es">ï¿½ngel Lï¿½pez Campo</A>
  * @author <A HREF="mailto:sfd0009@alu.ubu.es">Sonia Fuente de la Fuente</A>
  */ 
 public class RemoveFormalArg extends Action {
 	
 	/**
-	 * El parámetro formal que se va a eliminar de la signatura del método.
+	 * El parï¿½metro formal que se va a eliminar de la signatura del mï¿½todo.
 	 */
 	private FormalArgument deletedParameter;
 	
 	/**
-	 * El método de cuya signatura se va a eliminar el argumento formal.
+	 * El mï¿½todo de cuya signatura se va a eliminar el argumento formal.
 	 */
 	private MethDec method;
 	
 	/**
-	 * La clase a la que pertenece el método que se va a modificar.
+	 * La clase a la que pertenece el mï¿½todo que se va a modificar.
 	 */
 	private ClassDef classDef;
 		
 	/**
-	 * La posición que ocupa el argumento formal dentro de la signatura del
-	 * método.
+	 * La posiciï¿½n que ocupa el argumento formal dentro de la signatura del
+	 * mï¿½todo.
 	 */
 	private int paramPosition;	
 		
 	/**
-	 * Elemento auxiliar para extender el cambio en el método a otras clases,
-	 * en caso de que dicho método aparezca en clases superiores o inferiores en
-	 * la jerarquía de herencia.
+	 * Elemento auxiliar para extender el cambio en el mï¿½todo a otras clases,
+	 * en caso de que dicho mï¿½todo aparezca en clases superiores o inferiores en
+	 * la jerarquï¿½a de herencia.
 	 */
 	private Vector<Action> removeParInOtherClassVec;
 	
 	/**
-	 * Receptor de los mensajes enviados por la acción concreta.
+	 * Receptor de los mensajes enviados por la acciï¿½n concreta.
 	 */
 	private RelayListenerRegistry listenerReg;
 		 
@@ -86,7 +91,7 @@ public class RemoveFormalArg extends Action {
 	 * Obtiene una nueva instancia de RemoveFormalArg.
 	 *
 	 * @param formalArg el argumento formal que se va a eliminar.
-	 * @param method el método de cuya signatura se va a eliminar un argumento.
+	 * @param method el mï¿½todo de cuya signatura se va a eliminar un argumento.
 	 */	
 	public RemoveFormalArg(FormalArgument formalArg, MethDec method){
 		
@@ -105,7 +110,7 @@ public class RemoveFormalArg extends Action {
 	}
 		
 	/**
-	 * Elimina un parámetro formal de la signatura de un método.
+	 * Elimina un parï¿½metro formal de la signatura de un mï¿½todo.
 	 */
 	public void run() {
 		
@@ -153,7 +158,7 @@ public class RemoveFormalArg extends Action {
 	}
 
 	/**
-	 * Restaura el parámetro formal a la signatura del método.
+	 * Restaura el parï¿½metro formal a la signatura del mï¿½todo.
 	 */
 	public void undo() {
 		
@@ -170,14 +175,14 @@ public class RemoveFormalArg extends Action {
 	}
 	
 	/**
-	 * Elimina el parámetro de la signatura del método en las clases inferiores 
-	 * y superiores de la jerarquía de herencia que, a través de herencia, 
-	 * posean el mismo método (clases que hereden de la que posee el método
-	 * afectado, o superclases de la misma que contengan el mismo método, y a su
+	 * Elimina el parï¿½metro de la signatura del mï¿½todo en las clases inferiores 
+	 * y superiores de la jerarquï¿½a de herencia que, a travï¿½s de herencia, 
+	 * posean el mismo mï¿½todo (clases que hereden de la que posee el mï¿½todo
+	 * afectado, o superclases de la misma que contengan el mismo mï¿½todo, y a su
 	 * vez, recursivamente, subclases o superclases de las mismas).
 	 *
-	 * @param affectedClasses las clases de la jerarquía de herencia que se ven 
-	 * afectadas por el cambio de la signatura del método.
+	 * @param affectedClasses las clases de la jerarquï¿½a de herencia que se ven 
+	 * afectadas por el cambio de la signatura del mï¿½todo.
 	 */
 	private void removeArgFromSubAndSuperclasses (
 		Collection<ClassDef> affectedClasses){

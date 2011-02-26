@@ -28,10 +28,8 @@ import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Control;
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Shell;
-import com.swtdesigner.ResourceManager;
 
 import dynamicrefactoring.RefactoringImages;
-import dynamicrefactoring.RefactoringPlugin;
 
 /**
  * Permite mostrar los detalles de una determinada tarea que se acaba de ejecutar. Por 

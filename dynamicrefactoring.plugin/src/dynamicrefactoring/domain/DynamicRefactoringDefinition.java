@@ -571,8 +571,8 @@ public class DynamicRefactoringDefinition implements Element,
 	 * 
 	 * @return conjunto de palabras claves
 	 */
-	public List<String> getKeywords() {
-		return new ArrayList<String>(keywords);
+	public Set<String> getKeywords() {
+		return new HashSet<String>(keywords);
 	}
 
 	/**

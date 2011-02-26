@@ -21,25 +21,24 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.*/
 package repository.moon.concretepredicate;
 
 import moon.core.classdef.ClassDef;
-
 import refactoring.engine.Predicate;
 
 /**
  * Permite comprobar que dos clases no son en realidad una misma.
  *
  * @author <A HREF="mailto:ehp0001@alu.ubu.es">Enrique Herrero Paredes</A>
- * @author <A HREF="mailto:alc0022@alu.ubu.es">Ángel López Campo</A>>
+ * @author <A HREF="mailto:alc0022@alu.ubu.es">ï¿½ngel Lï¿½pez Campo</A>>
  * @author <A HREF="mailto:sfd0009@alu.ubu.es">Sonia Fuente de la Fuente</A>
  */ 
 public class NotEqualClasses extends Predicate {
 	
 	/**
-	 * La primera clase de la comprobación. 
+	 * La primera clase de la comprobaciï¿½n. 
 	 */
 	private ClassDef firstClass;
 	
 	/**
-	 * La segunda clase de la comprobación. 
+	 * La segunda clase de la comprobaciï¿½n. 
 	 */
 	private ClassDef secondClass;
 	
@@ -48,7 +47,7 @@ public class NotEqualClasses extends Predicate {
 	 *
 	 * Obtiene una nueva instancia del predicado NotEqualClasses.
 	 *
-	 * @param firstClass la primera clase de la comprobación.
+	 * @param firstClass la primera clase de la comprobaciï¿½n.
 	 * @param secondClass la segunda clase de la comprobacion. 
 	 */
 	public NotEqualClasses(ClassDef firstClass, ClassDef secondClass) {

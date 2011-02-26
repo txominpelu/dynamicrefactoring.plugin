@@ -20,30 +20,30 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.*/
 
 package repository.moon.concretefunction;
 
-import refactoring.engine.Function;
+import java.util.Collection;
+import java.util.List;
 
 import moon.core.classdef.ClassDef;
 import moon.core.classdef.MethDec;
-
-import java.util.*;
+import refactoring.engine.Function;
 
 /**
- * Permite buscar un método determinado en una clase basándose en el nombre único
- * de aquél.
+ * Permite buscar un mï¿½todo determinado en una clase basï¿½ndose en el nombre ï¿½nico
+ * de aquï¿½l.
  *
  * @author <A HREF="mailto:ehp0001@alu.ubu.es">Enrique Herrero Paredes</A>
- * @author <A HREF="mailto:alc0022@alu.ubu.es">Ángel López Campo</A>
+ * @author <A HREF="mailto:alc0022@alu.ubu.es">ï¿½ngel Lï¿½pez Campo</A>
  * @author <A HREF="mailto:sfd0009@alu.ubu.es">Sonia Fuente de la Fuente</A>
  */ 
 public class MethodRetriever extends Function {
 	
 	/**
-	 * Clase en la que se buscará el método.
+	 * Clase en la que se buscarï¿½ el mï¿½todo.
 	 */
 	private ClassDef classDef;
 	
 	/**
-	 * Nombre único del método buscado.
+	 * Nombre ï¿½nico del mï¿½todo buscado.
 	 */
 	private String methodUniqueName;
 	
@@ -52,8 +52,8 @@ public class MethodRetriever extends Function {
 	 *
 	 * Obtiene una nueva instancia de MethodRetriever.
 	 *
-	 * @param classDef la clase en la que se buscará el método.
-	 * @param methodUniqueName el nombre único del método buscado.
+	 * @param classDef la clase en la que se buscarï¿½ el mï¿½todo.
+	 * @param methodUniqueName el nombre ï¿½nico del mï¿½todo buscado.
 	 */
 	public MethodRetriever(ClassDef classDef, String methodUniqueName) {
 		super();
@@ -62,11 +62,11 @@ public class MethodRetriever extends Function {
 	}
 
 	/**
-	 * Obtiene el método de la clase {@link #classDef} cuyo nombre único se 
+	 * Obtiene el mï¿½todo de la clase {@link #classDef} cuyo nombre ï¿½nico se 
 	 * corresponde con {@link #methodUniqueName}.
 	 *
-	 * @return si lo encuentra, el método de la clase {@link #classDef} cuyo 
-	 * nombre único se corresponde con {@link #methodUniqueName}. Si no, <code>null
+	 * @return si lo encuentra, el mï¿½todo de la clase {@link #classDef} cuyo 
+	 * nombre ï¿½nico se corresponde con {@link #methodUniqueName}. Si no, <code>null
 	 * </code>.
 	 */
 	public Object getValue() {
@@ -79,7 +79,7 @@ public class MethodRetriever extends Function {
 	}
 	
 	/**
-	 * Sin implementación.
+	 * Sin implementaciï¿½n.
 	 *
 	 * @return null.
 	 */

@@ -20,23 +20,26 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.*/
 
 package repository.moon.concretefunction;
 
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertTrue;
+
 import java.util.ArrayList;
 import java.util.Collection;
 
 import javamoon.construct.source.SourceLoader;
 import javamoon.core.JavaModel;
-
 import moon.core.MoonFactory;
-import moon.core.classdef.*;
+import moon.core.classdef.ClassType;
+import moon.core.classdef.Type;
 
-import static org.junit.Assert.*;
-import org.junit.Test; 
+import org.junit.Test;
 
 import repository.RefactoringTemplateAbstractTest;
 import repository.moon.MOONRefactoring;
 
 /** 
- * Comprueba que funciona correctamente la función que permite obtener
+ * Comprueba que funciona correctamente la funciï¿½n que permite obtener
  * el conjunto de subtipos de un tipo determinado.
  * 
  * @author <A HREF="mailto:sfd0009@alu.ubu.es">Sonia Fuente de la Fuente</A>
@@ -45,13 +48,13 @@ import repository.moon.MOONRefactoring;
 public class TestSubtypeCollector extends RefactoringTemplateAbstractTest {
 
 	/**
-	 * Comprueba que la función obtiene correctamente los subtipos de un tipo
+	 * Comprueba que la funciï¿½n obtiene correctamente los subtipos de un tipo
 	 * con varios subtipos.<p>
 	 * 
-	 * En un modelo con las bibliotecas básicas de Java cargadas, intenta obtener
+	 * En un modelo con las bibliotecas bï¿½sicas de Java cargadas, intenta obtener
 	 * los subtipos de <code>java.lang.Number</code>.
 	 * 
-	 * @throws Exception si se produce un error durante la ejecución de la prueba.
+	 * @throws Exception si se produce un error durante la ejecuciï¿½n de la prueba.
 	 */
 	@Test
 	public void testGetSubtypes() throws Exception{

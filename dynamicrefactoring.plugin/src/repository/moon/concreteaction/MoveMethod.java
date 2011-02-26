@@ -20,37 +20,37 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.*/
 
 package repository.moon.concreteaction;
 
-import moon.core.classdef.*;
-
+import moon.core.classdef.ClassDef;
+import moon.core.classdef.MethDec;
 import refactoring.engine.Action;
 import repository.RelayListenerRegistry;
 
 /**
- * Permite mover un método de una clase a otra del modelo.
+ * Permite mover un mï¿½todo de una clase a otra del modelo.
  *
  * @author <A HREF="mailto:ehp0001@alu.ubu.es">Enrique Herrero Paredes</A>
- * @author <A HREF="mailto:alc0022@alu.ubu.es">Ángel López Campo</A>
+ * @author <A HREF="mailto:alc0022@alu.ubu.es">ï¿½ngel Lï¿½pez Campo</A>
  * @author <A HREF="mailto:sfd0009@alu.ubu.es">Sonia Fuente de la Fuente</A>
  */ 
 public class MoveMethod extends Action {
 
 	/**
-	 * Clase a la que pertenece originalmente el método.
+	 * Clase a la que pertenece originalmente el mï¿½todo.
 	 */
 	private ClassDef classDefSource;
 		
 	/**
-	 * Clase a la que se moverá el método.
+	 * Clase a la que se moverï¿½ el mï¿½todo.
 	 */
 	private ClassDef classDefDest;
 	
 	/**
-	 * Método que se va a mover de una clase a otra.
+	 * Mï¿½todo que se va a mover de una clase a otra.
 	 */
 	 private MethDec method;
 	 
 	 /**
-	  * Receptor de los mensajes enviados por la acción concreta.
+	  * Receptor de los mensajes enviados por la acciï¿½n concreta.
 	  */
 	 private RelayListenerRegistry listenerReg;
 	 	
@@ -58,8 +58,8 @@ public class MoveMethod extends Action {
 	 * Constructor.<p>
 	 *
 	 * Obtiene una nueva instancia de MoveMethod.
-	 * @param method método que se va a mover de una clase a otra.
-	 * @param classDefDest clase a la que se moverá el método.
+	 * @param method mï¿½todo que se va a mover de una clase a otra.
+	 * @param classDefDest clase a la que se moverï¿½ el mï¿½todo.
 	 */	
 	public MoveMethod(MethDec method, ClassDef classDefDest){
 		super();
@@ -72,7 +72,7 @@ public class MoveMethod extends Action {
 	}
 	
 	/**
-	 * Ejecuta el movimiento del método de una clase a otra.
+	 * Ejecuta el movimiento del mï¿½todo de una clase a otra.
 	 */
 	@Override
 	public void run() {		
@@ -91,8 +91,8 @@ public class MoveMethod extends Action {
 	}
 
 	/**
-	 * Deshace el movimiento del método, devolviéndolo a su clase de origen y 
-	 * eliminándolo de la nueva clase destino.
+	 * Deshace el movimiento del mï¿½todo, devolviï¿½ndolo a su clase de origen y 
+	 * eliminï¿½ndolo de la nueva clase destino.
 	 */
 	@Override
 	public void undo() {		

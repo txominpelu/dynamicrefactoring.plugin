@@ -20,25 +20,24 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.*/
 
 package repository.moon.concretepredicate;
 
-import java.util.*;
+import java.util.List;
 
 import moon.core.classdef.AttDec;
 import moon.core.classdef.MethDec;
-
 import refactoring.engine.Predicate;
 
 /**
- * Permite comprobar que un determinado método no utiliza ninguno de los 
+ * Permite comprobar que un determinado mï¿½todo no utiliza ninguno de los 
  * atributos de la clase a la que pertenece.
  *
  * @author <A HREF="mailto:ehp0001@alu.ubu.es">Enrique Herrero Paredes</A>
- * @author <A HREF="mailto:alc0022@alu.ubu.es">Ángel López Campo</A>
+ * @author <A HREF="mailto:alc0022@alu.ubu.es">ï¿½ngel Lï¿½pez Campo</A>
  * @author <A HREF="mailto:sfd0009@alu.ubu.es">Sonia Fuente de la Fuente</A>
  */
 public class MethodNotUsesClassAttribute extends Predicate {
 	
 	/**
-	 * El método en el que se estudia el uso de atributos de la clase.
+	 * El mï¿½todo en el que se estudia el uso de atributos de la clase.
 	 */
 	private MethDec method;
 		
@@ -47,7 +46,7 @@ public class MethodNotUsesClassAttribute extends Predicate {
 	 *
 	 * Devuelve una nueva instancia del predicado MethodNotUsesClassAttribute.
 	 *
-	 * @param method el método en el que se estudia el uso de atributos de clase.
+	 * @param method el mï¿½todo en el que se estudia el uso de atributos de clase.
 	 */
 	public MethodNotUsesClassAttribute(MethDec method) {
 		
@@ -62,7 +61,7 @@ public class MethodNotUsesClassAttribute extends Predicate {
 	/**
 	 * Comprueba el valor de verdad del predicado.
 	 * 
-	 * @return <code>true</code> si el método no emplea ningún atributo de la 
+	 * @return <code>true</code> si el mï¿½todo no emplea ningï¿½n atributo de la 
 	 * clase; <code>false</code>, en caso contrario.
 	 */
 	@Override

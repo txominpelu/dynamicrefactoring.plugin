@@ -20,10 +20,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.*/
 
 package dynamicrefactoring.interfaz.view;
 
-import dynamicrefactoring.RefactoringPlugin;
-import dynamicrefactoring.domain.RefactoringSummary;
-import dynamicrefactoring.listener.IRefactoringRunListener;
-
 import java.text.DateFormat;
 import java.text.MessageFormat;
 import java.text.SimpleDateFormat;
@@ -31,26 +27,26 @@ import java.util.ArrayList;
 import java.util.Date;
 
 import org.eclipse.jface.dialogs.MessageDialog;
-
-import org.eclipse.swt.graphics.Color;
-
 import org.eclipse.swt.SWT;
-
+import org.eclipse.swt.graphics.Color;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Table;
 import org.eclipse.swt.widgets.TableColumn;
 import org.eclipse.swt.widgets.TableItem;
-
 import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.part.ViewPart;
 
+import dynamicrefactoring.RefactoringPlugin;
+import dynamicrefactoring.domain.RefactoringSummary;
+import dynamicrefactoring.listener.IRefactoringRunListener;
+
 /**
  * Proporciona una vista de Eclipse en la que quedan reflejados todos los 
- * pasos que una refactorización lleva acabo durante su ejecución.
+ * pasos que una refactorizaciï¿½n lleva acabo durante su ejecuciï¿½n.
  * 
- * <p>Proporciona información detallada en tiempo real de los pasos concretos que 
- * componen la refactorización que se está ejecutando.</p>
+ * <p>Proporciona informaciï¿½n detallada en tiempo real de los pasos concretos que 
+ * componen la refactorizaciï¿½n que se estï¿½ ejecutando.</p>
  * 
  * @author <A HREF="mailto:sfd0009@alu.ubu.es">Sonia Fuente de la Fuente</A>
  * @author <A HREF="mailto:ehp0001@alu.ubu.es">Enrique Herrero Paredes</A>
@@ -89,23 +85,23 @@ public class ProgressView extends ViewPart
 	private Color cyan;
 
 	/**
-	 * Tabla en la que se muestran los mensajes de progreso de la refactorización.
+	 * Tabla en la que se muestran los mensajes de progreso de la refactorizaciï¿½n.
 	 */
 	private Table tb_Messages;
 	
 	/**
-	 * Anchura máxima de la consola.
+	 * Anchura mï¿½xima de la consola.
 	 */
 	private static final int TABLE_WIDTH = 90;
 	
 	/**
-	 * Datos de una refactorización que ha fallado y cuyo mensaje de error
-	 * está pendiente de ser mostrado al usuario.
+	 * Datos de una refactorizaciï¿½n que ha fallado y cuyo mensaje de error
+	 * estï¿½ pendiente de ser mostrado al usuario.
 	 */
 	private String[] failedRefactoring;
 		
 	/**
-	 * Mensajes enviados por la refactorización durante su ejecución.
+	 * Mensajes enviados por la refactorizaciï¿½n durante su ejecuciï¿½n.
 	 */
 	private ArrayList<String> stepMessages;
 	
@@ -143,9 +139,9 @@ public class ProgressView extends ViewPart
 	}
 	
 	/**
-	 * Notifica al <i>listener</i> acerca del comienzo de una refactorización.
+	 * Notifica al <i>listener</i> acerca del comienzo de una refactorizaciï¿½n.
 	 * 
-	 * @param name nombre de la refactorización que ha comenzado.
+	 * @param name nombre de la refactorizaciï¿½n que ha comenzado.
 	 * 
 	 * @see IRefactoringRunListener#refactoringStarted(String)
 	 */
@@ -164,8 +160,8 @@ public class ProgressView extends ViewPart
 	}
 	
 	/**
-	 * Notifica al <i>listener</i> acerca de la realización de un paso concreto
-	 * en una refactorización.
+	 * Notifica al <i>listener</i> acerca de la realizaciï¿½n de un paso concreto
+	 * en una refactorizaciï¿½n.
 	 *
 	 * @param message mensaje asociado al paso realizado.
 	 * 
@@ -177,10 +173,10 @@ public class ProgressView extends ViewPart
 	}
 	
 	/**
-	 * Notifica al <i>listener</i> acerca de un fallo en una refactorización.
+	 * Notifica al <i>listener</i> acerca de un fallo en una refactorizaciï¿½n.
 	 * 
-	 * @param name nombre de la refactorización que ha fallado.
-	 * @param message mensaje asociado al fallo de la refactorización.
+	 * @param name nombre de la refactorizaciï¿½n que ha fallado.
+	 * @param message mensaje asociado al fallo de la refactorizaciï¿½n.
 	 * 
 	 * @see IRefactoringRunListener#refactoringFailed(String, String)
 	 */
@@ -190,9 +186,9 @@ public class ProgressView extends ViewPart
 	}
 	
 	/**
-	 * Notifica al <i>listener</i> acerca de la finalización de una refactorización.
+	 * Notifica al <i>listener</i> acerca de la finalizaciï¿½n de una refactorizaciï¿½n.
 	 * 	
-	 * @param summary resumen informativo de la refactorización que ha finalizado.
+	 * @param summary resumen informativo de la refactorizaciï¿½n que ha finalizado.
 	 * 	
 	 * @see IRefactoringRunListener#refactoringFinished(RefactoringSummary)
 	 */
@@ -202,7 +198,7 @@ public class ProgressView extends ViewPart
 		for (String message : stepMessages)
 			addMessage(formatString(message), blue, false);
 		}
-		// Si la refactorización terminó correctamente.
+		// Si la refactorizaciï¿½n terminï¿½ correctamente.
 		if (failedRefactoring == null) {
 			Object[] messageArgs = {summary.getName(), "(" + //$NON-NLS-1$
 				summary.getStrCompletionTime() + ")"}; //$NON-NLS-1$
@@ -213,7 +209,7 @@ public class ProgressView extends ViewPart
 				"."), green, true); //$NON-NLS-1$
 		}
 
-		// Si se produjo algún fallo.
+		// Si se produjo algï¿½n fallo.
 		else {
 			Object[] messageArgs = {failedRefactoring[0]};
 			MessageFormat formatter = new MessageFormat(""); //$NON-NLS-1$
@@ -224,7 +220,7 @@ public class ProgressView extends ViewPart
 			addMessage(formatString(
 				Messages.ProgressView_Details + failedRefactoring[1]), red, true);
 			
-			// Se muestra el mensaje de error que deberá haberse almacenado.
+			// Se muestra el mensaje de error que deberï¿½ haberse almacenado.
 			MessageDialog.openError(
 				PlatformUI.getWorkbench().getActiveWorkbenchWindow().getShell(),
 				formatter.format(messageArgs),
@@ -236,9 +232,9 @@ public class ProgressView extends ViewPart
 	
 	/**
 	 * Notifica al <i>listener</i> acerca del hecho de que se haya recuperado el
-	 * estado anterior a una refactorización.
+	 * estado anterior a una refactorizaciï¿½n.
 	 * 
-	 * @param name identificador de la refactorización cuyo estado anterior
+	 * @param name identificador de la refactorizaciï¿½n cuyo estado anterior
 	 * se ha recuperado.
 	 */
 	@Override
@@ -264,10 +260,10 @@ public class ProgressView extends ViewPart
 	}
 	
 	/**
-	 * Añade un mensaje a la tabla de mensajes de progreso.
+	 * Aï¿½ade un mensaje a la tabla de mensajes de progreso.
 	 * 
-	 * @param msg mensaje que se debe añadir.
-	 * @param color color con que se añadirá el mensaje.
+	 * @param msg mensaje que se debe aï¿½adir.
+	 * @param color color con que se aï¿½adirï¿½ el mensaje.
 	 * @param showdate si se debe mostrar la hora junto al mensaje o no.
 	 */
 	private void addMessage(String[] msg, Color color, boolean showdate){
@@ -285,9 +281,9 @@ public class ProgressView extends ViewPart
 	}
 	
 	/**
-	 * Formatea una cadena de manera adecuada para que se adapte a la representación
-	 * en forma de tabla de la vista, separándola en fragmentos en aquellos puntos que
-	 * contengan un salto de línea, y sustituyendo las tabulaciones por espacios
+	 * Formatea una cadena de manera adecuada para que se adapte a la representaciï¿½n
+	 * en forma de tabla de la vista, separï¿½ndola en fragmentos en aquellos puntos que
+	 * contengan un salto de lï¿½nea, y sustituyendo las tabulaciones por espacios
 	 * en blanco.
 	 * 
 	 * @param original la cadena que se debe formatear.
@@ -310,17 +306,17 @@ public class ProgressView extends ViewPart
 	}
 	
 	/**
-	 * Divide una cadena en subcadenas de un tamaño menor o igual a tres
+	 * Divide una cadena en subcadenas de un tamaï¿½o menor o igual a tres
 	 * cuartos del ancho de la tabla de salida.
 	 * 
-	 * <p>Las cadenas conservan los saltos de línea de la cadena original, 
-	 * así como la correcta separación entre palabras. Los nuevos saltos de
-	 * línea se insertan en los espacios blancos entre palabras.</p>
+	 * <p>Las cadenas conservan los saltos de lï¿½nea de la cadena original, 
+	 * asï¿½ como la correcta separaciï¿½n entre palabras. Los nuevos saltos de
+	 * lï¿½nea se insertan en los espacios blancos entre palabras.</p>
 	 * 
 	 * @param original cadena original.
 	 * 
 	 * @return un <i>array</i> con las subcadenas obtenidas a partir de la
-	 * cadena original, cada una de las cuales podría imprimirse sobre la 
+	 * cadena original, cada una de las cuales podrï¿½a imprimirse sobre la 
 	 * tabla de salida de la vista con una longitud adecuada.
 	 */
 	private String[] splitString(String original){
@@ -331,7 +327,7 @@ public class ProgressView extends ViewPart
 		
 		if (original.length() > width){
 			// Se busca el primer espacio blanco que supera la 
-			// longitud máxima prevista para cada línea.
+			// longitud mï¿½xima prevista para cada lï¿½nea.
 			int index = 0;
 			while(index < original.length()){
 				index = original.indexOf(' ', index);
@@ -347,7 +343,7 @@ public class ProgressView extends ViewPart
 				index++;
 			}
 
-			// Se añade el último fragmento.
+			// Se aï¿½ade el ï¿½ltimo fragmento.
 			strings.add(original);
 			
 			return strings.toArray(new String[strings.size()]);

@@ -53,10 +53,7 @@ import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.List;
 import org.eclipse.swt.widgets.Shell;
 
-import com.swtdesigner.ResourceManager;
-
 import dynamicrefactoring.RefactoringImages;
-import dynamicrefactoring.RefactoringPlugin;
 import dynamicrefactoring.domain.Scope;
 import dynamicrefactoring.interfaz.dynamic.DynamicRefactoringWindowLauncher;
 import dynamicrefactoring.util.ScopeLimitedLister;

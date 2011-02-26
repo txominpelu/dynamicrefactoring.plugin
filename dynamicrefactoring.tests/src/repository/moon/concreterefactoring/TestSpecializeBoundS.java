@@ -20,30 +20,31 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.*/
 
 package repository.moon.concreterefactoring;
 
-import java.util.*;
+import static org.junit.Assert.assertEquals;
+
+import java.util.List;
 
 import javamoon.construct.source.SourceLoader;
 import javamoon.core.JavaModel;
-
 import moon.core.MoonFactory;
-import moon.core.classdef.*;
+import moon.core.classdef.ClassDef;
+import moon.core.classdef.ClassType;
+import moon.core.classdef.Type;
 import moon.core.genericity.BoundS;
 import moon.core.genericity.FormalPar;
 
-import static org.junit.Assert.*;
-import org.junit.Test; 
+import org.junit.Test;
 
 import refactoring.engine.PreconditionException;
-
 import repository.RefactoringTemplateAbstractTest;
 import repository.moon.MOONRefactoring;
 
 /** 
- * Comprueba que funciona correctamente la refactorización que especializa la 
- * acotación de un parámetro formal.
+ * Comprueba que funciona correctamente la refactorizaciï¿½n que especializa la 
+ * acotaciï¿½n de un parï¿½metro formal.
  * 
- * <p>Indirectamente, se comprueba también la corrección de las funciones,
- * acciones y predicados utilizados por la refactorización.</p>
+ * <p>Indirectamente, se comprueba tambiï¿½n la correcciï¿½n de las funciones,
+ * acciones y predicados utilizados por la refactorizaciï¿½n.</p>
  *
  * @author <A HREF="mailto:sfd0009@alu.ubu.es">Sonia Fuente de la Fuente</A>
  * @author <A HREF="mailto:ehp0001@alu.ubu.es">Enrique Herrero Paredes</A>
@@ -53,9 +54,9 @@ import repository.moon.MOONRefactoring;
 public class TestSpecializeBoundS extends RefactoringTemplateAbstractTest {
 
 	/** 
-	 * Comprueba que la refactorización funciona correctamente en un caso simple.
+	 * Comprueba que la refactorizaciï¿½n funciona correctamente en un caso simple.
 	 * 
-	 * @throws Exception si se produce un error durante la ejecución de la prueba.
+	 * @throws Exception si se produce un error durante la ejecuciï¿½n de la prueba.
 	 */ 
 	@Test
 	public void testSimple() throws Exception{
@@ -93,10 +94,10 @@ public class TestSpecializeBoundS extends RefactoringTemplateAbstractTest {
 	}
 
 	/** 
-	 * Comprueba que la refactorización funciona correctamente en un caso 
-	 * con varios parámetros formales.
+	 * Comprueba que la refactorizaciï¿½n funciona correctamente en un caso 
+	 * con varios parï¿½metros formales.
 	 * 
-	 * @throws Exception si se produce un error durante la ejecución de la prueba.
+	 * @throws Exception si se produce un error durante la ejecuciï¿½n de la prueba.
 	 */
 	@Test
 	public void testWithMorePar() throws Exception{
@@ -134,13 +135,13 @@ public class TestSpecializeBoundS extends RefactoringTemplateAbstractTest {
 	}
 
 	/**
-	 * Verifica el funcionamiento de las precondiciones de la refactorización.
+	 * Verifica el funcionamiento de las precondiciones de la refactorizaciï¿½n.
 	 *
-	 * <p>Comprueba que se lanza una excepción cuando se intenta hacer la 
-	 * refactorización y el tipo elegido no es descendiente de la acotación 
+	 * <p>Comprueba que se lanza una excepciï¿½n cuando se intenta hacer la 
+	 * refactorizaciï¿½n y el tipo elegido no es descendiente de la acotaciï¿½n 
 	 * inicial.</p>
 	 * 
-	 * @throws Exception si se produce un error durante la ejecución de la prueba.
+	 * @throws Exception si se produce un error durante la ejecuciï¿½n de la prueba.
 	 */ 
 	@Test(expected=PreconditionException.class)   
 	public void testCheckIsSubTypeBoundType() throws Exception{
@@ -174,13 +175,13 @@ public class TestSpecializeBoundS extends RefactoringTemplateAbstractTest {
 	}
 
 	/**
-	 * Verifica el funcionamiento de las precondiciones de la refactorización.
+	 * Verifica el funcionamiento de las precondiciones de la refactorizaciï¿½n.
 	 *
-	 * <p>Comprueba que se lanza una excepción cuando se intenta hacer la 
-	 * refactorización y existe una sustitución del parámetro formal que no 
+	 * <p>Comprueba que se lanza una excepciï¿½n cuando se intenta hacer la 
+	 * refactorizaciï¿½n y existe una sustituciï¿½n del parï¿½metro formal que no 
 	 * es descendiente del seleccionado.</p>
 	 * 
-	 * @throws Exception si se produce un error durante la ejecución de la prueba.
+	 * @throws Exception si se produce un error durante la ejecuciï¿½n de la prueba.
 	 */
 	@Test(expected=PreconditionException.class) 
 	public void testCheckIsSubTypeSubstFormalPar() throws Exception{
@@ -215,13 +216,13 @@ public class TestSpecializeBoundS extends RefactoringTemplateAbstractTest {
 	}
 
 	/**
-	 * Verifica el funcionamiento de las precondiciones de la refactorización.
+	 * Verifica el funcionamiento de las precondiciones de la refactorizaciï¿½n.
 	 *
-	 * <p>Comprueba que se lanza una excepción cuando se intenta hacer la 
-	 * refactorización y hay una sustitución inválida del parámetro formal 
+	 * <p>Comprueba que se lanza una excepciï¿½n cuando se intenta hacer la 
+	 * refactorizaciï¿½n y hay una sustituciï¿½n invï¿½lida del parï¿½metro formal 
 	 * en un descendiente.</p>
 	 * 
-	 * @throws Exception si se produce un error durante la ejecución de la prueba.
+	 * @throws Exception si se produce un error durante la ejecuciï¿½n de la prueba.
 	 */
 	@Test(expected=PreconditionException.class) 
 	public void testCheckIsSubtypeBoundDesc() throws Exception{

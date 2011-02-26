@@ -20,26 +20,23 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.*/
 
 package dynamicrefactoring.util;
 
-import dynamicrefactoring.RefactoringPlugin;
-
-import dynamicrefactoring.util.io.FileManager;
-
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
-
 import java.util.Properties;
 
 import org.apache.log4j.PropertyConfigurator;
-
 import org.eclipse.core.runtime.Status;
+
+import dynamicrefactoring.RefactoringPlugin;
+import dynamicrefactoring.util.io.FileManager;
 
 /**
  * Permite cargar las propiedades de la actividad de registro de traza del 
  * <i>plugin</i>.
  * 
- * <p>Utiliza un fichero de configuración por defecto, que deberá 
- * modificarse solo en caso de necesidad y con precaución, y guardando en
- * todo momento una copia de la configuración original.</p>
+ * <p>Utiliza un fichero de configuraciï¿½n por defecto, que deberï¿½ 
+ * modificarse solo en caso de necesidad y con precauciï¿½n, y guardando en
+ * todo momento una copia de la configuraciï¿½n original.</p>
  * 
  * @author <A HREF="mailto:sfd0009@alu.ubu.es">Sonia Fuente de la Fuente</A>
  * @author <A HREF="mailto:ehp0001@alu.ubu.es">Enrique Herrero Paredes</A>
@@ -47,12 +44,12 @@ import org.eclipse.core.runtime.Status;
 public class LogManager {
 	
 	/**
-	 * La instancia única de la clase.
+	 * La instancia ï¿½nica de la clase.
 	 */
 	private static LogManager singletonInstance = null;
 	
 	/**
-	 * Nombre del fichero de configuración del registro de errores.
+	 * Nombre del fichero de configuraciï¿½n del registro de errores.
 	 */
 	private static final String LOG_PROPERTIES_FILE = 
 		"dynamicrefactoring.plugin.properties"; //$NON-NLS-1$
@@ -65,18 +62,18 @@ public class LogManager {
 	/**
 	 * Constructor.
 	 * 
-	 * Privado, siguiendo la estructura del patrón Singleton.
+	 * Privado, siguiendo la estructura del patrï¿½n Singleton.
 	 */
 	private LogManager(){
 		super();
 	}
 	
 	/**
-	 * Obtiene la instancia única del gestor del registro.
+	 * Obtiene la instancia ï¿½nica del gestor del registro.
 	 * 
-	 * Método definido por el patrón de diseño Singleton.
+	 * Mï¿½todo definido por el patrï¿½n de diseï¿½o Singleton.
 	 * 
-	 * @return la instancia única del gestor del registro.
+	 * @return la instancia ï¿½nica del gestor del registro.
 	 */
 	public static LogManager getInstance(){
 		if (singletonInstance == null)
@@ -85,7 +82,7 @@ public class LogManager {
 	}
 
 	/**
-	 * Carga la configuración de la actividad de registro.
+	 * Carga la configuraciï¿½n de la actividad de registro.
 	 */
 	public void loadLogConfig(){
 		
@@ -104,10 +101,10 @@ public class LogManager {
 	
 	/**
 	 * Intenta situar el destino del fichero de salida del registro en el 
-	 * directorio perteneciente al plugin, en lugar de en la raíz del ejecutable
+	 * directorio perteneciente al plugin, en lugar de en la raï¿½z del ejecutable
 	 * de eclipse.
 	 * 
-	 * Modifica el fichero de configuración de la actividad de registro para que
+	 * Modifica el fichero de configuraciï¿½n de la actividad de registro para que
 	 * el destino de la salida del <code>appender</code> A2 sea un fichero en la
 	 * carpeta de registro del directorio temporal del plugin.
 	 * 
@@ -130,7 +127,7 @@ public class LogManager {
 			configFile.close();
 			
 			// Se construye la ruta actual del directorio temporal del plugin
-			// y en ella se sitúa la carpeta de log.
+			// y en ella se sitï¿½a la carpeta de log.
 			String logDir = RefactoringPlugin.getDefault().getPluginTempDir() +
 				System.getProperty("file.separator") + //$NON-NLS-1$
 				PropertyManager.getInstance().getLogFileDirectory();

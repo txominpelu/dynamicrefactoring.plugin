@@ -1,6 +1,5 @@
 package dynamicrefactoring.plugin.xml.classifications;
 
-import java.io.File;
 import java.util.Set;
 
 import javax.xml.bind.ValidationException;

@@ -20,24 +20,26 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.*/
 
 package repository.moon.concretefunction;
 
-import java.util.*;
+import java.util.Collection;
+import java.util.Iterator;
+import java.util.Vector;
 
-import moon.core.instruction.*;
-
+import moon.core.instruction.CompoundInstr;
+import moon.core.instruction.Instr;
 import refactoring.engine.Function;
 
 /**
- * Permite obtener las instrucciones simples que componen una instrucción
+ * Permite obtener las instrucciones simples que componen una instrucciï¿½n
  * compuesta.
  *
  * @author <A HREF="mailto:ehp0001@alu.ubu.es">Enrique Herrero Paredes</A>
- * @author <A HREF="mailto:alc0022@alu.ubu.es">Ángel López Campo</A>
+ * @author <A HREF="mailto:alc0022@alu.ubu.es">ï¿½ngel Lï¿½pez Campo</A>
  * @author <A HREF="mailto:sfd0009@alu.ubu.es">Sonia Fuente de la Fuente</A>
  */ 
 public class SimpleInstructionCollector extends Function {
 	
 	/**
-	 * Instrucción compuesta cuyas componentes se desea obtener.
+	 * Instrucciï¿½n compuesta cuyas componentes se desea obtener.
 	 */
 	private CompoundInstr compoundInstr;
 	
@@ -46,7 +48,7 @@ public class SimpleInstructionCollector extends Function {
 	 *
 	 * Devuelve una nueva instancia de SimpleInstructionCollector.
 	 *
-	 * @param compound la instrucción compuesta cuyas componentes se desean 
+	 * @param compound la instrucciï¿½n compuesta cuyas componentes se desean 
 	 * obtener.
 	 */
 	public SimpleInstructionCollector(CompoundInstr compound) {
@@ -55,7 +57,7 @@ public class SimpleInstructionCollector extends Function {
 	}
 
 	/**
-	 * Sin implementación.
+	 * Sin implementaciï¿½n.
 	 *
 	 * @return null.
 	 */
@@ -65,10 +67,10 @@ public class SimpleInstructionCollector extends Function {
 	
 	/**
 	 * Obtiene el conjunto de instrucciones simples (no compuestas) que componen
-	 * una instrucción compuesta.
+	 * una instrucciï¿½n compuesta.
 	 *
 	 * @return el conjunto de instrucciones simples (no compuestas) que componen 
-	 * una instrucción compuesta.
+	 * una instrucciï¿½n compuesta.
 	 */
 	public Collection<Instr> getCollection() {
 		Instr instr;

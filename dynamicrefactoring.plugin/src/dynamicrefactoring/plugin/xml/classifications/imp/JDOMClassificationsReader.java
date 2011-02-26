@@ -2,8 +2,6 @@ package dynamicrefactoring.plugin.xml.classifications.imp;
 
 import java.io.File;
 import java.io.IOException;
-import java.io.InputStream;
-import java.net.URL;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -60,14 +58,14 @@ class JDOMClassificationsReader implements XmlClassificationsReader {
 		} catch (JDOMException e) {
 			throw new ValidationException(e);
 		} catch (IOException e) {
-			// Error inesperado de programación - propagar
+			// Error inesperado de programaciï¿½n - propagar
 			throw Throwables.propagate(e);
 		}
 
 	}
 
 	/**
-	 * Lee el elemento root leido del fichero y genera a partir de él el
+	 * Lee el elemento root leido del fichero y genera a partir de ï¿½l el
 	 * conjunto de clasificaciones contenidas en el fichero xml.
 	 * 
 	 * @param root
@@ -76,7 +74,7 @@ class JDOMClassificationsReader implements XmlClassificationsReader {
 	 */
 	private Set<Classification> readInputsRefactoring(Element root) {
 
-		// Se obtienen las entradas de la refactorización.
+		// Se obtienen las entradas de la refactorizaciï¿½n.
 		List<Element> classificationsList = root
 				.getChildren(XML_TAG_CLASSIFICATION);
 		Set<Classification> clasificationsSet = new HashSet<Classification>();

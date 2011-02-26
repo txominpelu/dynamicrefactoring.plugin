@@ -21,15 +21,17 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.*/
 
 package dynamicrefactoring.action;
 
+import org.eclipse.jface.action.IAction;
+import org.eclipse.jface.viewers.ISelection;
+import org.eclipse.ui.IActionDelegate;
+import org.eclipse.ui.IWorkbenchWindow;
+import org.eclipse.ui.IWorkbenchWindowActionDelegate;
+import org.eclipse.ui.PlatformUI;
+
 import dynamicrefactoring.interfaz.wizard.ImportWizard;
 
-import org.eclipse.jface.action.IAction;
-import org.eclipse.jface.viewers.*;
-
-import org.eclipse.ui.*;
-
 /**
- * Acción que inicia el asistente de importación de refactorizaciones dinámicas.
+ * Acciï¿½n que inicia el asistente de importaciï¿½n de refactorizaciones dinï¿½micas.
  */
 public class OpenImportDialogAction implements IWorkbenchWindowActionDelegate  {
 

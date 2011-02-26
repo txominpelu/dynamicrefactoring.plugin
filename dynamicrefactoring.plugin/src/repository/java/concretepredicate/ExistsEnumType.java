@@ -21,9 +21,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.*/
 package repository.java.concretepredicate;
 
 import moon.core.Name;
+import moon.core.classdef.ClassDef;
 import refactoring.engine.Predicate;
 import repository.moon.MOONRefactoring;
-import moon.core.classdef.ClassDef;
 
 /**
  * Comprueba la existencia de un tipo enumerado dentro del modelo.
@@ -57,7 +57,7 @@ public class ExistsEnumType extends Predicate {
 	/**
 	 * Comprueba el valor de verdad del predicado.
 	 * 
-	 * @return <code>true</code> si no existe el parámetro en el método 
+	 * @return <code>true</code> si no existe el parï¿½metro en el mï¿½todo 
 	 * especificado; <code>false</code> en caso contrario.
 	 */
 	@Override

@@ -22,22 +22,21 @@ package repository.moon.concretefunction;
 
 import java.util.Collection;
 
-import moon.core.classdef.MethDec;
 import moon.core.classdef.FormalArgument;
-
+import moon.core.classdef.MethDec;
 import refactoring.engine.Function;
 
 /**
- * Permite obtener los argumentos formales de un método determinado.
+ * Permite obtener los argumentos formales de un mï¿½todo determinado.
  *
  * @author <A HREF="mailto:ehp0001@alu.ubu.es">Enrique Herrero Paredes</A>
- * @author <A HREF="mailto:alc0022@alu.ubu.es">Ángel López Campo</A>
+ * @author <A HREF="mailto:alc0022@alu.ubu.es">ï¿½ngel Lï¿½pez Campo</A>
  * @author <A HREF="mailto:sfd0009@alu.ubu.es">Sonia Fuente de la Fuente</A>
  */ 
 public class FormalArgCollector extends Function {
 	
 	/**
-	 * Método de cuya signatura se desean obtener los argumentos formales.
+	 * Mï¿½todo de cuya signatura se desean obtener los argumentos formales.
 	 */
 	private MethDec methDec;
 	
@@ -46,7 +45,7 @@ public class FormalArgCollector extends Function {
 	 *
 	 * Devuelve una nueva instancia de FormalArgCollector.
 	 *
-	 * @param methDec el método cuyos parámetros se quieren obtener.
+	 * @param methDec el mï¿½todo cuyos parï¿½metros se quieren obtener.
 	 */
 	public FormalArgCollector(MethDec methDec) {
 		super();
@@ -54,7 +53,7 @@ public class FormalArgCollector extends Function {
 	}
 
 	/**
-	 * Sin implementación.
+	 * Sin implementaciï¿½n.
 	 *
 	 * @return null.
 	 */
@@ -63,9 +62,9 @@ public class FormalArgCollector extends Function {
 	}
 	
 	/**
-	 * Obtiene el conjunto de parámetros formales de un método.
+	 * Obtiene el conjunto de parï¿½metros formales de un mï¿½todo.
 	 *
-	 * @return el conjunto de parámetros del método.
+	 * @return el conjunto de parï¿½metros del mï¿½todo.
 	 */
 	public Collection<FormalArgument> getCollection() {
 		return methDec.getFormalArgument();

@@ -20,18 +20,21 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.*/
 
 package repository.moon.concretefunction;
 
-import java.util.*;
+import java.util.Collection;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Vector;
 
-import moon.core.classdef.*;
-
+import moon.core.classdef.ClassDef;
+import moon.core.classdef.MethDec;
 import refactoring.engine.Function;
 import repository.moon.MOONRefactoring;
 
 /**
- * Permite obtener las subclases a una clase dada que redefinan un cierto método.
+ * Permite obtener las subclases a una clase dada que redefinan un cierto mï¿½todo.
  *
  * @author <A HREF="mailto:ehp0001@alu.ubu.es">Enrique Herrero Paredes</A>
- * @author <A HREF="mailto:alc0022@alu.ubu.es">Ángel López Campo</A>
+ * @author <A HREF="mailto:alc0022@alu.ubu.es">ï¿½ngel Lï¿½pez Campo</A>
  * @author <A HREF="mailto:sfd0009@alu.ubu.es">Sonia Fuente de la Fuente</A>
  */ 
 public class SubclassesWithMethodCollector extends Function {
@@ -42,7 +45,7 @@ public class SubclassesWithMethodCollector extends Function {
 	private ClassDef classDef;
 	
 	/**
-	 * El nombre único del método cuyo equivalente en una subclase se busca.
+	 * El nombre ï¿½nico del mï¿½todo cuyo equivalente en una subclase se busca.
 	 */
 	private String methodUniqueName;
 				
@@ -52,7 +55,7 @@ public class SubclassesWithMethodCollector extends Function {
 	 * Obtiene una nueva instancia de SubclassesWithMethodCollector.
 	 *
 	 * @param classDef la clase cuyas subclases se van a explorar.
-	 * @param uniqueName el nombre único del método cuyo equivalente se busca.
+	 * @param uniqueName el nombre ï¿½nico del mï¿½todo cuyo equivalente se busca.
 	 */
 	public SubclassesWithMethodCollector(ClassDef classDef, String uniqueName) {
 		
@@ -62,10 +65,10 @@ public class SubclassesWithMethodCollector extends Function {
 
 	/**
 	 * Obtiene las clases que se encuentra al recorrer hacia abajo la
-	 * jerarquía de herencia a partir de la clase <code>classDef</code>, y que
-	 * contengan un cierto método.
+	 * jerarquï¿½a de herencia a partir de la clase <code>classDef</code>, y que
+	 * contengan un cierto mï¿½todo.
 	 *
-	 * @return Las clases encontradas, o null si no se encontró ninguna.
+	 * @return Las clases encontradas, o null si no se encontrï¿½ ninguna.
 	 */ 
 	public Collection<ClassDef> getCollection() {
 		
@@ -106,7 +109,7 @@ public class SubclassesWithMethodCollector extends Function {
 	}
 	
 	/**
-	 * Sin implementación.
+	 * Sin implementaciï¿½n.
 	 *
 	 * @return null.
 	 */

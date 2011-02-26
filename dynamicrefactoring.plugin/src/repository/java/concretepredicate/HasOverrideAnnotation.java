@@ -23,27 +23,27 @@ package repository.java.concretepredicate;
 import java.util.List;
 
 import javamoon.core.entity.JavaAnnotationReference;
+import javamoon.core.entity.JavaFunctionDec;
 import javamoon.core.entity.JavaRoutineDec;
 import moon.core.classdef.MethDec;
 import refactoring.engine.Predicate;
-import javamoon.core.entity.JavaFunctionDec;
 
 /**
- * Comprueba si un método tiene una anotación override.
+ * Comprueba si un mï¿½todo tiene una anotaciï¿½n override.
  * 
  * @author <A HREF="mailto:lfd0002@alu.ubu.es">Laura Fuente de la Fuente</A>
  */
 public class HasOverrideAnnotation extends Predicate{
 
 	/**
-	 * Método que se comprueba.
+	 * Mï¿½todo que se comprueba.
 	 */
 	private MethDec methDec;
 	
 	/**
 	 * Constructor.
 	 * 
-	 * @param methDec método que se comprueba.
+	 * @param methDec mï¿½todo que se comprueba.
 	 */
 	public HasOverrideAnnotation(MethDec methDec){
 		super("HasOverrideannotation: \n\t" + //$NON-NLS-1$
@@ -53,9 +53,9 @@ public class HasOverrideAnnotation extends Predicate{
 	}
 	
 	/**
-	 * Comprueba si el método tiene una anotación override.
+	 * Comprueba si el mï¿½todo tiene una anotaciï¿½n override.
 	 * 
-	 * @return <code>true</code> si el método tiene una anotación override;
+	 * @return <code>true</code> si el mï¿½todo tiene una anotaciï¿½n override;
 	 * <code>false</code> en caso contrario.
 	 */
 	@Override

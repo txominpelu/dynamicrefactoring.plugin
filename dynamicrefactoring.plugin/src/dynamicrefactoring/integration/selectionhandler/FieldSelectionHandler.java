@@ -23,11 +23,10 @@ package dynamicrefactoring.integration.selectionhandler;
 import java.io.IOException;
 import java.util.List;
 
-import dynamicrefactoring.util.processor.JavaFieldProcessor;
-
 import moon.core.ObjectMoon;
-import moon.core.classdef.ClassDef;
 import moon.core.classdef.AttDec;
+import moon.core.classdef.ClassDef;
+import dynamicrefactoring.util.processor.JavaFieldProcessor;
 
 /**
  * Proporciona las funciones necesarias para obtener el atributo MOON de una
@@ -44,22 +43,22 @@ public abstract class FieldSelectionHandler implements ISelectionHandler {
 	protected ClassDef fieldClass;
 	
 	/**
-	 * La descripción MOON del atributo seleccionado.
+	 * La descripciï¿½n MOON del atributo seleccionado.
 	 */
 	protected AttDec fieldDescription;
 	
 	/**
-	 * Obtiene la descripción MOON del atributo representado por una selección 
-	 * del interfaz gráfico.
+	 * Obtiene la descripciï¿½n MOON del atributo representado por una selecciï¿½n 
+	 * del interfaz grï¿½fico.
 	 * 
-	 * Método plantilla (patrón de diseño Método Plantilla).
+	 * Mï¿½todo plantilla (patrï¿½n de diseï¿½o Mï¿½todo Plantilla).
 	 * 
-	 * @return la descripción MOON del atributo representado por una selección 
-	 * del interfaz gráfico.
+	 * @return la descripciï¿½n MOON del atributo representado por una selecciï¿½n 
+	 * del interfaz grï¿½fico.
 	 * 
 	 * @throws ClassNotFoundException si se no se consigue encontrar la clase a
 	 * la que pertenece el atributo en el modelo MOON cargado.
-	 * @throws IOException si se produce algún error al acceder al modelo MOON.
+	 * @throws IOException si se produce algï¿½n error al acceder al modelo MOON.
 	 * 
 	 * @see ISelectionHandler#getMainObject()
 	 */
@@ -68,7 +67,7 @@ public abstract class FieldSelectionHandler implements ISelectionHandler {
 		throws ClassNotFoundException, IOException {
 		
 		if (fieldDescription == null){
-			// Llamada a la operación primitiva (patrón de diseño Método Plantilla).
+			// Llamada a la operaciï¿½n primitiva (patrï¿½n de diseï¿½o Mï¿½todo Plantilla).
 			JavaFieldProcessor fieldProcessor = getFieldProcessor();
 			
 			String uniqueName = fieldProcessor.getUniqueName();
@@ -86,24 +85,24 @@ public abstract class FieldSelectionHandler implements ISelectionHandler {
 	
 	/**
 	 * Obtiene la clase del modelo MOON en la que se define el atributo 
-	 * representado por una selección del interfaz gráfico.
+	 * representado por una selecciï¿½n del interfaz grï¿½fico.
 	 * 
 	 * @return la clase del modelo MOON en la que se define el atributo
-	 * representado por una selección del interfaz gráfico.
+	 * representado por una selecciï¿½n del interfaz grï¿½fico.
 	 * 
 	 * @throws ClassNotFoundException si se no se consigue encontrar la clase en
 	 * el modelo MOON cargado.
-	 * @throws IOException si se produce algún error al acceder al modelo MOON.
+	 * @throws IOException si se produce algï¿½n error al acceder al modelo MOON.
 	 */
 	public abstract ClassDef getFieldClass() 
 		throws ClassNotFoundException, IOException;
 	
 	/**
-	 * Obtiene un elemento capaz de procesar la información de un atributo Java.
+	 * Obtiene un elemento capaz de procesar la informaciï¿½n de un atributo Java.
 	 * 
-	 * Operación primitiva (patrón de diseño Método Plantilla).
+	 * Operaciï¿½n primitiva (patrï¿½n de diseï¿½o Mï¿½todo Plantilla).
 	 * 
-	 * @return un elemento capaz de procesar la información de un atributo Java.
+	 * @return un elemento capaz de procesar la informaciï¿½n de un atributo Java.
 	 */
 	protected abstract JavaFieldProcessor getFieldProcessor();
 }

@@ -20,42 +20,41 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.*/
 
 package repository.moon.concreteaction;
 
-import moon.core.classdef.*;
 import moon.core.Name;
-
+import moon.core.classdef.MethDec;
 import refactoring.engine.Action;
 import repository.RelayListenerRegistry;
 
 /**
- * Permite renombrar un método de una representación MOON de un modelo Java.<p>
+ * Permite renombrar un mï¿½todo de una representaciï¿½n MOON de un modelo Java.<p>
  *
  * No tiene en cuenta las clases que se puedan ver afectadas por el renombrado
- * a causa de su relación a través de herencia con la clase sobre la que se 
- * lleva a cabo el renombrado de un método.
+ * a causa de su relaciï¿½n a travï¿½s de herencia con la clase sobre la que se 
+ * lleva a cabo el renombrado de un mï¿½todo.
  *
- * @author <A HREF="mailto:alc0022@alu.ubu.es">Ángel López Campo</A>
+ * @author <A HREF="mailto:alc0022@alu.ubu.es">ï¿½ngel Lï¿½pez Campo</A>
  * @author <A HREF="mailto:ehp0001@alu.ubu.es">Enrique Herrero Paredes</A>
  * @author <A HREF="mailto:sfd0009@alu.ubu.es">Sonia Fuente de la Fuente</A>
  */ 
 public class RenameMethodWithoutHierarchy extends Action {
 	
 	/**
-	 * Método que se debe renombrar.
+	 * Mï¿½todo que se debe renombrar.
 	 */
 	private MethDec method;
 			
 	/**
-	 * Nuevo nombre que se dará al método.
+	 * Nuevo nombre que se darï¿½ al mï¿½todo.
 	 */
 	private Name newName;
 	
 	/**
-	 * Nombre del método antes del renombrado.
+	 * Nombre del mï¿½todo antes del renombrado.
 	 */
 	private Name originalName;
 	
 	/**
-	 * Receptor de los mensajes enviados por la acción concreta.
+	 * Receptor de los mensajes enviados por la acciï¿½n concreta.
 	 */
 	private RelayListenerRegistry listenerReg;
 				
@@ -64,8 +63,8 @@ public class RenameMethodWithoutHierarchy extends Action {
 	 *
 	 * Obtiene una nueva instancia de RenameMethodWithoutHierarchy.
 	 *
-	 * @param method el método cuyo nombre se desea cambiar.
-	 * @param newName el nuevo nombre que se dará al método.
+	 * @param method el mï¿½todo cuyo nombre se desea cambiar.
+	 * @param newName el nuevo nombre que se darï¿½ al mï¿½todo.
 	 */
 	public RenameMethodWithoutHierarchy (MethDec method, Name newName){
 			
@@ -79,7 +78,7 @@ public class RenameMethodWithoutHierarchy extends Action {
 	}
 	
 	/**
-	 * Ejecuta el renombrado del método.
+	 * Ejecuta el renombrado del mï¿½todo.
 	 */
 	public void run(){
 		
@@ -93,7 +92,7 @@ public class RenameMethodWithoutHierarchy extends Action {
 	}
 	
 	/**
-	 * Deshace el renombrado del método.
+	 * Deshace el renombrado del mï¿½todo.
 	 */
 	public void undo(){
 		

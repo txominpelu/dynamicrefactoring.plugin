@@ -5,7 +5,6 @@ import java.util.Collection;
 import java.util.Iterator;
 import java.util.List;
 
-
 import moon.core.entity.Entity;
 import moon.core.instruction.CodeFragment;
 import refactoring.engine.Function;
@@ -17,7 +16,7 @@ import repository.moon.concretefunction.LocalEntitiesInLoopReentrance;
 /**
  * Checks if there is just one return. Just one variable is written.
  * 
- * @author Raúl Marticorena
+ * @author Raï¿½l Marticorena
  * @since JavaMoon-2.3.0
  *
  */

@@ -23,14 +23,14 @@ package repository.java.concreterefactoring;
 import moon.core.Model;
 import moon.core.classdef.MethDec;
 import repository.java.concreteaction.AddOverrideAnnotation;
+import repository.java.concretepredicate.HasOverrideAnnotation;
 import repository.java.concretepredicate.NotHasOverrideAnnotation;
 import repository.moon.MOONRefactoring;
 import repository.moon.concretepredicate.MethodSignatureIsInSuperclass;
-import repository.java.concretepredicate.HasOverrideAnnotation;
 
 /**
  * 
- * Añade una anotación override a un método.
+ * Aï¿½ade una anotaciï¿½n override a un mï¿½todo.
  * 
  * @author <A HREF="mailto:lfd0002@alu.ubu.es">Laura Fuente de la Fuente</A>
  * 
@@ -43,9 +43,9 @@ public class OverrideAnnotation extends MOONRefactoring {
 	private static final String NAME = "Override";
 	
 	/**
-	 * añade una notación.
+	 * aï¿½ade una notaciï¿½n.
 	 * 
-	 * @param methDec método sobre el que se añade la notación.
+	 * @param methDec mï¿½todo sobre el que se aï¿½ade la notaciï¿½n.
 	 * @param model modelo sobre el que se esta trabajando.
 	 */
 	public OverrideAnnotation(MethDec methDec, Model model) {

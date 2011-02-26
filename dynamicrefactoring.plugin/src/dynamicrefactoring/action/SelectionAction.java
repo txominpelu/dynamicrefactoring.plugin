@@ -28,12 +28,12 @@ import org.eclipse.ui.IWorkbenchWindow;
 import org.eclipse.ui.IWorkbenchWindowActionDelegate;
 import org.eclipse.ui.PlatformUI;
 
+import dynamicrefactoring.SelectionListenerRegistry;
 import dynamicrefactoring.util.selection.SelectionInfo;
 import dynamicrefactoring.util.selection.SelectionInfoFactory;
-import dynamicrefactoring.SelectionListenerRegistry;
 
 /**
- * Acción que de notificar a todos los observadores registrados dentro de 
+ * Acciï¿½n que de notificar a todos los observadores registrados dentro de 
  * SelectionListenerRegistry que el elemento seleccionado ha cambiado..
  * 
  * @author <A HREF="mailto:lfd0002@alu.ubu.es">Laura Fuente de la Fuente</A>
@@ -53,8 +53,8 @@ public class SelectionAction implements IWorkbenchWindowActionDelegate {
 	}
 	
 	/**
-	 * Envía notificaciones cada vez que el usuario selecciona un elemento de entrada válido 
-	 * para al refactorización.
+	 * Envï¿½a notificaciones cada vez que el usuario selecciona un elemento de entrada vï¿½lido 
+	 * para al refactorizaciï¿½n.
 	 * 
 	 * @param action no se utiliza.
 	 * @param selection elemento seleccionado por el usuario del espacio de trabajo.
@@ -89,15 +89,15 @@ public class SelectionAction implements IWorkbenchWindowActionDelegate {
 	
 	
 	/**
-	 * Sin implementación.
+	 * Sin implementaciï¿½n.
 	 * 
 	 * @see IWorkbenchWindowActionDelegate#dispose
 	 */
 	public void dispose() {}
 	
 	/**
-	 * Se guarda en caché el objeto ventana, con objeto de poder obtener
-	 * la <code>shell</code> sobre la que abrir los mensajes de diálogo.
+	 * Se guarda en cachï¿½ el objeto ventana, con objeto de poder obtener
+	 * la <code>shell</code> sobre la que abrir los mensajes de diï¿½logo.
 	 * 
 	 * @see IWorkbenchWindowActionDelegate#init
 	 */
@@ -106,9 +106,9 @@ public class SelectionAction implements IWorkbenchWindowActionDelegate {
 	}
 	
 	/**
-	 * Sin implementación.
+	 * Sin implementaciï¿½n.
 	 * 
-	 * @param action la acción que ha sido invocada.
+	 * @param action la acciï¿½n que ha sido invocada.
 	 */
 	public void run(IAction action) {
 	}

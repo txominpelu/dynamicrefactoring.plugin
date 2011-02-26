@@ -20,20 +20,17 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.*/
 
 package dynamicrefactoring.integration.selectionhandler;
 
-import dynamicrefactoring.util.processor.JavaMethodProcessor;
-
-
 import java.io.IOException;
-
-import repository.moon.concretefunction.MethodRetriever;
 
 import moon.core.ObjectMoon;
 import moon.core.classdef.ClassDef;
 import moon.core.classdef.MethDec;
+import repository.moon.concretefunction.MethodRetriever;
+import dynamicrefactoring.util.processor.JavaMethodProcessor;
 
 /**
- * Proporciona las funciones necesarias para obtener el método MOON con el que
- * se corresponde un método seleccionado en Eclipse.
+ * Proporciona las funciones necesarias para obtener el mï¿½todo MOON con el que
+ * se corresponde un mï¿½todo seleccionado en Eclipse.
  * 
  * @author <A HREF="mailto:sfd0009@alu.ubu.es">Sonia Fuente de la Fuente</A>
  * @author <A HREF="mailto:ehp0001@alu.ubu.es">Enrique Herrero Paredes</A>
@@ -41,27 +38,27 @@ import moon.core.classdef.MethDec;
 public abstract class MethodSelectionHandler implements ISelectionHandler {
 	
 	/**
-	 * La clase MOON en la que se define el método.
+	 * La clase MOON en la que se define el mï¿½todo.
 	 */
 	protected ClassDef methodClass;
 	
 	/**
-	 * La descripción MOON del método seleccionado.
+	 * La descripciï¿½n MOON del mï¿½todo seleccionado.
 	 */
 	protected MethDec methodDescription;
 	
 	/**
-	 * Obtiene la descripción MOON del método representado por una selección del
-	 * interfaz gráfico.
+	 * Obtiene la descripciï¿½n MOON del mï¿½todo representado por una selecciï¿½n del
+	 * interfaz grï¿½fico.
 	 * 
-	 * Método plantilla (patrón de diseño Método Plantilla).
+	 * Mï¿½todo plantilla (patrï¿½n de diseï¿½o Mï¿½todo Plantilla).
 	 * 
-	 * @return la descripción MOON del método representado por una selección del 
-	 * interfaz gráfico.
+	 * @return la descripciï¿½n MOON del mï¿½todo representado por una selecciï¿½n del 
+	 * interfaz grï¿½fico.
 	 * 
 	 * @throws ClassNotFoundException si se no se consigue encontrar la clase a
-	 * la que pertenece el método en el modelo MOON cargado.
-	 * @throws IOException si se produce algún error al acceder al modelo MOON.
+	 * la que pertenece el mï¿½todo en el modelo MOON cargado.
+	 * @throws IOException si se produce algï¿½n error al acceder al modelo MOON.
 	 * 
 	 * @see ISelectionHandler#getMainObject()
 	 */
@@ -69,8 +66,8 @@ public abstract class MethodSelectionHandler implements ISelectionHandler {
 		throws ClassNotFoundException, IOException {
 		
 		if (methodDescription == null){
-			// Llamada a la operación primitiva 
-			// (patrón de diseño Método Plantilla).
+			// Llamada a la operaciï¿½n primitiva 
+			// (patrï¿½n de diseï¿½o Mï¿½todo Plantilla).
 			JavaMethodProcessor methodProcessor = getMethodProcessor(); 
 							
 			String uniqueName = methodProcessor.getUniqueName();
@@ -83,25 +80,25 @@ public abstract class MethodSelectionHandler implements ISelectionHandler {
 	}
 	
 	/**
-	 * Obtiene la clase del modelo MOON en la que se define el método 
-	 * representado por una selección del interfaz gráfico.
+	 * Obtiene la clase del modelo MOON en la que se define el mï¿½todo 
+	 * representado por una selecciï¿½n del interfaz grï¿½fico.
 	 * 
-	 * @return la clase del modelo MOON en la que se define el método
-	 * representado por una selección del interfaz gráfico.
+	 * @return la clase del modelo MOON en la que se define el mï¿½todo
+	 * representado por una selecciï¿½n del interfaz grï¿½fico.
 	 * 
 	 * @throws ClassNotFoundException si se no se consigue encontrar la clase en
 	 * el modelo MOON cargado.
-	 * @throws IOException si se produce algún error al acceder al modelo MOON.
+	 * @throws IOException si se produce algï¿½n error al acceder al modelo MOON.
 	 */
 	public abstract ClassDef getMethodClass() 
 		throws ClassNotFoundException, IOException; 
 
 	/**
-	 * Obtiene un elemento capaz de procesar la información de un método Java.
+	 * Obtiene un elemento capaz de procesar la informaciï¿½n de un mï¿½todo Java.
 	 * 
-	 * Operación primitiva (patrón de diseño Método Plantilla).
+	 * Operaciï¿½n primitiva (patrï¿½n de diseï¿½o Mï¿½todo Plantilla).
 	 * 
-	 * @return un elemento capaz de procesar la información de un método Java.
+	 * @return un elemento capaz de procesar la informaciï¿½n de un mï¿½todo Java.
 	 */
 	protected abstract JavaMethodProcessor getMethodProcessor();
 }

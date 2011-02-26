@@ -20,11 +20,12 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.*/
 
 package repository.moon.concretefunction;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Collection;
 
 import moon.core.Model;
-import moon.core.classdef.*;
-
+import moon.core.classdef.ClassDef;
+import moon.core.classdef.ClassType;
 import refactoring.engine.Function;
 import repository.moon.MOONRefactoring;
 
@@ -75,7 +76,7 @@ public class SubtypeCollector extends Function {
 	}
 	
 	/**
-	 * Función que devuelve el valor.
+	 * Funciï¿½n que devuelve el valor.
 	 *  
 	 * @return <code>null</code>.
 	 */
@@ -86,12 +87,12 @@ public class SubtypeCollector extends Function {
 
 	/**
 	 * Obtiene todos los subtipos del <code>ClassType</code> representado por
-	 * {@link #classType}, incluyendo aquéllos que se puedan obtener 
-	 * recursivamente a través de sus subtipos directos.
+	 * {@link #classType}, incluyendo aquï¿½llos que se puedan obtener 
+	 * recursivamente a travï¿½s de sus subtipos directos.
 	 * 
 	 * @return los subtipos del <code>ClassType</code> representado por
-	 * {@link #classType}, incluyendo aquéllos que se puedan obtener
-	 * recursivamente a través de sus subtipos directos.
+	 * {@link #classType}, incluyendo aquï¿½llos que se puedan obtener
+	 * recursivamente a travï¿½s de sus subtipos directos.
 	 */	
 	@Override
 	public Collection<ClassType> getCollection() {
@@ -105,10 +106,10 @@ public class SubtypeCollector extends Function {
 	}
 
 	/**
-	 * Añade todos los subtipos de una clase a una colección.
+	 * Aï¿½ade todos los subtipos de una clase a una colecciï¿½n.
 	 * 
 	 * @param ct <code>ClassType</code> cuyos subtipos se quieren obtener.
-	 * @param subtypes colección a la que añadir los subtipos hallados.
+	 * @param subtypes colecciï¿½n a la que aï¿½adir los subtipos hallados.
 	 */
 	private void addSubclasses(ClassType ct, Collection<ClassType> subtypes) {
 
@@ -125,7 +126,7 @@ public class SubtypeCollector extends Function {
 			
 			// Se busca una superclase que coincida con la de nuestro tipo.
 			if (ancestors.contains(ct.getClassDef()))
-				// Si entre sus superclases (buscadas recursivamente) está nuestra
+				// Si entre sus superclases (buscadas recursivamente) estï¿½ nuestra
 				// superclase, es que es un subtipo.
 				subtypes.add(modelClass.getClassType());
 		}

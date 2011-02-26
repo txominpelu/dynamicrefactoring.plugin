@@ -20,18 +20,17 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.*/
 
 package repository.moon.concreteaction;
 
+import static org.junit.Assert.assertEquals;
 import javamoon.construct.source.SourceLoader;
 import javamoon.core.JavaModel;
-import moon.core.classdef.*;
+import moon.core.classdef.ClassDef;
 
-import static org.junit.Assert.*;
-
-import org.junit.Test; 
+import org.junit.Test;
 
 import repository.RefactoringTemplateAbstractTest;
 
 /** 
- * Comprueba que funciona correctamente la acción que elimina una cláusula de
+ * Comprueba que funciona correctamente la acciï¿½n que elimina una clï¿½usula de
  * herencia de una clase.
  * 
  * @author <A HREF="mailto:sfd0009@alu.ubu.es">Sonia Fuente de la Fuente</A>
@@ -40,11 +39,11 @@ import repository.RefactoringTemplateAbstractTest;
 public class TestRemoveInheritanceClause extends RefactoringTemplateAbstractTest {
 
 	/** 
-	 * Comprueba que la acción funciona correctamente al eliminar una
-	 * cláusula de herencia de una clase que hereda de una superclase en su
+	 * Comprueba que la acciï¿½n funciona correctamente al eliminar una
+	 * clï¿½usula de herencia de una clase que hereda de una superclase en su
 	 * mismo paquete.
 	 * 
-	 * @throws Exception si se produce un error durante la ejecución de la prueba.
+	 * @throws Exception si se produce un error durante la ejecuciï¿½n de la prueba.
 	 */
 	@Test
 	public void testRemove() throws Exception {
@@ -66,11 +65,11 @@ public class TestRemoveInheritanceClause extends RefactoringTemplateAbstractTest
 	}
 	
 	/** 
-	 * Comprueba que la funciona correctamente la función que deshace la 
-	 * eliminación de una cláusula de herencia en una clase que hereda de una 
+	 * Comprueba que la funciona correctamente la funciï¿½n que deshace la 
+	 * eliminaciï¿½n de una clï¿½usula de herencia en una clase que hereda de una 
 	 * superclase en su mismo paquete.
 	 * 
-	 * @throws Exception si se produce un error durante la ejecución de la prueba.
+	 * @throws Exception si se produce un error durante la ejecuciï¿½n de la prueba.
 	 */
 	@Test
 	public void testUndo() throws Exception {

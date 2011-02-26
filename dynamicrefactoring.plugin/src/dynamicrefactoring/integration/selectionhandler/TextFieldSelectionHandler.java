@@ -20,14 +20,14 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.*/
 
 package dynamicrefactoring.integration.selectionhandler;
 
-import dynamicrefactoring.util.processor.JavaFieldProcessor;
-import dynamicrefactoring.util.selection.TextSelectionInfo;
-
 import java.io.IOException;
 
 import moon.core.classdef.ClassDef;
 
 import org.eclipse.jdt.core.IField;
+
+import dynamicrefactoring.util.processor.JavaFieldProcessor;
+import dynamicrefactoring.util.selection.TextSelectionInfo;
 
 /**
  * Proporciona las funciones necesarias para obtener el atributo MOON de una
@@ -40,17 +40,17 @@ import org.eclipse.jdt.core.IField;
 public class TextFieldSelectionHandler extends FieldSelectionHandler {
 	
 	/**
-	 * El proveedor de información concreto para la selección de texto.
+	 * El proveedor de informaciï¿½n concreto para la selecciï¿½n de texto.
 	 */
 	private TextSelectionInfo infoProvider;
 	
 	/**
 	 * Constructor.
 	 * 
-	 * @param selectionInfo contenedor de la selección que se desea manejar.
+	 * @param selectionInfo contenedor de la selecciï¿½n que se desea manejar.
 	 * 
-	 * @throws Exception si la selección contenida en #selectionInfo no es una
-	 * selección de un atributo sobre una representación textual.
+	 * @throws Exception si la selecciï¿½n contenida en #selectionInfo no es una
+	 * selecciï¿½n de un atributo sobre una representaciï¿½n textual.
 	 */
 	public TextFieldSelectionHandler (TextSelectionInfo selectionInfo) 
 		throws Exception{
@@ -77,8 +77,8 @@ public class TextFieldSelectionHandler extends FieldSelectionHandler {
 	}
 
 	/**
-	 * Implementación de la operación primitiva 
-	 * (patrón de diseño Método Plantilla).
+	 * Implementaciï¿½n de la operaciï¿½n primitiva 
+	 * (patrï¿½n de diseï¿½o Mï¿½todo Plantilla).
 	 * 
 	 * @see FieldSelectionHandler#getFieldProcessor()
 	 */

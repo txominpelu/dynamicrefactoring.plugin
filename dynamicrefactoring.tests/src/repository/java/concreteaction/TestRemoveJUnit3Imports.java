@@ -20,24 +20,24 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.*/
 
 package repository.java.concreteaction;
 
+import static org.junit.Assert.assertEquals;
+
 import java.util.List;
 
 import javamoon.construct.source.SourceLoader;
 import javamoon.core.JavaModel;
 import javamoon.core.classdef.JavaClassDef;
 import javamoon.core.classdef.JavaImport;
-
 import moon.core.MoonFactory;
-import moon.core.classdef.*;
+import moon.core.classdef.ClassDef;
 
-import static org.junit.Assert.*;
-import org.junit.Test; 
+import org.junit.Test;
 
 import repository.RefactoringTemplateAbstractTest;
 import repository.moon.MOONRefactoring;
 
 /** 
- * Comprueba que funciona correctamente la acción que elimina de una clase las
+ * Comprueba que funciona correctamente la acciï¿½n que elimina de una clase las
  * importaciones que corresponden a JUnit3.
  * 
  * @author <A HREF="mailto:sfd0009@alu.ubu.es">Sonia Fuente de la Fuente</A>
@@ -46,10 +46,10 @@ import repository.moon.MOONRefactoring;
 public class TestRemoveJUnit3Imports extends RefactoringTemplateAbstractTest {
 
 	/** 
-	 * Comprueba que la acción elimina correctamente las importaciones 
+	 * Comprueba que la acciï¿½n elimina correctamente las importaciones 
 	 * correspondientes a JUnit3.
 	 * 
-	 * @throws Exception si se produce un error durante la ejecución de la prueba.
+	 * @throws Exception si se produce un error durante la ejecuciï¿½n de la prueba.
 	 */
 	@Test
 	public void testRemove() throws Exception{
@@ -73,10 +73,10 @@ public class TestRemoveJUnit3Imports extends RefactoringTemplateAbstractTest {
 	}
 	
 	/** 
-	 * Comprueba que la acción deshace correctamente la eliminación de las 
+	 * Comprueba que la acciï¿½n deshace correctamente la eliminaciï¿½n de las 
 	 * importaciones correspondientes a JUnit3.
 	 * 
-	 * @throws Exception si se produce un error durante la ejecución de la prueba.
+	 * @throws Exception si se produce un error durante la ejecuciï¿½n de la prueba.
 	 */
 	@Test
 	public void testUndo() throws Exception{
@@ -97,7 +97,7 @@ public class TestRemoveJUnit3Imports extends RefactoringTemplateAbstractTest {
 		
 		List<JavaImport> imports = ((JavaClassDef)classdef).getImport();
 		assertEquals("Test deshacer eliminar importaciones JUnit3: " + //$NON-NLS-1$
-			"no se deshizo la eliminación las importaciones", 1, imports.size()); //$NON-NLS-1$
+			"no se deshizo la eliminaciï¿½n las importaciones", 1, imports.size()); //$NON-NLS-1$
 		assertEquals("Test deshacer eliminar importaciones JUnit3: " + //$NON-NLS-1$
 			"no se mantuvo el tipo esperado.",  //$NON-NLS-1$
 			"junit.framework.TestCase", imports.get(0).getUniqueName().toString()); //$NON-NLS-1$

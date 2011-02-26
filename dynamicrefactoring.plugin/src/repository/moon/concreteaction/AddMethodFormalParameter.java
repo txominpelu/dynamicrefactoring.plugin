@@ -29,7 +29,6 @@ import javamoon.core.classdef.JavaGenericArrayType;
 import javamoon.core.classdef.JavaWildcardType;
 import javamoon.core.genericity.JavaBoundS;
 import javamoon.core.genericity.JavaSuperBoundS;
-
 import moon.core.Name;
 import moon.core.classdef.ClassDef;
 import moon.core.classdef.ClassType;
@@ -46,7 +45,7 @@ import repository.RelayListenerRegistry;
  * Adds new formal parameter to the method if it would be necessary.
  * It includes the bounds.
  * 
- * @author <A HREF="mailto:rmartico@ubu.es">Raúl Marticorena</A>
+ * @author <A HREF="mailto:rmartico@ubu.es">Raï¿½l Marticorena</A>
  */ 
 public class AddMethodFormalParameter extends Action {
 	
@@ -61,17 +60,17 @@ public class AddMethodFormalParameter extends Action {
 	private Name name;
 	
 	/**
-	 * Clase a la que se moverá el método.
+	 * Clase a la que se moverï¿½ el mï¿½todo.
 	 */
 	private ClassDef classDef;
 	
 	/**
-	 * Método que se va a mover de una clase a otra.
+	 * Mï¿½todo que se va a mover de una clase a otra.
 	 */
 	 private MethDec method;
 	 
 	 /**
-	  * Receptor de los mensajes enviados por la acción concreta.
+	  * Receptor de los mensajes enviados por la acciï¿½n concreta.
 	  */
 	 private RelayListenerRegistry listenerReg;
 	 	
@@ -79,8 +78,8 @@ public class AddMethodFormalParameter extends Action {
 	 * Constructor.<p>
 	 *
 	 * Obtiene una nueva instancia de MoveMethod.
-	 * @param method método que se va a mover de una clase a otra.
-	 * @param classDefDest clase a la que se moverá el método.
+	 * @param method mï¿½todo que se va a mover de una clase a otra.
+	 * @param classDefDest clase a la que se moverï¿½ el mï¿½todo.
 	 */	
 	public AddMethodFormalParameter(Name name, CodeFragment fragment){
 		super();
@@ -93,7 +92,7 @@ public class AddMethodFormalParameter extends Action {
 	}
 	
 	/**
-	 * Ejecuta el movimiento del método de una clase a otra.
+	 * Ejecuta el movimiento del mï¿½todo de una clase a otra.
 	 */
 	@Override
 	public void run() {		
@@ -173,8 +172,8 @@ public class AddMethodFormalParameter extends Action {
 	}
 
 	/**
-	 * Deshace el movimiento del método, devolviéndolo a su clase de origen y 
-	 * eliminándolo de la nueva clase destino.
+	 * Deshace el movimiento del mï¿½todo, devolviï¿½ndolo a su clase de origen y 
+	 * eliminï¿½ndolo de la nueva clase destino.
 	 */
 	@Override
 	public void undo() {		

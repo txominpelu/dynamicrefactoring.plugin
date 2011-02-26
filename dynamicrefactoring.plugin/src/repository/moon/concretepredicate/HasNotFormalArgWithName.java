@@ -21,32 +21,31 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.*/
 package repository.moon.concretepredicate;
 
 
-import java.util.*;
+import java.util.Iterator;
 
 import moon.core.Name;
-import moon.core.classdef.MethDec;
 import moon.core.classdef.FormalArgument;
-
+import moon.core.classdef.MethDec;
 import refactoring.engine.Predicate;
 import repository.moon.concretefunction.FormalArgCollector;
 
 /**
- * Permite verificar que no existe ningun parámetro formal cuyo nombre coincida
- * con el indicado, dentro de la signatura de un método.
+ * Permite verificar que no existe ningun parï¿½metro formal cuyo nombre coincida
+ * con el indicado, dentro de la signatura de un mï¿½todo.
  *
  * @author <A HREF="mailto:ehp0001@alu.ubu.es">Enrique Herrero Paredes</A>
- * @author <A HREF="mailto:alc0022@alu.ubu.es">Ángel López Campo</A>
+ * @author <A HREF="mailto:alc0022@alu.ubu.es">ï¿½ngel Lï¿½pez Campo</A>
  * @author <A HREF="mailto:sfd0009@alu.ubu.es">Sonia Fuente de la Fuente</A>
  */ 
 public class HasNotFormalArgWithName extends Predicate {
 	
 	/**
-	 * Método en el que se busca un parámetro con cierto nombre.
+	 * Mï¿½todo en el que se busca un parï¿½metro con cierto nombre.
 	 */
 	private MethDec methDec;
 	
 	/**
-	 * Nombre del parámetro cuya presencia en un método se quiere comprobar.
+	 * Nombre del parï¿½metro cuya presencia en un mï¿½todo se quiere comprobar.
 	 */
 	private Name name;
 	
@@ -55,8 +54,8 @@ public class HasNotFormalArgWithName extends Predicate {
 	 *
 	 * Obtiene una nueva instancia del predicado HasNotFormalArgWithName.
 	 *
-	 * @param methDec el método en que se busca el parámetro.
-	 * @param newname el nombre con el que se busca un parámetro en el método.
+	 * @param methDec el mï¿½todo en que se busca el parï¿½metro.
+	 * @param newname el nombre con el que se busca un parï¿½metro en el mï¿½todo.
 	 */
 	public HasNotFormalArgWithName(MethDec methDec, Name newname) {
 		
@@ -72,7 +71,7 @@ public class HasNotFormalArgWithName extends Predicate {
 	/**
 	 * Comprueba el valor de verdad del predicado.
 	 * 
-	 * @return <code>true</code> si no existe el parámetro en el método 
+	 * @return <code>true</code> si no existe el parï¿½metro en el mï¿½todo 
 	 * especificado; <code>false</code> en caso contrario.
 	 */	 
 	public boolean isValid() {

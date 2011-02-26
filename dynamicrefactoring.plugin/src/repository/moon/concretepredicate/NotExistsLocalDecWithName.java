@@ -21,27 +21,26 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.*/
 package repository.moon.concretepredicate;
 
 
-import java.util.*;
+import java.util.Iterator;
 
 import moon.core.Name;
 import moon.core.classdef.LocalDec;
 import moon.core.classdef.MethDec;
-
 import refactoring.engine.Predicate;
 import repository.moon.concretefunction.LocalDecCollector;
 
 /**
  * Permite verificar que no existe ninguna variable local cuyo nombre coincida 
- * con el especificado, dentro de la signatura de un método.
+ * con el especificado, dentro de la signatura de un mï¿½todo.
  *
  * @author <A HREF="mailto:ehp0001@alu.ubu.es">Enrique Herrero Paredes</A>
- * @author <A HREF="mailto:alc0022@alu.ubu.es">Ángel López Campo</A>
+ * @author <A HREF="mailto:alc0022@alu.ubu.es">ï¿½ngel Lï¿½pez Campo</A>
  * @author <A HREF="mailto:sfd0009@alu.ubu.es">Sonia Fuente de la Fuente</A>
  */ 
 public class NotExistsLocalDecWithName extends Predicate {
 	
 	/**
-	 * Método en el que se busca una variable local con cierto nombre.
+	 * Mï¿½todo en el que se busca una variable local con cierto nombre.
 	 */
 	private MethDec methDec;
 	
@@ -55,8 +54,8 @@ public class NotExistsLocalDecWithName extends Predicate {
 	 *
 	 * Obtiene una nueva instancia del predicado NotExistsLocalDecWithName.
 	 *
-	 * @param methDec el método en que se busca la variable local.
-	 * @param newname el nombre con el que se busca una variable local al método.
+	 * @param methDec el mï¿½todo en que se busca la variable local.
+	 * @param newname el nombre con el que se busca una variable local al mï¿½todo.
 	 */
 	public NotExistsLocalDecWithName(MethDec methDec, Name newname) {
 		
@@ -72,7 +71,7 @@ public class NotExistsLocalDecWithName extends Predicate {
 	/**
 	 * Comprueba el valor de verdad del predicado.
 	 * 
-	 * @return <code>true</code> si no existe la variable local en el método 
+	 * @return <code>true</code> si no existe la variable local en el mï¿½todo 
 	 * especificado, <code>false</code> en caso contrario.
 	 */	 
 	public boolean isValid() {

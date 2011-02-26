@@ -22,22 +22,21 @@ package repository.moon.concretepredicate;
 
 import moon.core.classdef.MethDec;
 import moon.core.entity.SignatureEntity;
-
 import refactoring.engine.Predicate;
 
 /**
  * Permite comprobar que una determinada <code>SignatureEntity</code> (atributo
  * de clase o argumento formal) no es utilizada dentro del cuerpo de un cierto 
- * método.
+ * mï¿½todo.
  *
  * @author <A HREF="mailto:ehp0001@alu.ubu.es">Enrique Herrero Paredes</A>
- * @author <A HREF="mailto:alc0022@alu.ubu.es">Ángel López Campo</A>
+ * @author <A HREF="mailto:alc0022@alu.ubu.es">ï¿½ngel Lï¿½pez Campo</A>
  * @author <A HREF="mailto:sfd0009@alu.ubu.es">Sonia Fuente de la Fuente</A>
  */
 public class SignatureEntityIsNotUsedInMethod extends Predicate {
 	
 	/**
-	 * Condición opuesta a la que se comprueba.
+	 * Condiciï¿½n opuesta a la que se comprueba.
 	 */
 	private Predicate oppositePredicate;
 		
@@ -48,7 +47,7 @@ public class SignatureEntityIsNotUsedInMethod extends Predicate {
 	 * SignatureEntityIsNotUsedInMethod.
 	 *
 	 * @param ent la entidad de signatura cuyo uso se desea estudiar.
-	 * @param methDec el método en cuyo cuerpo se estudia el uso de la entidad.
+	 * @param methDec el mï¿½todo en cuyo cuerpo se estudia el uso de la entidad.
 	 */
 	public SignatureEntityIsNotUsedInMethod(SignatureEntity ent, 
 		MethDec methDec) {
@@ -66,7 +65,7 @@ public class SignatureEntityIsNotUsedInMethod extends Predicate {
 	 * Comprueba el valor de verdad del predicado.
 	 * 
 	 * @return <code>true</code> si el valor de la entidad de signatura no se 
-	 * emplea en ningún punto del cuerpo del método; <code>false</code> en caso 
+	 * emplea en ningï¿½n punto del cuerpo del mï¿½todo; <code>false</code> en caso 
 	 * contrario.
 	 */	 
 	public boolean isValid() {

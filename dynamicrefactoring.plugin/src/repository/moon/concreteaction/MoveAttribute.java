@@ -20,8 +20,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.*/
 
 package repository.moon.concreteaction;
 
-import moon.core.classdef.*;
-
+import moon.core.classdef.AttDec;
+import moon.core.classdef.ClassDef;
 import refactoring.engine.Action;
 import repository.RelayListenerRegistry;
 
@@ -30,10 +30,10 @@ import repository.RelayListenerRegistry;
  *
  * Para poder llevarse a cabo el movimiento, el atributo no debe estar siendo 
  * utilizado por ninguna clase del modelo, ni tan siquiera la propia clase de
- * origen del atributo. De otra manera, el modelo podría quedar en un estado
+ * origen del atributo. De otra manera, el modelo podrï¿½a quedar en un estado
  * inconsistente.
  *
- * @author <A HREF="mailto:alc0022@alu.ubu.es">Ángel López Campo</A>
+ * @author <A HREF="mailto:alc0022@alu.ubu.es">ï¿½ngel Lï¿½pez Campo</A>
  * @author <A HREF="mailto:ehp0001@alu.ubu.es">Enrique Herrero Paredes</A>
  * @author <A HREF="mailto:sfd0009@alu.ubu.es">Sonia Fuente de la Fuente</A>
  */ 
@@ -55,14 +55,14 @@ public class MoveAttribute extends Action {
 	private ClassDef origin;
 	
 	/**
-	 * Receptor de los mensajes enviados por la acción concreta.
+	 * Receptor de los mensajes enviados por la acciï¿½n concreta.
 	 */
 	private RelayListenerRegistry listenerReg;
 			
 	/**
 	 * Constructor.<p>
 	 *
-	 * Obtiene una nueva instancia de la acción MoveAttribute.
+	 * Obtiene una nueva instancia de la acciï¿½n MoveAttribute.
 	 *
 	 * @param att el atributo que se va a mover de una clase a otra.
 	 * @param dest la clase de destino del atributo.
@@ -91,7 +91,7 @@ public class MoveAttribute extends Action {
 	}	
 	
 	/**
-	 * Restaura el atributo a su clase original, eliminándolo a su vez de la
+	 * Restaura el atributo a su clase original, eliminï¿½ndolo a su vez de la
 	 * de destino.
 	 */
 	public void undo(){

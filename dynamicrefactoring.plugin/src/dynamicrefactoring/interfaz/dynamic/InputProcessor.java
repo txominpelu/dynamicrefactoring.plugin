@@ -22,7 +22,6 @@ package dynamicrefactoring.interfaz.dynamic;
 
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
-
 import java.text.MessageFormat;
 import java.util.HashMap;
 
@@ -33,11 +32,11 @@ import org.apache.log4j.Logger;
 import dynamicrefactoring.RefactoringConstants;
 
 /**
- * Proporciona funciones de procesamiento de las entradas obtenidas a través 
- * de una ventana de refactorización dinámica.
+ * Proporciona funciones de procesamiento de las entradas obtenidas a travï¿½s 
+ * de una ventana de refactorizaciï¿½n dinï¿½mica.
  * 
  * <p>Permite adaptar los valores introducidos en la ventana a las necesidades
- * de la refactorización que se debe ejecutar.</p>
+ * de la refactorizaciï¿½n que se debe ejecutar.</p>
  * 
  * @author <A HREF="mailto:sfd0009@alu.ubu.es">Sonia Fuente de la Fuente</A>
  * @author <A HREF="mailto:ehp0001@alu.ubu.es">Enrique Herrero Paredes</A>
@@ -67,7 +66,7 @@ public class InputProcessor {
 	private final String NAME_NAME = "moon.core.Name"; //$NON-NLS-1$
 	
 	/**
-	 * Ventana a la que se consultan los datos necesarios para la composición del
+	 * Ventana a la que se consultan los datos necesarios para la composiciï¿½n del
 	 * conjunto de entradas de la refactorizacion.
 	 */
 	private DynamicRefactoringWindow launcher;
@@ -75,14 +74,14 @@ public class InputProcessor {
 	/**
 	 * Constructor.
 	 * 
-	 * @param launcher ventana de configuración de la refactorización.
+	 * @param launcher ventana de configuraciï¿½n de la refactorizaciï¿½n.
 	 */
 	public InputProcessor(DynamicRefactoringWindow launcher){
 		this.launcher = launcher;
 	}
 	
 	/**
-	 * Obtiene las entradas de la refactorización a partir de los valores cargados
+	 * Obtiene las entradas de la refactorizaciï¿½n a partir de los valores cargados
 	 * mediante la interfaz de {@link DynamicRefactoringWindow}.
 	 * 
 	 * @return una tabla asociativa con los valores de las entradas. Se utiliza
@@ -126,10 +125,10 @@ public class InputProcessor {
 	
 	/**
 	 * Intenta obtener un objeto MOON asociado a una entrada cuyo valor especifica
-	 * el usuario a través de un campo de texto.
+	 * el usuario a travï¿½s de un campo de texto.
 	 * 
 	 * <p>Por defecto, se interpreta que los campos de texto solo pueden contener
-	 * nombres (<code>moon.core.Name</code>) o nombres únicos de clases (<code>
+	 * nombres (<code>moon.core.Name</code>) o nombres ï¿½nicos de clases (<code>
 	 * moon.core.classdef.ClassDef</code>).</p>
 	 * 
 	 * @param input entrada cuyo valor asociado se intenta obtener.
@@ -137,11 +136,11 @@ public class InputProcessor {
 	 * asigna valor a la entrada.
 	 * 
 	 * @return un objeto MOON asociado a la entrada, o <code>null</code> si no se
-	 * pudo cargar ningún objeto adecuado.
+	 * pudo cargar ningï¿½n objeto adecuado.
 	 */
 	public Object computeValue(String[] input, String source){
 		
-		// Se obtiene el nombre del elemento que habrá que buscar.
+		// Se obtiene el nombre del elemento que habrï¿½ que buscar.
 		String name = source.trim();
 		
 		// Si la entrada es de tipo moon.core.Name.
@@ -149,7 +148,7 @@ public class InputProcessor {
 			// Se construye un nombre MOON.
 			return launcher.model.getMoonFactory().createName(name);
 		
-		// Si no, se comprueba si es algún subtipo de moon.core.classdef.ClassDef.
+		// Si no, se comprueba si es algï¿½n subtipo de moon.core.classdef.ClassDef.
 		try {
 			Class<?> classdef = Class.forName(CLASSDEF_NAME);
 			Class<?> declaration = Class.forName(input[0]);
@@ -182,14 +181,14 @@ public class InputProcessor {
 	}
 
 	/**
-	 * Realiza algunas comprobaciones y transformaciones básicas que permiten
+	 * Realiza algunas comprobaciones y transformaciones bï¿½sicas que permiten
 	 * obtener unos tipos de datos del modelo a partir de otros.
 	 * 
 	 * @param input la entrada cuyo valor se procesa.
-	 * @param value el valor original obtenido a través de la interfaz.
+	 * @param value el valor original obtenido a travï¿½s de la interfaz.
 	 * 
 	 * @return el resultado de procesar la entrada original para comprobar si es
-	 * necesario aplicarle alguna de las transformaciones básicas disponibles.
+	 * necesario aplicarle alguna de las transformaciones bï¿½sicas disponibles.
 	 */
 	private Object processInput (String[] input, Object value){
 		String expectedName = input[0];
@@ -198,15 +197,15 @@ public class InputProcessor {
 		
 		try {
 			Class<?> expected = Class.forName(expectedName);
-			// Si el valor obtenido es ya un tipo válido para la entrada.
+			// Si el valor obtenido es ya un tipo vï¿½lido para la entrada.
 			if (expected.isAssignableFrom(source))
 				return value;
 			
-			// Si no, se obtienen todos los métodos del tipo del objeto disponible.
+			// Si no, se obtienen todos los mï¿½todos del tipo del objeto disponible.
 			int count = 0, position = -1;
 			Method[] methods = source.getMethods();			
 			for (int i = 0; i < methods.length; i++)
-				// Se busca un método sin argumentos y cuyo tipo de retorno 
+				// Se busca un mï¿½todo sin argumentos y cuyo tipo de retorno 
 				// coincida con el deseado.
 				if (expected.isAssignableFrom(methods[i].getReturnType()))
 					if (methods[i].getParameterTypes().length == 0){
@@ -214,8 +213,8 @@ public class InputProcessor {
 						position = i;
 					}
 			
-			// Si se ha encontrado más de un método o no se ha encontrado ninguno
-			// es una situación ambigua o sin solución.
+			// Si se ha encontrado mï¿½s de un mï¿½todo o no se ha encontrado ninguno
+			// es una situaciï¿½n ambigua o sin soluciï¿½n.
 			if (count > 1 || position == -1) {
 				Object[] messageArgs = {input[1]};
 				MessageFormat formatter = new MessageFormat(""); //$NON-NLS-1$
@@ -244,15 +243,15 @@ public class InputProcessor {
 	}
 
 	/**
-	 * Comprueba si un determinado método es válido como método de obtención del 
+	 * Comprueba si un determinado mï¿½todo es vï¿½lido como mï¿½todo de obtenciï¿½n del 
 	 * valor o posibles valores de un determinado tipo.
 	 * 
-	 * @param method método cuya validez se comprueba.
+	 * @param method mï¿½todo cuya validez se comprueba.
 	 * @param returnType nombre completamente cualificado del tipo con el que debe
-	 * conformar el tipo de retorno del método, en caso de ser un único elemento.
+	 * conformar el tipo de retorno del mï¿½todo, en caso de ser un ï¿½nico elemento.
 	 * 
-	 * @return <code>true</code> si el tipo de retorno del método devuelve un
-	 * iterador, una colección o un objeto cuyo tipo conforma con el especificado;
+	 * @return <code>true</code> si el tipo de retorno del mï¿½todo devuelve un
+	 * iterador, una colecciï¿½n o un objeto cuyo tipo conforma con el especificado;
 	 * <code>false</code> en caso contrario. 
 	 * 
 	 * @throws ClassNotFoundException si se produce un error al cargar la clase
@@ -264,7 +263,7 @@ public class InputProcessor {
 		
 		Class<?> expected = Class.forName(returnType);
 		
-		// Las colecciones engloban también a las listas.
+		// Las colecciones engloban tambiï¿½n a las listas.
 		Class<?> collection = Class.forName(
 			RefactoringConstants.COLLECTION_PATH);
 		Class<?> iterator = Class.forName(

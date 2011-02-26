@@ -20,25 +20,24 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.*/
 
 package repository;
 
+import static org.junit.Assert.assertTrue;
 import javamoon.construct.source.SourceLoader;
 import javamoon.core.JavaModel;
-
 import moon.core.MoonFactory;
 import moon.core.classdef.AttDec;
 import moon.core.classdef.ClassDef;
 
 import org.junit.After;
 import org.junit.Before;
-import org.junit.Test; 
-import static org.junit.Assert.*;
+import org.junit.Test;
 
 import repository.moon.MOONRefactoring;
 import repository.moon.concreterefactoring.MoveField;
 
 /** 
- * Comprueba que funciona correctamente el mecanismo de distribución de
- * mensajes enviados por los elementos del repositorio durante la ejecución
- * de una refactorización.<p>
+ * Comprueba que funciona correctamente el mecanismo de distribuciï¿½n de
+ * mensajes enviados por los elementos del repositorio durante la ejecuciï¿½n
+ * de una refactorizaciï¿½n.<p>
  * 
  * @author <A HREF="mailto:sfd0009@alu.ubu.es">Sonia Fuente de la Fuente</A>
  * @author <A HREF="mailto:ehp0001@alu.ubu.es">Enrique Herrero Paredes</A>
@@ -52,7 +51,7 @@ public class TestMessageListener extends RefactoringTemplateAbstractTest
 	private boolean received = false; 
 	
 	/**
-	 * Este método se invoca después de cada test.
+	 * Este mï¿½todo se invoca despuï¿½s de cada test.
 	 */
 	@After @Override
 	public void tearDown(){
@@ -61,9 +60,9 @@ public class TestMessageListener extends RefactoringTemplateAbstractTest
 	}
 	
 	/**
-	 * Este método se invoca antes de cada test.
+	 * Este mï¿½todo se invoca antes de cada test.
 	 * 
-	 * @throws Exception si se produce un error durante la inicialización.
+	 * @throws Exception si se produce un error durante la inicializaciï¿½n.
 	 */
 	@Before @Override
 	public void setUp() throws Exception {
@@ -81,13 +80,13 @@ public class TestMessageListener extends RefactoringTemplateAbstractTest
 	}
 	
 	/** 
-	 * Comprueba que se reciben mensajes durante la ejecución de una
-	 * refactorización. <p>
+	 * Comprueba que se reciben mensajes durante la ejecuciï¿½n de una
+	 * refactorizaciï¿½n. <p>
 	 * 
-	 * Ejecuta una refactorización "Mover Atributo" y comprueba que se han
-	 * recibido mensajes de refactorización en el proceso.
+	 * Ejecuta una refactorizaciï¿½n "Mover Atributo" y comprueba que se han
+	 * recibido mensajes de refactorizaciï¿½n en el proceso.
 	 * 
-	 * @throws Exception si se produjo algún error durante la ejecución de la prueba.
+	 * @throws Exception si se produjo algï¿½n error durante la ejecuciï¿½n de la prueba.
 	 */
 	@Test
 	public void testMessageReceived() throws Exception{
@@ -106,7 +105,7 @@ public class TestMessageListener extends RefactoringTemplateAbstractTest
 		MOONRefactoring refactoring = new MoveField(atribute, dest, jm);			
 		refactoring.run();
 		
-		assertTrue("Test distribución de mensajes: " + //$NON-NLS-1$
-			"no se ha recibido ningún mensaje durante la refactorización.", received); //$NON-NLS-1$
+		assertTrue("Test distribuciï¿½n de mensajes: " + //$NON-NLS-1$
+			"no se ha recibido ningï¿½n mensaje durante la refactorizaciï¿½n.", received); //$NON-NLS-1$
 	}
 }

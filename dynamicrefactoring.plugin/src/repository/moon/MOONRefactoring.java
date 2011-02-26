@@ -20,13 +20,13 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.*/
 
 package repository.moon;
 
-import refactoring.engine.Refactoring;
 import moon.core.Model;
+import refactoring.engine.Refactoring;
 
 /**
- * Representa una refactorización en el contexto del lenguaje MOON.
+ * Representa una refactorizaciï¿½n en el contexto del lenguaje MOON.
  * 
- * @author Raúl Marticorena
+ * @author Raï¿½l Marticorena
  * 
  * @since MOONRepository-2.1.2
  */
@@ -40,9 +40,9 @@ public class MOONRefactoring extends Refactoring {
 	/**
 	 * Constructor.
 	 * 
-	 * @param name nombre de la refactorización.
+	 * @param name nombre de la refactorizaciï¿½n.
 	 * 
-	 * @param model modelo sobre el que se ejecuta la refactorización.
+	 * @param model modelo sobre el que se ejecuta la refactorizaciï¿½n.
 	 */
 	public MOONRefactoring(String name, Model model) {
 		super(name);

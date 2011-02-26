@@ -25,15 +25,13 @@ import javamoon.core.classdef.JavaClassDef;
 import javamoon.core.classdef.JavaImport;
 import javamoon.core.classdef.JavaType;
 import javamoon.core.classdef.primitivetypes.JavaPrimitiveType;
-
 import moon.core.classdef.ClassDef;
 import moon.core.classdef.Type;
-
 import refactoring.engine.Action;
 import repository.RelayListenerRegistry;
 
 /**
- * Permite añadir una sentencia de importación a una clase.
+ * Permite aï¿½adir una sentencia de importaciï¿½n a una clase.
  * 
  * @author <A HREF="mailto:sfd0009@alu.ubu.es">Sonia Fuente de la Fuente</A>
  * @author <A HREF="mailto:ehp0001@alu.ubu.es">Enrique Herrero Paredes</A>
@@ -41,32 +39,32 @@ import repository.RelayListenerRegistry;
 public class AddImportClause extends Action {
 	
 	/**
-	 * Receptor de los mensajes enviados por la acción concreta.
+	 * Receptor de los mensajes enviados por la acciï¿½n concreta.
 	 */
 	private RelayListenerRegistry listenerReg;
 	
 	/**
-	 * Tipo de la sentencia de importación que se debe añadir.
+	 * Tipo de la sentencia de importaciï¿½n que se debe aï¿½adir.
 	 */
 	private Type type;
 	
 	/**
-	 * Clase a la que se debe añadir la sentencia de importación.
+	 * Clase a la que se debe aï¿½adir la sentencia de importaciï¿½n.
 	 */
 	private ClassDef classdef;
 	
 	/**
-	 * Cláusula de importación añadida a la clase.
+	 * Clï¿½usula de importaciï¿½n aï¿½adida a la clase.
 	 */
 	private JavaImport jimport;
 	
 	/**
 	 * Constructor.<p>
 	 * 
-	 * Obtiene una nueva instancia de la acción <code>AddImportClause</code>.
+	 * Obtiene una nueva instancia de la acciï¿½n <code>AddImportClause</code>.
 	 *
-	 * @param classdef clase a la que se debe añadir la sentencia de importación.
-	 * @param type tipo que debe importar la sentencia de importación.
+	 * @param classdef clase a la que se debe aï¿½adir la sentencia de importaciï¿½n.
+	 * @param type tipo que debe importar la sentencia de importaciï¿½n.
 	 */
 	public AddImportClause(ClassDef classdef, Type type){
 		super();
@@ -78,7 +76,7 @@ public class AddImportClause extends Action {
 	}
 	
 	/**
-	 * Añade la sentencia de importación.
+	 * Aï¿½ade la sentencia de importaciï¿½n.
 	 * 
 	 * @see Action#run()
 	 */
@@ -103,7 +101,7 @@ public class AddImportClause extends Action {
 	/**
 	 * Comprueba si un tipo es tipo primitivo.
 	 * 
-	 * @param type tipo sobre el que se realiza la comprobación.
+	 * @param type tipo sobre el que se realiza la comprobaciï¿½n.
 	 * 
 	 * @return <code>true</code> si es un tipo primitivo; <code>false</code>
 	 * en caso contrario.

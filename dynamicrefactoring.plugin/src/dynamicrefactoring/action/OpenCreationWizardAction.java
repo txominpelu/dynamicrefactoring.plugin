@@ -20,17 +20,19 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.*/
 
 package dynamicrefactoring.action;
 
+import org.eclipse.jface.action.IAction;
+import org.eclipse.jface.viewers.ISelection;
+import org.eclipse.jface.wizard.WizardDialog;
+import org.eclipse.ui.IActionDelegate;
+import org.eclipse.ui.IWorkbenchWindow;
+import org.eclipse.ui.IWorkbenchWindowActionDelegate;
+import org.eclipse.ui.PlatformUI;
+
 import dynamicrefactoring.interfaz.wizard.CustomWizardDialog;
 import dynamicrefactoring.interfaz.wizard.RefactoringWizard;
 
-import org.eclipse.jface.action.IAction;
-import org.eclipse.jface.viewers.*;
-import org.eclipse.jface.wizard.WizardDialog;
-
-import org.eclipse.ui.*;
-
 /**
- * Acción que inicia el asistente de creación de una nueva refactorización.
+ * Acciï¿½n que inicia el asistente de creaciï¿½n de una nueva refactorizaciï¿½n.
  */
 public class OpenCreationWizardAction implements IWorkbenchWindowActionDelegate  {
 	

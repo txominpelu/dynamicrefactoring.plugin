@@ -66,9 +66,6 @@ import org.eclipse.swt.widgets.Text;
 import org.eclipse.ui.PlatformUI;
 
 import repository.moon.MOONRefactoring;
-
-import com.swtdesigner.ResourceManager;
-
 import dynamicrefactoring.RefactoringConstants;
 import dynamicrefactoring.RefactoringImages;
 import dynamicrefactoring.RefactoringPlugin;

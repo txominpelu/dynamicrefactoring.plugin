@@ -31,7 +31,6 @@ import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.IResource;
 import org.eclipse.core.resources.IWorkspaceRoot;
 import org.eclipse.core.resources.ResourcesPlugin;
-
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.Platform;
@@ -55,7 +54,7 @@ public class JavaFileManager {
 		Logger.getLogger(JavaFileManager.class);
 	
 	/**
-	 * Extensión esperada para los ficheros fuente Java.
+	 * Extensiï¿½n esperada para los ficheros fuente Java.
 	 */
 	private static final String JAVA_FILE_EXTENSION = "java"; //$NON-NLS-1$
 	
@@ -162,20 +161,20 @@ public class JavaFileManager {
 
 	/**
 	 * Obtiene el fichero fuente Java que representa la mejor coincidencia para un
-	 * cierto nombre único de clase.
+	 * cierto nombre ï¿½nico de clase.
 	 * 
-	 * Busca entre todos los ficheros Java del proyecto aquél cuyo nombre 
-	 * completamente cualificado sea la mejor coincidencia para el nombre único de
+	 * Busca entre todos los ficheros Java del proyecto aquï¿½l cuyo nombre 
+	 * completamente cualificado sea la mejor coincidencia para el nombre ï¿½nico de
 	 * clase determinado por #MOONUniqueName en el formato utilizado en MOON.
 	 * 
-	 * @param MOONUniqueName el nombre único de la clase cuyo fichero fuente se 
+	 * @param MOONUniqueName el nombre ï¿½nico de la clase cuyo fichero fuente se 
 	 * busca. Debe estar en el formato utilizado por el modelo MOON, donde el 
-	 * carácter <code>'.'</code> se utiliza como separador entre los nombres de los 
-	 * paquetes y el de la clase. No debe incluir la extensión <code>'.java'</code>.
-	 * @param project el proyecto en el que se buscará el fichero fuente de la clase.
+	 * carï¿½cter <code>'.'</code> se utiliza como separador entre los nombres de los 
+	 * paquetes y el de la clase. No debe incluir la extensiï¿½n <code>'.java'</code>.
+	 * @param project el proyecto en el que se buscarï¿½ el fichero fuente de la clase.
 	 * 
 	 * @return el fichero fuente Java que represente la mejor coincidencia para un
-	 * cierto nombre único de clase. <code>null</code> si no se encuentra ninguna 
+	 * cierto nombre ï¿½nico de clase. <code>null</code> si no se encuentra ninguna 
 	 * coincidencia.
 	 */
 	public static IFile retrieveSourceFile(String MOONUniqueName, IProject project) {
@@ -183,7 +182,7 @@ public class JavaFileManager {
 		ArrayList<IFile> javaFiles = getJavaProjectFiles(project);
 		
 		// Las clases sin paquete en MOON se asignan al paquete por
-		// defecto "<anonymous>". Se elimina esta asignación.
+		// defecto "<anonymous>". Se elimina esta asignaciï¿½n.
 		if (MOONUniqueName.startsWith("<anonymous>")) //$NON-NLS-1$
 			MOONUniqueName = MOONUniqueName.substring(
 				MOONUniqueName.indexOf("<anonymous>") + 12);  //$NON-NLS-1$
@@ -221,16 +220,16 @@ public class JavaFileManager {
 	}
 	
 	/**
-	 * Añade un recurso de tipo fichero a una lista de ficheros fuente Java.
-	 * Se encarga de verificar que la extensión del fichero es la adecuada, según el
-	 * contenido de #JAVA_FILE_EXTENSION, así como de comprobar que el tipo de 
-	 * contenido es código fuente Java.
+	 * Aï¿½ade un recurso de tipo fichero a una lista de ficheros fuente Java.
+	 * Se encarga de verificar que la extensiï¿½n del fichero es la adecuada, segï¿½n el
+	 * contenido de #JAVA_FILE_EXTENSION, asï¿½ como de comprobar que el tipo de 
+	 * contenido es cï¿½digo fuente Java.
 	 * 
-	 * @param resourceFile el recurso del espacio de trabajo que se quiere añadir.
-	 * @param sourceFileList la lista de ficheros fuente Java a la que se debe añadir.
+	 * @param resourceFile el recurso del espacio de trabajo que se quiere aï¿½adir.
+	 * @param sourceFileList la lista de ficheros fuente Java a la que se debe aï¿½adir.
 	 * 
 	 * @throws CoreException si se produce un error al acceder al tipo de 
-	 * contenido del fichero que se desea añadir.
+	 * contenido del fichero que se desea aï¿½adir.
 	 */
 	private static void addJavaFileToList(IResource resourceFile, 
 		ArrayList<IFile> sourceFileList) throws CoreException{
@@ -249,7 +248,7 @@ public class JavaFileManager {
 	/**
 	 * Completa la lista de ficheros fuente Java existentes en un directorio.
 	 * Recorre recursivamente el directorio y sus subdirectorios y para cada fichero
-	 * Java que encuentra, añade su ruta relativa a la raíz del proyecto a la lista
+	 * Java que encuentra, aï¿½ade su ruta relativa a la raï¿½z del proyecto a la lista
 	 * de rutas de ficheros fuente.
 	 *  
 	 * @param folder el directorio a partir del cual se busca.

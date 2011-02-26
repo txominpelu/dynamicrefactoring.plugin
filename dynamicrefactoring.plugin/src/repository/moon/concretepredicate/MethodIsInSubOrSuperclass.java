@@ -21,31 +21,31 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.*/
 package repository.moon.concretepredicate;
 
 
-import java.util.*;
+import java.util.Collection;
+import java.util.Vector;
 
 import moon.core.classdef.ClassDef;
-
 import refactoring.engine.Predicate;
-import repository.moon.concretefunction.*;
+import repository.moon.concretefunction.ClassesAffectedByMethRenameCollector;
 
 /**
- * Permite verificar que existe un método con un cierto nombre en alguna 
+ * Permite verificar que existe un mï¿½todo con un cierto nombre en alguna 
  * superclase o subclase de una clase dada, o a su vez, recursivamente, en 
- * alguna superclase o subclase de éstas.
+ * alguna superclase o subclase de ï¿½stas.
  *
- * @author <A HREF="mailto:alc0022@alu.ubu.es">Ángel López Campo</A>
+ * @author <A HREF="mailto:alc0022@alu.ubu.es">ï¿½ngel Lï¿½pez Campo</A>
  * @author <A HREF="mailto:ehp0001@alu.ubu.es">Enrique Herrero Paredes</A>
  * @author <A HREF="mailto:sfd0009@alu.ubu.es">Sonia Fuente de la Fuente</A>
  */ 
 public class MethodIsInSubOrSuperclass extends Predicate {
 	
 	/**
-	 * Nombre único del método cuya presencia en las clases se quiere comprobar.
+	 * Nombre ï¿½nico del mï¿½todo cuya presencia en las clases se quiere comprobar.
 	 */
 	private String methodUniqueName;
 	
 	/**
-	 * Clase a partir de la cual se busca un método con un cierto nombre.
+	 * Clase a partir de la cual se busca un mï¿½todo con un cierto nombre.
 	 */
 	private ClassDef classDef;
 	
@@ -53,8 +53,8 @@ public class MethodIsInSubOrSuperclass extends Predicate {
 	 * Constructor.<p>
 	 *
 	 * Obtiene una nueva instancia de MethodIsInSubOrSuperclass.
-	 * @param classDef la clase a partir de la cual se busca el método.
-	 * @param methodUniqueName el nombre único del método que se desea buscar.
+	 * @param classDef la clase a partir de la cual se busca el mï¿½todo.
+	 * @param methodUniqueName el nombre ï¿½nico del mï¿½todo que se desea buscar.
 	 */
 	public MethodIsInSubOrSuperclass(ClassDef classDef, String methodUniqueName){
 			
@@ -69,9 +69,9 @@ public class MethodIsInSubOrSuperclass extends Predicate {
 	/**
 	 * Comprueba el valor de verdad del predicado.
 	 * 
-	 * @return <code>true</code> si se encuentra el método en alguna clase de la
-	 * jerarquía de herencia de la clase original (o recursivamente en las 
-	 * jerarquías de herencia de las clases que se vayan encontrando); <code>
+	 * @return <code>true</code> si se encuentra el mï¿½todo en alguna clase de la
+	 * jerarquï¿½a de herencia de la clase original (o recursivamente en las 
+	 * jerarquï¿½as de herencia de las clases que se vayan encontrando); <code>
 	 * false</code> en caso contrario.
 	 */	 
 	public boolean isValid() {

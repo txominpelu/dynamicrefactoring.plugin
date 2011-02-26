@@ -21,17 +21,15 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.*/
 package dynamicrefactoring.interfaz.wizard;
 
 import org.eclipse.core.runtime.Platform;
-
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.events.SelectionListener;
-
 import org.eclipse.swt.widgets.DirectoryDialog;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.Text;
 
 /**
- * Implementa el proceso de elección de un directorio.
+ * Implementa el proceso de elecciï¿½n de un directorio.
  * 
  * @author <A HREF="mailto:lfd0002@alu.ubu.es">Laura Fuente de la Fuente</A>
  */
@@ -43,22 +41,22 @@ public class FolderSelectionListener implements SelectionListener {
 	private Text field;
 	
 	/**
-	 * <i>Shell</i> utilizada para la apertura del diálogo.
+	 * <i>Shell</i> utilizada para la apertura del diï¿½logo.
 	 */
 	private Shell shell;
 	
 	/**
-	 * Mensaje explicativo de la función que tendrá el directorio seleccionado.
+	 * Mensaje explicativo de la funciï¿½n que tendrï¿½ el directorio seleccionado.
 	 */
 	private String message;
 	
 	/**
 	 * Constructor.
 	 * 
-	 * @param field campo de texto en que se almacenará la ruta del directorio
+	 * @param field campo de texto en que se almacenarï¿½ la ruta del directorio
 	 * seleccionado por el usuario.
-	 * @param shell la <i>shell</i> en la que se mostrará el diálogo.
-	 * @param text el mensaje explicativo que llevará asociado el diálogo.
+	 * @param shell la <i>shell</i> en la que se mostrarï¿½ el diï¿½logo.
+	 * @param text el mensaje explicativo que llevarï¿½ asociado el diï¿½logo.
 	 */
 	public FolderSelectionListener(Text field, Shell shell, String text){
 		this.field = field;
@@ -67,12 +65,12 @@ public class FolderSelectionListener implements SelectionListener {
 	}
 	
 	/**
-	 * Recibe una notificación de que se ha pulsado el botón que permite 
+	 * Recibe una notificaciï¿½n de que se ha pulsado el botï¿½n que permite 
 	 * seleccionar un directorio.
 	 * 
-	 * <p>Abre una ventana de selección de directorio.</p>
+	 * <p>Abre una ventana de selecciï¿½n de directorio.</p>
 	 * 
-	 * @param e el evento de selección disparado.
+	 * @param e el evento de selecciï¿½n disparado.
 	 * 
 	 * @see SelectionListener#widgetSelected(SelectionEvent)
 	 */

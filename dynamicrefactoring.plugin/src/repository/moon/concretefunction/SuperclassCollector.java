@@ -27,15 +27,14 @@ import java.util.Vector;
 import moon.core.classdef.ClassDef;
 import moon.core.classdef.ClassType;
 import moon.core.inheritance.InheritanceClause;
-
 import refactoring.engine.Function;
 
 /**
  * Permite obtener los ancestros de una determinada clase como 
  * <code>ClassDef</code>.
  *
- * @author <A HREF="mailto:sam0006@alu.ubu.es">Sara Alcalá Martín</A>
- * @author <A HREF="mailto:dbm0005@alu.ubu.es">Diego Bañuelos Molledo</A>
+ * @author <A HREF="mailto:sam0006@alu.ubu.es">Sara Alcalï¿½ Martï¿½n</A>
+ * @author <A HREF="mailto:dbm0005@alu.ubu.es">Diego Baï¿½uelos Molledo</A>
  * @author <A HREF="mailto:sfd0009@alu.ubu.es">Sonia Fuente de la Fuente</A>
  * @author <A HREF="mailto:ehp0001@alu.ubu.es">Enrique Herrero Paredes</A>
  */
@@ -59,7 +58,7 @@ public class SuperclassCollector extends Function {
 	}
 	
 	/**
-	 * Sin implementación.
+	 * Sin implementaciï¿½n.
 	 *
 	 * @return null.
 	 */
@@ -79,8 +78,8 @@ public class SuperclassCollector extends Function {
 	}
 	
 	/**
-	 * Llamada recursiva que va subiendo por el árbol de ancestros y
-	 * añadiéndolos a la lista.
+	 * Llamada recursiva que va subiendo por el ï¿½rbol de ancestros y
+	 * aï¿½adiï¿½ndolos a la lista.
 	 * 
 	 * @param cd clase cuyos ancestros se quieren obtener.
 	 * @param ancestors lista de ancestros.
@@ -96,7 +95,7 @@ public class SuperclassCollector extends Function {
 				if(ic.getType() instanceof ClassType){
 					ClassType ct2 = (ClassType)ic.getType();
 					ancestors.add(ct2.getClassDef());
-					// Se añaden a su vez los ancestros de los ancestros.
+					// Se aï¿½aden a su vez los ancestros de los ancestros.
 					recursiveAdd(ct2.getClassDef(), ancestors);
 				}
 			}

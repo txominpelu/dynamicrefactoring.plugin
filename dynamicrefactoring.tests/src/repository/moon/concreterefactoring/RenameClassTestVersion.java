@@ -20,10 +20,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.*/
 
 package repository.moon.concreterefactoring;
 
-import moon.core.classdef.ClassDef;
 import moon.core.Model;
 import moon.core.Name;
-
+import moon.core.classdef.ClassDef;
 import repository.moon.MOONRefactoring;
 import repository.moon.concreteaction.RenameClassType;
 import repository.moon.concreteaction.RenameConstructors;
@@ -38,23 +37,23 @@ import repository.moon.concretepredicate.NotExistsClassWithName;
  * Comprueba que exista la clase que se desea renombrar y que no exista ya otra 
  * clase en el modelo con el nuevo nombre.<p>
  *
- * Si la comprobación no falla, lleva a cabo el renombrado.<p>
+ * Si la comprobaciï¿½n no falla, lleva a cabo el renombrado.<p>
  *
- * Finalmente, comprueba que el renombrado se ha llevado a cabo con éxito.<p>
+ * Finalmente, comprueba que el renombrado se ha llevado a cabo con ï¿½xito.<p>
  *
- * Debido a que ni en MOON, ni en su extensión para Java existen paquetes como 
- * tal (aunque se está trabajando en su inclusión), se ha impuesto como
+ * Debido a que ni en MOON, ni en su extensiï¿½n para Java existen paquetes como 
+ * tal (aunque se estï¿½ trabajando en su inclusiï¿½n), se ha impuesto como
  * restriccion para realizar el renombrado de la clase, que no exista en el 
  * modelo ya una clase con el nuevo nombre. Esto puede ser una de las
- * futuras modificaciones que podrían llevarse a cabo.
+ * futuras modificaciones que podrï¿½an llevarse a cabo.
  *
  * @author <A HREF="mailto:ehp0001@alu.ubu.es">Enrique Herrero Paredes</A>
- * @author <A HREF="mailto:alc0022@alu.ubu.es">Ángel López Campo</A>
+ * @author <A HREF="mailto:alc0022@alu.ubu.es">ï¿½ngel Lï¿½pez Campo</A>
  */
 public class RenameClassTestVersion extends MOONRefactoring {
 
 	/**
-	 * Nombre de la refactorización concreta.
+	 * Nombre de la refactorizaciï¿½n concreta.
 	 */
 	private static final String NAME = "RenameClass"; //$NON-NLS-1$
 	

@@ -24,7 +24,6 @@ import moon.core.Model;
 import moon.core.classdef.ClassDef;
 import moon.core.classdef.ClassType;
 import moon.core.genericity.FormalPar;
-
 import repository.java.concreteaction.AddImportClause;
 import repository.moon.MOONRefactoring;
 import repository.moon.concreteaction.ReplaceBoundType;
@@ -35,10 +34,10 @@ import repository.moon.concretepredicate.IsSubtypeBoundDesc;
 import repository.moon.concretepredicate.IsSubtypeSubstFormalPar;
 
 /**
- * Permite establecer los parámetros para una refactorización "SpecializeBoundS".
+ * Permite establecer los parï¿½metros para una refactorizaciï¿½n "SpecializeBoundS".
  *
- * @author <A HREF="mailto:sam0006@alu.ubu.es">Sara Alcalá Martín</A>
- * @author <A HREF="mailto:dbm0005@alu.ubu.es">Diego Bañuelos Molledo</A>
+ * @author <A HREF="mailto:sam0006@alu.ubu.es">Sara Alcalï¿½ Martï¿½n</A>
+ * @author <A HREF="mailto:dbm0005@alu.ubu.es">Diego Baï¿½uelos Molledo</A>
  * @author <A HREF="mailto:ehp0001@alu.ubu.es">Enrique Herrero Paredes</A>
  * @author <A HREF="mailto:sfd0009@alu.ubu.es">Sonia Fuente de la Fuente</A>
  */
@@ -53,12 +52,12 @@ public class SpecializeBoundS extends MOONRefactoring {
 	 * Constructor.<p>
 	 *
 	 * Obtiene una nueva instancia de <code>SpecializeBoundS</code>.
-	 * @param formalPar parámetro formal cuyo tipo de acotación se 
+	 * @param formalPar parï¿½metro formal cuyo tipo de acotaciï¿½n se 
 	 * quiere especializar.
-	 * @param oldBoundingType el tipo de acotación que se debe sustituir por uno
-	 * más especializado.
-	 * @param newBoundingType nuevo tipo de acotación especializado.
-	 * @param model el modelo sobre el que se va a hacer la refactorización.
+	 * @param oldBoundingType el tipo de acotaciï¿½n que se debe sustituir por uno
+	 * mï¿½s especializado.
+	 * @param newBoundingType nuevo tipo de acotaciï¿½n especializado.
+	 * @param model el modelo sobre el que se va a hacer la refactorizaciï¿½n.
 	 */
 	public SpecializeBoundS(FormalPar formalPar, ClassType oldBoundingType,
 		ClassType newBoundingType, Model model){

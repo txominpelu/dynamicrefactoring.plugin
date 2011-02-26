@@ -37,12 +37,11 @@ import org.eclipse.ui.forms.widgets.Hyperlink;
 import org.eclipse.ui.forms.widgets.ScrolledForm;
 import org.eclipse.ui.forms.widgets.Section;
 
-
 import dynamicrefactoring.RefactoringImages;
 import dynamicrefactoring.RefactoringPlugin;
 import dynamicrefactoring.domain.DynamicRefactoringDefinition;
 import dynamicrefactoring.domain.metadata.condition.CategoryCondition;
-import dynamicrefactoring.domain.metadata.condition.TextCondition;
+import dynamicrefactoring.domain.metadata.condition.KeyWordCondition;
 import dynamicrefactoring.domain.metadata.interfaces.Category;
 import dynamicrefactoring.interfaz.TreeEditor;
 import dynamicrefactoring.util.RefactoringTreeManager;
@@ -409,7 +408,7 @@ public class RefactoringSummaryPanel {
 				public void linkActivated(HyperlinkEvent e){
 					if(e.getSource() instanceof Hyperlink){
 						Hyperlink hlink=(Hyperlink)e.getSource();
-						rcbView.addConditionToFilter(new TextCondition<DynamicRefactoringDefinition>(hlink.getText()));
+						rcbView.addConditionToFilter(new KeyWordCondition<DynamicRefactoringDefinition>(hlink.getText()));
 					}
 				}
 			});

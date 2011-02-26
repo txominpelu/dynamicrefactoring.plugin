@@ -21,28 +21,30 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.*/
 package repository.moon.concreterefactoring;
 
 
-import moon.core.classdef.*;
 import moon.core.Model;
 import moon.core.Name;
-
+import moon.core.classdef.AttDec;
+import moon.core.classdef.ClassDef;
 import repository.moon.MOONRefactoring;
-import repository.moon.concretepredicate.*;
+import repository.moon.concretepredicate.ExistsAttributeWithNameInClass;
+import repository.moon.concretepredicate.ExistsClass;
+import repository.moon.concretepredicate.NotExistsAttributeWithNameInClass;
 
 /**
  * Permite renombrar un atributo perteneciente a una clase de un modelo.<p>
  *
  * Comprueba que no exista ya otro atributo en la misma clase con el nuevo nombre. 
  *
- * Si la comprobación no falla, lleva a cabo el renombrado.<p>
+ * Si la comprobaciï¿½n no falla, lleva a cabo el renombrado.<p>
  *
- * Finalmente, comprueba que el renombrado se ha llevado a cabo con éxito.
+ * Finalmente, comprueba que el renombrado se ha llevado a cabo con ï¿½xito.
 
  * @author <A HREF="mailto:sfd0009@alu.ubu.es">Laura Fuente de la Fuente</A>
  */
 public class RenameField extends MOONRefactoring {
 	
 	/**
-	 * Nombre de la refactorización concreta.
+	 * Nombre de la refactorizaciï¿½n concreta.
 	 */
 	private static final String NAME = "RenameField"; //$NON-NLS-1$
 	

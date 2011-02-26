@@ -21,20 +21,24 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.*/
 package repository.moon.concreterefactoring;
 
 import moon.core.Model;
-import moon.core.classdef.*;
+import moon.core.classdef.ClassDef;
+import moon.core.classdef.ClassType;
 import moon.core.genericity.FormalPar;
-
 import repository.java.concreteaction.AddImportClause;
 import repository.moon.MOONRefactoring;
-import repository.moon.concreteaction.*;
-import repository.moon.concretepredicate.*;
+import repository.moon.concreteaction.RemoveFormalParameter;
+import repository.moon.concreteaction.RemoveRealParameter;
+import repository.moon.concreteaction.SubstituteFormalParameter;
+import repository.moon.concretepredicate.IsFormalPar;
+import repository.moon.concretepredicate.IsNotFormalPar;
+import repository.moon.concretepredicate.IsSingleGenericInstance;
 
 /**
- * Permite establecer los parámetros para una refactorización 
+ * Permite establecer los parï¿½metros para una refactorizaciï¿½n 
  * "ReplaceFormalParameterWithType".
  *
- * @author <A HREF="mailto:sam0006@alu.ubu.es">Sara Alcalá Martín</A>
- * @author <A HREF="mailto:dbm0005@alu.ubu.es">Diego Bañuelos Molledo</A>
+ * @author <A HREF="mailto:sam0006@alu.ubu.es">Sara Alcalï¿½ Martï¿½n</A>
+ * @author <A HREF="mailto:dbm0005@alu.ubu.es">Diego Baï¿½uelos Molledo</A>
  * @author <A HREF="mailto:ehp0001@alu.ubu.es">Enrique Herrero Paredes</A>
  * @author <A HREF="mailto:sfd0009@alu.ubu.es">Sonia Fuente de la Fuente</A>
  */
@@ -49,9 +53,9 @@ public class ReplaceFormalParameterWithType extends MOONRefactoring {
 	 * Constructor.<p>
 	 *
 	 * Obtiene una nueva instancia de ReplaceFormalParameterWithType.
-     * @param formalPar parámetro formal que se va a reemplazar por un tipo.
-     * @param classType tipo por el que se va a reemplazar el parámetro formal.
-     * @param model el modelo sobre el que se va a hacer la refactorización.
+     * @param formalPar parï¿½metro formal que se va a reemplazar por un tipo.
+     * @param classType tipo por el que se va a reemplazar el parï¿½metro formal.
+     * @param model el modelo sobre el que se va a hacer la refactorizaciï¿½n.
 	 */
     public ReplaceFormalParameterWithType(FormalPar formalPar, 
     	ClassType classType, Model model) {

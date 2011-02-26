@@ -27,7 +27,6 @@ import javamoon.core.entity.JavaFunctionDec;
 import javamoon.core.entity.JavaRoutineDec;
 import javamoon.core.entity.JavaThrows;
 import javamoon.core.instruction.JavaCodeFragment;
-
 import moon.core.Name;
 import moon.core.classdef.ClassDef;
 import moon.core.classdef.MethDec;
@@ -38,10 +37,10 @@ import repository.RelayListenerRegistry;
 import repository.java.concretefunction.ExceptionsThrow;
 
 /**
- * Permite mover un método de una clase a otra del modelo.
+ * Permite mover un mï¿½todo de una clase a otra del modelo.
  *
  * @author <A HREF="mailto:ehp0001@alu.ubu.es">Enrique Herrero Paredes</A>
- * @author <A HREF="mailto:alc0022@alu.ubu.es">Ángel López Campo</A>
+ * @author <A HREF="mailto:alc0022@alu.ubu.es">ï¿½ngel Lï¿½pez Campo</A>
  * @author <A HREF="mailto:sfd0009@alu.ubu.es">Sonia Fuente de la Fuente</A>
  */ 
 public class AddThrowsClauses extends Action {
@@ -57,17 +56,17 @@ public class AddThrowsClauses extends Action {
 	private Name name;
 	
 	/**
-	 * Clase a la que se moverá el método.
+	 * Clase a la que se moverï¿½ el mï¿½todo.
 	 */
 	private ClassDef classDef;
 	
 	/**
-	 * Método que se va a mover de una clase a otra.
+	 * Mï¿½todo que se va a mover de una clase a otra.
 	 */
 	 private MethDec method;
 	 
 	 /**
-	  * Receptor de los mensajes enviados por la acción concreta.
+	  * Receptor de los mensajes enviados por la acciï¿½n concreta.
 	  */
 	 private RelayListenerRegistry listenerReg;
 	 	
@@ -75,8 +74,8 @@ public class AddThrowsClauses extends Action {
 	 * Constructor.<p>
 	 *
 	 * Obtiene una nueva instancia de MoveMethod.
-	 * @param method método que se va a mover de una clase a otra.
-	 * @param classDefDest clase a la que se moverá el método.
+	 * @param method mï¿½todo que se va a mover de una clase a otra.
+	 * @param classDefDest clase a la que se moverï¿½ el mï¿½todo.
 	 */	
 	public AddThrowsClauses(Name name, CodeFragment fragment){
 		super();
@@ -89,7 +88,7 @@ public class AddThrowsClauses extends Action {
 	}
 	
 	/**
-	 * Ejecuta el movimiento del método de una clase a otra.
+	 * Ejecuta el movimiento del mï¿½todo de una clase a otra.
 	 */
 	@Override
 	public void run() {		
@@ -122,8 +121,8 @@ public class AddThrowsClauses extends Action {
 	}
 
 	/**
-	 * Deshace el movimiento del método, devolviéndolo a su clase de origen y 
-	 * eliminándolo de la nueva clase destino.
+	 * Deshace el movimiento del mï¿½todo, devolviï¿½ndolo a su clase de origen y 
+	 * eliminï¿½ndolo de la nueva clase destino.
 	 */
 	@Override
 	public void undo() {		

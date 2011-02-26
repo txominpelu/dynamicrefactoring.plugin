@@ -23,11 +23,10 @@ package repository.moon.concreteaction;
 import java.io.File;
 
 import javamoon.core.JavaFile;
-import moon.core.Name;
 import javamoon.core.JavaName;
-import moon.core.classdef.ClassDef;
 import javamoon.core.classdef.JavaClassDef;
-
+import moon.core.Name;
+import moon.core.classdef.ClassDef;
 import refactoring.engine.Action;
 import repository.RelayListenerRegistry;
 
@@ -36,7 +35,7 @@ import repository.RelayListenerRegistry;
  * fichero de origen en que se define dicha clase.
  *
  * @author <A HREF="mailto:ehp0001@alu.ubu.es">Enrique Herrero Paredes</A>
- * @author <A HREF="mailto:alc0022@alu.ubu.es">Ángel López Campo</A>
+ * @author <A HREF="mailto:alc0022@alu.ubu.es">ï¿½ngel Lï¿½pez Campo</A>
  * @author <A HREF="mailto:sfd0009@alu.ubu.es">Sonia Fuente de la Fuente</A>
  */ 
 public class RenameReferenceFile extends Action {
@@ -47,7 +46,7 @@ public class RenameReferenceFile extends Action {
 	private ClassDef classDef;
 		
 	/**
-	 * Nuevo nombre que se dará al fichero que contiene la clase.
+	 * Nuevo nombre que se darï¿½ al fichero que contiene la clase.
 	 */
 	private String newName;
 	
@@ -57,7 +56,7 @@ public class RenameReferenceFile extends Action {
 	private String originalName;
 	
 	/**
-	 * Receptor de los mensajes enviados por la acción concreta.
+	 * Receptor de los mensajes enviados por la acciï¿½n concreta.
 	 */
 	private RelayListenerRegistry listenerReg;
 	
@@ -67,7 +66,7 @@ public class RenameReferenceFile extends Action {
 	 * Obtiene una nueva instancia de RenameReferenceFile.
 	 *
 	 * @param classDef la clase cuyo fichero de referencia se desea actualizar.
-	 * @param newName el nuevo nombre que se dará al fichero en que se define la 
+	 * @param newName el nuevo nombre que se darï¿½ al fichero en que se define la 
 	 * clase.
 	 */	
 	public RenameReferenceFile(ClassDef classDef, Name newName){		

@@ -24,11 +24,11 @@ import javamoon.core.classdef.JavaClassDef;
 import moon.core.Model;
 import moon.core.classdef.ClassDef;
 import repository.java.concreteaction.AddEnumTypeWithClassData;
-import repository.java.concretepredicate.HasPublicFinalStaticAttributes;
-import repository.java.concretepredicate.EnumConstantsBeforeProperties;
-import repository.moon.MOONRefactoring;
-import repository.java.concretepredicate.ExistsEnumType;
 import repository.java.concretepredicate.AreConstructorsPrivate;
+import repository.java.concretepredicate.EnumConstantsBeforeProperties;
+import repository.java.concretepredicate.ExistsEnumType;
+import repository.java.concretepredicate.HasPublicFinalStaticAttributes;
+import repository.moon.MOONRefactoring;
 
 /**
  * 

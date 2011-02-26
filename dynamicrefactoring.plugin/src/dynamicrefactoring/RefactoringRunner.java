@@ -20,51 +20,44 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.*/
 
 package dynamicrefactoring;
 
-import dynamicrefactoring.RefactoringPlugin;
-import dynamicrefactoring.domain.RefactoringSummary;
-import dynamicrefactoring.integration.ModelGenerator;
-import dynamicrefactoring.interfaz.CustomProgressDialog;
-import dynamicrefactoring.interfaz.dynamic.DynamicRefactoringRunner;
-import dynamicrefactoring.writer.RefactoringPlanWriter;
-
 import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
 import java.text.DateFormat;
 import java.text.MessageFormat;
 import java.text.SimpleDateFormat;
-
 import java.util.Date;
 import java.util.HashMap;
 
 import javamoon.core.JavaModel;
 
 import org.apache.log4j.Logger;
-
 import org.eclipse.core.commands.ExecutionException;
 import org.eclipse.core.commands.operations.AbstractOperation;
 import org.eclipse.core.commands.operations.IOperationHistory;
-import org.eclipse.core.commands.operations.IUndoableOperation;
 import org.eclipse.core.commands.operations.IUndoContext;
+import org.eclipse.core.commands.operations.IUndoableOperation;
 import org.eclipse.core.commands.operations.OperationHistoryFactory;
-
 import org.eclipse.core.runtime.IAdaptable;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.Status;
-
 import org.eclipse.jface.operation.IRunnableWithProgress;
 import org.eclipse.ui.PlatformUI;
 
 import refactoring.engine.PostconditionException;
 import refactoring.engine.PreconditionException;
 import refactoring.engine.Refactoring;
-
 import repository.moon.MOONRefactoring;
+import dynamicrefactoring.domain.RefactoringSummary;
+import dynamicrefactoring.integration.ModelGenerator;
+import dynamicrefactoring.interfaz.CustomProgressDialog;
+import dynamicrefactoring.interfaz.dynamic.DynamicRefactoringRunner;
+import dynamicrefactoring.writer.RefactoringPlanWriter;
 
 /**
- * Permite ejecutar una operación de refactorización, mostrando al usuario el
- * progreso de la operación y permitiendo su cancelación hasta cierto momento de
- * la refactorización.
+ * Permite ejecutar una operaciï¿½n de refactorizaciï¿½n, mostrando al usuario el
+ * progreso de la operaciï¿½n y permitiendo su cancelaciï¿½n hasta cierto momento de
+ * la refactorizaciï¿½n.
  * 
  * @author <A HREF="mailto:lfd0002@alu.ubu.es">Laura Fuente de la Fuente</A>
  * @author <A HREF="mailto:sfd0009@alu.ubu.es">Sonia Fuente de la Fuente</A>
@@ -78,46 +71,46 @@ public abstract class RefactoringRunner implements IRunnableWithProgress {
 	private static final Logger logger = Logger.getLogger(RefactoringRunner.class);
 	
 	/**
-	 * Si la refactorización se completó con éxito o no.
+	 * Si la refactorizaciï¿½n se completï¿½ con ï¿½xito o no.
 	 */
 	private boolean done;
 	
 	/**
 	 * Ruta del fichero .mod en que se guarda el modelo actual antes de la
-	 * ejecución de la refactorización.
+	 * ejecuciï¿½n de la refactorizaciï¿½n.
 	 */
 	private String backup;
 	
 	/**
-	 * Fecha de ejecución de la refactorización.
+	 * Fecha de ejecuciï¿½n de la refactorizaciï¿½n.
 	 */
 	Date date;
 	
 	/**
-	 * Refactorización previa a la que se ejecuta.
+	 * Refactorizaciï¿½n previa a la que se ejecuta.
 	 */
 	private String previous;
 	
 	/**
-	 * Parametros de entrada de la refactorización. Pares de la forma nombre del parámetros y
+	 * Parametros de entrada de la refactorizaciï¿½n. Pares de la forma nombre del parï¿½metros y
 	 * nombre cualificado del mismo dentro del modelo.
 	 */
 	private HashMap<String,String> inputParameters;
 	
 	/**
-	 * Indica si la ejecución del plan esta siendo llamada por el plan de refactorizaciones o no.
+	 * Indica si la ejecuciï¿½n del plan esta siendo llamada por el plan de refactorizaciones o no.
 	 */
 	private boolean fromPlan=false;
 	
 	/**
-	 * Formato utilizado para almacenar la hora de creación de una operación de
-	 * refactorización.
+	 * Formato utilizado para almacenar la hora de creaciï¿½n de una operaciï¿½n de
+	 * refactorizaciï¿½n.
 	 */
 	private final DateFormat dateFormat = new SimpleDateFormat(Messages.RefactoringRunner_DateFormat);
 	
 	/**
-	 * Dirige la ejecución de una refactorización concreta, mostrándole al 
-	 * usuario el progreso de la misma a través de una ventana de progreso.
+	 * Dirige la ejecuciï¿½n de una refactorizaciï¿½n concreta, mostrï¿½ndole al 
+	 * usuario el progreso de la misma a travï¿½s de una ventana de progreso.
 	 */
 	public void runRefactoring(){
 		IUndoableOperation refactoring = new RefactoringOperation(new Date());
@@ -129,8 +122,8 @@ public abstract class RefactoringRunner implements IRunnableWithProgress {
 		try {
 			if(history.execute(refactoring, null, null) == Status.OK_STATUS && done==true){
 				if(getInstance() instanceof DynamicRefactoringRunner){
-					//añadimos al xml los datos de la refactorización que se acaba de ejecutar.
-					System.out.println("Ejecutada refactorización dinámica " + getRefactoringName());
+					//aï¿½adimos al xml los datos de la refactorizaciï¿½n que se acaba de ejecutar.
+					System.out.println("Ejecutada refactorizaciï¿½n dinï¿½mica " + getRefactoringName());
 					DateFormat dateFormat = new SimpleDateFormat(Messages.RefactoringRunner_DateFormat2 + " - HH:mm:ss");  //$NON-NLS-1$
 					String fecha = dateFormat.format(date);
 					RefactoringPlanWriter.getInstance().writeRefactoring(getRefactoringName(),fecha, inputParameters);
@@ -153,46 +146,46 @@ public abstract class RefactoringRunner implements IRunnableWithProgress {
 	
 	/**
 	 * Permite establecer el valor del atributo fromPlan. 
-	 * @param fromPlan tru en caso de que la ejecución provenga del plan de refactorizaciones.
+	 * @param fromPlan tru en caso de que la ejecuciï¿½n provenga del plan de refactorizaciones.
 	 */
 	public void setFromPlan(boolean fromPlan){
 		this.fromPlan=fromPlan;
 	}
 	
 	/**
-	 * Obtiene el nombre de la refactorización que se permite ejecutar.
+	 * Obtiene el nombre de la refactorizaciï¿½n que se permite ejecutar.
 	 * 
-	 * @return el nombre de la refactorización que se permite ejecutar.
+	 * @return el nombre de la refactorizaciï¿½n que se permite ejecutar.
 	 */
 	protected abstract String getRefactoringName();
 	
 	/**
-	 * Obtiene la refactorización que se permite ejecutar.
+	 * Obtiene la refactorizaciï¿½n que se permite ejecutar.
 	 * 
-	 * @return la refactorización que se permite ejecutar.
+	 * @return la refactorizaciï¿½n que se permite ejecutar.
 	 */
 	protected abstract Refactoring getRefactoring();
 	
 	/**
-	 * Establece los parametros de entrada de una refactorización. 
+	 * Establece los parametros de entrada de una refactorizaciï¿½n. 
 	 * 
-	 * @param inputParameters parámetros de entrada.
+	 * @param inputParameters parï¿½metros de entrada.
 	 */
 	public void setInputParameters(HashMap<String,String> inputParameters){
 		this.inputParameters = inputParameters;
 	}
 		
 	/**
-	 * Ejecuta la refactorización de manera que su progreso pueda ser seguido
+	 * Ejecuta la refactorizaciï¿½n de manera que su progreso pueda ser seguido
 	 * por un monitor de progreso.
 	 * 
-	 * @param monitor el monitor de progreso que mostrará el avance de la
-	 * operación de refactorización.
+	 * @param monitor el monitor de progreso que mostrarï¿½ el avance de la
+	 * operaciï¿½n de refactorizaciï¿½n.
 	 * 
-	 * @throws InvocationTargetException si se produce alguna clase de excepción
-	 * durante la ejecución, se relanza envuelta en este tipo de excepción.
-	 * @throws InterruptedException si el usuario interrumpió el proceso
-	 * pulsando el botón de cancelación.
+	 * @throws InvocationTargetException si se produce alguna clase de excepciï¿½n
+	 * durante la ejecuciï¿½n, se relanza envuelta en este tipo de excepciï¿½n.
+	 * @throws InterruptedException si el usuario interrumpiï¿½ el proceso
+	 * pulsando el botï¿½n de cancelaciï¿½n.
 	 */
 	@Override
 	public void run(IProgressMonitor monitor) 
@@ -206,7 +199,7 @@ public abstract class RefactoringRunner implements IRunnableWithProgress {
 		
 		try {
 			// Se guarda una copia del estado del modelo antes de la 
-			// refactorización.
+			// refactorizaciï¿½n.
 			monitor.subTask(Messages.RefactoringRunner_Saving);
 			backup = RefactoringPlugin.getDefault().getNextBackupDestiny();
 			previous = RefactoringPlugin.getDefault().getCurrentRefactoring();
@@ -215,7 +208,7 @@ public abstract class RefactoringRunner implements IRunnableWithProgress {
 			checkForCancellation(monitor);
 			monitor.worked(1);
 			
-			// Ejecuta la refactorización.
+			// Ejecuta la refactorizaciï¿½n.
 			monitor.subTask(Messages.RefactoringRunner_Running + "..."); //$NON-NLS-1$
 			getRefactoring().run();
 			monitor.worked(1);
@@ -252,12 +245,12 @@ public abstract class RefactoringRunner implements IRunnableWithProgress {
 
 	/**
 	 * Comprueba si un monitor de progreso ha recibido una orden de 
-	 * cancelación por parte del usuario.
+	 * cancelaciï¿½n por parte del usuario.
 	 * 
-	 * @param monitor el monitor cuyo estado de cancelación se comprueba.
+	 * @param monitor el monitor cuyo estado de cancelaciï¿½n se comprueba.
 	 * 
 	 * @throws InterruptedException si el monitor ha recibido una orden de
-	 * cancelación por parte del usuario.
+	 * cancelaciï¿½n por parte del usuario.
 	 */
 	private void checkForCancellation(IProgressMonitor monitor) 
 		throws InterruptedException {
@@ -276,7 +269,7 @@ public abstract class RefactoringRunner implements IRunnableWithProgress {
 	}
 	
 	/**
-	 * Implementa la operación de refactorización como una operación capaz de
+	 * Implementa la operaciï¿½n de refactorizaciï¿½n como una operaciï¿½n capaz de
 	 * ser deshecha por el entorno de Eclipse.
 	 * 
 	 * @author <A HREF="mailto:sfd0009@alu.ubu.es">Sonia Fuente de la Fuente</A>
@@ -285,7 +278,7 @@ public abstract class RefactoringRunner implements IRunnableWithProgress {
 	private class RefactoringOperation extends AbstractOperation {
 		
 		/**
-		 * Cadena que identifica la operación de refactorización a la hora de
+		 * Cadena que identifica la operaciï¿½n de refactorizaciï¿½n a la hora de
 		 * deshacerla dentro del entorno de operaciones de Eclipse.
 		 */
 		private String label;
@@ -293,7 +286,7 @@ public abstract class RefactoringRunner implements IRunnableWithProgress {
 		/**
 		 * Constructor.
 		 * 
-		 * @param start hora a la que se construye la operación de refactorización.
+		 * @param start hora a la que se construye la operaciï¿½n de refactorizaciï¿½n.
 		 */
 		public RefactoringOperation(Date start){
 			super(getRefactoringName() + " (" +  dateFormat.format(start) + ")");  //$NON-NLS-1$ //$NON-NLS-2$
@@ -301,12 +294,12 @@ public abstract class RefactoringRunner implements IRunnableWithProgress {
 		}
 		
 		/**
-		 * Ejecuta la operación de refactorización.
+		 * Ejecuta la operaciï¿½n de refactorizaciï¿½n.
 		 * 
 		 * @param monitor monitor de progreso (no se utiliza).
-		 * @param info información del entorno gráfico (no se utiliza).
+		 * @param info informaciï¿½n del entorno grï¿½fico (no se utiliza).
 		 * 
-		 * @return {@link Status#OK_STATUS} si el proceso se ejecutó
+		 * @return {@link Status#OK_STATUS} si el proceso se ejecutï¿½
 		 * correctamente; {@link Status#CANCEL_STATUS}, si no.
 		 * 
 		 * @see AbstractOperation#execute(IProgressMonitor, IAdaptable)
@@ -329,7 +322,7 @@ public abstract class RefactoringRunner implements IRunnableWithProgress {
 				
 				MOONRefactoring.resetModel();
 
-				// Si se realizó la refactorización
+				// Si se realizï¿½ la refactorizaciï¿½n
 				if(done){
 
 					try {
@@ -362,7 +355,7 @@ public abstract class RefactoringRunner implements IRunnableWithProgress {
 				RefactoringPlugin.getDefault().fireRefactoringFinished(
 					new RefactoringSummary(getRefactoringName(), new Date(), label));
 				
-				// El usuario canceló el proceso.
+				// El usuario cancelï¿½ el proceso.
 				String message = Messages.RefactoringRunner_UserCancelled + ".\n";  //$NON-NLS-1$
 				logger.warn(message);
 				MOONRefactoring.resetModel();
@@ -383,12 +376,12 @@ public abstract class RefactoringRunner implements IRunnableWithProgress {
 		}
 	
 		/**
-		 * Deshace la operación de refactorización.
+		 * Deshace la operaciï¿½n de refactorizaciï¿½n.
 		 * 
 		 * @param monitor monitor de progreso (no se utiliza).
-		 * @param info información del entorno gráfico (no se utiliza).
+		 * @param info informaciï¿½n del entorno grï¿½fico (no se utiliza).
 		 * 
-		 * @return {@link Status#OK_STATUS} si el proceso se ejecutó
+		 * @return {@link Status#OK_STATUS} si el proceso se ejecutï¿½
 		 * correctamente; {@link Status#CANCEL_STATUS}, si no.
 		 * 
 		 * @see AbstractOperation#undo(IProgressMonitor, IAdaptable)
@@ -421,10 +414,10 @@ public abstract class RefactoringRunner implements IRunnableWithProgress {
 		}
 
 		/**
-		 * Sin implementación.
+		 * Sin implementaciï¿½n.
 		 * 
 		 * @param monitor monitor de progreso (no se utiliza).
-		 * @param info información del entorno gráfico (no se utiliza).
+		 * @param info informaciï¿½n del entorno grï¿½fico (no se utiliza).
 		 * 
 		 * @return {@link Status#OK_STATUS}.
 		 * 
@@ -435,7 +428,7 @@ public abstract class RefactoringRunner implements IRunnableWithProgress {
 		}
 		
 		/**
-		 * Determina si la operación se puede rehacer una vez deshecha. En 
+		 * Determina si la operaciï¿½n se puede rehacer una vez deshecha. En 
 		 * este caso, no se puede.
 		 * 
 		 * @return <code>false</code>.
@@ -448,7 +441,7 @@ public abstract class RefactoringRunner implements IRunnableWithProgress {
 	
 	/**
 	 * Envuelve en un "trabajo" o <code>job</code> el proceso de deshacer
-	 * la refactorización ejecutada.
+	 * la refactorizaciï¿½n ejecutada.
 	 * 
 	 * @author <A HREF="mailto:sfd0009@alu.ubu.es">Sonia Fuente de la Fuente</A>
 	 * @author <A HREF="mailto:ehp0001@alu.ubu.es">Enrique Herrero Paredes</A>
@@ -456,15 +449,15 @@ public abstract class RefactoringRunner implements IRunnableWithProgress {
 	private class UndoJob implements IRunnableWithProgress{
 				
 		/**
-		 * Ejecuta la operación de deshacer la refactorización.
+		 * Ejecuta la operaciï¿½n de deshacer la refactorizaciï¿½n.
 		 * 
-		 * @param monitor el monitor de progreso que mostrará el avance de la
-		 * operación de recuperación de código.
+		 * @param monitor el monitor de progreso que mostrarï¿½ el avance de la
+		 * operaciï¿½n de recuperaciï¿½n de cï¿½digo.
 		 * 
 		 * @throws InvocationTargetException si se produce cualquier clase de
-		 * excepción se relanza envuelta en una excepción de este tipo.
-		 * @throws InterruptedException si el usuario interrumpió el proceso
-		 * pulsando sobre el botón de cancelación (deshabilitado).
+		 * excepciï¿½n se relanza envuelta en una excepciï¿½n de este tipo.
+		 * @throws InterruptedException si el usuario interrumpiï¿½ el proceso
+		 * pulsando sobre el botï¿½n de cancelaciï¿½n (deshabilitado).
 		 */
 		@Override
 		public void run(IProgressMonitor monitor)

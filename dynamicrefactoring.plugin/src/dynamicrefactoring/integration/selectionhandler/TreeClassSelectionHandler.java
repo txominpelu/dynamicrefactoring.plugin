@@ -20,28 +20,25 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.*/
 
 package dynamicrefactoring.integration.selectionhandler;
 
-import dynamicrefactoring.integration.ModelGenerator;
-
-import dynamicrefactoring.util.processor.JavaClassProcessor;
-import dynamicrefactoring.util.processor.JavaElementProcessor;
-import dynamicrefactoring.util.selection.TreeSelectionInfo;
-
 import java.io.IOException;
 
 import javamoon.core.JavaName;
-
 import moon.core.ObjectMoon;
 
 import org.eclipse.jdt.core.ICompilationUnit;
 import org.eclipse.jdt.core.IJavaElement;
 import org.eclipse.jdt.core.IType;
-
 import org.eclipse.jface.viewers.TreePath;
 import org.eclipse.jface.viewers.TreeSelection;
 
+import dynamicrefactoring.integration.ModelGenerator;
+import dynamicrefactoring.util.processor.JavaClassProcessor;
+import dynamicrefactoring.util.processor.JavaElementProcessor;
+import dynamicrefactoring.util.selection.TreeSelectionInfo;
+
 /**
  * Proporciona las funciones necesarias para obtener la clase MOON con la que
- * se corresponde una clase seleccionada en Eclipse sobre un árbol desplegable.
+ * se corresponde una clase seleccionada en Eclipse sobre un ï¿½rbol desplegable.
  * 
  * @author <A HREF="mailto:sfd0009@alu.ubu.es">Sonia Fuente de la Fuente</A>
  * @author <A HREF="mailto:ehp0001@alu.ubu.es">Enrique Herrero Paredes</A>
@@ -49,17 +46,17 @@ import org.eclipse.jface.viewers.TreeSelection;
 public class TreeClassSelectionHandler extends ClassSelectionHandler {
 	
 	/**
-	 * La selección de una clase sobre un árbol de selección.
+	 * La selecciï¿½n de una clase sobre un ï¿½rbol de selecciï¿½n.
 	 */
 	private TreeSelection classSelection;
 	
 	/**
 	 * Constructor.
 	 * 
-	 * @param selectionInfo contenedor de la selección que se desea manejar.
+	 * @param selectionInfo contenedor de la selecciï¿½n que se desea manejar.
 	 * 
-	 * @throws Exception si la selección contenida en #selectionInfo no es una
-	 * selección de una clase sobre un árbol de selección.
+	 * @throws Exception si la selecciï¿½n contenida en #selectionInfo no es una
+	 * selecciï¿½n de una clase sobre un ï¿½rbol de selecciï¿½n.
 	 */
 	public TreeClassSelectionHandler (TreeSelectionInfo selectionInfo)
 		throws Exception{

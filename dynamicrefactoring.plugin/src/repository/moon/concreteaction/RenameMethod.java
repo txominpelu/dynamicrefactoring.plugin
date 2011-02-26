@@ -21,63 +21,65 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.*/
 package repository.moon.concreteaction;
 
 
-import java.util.*;
+import java.util.Collection;
+import java.util.List;
+import java.util.Vector;
 
-import moon.core.classdef.*;
 import moon.core.Name;
-
+import moon.core.classdef.ClassDef;
+import moon.core.classdef.MethDec;
 import refactoring.engine.Action;
 import repository.RelayListenerRegistry;
-import repository.moon.concretefunction.*;
+import repository.moon.concretefunction.ClassesAffectedByMethRenameCollector;
 
 /**
- * Permite renombrar un método de una representación MOON de un modelo Java
+ * Permite renombrar un mï¿½todo de una representaciï¿½n MOON de un modelo Java
  * teniendo incluso en cuenta las consideraciones pertinentes cuando la clase
- * que contiene al método se encuentre dentro de una jerarquía de herencia.<p>
+ * que contiene al mï¿½todo se encuentre dentro de una jerarquï¿½a de herencia.<p>
  *
  * Comprueba si existen superclases o subclases que puedan verse afectadas por
- * el renombrado del método y, en tal caso, extiende a ellas las modificaciones
+ * el renombrado del mï¿½todo y, en tal caso, extiende a ellas las modificaciones
  * necesarias para mantener la coherencia del modelo.
  *
- * @author <A HREF="mailto:alc0022@alu.ubu.es">Ángel López Campo</A>
+ * @author <A HREF="mailto:alc0022@alu.ubu.es">ï¿½ngel Lï¿½pez Campo</A>
  * @author <A HREF="mailto:ehp0001@alu.ubu.es">Enrique Herrero Paredes</A>
  * @author <A HREF="mailto:sfd0009@alu.ubu.es">Sonia Fuente de la Fuente</A>
  */ 
 public class RenameMethod extends Action {
 	
 	/**
-	 * Método que se debe renombrar.
+	 * Mï¿½todo que se debe renombrar.
 	 */
 	private MethDec method;
 	
 	/**
-	 * Clase que contiene el método que sufrirá el renombrado.
+	 * Clase que contiene el mï¿½todo que sufrirï¿½ el renombrado.
 	 */
 	private ClassDef classDef;
 	
 	/**
-	 * Nuevo nombre que se dará al método.
+	 * Nuevo nombre que se darï¿½ al mï¿½todo.
 	 */
 	private Name newName;
 	
 	/**
-	 * Nombre del método antes del renombrado.
+	 * Nombre del mï¿½todo antes del renombrado.
 	 */
 	private Name originalName;
 	
 	/**
-	 * Nombre único del método antes del renombrado.
+	 * Nombre ï¿½nico del mï¿½todo antes del renombrado.
 	 */
 	private String originalUniqueName;
 	
 	/**
-	 * Elemento auxiliar para renombrar el método en caso de que aparezca en
-	 * clases superiores o inferiores en la jerarquía de herencia.
+	 * Elemento auxiliar para renombrar el mï¿½todo en caso de que aparezca en
+	 * clases superiores o inferiores en la jerarquï¿½a de herencia.
 	 */
 	private Vector<RenameMethodWithoutHierarchy> renMethInOtherClassVec;
 
 	/**
-	 * Receptor de los mensajes enviados por la acción concreta.
+	 * Receptor de los mensajes enviados por la acciï¿½n concreta.
 	 */
 	private RelayListenerRegistry listenerReg;
 		
@@ -85,9 +87,9 @@ public class RenameMethod extends Action {
 	 * Constructor.<p>
 	 *
 	 * Obtiene una nueva instancia de RenameMethod.
-	 * @param method el método cuyo nombre se desea cambiar.
-	 * @param classDef la clase que contiene el método que se va a renombrar.
-	 * @param newName el nuevo nombre que se dará al método.
+	 * @param method el mï¿½todo cuyo nombre se desea cambiar.
+	 * @param classDef la clase que contiene el mï¿½todo que se va a renombrar.
+	 * @param newName el nuevo nombre que se darï¿½ al mï¿½todo.
 	 */
 	public RenameMethod (MethDec method, ClassDef classDef, Name newName){
 			
@@ -105,7 +107,7 @@ public class RenameMethod extends Action {
 	}
 	
 	/**
-	 * Ejecuta el renombrado del método.
+	 * Ejecuta el renombrado del mï¿½todo.
 	 */
 	public void run(){
 		
@@ -130,7 +132,7 @@ public class RenameMethod extends Action {
 	}
 	
 	/**
-	 * Deshace el renombrado del método.
+	 * Deshace el renombrado del mï¿½todo.
 	 */
 	public void undo(){
 		
@@ -148,12 +150,12 @@ public class RenameMethod extends Action {
 	}	
 	
 	/**
-	 * Renombra el método, si es necesario, en las clases inferiores y superiores
-	 * de la jerarquía de herencia (clases que hereden de la que posee el método
-	 * renombrado, o superclases de la misma que posean el mismo método).
+	 * Renombra el mï¿½todo, si es necesario, en las clases inferiores y superiores
+	 * de la jerarquï¿½a de herencia (clases que hereden de la que posee el mï¿½todo
+	 * renombrado, o superclases de la misma que posean el mismo mï¿½todo).
 	 *
-	 * @param affectedClasses las clases de la jerarquía de herencia que se ven 
-	 * afectadas por el cambio en la signatura del método renombrado.
+	 * @param affectedClasses las clases de la jerarquï¿½a de herencia que se ven 
+	 * afectadas por el cambio en la signatura del mï¿½todo renombrado.
 	 */
 	private void renameSubAndSuperclasses(Collection<ClassDef> affectedClasses){
 		

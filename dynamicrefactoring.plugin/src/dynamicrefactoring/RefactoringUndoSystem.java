@@ -21,20 +21,17 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.*/
 package dynamicrefactoring;
 
 import org.apache.log4j.Logger;
-
 import org.eclipse.core.commands.ExecutionException;
 import org.eclipse.core.commands.operations.IOperationHistory;
 import org.eclipse.core.commands.operations.IUndoContext;
 import org.eclipse.core.commands.operations.IUndoableOperation;
 import org.eclipse.core.commands.operations.OperationHistoryFactory;
-
 import org.eclipse.core.runtime.NullProgressMonitor;
-
 import org.eclipse.ui.PlatformUI;
 
 /**
- * Permite deshacer una operación del entorno de Eclipse si se efectuó 
- * utilizando las herramientas de ejecución de operaciones aptas para ser
+ * Permite deshacer una operaciï¿½n del entorno de Eclipse si se efectuï¿½ 
+ * utilizando las herramientas de ejecuciï¿½n de operaciones aptas para ser
  * deshechas.
  * 
  * @author <A HREF="mailto:sfd0009@alu.ubu.es">Sonia Fuente de la Fuente</A>
@@ -48,20 +45,20 @@ public class RefactoringUndoSystem {
 	private static final Logger logger = Logger.getLogger(RefactoringUndoSystem.class);
 
 	/**
-	 * Deshace una refactorización identificada por la etiqueta con la que debería
-	 * aparecer en el histórico de operaciones que el entorno Eclipse puede
+	 * Deshace una refactorizaciï¿½n identificada por la etiqueta con la que deberï¿½a
+	 * aparecer en el histï¿½rico de operaciones que el entorno Eclipse puede
 	 * deshacer.
 	 * 
-	 * @param id etiqueta asociada a la operación que originalmente ejecutó la
-	 * refactorización.
+	 * @param id etiqueta asociada a la operaciï¿½n que originalmente ejecutï¿½ la
+	 * refactorizaciï¿½n.
 	 * @param checkRenamings TODO
 	 * 
-	 * @throws Exception si se produce un error al deshacer la refactorización.
+	 * @throws Exception si se produce un error al deshacer la refactorizaciï¿½n.
 	 */
 	public static void undoRefactoring(String id, boolean checkRenamings) throws Exception {
 		
-		// Si se ha producido algún renombrado después de la refactorización,
-		// hay que deshacerlo primero. Si no, al acceder al histórico de 
+		// Si se ha producido algï¿½n renombrado despuï¿½s de la refactorizaciï¿½n,
+		// hay que deshacerlo primero. Si no, al acceder al histï¿½rico de 
 		// operaciones, desaparecen las operaciones posteriores.
 		if (checkRenamings){
 			String renaming = RenamingRegistry.getInstance().getRenaming(id); 
@@ -87,13 +84,13 @@ public class RefactoringUndoSystem {
 	}
 	
 	/**
-	 * Obtiene una operación que se puede deshacer del entorno de operaciones 
+	 * Obtiene una operaciï¿½n que se puede deshacer del entorno de operaciones 
 	 * de Eclipse a partir de su etiqueta identificadora.
 	 * 
-	 * @param id etiqueta que identifica la operación que se puede deshacer.
+	 * @param id etiqueta que identifica la operaciï¿½n que se puede deshacer.
 	 * 
-	 * @return la operación recuperada o <code>null</code> si no se encuentra
-	 * ninguna operación con dicha etiqueta en el contexto global de ejecución.
+	 * @return la operaciï¿½n recuperada o <code>null</code> si no se encuentra
+	 * ninguna operaciï¿½n con dicha etiqueta en el contexto global de ejecuciï¿½n.
 	 */
 	private static IUndoableOperation getUndoable(String id){
 		IOperationHistory history = OperationHistoryFactory.getOperationHistory();

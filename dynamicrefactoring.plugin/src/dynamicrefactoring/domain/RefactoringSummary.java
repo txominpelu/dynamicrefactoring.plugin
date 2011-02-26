@@ -22,11 +22,10 @@ package dynamicrefactoring.domain;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
-
 import java.util.Date;
 
 /**
- * Proporciona un resumen informativo acerca de una refactorización ejecutada.
+ * Proporciona un resumen informativo acerca de una refactorizaciï¿½n ejecutada.
  * 
  * @author <A HREF="mailto:sfd0009@alu.ubu.es">Sonia Fuente de la Fuente</A>
  * @author <A HREF="mailto:ehp0001@alu.ubu.es">Enrique Herrero Paredes</A>
@@ -34,30 +33,30 @@ import java.util.Date;
 public class RefactoringSummary {
 	
 	/**
-	 * Nombre de la refactorización.
+	 * Nombre de la refactorizaciï¿½n.
 	 */
 	private String name;
 	
 	/**
-	 * Fecha y hora a la que se completó la refactorización.
+	 * Fecha y hora a la que se completï¿½ la refactorizaciï¿½n.
 	 */
 	private Date completionTime;
 	
 	/**
-	 * Identificador de la operación de refactorización dentro del entorno de
+	 * Identificador de la operaciï¿½n de refactorizaciï¿½n dentro del entorno de
 	 * operaciones de Eclipse.
 	 * 
-	 * <p>Este identificador permite recuperar la operación que ejecutó esta
-	 * refactorización y solicitar que se deshaga.</p>
+	 * <p>Este identificador permite recuperar la operaciï¿½n que ejecutï¿½ esta
+	 * refactorizaciï¿½n y solicitar que se deshaga.</p>
 	 */
 	private String id;
 	
 	/**
 	 * Constructor.
 	 * 
-	 * @param name nombre de la refactorización.
-	 * @param completionTime fecha y hora a la que se completó la refactorización.
-	 * @param id identificador de la operación de refactorización dentro del 
+	 * @param name nombre de la refactorizaciï¿½n.
+	 * @param completionTime fecha y hora a la que se completï¿½ la refactorizaciï¿½n.
+	 * @param id identificador de la operaciï¿½n de refactorizaciï¿½n dentro del 
 	 * entorno de operaciones de Eclipse.
 	 */
 	public RefactoringSummary(String name, Date completionTime, String id){
@@ -67,42 +66,42 @@ public class RefactoringSummary {
 	}
 
 	/**
-	 * Obtiene el nombre de la refactorización.
+	 * Obtiene el nombre de la refactorizaciï¿½n.
 	 * 
-	 * @return el nombre de la refactorización.
+	 * @return el nombre de la refactorizaciï¿½n.
 	 */
 	public String getName() {
 		return name;
 	}
 
 	/**
-	 * Obtiene la fecha y la hora a la que se completó la refactorización.
+	 * Obtiene la fecha y la hora a la que se completï¿½ la refactorizaciï¿½n.
 	 * 
-	 * @return la fecha y la hora a la que se completó la refactorización
+	 * @return la fecha y la hora a la que se completï¿½ la refactorizaciï¿½n
 	 */
 	public Date getCompletionTime() {
 		return completionTime;
 	}
 	
 	/**
-	 * Obtiene el identificador de la operación que ejecutó la refactorización.
+	 * Obtiene el identificador de la operaciï¿½n que ejecutï¿½ la refactorizaciï¿½n.
 	 * 
-	 * @return el identificador de la operación que ejecutó la refactorización.
+	 * @return el identificador de la operaciï¿½n que ejecutï¿½ la refactorizaciï¿½n.
 	 */
 	public String getId(){
 		return id;
 	}
 	
 	/**
-	 * Obtiene como cadena de caracteres la fecha y la hora a la que se completó 
-	 * la refactorización.
+	 * Obtiene como cadena de caracteres la fecha y la hora a la que se completï¿½ 
+	 * la refactorizaciï¿½n.
 	 * 
 	 * <p>El formato utilizado es "MM/dd/yyyy - HH:mm:ss".</p>
 	 * 
-	 * <p>En la versión internacionalizada al castellano, se utiliza el 
-	 * formato de fecha español "dd/MM/yyyy".</p>
+	 * <p>En la versiï¿½n internacionalizada al castellano, se utiliza el 
+	 * formato de fecha espaï¿½ol "dd/MM/yyyy".</p>
 	 * 
-	 * @return la fecha y la hora a la que se completó la refactorización en formato
+	 * @return la fecha y la hora a la que se completï¿½ la refactorizaciï¿½n en formato
 	 * de cadena de caracteres.
 	 */
 	public String getStrCompletionTime() {
@@ -111,9 +110,9 @@ public class RefactoringSummary {
 	}
 	
 	/**
-	 * Obtiene una representación textual de la refactorización.
+	 * Obtiene una representaciï¿½n textual de la refactorizaciï¿½n.
 	 * 
-	 * @return una representación textual de la refactorización.
+	 * @return una representaciï¿½n textual de la refactorizaciï¿½n.
 	 */
 	@Override
 	public String toString(){

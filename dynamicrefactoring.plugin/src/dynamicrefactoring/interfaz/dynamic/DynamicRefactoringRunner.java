@@ -23,16 +23,14 @@ package dynamicrefactoring.interfaz.dynamic;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-import dynamicrefactoring.RefactoringRunner;
-
 import refactoring.engine.Refactoring;
-
+import dynamicrefactoring.RefactoringRunner;
 import dynamicrefactoring.domain.DynamicRefactoring;
 
 /**
- * Permite ejecutar una operación de refactorización basado en una refactorización
- * compuesta dinámicamente, mostrando al usuario el progreso de la operación y 
- * permitiendo su cancelación hasta cierto momento de la refactorización.
+ * Permite ejecutar una operaciï¿½n de refactorizaciï¿½n basado en una refactorizaciï¿½n
+ * compuesta dinï¿½micamente, mostrando al usuario el progreso de la operaciï¿½n y 
+ * permitiendo su cancelaciï¿½n hasta cierto momento de la refactorizaciï¿½n.
  * 
  * @author <A HREF="mailto:lfd0002@alu.ubu.es">Laura Fuente de la Fuente</A>
  * @author <A HREF="mailto:sfd0009@alu.ubu.es">Sonia Fuente de la Fuente</A>
@@ -41,23 +39,23 @@ import dynamicrefactoring.domain.DynamicRefactoring;
 public class DynamicRefactoringRunner extends RefactoringRunner {
 	
 	/**
-	 * Refactorización dinámica concreta que permite ejecutar.
+	 * Refactorizaciï¿½n dinï¿½mica concreta que permite ejecutar.
 	 */
 	private DynamicRefactoring refactoring;
 	
 	/**
 	 * Constructor.
 	 * 
-	 * @param refactoring refactorización dinámica concreta que permite ejecutar.
+	 * @param refactoring refactorizaciï¿½n dinï¿½mica concreta que permite ejecutar.
 	 */
 	public DynamicRefactoringRunner(DynamicRefactoring refactoring){
 		this.refactoring = refactoring;
 	}
 	
 	/**
-	 * Obtiene el nombre de la refactorización que se permite ejecutar.
+	 * Obtiene el nombre de la refactorizaciï¿½n que se permite ejecutar.
 	 * 
-	 * @return el nombre de la refactorización que se permite ejecutar.
+	 * @return el nombre de la refactorizaciï¿½n que se permite ejecutar.
 	 */
 	@Override
 	protected String getRefactoringName(){
@@ -65,9 +63,9 @@ public class DynamicRefactoringRunner extends RefactoringRunner {
 	}
 	
 	/**
-	 * Obtiene la refactorización que se permite ejecutar.
+	 * Obtiene la refactorizaciï¿½n que se permite ejecutar.
 	 * 
-	 * @return la refactorización que se permite ejecutar.
+	 * @return la refactorizaciï¿½n que se permite ejecutar.
 	 */
 	@Override
 	protected Refactoring getRefactoring(){
@@ -75,18 +73,18 @@ public class DynamicRefactoringRunner extends RefactoringRunner {
 	}
 	
 	/**
-	 * Obtiene la definicion entradas de una refactorización.
+	 * Obtiene la definicion entradas de una refactorizaciï¿½n.
 	 * 
-	 * @return Descripción de los parámetros de entrada a la refactorización.
+	 * @return Descripciï¿½n de los parï¿½metros de entrada a la refactorizaciï¿½n.
 	 */
 	public ArrayList<String[]> getInputs(){
 		return refactoring.getInputs();
 	}	
 	
 	/**
-	 * Obtiene la definicion entradas de una refactorización.
+	 * Obtiene la definicion entradas de una refactorizaciï¿½n.
 	 * 
-	 * @return Tabla con los parámetros de entrada a la refactorización.
+	 * @return Tabla con los parï¿½metros de entrada a la refactorizaciï¿½n.
 	 */
 	public HashMap<String, Object> getInputsParameters(){
 		return refactoring.getInputsParameters();

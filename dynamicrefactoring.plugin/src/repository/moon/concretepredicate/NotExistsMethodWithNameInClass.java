@@ -20,23 +20,22 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.*/
 
 package repository.moon.concretepredicate;
 
-import moon.core.classdef.ClassDef;
 import moon.core.Name;
-
+import moon.core.classdef.ClassDef;
 import refactoring.engine.Predicate;
 
 /**
- * Permite verificar que no existe ningún método con un cierto nombre único (es,
+ * Permite verificar que no existe ningï¿½n mï¿½todo con un cierto nombre ï¿½nico (es,
  * decir, con una cierta signatura) en una clase determinada.
  *
- * @author <A HREF="mailto:alc0022@alu.ubu.es">Ángel López Campo</A>
+ * @author <A HREF="mailto:alc0022@alu.ubu.es">ï¿½ngel Lï¿½pez Campo</A>
  * @author <A HREF="mailto:ehp0001@alu.ubu.es">Enrique Herrero Paredes</A>
  * @author <A HREF="mailto:sfd0009@alu.ubu.es">Sonia Fuente de la Fuente</A>
  */ 
 public class NotExistsMethodWithNameInClass extends Predicate {
 	
 	/**
-	 * Condición opuesta a la que se comprueba.
+	 * Condiciï¿½n opuesta a la que se comprueba.
 	 */
 	private Predicate oppositePredicate;
 	
@@ -44,8 +43,8 @@ public class NotExistsMethodWithNameInClass extends Predicate {
 	 * Constructor.<p>
 	 *
 	 * Obtiene una nueva instancia de NotExistsMethodWithNameInClass.
-	 * @param classDef la clase en la que se busca el método.
-	 * @param methodUniqueName el nombre único del método que se desea buscar.
+	 * @param classDef la clase en la que se busca el mï¿½todo.
+	 * @param methodUniqueName el nombre ï¿½nico del mï¿½todo que se desea buscar.
 	 */
 	public NotExistsMethodWithNameInClass(ClassDef classDef, Name methodUniqueName) {
 		
@@ -61,7 +60,7 @@ public class NotExistsMethodWithNameInClass extends Predicate {
 	/**
 	 * Comprueba el valor de verdad del predicado.
 	 * 
-	 * @return <code>true</code> si no existe el método en la clase especificada, 
+	 * @return <code>true</code> si no existe el mï¿½todo en la clase especificada, 
 	 * <code>false</code> en caso contrario.
 	 */	 
 	public boolean isValid() {

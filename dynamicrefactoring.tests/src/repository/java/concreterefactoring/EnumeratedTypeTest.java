@@ -31,12 +31,12 @@ import javamoon.core.JavaName;
 import javamoon.core.classdef.JavaClassDef;
 import javamoon.regenerate.Regenerate;
 import javamoon.utils.EclipsePrettyPrinter;
+
 import org.junit.Test;
 
 import refactoring.engine.PostconditionException;
 import refactoring.engine.PreconditionException;
 import refactoring.engine.Refactoring;
-import repository.java.concreterefactoring.EnumeratedType;
 import repository.RefactoringTemplateAbstractTest;
 
 

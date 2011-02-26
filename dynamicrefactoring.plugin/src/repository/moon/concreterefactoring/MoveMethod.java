@@ -21,38 +21,36 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.*/
 package repository.moon.concreterefactoring;
 
 import moon.core.Model;
-
 import moon.core.classdef.ClassDef;
 import moon.core.classdef.MethDec;
-
 import repository.moon.MOONRefactoring;
 import repository.moon.concretepredicate.ExistsClass;
 import repository.moon.concretepredicate.ExistsMethodInClass;
-import repository.moon.concretepredicate.NotExistsMethodInClass;
 import repository.moon.concretepredicate.ExistsMethodWithNameInClass;
-import repository.moon.concretepredicate.NotExistsMethodWithNameInClass;
 import repository.moon.concretepredicate.MethodIsNotAlreadyInSuperclasses;
 import repository.moon.concretepredicate.MethodIsNotConstructor;
 import repository.moon.concretepredicate.MethodIsNotDeferred;
 import repository.moon.concretepredicate.MethodNotUsesClassAttribute;
 import repository.moon.concretepredicate.NotEqualClasses;
 import repository.moon.concretepredicate.NotExistsCallToThisMethod;
+import repository.moon.concretepredicate.NotExistsMethodInClass;
+import repository.moon.concretepredicate.NotExistsMethodWithNameInClass;
 
 /**
- * Permite mover un método de una clase de un modelo a otra clase del modelo.<p>
+ * Permite mover un mï¿½todo de una clase de un modelo a otra clase del modelo.<p>
  *
- * Comprueba que existan ambas clases en el modelo y que no sean iguales, así 
- * como que el método pertenezca a la clase seleccionada como clase de origen y 
- * no esté ya en la clase de destino. No se podrá mover el método tampoco si se
+ * Comprueba que existan ambas clases en el modelo y que no sean iguales, asï¿½ 
+ * como que el mï¿½todo pertenezca a la clase seleccionada como clase de origen y 
+ * no estï¿½ ya en la clase de destino. No se podrï¿½ mover el mï¿½todo tampoco si se
  * trata de un constructor o si existen llamadas al mismo en alguna clase del 
  * modelo.<p>
  *
- * Si las comprobaciones no fallan, se lleva a cabo la refactorización.<p>
+ * Si las comprobaciones no fallan, se lleva a cabo la refactorizaciï¿½n.<p>
  *
- * Finalmente, comprueba que el proceso se ha llevado a cabo con éxito.
+ * Finalmente, comprueba que el proceso se ha llevado a cabo con ï¿½xito.
  *
  * @author <A HREF="mailto:ehp0001@alu.ubu.es">Enrique Herrero Paredes</A>
- * @author <A HREF="mailto:alc0022@alu.ubu.es">Ángel López Campo</A>
+ * @author <A HREF="mailto:alc0022@alu.ubu.es">ï¿½ngel Lï¿½pez Campo</A>
  * @author <A HREF="mailto:sfd0009@alu.ubu.es">Sonia Fuente de la Fuente</A>
  */
 public class MoveMethod extends MOONRefactoring {
@@ -66,9 +64,9 @@ public class MoveMethod extends MOONRefactoring {
 	 * Constructor.<p>
 	 *
 	 * Obtiene una nueva instancia de MoveMethod.
-	 * @param classDefDest la clase a la que se intentará mover el método.
-	 * @param method el método que se desea mover.
-	 * @param model el modelo que contiene el método que se desea mover.
+	 * @param classDefDest la clase a la que se intentarï¿½ mover el mï¿½todo.
+	 * @param method el mï¿½todo que se desea mover.
+	 * @param model el modelo que contiene el mï¿½todo que se desea mover.
 	 */
 	public MoveMethod(ClassDef classDefDest, MethDec method, Model model) {
 		

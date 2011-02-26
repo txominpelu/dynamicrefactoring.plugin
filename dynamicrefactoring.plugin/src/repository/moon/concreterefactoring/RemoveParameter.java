@@ -20,38 +20,44 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.*/
 
 package repository.moon.concreterefactoring;
 
-import moon.core.entity.SignatureEntity;
-import moon.core.classdef.*;
 import moon.core.Model;
-
+import moon.core.classdef.FormalArgument;
+import moon.core.classdef.MethDec;
+import moon.core.entity.SignatureEntity;
 import repository.moon.MOONRefactoring;
-import repository.moon.concreteaction.*;
-import repository.moon.concretepredicate.*;
+import repository.moon.concreteaction.RemoveFormalArg;
+import repository.moon.concretepredicate.ExistsClass;
+import repository.moon.concretepredicate.ExistsFormalArgInMethod;
+import repository.moon.concretepredicate.ExistsMethodWithNameInClass;
+import repository.moon.concretepredicate.HasNotFormalArgWithName;
+import repository.moon.concretepredicate.MethodIsNotInSubNorSuperclass;
+import repository.moon.concretepredicate.NotExistsMethodWithNameInClass;
+import repository.moon.concretepredicate.SignatureEntityIsNotUsedInMethod;
 
 /**
- * Permite eliminar un determinado parámetro de la signatura de un método.<p>
+ * Permite eliminar un determinado parï¿½metro de la signatura de un mï¿½todo.<p>
  *
- * Verifica que exista un parámetro en el método con el nombre indicado y
- * que no exista ya un método con la signatura que tendría el método afectado
- * una vez llevada a cabo la refactorización, ni en la propia clase, ni en
+ * Verifica que exista un parï¿½metro en el mï¿½todo con el nombre indicado y
+ * que no exista ya un mï¿½todo con la signatura que tendrï¿½a el mï¿½todo afectado
+ * una vez llevada a cabo la refactorizaciï¿½n, ni en la propia clase, ni en
  * clases a las que se deba extender el cambio de signatura a causa de las
- * relaciones de herencia. También comprueba que el argumento formal no sea
- * utilizado en el cuerpo del propio método.<p>
+ * relaciones de herencia. Tambiï¿½n comprueba que el argumento formal no sea
+ * utilizado en el cuerpo del propio mï¿½todo.<p>
  *
- * Si las comprobaciones no fallan, elimina el parámetro formal en la definición 
- * del método en la clase correspondiente. Además, elimina en todas las llamadas 
- * al método el parámetro real correspondiente al argumento formal eliminado.<p>
+ * Si las comprobaciones no fallan, elimina el parï¿½metro formal en la definiciï¿½n 
+ * del mï¿½todo en la clase correspondiente. Ademï¿½s, elimina en todas las llamadas 
+ * al mï¿½todo el parï¿½metro real correspondiente al argumento formal eliminado.<p>
  *
- * Finalmente, comprueba que el proceso se ha llevado a cabo con éxito.
+ * Finalmente, comprueba que el proceso se ha llevado a cabo con ï¿½xito.
  *
  * @author <A HREF="mailto:ehp0001@alu.ubu.es">Enrique Herrero Paredes</A>
- * @author <A HREF="mailto:alc0022@alu.ubu.es">Ángel López Campo</A>
+ * @author <A HREF="mailto:alc0022@alu.ubu.es">ï¿½ngel Lï¿½pez Campo</A>
  * @author <A HREF="mailto:sfd0009@alu.ubu.es">Sonia Fuente de la Fuente</A>
  */
 public class RemoveParameter extends MOONRefactoring {
 
 	/**
-	 * Nombre de la refactorización concreta.
+	 * Nombre de la refactorizaciï¿½n concreta.
 	 */
 	private static final String NAME = "RemoveParameter"; //$NON-NLS-1$
 		
@@ -60,7 +66,7 @@ public class RemoveParameter extends MOONRefactoring {
 	 *
 	 * Obtiene una nueva instancia de RemoveParameter.
 	 *
-	 * @param formalArg el parámetro formal que se desea eliminar.
+	 * @param formalArg el parï¿½metro formal que se desea eliminar.
 	 * @param model el modelo que contiene la clase afectada por el cambio.
 	 */
 	public RemoveParameter(FormalArgument formalArg, Model model) {

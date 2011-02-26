@@ -22,11 +22,10 @@ package dynamicrefactoring.interfaz;
 
 import org.eclipse.swt.events.FocusEvent;
 import org.eclipse.swt.events.FocusListener;
-
 import org.eclipse.swt.widgets.Combo;
 
 /**
- * Permite actualizar la selección de un campo desplegable cuando se
+ * Permite actualizar la selecciï¿½n de un campo desplegable cuando se
  * introduce su contenido manualmente.
  * 
  * @author <A HREF="mailto:sfd0009@alu.ubu.es">Sonia Fuente de la Fuente</A>
@@ -48,7 +47,7 @@ public class ComboEditor implements FocusListener {
 		if (e.getSource() instanceof Combo){
 			Combo combo = (Combo)e.getSource();
 			
-			// Si el combo no tiene ninguna selección marcada.
+			// Si el combo no tiene ninguna selecciï¿½n marcada.
 			if (combo.getSelectionIndex() < 0){
 				String content = combo.getText();
 				

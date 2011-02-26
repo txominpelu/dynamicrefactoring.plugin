@@ -20,17 +20,16 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.*/
 
 package repository.moon.concretepredicate;
 
-import java.util.*;
+import java.util.Collection;
+import java.util.Vector;
 
 import moon.core.classdef.ClassDef;
 import moon.core.classdef.MethDec;
-
-
 import refactoring.engine.Predicate;
-import repository.moon.concretefunction.*;
+import repository.moon.concretefunction.ClassesAffectedByMethRenameCollector;
 
 /**
- * Permite verificar que existe un método con una cierta signatura en alguna 
+ * Permite verificar que existe un mï¿½todo con una cierta signatura en alguna 
  * superclase de una clase dada, o a su vez, recursivamente, en 
  * alguna superclase.
  *
@@ -39,12 +38,12 @@ import repository.moon.concretefunction.*;
 public class MethodSignatureIsInSuperclass extends Predicate {
 		
 	/**
-	 * Nombre único del método cuya presencia en las clases se quiere comprobar.
+	 * Nombre ï¿½nico del mï¿½todo cuya presencia en las clases se quiere comprobar.
 	 */
 	private String methodUniqueName;
 	
 	/**
-	 * Clase a partir de la cual se busca un método con un cierto nombre.
+	 * Clase a partir de la cual se busca un mï¿½todo con un cierto nombre.
 	 */
 	private ClassDef classDef;
 	
@@ -53,8 +52,8 @@ public class MethodSignatureIsInSuperclass extends Predicate {
 	 *
 	 * Obtiene una nueva instancia de MethodSignatureIsInSuperclass.
 	 *
-	 * @param method el nombre único del método que se desea buscar.
-	 * @param classDef la clase a partir de la cual se busca el método.
+	 * @param method el nombre ï¿½nico del mï¿½todo que se desea buscar.
+	 * @param classDef la clase a partir de la cual se busca el mï¿½todo.
 	 */
 	public MethodSignatureIsInSuperclass(MethDec method, ClassDef classDef){
 			
@@ -69,9 +68,9 @@ public class MethodSignatureIsInSuperclass extends Predicate {
 	/**
 	 * Comprueba el valor de verdad del predicado.
 	 * 
-	 * @return <code>true</code> si se encuentra el método en alguna clase de la
-	 * jerarquía de herencia de la clase original (o recursivamente en las 
-	 * jerarquías de herencia de las clases que se vayan encontrando); <code>
+	 * @return <code>true</code> si se encuentra el mï¿½todo en alguna clase de la
+	 * jerarquï¿½a de herencia de la clase original (o recursivamente en las 
+	 * jerarquï¿½as de herencia de las clases que se vayan encontrando); <code>
 	 * false</code> en caso contrario.
 	 */	 
 	public boolean isValid() {

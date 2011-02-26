@@ -21,30 +21,30 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.*/
 package repository.java.concreteaction;
 
 
-import moon.core.classdef.MethDec;
 import javamoon.core.JavaName;
 import javamoon.core.classdef.JavaType;
 import javamoon.core.entity.JavaAnnotationReference;
 import javamoon.core.entity.JavaFunctionDec;
 import javamoon.core.entity.JavaRoutineDec;
+import moon.core.classdef.MethDec;
 import refactoring.engine.Action;
 import repository.RelayListenerRegistry;
 import repository.moon.MOONRefactoring;
 
 /**
- * Añade una la anotación @override encima del método que esta siendo redefinido. 
+ * Aï¿½ade una la anotaciï¿½n @override encima del mï¿½todo que esta siendo redefinido. 
  * 
  * @author <A HREF="mailto:lfd0002@alu.ubu.es">Laura Fuente de la Fuente</A>
  */
 public class AddOverrideAnnotation extends Action{
 	
 	/**
-	 * Receptor de los mensajes enviados por la acción concreta.
+	 * Receptor de los mensajes enviados por la acciï¿½n concreta.
 	 */
 	private RelayListenerRegistry listenerReg;
 
 	/**
-	 * Método al que se añadirán las anotaciones.
+	 * Mï¿½todo al que se aï¿½adirï¿½n las anotaciones.
 	 */
 	private MethDec methdec;
 	
@@ -56,7 +56,7 @@ public class AddOverrideAnnotation extends Action{
 	/**
 	 * Constructor.
 	 * 
-	 * @param method método al que se añadirán las anotaciones.
+	 * @param method mï¿½todo al que se aï¿½adirï¿½n las anotaciones.
 	 */
 	public AddOverrideAnnotation(MethDec method){
 		this.methdec = method;
@@ -65,7 +65,7 @@ public class AddOverrideAnnotation extends Action{
 	}
 	
 	/**
-	 * Añade la anotación correspondiente.
+	 * Aï¿½ade la anotaciï¿½n correspondiente.
 	 */
 	@Override
 	public void run() {
@@ -84,7 +84,7 @@ public class AddOverrideAnnotation extends Action{
 	}
 
 	/**
-	 * Deshace la anotación.
+	 * Deshace la anotaciï¿½n.
 	 */
 	@Override
 	public void undo() {

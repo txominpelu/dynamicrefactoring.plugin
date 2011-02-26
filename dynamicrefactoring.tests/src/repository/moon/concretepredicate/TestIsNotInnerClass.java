@@ -20,15 +20,14 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.*/
 
 package repository.moon.concretepredicate;
 
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
 import javamoon.construct.source.SourceLoader;
 import javamoon.core.JavaModel;
-
 import moon.core.MoonFactory;
-import moon.core.classdef.*;
+import moon.core.classdef.ClassDef;
 
-import static org.junit.Assert.*;
-
-import org.junit.Test; 
+import org.junit.Test;
 
 import repository.RefactoringTemplateAbstractTest;
 
@@ -45,9 +44,9 @@ public class TestIsNotInnerClass extends RefactoringTemplateAbstractTest {
 	 * Comprueba que el predicado funciona correctamente cuando la clase
 	 * no es, efectivamente, clase interna.<p>
 	 * 
-	 * Ejecuta la comprobación sobre una clase que contiene una clase interna.
+	 * Ejecuta la comprobaciï¿½n sobre una clase que contiene una clase interna.
 	 * 
-	 * @throws Exception si se produce un error durante la ejecución de la prueba.
+	 * @throws Exception si se produce un error durante la ejecuciï¿½n de la prueba.
 	 */
 	@Test
 	public void testNotInner() throws Exception{
@@ -63,17 +62,17 @@ public class TestIsNotInnerClass extends RefactoringTemplateAbstractTest {
 		IsNotInnerClass predicate = new IsNotInnerClass(classdef);
 				
 		// Comienzan las comprobaciones
-		assertTrue("Comprobar carácter de clase interna: se ha detectado " + //$NON-NLS-1$
+		assertTrue("Comprobar carï¿½cter de clase interna: se ha detectado " + //$NON-NLS-1$
 			"como clase interna una que no lo es.", predicate.isValid());		 //$NON-NLS-1$
 	}
 
 	/**
 	 * Comprueba que el predicado funciona correctamente cuando la clase
-	 * sí es clase interna de otra.<p>
+	 * sï¿½ es clase interna de otra.<p>
 	 * 
-	 * Ejecuta la comprobación sobre una clase interna contenida en otra.
+	 * Ejecuta la comprobaciï¿½n sobre una clase interna contenida en otra.
 	 * 
-	 * @throws Exception si se produce un error durante la ejecución de la prueba.
+	 * @throws Exception si se produce un error durante la ejecuciï¿½n de la prueba.
 	 */
 	@Test
 	public void testInner() throws Exception{
@@ -89,7 +88,7 @@ public class TestIsNotInnerClass extends RefactoringTemplateAbstractTest {
 		IsNotInnerClass predicate = new IsNotInnerClass(classdef);
 				
 		// Comienzan las comprobaciones
-		assertFalse("Comprobar carácter de clase interna: no se ha detectado " + //$NON-NLS-1$
-			"como clase interna una que sí lo es.", predicate.isValid());		 //$NON-NLS-1$
+		assertFalse("Comprobar carï¿½cter de clase interna: no se ha detectado " + //$NON-NLS-1$
+			"como clase interna una que sï¿½ lo es.", predicate.isValid());		 //$NON-NLS-1$
 	}
 }

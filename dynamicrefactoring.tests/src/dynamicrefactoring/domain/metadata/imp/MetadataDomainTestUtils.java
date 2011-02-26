@@ -3,7 +3,6 @@ package dynamicrefactoring.domain.metadata.imp;
 import java.io.BufferedReader;
 import java.io.DataInputStream;
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.HashMap;
@@ -14,8 +13,6 @@ import java.util.Set;
 import com.google.common.base.Preconditions;
 import com.google.common.collect.Iterators;
 
-import dynamicrefactoring.domain.metadata.imp.SimpleClassifiedElements;
-import dynamicrefactoring.domain.metadata.imp.SimpleUniLevelClassification;
 import dynamicrefactoring.domain.metadata.interfaces.Category;
 import dynamicrefactoring.domain.metadata.interfaces.Classification;
 import dynamicrefactoring.domain.metadata.interfaces.ClassifiedElements;

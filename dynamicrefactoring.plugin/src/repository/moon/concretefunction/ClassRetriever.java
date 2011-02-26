@@ -20,10 +20,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.*/
 
 package repository.moon.concretefunction;
 
-import java.util.*;
+import java.util.Collection;
 
 import moon.core.classdef.ClassDef;
-
 import refactoring.engine.Function;
 import repository.moon.MOONRefactoring;
 
@@ -32,7 +31,7 @@ import repository.moon.MOONRefactoring;
  * de un modelo determinado.
  *
  * @author <A HREF="mailto:ehp0001@alu.ubu.es">Enrique Herrero Paredes</A>
- * @author <A HREF="mailto:alc0022@alu.ubu.es">Ángel López Campo</A>
+ * @author <A HREF="mailto:alc0022@alu.ubu.es">ï¿½ngel Lï¿½pez Campo</A>
  * @author <A HREF="mailto:sfd0009@alu.ubu.es">Sonia Fuente de la Fuente</A>
  */ 
 public class ClassRetriever extends Function {
@@ -56,7 +55,7 @@ public class ClassRetriever extends Function {
 	}
 
 	/**
-	 * Sin implementación.
+	 * Sin implementaciï¿½n.
 	 *
 	 * @return null.
 	 */

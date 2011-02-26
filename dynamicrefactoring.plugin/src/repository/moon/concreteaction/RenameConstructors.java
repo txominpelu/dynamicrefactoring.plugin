@@ -22,11 +22,9 @@ package repository.moon.concreteaction;
 
 import java.util.List;
 
-
+import moon.core.Name;
 import moon.core.classdef.ClassDef;
 import moon.core.classdef.MethDec;
-import moon.core.Name;
-
 import refactoring.engine.Action;
 import repository.RelayListenerRegistry;
 
@@ -35,7 +33,7 @@ import repository.RelayListenerRegistry;
  * que coincida con el de la clase.
  *
  * @author <A HREF="mailto:ehp0001@alu.ubu.es">Enrique Herrero Paredes</A>
- * @author <A HREF="mailto:alc0022@alu.ubu.es">Ángel López Campo</A>
+ * @author <A HREF="mailto:alc0022@alu.ubu.es">ï¿½ngel Lï¿½pez Campo</A>
  * @author <A HREF="mailto:sfd0009@alu.ubu.es">Sonia Fuente de la Fuente</A>
  */ 
 public class RenameConstructors extends Action {
@@ -46,7 +44,7 @@ public class RenameConstructors extends Action {
 	private ClassDef classDef;
 		
 	/**
-	 * Nuevo nombre que se deberá dar a los constructores.
+	 * Nuevo nombre que se deberï¿½ dar a los constructores.
 	 */
 	private Name newName;
 	
@@ -57,7 +55,7 @@ public class RenameConstructors extends Action {
 	private Name originalName;
 	
 	/**
-	 * Receptor de los mensajes enviados por la acción concreta.
+	 * Receptor de los mensajes enviados por la acciï¿½n concreta.
 	 */
 	private RelayListenerRegistry listenerReg;
 	
@@ -67,7 +65,7 @@ public class RenameConstructors extends Action {
 	 * Obtiene una nueva instancia de RenameConstructors.
 	 *
 	 * @param classDef la clase cuyos constructores se desea cambiar de nombre.
-	 * @param newName el nuevo nombre que se dará a los constructores de la clase.
+	 * @param newName el nuevo nombre que se darï¿½ a los constructores de la clase.
 	 */	
 	public RenameConstructors(ClassDef classDef, Name newName){
 		
@@ -81,7 +79,7 @@ public class RenameConstructors extends Action {
 	}
 	
 	/**
-	 * Ejecuta la actualización de nombre de los constructores.
+	 * Ejecuta la actualizaciï¿½n de nombre de los constructores.
 	 */
 	public void run() {
 		
@@ -97,8 +95,8 @@ public class RenameConstructors extends Action {
 	 * Renombra los constructores de la clase para mantener la consistencia de 
 	 * nombres entre ambos.
 	 *
-	 * @param md método constructor que se renombrará.
-	 * @param name el nombre que se asignará al constructor.
+	 * @param md mï¿½todo constructor que se renombrarï¿½.
+	 * @param name el nombre que se asignarï¿½ al constructor.
 	 */
 	public void substituteName(MethDec md, Name name){			
 		

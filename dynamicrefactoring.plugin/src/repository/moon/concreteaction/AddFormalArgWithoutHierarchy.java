@@ -20,27 +20,27 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.*/
 
 package repository.moon.concreteaction;
 
-import moon.core.classdef.*;
 import moon.core.Name;
-
+import moon.core.classdef.MethDec;
+import moon.core.classdef.Type;
 import refactoring.engine.Action;
 import repository.java.concreteaction.AddImportClause;
 
 /**
- * Permite añadir un parámetro a la signatura de un método de una representación 
+ * Permite aï¿½adir un parï¿½metro a la signatura de un mï¿½todo de una representaciï¿½n 
  * MOON de un modelo.<p>
  *
  * No tiene en cuenta las clases que, por herencia, se puedan ver afectadas por
- * un cambio en la signatura del método.
+ * un cambio en la signatura del mï¿½todo.
  *
- * @author <A HREF="mailto:alc0022@alu.ubu.es">Ángel López Campo</A>
+ * @author <A HREF="mailto:alc0022@alu.ubu.es">ï¿½ngel Lï¿½pez Campo</A>
  * @author <A HREF="mailto:ehp0001@alu.ubu.es">Enrique Herrero Paredes</A>
  * @author <A HREF="mailto:sfd0009@alu.ubu.es">Sonia Fuente de la Fuente</A>
  */ 
 public class AddFormalArgWithoutHierarchy extends AddFormalArg {
 	
 	/**
-	 * Acción auxiliar que permite añadir la sentencia de importación si es
+	 * Acciï¿½n auxiliar que permite aï¿½adir la sentencia de importaciï¿½n si es
 	 * necesario.
 	 */
 	private Action helper;	
@@ -50,9 +50,9 @@ public class AddFormalArgWithoutHierarchy extends AddFormalArg {
 	 *
 	 * Obtiene una nueva instancia de AddFormalArgWithoutHierarchy
 	 *
-	 * @param method el método en cuya signatura se va a añadir un parámetro.
-	 * @param paramName el nombre que se dará al nuevo parámetro formal.
-	 * @param paramType el tipo que tendrá el nuevo parámetro formal.
+	 * @param method el mï¿½todo en cuya signatura se va a aï¿½adir un parï¿½metro.
+	 * @param paramName el nombre que se darï¿½ al nuevo parï¿½metro formal.
+	 * @param paramType el tipo que tendrï¿½ el nuevo parï¿½metro formal.
 	 */
 	public AddFormalArgWithoutHierarchy (MethDec method,  
 		Name paramName, Type paramType){
@@ -61,7 +61,7 @@ public class AddFormalArgWithoutHierarchy extends AddFormalArg {
 	}
 	
 	/**
-	 * No se debe extender la acción a las suclases ni superclases.
+	 * No se debe extender la acciï¿½n a las suclases ni superclases.
 	 */
 	void addIntoHierarchy(){
 		helper = new AddImportClause(method.getClassDef(), newParameter.getType());
@@ -69,7 +69,7 @@ public class AddFormalArgWithoutHierarchy extends AddFormalArg {
 	}
 	
 	/**
-	 * Elimina el argumento formal añadido.
+	 * Elimina el argumento formal aï¿½adido.
 	 */
 	public void undo(){
 		super.undo();

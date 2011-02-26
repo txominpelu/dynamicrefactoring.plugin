@@ -20,39 +20,44 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.*/
 
 package repository.moon.concreterefactoring;
 
-import moon.core.classdef.*;
 import moon.core.Model;
 import moon.core.Name;
-
+import moon.core.classdef.MethDec;
+import moon.core.classdef.Type;
 import repository.java.concreteaction.AddImportClause;
 import repository.moon.MOONRefactoring;
-import repository.moon.concreteaction.*;
-import repository.moon.concretepredicate.*;
+import repository.moon.concreteaction.AddFormalArg;
+import repository.moon.concretepredicate.ExistsMethodWithNameInClass;
+import repository.moon.concretepredicate.HasFormalArgWithName;
+import repository.moon.concretepredicate.HasNotFormalArgWithName;
+import repository.moon.concretepredicate.MethodIsNotInSubNorSuperclass;
+import repository.moon.concretepredicate.NotExistsLocalDecWithName;
+import repository.moon.concretepredicate.NotExistsMethodWithNameInClass;
 
 /**
- * Permite añadir un nuevo parámetro a la signatura de un método.<p>
+ * Permite aï¿½adir un nuevo parï¿½metro a la signatura de un mï¿½todo.<p>
  *
- * Verifica que no exista ya otro parámetro en el método con el mismo nombre y
- * que no existen variables locales a ese método con nombre igual al del nuevo 
- * parámetro. Además, comprueba que no exista ya un método con la signatura que 
- * tendría el método afectado una vez llevada a cabo la refactorización, ni en 
+ * Verifica que no exista ya otro parï¿½metro en el mï¿½todo con el mismo nombre y
+ * que no existen variables locales a ese mï¿½todo con nombre igual al del nuevo 
+ * parï¿½metro. Ademï¿½s, comprueba que no exista ya un mï¿½todo con la signatura que 
+ * tendrï¿½a el mï¿½todo afectado una vez llevada a cabo la refactorizaciï¿½n, ni en 
  * la propia clase, ni en clases a las que se deba extender el cambio de 
  * signatura a causa de las relaciones de herencia.<p>
  *
- * Si la comprobación no falla, añade el parámetro formal en la definición del 
- * método en la clase correspondiente. Además, incluye en todas las llamadas al
- * método el valor por defecto para el tipo del argumento, como parámetro real.<p>
+ * Si la comprobaciï¿½n no falla, aï¿½ade el parï¿½metro formal en la definiciï¿½n del 
+ * mï¿½todo en la clase correspondiente. Ademï¿½s, incluye en todas las llamadas al
+ * mï¿½todo el valor por defecto para el tipo del argumento, como parï¿½metro real.<p>
  *
- * Finalmente, comprueba que el proceso se ha llevado a cabo con éxito.<p>
+ * Finalmente, comprueba que el proceso se ha llevado a cabo con ï¿½xito.<p>
  *
  * @author <A HREF="mailto:ehp0001@alu.ubu.es">Enrique Herrero Paredes</A>
- * @author <A HREF="mailto:alc0022@alu.ubu.es">Ángel López Campo</A>
+ * @author <A HREF="mailto:alc0022@alu.ubu.es">ï¿½ngel Lï¿½pez Campo</A>
  * @author <A HREF="mailto:sfd0009@alu.ubu.es">Sonia Fuente de la Fuente</A>
  */
 public class AddParameter extends MOONRefactoring {
 
 	/**
-	 * Nombre de la refactorización concreta.
+	 * Nombre de la refactorizaciï¿½n concreta.
 	 */
 	private static final String NAME = "AddParameter"; //$NON-NLS-1$
 	
@@ -61,10 +66,10 @@ public class AddParameter extends MOONRefactoring {
 	 *
 	 * Obtiene una nueva instancia de AddParameter.
 	 * 
-	 * @param method el método a cuya signatura se va a añadir el parámetro.
-	 * @param type el tipo {@link moon.core.classdef.Type} del parámetro.
-	 * @param name el nombre del nuevo parámetro formal.
-	 * @param model el modelo sobre el que se ejecuta la refactorización
+	 * @param method el mï¿½todo a cuya signatura se va a aï¿½adir el parï¿½metro.
+	 * @param type el tipo {@link moon.core.classdef.Type} del parï¿½metro.
+	 * @param name el nombre del nuevo parï¿½metro formal.
+	 * @param model el modelo sobre el que se ejecuta la refactorizaciï¿½n
 	 */
 	public AddParameter(MethDec method, Type type, Name name, Model model) {
 		

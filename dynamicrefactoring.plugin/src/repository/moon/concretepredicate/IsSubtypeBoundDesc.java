@@ -20,23 +20,21 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.*/
 
 package repository.moon.concretepredicate;
 
-import java.util.*;
+import java.util.Collection;
 
 import moon.core.classdef.ClassDef;
 import moon.core.classdef.ClassType;
 import moon.core.classdef.Type;
 import moon.core.genericity.BoundS;
 import moon.core.genericity.FormalPar;
-
 import refactoring.engine.Predicate;
 import repository.moon.MOONRefactoring;
 import repository.moon.concretefunction.SuperclassCollector;
-import repository.moon.concretepredicate.IsSubtype;
 
 /**
- * Comprueba que el tipo de acotación que ocupa una posición determinada en la
- * lista de acotaciones de un cierto parámetro formal en las subclases de una 
- * clase genérica es en todos los casos subtipo de un cierto tipo.
+ * Comprueba que el tipo de acotaciï¿½n que ocupa una posiciï¿½n determinada en la
+ * lista de acotaciones de un cierto parï¿½metro formal en las subclases de una 
+ * clase genï¿½rica es en todos los casos subtipo de un cierto tipo.
  *
  * @author <A HREF="mailto:sfd0009@alu.ubu.es">Sonia Fuente de la Fuente</A>
  * @author <A HREF="mailto:ehp0001@alu.ubu.es">Enrique Herrero Paredes</A>
@@ -44,25 +42,25 @@ import repository.moon.concretepredicate.IsSubtype;
 public class IsSubtypeBoundDesc extends Predicate {
 
 	/**
-	 * Parámetro formal cuyos tipos de acotación en la jerarquía de herencia se
+	 * Parï¿½metro formal cuyos tipos de acotaciï¿½n en la jerarquï¿½a de herencia se
 	 * estudian.
 	 */
 	private FormalPar formalPar;
 	
 	/**
-	 * Clase a la que pertenece el parámetro formal.
+	 * Clase a la que pertenece el parï¿½metro formal.
 	 */
 	private ClassDef classDef;
 	
 	/**
-	 * Tipo del que deben ser subtipo todos los tipos de acotación del parámetro
-	 * formal {@link #formalPar} que ocupan una cierta posición en las subclases 
+	 * Tipo del que deben ser subtipo todos los tipos de acotaciï¿½n del parï¿½metro
+	 * formal {@link #formalPar} que ocupan una cierta posiciï¿½n en las subclases 
 	 * de {@link #classDef}.
 	 */
 	private ClassType classType;
 	
 	/**
-	 * Posición de los tipos de acotación del parámetro formal que deben ser
+	 * Posiciï¿½n de los tipos de acotaciï¿½n del parï¿½metro formal que deben ser
 	 * subtipo del tipo indicado por {@link #classType}.
 	 */
 	private int position;
@@ -72,12 +70,12 @@ public class IsSubtypeBoundDesc extends Predicate {
 	 *
 	 * Devuelve una nueva instancia del predicado <code>IsSubtypeBoundDesc</code>.
 	 *
-	 * @param formalPar parámetro formal cuyos tipos de acotación en la jerarquía
+	 * @param formalPar parï¿½metro formal cuyos tipos de acotaciï¿½n en la jerarquï¿½a
 	 * de herencia se estudian.
-	 * @param referenceType tipo de acotación a partir del cual se calcula la 
-	 * posición de las acotaciones que deben cumplir la condición de subtipado.
-	 * @param classType tipo del que deben ser subtipo todos los tipos de acotación
-	 * del parámetro que ocupen una determinada posición en la lista de acotaciones.
+	 * @param referenceType tipo de acotaciï¿½n a partir del cual se calcula la 
+	 * posiciï¿½n de las acotaciones que deben cumplir la condiciï¿½n de subtipado.
+	 * @param classType tipo del que deben ser subtipo todos los tipos de acotaciï¿½n
+	 * del parï¿½metro que ocupen una determinada posiciï¿½n en la lista de acotaciones.
 	 */
 	public IsSubtypeBoundDesc(FormalPar formalPar,
 		ClassType referenceType, ClassType classType) {
@@ -101,12 +99,12 @@ public class IsSubtypeBoundDesc extends Predicate {
 	 * Comprueba el valor de verdad del predicado.
 	 * 
 	 * @return <code>true</code> si en todas las subclases de {@link #classDef}
-	 * el tipo de acotación del parámetro formal {@link #formalPar} en la 
-	 * posición indicada es subtipo del tipo representado por {@link #classType}. 
+	 * el tipo de acotaciï¿½n del parï¿½metro formal {@link #formalPar} en la 
+	 * posiciï¿½n indicada es subtipo del tipo representado por {@link #classType}. 
 	 */	 
 	public boolean isValid() {
 		
-		// Posición del parámetro formal en la superclase.
+		// Posiciï¿½n del parï¿½metro formal en la superclase.
 		int fpPosition = classDef.getFormalPars().indexOf(formalPar);
 		
 		// Lista de todas las clases del modelo.
@@ -118,27 +116,27 @@ public class IsSubtypeBoundDesc extends Predicate {
 				new SuperclassCollector(modelClass);
 			Collection<ClassDef> ancestors = ancestorCollector.getCollection();
 			
-			// Se busca una superclase genérica que coincida con nuestra clase.
+			// Se busca una superclase genï¿½rica que coincida con nuestra clase.
 			for (ClassDef nextAncestor : ancestors){
 				if (nextAncestor.isGeneric() && nextAncestor == classDef){
 					// Se ha encontrado una, luego #modelClass es una subclase
-					// genérica de la superclase estudiada.
+					// genï¿½rica de la superclase estudiada.
 					
 					FormalPar subClassFormalPar = null;
 					if (modelClass.getFormalPars().size() > fpPosition){
-						// Se toma el parámetro formal equivalente al parámetro formal
+						// Se toma el parï¿½metro formal equivalente al parï¿½metro formal
 						// de la superclase.
 						subClassFormalPar = modelClass.getFormalPars().get(fpPosition);
 					}
 					
-					// Si no está acotado, no cumple la condición.
+					// Si no estï¿½ acotado, no cumple la condiciï¿½n.
 					if (subClassFormalPar == null || ! (subClassFormalPar instanceof BoundS))
 						return false;
 					BoundS subClassBound = (BoundS)subClassFormalPar;
-					// Se toma el tipo de acotación de la posición estudiada.
+					// Se toma el tipo de acotaciï¿½n de la posiciï¿½n estudiada.
 					Type boundType = subClassBound.getBounds().get(position);
 					
-					// Si no es un tipo ClassType, no cumple la condición.
+					// Si no es un tipo ClassType, no cumple la condiciï¿½n.
 					if (! (boundType instanceof ClassType))
 						return false;
 					IsSubtype subtype = new IsSubtype((ClassType)boundType, classType);
@@ -149,7 +147,7 @@ public class IsSubtypeBoundDesc extends Predicate {
 				}
 			}
 		}
-		// Si no se ha encontrado ningún caso contrario, se devuelve verdadero.
+		// Si no se ha encontrado ningï¿½n caso contrario, se devuelve verdadero.
 		return true;
 	}
 }

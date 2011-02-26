@@ -21,28 +21,26 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.*/
 package repository.java.concreteaction;
 
 
-import java.util.List;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.List;
 
+import javamoon.core.ModifierSet;
+import javamoon.core.classdef.JavaClassDef;
+import javamoon.core.classdef.JavaEnum;
+import javamoon.core.entity.JavaAttDec;
+import javamoon.core.entity.JavaEnumConstant;
+import javamoon.core.expression.JavaCallExprCreation;
 import moon.core.Name;
 import moon.core.classdef.AttDec;
 import moon.core.classdef.ClassDef;
-import javamoon.core.ModifierSet;
-import javamoon.core.classdef.JavaEnum;
-import javamoon.core.entity.JavaAttDec;
-import javamoon.core.classdef.JavaClassDef;
-
+import moon.core.expression.Expr;
 import refactoring.engine.Action;
 import repository.RelayListenerRegistry;
 import repository.moon.MOONRefactoring;
 
-import javamoon.core.entity.JavaEnumConstant;
-import moon.core.expression.Expr;
-import javamoon.core.expression.JavaCallExprCreation;
-
 /**
- * Permite añadir un tipo enumerado al modelo a partir de la información de 
+ * Permite aï¿½adir un tipo enumerado al modelo a partir de la informaciï¿½n de 
  * una clase que pretende sustituir a un tipo enumerado.<p>
  *
  * @author <A HREF="mailto:lfd0002@alu.ubu.es">Laura Fuente de la Fuente</A>
@@ -51,21 +49,21 @@ public class AddEnumTypeWithClassData extends Action {
 	
 	
 	/**
-	 * Clase que contiene la información necesaria para crear el tipo enumerado.
+	 * Clase que contiene la informaciï¿½n necesaria para crear el tipo enumerado.
 	 */
 	private ClassDef classDef;
 	
 	/**
-	 * Receptor de los mensajes enviados por la acción concreta.
+	 * Receptor de los mensajes enviados por la acciï¿½n concreta.
 	 */
 	private RelayListenerRegistry listenerReg;
 		
 	/**
 	 * Constructor.<p>
 	 *
-	 * Obtiene una nueva instancia de la acción AddEnumTypeWithClassData.
+	 * Obtiene una nueva instancia de la acciï¿½n AddEnumTypeWithClassData.
 	 *
-	 * @param classDef clase que contiene la información necesaria para crear el tipo enumerado.
+	 * @param classDef clase que contiene la informaciï¿½n necesaria para crear el tipo enumerado.
 	 */
 	public AddEnumTypeWithClassData ( ClassDef classDef){
 		super();
@@ -76,7 +74,7 @@ public class AddEnumTypeWithClassData extends Action {
 	}
 	
 	/**
-	 * Ejecuta la acción de convertir una clase en tipo enumerado.
+	 * Ejecuta la acciï¿½n de convertir una clase en tipo enumerado.
 	 */
 	public void run(){	
 		
@@ -141,7 +139,7 @@ public class AddEnumTypeWithClassData extends Action {
 	}
 	
 	/**
-	 * Elimina el atributo añadido de la clase destino.
+	 * Elimina el atributo aï¿½adido de la clase destino.
 	 */
 	public void undo(){		
 		listenerReg.notify("# undo():AddEnumTypeWithClassData #"); //$NON-NLS-1$

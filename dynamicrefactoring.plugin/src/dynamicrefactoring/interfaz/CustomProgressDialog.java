@@ -23,14 +23,14 @@ package dynamicrefactoring.interfaz;
 import org.eclipse.jface.dialogs.IDialogConstants;
 import org.eclipse.jface.dialogs.ProgressMonitorDialog;
 import org.eclipse.swt.widgets.Composite;
-import org.eclipse.swt.widgets.Shell;;
+import org.eclipse.swt.widgets.Shell;
 
 /**
- * Proporciona una especialización del diálogo de progreso de Eclipse.
+ * Proporciona una especializaciï¿½n del diï¿½logo de progreso de Eclipse.
  * 
- * <p>Permite internacionalizar los textos de los botones y el título del diálogo 
- * de progreso por defecto utilizado en Eclipse, que de otra forma tendrían siempre
- * los textos por defecto en inglés.</p>
+ * <p>Permite internacionalizar los textos de los botones y el tï¿½tulo del diï¿½logo 
+ * de progreso por defecto utilizado en Eclipse, que de otra forma tendrï¿½an siempre
+ * los textos por defecto en inglï¿½s.</p>
  * 
  * @author <A HREF="mailto:sfd0009@alu.ubu.es">Sonia Fuente de la Fuente</A>
  * @author <A HREF="mailto:ehp0001@alu.ubu.es">Enrique Herrero Paredes</A>
@@ -40,16 +40,16 @@ public class CustomProgressDialog extends ProgressMonitorDialog {
 	/**
 	 * Constructor.
 	 * 
-	 * @param shell <i>shell</i> en la que se abrirá el diálogo de progreso.
+	 * @param shell <i>shell</i> en la que se abrirï¿½ el diï¿½logo de progreso.
 	 */
 	public CustomProgressDialog(Shell shell){
 		super(shell);
 	}
 	
 	/**
-	 * Crea el botón de cancelación.
+	 * Crea el botï¿½n de cancelaciï¿½n.
 	 * 
-	 * @param parent el componente padre del botón.
+	 * @param parent el componente padre del botï¿½n.
 	 */
 	@Override
 	protected void createCancelButton(Composite parent) {
@@ -61,9 +61,9 @@ public class CustomProgressDialog extends ProgressMonitorDialog {
 	}
 	
 	/**
-	 * Configura la <i>shell</i> en que se abre el diálogo de progreso.
+	 * Configura la <i>shell</i> en que se abre el diï¿½logo de progreso.
 	 * 
-	 * @param shell la <i>shell</i> para el diálogo de progreso.
+	 * @param shell la <i>shell</i> para el diï¿½logo de progreso.
 	 */
 	protected void configureShell(final Shell shell) {
 		super.configureShell(shell);
