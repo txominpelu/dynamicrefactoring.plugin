@@ -27,7 +27,6 @@ import java.util.Arrays;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 
 import com.google.common.base.Function;
@@ -379,6 +378,7 @@ public class DynamicRefactoringDefinition implements Element,
 	 */
 	public ArrayList<String[]> getAmbiguousParameters(String name, int typePart) {
 
+
 		// Se obtienen todas las entradas del predicado o accion.
 		ArrayList<String[]> inputs = ambiguousParameters[typePart].get(name);
 
@@ -564,6 +564,7 @@ public class DynamicRefactoringDefinition implements Element,
 		this.categories = categories;
 	}
 
+
 	/**
 	 * Obtiene el conjunto de palabras claves que describen la refactorizaci�n.
 	 * 
@@ -583,5 +584,6 @@ public class DynamicRefactoringDefinition implements Element,
 		this.keywords = keywords;
 		
 	}
+
 
 }

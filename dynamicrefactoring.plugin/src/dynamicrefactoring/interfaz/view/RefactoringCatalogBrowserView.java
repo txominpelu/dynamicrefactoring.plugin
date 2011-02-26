@@ -261,6 +261,8 @@ public class RefactoringCatalogBrowserView extends ViewPart {
 		refAction.setToolTipText(Messages.RefactoringCatalogBrowserView_RefAction);
 		refAction.setImageDescriptor(
 				ImageDescriptor.createFromImage(RefactoringImages.getSplitRIcon()));
+
+
 		
 		classRefAction=new Action(){
 			public void run() {
@@ -273,6 +275,7 @@ public class RefactoringCatalogBrowserView extends ViewPart {
 		classRefAction.setToolTipText(Messages.RefactoringCatalogBrowserView_ClassRefAction);
 		classRefAction.setImageDescriptor(
 				ImageDescriptor.createFromImage(RefactoringImages.getSplitIcon()));
+
 		
 		IActionBars bars = getViewSite().getActionBars();
 		fillLocalToolBar(bars.getToolBarManager());
@@ -545,7 +548,7 @@ public class RefactoringCatalogBrowserView extends ViewPart {
 		manager.add(classRefAction);
 	}
 
-		
+
 	/**
 	 * Actualiza el árbol de refactorizaciones para representarlas conforme
 	 * a la clasificación que ha sido seleccionada en el combo.
@@ -587,6 +590,7 @@ public class RefactoringCatalogBrowserView extends ViewPart {
 		public void widgetSelected(SelectionEvent e) {
 			if(search(searchText.getText())){
 				addConditionToFilter(condition);
+
 			}else{
 				IWorkbenchWindow window = PlatformUI.getWorkbench()
 				.getActiveWorkbenchWindow();
@@ -601,6 +605,7 @@ public class RefactoringCatalogBrowserView extends ViewPart {
 			widgetSelected(e);
 		}
 		
+
 		private void addConditionToFilter(Predicate<DynamicRefactoringDefinition> condition){
 			if(condition!=null){
 				if(!filter.contains(condition)){
@@ -656,7 +661,7 @@ public class RefactoringCatalogBrowserView extends ViewPart {
 			int indexSearchSep=text.indexOf(SEARCH_SEPARATOR);
 			boolean searchOk=false;
 			condition=null;
-			
+
 			if(indexSearchSep>0){
 				String word=text.substring(0,indexSearchSep).toLowerCase();
 				String value=text.substring(indexSearchSep+1);
@@ -674,6 +679,7 @@ public class RefactoringCatalogBrowserView extends ViewPart {
 							
 							if(checkAvailableCategoryToAddCondition(valueClass,valueCat))
 								condition=new CategoryCondition<DynamicRefactoringDefinition>(valueClass, valueCat);
+
 						}
 					}else{
 						if(word.equals(KeyWordCondition.NAME)){
