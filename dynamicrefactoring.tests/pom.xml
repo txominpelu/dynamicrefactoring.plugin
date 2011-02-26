@@ -48,10 +48,10 @@
       <configuration>
 	<argLine>-javaagent:${jacoco.agent.path}=destfile=${jacoco.file.path}</argLine>
 	<useUIHarness>true</useUIHarness>
-	  <includes>
+	  <!-- <includes>
 		<include>**/TestMessageListener.java</include>
-		<!-- <include>**/EditRefactoringTest.java</include> -->
-	  </includes>
+		 <include>**/EditRefactoringTest.java</include> 
+	  </includes> -->
           <useUIThread>false</useUIThread>
           <product>org.eclipse.sdk.ide</product>
           <application>org.eclipse.ui.ide.workbench</application>

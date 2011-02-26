@@ -1,7 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<site>
-   <feature url="features/dynamicrefactoring.feature_0.0.2.jar" id="dynamicrefactoring.feature" version="0.0.2">
-      <category name="dynamicrefactoring"/>
-   </feature>
-   <category-def name="dynamicrefactoring" label="dynamicrefactoring"/>
-</site>

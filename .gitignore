@@ -9,7 +9,9 @@ dynamicrefactoring.tests/target/*
 dynamicrefactoring.tests/screenshots/*
 dynamicrefactoring.tests/bin/*
 dynamicrefactoring.feature/target/*
+dynamicrefactoring.feature/target/**/*
 dynamicrefactoring.p2repository/target/*
+dynamicrefactoring.p2repository/target/**/*
 borrar-ficheros.sh
 large-files.perl
 target/*
