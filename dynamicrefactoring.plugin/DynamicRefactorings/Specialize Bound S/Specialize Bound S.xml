@@ -4,7 +4,7 @@
 		<image src="image.JPG"/>
 		<motivation>The actual substitutions of the generic instantiations must be restringed to a subset of subtypes.</motivation>
 		<categorization>
-			<classification name="scope">
+			<classification name="Scope">
 				<category>FormalPar</category>
 				<category>BoundedPar</category>
 			</classification>

@@ -2,7 +2,7 @@
 <!DOCTYPE classifications SYSTEM "classificationsDTD.dtd">
 
 <classifications>
-	<classification name="scope"  description="MiDescripcion">
+	<classification name="Scope"  description="MiDescripcion">
 		<categories>
 			<category>Class</category>
 			<category>Method</category>

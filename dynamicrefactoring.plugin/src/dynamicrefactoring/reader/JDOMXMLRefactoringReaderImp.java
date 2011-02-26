@@ -40,12 +40,12 @@ import dynamicrefactoring.domain.Scope;
 import dynamicrefactoring.domain.metadata.interfaces.Category;
 
 /**
- * Utiliza la implementación basada en JDOM para leer los ficheros XML que
+ * Utiliza la implementaciï¿½n basada en JDOM para leer los ficheros XML que
  * definen refactorizaciones.
  * 
  * @author <A HREF="mailto:lfd0002@alu.ubu.es">Laura Fuente de la Fuente</A>
- * @author <A HREF="mailto:alc0022@alu.ubu.es">Ángel López Campo</A>
- * @author <A HREF="mailto:epf0006@alu.ubu.es">Eduardo Peña Fernández</A>
+ * @author <A HREF="mailto:alc0022@alu.ubu.es">ï¿½ngel Lï¿½pez Campo</A>
+ * @author <A HREF="mailto:epf0006@alu.ubu.es">Eduardo Peï¿½a Fernï¿½ndez</A>
  * @author <A HREF="mailto:sfd0009@alu.ubu.es">Sonia Fuente de la Fuente</A>
  * @author <A HREF="mailto:ehp0001@alu.ubu.es">Enrique Herrero Paredes</A>
  */
@@ -53,12 +53,12 @@ public class JDOMXMLRefactoringReaderImp implements XMLRefactoringReaderImp {
 
 
 	/**
-	 * La definición de la refactorización obtenida.
+	 * La definiciï¿½n de la refactorizaciï¿½n obtenida.
 	 */
 	private DynamicRefactoringDefinition refactoringDefinition;
 
 	/**
-	 * La raíz del contenido del fichero.
+	 * La raï¿½z del contenido del fichero.
 	 */
 	private Element root;
 
@@ -66,11 +66,11 @@ public class JDOMXMLRefactoringReaderImp implements XMLRefactoringReaderImp {
 	 * Constructor.
 	 * 
 	 * @param file
-	 *            el fichero con la definición de la refactorización.
+	 *            el fichero con la definiciï¿½n de la refactorizaciï¿½n.
 	 * 
 	 * @throws XMLRefactoringReaderException
 	 *             si se produce un error al crear el lector y procesar el
-	 *             fichero con la refactorización.
+	 *             fichero con la refactorizaciï¿½n.
 	 */
 	public JDOMXMLRefactoringReaderImp(File file) throws XMLRefactoringReaderException {
 
@@ -79,14 +79,14 @@ public class JDOMXMLRefactoringReaderImp implements XMLRefactoringReaderImp {
 	}
 
 	/**
-	 * Lee cada uno de los componentes de la refactorización a partir de la
-	 * definición contenida en el fichero.
+	 * Lee cada uno de los componentes de la refactorizaciï¿½n a partir de la
+	 * definiciï¿½n contenida en el fichero.
 	 * 
 	 * @param file
-	 *            el fichero con la definición de la refactorización.
+	 *            el fichero con la definiciï¿½n de la refactorizaciï¿½n.
 	 * 
 	 * @throws XMLRefactoringReaderException
-	 *             si se produce un error al cargar la refactorización desde el
+	 *             si se produce un error al cargar la refactorizaciï¿½n desde el
 	 *             fichero XML.
 	 */
 	private void readFile(File file) throws XMLRefactoringReaderException {
@@ -94,10 +94,10 @@ public class JDOMXMLRefactoringReaderImp implements XMLRefactoringReaderImp {
 		try {
 			SAXBuilder builder = new SAXBuilder(true);
 			builder.setIgnoringElementContentWhitespace(true);
-			// El atributo SYSTEM del DOCTYPE de la definición XML de la
-			// refactorización es solo la parte relativa de la ruta del fichero
+			// El atributo SYSTEM del DOCTYPE de la definiciï¿½n XML de la
+			// refactorizaciï¿½n es solo la parte relativa de la ruta del fichero
 			// DTD. Se le antepone la ruta del directorio del plugin que 
-			// contiene los ficheros de refactorizaciones dinámicas.
+			// contiene los ficheros de refactorizaciones dinï¿½micas.
 			Document doc = builder.build(file);
 			root = doc.getRootElement();
 		} 
@@ -114,31 +114,31 @@ public class JDOMXMLRefactoringReaderImp implements XMLRefactoringReaderImp {
 	}
 
 	/**
-	 * Lee el nombre, la descripción y la motivación de la refactorización a
-	 * partir de la definición contenida en el fichero.
+	 * Lee el nombre, la descripciï¿½n y la motivaciï¿½n de la refactorizaciï¿½n a
+	 * partir de la definiciï¿½n contenida en el fichero.
 	 * 
 	 * @param root
-	 *            el elemento raíz del árbol XML que define la refactorización.
+	 *            el elemento raï¿½z del ï¿½rbol XML que define la refactorizaciï¿½n.
 	 */
 	private void readInformationRefactoring(Element root) {
 
-		// Se obtiene el nombre de la refactorización.
+		// Se obtiene el nombre de la refactorizaciï¿½n.
 		refactoringDefinition.setName(root.getAttributeValue(NAME_ATTRIBUTE));
 
 		Element information = root.getChild(INFORMATION_ELEMENT);
 
-		// Se obtiene la descripcion de la refactorización.
+		// Se obtiene la descripcion de la refactorizaciï¿½n.
 		refactoringDefinition.setDescription(
 			information.getChildTextTrim(DESCRIPTION_ELEMENT));
 
-		// Se obtiene la imagen que describe la refactorización.
+		// Se obtiene la imagen que describe la refactorizaciï¿½n.
 		Element imageElement = information.getChild(IMAGE_ELEMENT);
 		
 		if(imageElement != null)
 			refactoringDefinition.setImage(
 				imageElement.getAttributeValue(SRC_IMAGE_ATTRIBUTE));
 
-		// Se obtiene la categorizacion de la refactorización.
+		// Se obtiene la categorizacion de la refactorizaciï¿½n.
 		Element categoryElement = information.getChild(CATEGORIZATION_ELEMENT);
 
 		if (categoryElement != null){
@@ -147,7 +147,7 @@ public class JDOMXMLRefactoringReaderImp implements XMLRefactoringReaderImp {
 							.getChildren(CLASSIFICATION_ELEMENT)));
 		}
 		
-		// Se obtienen las palabras claves que describe la refactorización.
+		// Se obtienen las palabras claves que describe la refactorizaciï¿½n.
 		Element keywordElement = information.getChild(KEYWORDS_ELEMENT);
 		
 		if (keywordElement != null){
@@ -156,20 +156,20 @@ public class JDOMXMLRefactoringReaderImp implements XMLRefactoringReaderImp {
 							.getChildren(KEYWORD_ELEMENT)));
 		}
 
-		// Se obtiene la motivacion de la refactorización.
+		// Se obtiene la motivacion de la refactorizaciï¿½n.
 		refactoringDefinition.setMotivation(
 			information.getChildTextTrim(MOTIVATION_ELEMENT));
 	}
 
 	/**
 	 * Obtiene una lista de las palabras claves definidas
-	 * en el fichero xml para la refactorización.
+	 * en el fichero xml para la refactorizaciï¿½n.
 	 *  
 	 * @param children lista de elementos "keyword" en el fichero xml
 	 * @return conjunto de palabras clave
 	 */
-	private List<String> readKeywordElements(List<Element> children) {
-		List<String> keywords = new ArrayList<String>();
+	private Set<String> readKeywordElements(List<Element> children) {
+		Set<String> keywords = new HashSet<String>();
 		for (Element keywordElement : children){
 			keywords.add(keywordElement.getTextTrim());
 		}
@@ -177,11 +177,11 @@ public class JDOMXMLRefactoringReaderImp implements XMLRefactoringReaderImp {
 	}
 
 	/**
-	 * Crea la lista de categorias a las que la refactorización pertenece.
+	 * Crea la lista de categorias a las que la refactorizaciï¿½n pertenece.
 	 * 
 	 * @param children
 	 *            lista de elementos de tipo category
-	 * @return conjunto de categorias a las que la refactorización pertenece
+	 * @return conjunto de categorias a las que la refactorizaciï¿½n pertenece
 	 */
 	private Set<Category> readCategoriesElements(List<Element> children) {
 		Set<Category> categorias = new HashSet<Category>();
@@ -198,33 +198,33 @@ public class JDOMXMLRefactoringReaderImp implements XMLRefactoringReaderImp {
 
 	/**
 	 * Lee la lista de entradas que debe proporcionar el usuario a la
-	 * refactorización, a partir de la definición contenida en el fichero.
+	 * refactorizaciï¿½n, a partir de la definiciï¿½n contenida en el fichero.
 	 * 
 	 * @param root
-	 *            el elemento raíz del árbol XML que define la refactorización.
+	 *            el elemento raï¿½z del ï¿½rbol XML que define la refactorizaciï¿½n.
 	 */
 	@SuppressWarnings({"unchecked"}) //$NON-NLS-1$
 	private void readInputsRefactoring(Element root) {
 
 		Element inputsElement = root.getChild(INPUTS_ELEMENT);
 
-		// Se obtienen las entradas de la refactorización.
+		// Se obtienen las entradas de la refactorizaciï¿½n.
 		List<Element> in = inputsElement.getChildren(INPUT_ELEMENT);
 		refactoringDefinition.setInputs(readInputsElements(in));
 	}
 
 	/**
-	 * Obtiene el tipo, el nombre, el origen, el método y el carácter de entrada
-	 * principal o no de cada uno de los parámetros de una lista de entradas de
+	 * Obtiene el tipo, el nombre, el origen, el mï¿½todo y el carï¿½cter de entrada
+	 * principal o no de cada uno de los parï¿½metros de una lista de entradas de
 	 * tipo <i>input</i>.
 	 * 
 	 * @param in
 	 *            la lista de entradas de tipo <i>input</i>.
 	 * 
 	 * @return un <code>ArrayList</code> de cadenas con el tipo de la entrada,
-	 *         su nombre, la clase de origen del parámetro, el método mediante
+	 *         su nombre, la clase de origen del parï¿½metro, el mï¿½todo mediante
 	 *         el que se puede obtener y si se trata de la entrada principal de
-	 *         la refactorización, en ese orden.
+	 *         la refactorizaciï¿½n, en ese orden.
 	 */
 	private ArrayList<String[]> readInputsElements(List<Element> in) {
 
@@ -244,10 +244,10 @@ public class JDOMXMLRefactoringReaderImp implements XMLRefactoringReaderImp {
 	}
 
 	/**
-	 * Lee las precondiciones, acciones y postcondiciones de la refactorización
-	 * a partir de la definición contenida en el fichero.
+	 * Lee las precondiciones, acciones y postcondiciones de la refactorizaciï¿½n
+	 * a partir de la definiciï¿½n contenida en el fichero.
 	 * 
-	 * @return mecanismos de la refactorización.
+	 * @return mecanismos de la refactorizaciï¿½n.
 	 */
 	@SuppressWarnings({"unchecked"}) //$NON-NLS-1$
 	public ArrayList<String> readMechanismRefactoring() {
@@ -263,7 +263,7 @@ public class JDOMXMLRefactoringReaderImp implements XMLRefactoringReaderImp {
 
 		Element mechanism = root.getChild(MECHANISM_ELEMENT);
 
-		// Se obtienen las precondiciones de la refactorización.
+		// Se obtienen las precondiciones de la refactorizaciï¿½n.
 		Element preconditionsElement = mechanism.getChild(PRECONDITIONS_ELEMENT);
 		List<Element> pre = preconditionsElement.getChildren(PRECONDITION_ELEMENT);
 		elements = readMechanismElements(pre, RefactoringConstants.PRECONDITION);
@@ -278,7 +278,7 @@ public class JDOMXMLRefactoringReaderImp implements XMLRefactoringReaderImp {
 		}
 		refactoringDefinition.setPreconditions(precondiciones);
 
-		// Se obtienen las acciones de la refactorización.
+		// Se obtienen las acciones de la refactorizaciï¿½n.
 		Element actionsElement = mechanism.getChild(ACTIONS_ELEMENT);
 		List<Element> ac = actionsElement.getChildren(ACTION_ELEMENT);
 		actions = readMechanismElements(ac, RefactoringConstants.ACTION);
@@ -294,7 +294,7 @@ public class JDOMXMLRefactoringReaderImp implements XMLRefactoringReaderImp {
 		}
 		refactoringDefinition.setActions(acciones);
 
-		// Se obtienen las postcondiciones de la refactorización.
+		// Se obtienen las postcondiciones de la refactorizaciï¿½n.
 		Element postconditionsElement = mechanism.getChild(POSTCONDITIONS_ELEMENT);
 		List<Element> post = postconditionsElement.getChildren(POSTCONDITION_ELEMENT);
 		postconditions = readMechanismElements(post, RefactoringConstants.POSTCONDITION);
@@ -314,7 +314,7 @@ public class JDOMXMLRefactoringReaderImp implements XMLRefactoringReaderImp {
 
 	/**
 	 * Lee el nombre de cada elemento de una lista de precondiciones, acciones o
-	 * postcondiciones, y la lista de parámetros ambiguos asociados a cada uno.
+	 * postcondiciones, y la lista de parï¿½metros ambiguos asociados a cada uno.
 	 * 
 	 * @param elements
 	 *            lista de elementos (precondiciones, acciones o
@@ -365,18 +365,18 @@ public class JDOMXMLRefactoringReaderImp implements XMLRefactoringReaderImp {
 	}
 
 	/**
-	 * Lee la lista de parámetros ambiguos asociados a un elemento, que puede
-	 * ser una precondición, una acción o una postcondición.
+	 * Lee la lista de parï¿½metros ambiguos asociados a un elemento, que puede
+	 * ser una precondiciï¿½n, una acciï¿½n o una postcondiciï¿½n.
 	 * 
 	 * @param elementName
-	 *            el nombre del elemento cuyos parámetros ambiguos han de
+	 *            el nombre del elemento cuyos parï¿½metros ambiguos han de
 	 *            leerse.
 	 * @param type
 	 *            {@link RefactoringConstants#PRECONDITION},
 	 *            {@link RefactoringConstants#ACTION} o
 	 *            {@link RefactoringConstants#POSTCONDITION}.
 	 * @param params
-	 *            la lista de parámetros ambiguos del elemento.
+	 *            la lista de parï¿½metros ambiguos del elemento.
 	 */
 	private void readAmbiguousParametersOfElement(String elementName, int type,
 		List<Element> params) {
@@ -394,16 +394,16 @@ public class JDOMXMLRefactoringReaderImp implements XMLRefactoringReaderImp {
 	}
 
 	/**
-	 * Lee los ejemplos de la refactorización a partir de la definición
+	 * Lee los ejemplos de la refactorizaciï¿½n a partir de la definiciï¿½n
 	 * contenida en el fichero.
 	 * 
 	 * @param root
-	 *            el elemento raíz del árbol XML que define la refactorización.
+	 *            el elemento raï¿½z del ï¿½rbol XML que define la refactorizaciï¿½n.
 	 */
 	@SuppressWarnings({"unchecked"}) //$NON-NLS-1$
 	private void readExamplesRefactoring(Element root) {
 
-		// Se obtienen los ejemplos de la refactorización.
+		// Se obtienen los ejemplos de la refactorizaciï¿½n.
 		Element examplesElement = root.getChild(EXAMPLES_ELEMENT);
 		if(examplesElement != null) {
 			List<Element> ex = examplesElement.getChildren(EXAMPLE_ELEMENT);
@@ -413,7 +413,7 @@ public class JDOMXMLRefactoringReaderImp implements XMLRefactoringReaderImp {
 
 	/**
 	 * Lee los atributos de los ejemplos de una lista de ejemplos a partir de la
-	 * definición contenida en el fichero.
+	 * definiciï¿½n contenida en el fichero.
 	 * 
 	 * @param examples
 	 *            lista de ejemplos.
@@ -436,9 +436,9 @@ public class JDOMXMLRefactoringReaderImp implements XMLRefactoringReaderImp {
 	}
 
 	/**
-	 * Devuelve la definición de la refactorización.
+	 * Devuelve la definiciï¿½n de la refactorizaciï¿½n.
 	 * 
-	 * @return la definición de la refactorización.
+	 * @return la definiciï¿½n de la refactorizaciï¿½n.
 	 */
 	@Override
 	public DynamicRefactoringDefinition getDynamicRefactoringDefinition() {
@@ -447,18 +447,18 @@ public class JDOMXMLRefactoringReaderImp implements XMLRefactoringReaderImp {
 
 	/**
 	 * Obtiene del fichero temporal que guarda las refactorizaciones
-	 * disponibles, aquellas que son ejecutables con el parámetro de entrada del
-	 * tipo señalado por el parámetro scope.
+	 * disponibles, aquellas que son ejecutables con el parï¿½metro de entrada del
+	 * tipo seï¿½alado por el parï¿½metro scope.
 	 * 
 	 * @param scopeClass
-	 *            tipo de la entrada principal de la refactorización.
+	 *            tipo de la entrada principal de la refactorizaciï¿½n.
 	 * @param path_file
 	 *            ruta del fichero xml en donde estan descritas las
 	 *            refactorizaciones disponibles.
 	 * @return <code>HashMap</code> cuyas claves son el nombre de las
 	 *         refactorizaciones y los valores la ruta del fichero que contiene
-	 *         la definición de la refactorización en caso de ser dinámica o la
-	 *         cadena vacia en caso de ser estática.
+	 *         la definiciï¿½n de la refactorizaciï¿½n en caso de ser dinï¿½mica o la
+	 *         cadena vacia en caso de ser estï¿½tica.
 	 * @throws XMLRefactoringReaderException
 	 *             lanzado en caso de que no se pueda leer el fichero xml.
 	 */

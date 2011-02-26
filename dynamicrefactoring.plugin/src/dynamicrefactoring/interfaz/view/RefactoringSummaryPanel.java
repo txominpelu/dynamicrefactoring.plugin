@@ -37,81 +37,81 @@ import dynamicrefactoring.interfaz.TreeEditor;
 import dynamicrefactoring.util.RefactoringTreeManager;
 
 /**
- * Proporciona un organizador de pestañas, en el cual se muestra
- * la información relativa a la refactorización.
+ * Proporciona un organizador de pestaï¿½as, en el cual se muestra
+ * la informaciï¿½n relativa a la refactorizaciï¿½n.
  * @author XPMUser
  */
 public class RefactoringSummaryPanel {
 
 	/**
-	 * Etiqueta título.
+	 * Etiqueta tï¿½tulo.
 	 */
 	private Label titleLabel;
 	
 	/**
-	 * Número mínimo de pestañas, es el número de pestañas fijas a mostrar.
+	 * Nï¿½mero mï¿½nimo de pestaï¿½as, es el nï¿½mero de pestaï¿½as fijas a mostrar.
 	 */
 	private int minNumTabs;
 
 	/**
-	 * Organizador de pestañas.
+	 * Organizador de pestaï¿½as.
 	 */
 	private TabFolder refTabFolder;
 	
 	/**
-	 * Etiqueta descripción de la refactorización.
+	 * Etiqueta descripciï¿½n de la refactorizaciï¿½n.
 	 */
 	private Label descriptionLabel;
 	
 	/**
-	 * Cuadro de texto en que se mostrará la descripción de la refactorización.
+	 * Cuadro de texto en que se mostrarï¿½ la descripciï¿½n de la refactorizaciï¿½n.
 	 */
 	private Text descriptionText;
 	
 	/**
-	 * Etiqueta motivación de la refactorización.
+	 * Etiqueta motivaciï¿½n de la refactorizaciï¿½n.
 	 */
 	private Label motivationLabel;
 	
 	/**
-	 * Cuadro de texto en que se mostrará la motivación de la refactorización.
+	 * Cuadro de texto en que se mostrarï¿½ la motivaciï¿½n de la refactorizaciï¿½n.
 	 */
 	private Text motivationText;
 	
 	/**
-	 * Etiqueta categorias de la refactorización.
+	 * Etiqueta categorias de la refactorizaciï¿½n.
 	 */
 	private Label categoriesLabel;
 	
 	/**
-	 * Cuadro de texto en que se mostrará las categorias a las que pertenece la refactorización.
+	 * Cuadro de texto en que se mostrarï¿½ las categorias a las que pertenece la refactorizaciï¿½n.
 	 */
 	private Text categoriesText;
 	
 	/**
-	 * Conjunto de checkButton que se muestran en la pestaña de entradas.
+	 * Conjunto de checkButton que se muestran en la pestaï¿½a de entradas.
 	 */
 	private ArrayList<Button> checkButtonsInputsTab=new ArrayList<Button>();
 
 	/**
-	 * Tabla en que se mostrarán las entradas de la refactorización.
+	 * Tabla en que se mostrarï¿½n las entradas de la refactorizaciï¿½n.
 	 */
 	private Table inputsTable;
 
 	/**
-	 * Árbol sobre el que se mostrarán de forma estructurada los diferentes elementos
-	 * del repositorio que componen la refactorización (precondiciones, acciones y 
+	 * ï¿½rbol sobre el que se mostrarï¿½n de forma estructurada los diferentes elementos
+	 * del repositorio que componen la refactorizaciï¿½n (precondiciones, acciones y 
 	 * postcondiciones).
 	 */
 	private Tree componentsTree;
 
 	/**
-	 * Área en que se muestra la imagen asociada a la refactorización.
+	 * ï¿½rea en que se muestra la imagen asociada a la refactorizaciï¿½n.
 	 */
 	private Canvas imageCanvas ;
 	
 	/**
-	 * Definición de la refactorización.
+	 * Definiciï¿½n de la refactorizaciï¿½n.
 	 */
 	private DynamicRefactoringDefinition refactoring;
 
@@ -322,10 +322,10 @@ public class RefactoringSummaryPanel {
 	private void fillOverview(){
 		descriptionText.setText(refactoring.getDescription().trim());
 		motivationText.setText(refactoring.getMotivation().trim());
-		String cat= "Scope."+ refactoring.getRefactoringScope().toString();
+		String cat= "";
 		ArrayList<Category> categories = new ArrayList<Category>(refactoring.getCategories());
 		for (Category c : categories){
-		 cat+="\n" + c.getParent()+"."+c.getName();
+		 cat+=c.getParent()+"."+c.getName() + "\n";
 		}
 		categoriesText.setText(cat.trim());
 	}
@@ -387,8 +387,8 @@ public class RefactoringSummaryPanel {
 	}
 
 	/**
-	 * Establece la refactorización a mostrar.
-	 * @param ref definición de la refactorización a mostrar
+	 * Establece la refactorizaciï¿½n a mostrar.
+	 * @param ref definiciï¿½n de la refactorizaciï¿½n a mostrar
 	 */
 	public void setRefactoringDefinition(DynamicRefactoringDefinition ref) {
 		refactoring=ref;

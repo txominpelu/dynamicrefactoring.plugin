@@ -33,11 +33,11 @@ import org.eclipse.swt.widgets.Shell;
 import com.swtdesigner.ResourceManager;
 
 /**
- * Proporciona una especialización del diálogo de asistente de Eclipse.
+ * Proporciona una especializaciï¿½n del diï¿½logo de asistente de Eclipse.
  * 
- * <p>Permite internacionalizar los textos de los botones del diálogo por defecto
- * en el que se abren los asistentes en Eclipse, que de otra forma tendrían siempre
- * los textos por defecto en inglés.</p>
+ * <p>Permite internacionalizar los textos de los botones del diï¿½logo por defecto
+ * en el que se abren los asistentes en Eclipse, que de otra forma tendrï¿½an siempre
+ * los textos por defecto en inglï¿½s.</p>
  * 
  * @author <A HREF="mailto:sfd0009@alu.ubu.es">Sonia Fuente de la Fuente</A>
  * @author <A HREF="mailto:ehp0001@alu.ubu.es">Enrique Herrero Paredes</A>
@@ -47,17 +47,17 @@ public class CustomWizardDialog extends WizardDialog {
 	/**
 	 * Constructor.
 	 * 
-	 * @param shell <i>shell</i> en la que se abrirá el diálogo del asistente.
-	 * @param wizard asistente que se debe abrir en el diálogo.
+	 * @param shell <i>shell</i> en la que se abrirï¿½ el diï¿½logo del asistente.
+	 * @param wizard asistente que se debe abrir en el diï¿½logo.
 	 */
 	public CustomWizardDialog(Shell shell, RefactoringWizard wizard){
 		super(shell, wizard);
 	}
 	
 	/**
-	 * Crea los botones del diálogo en que se muestra un asistente.
+	 * Crea los botones del diï¿½logo en que se muestra un asistente.
 	 * 
-	 * @param parent el componente padre que contendrá los botones.
+	 * @param parent el componente padre que contendrï¿½ los botones.
 	 */
 	@Override
 	protected void createButtonsForButtonBar(Composite parent) {
@@ -81,15 +81,14 @@ public class CustomWizardDialog extends WizardDialog {
 	}
 	
 	/**
-	 * Configura la <i>shell</i> en la que se abrirá el diálogo del asistente.
+	 * Configura la <i>shell</i> en la que se abrirï¿½ el diï¿½logo del asistente.
 	 * 
-	 * @param newShell <i>shell</i> utilizada por el diálogo del asistente.
+	 * @param newShell <i>shell</i> utilizada por el diï¿½logo del asistente.
 	 */
 	@Override
 	protected void configureShell(Shell newShell){
 		super.configureShell(newShell);
 		
-		newShell.setImage(ResourceManager.getPluginImage(RefactoringPlugin.getDefault(),
-			RefactoringImages.REF_ICON_PATH)); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
+		newShell.setImage(RefactoringImages.getRefIcon());
 	}
 }

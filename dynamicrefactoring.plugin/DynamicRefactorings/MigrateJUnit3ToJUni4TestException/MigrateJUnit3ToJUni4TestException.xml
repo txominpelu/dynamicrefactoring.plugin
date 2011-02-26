@@ -2,7 +2,7 @@
 	<information>
 		<description>El mecanismo de gestión de excepciones en los métodos cambia completamente entre versiones, eliminando los try catch finally en la versión JUnit4</description>
 		<motivation>El mecanismo de gestión de excepciones en los métodos cambia completamente entre versiones, eliminando los try catch finally en la versión JUnit4</motivation>
-	<categorization><classification name="scope"><category>Method</category></classification></categorization></information>
+	<categorization><classification name="Scope"><category>Method</category></classification></categorization></information>
 	<inputs>
 		<input from="Method" method="getClassDef" name="clase" root="false" type="moon.core.classdef.ClassDef"/>
 		<input name="Method" root="true" type="moon.core.classdef.MethDec"/>

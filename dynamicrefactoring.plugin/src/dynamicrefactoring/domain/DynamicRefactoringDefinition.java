@@ -107,11 +107,14 @@ public class DynamicRefactoringDefinition implements Element,
 	private ArrayList<String[]> examples;
 
 	/**
-	 * Lista de categorias a las que la refactorizacion pertenece.
+	 * Conjunto de categorias a las que la refactorizacion pertenece.
 	 */
 	private Set<Category> categories;
 
-	private List<String> keywords;
+	/**
+	 * Conjunto de palabras clave de la refactorizacion.
+	 */
+	private Set<String> keywords;
 
 	/**
 	 * Constructor.
@@ -123,7 +126,7 @@ public class DynamicRefactoringDefinition implements Element,
 		image = new String();
 		motivation = new String();
 		categories = new HashSet<Category>();
-		keywords = new ArrayList<String>();
+		keywords = new HashSet<String>();
 
 		inputs = new ArrayList<String[]>();
 		preconditions = new ArrayList<String>();
@@ -517,14 +520,13 @@ public class DynamicRefactoringDefinition implements Element,
 
 	@Override
 	public final boolean belongsTo(Category category) {
-		return getCategories().contains(category);
+		return categories.contains(category);
 	}
 	
-
-	public boolean belongsTo(String keyWord) {
-		//TODO: comprobar si contiene la palabra clave
-		//asegurarnos de que cuando se lee y guardan las palabras clave se hace en minusculas
-		return true;
+	@Override
+	public boolean belongsTo(String word) {
+		word=word.toLowerCase().trim();
+		return keywords.contains(word);
 	}
 	
 	@Override
@@ -567,17 +569,17 @@ public class DynamicRefactoringDefinition implements Element,
 	 * 
 	 * @return conjunto de palabras claves
 	 */
-	public List<String> getKeywords() {
-		return new ArrayList<String>(keywords);
+	public Set<String> getKeywords() {
+		return new HashSet<String>(keywords);
 	}
 
 	/**
-	 * Asigna la lista de palabras claves que describen 
+	 * Asigna el conjunto de palabras claves que describen 
 	 * la refactorizaci�n.
 	 * 
 	 * @param keywords conjunto de palabras clave
 	 */
-	public void setKeywords(List<String> keywords) {
+	public void setKeywords(Set<String> keywords) {
 		this.keywords = keywords;
 		
 	}

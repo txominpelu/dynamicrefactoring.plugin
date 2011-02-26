@@ -3,7 +3,7 @@
 		<description>Replace the formal parameter for one of its bounding types.</description>
 		<motivation>Genericity must be removed from a class.</motivation>
 		<categorization>
-			<classification name="scope">
+			<classification name="Scope">
 				<category>FormalPar</category>
 				<category>BoundedPar</category>
 			</classification>

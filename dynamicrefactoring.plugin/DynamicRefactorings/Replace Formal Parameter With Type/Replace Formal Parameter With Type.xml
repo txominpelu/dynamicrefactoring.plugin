@@ -3,7 +3,7 @@
 		<description>Removes the formal parameter from the class declaration, replacing the generic type for the completely instantiated type.</description>
 		<image src="image.JPG"/>
 		<motivation>Given a generic class with subtype bounds, the actual substitution for one of its formal parameters is always the same.</motivation>
-	<categorization><classification name="scope"><category>FormalPar</category></classification></categorization></information>
+	<categorization><classification name="Scope"><category>FormalPar</category></classification></categorization></information>
 	<inputs>
 		<input name="Parameter" root="true" type="moon.core.genericity.FormalPar"/>
 		<input from="Model" method="getClassDef" name="New_type" type="moon.core.classdef.ClassType"/>

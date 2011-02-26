@@ -60,6 +60,7 @@ import org.eclipse.swt.widgets.Text;
 
 import com.swtdesigner.ResourceManager;
 
+import dynamicrefactoring.RefactoringImages;
 import dynamicrefactoring.RefactoringPlugin;
 import dynamicrefactoring.domain.DynamicRefactoringDefinition;
 import dynamicrefactoring.domain.ExportImportUtilities;
@@ -279,8 +280,7 @@ public class ImportPlanWizard extends Dialog {
 	protected void configureShell(Shell newShell) {
 		super.configureShell(newShell);
 		newShell.setText(Messages.ImportPlanWizard_ImportRefactoringPlan);
-		newShell.setImage(ResourceManager.getPluginImage(RefactoringPlugin.getDefault(),
-			"icons" + System.getProperty("file.separator") + "import_plan.ico")); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
+		newShell.setImage(RefactoringImages.getImportPlanIconPath());
 	}
 	
 	/**
@@ -562,13 +562,11 @@ public class ImportPlanWizard extends Dialog {
 				
 			}
 			t_Message.setText(formatter.format(messageArgs) + "."); //$NON-NLS-1$
-			lb_Icon.setImage(ResourceManager.getPluginImage(RefactoringPlugin.getDefault(),
-				"icons" + System.getProperty("file.separator") + "info.gif")); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
+			lb_Icon.setImage(RefactoringImages.getInfoIconPath());
 		}
 		else{
 			t_Message.setText(advise);
-			lb_Icon.setImage(ResourceManager.getPluginImage(RefactoringPlugin.getDefault(),
-				"icons" + System.getProperty("file.separator") + "warning.gif")); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
+			lb_Icon.setImage(RefactoringImages. getWarningIconPath());
 		}
 		advise=null;
 	}

@@ -53,6 +53,11 @@ public class Messages extends NLS {
 	public static String RefactoringCatalogBrowserView_ClassificationsNotListed;
 	public static String RefactoringCatalogBrowserView_Error;
 	public static String RefactoringCatalogBrowserView_SearchError;
+	public static String RefactoringCatalogBrowserView_SearchWarning;
+	public static String RefactoringCatalogBrowserView_SearchClassificationNotExist;
+	public static String RefactoringCatalogBrowserView_SearchCategoryNotExist;
+	public static String RefactoringCatalogBrowserView_SearchQuestion;
+	public static String RefactoringCatalogBrowserView_SearchConditionAlreadyExist;
 	public static String RefactoringCatalogBrowserView_AvailableNotListed;
 	public static String RefactoringCatalogBrowserView_SelectFromClassification;
 	public static String RefactoringCatalogBrowserView_Classification;

@@ -185,7 +185,7 @@ public class TestCaseRefactoringReader {
 		assertMinimumInformationEqual(definition);
 		
 		//Comprobar categorias
-		List<String> expectedKeywords = new ArrayList<String>();
+		Set<String> expectedKeywords = new HashSet<String>();
 		expectedKeywords.add(KEY_WORD1);
 		expectedKeywords.add(KEY_WORD2);
 		

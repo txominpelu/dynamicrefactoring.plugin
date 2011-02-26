@@ -313,10 +313,10 @@ public final class RefactoringWizardPage1 extends WizardPage {
 	 * 
 	 * @return conjunto de palabras clave
 	 */
-	final List<String> getKeywords() {
-		List<String> keywords = new ArrayList<String>();
+	final Set<String> getKeywords() {
+		Set<String> keywords = new HashSet<String>();
 		for (String keyword : keywordsText.getText().split(",")) {
-			keywords.add(keyword);
+			keywords.add(keyword.trim().toLowerCase());
 		}
 		return keywords;
 	}

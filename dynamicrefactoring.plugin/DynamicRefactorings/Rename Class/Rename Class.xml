@@ -3,7 +3,7 @@
 		<description>Renames the class.</description>
 		<image src="renameclass.JPG"/>
 		<motivation>The name of class does not reveal its intention.</motivation>
-	<categorization><classification name="scope"><category>Class</category></classification></categorization></information>
+	<categorization><classification name="Scope"><category>Class</category></classification></categorization></information>
 	<inputs>
 		<input from="Class" method="getName" name="Old_name" root="false" type="moon.core.Name"/>
 		<input name="Class" root="true" type="moon.core.classdef.ClassDef"/>

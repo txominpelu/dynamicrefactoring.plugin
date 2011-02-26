@@ -1,6 +1,7 @@
 package dynamicrefactoring.interfaz.view;
 
 import java.io.IOException;
+import java.text.MessageFormat;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
@@ -40,7 +41,6 @@ import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.part.ViewPart;
 
 import com.google.common.base.Predicate;
-import com.swtdesigner.ResourceManager;
 
 import dynamicrefactoring.RefactoringImages;
 import dynamicrefactoring.RefactoringPlugin;
@@ -113,6 +113,11 @@ public class RefactoringCatalogBrowserView extends ViewPart {
 	private ArrayList<String> refactoringNames;
 
 	/**
+	 * Almacen con todas las clasificaciones.
+	 */
+	private ClassificationsStore classStore;
+	
+	/**
 	 * Clasificaciones disponibles.
 	 */
 	private ArrayList<Classification> classifications;
@@ -125,8 +130,7 @@ public class RefactoringCatalogBrowserView extends ViewPart {
 	/**
 	 * Lista de condiciones que conforman el filtro actual aplicado.
 	 */
-	//TODO: revisar si no es necesario para eliminarlo
-	private ArrayList<Predicate<DynamicRefactoringDefinition>> filter;
+	private Set<Predicate<DynamicRefactoringDefinition>> filter;
 
 	/**
 	 * Etiqueta clasificación.
@@ -243,9 +247,8 @@ public class RefactoringCatalogBrowserView extends ViewPart {
 			}};
 		
 		classAction.setToolTipText(Messages.RefactoringCatalogBrowserView_ClassAction);
-		classAction.setImageDescriptor(ImageDescriptor.createFromImage(
-					ResourceManager.getPluginImage(RefactoringPlugin.getDefault(),
-					RefactoringImages.SPLIT_L_ICON_PATH)));
+		classAction.setImageDescriptor(
+				ImageDescriptor.createFromImage(RefactoringImages.getSplitLIcon()));
 		
 		refAction=new Action(){
 			public void run() {
@@ -256,9 +259,8 @@ public class RefactoringCatalogBrowserView extends ViewPart {
 			}};
 		
 		refAction.setToolTipText(Messages.RefactoringCatalogBrowserView_RefAction);
-		refAction.setImageDescriptor(ImageDescriptor.createFromImage(
-					ResourceManager.getPluginImage(RefactoringPlugin.getDefault(),
-					RefactoringImages.SPLIT_R_ICON_PATH)));
+		refAction.setImageDescriptor(
+				ImageDescriptor.createFromImage(RefactoringImages.getSplitRIcon()));
 		
 		classRefAction=new Action(){
 			public void run() {
@@ -269,9 +271,8 @@ public class RefactoringCatalogBrowserView extends ViewPart {
 			}};
 		
 		classRefAction.setToolTipText(Messages.RefactoringCatalogBrowserView_ClassRefAction);
-		classRefAction.setImageDescriptor(ImageDescriptor.createFromImage(
-					ResourceManager.getPluginImage(RefactoringPlugin.getDefault(),
-					RefactoringImages.SPLIT_ICON_PATH)));
+		classRefAction.setImageDescriptor(
+				ImageDescriptor.createFromImage(RefactoringImages.getSplitIcon()));
 		
 		IActionBars bars = getViewSite().getActionBars();
 		fillLocalToolBar(bars.getToolBarManager());
@@ -294,7 +295,6 @@ public class RefactoringCatalogBrowserView extends ViewPart {
 		//añadimos la clasificacion por defecto
 		classCombo.add(NONE_CLASSIFICATION.getName());
 
-		Collections.sort(classifications);
 		for (Classification classification : classifications)
 			classCombo.add(classification.getName());
 		classifications.add(NONE_CLASSIFICATION);
@@ -311,6 +311,7 @@ public class RefactoringCatalogBrowserView extends ViewPart {
 		classFormData=new FormData();
 		classFormData.top=new FormAttachment(classLabel,15);
 		classFormData.left=new FormAttachment(0,5);
+		classFormData.right=new FormAttachment(100,-5);
 		descClassLabel.setLayoutData(classFormData);
 
 		//searchText
@@ -324,9 +325,7 @@ public class RefactoringCatalogBrowserView extends ViewPart {
 
 		//searchButton 
 		searchButton = new Button(classComp, SWT.PUSH);
-		searchButton.setImage(ResourceManager.getPluginImage(
-				RefactoringPlugin.getDefault(),
-				RefactoringImages.SEARCH_ICON_PATH));
+		searchButton.setImage(RefactoringImages.getSearchIcon());
 		classFormData = new FormData();
 		classFormData.top = new FormAttachment(0, 3);
 		classFormData.left = new FormAttachment(searchText, 5);
@@ -393,7 +392,8 @@ public class RefactoringCatalogBrowserView extends ViewPart {
 	 * Carga las clasificaciones disponibles.
 	 */
 	private void loadClassifications() {
-		classifications = new ArrayList<Classification> (ClassificationsStore.getInstance().getAllClassifications());
+		classStore = ClassificationsStore.getInstance();
+		classifications = new ArrayList<Classification> (classStore.getAllClassifications());
 	}
 
 	/**
@@ -450,7 +450,7 @@ public class RefactoringCatalogBrowserView extends ViewPart {
 	private void createCatalog(){
 		Set<DynamicRefactoringDefinition> drd = 
 			new HashSet<DynamicRefactoringDefinition>(refactorings.values());
-		filter=new ArrayList<Predicate<DynamicRefactoringDefinition>>();
+		filter=new HashSet<Predicate<DynamicRefactoringDefinition>>();
 		catalog=new ElementCatalog<DynamicRefactoringDefinition>(
 				drd, NONE_CLASSIFICATION);
 	}
@@ -545,6 +545,7 @@ public class RefactoringCatalogBrowserView extends ViewPart {
 		manager.add(classRefAction);
 	}
 
+		
 	/**
 	 * Actualiza el árbol de refactorizaciones para representarlas conforme
 	 * a la clasificación que ha sido seleccionada en el combo.
@@ -585,9 +586,7 @@ public class RefactoringCatalogBrowserView extends ViewPart {
 		@Override
 		public void widgetSelected(SelectionEvent e) {
 			if(search(searchText.getText())){
-				filter.add(condition);
-				catalog.addConditionToFilter(condition);
-				showTree(classCombo.getText());
+				addConditionToFilter(condition);
 			}else{
 				IWorkbenchWindow window = PlatformUI.getWorkbench()
 				.getActiveWorkbenchWindow();
@@ -602,10 +601,62 @@ public class RefactoringCatalogBrowserView extends ViewPart {
 			widgetSelected(e);
 		}
 		
+		private void addConditionToFilter(Predicate<DynamicRefactoringDefinition> condition){
+			if(condition!=null){
+				if(!filter.contains(condition)){
+					filter.add(condition);
+					catalog.addConditionToFilter(condition);
+					showTree(classCombo.getText());
+				}else{
+					Object[] messageArgs = {condition.toString()};
+					MessageFormat formatter = new MessageFormat(""); //$NON-NLS-1$
+					formatter.applyPattern(Messages.RefactoringCatalogBrowserView_SearchConditionAlreadyExist);		
+					
+					IWorkbenchWindow window = PlatformUI.getWorkbench().getActiveWorkbenchWindow();
+					MessageDialog.openInformation(window.getShell(), 
+								Messages.RefactoringCatalogBrowserView_SearchWarning,
+								formatter.format(messageArgs));
+				}
+			}
+		}
+		
+		/**
+		 * Comprueba que la clasificación y categoria indicadas por parámetro
+		 * se encuentra o no disponible. En caso de estar disponible se le indica
+		 * al usuario para que pueda elegir si quiere o no añadir esta condición de
+		 * filtrado.
+		 * 
+		 * @param nameClass nombre de la clasificación
+		 * @param nameCat nombre de la categoria
+		 * @return 
+		 */
+		private boolean checkAvailableCategoryToAddCondition(String nameClass, String nameCat){
+			boolean addCondition=true;
+			
+			if(!classStore.containsCategoryClassification(new Category(nameClass,nameCat))){
+				String message=Messages.RefactoringCatalogBrowserView_SearchCategoryNotExist;
+				if(!classStore.containsClassification(nameClass))
+					message=Messages.RefactoringCatalogBrowserView_SearchClassificationNotExist;
+				
+				Object[] messageArgs = {nameClass,nameCat};
+				MessageFormat formatter = new MessageFormat(""); //$NON-NLS-1$
+				formatter.applyPattern(message);
+				
+				IWorkbenchWindow window = PlatformUI.getWorkbench().getActiveWorkbenchWindow();
+				addCondition=
+					MessageDialog.openQuestion(window.getShell(), 
+							Messages.RefactoringCatalogBrowserView_SearchWarning, 
+							formatter.format(messageArgs) + 
+							Messages.RefactoringCatalogBrowserView_SearchQuestion);
+			}
+			return addCondition;
+		}
+		
 		private boolean search(String text){
-			boolean searchOk=false;
 			int indexSearchSep=text.indexOf(SEARCH_SEPARATOR);
-
+			boolean searchOk=false;
+			condition=null;
+			
 			if(indexSearchSep>0){
 				String word=text.substring(0,indexSearchSep).toLowerCase();
 				String value=text.substring(indexSearchSep+1);
@@ -619,8 +670,10 @@ public class RefactoringCatalogBrowserView extends ViewPart {
 						if(indexCatSep>0){
 							String valueClass=value.substring(0,indexCatSep);
 							String valueCat=value.substring(indexCatSep+1);
-							condition=new CategoryCondition<DynamicRefactoringDefinition>(valueClass, valueCat);
 							searchOk=true;
+							
+							if(checkAvailableCategoryToAddCondition(valueClass,valueCat))
+								condition=new CategoryCondition<DynamicRefactoringDefinition>(valueClass, valueCat);
 						}
 					}else{
 						if(word.equals(KeyWordCondition.NAME)){

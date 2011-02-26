@@ -6,8 +6,8 @@
 		<description>Descripcion.</description>
 		<motivation>Motivacion.</motivation>
 		<keywords>
-			<keyword>PalabraClave1</keyword>
 			<keyword>PalabraClave2</keyword>
+			<keyword>PalabraClave1</keyword>
 		</keywords>
 	</information>
 	<inputs>
