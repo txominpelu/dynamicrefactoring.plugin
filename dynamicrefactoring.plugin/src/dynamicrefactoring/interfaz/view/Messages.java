@@ -70,6 +70,8 @@ public class Messages extends NLS {
 	public static String RefactoringCatalogBrowserView_NameCol;
 	public static String RefactoringCatalogBrowserView_ClearCol;
 	public static String RefactoringCatalogBrowserView_ClearColToolTip;
+	public static String RefactoringCatalogBrowserView_RefreshAction;
+	public static String RefactoringCatalogBrowserView_ClassEditorAction;
 	public static String RefactoringCatalogBrowserView_ClassAction;
 	public static String RefactoringCatalogBrowserView_RefAction;
 	public static String RefactoringCatalogBrowserView_ClassRefAction;

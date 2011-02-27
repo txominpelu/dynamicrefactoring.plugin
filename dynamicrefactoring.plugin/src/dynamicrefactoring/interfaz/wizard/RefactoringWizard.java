@@ -151,7 +151,7 @@ public class RefactoringWizard extends Wizard implements INewWizard {
 		setNeedsProgressMonitor(true);
 		
 		setDefaultPageImageDescriptor(
-				ImageDescriptor.createFromImage(RefactoringImages.getSIIconPath()));
+				ImageDescriptor.createFromImage(RefactoringImages.getSIIcon()));
 		
 		setWindowTitle(Messages.RefactoringWizard_WizardTitle);
 		

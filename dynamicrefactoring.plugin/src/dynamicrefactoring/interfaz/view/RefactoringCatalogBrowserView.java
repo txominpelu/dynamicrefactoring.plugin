@@ -218,6 +218,18 @@ public class RefactoringCatalogBrowserView extends ViewPart {
 	 * Acción que muestra en la vista solo la parte referente a la clasificación.
 	 */
 	private Action classAction;
+	
+	/**
+	 * Acción que refresca la vista en caso que hayan sufrido modificaciones las 
+	 * refactorizaciones o clasificaciones.
+	 */
+	private Action refreshAction;
+	
+	/**
+	 * Acción que muestra un editor xml de clasificaciones, desde el cual editar las 
+	 * clasificaciones definidas y las categorías de cada una de ellas.
+	 */
+	private Action classEditorAction;
 
 	/**
 	 * Acción que muestra en la vista solo la parte referente a la refactorización.
@@ -277,6 +289,22 @@ public class RefactoringCatalogBrowserView extends ViewPart {
 		refComp.setLayout(new FormLayout());
 
 		//actions
+		refreshAction=new Action(){
+			public void run() {
+				
+			}};
+		refreshAction.setToolTipText(Messages.RefactoringCatalogBrowserView_RefreshAction);
+		refreshAction.setImageDescriptor(
+					ImageDescriptor.createFromImage(RefactoringImages.getRefreshIcon()));
+			
+		classEditorAction=new Action(){
+			public void run() {
+				//RefactoringConstants.CLASSIFICATION_TYPES_FILE)
+			}};
+		classEditorAction.setToolTipText(Messages.RefactoringCatalogBrowserView_ClassEditorAction);
+		classEditorAction.setImageDescriptor(
+					ImageDescriptor.createFromImage(RefactoringImages.getClassEditorIcon()));
+		
 		classAction=new Action(){
 			public void run() {
 				sashForm.setMaximizedControl(classComp);
@@ -284,10 +312,8 @@ public class RefactoringCatalogBrowserView extends ViewPart {
 				refAction.setEnabled(true);
 				classRefAction.setEnabled(true);
 			}};
-		
 		classAction.setToolTipText(Messages.RefactoringCatalogBrowserView_ClassAction);
 		classAction.setImageDescriptor(
-
 				ImageDescriptor.createFromImage(RefactoringImages.getSplitLeftIcon()));
 		
 		refAction=new Action(){
@@ -297,13 +323,10 @@ public class RefactoringCatalogBrowserView extends ViewPart {
 				classAction.setEnabled(true);
 				classRefAction.setEnabled(true);
 			}};
-		
 		refAction.setToolTipText(Messages.RefactoringCatalogBrowserView_RefAction);
 		refAction.setImageDescriptor(
-
 				ImageDescriptor.createFromImage(RefactoringImages.getSplitRightIcon()));
 
-		
 		classRefAction=new Action(){
 			public void run() {
 				sashForm.setMaximizedControl(null);
@@ -311,12 +334,10 @@ public class RefactoringCatalogBrowserView extends ViewPart {
 				classAction.setEnabled(true);
 				refAction.setEnabled(true);
 			}};
-		
 		classRefAction.setToolTipText(Messages.RefactoringCatalogBrowserView_ClassRefAction);
 		classRefAction.setImageDescriptor(
 				ImageDescriptor.createFromImage(RefactoringImages.getSplitIcon()));
 
-		
 		IActionBars bars = getViewSite().getActionBars();
 		fillLocalToolBar(bars.getToolBarManager());
 
@@ -387,7 +408,7 @@ public class RefactoringCatalogBrowserView extends ViewPart {
 
 		//helpLabel
 		helpLabel=new Label(classComp, SWT.LEFT);
-		helpLabel.setImage(RefactoringImages.getHelpIconPath());
+		helpLabel.setImage(RefactoringImages.getHelpIcon());
 		helpLabel.setVisible(false);
 		classFormData=new FormData();
 		classFormData.top = new FormAttachment(0, 8);
@@ -665,9 +686,12 @@ public class RefactoringCatalogBrowserView extends ViewPart {
 	 * @param manager gestor de la barra de herramientas de la vista
 	 */
 	private void fillLocalToolBar(IToolBarManager manager) {
+		manager.add(refreshAction);
+		manager.add(new Separator());
+		manager.add(classEditorAction);
+		manager.add(new Separator());
 		manager.add(classAction);
 		manager.add(refAction);
-		manager.add(new Separator());
 		manager.add(classRefAction);
 	}
 
@@ -758,7 +782,7 @@ public class RefactoringCatalogBrowserView extends ViewPart {
 		//clearButton
 		editor = new TableEditor(conditionsTable);
 		Button clearButton = new Button(conditionsTable, SWT.NONE | SWT.BORDER_SOLID);
-		clearButton.setImage(RefactoringImages.getClearIconPath());
+		clearButton.setImage(RefactoringImages.getClearIcon());
 		clearButton.addSelectionListener(new SelectionAdapter() {
 			public void widgetSelected(SelectionEvent e) {
 				if(e.getSource() instanceof Button){
