@@ -8,7 +8,7 @@
   <packaging>pom</packaging>
 
   <properties>
-	<app-version>0.0.2</app-version>
+	<app-version>3.0.2</app-version>
 	<tycho-version>0.10.0</tycho-version>
 	<jacoco.agent.path>lib/jacocoagent.jar</jacoco.agent.path>
 	<jacoco.file.path>../cobertura/jacoco.exec</jacoco.file.path>
@@ -34,12 +34,12 @@
   </properties>
 
   <modules>
+    <module>dynamicrefactoring.targetplatform</module>
     <module>dynamicrefactoring.plugin</module>
     <module>dynamicrefactoring.tests</module>
     <module>dynamicrefactoring.feature</module>
     <module>dynamicrefactoring.p2repository</module>
     <!-- Debe tomar la target platform de ahi -->
-    <module>dynamicrefactoring.targetplatform</module>
   </modules>
   <build>
 

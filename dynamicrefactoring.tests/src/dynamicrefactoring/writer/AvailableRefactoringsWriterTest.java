@@ -49,7 +49,7 @@ import dynamicrefactoring.util.io.FileManager;
  * @author <A HREF="mailto:lfd0002@alu.ubu.es">Laura Fuente de la Fuente</A>
  * 
  */
-public class TestAvailableRefactoringsWriter {
+public class AvailableRefactoringsWriterTest {
 
 	@Before
 	public void testSetup() throws IOException {
