@@ -8,8 +8,6 @@ public final class Category implements Comparable<Category> {
 	
 	public static final Category NONE_CATEGORY = new Category("", "None");
 
-	public static final Category FILTERED_CATEGORY = new Category("", "Filtered");
-
 	private final String name;
 
 	private final String parent;

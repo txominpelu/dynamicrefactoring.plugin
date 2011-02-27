@@ -168,6 +168,9 @@ public class RefactoringCatalogBrowserView extends ViewPart {
 	 */
 	private Button searchButton;
 
+	
+	private static final String FILTERED="Filtered";
+	
 	/**
 	 * Árbol sobre el que se mostrarán de forma estructurada las diferentes refactorizaciones 
 	 * conforme a la clasificación seleccionada y los filtros aplicados.
@@ -297,7 +300,7 @@ public class RefactoringCatalogBrowserView extends ViewPart {
 				String classSelected=classCombo.getText();
 				DynamicRefactoringDefinition refSelected=refSummaryPanel.getRefactoringSelected();
 				
-				//recarga de clasificaciones, refactorizaciones, catalogo y filtros
+				//recarga de clasificaciones, refactorizaciones
 				loadClassifications();
 				loadRefactorings();
 
@@ -328,7 +331,6 @@ public class RefactoringCatalogBrowserView extends ViewPart {
 					descClassLabel.setText(NONE_CLASSIFICATION.getDescription());
 					catalog=(ElementCatalog<DynamicRefactoringDefinition>)catalog.newInstance(NONE_CLASSIFICATION);
 				}
-				//mostramos el arbol
 				showTree(classCombo.getText());
 				
 				//si habia alguna refactorizacion mostrada se refresca
@@ -661,7 +663,7 @@ public class RefactoringCatalogBrowserView extends ViewPart {
 		RefactoringTreeManager.cleanTree(refactoringsTree);
 
 		ClassifiedElements<DynamicRefactoringDefinition> classifiedElements = 
-			catalog.getClassificationOfElements(filteredButton.getSelection());
+			catalog.getClassificationOfElements();
 
 		int orderInBranchClass = 0;
 		TreeItem classTreeItem = TreeEditor.createBranch(refactoringsTree,
@@ -677,31 +679,55 @@ public class RefactoringCatalogBrowserView extends ViewPart {
 		TreeItem catTreeItem, filTreeItem = null;
 		int orderInBranchCat = 0;
 
-		for (Category c : categories){
+		//classifiedElements
+		for(Category c : categories){
 			dRefactDef=new ArrayList<DynamicRefactoringDefinition>(
 					classifiedElements.getCategoryChildren(c));
 			Collections.sort(dRefactDef);
-			if (!c.equals(Category.FILTERED_CATEGORY)){
-				catTreeItem = classTreeItem;
+			catTreeItem = classTreeItem;
+			if ( !(classificationName.equals(NONE_CLASSIFICATION.getName()) && 
+					c.equals(Category.NONE_CATEGORY))
+					&& dRefactDef.size()>0){
+				catTreeItem = TreeEditor.createBranch(classTreeItem,
+						orderInBranchCat, c.getName(),
+						RefactoringImages.CAT_ICON_PATH); 
+				orderInBranchCat++;
+			}
+			createTreeItemFromParent(dRefactDef, catTreeItem, false);
+		}
+		
+		orderInBranchCat = 0;
+		if(filteredButton.getSelection()){
+			filTreeItem = TreeEditor.createBranch(refactoringsTree,
+					orderInBranchClass,FILTERED, 
+					RefactoringImages.FIL_ICON_PATH);
+			
+			ClassifiedElements<DynamicRefactoringDefinition> filteredClassifiedElements = 
+				catalog.getClassificationOfFilteredElements();
+			categories = new ArrayList<Category>(
+					filteredClassifiedElements.getClassification().getCategories());
+			Collections.sort(categories);
+			
+			for(Category c : categories){
+				dRefactDef=new ArrayList<DynamicRefactoringDefinition>(
+						filteredClassifiedElements.getCategoryChildren(c));
+				Collections.sort(dRefactDef);
+			
 				if ( !(classificationName.equals(NONE_CLASSIFICATION.getName()) && 
 						c.equals(Category.NONE_CATEGORY))
 						&& dRefactDef.size()>0){
-					catTreeItem = TreeEditor.createBranch(classTreeItem,
+					catTreeItem = TreeEditor.createBranch(filTreeItem,
 							orderInBranchCat, c.getName(),
 							RefactoringImages.CAT_ICON_PATH); 
 					orderInBranchCat++;
 				}
-				createTreeItemFromParent(dRefactDef, catTreeItem, false);
-			}else if(dRefactDef.size()>0){
-					filTreeItem = TreeEditor.createBranch(refactoringsTree,
-							orderInBranchClass, Category.FILTERED_CATEGORY.getName(), 
-							RefactoringImages.FIL_ICON_PATH);
-					orderInBranchClass++;
-					filTreeItem.setForeground(
-							Display.getCurrent().getSystemColor(SWT.COLOR_DARK_GRAY));
-					createTreeItemFromParent(dRefactDef, filTreeItem, true);
-			}
+				filTreeItem.setForeground(
+						Display.getCurrent().getSystemColor(SWT.COLOR_DARK_GRAY));
+				createTreeItemFromParent(dRefactDef, filTreeItem, true);
+			}		
+				
 		}
+
 		classTreeItem.setExpanded(true);
 	}
 

@@ -40,13 +40,16 @@ public interface ClassifiedFilterableCatalog<K> {
 	
 	/**
 	 * Devuelve el conjunto de los elementos que contiene el catalogo
-	 * clasificado por categorias.
-	 * 
-	 * @param showFiltered
-	 *            si es false no mostrara el grupo <Filtered>
+	 * clasificado por categorias, sin los elementos filtrados.
 	 */
-	ClassifiedElements<K> getClassificationOfElements(boolean showFiltered);
+	ClassifiedElements<K> getClassificationOfElements();
 
+	/**
+	 * Devuelve el conjunto de los elementos filtrados que contiene el catalogo
+	 * clasificado por categorias.
+	 */
+	ClassifiedElements<K> getClassificationOfFilteredElements();
+	
 	/**
 	 * Construye una cat�logo con los mismos filtros y elementos que el actual
 	 * pero con una clasificacion distinta.
