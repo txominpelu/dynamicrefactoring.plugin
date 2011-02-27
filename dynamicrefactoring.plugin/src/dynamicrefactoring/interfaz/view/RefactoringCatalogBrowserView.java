@@ -292,6 +292,50 @@ public class RefactoringCatalogBrowserView extends ViewPart {
 		refreshAction=new Action(){
 			public void run() {
 				
+				//almacenamos la clasificación seleccionada en el classCombo y
+				//la refactorización que se muestra en detalle
+				String classSelected=classCombo.getText();
+				DynamicRefactoringDefinition refSelected=refSummaryPanel.getRefactoringSelected();
+				
+				//recarga de clasificaciones, refactorizaciones, catalogo y filtros
+				loadClassifications();
+				loadRefactorings();
+
+				//recargamos el classCombo
+				classCombo.removeAll();
+				fillClassCombo();
+				
+				//comprobamos si entre las nuevas clasificaciones se encuentra la que estaba seleccionada 
+				Classification c = null;
+				boolean found = false;
+				
+				Iterator<Classification> iter = classifications.iterator();
+				while (iter.hasNext() && found == false) {
+					c = iter.next();
+					if (c.getName().equals(classSelected))
+						found = true;
+				}
+				
+				if(found){
+					//si se encuentra seleccionamos ese item, 
+					//mostramos la descripcion y clasificamos según él
+					classCombo.setText(classSelected);
+					descClassLabel.setText(c.getDescription());
+					catalog=(ElementCatalog<DynamicRefactoringDefinition>)catalog.newInstance(c);
+				}else{
+					//sino mostrar por defecto la clasificacion None
+					classCombo.select(0);
+					descClassLabel.setText(NONE_CLASSIFICATION.getDescription());
+					catalog=(ElementCatalog<DynamicRefactoringDefinition>)catalog.newInstance(NONE_CLASSIFICATION);
+				}
+				//mostramos el arbol
+				showTree(classCombo.getText());
+				
+				//si habia alguna refactorizacion mostrada se refresca
+				if(refSelected!=null && refactorings.containsKey(refSelected.getName())){
+					refSummaryPanel.setRefactoringDefinition(refactorings.get(refSelected.getName()));
+					refSummaryPanel.showRefactoringSummary();
+				}
 			}};
 		refreshAction.setToolTipText(Messages.RefactoringCatalogBrowserView_RefreshAction);
 		refreshAction.setImageDescriptor(
@@ -357,12 +401,7 @@ public class RefactoringCatalogBrowserView extends ViewPart {
 		classCombo=new Combo(classComp, SWT.READ_ONLY);
 		classCombo.setToolTipText(Messages.RefactoringCatalogBrowserView_SelectFromClassification);
 
-		//añadimos la clasificacion por defecto
-		classCombo.add(NONE_CLASSIFICATION.getName());
-
-		for (Classification classification : classifications)
-			classCombo.add(classification.getName());
-		classifications.add(NONE_CLASSIFICATION);
+		fillClassCombo();
 
 		classFormData=new FormData();
 		classFormData.top=new FormAttachment(0,5);
@@ -524,6 +563,15 @@ public class RefactoringCatalogBrowserView extends ViewPart {
 		scrolledComp.setMinSize(sashForm.computeSize(SWT.DEFAULT, SWT.DEFAULT));
 		scrolledComp.setShowFocusedControl(true);
 
+	}
+
+	private void fillClassCombo() {
+		//añadimos la clasificacion por defecto
+		classCombo.add(NONE_CLASSIFICATION.getName());
+
+		for (Classification classification : classifications)
+			classCombo.add(classification.getName());
+		classifications.add(NONE_CLASSIFICATION);
 	}
 
 	/**
