@@ -21,28 +21,45 @@ import dynamicrefactoring.domain.metadata.interfaces.Element;
 class MetadataDomainTestUtils {
 	
 	public static final String FOWLER_CLASSIFICATION_NAME = "Fowler";
+	public static final String FILTERED="Filtered";
 	
-	public static ClassifiedElements<Element> readClassifiedElements(String file)
+	public static ClassifiedElements<Element>[] readClassifiedElements(String file)
 			throws IOException {
+		
+		ClassifiedElements<Element>[] toReturn=new SimpleClassifiedElements[2];
+		
 		Map<Category, Set<Element>> classifiedElements = new HashMap<Category, Set<Element>>();
+		Map<Category, Set<Element>> filteredClassifiedElements = new HashMap<Category, Set<Element>>();
+		
 		// Get the object of DataInputStream
 		DataInputStream in = new DataInputStream(new FileInputStream(file));
 		BufferedReader br = new BufferedReader(new InputStreamReader(in));
+		
 		// Read File Line By Line
-
+		//classifiedElements
 		String classificationName = br.readLine().replaceAll("#", "");
 		String strLine = "";
+		Category c=null;
 		while (( strLine = br.readLine()) != null) {
 			String nextCategoryName = strLine.replaceAll("#", "");
-			classifiedElements.put(new Category(getCategoryParent(strLine),
-					getCategoryName(nextCategoryName)),
-					readNextCategoryElements(br));
-
+			c=new Category(getCategoryParent(strLine),
+					getCategoryName(nextCategoryName));
+			classifiedElements.put(c, new HashSet<Element>());
+			filteredClassifiedElements.put(c, new HashSet<Element>());
+			if(nextCategoryName!=FILTERED){
+				classifiedElements.get(c).addAll(readNextCategoryElements(br));
+			}else{
+				filteredClassifiedElements.get(c).addAll(readNextCategoryElements(br));
+			}
 		}
+		toReturn[0]=new SimpleClassifiedElements<Element>(new SimpleUniLevelClassification(classificationName, ElementCatalogTest.MI_CLASSIFICATION_DESCRIPTION, classifiedElements.keySet()),
+				classifiedElements);
+		toReturn[1]=new SimpleClassifiedElements<Element>(new SimpleUniLevelClassification(classificationName, ElementCatalogTest.MI_CLASSIFICATION_DESCRIPTION, filteredClassifiedElements.keySet()),
+				filteredClassifiedElements);
+			
 		// Close the input stream
 		in.close();
-		return new SimpleClassifiedElements<Element>(new SimpleUniLevelClassification(classificationName, ElementCatalogTest.MI_CLASSIFICATION_DESCRIPTION, classifiedElements.keySet()),
-				classifiedElements);
+		return toReturn;
 
 	}
 

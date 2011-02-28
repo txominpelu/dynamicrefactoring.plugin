@@ -38,6 +38,14 @@ public final class SimpleClassifiedElements<K> implements ClassifiedElements<K> 
 		return this.classification;
 	}
 
+	/**
+	 * Conjunto de todos los elementos.
+	 */
+	@Override
+	public Map<Category, Set<K>> getClassifiedElements(){
+		return classifiedElements;
+	}
+	
 	@Override
 	public Set<K> getCategoryChildren(Category category) {
 		return classifiedElements.get(category);

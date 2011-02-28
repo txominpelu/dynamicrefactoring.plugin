@@ -251,7 +251,7 @@ public final class ElementCatalog<K extends Element> implements
 	}
 
 	/**
-	 * Obtiene todos los elementos del catalogo. Util para los tests.
+	 * Obtiene todos los elementos del catalogo. 
 	 * 
 	 * @return todos los elementos contenidos en el catalogo.
 	 */
@@ -259,6 +259,9 @@ public final class ElementCatalog<K extends Element> implements
 		Set<K> allElements = new HashSet<K>();
 		for (Category c : classifiedElements.keySet()) {
 			allElements.addAll(classifiedElements.get(c));
+		}
+		for (Category c : filteredClassifiedElements.keySet()) {
+			allElements.addAll(filteredClassifiedElements.get(c));
 		}
 		return allElements;
 	}
