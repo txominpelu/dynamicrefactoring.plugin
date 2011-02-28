@@ -164,7 +164,7 @@ public class ExportWizard extends DynamicRefactoringList {
 	protected void configureShell(Shell newShell) {
 		super.configureShell(newShell);
 		newShell.setText(Messages.ExportWizard_ExportRefactorings);
-		newShell.setImage(RefactoringImages.getExportIconPath());
+		newShell.setImage(RefactoringImages.getExportIcon());
 	}
 	
 	/**

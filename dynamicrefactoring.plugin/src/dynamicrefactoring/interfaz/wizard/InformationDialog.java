@@ -90,7 +90,7 @@ public class InformationDialog extends Dialog {
 		styledText.setText(details);
 
 		final Label icon = new Label(container, SWT.NONE);
-		icon.setImage(RefactoringImages.getInfoIconPath());
+		icon.setImage(RefactoringImages.getInfoIcon());
 		icon.setBounds(10, 10, 41, 57);
 		
 		final Label details = new Label(container, SWT.NONE);

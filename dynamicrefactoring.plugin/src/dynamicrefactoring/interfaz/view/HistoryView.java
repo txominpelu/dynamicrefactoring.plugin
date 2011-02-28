@@ -494,7 +494,7 @@ public class HistoryView extends ViewPart {
 
 			final TableEditor editor = new TableEditor(table);
 			Button bt_Undo = new Button(table, SWT.NONE);
-			bt_Undo.setImage(RefactoringImages.getUndoIconPath());
+			bt_Undo.setImage(RefactoringImages.getUndoIcon());
 			bt_Undo.addSelectionListener(new UndoSelectionListener());
 			bt_Undo.setData(ROW_PROPERTY, table.indexOf(item));
 			bt_Undo.pack();

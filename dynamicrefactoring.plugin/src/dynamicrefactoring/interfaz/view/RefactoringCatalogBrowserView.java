@@ -218,6 +218,18 @@ public class RefactoringCatalogBrowserView extends ViewPart {
 	 * Acción que muestra en la vista solo la parte referente a la clasificación.
 	 */
 	private Action classAction;
+	
+	/**
+	 * Acción que refresca la vista en caso que hayan sufrido modificaciones las 
+	 * refactorizaciones o clasificaciones.
+	 */
+	private Action refreshAction;
+	
+	/**
+	 * Acción que muestra un editor xml de clasificaciones, desde el cual editar las 
+	 * clasificaciones definidas y las categorías de cada una de ellas.
+	 */
+	private Action classEditorAction;
 
 	/**
 	 * Acción que muestra en la vista solo la parte referente a la refactorización.
@@ -277,6 +289,66 @@ public class RefactoringCatalogBrowserView extends ViewPart {
 		refComp.setLayout(new FormLayout());
 
 		//actions
+		refreshAction=new Action(){
+			public void run() {
+				
+				//almacenamos la clasificación seleccionada en el classCombo y
+				//la refactorización que se muestra en detalle
+				String classSelected=classCombo.getText();
+				DynamicRefactoringDefinition refSelected=refSummaryPanel.getRefactoringSelected();
+				
+				//recarga de clasificaciones, refactorizaciones, catalogo y filtros
+				loadClassifications();
+				loadRefactorings();
+
+				//recargamos el classCombo
+				classCombo.removeAll();
+				fillClassCombo();
+				
+				//comprobamos si entre las nuevas clasificaciones se encuentra la que estaba seleccionada 
+				Classification c = null;
+				boolean found = false;
+				
+				Iterator<Classification> iter = classifications.iterator();
+				while (iter.hasNext() && found == false) {
+					c = iter.next();
+					if (c.getName().equals(classSelected))
+						found = true;
+				}
+				
+				if(found){
+					//si se encuentra seleccionamos ese item, 
+					//mostramos la descripcion y clasificamos según él
+					classCombo.setText(classSelected);
+					descClassLabel.setText(c.getDescription());
+					catalog=(ElementCatalog<DynamicRefactoringDefinition>)catalog.newInstance(c);
+				}else{
+					//sino mostrar por defecto la clasificacion None
+					classCombo.select(0);
+					descClassLabel.setText(NONE_CLASSIFICATION.getDescription());
+					catalog=(ElementCatalog<DynamicRefactoringDefinition>)catalog.newInstance(NONE_CLASSIFICATION);
+				}
+				//mostramos el arbol
+				showTree(classCombo.getText());
+				
+				//si habia alguna refactorizacion mostrada se refresca
+				if(refSelected!=null && refactorings.containsKey(refSelected.getName())){
+					refSummaryPanel.setRefactoringDefinition(refactorings.get(refSelected.getName()));
+					refSummaryPanel.showRefactoringSummary();
+				}
+			}};
+		refreshAction.setToolTipText(Messages.RefactoringCatalogBrowserView_RefreshAction);
+		refreshAction.setImageDescriptor(
+					ImageDescriptor.createFromImage(RefactoringImages.getRefreshIcon()));
+			
+		classEditorAction=new Action(){
+			public void run() {
+				//RefactoringConstants.CLASSIFICATION_TYPES_FILE)
+			}};
+		classEditorAction.setToolTipText(Messages.RefactoringCatalogBrowserView_ClassEditorAction);
+		classEditorAction.setImageDescriptor(
+					ImageDescriptor.createFromImage(RefactoringImages.getClassEditorIcon()));
+		
 		classAction=new Action(){
 			public void run() {
 				sashForm.setMaximizedControl(classComp);
@@ -284,10 +356,8 @@ public class RefactoringCatalogBrowserView extends ViewPart {
 				refAction.setEnabled(true);
 				classRefAction.setEnabled(true);
 			}};
-		
 		classAction.setToolTipText(Messages.RefactoringCatalogBrowserView_ClassAction);
 		classAction.setImageDescriptor(
-
 				ImageDescriptor.createFromImage(RefactoringImages.getSplitLeftIcon()));
 		
 		refAction=new Action(){
@@ -297,13 +367,10 @@ public class RefactoringCatalogBrowserView extends ViewPart {
 				classAction.setEnabled(true);
 				classRefAction.setEnabled(true);
 			}};
-		
 		refAction.setToolTipText(Messages.RefactoringCatalogBrowserView_RefAction);
 		refAction.setImageDescriptor(
-
 				ImageDescriptor.createFromImage(RefactoringImages.getSplitRightIcon()));
 
-		
 		classRefAction=new Action(){
 			public void run() {
 				sashForm.setMaximizedControl(null);
@@ -311,12 +378,10 @@ public class RefactoringCatalogBrowserView extends ViewPart {
 				classAction.setEnabled(true);
 				refAction.setEnabled(true);
 			}};
-		
 		classRefAction.setToolTipText(Messages.RefactoringCatalogBrowserView_ClassRefAction);
 		classRefAction.setImageDescriptor(
 				ImageDescriptor.createFromImage(RefactoringImages.getSplitIcon()));
 
-		
 		IActionBars bars = getViewSite().getActionBars();
 		fillLocalToolBar(bars.getToolBarManager());
 
@@ -336,12 +401,7 @@ public class RefactoringCatalogBrowserView extends ViewPart {
 		classCombo=new Combo(classComp, SWT.READ_ONLY);
 		classCombo.setToolTipText(Messages.RefactoringCatalogBrowserView_SelectFromClassification);
 
-		//añadimos la clasificacion por defecto
-		classCombo.add(NONE_CLASSIFICATION.getName());
-
-		for (Classification classification : classifications)
-			classCombo.add(classification.getName());
-		classifications.add(NONE_CLASSIFICATION);
+		fillClassCombo();
 
 		classFormData=new FormData();
 		classFormData.top=new FormAttachment(0,5);
@@ -387,7 +447,7 @@ public class RefactoringCatalogBrowserView extends ViewPart {
 
 		//helpLabel
 		helpLabel=new Label(classComp, SWT.LEFT);
-		helpLabel.setImage(RefactoringImages.getHelpIconPath());
+		helpLabel.setImage(RefactoringImages.getHelpIcon());
 		helpLabel.setVisible(false);
 		classFormData=new FormData();
 		classFormData.top = new FormAttachment(0, 8);
@@ -503,6 +563,15 @@ public class RefactoringCatalogBrowserView extends ViewPart {
 		scrolledComp.setMinSize(sashForm.computeSize(SWT.DEFAULT, SWT.DEFAULT));
 		scrolledComp.setShowFocusedControl(true);
 
+	}
+
+	private void fillClassCombo() {
+		//añadimos la clasificacion por defecto
+		classCombo.add(NONE_CLASSIFICATION.getName());
+
+		for (Classification classification : classifications)
+			classCombo.add(classification.getName());
+		classifications.add(NONE_CLASSIFICATION);
 	}
 
 	/**
@@ -665,9 +734,12 @@ public class RefactoringCatalogBrowserView extends ViewPart {
 	 * @param manager gestor de la barra de herramientas de la vista
 	 */
 	private void fillLocalToolBar(IToolBarManager manager) {
+		manager.add(refreshAction);
+		manager.add(new Separator());
+		manager.add(classEditorAction);
+		manager.add(new Separator());
 		manager.add(classAction);
 		manager.add(refAction);
-		manager.add(new Separator());
 		manager.add(classRefAction);
 	}
 
@@ -758,7 +830,7 @@ public class RefactoringCatalogBrowserView extends ViewPart {
 		//clearButton
 		editor = new TableEditor(conditionsTable);
 		Button clearButton = new Button(conditionsTable, SWT.NONE | SWT.BORDER_SOLID);
-		clearButton.setImage(RefactoringImages.getClearIconPath());
+		clearButton.setImage(RefactoringImages.getClearIcon());
 		clearButton.addSelectionListener(new SelectionAdapter() {
 			public void widgetSelected(SelectionEvent e) {
 				if(e.getSource() instanceof Button){

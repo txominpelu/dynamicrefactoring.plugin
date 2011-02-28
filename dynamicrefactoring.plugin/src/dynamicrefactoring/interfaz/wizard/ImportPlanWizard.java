@@ -278,7 +278,7 @@ public class ImportPlanWizard extends Dialog {
 	protected void configureShell(Shell newShell) {
 		super.configureShell(newShell);
 		newShell.setText(Messages.ImportPlanWizard_ImportRefactoringPlan);
-		newShell.setImage(RefactoringImages.getImportPlanIconPath());
+		newShell.setImage(RefactoringImages.getImportPlanIcon());
 	}
 	
 	/**
@@ -560,11 +560,11 @@ public class ImportPlanWizard extends Dialog {
 				
 			}
 			t_Message.setText(formatter.format(messageArgs) + "."); //$NON-NLS-1$
-			lb_Icon.setImage(RefactoringImages.getInfoIconPath());
+			lb_Icon.setImage(RefactoringImages.getInfoIcon());
 		}
 		else{
 			t_Message.setText(advise);
-			lb_Icon.setImage(RefactoringImages. getWarningIconPath());
+			lb_Icon.setImage(RefactoringImages. getWarningIcon());
 		}
 		advise=null;
 	}

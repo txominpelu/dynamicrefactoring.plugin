@@ -314,7 +314,8 @@ public final class RefactoringWizardPage1 extends WizardPage {
 	final Set<String> getKeywords() {
 		Set<String> keywords = new HashSet<String>();
 		for (String keyword : keywordsText.getText().split(",")) {
-			keywords.add(keyword.trim().toLowerCase());
+			if(keyword.trim().length()>0)
+				keywords.add(keyword.trim().toLowerCase());
 		}
 		return keywords;
 	}

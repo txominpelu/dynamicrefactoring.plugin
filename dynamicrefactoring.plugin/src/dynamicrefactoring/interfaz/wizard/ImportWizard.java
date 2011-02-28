@@ -206,7 +206,7 @@ public class ImportWizard extends Dialog {
 				formatter.applyPattern(form.format(count));
 				
 				t_Message.setText(formatter.format(messageArgs) + "."); //$NON-NLS-1$
-				lb_Icon.setImage(RefactoringImages.getInfoIconPath());
+				lb_Icon.setImage(RefactoringImages.getInfoIcon());
 			}
 		});
 
@@ -226,7 +226,7 @@ public class ImportWizard extends Dialog {
 
 		cbt_Recursive = new Button(container, SWT.CHECK);
 		cbt_Recursive.setToolTipText(Messages.ImportWizard_SelectRecursive);
-		cbt_Recursive.setImage(RefactoringImages.getRecursiveIconPath());
+		cbt_Recursive.setImage(RefactoringImages.getRecursiveIcon());
 		cbt_Recursive.setText(Messages.ImportWizard_Recursive);
 		cbt_Recursive.setBounds(294, 40, 107, 16);
 		
@@ -275,7 +275,7 @@ public class ImportWizard extends Dialog {
 	protected void configureShell(Shell newShell) {
 		super.configureShell(newShell);
 		newShell.setText(Messages.ImportWizard_ImportRefactorings);
-		newShell.setImage(RefactoringImages.getImportIconPath());
+		newShell.setImage(RefactoringImages.getImportIcon());
 	}
 	
 	/**
@@ -369,7 +369,7 @@ public class ImportWizard extends Dialog {
 			t_Message.setText(formatter.format(messageArgs) + ". " + //$NON-NLS-1$
 				Messages.ImportWizard_WillOverwrite +
 				"."); //$NON-NLS-1$
-			lb_Icon.setImage(RefactoringImages.getWarningIconPath());
+			lb_Icon.setImage(RefactoringImages.getWarningIcon());
 			
 		}						
 		else if (advise == null){
@@ -378,11 +378,11 @@ public class ImportWizard extends Dialog {
 			formatter.applyPattern(Messages.ImportWizard_NumberFound);
 			
 			t_Message.setText(formatter.format(messageArgs) + "."); //$NON-NLS-1$
-			lb_Icon.setImage(RefactoringImages.getInfoIconPath());
+			lb_Icon.setImage(RefactoringImages.getInfoIcon());
 		}
 		else{
 			t_Message.setText(advise);
-			lb_Icon.setImage(RefactoringImages.getWarningIconPath());
+			lb_Icon.setImage(RefactoringImages.getWarningIcon());
 		}
 	}
 
@@ -432,7 +432,7 @@ public class ImportWizard extends Dialog {
 				String message = Messages.ImportWizard_FolderCannotBeAccessed;
 				logger.error(message + ": " + exception.getMessage()); //$NON-NLS-1$
 				t_Message.setText(message);
-				lb_Icon.setImage(RefactoringImages.getErrorIconPath());
+				lb_Icon.setImage(RefactoringImages.getErrorIcon());
 			}
 		}
 	}

@@ -444,7 +444,7 @@ public class RefactoringWizardPage2 extends WizardPage {
 		fdButton2.top = new FormAttachment(0, 35);
 		fdButton2.bottom = new FormAttachment(0, 58);
 		upButton.setLayoutData(fdButton2);
-		upButton.setImage(RefactoringImages.getArrowUpIconPath());
+		upButton.setImage(RefactoringImages.getArrowUpIcon());
 		upButton.addSelectionListener(new ListUpListener(lInputs));
 
 		downButton = new Button(composite_2, SWT.NONE);
@@ -456,7 +456,7 @@ public class RefactoringWizardPage2 extends WizardPage {
 		fd_vButton.top = new FormAttachment(0, 77);
 		fd_vButton.right = new FormAttachment(parametersGroup, 50, SWT.RIGHT);
 		downButton.setLayoutData(fd_vButton);
-		downButton.setImage(RefactoringImages.getArrowDownIconPath());
+		downButton.setImage(RefactoringImages.getArrowDownIcon());
 		downButton.addSelectionListener(new ListDownListener(lInputs));
 		
 		delButton = new Button(composite, SWT.NONE);
@@ -476,7 +476,7 @@ public class RefactoringWizardPage2 extends WizardPage {
 		fdButton1.right = new FormAttachment(composite1, 45, SWT.RIGHT);
 		fdButton1.left = new FormAttachment(composite1, 5, SWT.RIGHT);
 		addButton.setLayoutData(fdButton1);
-		addButton.setImage(RefactoringImages.getArrowRightIconPath());
+		addButton.setImage(RefactoringImages.getArrowRightIcon());
 
 		addButton.addSelectionListener(new SelectionAdapter() {
 			public void widgetSelected(SelectionEvent e) {

@@ -647,7 +647,7 @@ public class DynamicRefactoringWindow extends Dialog {
 	protected void configureShell(Shell newShell) {
 		super.configureShell(newShell);
 		newShell.setText(Messages.DynamicRefactoringWindow_Refactoring + refactoringName);
-		newShell.setImage(RefactoringImages.getConfigureIconPath());
+		newShell.setImage(RefactoringImages.getConfigureIcon());
 	}
 
 	/**

@@ -260,7 +260,7 @@
         	category="dynamicrefactoring.views.refactoringViewsCategory"
         	class="dynamicrefactoring.interfaz.view.RefactoringCatalogBrowserView"
         	fastViewWidthRatio="0.05"
-        	icon="icons/ref.png"
+        	icon="icons/ref_view.png"
         	id="dynamicrefactoring.views.refactoringCatalogBrowserView"
         	name="%dynamicrefactoring.view.refactoringCatalogBrowserView">
   		</view>
@@ -311,6 +311,13 @@
            relative="org.eclipse.ui.views.ContentOutline"
            showTitle="true"
            visible="true"/>
+        <view
+              id="dynamicrefactoring.views.refactoringCatalogBrowserView"
+              relationship="stack"
+              relative="org.eclipse.ui.views.ProblemView"
+              showTitle="true"
+              visible="true">
+        </view>
     	</perspectiveExtension>
     </extension>
     

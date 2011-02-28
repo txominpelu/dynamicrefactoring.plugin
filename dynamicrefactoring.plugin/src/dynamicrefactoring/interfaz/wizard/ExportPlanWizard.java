@@ -151,7 +151,7 @@ public class ExportPlanWizard extends Dialog {
 	protected void configureShell(Shell newShell) {
 		super.configureShell(newShell);
 		newShell.setText(Messages.ExportPlanWizard_ExportRefactoringPlan);
-		newShell.setImage(RefactoringImages.getExportPlanIconPath());
+		newShell.setImage(RefactoringImages.getExportPlanIcon());
 	}
 	
 	

@@ -15,9 +15,11 @@ import org.eclipse.swt.layout.FormAttachment;
 import org.eclipse.swt.layout.FormData;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
+import org.eclipse.swt.layout.RowLayout;
 import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Canvas;
 import org.eclipse.swt.widgets.Composite;
+import org.eclipse.swt.widgets.Control;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.TabFolder;
@@ -91,8 +93,6 @@ public class RefactoringSummaryPanel {
 	private FormToolkit toolkit;
 	private Section keyWordsSection;
 	private Section categoriesSection;
-	//TODO:intentar hacerlo de otra forma
-	private ArrayList<Hyperlink> links;
 	
 	/**
 	 * Propiedad asociada a las filas de la tabla que indica qué botón check tienen 
@@ -127,7 +127,6 @@ public class RefactoringSummaryPanel {
 	public RefactoringSummaryPanel(Composite parent, RefactoringCatalogBrowserView rcbView){
 
 		this.rcbView=rcbView;
-		links=new ArrayList<Hyperlink>();
 		
 		FormData refFormData=null;
 
@@ -219,8 +218,6 @@ public class RefactoringSummaryPanel {
 		//toolkitComp
 		final Composite toolkitComp = new Composite(comp, SWT.NONE);
 		gd=new GridData();
-//		gd.verticalAlignment = GridData.FILL;
-//		gd.grabExcessVerticalSpace = true;
 		gd.horizontalAlignment = GridData.FILL;
 		gd.grabExcessHorizontalSpace = true;
 		toolkitComp.setLayoutData(gd);
@@ -229,8 +226,6 @@ public class RefactoringSummaryPanel {
 		toolkit = new FormToolkit(toolkitComp.getDisplay());
 		final ScrolledForm form = toolkit.createScrolledForm(toolkitComp);
 		gd=new GridData();
-//		gd.verticalAlignment = GridData.FILL;
-//		gd.grabExcessVerticalSpace = true;
 		gd.horizontalAlignment = GridData.FILL;
 		gd.grabExcessHorizontalSpace = true;
 		form.setLayoutData(gd);
@@ -253,7 +248,9 @@ public class RefactoringSummaryPanel {
 		});
 		toolkit.createCompositeSeparator(categoriesSection);
 		Composite catSectionClient = toolkit.createComposite(categoriesSection);
-		catSectionClient.setLayout(new GridLayout());
+		RowLayout rl=new RowLayout();
+		rl.spacing=10;
+		catSectionClient.setLayout(rl);
 		categoriesSection.setClient(catSectionClient);
 		
 		//keyWordsSection 
@@ -267,7 +264,7 @@ public class RefactoringSummaryPanel {
 		});
 		toolkit.createCompositeSeparator(keyWordsSection);
 		Composite kwSectionClient = toolkit.createComposite(keyWordsSection);
-		kwSectionClient.setLayout(new GridLayout());
+		kwSectionClient.setLayout(rl);
 		keyWordsSection.setClient(kwSectionClient);
 		
 		TabItem item = new TabItem (refTabFolder, SWT.NONE);
@@ -345,10 +342,15 @@ public class RefactoringSummaryPanel {
 	private void clear(){
 
 		//hyperLinks
-		//TODO
-		for(Hyperlink h:links)
-			h.dispose();
+		Control hyperLinks[]=null;
+		hyperLinks=((Composite)categoriesSection.getClient()).getChildren();
+		for(int i=0;i<hyperLinks.length;i++)
+			hyperLinks[i].dispose();
 		
+		hyperLinks=((Composite)keyWordsSection.getClient()).getChildren();
+		for(int i=0;i<hyperLinks.length;i++)
+			hyperLinks[i].dispose();
+
 		//inputsTable
 		if(inputsTable.getItemCount()>0){
 			TableItem[] items=inputsTable.getItems();
@@ -379,8 +381,6 @@ public class RefactoringSummaryPanel {
 		for(Category c : categories){
 			catHyperlink = toolkit.createHyperlink((Composite)categoriesSection.getClient(),
 								c.toString(),SWT.WRAP);
-			//TODO:intentar hacerlo de otra forma
-			links.add(catHyperlink);
 			catHyperlink.setData(c);
 			catHyperlink.addHyperlinkListener(new HyperlinkAdapter(){
 				public void linkActivated(HyperlinkEvent e){
@@ -401,8 +401,6 @@ public class RefactoringSummaryPanel {
 		for(String kw : keyWords){
 			kwHyperlink = toolkit.createHyperlink((Composite)keyWordsSection.getClient(),
 							kw.toString(),SWT.WRAP);
-			//TODO:intentar hacerlo de otra forma
-			links.add(kwHyperlink);
 			kwHyperlink.setText(kw);
 			kwHyperlink.addHyperlinkListener(new HyperlinkAdapter(){
 				public void linkActivated(HyperlinkEvent e){
@@ -498,5 +496,9 @@ public class RefactoringSummaryPanel {
 		refTabFolder.setVisible(true);
 	}
 
+	public DynamicRefactoringDefinition getRefactoringSelected(){
+		return refactoring;
+	}
+	
 }
 
