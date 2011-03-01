@@ -69,7 +69,7 @@ public class TestMoveField extends RefactoringTemplateAbstractTest {
 		JavaModel jm = JavaModel.getInstance();
 		MoonFactory factory = jm.getMoonFactory();
 
-		ClassDef classSource = jm.getClassDef(factory.createName("paqueteA.ClaseA")); //$NON-NLS-1$
+		ClassDef classSource = jm.getClassDef(factory.createName(TestAddParameter.PAQUETE_A_CLASE_A)); //$NON-NLS-1$
 		ClassDef classDest = jm.getClassDef(factory.createName("paqueteA.ClaseB")); //$NON-NLS-1$
 
 		List <AttDec> lAtribute = classSource.getAttributes();
@@ -110,7 +110,7 @@ public class TestMoveField extends RefactoringTemplateAbstractTest {
 		JavaModel jm = JavaModel.getInstance();
 		MoonFactory factory = jm.getMoonFactory();
 
-		ClassDef classSource = jm.getClassDef(factory.createName("paqueteA.ClaseA")); //$NON-NLS-1$
+		ClassDef classSource = jm.getClassDef(factory.createName(TestAddParameter.PAQUETE_A_CLASE_A)); //$NON-NLS-1$
 
 		List <AttDec> lAtribute = classSource.getAttributes();
 		AttDec atribute = lAtribute.get(0);
@@ -163,7 +163,7 @@ public class TestMoveField extends RefactoringTemplateAbstractTest {
 		JavaModel jm = JavaModel.getInstance();
 		MoonFactory factory = jm.getMoonFactory();
 
-		ClassDef classSource = jm.getClassDef(factory.createName("paqueteA.ClaseA")); //$NON-NLS-1$
+		ClassDef classSource = jm.getClassDef(factory.createName(TestAddParameter.PAQUETE_A_CLASE_A)); //$NON-NLS-1$
 		ClassDef classDest = jm.getClassDef(factory.createName("paqueteA.ClaseB")); //$NON-NLS-1$
 
 		List <AttDec> lAtribute = classSource.getAttributes();
@@ -192,7 +192,7 @@ public class TestMoveField extends RefactoringTemplateAbstractTest {
 		JavaModel jm = JavaModel.getInstance();
 		MoonFactory factory = jm.getMoonFactory();
 
-		ClassDef classSource = jm.getClassDef(factory.createName("paqueteA.ClaseA")); //$NON-NLS-1$
+		ClassDef classSource = jm.getClassDef(factory.createName(TestAddParameter.PAQUETE_A_CLASE_A)); //$NON-NLS-1$
 		ClassDef classDest = jm.getClassDef(factory.createName("paqueteA.ClaseB")); //$NON-NLS-1$
 
 		List <AttDec> lAtribute = classSource.getAttributes();

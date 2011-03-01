@@ -15,18 +15,19 @@ import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
-import dynamicrefactoring.domain.Scope;
+import dynamicrefactoring.domain.metadata.interfaces.Category;
+import dynamicrefactoring.plugin.xml.classifications.imp.ClassificationsStore;
 
 @RunWith(SWTBotJunit4ClassRunner.class)
 public class EditRefactoringTest {
 	
+	private static final String BAD_SMELLS_CLASSIF = "BadSmells";
+
 	private static final String MAKING_METHOD_CALLS_SIMPLER_CATEGORY = "MakingMethodCallsSimpler";
 
 	private static final String COMPOSING_METHODS_TREE_ITEM_TEXT = "ComposingMethods";
 
 	private static final String FOWLER_CLASSIF = "Fowler";
-
-	private static final String SCOPE_CLASSIF = "Scope";
 
 	private RefactoringWizardPage1Object refactoringWizardPageObject;
 
@@ -82,22 +83,6 @@ public class EditRefactoringTest {
 		
 	}
 	
-	/**
-	 * Comprueba que se pueden asignar dos categorias a una clasificacion
-	 * multi-categoria.
-	 */
-	@Test
-	public final void markTwoCategoriesInMultiCategoryClassificationsTest(){
-		
-		refactoringWizardPageObject.checkCategory(SCOPE_CLASSIF,Scope.CODE_FRAGMENT.toString());
-		refactoringWizardPageObject.checkCategory(SCOPE_CLASSIF, Scope.METHOD.toString());
-		
-		assertTrue(refactoringWizardPageObject.isCategoryChecked(SCOPE_CLASSIF, Scope.CODE_FRAGMENT.toString()));
-		assertTrue(refactoringWizardPageObject.isCategoryChecked(SCOPE_CLASSIF, Scope.METHOD.toString()));
- 
-		
-		
-	}
 	
 	/**
 	 * Comprueba que se pueden marcar todas las categorias
@@ -106,12 +91,10 @@ public class EditRefactoringTest {
 	@Test
 	public final void markAllCategoriesInMultiCategory(){
 		
-		refactoringWizardPageObject.checkClassification(SCOPE_CLASSIF);
+		refactoringWizardPageObject.checkClassification(BAD_SMELLS_CLASSIF);
 		
-		for (Scope scope : Scope.values()) {
-			if (! scope.equals(Scope.BOUNDED_PAR)) {
-				assertTrue(refactoringWizardPageObject.isCategoryChecked(SCOPE_CLASSIF, scope.toString()));
-			}
+		for (Category c :ClassificationsStore.getInstance().getClassification(BAD_SMELLS_CLASSIF).getCategories()) {
+			assertTrue(refactoringWizardPageObject.isCategoryChecked(BAD_SMELLS_CLASSIF, c.getName()));
 		}
  
 		
@@ -133,24 +116,21 @@ public class EditRefactoringTest {
 	}
 	
 	/**
-	 * Comprueba que no se pueden marcar todas las categorias
-	 * de una unicategory.
+	 * Comprueba que si se marcan una a una todas las categorias de una 
+	 * clasificacion multicategoria y se pulsa en la categoria se desmarcan
+	 * automaticamente todas.
 	 */
 	@Test
 	public final void unmarkCategories(){
 		
-		for (Scope scope : Scope.values()) {
-			if (! scope.equals(Scope.BOUNDED_PAR)) {
-				refactoringWizardPageObject.checkCategory(SCOPE_CLASSIF, scope.toString());
-			}
+		for (Category c :ClassificationsStore.getInstance().getClassification(BAD_SMELLS_CLASSIF).getCategories()) {
+			refactoringWizardPageObject.checkCategory(BAD_SMELLS_CLASSIF, c.getName());
 		}
 		
-		refactoringWizardPageObject.checkClassification(SCOPE_CLASSIF);
+		refactoringWizardPageObject.checkClassification(BAD_SMELLS_CLASSIF);
 		
-		for (Scope scope : Scope.values()) {
-			if (! scope.equals(Scope.BOUNDED_PAR)) {
-				assertFalse(refactoringWizardPageObject.isCategoryChecked(SCOPE_CLASSIF, scope.toString()));
-			}
+		for (Category c :ClassificationsStore.getInstance().getClassification(BAD_SMELLS_CLASSIF).getCategories()) {
+			assertFalse(refactoringWizardPageObject.isCategoryChecked(BAD_SMELLS_CLASSIF, c.getName()));
 		}
 		
 	}

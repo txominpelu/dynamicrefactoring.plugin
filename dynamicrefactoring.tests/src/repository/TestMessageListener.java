@@ -33,6 +33,7 @@ import org.junit.Test;
 
 import repository.moon.MOONRefactoring;
 import repository.moon.concreterefactoring.MoveField;
+import repository.moon.concreterefactoring.TestAddParameter;
 
 /** 
  * Comprueba que funciona correctamente el mecanismo de distribuci�n de
@@ -98,7 +99,7 @@ public class TestMessageListener extends RefactoringTemplateAbstractTest
 		JavaModel jm = JavaModel.getInstance();
 		MoonFactory factory = jm.getMoonFactory();
 
-		ClassDef source = jm.getClassDef(factory.createName("paqueteA.ClaseA"));			 //$NON-NLS-1$
+		ClassDef source = jm.getClassDef(factory.createName(TestAddParameter.PAQUETE_A_CLASE_A));			 //$NON-NLS-1$
 		ClassDef dest = jm.getClassDef(factory.createName("paqueteA.ClaseB")); //$NON-NLS-1$
 		AttDec atribute = source.getAttributes().get(0);
 

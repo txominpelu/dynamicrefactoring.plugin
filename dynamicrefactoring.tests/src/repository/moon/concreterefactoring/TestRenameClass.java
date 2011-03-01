@@ -77,14 +77,14 @@ public class TestRenameClass extends RefactoringTemplateAbstractTest {
 		JavaModel jm = JavaModel.getInstance();
 		MoonFactory factory = jm.getMoonFactory();
 
-		ClassDef classDef = jm.getClassDef(factory.createName("paqueteA.ClaseA")); //$NON-NLS-1$
+		ClassDef classDef = jm.getClassDef(factory.createName(TestAddParameter.PAQUETE_A_CLASE_A)); //$NON-NLS-1$
 		Name name = factory.createName("nuevoNombre"); //$NON-NLS-1$
 
 		MOONRefactoring renombrado = new RenameClassTestVersion(name, classDef, jm);			
 		renombrado.run();
 		
 		// Comienzan las comprobaciones
-		ClassDef classDef2 = jm.getClassDef(factory.createName("paqueteA.ClaseA")); //$NON-NLS-1$
+		ClassDef classDef2 = jm.getClassDef(factory.createName(TestAddParameter.PAQUETE_A_CLASE_A)); //$NON-NLS-1$
 		assertNull("Test renombrar clase simple: todav�a existe la clase " + //$NON-NLS-1$
 			"con el nombre anterior.", classDef2); //$NON-NLS-1$
 
@@ -176,14 +176,14 @@ public class TestRenameClass extends RefactoringTemplateAbstractTest {
 		JavaModel jm = JavaModel.getInstance();
 		MoonFactory factory = jm.getMoonFactory();
 
-		ClassDef classDef = jm.getClassDef(factory.createName("paqueteA.ClaseA")); //$NON-NLS-1$
+		ClassDef classDef = jm.getClassDef(factory.createName(TestAddParameter.PAQUETE_A_CLASE_A)); //$NON-NLS-1$
 		Name name = factory.createName("nuevoNombre"); //$NON-NLS-1$
 
 		MOONRefactoring renombrado = new RenameClassTestVersion(name, classDef, jm);			
 		renombrado.run();
 
 		// Comienzan las comprobaciones sobre la superClase
-		ClassDef classDef2 = jm.getClassDef(factory.createName("paqueteA.ClaseA")); //$NON-NLS-1$
+		ClassDef classDef2 = jm.getClassDef(factory.createName(TestAddParameter.PAQUETE_A_CLASE_A)); //$NON-NLS-1$
 		assertNull("Test renombrar clase con herencia: todav�a existe la clase " + //$NON-NLS-1$
 			"con el nombre anterior.", classDef2); //$NON-NLS-1$
 
@@ -221,14 +221,14 @@ public class TestRenameClass extends RefactoringTemplateAbstractTest {
 		JavaModel jm = JavaModel.getInstance();
 		MoonFactory factory = jm.getMoonFactory();
 
-		ClassDef classDef = jm.getClassDef(factory.createName("paqueteA.ClaseA")); //$NON-NLS-1$
+		ClassDef classDef = jm.getClassDef(factory.createName(TestAddParameter.PAQUETE_A_CLASE_A)); //$NON-NLS-1$
 		Name name = factory.createName("nuevoNombre"); //$NON-NLS-1$
 
 		MOONRefactoring renombrado = new RenameClassTestVersion(name, classDef, jm);			
 		renombrado.run();
 
 		// Comprobaciones sobre la clase renombrada.
-		ClassDef classDef2 = jm.getClassDef(factory.createName("paqueteA.ClaseA")); //$NON-NLS-1$
+		ClassDef classDef2 = jm.getClassDef(factory.createName(TestAddParameter.PAQUETE_A_CLASE_A)); //$NON-NLS-1$
 		assertNull("Test renombrar clase en atributo: todav�a existe la clase " + //$NON-NLS-1$
 			"con el nombre anterior", classDef2); //$NON-NLS-1$
 
@@ -308,7 +308,7 @@ public class TestRenameClass extends RefactoringTemplateAbstractTest {
 		JavaModel jm = JavaModel.getInstance();
 		MoonFactory factory = jm.getMoonFactory();
 
-		ClassDef classDef = jm.getClassDef(factory.createName("paqueteA.ClaseA")); //$NON-NLS-1$
+		ClassDef classDef = jm.getClassDef(factory.createName(TestAddParameter.PAQUETE_A_CLASE_A)); //$NON-NLS-1$
 		Name name = factory.createName("ClaseB"); //$NON-NLS-1$
 
 		MOONRefactoring renombrado = new RenameClassTestVersion(name, classDef, jm);			
@@ -333,7 +333,7 @@ public class TestRenameClass extends RefactoringTemplateAbstractTest {
 		JavaModel jm = JavaModel.getInstance();
 		MoonFactory factory = jm.getMoonFactory();
 
-		ClassDef classDef = jm.getClassDef(factory.createName("paqueteA.ClaseA")); //$NON-NLS-1$
+		ClassDef classDef = jm.getClassDef(factory.createName(TestAddParameter.PAQUETE_A_CLASE_A)); //$NON-NLS-1$
 		Name name = factory.createName("nuevoNombre"); //$NON-NLS-1$
 
 		MOONRefactoring renombrado = new RenameClassTestVersion(name, classDef, jm);			
@@ -341,7 +341,7 @@ public class TestRenameClass extends RefactoringTemplateAbstractTest {
 		renombrado.undoActions();
 
 		// Comienzan las comprobaciones
-		ClassDef classDef2 = jm.getClassDef(factory.createName("paqueteA.ClaseA")); //$NON-NLS-1$
+		ClassDef classDef2 = jm.getClassDef(factory.createName(TestAddParameter.PAQUETE_A_CLASE_A)); //$NON-NLS-1$
 		assertNotNull("Test deshacer renombrado de clase simple: " + //$NON-NLS-1$
 			"no se ha restaurado el nombre anterior.", classDef2); //$NON-NLS-1$
 

@@ -1,348 +1,64 @@
-<?xml version="1.0" encoding="iso-8859-1"?><!DOCTYPE refactoring  SYSTEM 'refactoringDTD.dtd'><refactoring name="Rename Method">
-	
-	
-	
-																										
-	
-	
-	
-	<information>
-		
-		
-		
-																																																				
-		
-		
-		
-		<description>
-			
-			
-			
-																																							Change the name of the method.																								
-		
-		
-		
-		</description>
-		
-		
-		
-																																																				
-		
-		
-		
-		<image src="renamemethod.JPG"/>
-		
-		
-		
-																																																				
-		
-		
-		
-		<motivation>
-			
-			
-			
-																																							The name of a method does not reveal its purpose.																								
-		
-		
-		
-		</motivation>
-		
-		
-		
-																																																															
-			
-	
-	
-		
-		
-	
-	<categorization><classification name="Fowler"><category>MakingMethodCallsSimpler</category></classification><classification name="Scope"><category>Method</category></classification></categorization></information>
-	
-	
-	
-																										
-	
-	
-	
-	<inputs>
-		
-		
-		
-																																																				
-		
-		
-		
-		<input name="New_name" root="false" type="moon.core.Name"/>
-		
-		
-		
-																																																				
-		
-		
-		
-		<input from="Method" method="getClassDef" name="Class" root="false" type="moon.core.classdef.ClassDef"/>
-		
-		
-		
-																																																				
-		
-		
-		
-		<input from="Method" method="getUniqueName" name="Old_name" root="false" type="moon.core.Name"/>
-		
-		
-		
-																																																				
-		
-		
-		
-		<input name="Method" root="true" type="moon.core.classdef.MethDec"/>
-		
-		
-		
-																																																				
-		
-		
-		
-		<input name="Model" root="false" type="moon.core.Model"/>
-		
-		
-		
-																																							
-	
-	
-	
-	</inputs>
-	
-	
-	
-																										
-	
-	
-	
-	<mechanism>
-		
-		
-		
-																																																				
-		
-		
-		
-		<preconditions>
-			
-			
-			
-																																																																														
-			
-			
-			
-			<precondition name="repository.moon.concretepredicate.ExistsMethodInClass">
-				
-				
-				
-																																																																																																								
-				
-				
-				
-				<param name="Method"/>
-				
-				
-				
-																																																																																																								
-				
-				
-				
-				<param name="Class"/>
-				
-				
-				
-																																																																																											
-			
-			
-			
-			</precondition>
-			
-			
-			
-																																																																														
-			
-			
-			
-			<precondition name="repository.moon.concretepredicate.MethodIsNotConstructor">
-				
-				
-				
-																																																																																																								
-				
-				
-				
-				<param name="Method"/>
-				
-				
-				
-																																																																																											
-			
-			
-			
-			</precondition>
-			
-			
-			
-																																																																	
-		
-		
-		
-		</preconditions>
-		
-		
-		
-																																																				
-		
-		
-		
-		<actions>
-			
-			
-			
-																																																																														
-			
-			
-			
-			<action name="repository.moon.concreteaction.RenameMethod">
-				
-				
-				
-																																																																																																								
-				
-				
-				
-				<param name="Method"/>
-				
-				
-				
-																																																																																																								
-				
-				
-				
-				<param name="Class"/>
-				
-				
-				
-																																																																																																								
-				
-				
-				
-				<param name="New_name"/>
-				
-				
-				
-																																																																																											
-			
-			
-			
-			</action>
-			
-			
-			
-																																																																	
-		
-		
-		
-		</actions>
-		
-		
-		
-																																																				
-		
-		
-		
-		<postconditions>
-			
-			
-			
-																																																																														
-			
-			
-			
-			<postcondition name="repository.moon.concretepredicate.NotExistsMethodWithNameInClass">
-				
-				
-				
-																																																																																																								
-				
-				
-				
-				<param name="Class"/>
-				
-				
-				
-																																																																																																								
-				
-				
-				
-				<param name="Old_name"/>
-				
-				
-				
-																																																																																											
-			
-			
-			
-			</postcondition>
-			
-			
-			
-																																																																	
-		
-		
-		
-		</postconditions>
-		
-		
-		
-																																							
-	
-	
-	
-	</mechanism>
-	
-	
-	
-																										
-	
-	
-	
-	<examples>
-		
-		
-		
-																																																				
-		
-		
-		
-		<example after="ejemplo1_despues.txt" before="ejemplo1_antes.txt"/>
-		
-		
-		
-																																																				
-		
-		
-		
-		<example after="ejemplo2_despues.java" before="ejemplo2_antes.java"/>
-		
-		
-		
-																																							
-	
-	
-	
-	</examples>
-	
-	
-	
-													
-
-
-
+<!DOCTYPE refactoring SYSTEM "refactoringDTD.dtd">
+<refactoring name="Rename Method">
+    <information>
+        <description>
+            Change the name of the method.
+        </description>
+        <image src="renamemethod.JPG"/>
+        <motivation>
+            The name of a method does not reveal its purpose.
+        </motivation>
+        <categorization>
+            <classification name="Fowler">
+                <category>
+                    MakingMethodCallsSimpler
+                </category>
+            </classification>
+            <classification name="Scope">
+                <category>
+                    Method
+                </category>
+            </classification>
+            <classification name="BadSmells">
+                <category>
+                    SpeculativeGenerality
+                </category>
+            </classification>
+        </categorization>
+    </information>
+    <inputs>
+        <input name="New_name" root="false" type="moon.core.Name"/>
+        <input from="Method" method="getClassDef" name="Class" root="false" type="moon.core.classdef.ClassDef"/>
+        <input from="Method" method="getUniqueName" name="Old_name" root="false" type="moon.core.Name"/>
+        <input name="Method" root="true" type="moon.core.classdef.MethDec"/>
+        <input name="Model" root="false" type="moon.core.Model"/>
+    </inputs>
+    <mechanism>
+        <preconditions>
+            <precondition name="repository.moon.concretepredicate.ExistsMethodInClass">
+                <param name="Method"/>
+                <param name="Class"/>
+            </precondition>
+            <precondition name="repository.moon.concretepredicate.MethodIsNotConstructor">
+                <param name="Method"/>
+            </precondition>
+        </preconditions>
+        <actions>
+            <action name="repository.moon.concreteaction.RenameMethod">
+                <param name="Method"/>
+                <param name="Class"/>
+                <param name="New_name"/>
+            </action>
+        </actions>
+        <postconditions>
+            <postcondition name="repository.moon.concretepredicate.NotExistsMethodWithNameInClass">
+                <param name="Class"/>
+                <param name="Old_name"/>
+            </postcondition>
+        </postconditions>
+    </mechanism>
+    <examples>
+        <example after="ejemplo1_despues.txt" before="ejemplo1_antes.txt"/>
+        <example after="ejemplo2_despues.java" before="ejemplo2_antes.java"/>
+    </examples>
 </refactoring>

@@ -39,12 +39,12 @@ import repository.RefactoringTemplateAbstractTest;
 import repository.moon.MOONRefactoring;
 
 /**
- * Comprueba que funciona correctamente la refactorización que renombra un
- * argumento formal de un método.
+ * Comprueba que funciona correctamente la refactorizaciï¿½n que renombra un
+ * argumento formal de un mï¿½todo.
  * 
  * <p>
- * Indirectamente, se comprueba también la corrección de las funciones, acciones
- * y predicados utilizados por la refactorización.
+ * Indirectamente, se comprueba tambiï¿½n la correcciï¿½n de las funciones, acciones
+ * y predicados utilizados por la refactorizaciï¿½n.
  * </p>
  * 
  * @author <A HREF="mailto:sfd0009@alu.ubu.es">Sonia Fuente de la Fuente</A>
@@ -55,17 +55,17 @@ import repository.moon.MOONRefactoring;
 public class TestRenameParameter extends RefactoringTemplateAbstractTest {
 
 	/**
-	 * Comprueba que la refactorización funciona correctamente al hacer un
+	 * Comprueba que la refactorizaciï¿½n funciona correctamente al hacer un
 	 * renombrado sencillo de un argumento formal.
 	 * 
 	 * <p>
-	 * Se toma un método sencillo de una clase, con un único argumento formal en
-	 * su lista de parámetros y sin variables locales, y se le asigna un nombre
+	 * Se toma un mï¿½todo sencillo de una clase, con un ï¿½nico argumento formal en
+	 * su lista de parï¿½metros y sin variables locales, y se le asigna un nombre
 	 * correcto, distinto al de cualquier atributo de la clase.
 	 * </p>
 	 * 
 	 * @throws Exception
-	 *             si se produce un error durante la ejecución de la prueba.
+	 *             si se produce un error durante la ejecuciï¿½n de la prueba.
 	 */  
 	@Test
 	public void testSimple() throws Exception{
@@ -76,7 +76,7 @@ public class TestRenameParameter extends RefactoringTemplateAbstractTest {
 		JavaModel jm = JavaModel.getInstance();
 		MoonFactory factory = jm.getMoonFactory();
 
-		ClassDef classDef = jm.getClassDef(jm.getMoonFactory().createName("paqueteA.ClaseA")); //$NON-NLS-1$
+		ClassDef classDef = jm.getClassDef(jm.getMoonFactory().createName(TestAddParameter.PAQUETE_A_CLASE_A)); //$NON-NLS-1$
 		List <MethDec> lMetodo = classDef.getMethDecByName(factory.createName("metodo1")); //$NON-NLS-1$
 		MethDec metodo = lMetodo.get(0);
 
@@ -92,7 +92,7 @@ public class TestRenameParameter extends RefactoringTemplateAbstractTest {
 		FormalArgument argumento2 = lArgumentos2.get(0);
 
 		assertEquals("Test renombrar argumento simple: " + //$NON-NLS-1$
-						"no se ha renombrado correctamente el parámetro.", //$NON-NLS-1$
+						"no se ha renombrado correctamente el parï¿½metro.", //$NON-NLS-1$
 				factory.createName("paqueteA.ClaseA~metodo1%int#int:nuevoArgumento(0)"), //$NON-NLS-1$
 			argumento2.getUniqueName());
 	}
@@ -100,18 +100,18 @@ public class TestRenameParameter extends RefactoringTemplateAbstractTest {
 	/**
 	 * Comprueba que el renombrado de argumentos formales se realiza
 	 * correctamente cuando afecta a un argumento que no se encuentre en los
-	 * extremos de la lista de parámetros del método.
+	 * extremos de la lista de parï¿½metros del mï¿½todo.
 	 * 
 	 * <p>
-	 * Se toma en una clase sin atributos un método que tiene variables locales
+	 * Se toma en una clase sin atributos un mï¿½todo que tiene variables locales
 	 * y varios argumentos formales, y se intenta renombrar el argumento que
-	 * ocupa la posición central en la lista de parámetros, dándole un nombre
-	 * distinto al de cualquiera de las variables locales o de los demás
+	 * ocupa la posiciï¿½n central en la lista de parï¿½metros, dï¿½ndole un nombre
+	 * distinto al de cualquiera de las variables locales o de los demï¿½s
 	 * argumentos.
 	 * </p>
 	 * 
 	 * @throws Exception
-	 *             si se produce un error durante la ejecución de la prueba.
+	 *             si se produce un error durante la ejecuciï¿½n de la prueba.
 	 */ 
 	@Test
 	public void testParameterInMiddle()throws Exception{
@@ -122,7 +122,7 @@ public class TestRenameParameter extends RefactoringTemplateAbstractTest {
 		JavaModel jm = JavaModel.getInstance();
 		MoonFactory factory = jm.getMoonFactory();
 
-		ClassDef classDef = jm.getClassDef(factory.createName("paqueteA.ClaseA")); //$NON-NLS-1$
+		ClassDef classDef = jm.getClassDef(factory.createName(TestAddParameter.PAQUETE_A_CLASE_A)); //$NON-NLS-1$
 		List <MethDec> lMetodo = classDef.getMethDecByName(factory.createName("metodo1")); //$NON-NLS-1$
 		MethDec metodo = lMetodo.get(0);
 
@@ -138,42 +138,42 @@ public class TestRenameParameter extends RefactoringTemplateAbstractTest {
 		FormalArgument argumento2 = lArgumentos2.get(0);
 
 		assertEquals(
-				"Test renombrar parámetro central: " + //$NON-NLS-1$
-						"se ha renombrado el primer parámetro.", //$NON-NLS-1$
+				"Test renombrar parï¿½metro central: " + //$NON-NLS-1$
+						"se ha renombrado el primer parï¿½metro.", //$NON-NLS-1$
 				factory.createName("paqueteA.ClaseA~metodo1%int%int%int#int:p1(0)"), //$NON-NLS-1$
 			argumento2.getUniqueName());
 
 		FormalArgument argumento3 = lArgumentos2.get(1);
 		assertEquals(
-				"Test renombrar parámetro central: " + //$NON-NLS-1$
-						"no se ha renombrado correctamente el parámetro que debía.", //$NON-NLS-1$
+				"Test renombrar parï¿½metro central: " + //$NON-NLS-1$
+						"no se ha renombrado correctamente el parï¿½metro que debï¿½a.", //$NON-NLS-1$
 				factory.createName("paqueteA.ClaseA~metodo1%int%int%int#int:nuevoArgumento(0)"), //$NON-NLS-1$
 			argumento3.getUniqueName());
 
 		FormalArgument argumento4 = lArgumentos2.get(2);
 		assertEquals(
-				"Test renombrar parámetro central: " + //$NON-NLS-1$
-						"se ha renombrado el último parámetro.", //$NON-NLS-1$
+				"Test renombrar parï¿½metro central: " + //$NON-NLS-1$
+						"se ha renombrado el ï¿½ltimo parï¿½metro.", //$NON-NLS-1$
 				factory.createName("paqueteA.ClaseA~metodo1%int%int%int#int:p3(0)"), //$NON-NLS-1$
 			argumento4.getUniqueName());
 	}
 
 	/**
-	 * Verifica el funcionamiento de las precondiciones de la refactorización.
+	 * Verifica el funcionamiento de las precondiciones de la refactorizaciï¿½n.
 	 * 
 	 * <p>
-	 * Comprueba que se lanza la excepción cuando se intenta renombrar un
-	 * argumento formal para darle un nombre que ya está asignado a otro
-	 * parámetro del método.
+	 * Comprueba que se lanza la excepciï¿½n cuando se intenta renombrar un
+	 * argumento formal para darle un nombre que ya estï¿½ asignado a otro
+	 * parï¿½metro del mï¿½todo.
 	 * </p>
 	 * 
 	 * <p>
-	 * En un método con dos argumentos formales, intenta asignarle al primero el
+	 * En un mï¿½todo con dos argumentos formales, intenta asignarle al primero el
 	 * mismo nombre que ya tiene el segundo.
 	 * </p>
 	 * 
 	 * @throws Exception
-	 *             si se produce un error durante la ejecución de la prueba.
+	 *             si se produce un error durante la ejecuciï¿½n de la prueba.
 	 */
 	@Test(expected=PreconditionException.class) 
 	public void testCheckNotExistsParameterWithSameName() throws Exception{
@@ -184,7 +184,7 @@ public class TestRenameParameter extends RefactoringTemplateAbstractTest {
 		JavaModel jm = JavaModel.getInstance();
 		MoonFactory factory = jm.getMoonFactory();
 
-		ClassDef classDef = jm.getClassDef(factory.createName("paqueteA.ClaseA")); //$NON-NLS-1$
+		ClassDef classDef = jm.getClassDef(factory.createName(TestAddParameter.PAQUETE_A_CLASE_A)); //$NON-NLS-1$
 		List <MethDec> lMetodo = classDef.getMethDecByName(factory.createName("metodo1")); //$NON-NLS-1$
 		MethDec metodo = lMetodo.get(0);
 
@@ -197,21 +197,21 @@ public class TestRenameParameter extends RefactoringTemplateAbstractTest {
 	}
 
 	/**
-	 * Verifica el funcionamiento de las precondiciones de la refactorización.
+	 * Verifica el funcionamiento de las precondiciones de la refactorizaciï¿½n.
 	 * 
 	 * <p>
-	 * Comprueba que se lanza la excepción cuando se intenta renombrar un
-	 * argumento formal para darle un nombre que ya está asignado a una variable
-	 * local del método.
+	 * Comprueba que se lanza la excepciï¿½n cuando se intenta renombrar un
+	 * argumento formal para darle un nombre que ya estï¿½ asignado a una variable
+	 * local del mï¿½todo.
 	 * </p>
 	 * 
 	 * <p>
-	 * En un método con un argumento formal y una variable local, intenta
+	 * En un mï¿½todo con un argumento formal y una variable local, intenta
 	 * asignarle al primero el mismo nombre que ya tiene la variable local.
 	 * </p>
 	 * 
 	 * @throws Exception
-	 *             si se produce un error durante la ejecución de la prueba.
+	 *             si se produce un error durante la ejecuciï¿½n de la prueba.
 	 */
 	@Test(expected=PreconditionException.class) 
 	public void testCheckNotExistsLocalDecWithSameName() throws Exception{
@@ -222,7 +222,7 @@ public class TestRenameParameter extends RefactoringTemplateAbstractTest {
 		JavaModel jm = JavaModel.getInstance();
 		MoonFactory factory = jm.getMoonFactory();
 
-		ClassDef classDef = jm.getClassDef(factory.createName("paqueteA.ClaseA")); //$NON-NLS-1$
+		ClassDef classDef = jm.getClassDef(factory.createName(TestAddParameter.PAQUETE_A_CLASE_A)); //$NON-NLS-1$
 		List <MethDec> lMetodo = classDef.getMethDecByName(factory.createName("metodo1")); //$NON-NLS-1$
 		MethDec metodo = lMetodo.get(0);
 
@@ -235,18 +235,18 @@ public class TestRenameParameter extends RefactoringTemplateAbstractTest {
 	}
 
 	/**
-	 * Comprueba que funciona correctamente la operación que deshace un
+	 * Comprueba que funciona correctamente la operaciï¿½n que deshace un
 	 * renombrado de un argumento formal.
 	 * 
 	 * <p>
-	 * Se toma un método sencillo de una clase, con un único argumento formal en
-	 * su lista de parámetros y sin variables locales, y se le asigna un nombre
-	 * correcto, distinto al de cualquier atributo de la clase. Después, se
+	 * Se toma un mï¿½todo sencillo de una clase, con un ï¿½nico argumento formal en
+	 * su lista de parï¿½metros y sin variables locales, y se le asigna un nombre
+	 * correcto, distinto al de cualquier atributo de la clase. Despuï¿½s, se
 	 * deshace el renombrado.
 	 * </p>
 	 * 
 	 * @throws Exception
-	 *             si se produce un error durante la ejecución de la prueba.
+	 *             si se produce un error durante la ejecuciï¿½n de la prueba.
 	 */   
 	@Test
 	public void testUndoSimple() throws Exception{
@@ -257,7 +257,7 @@ public class TestRenameParameter extends RefactoringTemplateAbstractTest {
 		JavaModel jm = JavaModel.getInstance();
 		MoonFactory factory = jm.getMoonFactory();
 
-		ClassDef classDef = jm.getClassDef(factory.createName("paqueteA.ClaseA")); //$NON-NLS-1$
+		ClassDef classDef = jm.getClassDef(factory.createName(TestAddParameter.PAQUETE_A_CLASE_A)); //$NON-NLS-1$
 		List <MethDec> lMetodo = classDef.getMethDecByName(factory.createName("metodo1")); //$NON-NLS-1$
 		MethDec metodo = lMetodo.get(0);
 
@@ -274,7 +274,7 @@ public class TestRenameParameter extends RefactoringTemplateAbstractTest {
 		FormalArgument argumento2 = lArgumentos2.get(0);
 
 		assertEquals(
-				"Test deshacer renombrado de parámetro simple: " + //$NON-NLS-1$
+				"Test deshacer renombrado de parï¿½metro simple: " + //$NON-NLS-1$
 			"no se ha restaurado correctamente el nombre del argumento formal.", //$NON-NLS-1$
 				"paqueteA.ClaseA~metodo1%int#int:p1(0)", argumento2.getUniqueName().toString()); //$NON-NLS-1$
 	}

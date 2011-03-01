@@ -2,7 +2,7 @@
 <!DOCTYPE classifications SYSTEM "classificationsDTD.dtd">
 
 <classifications>
-	<classification name="Scope" multicategory="true" description="Clasificacion basada en el ambito de las refactorizaciones">
+	<classification name="Scope" description="Clasificacion basada en el ambito de las refactorizaciones">
 		<categories>
 			<category>Class</category>
 			<category>Method</category>
@@ -19,6 +19,32 @@
 			<category>MovingFeatures</category>
 			<category>Organizing data</category>
 			<category>Symplifying conditional expressions</category>
+		</categories>		
+	</classification>
+	<classification name="BadSmells" multicategory="true" description="Clasificacion basada los Bad Smells definidos en libro de Martin Fowler.">
+		<categories>
+			<category>DuplicatedCode</category>
+			<category>LongMethod</category>
+			<category>LargeClass</category>
+			<category>LongParameterList</category>
+			<category>DivergentChange</category>
+			<category>ShotgunSurgery</category>
+			<category>FeatureEnvy</category>
+			<category>DataClumps</category>
+			<category>PrimitiveObsession</category>
+			<category>SwitchStatements</category>
+			<category>ParallelInheritanceHierarchies</category>
+			<category>LazyClass</category>
+			<category>SpeculativeGenerality</category>
+			<category>TemporaryField</category>
+			<category>MessageChains</category>
+			<category>MiddleMan</category>
+			<category>InappropiateIntimacy</category>
+			<category>AlternativeClassesWithDifferentInterfaces</category>
+			<category>IncompleteLibraryClass</category>
+			<category>DataClass</category>
+			<category>RefusedBequest</category>
+			<category>Comments</category>
 		</categories>		
 	</classification>
 </classifications>

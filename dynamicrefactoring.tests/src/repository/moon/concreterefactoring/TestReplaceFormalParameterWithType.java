@@ -69,7 +69,7 @@ public class TestReplaceFormalParameterWithType
 		JavaModel jm = JavaModel.getInstance();
 		MoonFactory factory = jm.getMoonFactory();
 
-		ClassDef classDef = jm.getClassDef(factory.createName("paqueteA.ClaseA")); //$NON-NLS-1$
+		ClassDef classDef = jm.getClassDef(factory.createName(TestAddParameter.PAQUETE_A_CLASE_A)); //$NON-NLS-1$
 		List<FormalPar> lFormalPar = classDef.getFormalPars();
 		FormalPar formalPar = lFormalPar.get(0); 
 
@@ -142,7 +142,7 @@ public class TestReplaceFormalParameterWithType
 		JavaModel jm = JavaModel.getInstance();
 		MoonFactory factory = jm.getMoonFactory();
 
-		ClassDef classDef = jm.getClassDef(factory.createName("paqueteA.ClaseA")); //$NON-NLS-1$
+		ClassDef classDef = jm.getClassDef(factory.createName(TestAddParameter.PAQUETE_A_CLASE_A)); //$NON-NLS-1$
 		List<FormalPar> lFormalPar = classDef.getFormalPars();
 		FormalPar formalPar = lFormalPar.get(0); 
 
@@ -181,7 +181,7 @@ public class TestReplaceFormalParameterWithType
 		JavaModel jm = JavaModel.getInstance();
 		MoonFactory factory = jm.getMoonFactory();
 
-		ClassDef classDef = jm.getClassDef(factory.createName("paqueteA.ClaseA")); //$NON-NLS-1$
+		ClassDef classDef = jm.getClassDef(factory.createName(TestAddParameter.PAQUETE_A_CLASE_A)); //$NON-NLS-1$
 		List<FormalPar> lFormalPar = classDef.getFormalPars();
 		FormalPar formalPar = lFormalPar.get(0); 
 

@@ -2,7 +2,7 @@
 <!ATTLIST refactoring name NMTOKENS #REQUIRED >
 <!ATTLIST refactoring version CDATA #IMPLIED>
 
-<!ELEMENT information ( description, image?, motivation, keywords?, categorization? ) >
+<!ELEMENT information ( description, image?, motivation, keywords?, categorization ) >
 
 <!ELEMENT description ( #PCDATA ) >
 

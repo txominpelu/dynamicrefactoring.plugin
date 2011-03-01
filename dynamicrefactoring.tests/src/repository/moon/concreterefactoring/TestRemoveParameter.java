@@ -80,7 +80,7 @@ public class TestRemoveParameter extends RefactoringTemplateAbstractTest {
 		MoonFactory factory = jm.getMoonFactory();
 
 		ClassDef classSource = jm.getClassDef(factory
-				.createName("paqueteA.ClaseA")); //$NON-NLS-1$
+				.createName(TestAddParameter.PAQUETE_A_CLASE_A)); //$NON-NLS-1$
 		List<MethDec> lMetodo = classSource.getMethDecByName(factory
 				.createName("metodoA")); //$NON-NLS-1$
 		MethDec metodo = lMetodo.get(0);
@@ -131,7 +131,7 @@ public class TestRemoveParameter extends RefactoringTemplateAbstractTest {
 		MoonFactory factory = jm.getMoonFactory();
 
 		ClassDef classSource = jm.getClassDef(factory
-				.createName("paqueteA.ClaseA")); //$NON-NLS-1$
+				.createName(TestAddParameter.PAQUETE_A_CLASE_A)); //$NON-NLS-1$
 		List<MethDec> lMetodo = classSource.getMethDecByName(factory
 				.createName("metodoA")); //$NON-NLS-1$
 		MethDec metodo = lMetodo.get(0);
@@ -175,7 +175,7 @@ public class TestRemoveParameter extends RefactoringTemplateAbstractTest {
 		MoonFactory factory = jm.getMoonFactory();
 
 		ClassDef classSource = jm.getClassDef(factory
-				.createName("paqueteA.ClaseA")); //$NON-NLS-1$
+				.createName(TestAddParameter.PAQUETE_A_CLASE_A)); //$NON-NLS-1$
 		List<MethDec> lMetodo = classSource.getMethDecByName(factory
 				.createName("metodoA")); //$NON-NLS-1$
 		MethDec metodo = lMetodo.get(0);
@@ -328,7 +328,7 @@ public class TestRemoveParameter extends RefactoringTemplateAbstractTest {
 		MoonFactory factory = jm.getMoonFactory();
 
 		ClassDef classDef = jm.getClassDef(factory
-				.createName("paqueteA.ClaseA")); //$NON-NLS-1$
+				.createName(TestAddParameter.PAQUETE_A_CLASE_A)); //$NON-NLS-1$
 		List<MethDec> lMetodo = classDef.getMethDecByName(factory
 				.createName("metodoA")); //$NON-NLS-1$
 		MethDec metodo = lMetodo.get(0);
@@ -427,7 +427,7 @@ public class TestRemoveParameter extends RefactoringTemplateAbstractTest {
 		MoonFactory factory = jm.getMoonFactory();
 
 		ClassDef classDef = jm.getClassDef(factory
-				.createName("paqueteA.ClaseA")); //$NON-NLS-1$
+				.createName(TestAddParameter.PAQUETE_A_CLASE_A)); //$NON-NLS-1$
 		List<MethDec> lMetodo = classDef.getMethDecByName(factory
 				.createName("metodoA")); //$NON-NLS-1$
 		MethDec metodo = lMetodo.get(0);
@@ -497,7 +497,7 @@ public class TestRemoveParameter extends RefactoringTemplateAbstractTest {
 		MoonFactory factory = jm.getMoonFactory();
 
 		ClassDef classDef = jm.getClassDef(factory
-				.createName("paqueteA.ClaseA")); //$NON-NLS-1$
+				.createName(TestAddParameter.PAQUETE_A_CLASE_A)); //$NON-NLS-1$
 		List<MethDec> lMetodo = classDef.getMethDecByName(factory
 				.createName("metodoA")); //$NON-NLS-1$
 		MethDec metodo = lMetodo.get(0);
@@ -531,7 +531,7 @@ public class TestRemoveParameter extends RefactoringTemplateAbstractTest {
 		MoonFactory factory = jm.getMoonFactory();
 
 		ClassDef classDef = jm.getClassDef(factory
-				.createName("paqueteA.ClaseA")); //$NON-NLS-1$
+				.createName(TestAddParameter.PAQUETE_A_CLASE_A)); //$NON-NLS-1$
 		List<MethDec> lMetodo = classDef.getMethDecByName(factory
 				.createName("metodoA")); //$NON-NLS-1$
 		MethDec metodo = lMetodo.get(0);
@@ -561,7 +561,7 @@ public class TestRemoveParameter extends RefactoringTemplateAbstractTest {
 		MoonFactory factory = jm.getMoonFactory();
 
 		ClassDef classSource = jm.getClassDef(factory
-				.createName("paqueteA.ClaseA")); //$NON-NLS-1$
+				.createName(TestAddParameter.PAQUETE_A_CLASE_A)); //$NON-NLS-1$
 		List<MethDec> lMetodo = classSource.getMethDecByName(factory
 				.createName("metodoA")); //$NON-NLS-1$
 		MethDec metodo = lMetodo.get(0);
@@ -577,17 +577,17 @@ public class TestRemoveParameter extends RefactoringTemplateAbstractTest {
 		List<MethDec> lMetodo2 = classSource.getMethDecByName(factory
 				.createName("metodoA")); //$NON-NLS-1$
 		assertTrue(
-				"Test deshacer eliminar parámetro en mï¿½todo con argumento: " + //$NON-NLS-1$
-						"no se encuentra el método.", !lMetodo2.isEmpty()); //$NON-NLS-1$
+				"Test deshacer eliminar parï¿½metro en mï¿½todo con argumento: " + //$NON-NLS-1$
+						"no se encuentra el mï¿½todo.", !lMetodo2.isEmpty()); //$NON-NLS-1$
 
 		MethDec metodo2 = lMetodo2.get(0);
 		List<FormalArgument> lArgument2 = metodo2.getFormalArgument();
 		assertEquals(
-				"Test deshacer eliminar parámetro en método con un argumento: " + //$NON-NLS-1$
+				"Test deshacer eliminar parï¿½metro en mï¿½todo con un argumento: " + //$NON-NLS-1$
 						"no se ha restaurado el argumento.", 1,
 				lArgument2.size()); //$NON-NLS-1$
 		assertEquals(
-				"Test deshacer eliminar parámetro en método con un argumento: " + //$NON-NLS-1$
+				"Test deshacer eliminar parï¿½metro en mï¿½todo con un argumento: " + //$NON-NLS-1$
 						"no se ha restaurado correctamente el argumento.", //$NON-NLS-1$
 				"paqueteA.ClaseA~metodoA%int#int:a(0)", lArgument2.get(0).getUniqueName().toString()); //$NON-NLS-1$
 	}

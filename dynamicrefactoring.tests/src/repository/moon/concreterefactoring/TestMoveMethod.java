@@ -69,7 +69,7 @@ public class TestMoveMethod extends RefactoringTemplateAbstractTest {
 		JavaModel jm = JavaModel.getInstance();
 		MoonFactory factory = jm.getMoonFactory();
 
-		ClassDef classSource = jm.getClassDef(factory.createName("paqueteA.ClaseA"));			 //$NON-NLS-1$
+		ClassDef classSource = jm.getClassDef(factory.createName(TestAddParameter.PAQUETE_A_CLASE_A));			 //$NON-NLS-1$
 		ClassDef classDest = jm.getClassDef(factory.createName("paqueteA.ClaseB")); //$NON-NLS-1$
 
 		List <MethDec> lMetodo = classSource.getMethDecByName(factory.createName("metodo1")); //$NON-NLS-1$
@@ -143,7 +143,7 @@ public class TestMoveMethod extends RefactoringTemplateAbstractTest {
 		JavaModel jm = JavaModel.getInstance();
 		MoonFactory factory = jm.getMoonFactory();
 
-		ClassDef classDef = jm.getClassDef(factory.createName("paqueteA.ClaseA")); //$NON-NLS-1$
+		ClassDef classDef = jm.getClassDef(factory.createName(TestAddParameter.PAQUETE_A_CLASE_A)); //$NON-NLS-1$
 
 		List <MethDec> lMetodo = classDef .getMethDecByName(factory.createName("metodo1")); //$NON-NLS-1$
 		MethDec metodo = lMetodo.get(0);
@@ -170,7 +170,7 @@ public class TestMoveMethod extends RefactoringTemplateAbstractTest {
 		JavaModel jm = JavaModel.getInstance();
 		MoonFactory factory = jm.getMoonFactory();
 
-		ClassDef classSource = jm.getClassDef(factory.createName("paqueteA.ClaseA"));			 //$NON-NLS-1$
+		ClassDef classSource = jm.getClassDef(factory.createName(TestAddParameter.PAQUETE_A_CLASE_A));			 //$NON-NLS-1$
 		ClassDef classDest = jm.getClassDef(factory.createName("paqueteA.ClaseC")); //$NON-NLS-1$
 
 		List <MethDec> lMetodo = classSource.getMethDecByName(factory.createName("metodo1")); //$NON-NLS-1$
@@ -197,7 +197,7 @@ public class TestMoveMethod extends RefactoringTemplateAbstractTest {
 		JavaModel jm = JavaModel.getInstance();
 		MoonFactory factory = jm.getMoonFactory();
 		
-		ClassDef classSource = jm.getClassDef(factory.createName("paqueteA.ClaseA")); //$NON-NLS-1$
+		ClassDef classSource = jm.getClassDef(factory.createName(TestAddParameter.PAQUETE_A_CLASE_A)); //$NON-NLS-1$
 		ClassDef classDest = jm.getClassDef(factory.createName("paqueteA.ClaseB")); //$NON-NLS-1$
 
 		List <MethDec> lMetodo = classSource.getMethDecByName(factory.createName("ClaseA")); //$NON-NLS-1$
@@ -224,7 +224,7 @@ public class TestMoveMethod extends RefactoringTemplateAbstractTest {
 		JavaModel jm = JavaModel.getInstance();
 		MoonFactory factory = jm.getMoonFactory();
 
-		ClassDef classSource = jm.getClassDef(factory.createName("paqueteA.ClaseA")); //$NON-NLS-1$
+		ClassDef classSource = jm.getClassDef(factory.createName(TestAddParameter.PAQUETE_A_CLASE_A)); //$NON-NLS-1$
 		ClassDef classDest = jm.getClassDef(factory.createName("paqueteA.ClaseB")); //$NON-NLS-1$
 
 		List <MethDec> lMetodo = classSource.getMethDecByName(factory.createName("metodoA")); //$NON-NLS-1$
@@ -253,7 +253,7 @@ public class TestMoveMethod extends RefactoringTemplateAbstractTest {
 		JavaModel jm = JavaModel.getInstance();
 		MoonFactory factory = jm.getMoonFactory();
 
-		ClassDef classSource = jm.getClassDef(factory.createName("paqueteA.ClaseA")); //$NON-NLS-1$
+		ClassDef classSource = jm.getClassDef(factory.createName(TestAddParameter.PAQUETE_A_CLASE_A)); //$NON-NLS-1$
 		ClassDef classDest = jm.getClassDef(factory.createName("paqueteA.ClaseB")); //$NON-NLS-1$
 
 		List <MethDec> lMetodo = classSource.getMethDecByName(factory.createName("metodoA")); //$NON-NLS-1$
@@ -280,7 +280,7 @@ public class TestMoveMethod extends RefactoringTemplateAbstractTest {
 		JavaModel jm = JavaModel.getInstance();
 		MoonFactory factory = jm.getMoonFactory();
 
-		ClassDef classSource = jm.getClassDef(factory.createName("paqueteA.ClaseA")); //$NON-NLS-1$
+		ClassDef classSource = jm.getClassDef(factory.createName(TestAddParameter.PAQUETE_A_CLASE_A)); //$NON-NLS-1$
 		ClassDef classDest = jm.getClassDef(factory.createName("paqueteA.ClaseB")); //$NON-NLS-1$
 
 		List <MethDec> lMetodo = classSource.getMethDecByName(factory.createName("metodoA")); //$NON-NLS-1$
@@ -308,7 +308,7 @@ public class TestMoveMethod extends RefactoringTemplateAbstractTest {
 		JavaModel jm = JavaModel.getInstance();
 		MoonFactory factory = jm.getMoonFactory();
 
-		ClassDef classSource = jm.getClassDef(factory.createName("paqueteA.ClaseA")); //$NON-NLS-1$
+		ClassDef classSource = jm.getClassDef(factory.createName(TestAddParameter.PAQUETE_A_CLASE_A)); //$NON-NLS-1$
 		ClassDef classDest = jm.getClassDef(factory.createName("paqueteA.ClaseB")); //$NON-NLS-1$
 
 		List <MethDec> lMetodo = classSource.getMethDecByName(factory.createName("metodo1")); //$NON-NLS-1$
