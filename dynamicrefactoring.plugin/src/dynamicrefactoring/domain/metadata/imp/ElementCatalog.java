@@ -266,6 +266,7 @@ public final class ElementCatalog<K extends Element> implements
 		for (Category c : filteredClassifiedElements.keySet()) {
 			allElements.addAll(filteredClassifiedElements.get(c));
 		}
+		
 		return allElements;
 	}
 
@@ -290,5 +291,19 @@ public final class ElementCatalog<K extends Element> implements
 	@Override
 	public boolean isEmptyFilter() {
 		return filter.isEmpty();
+	}
+
+	/**
+	 * Determina si existen elementos filtrados.
+	 * 
+	 * @return devuelve verdadero si exiten elementos filtrados, falso en caso contrario.
+	 */
+	@Override
+	public boolean hasFilteredElements() {
+		Set<K> allFilteredElements = new HashSet<K>();
+		for (Category c : filteredClassifiedElements.keySet()) {
+			allFilteredElements.addAll(filteredClassifiedElements.get(c));
+		}
+		return !allFilteredElements.isEmpty();
 	}
 }

@@ -39,6 +39,13 @@ public interface ClassifiedFilterableCatalog<K> {
 	boolean isEmptyFilter();
 	
 	/**
+	 * Determina si existen elementos filtrados.
+	 * 
+	 * @return devuelve verdadero si exiten elementos filtrados, falso en caso contrario.
+	 */
+	boolean hasFilteredElements();
+	
+	/**
 	 * Devuelve el conjunto de los elementos que contiene el catalogo
 	 * clasificado por categorias, sin los elementos filtrados.
 	 */

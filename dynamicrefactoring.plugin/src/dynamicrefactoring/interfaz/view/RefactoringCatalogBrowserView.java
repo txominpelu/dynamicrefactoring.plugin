@@ -660,6 +660,8 @@ public class RefactoringCatalogBrowserView extends ViewPart {
 	 */
 	private void showTree(String classificationName) {
 
+		refactoringsTree.setVisible(false);
+		
 		RefactoringTreeManager.cleanTree(refactoringsTree);
 
 		ClassifiedElements<DynamicRefactoringDefinition> classifiedElements = 
@@ -697,7 +699,7 @@ public class RefactoringCatalogBrowserView extends ViewPart {
 		}
 		
 		orderInBranchCat = 0;
-		if(filteredButton.getSelection()){
+		if(filteredButton.getSelection() && catalog.hasFilteredElements()){
 			filTreeItem = TreeEditor.createBranch(refactoringsTree,
 					orderInBranchClass,FILTERED, 
 					RefactoringImages.FIL_ICON_PATH);
@@ -712,7 +714,7 @@ public class RefactoringCatalogBrowserView extends ViewPart {
 				dRefactDef=new ArrayList<DynamicRefactoringDefinition>(
 						filteredClassifiedElements.getCategoryChildren(c));
 				Collections.sort(dRefactDef);
-			
+				catTreeItem = filTreeItem;
 				if ( !(classificationName.equals(NONE_CLASSIFICATION.getName()) && 
 						c.equals(Category.NONE_CATEGORY))
 						&& dRefactDef.size()>0){
@@ -720,15 +722,16 @@ public class RefactoringCatalogBrowserView extends ViewPart {
 							orderInBranchCat, c.getName(),
 							RefactoringImages.CAT_ICON_PATH); 
 					orderInBranchCat++;
+					catTreeItem.setForeground(Display.getCurrent().getSystemColor(SWT.COLOR_DARK_GRAY));
 				}
-				filTreeItem.setForeground(
-						Display.getCurrent().getSystemColor(SWT.COLOR_DARK_GRAY));
-				createTreeItemFromParent(dRefactDef, filTreeItem, true);
+				createTreeItemFromParent(dRefactDef, catTreeItem, true);
 			}		
-				
+			filTreeItem.setForeground(Display.getCurrent().getSystemColor(SWT.COLOR_DARK_GRAY));
 		}
 
 		classTreeItem.setExpanded(true);
+		
+		refactoringsTree.setVisible(true);
 	}
 
 	/**
