@@ -13,5 +13,5 @@ ExtractClass=Fowler.MovingFeatures,Scope.Class,Extract
 #None
 EncapsulateField=Scope.Attribute,Encapsulate
 -
-#Filtered
+@Filtered
 -

@@ -25,7 +25,6 @@ public class ElementCatalogWithMultiCategoryElementTest {
 	public static final String INICIAL_FILTRADO_POR_EXTRACT = "./testdata/ElementCatalogTests/multicategoryelements/filtradoporExtract.txt";
 	public static final String INICIAL_FILTRADO_POR_DUPLICATEDCODE = "./testdata/ElementCatalogTests/multicategoryelements/filtradoporDuplicatedCode.txt";
 	
-
 	@Before
 	public void setUp() throws Exception {
 		Set<Element> refactorings = MetadataDomainTestUtils

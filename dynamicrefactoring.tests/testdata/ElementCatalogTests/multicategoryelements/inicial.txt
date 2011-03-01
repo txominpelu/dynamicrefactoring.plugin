@@ -14,5 +14,5 @@ ExtractClass=BadSmells.LargeClass,BadSmells.DuplicatedCode,Extract
 #None
 InlineClass=Inline,Otra
 -
-#Filtered
+@Filtered
 -

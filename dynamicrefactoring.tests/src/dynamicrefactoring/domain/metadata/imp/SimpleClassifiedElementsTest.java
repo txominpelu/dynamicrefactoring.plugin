@@ -10,13 +10,11 @@ import org.junit.Before;
 import org.junit.Test;
 
 import dynamicrefactoring.domain.metadata.interfaces.Category;
-import dynamicrefactoring.domain.metadata.interfaces.Classification;
 import dynamicrefactoring.domain.metadata.interfaces.ClassifiedElements;
 import dynamicrefactoring.domain.metadata.interfaces.Element;
 
 public class SimpleClassifiedElementsTest {
 
-	private Classification classification;
 	/**
 	 * Elementos clasificados leidos de un fichero.
 	 */
@@ -36,23 +34,22 @@ public class SimpleClassifiedElementsTest {
 
 	@Before
 	public void setUp() throws Exception {
-		Set<Element> refactorings = MetadataDomainTestUtils
-				.readRefactoringsFromFile(MetadataDomainTestUtils.TESTDATA_ENTRADASINFILTRAR_FILE);
 		ClassifiedElements<Element>[] ce=MetadataDomainTestUtils
 				.readClassifiedElements(MetadataDomainTestUtils.TESTDATA_ENTRADASINFILTRAR_FILE);
 		classifiedElements = ce[0];
 		filteredClassifiedElements = ce[1];
-		assertEquals(classifiedElements.getClassification(),filteredClassifiedElements.getClassification());
-		classification = classifiedElements.getClassification();
 
 		Map<Category, Set<Element>> map = new HashMap<Category, Set<Element>>();
-		Map<Category, Set<Element>> filteredMap = new HashMap<Category, Set<Element>>();
 		for (Category c : classifiedElements.getClassification().getCategories()) {
 			map.put(c, classifiedElements.getCategoryChildren(c));
-			map.put(c, filteredClassifiedElements.getCategoryChildren(c));
 		}
 		copiaClassifiedElements = new SimpleClassifiedElements<Element>(new SimpleUniLevelClassification(
 				classifiedElements.getClassification().getName(),ElementCatalogTest.MI_CLASSIFICATION_DESCRIPTION,map.keySet()), map);
+		
+		Map<Category, Set<Element>> filteredMap = new HashMap<Category, Set<Element>>();
+		for (Category c : filteredClassifiedElements.getClassification().getCategories()) {;
+			filteredMap.put(c, filteredClassifiedElements.getCategoryChildren(c));
+		}
 		copiaFilteredClassifiedElements = new SimpleClassifiedElements<Element>(new SimpleUniLevelClassification(
 				filteredClassifiedElements.getClassification().getName(),ElementCatalogTest.MI_CLASSIFICATION_DESCRIPTION,filteredMap.keySet()), filteredMap);
 	}

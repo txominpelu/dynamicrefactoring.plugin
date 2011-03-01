@@ -136,9 +136,9 @@ public class ElementCatalogTest {
 		final ClassifiedElements<Element> expected = catalog
 				.getClassificationOfElements();
 		final ClassifiedElements<Element> expectedFiltered = catalog
-		.getClassificationOfElements();
+				.getClassificationOfFilteredElements();
 		catalog.addConditionToFilter(CATEGORY_CONDITION_EXTRACT);
-		catalog.removeAllFilterConditions();
+		catalog=(ElementCatalog<Element>) catalog.removeAllFilterConditions();
 		assertEquals(expected, catalog.getClassificationOfElements());
 		assertEquals(expectedFiltered, catalog.getClassificationOfFilteredElements());
 	}

@@ -176,13 +176,16 @@ public final class ElementCatalog<K extends Element> implements
 
 	@Override
 	public void removeConditionFromFilter(Predicate<K> conditionToRemove) {	
+		//comprobamos si cada uno sigue estando filtrado con el filtro resultante
+		//de haber eliminado la condicion que se va a eliminar
+		filter.remove(conditionToRemove);
 		for (Entry<Category, Set<K>> entry : filteredClassifiedElements.entrySet()) {
 			Collection<K> toUnFilter = new HashSet<K>(Collections2.filter(
-					entry.getValue(), Predicates.not(conditionToRemove)));
+					entry.getValue(), getPredicateForAllConditions()));
 			filteredClassifiedElements.get(entry.getKey()).removeAll(toUnFilter);
 			classifiedElements.get(entry.getKey()).addAll(toUnFilter);
 		}
-		filter.remove(conditionToRemove);
+		
 
 	}
 

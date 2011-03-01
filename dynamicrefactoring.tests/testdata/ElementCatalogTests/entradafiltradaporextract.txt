@@ -9,9 +9,14 @@ ExtractClass=Fowler.MovingFeatures,Scope.Class,Extract
 -
 #None
 -
-#Filtered
+@Filtered
+#Fowler.MovingFeatures
 MoveMethod=Fowler.MovingFeatures,Scope.MethodMove,Move
 MoveField=Fowler.MovingFeatures,Scope.AttributeMove,Move
+-
+#Fowler.ComposingMethods
 InlineMethod=Fowler.ComposingMethods,Scope.Method,Inline
+-
+#None
 EncapsulateField=Scope.Attribute,Encapsulate
 -
