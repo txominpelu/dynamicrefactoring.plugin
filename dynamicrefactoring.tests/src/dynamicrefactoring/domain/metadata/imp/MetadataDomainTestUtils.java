@@ -20,29 +20,52 @@ import dynamicrefactoring.domain.metadata.interfaces.Element;
 
 class MetadataDomainTestUtils {
 	
+	public static final String TESTDATA_ENTRADASINFILTRAR_FILE = "./testdata/ElementCatalogTests/entradasinfiltrar.txt";
 	public static final String FOWLER_CLASSIFICATION_NAME = "Fowler";
+	public static final String FILTERED="@Filtered";
 	
-	public static ClassifiedElements<Element> readClassifiedElements(String file)
+	public static ClassifiedElements<Element>[] readClassifiedElements(String file)
 			throws IOException {
+		
+		ClassifiedElements<Element>[] toReturn=new SimpleClassifiedElements[2];
+		
 		Map<Category, Set<Element>> classifiedElements = new HashMap<Category, Set<Element>>();
+		Map<Category, Set<Element>> filteredClassifiedElements = new HashMap<Category, Set<Element>>();
+		
 		// Get the object of DataInputStream
 		DataInputStream in = new DataInputStream(new FileInputStream(file));
 		BufferedReader br = new BufferedReader(new InputStreamReader(in));
+		
 		// Read File Line By Line
-
 		String classificationName = br.readLine().replaceAll("#", "");
 		String strLine = "";
-		while (( strLine = br.readLine()) != null) {
+		Category c=null;
+		while (( strLine = br.readLine()) != null && !strLine.equals(FILTERED)) {
 			String nextCategoryName = strLine.replaceAll("#", "");
-			classifiedElements.put(new Category(getCategoryParent(strLine),
-					getCategoryName(nextCategoryName)),
-					readNextCategoryElements(br));
-
+			c=new Category(getCategoryParent(strLine),
+					getCategoryName(nextCategoryName));
+			classifiedElements.put(c, new HashSet<Element>());
+			filteredClassifiedElements.put(c, new HashSet<Element>());
+			classifiedElements.get(c).addAll(readNextCategoryElements(br));
 		}
+		if(strLine!=null && strLine.equals(FILTERED)){
+			while (( strLine = br.readLine()) != null && !strLine.startsWith("-")) {
+				String nextCategoryName = strLine.replaceAll("#", "");
+				c=new Category(getCategoryParent(strLine),
+						getCategoryName(nextCategoryName));
+				filteredClassifiedElements.get(c).addAll(readNextCategoryElements(br));
+			}
+		}
+		
+		toReturn[0]=new SimpleClassifiedElements<Element>(new SimpleUniLevelClassification(classificationName, ElementCatalogTest.MI_CLASSIFICATION_DESCRIPTION, classifiedElements.keySet()),
+				classifiedElements);
+		toReturn[1]=new SimpleClassifiedElements<Element>(new SimpleUniLevelClassification(classificationName, ElementCatalogTest.MI_CLASSIFICATION_DESCRIPTION, filteredClassifiedElements.keySet()),
+				filteredClassifiedElements);
+			
 		// Close the input stream
 		in.close();
-		return new SimpleClassifiedElements<Element>(new SimpleUniLevelClassification(classificationName, ElementCatalogTest.MI_CLASSIFICATION_DESCRIPTION, classifiedElements.keySet()),
-				classifiedElements);
+		
+		return toReturn;
 
 	}
 
@@ -121,7 +144,7 @@ class MetadataDomainTestUtils {
 		BufferedReader br = new BufferedReader(new InputStreamReader(in));
 		String strLine;
 		while ((strLine = br.readLine()) != null) {
-			if (!strLine.startsWith("#") && !strLine.startsWith("-")) {
+			if (!strLine.startsWith("#") && !strLine.startsWith("-") && !strLine.startsWith("@")) {
 				allElements.add(createRefDefinitionFromLine(strLine));
 			}
 		}
@@ -145,15 +168,11 @@ class MetadataDomainTestUtils {
 			throws IOException {
 		String strLine;
 		Set<Element> toAddToNextCategory = new HashSet<Element>();
-		while ((strLine = br.readLine()) != null && !strLine.startsWith("-")) {
+		while ((strLine = br.readLine()) != null && !strLine.startsWith("-") ) {
 			toAddToNextCategory.add(MetadataDomainTestUtils
 					.createRefDefinitionFromLine(strLine));
 		}
 		return toAddToNextCategory;
 	}
-
-
-
-	public static final String TESTDATA_ENTRADASINFILTRAR_FILE = "./testdata/ElementCatalogTests/entradasinfiltrar.txt";
 
 }

@@ -1,5 +1,6 @@
 package dynamicrefactoring.domain.metadata.interfaces;
 
+import java.util.Map;
 import java.util.Set;
 
 /**
@@ -33,4 +34,5 @@ public interface ClassifiedElements<K> {
 	 */
 	Classification getClassification();
 
+	Map<Category, Set<K>> getClassifiedElements();
 }

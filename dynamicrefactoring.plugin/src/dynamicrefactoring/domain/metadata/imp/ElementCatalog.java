@@ -36,6 +36,11 @@ public final class ElementCatalog<K extends Element> implements
 	 * Elementos clasificados.
 	 */
 	private Map<Category, Set<K>> classifiedElements;
+	
+	/**
+	 * Elementos clasificados filtrados.
+	 */
+	private Map<Category, Set<K>> filteredClassifiedElements;
 
 	/**
 	 * Clasificacion que divide por categorias los elementos.
@@ -84,9 +89,10 @@ public final class ElementCatalog<K extends Element> implements
 		this.filter = new ArrayList<Predicate<K>>();
 		this.classification = classification;
 		initializeClassifiedElements(classification.getCategories());
+		initializeFilteredClassifiedElements(classification.getCategories());
 		classify(allElements);
-		for (Predicate<K> condition : filterConditionList) {
-			this.addConditionToFilter(condition);
+		for(Predicate<K> condition : filterConditionList) {
+			addConditionToFilter(condition);
 		}
 	}
 
@@ -113,14 +119,22 @@ public final class ElementCatalog<K extends Element> implements
 
 	private void initializeClassifiedElements(
 			Set<Category> classificationCategories) {
-		this.classifiedElements = new HashMap<Category, Set<K>>();
-		for (Category c : classificationCategories) {
+		classifiedElements = new HashMap<Category, Set<K>>();
+		for(Category c : classificationCategories) {
 			classifiedElements.put(c, new HashSet<K>());
 		}
 		classifiedElements.put(Category.NONE_CATEGORY, new HashSet<K>());
-		classifiedElements.put(Category.FILTERED_CATEGORY, new HashSet<K>());
 	}
 
+	private void initializeFilteredClassifiedElements(
+			Set<Category> classificationCategories) {
+		filteredClassifiedElements = new HashMap<Category, Set<K>>();
+		for(Category c : classificationCategories) {
+			filteredClassifiedElements.put(c, new HashSet<K>());
+		}
+		filteredClassifiedElements.put(Category.NONE_CATEGORY, new HashSet<K>());
+	}
+	
 	/**
 	 * Clasifica los elementos pasados dentro de las categorias definidas en el
 	 * catalogo.
@@ -142,16 +156,13 @@ public final class ElementCatalog<K extends Element> implements
 
 	@Override
 	public void addConditionToFilter(Predicate<K> condition) {
-		for (Entry<Category, Set<K>> entry : this.classifiedElements.entrySet()) {
-			if (!entry.getKey().equals(Category.FILTERED_CATEGORY)) {
+		for (Entry<Category, Set<K>> entry : classifiedElements.entrySet()) {
 				Collection<K> toFilter = new HashSet<K>(Collections2.filter(
 						entry.getValue(), Predicates.not(condition)));
-				entry.getValue().removeAll(toFilter);
-				classifiedElements.get(Category.FILTERED_CATEGORY).addAll(
-						toFilter);
-			}
+				classifiedElements.get(entry.getKey()).removeAll(toFilter);
+				filteredClassifiedElements.get(entry.getKey()).addAll(toFilter);
 		}
-		this.filter.add(condition);
+		filter.add(condition);
 	}
 
 	/**
@@ -164,20 +175,17 @@ public final class ElementCatalog<K extends Element> implements
 	}
 
 	@Override
-	public void removeConditionFromFilter(Predicate<K> conditionToRemove) {
-		this.filter.remove(conditionToRemove);
-		Collection<K> filter = ImmutableList.copyOf(Collections2.filter(
-				classifiedElements.get(Category.FILTERED_CATEGORY),
-				Predicates.not(getPredicateForAllConditions())));
-
-		Collection<K> toUnfilter = ImmutableList.copyOf(Collections2.filter(
-				classifiedElements.get(Category.FILTERED_CATEGORY),
-				getPredicateForAllConditions()));
-
-		classifiedElements.put(Category.FILTERED_CATEGORY, new HashSet<K>(
-				filter));
-
-		classify(toUnfilter);
+	public void removeConditionFromFilter(Predicate<K> conditionToRemove) {	
+		//comprobamos si cada uno sigue estando filtrado con el filtro resultante
+		//de haber eliminado la condicion que se va a eliminar
+		filter.remove(conditionToRemove);
+		for (Entry<Category, Set<K>> entry : filteredClassifiedElements.entrySet()) {
+			Collection<K> toUnFilter = new HashSet<K>(Collections2.filter(
+					entry.getValue(), getPredicateForAllConditions()));
+			filteredClassifiedElements.get(entry.getKey()).removeAll(toUnFilter);
+			classifiedElements.get(entry.getKey()).addAll(toUnFilter);
+		}
+		
 
 	}
 
@@ -194,8 +202,7 @@ public final class ElementCatalog<K extends Element> implements
 	}
 
 	@Override
-	public ClassifiedElements<K> getClassificationOfElements(
-			boolean showFiltered) {
+	public ClassifiedElements<K> getClassificationOfElements() {
 		HashMap<Category, Set<K>> toReturn = new HashMap<Category, Set<K>>();
 
 		// Hacemos copias defensivas de los sets
@@ -204,19 +211,31 @@ public final class ElementCatalog<K extends Element> implements
 					ImmutableSet.copyOf(classifiedElements.get(category)));
 		}
 		
-		if (!showFiltered) {
-			toReturn.remove(Category.FILTERED_CATEGORY);
-		}
-		
 		return new SimpleClassifiedElements<K>(
-				new SimpleUniLevelClassification(this.classification.getName(),
-						this.classification.getDescription(), toReturn.keySet()),
+				new SimpleUniLevelClassification(classification.getName(),
+						classification.getDescription(), toReturn.keySet()),
 				toReturn);
 	}
 
 	@Override
+	public ClassifiedElements<K> getClassificationOfFilteredElements() {
+		HashMap<Category, Set<K>> toReturn = new HashMap<Category, Set<K>>();
+
+		// Hacemos copias defensivas de los sets
+		for (Category category : filteredClassifiedElements.keySet()) {
+			toReturn.put(category,
+					ImmutableSet.copyOf(filteredClassifiedElements.get(category)));
+		}
+		
+		return new SimpleClassifiedElements<K>(
+				new SimpleUniLevelClassification(classification.getName(),
+						classification.getDescription(), toReturn.keySet()),
+				toReturn);
+	}
+	
+	@Override
 	public List<Predicate<K>> getAllFilterConditions() {
-		return new ArrayList<Predicate<K>>(this.filter);
+		return new ArrayList<Predicate<K>>(filter);
 	}
 
 	/**
@@ -235,7 +254,7 @@ public final class ElementCatalog<K extends Element> implements
 	}
 
 	/**
-	 * Obtiene todos los elementos del catalogo. Util para los tests.
+	 * Obtiene todos los elementos del catalogo. 
 	 * 
 	 * @return todos los elementos contenidos en el catalogo.
 	 */
@@ -244,6 +263,10 @@ public final class ElementCatalog<K extends Element> implements
 		for (Category c : classifiedElements.keySet()) {
 			allElements.addAll(classifiedElements.get(c));
 		}
+		for (Category c : filteredClassifiedElements.keySet()) {
+			allElements.addAll(filteredClassifiedElements.get(c));
+		}
+		
 		return allElements;
 	}
 
@@ -268,5 +291,19 @@ public final class ElementCatalog<K extends Element> implements
 	@Override
 	public boolean isEmptyFilter() {
 		return filter.isEmpty();
+	}
+
+	/**
+	 * Determina si existen elementos filtrados.
+	 * 
+	 * @return devuelve verdadero si exiten elementos filtrados, falso en caso contrario.
+	 */
+	@Override
+	public boolean hasFilteredElements() {
+		Set<K> allFilteredElements = new HashSet<K>();
+		for (Category c : filteredClassifiedElements.keySet()) {
+			allFilteredElements.addAll(filteredClassifiedElements.get(c));
+		}
+		return !allFilteredElements.isEmpty();
 	}
 }

@@ -11,8 +11,11 @@ ExtractClass=BadSmells.LargeClass,BadSmells.DuplicatedCode,Extract
 -
 #None
 -
-#Filtered
+@Filtered
+#None
 InlineClass=Inline,Otra
+-
+#BadSmells.Comments
 IntroduceAssertion=BadSmells.Comments,Introduce
 ExtractParameter=BadSmells.Comments,Extract
 -

@@ -5,7 +5,6 @@ import static org.junit.Assert.assertTrue;
 
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Set;
 
@@ -16,7 +15,6 @@ import com.google.common.base.Predicate;
 
 import dynamicrefactoring.domain.metadata.condition.CategoryCondition;
 import dynamicrefactoring.domain.metadata.interfaces.Category;
-import dynamicrefactoring.domain.metadata.interfaces.Classification;
 import dynamicrefactoring.domain.metadata.interfaces.ClassifiedElements;
 import dynamicrefactoring.domain.metadata.interfaces.Element;
 
@@ -24,9 +22,8 @@ public class ElementCatalogTest {
 
 	public static final String MI_CLASSIFICATION_DESCRIPTION = "Midescripcion";
 	private static final Category CATEGORY_MOVE = new Category("", "Move");
-	public static final CategoryCondition<Element> CATEGORY_CONDITION_EXTRACT = new CategoryCondition<Element>(
-					"", "Extract");
-	private ClassifiedElements<Element> classifiedElements;
+	public static final CategoryCondition<Element> CATEGORY_CONDITION_EXTRACT = new CategoryCondition<Element>("", "Extract");
+	private Set<Category> categories;
 	private Set<Element> refactorings;
 	private ElementCatalog<Element> catalog;
 
@@ -36,46 +33,31 @@ public class ElementCatalogTest {
 	public void setUp() throws Exception {
 		refactorings = MetadataDomainTestUtils
 				.readRefactoringsFromFile(MetadataDomainTestUtils.TESTDATA_ENTRADASINFILTRAR_FILE);
-		classifiedElements = MetadataDomainTestUtils
-				.readClassifiedElements(MetadataDomainTestUtils.TESTDATA_ENTRADASINFILTRAR_FILE);
+		categories=MetadataDomainTestUtils
+				.readClassifiedElements(MetadataDomainTestUtils.TESTDATA_ENTRADASINFILTRAR_FILE)[0].getClassification().getCategories();
 		catalog = new ElementCatalog<Element>(refactorings,
 				new SimpleUniLevelClassification(
 						MetadataDomainTestUtils.FOWLER_CLASSIFICATION_NAME,MI_CLASSIFICATION_DESCRIPTION,
-						classifiedElements.getClassification().getCategories()));
+						categories));
 	}
 
 	@Test
 	public void filteringForExtractTest() throws IOException {
-		final ClassifiedElements<Element> expected = MetadataDomainTestUtils
+		final ClassifiedElements<Element> expected[] = MetadataDomainTestUtils
 				.readClassifiedElements(ElementCatalogTest.TESTDATA_ENTRADA_FILTRADA_POR_EXTRACT);
 		catalog.addConditionToFilter(CATEGORY_CONDITION_EXTRACT);
-		assertEquals(expected, catalog.getClassificationOfElements(true));
-	}
-	
-	@Test
-	public void filteringForExtractAndGetWithoutFilteredTest() throws IOException {
-		final ClassifiedElements<Element> withFiltered = MetadataDomainTestUtils
-				.readClassifiedElements(ElementCatalogTest.TESTDATA_ENTRADA_FILTRADA_POR_EXTRACT);
-		// Eliminamos la categoria filtered de los elementos clasificados
-		HashMap<Category, Set<Element>> expected = new HashMap<Category,Set<Element>>();
-		for(Category c : withFiltered.getClassification().getCategories()){
-			if(! c.equals(Category.FILTERED_CATEGORY)){
-				expected.put(c, withFiltered.getCategoryChildren(c));
-			}
-		}
-		Classification clasif = new SimpleUniLevelClassification(withFiltered.getClassification().getName(), withFiltered.getClassification().getDescription(), expected.keySet());
-		
-		catalog.addConditionToFilter(CATEGORY_CONDITION_EXTRACT);
-		assertEquals(new SimpleClassifiedElements<Element>(clasif, expected), catalog.getClassificationOfElements(false));
+		assertEquals(expected[0], catalog.getClassificationOfElements());
+		assertEquals(expected[1], catalog.getClassificationOfFilteredElements());
 	}
 
 	@Test
 	public void filteringForExtractTestAndUnfilter() {
-		final ClassifiedElements<Element> expected = catalog
-				.getClassificationOfElements(true);
+		final ClassifiedElements<Element> expected = catalog.getClassificationOfElements();
+		final ClassifiedElements<Element> expectedFiltered = catalog.getClassificationOfFilteredElements();
 		catalog.addConditionToFilter(CATEGORY_CONDITION_EXTRACT);
 		catalog.removeConditionFromFilter(CATEGORY_CONDITION_EXTRACT);
-		assertEquals(expected, catalog.getClassificationOfElements(true));
+		assertEquals(expected, catalog.getClassificationOfElements());
+		assertEquals(expectedFiltered, catalog.getClassificationOfFilteredElements());
 	}
 
 	@Test
@@ -95,15 +77,18 @@ public class ElementCatalogTest {
 	@Test
 	public void removeConditionWhenTwoApplyToFilteredTests() {
 		CategoryCondition<Element> conditionExtract = CATEGORY_CONDITION_EXTRACT;
-		CategoryCondition<Element> conditionMove = new CategoryCondition<Element>(
-				"", "Move");
+		CategoryCondition<Element> conditionMove = new CategoryCondition<Element>("", "Move");
 		catalog.addConditionToFilter(conditionExtract);
-		Set<Element> expected = catalog.getClassificationOfElements(true)
-				.getCategoryChildren(CATEGORY_MOVE);
+		Set<Element> expected = 
+			catalog.getClassificationOfElements().getCategoryChildren(CATEGORY_MOVE);
+		Set<Element> expectedFiltered = 
+			catalog.getClassificationOfFilteredElements().getCategoryChildren(CATEGORY_MOVE);
 		catalog.addConditionToFilter(conditionMove);
 		catalog.removeConditionFromFilter(conditionMove);
-		assertEquals(expected, catalog.getClassificationOfElements(true)
-				.getCategoryChildren(CATEGORY_MOVE));
+		assertEquals(expected, 
+				catalog.getClassificationOfElements().getCategoryChildren(CATEGORY_MOVE));
+		assertEquals(expectedFiltered, 
+				catalog.getClassificationOfFilteredElements().getCategoryChildren(CATEGORY_MOVE));
 	}
 
 	@Test
@@ -123,8 +108,7 @@ public class ElementCatalogTest {
 		ElementCatalog<Element> copia = (ElementCatalog<Element>) catalog
 				.newInstance(MetadataDomainTestUtils.getOtherClassification());
 		assertEquals(catalog.getAllElements(), copia.getAllElements());
-		assertEquals(catalog.getAllFilterConditions(),
-				copia.getAllFilterConditions());
+		assertEquals(catalog.getAllFilterConditions(),copia.getAllFilterConditions());
 		assertEquals(MetadataDomainTestUtils.getOtherClassification(),
 				copia.getClassification());
 
@@ -139,20 +123,24 @@ public class ElementCatalogTest {
 				refactorings,
 				new SimpleUniLevelClassification(
 						MetadataDomainTestUtils.FOWLER_CLASSIFICATION_NAME,MI_CLASSIFICATION_DESCRIPTION,
-						classifiedElements.getClassification().getCategories()),
+						categories),
 				filterConditions);
-		final ClassifiedElements<Element> expected = MetadataDomainTestUtils
+		final ClassifiedElements<Element> expected[] = MetadataDomainTestUtils
 				.readClassifiedElements(ElementCatalogTest.TESTDATA_ENTRADA_FILTRADA_POR_EXTRACT);
-		assertEquals(expected, otroCatalogo.getClassificationOfElements(true));
+		assertEquals(expected[0], otroCatalogo.getClassificationOfElements());
+		assertEquals(expected[1], otroCatalogo.getClassificationOfFilteredElements());
 	}
 
 	@Test
 	public void removeAllFilterConditionsTest() {
 		final ClassifiedElements<Element> expected = catalog
-				.getClassificationOfElements(true);
+				.getClassificationOfElements();
+		final ClassifiedElements<Element> expectedFiltered = catalog
+				.getClassificationOfFilteredElements();
 		catalog.addConditionToFilter(CATEGORY_CONDITION_EXTRACT);
-		assertEquals(expected, catalog.removeAllFilterConditions()
-				.getClassificationOfElements(true));
+		catalog=(ElementCatalog<Element>) catalog.removeAllFilterConditions();
+		assertEquals(expected, catalog.getClassificationOfElements());
+		assertEquals(expectedFiltered, catalog.getClassificationOfFilteredElements());
 	}
 
 }
