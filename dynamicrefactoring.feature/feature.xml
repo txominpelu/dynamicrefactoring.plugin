@@ -2,7 +2,7 @@
 <feature
       id="dynamicrefactoring.feature"
       label="dynamicrefactoring.feature"
-      version="3.0.2"
+      version="3.0.3"
       plugin="dynamicrefactoring.plugin">
 
    <description>

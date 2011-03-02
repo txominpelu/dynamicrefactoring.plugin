@@ -8,7 +8,7 @@
   <packaging>pom</packaging>
 
   <properties>
-	<app-version>3.0.2</app-version>
+	<app-version>3.0.3</app-version>
 	<tycho-version>0.10.0</tycho-version>
 	<jacoco.agent.path>lib/jacocoagent.jar</jacoco.agent.path>
 	<jacoco.file.path>../cobertura/jacoco.exec</jacoco.file.path>
