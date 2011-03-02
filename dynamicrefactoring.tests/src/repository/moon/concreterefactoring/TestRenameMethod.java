@@ -59,6 +59,7 @@ import repository.moon.MOONRefactoring;
  */
 public class TestRenameMethod extends RefactoringTemplateAbstractTest {
 
+	private static final String METODO1 = "metodo1";
 	private static final String NUEVO_METODO = "nuevoMetodo";
 
 	/**
@@ -84,7 +85,7 @@ public class TestRenameMethod extends RefactoringTemplateAbstractTest {
 		MoonFactory factory = jm.getMoonFactory();
 
 		ClassDef classDef = jm.getClassDef(jm.getMoonFactory().createName(TestAddParameter.PAQUETE_A_CLASE_A)); //$NON-NLS-1$
-		List <MethDec> lMetodo = classDef.getMethDecByName(factory.createName("metodo1")); //$NON-NLS-1$
+		List <MethDec> lMetodo = classDef.getMethDecByName(factory.createName(METODO1)); //$NON-NLS-1$
 		MethDec metodo = lMetodo.get(0);
 		Name name = factory.createName(NUEVO_METODO); //$NON-NLS-1$
 
@@ -102,7 +103,7 @@ public class TestRenameMethod extends RefactoringTemplateAbstractTest {
 		renombrado.run();				
 
 		// Comienzan las comprobaciones.
-		List <MethDec> lMetodo2 = classDef.getMethDecByName(factory.createName("metodo1")); //$NON-NLS-1$
+		List <MethDec> lMetodo2 = classDef.getMethDecByName(factory.createName(METODO1)); //$NON-NLS-1$
 		assertTrue("Test renombrar m�todo simple: todav�a existe el " + //$NON-NLS-1$
 				"m�todo con el nombre anterior.", lMetodo2.isEmpty()); //$NON-NLS-1$
 
@@ -134,7 +135,7 @@ public class TestRenameMethod extends RefactoringTemplateAbstractTest {
 		MoonFactory factory = jm.getMoonFactory();	
 
 		ClassDef classDef = jm.getClassDef(factory.createName(TestAddParameter.PAQUETE_A_CLASE_A)); //$NON-NLS-1$
-		List <MethDec> lMetodo = classDef.getMethDecByName(factory.createName("metodo1")); //$NON-NLS-1$
+		List <MethDec> lMetodo = classDef.getMethDecByName(factory.createName(METODO1)); //$NON-NLS-1$
 		MethDec metodo = lMetodo.get(0);
 		Name name = factory.createName(NUEVO_METODO); //$NON-NLS-1$
 
@@ -152,7 +153,7 @@ public class TestRenameMethod extends RefactoringTemplateAbstractTest {
 		renombrado.run();	
 
 		// Comienzan las comprobaciones.
-		List <MethDec> lMetodo2 = classDef.getMethDecByName(factory.createName("metodo1")); //$NON-NLS-1$
+		List <MethDec> lMetodo2 = classDef.getMethDecByName(factory.createName(METODO1)); //$NON-NLS-1$
 		assertTrue("Test renombrar m�todo con herencia: todav�a existe el " + //$NON-NLS-1$
 				"m�todo con el nombre anterior.", lMetodo2.isEmpty()); //$NON-NLS-1$
 
@@ -161,7 +162,7 @@ public class TestRenameMethod extends RefactoringTemplateAbstractTest {
 			" con el nuevo nombre.", lMetodo3.isEmpty()); //$NON-NLS-1$
 
 		ClassDef classDef2 = jm.getClassDef(factory.createName("paqueteA.ClaseB")); //$NON-NLS-1$
-		List <MethDec> lMetodo4 = classDef2.getMethDecByName(factory.createName("metodo1")); //$NON-NLS-1$
+		List <MethDec> lMetodo4 = classDef2.getMethDecByName(factory.createName(METODO1)); //$NON-NLS-1$
 		assertTrue("Test renombrar m�todo con herencia: Todav�a existe el " + //$NON-NLS-1$
 				"m�todo con el nombre anterior.", lMetodo4.isEmpty()); //$NON-NLS-1$
 
@@ -188,7 +189,7 @@ public class TestRenameMethod extends RefactoringTemplateAbstractTest {
 		MoonFactory factory = jm.getMoonFactory();	
 
 		ClassDef classDef = jm.getClassDef(factory.createName(TestAddParameter.PAQUETE_A_CLASE_A)); //$NON-NLS-1$
-		List <MethDec> lMetodo = classDef.getMethDecByName(factory.createName("metodo1")); //$NON-NLS-1$
+		List <MethDec> lMetodo = classDef.getMethDecByName(factory.createName(METODO1)); //$NON-NLS-1$
 		MethDec metodo = lMetodo.get(0);
 		Name name = factory.createName(NUEVO_METODO); //$NON-NLS-1$
 
@@ -206,7 +207,7 @@ public class TestRenameMethod extends RefactoringTemplateAbstractTest {
 		renombrado.run();	
 
 		// Comienzan las comprobaciones.
-		List <MethDec> lMetodo2 = classDef.getMethDecByName(factory.createName("metodo1")); //$NON-NLS-1$
+		List <MethDec> lMetodo2 = classDef.getMethDecByName(factory.createName(METODO1)); //$NON-NLS-1$
 		assertTrue("Test renombrar m�todo con contenidos: todav�a existe el " + //$NON-NLS-1$
 				"m�todo con el nombre anterior.", lMetodo2.isEmpty()); //$NON-NLS-1$
 
@@ -344,7 +345,7 @@ public class TestRenameMethod extends RefactoringTemplateAbstractTest {
 		MoonFactory factory = jm.getMoonFactory();		
 
 		ClassDef classDef = jm.getClassDef(factory.createName(TestAddParameter.PAQUETE_A_CLASE_A)); //$NON-NLS-1$
-		List <MethDec> lMetodo = classDef.getMethDecByName(factory.createName("metodo1")); //$NON-NLS-1$
+		List <MethDec> lMetodo = classDef.getMethDecByName(factory.createName(METODO1)); //$NON-NLS-1$
 		MethDec metodo = lMetodo.get(0);
 		Name name = factory.createName(NUEVO_METODO); //$NON-NLS-1$
 
@@ -363,7 +364,7 @@ public class TestRenameMethod extends RefactoringTemplateAbstractTest {
 		renombrado.undoActions();
 
 		// Comienzan las comprobaciones.
-		List <MethDec> lMetodo2 = classDef.getMethDecByName(factory.createName("metodo1")); //$NON-NLS-1$
+		List <MethDec> lMetodo2 = classDef.getMethDecByName(factory.createName(METODO1)); //$NON-NLS-1$
 		assertFalse("Test deshacer renombrado de m�todo simple: " + //$NON-NLS-1$
 				"no se ha recuperado el m�todo antiguo", lMetodo2.isEmpty()); //$NON-NLS-1$
 
@@ -390,7 +391,7 @@ public class TestRenameMethod extends RefactoringTemplateAbstractTest {
 		MoonFactory factory = jm.getMoonFactory();
 
 		ClassDef classDef = jm.getClassDef(factory.createName(TestAddParameter.PAQUETE_A_CLASE_A)); //$NON-NLS-1$
-		MethDec metodo = classDef.getMethDecByName(factory.createName("metodo1")).get(0); //$NON-NLS-1$
+		MethDec metodo = classDef.getMethDecByName(factory.createName(METODO1)).get(0); //$NON-NLS-1$
 		Name name = factory.createName("renombrado"); //$NON-NLS-1$
 
 		int parameterTypesFirstIndex = metodo.getUniqueName().toString().indexOf('%');
@@ -408,7 +409,7 @@ public class TestRenameMethod extends RefactoringTemplateAbstractTest {
 		renombrado.undoActions();
 
 		// Comienzan las comprobaciones.
-		List <MethDec> lMetodo2 = classDef.getMethDecByName(factory.createName("metodo1")); //$NON-NLS-1$
+		List <MethDec> lMetodo2 = classDef.getMethDecByName(factory.createName(METODO1)); //$NON-NLS-1$
 		assertFalse("Deshacer renombrado de m�todo con herencia: " + //$NON-NLS-1$
 				"no existe el m�todo con el nombre original.",
 				lMetodo2.isEmpty()); //$NON-NLS-1$
@@ -419,7 +420,7 @@ public class TestRenameMethod extends RefactoringTemplateAbstractTest {
 
 		ClassDef classDef2 = jm.getClassDef(factory.createName("paqueteA.ClaseB")); //$NON-NLS-1$
 
-		List <MethDec> lMetodo4 = classDef2.getMethDecByName(factory.createName("metodo1")); //$NON-NLS-1$
+		List <MethDec> lMetodo4 = classDef2.getMethDecByName(factory.createName(METODO1)); //$NON-NLS-1$
 		assertFalse("Deshacer renombrado de m�todo con herencia: " + //$NON-NLS-1$
 				"no existe el m�todo con el nombre original.",
 				lMetodo4.isEmpty()); //$NON-NLS-1$

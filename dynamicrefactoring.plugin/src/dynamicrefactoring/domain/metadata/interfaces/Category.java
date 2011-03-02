@@ -57,7 +57,7 @@ public final class Category implements Comparable<Category> {
 	/**
 	 * Obtiene la clasificacion padre
 	 * a la que esta categoria pertenece.
-	 * @return
+	 * @return nombre del padre de la categoria
 	 */
 	public String getParent() {
 		return parent;

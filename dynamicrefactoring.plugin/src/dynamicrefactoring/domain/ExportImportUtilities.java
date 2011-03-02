@@ -121,7 +121,7 @@ public class ExportImportUtilities {
 	 *            Cadena a dividir
 	 * @param delim
 	 *            Token para hacer la division
-	 * @return
+	 * @return devuelve la ultima de las particiones
 	 */
 	public static String splitGetLast(String cadena, String delim) {
 		String name = ""; //$NON-NLS-1$

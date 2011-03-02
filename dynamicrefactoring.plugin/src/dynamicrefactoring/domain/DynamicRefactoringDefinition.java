@@ -27,7 +27,6 @@ import java.util.Arrays;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 
 import com.google.common.base.Function;
@@ -508,7 +507,8 @@ public class DynamicRefactoringDefinition implements Element,
 					 * anteriormente.
 					 * 
 					 * @param arg0
-					 * @return
+					 * @return el scope de las categorias obtenidas
+					 * anteriormente
 					 */
 					@Override
 					public Scope apply(Category arg0) {

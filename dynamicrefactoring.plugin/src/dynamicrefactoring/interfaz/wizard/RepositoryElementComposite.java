@@ -60,6 +60,7 @@ import org.eclipse.swt.widgets.Text;
 
 import dynamicrefactoring.RefactoringConstants;
 import dynamicrefactoring.RefactoringImages;
+import dynamicrefactoring.RefactoringPlugin;
 import dynamicrefactoring.domain.DynamicRefactoringDefinition;
 import dynamicrefactoring.interfaz.dynamic.RepositoryElementProcessor;
 import dynamicrefactoring.interfaz.wizard.listener.ListDownListener;
@@ -1176,8 +1177,8 @@ public class RepositoryElementComposite {
 					+ l_Available.getItem(l_Available.getSelectionIndex()).toString().replace('.', '/') + ".html";
 			
 			try{
-				if(new File(path).exists())
-					navegador.setUrl(FileLocator.toFileURL(getClass().getResource(path)) + "#skip-navbar_top");
+				if(new File(FileLocator.toFileURL(RefactoringPlugin.getDefault().getBundle().getEntry(path)).getFile()).exists())
+					navegador.setUrl(FileLocator.toFileURL(RefactoringPlugin.getDefault().getBundle().getEntry(path)) + "#skip-navbar_top");
 				else
 					navegador.setUrl(FileLocator.toFileURL(getClass().getResource(RefactoringConstants.REFACTORING_JAVADOC + "/moon/notFound.html" )).toString());
 			}catch(IOException excp){

@@ -29,7 +29,7 @@ public interface ClassifiedElements<K> {
 	 * Obtiene la clasificacion que defina la estructura de los elementos
 	 * clasificados.
 	 * 
-	 * @return
+	 * @return Clasificacion por la que estos elementos estan organizados
 	 */
 	Classification getClassification();
 

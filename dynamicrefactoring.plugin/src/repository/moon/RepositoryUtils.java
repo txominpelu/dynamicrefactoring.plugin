@@ -23,7 +23,7 @@ public class RepositoryUtils {
 	 *            call expresion
 	 * @param method
 	 *            method
-	 * @return
+	 * @return true si es una llamada a un metodo falso en caso contrario
 	 */
 	public static boolean isCallToVoidMethod(CallExpr callexpr, MethDec method) {
 		if (callexpr.getFirstElement() instanceof JavaFunctionResult) {

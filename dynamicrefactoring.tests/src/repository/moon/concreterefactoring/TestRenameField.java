@@ -46,6 +46,8 @@ import repository.moon.MOONRefactoring;
  */
 public class TestRenameField extends RefactoringTemplateAbstractTest{
 	
+	private static final String ANONYMOUS = "<anonymous>";
+	private static final String PAQUETE_A = "paqueteA";
 	/**
 	 * Comprueba la correcta ejecuci�n de la refactorizaci�n RenameField sobre
 	 * una clase sencilla con un constructor, un atributo.
@@ -54,7 +56,7 @@ public class TestRenameField extends RefactoringTemplateAbstractTest{
 	 */
 	@Test
 	public void testSimpleTest() throws Exception{
-		check("simpleTest","<anonymous>");				
+		check("simpleTest",ANONYMOUS);				
 	}
 	
 	/**
@@ -65,7 +67,7 @@ public class TestRenameField extends RefactoringTemplateAbstractTest{
 	 */
 	@Test
 	public void testAssignmentOnTheLeftInTheClass() throws Exception{
-		check("assignmentOnTheLeftInTheClass","<anonymous>");				
+		check("assignmentOnTheLeftInTheClass",ANONYMOUS);				
 	}
 	
 	/**
@@ -76,7 +78,7 @@ public class TestRenameField extends RefactoringTemplateAbstractTest{
 	 */
 	@Test
 	public void testAssignmentOnTheRightInTheClass() throws Exception{
-		check("assignmentOnTheRightInTheClass","<anonymous>");				
+		check("assignmentOnTheRightInTheClass",ANONYMOUS);				
 	}
 	
 	/**
@@ -88,7 +90,7 @@ public class TestRenameField extends RefactoringTemplateAbstractTest{
 	 */
 	@Test
 	public void testMethodParameterInTheClass() throws Exception{
-		check("methodParameterInTheClass","paqueteA");				
+		check("methodParameterInTheClass",PAQUETE_A);				
 	}
 	
 	/**
@@ -100,7 +102,7 @@ public class TestRenameField extends RefactoringTemplateAbstractTest{
 	 */
 	@Test
 	public void testReturnTypeInClass() throws Exception{
-		check("returnTypeInClass","paqueteA");				
+		check("returnTypeInClass",PAQUETE_A);				
 	}
 	
 	/**
@@ -112,7 +114,7 @@ public class TestRenameField extends RefactoringTemplateAbstractTest{
 	 */
 	@Test
 	public void testAssignmentOnTheLeftInOtherClass() throws Exception{
-		check("assignmentOnTheLeftInOtherClass","paqueteA");				
+		check("assignmentOnTheLeftInOtherClass",PAQUETE_A);				
 	}
 	
 	/**
@@ -124,7 +126,7 @@ public class TestRenameField extends RefactoringTemplateAbstractTest{
 	 */
 	@Test
 	public void testAssignmentOnTheRightInOtherClass() throws Exception{
-		check("assignmentOnTheRightInOtherClass","paqueteA");				
+		check("assignmentOnTheRightInOtherClass",PAQUETE_A);				
 	}
 	
 	/**
@@ -136,7 +138,7 @@ public class TestRenameField extends RefactoringTemplateAbstractTest{
 	 */
 	@Test
 	public void testReturnTypeInOtherClass() throws Exception{
-		check("returnTypeInOtherClass","paqueteA");				
+		check("returnTypeInOtherClass",PAQUETE_A);				
 	}
 	
 	/**
@@ -147,7 +149,7 @@ public class TestRenameField extends RefactoringTemplateAbstractTest{
 	 */
 	@Test
 	public void testSubclassUsingAttribute() throws Exception{
-		check("subclassUsingAttribute","paqueteA");				
+		check("subclassUsingAttribute",PAQUETE_A);				
 	}
 	/**
 	 * Comprueba la correcta ejecuci�n de la refactorizaci�n RenameField sobre una clase que
@@ -158,7 +160,7 @@ public class TestRenameField extends RefactoringTemplateAbstractTest{
 	 */
 	@Test
 	public void testMethodParameterInOtherClass() throws Exception{
-		check("methodParameterInOtherClass","paqueteA");				
+		check("methodParameterInOtherClass",PAQUETE_A);				
 	}
 	
 	/**
@@ -171,7 +173,7 @@ public class TestRenameField extends RefactoringTemplateAbstractTest{
 	 */ 
 	@Test(expected=PreconditionException.class)
 	public void testAttributeWithTheSameName() throws Exception{
-		check("attributeWithTheSameName","<anonymous>");				
+		check("attributeWithTheSameName",ANONYMOUS);				
 	}
 	
 	
@@ -216,7 +218,7 @@ public class TestRenameField extends RefactoringTemplateAbstractTest{
 			String source = Regenerate.regenerate("C.java");
 			String target = EclipsePrettyPrinter.formatCompilationUnit(source);
 
-			if (paquete.equals("<anonymous>")){
+			if (paquete.equals(ANONYMOUS)){
 				this.compare(target, "testdata" + File.separator
 						+ this.getClass().getName().replace(".", File.separator) 
 						+ File.separator + dir + File.separator + "after" +File.separator + "C.java");
@@ -233,7 +235,7 @@ public class TestRenameField extends RefactoringTemplateAbstractTest{
 		String target = EclipsePrettyPrinter.formatCompilationUnit(source);
 
 		//Compare the two "files", must be equals...
-		if (paquete.equals("<anonymous>")){
+		if (paquete.equals(ANONYMOUS)){
 			this.compare(target, "testdata" + File.separator
 					+ this.getClass().getName().replace(".", File.separator) 
 					+ File.separator + dir + File.separator + "after" +File.separator + "B.java");
@@ -285,7 +287,7 @@ public class TestRenameField extends RefactoringTemplateAbstractTest{
 			String source = Regenerate.regenerate("C.java");
 			String target = EclipsePrettyPrinter.formatCompilationUnit(source);
 			
-			if (paquete.equals("<anonymous>")){
+			if (paquete.equals(ANONYMOUS)){
 				this.compare(target, "testdata" + File.separator
 						+ this.getClass().getName().replace(".", File.separator) 
 						+ File.separator + dir + File.separator + "before" +File.separator + "C.java");
@@ -302,7 +304,7 @@ public class TestRenameField extends RefactoringTemplateAbstractTest{
 		String target = EclipsePrettyPrinter.formatCompilationUnit(source);
 
 		//Compare the two "files", must be equals...
-		if (paquete.equals("<anonymous>")){
+		if (paquete.equals(ANONYMOUS)){
 			this.compare(target, "testdata" + File.separator
 					+ this.getClass().getName().replace(".", File.separator) 
 					+ File.separator + dir + File.separator + "before" +File.separator + "B.java");
@@ -323,7 +325,7 @@ public class TestRenameField extends RefactoringTemplateAbstractTest{
 	 */
 	@Test
 	public void testUndoSimpleTest() throws Exception{
-		undo("simpleTest","<anonymous>");				
+		undo("simpleTest",ANONYMOUS);				
 	}
 	
 	/**
@@ -334,7 +336,7 @@ public class TestRenameField extends RefactoringTemplateAbstractTest{
 	 */
 	@Test
 	public void testUndoAssignmentOnTheLeftInTheClass() throws Exception{
-		undo("assignmentOnTheLeftInTheClass","<anonymous>");				
+		undo("assignmentOnTheLeftInTheClass",ANONYMOUS);				
 	}
 	
 	/**
@@ -345,7 +347,7 @@ public class TestRenameField extends RefactoringTemplateAbstractTest{
 	 */
 	@Test
 	public void testUndoAssignmentOnTheRightInTheClass() throws Exception{
-		undo("assignmentOnTheRightInTheClass","<anonymous>");				
+		undo("assignmentOnTheRightInTheClass",ANONYMOUS);				
 	}
 	
 	/**
@@ -357,7 +359,7 @@ public class TestRenameField extends RefactoringTemplateAbstractTest{
 	 */
 	@Test
 	public void testUndoMethodParameterInTheClass() throws Exception{
-		undo("methodParameterInTheClass","paqueteA");				
+		undo("methodParameterInTheClass",PAQUETE_A);				
 	}
 	
 	/**
@@ -369,7 +371,7 @@ public class TestRenameField extends RefactoringTemplateAbstractTest{
 	 */
 	@Test
 	public void testUndoReturnTypeInClass() throws Exception{
-		undo("returnTypeInClass","paqueteA");				
+		undo("returnTypeInClass",PAQUETE_A);				
 	}
 	
 	/**
@@ -380,7 +382,7 @@ public class TestRenameField extends RefactoringTemplateAbstractTest{
 	 */
 	@Test
 	public void testUndoAssignmentOnTheLeftInOtherClass() throws Exception{
-		undo("assignmentOnTheLeftInOtherClass","paqueteA");				
+		undo("assignmentOnTheLeftInOtherClass",PAQUETE_A);				
 	}
 	
 	/**
@@ -391,7 +393,7 @@ public class TestRenameField extends RefactoringTemplateAbstractTest{
 	 */
 	@Test
 	public void testUndoAssignmentOnTheRightInOtherClass() throws Exception{
-		undo("assignmentOnTheRightInOtherClass","paqueteA");				
+		undo("assignmentOnTheRightInOtherClass",PAQUETE_A);				
 	}
 	
 	/**
@@ -402,7 +404,7 @@ public class TestRenameField extends RefactoringTemplateAbstractTest{
 	 */
 	@Test
 	public void testUndoReturnTypeInOtherClass() throws Exception{
-		undo("returnTypeInOtherClass","paqueteA");				
+		undo("returnTypeInOtherClass",PAQUETE_A);				
 	}
 	
 	/**
@@ -413,7 +415,7 @@ public class TestRenameField extends RefactoringTemplateAbstractTest{
 	 */
 	@Test
 	public void testUndoSubclassUsingAttribute() throws Exception{
-		undo("subclassUsingAttribute","paqueteA");				
+		undo("subclassUsingAttribute",PAQUETE_A);				
 	}
 	/**
 	 * Comprueba que la refactorizaci�n se deshace de forma correcta sobre una clase que
@@ -423,7 +425,7 @@ public class TestRenameField extends RefactoringTemplateAbstractTest{
 	 */
 	@Test
 	public void testUndoMethodParameterInOtherClass() throws Exception{
-		undo("methodParameterInOtherClass","paqueteA");				
+		undo("methodParameterInOtherClass",PAQUETE_A);				
 	}
 
 }

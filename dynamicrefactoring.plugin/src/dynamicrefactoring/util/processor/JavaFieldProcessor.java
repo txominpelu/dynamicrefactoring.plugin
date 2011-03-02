@@ -21,10 +21,13 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.*/
 package dynamicrefactoring.util.processor;
 
 import org.eclipse.jdt.core.IField;
+import org.eclipse.jdt.core.JavaModelException;
+
+import com.google.common.base.Throwables;
 
 /**
  * Proporciona funciones que permiten manejar un atributo de un tipo Java tal 
- * y como lo define Eclipse en su representación interna.
+ * y como lo define Eclipse en su representaciï¿½n interna.
  * 
  * @author <A HREF="mailto:sfd0009@alu.ubu.es">Sonia Fuente de la Fuente</A>
  * @author <A HREF="mailto:ehp0001@alu.ubu.es">Enrique Herrero Paredes</A>
@@ -47,20 +50,19 @@ public class JavaFieldProcessor extends JavaElementProcessor {
 	}
 	
 	/**
-	 * Obtiene el nombre único del atributo según la convención de nomenclatura
-	 * única utilizada en el modelo MOON.
+	 * Obtiene el nombre ï¿½nico del atributo segï¿½n la convenciï¿½n de nomenclatura
+	 * ï¿½nica utilizada en el modelo MOON.
 	 * 
-	 * @return el nombre único del atributo según la convención de nomenclatura
-	 * única utilizada en el modelo MOON.
+	 * @return el nombre ï¿½nico del atributo segï¿½n la convenciï¿½n de nomenclatura
+	 * ï¿½nica utilizada en el modelo MOON.
+	 * @throws JavaModelException 
 	 */
 	@Override
-	public String getUniqueName(){
-		String uniqueName = ""; //$NON-NLS-1$
-		
-		uniqueName += 
-			new JavaClassProcessor(field.getDeclaringType()).getUniqueName();
-		uniqueName += "#" + field.getElementName(); //$NON-NLS-1$
-		
-		return uniqueName;
+	public final String getUniqueName() {
+		try {
+			return new JavaClassProcessor(field.getDeclaringType()).getUniqueName() + "#" + field.getElementName() + ":" + field.getConstant();
+		} catch (JavaModelException e) {
+			throw Throwables.propagate(e);
+		}
 	}
 }

@@ -202,6 +202,9 @@ public class RefactoringConstants {
 	 */
 	public static final String ITERATOR_PATH = "java.util.Iterator"; //$NON-NLS-1$
 
+	/**
+	 * Ruta al fichero de clasificaciones.
+	 */
 	public static final String CLASSIFICATION_TYPES_FILE = RefactoringPlugin.getDefault().getStateLocation().toOSString() +
 			File.separator + "Classification" + File.separator + "classifications.xml";
 

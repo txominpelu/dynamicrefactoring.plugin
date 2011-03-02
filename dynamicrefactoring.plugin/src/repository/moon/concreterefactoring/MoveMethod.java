@@ -37,17 +37,17 @@ import repository.moon.concretepredicate.NotExistsMethodInClass;
 import repository.moon.concretepredicate.NotExistsMethodWithNameInClass;
 
 /**
- * Permite mover un m�todo de una clase de un modelo a otra clase del modelo.<p>
+ * Permite mover un metodo de una clase de un modelo a otra clase del modelo.<p>
  *
- * Comprueba que existan ambas clases en el modelo y que no sean iguales, as� 
- * como que el m�todo pertenezca a la clase seleccionada como clase de origen y 
- * no est� ya en la clase de destino. No se podr� mover el m�todo tampoco si se
+ * Comprueba que existan ambas clases en el modelo y que no sean iguales, asi 
+ * como que el metodo pertenezca a la clase seleccionada como clase de origen y 
+ * no esta ya en la clase de destino. No se podra amover el metodo tampoco si se
  * trata de un constructor o si existen llamadas al mismo en alguna clase del 
  * modelo.<p>
  *
- * Si las comprobaciones no fallan, se lleva a cabo la refactorizaci�n.<p>
+ * Si las comprobaciones no fallan, se lleva a cabo la refactorizacion.<p>
  *
- * Finalmente, comprueba que el proceso se ha llevado a cabo con �xito.
+ * Finalmente, comprueba que el proceso se ha llevado a cabo con exito.
  *
  * @author <A HREF="mailto:ehp0001@alu.ubu.es">Enrique Herrero Paredes</A>
  * @author <A HREF="mailto:alc0022@alu.ubu.es">�ngel L�pez Campo</A>
@@ -64,9 +64,9 @@ public class MoveMethod extends MOONRefactoring {
 	 * Constructor.<p>
 	 *
 	 * Obtiene una nueva instancia de MoveMethod.
-	 * @param classDefDest la clase a la que se intentar� mover el m�todo.
-	 * @param method el m�todo que se desea mover.
-	 * @param model el modelo que contiene el m�todo que se desea mover.
+	 * @param classDefDest la clase a la que se intentara mover el metodo.
+	 * @param method el metodo que se desea mover.
+	 * @param model el modelo que contiene el metodo que se desea mover.
 	 */
 	public MoveMethod(ClassDef classDefDest, MethDec method, Model model) {
 		

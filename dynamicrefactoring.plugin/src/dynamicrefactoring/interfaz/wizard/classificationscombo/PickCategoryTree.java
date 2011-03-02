@@ -20,6 +20,10 @@ import dynamicrefactoring.RefactoringImages;
 import dynamicrefactoring.domain.metadata.interfaces.Category;
 import dynamicrefactoring.domain.metadata.interfaces.Classification;
 
+/**
+ * Árbol para escoger las categorias a las que pertenece una
+ * refactorizacion
+ **/
 public final class PickCategoryTree {
 
 	private final CheckboxTreeViewer tv;
@@ -39,8 +43,6 @@ public final class PickCategoryTree {
 	 *            refactorizacion sobre la que se va a crear el arbol. Si la
 	 *            refactorizacion ya pertenece a alguna categoria esas
 	 *            apareceran marcadas en el arbol
-	 * @return arbol para escoger las categorias a las que pertenece una
-	 *         refactorizacion
 	 */
 	public PickCategoryTree(Composite parent,
 			Set<Classification> availableClassifications,
@@ -64,8 +66,6 @@ public final class PickCategoryTree {
 	 *            apareceran marcadas en el arbol
 	 * @param checkStateListener
 	 *            gestionara los eventos del arbol
-	 * @return arbol para escoger las categorias a las que pertenece una
-	 *         refactorizacion
 	 */
 	public PickCategoryTree(Composite parent,
 			Set<Classification> availableClassifications,

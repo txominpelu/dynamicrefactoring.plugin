@@ -55,7 +55,7 @@ public class ExtractMethodWithGenericsTest extends RefactoringTemplateAbstractTe
 	/**
 	 * Extract method using unknown type.
 	 * 
-	 * @throws Exception.
+	 * @throws Exception
 	 */
 	@Test
 	public void testExtractMethodUsingUnknownType() throws Exception {
@@ -69,7 +69,7 @@ public class ExtractMethodWithGenericsTest extends RefactoringTemplateAbstractTe
 	 * Extract method with type inference from declarations.
 	 * 
 	 * @throws Exception
-	 *             si se produce un error durante la ejecución de la prueba.
+	 *             si se produce un error durante la ejecuciï¿½n de la prueba.
 	 */
 	@Test
 	public void testExtractMethodWithTypeInferenceFromDeclarations()
@@ -82,7 +82,7 @@ public class ExtractMethodWithGenericsTest extends RefactoringTemplateAbstractTe
 	 * Extract method with simple bound in method formal parameter.
 	 * 
 	 * @throws Exception
-	 *             si se produce un error durante la ejecución de la prueba.
+	 *             si se produce un error durante la ejecuciï¿½n de la prueba.
 	 */
 	@Test
 	public void testExtractMethodWithSimpleBoundInMethodFormalParameter()
@@ -117,7 +117,7 @@ public class ExtractMethodWithGenericsTest extends RefactoringTemplateAbstractTe
 	/**
 	 * Extract method with class formal parameter.
 	 * 
-	 * @throws Exception.
+	 * @throws Exception
 	 */
 	@Test
 	public void testExtractMethodWithClassFormalParameter() throws Exception {
@@ -150,16 +150,16 @@ public class ExtractMethodWithGenericsTest extends RefactoringTemplateAbstractTe
 	}
 
 	/**
-	 * Ejecuta la refactorización sobre un caso determinado.
+	 * Ejecuta la refactorizaciï¿½n sobre un caso determinado.
 	 * 
 	 * @param dir
 	 *            directorio sobre el que se encuentra el caso a probar.
 	 * @param paquete
 	 *            paquete java de la clase sobre la que se esta probando la
-	 *            refactorización.
+	 *            refactorizaciï¿½n.
 	 * @throws Exception
-	 *             Excepción en caso de haber algún problema durante la
-	 *             ejecución de la refactorización.
+	 *             Excepciï¿½n en caso de haber algï¿½n problema durante la
+	 *             ejecuciï¿½n de la refactorizaciï¿½n.
 	 */
 	private void check(String dir, String paquete, String nombreClase, Fragmento fragmento) throws PreconditionException,Exception{
 		SourceLoader sourceLoader = new SourceLoader();
@@ -203,7 +203,7 @@ public class ExtractMethodWithGenericsTest extends RefactoringTemplateAbstractTe
 	 * Extract method with bounded unknown type with formal parameter.
 	 * 
 	 * @throws Exception
-	 *             si se produce un error durante la ejecución de la prueba.
+	 *             si se produce un error durante la ejecuciï¿½n de la prueba.
 	 */
 	@Test
 	public void testExtractMethodWithBoundedUnknownTypeWithFormalParameter() throws Exception{

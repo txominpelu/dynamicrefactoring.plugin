@@ -1106,8 +1106,9 @@ public class RefactoringWizardPage2 extends WizardPage {
 			}
 
 			try{
-				if(new File(path).exists()) {
-					navegador.setUrl(FileLocator.toFileURL(RefactoringPlugin.getDefault().getBundle().getEntry(path)) + "#skip-navbar_top");
+				
+				if(new File(FileLocator.toFileURL(RefactoringPlugin.getDefault().getBundle().getEntry(path)).getFile()).exists()) {
+					navegador.setUrl( FileLocator.toFileURL(RefactoringPlugin.getDefault().getBundle().getEntry(path)) + "#skip-navbar_top");
 				}else {
 					navegador.setUrl(FileLocator.toFileURL(RefactoringPlugin.getDefault().getBundle().getEntry(RefactoringConstants.REFACTORING_JAVADOC + "/moon/notFound.html" )).toString());
 				}

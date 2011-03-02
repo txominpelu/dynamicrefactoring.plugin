@@ -111,17 +111,17 @@ public class TestMoveMethod extends RefactoringTemplateAbstractTest {
 		ClassDef source = jm.getClassDef(factory.createName("paquete.Clase"));			 //$NON-NLS-1$
 		ClassDef destination = jm.getClassDef(factory.createName("paquete.Destino")); //$NON-NLS-1$
 
-		MethDec method = source.getMethDecByName(factory.createName("metodoA")).get(0); //$NON-NLS-1$
+		MethDec method = source.getMethDecByName(factory.createName(TestRemoveParameter.METODO_A)).get(0); //$NON-NLS-1$
 		
 		MOONRefactoring moving = new MoveMethod(destination, method, jm);			
 		moving.run();
 
 		// Comienzan las comprobaciones
-		List<MethDec> old = source.getMethDecByName(factory.createName("metodoA")); //$NON-NLS-1$
+		List<MethDec> old = source.getMethDecByName(factory.createName(TestRemoveParameter.METODO_A)); //$NON-NLS-1$
 		assertTrue("Test mover m�todo con argumentos: no se ha eliminado el " + //$NON-NLS-1$
 			"m�todo en la clase origen.", old.isEmpty()); //$NON-NLS-1$
 
-		List <MethDec> now = destination.getMethDecByName(factory.createName("metodoA")); //$NON-NLS-1$
+		List <MethDec> now = destination.getMethDecByName(factory.createName(TestRemoveParameter.METODO_A)); //$NON-NLS-1$
 		assertEquals("Test mover m�todo con argumentos: no se ha a�adido el " + //$NON-NLS-1$
 			"m�todo en la clase destino.", 1, now.size()); //$NON-NLS-1$
 	}
@@ -227,7 +227,7 @@ public class TestMoveMethod extends RefactoringTemplateAbstractTest {
 		ClassDef classSource = jm.getClassDef(factory.createName(TestAddParameter.PAQUETE_A_CLASE_A)); //$NON-NLS-1$
 		ClassDef classDest = jm.getClassDef(factory.createName("paqueteA.ClaseB")); //$NON-NLS-1$
 
-		List <MethDec> lMetodo = classSource.getMethDecByName(factory.createName("metodoA")); //$NON-NLS-1$
+		List <MethDec> lMetodo = classSource.getMethDecByName(factory.createName(TestRemoveParameter.METODO_A)); //$NON-NLS-1$
 		MethDec metodo = lMetodo.get(0);
 
 		MOONRefactoring movido = new MoveMethod(classDest, metodo, jm);			
@@ -256,7 +256,7 @@ public class TestMoveMethod extends RefactoringTemplateAbstractTest {
 		ClassDef classSource = jm.getClassDef(factory.createName(TestAddParameter.PAQUETE_A_CLASE_A)); //$NON-NLS-1$
 		ClassDef classDest = jm.getClassDef(factory.createName("paqueteA.ClaseB")); //$NON-NLS-1$
 
-		List <MethDec> lMetodo = classSource.getMethDecByName(factory.createName("metodoA")); //$NON-NLS-1$
+		List <MethDec> lMetodo = classSource.getMethDecByName(factory.createName(TestRemoveParameter.METODO_A)); //$NON-NLS-1$
 		MethDec metodo = lMetodo.get(0);
 
 		MOONRefactoring movido = new MoveMethod(classDest, metodo, jm);
@@ -283,7 +283,7 @@ public class TestMoveMethod extends RefactoringTemplateAbstractTest {
 		ClassDef classSource = jm.getClassDef(factory.createName(TestAddParameter.PAQUETE_A_CLASE_A)); //$NON-NLS-1$
 		ClassDef classDest = jm.getClassDef(factory.createName("paqueteA.ClaseB")); //$NON-NLS-1$
 
-		List <MethDec> lMetodo = classSource.getMethDecByName(factory.createName("metodoA")); //$NON-NLS-1$
+		List <MethDec> lMetodo = classSource.getMethDecByName(factory.createName(TestRemoveParameter.METODO_A)); //$NON-NLS-1$
 		MethDec metodo = lMetodo.get(0);
 
 		MOONRefactoring movido = new MoveMethod(classDest, metodo, jm);			

@@ -79,7 +79,7 @@ public class TestAddParameter extends RefactoringTemplateAbstractTest {
 		MoonFactory factory = jm.getMoonFactory();
 
 		ClassDef classDef = jm.getClassDef(factory.createName(PAQUETE_A_CLASE_A)); //$NON-NLS-1$
-		List<MethDec> lMetodo = classDef.getMethDecByName(factory.createName("metodoA")); //$NON-NLS-1$
+		List<MethDec> lMetodo = classDef.getMethDecByName(factory.createName(TestRemoveParameter.METODO_A)); //$NON-NLS-1$
 		MethDec metodo = lMetodo.get(0);
 
 		Name name = factory.createName("ParameterA"); //$NON-NLS-1$
@@ -90,7 +90,7 @@ public class TestAddParameter extends RefactoringTemplateAbstractTest {
 		adition.run();
 
 		// Comienzan las comprobaciones
-		List <MethDec> lMetodo2 = classDef.getMethDecByName(factory.createName("metodoA")); //$NON-NLS-1$
+		List <MethDec> lMetodo2 = classDef.getMethDecByName(factory.createName(TestRemoveParameter.METODO_A)); //$NON-NLS-1$
 
 		assertEquals("Test a�adir par�metro simple: no se encuentra el " + //$NON-NLS-1$
 			"m�todo al que se ha a�adido el par�metro.", 1, lMetodo.size()); //$NON-NLS-1$
@@ -128,7 +128,7 @@ public class TestAddParameter extends RefactoringTemplateAbstractTest {
 		MoonFactory factory = jm.getMoonFactory();
 
 		ClassDef classDef = jm.getClassDef(factory.createName(PAQUETE_A_CLASE_A)); //$NON-NLS-1$
-		List <MethDec> lMetodo = classDef.getMethDecByName(factory.createName("metodoA")); //$NON-NLS-1$
+		List <MethDec> lMetodo = classDef.getMethDecByName(factory.createName(TestRemoveParameter.METODO_A)); //$NON-NLS-1$
 		MethDec metodo = lMetodo.get(0);
 
 		Name name = factory.createName("ParameterB"); //$NON-NLS-1$
@@ -139,7 +139,7 @@ public class TestAddParameter extends RefactoringTemplateAbstractTest {
 		adition.run();			
 
 		// Comienzan las comprobaciones
-		List <MethDec> lMetodo2 = classDef.getMethDecByName(factory.createName("metodoA")); //$NON-NLS-1$
+		List <MethDec> lMetodo2 = classDef.getMethDecByName(factory.createName(TestRemoveParameter.METODO_A)); //$NON-NLS-1$
 
 		assertEquals("Test a�adir argumento String: no se encuentra el " + //$NON-NLS-1$
 			"m�todo al que se ha a�adido el par�metro.", 1, lMetodo.size()); //$NON-NLS-1$
@@ -176,7 +176,7 @@ public class TestAddParameter extends RefactoringTemplateAbstractTest {
 		MoonFactory factory = jm.getMoonFactory();
 		
 		ClassDef classDef = jm.getClassDef(factory.createName(PAQUETE_A_CLASE_A)); //$NON-NLS-1$
-		List <MethDec> lMetodo = classDef.getMethDecByName(factory.createName("metodoA")); //$NON-NLS-1$
+		List <MethDec> lMetodo = classDef.getMethDecByName(factory.createName(TestRemoveParameter.METODO_A)); //$NON-NLS-1$
 		MethDec metodo = lMetodo.get(0);
 
 		Name name = factory.createName("ParameterC"); //$NON-NLS-1$
@@ -187,7 +187,7 @@ public class TestAddParameter extends RefactoringTemplateAbstractTest {
 		adition.run();			
 
 		// Comienzan las comprobaciones
-		List <MethDec> lMetodo2 = classDef.getMethDecByName(factory.createName("metodoA")); //$NON-NLS-1$
+		List <MethDec> lMetodo2 = classDef.getMethDecByName(factory.createName(TestRemoveParameter.METODO_A)); //$NON-NLS-1$
 
 		assertEquals("Test a�adir argumento boolean: no se encuentra el " + //$NON-NLS-1$
 			"m�todo al que se ha a�adido el par�metro.", 1, lMetodo.size()); //$NON-NLS-1$
@@ -222,7 +222,7 @@ public class TestAddParameter extends RefactoringTemplateAbstractTest {
 		MoonFactory factory = jm.getMoonFactory();
 
 		ClassDef classDef = jm.getClassDef(factory.createName(PAQUETE_A_CLASE_A)); //$NON-NLS-1$
-		List <MethDec> lMetodo = classDef.getMethDecByName(factory.createName("metodoA")); //$NON-NLS-1$
+		List <MethDec> lMetodo = classDef.getMethDecByName(factory.createName(TestRemoveParameter.METODO_A)); //$NON-NLS-1$
 		MethDec metodo = lMetodo.get(0);
 
 		Name name = factory.createName("ParameterD"); //$NON-NLS-1$
@@ -233,7 +233,7 @@ public class TestAddParameter extends RefactoringTemplateAbstractTest {
 		adition.run();		
 
 		// Comienzan las comprobaciones
-		List <MethDec> lMetodo2 = classDef.getMethDecByName(factory.createName("metodoA")); //$NON-NLS-1$
+		List <MethDec> lMetodo2 = classDef.getMethDecByName(factory.createName(TestRemoveParameter.METODO_A)); //$NON-NLS-1$
 
 		assertEquals("Test a�adir argumento a m�todo con par�metro: " + //$NON-NLS-1$
 			"no se encuentra el m�todo al que se ha a�adido el par�metro.", 1, //$NON-NLS-1$
@@ -278,7 +278,7 @@ public class TestAddParameter extends RefactoringTemplateAbstractTest {
 		MoonFactory factory = jm.getMoonFactory();
 
 		ClassDef classDef = jm.getClassDef(factory.createName(PAQUETE_A_CLASE_A)); //$NON-NLS-1$
-		List <MethDec> lMetodo = classDef.getMethDecByName(factory.createName("metodoA")); //$NON-NLS-1$
+		List <MethDec> lMetodo = classDef.getMethDecByName(factory.createName(TestRemoveParameter.METODO_A)); //$NON-NLS-1$
 		MethDec metodo = lMetodo.get(0);
 
 		Name name = factory.createName("parametro"); //$NON-NLS-1$
@@ -323,7 +323,7 @@ public class TestAddParameter extends RefactoringTemplateAbstractTest {
 
 		ClassDef classDef = jm.getClassDef(factory.createName("<anonymous>.Clase")); //$NON-NLS-1$
 		List <MethDec> lMetodo = classDef.getMethDecByName(
-			factory.createName("metodoA")); //$NON-NLS-1$
+			factory.createName(TestRemoveParameter.METODO_A)); //$NON-NLS-1$
 		MethDec metodo = lMetodo.get(0);
 
 		Name name = factory.createName("parametro"); //$NON-NLS-1$
@@ -337,13 +337,13 @@ public class TestAddParameter extends RefactoringTemplateAbstractTest {
 		MethDec metodoC = classDef.getMethDecByName(factory.createName("metodoC")).get(0); //$NON-NLS-1$
 		
 		for (Instr instMetodoB : metodoB.getFlattenedInstructions())
-				if (instMetodoB.toString().contains("metodoA")) //$NON-NLS-1$
+				if (instMetodoB.toString().contains(TestRemoveParameter.METODO_A)) //$NON-NLS-1$
 					assertEquals("A�adir par�metro con llamadas complejas: " + //$NON-NLS-1$
 						"no se ha a�adido el par�metro real para el nuevo argumento.", //$NON-NLS-1$
 						"metodoA('0') * 2 / metodoA('0')", instMetodoB.toString()); //$NON-NLS-1$
 		
 		for (Instr instrMetodoC : metodoC.getFlattenedInstructions())
-				if (instrMetodoC.toString().contains("metodoA")) //$NON-NLS-1$
+				if (instrMetodoC.toString().contains(TestRemoveParameter.METODO_A)) //$NON-NLS-1$
 					assertEquals("A�adir par�metro con llamadas complejas: " + //$NON-NLS-1$
 						"no se ha a�adido el par�metro real en el segundo m�todo.", //$NON-NLS-1$
 						"a=metodoA('0').intValue() - metodoB()", instrMetodoC.toString()); //$NON-NLS-1$
@@ -351,13 +351,13 @@ public class TestAddParameter extends RefactoringTemplateAbstractTest {
 		addition.undoActions();
 		
 		for (Instr subi : metodoB.getFlattenedInstructions())
-				if (subi.toString().contains("metodoA")) //$NON-NLS-1$
+				if (subi.toString().contains(TestRemoveParameter.METODO_A)) //$NON-NLS-1$
 					assertEquals("Deshacer a�adir par�metro con llamadas complejas: " + //$NON-NLS-1$
 						"no se ha eliminado el par�metro real para el nuevo argumento.", //$NON-NLS-1$
 						"metodoA() * 2 / metodoA()", subi.toString()); //$NON-NLS-1$
 		
 		for (Instr subi : metodoC.getFlattenedInstructions())
-				if (subi.toString().contains("metodoA")) //$NON-NLS-1$
+				if (subi.toString().contains(TestRemoveParameter.METODO_A)) //$NON-NLS-1$
 					assertEquals("Deshacer a�adir par�metro con llamadas complejas: " + //$NON-NLS-1$
 						"no se ha eliminado el par�metro real en el segundo m�todo.", //$NON-NLS-1$
 						"a=metodoA().intValue() - metodoB()", subi.toString()); //$NON-NLS-1$
@@ -386,7 +386,7 @@ public class TestAddParameter extends RefactoringTemplateAbstractTest {
 		MoonFactory factory = jm.getMoonFactory();
 
 		ClassDef classDef = jm.getClassDef(factory.createName("paqueteA.MediumClass")); //$NON-NLS-1$
-		List <MethDec> lMetodo = classDef.getMethDecByName(factory.createName("metodoA")); //$NON-NLS-1$
+		List <MethDec> lMetodo = classDef.getMethDecByName(factory.createName(TestRemoveParameter.METODO_A)); //$NON-NLS-1$
 		MethDec metodo = lMetodo.get(0);
 
 		Name name = factory.createName("newParanuevoParametro"); //$NON-NLS-1$
@@ -396,7 +396,7 @@ public class TestAddParameter extends RefactoringTemplateAbstractTest {
 		adition.run();	
 		
 		// Comprobaciones en la clase afectada directamente
-		List <MethDec> lMetodo2 = classDef.getMethDecByName(factory.createName("metodoA")); //$NON-NLS-1$
+		List <MethDec> lMetodo2 = classDef.getMethDecByName(factory.createName(TestRemoveParameter.METODO_A)); //$NON-NLS-1$
 		MethDec metodo2 = lMetodo2.get(0);		
 
 		assertFalse("Test a�adir argumento con herencia: sigue existiendo el " + //$NON-NLS-1$
@@ -421,7 +421,7 @@ public class TestAddParameter extends RefactoringTemplateAbstractTest {
 
 		// Comprobaciones en la superclase
 		ClassDef classDefS = jm.getClassDef(factory.createName("paqueteA.SuperType")); //$NON-NLS-1$
-		List <MethDec> lMetodoS = classDefS.getMethDecByName(factory.createName("metodoA")); //$NON-NLS-1$
+		List <MethDec> lMetodoS = classDefS.getMethDecByName(factory.createName(TestRemoveParameter.METODO_A)); //$NON-NLS-1$
 		MethDec metodoS = lMetodoS.get(0);
 
 		assertFalse("Test a�adir argumento con herencia: sigue existiendo el " + //$NON-NLS-1$
@@ -446,7 +446,7 @@ public class TestAddParameter extends RefactoringTemplateAbstractTest {
 						
 		// Comprobaciones en la subclase
 		ClassDef classDefs = jm.getClassDef(factory.createName("paqueteA.SubType")); //$NON-NLS-1$
-		List <MethDec> lMetodos = classDefs.getMethDecByName(factory.createName("metodoA")); //$NON-NLS-1$
+		List <MethDec> lMetodos = classDefs.getMethDecByName(factory.createName(TestRemoveParameter.METODO_A)); //$NON-NLS-1$
 		MethDec metodos = lMetodos.get(0);
 
 		assertFalse("Test a�adir argumento con herencia: sigue existiendo el " + //$NON-NLS-1$
@@ -489,7 +489,7 @@ public class TestAddParameter extends RefactoringTemplateAbstractTest {
 		MoonFactory factory = jm.getMoonFactory();
 
 		ClassDef classDef = jm.getClassDef(factory.createName(PAQUETE_A_CLASE_A)); //$NON-NLS-1$
-		List <MethDec> lMetodo = classDef.getMethDecByName(factory.createName("metodoA")); //$NON-NLS-1$
+		List <MethDec> lMetodo = classDef.getMethDecByName(factory.createName(TestRemoveParameter.METODO_A)); //$NON-NLS-1$
 		MethDec metodo = lMetodo.get(0);
 
 		Name name = factory.createName("a"); //$NON-NLS-1$
@@ -519,7 +519,7 @@ public class TestAddParameter extends RefactoringTemplateAbstractTest {
 		MoonFactory factory = jm.getMoonFactory();
 
 		ClassDef classDef = jm.getClassDef(factory.createName(PAQUETE_A_CLASE_A)); //$NON-NLS-1$
-		List <MethDec> lMetodo = classDef.getMethDecByName(factory.createName("metodoA")); //$NON-NLS-1$
+		List <MethDec> lMetodo = classDef.getMethDecByName(factory.createName(TestRemoveParameter.METODO_A)); //$NON-NLS-1$
 		MethDec metodo = lMetodo.get(0);
 
 		Name name = factory.createName("a"); //$NON-NLS-1$
@@ -548,7 +548,7 @@ public class TestAddParameter extends RefactoringTemplateAbstractTest {
 		MoonFactory factory = jm.getMoonFactory();
 
 		ClassDef classDef = jm.getClassDef(factory.createName("paqueteA.ClaseB")); //$NON-NLS-1$
-		List <MethDec> lMetodo = classDef.getMethDecByName(factory.createName("metodoA")); //$NON-NLS-1$
+		List <MethDec> lMetodo = classDef.getMethDecByName(factory.createName(TestRemoveParameter.METODO_A)); //$NON-NLS-1$
 		MethDec metodo = lMetodo.get(0);
 
 		Name name = factory.createName("a"); //$NON-NLS-1$
@@ -606,7 +606,7 @@ public class TestAddParameter extends RefactoringTemplateAbstractTest {
 		MoonFactory factory = jm.getMoonFactory();
 		
 		ClassDef classDef = jm.getClassDef(factory.createName(PAQUETE_A_CLASE_A)); //$NON-NLS-1$
-		List <MethDec> lMetodo = classDef.getMethDecByName(factory.createName("metodoA")); //$NON-NLS-1$
+		List <MethDec> lMetodo = classDef.getMethDecByName(factory.createName(TestRemoveParameter.METODO_A)); //$NON-NLS-1$
 		MethDec metodo = lMetodo.get(0);
 
 		Name name = factory.createName("a"); //$NON-NLS-1$
@@ -636,7 +636,7 @@ public class TestAddParameter extends RefactoringTemplateAbstractTest {
 		MoonFactory factory = jm.getMoonFactory();
 
 		ClassDef classDef = jm.getClassDef(factory.createName(PAQUETE_A_CLASE_A)); //$NON-NLS-1$
-		List <MethDec> lMetodo = classDef.getMethDecByName(factory.createName("metodoA")); //$NON-NLS-1$
+		List <MethDec> lMetodo = classDef.getMethDecByName(factory.createName(TestRemoveParameter.METODO_A)); //$NON-NLS-1$
 		MethDec metodo = lMetodo.get(0);
 
 		Name name = factory.createName("ParameterA"); //$NON-NLS-1$
@@ -647,7 +647,7 @@ public class TestAddParameter extends RefactoringTemplateAbstractTest {
 		adition.undoActions();
 
 		// Comienzan las comprobaciones
-		List <MethDec> lMetodo2 = classDef.getMethDecByName(factory.createName("metodoA")); //$NON-NLS-1$
+		List <MethDec> lMetodo2 = classDef.getMethDecByName(factory.createName(TestRemoveParameter.METODO_A)); //$NON-NLS-1$
 
 		assertEquals("Test deshacer a�adir argumento simple: " + //$NON-NLS-1$
 			"no se encuentra el m�todo.", 1, lMetodo.size()); //$NON-NLS-1$
@@ -676,7 +676,7 @@ public class TestAddParameter extends RefactoringTemplateAbstractTest {
 		MoonFactory factory = jm.getMoonFactory();
 
 		ClassDef classDef = jm.getClassDef(factory.createName("paqueteA.MediumClass")); //$NON-NLS-1$
-		List <MethDec> lMetodo = classDef.getMethDecByName(factory.createName("metodoA")); //$NON-NLS-1$
+		List <MethDec> lMetodo = classDef.getMethDecByName(factory.createName(TestRemoveParameter.METODO_A)); //$NON-NLS-1$
 		MethDec metodo = lMetodo.get(0);
 
 		Name name = factory.createName("newParanuevoParametro"); //$NON-NLS-1$
@@ -687,7 +687,7 @@ public class TestAddParameter extends RefactoringTemplateAbstractTest {
 		addition.undoActions();
 
 		// Comprobaciones en la clase afectada directamente
-		List <MethDec> lMetodo2 = classDef.getMethDecByName(factory.createName("metodoA")); //$NON-NLS-1$
+		List <MethDec> lMetodo2 = classDef.getMethDecByName(factory.createName(TestRemoveParameter.METODO_A)); //$NON-NLS-1$
 		MethDec metodo2 = lMetodo2.get(0);	
 
 		assertEquals("Test deshacer a�adir argumento con herencia:" + //$NON-NLS-1$
@@ -704,7 +704,7 @@ public class TestAddParameter extends RefactoringTemplateAbstractTest {
 
 		// Comprobaciones en la superclase
 		ClassDef classDefS = jm.getClassDef(factory.createName("paqueteA.SuperType")); //$NON-NLS-1$
-		List <MethDec> lMetodoS = classDefS.getMethDecByName(factory.createName("metodoA")); //$NON-NLS-1$
+		List <MethDec> lMetodoS = classDefS.getMethDecByName(factory.createName(TestRemoveParameter.METODO_A)); //$NON-NLS-1$
 		MethDec metodoS = lMetodoS.get(0);
 
 		assertEquals("Test deshacer a�adir argumento con herencia: " + //$NON-NLS-1$
@@ -721,7 +721,7 @@ public class TestAddParameter extends RefactoringTemplateAbstractTest {
 
 		// Comprobaciones en la subclase
 		ClassDef classDefs = jm.getClassDef(factory.createName("paqueteA.SubType")); //$NON-NLS-1$
-		List <MethDec> lMetodos = classDefs.getMethDecByName(factory.createName("metodoA")); //$NON-NLS-1$
+		List <MethDec> lMetodos = classDefs.getMethDecByName(factory.createName(TestRemoveParameter.METODO_A)); //$NON-NLS-1$
 		MethDec metodos = lMetodos.get(0);
 
 		assertEquals("Test deshacer a�adir argumento con herencia: " + //$NON-NLS-1$

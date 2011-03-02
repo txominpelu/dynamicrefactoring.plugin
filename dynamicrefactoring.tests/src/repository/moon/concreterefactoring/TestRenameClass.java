@@ -59,6 +59,9 @@ import repository.moon.MOONRefactoring;
  */
 public class TestRenameClass extends RefactoringTemplateAbstractTest { 
 
+	private static final String ANONYMOUS_RENOMBRADA = "<anonymous>.Renombrada";
+	private static final String ANONYMOUS_CLASE = "<anonymous>.Clase";
+
 	/** 
 	 * Comprueba que la refactorizaci�n funciona correctamente al hacer un
 	 * renombrado sencillo de una clase.
@@ -93,6 +96,7 @@ public class TestRenameClass extends RefactoringTemplateAbstractTest {
 			"con el nuevo nombre.", classDef3); //$NON-NLS-1$
 	}
 	
+	
 	/** 
 	 * Comprueba que la refactorizaci�n funciona correctamente al hacer un
 	 * renombrado de una clase gen�rica.
@@ -108,18 +112,18 @@ public class TestRenameClass extends RefactoringTemplateAbstractTest {
 		JavaModel jm = JavaModel.getInstance();
 		MoonFactory factory = jm.getMoonFactory();
 
-		ClassDef classDef = jm.getClassDef(factory.createName("<anonymous>.Clase")); //$NON-NLS-1$
+		ClassDef classDef = jm.getClassDef(factory.createName(ANONYMOUS_CLASE)); //$NON-NLS-1$
 		Name name = factory.createName("Renombrada"); //$NON-NLS-1$
 
 		MOONRefactoring renombrado = new RenameClassTestVersion(name, classDef, jm);			
 		renombrado.run();
 
 		// Comienzan las comprobaciones
-		ClassDef oldclass = jm.getClassDef(factory.createName("<anonymous>.Clase")); //$NON-NLS-1$
+		ClassDef oldclass = jm.getClassDef(factory.createName(ANONYMOUS_CLASE)); //$NON-NLS-1$
 		assertNull("Test renombrar clase gen�rica: todav�a existe la clase " + //$NON-NLS-1$
 			"con el nombre anterior al renombrado.", oldclass); //$NON-NLS-1$
 
-		ClassDef newclass = jm.getClassDef(factory.createName("<anonymous>.Renombrada")); //$NON-NLS-1$
+		ClassDef newclass = jm.getClassDef(factory.createName(ANONYMOUS_RENOMBRADA)); //$NON-NLS-1$
 		assertNotNull("Test renombrar clase gen�rica: no existe la clase " + //$NON-NLS-1$
 			"con el nuevo nombre.", newclass); //$NON-NLS-1$
 		
@@ -128,20 +132,20 @@ public class TestRenameClass extends RefactoringTemplateAbstractTest {
 			types.add(type.getUniqueName().toString());
 		
 		assertTrue(types.contains("<anonymous>.Renombrada<java.lang.Integer>")); //$NON-NLS-1$
-		assertTrue(types.contains("<anonymous>.Renombrada")); //$NON-NLS-1$
+		assertTrue(types.contains(ANONYMOUS_RENOMBRADA)); //$NON-NLS-1$
 		assertTrue(types.contains("<anonymous>.Renombrada@T")); //$NON-NLS-1$
 		assertFalse(types.contains("<anonymous>.Clase<java.lang.Integer>")); //$NON-NLS-1$
-		assertFalse(types.contains("<anonymous>.Clase")); //$NON-NLS-1$
+		assertFalse(types.contains(ANONYMOUS_CLASE)); //$NON-NLS-1$
 		assertFalse(types.contains("<anonymous>.Clase@T")); //$NON-NLS-1$
 		
 		renombrado.undoActions();
 		
 		// Comienzan las comprobaciones
-		oldclass = jm.getClassDef(factory.createName("<anonymous>.Clase")); //$NON-NLS-1$
+		oldclass = jm.getClassDef(factory.createName(ANONYMOUS_CLASE)); //$NON-NLS-1$
 		assertNotNull("Test deshacer renombrar clase gen�rica: " + //$NON-NLS-1$
 			"no se encuentra la clase con el nombre original.", oldclass); //$NON-NLS-1$
 
-		newclass = jm.getClassDef(factory.createName("<anonymous>.Renombrada")); //$NON-NLS-1$
+		newclass = jm.getClassDef(factory.createName(ANONYMOUS_RENOMBRADA)); //$NON-NLS-1$
 		assertNull("Test deshacer renombrar clase gen�rica: " + //$NON-NLS-1$
 			"sigue existiendo la clase renombrada.", newclass); //$NON-NLS-1$
 		
@@ -150,10 +154,10 @@ public class TestRenameClass extends RefactoringTemplateAbstractTest {
 			types.add(type.getUniqueName().toString());
 		
 		assertFalse(types.contains("<anonymous>.Renombrada<java.lang.Integer>")); //$NON-NLS-1$
-		assertFalse(types.contains("<anonymous>.Renombrada")); //$NON-NLS-1$
+		assertFalse(types.contains(ANONYMOUS_RENOMBRADA)); //$NON-NLS-1$
 		assertFalse(types.contains("<anonymous>.Renombrada@T")); //$NON-NLS-1$
 		assertTrue(types.contains("<anonymous>.Clase<java.lang.Integer>")); //$NON-NLS-1$
-		assertTrue(types.contains("<anonymous>.Clase")); //$NON-NLS-1$
+		assertTrue(types.contains(ANONYMOUS_CLASE)); //$NON-NLS-1$
 		assertTrue(types.contains("<anonymous>.Clase@T")); //$NON-NLS-1$
 	}
 
@@ -263,7 +267,7 @@ public class TestRenameClass extends RefactoringTemplateAbstractTest {
 		JavaModel jm = JavaModel.getInstance();
 		MoonFactory factory = jm.getMoonFactory();
 
-		ClassDef classDef = jm.getClassDef(factory.createName("<anonymous>.Clase")); //$NON-NLS-1$
+		ClassDef classDef = jm.getClassDef(factory.createName(ANONYMOUS_CLASE)); //$NON-NLS-1$
 		Name name = factory.createName("Renombrada"); //$NON-NLS-1$
 
 		MOONRefactoring renombrado = new RenameClassTestVersion(name, classDef, jm);			
