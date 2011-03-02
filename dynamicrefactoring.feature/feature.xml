@@ -24,11 +24,23 @@ With this plugin you can also export and execute a plan of refactorings.
  You should have received a copy of the GNU General Public License along with this program. If not, see &lt;http://www.gnu.org/licenses/&gt;.
    </license>
 
+   <requires>
+      <import plugin="org.eclipse.core.resources"/>
+      <import plugin="org.eclipse.ui.forms" version="3.4.1" match="greaterOrEqual"/>
+      <import plugin="org.eclipse.ui"/>
+      <import plugin="org.eclipse.core.runtime"/>
+      <import plugin="org.eclipse.jface.text"/>
+      <import plugin="org.eclipse.jdt.core"/>
+      <import plugin="org.eclipse.jdt.ui"/>
+      <import plugin="org.eclipse.jdt.launching"/>
+      
+   </requires>
+
    <plugin
          id="dynamicrefactoring.plugin"
          download-size="0"
          install-size="0"
-         version="0.0.0"
+         version="3.0.3"
          unpack="false"/>
 
 </feature>
