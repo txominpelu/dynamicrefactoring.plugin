@@ -24,9 +24,11 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
 import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 import org.apache.commons.io.FileUtils;
@@ -55,6 +57,8 @@ import dynamicrefactoring.reader.TestCaseRefactoringReader;
  */
 public class RefactoringWriterTest {
 
+	private static final String CLASS = "Class";
+	private static final String NEW_NAME = "New_name";
 	private static final String MOTIVACION = "Motivacion.";
 	private static final String DESCRIPCION = "Descripcion.";
 	/**
@@ -138,14 +142,15 @@ public class RefactoringWriterTest {
 	 * Similar a {@link #testWritingWithMinimumInformation} pero en este caso el
 	 * fichero xml tiene categorias definidas por lo tanto tambien hay que
 	 * comprobar que estas se escriben bien.
+	 * @throws IOException 
+	 * @throws XMLRefactoringWriterException 
 	 * 
 	 * @throws Exception
 	 *             si se produce un error al escribir la definici�n de la
 	 *             refactorizaci�n.
 	 */
 	@Test
-	public void testWritingWithMinimunInformationAndCategories()
-			throws Exception {
+	public void testWritingWithMinimunInformationAndCategories() throws XMLRefactoringWriterException, IOException{
 
 		Set<Category> categories = new HashSet<Category>();
 		categories.add(new Category(
@@ -169,19 +174,20 @@ public class RefactoringWriterTest {
 	 * @param refactoringName nombre de la refactorizacion
 	 * @param keywords palabras clave de la refactorizacion
 	 * @param categories categorias de la refactorizacion
+	 * @throws XMLRefactoringWriterException 
+	 * @throws IOException 
 	 * @throws Exception
 	 *             si se produce un error al escribir la definici�n de la
 	 *             refactorizaci�n.
 	 */
 	private void assertMinimumInformationDefinition(String refactoringName,
-			Set<String> keywords, Set<Category> categories)
-			throws Exception {
+			Set<String> keywords, Set<Category> categories) throws XMLRefactoringWriterException, IOException {
 		Preconditions.checkNotNull(keywords);
 		Preconditions.checkNotNull(categories);
 		Preconditions.checkNotNull(refactoringName);
 		DynamicRefactoringDefinition rd = createRefactoringDefinition(
 				refactoringName, DESCRIPCION, MOTIVACION);
-		rd.setInputs(addSimpleInputs());
+		rd.setInputs(new ArrayList<String[]>(addSimpleInputs()));
 		rd.setCategories(categories);
 		rd.setKeywords(keywords);
 		addSimplePredicates(rd);
@@ -221,7 +227,7 @@ public class RefactoringWriterTest {
 		String entrada1[] = new String[5];
 		entrada1[0] = "moon.core.Name"; //$NON-NLS-1$
 		entrada1[1] = "Old_name"; //$NON-NLS-1$
-		entrada1[2] = "Class"; //$NON-NLS-1$
+		entrada1[2] = CLASS; //$NON-NLS-1$
 		entrada1[3] = "getName"; //$NON-NLS-1$
 		entrada1[4] = "false"; //$NON-NLS-1$
 		entradas.add(entrada1);
@@ -236,7 +242,7 @@ public class RefactoringWriterTest {
 
 		String entrada3[] = new String[5];
 		entrada3[0] = "moon.core.classdef.ClassDef"; //$NON-NLS-1$
-		entrada3[1] = "Class"; //$NON-NLS-1$
+		entrada3[1] = CLASS; //$NON-NLS-1$
 		entrada3[2] = ""; //$NON-NLS-1$
 		entrada3[3] = ""; //$NON-NLS-1$
 		entrada3[4] = "true"; //$NON-NLS-1$
@@ -244,7 +250,7 @@ public class RefactoringWriterTest {
 
 		String entrada4[] = new String[5];
 		entrada4[0] = "moon.core.Name"; //$NON-NLS-1$
-		entrada4[1] = "New_name"; //$NON-NLS-1$
+		entrada4[1] = NEW_NAME; //$NON-NLS-1$
 		entrada4[2] = ""; //$NON-NLS-1$
 		entrada4[3] = ""; //$NON-NLS-1$
 		entrada4[4] = "false"; //$NON-NLS-1$
@@ -280,25 +286,25 @@ public class RefactoringWriterTest {
 
 		ArrayList<String[]> ambiguous1 = new ArrayList<String[]>();
 		String[] amb1 = new String[1];
-		amb1[0] = "New_name"; //$NON-NLS-1$
+		amb1[0] = NEW_NAME; //$NON-NLS-1$
 		ambiguous1.add(amb1);
 		map[RefactoringConstants.PRECONDITION].put(
 				"NotExistsClassWithName (1)", ambiguous1); //$NON-NLS-1$
 
 		ArrayList<String[]> ambiguous2 = new ArrayList<String[]>();
 		String[] amb2a = new String[1];
-		amb2a[0] = "Class"; //$NON-NLS-1$
+		amb2a[0] = CLASS; //$NON-NLS-1$
 		String[] amb2b = new String[1];
-		amb2b[0] = "New_name"; //$NON-NLS-1$
+		amb2b[0] = NEW_NAME; //$NON-NLS-1$
 		ambiguous2.add(amb2a);
 		ambiguous2.add(amb2b);
 		map[RefactoringConstants.ACTION].put("RenameClass (1)", ambiguous2); //$NON-NLS-1$
 
 		ArrayList<String[]> ambiguous3 = new ArrayList<String[]>();
 		String[] amb3a = new String[1];
-		amb3a[0] = "Class"; //$NON-NLS-1$
+		amb3a[0] = CLASS; //$NON-NLS-1$
 		String[] amb3b = new String[1];
-		amb3b[0] = "New_name"; //$NON-NLS-1$
+		amb3b[0] = NEW_NAME; //$NON-NLS-1$
 		ambiguous3.add(amb3a);
 		ambiguous3.add(amb3b);
 		map[RefactoringConstants.ACTION].put(
@@ -306,18 +312,18 @@ public class RefactoringWriterTest {
 
 		ArrayList<String[]> ambiguous4 = new ArrayList<String[]>();
 		String[] amb4a = new String[1];
-		amb4a[0] = "Class"; //$NON-NLS-1$
+		amb4a[0] = CLASS; //$NON-NLS-1$
 		String[] amb4b = new String[1];
-		amb4b[0] = "New_name"; //$NON-NLS-1$
+		amb4b[0] = NEW_NAME; //$NON-NLS-1$
 		ambiguous4.add(amb4a);
 		ambiguous4.add(amb4b);
 		map[RefactoringConstants.ACTION].put("RenameClassType (1)", ambiguous4); //$NON-NLS-1$
 
 		ArrayList<String[]> ambiguous5 = new ArrayList<String[]>();
 		String[] amb5a = new String[1];
-		amb5a[0] = "Class"; //$NON-NLS-1$
+		amb5a[0] = CLASS; //$NON-NLS-1$
 		String[] amb5b = new String[1];
-		amb5b[0] = "New_name"; //$NON-NLS-1$
+		amb5b[0] = NEW_NAME; //$NON-NLS-1$
 		ambiguous5.add(amb5a);
 		ambiguous5.add(amb5b);
 		map[RefactoringConstants.ACTION].put(
@@ -325,9 +331,9 @@ public class RefactoringWriterTest {
 
 		ArrayList<String[]> ambiguous6 = new ArrayList<String[]>();
 		String[] amb6a = new String[1];
-		amb6a[0] = "Class"; //$NON-NLS-1$
+		amb6a[0] = CLASS; //$NON-NLS-1$
 		String[] amb6b = new String[1];
-		amb6b[0] = "New_name"; //$NON-NLS-1$
+		amb6b[0] = NEW_NAME; //$NON-NLS-1$
 		ambiguous6.add(amb6a);
 		ambiguous6.add(amb6b);
 		map[RefactoringConstants.ACTION].put(
@@ -335,9 +341,9 @@ public class RefactoringWriterTest {
 
 		ArrayList<String[]> ambiguous7 = new ArrayList<String[]>();
 		String[] amb7a = new String[1];
-		amb7a[0] = "Class"; //$NON-NLS-1$
+		amb7a[0] = CLASS; //$NON-NLS-1$
 		String[] amb7b = new String[1];
-		amb7b[0] = "New_name"; //$NON-NLS-1$
+		amb7b[0] = NEW_NAME; //$NON-NLS-1$
 		ambiguous7.add(amb7a);
 		ambiguous7.add(amb7b);
 		map[RefactoringConstants.ACTION].put("RenameJavaFile (1)", ambiguous7); //$NON-NLS-1$
@@ -383,7 +389,7 @@ public class RefactoringWriterTest {
 				"NotGenerateEmptyExamples", DESCRIPCION, MOTIVACION);
 
 		// Agregamos las entradas
-		ArrayList<String[]> entradas = addSimpleInputs();
+		ArrayList<String[]> entradas = new ArrayList<String[]>(addSimpleInputs());
 		rd.setInputs(entradas);
 
 		// Agregamos un ejemplo
@@ -451,7 +457,7 @@ public class RefactoringWriterTest {
 	 * 
 	 * @return lista de entradas de prueba
 	 */
-	private ArrayList<String[]> addSimpleInputs() {
+	private List<String[]> addSimpleInputs() {
 		// A�adir entradas
 		ArrayList<String[]> entradas = new ArrayList<String[]>();
 		String entrada[] = new String[5];

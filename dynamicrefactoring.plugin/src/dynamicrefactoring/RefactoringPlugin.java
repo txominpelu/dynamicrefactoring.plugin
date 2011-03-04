@@ -502,8 +502,7 @@ public class RefactoringPlugin extends AbstractUIPlugin
 			// (el listener puede ser externo).
 			try {
 				next.refactoringStarted(name);
-			}
-			catch(Throwable exception) {
+			}catch(Exception exception) {
 				logger.error(
 					Messages.RefactoringPlugin_ErrorNotifying
 					+ ".\n" + exception.getMessage()); //$NON-NLS-1$
@@ -541,8 +540,7 @@ public class RefactoringPlugin extends AbstractUIPlugin
 			// (el listener puede ser externo).
 			try {
 				next.refactoringStepTaken(message);
-			}
-			catch (Throwable exception) {
+			}catch (Exception exception) {
 				logger.error(
 					Messages.RefactoringPlugin_ErrorNotifying + 
 					".\n" + exception.getMessage()); //$NON-NLS-1$
@@ -844,10 +842,10 @@ public class RefactoringPlugin extends AbstractUIPlugin
 		}
 		
 		if (backupDirExists)
-			return backupDir + System.getProperty("file.separator") +  //$NON-NLS-1$
+			return backupDir + File.separatorChar +  //$NON-NLS-1$
 				getCurrentRefactoring();
 		else
-			return getPluginTempDir() + System.getProperty("file.separator") + //$NON-NLS-1$
+			return getPluginTempDir() + File.separatorChar + //$NON-NLS-1$
 				getCurrentRefactoring();
 	}
 
@@ -912,7 +910,7 @@ public class RefactoringPlugin extends AbstractUIPlugin
 		String backupDirName = 
 			PropertyManager.getInstance().getBackupDirectory();
 		
-		return tmpDir + System.getProperty("file.separator") + backupDirName; //$NON-NLS-1$
+		return tmpDir + File.separatorChar + backupDirName; //$NON-NLS-1$
 	}
 
 	/**

@@ -20,14 +20,25 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.*/
 
 package dynamicrefactoring.util.processor;
 
+import java.util.Collection;
+
+import javamoon.core.JavaModel;
+import javamoon.core.JavaName;
+import moon.core.classdef.ClassDef;
+import moon.core.classdef.FormalArgument;
+import moon.core.classdef.MethDec;
+
 import org.eclipse.jdt.core.ILocalVariable;
 import org.eclipse.jdt.core.IMethod;
+
+import com.google.common.base.Predicate;
+import com.google.common.collect.Collections2;
 
 import dynamicrefactoring.util.selection.SelectionInfo;
 
 /**
- * Proporciona funciones que permiten manejar una variable local Java tal y 
- * como la define Eclipse en su representaci�n interna.
+ * Proporciona funciones que permiten manejar una variable local Java tal y como
+ * la define Eclipse en su representaci�n interna.
  * 
  * @author <A HREF="mailto:sfd0009@alu.ubu.es">Sonia Fuente de la Fuente</A>
  * @author <A HREF="mailto:ehp0001@alu.ubu.es">Enrique Herrero Paredes</A>
@@ -38,43 +49,43 @@ public class JavaLocalVariableProcessor extends JavaElementProcessor {
 	 * La variable local (o argumento formal) Java que se debe procesar.
 	 */
 	private ILocalVariable variable;
-	
+
 	/**
 	 * Constructor.
 	 * 
-	 * @param variable la variable local (o argumento formal) Java que se debe
-	 * procesar.
+	 * @param variable
+	 *            la variable local (o argumento formal) Java que se debe
+	 *            procesar.
 	 */
-	public JavaLocalVariableProcessor(ILocalVariable variable){
+	public JavaLocalVariableProcessor(ILocalVariable variable) {
 		super(variable);
 		this.variable = variable;
 	}
 
 	/**
-	 * Determina si una variable local de Eclipse se corresponde con un argumento
-	 * formal de un m�todo o con una variable local en si.
+	 * Determina si una variable local de Eclipse se corresponde con un
+	 * argumento formal de un m�todo o con una variable local en si.
 	 * 
-	 * @return {@link SelectionInfo#FORMAL_ARGUMENT} si se trata de un
-	 * argumento formal de un m�todo; {@link SelectionInfo#LOCAL_VARIABLE}
-	 * si se trata de una variable local de m�todo.
+	 * @return {@link SelectionInfo#FORMAL_ARGUMENT} si se trata de un argumento
+	 *         formal de un m�todo; {@link SelectionInfo#LOCAL_VARIABLE} si se
+	 *         trata de una variable local de m�todo.
 	 */
-	public int discernLocalVariable(){
+	public int discernLocalVariable() {
 		// El elemento padre de la variable, deber�a ser un m�todo.
 		if (variable.getParent() instanceof IMethod)
 			try {
-				String names[] = 
-					((IMethod)variable.getParent()).getParameterNames();
+				String names[] = ((IMethod) variable.getParent())
+						.getParameterNames();
 				// Si entre los argumentos formales del m�todo hay alguno con el
 				// mismo nombre que la variable, ha de ser �sta misma.
 				for (int i = 0; i < names.length; i++)
 					if (names[i].equals(variable.getElementName()))
 						return SelectionInfo.FORMAL_ARGUMENT;
-				
-				return SelectionInfo.LOCAL_VARIABLE;		
+
+				return SelectionInfo.LOCAL_VARIABLE;
+			} catch (Exception e) {
+				return 0;
 			}
-		catch(Exception e){
-			return 0;
-		}
 		return 0;
 	}
 
@@ -82,31 +93,53 @@ public class JavaLocalVariableProcessor extends JavaElementProcessor {
 	 * Obtiene un procesador de informaci�n para el m�todo al que pertenece la
 	 * variable local.
 	 * 
-	 * @return un procesador de informaci�n para el m�todo al que pertenece la 
-	 * variable local.
+	 * @return un procesador de informaci�n para el m�todo al que pertenece la
+	 *         variable local.
 	 * 
 	 * @see JavaMethodProcessor
 	 */
-	public JavaMethodProcessor getMethodProcessor(){
+	public JavaMethodProcessor getMethodProcessor() {
 		if (variable.getParent() instanceof IMethod)
-			return new JavaMethodProcessor((IMethod)variable.getParent());
+			return new JavaMethodProcessor((IMethod) variable.getParent());
 		return null;
 	}
 
 	/**
-     * Name convention: namespace.classname#methodnameo#formalargumentname.
-     * 
-     * @see JavaElementProcessor#getUniqueName()
-     */
-    @Override
+	 * Name convention: namespace.classname#methodnameo#formalargumentname.
+	 * 
+	 * @see JavaElementProcessor#getUniqueName()
+	 */
+	@Override
     public String getUniqueName(){
-    	String uniqueName = ""; //$NON-NLS-1$
-    	JavaMethodProcessor methodProcessor = getMethodProcessor(); 
-    
-    	if (methodProcessor != null){
-    		String methodUniqueName = getMethodProcessor().getUniqueName();
-    		uniqueName = methodUniqueName + "#" + variable.getElementName(); //$NON-NLS-1$
-    	}
-    	return uniqueName;
+		final IMethod iMetodo = (IMethod)variable.getParent();
+    	ClassDef clase = JavaModel.getInstance().getClassDef(new JavaName(iMetodo.getDeclaringType().getFullyQualifiedName()));
+    	Collection<MethDec> collection = Collections2.filter(
+				
+						clase.getMethDec(), new Predicate<MethDec>() {
+
+					@Override
+					public boolean apply(MethDec arg0) {
+						return arg0.getName().toString()
+								.equals(iMetodo.getElementName());
+					}
+
+				});
+		// Tomamos el primero porque no puede haber mas
+		// (no puede haber mas de un atributo con el mismo nombre en una clase
+		MethDec moonMethod = collection.iterator().next();
+		
+		Collection<FormalArgument> collectionParameter = Collections2.filter(
+				
+				moonMethod.getFormalArgument(), new Predicate<FormalArgument>() {
+
+			@Override
+			public boolean apply(FormalArgument arg0) {
+				return arg0.getName().toString()
+						.equals(variable.getElementName());
+			}
+
+		});
+		FormalArgument formalArg = collectionParameter.iterator().next();
+		return formalArg.getUniqueName().toString();
     }
 }

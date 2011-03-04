@@ -20,49 +20,73 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.*/
 
 package dynamicrefactoring.util.processor;
 
+import java.util.Collection;
+
+import javamoon.core.JavaModel;
+import javamoon.core.JavaName;
+import moon.core.classdef.AttDec;
+
 import org.eclipse.jdt.core.IField;
 import org.eclipse.jdt.core.JavaModelException;
 
-import com.google.common.base.Throwables;
+import com.google.common.base.Predicate;
+import com.google.common.collect.Collections2;
 
 /**
- * Proporciona funciones que permiten manejar un atributo de un tipo Java tal 
- * y como lo define Eclipse en su representaci�n interna.
+ * Proporciona funciones que permiten manejar un atributo de un tipo Java tal y
+ * como lo define Eclipse en su representaci�n interna.
  * 
  * @author <A HREF="mailto:sfd0009@alu.ubu.es">Sonia Fuente de la Fuente</A>
  * @author <A HREF="mailto:ehp0001@alu.ubu.es">Enrique Herrero Paredes</A>
  */
 public class JavaFieldProcessor extends JavaElementProcessor {
-	
+
 	/**
 	 * El atributo Java que se debe procesar.
 	 */
 	private IField field;
-	
+
 	/**
 	 * Constructor.
 	 * 
-	 * @param field el atributo Java que se debe procesar.
+	 * @param field
+	 *            el atributo Java que se debe procesar.
 	 */
-	public JavaFieldProcessor(IField field){
+	public JavaFieldProcessor(IField field) {
 		super(field);
 		this.field = field;
 	}
-	
+
 	/**
 	 * Obtiene el nombre �nico del atributo seg�n la convenci�n de nomenclatura
 	 * �nica utilizada en el modelo MOON.
 	 * 
 	 * @return el nombre �nico del atributo seg�n la convenci�n de nomenclatura
-	 * �nica utilizada en el modelo MOON.
-	 * @throws JavaModelException 
+	 *         �nica utilizada en el modelo MOON.
+	 * @throws JavaModelException
 	 */
 	@Override
 	public final String getUniqueName() {
-		try {
-			return new JavaClassProcessor(field.getDeclaringType()).getUniqueName() + "#" + field.getElementName() + ":" + field.getConstant();
-		} catch (JavaModelException e) {
-			throw Throwables.propagate(e);
-		}
+		Collection<AttDec> collection = Collections2.filter(
+				JavaModel
+						.getInstance()
+						.getClassDef(
+								new JavaName(field.getDeclaringType()
+										.getFullyQualifiedName()))
+						.getAttributes(), new Predicate<AttDec>() {
+
+					@Override
+					public boolean apply(AttDec arg0) {
+						return arg0.getName().toString()
+								.equals(field.getElementName());
+					}
+
+				});
+		// Tomamos el primero porque no puede haber mas
+		// (no puede haber mas de un atributo con el mismo nombre en una clase
+		AttDec atributo = collection.iterator().next();
+		return atributo.getUniqueName().toString();
+
 	}
+
 }

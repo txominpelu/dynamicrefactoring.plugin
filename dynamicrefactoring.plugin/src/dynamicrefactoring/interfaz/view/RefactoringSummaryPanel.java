@@ -1,5 +1,6 @@
 package dynamicrefactoring.interfaz.view;
 
+import java.io.File;
 import java.util.ArrayList;
 
 import org.eclipse.swt.SWT;
@@ -313,8 +314,8 @@ public class RefactoringSummaryPanel {
 
 		//cargamos la imagen
 		String path = RefactoringPlugin.getDynamicRefactoringsDir() + 
-		System.getProperty("file.separator") + //$NON-NLS-1$
-		refactoring.getName() + System.getProperty("file.separator") + //$NON-NLS-1$
+		File.separatorChar + //$NON-NLS-1$
+		refactoring.getName() + File.separatorChar + //$NON-NLS-1$
 		refactoring.getImage();
 
 		ImageLoader loader = new ImageLoader();

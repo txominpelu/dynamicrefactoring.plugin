@@ -20,6 +20,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.*/
 
 package dynamicrefactoring.integration;
 
+import java.io.File;
 import java.lang.reflect.InvocationTargetException;
 import java.text.MessageFormat;
 import java.util.List;
@@ -67,8 +68,8 @@ public class ModelGenerator {
 	 * instalaci�n de Java que utilice un proyecto.
 	 */
 	private final static String BASIC_JAR =  
-		System.getProperty("file.separator") + "lib" + //$NON-NLS-1$ //$NON-NLS-2$
-		System.getProperty("file.separator") + "rt.jar"; //$NON-NLS-1$ //$NON-NLS-2$
+		File.separatorChar + "lib" + //$NON-NLS-1$ //$NON-NLS-2$
+		File.separatorChar + "rt.jar"; //$NON-NLS-1$ //$NON-NLS-2$
 	
 	/**
 	 * Extensi�n de los ficheros de bibliotecas JAR.
@@ -233,7 +234,7 @@ public class ModelGenerator {
 								String projectPath = 
 									project.getJavaProject().getResource().getLocation().toOSString();
 								binaryLoader.addClassesFromJar(
-									projectPath + System.getProperty("file.separator") + //$NON-NLS-1$
+									projectPath + File.separatorChar + //$NON-NLS-1$
 									relativePath);
 							}
 						}
@@ -242,7 +243,7 @@ public class ModelGenerator {
 		}
 		
 		if (rtPath == null)			
-			rtPath = JRE_root + System.getProperty("file.separator") + BASIC_JAR; //$NON-NLS-1$
+			rtPath = JRE_root + File.separatorChar + BASIC_JAR; //$NON-NLS-1$
 		
 		for (int i = 0; i < LIBRARIES.length; i++)
 			binaryLoader.addClassesFromPackageInJar(LIBRARIES[i], rtPath);

@@ -38,7 +38,7 @@ import dynamicrefactoring.reader.XMLRefactoringReaderException;
 import dynamicrefactoring.util.io.FileManager;
 
 /**
- * Comprueba que funciona correctamente el proceso de exportación de
+ * Comprueba que funciona correctamente el proceso de exportaciï¿½n de
  * refactorizaciones.
  * 
  * @author <A HREF="mailto:lfd0002@alu.ubu.es">Laura Fuente de la Fuente</A>
@@ -51,11 +51,18 @@ public class TestExport {
 	private static final String TEMP_DIR = FilenameUtils
 			.separatorsToSystem(".\\temp");
 
+	/**
+	 * Preparacion previa a los tests.
+	 */
 	@Before
 	public void setUp() {
 		FileManager.createDir(TEMP_DIR);
 	}
 
+	/**
+	 * Devuelve todo a la situacion anterior a
+	 * que los tests se ejecutaran.
+	 */
 	@After
 	public void tearDown() {
 		// Borramos el directorio temporal al final del test
@@ -64,7 +71,7 @@ public class TestExport {
 	}
 
 	/**
-	 * Comprueba que el proceso de exportación de la refactorización dinámica
+	 * Comprueba que el proceso de exportaciï¿½n de la refactorizaciï¿½n dinï¿½mica
 	 * Rename Class a un directorio temporal "./temp" se ha realizado
 	 * correctamente.
 	 * 
@@ -77,7 +84,7 @@ public class TestExport {
 	public void testExportRefactoring() throws XMLRefactoringReaderException,
 			IOException {
 
-		// Primero exportamos la refactorización Rename Class a un directorio
+		// Primero exportamos la refactorizaciï¿½n Rename Class a un directorio
 		// temporal que luego eliminaremos
 		ExportImportUtilities.ExportRefactoring(TEMP_DIR,
 				RENAME_CLASS_XML_FILE, false);
@@ -101,7 +108,7 @@ public class TestExport {
 	}
 
 	/**
-	 * Comprueba que el proceso de exportación de la refactorización dinámica
+	 * Comprueba que el proceso de exportaciï¿½n de la refactorizaciï¿½n dinï¿½mica
 	 * Rename Class a un directorio temporal "./temp" teniendo en cuenta que uno
 	 * de los ficheros .class requeridos no se encuentra en el repositorio.
 	 * 
@@ -125,9 +132,9 @@ public class TestExport {
 
 		try {
 			// Copiamos uno de los ficheros .class que necesita la
-			// refactorización al directorio
+			// refactorizaciï¿½n al directorio
 			// temporal y luego lo borramos para que posteriormente salte la
-			// excepción.
+			// excepciï¿½n.
 			
 
 			FileUtils.copyFileToDirectory(new File(ficheroOrigen), new File(
@@ -138,15 +145,15 @@ public class TestExport {
 					RENAME_CLASS_XML_FILE, false);
 
 		} catch (IOException e) {
-			// Comprobamos que el directorio en el que se generaría la
-			// refactorización no existe al no
-			// poderse completar la operación.
+			// Comprobamos que el directorio en el que se generarï¿½a la
+			// refactorizaciï¿½n no existe al no
+			// poderse completar la operaciï¿½n.
 			assertEquals(false, new File(TEMP_DIR + File.separatorChar
 					+ definitionFolderName).exists());
 
-			// Reponemos el fichero .class que habíamos borrado para comprobar
+			// Reponemos el fichero .class que habï¿½amos borrado para comprobar
 			// que saltaba la
-			// excepción.
+			// excepciï¿½n.
 			
 			FileManager.copyFile(new File(TEMP_DIR + File.separatorChar
 					+ refactoringName),

@@ -4,8 +4,19 @@ import com.google.common.base.Predicate;
 
 import dynamicrefactoring.domain.metadata.interfaces.Element;
 
+/**
+ * Crea una condicion para un elemento que comprueba
+ * si este elemento contiene un texto.
+ * 
+ * @author imediava
+ *
+ * @param <K> Elemento
+ */
 public class TextCondition<K extends Element> implements Predicate<K> {
 	
+	/**
+	 * Nombre 
+	 */
 	public static final String NAME="text";
 	
 	private String text;

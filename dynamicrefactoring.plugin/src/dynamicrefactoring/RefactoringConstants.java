@@ -122,7 +122,7 @@ public class RefactoringConstants {
 	 * La ruta al fichero con la DTD de las refactorizaciones din�micas.
 	 */
 	public static final String DTD_PATH = 
-		RefactoringPlugin.getDefault() + System.getProperty("file.separator") + "refactoringDTD.dtd"; //$NON-NLS-1$ //$NON-NLS-2$
+		RefactoringPlugin.getDynamicRefactoringsDir() + File.separatorChar + "refactoringDTD.dtd"; //$NON-NLS-1$ //$NON-NLS-2$
 	
 	/**
 	 * Ruta al directorio donde se encuentran las definiciones de las precondiciones.
@@ -245,9 +245,9 @@ public class RefactoringConstants {
 	 *         de los predicados concretos del repositorio.
 	 */
 	public static String getPrePostDir(){
-		return REFACTORING_CLASSES_DIR + System.getProperty("file.separator") +  //$NON-NLS-1$ //$NON-NLS-2$
-			"repository" + System.getProperty("file.separator") +  //$NON-NLS-1$ //$NON-NLS-2$
-			"moon" + System.getProperty("file.separator") + "concretepredicate"; //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
+		return REFACTORING_CLASSES_DIR + File.separatorChar +  //$NON-NLS-1$ //$NON-NLS-2$
+			"repository" + File.separatorChar +  //$NON-NLS-1$ //$NON-NLS-2$
+			"moon" + File.separatorChar + "concretepredicate"; //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
 	}
 
 	/**
@@ -258,9 +258,9 @@ public class RefactoringConstants {
 	 *         de las acciones concretas del repositorio.
 	 */
 	public static String getActionDir(){
-		return REFACTORING_CLASSES_DIR + System.getProperty("file.separator") +  //$NON-NLS-1$ //$NON-NLS-2$
-			"repository" + System.getProperty("file.separator") +  //$NON-NLS-1$ //$NON-NLS-2$
-			"moon" + System.getProperty("file.separator") + "concreteaction"; //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
+		return REFACTORING_CLASSES_DIR + File.separatorChar +  //$NON-NLS-1$ //$NON-NLS-2$
+			"repository" + File.separatorChar +  //$NON-NLS-1$ //$NON-NLS-2$
+			"moon" + File.separatorChar + "concreteaction"; //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
 	}
 
 	/**
@@ -271,9 +271,9 @@ public class RefactoringConstants {
 	 *         de las acciones concretas del repositorio dependientes de Java.
 	 */
 	public static String getJavaActionDir(){
-		return REFACTORING_CLASSES_DIR + System.getProperty("file.separator") +  //$NON-NLS-1$ //$NON-NLS-2$
-			"repository" + System.getProperty("file.separator") +  //$NON-NLS-1$ //$NON-NLS-2$
-			"java" + System.getProperty("file.separator") + "concreteaction"; //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
+		return REFACTORING_CLASSES_DIR + File.separatorChar +  //$NON-NLS-1$ //$NON-NLS-2$
+			"repository" + File.separatorChar +  //$NON-NLS-1$ //$NON-NLS-2$
+			"java" + File.separatorChar + "concreteaction"; //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
 	}
 
 	/**
@@ -284,9 +284,9 @@ public class RefactoringConstants {
 	 *         de los predicados concretos del repositorio dependientes de Java.
 	 */
 	public static String getJavaPredicateDir(){
-		return REFACTORING_CLASSES_DIR + System.getProperty("file.separator") +  //$NON-NLS-1$ //$NON-NLS-2$
-			"repository" + System.getProperty("file.separator") +  //$NON-NLS-1$ //$NON-NLS-2$
-			"java" + System.getProperty("file.separator") + "concretepredicate"; //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
+		return REFACTORING_CLASSES_DIR + File.separatorChar +  //$NON-NLS-1$ //$NON-NLS-2$
+			"repository" + File.separatorChar +  //$NON-NLS-1$ //$NON-NLS-2$
+			"java" + File.separatorChar + "concretepredicate"; //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
 	}
 	
 	/**

@@ -38,7 +38,7 @@ import dynamicrefactoring.reader.XMLRefactoringReaderException;
 import dynamicrefactoring.util.io.FileManager;
 
 /**
- * Comprueba que funciona correctamente el proceso de importación de
+ * Comprueba que funciona correctamente el proceso de importaciï¿½n de
  * refactorizaciones.
  * 
  * @author <A HREF="mailto:lfd0002@alu.ubu.es">Laura Fuente de la Fuente</A>
@@ -49,22 +49,33 @@ public class TestImport {
 	private static final String TEMP_DIR = FilenameUtils
 			.separatorsToSystem(".\\temp");
 
+	/**
+	 * Prepara los directorios para las pruebas
+	 * previas a los tests.
+	 * @throws IOException excepcion de I/o
+	 * @throws XMLRefactoringReaderException excepcion de lectura de xml
+	 */
 	@Before
 	public void setUp() throws IOException,
 			XMLRefactoringReaderException {
 		FileManager.createDir(TEMP_DIR);
-		// Primero exportamos la refactorización Rename Class a un directorio
+		// Primero exportamos la refactorizaciï¿½n Rename Class a un directorio
 		// temporal que luego eliminaremos
 		ExportImportUtilities.ExportRefactoring(TEMP_DIR,
 				getRenameClassXmlFile(), false);
 
-		// Depués de exportarla vamos a eliminar la carpeta de Rename Class
+		// Depuï¿½s de exportarla vamos a eliminar la carpeta de Rename Class
 		// proveniente de
-		// la carpeta de refactorizaciones dinámicas
+		// la carpeta de refactorizaciones dinï¿½micas
 		FileManager.emptyDirectories(getRenameClassDir());
 		FileManager.deleteDirectories(getRenameClassDir(), true);
 	}
 
+	/**
+	 * Elimina los directorios generados para restaurar
+	 * el estado de los directorios al que se encontraba antes de ejecutar 
+	 * los tests.
+	 */
 	@After
 	public void tearDown() {
 		// Borramos el directorio temporal al final del test
@@ -73,7 +84,7 @@ public class TestImport {
 	}
 
 	/**
-	 * Comprueba que el proceso de importación de la refactorización dinámica
+	 * Comprueba que el proceso de importaciï¿½n de la refactorizaciï¿½n dinï¿½mica
 	 * Rename Class a partir de un directorio temporal "./temp" se ha realizado
 	 * correctamente.
 	 * 
@@ -86,8 +97,8 @@ public class TestImport {
 	public void testImportRefactoring() throws XMLRefactoringReaderException, IOException{
 		
 		// Eliminamos alguno de los ficheros .class requeridos por dicha
-		// refactorización para
-		// comprobar que tras la importación esos ficheros se encuentran donde
+		// refactorizaciï¿½n para
+		// comprobar que tras la importaciï¿½n esos ficheros se encuentran donde
 		// deben
 		final String renameClassFile = getMoonRefactoryDir() + "concreteaction"
 				+ File.separatorChar + "RenameClass.class";
@@ -98,12 +109,12 @@ public class TestImport {
 		FileManager.deleteFile(renameClassFile);
 		FileManager.deleteFile(notExistsClassWithNameClassFile);
 		
-		// Importamos la refactorización
+		// Importamos la refactorizaciï¿½n
 		ExportImportUtilities.ImportRefactoring(FilenameUtils.separatorsToSystem(".\\temp\\Rename Class\\Rename Class.xml"),false);
 		
-		// Comprobamos que existe el fichero de definición de la refactorización
+		// Comprobamos que existe el fichero de definiciï¿½n de la refactorizaciï¿½n
 		// y los .class que
-		// anteriormente habíamos borrado
+		// anteriormente habï¿½amos borrado
 		assertEquals(true, new File(getRenameClassXmlFile()).exists());
 		assertEquals(true, new File(renameClassFile).exists());
 		assertEquals(true, new File(notExistsClassWithNameClassFile).exists());
@@ -111,10 +122,10 @@ public class TestImport {
 	}
 
 	/**
-	 * Comprueba que el proceso de importación de la refactorización dinámica
+	 * Comprueba que el proceso de importaciï¿½n de la refactorizaciï¿½n dinï¿½mica
 	 * Rename Class a partir de un directorio temporal "./temp" devuelve la
 	 * cadena NotExistsClassWithName en el caso de borrar este mecanismo de la
-	 * carpeta donde esta exportada la refactorización y del repositorio.
+	 * carpeta donde esta exportada la refactorizaciï¿½n y del repositorio.
 	 * 
 	 * @throws XMLRefactoringReaderException
 	 *             XMLRefactoringReaderException.
@@ -125,9 +136,9 @@ public class TestImport {
 	public void testImportErroneousRefactoring() throws XMLRefactoringReaderException, IOException{
 		
 		// Eliminamos alguno de los ficheros .class requeridos por dicha
-		// refactorización tanto
+		// refactorizaciï¿½n tanto
 		// del repositorio como de la carpeta exportada para ver que la
-		// improtación devuelve
+		// improtaciï¿½n devuelve
 		//el nombre de este fichero indicando que no existe.
 		final String notExistClassWithNameClassFile = FilenameUtils
 				.separatorsToSystem(getMoonRefactoryDir()
@@ -145,7 +156,7 @@ public class TestImport {
 		// comprobamos que el nombre devuelto es el del fichero que no
 		// encuentra.
 		try {
-			// Importamos la refactorización
+			// Importamos la refactorizaciï¿½n
 			ExportImportUtilities
 					.ImportRefactoring(
 					FilenameUtils.separatorsToSystem(TEMP_DIR
@@ -155,7 +166,7 @@ public class TestImport {
 		} catch (FileNotFoundException e) {
 			// Comprobamos que no existe el fichero del mecanismo que hemos
 			// borrado de la carpeta
-			// de la refactorización y del repositorio.
+			// de la refactorizaciï¿½n y del repositorio.
 			assertEquals(false,
 					new File(notExistClassWithNameClassFile).exists());
 		} finally {

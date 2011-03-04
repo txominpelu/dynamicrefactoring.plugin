@@ -20,6 +20,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.*/
 
 package dynamicrefactoring.interfaz.wizard;
 
+import java.io.File;
 import java.text.MessageFormat;
 import java.util.HashSet;
 import java.util.Set;
@@ -402,7 +403,7 @@ public final class RefactoringWizardPage1 extends WizardPage {
 			chooser.setFilterExtensions(ImageFilter.templates);
 			chooser.setFilterNames(ImageFilter.descriptions);
 			chooser.setFilterPath(Platform.getLocation().toOSString()
-					+ System.getProperty("file.separator") + ".."); //$NON-NLS-1$ //$NON-NLS-2$
+					+ File.separatorChar + ".."); //$NON-NLS-1$ //$NON-NLS-2$
 
 			String returnVal = chooser.open();
 			if (returnVal != null)

@@ -62,6 +62,9 @@ import repository.moon.RepositoryUtils;
  */
 public class TestRemoveParameter extends RefactoringTemplateAbstractTest {
 
+	/**
+	 * Nombre de metodo A.
+	 */
 	public static final String METODO_A = "metodoA";
 
 	/**

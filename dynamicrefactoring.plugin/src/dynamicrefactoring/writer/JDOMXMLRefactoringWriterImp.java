@@ -306,7 +306,7 @@ public class JDOMXMLRefactoringWriterImp implements XMLRefactoringWriterImp {
 		try {
 			writeToFile(
 					dir.getPath()
-							+ System.getProperty("file.separator") + refactoringDefinition.getName() + //$NON-NLS-1$
+							+ File.separatorChar + refactoringDefinition.getName() + //$NON-NLS-1$
 							RefactoringConstants.FILE_EXTENSION,
 					getDocumentOfRefactoring());
 		} catch (Exception e) {

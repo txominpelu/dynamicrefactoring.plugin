@@ -20,6 +20,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.*/
 
 package dynamicrefactoring.interfaz.wizard;
 
+import java.io.File;
+
 import org.eclipse.core.runtime.Platform;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.SelectionEvent;
@@ -81,7 +83,7 @@ public class FolderSelectionListener implements SelectionListener {
 	    chooser.setText(Messages.FolderSelectionListener_SelectFolder);
 	    chooser.setMessage(message);
 	    chooser.setFilterPath(Platform.getLocation().toOSString()
-	    	+ System.getProperty("file.separator") + ".."); //$NON-NLS-1$ //$NON-NLS-2$
+	    	+ File.separatorChar + ".."); //$NON-NLS-1$ //$NON-NLS-2$
 
 	    String returnVal = chooser.open();
 	    if (returnVal != null)

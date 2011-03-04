@@ -239,7 +239,7 @@ public class FileManager {
 				
 				// Se obtiene la ruta del directorio que se debe crear en destino.
 				String newPath = output.getCanonicalPath() + 
-					System.getProperty("file.separator") + input.getName(); //$NON-NLS-1$
+					File.separatorChar + input.getName(); //$NON-NLS-1$
 				// Si ya existe o se consigue crear.
 				if (new File(newPath).exists() || createDir(newPath)){
 					File[] files = input.listFiles();
@@ -247,7 +247,7 @@ public class FileManager {
 						// Se copian sus ficheros uno a uno.
 						if(next.isFile())
 						copyFile(next, new File((newPath + 
-							System.getProperty("file.separator") + next.getName())));
+							File.separatorChar + next.getName())));
 						else if(next.isDirectory())
 							copyFolder(next.getPath(),newPath );
 					}	
@@ -292,15 +292,15 @@ public class FileManager {
     public static String getDirectoryPath(String filePath) {
     	
     	String temp = new String();
-    	if(filePath.lastIndexOf(System.getProperty("file.separator")) >= 0) { //$NON-NLS-1$
+    	if(filePath.lastIndexOf(File.separatorChar) >= 0) { //$NON-NLS-1$
     		temp = temp.concat(filePath.substring(0, filePath.lastIndexOf(
-    			System.getProperty("file.separator")))); //$NON-NLS-1$
-    		if(temp.lastIndexOf(".." + System.getProperty("file.separator")) >= 0) //$NON-NLS-1$ //$NON-NLS-2$
+    			File.separatorChar))); //$NON-NLS-1$
+    		if(temp.lastIndexOf(".." + File.separatorChar) >= 0) //$NON-NLS-1$ //$NON-NLS-2$
         		temp = temp.substring(temp.lastIndexOf(
-        			".." + System.getProperty("file.separator")) + 3, temp.length()); //$NON-NLS-1$ //$NON-NLS-2$
+        			".." + File.separatorChar) + 3, temp.length()); //$NON-NLS-1$ //$NON-NLS-2$
 
        		temp = temp.substring(temp.indexOf(
-       			System.getProperty("file.separator")) + 1,temp.length()); //$NON-NLS-1$
+       			File.separatorChar) + 1,temp.length()); //$NON-NLS-1$
     	}
     	
     	return temp;
@@ -336,10 +336,10 @@ public class FileManager {
 	 */
     public static String getFileName(String filePath) {
     	String temp = new String();
-    	if(filePath.lastIndexOf(System.getProperty("file.separator")) >= 0) //$NON-NLS-1$
+    	if(filePath.lastIndexOf(File.separatorChar) >= 0) //$NON-NLS-1$
     		temp = temp.concat(
     			filePath.substring(
-    				filePath.lastIndexOf(System.getProperty("file.separator")) + 1, filePath.length())); //$NON-NLS-1$
+    				filePath.lastIndexOf(File.separatorChar) + 1, filePath.length())); //$NON-NLS-1$
 
 		// Si el fichero no est� en un directorio.
     	else

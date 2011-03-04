@@ -51,6 +51,8 @@ import dynamicrefactoring.util.io.FileManager;
  */
 public class AvailableRefactoringsWriterTest {
 
+	private static final String MOVE_FIELD = "Move Field";
+
 	@Before
 	public void testSetup() throws IOException {
 		manageDirectories();
@@ -154,7 +156,7 @@ public class AvailableRefactoringsWriterTest {
 		assertNumberOfRefactoringsExpectedForScope(
 				availableRefactoringsSomeScopesDir, Scope.ATTRIBUTE, 1);
 		compareRefactoringPath(Scope.ATTRIBUTE,
-				availableRefactoringsSomeScopesDir, "Move Field");
+				availableRefactoringsSomeScopesDir, MOVE_FIELD);
 
 		assertNumberOfRefactoringsExpectedForScope(
 				availableRefactoringsSomeScopesDir, Scope.FORMAL_ARG, 0);
@@ -195,7 +197,7 @@ public class AvailableRefactoringsWriterTest {
 		assertNumberOfRefactoringsExpectedForScope(
 				availableRefactoringsSomeScopesDir, Scope.ATTRIBUTE, 1);
 		compareRefactoringPath(Scope.ATTRIBUTE,
-				availableRefactoringsSomeScopesDir, "Move Field");
+				availableRefactoringsSomeScopesDir, MOVE_FIELD);
 
 		assertNumberOfRefactoringsExpectedForScope(
 				availableRefactoringsSomeScopesDir, Scope.FORMAL_ARG, 1);
@@ -286,9 +288,9 @@ public class AvailableRefactoringsWriterTest {
 				RefactoringPlugin.getDynamicRefactoringsDir() + ""
 						+ File.separatorChar + "Add Parameter"
 						+ File.separatorChar + "Add Parameter.xml");
-		writer.addNewRefactoringToXml(Scope.ATTRIBUTE, "Move Field",
+		writer.addNewRefactoringToXml(Scope.ATTRIBUTE, MOVE_FIELD,
 				RefactoringPlugin.getDynamicRefactoringsDir() + ""
-						+ File.separatorChar + "Move Field"
+						+ File.separatorChar + MOVE_FIELD
 						+ File.separatorChar + "Move Field.xml");
 		writer.addNewRefactoringToXml(Scope.FORMAL_ARG,
 				"Remove Parameter",
@@ -330,9 +332,9 @@ public class AvailableRefactoringsWriterTest {
 				RefactoringConstants.REFACTORING_TYPES_FILE);
 
 		assertEquals(1, refactorings.size());
-		assertEquals(refactorings.get("Move Field"),
+		assertEquals(refactorings.get(MOVE_FIELD),
 				RefactoringPlugin.getDynamicRefactoringsDir() + ""
-						+ File.separatorChar + "Move Field"
+						+ File.separatorChar + MOVE_FIELD
 						+ File.separatorChar + "Move Field.xml");
 
 		refactorings = JDOMXMLRefactoringReaderImp.readAvailableRefactorings(
@@ -390,11 +392,11 @@ public class AvailableRefactoringsWriterTest {
 						+ File.separatorChar + "Add Parameter"
 						+ File.separatorChar + "Add Parameter.xml");
 		writer.deleteRefactoringFromXml(Scope.METHOD, "Add Parameter");
-		writer.addNewRefactoringToXml(Scope.ATTRIBUTE, "Move Field",
+		writer.addNewRefactoringToXml(Scope.ATTRIBUTE, MOVE_FIELD,
 				RefactoringPlugin.getDynamicRefactoringsDir() + ""
-						+ File.separatorChar + "Move Field"
+						+ File.separatorChar + MOVE_FIELD
 						+ File.separatorChar + "Move Field.xml");
-		writer.deleteRefactoringFromXml(Scope.ATTRIBUTE, "Move Field");
+		writer.deleteRefactoringFromXml(Scope.ATTRIBUTE, MOVE_FIELD);
 		writer.addNewRefactoringToXml(Scope.FORMAL_ARG,
 				"Remove Parameter",
 				RefactoringPlugin.getDynamicRefactoringsDir() + ""
@@ -462,12 +464,12 @@ public class AvailableRefactoringsWriterTest {
 						+ File.separatorChar + "Add Parameter.xml");
 		writer.renameRefactoringIntoXml(Scope.METHOD, "OtherName1",
 				"Add Parameter");
-		writer.addNewRefactoringToXml(Scope.ATTRIBUTE, "Move Field",
+		writer.addNewRefactoringToXml(Scope.ATTRIBUTE, MOVE_FIELD,
 				RefactoringPlugin.getDynamicRefactoringsDir() + ""
-						+ File.separatorChar + "Move Field"
+						+ File.separatorChar + MOVE_FIELD
 						+ File.separatorChar + "Move Field.xml");
 		writer.renameRefactoringIntoXml(Scope.ATTRIBUTE, "OtherName2",
-				"Move Field");
+				MOVE_FIELD);
 		writer.addNewRefactoringToXml(Scope.FORMAL_ARG,
 				"Remove Parameter",
 				RefactoringPlugin.getDynamicRefactoringsDir() + ""

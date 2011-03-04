@@ -20,6 +20,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.*/
 
 package dynamicrefactoring.interfaz;
 
+import java.io.File;
 import java.text.MessageFormat;
 
 import org.apache.log4j.Logger;
@@ -106,7 +107,7 @@ public class SelectForDeletingWindow extends SelectDynamicRefactoringWindow {
 					String filePath = refactoringLocations.get(
 						l_Available.getSelection()[0]);
 					String dirPath = filePath.substring(0, filePath.lastIndexOf(
-						System.getProperty("file.separator"))); //$NON-NLS-1$
+						File.separatorChar)); //$NON-NLS-1$
 					this.close();
 					
 					try{

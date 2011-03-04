@@ -310,12 +310,12 @@ public class RefactoringWizard extends Wizard implements INewWizard {
 	 * @throws XMLRefactoringWriterException si se produce un error durante la
 	 * escritura de la refactorizaci�n en el fichero XML de destino. 
 	 */
-	private void writeRefactoring(DynamicRefactoringDefinition resultingRefactoringDefinition) {
+	private final void writeRefactoring(DynamicRefactoringDefinition resultingRefactoringDefinition) {
 		try {
 			
 			File destination = new File(
 				RefactoringPlugin.getDynamicRefactoringsDir() +
-				System.getProperty("file.separator") +  //$NON-NLS-1$
+				File.separatorChar +  //$NON-NLS-1$
 				resultingRefactoringDefinition.getName());
 
 			if (operation == CREATE){
@@ -537,7 +537,7 @@ public class RefactoringWizard extends Wizard implements INewWizard {
 	 */
 	private File buildFile(File folder, String name) throws IOException {
 		return new File(folder.getCanonicalPath() + 
-			System.getProperty("file.separator") + //$NON-NLS-1$
+			File.separatorChar + //$NON-NLS-1$
 			FileManager.getFileName(name));
 	}
 
@@ -557,7 +557,7 @@ public class RefactoringWizard extends Wizard implements INewWizard {
 		// Se busca el directorio con el nombre original.
 		File folder = new File(
 			RefactoringPlugin.getDynamicRefactoringsDir() +
-			System.getProperty("file.separator") + originalName); //$NON-NLS-1$
+			File.separatorChar + originalName); //$NON-NLS-1$
 		// Si se encuentra.
 		if (folder.exists() && folder.isDirectory() && folder.renameTo(destination)){
 
@@ -570,7 +570,7 @@ public class RefactoringWizard extends Wizard implements INewWizard {
 					refactoringFile.renameTo(buildFile(destination, 
 						refactoring.getName() + ".xml")); //$NON-NLS-1$
 				}
-				String fragment = originalName + System.getProperty("file.separator"); //$NON-NLS-1$
+				String fragment = originalName + File.separatorChar; //$NON-NLS-1$
 				
 				int index = refactoring.getImage().indexOf(fragment); 
 				if (index > -1){

@@ -46,6 +46,9 @@ import repository.moon.MOONRefactoring;
  */
 public class TestRenameField extends RefactoringTemplateAbstractTest{
 	
+	private static final String BEFORE = "before";
+	private static final String TESTDATA = "testdata";
+	private static final String AFTER = "after";
 	private static final String ANONYMOUS = "<anonymous>";
 	private static final String PAQUETE_A = "paqueteA";
 	/**
@@ -189,8 +192,8 @@ public class TestRenameField extends RefactoringTemplateAbstractTest{
 	 */
 	private void check(String dir, String paquete) throws Exception{
 		SourceLoader sourceLoader = new SourceLoader();
-		sourceLoader.loadFromDirectory("testdata" + File.separator
-				+ this.getClass().getName().replace(".", File.separator) + File.separator + dir + File.separator + "before");
+		sourceLoader.loadFromDirectory(TESTDATA + File.separator
+				+ this.getClass().getName().replace(".", File.separator) + File.separator + dir + File.separator + BEFORE);
 		JavaModel jm = JavaModel.getInstance();
 		MoonFactory factory = jm.getMoonFactory();	
 
@@ -210,23 +213,23 @@ public class TestRenameField extends RefactoringTemplateAbstractTest{
 		renombrado.run();
 
 
-		if(new File("testdata" + File.separator
+		if(new File(TESTDATA + File.separator
 				+ this.getClass().getName().replace(".", File.separator) 
-				+ File.separator + dir + File.separator + "before"
+				+ File.separator + dir + File.separator + BEFORE
 				+File.separator + paquete + File.separator + "C.java").exists()){
 
 			String source = Regenerate.regenerate("C.java");
 			String target = EclipsePrettyPrinter.formatCompilationUnit(source);
 
 			if (paquete.equals(ANONYMOUS)){
-				this.compare(target, "testdata" + File.separator
+				this.compare(target, TESTDATA + File.separator
 						+ this.getClass().getName().replace(".", File.separator) 
-						+ File.separator + dir + File.separator + "after" +File.separator + "C.java");
+						+ File.separator + dir + File.separator + AFTER +File.separator + "C.java");
 
 			}else{
-				this.compare(target, "testdata" + File.separator
+				this.compare(target, TESTDATA + File.separator
 						+ this.getClass().getName().replace(".", File.separator) 
-						+ File.separator + dir + File.separator + "after" 
+						+ File.separator + dir + File.separator + AFTER 
 						+ File.separator + paquete+ File.separator + "C.java");
 			}
 
@@ -236,14 +239,14 @@ public class TestRenameField extends RefactoringTemplateAbstractTest{
 
 		//Compare the two "files", must be equals...
 		if (paquete.equals(ANONYMOUS)){
-			this.compare(target, "testdata" + File.separator
+			this.compare(target, TESTDATA + File.separator
 					+ this.getClass().getName().replace(".", File.separator) 
-					+ File.separator + dir + File.separator + "after" +File.separator + "B.java");
+					+ File.separator + dir + File.separator + AFTER +File.separator + "B.java");
 
 		}else{
-			this.compare(target, "testdata" + File.separator
+			this.compare(target, TESTDATA + File.separator
 					+ this.getClass().getName().replace(".", File.separator) 
-					+ File.separator + dir + File.separator + "after" 
+					+ File.separator + dir + File.separator + AFTER 
 					+ File.separator + paquete+ File.separator + "B.java");
 		}
 	}
@@ -258,8 +261,8 @@ public class TestRenameField extends RefactoringTemplateAbstractTest{
 	 */
 	private void undo(String dir, String paquete) throws Exception {
 		SourceLoader sourceLoader = new SourceLoader();
-		sourceLoader.loadFromDirectory("testdata" + File.separator
-				+ this.getClass().getName().replace(".", File.separator) + File.separator + dir + File.separator + "before");
+		sourceLoader.loadFromDirectory(TESTDATA + File.separator
+				+ this.getClass().getName().replace(".", File.separator) + File.separator + dir + File.separator + BEFORE);
 		JavaModel jm = JavaModel.getInstance();
 		MoonFactory factory = jm.getMoonFactory();	
 
@@ -279,23 +282,23 @@ public class TestRenameField extends RefactoringTemplateAbstractTest{
 		// undo actions...
 		renombrado.undoActions();
 
-		if(new File("testdata" + File.separator
+		if(new File(TESTDATA + File.separator
 				+ this.getClass().getName().replace(".", File.separator) 
-				+ File.separator + dir + File.separator + "before"
+				+ File.separator + dir + File.separator + BEFORE
 				+File.separator + paquete + File.separator + "C.java").exists()){
 			
 			String source = Regenerate.regenerate("C.java");
 			String target = EclipsePrettyPrinter.formatCompilationUnit(source);
 			
 			if (paquete.equals(ANONYMOUS)){
-				this.compare(target, "testdata" + File.separator
+				this.compare(target, TESTDATA + File.separator
 						+ this.getClass().getName().replace(".", File.separator) 
-						+ File.separator + dir + File.separator + "before" +File.separator + "C.java");
+						+ File.separator + dir + File.separator + BEFORE +File.separator + "C.java");
 
 			}else{
-				this.compare(target, "testdata" + File.separator
+				this.compare(target, TESTDATA + File.separator
 						+ this.getClass().getName().replace(".", File.separator) 
-						+ File.separator + dir + File.separator + "before" 
+						+ File.separator + dir + File.separator + BEFORE 
 						+ File.separator + paquete+ File.separator + "C.java");
 			}
 			
@@ -305,14 +308,14 @@ public class TestRenameField extends RefactoringTemplateAbstractTest{
 
 		//Compare the two "files", must be equals...
 		if (paquete.equals(ANONYMOUS)){
-			this.compare(target, "testdata" + File.separator
+			this.compare(target, TESTDATA + File.separator
 					+ this.getClass().getName().replace(".", File.separator) 
-					+ File.separator + dir + File.separator + "before" +File.separator + "B.java");
+					+ File.separator + dir + File.separator + BEFORE +File.separator + "B.java");
 
 		}else{
-			this.compare(target, "testdata" + File.separator
+			this.compare(target, TESTDATA + File.separator
 					+ this.getClass().getName().replace(".", File.separator) 
-					+ File.separator + dir + File.separator + "before" 
+					+ File.separator + dir + File.separator + BEFORE 
 					+ File.separator + paquete+ File.separator + "B.java");
 		}
 	}

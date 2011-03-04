@@ -28,7 +28,6 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Iterator;
-import java.util.List;
 import java.util.Set;
 
 import org.junit.Test;
@@ -51,17 +50,52 @@ import dynamicrefactoring.domain.metadata.interfaces.Category;
  */
 public class TestCaseRefactoringReader {
 
-	
+	private static final String METHOD = "Method";
+	private static final String FALSE = "false";
+	private static final String TRUE = "true";
+	/**
+	 * Categoria 2
+	 */
 	public static final String MI_CATEGORIA2 = "MiCategoria2";
+	/**
+	 * Categoria 1
+	 */
 	public static final String MI_CATEGORIA1 = "MiCategoria1";
+	/**
+	 * Clasificacion
+	 */
 	public static final String MI_CLASSIFICATION = "MiClassification";
+	/**
+	 * Clasificacion 2
+	 */
 	public static final String MI_CLASSIFICATION2 = "MiClassification2";
+	/**
+	 * Palabra clave 2
+	 */
 	public static final String KEY_WORD2 = "PalabraClave2";
+	/**
+	 * Palabra clave 1
+	 */
 	public static final String KEY_WORD1 = "PalabraClave1";
+	/**
+	 * Extension de fichero xml
+	 */
 	public static final String XML_EXTENSION = ".xml";
+	/**
+	 * Nombre de la refactorizacion con informacion minima con palabras clave.
+	 */
 	public static final String MINIMUM_INFORMATION_WITH_KEYWORDS = "MinimumInformationWithKeywords";
+	/**
+	 * Nombre de la refactorizacion con clasificaciones
+	 */
 	public static final String REFACTORING_WITH_CLASSIFICATION = "RefactoringWithClassification";
+	/**
+	 * Nombre de la refactorizacion con dos clasificaciones.
+	 */
 	public static final String REFACTORING_WITH_TWO_CLASSIFICATIONS = "RefactoringWithTwoClassifications";
+	/**
+	 * Nombre de la refactorizacion minima.
+	 */
 	public static final String MINIMUM_INFORMATION_REFACTORING = "MinimumInformation";
 	
 	/**
@@ -131,6 +165,11 @@ public class TestCaseRefactoringReader {
 
 	}
 	
+	/**
+	 * Comprueba que se lee correctamente una refactorizacion
+	 * con informacion minima y categorias.
+	 * @throws Exception
+	 */
 	@Test
 	public void testReadingWithMinimunInformationWithCategories() throws Exception{
 
@@ -151,6 +190,12 @@ public class TestCaseRefactoringReader {
 
 	}
 	
+	/**
+	 * Comprueba que se lee correctamente una refactorizacion
+	 * con la informacion minima y con dos categorias.
+	 * 
+	 * @throws Exception si hay algun fallo
+	 */
 	@Test
 	public void testReadingWithMinimunInformationWithTwoCategories() throws Exception{
 
@@ -173,6 +218,12 @@ public class TestCaseRefactoringReader {
 
 	}
 	
+	/**
+	 * Comprueba que se lee correctamente una refactorizacion
+	 * con la informacion minima y palabras clave.
+	 * 
+	 * @throws Exception si hay fallos
+	 */
 	@Test
 	public void testReadingWithMinimunInformationWithKeyWords() throws Exception{
 
@@ -207,13 +258,13 @@ public class TestCaseRefactoringReader {
 		assertEquals(entrada[1], "Model"); //$NON-NLS-1$
 		assertNull(entrada[2]);
 		assertNull(entrada[3]);
-		assertEquals(entrada[4], "false"); //$NON-NLS-1$
+		assertEquals(entrada[4], FALSE); //$NON-NLS-1$
 		String[] entrada2 = entradas.next();
 		assertEquals(entrada2[0], "moon.core.classdef.MethDec"); //$NON-NLS-1$
-		assertEquals(entrada2[1], "Method"); //$NON-NLS-1$
+		assertEquals(entrada2[1], METHOD); //$NON-NLS-1$
 		assertNull(entrada2[2]);
 		assertNull(entrada2[3]);
-		assertEquals(entrada2[4], "true"); //$NON-NLS-1$
+		assertEquals(entrada2[4], TRUE); //$NON-NLS-1$
 		assertFalse(entradas.hasNext());
 
 		Iterator<String> preconditions = definition.getPreconditions().iterator();
@@ -223,7 +274,7 @@ public class TestCaseRefactoringReader {
 
 		Iterator<String> actions = definition.getActions().iterator();
 		String a = actions.next();
-		System.out.println(a);
+
 		assertEquals(a, "RenameClass"); //$NON-NLS-1$
 		assertFalse(actions.hasNext());
 
@@ -277,28 +328,28 @@ public class TestCaseRefactoringReader {
 		assertEquals(entrada[1], "Old_name"); //$NON-NLS-1$
 		assertEquals(entrada[2], "Class"); //$NON-NLS-1$
 		assertEquals(entrada[3], "getName"); //$NON-NLS-1$
-		assertEquals(entrada[4], "false"); //$NON-NLS-1$
+		assertEquals(entrada[4], FALSE); //$NON-NLS-1$
 
 		entrada = entradas.next();
 		assertEquals(entrada[0], "moon.core.Model"); //$NON-NLS-1$
 		assertEquals(entrada[1], "Model"); //$NON-NLS-1$
 		assertNull(entrada[2]);
 		assertNull(entrada[3]);
-		assertEquals(entrada[4], "false"); //$NON-NLS-1$
+		assertEquals(entrada[4], FALSE); //$NON-NLS-1$
 
 		entrada = entradas.next();
 		assertEquals(entrada[0], "moon.core.classdef.ClassDef"); //$NON-NLS-1$
 		assertEquals(entrada[1], "Class"); //$NON-NLS-1$
 		assertNull(entrada[2]);
 		assertNull(entrada[3]);
-		assertEquals(entrada[4], "true"); //$NON-NLS-1$
+		assertEquals(entrada[4], TRUE); //$NON-NLS-1$
 
 		entrada = entradas.next();
 		assertEquals(entrada[0], "moon.core.Name"); //$NON-NLS-1$
 		assertEquals(entrada[1], "New_name"); //$NON-NLS-1$
 		assertNull(entrada[2]);
 		assertNull(entrada[3]);
-		assertEquals(entrada[4], "false"); //$NON-NLS-1$
+		assertEquals(entrada[4], FALSE); //$NON-NLS-1$
 
 		assertFalse(entradas.hasNext());
 

@@ -20,6 +20,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.*/
 
 package dynamicrefactoring.util;
 
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.util.Properties;
@@ -91,7 +92,7 @@ public class LogManager {
 		String configFilePath =
 			RefactoringPlugin.getDefault().getBundleRootDir() +
 			PropertyManager.getInstance().getLogFileDirectory() +
-			System.getProperty("file.separator") +  //$NON-NLS-1$
+			File.separatorChar +  //$NON-NLS-1$
 			LOG_PROPERTIES_FILE;
 		PropertyConfigurator.configure(configFilePath);	
 		}catch(Exception e){
@@ -115,7 +116,7 @@ public class LogManager {
 			String configFilePath =
 				RefactoringPlugin.getDefault().getBundleRootDir() +
 				PropertyManager.getInstance().getLogFileDirectory() +
-				System.getProperty("file.separator") + //$NON-NLS-1$
+				File.separatorChar + //$NON-NLS-1$
 				LOG_PROPERTIES_FILE;
 		
 			FileInputStream configFile = new FileInputStream(configFilePath);
@@ -129,9 +130,9 @@ public class LogManager {
 			// Se construye la ruta actual del directorio temporal del plugin
 			// y en ella se sit�a la carpeta de log.
 			String logDir = RefactoringPlugin.getDefault().getPluginTempDir() +
-				System.getProperty("file.separator") + //$NON-NLS-1$
+				File.separatorChar + //$NON-NLS-1$
 				PropertyManager.getInstance().getLogFileDirectory();
-			String logFile = logDir + System.getProperty("file.separator") + LOG_FILE; //$NON-NLS-1$
+			String logFile = logDir + File.separatorChar + LOG_FILE; //$NON-NLS-1$
 			
 			logProperties.setProperty("log4j.appender.A2.File", logFile); //$NON-NLS-1$
 			

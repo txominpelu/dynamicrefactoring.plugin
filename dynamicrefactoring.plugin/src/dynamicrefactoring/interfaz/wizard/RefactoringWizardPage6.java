@@ -20,6 +20,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.*/
 
 package dynamicrefactoring.interfaz.wizard;
 
+import java.io.File;
 import java.text.MessageFormat;
 import java.util.ArrayList;
 
@@ -384,7 +385,7 @@ public class RefactoringWizardPage6 extends WizardPage {
 		    String openingPath = null;
 		    if (lastSelectionPath == null)
 		    	openingPath = Platform.getLocation().toOSString()
-		    		+ System.getProperty("file.separator") + ".."; //$NON-NLS-1$ //$NON-NLS-2$
+		    		+ File.separatorChar + ".."; //$NON-NLS-1$ //$NON-NLS-2$
 		    else
 		    	openingPath = lastSelectionPath;
 		    		    
@@ -394,7 +395,7 @@ public class RefactoringWizardPage6 extends WizardPage {
 		    if (returnVal != null){
 		    	textField.setText(returnVal);
 		    	lastSelectionPath = returnVal.substring(0, 
-		    		returnVal.lastIndexOf(System.getProperty("file.separator"))); //$NON-NLS-1$
+		    		returnVal.lastIndexOf(File.separatorChar)); //$NON-NLS-1$
 		    	dialogChanged();
 		    }
 		}
