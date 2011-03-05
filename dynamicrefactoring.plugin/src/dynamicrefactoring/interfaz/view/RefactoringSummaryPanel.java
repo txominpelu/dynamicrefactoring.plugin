@@ -50,8 +50,8 @@ import dynamicrefactoring.interfaz.TreeEditor;
 import dynamicrefactoring.util.RefactoringTreeManager;
 
 /**
- * Proporciona un organizador de pesta�as, en el cual se muestra
- * la informaci�n relativa a la refactorizaci�n.
+ * Proporciona un organizador de pestañas, en el cual se muestra
+ * la información relativa a la refactorización.
  * @author XPMUser
  */
 public class RefactoringSummaryPanel {
