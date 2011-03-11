@@ -2,6 +2,7 @@ package dynamicrefactoring.interfaz.view;
 
 import java.io.File;
 import java.util.ArrayList;
+import java.util.Collections;
 
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.custom.ScrolledComposite;
@@ -16,7 +17,6 @@ import org.eclipse.swt.layout.FormAttachment;
 import org.eclipse.swt.layout.FormData;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
-import org.eclipse.swt.layout.RowLayout;
 import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Canvas;
 import org.eclipse.swt.widgets.Composite;
@@ -35,6 +35,7 @@ import org.eclipse.ui.forms.events.ExpansionAdapter;
 import org.eclipse.ui.forms.events.ExpansionEvent;
 import org.eclipse.ui.forms.events.HyperlinkAdapter;
 import org.eclipse.ui.forms.events.HyperlinkEvent;
+import org.eclipse.ui.forms.widgets.ColumnLayout;
 import org.eclipse.ui.forms.widgets.FormToolkit;
 import org.eclipse.ui.forms.widgets.Hyperlink;
 import org.eclipse.ui.forms.widgets.ScrolledForm;
@@ -219,6 +220,8 @@ public class RefactoringSummaryPanel {
 		//toolkitComp
 		final Composite toolkitComp = new Composite(comp, SWT.NONE);
 		gd=new GridData();
+		gd.verticalAlignment = GridData.FILL;
+		gd.grabExcessVerticalSpace = true;
 		gd.horizontalAlignment = GridData.FILL;
 		gd.grabExcessHorizontalSpace = true;
 		toolkitComp.setLayoutData(gd);
@@ -227,20 +230,28 @@ public class RefactoringSummaryPanel {
 		toolkit = new FormToolkit(toolkitComp.getDisplay());
 		final ScrolledForm form = toolkit.createScrolledForm(toolkitComp);
 		gd=new GridData();
+		gd.verticalAlignment = GridData.FILL;
+		gd.grabExcessVerticalSpace = true;
 		gd.horizontalAlignment = GridData.FILL;
 		gd.grabExcessHorizontalSpace = true;
-		form.setLayoutData(gd);
-		form.setLayout(new GridLayout());
-		form.getBody().setLayoutData(gd);
 		g=new GridLayout();
-		g.numColumns=1;
-		g.marginHeight=10;
-		g.verticalSpacing=20;
+		g.marginHeight=0;
+		g.marginWidth=0;
+		form.setLayoutData(gd);
+		form.setLayout(g);
+		form.getBody().setLayoutData(gd);
 		form.getBody().setLayout(g);
 
 		//categoriesSection 
 		categoriesSection = toolkit.createSection(form.getBody(), 
-							Section.TWISTIE|Section.EXPANDED);
+				Section.TITLE_BAR|Section.TWISTIE|Section.EXPANDED);
+		gd=new GridData();
+		gd.verticalAlignment = GridData.FILL;
+		gd.grabExcessVerticalSpace = true;
+		gd.horizontalAlignment = GridData.FILL;
+		gd.grabExcessHorizontalSpace = true;
+		categoriesSection.setLayoutData(gd);
+		categoriesSection.setLayout(new GridLayout());
 		categoriesSection.setText(Messages.RefactoringSummaryPanel_Categories);
 		categoriesSection.addExpansionListener(new ExpansionAdapter() {
 			public void expansionStateChanged(ExpansionEvent e) {
@@ -249,14 +260,21 @@ public class RefactoringSummaryPanel {
 		});
 		toolkit.createCompositeSeparator(categoriesSection);
 		Composite catSectionClient = toolkit.createComposite(categoriesSection);
-		RowLayout rl=new RowLayout();
-		rl.spacing=10;
-		catSectionClient.setLayout(rl);
+		ColumnLayout cl = new ColumnLayout();
+		cl.maxNumColumns = 4;
+		catSectionClient.setLayout(cl);
 		categoriesSection.setClient(catSectionClient);
-		
+				
 		//keyWordsSection 
-		keyWordsSection = toolkit.createSection(form.getBody(), 
-							Section.TWISTIE|Section.EXPANDED);
+		keyWordsSection = toolkit.createSection(form.getBody(),
+				Section.TITLE_BAR|Section.TWISTIE|Section.EXPANDED);
+		gd=new GridData();
+		gd.verticalAlignment = GridData.FILL;
+		gd.grabExcessVerticalSpace = true;
+		gd.horizontalAlignment = GridData.FILL;
+		gd.grabExcessHorizontalSpace = true;
+		keyWordsSection.setLayoutData(gd);
+		keyWordsSection.setLayout(new GridLayout());
 		keyWordsSection.setText(Messages.RefactoringSummaryPanel_KeyWords);
 		keyWordsSection.addExpansionListener(new ExpansionAdapter() {
 			public void expansionStateChanged(ExpansionEvent e) {
@@ -265,7 +283,7 @@ public class RefactoringSummaryPanel {
 		});
 		toolkit.createCompositeSeparator(keyWordsSection);
 		Composite kwSectionClient = toolkit.createComposite(keyWordsSection);
-		kwSectionClient.setLayout(rl);
+		kwSectionClient.setLayout(cl);
 		keyWordsSection.setClient(kwSectionClient);
 		
 		TabItem item = new TabItem (refTabFolder, SWT.NONE);
@@ -375,9 +393,10 @@ public class RefactoringSummaryPanel {
 	private void fillOverview(){
 		descriptionText.setText(refactoring.getDescription().trim());
 		motivationText.setText(refactoring.getMotivation().trim());
-		
+
 		categoriesSection.setVisible(false);
 		ArrayList<Category> categories = new ArrayList<Category>(refactoring.getCategories());
+		Collections.sort(categories);
 		Hyperlink catHyperlink=null;
 		for(Category c : categories){
 			catHyperlink = toolkit.createHyperlink((Composite)categoriesSection.getClient(),
@@ -398,6 +417,7 @@ public class RefactoringSummaryPanel {
 		
 		keyWordsSection.setVisible(false);
 		ArrayList<String> keyWords = new ArrayList<String>(refactoring.getKeywords());
+		Collections.sort(keyWords);
 		Hyperlink kwHyperlink=null;
 		for(String kw : keyWords){
 			kwHyperlink = toolkit.createHyperlink((Composite)keyWordsSection.getClient(),
@@ -414,6 +434,7 @@ public class RefactoringSummaryPanel {
 		}
 		keyWordsSection.setExpanded(!keyWords.isEmpty());
 		keyWordsSection.setVisible(true);
+		
 	}
 	
 	private void fillInputsTable(){
