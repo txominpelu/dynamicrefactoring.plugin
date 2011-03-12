@@ -20,6 +20,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.*/
 
 package dynamicrefactoring.interfaz.dynamic;
 
+import java.io.File;
 import java.util.ArrayList;
 
 import org.eclipse.swt.SWT;
@@ -56,7 +57,7 @@ import dynamicrefactoring.domain.DynamicRefactoringDefinition;
 import dynamicrefactoring.interfaz.TreeEditor;
 
 /**
- * Pestaña con el contenido resumen de una refactorización.
+ * Pestaï¿½a con el contenido resumen de una refactorizaciï¿½n.
  * 
  * @author <A HREF="mailto:sfd0009@alu.ubu.es">Sonia Fuente de la Fuente</A>
  * @author <A HREF="mailto:ehp0001@alu.ubu.es">Enrique Herrero Paredes</A>
@@ -64,42 +65,42 @@ import dynamicrefactoring.interfaz.TreeEditor;
 public class DynamicRefactoringTab {
 
 	/**
-	 * Campo de texto en que se muestra la motivación de la refactorización.
+	 * Campo de texto en que se muestra la motivaciï¿½n de la refactorizaciï¿½n.
 	 */
 	private Text t_Motivation;
 
 	/**
-	 * Campo de texto en que se muestra la descripción de la refactorización.
+	 * Campo de texto en que se muestra la descripciï¿½n de la refactorizaciï¿½n.
 	 */
 	private Text t_Description;
 
 	/**
-	 * Tabla de entradas de la refactorización.
+	 * Tabla de entradas de la refactorizaciï¿½n.
 	 */
 	private Table tb_Inputs;
 
 	/**
-	 * Tabla de componentes de la refactorización.
+	 * Tabla de componentes de la refactorizaciï¿½n.
 	 */
 	private Tree tr_Components;
 
 	/**
-	 * Pestaña asociada al resumen de la refactorización.
+	 * Pestaï¿½a asociada al resumen de la refactorizaciï¿½n.
 	 */
 	private TabItem tab;
 
 	/**
-	 * La definición de la refactorización.
+	 * La definiciï¿½n de la refactorizaciï¿½n.
 	 */
 	protected DynamicRefactoringDefinition refactoringDefinition;
 
 	/**
-	 * Crea la pestaña con el resumen de la refactorización.
+	 * Crea la pestaï¿½a con el resumen de la refactorizaciï¿½n.
 	 * 
 	 * @param parent
-	 *            el contenedor de pestañas que contendrá esta pestaña.
+	 *            el contenedor de pestaï¿½as que contendrï¿½ esta pestaï¿½a.
 	 * @param definition
-	 *            la definición de la refactorización.
+	 *            la definiciï¿½n de la refactorizaciï¿½n.
 	 */
 	public DynamicRefactoringTab(TabFolder parent,
 		DynamicRefactoringDefinition definition){
@@ -116,7 +117,7 @@ public class DynamicRefactoringTab {
 		scrolledComposite.setExpandHorizontal(true);
 		scrolledComposite.setExpandVertical(true);
 		
-		// Pestaña de información.
+		// Pestaï¿½a de informaciï¿½n.
 		final Composite cInformation = new Composite(scrolledComposite, SWT.NONE);
 		cInformation.setLocation(0, 0);
 		cInformation.setSize(872, 390);
@@ -128,7 +129,7 @@ public class DynamicRefactoringTab {
 		nameLabel.setFont(SWTResourceManager.getFont("Tahoma", 14, SWT.NONE)); //$NON-NLS-1$
 		nameLabel.setBounds(10, 15, 354, 39);
 		
-		// Se añade la imagen.
+		// Se aï¿½ade la imagen.
 		final Canvas canvas = new Canvas(cInformation, SWT.NO_REDRAW_RESIZE | SWT.H_SCROLL |SWT.V_SCROLL | SWT.BORDER);
 		canvas.setBounds(456, 15, 385, 162);
 		canvas.setBackground(new Color(null, 255,255, 255));
@@ -137,8 +138,8 @@ public class DynamicRefactoringTab {
 				refactoringDefinition.getImage().length() != 0){
 
 			String path = RefactoringPlugin.getDynamicRefactoringsDir()
-				+ System.getProperty("file.separator") //$NON-NLS-1$
-				+ refactoringDefinition.getName() + System.getProperty("file.separator") //$NON-NLS-1$
+				+ File.separatorChar //$NON-NLS-1$
+				+ refactoringDefinition.getName() + File.separatorChar //$NON-NLS-1$
 				+ refactoringDefinition.getImage();
 			ImageLoader loader = new ImageLoader();
 
@@ -282,8 +283,8 @@ public class DynamicRefactoringTab {
 	}
 
 	/**
-	 * Puebla los campos de la pestaña con la información que se pueda obtener
-	 * de la refactorización existente que se está editando o que se está a
+	 * Puebla los campos de la pestaï¿½a con la informaciï¿½n que se pueda obtener
+	 * de la refactorizaciï¿½n existente que se estï¿½ editando o que se estï¿½ a
 	 * punto de crear.
 	 */
 	private void fillInRefactoringData(){

@@ -56,4 +56,33 @@ public interface Classification extends Comparable<Classification>{
 	 * @return verdadero si la clasificación contien la categoria, falso en caso contrario.
 	 */
 	boolean containsCategory(Category cat);
+
+	/**
+	 * Devuelve una clasificacion copia de la actual pero
+	 * en la que se ha sustituido el nombre de la categoria
+	 * oldName por newName
+	 * 
+	 * @param oldName nombre actual de la categoria a cambiar
+	 * @param newName nuevo nombre
+	 * @return clasificacion con los cambios aplicados
+	 */
+	Classification renameCategory(String oldName, String newName);
+
+	/**
+	 * Devuelve una clasificacion copia de la actual pero
+	 * en la que se ha añadido la nueva categoria.
+	 * 
+	 * @param category categoria a agregar
+	 * @return clasificacion con los cambios aplicados
+	 */
+	Classification addCategory(Category category);
+
+	/**
+	 * Devuelve una clasificacion copia de la actual pero
+	 * en la que se ha eliminado la categoria.
+	 * 
+	 * @param category categoria a agregar
+	 * @return clasificacion con los cambios aplicados
+	 */
+	Classification removeCategory(Category category);
 }

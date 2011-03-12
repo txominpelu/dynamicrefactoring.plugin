@@ -1,5 +1,6 @@
 package dynamicrefactoring.domain.metadata.imp;
 
+import java.util.HashSet;
 import java.util.Set;
 
 import com.google.common.base.Objects;
@@ -62,7 +63,7 @@ public final class SimpleUniLevelClassification implements Classification {
 
 	@Override
 	public Set<Category> getCategories() {
-		return categories;
+		return new HashSet<Category>(categories);
 	}
 
 	@Override
@@ -138,6 +139,30 @@ public final class SimpleUniLevelClassification implements Classification {
 				return true;
 		}
 		return false;
+	}
+
+	@Override
+	public Classification renameCategory(String oldName, String newName) {
+		Set<Category> newCategories = new HashSet<Category>(categories);
+		Category oldCategory = new Category(getName(),oldName);
+		newCategories.remove(oldCategory);
+		Category newCategory = new Category(getName(),newName);
+		newCategories.add(newCategory);
+		return new SimpleUniLevelClassification(getName(), getDescription(), newCategories);
+	}
+
+	@Override
+	public Classification addCategory(Category category) {
+		Set<Category> newCategories = new HashSet<Category>(categories);
+		newCategories.add(category);
+		return new SimpleUniLevelClassification(getName(), getDescription(), newCategories);
+	}
+	
+	@Override
+	public Classification removeCategory(Category category) {
+		Set<Category> newCategories = new HashSet<Category>(categories);
+		newCategories.remove(category);
+		return new SimpleUniLevelClassification(getName(), getDescription(), newCategories);
 	}
 
 }

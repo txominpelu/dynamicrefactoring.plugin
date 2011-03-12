@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!DOCTYPE classifications SYSTEM "classificationsDTD.dtd">
+
+<classifications>
+	<classification name="Scope"  description="MiDescripcion">
+		<categories>
+			<category>Class</category>
+			<category>Method</category>
+			<category>Attribute</category>
+			<category>CodeFragment</category>
+			<category>FormalPar</category>
+			<category>FormalArg</category>
+		</categories>		
+	</classification>
+	<classification multicategory="true" name="Fowler" description="">
+		<categories>
+			<category>ComposingMethods</category>
+			<category>MakingMethodCallsSimpler</category>
+			<category>MovingFeatures</category>
+			<category>Organizing data</category>
+			<category>Symplifying conditional expressions</category>
+		</categories>		
+	</classification>
+	<classification multicategory="true" name="ClasifPrueba" description="">
+		<categories>
+			<category>clasifToRename</category>
+		</categories>		
+	</classification>
+</classifications>

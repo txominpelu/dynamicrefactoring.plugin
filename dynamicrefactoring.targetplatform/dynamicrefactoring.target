@@ -4,14 +4,15 @@
 <target name="dynamicrefactoring">
 <locations>
 <location includeAllPlatforms="false" includeMode="slicer" type="InstallableUnit">
-<unit id="org.eclipse.swtbot.eclipse.feature.group" version="2.0.3.20110219_0655-4d933cf-dev-e35"/>
-<unit id="org.eclipse.swtbot.feature.group" version="2.0.3.20110219_0655-4d933cf-dev-e35"/>
-<unit id="org.eclipse.swtbot.eclipse.test.junit4.feature.group" version="2.0.3.20110219_0655-4d933cf-dev-e35"/>
-<repository location="http://download.eclipse.org/technology/swtbot/galileo/dev-build/update-site/"/>
-</location>
-<location includeAllPlatforms="false" includeMode="slicer" type="InstallableUnit">
 <unit id="org.eclipse.sdk.ide" version="3.5.2.M20100211-1343"/>
 <repository location="http://download.eclipse.org/eclipse/updates/3.5"/>
+</location>
+<location includeAllPlatforms="false" includeMode="slicer" type="InstallableUnit">
+<unit id="org.eclipse.swtbot.forms.feature.group" version="2.0.4.20110304_0338-e5aff47-dev-e35"/>
+<unit id="org.eclipse.swtbot.eclipse.feature.group" version="2.0.4.20110304_0338-e5aff47-dev-e35"/>
+<unit id="org.eclipse.swtbot.feature.group" version="2.0.4.20110304_0338-e5aff47-dev-e35"/>
+<unit id="org.eclipse.swtbot.eclipse.test.junit4.feature.group" version="2.0.4.20110304_0338-e5aff47-dev-e35"/>
+<repository location="http://download.eclipse.org/technology/swtbot/galileo/dev-build/update-site/"/>
 </location>
 </locations>
 </target>
