@@ -218,39 +218,16 @@ public class RefactoringCatalogBrowserView extends ViewPart {
 	private SashForm sashForm;
 
 	/**
-	 * Acción que muestra en la vista solo la parte referente a la clasificación.
-	 */
-	private Action classAction;
-	
-	/**
-	 * Acción que refresca la vista en caso que hayan sufrido modificaciones las 
-	 * refactorizaciones o clasificaciones.
-	 */
-	private Action refreshAction;
-	
-	/**
-	 * Acción que muestra un editor xml de clasificaciones, desde el cual editar las 
-	 * clasificaciones definidas y las categorías de cada una de ellas.
-	 */
-	private Action classEditorAction;
-
-	/**
-	 * Acción que muestra en la vista solo la parte referente a la refactorización.
-	 */
-	private Action refAction;
-
-	/**
-	 * Acción que muestra en la vista las dos partes.
-	 */
-	private Action classRefAction;
-
-	/**
 	 * Organizador de pestañas para mostrar la información
 	 * relativa a la refactorización seleccionada en el árbol.
 	 */
 	private RefactoringSummaryPanel refSummaryPanel;
 
+	private Composite classComp;
+	private Composite refComp;
 
+	private IToolBarManager toolBarManager;
+	
 	/**
 	 * Crea los controles SWT para este componente del espacio de trabajo.
 	 * 
@@ -284,108 +261,15 @@ public class RefactoringCatalogBrowserView extends ViewPart {
 
 		//sashForm Left: classComp
 		FormData classFormData=null;
-		final Composite classComp = new Composite(sashForm, SWT.NONE);
+		classComp = new Composite(sashForm, SWT.NONE);
 		classComp.setLayout(new FormLayout());
 
 		//sashForm Rigth: refComp
-		final Composite refComp = new Composite(sashForm, SWT.NONE);
+		refComp = new Composite(sashForm, SWT.NONE);
 		refComp.setLayout(new FormLayout());
 
-		//actions
-		refreshAction=new Action(){
-			public void run() {
-				
-				//almacenamos la clasificación seleccionada en el classCombo y
-				//la refactorización que se muestra en detalle
-				String classSelected=classCombo.getText();
-				DynamicRefactoringDefinition refSelected=refSummaryPanel.getRefactoringSelected();
-				
-				//recarga de clasificaciones, refactorizaciones
-				loadClassifications();
-				loadRefactorings();
-
-				//recargamos el classCombo
-				classCombo.removeAll();
-				fillClassCombo();
-				
-				//comprobamos si entre las nuevas clasificaciones se encuentra la que estaba seleccionada 
-				Classification c = null;
-				boolean found = false;
-				
-				Iterator<Classification> iter = classifications.iterator();
-				while (iter.hasNext() && found == false) {
-					c = iter.next();
-					if (c.getName().equals(classSelected))
-						found = true;
-				}
-				
-				if(found){
-					//si se encuentra seleccionamos ese item, 
-					//mostramos la descripcion y clasificamos según él
-					classCombo.setText(classSelected);
-					descClassLabel.setText(c.getDescription());
-					catalog=(ElementCatalog<DynamicRefactoringDefinition>)catalog.newInstance(c);
-				}else{
-					//sino mostrar por defecto la clasificacion None
-					classCombo.select(0);
-					descClassLabel.setText(NONE_CLASSIFICATION.getDescription());
-					catalog=(ElementCatalog<DynamicRefactoringDefinition>)catalog.newInstance(NONE_CLASSIFICATION);
-				}
-				showTree(classCombo.getText());
-				
-				//si habia alguna refactorizacion mostrada se refresca
-				if(refSelected!=null && refactorings.containsKey(refSelected.getName())){
-					refSummaryPanel.setRefactoringDefinition(refactorings.get(refSelected.getName()));
-					refSummaryPanel.showRefactoringSummary();
-				}
-			}};
-		refreshAction.setToolTipText(Messages.RefactoringCatalogBrowserView_RefreshAction);
-		refreshAction.setImageDescriptor(
-					ImageDescriptor.createFromImage(RefactoringImages.getRefreshIcon()));
-			
-		classEditorAction=new Action(){
-			public void run() {
-				//RefactoringConstants.CLASSIFICATION_TYPES_FILE)
-			}};
-		classEditorAction.setToolTipText(Messages.RefactoringCatalogBrowserView_ClassEditorAction);
-		classEditorAction.setImageDescriptor(
-					ImageDescriptor.createFromImage(RefactoringImages.getClassEditorIcon()));
-		
-		classAction=new Action(){
-			public void run() {
-				sashForm.setMaximizedControl(classComp);
-				classAction.setEnabled(false);
-				refAction.setEnabled(true);
-				classRefAction.setEnabled(true);
-			}};
-		classAction.setToolTipText(Messages.RefactoringCatalogBrowserView_ClassAction);
-		classAction.setImageDescriptor(
-				ImageDescriptor.createFromImage(RefactoringImages.getSplitLeftIcon()));
-		
-		refAction=new Action(){
-			public void run() {
-				sashForm.setMaximizedControl(refComp);
-				refAction.setEnabled(false);
-				classAction.setEnabled(true);
-				classRefAction.setEnabled(true);
-			}};
-		refAction.setToolTipText(Messages.RefactoringCatalogBrowserView_RefAction);
-		refAction.setImageDescriptor(
-				ImageDescriptor.createFromImage(RefactoringImages.getSplitRightIcon()));
-
-		classRefAction=new Action(){
-			public void run() {
-				sashForm.setMaximizedControl(null);
-				classRefAction.setEnabled(false);
-				classAction.setEnabled(true);
-				refAction.setEnabled(true);
-			}};
-		classRefAction.setToolTipText(Messages.RefactoringCatalogBrowserView_ClassRefAction);
-		classRefAction.setImageDescriptor(
-				ImageDescriptor.createFromImage(RefactoringImages.getSplitIcon()));
-
-		IActionBars bars = getViewSite().getActionBars();
-		fillLocalToolBar(bars.getToolBarManager());
+		//toolBarManager
+	    toolBarManager = getViewSite().getActionBars().getToolBarManager();
 
 		//refSummaryPanel
 
@@ -556,7 +440,8 @@ public class RefactoringCatalogBrowserView extends ViewPart {
 
 		//sashForm
 		sashForm.setWeights(new int[] {60,40});
-		classRefAction.setEnabled(false);
+//		FIXME:solucionar esto
+//		classRefAction.setEnabled(false);
 
 		//scrolledComp
 		scrolledComp.setContent(sashForm);
@@ -758,22 +643,6 @@ public class RefactoringCatalogBrowserView extends ViewPart {
 					Display.getCurrent().getSystemColor(SWT.COLOR_DARK_GRAY));
 	}
 
-	/**
-	 * Añade las diferentes acciones a la barra de herramientas de la vista.
-	 * @param manager gestor de la barra de herramientas de la vista
-	 */
-	private void fillLocalToolBar(IToolBarManager manager) {
-		manager.add(refreshAction);
-		manager.add(new Separator());
-		manager.add(classEditorAction);
-		manager.add(new Separator());
-		manager.add(classAction);
-		manager.add(refAction);
-		manager.add(classRefAction);
-	}
-
-
-
 	private void removeAllConditionToTable(){
 
 		TableItem item=null;
@@ -931,6 +800,97 @@ public class RefactoringCatalogBrowserView extends ViewPart {
 		}
 	}
 	
+
+	public void refreshView() {
+		//almacenamos la clasificación seleccionada en el classCombo y
+		//la refactorización que se muestra en detalle
+		String classSelected=classCombo.getText();
+		DynamicRefactoringDefinition refSelected=refSummaryPanel.getRefactoringSelected();
+		
+		//recarga de clasificaciones, refactorizaciones
+		loadClassifications();
+		loadRefactorings();
+
+		//recargamos el classCombo
+		classCombo.removeAll();
+		fillClassCombo();
+		
+		//comprobamos si entre las nuevas clasificaciones se encuentra la que estaba seleccionada 
+		Classification c = null;
+		boolean found = false;
+		
+		Iterator<Classification> iter = classifications.iterator();
+		while (iter.hasNext() && found == false) {
+			c = iter.next();
+			if (c.getName().equals(classSelected))
+				found = true;
+		}
+		
+		if(found){
+			//si se encuentra seleccionamos ese item, 
+			//mostramos la descripcion y clasificamos según él
+			classCombo.setText(classSelected);
+			descClassLabel.setText(c.getDescription());
+			catalog=(ElementCatalog<DynamicRefactoringDefinition>)catalog.newInstance(c);
+		}else{
+			//sino mostrar por defecto la clasificacion None
+			classCombo.select(0);
+			descClassLabel.setText(NONE_CLASSIFICATION.getDescription());
+			catalog=(ElementCatalog<DynamicRefactoringDefinition>)catalog.newInstance(NONE_CLASSIFICATION);
+		}
+		showTree(classCombo.getText());
+		
+		//si habia alguna refactorizacion mostrada se refresca
+		if(refSelected!=null && refactorings.containsKey(refSelected.getName())){
+			refSummaryPanel.setRefactoringDefinition(refactorings.get(refSelected.getName()));
+			refSummaryPanel.showRefactoringSummary();
+		}
+	}
+
+
+	/**
+	 * Muestra el editor de clasificaciones.
+	 */
+	public void editClassification() {
+		//RefactoringConstants.CLASSIFICATION_TYPES_FILE)
+	}
+
+
+	/**
+	 * @param classComp
+	 */
+	public void showLeftPane() {
+//		FIXME:solucionar esto
+//		sashForm.setMaximizedControl(classComp);
+//		classAction.setEnabled(false);
+//		refAction.setEnabled(true);
+//		classRefAction.setEnabled(true);
+	}
+
+
+	/**
+	 * 
+	 */
+	public void showRightPane() {
+//		FIXME:solucionar esto
+//		sashForm.setMaximizedControl(refComp);
+//		refAction.setEnabled(false);
+//		classAction.setEnabled(true);
+//		classRefAction.setEnabled(true);
+	}
+
+
+	/**
+	 * 
+	 */
+	public void showLeftAndRightPane() {
+//		FIXME:solucionar esto
+//		sashForm.setMaximizedControl(null);
+//		classRefAction.setEnabled(false);
+//		classAction.setEnabled(true);
+//		refAction.setEnabled(true);
+	}
+
 
 	/**
 	 * Actualiza el árbol de refactorizaciones para representarlas conforme

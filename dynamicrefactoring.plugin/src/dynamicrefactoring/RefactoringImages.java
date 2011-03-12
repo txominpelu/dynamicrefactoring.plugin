@@ -27,12 +27,6 @@ public final class RefactoringImages {
 
 	public static final String VALIDATE_ICON_PATH = ICONS_DIR + "validate.gif"; //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
 
-	public static final String SPLIT_ICON_PATH = ICONS_DIR + "split.png"; //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
-
-	public static final String SPLIT_RIGHT_ICON_PATH = ICONS_DIR + "split_right.png"; //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
-
-	public static final String SPLIT_LEFT_ICON_PATH = ICONS_DIR + "split_left.png"; //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
-
 	public static final String SEARCH_ICON_PATH = ICONS_DIR + "search.png"; //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
 
 	public static final String FIL_ICON_PATH = ICONS_DIR + "fil.png"; //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
@@ -71,10 +65,6 @@ public final class RefactoringImages {
 	
 	public static final String HELP_ICON_PATH = ICONS_DIR + "help.png"; //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
 	
-	public static final String REFRESH_ICON_PATH = ICONS_DIR + "refresh.png"; //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
-
-	public static final String CLASS_EDIT_ICON_PATH = ICONS_DIR + "class_edit.png"; //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
-
 	public static final String REF_VIEW_ICON_PATH = ICONS_DIR + "ref_view.png"; //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
 
 	/**
@@ -147,33 +137,6 @@ public final class RefactoringImages {
 	 */
 	public final static Image getValidateIcon() {
 		return getImageForPath(VALIDATE_ICON_PATH);
-	}
-
-	/**
-	 * Obtiene el icono Split.
-	 * 
-	 * @return imagen del icono
-	 */
-	public final static Image getSplitIcon() {
-		return getImageForPath(SPLIT_ICON_PATH);
-	}
-
-	/**
-	 * Obtiene el icono Split Right.
-	 * 
-	 * @return imagen del icono
-	 */
-	public final static Image getSplitRightIcon() {
-		return getImageForPath(SPLIT_RIGHT_ICON_PATH);
-	}
-
-	/**
-	 * Obtiene el icono Split Left.
-	 * 
-	 * @return imagen del icono
-	 */
-	public final static Image getSplitLeftIcon() {
-		return getImageForPath(SPLIT_LEFT_ICON_PATH);
 	}
 
 	/**
@@ -346,24 +309,6 @@ public final class RefactoringImages {
 		return getImageForPath(HELP_ICON_PATH);
 	}
 	
-	/**
-	 * Obtiene el icono Refresh.
-	 * 
-	 * @return imagen del icono
-	 */
-	public final static Image getRefreshIcon(){
-		return getImageForPath(REFRESH_ICON_PATH);
-	}
-	
-	/**
-	 * Obtiene el icono Classification Editor.
-	 * 
-	 * @return imagen del icono
-	 */
-	public final static Image getClassEditorIcon(){
-		return getImageForPath(CLASS_EDIT_ICON_PATH);
-	}
-
 	/**
 	 * Obtiene el icono Refactoring Catalgo Browser View.
 	 * 
