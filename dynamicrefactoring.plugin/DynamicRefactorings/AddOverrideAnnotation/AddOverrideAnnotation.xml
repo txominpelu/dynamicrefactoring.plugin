@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="iso-8859-1"?><!DOCTYPE refactoring  SYSTEM 'refactoringDTD.dtd'><refactoring name="AddOverrideAnnotation">
 	<information>
 		<description>Añade una anotación indicando que el cuerpo de el método de la superclase ha sido sobrescrito.</description>
-		<image src="imagen.tiff"/>
+		<image src="imagen.jpg"/>
 		<motivation>La herencia de clases es una de las propiedades más importantes dentro de la programación orientada a objetos , por ello poder detectar los métodos que sobrescriben a los de la superclase puede facilitar la visión de conjunto cuando trabajemos con polimorfismo.</motivation>
 	<categorization><classification name="Scope"><category>Method</category></classification></categorization></information>
 	<inputs>

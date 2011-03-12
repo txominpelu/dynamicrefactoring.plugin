@@ -28,8 +28,8 @@ import org.eclipse.ui.IViewPart;
 import dynamicrefactoring.interfaz.view.ProgressView;
 
 /**
- * Implementa una acci�n capaz de vaciar la tabla asociada a la vista
- * de proceso de una refactorizaci�n.
+ * Implementa una acción capaz de vaciar la tabla asociada a la vista
+ * de proceso de una refactorización.
  * 
  * @author <A HREF="mailto:sfd0009@alu.ubu.es">Sonia Fuente de la Fuente</A>
  * @author <A HREF="mailto:ehp0001@alu.ubu.es">Enrique Herrero Paredes</A>
@@ -37,14 +37,14 @@ import dynamicrefactoring.interfaz.view.ProgressView;
 public class CleanViewAction implements IViewActionDelegate {
 
 	/**
-	 * Vista para la que se implementa la acci�n de limpieza.
+	 * Vista para la que se implementa la acción de limpieza.
 	 */
 	private IViewPart view;
 	
 	/**
-	 * Inicializa la acci�n con la vista a la que queda asociada.
+	 * Inicializa la acción con la vista a la que queda asociada.
 	 * 
-	 * @param view la vista a la que se asocia la acci�n de limpieza.
+	 * @param view la vista a la que se asocia la acción de limpieza.
 	 */
 	@Override
 	public void init(IViewPart view) {
@@ -52,13 +52,13 @@ public class CleanViewAction implements IViewActionDelegate {
 	}
 
 	/**
-	 * Ejecuta la acci�n de limpieza sobre la vista.
+	 * Ejecuta la acción de limpieza sobre la vista.
 	 * 
-	 * <p>Vac�a la tabla en que se muestran los pasos dados durante la 
-	 * ejecuci�n de una refactorizaci�n.</p>
+	 * <p>Vacía la tabla en que se muestran los pasos dados durante la 
+	 * ejecución de una refactorización.</p>
 	 * 
-	 * @param action el <i>proxy</i> que representa esta acci�n hasta su
-	 * activaci�n.
+	 * @param action el <i>proxy</i> que representa esta acción hasta su
+	 * activación.
 	 */
 	@Override
 	public void run(IAction action) {
@@ -67,7 +67,7 @@ public class CleanViewAction implements IViewActionDelegate {
 	}
 
 	/**
-	 * Sin implementaci�n.
+	 * Sin implementación.
 	 */
 	@Override
 	public void selectionChanged(IAction action, ISelection selection) {

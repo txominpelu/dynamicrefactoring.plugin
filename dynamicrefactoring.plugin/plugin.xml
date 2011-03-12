@@ -284,6 +284,55 @@
 				class="dynamicrefactoring.action.CleanViewAction">
 			</action>
 		</viewContribution>
+  <viewContribution
+        id="dynamicrefactoring.viewmenus.refactoringCatalogBrowser"
+        targetID="dynamicrefactoring.views.refactoringCatalogBrowserView">
+     <action
+           class="dynamicrefactoring.action.ClassificationEditorViewAction"
+           icon="icons/class_edit.png"
+           id="dynamicrefactoring.viewmenus.classEditorRefactoringCatalogBrowserAction"
+           label="%dynamicrefactoring.view.action.classEditor"
+           style="push"
+           toolbarPath="Normal/additions"
+           tooltip="%dynamicrefactoring.view.tooltip.classEditor">
+     </action>
+     <action
+           class="dynamicrefactoring.action.RefreshViewAction"
+           icon="icons/refresh.png"
+           id="dynamicrefactoring.viewmenus.refreshRefactoringCatalogBrowserAction"
+           label="%dynamicrefactoring.view.action.refresh"
+           style="push"
+           toolbarPath="Normal/additions"
+           tooltip="%dynamicrefactoring.view.tooltip.refresh">
+     </action>
+     <action
+           class="dynamicrefactoring.action.ShowLeftAndRightPaneViewAction"
+           icon="icons/split.png"
+           id="dynamicrefactoring.viewmenus.showLeftAndRightPaneRefactoringCatalogBrowserAction"
+           label="%dynamicrefactoring.view.action.showLeftAndRightPane"
+           style="push"
+           toolbarPath="Normal/panes"
+           tooltip="%dynamicrefactoring.view.tooltip.showLeftAndRightPane">
+     </action>
+     <action
+           class="dynamicrefactoring.action.ShowRightPaneViewAction"
+           icon="icons/split_right.png"
+           id="dynamicrefactoring.viewmenus.showRightPaneRefactoringCatalogBrowserAction"
+           label="%dynamicrefactoring.view.action.showRightPane"
+           style="push"
+           toolbarPath="Normal/panes"
+           tooltip="%dynamicrefactoring.view.tooltip.showRightPane">
+     </action>
+     <action
+           class="dynamicrefactoring.action.ShowLeftPaneViewAction"
+           icon="icons/split_left.png"
+           id="dynamicrefactoring.viewmenus.showLeftPaneRefactoringCatalogBrowserAction"
+           label="%dynamicrefactoring.view.action.showLeftPane"
+           style="push"
+           toolbarPath="Normal/panes"
+           tooltip="%dynamicrefactoring.view.tooltip.showLeftPane">
+     </action>
+  </viewContribution>
 	</extension>
 
 	<extension-point id="listeners" name="Refactoring listeners"/>
