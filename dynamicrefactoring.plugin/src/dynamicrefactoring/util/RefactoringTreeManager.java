@@ -23,8 +23,8 @@ public class RefactoringTreeManager {
 	 */
 	public static void setForegroundTreeItem(TreeItem tItem, Color c){
 		TreeItem childItems[]=tItem.getItems();
+		tItem.setForeground(c);
 		for(TreeItem childItem: childItems){
-			childItem.setForeground(c);
 			setForegroundTreeItem(childItem,c);
 		}
 	}

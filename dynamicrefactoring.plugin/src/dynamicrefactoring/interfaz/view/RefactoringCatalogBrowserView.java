@@ -12,14 +12,11 @@ import java.util.Set;
 
 import org.apache.log4j.Logger;
 import org.eclipse.core.runtime.Platform;
-import org.eclipse.jface.action.Action;
 import org.eclipse.jface.action.ActionContributionItem;
 import org.eclipse.jface.action.IAction;
 import org.eclipse.jface.action.IContributionItem;
 import org.eclipse.jface.action.IToolBarManager;
-import org.eclipse.jface.action.Separator;
 import org.eclipse.jface.dialogs.MessageDialog;
-import org.eclipse.jface.resource.ImageDescriptor;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.custom.SashForm;
 import org.eclipse.swt.custom.ScrolledComposite;
@@ -51,7 +48,6 @@ import org.eclipse.swt.widgets.Text;
 import org.eclipse.swt.widgets.ToolTip;
 import org.eclipse.swt.widgets.Tree;
 import org.eclipse.swt.widgets.TreeItem;
-import org.eclipse.ui.IActionBars;
 import org.eclipse.ui.IWorkbenchWindow;
 import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.part.ViewPart;
@@ -60,9 +56,6 @@ import com.google.common.base.Predicate;
 
 import dynamicrefactoring.RefactoringImages;
 import dynamicrefactoring.RefactoringPlugin;
-import dynamicrefactoring.action.ShowLeftAndRightPaneViewAction;
-import dynamicrefactoring.action.ShowLeftPaneViewAction;
-import dynamicrefactoring.action.ShowRightPaneViewAction;
 import dynamicrefactoring.domain.DynamicRefactoringDefinition;
 import dynamicrefactoring.domain.RefactoringException;
 import dynamicrefactoring.domain.metadata.condition.CategoryCondition;
@@ -547,7 +540,63 @@ public class RefactoringCatalogBrowserView extends ViewPart {
 		catalog=new ElementCatalog<DynamicRefactoringDefinition>(
 				drd, NONE_CLASSIFICATION);
 	}
+	
+	/**
+	 * Crea una representación en formato de árbol de cada una de las refactorizaciones
+	 * que pertenecen a cada una de las categorias que dispone la clasificación 
+	 * indicada. En caso de tratarse de refactorizaciones filtradas pone de color 
+	 * gris el texto de todos los componentes del árbol.
+	 * 
+	 * @param orderInTree posición de la rama en el árbol refactoringsTree.
+	 * @param iconPath ruta al icono representativo del árbol que se va a crear
+	 * @param className nombre de la clasificación.
+	 * @param classElements lista de refactorizaciones a mostrar.
+	 * @param isFilteredClass indicador de filtrado. Si es verdadero se trata de
+	 * 		  refactorizaciones filtradas, falso en caso contrario.
+	 */
+	private void createClassificationTree(int orderInTree, String iconPath, String className, 
+			ClassifiedElements<DynamicRefactoringDefinition> classElements, 
+			boolean isFilteredClass) {
+		
+		TreeItem classTreeItem = TreeEditor.createBranch(refactoringsTree,
+				orderInTree, className, iconPath);
+		
+		ArrayList<Category> categories = new ArrayList<Category>(
+				classElements.getClassification().getCategories());
+		Collections.sort(categories);
 
+		ArrayList<DynamicRefactoringDefinition> dRefactDef = null;
+		TreeItem catTreeItem = null;
+		int orderInBranchCat = 0;
+		int orderInBranchRef = 0;
+
+		for(Category c : categories){
+			dRefactDef=new ArrayList<DynamicRefactoringDefinition>(
+					classElements.getCategoryChildren(c));
+			Collections.sort(dRefactDef);
+			catTreeItem = classTreeItem;
+			if ( !(className.equals(NONE_CLASSIFICATION.getName()) && 
+					c.equals(Category.NONE_CATEGORY))
+					&& dRefactDef.size()>0){
+				catTreeItem = TreeEditor.createBranch(classTreeItem,
+						orderInBranchCat, c.getName(),
+						RefactoringImages.CAT_ICON_PATH); 
+				orderInBranchCat++;
+			}
+			orderInBranchRef = 0;
+			for (DynamicRefactoringDefinition ref : dRefactDef) {
+				RefactoringTreeManager
+				.createRefactoringDefinitionTreeItemFromParentTreeItem(
+						orderInBranchRef, ref, catTreeItem);
+				orderInBranchRef++;
+			}
+		}
+		if(isFilteredClass)
+			RefactoringTreeManager.setForegroundTreeItem(classTreeItem, 
+					Display.getCurrent().getSystemColor(SWT.COLOR_DARK_GRAY));
+	}	
+	
+	
 	/**
 	 * Muestra en forma de árbol la clasificación de las refactorizaciones según
 	 * las categorias a las que pertenece, pudiendo aparecer en un grupo de filtrados
@@ -559,99 +608,22 @@ public class RefactoringCatalogBrowserView extends ViewPart {
 		refactoringsTree.setVisible(false);
 		
 		RefactoringTreeManager.cleanTree(refactoringsTree);
-
+		
+		//classifiedElements
 		ClassifiedElements<DynamicRefactoringDefinition> classifiedElements = 
 			catalog.getClassificationOfElements();
-
-		int orderInBranchClass = 0;
-		TreeItem classTreeItem = TreeEditor.createBranch(refactoringsTree,
-				orderInBranchClass, classificationName,
-				RefactoringImages.CLASS_ICON_PATH);
-		orderInBranchClass++;
-
-		ArrayList<Category> categories = new ArrayList<Category>(
-				classifiedElements.getClassification().getCategories());
-		Collections.sort(categories);
-
-		ArrayList<DynamicRefactoringDefinition> dRefactDef = null;
-		TreeItem catTreeItem, filTreeItem = null;
-		int orderInBranchCat = 0;
-
-		//classifiedElements
-		for(Category c : categories){
-			dRefactDef=new ArrayList<DynamicRefactoringDefinition>(
-					classifiedElements.getCategoryChildren(c));
-			Collections.sort(dRefactDef);
-			catTreeItem = classTreeItem;
-			if ( !(classificationName.equals(NONE_CLASSIFICATION.getName()) && 
-					c.equals(Category.NONE_CATEGORY))
-					&& dRefactDef.size()>0){
-				catTreeItem = TreeEditor.createBranch(classTreeItem,
-						orderInBranchCat, c.getName(),
-						RefactoringImages.CAT_ICON_PATH); 
-				orderInBranchCat++;
-			}
-			createTreeItemFromParent(dRefactDef, catTreeItem, false);
-		}
+		createClassificationTree(0, RefactoringImages.CLASS_ICON_PATH, classificationName, classifiedElements, false);
 		
-		orderInBranchCat = 0;
+		//filteredClassifiedElements
 		if(filteredButton.getSelection() && catalog.hasFilteredElements()){
-			filTreeItem = TreeEditor.createBranch(refactoringsTree,
-					orderInBranchClass,FILTERED, 
-					RefactoringImages.FIL_ICON_PATH);
-			
 			ClassifiedElements<DynamicRefactoringDefinition> filteredClassifiedElements = 
 				catalog.getClassificationOfFilteredElements();
-			categories = new ArrayList<Category>(
-					filteredClassifiedElements.getClassification().getCategories());
-			Collections.sort(categories);
-			
-			for(Category c : categories){
-				dRefactDef=new ArrayList<DynamicRefactoringDefinition>(
-						filteredClassifiedElements.getCategoryChildren(c));
-				Collections.sort(dRefactDef);
-				catTreeItem = filTreeItem;
-				if ( !(classificationName.equals(NONE_CLASSIFICATION.getName()) && 
-						c.equals(Category.NONE_CATEGORY))
-						&& dRefactDef.size()>0){
-					catTreeItem = TreeEditor.createBranch(filTreeItem,
-							orderInBranchCat, c.getName(),
-							RefactoringImages.CAT_ICON_PATH); 
-					orderInBranchCat++;
-					catTreeItem.setForeground(Display.getCurrent().getSystemColor(SWT.COLOR_DARK_GRAY));
-				}
-				createTreeItemFromParent(dRefactDef, catTreeItem, true);
-			}		
-			filTreeItem.setForeground(Display.getCurrent().getSystemColor(SWT.COLOR_DARK_GRAY));
+			createClassificationTree(1, RefactoringImages.FIL_ICON_PATH, FILTERED, filteredClassifiedElements, true);	
 		}
 
-		classTreeItem.setExpanded(true);
+		refactoringsTree.getItem(0).setExpanded(true);
 		
 		refactoringsTree.setVisible(true);
-	}
-
-	/**
-	 * Crea una representación en formato de arbol de cada una de las refactorizaciones,
-	 * agregandolas al arbol que se pasa. En caso de tratarse de una refactorización
-	 * filtrada pone de color gris el texto de todos sus componentes.
-	 * @param dRefactDef lista de refactorizaciones
-	 * @param catTreeItem 
-	 * @param filtered indicador de filtrado. Si es verdadero se trata de
-	 * 			refactorizaciones filtradas, falso en caso contrario.
-	 */
-	private void createTreeItemFromParent(
-			ArrayList<DynamicRefactoringDefinition> dRefactDef,
-			TreeItem catTreeItem, boolean filtered) {
-		int orderInBranchRef = 0;
-		for (DynamicRefactoringDefinition ref : dRefactDef) {
-			RefactoringTreeManager
-			.createRefactoringDefinitionTreeItemFromParentTreeItem(
-					orderInBranchRef, ref, catTreeItem);
-			orderInBranchRef++;
-		}
-		if (filtered)
-			RefactoringTreeManager.setForegroundTreeItem(catTreeItem, 
-					Display.getCurrent().getSystemColor(SWT.COLOR_DARK_GRAY));
 	}
 
 	private void removeAllConditionToTable(){
@@ -875,14 +847,12 @@ public class RefactoringCatalogBrowserView extends ViewPart {
 		actionsPane=new ArrayList<IAction>();
 		
 		ArrayList<String> actionsPaneNames=new ArrayList<String>();
-		String leftAndRigthPaneName=null;
 		actionsPaneNames.add(Platform.getResourceString(RefactoringPlugin.getDefault().getBundle(),
 				"%dynamicrefactoring.view.action.showLeftPane")); //$NON-NLS-1$
 		actionsPaneNames.add(Platform.getResourceString(RefactoringPlugin.getDefault().getBundle(),
 				"%dynamicrefactoring.view.action.showRightPane")); //$NON-NLS-1$
-		leftAndRigthPaneName=Platform.getResourceString(RefactoringPlugin.getDefault().getBundle(), 
-				"%dynamicrefactoring.view.action.showLeftAndRightPane"); //$NON-NLS-1$
-		actionsPaneNames.add(leftAndRigthPaneName); 
+		actionsPaneNames.add(Platform.getResourceString(RefactoringPlugin.getDefault().getBundle(), 
+				"%dynamicrefactoring.view.action.showLeftAndRightPane")); //$NON-NLS-1$
 		
 		IToolBarManager toolBarManager = getViewSite().getActionBars().getToolBarManager();
 	    IContributionItem[] contributionItems=toolBarManager.getItems();
@@ -914,10 +884,8 @@ public class RefactoringCatalogBrowserView extends ViewPart {
 		
 		//habilita acciones deshabilitadas
 		for(IAction action:actionsPane){
-			System.out.println(action.getId()+ " " + action.ENABLED + " " + action.isEnabled());
 			if(!action.isEnabled())
 				action.setEnabled(true);
-			System.out.println(action.getId()+ " " + action.ENABLED + " " + action.isEnabled());
 		}
 		
 	}
