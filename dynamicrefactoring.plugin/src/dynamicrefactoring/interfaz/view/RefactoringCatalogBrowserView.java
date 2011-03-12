@@ -11,7 +11,11 @@ import java.util.Map;
 import java.util.Set;
 
 import org.apache.log4j.Logger;
+import org.eclipse.core.runtime.Platform;
 import org.eclipse.jface.action.Action;
+import org.eclipse.jface.action.ActionContributionItem;
+import org.eclipse.jface.action.IAction;
+import org.eclipse.jface.action.IContributionItem;
 import org.eclipse.jface.action.IToolBarManager;
 import org.eclipse.jface.action.Separator;
 import org.eclipse.jface.dialogs.MessageDialog;
@@ -56,6 +60,9 @@ import com.google.common.base.Predicate;
 
 import dynamicrefactoring.RefactoringImages;
 import dynamicrefactoring.RefactoringPlugin;
+import dynamicrefactoring.action.ShowLeftAndRightPaneViewAction;
+import dynamicrefactoring.action.ShowLeftPaneViewAction;
+import dynamicrefactoring.action.ShowRightPaneViewAction;
 import dynamicrefactoring.domain.DynamicRefactoringDefinition;
 import dynamicrefactoring.domain.RefactoringException;
 import dynamicrefactoring.domain.metadata.condition.CategoryCondition;
@@ -223,10 +230,23 @@ public class RefactoringCatalogBrowserView extends ViewPart {
 	 */
 	private RefactoringSummaryPanel refSummaryPanel;
 
+	/**
+	 * Contenedor de la parte izquierda de la vista.
+	 */
 	private Composite classComp;
+	
+	/**
+	 * Contenedor de la parte derecha de la vista.
+	 */
 	private Composite refComp;
 
-	private IToolBarManager toolBarManager;
+	/**
+	 * Lista de acciones de la barra de herramientas de la vista
+	 * referentes a la visualización de los contenedores que se encuentran
+	 * dividos por el spliter.
+	 */
+	private ArrayList<IAction> actionsPane;
+
 	
 	/**
 	 * Crea los controles SWT para este componente del espacio de trabajo.
@@ -268,11 +288,7 @@ public class RefactoringCatalogBrowserView extends ViewPart {
 		refComp = new Composite(sashForm, SWT.NONE);
 		refComp.setLayout(new FormLayout());
 
-		//toolBarManager
-	    toolBarManager = getViewSite().getActionBars().getToolBarManager();
-
 		//refSummaryPanel
-
 		refSummaryPanel=new RefactoringSummaryPanel(refComp,this);
 
 		//classLabel
@@ -355,10 +371,7 @@ public class RefactoringCatalogBrowserView extends ViewPart {
 		//searchToolTip
 		searchToolTip=new ToolTip(searchText.getShell(), SWT.BALLOON | SWT.ICON_INFORMATION );
 		searchToolTip.setText(Messages.RefactoringCatalogBrowserView_TextSearchToolTip);
-		String message="category:'classification'@'category'  e.g. category:scope@method \n" +
-					   "text:'text'  e.g. text:add \n" +
-					   "key:'keyword'  e.g. key:annotation"; //$NON-NLS-1$ 
-		searchToolTip.setMessage(message);
+		searchToolTip.setMessage(Messages.RefactoringCatalogBrowserView_TextSearchMessage);
 		searchToolTip.setAutoHide(true);
 		
 		//searchButton 
@@ -440,8 +453,6 @@ public class RefactoringCatalogBrowserView extends ViewPart {
 
 		//sashForm
 		sashForm.setWeights(new int[] {60,40});
-//		FIXME:solucionar esto
-//		classRefAction.setEnabled(false);
 
 		//scrolledComp
 		scrolledComp.setContent(sashForm);
@@ -847,7 +858,6 @@ public class RefactoringCatalogBrowserView extends ViewPart {
 		}
 	}
 
-
 	/**
 	 * Muestra el editor de clasificaciones.
 	 */
@@ -855,40 +865,93 @@ public class RefactoringCatalogBrowserView extends ViewPart {
 		//RefactoringConstants.CLASSIFICATION_TYPES_FILE)
 	}
 
+	/**
+	 * Registra las acciones referentes a la visualización de
+	 * los contenedores separados por el spliter.
+	 */
+	private void loadActionsPane(){
+
+		//actionsPane
+		actionsPane=new ArrayList<IAction>();
+		
+		ArrayList<String> actionsPaneNames=new ArrayList<String>();
+		String leftAndRigthPaneName=null;
+		actionsPaneNames.add(Platform.getResourceString(RefactoringPlugin.getDefault().getBundle(),
+				"%dynamicrefactoring.view.action.showLeftPane")); //$NON-NLS-1$
+		actionsPaneNames.add(Platform.getResourceString(RefactoringPlugin.getDefault().getBundle(),
+				"%dynamicrefactoring.view.action.showRightPane")); //$NON-NLS-1$
+		leftAndRigthPaneName=Platform.getResourceString(RefactoringPlugin.getDefault().getBundle(), 
+				"%dynamicrefactoring.view.action.showLeftAndRightPane"); //$NON-NLS-1$
+		actionsPaneNames.add(leftAndRigthPaneName); 
+		
+		IToolBarManager toolBarManager = getViewSite().getActionBars().getToolBarManager();
+	    IContributionItem[] contributionItems=toolBarManager.getItems();
+		ActionContributionItem actionItem=null;
+		IAction action=null;
+		for(IContributionItem item:contributionItems){
+			if(item instanceof ActionContributionItem){
+				actionItem=(ActionContributionItem)item;
+				action=actionItem.getAction();
+				if(actionsPaneNames.contains(action.getText())){
+					actionsPane.add(action);
+				}
+			}
+		}
+
+	}
+	
+	/**
+	 * Habilita las acciones referentes a la visualización de
+	 * los contenedores que se encuentran deshabilitadas. Además,
+	 * en caso de no estar registradas las acciones previamente 
+	 * las registrará.
+	 */
+	private void enableActionsPane() {
+		
+		//registra las acciones si no lo estuviesen
+		if(actionsPane==null)
+			loadActionsPane();
+		
+		//habilita acciones deshabilitadas
+		for(IAction action:actionsPane){
+			System.out.println(action.getId()+ " " + action.ENABLED + " " + action.isEnabled());
+			if(!action.isEnabled())
+				action.setEnabled(true);
+			System.out.println(action.getId()+ " " + action.ENABLED + " " + action.isEnabled());
+		}
+		
+	}
 
 	/**
-	 * @param classComp
+	 * Muestra el contendor izquierdo en su totalidad ocultando el 
+	 * tanto el derecho como el spliter que los separa y
+	 * habilita las acciones referentes a la visualización de estos,
+	 * que se encuentran deshabilitadas.
 	 */
 	public void showLeftPane() {
-//		FIXME:solucionar esto
-//		sashForm.setMaximizedControl(classComp);
-//		classAction.setEnabled(false);
-//		refAction.setEnabled(true);
-//		classRefAction.setEnabled(true);
+		sashForm.setMaximizedControl(classComp);
+		enableActionsPane();
 	}
 
-
 	/**
-	 * 
+	 * Muestra el contendor derecho en su totalidad ocultando el 
+	 * tanto el izquierdo como el spliter que los separa y
+	 * habilita las acciones referentes a la visualización de estos,
+	 * que se encuentran deshabilitadas.
 	 */
 	public void showRightPane() {
-//		FIXME:solucionar esto
-//		sashForm.setMaximizedControl(refComp);
-//		refAction.setEnabled(false);
-//		classAction.setEnabled(true);
-//		classRefAction.setEnabled(true);
+		sashForm.setMaximizedControl(refComp);
+		enableActionsPane();
 	}
 
-
 	/**
-	 * 
+	 * Muestra los dos contenedores separados por el spliter y
+	 * habilita las acciones referentes a la visualización de estos,
+	 * que se encontraban deshabilitadas.
 	 */
 	public void showLeftAndRightPane() {
-//		FIXME:solucionar esto
-//		sashForm.setMaximizedControl(null);
-//		classRefAction.setEnabled(false);
-//		classAction.setEnabled(true);
-//		refAction.setEnabled(true);
+		sashForm.setMaximizedControl(null);
+		enableActionsPane();
 	}
 
 

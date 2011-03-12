@@ -307,6 +307,7 @@
      </action>
      <action
            class="dynamicrefactoring.action.ShowLeftAndRightPaneViewAction"
+           enablesFor="0"
            icon="icons/split.png"
            id="dynamicrefactoring.viewmenus.showLeftAndRightPaneRefactoringCatalogBrowserAction"
            label="%dynamicrefactoring.view.action.showLeftAndRightPane"
