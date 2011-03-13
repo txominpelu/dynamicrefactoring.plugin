@@ -46,7 +46,8 @@ import dynamicrefactoring.util.io.FileManager;
  */
 public class TestExport {
 
-	private static final String RENAME_CLASS_XML_FILE = FilenameUtils.separatorsToSystem(RefactoringPlugin.getDynamicRefactoringsDir()
+	private static final String RENAME_CLASS_XML_FILE = FilenameUtils
+			.separatorsToSystem(RefactoringPlugin.getDynamicRefactoringsDir()
 					+ "\\Rename Class\\Rename Class.xml");
 	private static final String TEMP_DIR = FilenameUtils
 			.separatorsToSystem(".\\temp");
@@ -60,8 +61,7 @@ public class TestExport {
 	}
 
 	/**
-	 * Devuelve todo a la situacion anterior a
-	 * que los tests se ejecutaran.
+	 * Devuelve todo a la situacion anterior a que los tests se ejecutaran.
 	 */
 	@After
 	public void tearDown() {
@@ -89,16 +89,17 @@ public class TestExport {
 		ExportImportUtilities.ExportRefactoring(TEMP_DIR,
 				RENAME_CLASS_XML_FILE, false);
 
-		JDOMXMLRefactoringReaderImp reader = new JDOMXMLRefactoringReaderImp(
-				new File(RENAME_CLASS_XML_FILE));
+		JDOMXMLRefactoringReaderImp reader = new JDOMXMLRefactoringReaderImp();
 
-		for (String element : reader.readMechanismRefactoring()) {
+		for (String element : ExportImportUtilities
+				.readMechanismRefactoring(reader
+						.getDynamicRefactoringDefinition(new File(
+								RENAME_CLASS_XML_FILE)))) {
 
 			String name = FilenameUtils.getName(ExportImportUtilities
 					.splitGetLast(element, "."));
 			String namefolder = FilenameUtils.getName(new File(
-					RENAME_CLASS_XML_FILE)
-					.getParent());
+					RENAME_CLASS_XML_FILE).getParent());
 
 			File resultFile = new File(TEMP_DIR + File.separatorChar
 					+ namefolder + File.separatorChar + name + ".class");
@@ -120,7 +121,7 @@ public class TestExport {
 	@Test
 	public void testExportFileNotExists() throws XMLRefactoringReaderException,
 			IOException {
-		
+
 		final String refactoringName = "RenameClass.class";
 
 		final String definitionFolderName = new File(RENAME_CLASS_XML_FILE)
@@ -135,7 +136,6 @@ public class TestExport {
 			// refactorizaci�n al directorio
 			// temporal y luego lo borramos para que posteriormente salte la
 			// excepci�n.
-			
 
 			FileUtils.copyFileToDirectory(new File(ficheroOrigen), new File(
 					TEMP_DIR));
@@ -154,12 +154,11 @@ public class TestExport {
 			// Reponemos el fichero .class que hab�amos borrado para comprobar
 			// que saltaba la
 			// excepci�n.
-			
-			FileManager.copyFile(new File(TEMP_DIR + File.separatorChar
-					+ refactoringName),
-							new File(ficheroOrigen));
 
-			assertEquals(true,new File(ficheroOrigen).exists());
+			FileManager.copyFile(new File(TEMP_DIR + File.separatorChar
+					+ refactoringName), new File(ficheroOrigen));
+
+			assertEquals(true, new File(ficheroOrigen).exists());
 
 		}
 	}

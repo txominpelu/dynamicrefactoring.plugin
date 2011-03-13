@@ -9,6 +9,11 @@
 			<keyword>PalabraClave2</keyword>
 			<keyword>PalabraClave1</keyword>
 		</keywords>
+		<categorization>
+			<classification name="MiClasificacion">
+				<category>MiCategoria</category>
+			</classification>
+		</categorization>
 	</information>
 	<inputs>
 		<input type="moon.core.Model" name="Model" root="false" />

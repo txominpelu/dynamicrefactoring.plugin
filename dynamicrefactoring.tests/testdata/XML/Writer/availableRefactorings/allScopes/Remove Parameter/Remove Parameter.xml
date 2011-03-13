@@ -1,37 +1,58 @@
-<?xml version="1.0" encoding="ISO-8859-1"?>
 <!DOCTYPE refactoring SYSTEM "refactoringDTD.dtd">
-
 <refactoring name="Remove Parameter">
-	<information>
-		<description>Remove a given parameter from a method's signature.</description>
-		<image src="removeparameter.JPG" />
-		<motivation>A parameter is no longer used by the method body.</motivation>
-	</information>
-	<inputs>
-		<input type="moon.core.Model" name="Model" root="false" />
-		<input type="moon.core.classdef.MethDec" name="Method" from="Argument" method="getMethDec" root="false" />
-		<input type="moon.core.classdef.FormalArgument" name="Argument" root="true" />
-	</inputs>
-	<mechanism>
-		<preconditions>
-			<precondition name="repository.moon.concretepredicate.SignatureEntityIsNotUsedInMeth">
-				<param name="Argument" />
-				<param name="Method" />
-			</precondition>
-		</preconditions>
-		<actions>
-			<action name="repository.moon.concreteaction.RemoveFormalA">
-				<param name="Argument" />
-				<param name="Method" />
-			</action>
-		</actions>
-		<postconditions>
-			<postcondition name="repository.moon.concretepredicate.HasNotFormalA">
-				<param name="Method" />
-				<param name="Argument" />
-			</postcondition>
-		</postconditions>
-	</mechanism>
-	<examples />
+    <information>
+        <description>
+            Remove a given parameter from a method's signature.
+        </description>
+        <image src="removeparameter.JPG"/>
+        <motivation>
+            A parameter is no longer used by the method body.
+        </motivation>
+        <categorization>
+            <classification name="Fowler">
+                <category>
+                    MakingMethodCallsSimpler
+                </category>
+            </classification>
+            <classification name="Scope">
+                <category>
+                    FormalArg
+                </category>
+            </classification>
+            <classification name="BadSmells">
+                <category>
+                    LongParameterList
+                </category>
+                <category>
+                    SpeculativeGenerality
+                </category>
+            </classification>
+        </categorization>
+    </information>
+    <inputs>
+        <input name="Model" root="false" type="moon.core.Model"/>
+        <input from="Argument" method="getMethDec" name="Method" root="false" type="moon.core.classdef.MethDec"/>
+        <input name="Argument" root="true" type="moon.core.classdef.FormalArgument"/>
+    </inputs>
+    <mechanism>
+        <preconditions>
+            <precondition name="repository.moon.concretepredicate.SignatureEntityIsNotUsedInMeth">
+                <param name="Argument"/>
+                <param name="Method"/>
+            </precondition>
+        </preconditions>
+        <actions>
+            <action name="repository.moon.concreteaction.RemoveFormalA">
+                <param name="Argument"/>
+                <param name="Method"/>
+            </action>
+        </actions>
+        <postconditions>
+            <postcondition name="repository.moon.concretepredicate.HasNotFormalA">
+                <param name="Method"/>
+                <param name="Argument"/>
+            </postcondition>
+        </postconditions>
+    </mechanism>
+    <examples/>
 </refactoring>
-

@@ -23,9 +23,7 @@ package dynamicrefactoring.writer;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
-import java.io.BufferedReader;
 import java.io.File;
-import java.io.FileReader;
 import java.io.IOException;
 import java.util.HashMap;
 
@@ -105,7 +103,6 @@ public class AvailableRefactoringsWriterTest {
 		// encontraba.
 		FileManager.deleteFile(RefactoringConstants.REFACTORING_TYPES_FILE);
 	}
-
 	/**
 	 * Comprueba que la escritura se realiza correctamente cuando se a�ade la
 	 * informaci�n m�nima necesaria. Es decir no hay ninguna refactorizaci�n en
@@ -140,7 +137,7 @@ public class AvailableRefactoringsWriterTest {
 				availableRefactoringsSomeScopesDir,
 				RefactoringPlugin.getDynamicRefactoringsDir());
 
-		new JDOMXMLRefactoringWriterImp(null).writeFileToLoadRefactoringTypes();
+		JDOMXMLRefactoringWriterImp.writeFileToLoadRefactoringTypes();
 
 		assertNumberOfRefactoringsExpectedForScope(
 				availableRefactoringsSomeScopesDir, Scope.CLASS, 0);
@@ -156,7 +153,7 @@ public class AvailableRefactoringsWriterTest {
 		assertNumberOfRefactoringsExpectedForScope(
 				availableRefactoringsSomeScopesDir, Scope.ATTRIBUTE, 1);
 		compareRefactoringPath(Scope.ATTRIBUTE,
-				availableRefactoringsSomeScopesDir, MOVE_FIELD);
+				availableRefactoringsSomeScopesDir, "Move Field");
 
 		assertNumberOfRefactoringsExpectedForScope(
 				availableRefactoringsSomeScopesDir, Scope.FORMAL_ARG, 0);
@@ -197,13 +194,12 @@ public class AvailableRefactoringsWriterTest {
 		assertNumberOfRefactoringsExpectedForScope(
 				availableRefactoringsSomeScopesDir, Scope.ATTRIBUTE, 1);
 		compareRefactoringPath(Scope.ATTRIBUTE,
-				availableRefactoringsSomeScopesDir, MOVE_FIELD);
+				availableRefactoringsSomeScopesDir, "Move Field");
 
 		assertNumberOfRefactoringsExpectedForScope(
 				availableRefactoringsSomeScopesDir, Scope.FORMAL_ARG, 1);
 		compareRefactoringPath(Scope.FORMAL_ARG,
 				availableRefactoringsSomeScopesDir, "Remove Parameter");
-
 		assertNumberOfRefactoringsExpectedForScope(
 				availableRefactoringsSomeScopesDir, Scope.FORMAL_PAR, 1);
 		compareRefactoringPath(Scope.FORMAL_PAR,
@@ -216,7 +212,6 @@ public class AvailableRefactoringsWriterTest {
 				availableRefactoringsSomeScopesDir, "ExtractMethod");
 
 	}
-
 	/**
 	 * Comprueba que las refactorizaciones son las esperadas para el ambito
 	 * especificado.
@@ -265,7 +260,7 @@ public class AvailableRefactoringsWriterTest {
 						+ refactoringName
 						+ ".xml"));
 	}
-
+	
 	/**
 	 * Comprueba la adicci�n de una nueva refactorizaci�n dentro del fichero de
 	 * refactorizaciones disponibles. Para ello a�ade una refactorizaci�n por
@@ -288,9 +283,9 @@ public class AvailableRefactoringsWriterTest {
 				RefactoringPlugin.getDynamicRefactoringsDir() + ""
 						+ File.separatorChar + "Add Parameter"
 						+ File.separatorChar + "Add Parameter.xml");
-		writer.addNewRefactoringToXml(Scope.ATTRIBUTE, MOVE_FIELD,
+		writer.addNewRefactoringToXml(Scope.ATTRIBUTE, "Move Field",
 				RefactoringPlugin.getDynamicRefactoringsDir() + ""
-						+ File.separatorChar + MOVE_FIELD
+						+ File.separatorChar + "Move Field"
 						+ File.separatorChar + "Move Field.xml");
 		writer.addNewRefactoringToXml(Scope.FORMAL_ARG,
 				"Remove Parameter",
@@ -332,9 +327,9 @@ public class AvailableRefactoringsWriterTest {
 				RefactoringConstants.REFACTORING_TYPES_FILE);
 
 		assertEquals(1, refactorings.size());
-		assertEquals(refactorings.get(MOVE_FIELD),
+		assertEquals(refactorings.get("Move Field"),
 				RefactoringPlugin.getDynamicRefactoringsDir() + ""
-						+ File.separatorChar + MOVE_FIELD
+						+ File.separatorChar + "Move Field"
 						+ File.separatorChar + "Move Field.xml");
 
 		refactorings = JDOMXMLRefactoringReaderImp.readAvailableRefactorings(
@@ -392,11 +387,11 @@ public class AvailableRefactoringsWriterTest {
 						+ File.separatorChar + "Add Parameter"
 						+ File.separatorChar + "Add Parameter.xml");
 		writer.deleteRefactoringFromXml(Scope.METHOD, "Add Parameter");
-		writer.addNewRefactoringToXml(Scope.ATTRIBUTE, MOVE_FIELD,
+		writer.addNewRefactoringToXml(Scope.ATTRIBUTE, "Move Field",
 				RefactoringPlugin.getDynamicRefactoringsDir() + ""
-						+ File.separatorChar + MOVE_FIELD
+						+ File.separatorChar + "Move Field"
 						+ File.separatorChar + "Move Field.xml");
-		writer.deleteRefactoringFromXml(Scope.ATTRIBUTE, MOVE_FIELD);
+		writer.deleteRefactoringFromXml(Scope.ATTRIBUTE, "Move Field");
 		writer.addNewRefactoringToXml(Scope.FORMAL_ARG,
 				"Remove Parameter",
 				RefactoringPlugin.getDynamicRefactoringsDir() + ""
@@ -418,23 +413,11 @@ public class AvailableRefactoringsWriterTest {
 		writer.deleteRefactoringFromXml(Scope.CODE_FRAGMENT,
 				"ExtractMethod");
 
-		FileReader fr1 = null;
-		FileReader fr2 = null;
-
 		File archivo1 = new File(RefactoringConstants.REFACTORING_TYPES_FILE); //$NON-NLS-1$
 		File archivo2 = new File(
 				"./testdata/XML/Reader/availableRefactorings/minimunInformation.xml"); //$NON-NLS-1$
-		String linea1, linea2;
-		fr1 = new FileReader(archivo1);
-		fr2 = new FileReader(archivo2);
-		BufferedReader br1 = new BufferedReader(fr1);
-		BufferedReader br2 = new BufferedReader(fr2);
-		while ((linea1 = br1.readLine()) != null
-				&& (linea2 = br2.readLine()) != null) {
-			assertEquals(linea1, linea2);
-		}
-		fr1.close();
-		fr2.close();
+		assertTrue(FileUtils.contentEquals(archivo1, archivo2));
+
 
 	}
 
@@ -464,12 +447,12 @@ public class AvailableRefactoringsWriterTest {
 						+ File.separatorChar + "Add Parameter.xml");
 		writer.renameRefactoringIntoXml(Scope.METHOD, "OtherName1",
 				"Add Parameter");
-		writer.addNewRefactoringToXml(Scope.ATTRIBUTE, MOVE_FIELD,
+		writer.addNewRefactoringToXml(Scope.ATTRIBUTE, "Move Field",
 				RefactoringPlugin.getDynamicRefactoringsDir() + ""
-						+ File.separatorChar + MOVE_FIELD
+						+ File.separatorChar + "Move Field"
 						+ File.separatorChar + "Move Field.xml");
 		writer.renameRefactoringIntoXml(Scope.ATTRIBUTE, "OtherName2",
-				MOVE_FIELD);
+				"Move Field");
 		writer.addNewRefactoringToXml(Scope.FORMAL_ARG,
 				"Remove Parameter",
 				RefactoringPlugin.getDynamicRefactoringsDir() + ""
@@ -546,5 +529,7 @@ public class AvailableRefactoringsWriterTest {
 						+ "/OtherName5/OtherName5.xml");
 
 	}
+
+
 
 }

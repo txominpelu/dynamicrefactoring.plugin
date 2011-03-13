@@ -918,7 +918,7 @@ public class RefactoringPlugin extends AbstractUIPlugin
 	 * para los diferentes tipos de entrada principal de una refactorizaci�n.
 	 */
 	private void loadRefactoringTypes(){
-		new JDOMXMLRefactoringWriterImp(null).writeFileToLoadRefactoringTypes();
+		JDOMXMLRefactoringWriterImp.writeFileToLoadRefactoringTypes();
 	}
 
 	/**

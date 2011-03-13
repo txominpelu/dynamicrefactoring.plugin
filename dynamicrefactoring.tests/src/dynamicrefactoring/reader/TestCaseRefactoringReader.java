@@ -50,6 +50,10 @@ import dynamicrefactoring.domain.metadata.interfaces.Category;
  */
 public class TestCaseRefactoringReader {
 
+	private static final String ACTION = "concreteaction.";
+	private static final String PREDICATE = "concretepredicate.";
+	private static final String REPOSITORY_MOON = "repository.moon.";
+	private static final String REPOSITORY_JAVA = "repository.java.";
 	private static final String METHOD = "Method";
 	private static final String FALSE = "false";
 	private static final String TRUE = "true";
@@ -103,8 +107,6 @@ public class TestCaseRefactoringReader {
 	 */
 	public static final String TESTDATA_XML_READER_DIR = "./testdata/XML/Reader/";
 	
-
-
 
 	/**
 	 * Comprueba que la lectura no se realiza cuando la definici�n no contiene
@@ -269,19 +271,19 @@ public class TestCaseRefactoringReader {
 
 		Iterator<String> preconditions = definition.getPreconditions().iterator();
 		String pre = preconditions.next();
-		assertEquals(pre, "ExistsClass"); //$NON-NLS-1$
+		assertEquals(pre, REPOSITORY_MOON + PREDICATE + "ExistsClass"); //$NON-NLS-1$
 		assertFalse(preconditions.hasNext());
 
 		Iterator<String> actions = definition.getActions().iterator();
 		String a = actions.next();
 
-		assertEquals(a, "RenameClass"); //$NON-NLS-1$
+		assertEquals(a, REPOSITORY_MOON + ACTION + "RenameClass"); //$NON-NLS-1$
 		assertFalse(actions.hasNext());
 
 		Iterator<String> postconditions = definition.getPostconditions()
 		.iterator();
 		String post = postconditions.next();
-		assertEquals(post, "ExistsClass"); //$NON-NLS-1$
+		assertEquals(post, REPOSITORY_MOON + PREDICATE + "ExistsClass"); //$NON-NLS-1$
 		assertFalse(postconditions.hasNext());
 
 		Iterator<String[]> examples = definition.getExamples().iterator();
@@ -307,11 +309,11 @@ public class TestCaseRefactoringReader {
 
 		XMLRefactoringReaderFactory f = new JDOMXMLRefactoringReaderFactory();
 		XMLRefactoringReaderImp implementor = f
-		.makeXMLRefactoringReaderImp(new File(TESTDATA_XML_READER_DIR + "FullInformation" + XML_EXTENSION)); //$NON-NLS-1$
+		.makeXMLRefactoringReaderImp(); //$NON-NLS-1$
 		XMLRefactoringReader temporaryReader = new XMLRefactoringReader(
 				implementor);
 		DynamicRefactoringDefinition definition = temporaryReader
-		.getDynamicRefactoringDefinition();
+		.getDynamicRefactoringDefinition(new File(TESTDATA_XML_READER_DIR + "FullInformation" + XML_EXTENSION));
 
 		assertEquals(definition.getName(), "FullInformation"); //$NON-NLS-1$
 
@@ -356,7 +358,7 @@ public class TestCaseRefactoringReader {
 		Iterator<String> preconditions = definition.getPreconditions()
 		.iterator();
 		String pre = preconditions.next();
-		assertEquals(pre, "NotExistsClassWithName"); //$NON-NLS-1$
+		assertEquals(pre, REPOSITORY_MOON + PREDICATE + "NotExistsClassWithName"); //$NON-NLS-1$
 
 		ArrayList<String[]> para1= definition.getAmbiguousParameters(pre, RefactoringConstants.PRECONDITION);
 		assertEquals(para1.get(0)[0], "New_name"); //$NON-NLS-1$
@@ -366,42 +368,42 @@ public class TestCaseRefactoringReader {
 		Iterator<String> actions = definition.getActions().iterator();
 		ArrayList<String[]> para2;
 		String a = actions.next();
-		assertEquals(a, "RenameClass"); //$NON-NLS-1$
+		assertEquals(a, REPOSITORY_MOON +  ACTION + "RenameClass"); //$NON-NLS-1$
 
 		para2= definition.getAmbiguousParameters(a, RefactoringConstants.ACTION);
 		assertEquals(para2.get(0)[0], "Class"); //$NON-NLS-1$
 		assertEquals(para2.get(1)[0], "New_name"); //$NON-NLS-1$
 
 		a = actions.next();
-		assertEquals(a, "RenameReferenceFile"); //$NON-NLS-1$
+		assertEquals(a, REPOSITORY_MOON +  ACTION + "RenameReferenceFile"); //$NON-NLS-1$
 
 		para2= definition.getAmbiguousParameters(a, RefactoringConstants.ACTION);
 		assertEquals(para2.get(0)[0], "Class"); //$NON-NLS-1$
 		assertEquals(para2.get(1)[0], "New_name"); //$NON-NLS-1$
 
 		a = actions.next();
-		assertEquals(a, "RenameClassType"); //$NON-NLS-1$
+		assertEquals(a, REPOSITORY_MOON +  ACTION + "RenameClassType"); //$NON-NLS-1$
 
 		para2= definition.getAmbiguousParameters(a, RefactoringConstants.ACTION);
 		assertEquals(para2.get(0)[0], "Class"); //$NON-NLS-1$
 		assertEquals(para2.get(1)[0], "New_name"); //$NON-NLS-1$
 
 		a = actions.next();
-		assertEquals(a, "RenameGenericClassType"); //$NON-NLS-1$
+		assertEquals(a, REPOSITORY_MOON +  ACTION + "RenameGenericClassType"); //$NON-NLS-1$
 
 		para2= definition.getAmbiguousParameters(a, RefactoringConstants.ACTION);
 		assertEquals(para2.get(0)[0], "Class"); //$NON-NLS-1$
 		assertEquals(para2.get(1)[0], "New_name"); //$NON-NLS-1$
 
 		a = actions.next();
-		assertEquals(a, "RenameConstructors"); //$NON-NLS-1$
+		assertEquals(a, REPOSITORY_MOON +  ACTION + "RenameConstructors"); //$NON-NLS-1$
 
 		para2= definition.getAmbiguousParameters(a, RefactoringConstants.ACTION);
 		assertEquals(para2.get(0)[0], "Class"); //$NON-NLS-1$
 		assertEquals(para2.get(1)[0], "New_name"); //$NON-NLS-1$
 
 		a = actions.next();
-		assertEquals(a, "RenameJavaFile"); //$NON-NLS-1$
+		assertEquals(a, REPOSITORY_JAVA +  ACTION + "RenameJavaFile"); //$NON-NLS-1$
 
 		para2= definition.getAmbiguousParameters(a, RefactoringConstants.ACTION);
 		assertEquals(para2.get(0)[0], "Class"); //$NON-NLS-1$
@@ -412,7 +414,7 @@ public class TestCaseRefactoringReader {
 		Iterator<String> postconditions = definition.getPostconditions()
 		.iterator();
 		String post = postconditions.next();
-		assertEquals(post, "NotExistsClassWithName"); //$NON-NLS-1$
+		assertEquals(post, REPOSITORY_MOON +  PREDICATE + "NotExistsClassWithName"); //$NON-NLS-1$
 
 		ArrayList<String[]> para3= definition.getAmbiguousParameters(post, RefactoringConstants.POSTCONDITION);
 		assertEquals(para3.get(0)[0], "Old_name"); //$NON-NLS-1$

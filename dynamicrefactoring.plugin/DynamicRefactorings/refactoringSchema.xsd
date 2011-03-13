@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema attributeFormDefault="unqualified" elementFormDefault="qualified" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:element name="refactoring" type="refactoringType"/>
+  <xs:complexType name="imageType">
+        <xs:attribute type="xs:string" name="src"/>
+  </xs:complexType>
+  <xs:complexType name="classificationType">
+    <xs:sequence>
+      <xs:element name="category" maxOccurs="unbounded" minOccurs="1" type="xs:string">
+      </xs:element>
+    </xs:sequence>
+    <xs:attribute type="xs:string" name="name" use="optional"/>
+  </xs:complexType>
+  <xs:complexType name="categorizationType">
+    <xs:sequence>
+      <xs:element type="classificationType" name="classification" maxOccurs="unbounded" minOccurs="0"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="informationType">
+    <xs:sequence>
+    	<xs:element type="xs:string" name="description" />
+    	<xs:element type="imageType" name="image" maxOccurs="1" minOccurs="0"/>
+    	<xs:element type="xs:string" name="motivation" />
+            <xs:element name="keywords" type="keywordsType" maxOccurs="1" minOccurs="0"></xs:element>
+            <xs:element type="categorizationType" name="categorization" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="inputType">
+        <xs:attribute type="xs:string" name="name" use="optional"/>
+        <xs:attribute type="xs:string" name="root" use="optional"/>
+        <xs:attribute type="xs:string" name="type" use="optional"/>
+        <xs:attribute type="xs:string" name="from" use="optional"/>
+        <xs:attribute type="xs:string" name="method" use="optional"/>
+  </xs:complexType>
+  <xs:complexType name="inputsType">
+    <xs:sequence>
+      <xs:element type="inputType" name="input" maxOccurs="unbounded" minOccurs="0"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="paramType">
+        <xs:attribute type="xs:string" name="name" use="optional"/>
+  </xs:complexType>
+  <xs:complexType name="preconditionType">
+    <xs:sequence>
+      <xs:element type="paramType" name="param" maxOccurs="unbounded" minOccurs="0"/>
+    </xs:sequence>
+    <xs:attribute type="xs:string" name="name" use="optional"/>
+  </xs:complexType>
+  <xs:complexType name="preconditionsType">
+    <xs:sequence>
+      <xs:element type="preconditionType" name="precondition" maxOccurs="unbounded" minOccurs="0"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="actionType">
+    <xs:sequence>
+      <xs:element type="paramType" name="param" maxOccurs="unbounded" minOccurs="0"/>
+    </xs:sequence>
+    <xs:attribute type="xs:string" name="name"/>
+  </xs:complexType>
+  <xs:complexType name="actionsType">
+    <xs:sequence>
+      <xs:element type="actionType" name="action" maxOccurs="unbounded" minOccurs="0"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="postconditionType">
+    <xs:sequence>
+      <xs:element type="paramType" name="param" maxOccurs="unbounded" minOccurs="0"/>
+    </xs:sequence>
+    <xs:attribute type="xs:string" name="name"/>
+  </xs:complexType>
+  <xs:complexType name="postconditionsType">
+    <xs:sequence>
+      <xs:element type="postconditionType" name="postcondition" maxOccurs="unbounded" minOccurs="0"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="mechanismType">
+    <xs:sequence>
+      <xs:element type="preconditionsType" name="preconditions"/>
+      <xs:element type="actionsType" name="actions"/>
+      <xs:element type="postconditionsType" name="postconditions"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="exampleType">
+        <xs:attribute type="xs:string" name="after" use="optional"/>
+        <xs:attribute type="xs:string" name="before" use="optional"/>
+  </xs:complexType>
+  <xs:complexType name="examplesType">
+    <xs:sequence>
+      <xs:element type="exampleType" name="example" maxOccurs="unbounded" minOccurs="0"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="refactoringType">
+    <xs:sequence>
+      <xs:element type="informationType" name="information" maxOccurs="1" minOccurs="1"/>
+      <xs:element type="inputsType" name="inputs" maxOccurs="1" minOccurs="1"/>
+      <xs:element type="mechanismType" name="mechanism" maxOccurs="1" minOccurs="1"/>
+      <xs:element type="examplesType" name="examples" maxOccurs="1" minOccurs="0"/>
+    </xs:sequence>
+    <xs:attribute type="xs:string" name="name"/>
+  </xs:complexType>
+
+  <xs:complexType name="keywordsType">
+  	<xs:sequence>
+  		<xs:element name="keyword" type="xs:string" maxOccurs="unbounded" minOccurs="1"></xs:element>
+  	</xs:sequence>
+  </xs:complexType>
+</xs:schema>

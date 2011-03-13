@@ -115,28 +115,24 @@ public class DynamicRefactoringDefinition implements Element,
 	 */
 	private Set<String> keywords;
 
-	/**
-	 * Constructor.
-	 */
-	@SuppressWarnings({ "unchecked" })//$NON-NLS-1$
-	public DynamicRefactoringDefinition() {
-		name = new String();
-		description = new String();
-		image = new String();
-		motivation = new String();
-		categories = new HashSet<Category>();
-		keywords = new HashSet<String>();
 
-		inputs = new ArrayList<String[]>();
-		preconditions = new ArrayList<String>();
-		actions = new ArrayList<String>();
-		postconditions = new ArrayList<String>();
+	private DynamicRefactoringDefinition(
+			Builder builder) {
+		name = builder.name;
+		description = builder.description;
+		image = builder.image;
+		motivation = builder.motivation;
+		categories = builder.categories;
+		keywords = builder.keywords;
 
-		ambiguousParameters = (HashMap<String, ArrayList<String[]>>[]) new HashMap[3];
-		for (int i = 0; i < ambiguousParameters.length; i++)
-			ambiguousParameters[i] = new HashMap<String, ArrayList<String[]>>();
+		inputs = builder.inputs;
+		preconditions = builder.preconditions;
+		actions = builder.actions;
+		postconditions = builder.postconditions;
 
-		examples = new ArrayList<String[]>();
+		ambiguousParameters = builder.ambiguousParameters;
+
+		examples = builder.examples;
 	}
 
 	/**
@@ -150,17 +146,7 @@ public class DynamicRefactoringDefinition implements Element,
 		return name;
 	}
 
-	/**
-	 * Asigna el nombre de la refactorizaci�n.
-	 * 
-	 * @param name
-	 *            una cadena con el nombre de la refactorizaci�n.
-	 * 
-	 * @see #getName
-	 */
-	public void setName(String name) {
-		this.name = name;
-	}
+	
 
 	/**
 	 * Devuelve la descripci�n de la refactorizaci�n.
@@ -172,18 +158,8 @@ public class DynamicRefactoringDefinition implements Element,
 	public String getDescription() {
 		return description;
 	}
-
-	/**
-	 * Asigna la descripci�n de la refactorizaci�n.
-	 * 
-	 * @param description
-	 *            una cadena con la descripci�n.
-	 * 
-	 * @see #getDescription
-	 */
-	public void setDescription(String description) {
-		this.description = description;
-	}
+	
+	
 
 	/**
 	 * Devuelve la ruta de la imagen asociada a la refactorizaci�n.
@@ -196,18 +172,7 @@ public class DynamicRefactoringDefinition implements Element,
 		return image;
 	}
 
-	/**
-	 * Asigna la ruta de la imagen asociada a la refactorizaci�n.
-	 * 
-	 * @param image
-	 *            una cadena con la ruta a la imagen.
-	 * 
-	 * @see #getImage
-	 */
-	public void setImage(String image) {
-		this.image = image;
-	}
-
+	
 	/**
 	 * Devuelve la motivaci�n de la refactorizaci�n.
 	 * 
@@ -219,17 +184,7 @@ public class DynamicRefactoringDefinition implements Element,
 		return motivation;
 	}
 
-	/**
-	 * Establece la motivaci�n de la refactorizaci�n.
-	 * 
-	 * @param motivation
-	 *            una cadena con la motivaci�n de la refactorizaci�n.
-	 * 
-	 * @see #getMotivation
-	 */
-	public void setMotivation(String motivation) {
-		this.motivation = motivation;
-	}
+	
 
 	/**
 	 * Devuelve las entradas que se deben solicitar al usuario para construir la
@@ -265,19 +220,8 @@ public class DynamicRefactoringDefinition implements Element,
 
 		return map;
 	}
-
-	/**
-	 * Asigna las entradas que se deben solicitar al usuario para construir la
-	 * refactorizaci�n.
-	 * 
-	 * @param inputs
-	 *            lista de cadenas con la informaci�n de esas entradas.
-	 * 
-	 * @see #getInputs
-	 */
-	public void setInputs(ArrayList<String[]> inputs) {
-		this.inputs = inputs;
-	}
+	
+	
 
 	/**
 	 * Devuelve los nombres de las precondiciones de la refactorizaci�n.
@@ -289,18 +233,8 @@ public class DynamicRefactoringDefinition implements Element,
 	public ArrayList<String> getPreconditions() {
 		return preconditions;
 	}
-
-	/**
-	 * Establece los nombres de las precondiciones de la refactorizaci�n.
-	 * 
-	 * @param preconditions
-	 *            lista de cadenas con los nombres de las precondiciones.
-	 * 
-	 * @see #getPreconditions
-	 */
-	public void setPreconditions(ArrayList<String> preconditions) {
-		this.preconditions = preconditions;
-	}
+	
+	
 
 	/**
 	 * Devuelve los nombres de las acciones de la refactorizaci�n.
@@ -313,17 +247,7 @@ public class DynamicRefactoringDefinition implements Element,
 		return actions;
 	}
 
-	/**
-	 * Establece los nombres de las acciones de la refactorizaci�n.
-	 * 
-	 * @param actions
-	 *            lista de cadenas con los nombres de las acciones.
-	 * 
-	 * @see #getActions
-	 */
-	public void setActions(ArrayList<String> actions) {
-		this.actions = actions;
-	}
+	
 
 	/**
 	 * Devuelve los nombres de las postcondiciones de la refactorizaci�n.
@@ -336,17 +260,7 @@ public class DynamicRefactoringDefinition implements Element,
 		return postconditions;
 	}
 
-	/**
-	 * Establece los nombres de las postcondiciones de la refactorizaci�n.
-	 * 
-	 * @param postconditions
-	 *            lista de cadenas con los nombres de las postcondiciones.
-	 * 
-	 * @see #getPostconditions
-	 */
-	public void setPostconditions(ArrayList<String> postconditions) {
-		this.postconditions = postconditions;
-	}
+	
 
 	/**
 	 * Devuelve los par�metros ambiguos de la refactorizaci�n.
@@ -397,19 +311,7 @@ public class DynamicRefactoringDefinition implements Element,
 		return null;
 	}
 
-	/**
-	 * Establece los par�metros ambiguos de la refactorizaci�n.
-	 * 
-	 * @param ambiguousParameters
-	 *            los par�metros ambiguos de la refactorizaci�n.
-	 * 
-	 * @see #getAmbiguousParameters
-	 */
-	public void setAmbiguousParameters(
-			HashMap<String, ArrayList<String[]>>[] ambiguousParameters) {
-
-		this.ambiguousParameters = ambiguousParameters;
-	}
+	
 
 	/**
 	 * Devuelve los ejemplos de la refactorizaci�n.
@@ -422,21 +324,7 @@ public class DynamicRefactoringDefinition implements Element,
 		return examples;
 	}
 
-	/**
-	 * Establece los ejemplos a la refactorizaci�n.
-	 * 
-	 * @param examples
-	 *            lista de arrays de cadenas con los atributos de cada ejemplo.
-	 *            Cada array de cadenas contendr� dos cadenas, una con la ruta
-	 *            del fichero que contiene el estado del ejemplo antes de la
-	 *            refactorizaci�n, y otra con la ruta del que contiene el estado
-	 *            despu�s de la refactorizaci�n.
-	 * 
-	 * @see #getExamples
-	 */
-	public void setExamples(ArrayList<String[]> examples) {
-		this.examples = examples;
-	}
+	
 
 	/**
 	 * Devuelve la definici�n de una refactorizaci�n a partir de un fichero.
@@ -457,10 +345,10 @@ public class DynamicRefactoringDefinition implements Element,
 		try {
 			XMLRefactoringReaderFactory f = new JDOMXMLRefactoringReaderFactory();
 			XMLRefactoringReaderImp implementor = f
-					.makeXMLRefactoringReaderImp(new File(refactoringFilePath));
+					.makeXMLRefactoringReaderImp();
 			XMLRefactoringReader temporaryReader = new XMLRefactoringReader(
 					implementor);
-			definition = temporaryReader.getDynamicRefactoringDefinition();
+			definition = temporaryReader.getDynamicRefactoringDefinition(new File(refactoringFilePath));
 		} catch (Exception e) {
 			Object[] messageArgs = { refactoringFilePath };
 			MessageFormat formatter = new MessageFormat(""); //$NON-NLS-1$
@@ -554,17 +442,6 @@ public class DynamicRefactoringDefinition implements Element,
 		return new HashSet<Category>(categories);
 	}
 
-	/**
-	 * Establece el conjunto de categor�as a las que el elemento va a
-	 * pertenecer.
-	 * 
-	 * @param categories
-	 *            categorias a las que el elemento pertenecera
-	 */
-	public void setCategories(Set<Category> categories) {
-		this.categories = categories;
-	}
-
 
 	/**
 	 * Obtiene el conjunto de palabras claves que describen la refactorizaci�n.
@@ -574,16 +451,226 @@ public class DynamicRefactoringDefinition implements Element,
 	public Set<String> getKeywords() {
 		return new HashSet<String>(keywords);
 	}
-
-	/**
-	 * Asigna el conjunto de palabras claves que describen 
-	 * la refactorizaci�n.
-	 * 
-	 * @param keywords conjunto de palabras clave
-	 */
-	public void setKeywords(Set<String> keywords) {
-		this.keywords = keywords;
+	
+	public static class Builder {
 		
+
+		private Set<Category> categories;
+		private Set<String> keywords = new HashSet<String>();
+		private ArrayList<String[]> examples = new ArrayList<String[]>();
+		private String name;
+		private String description;
+		private String image = "";
+		private String motivation;
+		private ArrayList<String[]> inputs;
+		private ArrayList<String> preconditions;
+		private ArrayList<String> actions;
+		private ArrayList<String> postconditions;
+		private HashMap<String, ArrayList<String[]>>[] ambiguousParameters;
+
+		/**
+		 * Crea un builder para crear una definicion de refactorizacion
+		 * con el nombre dado.
+		 * 
+		 * @param refactoringName nombre que tendra la refactorizacion que cree el builder
+		 */
+		public Builder(String refactoringName){
+			this.name = refactoringName;
+			ambiguousParameters = (HashMap<String, ArrayList<String[]>>[]) new HashMap[3];
+			for (int i = 0; i < ambiguousParameters.length; i++)
+				ambiguousParameters[i] = new HashMap<String, ArrayList<String[]>>();
+		}
+		
+		/**
+		 * Obtiene la definicion de la refactorizacion
+		 * cuyos parametros se han establecido en el builder.
+		 * 
+		 * Lanzara excepcion {@link IllegalArgumentException} si
+		 * no se cumple alguna de las reglas de definicion de una 
+		 * refactorizacion expresadas en los ficheros XSD o DTD.
+		 * (Por ejemplo no se ha asignado valor a un campo
+		 * obligatorio)
+		 *  
+		 * @return definicion de la refactorizacion
+		 */
+		public DynamicRefactoringDefinition build(){
+			DynamicRefactoringDefinition definition = new DynamicRefactoringDefinition(this);
+			checkParameterNotNull(name, "name");
+			checkParameterNotNull(categories, "categories");
+			checkParameterNotNull(description, "description");
+			checkParameterNotNull(motivation, "motivation");
+			checkParameterNotNull(inputs, "inputs");
+			checkParameterNotNull(preconditions, "preconditions");
+			checkParameterNotNull(actions, "actions");
+			checkParameterNotNull(postconditions, "postconditions");
+			checkParameterNotNull(ambiguousParameters, "ambiguousParameters");
+			checkParameterNotNull(image, "image");
+			checkParameterNotNull(examples, "examples");
+			checkParameterNotNull(keywords, "keywords");
+			return definition;
+		}
+
+		private void checkParameterNotNull(Object parameter, String parameterName) {
+			Preconditions.checkArgument(parameter != null, String.format("\'%s\'  parameter is not optional. A value different from null must be given.", parameterName));
+		}
+		
+		/**
+		 * Establece el conjunto de categor�as a las que el elemento va a
+		 * pertenecer.
+		 * 
+		 * @param categories
+		 *            categorias a las que el elemento pertenecera
+		 */
+		public Builder categories(Set<Category> categories) {
+			this.categories = categories;
+			return this;
+		}
+		
+		/**
+		 * Asigna el conjunto de palabras claves que describen 
+		 * la refactorizaci�n.
+		 * 
+		 * @param keywords conjunto de palabras clave
+		 * @return devuelve el builder con el nuevo parametro
+		 */
+		public Builder keywords(Set<String> keywords) {
+			this.keywords = keywords;
+			return this;
+		}
+		
+		/**
+		 * Establece los ejemplos a la refactorizaci�n.
+		 * 
+		 * @param examples
+		 *            lista de arrays de cadenas con los atributos de cada ejemplo.
+		 *            Cada array de cadenas contendr� dos cadenas, una con la ruta
+		 *            del fichero que contiene el estado del ejemplo antes de la
+		 *            refactorizaci�n, y otra con la ruta del que contiene el estado
+		 *            despu�s de la refactorizaci�n.
+		 * @return devuelve el builder con el nuevo parametro
+		 * 
+		 * @see #getExamples
+		 */
+		public Builder examples(ArrayList<String[]> examples) {
+			this.examples = examples;
+			return this;
+		}
+
+		/**
+		 * Asigna la descripci�n de la refactorizaci�n.
+		 * 
+		 * @param description
+		 *            una cadena con la descripci�n.
+		 * @return devuelve el builder con el nuevo parametro
+		 * 
+		 * @see #getDescription
+		 */
+		public Builder description(String description) {
+			this.description = description;
+			return this;
+		}
+		/**
+		 * Asigna la ruta de la imagen asociada a la refactorizaci�n.
+		 * 
+		 * @param image
+		 *            una cadena con la ruta a la imagen.
+		 * @return devuelve el builder con el nuevo parametro
+		 * 
+		 * @see #getImage
+		 */
+		public Builder image(String image) {
+			this.image = image;
+			return this;
+		}
+
+		
+		/**
+		 * Establece la motivaci�n de la refactorizaci�n.
+		 * 
+		 * @param motivation
+		 *            una cadena con la motivaci�n de la refactorizaci�n.
+		 * @return devuelve el builder con el nuevo parametro
+		 * 
+		 * @see #getMotivation
+		 */
+		public Builder motivation(String motivation) {
+			this.motivation = motivation;
+			return this;
+		}
+
+		/**
+		 * Asigna las entradas que se deben solicitar al usuario para construir la
+		 * refactorizaci�n.
+		 * 
+		 * @param inputs
+		 *            lista de cadenas con la informaci�n de esas entradas.
+		 * @return devuelve el builder con el nuevo parametro
+		 * 
+		 * @see #getInputs
+		 */
+		public Builder inputs(ArrayList<String[]> inputs) {
+			this.inputs = inputs;
+			return this;
+		}
+
+		/**
+		 * Establece los nombres de las precondiciones de la refactorizaci�n.
+		 * 
+		 * @param preconditions
+		 *            lista de cadenas con los nombres de las precondiciones.
+		 * @return devuelve el builder con el nuevo parametro
+		 * 
+		 * @see #getPreconditions
+		 */
+		public Builder preconditions(ArrayList<String> preconditions) {
+			this.preconditions = preconditions;
+			return this;
+		}
+		
+		/**
+		 * Establece los nombres de las acciones de la refactorizaci�n.
+		 * 
+		 * @param actions
+		 *            lista de cadenas con los nombres de las acciones.
+		 * @return devuelve el builder con el nuevo parametro
+		 * 
+		 * @see #getActions
+		 */
+		public Builder actions(ArrayList<String> actions) {
+			this.actions = actions;
+			return this;
+		}
+		
+		/**
+		 * Establece los nombres de las postcondiciones de la refactorizaci�n.
+		 * 
+		 * @param postconditions
+		 *            lista de cadenas con los nombres de las postcondiciones.
+		 * @return devuelve el builder con el nuevo parametro
+		 * 
+		 * @see #getPostconditions
+		 */
+		public Builder postconditions(ArrayList<String> postconditions) {
+			this.postconditions = postconditions;
+			return this;
+		}
+		
+		/**
+		 * Establece los par�metros ambiguos de la refactorizaci�n.
+		 * 
+		 * @param ambiguousParameters
+		 *            los par�metros ambiguos de la refactorizaci�n.
+		 * @return devuelve el builder con el nuevo parametro
+		 * 
+		 * @see #getAmbiguousParameters
+		 */
+		public Builder ambiguousParameters(
+				HashMap<String, ArrayList<String[]>>[] ambiguousParameters) {
+
+			this.ambiguousParameters = ambiguousParameters;
+			return this;
+		}
+
 	}
 
 

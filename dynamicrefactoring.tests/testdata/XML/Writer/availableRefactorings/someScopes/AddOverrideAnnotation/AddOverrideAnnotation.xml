@@ -1,38 +1,34 @@
-<?xml version="1.0" encoding="ISO-8859-1"?>
-<!DOCTYPE refactoring SYSTEM "refactoringDTD.dtd">
-
-<refactoring name="AddOverrideAnnotation">
+<?xml version="1.0" encoding="iso-8859-1"?><!DOCTYPE refactoring  SYSTEM 'refactoringDTD.dtd'><refactoring name="AddOverrideAnnotation">
 	<information>
 		<description>Añade una anotación indicando que el cuerpo de el método de la superclase ha sido sobrescrito.</description>
-		<image src="imagen.tiff" />
+		<image src="imagen.jpg"/>
 		<motivation>La herencia de clases es una de las propiedades más importantes dentro de la programación orientada a objetos , por ello poder detectar los métodos que sobrescriben a los de la superclase puede facilitar la visión de conjunto cuando trabajemos con polimorfismo.</motivation>
-	</information>
+	<categorization><classification name="Scope"><category>Method</category></classification></categorization></information>
 	<inputs>
-		<input type="moon.core.Model" name="Model" root="false" />
-		<input type="moon.core.classdef.ClassDef" name="class" from="method" method="getClassDef" root="false" />
-		<input type="moon.core.classdef.MethDec" name="method" root="true" />
+		<input name="Model" root="false" type="moon.core.Model"/>
+		<input from="method" method="getClassDef" name="class" root="false" type="moon.core.classdef.ClassDef"/>
+		<input name="method" root="true" type="moon.core.classdef.MethDec"/>
 	</inputs>
 	<mechanism>
 		<preconditions>
 			<precondition name="repository.moon.concretepredicate.MethodSignatureIsInSuperclass">
-				<param name="method" />
-				<param name="class" />
+				<param name="method"/>
+				<param name="class"/>
 			</precondition>
 			<precondition name="repository.java.concretepredicate.NotHasOverrideAnnotation">
-				<param name="method" />
+				<param name="method"/>
 			</precondition>
 		</preconditions>
 		<actions>
 			<action name="repository.java.concreteaction.AddOverrideAnnotation">
-				<param name="method" />
+				<param name="method"/>
 			</action>
 		</actions>
 		<postconditions>
 			<postcondition name="repository.java.concretepredicate.HasOverrideAnnotation">
-				<param name="method" />
+				<param name="method"/>
 			</postcondition>
 		</postconditions>
 	</mechanism>
-	<examples />
+	<examples/>
 </refactoring>
-

@@ -5,6 +5,11 @@
 	<information>
 		<description>Descripcion.</description>
 		<motivation>Motivacion.</motivation>
+		<categorization>
+			<classification name="MiClasificacion">
+				<category>MiCategoria</category>
+			</classification>
+		</categorization>
 	</information>
 	<inputs>
 		<input type="moon.core.Model" name="Model" root="false" />

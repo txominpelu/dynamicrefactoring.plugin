@@ -25,6 +25,7 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.StringTokenizer;
 
 import org.apache.commons.io.FileUtils;
@@ -65,9 +66,10 @@ public class ExportImportUtilities {
 		String folder = new File(definition).getParent();
 		FileManager.copyFolder(folder, destination);
 		String definitionFolderName = FilenameUtils.getName(folder);
-		JDOMXMLRefactoringReaderImp reader = new JDOMXMLRefactoringReaderImp(new File(definition));
+		DynamicRefactoringDefinition refact = new JDOMXMLRefactoringReaderImp().getDynamicRefactoringDefinition(new File(definition));
+			
 		
-		for(String rule : reader.readMechanismRefactoring()){
+		for(String rule : readMechanismRefactoring(refact)){
 			String className = splitGetLast(rule, "."); //$NON-NLS-1$
 			
 			String rulePath = rule.replace('.', File.separatorChar);
@@ -111,6 +113,15 @@ public class ExportImportUtilities {
 		    
 		}
 		
+	}
+
+	static List<String> readMechanismRefactoring(
+			DynamicRefactoringDefinition refact) {
+		List<String> allMechanism = new ArrayList<String>();
+		allMechanism.addAll(refact.getAmbiguousParameters()[RefactoringConstants.PRECONDITION].keySet());
+		allMechanism.addAll(refact.getAmbiguousParameters()[RefactoringConstants.ACTION].keySet());
+		allMechanism.addAll(refact.getAmbiguousParameters()[RefactoringConstants.POSTCONDITION].keySet());
+		return allMechanism;
 	}
 
 	/**
@@ -207,9 +218,9 @@ public class ExportImportUtilities {
 		
 		//Pasamos a copiar los .class de las precondiciones, postcondiciones
 		// y acciones en su lugar
-		JDOMXMLRefactoringReaderImp reader = new JDOMXMLRefactoringReaderImp(definitionFile);
+		DynamicRefactoringDefinition refact = new JDOMXMLRefactoringReaderImp().getDynamicRefactoringDefinition(new File(definition));
 		
-		for(String predicado : reader.readMechanismRefactoring()){
+		for(String predicado : readMechanismRefactoring(refact)){
 				copyRefactoringFileClassIfNeeded(importingFromPlan, originalFolder,
 						predicado);
 		}
@@ -233,7 +244,7 @@ public class ExportImportUtilities {
 		} else {
 			// Borramos los .class para no tener almacenada la misma informaci�n
 			// en dos sitios
-			deleteClassFilesFromRefactoringsDir(namefolder, reader);
+			deleteClassFilesFromRefactoringsDir(namefolder, refact);
 		}
 	}
 
@@ -298,8 +309,8 @@ public class ExportImportUtilities {
 	 * @param reader
 	 */
 	private static void deleteClassFilesFromRefactoringsDir(String namefolder,
-			JDOMXMLRefactoringReaderImp reader) {
-		for (String element : reader.readMechanismRefactoring()) {
+			DynamicRefactoringDefinition refact) {
+		for (String element : readMechanismRefactoring(refact)) {
 			String name = splitGetLast(element, "."); //$NON-NLS-1$
 			if (new File(RefactoringPlugin.getDynamicRefactoringsDir()
 					+ File.separatorChar + namefolder + File.separatorChar

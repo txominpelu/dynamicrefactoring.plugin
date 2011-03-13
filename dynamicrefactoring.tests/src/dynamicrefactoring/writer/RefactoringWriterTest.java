@@ -40,6 +40,7 @@ import com.google.common.base.Preconditions;
 
 import dynamicrefactoring.RefactoringConstants;
 import dynamicrefactoring.domain.DynamicRefactoringDefinition;
+import dynamicrefactoring.domain.DynamicRefactoringDefinition.Builder;
 import dynamicrefactoring.domain.metadata.interfaces.Category;
 import dynamicrefactoring.reader.TestCaseRefactoringReader;
 
@@ -75,7 +76,7 @@ public class RefactoringWriterTest {
 	 */
 	@Test(expected = dynamicrefactoring.writer.XMLRefactoringWriterException.class)
 	public void testWritingException() throws Exception {
-		DynamicRefactoringDefinition rd = createRefactoringDefinition(
+		DynamicRefactoringDefinition.Builder rd = createRefactoringDefinition(
 				TestCaseRefactoringReader.MINIMUM_INFORMATION_REFACTORING,
 				DESCRIPCION, MOTIVACION);
 
@@ -90,8 +91,16 @@ public class RefactoringWriterTest {
 
 		entradas.add(entrada);
 
+		rd.inputs(new ArrayList<String[]>(addSimpleInputs()));
+		rd.categories(new HashSet<Category>());
+		rd.keywords(new HashSet<String>());
+		rd.preconditions(new ArrayList<String>());
+		rd.actions(new ArrayList<String>());
+		rd.postconditions(new ArrayList<String>());
+		rd.motivation("");
+		
 		XMLRefactoringWriterFactory f = new JDOMXMLRefactoringWriterFactory();
-		XMLRefactoringWriterImp implementor = f.makeXMLRefactoringWriterImp(rd);
+		XMLRefactoringWriterImp implementor = f.makeXMLRefactoringWriterImp(rd.build());
 		XMLRefactoringWriter writer = new XMLRefactoringWriter(implementor);
 		writer.writeRefactoring(new File("./testdata/XML/NoExiste")); //$NON-NLS-1$
 
@@ -114,9 +123,11 @@ public class RefactoringWriterTest {
 	 */
 	@Test
 	public void testWritingWithMinimunInformation() throws Exception {
+		HashSet<Category> categories = new HashSet<Category>();
+		categories.add(new Category("MiClasificacion", "MiCategoria"));
 		assertMinimumInformationDefinition(
 				TestCaseRefactoringReader.MINIMUM_INFORMATION_REFACTORING,
-				new HashSet<String>(), new HashSet<Category>());
+				new HashSet<String>(), categories);
 	}
 
 	/**
@@ -130,12 +141,14 @@ public class RefactoringWriterTest {
 	 */
 	@Test
 	public void testWritingWithMinimunInformationAndKeyWords() throws Exception {
+		HashSet<Category> categories = new HashSet<Category>();
+		categories.add(new Category("MiClasificacion", "MiCategoria"));
 		Set<String> keywords = new HashSet<String>();
 		keywords.add(TestCaseRefactoringReader.KEY_WORD1);
 		keywords.add(TestCaseRefactoringReader.KEY_WORD2);
 		assertMinimumInformationDefinition(
 				TestCaseRefactoringReader.MINIMUM_INFORMATION_WITH_KEYWORDS,
-				keywords, new HashSet<Category>());
+				keywords, categories);
 	}
 
 	/**
@@ -185,13 +198,13 @@ public class RefactoringWriterTest {
 		Preconditions.checkNotNull(keywords);
 		Preconditions.checkNotNull(categories);
 		Preconditions.checkNotNull(refactoringName);
-		DynamicRefactoringDefinition rd = createRefactoringDefinition(
+		DynamicRefactoringDefinition.Builder rd = createRefactoringDefinition(
 				refactoringName, DESCRIPCION, MOTIVACION);
-		rd.setInputs(new ArrayList<String[]>(addSimpleInputs()));
-		rd.setCategories(categories);
-		rd.setKeywords(keywords);
+		rd.inputs(new ArrayList<String[]>(addSimpleInputs()));
+		rd.categories(categories);
+		rd.keywords(keywords);
 		addSimplePredicates(rd);
-		writeRefactoring(rd);
+		writeRefactoring(rd.build());
 		assertTrue(FileUtils.contentEquals(new File(
 				TestCaseRefactoringReader.TESTDATA_XML_READER_DIR
 						+ refactoringName + TestCaseRefactoringReader.XML_EXTENSION), //$NON-NLS-1$
@@ -217,10 +230,10 @@ public class RefactoringWriterTest {
 	public void testWritingWithFullInformation() throws Exception {
 
 		// A�adir informaci�n general
-		DynamicRefactoringDefinition rd = createRefactoringDefinition(
+		DynamicRefactoringDefinition.Builder rd = createRefactoringDefinition(
 				"FullInformation", "Renames the class.",
 				"The name of class does not reveal its intention.");
-		rd.setImage("renameclass.JPG"); //$NON-NLS-1$
+		rd.image("renameclass.JPG"); //$NON-NLS-1$
 
 		// A�adir entradas
 		ArrayList<String[]> entradas = new ArrayList<String[]>();
@@ -256,12 +269,12 @@ public class RefactoringWriterTest {
 		entrada4[4] = "false"; //$NON-NLS-1$
 		entradas.add(entrada4);
 
-		rd.setInputs(entradas);
+		rd.inputs(entradas);
 
 		// a�adir precondiciones,acciones y postcondiciones
 		ArrayList<String> preconditions = new ArrayList<String>();
 		preconditions.add("NotExistsClassWithName (1)"); //$NON-NLS-1$
-		rd.setPreconditions(preconditions);
+		rd.preconditions(preconditions);
 
 		ArrayList<String> actions = new ArrayList<String>();
 		actions.add("RenameClass (1)"); //$NON-NLS-1$
@@ -270,11 +283,11 @@ public class RefactoringWriterTest {
 		actions.add("RenameGenericClassType (1)"); //$NON-NLS-1$
 		actions.add("RenameConstructors (1)"); //$NON-NLS-1$
 		actions.add("RenameJavaFile (1)"); //$NON-NLS-1$
-		rd.setActions(actions);
+		rd.actions(actions);
 
 		ArrayList<String> postconditions = new ArrayList<String>();
 		postconditions.add("NotExistsClassWithName (1)"); //$NON-NLS-1$
-		rd.setPostconditions(postconditions);
+		rd.postconditions(postconditions);
 
 		// A�adiendo los par�metros ambiguos.
 		@SuppressWarnings({ "unchecked" })//$NON-NLS-1$
@@ -355,7 +368,7 @@ public class RefactoringWriterTest {
 		map[RefactoringConstants.POSTCONDITION].put(
 				"NotExistsClassWithName (1)", ambiguous8); //$NON-NLS-1$
 
-		rd.setAmbiguousParameters(map);
+		rd.ambiguousParameters(map);
 
 		// a�adiendo los ejemplos
 		ArrayList<String[]> ejemplos = new ArrayList<String[]>();
@@ -363,9 +376,14 @@ public class RefactoringWriterTest {
 		ejemplo1[0] = "ejemplo1_antes.txt"; //$NON-NLS-1$
 		ejemplo1[1] = "ejemplo1_despues.txt"; //$NON-NLS-1$
 		ejemplos.add(ejemplo1);
-		rd.setExamples(ejemplos);
+		rd.examples(ejemplos);
 
-		writeRefactoring(rd);
+		HashSet<Category> categories = new HashSet<Category>();
+		categories.add(new Category("MiClasificacion", "MiCategoria"));
+		rd.categories(categories);
+		rd.keywords(new HashSet<String>());
+		
+		writeRefactoring(rd.build());
 
 		assertTrue(FileUtils
 				.contentEquals(
@@ -385,22 +403,25 @@ public class RefactoringWriterTest {
 	@Test
 	public void testNotGenerateEmptyExamples()
 			throws XMLRefactoringWriterException {
-		DynamicRefactoringDefinition rd = createRefactoringDefinition(
+		DynamicRefactoringDefinition.Builder builder = createRefactoringDefinition(
 				"NotGenerateEmptyExamples", DESCRIPCION, MOTIVACION);
 
 		// Agregamos las entradas
 		ArrayList<String[]> entradas = new ArrayList<String[]>(addSimpleInputs());
-		rd.setInputs(entradas);
+		builder.inputs(entradas);
 
 		// Agregamos un ejemplo
 		ArrayList<String[]> ejemplos = new ArrayList<String[]>();
 		ejemplos.add(new String[] { "", "" });
-		rd.setExamples(ejemplos);
+		builder.examples(ejemplos);
+		
+		builder.categories(new HashSet<Category>());
+		builder.keywords(new HashSet<String>());
 
-		addSimplePredicates(rd);
+		addSimplePredicates(builder);
 
 		XMLRefactoringWriterFactory f = new JDOMXMLRefactoringWriterFactory();
-		XMLRefactoringWriterImp implementor = f.makeXMLRefactoringWriterImp(rd);
+		XMLRefactoringWriterImp implementor = f.makeXMLRefactoringWriterImp(builder.build());
 
 		Document refactoringDefinitionDoc = implementor
 				.getDocumentOfRefactoring();
@@ -442,14 +463,12 @@ public class RefactoringWriterTest {
 	 * 
 	 * @return la refactorizacion creada
 	 */
-	private DynamicRefactoringDefinition createRefactoringDefinition(
+	private Builder createRefactoringDefinition(
 			String name, String description, String motivation) {
 		// A�adir informaci�n general
-		DynamicRefactoringDefinition rd = new DynamicRefactoringDefinition();
-		rd.setName(name); //$NON-NLS-1$
-		rd.setDescription(description); //$NON-NLS-1$
-		rd.setMotivation(motivation); //$NON-NLS-1$
-		return rd;
+		return new DynamicRefactoringDefinition.Builder(name)
+			.description(description)
+			.motivation(motivation);
 	}
 
 	/**
@@ -487,18 +506,20 @@ public class RefactoringWriterTest {
 	 * @param rd
 	 *            definicion de la refactorizacion
 	 */
-	private void addSimplePredicates(DynamicRefactoringDefinition rd) {
+	private DynamicRefactoringDefinition addSimplePredicates(Builder builder) {
 		// a�adir precondiciones,acciones y postcondiciones
 		ArrayList<String> preconditions = new ArrayList<String>();
 		preconditions.add("ExistsClass (1)"); //$NON-NLS-1$
-		rd.setPreconditions(preconditions);
+		builder.preconditions(preconditions);
 
 		ArrayList<String> actions = new ArrayList<String>();
 		actions.add("RenameClass (1)"); //$NON-NLS-1$
-		rd.setActions(actions);
+		builder.actions(actions);
 
 		ArrayList<String> postconditions = new ArrayList<String>();
 		postconditions.add("ExistsClass (1)"); //$NON-NLS-1$
-		rd.setPostconditions(postconditions);
+		builder.postconditions(postconditions);
+		
+		return builder.build();
 	}
 }

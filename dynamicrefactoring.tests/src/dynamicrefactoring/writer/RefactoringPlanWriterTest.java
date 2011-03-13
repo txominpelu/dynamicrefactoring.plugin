@@ -40,7 +40,7 @@ import dynamicrefactoring.util.io.FileManager;
  * @author <A HREF="mailto:lfd0002@alu.ubu.es">Laura Fuente de la Fuente</A>
  * 
  */
-public class TestRefactoringPlanWriter{
+public class RefactoringPlanWriterTest{
 
 	/**
 	 * Comprueba que la escritura se realiza correctamente cuando se a�ade la

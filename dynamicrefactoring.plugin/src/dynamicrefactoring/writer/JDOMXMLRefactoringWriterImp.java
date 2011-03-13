@@ -34,6 +34,7 @@ import org.jdom.input.SAXBuilder;
 import org.jdom.output.Format;
 import org.jdom.output.XMLOutputter;
 
+import com.google.common.base.Throwables;
 import com.google.common.collect.ImmutableListMultimap;
 import com.google.common.collect.ImmutableListMultimap.Builder;
 
@@ -64,10 +65,6 @@ public class JDOMXMLRefactoringWriterImp implements XMLRefactoringWriterImp {
 	 */
 	private DynamicRefactoringDefinition refactoringDefinition;
 
-	/**
-	 * El formato del fichero XML.
-	 */
-	private Format format;
 
 	/**
 	 * Constructor.
@@ -75,19 +72,19 @@ public class JDOMXMLRefactoringWriterImp implements XMLRefactoringWriterImp {
 	 * @param refactoringDefinition
 	 *            definici�n de la refactorizaci�n que se debe escribir.
 	 */
-	public JDOMXMLRefactoringWriterImp(
-			DynamicRefactoringDefinition refactoringDefinition) {
+	public JDOMXMLRefactoringWriterImp(DynamicRefactoringDefinition refactoringDefinition) {
 
 		this.refactoringDefinition = refactoringDefinition;
 		initializeFormat();
 	}
+
 
 	/**
 	 * Escribe el fichero temporal que guarda las refactorizaciones disponibles
 	 * para los diferentes tipos de entrada pricipal de la refactorizaci�n
 	 * posibles.
 	 */
-	public void writeFileToLoadRefactoringTypes() {
+	public static void writeFileToLoadRefactoringTypes() {
 		try {
 			Element refactoring;
 
@@ -105,10 +102,10 @@ public class JDOMXMLRefactoringWriterImp implements XMLRefactoringWriterImp {
 
 			writeToFile(RefactoringConstants.REFACTORING_TYPES_FILE, newdoc);
 		} catch (Exception e) {
-			e.printStackTrace();
+			throw Throwables.propagate(e);
 		}
 	}
-
+	
 	/**
 	 * Crea la etiqueta con las refactorizaciones disponibles para el ambito
 	 * pasado y los agrega al elemento root.
@@ -118,7 +115,7 @@ public class JDOMXMLRefactoringWriterImp implements XMLRefactoringWriterImp {
 	 * @param scope
 	 *            ambito del que se va a generar la etiqueta.
 	 */
-	private void addRefactoringElementForScopeToRoot(Element root, Scope scope) {
+	private static void addRefactoringElementForScopeToRoot(Element root, Scope scope) {
 		Element refactoring;
 		Element classdef = new Element(scope.getXmlTag());
 
@@ -644,10 +641,10 @@ public class JDOMXMLRefactoringWriterImp implements XMLRefactoringWriterImp {
 	 *             si se produce un error de lectura escritura al trasladar los
 	 *             datos del documento XML al fichero.
 	 */
-	private void writeToFile(String fname, Document doc) throws IOException {
+	private static void writeToFile(String fname, Document doc) throws IOException {
 
 		FileOutputStream out = new FileOutputStream(fname);
-		XMLOutputter op = new XMLOutputter(format);
+		XMLOutputter op = new XMLOutputter(initializeFormat());
 
 		op.output(doc, out);
 		out.flush();
@@ -656,35 +653,16 @@ public class JDOMXMLRefactoringWriterImp implements XMLRefactoringWriterImp {
 
 	/**
 	 * Inicializa las opciones de formato del fichero XML.
+	 * @return 
 	 */
-	private void initializeFormat() {
-		format = Format.getPrettyFormat();
+	private static Format initializeFormat() {
+		Format format = Format.getPrettyFormat();
 		format.setIndent("\t"); //$NON-NLS-1$
 		format.setLineSeparator("\n"); //$NON-NLS-1$
 		format.setExpandEmptyElements(false);
 		format.setEncoding("ISO-8859-1"); //$NON-NLS-1$
-	}
-
-	/**
-	 * Devuelve el formato del fichero XML.
-	 * 
-	 * @return el formato del fichero XML.
-	 * 
-	 * @see #setFormat
-	 */
-	public Format getFormat() {
 		return format;
 	}
 
-	/**
-	 * Asigna un formato al fichero XML.
-	 * 
-	 * @param format
-	 *            el formato que se debe asignar al fichero XML.
-	 * 
-	 * @see #getFormat
-	 */
-	public void setFormat(Format format) {
-		this.format = format;
-	}
+
 }

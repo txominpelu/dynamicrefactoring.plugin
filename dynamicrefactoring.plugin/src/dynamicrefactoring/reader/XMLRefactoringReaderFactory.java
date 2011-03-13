@@ -20,14 +20,13 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.*/
 
 package dynamicrefactoring.reader;
 
-import java.io.File;
 
 /**
- * Define una interfaz para las fábricas que generan instancias que implementan
+ * Define una interfaz para las fï¿½bricas que generan instancias que implementan
  * la interfaz <code>XMLRefactoringReaderImp</code>.
  * 
- * @author <A HREF="mailto:alc0022@alu.ubu.es">Ángel López Campo</A>
- * @author <A HREF="mailto:epf0006@alu.ubu.es">Eduardo Peña Fernández</A>
+ * @author <A HREF="mailto:alc0022@alu.ubu.es">ï¿½ngel Lï¿½pez Campo</A>
+ * @author <A HREF="mailto:epf0006@alu.ubu.es">Eduardo Peï¿½a Fernï¿½ndez</A>
  * @author <A HREF="mailto:sfd0009@alu.ubu.es">Sonia Fuente de la Fuente</A>
  * @author <A HREF="mailto:ehp0001@alu.ubu.es">Enrique Herrero Paredes</A>
  */
@@ -37,13 +36,12 @@ public interface XMLRefactoringReaderFactory {
 	 * Devuelve una instancia de un lector de refactorizaciones en XML que
 	 * implementa la interfaz <code>XMLRefactoringReaderImp</code>.
 	 * 
-	 * @param file el fichero del que leerá el lector de refactorizaciones en XML.
+	 * @param file el fichero del que leerï¿½ el lector de refactorizaciones en XML.
 	 * 
 	 * @return la instancia generada.
 	 * 
 	 * @throws XMLRefactoringReaderException si se produce un error al crear el
 	 * lector de refactorizaciones concreto.
 	 */
-	public XMLRefactoringReaderImp makeXMLRefactoringReaderImp(File file)
-			throws XMLRefactoringReaderException;
+	public XMLRefactoringReaderImp makeXMLRefactoringReaderImp();
 }

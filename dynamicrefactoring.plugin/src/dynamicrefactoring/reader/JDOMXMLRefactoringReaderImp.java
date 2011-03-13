@@ -27,15 +27,17 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
-import java.util.StringTokenizer;
 
 import org.jdom.Document;
 import org.jdom.Element;
 import org.jdom.JDOMException;
 import org.jdom.input.SAXBuilder;
 
+import com.google.common.base.Throwables;
+
 import dynamicrefactoring.RefactoringConstants;
 import dynamicrefactoring.domain.DynamicRefactoringDefinition;
+import dynamicrefactoring.domain.DynamicRefactoringDefinition.Builder;
 import dynamicrefactoring.domain.Scope;
 import dynamicrefactoring.domain.metadata.interfaces.Category;
 
@@ -53,32 +55,6 @@ public class JDOMXMLRefactoringReaderImp implements XMLRefactoringReaderImp {
 
 
 	/**
-	 * La definici�n de la refactorizaci�n obtenida.
-	 */
-	private DynamicRefactoringDefinition refactoringDefinition;
-
-	/**
-	 * La ra�z del contenido del fichero.
-	 */
-	private Element root;
-
-	/**
-	 * Constructor.
-	 * 
-	 * @param file
-	 *            el fichero con la definici�n de la refactorizaci�n.
-	 * 
-	 * @throws XMLRefactoringReaderException
-	 *             si se produce un error al crear el lector y procesar el
-	 *             fichero con la refactorizaci�n.
-	 */
-	public JDOMXMLRefactoringReaderImp(File file) throws XMLRefactoringReaderException {
-
-		this.refactoringDefinition = new DynamicRefactoringDefinition();
-		readFile(file);
-	}
-
-	/**
 	 * Lee cada uno de los componentes de la refactorizaci�n a partir de la
 	 * definici�n contenida en el fichero.
 	 * 
@@ -89,28 +65,28 @@ public class JDOMXMLRefactoringReaderImp implements XMLRefactoringReaderImp {
 	 *             si se produce un error al cargar la refactorizaci�n desde el
 	 *             fichero XML.
 	 */
-	private void readFile(File file) throws XMLRefactoringReaderException {
+	private DynamicRefactoringDefinition readFile(File file) throws XMLRefactoringReaderException {
 
+		final Element root;
 		try {
 			SAXBuilder builder = new SAXBuilder(true);
 			builder.setIgnoringElementContentWhitespace(true);
 			// El atributo SYSTEM del DOCTYPE de la definici�n XML de la
 			// refactorizaci�n es solo la parte relativa de la ruta del fichero
-			// DTD. Se le antepone la ruta del directorio del plugin que 
+			// DTD. Se le antepone la ruta del directorio del plugin que
 			// contiene los ficheros de refactorizaciones din�micas.
 			Document doc = builder.build(file);
 			root = doc.getRootElement();
-		} 
-		catch (JDOMException jdomexception) {
+		} catch (JDOMException jdomexception) {
 			throw new XMLRefactoringReaderException(jdomexception.getMessage());
-		} 
-		catch (IOException ioexception) {
+		} catch (IOException ioexception) {
 			throw new XMLRefactoringReaderException(ioexception.getMessage());
 		}
-		readInformationRefactoring(root);
-		readInputsRefactoring(root);
-		readMechanismRefactoring();
-		readExamplesRefactoring(root);
+		Builder builder = readInformationRefactoring(root);
+		builder = readInputsRefactoring(root, builder);
+		builder = readMechanismRefactoring(root, builder);
+		builder = readExamplesRefactoring(root,builder);
+		return builder.build();
 	}
 
 	/**
@@ -120,57 +96,54 @@ public class JDOMXMLRefactoringReaderImp implements XMLRefactoringReaderImp {
 	 * @param root
 	 *            el elemento ra�z del �rbol XML que define la refactorizaci�n.
 	 */
-	private void readInformationRefactoring(Element root) {
+	private DynamicRefactoringDefinition.Builder readInformationRefactoring(
+			Element root) {
 
 		// Se obtiene el nombre de la refactorizaci�n.
-		refactoringDefinition.setName(root.getAttributeValue(NAME_ATTRIBUTE));
+		final DynamicRefactoringDefinition.Builder builder = new DynamicRefactoringDefinition.Builder(
+				root.getAttributeValue(NAME_ATTRIBUTE));
 
 		Element information = root.getChild(INFORMATION_ELEMENT);
 
 		// Se obtiene la descripcion de la refactorizaci�n.
-		refactoringDefinition.setDescription(
-			information.getChildTextTrim(DESCRIPTION_ELEMENT));
+		builder.description(information.getChildTextTrim(DESCRIPTION_ELEMENT));
 
 		// Se obtiene la imagen que describe la refactorizaci�n.
 		Element imageElement = information.getChild(IMAGE_ELEMENT);
-		
-		if(imageElement != null)
-			refactoringDefinition.setImage(
-				imageElement.getAttributeValue(SRC_IMAGE_ATTRIBUTE));
+
+		if (imageElement != null)
+			builder.image(imageElement.getAttributeValue(SRC_IMAGE_ATTRIBUTE));
 
 		// Se obtiene la categorizacion de la refactorizaci�n.
 		Element categoryElement = information.getChild(CATEGORIZATION_ELEMENT);
 
-		if (categoryElement != null){
-			refactoringDefinition
-					.setCategories(readCategoriesElements(categoryElement
-							.getChildren(CLASSIFICATION_ELEMENT)));
-		}
-		
+		builder.categories(readCategoriesElements(categoryElement
+					.getChildren(CLASSIFICATION_ELEMENT)));
+
 		// Se obtienen las palabras claves que describe la refactorizaci�n.
 		Element keywordElement = information.getChild(KEYWORDS_ELEMENT);
-		
-		if (keywordElement != null){
-			refactoringDefinition
-					.setKeywords(readKeywordElements(keywordElement
-							.getChildren(KEYWORD_ELEMENT)));
+
+		if (keywordElement != null) {
+			builder.keywords(readKeywordElements(keywordElement
+					.getChildren(KEYWORD_ELEMENT)));
 		}
 
 		// Se obtiene la motivacion de la refactorizaci�n.
-		refactoringDefinition.setMotivation(
-			information.getChildTextTrim(MOTIVATION_ELEMENT));
+		builder.motivation(information.getChildTextTrim(MOTIVATION_ELEMENT));
+		return builder;
 	}
 
 	/**
-	 * Obtiene una lista de las palabras claves definidas
-	 * en el fichero xml para la refactorizaci�n.
-	 *  
-	 * @param children lista de elementos "keyword" en el fichero xml
+	 * Obtiene una lista de las palabras claves definidas en el fichero xml para
+	 * la refactorizaci�n.
+	 * 
+	 * @param children
+	 *            lista de elementos "keyword" en el fichero xml
 	 * @return conjunto de palabras clave
 	 */
 	private Set<String> readKeywordElements(List<Element> children) {
 		Set<String> keywords = new HashSet<String>();
-		for (Element keywordElement : children){
+		for (Element keywordElement : children) {
 			keywords.add(keywordElement.getTextTrim());
 		}
 		return keywords;
@@ -185,14 +158,17 @@ public class JDOMXMLRefactoringReaderImp implements XMLRefactoringReaderImp {
 	 */
 	private Set<Category> readCategoriesElements(List<Element> children) {
 		Set<Category> categorias = new HashSet<Category>();
-		for (Element classification : children){
-			String classificationName = classification.getAttributeValue(CLASSIFICATION_NAME_ATTRIBUTE);
-			List<Element> categoryList = classification.getChildren(CATEGORY_ELEMENT);
+		for (Element classification : children) {
+			String classificationName = classification
+					.getAttributeValue(CLASSIFICATION_NAME_ATTRIBUTE);
+			List<Element> categoryList = classification
+					.getChildren(CATEGORY_ELEMENT);
 			for (Element category : categoryList) {
-				categorias.add(new Category(classificationName , category.getTextTrim()));
+				categorias.add(new Category(classificationName, category
+						.getTextTrim()));
 			}
 		}
-		
+
 		return categorias;
 	}
 
@@ -202,15 +178,16 @@ public class JDOMXMLRefactoringReaderImp implements XMLRefactoringReaderImp {
 	 * 
 	 * @param root
 	 *            el elemento ra�z del �rbol XML que define la refactorizaci�n.
+	 * @return 
 	 */
-	@SuppressWarnings({"unchecked"}) //$NON-NLS-1$
-	private void readInputsRefactoring(Element root) {
+	@SuppressWarnings({ "unchecked" })//$NON-NLS-1$
+	private Builder readInputsRefactoring(Element root, Builder builder) {
 
 		Element inputsElement = root.getChild(INPUTS_ELEMENT);
 
 		// Se obtienen las entradas de la refactorizaci�n.
 		List<Element> in = inputsElement.getChildren(INPUT_ELEMENT);
-		refactoringDefinition.setInputs(readInputsElements(in));
+		return builder.inputs(readInputsElements(in));
 	}
 
 	/**
@@ -231,7 +208,7 @@ public class JDOMXMLRefactoringReaderImp implements XMLRefactoringReaderImp {
 		ArrayList<String[]> inputs = new ArrayList<String[]>();
 		String[] inputContent;
 
-		for (Element input : in){
+		for (Element input : in) {
 			inputContent = new String[5];
 			inputContent[0] = input.getAttributeValue(TYPE_INPUT_ATTRIBUTE);
 			inputContent[1] = input.getAttributeValue(NAME_INPUT_ATTRIBUTE);
@@ -246,11 +223,12 @@ public class JDOMXMLRefactoringReaderImp implements XMLRefactoringReaderImp {
 	/**
 	 * Lee las precondiciones, acciones y postcondiciones de la refactorizaci�n
 	 * a partir de la definici�n contenida en el fichero.
+	 * @param builder 
 	 * 
 	 * @return mecanismos de la refactorizaci�n.
 	 */
-	@SuppressWarnings({"unchecked"}) //$NON-NLS-1$
-	public ArrayList<String> readMechanismRefactoring() {
+	@SuppressWarnings({ "unchecked" })//$NON-NLS-1$
+	public Builder readMechanismRefactoring(Element root, Builder builder) {
 		ArrayList<String> elements;
 		ArrayList<String> precondiciones = new ArrayList<String>();
 		ArrayList<String> actions = new ArrayList<String>();
@@ -262,54 +240,34 @@ public class JDOMXMLRefactoringReaderImp implements XMLRefactoringReaderImp {
 		String acti = "";
 
 		Element mechanism = root.getChild(MECHANISM_ELEMENT);
+		HashMap<String, ArrayList<String[]>>[] ambiguousParameters = (HashMap<String, ArrayList<String[]>>[]) new HashMap[3];
+		for (int i = 0; i < ambiguousParameters.length; i++)
+			ambiguousParameters[i] = new HashMap<String, ArrayList<String[]>>();
 
 		// Se obtienen las precondiciones de la refactorizaci�n.
-		Element preconditionsElement = mechanism.getChild(PRECONDITIONS_ELEMENT);
-		List<Element> pre = preconditionsElement.getChildren(PRECONDITION_ELEMENT);
-		elements = readMechanismElements(pre, RefactoringConstants.PRECONDITION);
-		//Bucle para quedarnos con el nombre no cualificado
-		for(String precondition : elements ){
-			StringTokenizer prec = new StringTokenizer(precondition,".");
-			while(prec.hasMoreTokens()){
-				precond = prec.nextElement().toString();
-			}
-			precondiciones.add(precond);
-			
-		}
-		refactoringDefinition.setPreconditions(precondiciones);
+		Element preconditionsElement = mechanism
+				.getChild(PRECONDITIONS_ELEMENT);
+		List<Element> pre = preconditionsElement
+				.getChildren(PRECONDITION_ELEMENT);
+		
+		builder.preconditions(readMechanismElements(ambiguousParameters, pre, RefactoringConstants.PRECONDITION));
 
 		// Se obtienen las acciones de la refactorizaci�n.
 		Element actionsElement = mechanism.getChild(ACTIONS_ELEMENT);
 		List<Element> ac = actionsElement.getChildren(ACTION_ELEMENT);
-		actions = readMechanismElements(ac, RefactoringConstants.ACTION);
-		elements.addAll(actions);
-		//Bucle para quedarnos con el nombre no cualificado
-		for(String action : actions ){
-			StringTokenizer accion = new StringTokenizer(action,".");
-			while(accion.hasMoreTokens()){
-				acti = accion.nextElement().toString();
-			}
-			acciones.add(acti);
-			
-		}
-		refactoringDefinition.setActions(acciones);
+		builder.actions(readMechanismElements(ambiguousParameters, ac, RefactoringConstants.ACTION));
 
 		// Se obtienen las postcondiciones de la refactorizaci�n.
-		Element postconditionsElement = mechanism.getChild(POSTCONDITIONS_ELEMENT);
-		List<Element> post = postconditionsElement.getChildren(POSTCONDITION_ELEMENT);
-		postconditions = readMechanismElements(post, RefactoringConstants.POSTCONDITION);
-		elements.addAll(postconditions);
-		//Bucle para quedarnos con el nombre no cualificado
-		for(String postcondicion : postconditions ){
-			StringTokenizer postcondition = new StringTokenizer(postcondicion,".");
-			while(postcondition.hasMoreTokens()){
-				postcond = postcondition.nextElement().toString();
-			}
-			postcondiciones.add(postcond);		
-		}
-		refactoringDefinition.setPostconditions(postcondiciones);
+		Element postconditionsElement = mechanism
+				.getChild(POSTCONDITIONS_ELEMENT);
+		List<Element> post = postconditionsElement
+				.getChildren(POSTCONDITION_ELEMENT);
 
-		return elements;
+		builder.postconditions(readMechanismElements(ambiguousParameters, post,
+				RefactoringConstants.POSTCONDITION));
+		builder.ambiguousParameters(ambiguousParameters);
+
+		return builder;
 	}
 
 	/**
@@ -327,37 +285,40 @@ public class JDOMXMLRefactoringReaderImp implements XMLRefactoringReaderImp {
 	 * @return un <code>ArrayList</code> de cadenas con los nombres de los
 	 *         elementos del repositorio.
 	 */
-	@SuppressWarnings({"unchecked"}) //$NON-NLS-1$
-	private ArrayList<String> readMechanismElements(List<Element> elements,
-		int type) {
+	@SuppressWarnings({ "unchecked" })//$NON-NLS-1$
+	private ArrayList<String> readMechanismElements(HashMap<String, ArrayList<String[]>>[] ambiguousParameters, List<Element> elements,
+			int type) {
 
 		ArrayList<String> elementNames = new ArrayList<String>();
-		
+
 		List<Element> params;
 
-		for (Element element : elements){
-			String elementName = element.getAttributeValue(NAME_ATTRIBUTE); 
+		
+		
+		for (Element element : elements) {
+			String elementName = element.getAttributeValue(NAME_ATTRIBUTE);
 			elementNames.add(elementName);
-			
+
 			params = element.getChildren(PARAM_ELEMENT);
-			if (!params.isEmpty()){
-				StringTokenizer st_name = new StringTokenizer(elementName,".");
-				String shortname="";
-				while(st_name.hasMoreTokens()){
-					shortname = st_name.nextElement().toString();
-				}
-				readAmbiguousParametersOfElement(shortname, type, params);
+			if (!params.isEmpty()) {
+				//StringTokenizer st_name = new StringTokenizer(elementName, ".");
+				//String shortname = "";
+				//while (st_name.hasMoreTokens()) {
+					//shortname = st_name.nextElement().toString();
+				//}
+				readAmbiguousParametersOfElement(ambiguousParameters, elementName, type, params);
 			}
 		}
 		return elementNames;
 	}
-	
+
 	/**
-	 * Obtiene una lista con los nombre de las distintas precondiciones, acciones y postcondiciones.
+	 * Obtiene una lista con los nombre de las distintas precondiciones,
+	 * acciones y postcondiciones.
 	 * 
 	 * @return lista con las precondiciones, acciones y postcondiciones.
 	 */
-	public ArrayList<String> readAllreadMechanismElements(){
+	public ArrayList<String> readAllreadMechanismElements(DynamicRefactoringDefinition refactoringDefinition) {
 		ArrayList<String> elements = refactoringDefinition.getPreconditions();
 		elements.addAll(refactoringDefinition.getActions());
 		elements.addAll(refactoringDefinition.getPostconditions());
@@ -378,19 +339,19 @@ public class JDOMXMLRefactoringReaderImp implements XMLRefactoringReaderImp {
 	 * @param params
 	 *            la lista de par�metros ambiguos del elemento.
 	 */
-	private void readAmbiguousParametersOfElement(String elementName, int type,
-		List<Element> params) {
+	private void readAmbiguousParametersOfElement(HashMap<String, ArrayList<String[]>>[] ambiguousParameters, String elementName, int type,
+			List<Element> params) {
 
 		ArrayList<String[]> attributes = new ArrayList<String[]>();
 
-		for (Element param : params){
+		for (Element param : params) {
 			String[] attributesParam = new String[1];
 			attributesParam[0] = param.getAttributeValue(NAME_ATTRIBUTE);
 			attributes.add(attributesParam);
 		}
-		
-		refactoringDefinition.getAmbiguousParameters()[type].put(
-			elementName, attributes);
+
+		ambiguousParameters[type].put(elementName,
+				attributes);
 	}
 
 	/**
@@ -400,15 +361,16 @@ public class JDOMXMLRefactoringReaderImp implements XMLRefactoringReaderImp {
 	 * @param root
 	 *            el elemento ra�z del �rbol XML que define la refactorizaci�n.
 	 */
-	@SuppressWarnings({"unchecked"}) //$NON-NLS-1$
-	private void readExamplesRefactoring(Element root) {
+	@SuppressWarnings({ "unchecked" })//$NON-NLS-1$
+	private Builder readExamplesRefactoring(Element root, Builder builder) {
 
 		// Se obtienen los ejemplos de la refactorizaci�n.
 		Element examplesElement = root.getChild(EXAMPLES_ELEMENT);
-		if(examplesElement != null) {
+		if (examplesElement != null) {
 			List<Element> ex = examplesElement.getChildren(EXAMPLE_ELEMENT);
-			refactoringDefinition.setExamples(readExamplesElements(ex));
+			builder.examples(readExamplesElements(ex));
 		}
+		return builder;
 	}
 
 	/**
@@ -425,11 +387,13 @@ public class JDOMXMLRefactoringReaderImp implements XMLRefactoringReaderImp {
 
 		ArrayList<String[]> completed = new ArrayList<String[]>();
 		String[] exampleContent;
-		
-		for (Element example : examples){
+
+		for (Element example : examples) {
 			exampleContent = new String[2];
-			exampleContent[0] = example.getAttributeValue(BEFORE_EXAMPLE_ATTRIBUTE);
-			exampleContent[1] = example.getAttributeValue(AFTER_EXAMPLE_ATTRIBUTE);
+			exampleContent[0] = example
+					.getAttributeValue(BEFORE_EXAMPLE_ATTRIBUTE);
+			exampleContent[1] = example
+					.getAttributeValue(AFTER_EXAMPLE_ATTRIBUTE);
 			completed.add(exampleContent);
 		}
 		return completed;
@@ -441,8 +405,14 @@ public class JDOMXMLRefactoringReaderImp implements XMLRefactoringReaderImp {
 	 * @return la definici�n de la refactorizaci�n.
 	 */
 	@Override
-	public DynamicRefactoringDefinition getDynamicRefactoringDefinition() {
-		return refactoringDefinition;
+	public DynamicRefactoringDefinition getDynamicRefactoringDefinition(
+			File file) {
+		try {
+			return readFile(file);
+		} catch (XMLRefactoringReaderException e) {
+			// TODO Auto-generated catch block
+			throw Throwables.propagate(e);
+		}
 	}
 
 	/**
@@ -468,14 +438,13 @@ public class JDOMXMLRefactoringReaderImp implements XMLRefactoringReaderImp {
 		try {
 			SAXBuilder builder = new SAXBuilder(true);
 			builder.setIgnoringElementContentWhitespace(true);
-			Document doc = builder.build(new File(path_file).toURI().toString());
+			Document doc = builder
+					.build(new File(path_file).toURI().toString());
 			Element rootElement = doc.getRootElement();
 			return readRefactoringData(rootElement, scopeClass);
-		} 
-		catch (JDOMException jdomexception) {
+		} catch (JDOMException jdomexception) {
 			throw new XMLRefactoringReaderException(jdomexception.getMessage());
-		} 
-		catch (IOException ioexception) {
+		} catch (IOException ioexception) {
 			throw new XMLRefactoringReaderException(ioexception.getMessage());
 		}
 
@@ -496,14 +465,13 @@ public class JDOMXMLRefactoringReaderImp implements XMLRefactoringReaderImp {
 		// algo asi
 		HashMap<String, String> refactorings = new HashMap<String, String>();
 		Element classdef = root.getChild(scope.getXmlTag());
-		for(int i=0;  i < classdef.getChildren().size(); i++){
-			Element refactor = (Element)classdef.getChildren().get(i);
+		for (int i = 0; i < classdef.getChildren().size(); i++) {
+			Element refactor = (Element) classdef.getChildren().get(i);
 			String name = refactor.getAttribute("name").getValue();
 			String path = refactor.getAttribute("path").getValue();
 			refactorings.put(name, path);
 		}
 		return refactorings;
 	}
-	
 
 }

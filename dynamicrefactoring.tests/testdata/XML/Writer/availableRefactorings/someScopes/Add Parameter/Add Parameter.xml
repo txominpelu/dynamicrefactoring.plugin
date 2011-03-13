@@ -1,48 +1,364 @@
-<?xml version="1.0" encoding="ISO-8859-1"?>
-<!DOCTYPE refactoring SYSTEM "refactoringDTD.dtd">
-
-<refactoring name="Add Parameter">
+<?xml version="1.0" encoding="iso-8859-1"?><!DOCTYPE refactoring  SYSTEM 'refactoringDTD.dtd'><refactoring name="Add Parameter">
+	
+	
+	
+																										
+	
+	
+	
 	<information>
-		<description>Add a parameter for an object that can pass on this information.</description>
-		<image src="addparameter.JPG" />
-		<motivation>A method needs more information from its caller..</motivation>
-	</information>
+		
+		
+		
+																																																				
+		
+		
+		
+		<description>
+			
+			
+			
+																																							Add a parameter for an object that can pass on this information.																								
+		
+		
+		
+		</description>
+		
+		
+		
+																																																				
+		
+		
+		
+		<image src="addparameter.JPG"/>
+		
+		
+		
+																																																				
+		
+		
+		
+		<motivation>
+			
+			
+			
+																																							A method needs more information from its caller..																								
+		
+		
+		
+		</motivation>
+		
+		
+		
+																																																															
+			
+	
+	
+		
+		
+	
+	<categorization><classification name="Fowler"><category>MakingMethodCallsSimpler</category></classification><classification name="Scope"><category>Method</category></classification></categorization></information>
+	
+	
+	
+																										
+	
+	
+	
 	<inputs>
-		<input type="moon.core.Name" name="Name" root="false" />
-		<input type="moon.core.Model" name="Model" root="false" />
-		<input type="moon.core.classdef.ClassDef" name="Class" from="Method" method="getClassDef" root="false" />
-		<input type="moon.core.classdef.MethDec" name="Method" root="true" />
-		<input type="moon.core.classdef.Type" name="Type" from="Model" method="getTypes" root="false" />
+		
+		
+		
+																																																				
+		
+		
+		
+		<input name="Name" root="false" type="moon.core.Name"/>
+		
+		
+		
+																																																				
+		
+		
+		
+		<input name="Model" root="false" type="moon.core.Model"/>
+		
+		
+		
+																																																				
+		
+		
+		
+		<input from="Method" method="getClassDef" name="Class" root="false" type="moon.core.classdef.ClassDef"/>
+		
+		
+		
+																																																				
+		
+		
+		
+		<input name="Method" root="true" type="moon.core.classdef.MethDec"/>
+		
+		
+		
+																																																				
+		
+		
+		
+		<input from="Model" method="getTypes" name="Type" root="false" type="moon.core.classdef.Type"/>
+		
+		
+		
+																																							
+	
+	
+	
 	</inputs>
+	
+	
+	
+																										
+	
+	
+	
 	<mechanism>
+		
+		
+		
+																																																				
+		
+		
+		
 		<preconditions>
+			
+			
+			
+																																																																														
+			
+			
+			
 			<precondition name="repository.moon.concretepredicate.HasNotFormalArgWithName">
-				<param name="Method" />
-				<param name="Name" />
+				
+				
+				
+																																																																																																								
+				
+				
+				
+				<param name="Method"/>
+				
+				
+				
+																																																																																																								
+				
+				
+				
+				<param name="Name"/>
+				
+				
+				
+																																																																																											
+			
+			
+			
 			</precondition>
+			
+			
+			
+																																																																														
+			
+			
+			
 			<precondition name="repository.moon.concretepredicate.NotExistsLocalDecWithName">
-				<param name="Method" />
-				<param name="Name" />
+				
+				
+				
+																																																																																																								
+				
+				
+				
+				<param name="Method"/>
+				
+				
+				
+																																																																																																								
+				
+				
+				
+				<param name="Name"/>
+				
+				
+				
+																																																																																											
+			
+			
+			
 			</precondition>
+			
+			
+			
+																																																																	
+		
+		
+		
 		</preconditions>
+		
+		
+		
+																																																				
+		
+		
+		
 		<actions>
+			
+			
+			
+																																																																														
+			
+			
+			
 			<action name="repository.moon.concreteaction.AddFormalArg">
-				<param name="Method" />
-				<param name="Name" />
-				<param name="Type" />
+				
+				
+				
+																																																																																																								
+				
+				
+				
+				<param name="Method"/>
+				
+				
+				
+																																																																																																								
+				
+				
+				
+				<param name="Name"/>
+				
+				
+				
+																																																																																																								
+				
+				
+				
+				<param name="Type"/>
+				
+				
+				
+																																																																																											
+			
+			
+			
 			</action>
+			
+			
+			
+																																																																														
+			
+			
+			
 			<action name="repository.java.concreteaction.AddImportClause">
-				<param name="Class" />
-				<param name="Type" />
+				
+				
+				
+																																																																																																								
+				
+				
+				
+				<param name="Class"/>
+				
+				
+				
+																																																																																																								
+				
+				
+				
+				<param name="Type"/>
+				
+				
+				
+																																																																																											
+			
+			
+			
 			</action>
+			
+			
+			
+																																																																	
+		
+		
+		
 		</actions>
+		
+		
+		
+																																																				
+		
+		
+		
 		<postconditions>
+			
+			
+			
+																																																																														
+			
+			
+			
 			<postcondition name="repository.moon.concretepredicate.HasFormalArgWithName">
-				<param name="Method" />
-				<param name="Name" />
+				
+				
+				
+																																																																																																								
+				
+				
+				
+				<param name="Method"/>
+				
+				
+				
+																																																																																																								
+				
+				
+				
+				<param name="Name"/>
+				
+				
+				
+																																																																																											
+			
+			
+			
 			</postcondition>
+			
+			
+			
+																																																																	
+		
+		
+		
 		</postconditions>
+		
+		
+		
+																																							
+	
+	
+	
 	</mechanism>
-	<examples />
-</refactoring>
+	
+	
+	
+																										
+	
+	
+	
+	<examples/>
+	
+	
+	
+													
 
+
+
+</refactoring>

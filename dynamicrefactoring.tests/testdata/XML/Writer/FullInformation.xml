@@ -6,6 +6,11 @@
 		<description>Renames the class.</description>
 		<image src="renameclass.JPG" />
 		<motivation>The name of class does not reveal its intention.</motivation>
+		<categorization>
+			<classification name="MiClasificacion">
+				<category>MiCategoria</category>
+			</classification>
+		</categorization>
 	</information>
 	<inputs>
 		<input type="moon.core.Name" name="Old_name" from="Class" method="getName" root="false" />

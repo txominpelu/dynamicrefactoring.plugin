@@ -20,14 +20,16 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.*/
 
 package dynamicrefactoring.reader;
 
+import java.io.File;
+
 import dynamicrefactoring.domain.DynamicRefactoringDefinition;
 
 /**
- * Permite recuperar cada uno de los componentes que definen una refactorización,
+ * Permite recuperar cada uno de los componentes que definen una refactorizaciï¿½n,
  * como las precondiciones, postcondiciones, etc.
  *
- * @author <A HREF="mailto:alc0022@alu.ubu.es">Ángel López Campo</A>
- * @author <A HREF="mailto:epf0006@alu.ubu.es">Eduardo Peña Fernández</A>
+ * @author <A HREF="mailto:alc0022@alu.ubu.es">ï¿½ngel Lï¿½pez Campo</A>
+ * @author <A HREF="mailto:epf0006@alu.ubu.es">Eduardo Peï¿½a Fernï¿½ndez</A>
  * @author <A HREF="mailto:sfd0009@alu.ubu.es">Sonia Fuente de la Fuente</A>
  * @author <A HREF="mailto:ehp0001@alu.ubu.es">Enrique Herrero Paredes</A>
  */
@@ -72,11 +74,11 @@ public class XMLRefactoringReader {
 	}
 	
 	/**
-	 * Devuelve la definición de la refactorización.
+	 * Devuelve la definiciï¿½n de la refactorizaciï¿½n.
 	 * 
-	 * @return la definición de la refactorización.
+	 * @return la definiciï¿½n de la refactorizaciï¿½n.
 	 */
-	public DynamicRefactoringDefinition getDynamicRefactoringDefinition() {
-		return implementor.getDynamicRefactoringDefinition();
+	public DynamicRefactoringDefinition getDynamicRefactoringDefinition(File f) {
+		return implementor.getDynamicRefactoringDefinition(f);
 	}
 }
