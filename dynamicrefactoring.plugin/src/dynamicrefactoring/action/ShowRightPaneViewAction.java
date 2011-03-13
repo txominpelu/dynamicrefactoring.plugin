@@ -40,8 +40,10 @@ public class ShowRightPaneViewAction implements IViewActionDelegate{
 	 */
 	@Override
 	public void run(IAction action) {
-		if (view instanceof RefactoringCatalogBrowserView)
+		if (view instanceof RefactoringCatalogBrowserView){
 			((RefactoringCatalogBrowserView)view).showRightPane();
+			action.setEnabled(false);
+		}
 	}
 
 	/**

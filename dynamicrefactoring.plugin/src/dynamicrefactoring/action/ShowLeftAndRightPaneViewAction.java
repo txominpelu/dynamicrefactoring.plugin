@@ -40,15 +40,21 @@ public class ShowLeftAndRightPaneViewAction implements IViewActionDelegate{
 	 */
 	@Override
 	public void run(IAction action) {
-		if (view instanceof RefactoringCatalogBrowserView)
+		if (view instanceof RefactoringCatalogBrowserView){
 			((RefactoringCatalogBrowserView)view).showLeftAndRightPane();
+			action.setEnabled(false);
+		}
 	}
 
 	/**
-	 * Sin implementación.
+	 * Habilita la acción en caso de encontrase deshabilitada,
+	 * una vez que esta ha sido seleccionada, para que este disponible 
+	 * ya que inicialmente no lo esta.
 	 */
 	@Override
 	public void selectionChanged(IAction action, ISelection selection) {
+		if(!action.isEnabled())
+			action.setEnabled(true);
 	}
 
 }
