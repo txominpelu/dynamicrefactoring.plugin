@@ -1,0 +1,53 @@
+<!DOCTYPE refactoring SYSTEM "refactoringDTD.dtd">
+<refactoring name="MiRefact1-MiCategoria1">
+    <information>
+        <description>
+            Permite generar un nuevo m&#233;todo a partir de un conjunto de instrucciones de otro m&#233;todo diferente.
+        </description>
+        <motivation>
+            Permite reducir la complejidad de un m&#233;todo extrayendo parte de su tarea a otro m&#233;todo nuevo. Tambi&#233;n facilita la reducci&#243;n de c&#243;digo duplicado al permitir la reutilizaci&#243;n del nuevo m&#233;todo generado.
+        </motivation>
+        <categorization>
+            <classification name="MiClasificacion1">
+                <category>
+                    MiCategoria1
+                </category>
+            </classification>
+        </categorization>
+    </information>
+    <inputs>
+        <input name="Name" root="false" type="moon.core.Name"/>
+        <input name="Fragment" root="true" type="javamoon.core.instruction.JavaCodeFragment"/>
+        <input name="Model" root="false" type="moon.core.Model"/>
+    </inputs>
+    <mechanism>
+        <preconditions>
+            <precondition name="repository.moon.concretepredicate.IsCodeFragmentInMethodBody">
+                <param name="Fragment"/>
+            </precondition>
+            <precondition name="repository.moon.concretepredicate.JustOneReturn">
+                <param name="Fragment"/>
+            </precondition>
+        </preconditions>
+        <actions>
+            <action name="repository.moon.concreteaction.AddExtractedMethod">
+                <param name="Name"/>
+                <param name="Fragment"/>
+            </action>
+            <action name="repository.moon.concreteaction.AddExtractedFormalArgToMethod">
+                <param name="Name"/>
+                <param name="Fragment"/>
+            </action>
+            <action name="repository.moon.concreteaction.AddReturnCode">
+                <param name="Name"/>
+                <param name="Fragment"/>
+            </action>
+            <action name="repository.moon.concreteaction.ReplaceCodeFragment">
+                <param name="Name"/>
+                <param name="Fragment"/>
+            </action>
+        </actions>
+        <postconditions/>
+    </mechanism>
+    <examples/>
+</refactoring>

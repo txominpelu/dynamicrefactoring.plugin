@@ -9,8 +9,8 @@ import org.junit.Before;
 import org.junit.Test;
 
 import dynamicrefactoring.domain.metadata.interfaces.Category;
-import dynamicrefactoring.domain.metadata.interfaces.ClassificationsCatalog;
-import dynamicrefactoring.plugin.xml.classifications.imp.ClassificationsCatalogStub;
+import dynamicrefactoring.domain.metadata.interfaces.Catalog;
+import dynamicrefactoring.plugin.xml.classifications.imp.CatalogStub;
 
 public class ClassificationsDataEditorTest {
 
@@ -18,12 +18,12 @@ public class ClassificationsDataEditorTest {
 	private static final String CATEGORY_TO_RENAME = "clasifToRename";
 	private static final String CATEGORY_NEW_NAME = "clasifNewName";
 	
-	private ClassificationsCatalog catalog;
+	private Catalog catalog;
 	private ClassificationsDataEditorSection editor;
 
 	@Before
 	public void setUp() throws Exception {
-		catalog = new ClassificationsCatalogStub();
+		catalog = new CatalogStub();
 		editor = new ClassificationsDataEditorSection(CLASIF_INICIAL, catalog);
 	}
 	

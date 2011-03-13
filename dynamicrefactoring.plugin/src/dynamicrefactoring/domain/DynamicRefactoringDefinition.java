@@ -36,8 +36,9 @@ import com.google.common.collect.Collections2;
 
 import dynamicrefactoring.RefactoringConstants;
 import dynamicrefactoring.domain.metadata.interfaces.Category;
+import dynamicrefactoring.domain.metadata.interfaces.Catalog;
 import dynamicrefactoring.domain.metadata.interfaces.Element;
-import dynamicrefactoring.plugin.xml.classifications.imp.ClassificationsStore;
+import dynamicrefactoring.plugin.xml.classifications.imp.SimpleCatalog;
 import dynamicrefactoring.reader.JDOMXMLRefactoringReaderFactory;
 import dynamicrefactoring.reader.XMLRefactoringReader;
 import dynamicrefactoring.reader.XMLRefactoringReaderFactory;
@@ -115,9 +116,7 @@ public class DynamicRefactoringDefinition implements Element,
 	 */
 	private Set<String> keywords;
 
-
-	private DynamicRefactoringDefinition(
-			Builder builder) {
+	private DynamicRefactoringDefinition(Builder builder) {
 		name = builder.name;
 		description = builder.description;
 		image = builder.image;
@@ -146,8 +145,6 @@ public class DynamicRefactoringDefinition implements Element,
 		return name;
 	}
 
-	
-
 	/**
 	 * Devuelve la descripci�n de la refactorizaci�n.
 	 * 
@@ -158,8 +155,6 @@ public class DynamicRefactoringDefinition implements Element,
 	public String getDescription() {
 		return description;
 	}
-	
-	
 
 	/**
 	 * Devuelve la ruta de la imagen asociada a la refactorizaci�n.
@@ -172,7 +167,6 @@ public class DynamicRefactoringDefinition implements Element,
 		return image;
 	}
 
-	
 	/**
 	 * Devuelve la motivaci�n de la refactorizaci�n.
 	 * 
@@ -183,8 +177,6 @@ public class DynamicRefactoringDefinition implements Element,
 	public String getMotivation() {
 		return motivation;
 	}
-
-	
 
 	/**
 	 * Devuelve las entradas que se deben solicitar al usuario para construir la
@@ -220,8 +212,6 @@ public class DynamicRefactoringDefinition implements Element,
 
 		return map;
 	}
-	
-	
 
 	/**
 	 * Devuelve los nombres de las precondiciones de la refactorizaci�n.
@@ -233,8 +223,6 @@ public class DynamicRefactoringDefinition implements Element,
 	public ArrayList<String> getPreconditions() {
 		return preconditions;
 	}
-	
-	
 
 	/**
 	 * Devuelve los nombres de las acciones de la refactorizaci�n.
@@ -247,8 +235,6 @@ public class DynamicRefactoringDefinition implements Element,
 		return actions;
 	}
 
-	
-
 	/**
 	 * Devuelve los nombres de las postcondiciones de la refactorizaci�n.
 	 * 
@@ -259,8 +245,6 @@ public class DynamicRefactoringDefinition implements Element,
 	public ArrayList<String> getPostconditions() {
 		return postconditions;
 	}
-
-	
 
 	/**
 	 * Devuelve los par�metros ambiguos de la refactorizaci�n.
@@ -292,7 +276,6 @@ public class DynamicRefactoringDefinition implements Element,
 	 */
 	public ArrayList<String[]> getAmbiguousParameters(String name, int typePart) {
 
-
 		// Se obtienen todas las entradas del predicado o accion.
 		ArrayList<String[]> inputs = ambiguousParameters[typePart].get(name);
 
@@ -300,7 +283,7 @@ public class DynamicRefactoringDefinition implements Element,
 			ArrayList<String[]> params = new ArrayList<String[]>();
 
 			// Se crea una copia de la lista de entradas del predicado o accion.
-			for (String[] param : inputs){
+			for (String[] param : inputs) {
 				String[] temp = Arrays.copyOf(param, param.length);
 				params.add(temp);
 			}
@@ -310,8 +293,6 @@ public class DynamicRefactoringDefinition implements Element,
 		}
 		return null;
 	}
-
-	
 
 	/**
 	 * Devuelve los ejemplos de la refactorizaci�n.
@@ -323,8 +304,6 @@ public class DynamicRefactoringDefinition implements Element,
 	public ArrayList<String[]> getExamples() {
 		return examples;
 	}
-
-	
 
 	/**
 	 * Devuelve la definici�n de una refactorizaci�n a partir de un fichero.
@@ -348,7 +327,9 @@ public class DynamicRefactoringDefinition implements Element,
 					.makeXMLRefactoringReaderImp();
 			XMLRefactoringReader temporaryReader = new XMLRefactoringReader(
 					implementor);
-			definition = temporaryReader.getDynamicRefactoringDefinition(new File(refactoringFilePath));
+			definition = temporaryReader
+					.getDynamicRefactoringDefinition(new File(
+							refactoringFilePath));
 		} catch (Exception e) {
 			Object[] messageArgs = { refactoringFilePath };
 			MessageFormat formatter = new MessageFormat(""); //$NON-NLS-1$
@@ -361,7 +342,7 @@ public class DynamicRefactoringDefinition implements Element,
 		}
 		return definition;
 	}
-	
+
 	/**
 	 * Devuelve el ambito al que pertenece una refactorizacion.
 	 * 
@@ -378,7 +359,7 @@ public class DynamicRefactoringDefinition implements Element,
 					@Override
 					public boolean apply(Category arg0) {
 						return arg0.getParent().equals(
-								ClassificationsStore.SCOPE_CLASSIFICATION);
+								SimpleCatalog.SCOPE_CLASSIFICATION);
 					}
 
 				});
@@ -387,23 +368,24 @@ public class DynamicRefactoringDefinition implements Element,
 		Preconditions.checkArgument(refactScopeCategories.size() > 0,
 				"All refactorings must belong to at least one scope.");
 
-		return Collections2.transform(refactScopeCategories,
-				new Function<Category, Scope>() {
+		return Collections2
+				.transform(refactScopeCategories,
+						new Function<Category, Scope>() {
 
-					/**
-					 * Obtenemos el scope de las categorias obtenidas
-					 * anteriormente.
-					 * 
-					 * @param arg0
-					 * @return el scope de las categorias obtenidas
-					 * anteriormente
-					 */
-					@Override
-					public Scope apply(Category arg0) {
-						return Scope.fromString(arg0.getName());
-					}
+							/**
+							 * Obtenemos el scope de las categorias obtenidas
+							 * anteriormente.
+							 * 
+							 * @param arg0
+							 * @return el scope de las categorias obtenidas
+							 *         anteriormente
+							 */
+							@Override
+							public Scope apply(Category arg0) {
+								return Scope.fromString(arg0.getName());
+							}
 
-				}).iterator().next();
+						}).iterator().next();
 
 	}
 
@@ -411,26 +393,28 @@ public class DynamicRefactoringDefinition implements Element,
 	public final boolean belongsTo(Category category) {
 		return categories.contains(category);
 	}
-	
+
 	@Override
 	public boolean belongsTo(String word) {
-		word=word.toLowerCase().trim();
+		word = word.toLowerCase().trim();
 		return keywords.contains(word);
 	}
-	
+
 	@Override
 	public boolean containsText(String text) {
-		text=text.toLowerCase().trim();
-		return name.toLowerCase().contains(text) ||
-			   description.toLowerCase().contains(text) ||
-			   motivation.toLowerCase().contains(text);
+		text = text.toLowerCase().trim();
+		return name.toLowerCase().contains(text)
+				|| description.toLowerCase().contains(text)
+				|| motivation.toLowerCase().contains(text);
 	}
-	
+
 	/**
-	 * Las refactorizaciones se  ordenan en base a su nombre.
+	 * Las refactorizaciones se ordenan en base a su nombre.
 	 * 
-	 * @param refactorToCompare refactorizacion a comparar con la actual
-	 * @return sigue el criterio de {@link java.lang.String#compareTo(String)} al comparar los nombres
+	 * @param refactorToCompare
+	 *            refactorizacion a comparar con la actual
+	 * @return sigue el criterio de {@link java.lang.String#compareTo(String)}
+	 *         al comparar los nombres
 	 */
 	@Override
 	public final int compareTo(DynamicRefactoringDefinition refactorToCompare) {
@@ -442,7 +426,6 @@ public class DynamicRefactoringDefinition implements Element,
 		return new HashSet<Category>(categories);
 	}
 
-
 	/**
 	 * Obtiene el conjunto de palabras claves que describen la refactorizaci�n.
 	 * 
@@ -451,9 +434,47 @@ public class DynamicRefactoringDefinition implements Element,
 	public Set<String> getKeywords() {
 		return new HashSet<String>(keywords);
 	}
+
+	/**
+	 * Dos refactorizaciones son consideradas iguales si tienen el mismo nombre.
+	 * Esto es debido a que en el catalogo de refactorizaciones
+	 * {@link Catalog} se considera que el nombre es un
+	 * identificador unico y por tanto no puede haber dos refactorizaciones con
+	 * el mismo nombre.
+	 * 
+	 * @param object
+	 *            objeto a comparar
+	 * @return verdadero si el objeto a comparar es una definicion de
+	 *         refactorizacion con el mismo nombre que la actual
+	 */
+	@Override
+	public boolean equals(Object object) {
+		if(object instanceof DynamicRefactoringDefinition){
+			return ((DynamicRefactoringDefinition) object).getName().equals(getName());
+		}
+		return false;
+	}
 	
+	/**
+	 * Definido en base a la convencion especificada en {@link Object} sobre
+	 * hashCode() y teniendo en cuento el metodo {@link #equals(Object)} de
+	 * esta misma clase.
+	 * 
+	 * @return codigo hash
+	 */
+	@Override
+	public int hashCode(){
+		return getName().hashCode();
+	}
+
+	/**
+	 * Constructor de definiciones de refactorizaciones siguiendo el patrón
+	 * Builder.
+	 * 
+	 * @author imediava
+	 * 
+	 */
 	public static class Builder {
-		
 
 		private Set<Category> categories;
 		private Set<String> keywords = new HashSet<String>();
@@ -469,32 +490,33 @@ public class DynamicRefactoringDefinition implements Element,
 		private HashMap<String, ArrayList<String[]>>[] ambiguousParameters;
 
 		/**
-		 * Crea un builder para crear una definicion de refactorizacion
-		 * con el nombre dado.
+		 * Crea un builder para crear una definicion de refactorizacion con el
+		 * nombre dado.
 		 * 
-		 * @param refactoringName nombre que tendra la refactorizacion que cree el builder
+		 * @param refactoringName
+		 *            nombre que tendra la refactorizacion que cree el builder
 		 */
-		public Builder(String refactoringName){
+		public Builder(String refactoringName) {
 			this.name = refactoringName;
 			ambiguousParameters = (HashMap<String, ArrayList<String[]>>[]) new HashMap[3];
 			for (int i = 0; i < ambiguousParameters.length; i++)
 				ambiguousParameters[i] = new HashMap<String, ArrayList<String[]>>();
 		}
-		
+
 		/**
-		 * Obtiene la definicion de la refactorizacion
-		 * cuyos parametros se han establecido en el builder.
+		 * Obtiene la definicion de la refactorizacion cuyos parametros se han
+		 * establecido en el builder.
 		 * 
-		 * Lanzara excepcion {@link IllegalArgumentException} si
-		 * no se cumple alguna de las reglas de definicion de una 
-		 * refactorizacion expresadas en los ficheros XSD o DTD.
-		 * (Por ejemplo no se ha asignado valor a un campo
-		 * obligatorio)
-		 *  
+		 * Lanzara excepcion {@link IllegalArgumentException} si no se cumple
+		 * alguna de las reglas de definicion de una refactorizacion expresadas
+		 * en los ficheros XSD o DTD. (Por ejemplo no se ha asignado valor a un
+		 * campo obligatorio)
+		 * 
 		 * @return definicion de la refactorizacion
 		 */
-		public DynamicRefactoringDefinition build(){
-			DynamicRefactoringDefinition definition = new DynamicRefactoringDefinition(this);
+		public DynamicRefactoringDefinition build() {
+			DynamicRefactoringDefinition definition = new DynamicRefactoringDefinition(
+					this);
 			checkParameterNotNull(name, "name");
 			checkParameterNotNull(categories, "categories");
 			checkParameterNotNull(description, "description");
@@ -510,10 +532,16 @@ public class DynamicRefactoringDefinition implements Element,
 			return definition;
 		}
 
-		private void checkParameterNotNull(Object parameter, String parameterName) {
-			Preconditions.checkArgument(parameter != null, String.format("\'%s\'  parameter is not optional. A value different from null must be given.", parameterName));
+		private void checkParameterNotNull(Object parameter,
+				String parameterName) {
+			Preconditions
+					.checkArgument(
+							parameter != null,
+							String.format(
+									"\'%s\'  parameter is not optional. A value different from null must be given.",
+									parameterName));
 		}
-		
+
 		/**
 		 * Establece el conjunto de categor�as a las que el elemento va a
 		 * pertenecer.
@@ -525,28 +553,29 @@ public class DynamicRefactoringDefinition implements Element,
 			this.categories = categories;
 			return this;
 		}
-		
+
 		/**
-		 * Asigna el conjunto de palabras claves que describen 
-		 * la refactorizaci�n.
+		 * Asigna el conjunto de palabras claves que describen la
+		 * refactorizaci�n.
 		 * 
-		 * @param keywords conjunto de palabras clave
+		 * @param keywords
+		 *            conjunto de palabras clave
 		 * @return devuelve el builder con el nuevo parametro
 		 */
 		public Builder keywords(Set<String> keywords) {
 			this.keywords = keywords;
 			return this;
 		}
-		
+
 		/**
 		 * Establece los ejemplos a la refactorizaci�n.
 		 * 
 		 * @param examples
-		 *            lista de arrays de cadenas con los atributos de cada ejemplo.
-		 *            Cada array de cadenas contendr� dos cadenas, una con la ruta
-		 *            del fichero que contiene el estado del ejemplo antes de la
-		 *            refactorizaci�n, y otra con la ruta del que contiene el estado
-		 *            despu�s de la refactorizaci�n.
+		 *            lista de arrays de cadenas con los atributos de cada
+		 *            ejemplo. Cada array de cadenas contendr� dos cadenas, una
+		 *            con la ruta del fichero que contiene el estado del ejemplo
+		 *            antes de la refactorizaci�n, y otra con la ruta del que
+		 *            contiene el estado despu�s de la refactorizaci�n.
 		 * @return devuelve el builder con el nuevo parametro
 		 * 
 		 * @see #getExamples
@@ -569,6 +598,7 @@ public class DynamicRefactoringDefinition implements Element,
 			this.description = description;
 			return this;
 		}
+
 		/**
 		 * Asigna la ruta de la imagen asociada a la refactorizaci�n.
 		 * 
@@ -583,7 +613,6 @@ public class DynamicRefactoringDefinition implements Element,
 			return this;
 		}
 
-		
 		/**
 		 * Establece la motivaci�n de la refactorizaci�n.
 		 * 
@@ -599,8 +628,8 @@ public class DynamicRefactoringDefinition implements Element,
 		}
 
 		/**
-		 * Asigna las entradas que se deben solicitar al usuario para construir la
-		 * refactorizaci�n.
+		 * Asigna las entradas que se deben solicitar al usuario para construir
+		 * la refactorizaci�n.
 		 * 
 		 * @param inputs
 		 *            lista de cadenas con la informaci�n de esas entradas.
@@ -626,7 +655,7 @@ public class DynamicRefactoringDefinition implements Element,
 			this.preconditions = preconditions;
 			return this;
 		}
-		
+
 		/**
 		 * Establece los nombres de las acciones de la refactorizaci�n.
 		 * 
@@ -640,7 +669,7 @@ public class DynamicRefactoringDefinition implements Element,
 			this.actions = actions;
 			return this;
 		}
-		
+
 		/**
 		 * Establece los nombres de las postcondiciones de la refactorizaci�n.
 		 * 
@@ -654,7 +683,7 @@ public class DynamicRefactoringDefinition implements Element,
 			this.postconditions = postconditions;
 			return this;
 		}
-		
+
 		/**
 		 * Establece los par�metros ambiguos de la refactorizaci�n.
 		 * 
@@ -672,6 +701,5 @@ public class DynamicRefactoringDefinition implements Element,
 		}
 
 	}
-
 
 }

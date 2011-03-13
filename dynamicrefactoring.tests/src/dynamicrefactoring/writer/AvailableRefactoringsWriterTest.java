@@ -132,34 +132,29 @@ public class AvailableRefactoringsWriterTest {
 	@Test
 	public void testWritingSomeScopes() throws Exception {
 
-		String availableRefactoringsSomeScopesDir = "testdata/XML/Writer/availableRefactorings/someScopes";
+		String availableRefactoringsSomeScopesDir = "testdata/XML/Writer/availableRefactorings/" + "someScopes";
 		FileManager.copyBundleDirToFileSystem(
-				availableRefactoringsSomeScopesDir,
+				 availableRefactoringsSomeScopesDir,
 				RefactoringPlugin.getDynamicRefactoringsDir());
 
 		JDOMXMLRefactoringWriterImp.writeFileToLoadRefactoringTypes();
 
-		assertNumberOfRefactoringsExpectedForScope(
-				availableRefactoringsSomeScopesDir, Scope.CLASS, 0);
+		assertNumberOfRefactoringsExpectedForScope( Scope.CLASS, 0);
 
-		assertNumberOfRefactoringsExpectedForScope(
-				availableRefactoringsSomeScopesDir, Scope.METHOD, 2);
+		assertNumberOfRefactoringsExpectedForScope( Scope.METHOD, 2);
 
 		compareRefactoringPath(Scope.METHOD,
 				availableRefactoringsSomeScopesDir, "Add Parameter");
 		compareRefactoringPath(Scope.METHOD,
 				availableRefactoringsSomeScopesDir, "AddOverrideAnnotation");
 
-		assertNumberOfRefactoringsExpectedForScope(
-				availableRefactoringsSomeScopesDir, Scope.ATTRIBUTE, 1);
+		assertNumberOfRefactoringsExpectedForScope(Scope.ATTRIBUTE, 1);
 		compareRefactoringPath(Scope.ATTRIBUTE,
 				availableRefactoringsSomeScopesDir, "Move Field");
 
-		assertNumberOfRefactoringsExpectedForScope(
-				availableRefactoringsSomeScopesDir, Scope.FORMAL_ARG, 0);
+		assertNumberOfRefactoringsExpectedForScope(Scope.FORMAL_ARG, 0);
 
-		assertNumberOfRefactoringsExpectedForScope(
-				availableRefactoringsSomeScopesDir, Scope.FORMAL_PAR, 0);
+		assertNumberOfRefactoringsExpectedForScope( Scope.FORMAL_PAR, 0);
 
 	}
 
@@ -174,40 +169,33 @@ public class AvailableRefactoringsWriterTest {
 	@Test
 	public void testWritingAllScopes() throws Exception {
 
-		String availableRefactoringsSomeScopesDir = "testdata/XML/Writer/availableRefactorings/allScopes";
+		String availableRefactoringsSomeScopesDir = "testdata/XML/Writer/availableRefactorings/" + "allScopes";
 		FileManager.copyBundleDirToFileSystem(
-				availableRefactoringsSomeScopesDir,
+				 availableRefactoringsSomeScopesDir,
 				RefactoringPlugin.getDynamicRefactoringsDir());
 
 		new JDOMXMLRefactoringWriterImp(null).writeFileToLoadRefactoringTypes();
 
-		assertNumberOfRefactoringsExpectedForScope(
-				availableRefactoringsSomeScopesDir, Scope.CLASS, 1);
+		assertNumberOfRefactoringsExpectedForScope( Scope.CLASS, 1);
 		compareRefactoringPath(Scope.CLASS,
 				availableRefactoringsSomeScopesDir, "EnumeratedTypes");
 
-		assertNumberOfRefactoringsExpectedForScope(
-				availableRefactoringsSomeScopesDir, Scope.METHOD, 1);
+		assertNumberOfRefactoringsExpectedForScope( Scope.METHOD, 1);
 		compareRefactoringPath(Scope.METHOD,
 				availableRefactoringsSomeScopesDir, "Add Parameter");
 
-		assertNumberOfRefactoringsExpectedForScope(
-				availableRefactoringsSomeScopesDir, Scope.ATTRIBUTE, 1);
+		assertNumberOfRefactoringsExpectedForScope( Scope.ATTRIBUTE, 1);
 		compareRefactoringPath(Scope.ATTRIBUTE,
 				availableRefactoringsSomeScopesDir, "Move Field");
 
-		assertNumberOfRefactoringsExpectedForScope(
-				availableRefactoringsSomeScopesDir, Scope.FORMAL_ARG, 1);
+		assertNumberOfRefactoringsExpectedForScope(Scope.FORMAL_ARG, 1);
 		compareRefactoringPath(Scope.FORMAL_ARG,
 				availableRefactoringsSomeScopesDir, "Remove Parameter");
-		assertNumberOfRefactoringsExpectedForScope(
-				availableRefactoringsSomeScopesDir, Scope.FORMAL_PAR, 1);
+		assertNumberOfRefactoringsExpectedForScope( Scope.FORMAL_PAR, 1);
 		compareRefactoringPath(Scope.FORMAL_PAR,
 				availableRefactoringsSomeScopesDir, "Specialize Bound S");
 
-		assertNumberOfRefactoringsExpectedForScope(
-				availableRefactoringsSomeScopesDir, Scope.CODE_FRAGMENT,
-				1);
+		assertNumberOfRefactoringsExpectedForScope( Scope.CODE_FRAGMENT,1);
 		compareRefactoringPath(Scope.CODE_FRAGMENT,
 				availableRefactoringsSomeScopesDir, "ExtractMethod");
 
@@ -222,8 +210,7 @@ public class AvailableRefactoringsWriterTest {
 	 * @param refactoringName
 	 * @throws XMLRefactoringReaderException
 	 */
-	private void assertNumberOfRefactoringsExpectedForScope(
-			String availableRefactoringsSomeScopesDir, Scope scope,
+	private void assertNumberOfRefactoringsExpectedForScope(Scope scope,
 			int numberOfExpectedRefactorings)
 			throws XMLRefactoringReaderException {
 		HashMap<String, String> refactorings = JDOMXMLRefactoringReaderImp

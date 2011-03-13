@@ -108,7 +108,7 @@ public class RefactoringPlugin extends AbstractUIPlugin
 	/**
 	 * Nombre de la carpeta que contiene el catalogo de las refactorizaciones.
 	 */
-	private static final String DYNAMIC_REFACTORINGS_FOLDER_NAME = File.separator + "DynamicRefactorings" + File.separator;
+	public static final String DYNAMIC_REFACTORINGS_FOLDER_NAME = File.separator + "DynamicRefactorings" + File.separator;
 
 	/**
 	 * Identificador que guarda el directorio de exportaci�n de un plan de

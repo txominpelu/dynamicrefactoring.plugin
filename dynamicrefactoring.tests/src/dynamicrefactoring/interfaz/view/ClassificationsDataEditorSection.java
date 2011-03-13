@@ -1,7 +1,7 @@
 package dynamicrefactoring.interfaz.view;
 
 import dynamicrefactoring.domain.metadata.interfaces.Classification;
-import dynamicrefactoring.domain.metadata.interfaces.ClassificationsCatalog;
+import dynamicrefactoring.domain.metadata.interfaces.Catalog;
 
 public class ClassificationsDataEditorSection {
 
@@ -13,14 +13,14 @@ public class ClassificationsDataEditorSection {
 	/**
 	 * Catalogo de clasificaciones y categorias.
 	 */
-	private ClassificationsCatalog catalog;
+	private Catalog catalog;
 
 	/**
 	 * Crea un editor de datos de una clasificacion.
 	 * @param classification nombre de la clasificacion a editar
 	 * @param catalog catalogo de clasificaciones
 	 */
-	public ClassificationsDataEditorSection(String classification, ClassificationsCatalog catalog) {
+	public ClassificationsDataEditorSection(String classification, Catalog catalog) {
 		this.classification = classification;
 		this.catalog = catalog;
 		

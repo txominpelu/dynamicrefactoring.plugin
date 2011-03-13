@@ -47,7 +47,7 @@ import com.google.common.base.Joiner;
 import dynamicrefactoring.domain.DynamicRefactoringDefinition;
 import dynamicrefactoring.domain.metadata.interfaces.Category;
 import dynamicrefactoring.interfaz.wizard.classificationscombo.PickCategoryTree;
-import dynamicrefactoring.plugin.xml.classifications.imp.ClassificationsStore;
+import dynamicrefactoring.plugin.xml.classifications.imp.SimpleCatalog;
 import dynamicrefactoring.util.io.filter.ImageFilter;
 
 /**
@@ -223,7 +223,7 @@ public final class RefactoringWizardPage1 extends WizardPage {
 
 		Set<Category> categories = (refactoring == null ? new HashSet<Category>()
 				: refactoring.getCategories());
-		categoryTree = new PickCategoryTree(composite, ClassificationsStore
+		categoryTree = new PickCategoryTree(composite, SimpleCatalog
 				.getInstance().getAllClassifications(), categories);
 		categoryTree.getControl().setBounds(80, 390, 534, 160);
 

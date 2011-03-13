@@ -2,6 +2,8 @@ package dynamicrefactoring.domain.metadata.interfaces;
 
 import java.util.Set;
 
+import dynamicrefactoring.domain.DynamicRefactoringDefinition;
+
 /**
  * Catalogo que contiene las clasificaciones existentes en la aplicacion y
  * provee de metodos para editarlas y acceder a sus datos.
@@ -9,7 +11,7 @@ import java.util.Set;
  * @author imediava
  * 
  */
-public interface ClassificationsCatalog {
+public interface Catalog {
 
 	/**
 	 * Obtiene la clasificacion con el nombre dado. Antes debe haberse
@@ -74,5 +76,29 @@ public interface ClassificationsCatalog {
 	 * @param categoryName nombre de la categoria
 	 */
 	void removeCategory(String classification, String categoryName);
+
+	/**
+	 * Obtiene la refactorizacion del catalogo cuyo nombre
+	 * es el pasado.
+	 * 
+	 * Saltara {@link IllegalArgumentException} si {@link #hasRefactoring(String)}
+	 * devuelve falso para el nombre pasado, es decir, si no existe una refactorizacion
+	 * con dicho nombre en el catalogo.
+	 * 
+	 * @param refactName
+	 * @return definicion de la refactorizacion
+	 */
+	DynamicRefactoringDefinition getRefactoring(String refactName);
+	
+	
+	/**
+	 * Obtiene si existe una refactorizacion con el nombre
+	 * pasado en el catalogo.
+	 * 
+	 * @param name nombre de la refactorizacion a comprobar
+	 * @return verdadero si existe una refactorizacion con dicho nombre en el catalogo
+	 */
+	boolean hasRefactoring(String name);
+	
 
 }
