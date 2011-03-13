@@ -88,6 +88,14 @@ public class Messages extends NLS {
 	public static String RefactoringSummaryPanel_Action;
 	public static String RefactoringSummaryPanel_Postconditions;
 	public static String RefactoringSummaryPanel_Image;
+	public static String RefactoringSummaryPanel_Examples;
+	public static String RefactoringSummaryPanel_ExampleLink;
+	public static String RefactoringSummaryPanel_ExampleLinkToolTip;
+	public static String SourceViewerDialog_Title;
+	public static String SourceViewerDialog_BeforeLabel;
+	public static String SourceViewerDialog_AfterLabel;
+	public static String SourceViewerDialog_Error;
+	public static String SourceViewerDialog_NotAvailable;
 	
 	static {
 		// initialize resource bundle

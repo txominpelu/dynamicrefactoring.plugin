@@ -22,7 +22,10 @@ import org.eclipse.swt.widgets.Canvas;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Control;
 import org.eclipse.swt.widgets.Display;
+import org.eclipse.swt.widgets.Event;
 import org.eclipse.swt.widgets.Label;
+import org.eclipse.swt.widgets.Link;
+import org.eclipse.swt.widgets.Listener;
 import org.eclipse.swt.widgets.TabFolder;
 import org.eclipse.swt.widgets.TabItem;
 import org.eclipse.swt.widgets.Table;
@@ -31,6 +34,7 @@ import org.eclipse.swt.widgets.TableItem;
 import org.eclipse.swt.widgets.Text;
 import org.eclipse.swt.widgets.Tree;
 import org.eclipse.swt.widgets.TreeItem;
+import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.forms.events.ExpansionAdapter;
 import org.eclipse.ui.forms.events.ExpansionEvent;
 import org.eclipse.ui.forms.events.HyperlinkAdapter;
@@ -58,37 +62,37 @@ import dynamicrefactoring.util.RefactoringTreeManager;
 public class RefactoringSummaryPanel {
 
 	/**
-	 * Etiqueta t�tulo.
+	 * Etiqueta título.
 	 */
 	private Label titleLabel;
 	
 	/**
-	 * N�mero m�nimo de pesta�as, es el n�mero de pesta�as fijas a mostrar.
+	 * Número mínimo de pestañas, es el número de pestañas fijas a mostrar.
 	 */
 	private int minNumTabs;
 
 	/**
-	 * Organizador de pesta�as.
+	 * Organizador de pestañas.
 	 */
 	private TabFolder refTabFolder;
 	
 	/**
-	 * Etiqueta descripci�n de la refactorizaci�n.
+	 * Etiqueta descripción de la refactorización.
 	 */
 	private Label descriptionLabel;
 	
 	/**
-	 * Cuadro de texto en que se mostrar� la descripci�n de la refactorizaci�n.
+	 * Cuadro de texto en que se mostrará la descripción de la refactorización.
 	 */
 	private Text descriptionText;
 	
 	/**
-	 * Etiqueta motivaci�n de la refactorizaci�n.
+	 * Etiqueta motivación de la refactorización.
 	 */
 	private Label motivationLabel;
 	
 	/**
-	 * Cuadro de texto en que se mostrar� la motivaci�n de la refactorizaci�n.
+	 * Cuadro de texto en que se mostrará la motivación de la refactorización.
 	 */
 	private Text motivationText;
 	
@@ -103,32 +107,42 @@ public class RefactoringSummaryPanel {
 	private final String CHECKBUTTON_PROPERTY = "checkButton"; //$NON-NLS-1$
 
 	/**
-	 * Tabla en que se mostrar�n las entradas de la refactorizaci�n.
+	 * Tabla en que se mostrarán las entradas de la refactorización.
 	 */
 	private Table inputsTable;
 
 	/**
-	 * �rbol sobre el que se mostrar�n de forma estructurada los diferentes elementos
-	 * del repositorio que componen la refactorizaci�n (precondiciones, acciones y 
+	 * Árbol sobre el que se mostrarán de forma estructurada los diferentes elementos
+	 * del repositorio que componen la refactorización (precondiciones, acciones y 
 	 * postcondiciones).
 	 */
 	private Tree componentsTree;
 
 	/**
-	 * �rea en que se muestra la imagen asociada a la refactorizaci�n.
+	 * Área en que se muestra la imagen asociada a la refactorización.
 	 */
 	private Canvas imageCanvas ;
 	
+	private ArrayList<Link> examplesLink;
+	private SourceViewerDialog sourceViewer;
+	
 	/**
-	 * Definici�n de la refactorizaci�n.
+	 * Definición de la refactorización.
 	 */
 	private DynamicRefactoringDefinition refactoring;
 	
+	/**
+	 * Ruta donde se encuentra almacenada la definición de la refactorización.
+	 */
+	private String refactoringPath;
+	
 	private RefactoringCatalogBrowserView rcbView;
-
+	
+	
 	public RefactoringSummaryPanel(Composite parent, RefactoringCatalogBrowserView rcbView){
 
 		this.rcbView=rcbView;
+		examplesLink=new ArrayList<Link>();
 		
 		FormData refFormData=null;
 
@@ -156,6 +170,8 @@ public class RefactoringSummaryPanel {
 		createInputsTabItem();
 		createMechanismTabItem();
 
+		sourceViewer=new SourceViewerDialog(
+				PlatformUI.getWorkbench().getActiveWorkbenchWindow().getShell());
 		minNumTabs=refTabFolder.getItemCount();
 	}
 
@@ -358,6 +374,43 @@ public class RefactoringSummaryPanel {
 		item.setControl(scroller);
 	}
 
+	private void createAndFillExamplesTabItem(){
+		
+		//comp
+		final Composite comp = new Composite(refTabFolder, SWT.NONE);
+		GridLayout g=new GridLayout();
+		g.numColumns=1;
+		g.marginHeight=20;
+		g.marginWidth=10;
+		g.verticalSpacing=10;
+		comp.setLayout(g);
+		
+		Link exLink=null;
+		final ArrayList<String[]> examples=refactoring.getExamples();
+		int numEx=1;
+		
+		for(final String[] ex: examples){
+			exLink = new Link(comp, SWT.NONE);
+			exLink.setText("<a>"+ //$NON-NLS-1$
+					Messages.RefactoringSummaryPanel_ExampleLink+
+					" " + numEx + "</a>"); //$NON-NLS-1$
+			exLink.setToolTipText(Messages.RefactoringSummaryPanel_ExampleLinkToolTip);
+			exLink.addListener (SWT.Selection, new Listener () {
+				public void handleEvent(Event event) {
+					if(sourceViewer.loadSources(refactoringPath+ex[0], refactoringPath+ex[1])){
+						sourceViewer.open();
+					}
+				}
+			});
+			examplesLink.add(exLink);
+			numEx++;
+		}
+		
+		TabItem item = new TabItem (refTabFolder, SWT.NONE);
+		item.setText(Messages.RefactoringSummaryPanel_Examples);
+		item.setControl(comp);
+	}
+	
 	private void clear(){
 
 		//hyperLinks
@@ -385,9 +438,15 @@ public class RefactoringSummaryPanel {
 		//componentsTree
 		RefactoringTreeManager.cleanTree(componentsTree);
 
+		//examplesLink
+		for(Link exLink: examplesLink)
+			exLink.dispose();
+		
 		//ImageTab
-		if(refTabFolder.getItemCount()>minNumTabs)
+		//ExamplesTab	
+		while(minNumTabs!=refTabFolder.getItemCount()){
 			refTabFolder.getItem(minNumTabs).dispose();
+		}
 	}
 
 	private void fillOverview(){
@@ -494,11 +553,13 @@ public class RefactoringSummaryPanel {
 	}
 
 	/**
-	 * Establece la refactorizaci�n a mostrar.
-	 * @param ref definici�n de la refactorizaci�n a mostrar
+	 * Establece la refactorización a mostrar.
+	 * @param ref definición de la refactorización a mostrar
+	 * @param refPath ruta donde se encuentra almacenada la refactorización a mostrar
 	 */
-	public void setRefactoringDefinition(DynamicRefactoringDefinition ref) {
+	public void setRefactoringDefinition(DynamicRefactoringDefinition ref, String refPath) {
 		refactoring=ref;
+		refactoringPath=refPath;
 	}
 
 	public void showRefactoringSummary(){
@@ -513,8 +574,12 @@ public class RefactoringSummaryPanel {
 				!refactoring.getImage().equals("")){ //$NON-NLS-1$
 			createAndFillImageTabItem();
 		}
+		if(refactoring.getExamples().size()>0)
+			createAndFillExamplesTabItem();
 
 		titleLabel.setText(Messages.RefactoringSummaryPanel_Title + refactoring.getName());
+		
+		refTabFolder.setSelection(0);
 		refTabFolder.setVisible(true);
 	}
 

@@ -271,10 +271,10 @@ public class RefactoringWizardPage6 extends WizardPage {
 	 */
 	public ArrayList<String[]> getExamples(){
 		ArrayList<String[]> examples = new ArrayList<String[]>();
-		if (t_Before1.getText() != "" && t_After1.getText() != "") //$NON-NLS-1$ //$NON-NLS-2$
-			examples.add(new String[]{t_Before1.getText(), t_After1.getText()});
-		if (t_Before2.getText() != "" && t_After2.getText() != "") //$NON-NLS-1$ //$NON-NLS-2$
-			examples.add(new String[]{t_Before2.getText(), t_After2.getText()});
+		if (t_Before1.getText().trim() != "" && t_After1.getText().trim() != "") //$NON-NLS-1$ //$NON-NLS-2$
+			examples.add(new String[]{t_Before1.getText().trim(), t_After1.getText().trim()});
+		if (t_Before2.getText().trim() != "" && t_After2.getText().trim() != "") //$NON-NLS-1$ //$NON-NLS-2$
+			examples.add(new String[]{t_Before2.getText().trim(), t_After2.getText().trim()});
 		return examples;
 	}
 
