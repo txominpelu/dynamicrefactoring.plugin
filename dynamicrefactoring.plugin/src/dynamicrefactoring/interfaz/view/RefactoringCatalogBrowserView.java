@@ -11,11 +11,12 @@ import java.util.Map;
 import java.util.Set;
 
 import org.apache.log4j.Logger;
-import org.eclipse.jface.action.Action;
+import org.eclipse.core.runtime.Platform;
+import org.eclipse.jface.action.ActionContributionItem;
+import org.eclipse.jface.action.IAction;
+import org.eclipse.jface.action.IContributionItem;
 import org.eclipse.jface.action.IToolBarManager;
-import org.eclipse.jface.action.Separator;
 import org.eclipse.jface.dialogs.MessageDialog;
-import org.eclipse.jface.resource.ImageDescriptor;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.custom.SashForm;
 import org.eclipse.swt.custom.ScrolledComposite;
@@ -47,7 +48,6 @@ import org.eclipse.swt.widgets.Text;
 import org.eclipse.swt.widgets.ToolTip;
 import org.eclipse.swt.widgets.Tree;
 import org.eclipse.swt.widgets.TreeItem;
-import org.eclipse.ui.IActionBars;
 import org.eclipse.ui.IWorkbenchWindow;
 import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.part.ViewPart;
@@ -223,10 +223,23 @@ public class RefactoringCatalogBrowserView extends ViewPart {
 	 */
 	private RefactoringSummaryPanel refSummaryPanel;
 
+	/**
+	 * Contenedor de la parte izquierda de la vista.
+	 */
 	private Composite classComp;
+	
+	/**
+	 * Contenedor de la parte derecha de la vista.
+	 */
 	private Composite refComp;
 
-	private IToolBarManager toolBarManager;
+	/**
+	 * Lista de acciones de la barra de herramientas de la vista
+	 * referentes a la visualización de los contenedores que se encuentran
+	 * dividos por el spliter.
+	 */
+	private ArrayList<IAction> actionsPane;
+
 	
 	/**
 	 * Crea los controles SWT para este componente del espacio de trabajo.
@@ -268,11 +281,7 @@ public class RefactoringCatalogBrowserView extends ViewPart {
 		refComp = new Composite(sashForm, SWT.NONE);
 		refComp.setLayout(new FormLayout());
 
-		//toolBarManager
-	    toolBarManager = getViewSite().getActionBars().getToolBarManager();
-
 		//refSummaryPanel
-
 		refSummaryPanel=new RefactoringSummaryPanel(refComp,this);
 
 		//classLabel
@@ -355,10 +364,7 @@ public class RefactoringCatalogBrowserView extends ViewPart {
 		//searchToolTip
 		searchToolTip=new ToolTip(searchText.getShell(), SWT.BALLOON | SWT.ICON_INFORMATION );
 		searchToolTip.setText(Messages.RefactoringCatalogBrowserView_TextSearchToolTip);
-		String message="category:'classification'@'category'  e.g. category:scope@method \n" +
-					   "text:'text'  e.g. text:add \n" +
-					   "key:'keyword'  e.g. key:annotation"; //$NON-NLS-1$ 
-		searchToolTip.setMessage(message);
+		searchToolTip.setMessage(Messages.RefactoringCatalogBrowserView_TextSearchMessage);
 		searchToolTip.setAutoHide(true);
 		
 		//searchButton 
@@ -440,8 +446,6 @@ public class RefactoringCatalogBrowserView extends ViewPart {
 
 		//sashForm
 		sashForm.setWeights(new int[] {60,40});
-//		FIXME:solucionar esto
-//		classRefAction.setEnabled(false);
 
 		//scrolledComp
 		scrolledComp.setContent(sashForm);
@@ -536,7 +540,63 @@ public class RefactoringCatalogBrowserView extends ViewPart {
 		catalog=new ElementCatalog<DynamicRefactoringDefinition>(
 				drd, NONE_CLASSIFICATION);
 	}
+	
+	/**
+	 * Crea una representación en formato de árbol de cada una de las refactorizaciones
+	 * que pertenecen a cada una de las categorias que dispone la clasificación 
+	 * indicada. En caso de tratarse de refactorizaciones filtradas pone de color 
+	 * gris el texto de todos los componentes del árbol.
+	 * 
+	 * @param orderInTree posición de la rama en el árbol refactoringsTree.
+	 * @param iconPath ruta al icono representativo del árbol que se va a crear
+	 * @param className nombre de la clasificación.
+	 * @param classElements lista de refactorizaciones a mostrar.
+	 * @param isFilteredClass indicador de filtrado. Si es verdadero se trata de
+	 * 		  refactorizaciones filtradas, falso en caso contrario.
+	 */
+	private void createClassificationTree(int orderInTree, String iconPath, String className, 
+			ClassifiedElements<DynamicRefactoringDefinition> classElements, 
+			boolean isFilteredClass) {
+		
+		TreeItem classTreeItem = TreeEditor.createBranch(refactoringsTree,
+				orderInTree, className, iconPath);
+		
+		ArrayList<Category> categories = new ArrayList<Category>(
+				classElements.getClassification().getCategories());
+		Collections.sort(categories);
 
+		ArrayList<DynamicRefactoringDefinition> dRefactDef = null;
+		TreeItem catTreeItem = null;
+		int orderInBranchCat = 0;
+		int orderInBranchRef = 0;
+
+		for(Category c : categories){
+			dRefactDef=new ArrayList<DynamicRefactoringDefinition>(
+					classElements.getCategoryChildren(c));
+			Collections.sort(dRefactDef);
+			catTreeItem = classTreeItem;
+			if ( !(className.equals(NONE_CLASSIFICATION.getName()) && 
+					c.equals(Category.NONE_CATEGORY))
+					&& dRefactDef.size()>0){
+				catTreeItem = TreeEditor.createBranch(classTreeItem,
+						orderInBranchCat, c.getName(),
+						RefactoringImages.CAT_ICON_PATH); 
+				orderInBranchCat++;
+			}
+			orderInBranchRef = 0;
+			for (DynamicRefactoringDefinition ref : dRefactDef) {
+				RefactoringTreeManager
+				.createRefactoringDefinitionTreeItemFromParentTreeItem(
+						orderInBranchRef, ref, catTreeItem);
+				orderInBranchRef++;
+			}
+		}
+		if(isFilteredClass)
+			RefactoringTreeManager.setForegroundTreeItem(classTreeItem, 
+					Display.getCurrent().getSystemColor(SWT.COLOR_DARK_GRAY));
+	}	
+	
+	
 	/**
 	 * Muestra en forma de árbol la clasificación de las refactorizaciones según
 	 * las categorias a las que pertenece, pudiendo aparecer en un grupo de filtrados
@@ -548,99 +608,22 @@ public class RefactoringCatalogBrowserView extends ViewPart {
 		refactoringsTree.setVisible(false);
 		
 		RefactoringTreeManager.cleanTree(refactoringsTree);
-
+		
+		//classifiedElements
 		ClassifiedElements<DynamicRefactoringDefinition> classifiedElements = 
 			catalog.getClassificationOfElements();
-
-		int orderInBranchClass = 0;
-		TreeItem classTreeItem = TreeEditor.createBranch(refactoringsTree,
-				orderInBranchClass, classificationName,
-				RefactoringImages.CLASS_ICON_PATH);
-		orderInBranchClass++;
-
-		ArrayList<Category> categories = new ArrayList<Category>(
-				classifiedElements.getClassification().getCategories());
-		Collections.sort(categories);
-
-		ArrayList<DynamicRefactoringDefinition> dRefactDef = null;
-		TreeItem catTreeItem, filTreeItem = null;
-		int orderInBranchCat = 0;
-
-		//classifiedElements
-		for(Category c : categories){
-			dRefactDef=new ArrayList<DynamicRefactoringDefinition>(
-					classifiedElements.getCategoryChildren(c));
-			Collections.sort(dRefactDef);
-			catTreeItem = classTreeItem;
-			if ( !(classificationName.equals(NONE_CLASSIFICATION.getName()) && 
-					c.equals(Category.NONE_CATEGORY))
-					&& dRefactDef.size()>0){
-				catTreeItem = TreeEditor.createBranch(classTreeItem,
-						orderInBranchCat, c.getName(),
-						RefactoringImages.CAT_ICON_PATH); 
-				orderInBranchCat++;
-			}
-			createTreeItemFromParent(dRefactDef, catTreeItem, false);
-		}
+		createClassificationTree(0, RefactoringImages.CLASS_ICON_PATH, classificationName, classifiedElements, false);
 		
-		orderInBranchCat = 0;
+		//filteredClassifiedElements
 		if(filteredButton.getSelection() && catalog.hasFilteredElements()){
-			filTreeItem = TreeEditor.createBranch(refactoringsTree,
-					orderInBranchClass,FILTERED, 
-					RefactoringImages.FIL_ICON_PATH);
-			
 			ClassifiedElements<DynamicRefactoringDefinition> filteredClassifiedElements = 
 				catalog.getClassificationOfFilteredElements();
-			categories = new ArrayList<Category>(
-					filteredClassifiedElements.getClassification().getCategories());
-			Collections.sort(categories);
-			
-			for(Category c : categories){
-				dRefactDef=new ArrayList<DynamicRefactoringDefinition>(
-						filteredClassifiedElements.getCategoryChildren(c));
-				Collections.sort(dRefactDef);
-				catTreeItem = filTreeItem;
-				if ( !(classificationName.equals(NONE_CLASSIFICATION.getName()) && 
-						c.equals(Category.NONE_CATEGORY))
-						&& dRefactDef.size()>0){
-					catTreeItem = TreeEditor.createBranch(filTreeItem,
-							orderInBranchCat, c.getName(),
-							RefactoringImages.CAT_ICON_PATH); 
-					orderInBranchCat++;
-					catTreeItem.setForeground(Display.getCurrent().getSystemColor(SWT.COLOR_DARK_GRAY));
-				}
-				createTreeItemFromParent(dRefactDef, catTreeItem, true);
-			}		
-			filTreeItem.setForeground(Display.getCurrent().getSystemColor(SWT.COLOR_DARK_GRAY));
+			createClassificationTree(1, RefactoringImages.FIL_ICON_PATH, FILTERED, filteredClassifiedElements, true);	
 		}
 
-		classTreeItem.setExpanded(true);
+		refactoringsTree.getItem(0).setExpanded(true);
 		
 		refactoringsTree.setVisible(true);
-	}
-
-	/**
-	 * Crea una representación en formato de arbol de cada una de las refactorizaciones,
-	 * agregandolas al arbol que se pasa. En caso de tratarse de una refactorización
-	 * filtrada pone de color gris el texto de todos sus componentes.
-	 * @param dRefactDef lista de refactorizaciones
-	 * @param catTreeItem 
-	 * @param filtered indicador de filtrado. Si es verdadero se trata de
-	 * 			refactorizaciones filtradas, falso en caso contrario.
-	 */
-	private void createTreeItemFromParent(
-			ArrayList<DynamicRefactoringDefinition> dRefactDef,
-			TreeItem catTreeItem, boolean filtered) {
-		int orderInBranchRef = 0;
-		for (DynamicRefactoringDefinition ref : dRefactDef) {
-			RefactoringTreeManager
-			.createRefactoringDefinitionTreeItemFromParentTreeItem(
-					orderInBranchRef, ref, catTreeItem);
-			orderInBranchRef++;
-		}
-		if (filtered)
-			RefactoringTreeManager.setForegroundTreeItem(catTreeItem, 
-					Display.getCurrent().getSystemColor(SWT.COLOR_DARK_GRAY));
 	}
 
 	private void removeAllConditionToTable(){
@@ -847,7 +830,6 @@ public class RefactoringCatalogBrowserView extends ViewPart {
 		}
 	}
 
-
 	/**
 	 * Muestra el editor de clasificaciones.
 	 */
@@ -855,40 +837,89 @@ public class RefactoringCatalogBrowserView extends ViewPart {
 		//RefactoringConstants.CLASSIFICATION_TYPES_FILE)
 	}
 
+	/**
+	 * Registra las acciones referentes a la visualización de
+	 * los contenedores separados por el spliter.
+	 */
+	private void loadActionsPane(){
+
+		//actionsPane
+		actionsPane=new ArrayList<IAction>();
+		
+		ArrayList<String> actionsPaneNames=new ArrayList<String>();
+		actionsPaneNames.add(Platform.getResourceString(RefactoringPlugin.getDefault().getBundle(),
+				"%dynamicrefactoring.view.action.showLeftPane")); //$NON-NLS-1$
+		actionsPaneNames.add(Platform.getResourceString(RefactoringPlugin.getDefault().getBundle(),
+				"%dynamicrefactoring.view.action.showRightPane")); //$NON-NLS-1$
+		actionsPaneNames.add(Platform.getResourceString(RefactoringPlugin.getDefault().getBundle(), 
+				"%dynamicrefactoring.view.action.showLeftAndRightPane")); //$NON-NLS-1$
+		
+		IToolBarManager toolBarManager = getViewSite().getActionBars().getToolBarManager();
+	    IContributionItem[] contributionItems=toolBarManager.getItems();
+		ActionContributionItem actionItem=null;
+		IAction action=null;
+		for(IContributionItem item:contributionItems){
+			if(item instanceof ActionContributionItem){
+				actionItem=(ActionContributionItem)item;
+				action=actionItem.getAction();
+				if(actionsPaneNames.contains(action.getText())){
+					actionsPane.add(action);
+				}
+			}
+		}
+
+	}
+	
+	/**
+	 * Habilita las acciones referentes a la visualización de
+	 * los contenedores que se encuentran deshabilitadas. Además,
+	 * en caso de no estar registradas las acciones previamente 
+	 * las registrará.
+	 */
+	private void enableActionsPane() {
+		
+		//registra las acciones si no lo estuviesen
+		if(actionsPane==null)
+			loadActionsPane();
+		
+		//habilita acciones deshabilitadas
+		for(IAction action:actionsPane){
+			if(!action.isEnabled())
+				action.setEnabled(true);
+		}
+		
+	}
 
 	/**
-	 * @param classComp
+	 * Muestra el contendor izquierdo en su totalidad ocultando el 
+	 * tanto el derecho como el spliter que los separa y
+	 * habilita las acciones referentes a la visualización de estos,
+	 * que se encuentran deshabilitadas.
 	 */
 	public void showLeftPane() {
-//		FIXME:solucionar esto
-//		sashForm.setMaximizedControl(classComp);
-//		classAction.setEnabled(false);
-//		refAction.setEnabled(true);
-//		classRefAction.setEnabled(true);
+		sashForm.setMaximizedControl(classComp);
+		enableActionsPane();
 	}
 
-
 	/**
-	 * 
+	 * Muestra el contendor derecho en su totalidad ocultando el 
+	 * tanto el izquierdo como el spliter que los separa y
+	 * habilita las acciones referentes a la visualización de estos,
+	 * que se encuentran deshabilitadas.
 	 */
 	public void showRightPane() {
-//		FIXME:solucionar esto
-//		sashForm.setMaximizedControl(refComp);
-//		refAction.setEnabled(false);
-//		classAction.setEnabled(true);
-//		classRefAction.setEnabled(true);
+		sashForm.setMaximizedControl(refComp);
+		enableActionsPane();
 	}
 
-
 	/**
-	 * 
+	 * Muestra los dos contenedores separados por el spliter y
+	 * habilita las acciones referentes a la visualización de estos,
+	 * que se encontraban deshabilitadas.
 	 */
 	public void showLeftAndRightPane() {
-//		FIXME:solucionar esto
-//		sashForm.setMaximizedControl(null);
-//		classRefAction.setEnabled(false);
-//		classAction.setEnabled(true);
-//		refAction.setEnabled(true);
+		sashForm.setMaximizedControl(null);
+		enableActionsPane();
 	}
 
 
