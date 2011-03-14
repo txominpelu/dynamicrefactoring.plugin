@@ -128,12 +128,12 @@ public class PluginCatalogTest {
 								RefactoringConstants.CLASSIFICATION_TYPES_FILE));
 	}
 
-	@Test
+	// @Test
 	public final void testAddCategory() {
 		fail("Not yet implemented"); // TODO
 	}
 
-	@Test
+	// @Test
 	public final void testRemoveCategory() {
 		fail("Not yet implemented"); // TODO
 	}
