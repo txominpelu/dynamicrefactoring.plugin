@@ -66,6 +66,8 @@ public final class RefactoringImages {
 	public static final String HELP_ICON_PATH = ICONS_DIR + "help.png"; //$NON-NLS-1$
 	
 	public static final String REF_VIEW_ICON_PATH = ICONS_DIR + "ref_view.png"; //$NON-NLS-1$
+	
+	public static final String SOURCE_ICON_PATH = ICONS_DIR + "source.gif"; //$NON-NLS-1$
 
 	/**
 	 * Evita que se creen instancias del objeto.
@@ -318,4 +320,13 @@ public final class RefactoringImages {
 		return getImageForPath(REF_VIEW_ICON_PATH);
 	}
 	
+	/**
+	 * Obtiene el icono Source.
+	 * 
+	 * @return imagen del icono
+	 */
+	public final static Image getSourceIcon(){
+		return getImageForPath(SOURCE_ICON_PATH);
+	}
+	 
 }

@@ -1,5 +1,6 @@
 package dynamicrefactoring.interfaz.view;
 
+import java.io.File;
 import java.io.IOException;
 import java.text.MessageFormat;
 import java.util.ArrayList;
@@ -112,6 +113,11 @@ public class RefactoringCatalogBrowserView extends ViewPart {
 	 */
 	private HashMap<String, DynamicRefactoringDefinition> refactorings;
 
+	/**
+	 * Tabla con las rutas de los ficheros asociados a las refactorizaciones.
+	 */
+	private HashMap<String, String> refactoringLocations;
+	
 	/**
 	 * Almacen con todas las clasificaciones.
 	 */
@@ -499,6 +505,7 @@ public class RefactoringCatalogBrowserView extends ViewPart {
 				listing.getDynamicRefactoringNameList(
 						RefactoringPlugin.getDynamicRefactoringsDir(),true, null);
 
+			refactoringLocations = new HashMap<String, String>();
 			refactorings = new HashMap<String, DynamicRefactoringDefinition>();
 
 			for (Map.Entry<String, String> nextRef : allRefactorings.entrySet()) {
@@ -509,8 +516,11 @@ public class RefactoringCatalogBrowserView extends ViewPart {
 						DynamicRefactoringDefinition.getRefactoringDefinition(
 								nextRef.getValue());
 
+					File f=null;
 					if (definition != null && definition.getName() != null) {
 						refactorings.put(definition.getName(), definition);
+						f=new File(nextRef.getValue());
+						refactoringLocations.put(definition.getName(), f.getParent()+ File.separatorChar);
 					}
 				} catch (RefactoringException e) {
 					e.printStackTrace();
@@ -825,7 +835,9 @@ public class RefactoringCatalogBrowserView extends ViewPart {
 		
 		//si habia alguna refactorizacion mostrada se refresca
 		if(refSelected!=null && refactorings.containsKey(refSelected.getName())){
-			refSummaryPanel.setRefactoringDefinition(refactorings.get(refSelected.getName()));
+			refSummaryPanel.setRefactoringDefinition(
+					refactorings.get(refSelected.getName()),
+					refactoringLocations.get(refSelected.getName()));
 			refSummaryPanel.showRefactoringSummary();
 		}
 	}
@@ -1075,7 +1087,7 @@ public class RefactoringCatalogBrowserView extends ViewPart {
 
 			//comprobamos si se trata de una refactorización
 			if(refSelected!=null){
-				refSummaryPanel.setRefactoringDefinition(refSelected);
+				refSummaryPanel.setRefactoringDefinition(refSelected, refactoringLocations.get(selectedName));
 				refSummaryPanel.showRefactoringSummary();
 			}
 
