@@ -67,7 +67,7 @@ import dynamicrefactoring.domain.metadata.interfaces.Category;
 import dynamicrefactoring.domain.metadata.interfaces.Classification;
 import dynamicrefactoring.domain.metadata.interfaces.ClassifiedElements;
 import dynamicrefactoring.interfaz.TreeEditor;
-import dynamicrefactoring.plugin.xml.classifications.imp.SimpleCatalog;
+import dynamicrefactoring.plugin.xml.classifications.imp.PluginCatalog;
 import dynamicrefactoring.util.DynamicRefactoringLister;
 import dynamicrefactoring.util.RefactoringTreeManager;
 
@@ -115,7 +115,7 @@ public class RefactoringCatalogBrowserView extends ViewPart {
 	/**
 	 * Almacen con todas las clasificaciones.
 	 */
-	private SimpleCatalog classStore;
+	private PluginCatalog classStore;
 	
 	/**
 	 * Clasificaciones disponibles.
@@ -483,7 +483,7 @@ public class RefactoringCatalogBrowserView extends ViewPart {
 	 * Carga las clasificaciones disponibles.
 	 */
 	private void loadClassifications() {
-		classStore = SimpleCatalog.getInstance();
+		classStore = PluginCatalog.getInstance();
 		classifications = new ArrayList<Classification> (classStore.getAllClassifications());
 	}
 

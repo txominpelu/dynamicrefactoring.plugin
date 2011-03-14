@@ -27,7 +27,7 @@ import dynamicrefactoring.plugin.xml.classifications.XmlClassificationsReader;
 
 class JAXBClassificationsReader implements XmlClassificationsReader {
 
-	private static final URL XSD_SCHEMA_URL = JAXBClassificationsReader.class
+	static final URL XSD_SCHEMA_URL = JAXBClassificationsReader.class
 			.getResource("/Classification/classifications.xsd");
 	private static final String DTD_SCHEMA_URL = "/Classification/classificationsDTD.dtd";
 	

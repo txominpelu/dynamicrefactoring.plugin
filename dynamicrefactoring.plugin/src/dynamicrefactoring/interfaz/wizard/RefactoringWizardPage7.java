@@ -52,7 +52,7 @@ import com.google.common.base.Preconditions;
 import dynamicrefactoring.RefactoringImages;
 import dynamicrefactoring.interfaz.TreeEditor;
 import dynamicrefactoring.interfaz.wizard.classificationscombo.PickCategoryTree;
-import dynamicrefactoring.plugin.xml.classifications.imp.SimpleCatalog;
+import dynamicrefactoring.plugin.xml.classifications.imp.PluginCatalog;
 
 /**
  * S�ptima p�gina del asistente de creaci�n o edici�n de refactorizaciones.
@@ -271,7 +271,7 @@ public class RefactoringWizardPage7 extends WizardPage {
 	 */
 	private void createNotEditableCategoryTree(Composite container,
 			Rectangle bounds) {
-		picker = new PickCategoryTree(container, SimpleCatalog
+		picker = new PickCategoryTree(container, PluginCatalog
 				.getInstance().getAllClassifications(),
 				firstPage.getCategories(), new ICheckStateListener() {
 

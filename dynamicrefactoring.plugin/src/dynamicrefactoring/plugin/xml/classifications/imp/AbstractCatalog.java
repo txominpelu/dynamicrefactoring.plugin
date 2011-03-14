@@ -16,9 +16,10 @@ import com.google.common.collect.Collections2;
 import com.google.common.collect.ImmutableSet;
 
 import dynamicrefactoring.domain.DynamicRefactoringDefinition;
+import dynamicrefactoring.domain.metadata.condition.CategoryCondition;
+import dynamicrefactoring.domain.metadata.interfaces.Catalog;
 import dynamicrefactoring.domain.metadata.interfaces.Category;
 import dynamicrefactoring.domain.metadata.interfaces.Classification;
-import dynamicrefactoring.domain.metadata.interfaces.Catalog;
 import dynamicrefactoring.reader.JDOMXMLRefactoringReaderImp;
 import dynamicrefactoring.util.DynamicRefactoringLister;
 
@@ -30,11 +31,12 @@ abstract class AbstractCatalog implements Catalog {
 	public AbstractCatalog(Set<Classification> classifSet,
 			Set<DynamicRefactoringDefinition> refactSet) {
 		this.classifications = classifSet;
-		this.refactorings = refactSet;
+		this.refactorings = new HashSet<DynamicRefactoringDefinition>(refactSet);
 	}
 
 	/**
-	 * Determina si existe una clasificación con el nombre pasado por parámetro.
+	 * Determina si existe una clasificación con el nombre pasado por
+	 * parámetro.
 	 * 
 	 * @param name
 	 *            nombre de la clasificación
@@ -95,6 +97,13 @@ abstract class AbstractCatalog implements Catalog {
 		Classification oldClassif = getClassification(classifName);
 		classifications.remove(oldClassif);
 		classifications.add(oldClassif.renameCategory(oldName, newName));
+		for (DynamicRefactoringDefinition refact : getRefactoringBelongingTo(
+				classifName, oldName)) {
+			refactorings.remove(refact);
+			DynamicRefactoringDefinition renamedCategory = refact
+					.renameCategory(classifName, oldName, newName);
+			refactorings.add(renamedCategory);
+		}
 	}
 
 	@Override
@@ -125,6 +134,24 @@ abstract class AbstractCatalog implements Catalog {
 		classifications.remove(oldClassif);
 		classifications.add(oldClassif.removeCategory(new Category(
 				classification, categoryName)));
+
+	}
+
+	/**
+	 * Obtiene todas las refactorizaciones que pertenecen a la categoria
+	 * definida por la clasificacion y el nombre de categoria.
+	 * 
+	 * @param classification
+	 *            clasificacion
+	 * @param categoryName
+	 *            nombre de categoria
+	 * @return coleccion de refactorizaciones que pertenecen a la categoria
+	 */
+	protected final Collection<DynamicRefactoringDefinition> getRefactoringBelongingTo(
+			String classification, String categoryName) {
+		return Collections2.filter(refactorings,
+				new CategoryCondition<DynamicRefactoringDefinition>(
+						classification, categoryName));
 	}
 
 	/**

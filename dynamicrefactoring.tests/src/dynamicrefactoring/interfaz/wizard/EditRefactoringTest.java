@@ -16,7 +16,7 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 
 import dynamicrefactoring.domain.metadata.interfaces.Category;
-import dynamicrefactoring.plugin.xml.classifications.imp.SimpleCatalog;
+import dynamicrefactoring.plugin.xml.classifications.imp.PluginCatalog;
 
 @RunWith(SWTBotJunit4ClassRunner.class)
 public class EditRefactoringTest {
@@ -93,7 +93,7 @@ public class EditRefactoringTest {
 		
 		refactoringWizardPageObject.checkClassification(BAD_SMELLS_CLASSIF);
 		
-		for (Category c :SimpleCatalog.getInstance().getClassification(BAD_SMELLS_CLASSIF).getCategories()) {
+		for (Category c :PluginCatalog.getInstance().getClassification(BAD_SMELLS_CLASSIF).getCategories()) {
 			assertTrue(refactoringWizardPageObject.isCategoryChecked(BAD_SMELLS_CLASSIF, c.getName()));
 		}
  
@@ -123,13 +123,13 @@ public class EditRefactoringTest {
 	@Test
 	public final void unmarkCategories(){
 		
-		for (Category c :SimpleCatalog.getInstance().getClassification(BAD_SMELLS_CLASSIF).getCategories()) {
+		for (Category c :PluginCatalog.getInstance().getClassification(BAD_SMELLS_CLASSIF).getCategories()) {
 			refactoringWizardPageObject.checkCategory(BAD_SMELLS_CLASSIF, c.getName());
 		}
 		
 		refactoringWizardPageObject.checkClassification(BAD_SMELLS_CLASSIF);
 		
-		for (Category c :SimpleCatalog.getInstance().getClassification(BAD_SMELLS_CLASSIF).getCategories()) {
+		for (Category c :PluginCatalog.getInstance().getClassification(BAD_SMELLS_CLASSIF).getCategories()) {
 			assertFalse(refactoringWizardPageObject.isCategoryChecked(BAD_SMELLS_CLASSIF, c.getName()));
 		}
 		

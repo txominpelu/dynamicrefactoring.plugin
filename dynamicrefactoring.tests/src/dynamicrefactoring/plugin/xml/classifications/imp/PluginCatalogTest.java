@@ -8,18 +8,23 @@ import java.io.IOException;
 import java.util.HashSet;
 import java.util.Set;
 
+import javax.xml.bind.ValidationException;
+
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.FilenameUtils;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
+import dynamicrefactoring.RefactoringConstants;
 import dynamicrefactoring.RefactoringPlugin;
 import dynamicrefactoring.domain.metadata.interfaces.Catalog;
 import dynamicrefactoring.domain.metadata.interfaces.Category;
+import dynamicrefactoring.plugin.xml.classifications.imp.ClassificationsReaderFactory.ClassificationsReaderTypes;
+import dynamicrefactoring.reader.JDOMXMLRefactoringReaderImp;
 import dynamicrefactoring.util.io.FileManager;
 
-public class SimpleCatalogTest {
+public class PluginCatalogTest {
 
 	private static final String REFACT_REPO_PATH = FilenameUtils
 			.separatorsToSystem("testdata/"
@@ -45,11 +50,14 @@ public class SimpleCatalogTest {
 				+ File.separator + "test" + File.separator + REFACT_REPO_PATH),
 				new File(RefactoringPlugin.getDefault().getStateLocation()
 						.toOSString()));
-		
-		catalog = new SimpleCatalog(
+
+		catalog = new PluginCatalog(
 				AbstractCatalog.getClassificationsFromFile(RefactoringPlugin
 						.getDefault().getStateLocation().toOSString()
-						+ File.separator + "test" + File.separator + REFACT_REPO_PATH + "classifications.xml"),
+						+ File.separator
+						+ "test"
+						+ File.separator
+						+ REFACT_REPO_PATH + "classifications.xml"),
 				AbstractCatalog.getRefactoringsFromDir(RefactoringPlugin
 						.getDynamicRefactoringsDir()));
 	}
@@ -70,6 +78,8 @@ public class SimpleCatalogTest {
 		FileManager.copyBundleDirToFileSystem(
 				RefactoringPlugin.DYNAMIC_REFACTORINGS_FOLDER_NAME,
 				RefactoringPlugin.getDefault().getStateLocation().toOSString());
+		FileManager.copyResourceToDir("/Classification/classifications.xml",
+				RefactoringPlugin.getDefault().getStateLocation().toOSString());
 	}
 
 	/**
@@ -78,9 +88,11 @@ public class SimpleCatalogTest {
 	 * catalogo y en el fichero xml).
 	 * 
 	 * Ademas el fichero de clasificaciones tambien debe ser actualizado.
+	 * 
+	 * @throws ValidationException
 	 */
 	@Test
-	public final void testRenameCategory() {
+	public final void testRenameCategory() throws ValidationException {
 		Set<Category> expectedClassificationCategories = new HashSet<Category>();
 		expectedClassificationCategories.remove(new Category(MI_CLASIFICACION1,
 				MI_CATEGORIA1));
@@ -99,6 +111,21 @@ public class SimpleCatalogTest {
 				.getClassification(MI_CLASIFICACION1).getCategories());
 		assertEquals(expectedRefactoringCategories,
 				catalog.getRefactoring(MI_REFACT1_NAME).getCategories());
+
+		assertEquals(
+				expectedRefactoringCategories,
+				new JDOMXMLRefactoringReaderImp()
+						.getDynamicRefactoringDefinition(
+								new File(
+										PluginCatalog
+												.getXmlRefactoringDefinitionFilePath(MI_REFACT1_NAME)))
+						.getCategories());
+		assertEquals(
+				catalog.getAllClassifications(),
+				ClassificationsReaderFactory.getReader(
+						ClassificationsReaderTypes.JAXB_READER)
+						.readClassifications(
+								RefactoringConstants.CLASSIFICATION_TYPES_FILE));
 	}
 
 	@Test
