@@ -44,16 +44,15 @@
  						<goals>
  							<goal>sign</goal>
  						</goals>
- 						<phase>package</phase>
  					</execution>
 				</executions>
  				<configuration>
-					<keystore>keystore/mykeystore</keystore>
+					<keystore>./keystore/mykeystore</keystore>
 					<alias>cjava</alias>
  					<storepass>ab987c</storepass>
 					<keypass>kpi135</keypass>
  				</configuration>
- 			</plugin>
+ 		</plugin>
   	</plugins>
   </build>
 
