@@ -6,12 +6,12 @@
   <parent>
     <artifactId>dynamic-refactoring-plugin</artifactId>
     <groupId>dynamicrefactoring</groupId>
-    <version>${app-version}</version>
+    <version>3.0.4</version>
   </parent>
 
   <groupId>dynamicrefactoring</groupId>
   <artifactId>dynamicrefactoring.p2repository</artifactId>
-  <version>${app-version}</version>
+  <version>3.0.4</version>
   <packaging>eclipse-repository</packaging>
 
   <build>

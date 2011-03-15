@@ -20,12 +20,12 @@ public class ClassificationsDataEditorTest {
 	private static final String CATEGORY_NEW_NAME = "clasifNewName";
 	
 	private Catalog catalog;
-	private ClassificationsDataEditorSection editor;
+	private ClasifCategoriesEditorSection editor;
 
 	@Before
 	public void setUp() throws Exception {
 		catalog = new CatalogStub();
-		editor = new ClassificationsDataEditorSection(CLASIF_INICIAL, catalog);
+		editor = new ClasifCategoriesEditorSection(CLASIF_INICIAL, catalog);
 	}
 	
 	/**

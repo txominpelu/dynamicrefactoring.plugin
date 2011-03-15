@@ -2,7 +2,7 @@
 <feature
       id="dynamicrefactoring.feature"
       label="dynamicrefactoring.feature"
-      version="3.0.3"
+      version="3.0.4"
       plugin="dynamicrefactoring.plugin">
 
    <description>
@@ -33,14 +33,13 @@ With this plugin you can also export and execute a plan of refactorings.
       <import plugin="org.eclipse.jdt.core"/>
       <import plugin="org.eclipse.jdt.ui"/>
       <import plugin="org.eclipse.jdt.launching"/>
-      
    </requires>
 
    <plugin
          id="dynamicrefactoring.plugin"
          download-size="0"
          install-size="0"
-         version="3.0.3"
+         version="3.0.4"
          unpack="false"/>
 
 </feature>
