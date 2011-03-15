@@ -1,5 +1,7 @@
 package dynamicrefactoring.interfaz.view;
 
+import java.util.Set;
+
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
@@ -18,8 +20,11 @@ import org.eclipse.ui.forms.widgets.ScrolledForm;
 import org.eclipse.ui.forms.widgets.Section;
 import org.eclipse.ui.part.ViewPart;
 
+import dynamicrefactoring.domain.metadata.interfaces.Classification;
+import dynamicrefactoring.plugin.xml.classifications.imp.PluginCatalog;
+
 public class ClassificationsEditorView extends ViewPart {
-	public static final String ID = "org.imediava.plugin.contexto.view";
+	public static final String ID = "dynamicrefactoring.views.refactoringClasificationsEditorView";
 
 	private FormToolkit toolkit;
 	private ScrolledForm form;
@@ -43,10 +48,14 @@ public class ClassificationsEditorView extends ViewPart {
 		ColumnLayout layout = new ColumnLayout();
 		form.getBody().setLayout(layout);
 
-		createClassificationsSection();
-		createSelectedClassificationDataSection();
-		// createCategoriesSection();
-
+		// createClassificationsSection();
+		// createSelectedClassificationDataSection();
+		final Set<Classification> classifications = PluginCatalog.getInstance()
+				.getAllClassifications();
+		ClasifCategoriesEditorSection clasifCatEditor = new ClasifCategoriesEditorSection(
+				classifications.iterator().next().getName(),
+				PluginCatalog.getInstance());
+		clasifCatEditor.createCategoriesSection(toolkit, form);
 		toolkit.paintBordersFor(form.getBody());
 
 	}

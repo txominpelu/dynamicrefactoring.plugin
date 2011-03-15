@@ -50,10 +50,12 @@ import org.eclipse.swt.widgets.ToolTip;
 import org.eclipse.swt.widgets.Tree;
 import org.eclipse.swt.widgets.TreeItem;
 import org.eclipse.ui.IWorkbenchWindow;
+import org.eclipse.ui.PartInitException;
 import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.part.ViewPart;
 
 import com.google.common.base.Predicate;
+import com.google.common.base.Throwables;
 
 import dynamicrefactoring.RefactoringImages;
 import dynamicrefactoring.RefactoringPlugin;
@@ -74,8 +76,8 @@ import dynamicrefactoring.util.RefactoringTreeManager;
 
 /**
  * Proporciona una vista de Eclipse la cual muestra la lista de todas las
- * refactorizaciones asi como la información asociada a las mismas.
- * Sobre estas se pueden realizar clasificaciones y filtros.
+ * refactorizaciones asi como la información asociada a las mismas. Sobre estas
+ * se pueden realizar clasificaciones y filtros.
  */
 public class RefactoringCatalogBrowserView extends ViewPart {
 
@@ -129,7 +131,8 @@ public class RefactoringCatalogBrowserView extends ViewPart {
 	private ArrayList<Classification> classifications;
 
 	/**
-	 * Catálogo que esta siendo utilizado conforme a la clasificación seleccionada.
+	 * Catálogo que esta siendo utilizado conforme a la clasificación
+	 * seleccionada.
 	 */
 	private ElementCatalog<DynamicRefactoringDefinition> catalog;
 
@@ -155,17 +158,20 @@ public class RefactoringCatalogBrowserView extends ViewPart {
 	private Label descClassLabel;
 
 	/**
-	 * Etiqueta de ayuda para el cuadro de texto donde el usuario introduce la condición.
+	 * Etiqueta de ayuda para el cuadro de texto donde el usuario introduce la
+	 * condición.
 	 */
 	private Label helpLabel;
-	
+
 	/**
-	 * ToolTip de ayuda para el cuadro de texto donde el usuario introduce la condición.
+	 * ToolTip de ayuda para el cuadro de texto donde el usuario introduce la
+	 * condición.
 	 */
 	private ToolTip searchToolTip;
-	
+
 	/**
-	 * Cuadro de texto que permite introducir al usuario el patrón de búsqueda.
+	 * Cuadro de texto que permite introducir al usuario el patrón de
+	 * búsqueda.
 	 */
 	private Text searchText;
 
@@ -176,45 +182,46 @@ public class RefactoringCatalogBrowserView extends ViewPart {
 
 	
 	private static final String FILTERED="Filtered";
-	
+
 	/**
-	 * Árbol sobre el que se mostrarán de forma estructurada las diferentes refactorizaciones 
-	 * conforme a la clasificación seleccionada y los filtros aplicados.
+	 * Árbol sobre el que se mostrarán de forma estructurada las diferentes
+	 * refactorizaciones conforme a la clasificación seleccionada y los filtros
+	 * aplicados.
 	 */
 	private Tree refactoringsTree;
 
 	/**
-	 * CheckBox que permite seleccionar al usuario si desea que se muestren en el arbol
-	 * también las refactorizaciones filtradas.
+	 * CheckBox que permite seleccionar al usuario si desea que se muestren en
+	 * el arbol también las refactorizaciones filtradas.
 	 */
 	private Button filteredButton;
 
 	/**
-	 * Propiedad asociada a los botones de seleccion de condiciones
-	 * que indica en qué fila de la tabla se encuentran.
+	 * Propiedad asociada a los botones de seleccion de condiciones que indica
+	 * en qué fila de la tabla se encuentran.
 	 */
 	private final String ROW_PROPERTY = "Row"; //$NON-NLS-1$
-	
+
 	/**
-	 * Propiedad asociada a las filas de la tabla que indica qué botón check tienen 
-	 * asociado cada una.
+	 * Propiedad asociada a las filas de la tabla que indica qué botón check
+	 * tienen asociado cada una.
 	 */
 	private final String CHECKBUTTON_PROPERTY = "checkButton"; //$NON-NLS-1$
-	
+
 	/**
-	 * Propiedad asociada a las filas de la tabla que indica qué botón clear tienen 
-	 * asociado cada una.
+	 * Propiedad asociada a las filas de la tabla que indica qué botón clear
+	 * tienen asociado cada una.
 	 */
 	private final String CLEARBUTTON_PROPERTY = "clearButton"; //$NON-NLS-1$
-	
+
 	/**
 	 * Botón que permite al usuario eliminar todas las condiciones del filtro.
 	 */
 	private Button clearAllButton;
-	
+
 	/**
-	 * Tabla en la que se mostraránn las condiciones del filtro a aplicar
-	 * a las refactorizaciones para mostrar en el árbol.
+	 * Tabla en la que se mostraránn las condiciones del filtro a aplicar a las
+	 * refactorizaciones para mostrar en el árbol.
 	 */
 	private Table conditionsTable;
 
@@ -224,8 +231,8 @@ public class RefactoringCatalogBrowserView extends ViewPart {
 	private SashForm sashForm;
 
 	/**
-	 * Organizador de pestañas para mostrar la información
-	 * relativa a la refactorización seleccionada en el árbol.
+	 * Organizador de pestañas para mostrar la información relativa a la
+	 * refactorización seleccionada en el árbol.
 	 */
 	private RefactoringSummaryPanel refSummaryPanel;
 
@@ -240,9 +247,9 @@ public class RefactoringCatalogBrowserView extends ViewPart {
 	private Composite refComp;
 
 	/**
-	 * Lista de acciones de la barra de herramientas de la vista
-	 * referentes a la visualización de los contenedores que se encuentran
-	 * dividos por el spliter.
+	 * Lista de acciones de la barra de herramientas de la vista referentes a la
+	 * visualización de los contenedores que se encuentran dividos por el
+	 * spliter.
 	 */
 	private ArrayList<IAction> actionsPane;
 
@@ -463,7 +470,7 @@ public class RefactoringCatalogBrowserView extends ViewPart {
 	}
 
 	private void fillClassCombo() {
-		//añadimos la clasificacion por defecto
+		// añadimos la clasificacion por defecto
 		classCombo.add(NONE_CLASSIFICATION.getName());
 
 		for (Classification classification : classifications)
@@ -511,7 +518,8 @@ public class RefactoringCatalogBrowserView extends ViewPart {
 			for (Map.Entry<String, String> nextRef : allRefactorings.entrySet()) {
 
 				try {
-					// Se obtiene la definición de la siguiente refactorización.
+					// Se obtiene la definición de la siguiente
+					// refactorización.
 					DynamicRefactoringDefinition definition = 
 						DynamicRefactoringDefinition.getRefactoringDefinition(
 								nextRef.getValue());
@@ -550,19 +558,25 @@ public class RefactoringCatalogBrowserView extends ViewPart {
 		catalog=new ElementCatalog<DynamicRefactoringDefinition>(
 				drd, NONE_CLASSIFICATION);
 	}
-	
+
 	/**
-	 * Crea una representación en formato de árbol de cada una de las refactorizaciones
-	 * que pertenecen a cada una de las categorias que dispone la clasificación 
-	 * indicada. En caso de tratarse de refactorizaciones filtradas pone de color 
-	 * gris el texto de todos los componentes del árbol.
+	 * Crea una representación en formato de árbol de cada una de las
+	 * refactorizaciones que pertenecen a cada una de las categorias que dispone
+	 * la clasificación indicada. En caso de tratarse de refactorizaciones
+	 * filtradas pone de color gris el texto de todos los componentes del
+	 * árbol.
 	 * 
-	 * @param orderInTree posición de la rama en el árbol refactoringsTree.
-	 * @param iconPath ruta al icono representativo del árbol que se va a crear
-	 * @param className nombre de la clasificación.
-	 * @param classElements lista de refactorizaciones a mostrar.
-	 * @param isFilteredClass indicador de filtrado. Si es verdadero se trata de
-	 * 		  refactorizaciones filtradas, falso en caso contrario.
+	 * @param orderInTree
+	 *            posición de la rama en el árbol refactoringsTree.
+	 * @param iconPath
+	 *            ruta al icono representativo del árbol que se va a crear
+	 * @param className
+	 *            nombre de la clasificación.
+	 * @param classElements
+	 *            lista de refactorizaciones a mostrar.
+	 * @param isFilteredClass
+	 *            indicador de filtrado. Si es verdadero se trata de
+	 *            refactorizaciones filtradas, falso en caso contrario.
 	 */
 	private void createClassificationTree(int orderInTree, String iconPath, String className, 
 			ClassifiedElements<DynamicRefactoringDefinition> classElements, 
@@ -604,14 +618,15 @@ public class RefactoringCatalogBrowserView extends ViewPart {
 		if(isFilteredClass)
 			RefactoringTreeManager.setForegroundTreeItem(classTreeItem, 
 					Display.getCurrent().getSystemColor(SWT.COLOR_DARK_GRAY));
-	}	
-	
-	
+	}
+
 	/**
-	 * Muestra en forma de árbol la clasificación de las refactorizaciones según
-	 * las categorias a las que pertenece, pudiendo aparecer en un grupo de filtrados
-	 * si no cumplen con las condiciones establecidas. 
-	 * @param classificationName nombre de la clasificación
+	 * Muestra en forma de árbol la clasificación de las refactorizaciones
+	 * según las categorias a las que pertenece, pudiendo aparecer en un grupo
+	 * de filtrados si no cumplen con las condiciones establecidas.
+	 * 
+	 * @param classificationName
+	 *            nombre de la clasificación
 	 */
 	private void showTree(String classificationName) {
 
@@ -729,7 +744,8 @@ public class RefactoringCatalogBrowserView extends ViewPart {
 					int row=((Integer)clearB.getData(ROW_PROPERTY)).intValue();
 					
 					TableItem itemLast = conditionsTable.getItem(conditionsTable.getItemCount()-1);
-					//recuperamos los botones check y clear asociados a la última fila
+					// recuperamos los botones check y clear asociados a la
+					// última fila
 					Object checkBLast=itemLast.getData(CHECKBUTTON_PROPERTY);
 					Object clearBLast=itemLast.getData(CLEARBUTTON_PROPERTY);
 					
@@ -778,7 +794,8 @@ public class RefactoringCatalogBrowserView extends ViewPart {
 				addConditionToTable(condition);
 				catalog.addConditionToFilter(condition);
 				showTree(classCombo.getText());
-				searchText.setText(""); //reseteamos el Text al ser la condición válida
+				searchText.setText(""); // reseteamos el Text al ser la
+										// condición válida
 				clearAllButton.setEnabled(true);
 			}else{
 				Object[] messageArgs = {condition.toString()};
@@ -795,8 +812,8 @@ public class RefactoringCatalogBrowserView extends ViewPart {
 	
 
 	public void refreshView() {
-		//almacenamos la clasificación seleccionada en el classCombo y
-		//la refactorización que se muestra en detalle
+		// almacenamos la clasificación seleccionada en el classCombo y
+		// la refactorización que se muestra en detalle
 		String classSelected=classCombo.getText();
 		DynamicRefactoringDefinition refSelected=refSummaryPanel.getRefactoringSelected();
 		
@@ -821,7 +838,7 @@ public class RefactoringCatalogBrowserView extends ViewPart {
 		
 		if(found){
 			//si se encuentra seleccionamos ese item, 
-			//mostramos la descripcion y clasificamos según él
+			// mostramos la descripcion y clasificamos según él
 			classCombo.setText(classSelected);
 			descClassLabel.setText(c.getDescription());
 			catalog=(ElementCatalog<DynamicRefactoringDefinition>)catalog.newInstance(c);
@@ -846,12 +863,18 @@ public class RefactoringCatalogBrowserView extends ViewPart {
 	 * Muestra el editor de clasificaciones.
 	 */
 	public void editClassification() {
-		//RefactoringConstants.CLASSIFICATION_TYPES_FILE)
+		try {
+			PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage()
+					.showView(ClassificationsEditorView.ID);
+		} catch (PartInitException e) {
+			throw Throwables.propagate(e);
+		}
+
 	}
 
 	/**
-	 * Registra las acciones referentes a la visualización de
-	 * los contenedores separados por el spliter.
+	 * Registra las acciones referentes a la visualización de los contenedores
+	 * separados por el spliter.
 	 */
 	private void loadActionsPane(){
 
@@ -881,12 +904,11 @@ public class RefactoringCatalogBrowserView extends ViewPart {
 		}
 
 	}
-	
+
 	/**
-	 * Habilita las acciones referentes a la visualización de
-	 * los contenedores que se encuentran deshabilitadas. Además,
-	 * en caso de no estar registradas las acciones previamente 
-	 * las registrará.
+	 * Habilita las acciones referentes a la visualización de los contenedores
+	 * que se encuentran deshabilitadas. Además, en caso de no estar
+	 * registradas las acciones previamente las registrará.
 	 */
 	private void enableActionsPane() {
 		
@@ -903,10 +925,9 @@ public class RefactoringCatalogBrowserView extends ViewPart {
 	}
 
 	/**
-	 * Muestra el contendor izquierdo en su totalidad ocultando el 
-	 * tanto el derecho como el spliter que los separa y
-	 * habilita las acciones referentes a la visualización de estos,
-	 * que se encuentran deshabilitadas.
+	 * Muestra el contendor izquierdo en su totalidad ocultando el tanto el
+	 * derecho como el spliter que los separa y habilita las acciones referentes
+	 * a la visualización de estos, que se encuentran deshabilitadas.
 	 */
 	public void showLeftPane() {
 		sashForm.setMaximizedControl(classComp);
@@ -914,10 +935,10 @@ public class RefactoringCatalogBrowserView extends ViewPart {
 	}
 
 	/**
-	 * Muestra el contendor derecho en su totalidad ocultando el 
-	 * tanto el izquierdo como el spliter que los separa y
-	 * habilita las acciones referentes a la visualización de estos,
-	 * que se encuentran deshabilitadas.
+	 * Muestra el contendor derecho en su totalidad ocultando el tanto el
+	 * izquierdo como el spliter que los separa y habilita las acciones
+	 * referentes a la visualización de estos, que se encuentran
+	 * deshabilitadas.
 	 */
 	public void showRightPane() {
 		sashForm.setMaximizedControl(refComp);
@@ -925,19 +946,18 @@ public class RefactoringCatalogBrowserView extends ViewPart {
 	}
 
 	/**
-	 * Muestra los dos contenedores separados por el spliter y
-	 * habilita las acciones referentes a la visualización de estos,
-	 * que se encontraban deshabilitadas.
+	 * Muestra los dos contenedores separados por el spliter y habilita las
+	 * acciones referentes a la visualización de estos, que se encontraban
+	 * deshabilitadas.
 	 */
 	public void showLeftAndRightPane() {
 		sashForm.setMaximizedControl(null);
 		enableActionsPane();
 	}
 
-
 	/**
-	 * Actualiza el árbol de refactorizaciones para representarlas conforme
-	 * a la clasificación que ha sido seleccionada en el combo.
+	 * Actualiza el árbol de refactorizaciones para representarlas conforme a
+	 * la clasificación que ha sido seleccionada en el combo.
 	 */
 	private class ClassComboSelectionListener implements SelectionListener {
 
@@ -991,16 +1011,17 @@ public class RefactoringCatalogBrowserView extends ViewPart {
 			widgetSelected(e);
 		}
 
-		
 		/**
 		 * Comprueba que la clasificación y categoria indicadas por parámetro
-		 * se encuentra o no disponible. En caso de estar disponible se le indica
-		 * al usuario para que pueda elegir si quiere o no añadir esta condición de
-		 * filtrado.
+		 * se encuentra o no disponible. En caso de estar disponible se le
+		 * indica al usuario para que pueda elegir si quiere o no añadir esta
+		 * condición de filtrado.
 		 * 
-		 * @param nameClass nombre de la clasificación
-		 * @param nameCat nombre de la categoria
-		 * @return 
+		 * @param nameClass
+		 *            nombre de la clasificación
+		 * @param nameCat
+		 *            nombre de la categoria
+		 * @return
 		 */
 		private boolean checkAvailableCategoryToAddCondition(String nameClass, String nameCat){
 			boolean addCondition=true;
@@ -1085,7 +1106,7 @@ public class RefactoringCatalogBrowserView extends ViewPart {
 			String selectedName = selection[0].getText();
 			DynamicRefactoringDefinition refSelected=refactorings.get(selectedName);
 
-			//comprobamos si se trata de una refactorización
+			// comprobamos si se trata de una refactorización
 			if(refSelected!=null){
 				refSummaryPanel.setRefactoringDefinition(refSelected, refactoringLocations.get(selectedName));
 				refSummaryPanel.showRefactoringSummary();

@@ -29,10 +29,6 @@ public class ClasifCategoriesEditorSection {
 	 */
 	private Catalog catalog;
 
-	private FormToolkit toolkit;
-
-	private ScrolledForm form;
-
 	/**
 	 * Crea un editor de datos de una clasificacion.
 	 * 
@@ -44,14 +40,13 @@ public class ClasifCategoriesEditorSection {
 	public ClasifCategoriesEditorSection(
 			String classification,
 			Catalog catalog) {
-		this.form = form;
-		this.toolkit = toolkit;
 		this.classification = classification;
 		this.catalog = catalog;
 
 	}
 
-	private void createCategoriesSection() {
+	public void createCategoriesSection(FormToolkit toolkit,
+			final ScrolledForm form) {
 		final Section section = toolkit.createSection(form.getBody(),
 				Section.DESCRIPTION | Section.TITLE_BAR | Section.TWISTIE
 						| Section.EXPANDED);

@@ -33,26 +33,7 @@
 		        </executions>
 
 	       </plugin>
-	       <!-- JAR signing -->
-	       <plugin>
- 				<groupId>org.apache.maven.plugins</groupId>
- 				<artifactId>maven-jarsigner-plugin</artifactId>
- 				<version>1.2</version>
- 				<executions>
- 					<execution>
- 						<id>signing</id>
- 						<goals>
- 							<goal>sign</goal>
- 						</goals>
- 					</execution>
-				</executions>
- 				<configuration>
-					<keystore>./keystore/mykeystore</keystore>
-					<alias>cjava</alias>
- 					<storepass>ab987c</storepass>
-					<keypass>kpi135</keypass>
- 				</configuration>
- 		</plugin>
+	       
   	</plugins>
   </build>
 
