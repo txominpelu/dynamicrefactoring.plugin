@@ -3,13 +3,14 @@ package dynamicrefactoring.interfaz.view;
 
 import static org.junit.Assert.assertEquals;
 
+import java.util.HashSet;
 import java.util.Set;
 
 import org.junit.Before;
 import org.junit.Test;
 
-import dynamicrefactoring.domain.metadata.interfaces.Category;
 import dynamicrefactoring.domain.metadata.interfaces.Catalog;
+import dynamicrefactoring.domain.metadata.interfaces.Category;
 import dynamicrefactoring.plugin.xml.classifications.imp.CatalogStub;
 
 public class ClassificationsDataEditorTest {
@@ -58,10 +59,14 @@ public class ClassificationsDataEditorTest {
 	 */
 	@Test
 	public void removeCategoryTest(){
-		Set<Category> expectedCategories = catalog.getClassification(editor.getClassification().getName()).getCategories();
-		expectedCategories.remove(new Category(editor.getClassification().getName(), CATEGORY_TO_RENAME));
+		Set<Category> expectedCategories = new HashSet<Category>();
+		expectedCategories.add(new Category(editor.getClassification()
+				.getName(), CATEGORY_NEW_NAME));
+
+		editor.addCategory(CATEGORY_NEW_NAME);
 		editor.removeCategory(CATEGORY_TO_RENAME);
-		assertEquals(expectedCategories, catalog.getClassification(editor.getClassification().getName()).getCategories());
+		assertEquals(expectedCategories,
+				catalog.getClassification(CLASIF_INICIAL).getCategories());
 	}
 	
 

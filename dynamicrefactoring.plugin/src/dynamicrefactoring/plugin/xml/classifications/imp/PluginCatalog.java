@@ -3,9 +3,12 @@ package dynamicrefactoring.plugin.xml.classifications.imp;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Collections;
+import java.util.List;
 import java.util.Set;
 
+import com.google.common.base.Preconditions;
 import com.google.common.base.Throwables;
 
 import dynamicrefactoring.RefactoringConstants;
@@ -51,6 +54,41 @@ public class PluginCatalog extends AbstractCatalog implements Catalog {
 		super(classifSet, refactSet);
 	}
 
+	@Override
+	public void removeClassification(String classification) {
+		// No se puede eliminar la clasificacion Scope
+		Preconditions.checkArgument(!classification
+				.equals(SCOPE_CLASSIFICATION));
+		super.removeClassification(classification);
+		updateClassificationsFile();
+	}
+
+	/**
+	 * Tambien se ocupa de actualizar el fichero de clasificaciones a parte de
+	 * la funcionalidad de gestion de clasificaciones en memoria.
+	 */
+	@Override
+	public void addCategoryToClassification(String classifName, String name) {
+		super.addCategoryToClassification(classifName, name);
+		updateClassificationsFile();
+	}
+
+	/**
+	 * Tambien se ocupa de actualizar el fichero de clasificaciones y de los
+	 * ficheros xml de refactorizaciones a parte de la funcionalidad de gestion
+	 * en memoria.
+	 */
+	@Override
+	public void removeCategory(String classifName, String name) {
+		final Collection<DynamicRefactoringDefinition> refactsToUpdate = getRefactoringBelongingTo(
+				classifName, name);
+		super.removeCategory(classifName, name);
+		for (DynamicRefactoringDefinition refact : refactsToUpdate) {
+			saveRefactoringToFile(getRefactoring(refact.getName()));
+		}
+		updateClassificationsFile();
+	}
+
 	/**
 	 * Se encarga de renombrar la categoria y actualizar las definiciones en
 	 * ficheros xml de las refactorizaciones que pertenecen a la categoria.
@@ -60,6 +98,29 @@ public class PluginCatalog extends AbstractCatalog implements Catalog {
 	public void renameCategory(String classifName, String oldName,
 			String newName) {
 		super.renameCategory(classifName, oldName, newName);
+		updateClassificationsFile();
+		for (DynamicRefactoringDefinition refact : getRefactoringBelongingTo(
+				classifName, newName)) {
+			saveRefactoringToFile(refact);
+		}
+	}
+
+	/**
+	 * Se encarga de la actualizacion del fichero xml de la refact.
+	 */
+	@Override
+	public void addCategoryToRefactoring(String refactName,
+			String classificationName, String categoryName) {
+		super.addCategoryToRefactoring(refactName, classificationName,
+				categoryName);
+		saveRefactoringToFile(getRefactoring(refactName));
+	}
+
+	/**
+	 * Actualiza el contenido del fichero de configuracion de clasificaciones de
+	 * acuerdo con el contenido de las clasificaciones del catalogo.
+	 */
+	private final void updateClassificationsFile() {
 		try {
 			JAXBClassificationsWriter.getInstance().saveClassificationsToXml(
 					getAllClassifications(),
@@ -67,10 +128,6 @@ public class PluginCatalog extends AbstractCatalog implements Catalog {
 		} catch (FileNotFoundException e) {
 			// El fichero debe existir sino seria error de programacion
 			throw Throwables.propagate(e);
-		}
-		for (DynamicRefactoringDefinition refact : getRefactoringBelongingTo(
-				classifName, newName)) {
-			saveRefactoringToFile(refact);
 		}
 	}
 
@@ -115,8 +172,7 @@ public class PluginCatalog extends AbstractCatalog implements Catalog {
 	 * @return fichero con la ruta donde se guardara la definicion de la
 	 *         refactorizacion
 	 */
-	private static File getDirectoryToSaveRefactoringFile(
-String refactName) {
+	private static File getDirectoryToSaveRefactoringFile(String refactName) {
 		return new File(RefactoringPlugin.getDynamicRefactoringsDir()
 				+ File.separator + refactName + File.separator);
 	}
@@ -134,7 +190,7 @@ String refactName) {
 	}
 
 	/**
-	 * Determina si existe una clasificación que contenga a la categoria
+	 * Determina si existe una clasificacion que contenga a la categoria
 	 * indicada por parámetro.
 	 * 
 	 * @param cat
@@ -144,6 +200,29 @@ String refactName) {
 	public boolean containsCategoryClassification(Category cat) {
 		return containsClassification(cat.getParent())
 				&& getClassification(cat.getParent()).containsCategory(cat);
+	}
+
+	@Override
+	public void renameClassification(String clasifName, String clasifNewName) {
+		Preconditions.checkArgument(!clasifName.equals(SCOPE_CLASSIFICATION));
+		List<DynamicRefactoringDefinition> refactoringsToUpdate = new ArrayList<DynamicRefactoringDefinition>();
+		for (Category category : getClassification(clasifName).getCategories()) {
+			for (DynamicRefactoringDefinition refact : getRefactoringBelongingTo(
+					clasifName, category.getName())) {
+				refactoringsToUpdate.add(refact);
+			}
+		}
+		super.renameClassification(clasifName, clasifNewName);
+		for (DynamicRefactoringDefinition refact : refactoringsToUpdate) {
+			saveRefactoringToFile(getRefactoring(refact.getName()));
+		}
+		updateClassificationsFile();
+	}
+
+	@Override
+	public void addClassification(Classification classification) {
+		super.addClassification(classification);
+		updateClassificationsFile();
 	}
 
 }

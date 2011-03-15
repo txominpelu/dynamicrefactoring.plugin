@@ -54,7 +54,7 @@ public class ClassificationsDataEditorSection {
 	 * @param categoryNewName nombre de la nueva categoria
 	 */
 	public void addCategory(String categoryNewName) {
-		catalog.addCategory(classification, categoryNewName);
+		catalog.addCategoryToClassification(classification, categoryNewName);
 	}
 
 	/**

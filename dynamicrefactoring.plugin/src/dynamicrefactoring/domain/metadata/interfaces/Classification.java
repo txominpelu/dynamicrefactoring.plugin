@@ -52,8 +52,10 @@ public interface Classification extends Comparable<Classification>{
 
 	/**
 	 * Determina si la clasificación contiente la categoria pasada parámetro.
+	 * 
 	 * @param categoria
-	 * @return verdadero si la clasificación contien la categoria, falso en caso contrario.
+	 * @return verdadero si la clasificación contien la categoria, falso en
+	 *         caso contrario.
 	 */
 	boolean containsCategory(Category cat);
 
@@ -69,10 +71,11 @@ public interface Classification extends Comparable<Classification>{
 	Classification renameCategory(String oldName, String newName);
 
 	/**
-	 * Devuelve una clasificacion copia de la actual pero
-	 * en la que se ha añadido la nueva categoria.
+	 * Devuelve una clasificacion copia de la actual pero en la que se ha
+	 * añadido la nueva categoria.
 	 * 
-	 * @param category categoria a agregar
+	 * @param category
+	 *            categoria a agregar
 	 * @return clasificacion con los cambios aplicados
 	 */
 	Classification addCategory(Category category);
@@ -85,4 +88,15 @@ public interface Classification extends Comparable<Classification>{
 	 * @return clasificacion con los cambios aplicados
 	 */
 	Classification removeCategory(Category category);
+
+	/**
+	 * Obtiene una copia de la clasificacion actual con el nombre cambiado. Esto
+	 * tambien significa que todas las refactorizaciones que pertenecian a ella
+	 * cambia su padre al nuevo nombre de clasificacion.
+	 * 
+	 * @param clasifNewName
+	 *            nuevo nombre de la clasificacion
+	 * @return copia de la clasificacion actual con un nuevo nombre
+	 */
+	Classification rename(String clasifNewName);
 }

@@ -165,4 +165,16 @@ public final class SimpleUniLevelClassification implements Classification {
 		return new SimpleUniLevelClassification(getName(), getDescription(), newCategories);
 	}
 
+	@Override
+	public Classification rename(String clasifNewName) {
+		Set<Category> newCategories = new HashSet<Category>(categories);
+		for (Category c : getCategories()) {
+			newCategories.remove(new Category(getName(), c.getName()));
+			newCategories.add(new Category(clasifNewName, c.getName()));
+		}
+
+		return new SimpleUniLevelClassification(clasifNewName,
+				getDescription(), newCategories);
+	}
+
 }

@@ -51,16 +51,32 @@ public interface Catalog {
 	void renameCategory(String classification, String oldName, String newName);
 
 	/**
-	 * Agrega una categoria nueva en el caso de que no exista ya. Si una
-	 * categoria con el mismo nombre ya existe en el catalogo saltara una
-	 * IllegalArgumentException.
+	 * Agrega una categoria nueva a una clasificacion en el caso de que no
+	 * exista ya. Si una categoria con el mismo nombre ya existe en el catalogo
+	 * saltara una IllegalArgumentException.
 	 * 
 	 * @param classificationName
 	 *            nombre de la clasificacion en que se insertara la categoria
 	 * @param categoryName
 	 *            nombre de la nueva categoria
 	 */
-	void addCategory(String classificationName, String categoryName);
+	void addCategoryToClassification(String classificationName, String categoryName);
+
+	/**
+	 * Agrega una categoria nueva a una refactorizacion. Si la refactorizacion
+	 * ya pertenece a la categoria saltara una IllegalArgumentException. Si la
+	 * categoria no existe en el catalogo tambien saltara la excepcion. Si la
+	 * refactorizacion no pertenece al catalogo tambien saltara la excepcion.
+	 * 
+	 * @param refact
+	 *            refactorizacion a la que se agregara la categoria
+	 * @param classificationName
+	 *            nombre de la clasificacion a la que pertenece la categoria
+	 * @param categoryName
+	 *            nombre de la nueva categoria
+	 */
+	void addCategoryToRefactoring(String refact,
+			String classificationName, String categoryName);
 
 	/**
 	 * Obtienes todas las clasificaciones del catálogo.
@@ -70,10 +86,14 @@ public interface Catalog {
 	Set<Classification> getAllClassifications();
 
 	/**
-	 * Elimina la categoria de la clasificacion.
+	 * Elimina la categoria de la clasificacion. Si la clasificacion solo tiene
+	 * dicha categoria entonces tambien elimina dicha clasificacion del
+	 * catalogo.
 	 * 
-	 * @param classification clasificacion a la que la categoria pertenece
-	 * @param categoryName nombre de la categoria
+	 * @param classification
+	 *            clasificacion a la que la categoria pertenece
+	 * @param categoryName
+	 *            nombre de la categoria
 	 */
 	void removeCategory(String classification, String categoryName);
 
@@ -99,6 +119,39 @@ public interface Catalog {
 	 * @return verdadero si existe una refactorizacion con dicho nombre en el catalogo
 	 */
 	boolean hasRefactoring(String name);
+
+	/**
+	 * Cambia el nombre de una clasificacion.
+	 * 
+	 * La clasificacion debe existir en el catalogo y no debe haber una
+	 * clasificacion con el nombre nuevo, sino saltara una excepcion de
+	 * argumento existente.
+	 * 
+	 * @param clasifName
+	 *            nombre de la clasificacion actual
+	 * @param clasifNewName
+	 *            nuevo nombre que tomara la clasificacion
+	 */
+	void renameClassification(String clasifName, String clasifNewName);
+
+	/**
+	 * Agrega una clasificacion al catalogo de clasificaciones.
+	 * 
+	 * @param classification
+	 */
+	void addClassification(Classification classification);
+
+	/**
+	 * Elimna la clasificacion del catalogo y con ella todas sus categorias. Los
+	 * elementos que pertenecian a alguna de las categorias de la
+	 * refactorizacion deben ser tambien actualizados.
+	 * 
+	 * La refactorizacion a eliminar debe existir en el catalogo.
+	 * 
+	 * @param classification
+	 *            nombre de la refactorizacion a utilizar
+	 */
+	void removeClassification(String classification);
 	
 
 }

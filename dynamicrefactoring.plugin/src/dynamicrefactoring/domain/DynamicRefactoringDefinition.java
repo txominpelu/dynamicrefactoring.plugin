@@ -469,33 +469,12 @@ public class DynamicRefactoringDefinition implements Element,
 	}
 
 	/**
-	 * Obtiene una copia de la refactorizacion en la que se sustituye el nombre
-	 * de una de las categorias a la que la refactorizacion original pertenecia.
-	 * 
-	 * @param classificationName
-	 *            clasificacion a la que pertenece la categoria a cambiar
-	 * @param oldName
-	 *            nombre de la categoria actual
-	 * @param newName
-	 *            nombre que tomara la nueva categoria
-	 * @return nueva refactorizacion con los cambios aplicados
-	 */
-	public DynamicRefactoringDefinition renameCategory(
-			String classificationName, String oldName, String newName) {
-		Builder builder = getBuilder();
-		Set<Category> categories = getCategories();
-		categories.remove(new Category(classificationName, oldName));
-		categories.add(new Category(classificationName, newName));
-		return builder.categories(categories).build();
-	}
-
-	/**
 	 * Genera un builder de refactorizaciones preconfigurado con los parametros
 	 * de la refactorizacion actual.
 	 * 
 	 * @return builder con los parametros de la refactorizacion
 	 */
-	private Builder getBuilder() {
+	public final Builder getBuilder() {
 		return new Builder(getName()).actions(getActions())
 				.ambiguousParameters(getAmbiguousParameters())
 				.categories(getCategories()).description(getDescription())
