@@ -23,7 +23,7 @@ package dynamicrefactoring.writer;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 
 import org.jdom.DocType;
@@ -43,10 +43,10 @@ import dynamicrefactoring.RefactoringPlugin;
 import dynamicrefactoring.domain.DynamicRefactoringDefinition;
 import dynamicrefactoring.domain.Scope;
 import dynamicrefactoring.domain.metadata.interfaces.Category;
-import dynamicrefactoring.interfaz.dynamic.RepositoryElementProcessor;
 import dynamicrefactoring.reader.XMLRefactoringReaderException;
 import dynamicrefactoring.reader.XMLRefactoringReaderImp;
 import dynamicrefactoring.util.ScopeLimitedLister;
+import dynamicrefactoring.util.StringUtils;
 
 /**
  * Utiliza la implementaci�n basada en JDOM para escribir los ficheros XML de
@@ -71,7 +71,8 @@ public class JDOMXMLRefactoringWriterImp implements XMLRefactoringWriterImp {
 	 * @param refactoringDefinition
 	 *            definici�n de la refactorizaci�n que se debe escribir.
 	 */
-	public JDOMXMLRefactoringWriterImp(DynamicRefactoringDefinition refactoringDefinition) {
+	public JDOMXMLRefactoringWriterImp(
+			DynamicRefactoringDefinition refactoringDefinition) {
 
 		this.refactoringDefinition = refactoringDefinition;
 		initializeFormat();
@@ -103,7 +104,7 @@ public class JDOMXMLRefactoringWriterImp implements XMLRefactoringWriterImp {
 			throw Throwables.propagate(e);
 		}
 	}
-	
+
 	/**
 	 * Crea la etiqueta con las refactorizaciones disponibles para el ambito
 	 * pasado y los agrega al elemento root.
@@ -113,7 +114,8 @@ public class JDOMXMLRefactoringWriterImp implements XMLRefactoringWriterImp {
 	 * @param scope
 	 *            ambito del que se va a generar la etiqueta.
 	 */
-	private static void addRefactoringElementForScopeToRoot(Element root, Scope scope) {
+	private static void addRefactoringElementForScopeToRoot(Element root,
+			Scope scope) {
 		Element refactoring;
 		Element classdef = new Element(scope.getXmlTag());
 
@@ -288,23 +290,21 @@ public class JDOMXMLRefactoringWriterImp implements XMLRefactoringWriterImp {
 	}
 
 	/**
-	 * Escribe el fichero XML a partir de la definici�n de la
-	 * refactorizaci�n.
+	 * Escribe el fichero XML a partir de la definici�n de la refactorizaci�n.
 	 * 
 	 * @param dir
 	 *            directorio donde se guardar� el fichero.
 	 * 
 	 * @throws XMLRefactoringWriterException
-	 *             si se produce un error al intentar almacenar la definici�n
-	 *             de la refactorizaci�n en el fichero.
+	 *             si se produce un error al intentar almacenar la definici�n de
+	 *             la refactorizaci�n en el fichero.
 	 */
 	@Override
 	public void writeRefactoring(File dir) throws XMLRefactoringWriterException {
 		try {
-			writeToFile(
-					dir.getPath()
-							+ File.separatorChar + refactoringDefinition.getName() + //$NON-NLS-1$
-							RefactoringConstants.FILE_EXTENSION,
+			writeToFile(dir.getPath() + File.separatorChar
+					+ refactoringDefinition.getName() + //$NON-NLS-1$
+					RefactoringConstants.FILE_EXTENSION,
 					getDocumentOfRefactoring());
 		} catch (Exception e) {
 			throw new XMLRefactoringWriterException(e.getMessage());
@@ -312,8 +312,7 @@ public class JDOMXMLRefactoringWriterImp implements XMLRefactoringWriterImp {
 	}
 
 	/**
-	 * Escribe los elementos con la informaci�n general de la
-	 * refactorizaci�n.
+	 * Escribe los elementos con la informaci�n general de la refactorizaci�n.
 	 * 
 	 * <p>
 	 * Almacena la descripci�n b�sica de la refactorizaci�n, la ruta de la
@@ -321,9 +320,8 @@ public class JDOMXMLRefactoringWriterImp implements XMLRefactoringWriterImp {
 	 * </p>
 	 * 
 	 * @param refactoringElement
-	 *            el elemento XML ra�z a partir del cual se a�adir� el
-	 *            elemento hijo con la informaci�n b�sica de la
-	 *            refactorizaci�n.
+	 *            el elemento XML ra�z a partir del cual se a�adir� el elemento
+	 *            hijo con la informaci�n b�sica de la refactorizaci�n.
 	 */
 	private void constructRefactoringInformation(Element refactoringElement) {
 
@@ -352,16 +350,15 @@ public class JDOMXMLRefactoringWriterImp implements XMLRefactoringWriterImp {
 			information.addContent(motivation);
 		}
 
-
 		// Agrega las palabras clave que describen la refactorizacion
-		if (refactoringDefinition.getKeywords().size() > 0){
+		if (refactoringDefinition.getKeywords().size() > 0) {
 			Element keywordsElement = createKeywordsElement();
 			information.addContent(keywordsElement);
 
 		}
-		
+
 		// Agrega las categorias a las que pertence la refactorizacion
-		if (refactoringDefinition.getCategories().size() > 0){
+		if (refactoringDefinition.getCategories().size() > 0) {
 			Element categorizationElement = createCategorizationElement(createCategoriesMapByParent());
 			information.addContent(categorizationElement);
 
@@ -371,11 +368,10 @@ public class JDOMXMLRefactoringWriterImp implements XMLRefactoringWriterImp {
 	}
 
 	/**
-	 * Crea el elemento xml con la lista de palabras
-	 * clave de la refactorizacion.
+	 * Crea el elemento xml con la lista de palabras clave de la
+	 * refactorizacion.
 	 * 
-	 * @return elemento xml con la lista de palabras
-	 * 	clave de la refactorizacion
+	 * @return elemento xml con la lista de palabras clave de la refactorizacion
 	 */
 	private Element createKeywordsElement() {
 		Element keywordsElement = new Element(
@@ -423,13 +419,13 @@ public class JDOMXMLRefactoringWriterImp implements XMLRefactoringWriterImp {
 	}
 
 	/**
-	 * Crea un mapa que contiene como claves los nombres de las
-	 * clasificaciones y como valores las categorias a las que la
-	 * refactorizacion pertenece en esa clasificacion.
+	 * Crea un mapa que contiene como claves los nombres de las clasificaciones
+	 * y como valores las categorias a las que la refactorizacion pertenece en
+	 * esa clasificacion.
 	 * 
-	 * @return mapa que contiene como claves los nombres de las
-	 *            clasificaciones y como valores las categorias a las que la
-	 *            refactorizacion pertenece en esa clasificacion
+	 * @return mapa que contiene como claves los nombres de las clasificaciones
+	 *         y como valores las categorias a las que la refactorizacion
+	 *         pertenece en esa clasificacion
 	 */
 	private ImmutableListMultimap<String, Category> createCategoriesMapByParent() {
 		Builder<String, Category> builder = new ImmutableListMultimap.Builder<String, Category>();
@@ -445,9 +441,9 @@ public class JDOMXMLRefactoringWriterImp implements XMLRefactoringWriterImp {
 	 * Escribe los elementos de las entradas de la refactorizaci�n.
 	 * 
 	 * @param refactoringElement
-	 *            el elemento XML ra�z a partir del cual se a�adir� el
-	 *            elemento hijo con la informaci�n acerca de las entradas de
-	 *            la refactorizaci�n.
+	 *            el elemento XML ra�z a partir del cual se a�adir� el elemento
+	 *            hijo con la informaci�n acerca de las entradas de la
+	 *            refactorizaci�n.
 	 */
 	private void constructRefactoringInputs(Element refactoringElement) {
 
@@ -484,105 +480,83 @@ public class JDOMXMLRefactoringWriterImp implements XMLRefactoringWriterImp {
 	 * componen la refactorizaci�n.
 	 * 
 	 * @param refactoringElement
-	 *            el elemento XML ra�z a partir del cual se a�adir� el
-	 *            elemento hijo con la informaci�n acerca de los predicados y
-	 *            las acciones que componen la refactorizaci�n.
+	 *            el elemento XML ra�z a partir del cual se a�adir� el elemento
+	 *            hijo con la informaci�n acerca de los predicados y las
+	 *            acciones que componen la refactorizaci�n.
 	 */
 	private void constructRefactoringMechanism(Element refactoringElement) {
 
 		Element mechanism = new Element(
 				XMLRefactoringReaderImp.MECHANISM_ELEMENT);
 
-		Element preconditions = new Element(
-				XMLRefactoringReaderImp.PRECONDITIONS_ELEMENT);
+		mechanism.addContent(createMechanismElement(
+				RefactoringConstants.PRECONDITION,
+				XMLRefactoringReaderImp.PRECONDITIONS_ELEMENT,
+				XMLRefactoringReaderImp.PRECONDITION_ELEMENT,
+				refactoringDefinition.getPreconditions()));
 
-		for (String pre : refactoringDefinition.getPreconditions()) {
-			Element precondition = new Element(
-					XMLRefactoringReaderImp.PRECONDITION_ELEMENT);
+		mechanism.addContent(createMechanismElement(
+				RefactoringConstants.ACTION,
+				XMLRefactoringReaderImp.ACTIONS_ELEMENT,
+				XMLRefactoringReaderImp.ACTION_ELEMENT,
+				refactoringDefinition.getActions()));
 
-			// Comprueba cual es el paquete en donde se encuentra la
-			// precondici�n
-			String preconditionPack = ""; //$NON-NLS-1$
-			if (RepositoryElementProcessor.isPredicateJavaDependent(pre
-					.substring(0, pre.length() - 4)))
-				preconditionPack = RefactoringConstants.JAVA_PREDICATES_PACKAGE;
-			else
-				preconditionPack = RefactoringConstants.PREDICATES_PACKAGE;
-			// con esta parte de la instrucci�n:
-			// pre.substring(0,pre.length()-4)
-			// lo que hacemos
-			// es quitar el n�mero de la precondicion para que pueda ser
-			// interpretado por
-			// el motor de las refactorizaciones.
-			precondition.setAttribute(XMLRefactoringReaderImp.NAME_ATTRIBUTE,
-					preconditionPack + pre.substring(0, pre.length() - 4));
-			constructAmbiguousParameters(precondition, pre, 0);
-			preconditions.addContent(precondition);
-		}
-		mechanism.addContent(preconditions);
-
-		Element actions = new Element(XMLRefactoringReaderImp.ACTIONS_ELEMENT);
-
-		for (String act : refactoringDefinition.getActions()) {
-			Element action = new Element(XMLRefactoringReaderImp.ACTION_ELEMENT);
-
-			// Comprueba cual es el paquete en donde se encuentra la
-			// precondici�n
-			String actionPack = ""; //$NON-NLS-1$
-			if (RepositoryElementProcessor.isActionJavaDependent(act.substring(
-					0, act.length() - 4)))
-				actionPack = RefactoringConstants.JAVA_ACTIONS_PACKAGE;
-			else
-				actionPack = RefactoringConstants.ACTIONS_PACKAGE;
-
-			// con esta parte de la instrucci�n:
-			// act.substring(0,act.length()-4)
-			// lo que hacemos
-			// es quitar el n�mero de la acci�n para que pueda ser
-			// interpretado
-			// por
-			// el motor de las refactorizaciones.
-			action.setAttribute(XMLRefactoringReaderImp.NAME_ATTRIBUTE,
-					actionPack + act.substring(0, act.length() - 4));
-			constructAmbiguousParameters(action, act, 1);
-			actions.addContent(action);
-		}
-		mechanism.addContent(actions);
-
-		Element postconditions = new Element(
-				XMLRefactoringReaderImp.POSTCONDITIONS_ELEMENT);
-
-		for (String post : refactoringDefinition.getPostconditions()) {
-			Element postcondition = new Element(
-					XMLRefactoringReaderImp.POSTCONDITION_ELEMENT);
-
-			// Comprueba cual es el paquete en donde se encuentra la
-			// postcondici�n
-			String postconditionPack = ""; //$NON-NLS-1$
-			if (RepositoryElementProcessor.isPredicateJavaDependent(post
-					.substring(0, post.length() - 4)))
-				postconditionPack = RefactoringConstants.JAVA_PREDICATES_PACKAGE;
-			else
-				postconditionPack = RefactoringConstants.PREDICATES_PACKAGE;
-
-			// con esta parte de la instrucci�n:
-			// post.substring(0,post.length()-4) lo que hacemos
-			// es quitar el n�mero de la postcondici�n para que pueda ser
-			// interpretado por
-			// el motor de las refactorizaciones.
-			postcondition.setAttribute(XMLRefactoringReaderImp.NAME_ATTRIBUTE,
-					postconditionPack + post.substring(0, post.length() - 4));
-			constructAmbiguousParameters(postcondition, post, 2);
-			postconditions.addContent(postcondition);
-		}
-		mechanism.addContent(postconditions);
+		mechanism.addContent(createMechanismElement(
+				RefactoringConstants.POSTCONDITION,
+				XMLRefactoringReaderImp.POSTCONDITIONS_ELEMENT,
+				XMLRefactoringReaderImp.POSTCONDITION_ELEMENT,
+				refactoringDefinition.getPostconditions()));
 
 		refactoringElement.addContent(mechanism);
 	}
 
 	/**
-	 * Escribe los elementos de los par�metros ambiguos de la
-	 * refactorizaci�n.
+	 * Crea el mecanismo de una refactorizacion.
+	 * 
+	 * @param type
+	 * @param parentTagName
+	 * @param childTagName
+	 * @param mechanismElements
+	 * @return
+	 */
+	private Element createMechanismElement(int type, String parentTagName,
+			String childTagName, List<String> mechanismElements) {
+		Element mechanismElement = new Element(parentTagName);
+
+		for (final String mechanismWithNumber : mechanismElements) {
+			final Element childElement = new Element(childTagName);
+			childElement
+					.setAttribute(
+							XMLRefactoringReaderImp.NAME_ATTRIBUTE,
+					StringUtils.getMechanismFullyQualifiedName(type,
+							getMechanismName(mechanismWithNumber)));
+			constructAmbiguousParameters(childElement, mechanismWithNumber,
+					type);
+			mechanismElement.addContent(childElement);
+		}
+		return mechanismElement;
+	}
+
+	/**
+	 * Recibe una precondicion, accion o postcondicion con el numero:
+	 * 
+	 * NotExistClassWithName(1)
+	 * 
+	 * y devuelve el nombre sin el numero:
+	 * 
+	 * NotExistClassWithName
+	 * 
+	 * @param preconditionWithNumber
+	 *            precondicion con formato nombre(numero)
+	 * @return devuelve nombre
+	 */
+	private String getMechanismName(final String preconditionWithNumber) {
+		return preconditionWithNumber.substring(0,
+				preconditionWithNumber.length() - 4);
+	}
+
+	/**
+	 * Escribe los elementos de los par�metros ambiguos de la refactorizaci�n.
 	 * 
 	 * @param partOfRefactoring
 	 *            el elemento de par�metros ambiguos.
@@ -594,7 +568,7 @@ public class JDOMXMLRefactoringWriterImp implements XMLRefactoringWriterImp {
 	private void constructAmbiguousParameters(Element partOfRefactoring,
 			String nameOfPart, int typeOfPart) {
 
-		ArrayList<String[]> ambiguousParameters = refactoringDefinition
+		List<String[]> ambiguousParameters = refactoringDefinition
 				.getAmbiguousParameters(nameOfPart, typeOfPart);
 
 		if (ambiguousParameters != null) {
@@ -613,9 +587,9 @@ public class JDOMXMLRefactoringWriterImp implements XMLRefactoringWriterImp {
 	 * Escribe los elementos de los ejemplos de la refactorizaci�n.
 	 * 
 	 * @param refactoringElement
-	 *            el elemento XML ra�z a partir del cual se a�adir� el
-	 *            elemento hijo con la informaci�n acerca de los ejemplos
-	 *            asociados a la refactorizaci�n.
+	 *            el elemento XML ra�z a partir del cual se a�adir� el elemento
+	 *            hijo con la informaci�n acerca de los ejemplos asociados a la
+	 *            refactorizaci�n.
 	 */
 	private void constructRefactoringExamples(Element refactoringElement) {
 
@@ -647,7 +621,8 @@ public class JDOMXMLRefactoringWriterImp implements XMLRefactoringWriterImp {
 	 *             si se produce un error de lectura escritura al trasladar los
 	 *             datos del documento XML al fichero.
 	 */
-	private static void writeToFile(String fname, Document doc) throws IOException {
+	private static void writeToFile(String fname, Document doc)
+			throws IOException {
 
 		FileOutputStream out = new FileOutputStream(fname);
 		XMLOutputter op = new XMLOutputter(initializeFormat());
@@ -659,7 +634,8 @@ public class JDOMXMLRefactoringWriterImp implements XMLRefactoringWriterImp {
 
 	/**
 	 * Inicializa las opciones de formato del fichero XML.
-	 * @return 
+	 * 
+	 * @return
 	 */
 	private static Format initializeFormat() {
 		Format format = Format.getPrettyFormat();
@@ -669,6 +645,5 @@ public class JDOMXMLRefactoringWriterImp implements XMLRefactoringWriterImp {
 		format.setEncoding("ISO-8859-1"); //$NON-NLS-1$
 		return format;
 	}
-
 
 }

@@ -162,7 +162,7 @@ public class RefactoringWizardPage4 extends WizardPage implements  IRefactoringW
 	 * 
 	 * @see RepositoryElementComposite#getParameters()
 	 */
-	public HashMap<String, ArrayList<String[]>> getAmbiguousParameters(){
+	public HashMap<String, java.util.List<String[]>> getAmbiguousParameters() {
 		return actionsTab.getParameters();
 	}
 

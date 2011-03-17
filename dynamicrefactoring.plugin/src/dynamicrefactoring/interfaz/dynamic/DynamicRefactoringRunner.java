@@ -20,38 +20,40 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.*/
 
 package dynamicrefactoring.interfaz.dynamic;
 
-import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
 import refactoring.engine.Refactoring;
 import dynamicrefactoring.RefactoringRunner;
 import dynamicrefactoring.domain.DynamicRefactoring;
 
 /**
- * Permite ejecutar una operaci�n de refactorizaci�n basado en una refactorizaci�n
- * compuesta din�micamente, mostrando al usuario el progreso de la operaci�n y 
- * permitiendo su cancelaci�n hasta cierto momento de la refactorizaci�n.
+ * Permite ejecutar una operaci�n de refactorizaci�n basado en una
+ * refactorizaci�n compuesta din�micamente, mostrando al usuario el progreso
+ * de la operaci�n y permitiendo su cancelaci�n hasta cierto momento de la
+ * refactorizaci�n.
  * 
  * @author <A HREF="mailto:lfd0002@alu.ubu.es">Laura Fuente de la Fuente</A>
  * @author <A HREF="mailto:sfd0009@alu.ubu.es">Sonia Fuente de la Fuente</A>
  * @author <A HREF="mailto:ehp0001@alu.ubu.es">Enrique Herrero Paredes</A>
  */
 public class DynamicRefactoringRunner extends RefactoringRunner {
-	
+
 	/**
 	 * Refactorizaci�n din�mica concreta que permite ejecutar.
 	 */
 	private DynamicRefactoring refactoring;
-	
+
 	/**
 	 * Constructor.
 	 * 
-	 * @param refactoring refactorizaci�n din�mica concreta que permite ejecutar.
+	 * @param refactoring
+	 *            refactorizaci�n din�mica concreta que permite ejecutar.
 	 */
 	public DynamicRefactoringRunner(DynamicRefactoring refactoring){
 		this.refactoring = refactoring;
 	}
-	
+
 	/**
 	 * Obtiene el nombre de la refactorizaci�n que se permite ejecutar.
 	 * 
@@ -61,7 +63,7 @@ public class DynamicRefactoringRunner extends RefactoringRunner {
 	protected String getRefactoringName(){
 		return refactoring.getName();
 	}
-	
+
 	/**
 	 * Obtiene la refactorizaci�n que se permite ejecutar.
 	 * 
@@ -71,16 +73,17 @@ public class DynamicRefactoringRunner extends RefactoringRunner {
 	protected Refactoring getRefactoring(){
 		return refactoring;
 	}
-	
+
 	/**
 	 * Obtiene la definicion entradas de una refactorizaci�n.
 	 * 
-	 * @return Descripci�n de los par�metros de entrada a la refactorizaci�n.
+	 * @return Descripci�n de los par�metros de entrada a la
+	 *         refactorizaci�n.
 	 */
-	public ArrayList<String[]> getInputs(){
+	public List<String[]> getInputs() {
 		return refactoring.getInputs();
-	}	
-	
+	}
+
 	/**
 	 * Obtiene la definicion entradas de una refactorizaci�n.
 	 * 

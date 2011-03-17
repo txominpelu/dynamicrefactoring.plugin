@@ -3,6 +3,7 @@ package dynamicrefactoring.util;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
+import java.util.List;
 
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.graphics.Color;
@@ -243,7 +244,7 @@ public class RefactoringTreeManager {
 	 *            texto que tendra el item padre
 	 */
 	private static void createElementItemWithChildren(TreeItem itemParent,
-			ArrayList<String> childrenNames, String iconPath, String itemText) {
+			List<String> childrenNames, String iconPath, String itemText) {
 		TreeItem postconditionsChild = new TreeItem(itemParent, SWT.NONE);
 		postconditionsChild.setText(itemText);
 		postconditionsChild.setImage(RefactoringImages.getImageForPath(iconPath)); 

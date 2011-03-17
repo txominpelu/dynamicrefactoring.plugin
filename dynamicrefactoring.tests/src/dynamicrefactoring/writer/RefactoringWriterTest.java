@@ -291,20 +291,20 @@ public class RefactoringWriterTest {
 
 		// A�adiendo los par�metros ambiguos.
 		@SuppressWarnings({ "unchecked" })//$NON-NLS-1$
-		HashMap<String, ArrayList<String[]>>[] map = (HashMap<String, ArrayList<String[]>>[]) new HashMap[3];
+		HashMap<String, List<String[]>>[] map = (HashMap<String, List<String[]>>[]) new HashMap[3];
 
-		map[RefactoringConstants.PRECONDITION] = new HashMap<String, ArrayList<String[]>>();
-		map[RefactoringConstants.ACTION] = new HashMap<String, ArrayList<String[]>>();
-		map[RefactoringConstants.POSTCONDITION] = new HashMap<String, ArrayList<String[]>>();
+		map[RefactoringConstants.PRECONDITION] = new HashMap<String, List<String[]>>();
+		map[RefactoringConstants.ACTION] = new HashMap<String, List<String[]>>();
+		map[RefactoringConstants.POSTCONDITION] = new HashMap<String, List<String[]>>();
 
-		ArrayList<String[]> ambiguous1 = new ArrayList<String[]>();
+		List<String[]> ambiguous1 = new ArrayList<String[]>();
 		String[] amb1 = new String[1];
 		amb1[0] = NEW_NAME; //$NON-NLS-1$
 		ambiguous1.add(amb1);
 		map[RefactoringConstants.PRECONDITION].put(
 				"NotExistsClassWithName (1)", ambiguous1); //$NON-NLS-1$
 
-		ArrayList<String[]> ambiguous2 = new ArrayList<String[]>();
+		List<String[]> ambiguous2 = new ArrayList<String[]>();
 		String[] amb2a = new String[1];
 		amb2a[0] = CLASS; //$NON-NLS-1$
 		String[] amb2b = new String[1];
@@ -313,7 +313,7 @@ public class RefactoringWriterTest {
 		ambiguous2.add(amb2b);
 		map[RefactoringConstants.ACTION].put("RenameClass (1)", ambiguous2); //$NON-NLS-1$
 
-		ArrayList<String[]> ambiguous3 = new ArrayList<String[]>();
+		List<String[]> ambiguous3 = new ArrayList<String[]>();
 		String[] amb3a = new String[1];
 		amb3a[0] = CLASS; //$NON-NLS-1$
 		String[] amb3b = new String[1];
@@ -323,7 +323,7 @@ public class RefactoringWriterTest {
 		map[RefactoringConstants.ACTION].put(
 				"RenameReferenceFile (1)", ambiguous3); //$NON-NLS-1$
 
-		ArrayList<String[]> ambiguous4 = new ArrayList<String[]>();
+		List<String[]> ambiguous4 = new ArrayList<String[]>();
 		String[] amb4a = new String[1];
 		amb4a[0] = CLASS; //$NON-NLS-1$
 		String[] amb4b = new String[1];
@@ -332,7 +332,7 @@ public class RefactoringWriterTest {
 		ambiguous4.add(amb4b);
 		map[RefactoringConstants.ACTION].put("RenameClassType (1)", ambiguous4); //$NON-NLS-1$
 
-		ArrayList<String[]> ambiguous5 = new ArrayList<String[]>();
+		List<String[]> ambiguous5 = new ArrayList<String[]>();
 		String[] amb5a = new String[1];
 		amb5a[0] = CLASS; //$NON-NLS-1$
 		String[] amb5b = new String[1];
@@ -342,7 +342,7 @@ public class RefactoringWriterTest {
 		map[RefactoringConstants.ACTION].put(
 				"RenameGenericClassType (1)", ambiguous5); //$NON-NLS-1$
 
-		ArrayList<String[]> ambiguous6 = new ArrayList<String[]>();
+		List<String[]> ambiguous6 = new ArrayList<String[]>();
 		String[] amb6a = new String[1];
 		amb6a[0] = CLASS; //$NON-NLS-1$
 		String[] amb6b = new String[1];
@@ -352,7 +352,7 @@ public class RefactoringWriterTest {
 		map[RefactoringConstants.ACTION].put(
 				"RenameConstructors (1)", ambiguous6); //$NON-NLS-1$
 
-		ArrayList<String[]> ambiguous7 = new ArrayList<String[]>();
+		List<String[]> ambiguous7 = new ArrayList<String[]>();
 		String[] amb7a = new String[1];
 		amb7a[0] = CLASS; //$NON-NLS-1$
 		String[] amb7b = new String[1];
@@ -361,7 +361,7 @@ public class RefactoringWriterTest {
 		ambiguous7.add(amb7b);
 		map[RefactoringConstants.ACTION].put("RenameJavaFile (1)", ambiguous7); //$NON-NLS-1$
 
-		ArrayList<String[]> ambiguous8 = new ArrayList<String[]>();
+		List<String[]> ambiguous8 = new ArrayList<String[]>();
 		String[] amb8 = new String[1];
 		amb8[0] = "Old_name"; //$NON-NLS-1$
 		ambiguous8.add(amb8);

@@ -23,6 +23,7 @@ package dynamicrefactoring.interfaz.wizard;
 import java.io.File;
 import java.text.MessageFormat;
 import java.util.ArrayList;
+import java.util.List;
 
 import org.eclipse.core.runtime.Platform;
 import org.eclipse.jface.wizard.WizardPage;
@@ -237,7 +238,7 @@ public class RefactoringWizardPage6 extends WizardPage {
 	 */
 	private void fillInRefactoringData(){
 		if (refactoring.getExamples() != null){
-			ArrayList<String[]> examples = refactoring.getExamples();
+			List<String[]> examples = refactoring.getExamples();
 			
 			// Se intentan cargar los datos del primer ejemplo.
 			if (examples.size() > 0){

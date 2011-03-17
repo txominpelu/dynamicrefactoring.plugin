@@ -27,6 +27,7 @@ import java.util.Arrays;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 import com.google.common.base.Function;
@@ -78,33 +79,33 @@ public class DynamicRefactoringDefinition implements Element,
 	/**
 	 * Las entradas que debe proporcionar el usuario a la refactorizaci�n.
 	 */
-	private ArrayList<String[]> inputs;
+	private List<String[]> inputs;
 
 	/**
 	 * Los nombres de las precondiciones de la refactorizaci�n.
 	 */
-	private ArrayList<String> preconditions;
+	private List<String> preconditions;
 
 	/**
 	 * Los nombres de las acciones de la refactorizaci�n.
 	 */
-	private ArrayList<String> actions;
+	private List<String> actions;
 
 	/**
 	 * Los nombres de las postcondiciones de la refactorizaci�n.
 	 */
-	private ArrayList<String> postconditions;
+	private List<String> postconditions;
 
 	/**
 	 * Los valores para los par�metros ambiguos, que se obtienen de la
 	 * definici�n de la refactorizaci�n.
 	 */
-	private HashMap<String, ArrayList<String[]>>[] ambiguousParameters;
+	private HashMap<String, List<String[]>>[] ambiguousParameters;
 
 	/**
 	 * Los ejemplos de esta refactorizaci�n.
 	 */
-	private ArrayList<String[]> examples;
+	private List<String[]> examples;
 
 	/**
 	 * Conjunto de categorias a las que la refactorizacion pertenece.
@@ -176,7 +177,7 @@ public class DynamicRefactoringDefinition implements Element,
 	 * 
 	 * @see #setInputs
 	 */
-	public ArrayList<String[]> getInputs() {
+	public List<String[]> getInputs() {
 		return inputs;
 	}
 
@@ -216,34 +217,34 @@ public class DynamicRefactoringDefinition implements Element,
 	/**
 	 * Devuelve los nombres de las precondiciones de la refactorizaci�n.
 	 * 
-	 * @return un <code>ArrayList</code> de cadenas con los nombres.
+	 * @return un <code>List</code> de cadenas con los nombres.
 	 * 
 	 * @see #setPreconditions
 	 */
-	public ArrayList<String> getPreconditions() {
+	public List<String> getPreconditions() {
 		return preconditions;
 	}
 
 	/**
 	 * Devuelve los nombres de las acciones de la refactorizaci�n.
 	 * 
-	 * @return un <code>ArrayList</code> de cadenas con los nombres.
+	 * @return un <code>List</code> de cadenas con los nombres.
 	 * 
 	 * @see #setActions
 	 */
-	public ArrayList<String> getActions() {
-		return actions;
+	public List<String> getActions() {
+		return new ArrayList<String>(actions);
 	}
 
 	/**
 	 * Devuelve los nombres de las postcondiciones de la refactorizaci�n.
 	 * 
-	 * @return un <code>ArrayList</code> de cadenas con los nombres.
+	 * @return un <code>List</code> de cadenas con los nombres.
 	 * 
 	 * @see #setPostconditions
 	 */
-	public ArrayList<String> getPostconditions() {
-		return postconditions;
+	public List<String> getPostconditions() {
+		return new ArrayList<String>(postconditions);
 	}
 
 	/**
@@ -253,7 +254,7 @@ public class DynamicRefactoringDefinition implements Element,
 	 * 
 	 * @see #setAmbiguousParameters
 	 */
-	public HashMap<String, ArrayList<String[]>>[] getAmbiguousParameters() {
+	public HashMap<String, List<String[]>>[] getAmbiguousParameters() {
 		return ambiguousParameters;
 	}
 
@@ -274,13 +275,13 @@ public class DynamicRefactoringDefinition implements Element,
 	 * 
 	 * @see #setAmbiguousParameters
 	 */
-	public ArrayList<String[]> getAmbiguousParameters(String name, int typePart) {
+	public List<String[]> getAmbiguousParameters(String name, int typePart) {
 
 		// Se obtienen todas las entradas del predicado o accion.
-		ArrayList<String[]> inputs = ambiguousParameters[typePart].get(name);
+		List<String[]> inputs = ambiguousParameters[typePart].get(name);
 
 		if (inputs != null) {
-			ArrayList<String[]> params = new ArrayList<String[]>();
+			List<String[]> params = new ArrayList<String[]>();
 
 			// Se crea una copia de la lista de entradas del predicado o accion.
 			for (String[] param : inputs) {
@@ -301,7 +302,7 @@ public class DynamicRefactoringDefinition implements Element,
 	 * 
 	 * @see #setExamples
 	 */
-	public ArrayList<String[]> getExamples() {
+	public List<String[]> getExamples() {
 		return examples;
 	}
 
@@ -495,16 +496,16 @@ public class DynamicRefactoringDefinition implements Element,
 
 		private Set<Category> categories;
 		private Set<String> keywords = new HashSet<String>();
-		private ArrayList<String[]> examples = new ArrayList<String[]>();
+		private List<String[]> examples = new ArrayList<String[]>();
 		private String name;
 		private String description;
 		private String image = "";
 		private String motivation;
-		private ArrayList<String[]> inputs;
-		private ArrayList<String> preconditions;
-		private ArrayList<String> actions;
-		private ArrayList<String> postconditions;
-		private HashMap<String, ArrayList<String[]>>[] ambiguousParameters;
+		private List<String[]> inputs;
+		private List<String> preconditions;
+		private List<String> actions;
+		private List<String> postconditions;
+		private HashMap<String, List<String[]>>[] ambiguousParameters;
 
 		/**
 		 * Crea un builder para crear una definicion de refactorizacion con el
@@ -515,9 +516,9 @@ public class DynamicRefactoringDefinition implements Element,
 		 */
 		public Builder(String refactoringName) {
 			this.name = refactoringName;
-			ambiguousParameters = (HashMap<String, ArrayList<String[]>>[]) new HashMap[3];
+			ambiguousParameters = (HashMap<String, List<String[]>>[]) new HashMap[3];
 			for (int i = 0; i < ambiguousParameters.length; i++)
-				ambiguousParameters[i] = new HashMap<String, ArrayList<String[]>>();
+				ambiguousParameters[i] = new HashMap<String, List<String[]>>();
 		}
 
 		/**
@@ -598,7 +599,7 @@ public class DynamicRefactoringDefinition implements Element,
 		 * 
 		 * @see #getExamples
 		 */
-		public Builder examples(ArrayList<String[]> examples) {
+		public Builder examples(List<String[]> examples) {
 			this.examples = examples;
 			return this;
 		}
@@ -655,7 +656,7 @@ public class DynamicRefactoringDefinition implements Element,
 		 * 
 		 * @see #getInputs
 		 */
-		public Builder inputs(ArrayList<String[]> inputs) {
+		public Builder inputs(List<String[]> inputs) {
 			this.inputs = inputs;
 			return this;
 		}
@@ -669,7 +670,7 @@ public class DynamicRefactoringDefinition implements Element,
 		 * 
 		 * @see #getPreconditions
 		 */
-		public Builder preconditions(ArrayList<String> preconditions) {
+		public Builder preconditions(List<String> preconditions) {
 			this.preconditions = preconditions;
 			return this;
 		}
@@ -683,7 +684,7 @@ public class DynamicRefactoringDefinition implements Element,
 		 * 
 		 * @see #getActions
 		 */
-		public Builder actions(ArrayList<String> actions) {
+		public Builder actions(List<String> actions) {
 			this.actions = actions;
 			return this;
 		}
@@ -697,7 +698,7 @@ public class DynamicRefactoringDefinition implements Element,
 		 * 
 		 * @see #getPostconditions
 		 */
-		public Builder postconditions(ArrayList<String> postconditions) {
+		public Builder postconditions(List<String> postconditions) {
 			this.postconditions = postconditions;
 			return this;
 		}
@@ -712,7 +713,7 @@ public class DynamicRefactoringDefinition implements Element,
 		 * @see #getAmbiguousParameters
 		 */
 		public Builder ambiguousParameters(
-				HashMap<String, ArrayList<String[]>>[] ambiguousParameters) {
+				HashMap<String, List<String[]>>[] ambiguousParameters) {
 
 			this.ambiguousParameters = ambiguousParameters;
 			return this;

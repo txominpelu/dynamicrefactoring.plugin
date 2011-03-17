@@ -20,7 +20,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.*/
 
 package dynamicrefactoring.interfaz;
 
-import java.util.ArrayList;
+import java.util.List;
 
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.widgets.Tree;
@@ -48,7 +48,7 @@ public class TreeEditor {
 	 *            ruta relativa al <i>plugin</i> del icono que se asociar� a
 	 *            cada uno de los elementos que se inserten.
 	 */
-	public static void fillInTreeBranch(ArrayList<String> elements, TreeItem parent,
+	public static void fillInTreeBranch(List<String> elements, TreeItem parent,
 		String icon){
 		
 		for(int i = 0; i < elements.size(); i++){

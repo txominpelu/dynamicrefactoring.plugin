@@ -25,6 +25,7 @@ import java.lang.reflect.Constructor;
 import java.text.MessageFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
 import moon.core.Model;
 import refactoring.engine.Action;
@@ -126,8 +127,8 @@ public class DynamicRefactoring extends MOONRefactoring {
 	 *            nombre simple de la precondici�n.
 	 * 
 	 * @throws RefactoringException
-	 *             si se produce un error al crear la precondici�n o al a�adirla
-	 *             a la refactorizaci�n.
+	 *             si se produce un error al crear la precondici�n o al
+	 *             a�adirla a la refactorizaci�n.
 	 */
 	private void createPrecondition(String name) throws RefactoringException {
 
@@ -256,8 +257,8 @@ public class DynamicRefactoring extends MOONRefactoring {
 	 *         constructor.
 	 * 
 	 * @throws RefactoringException
-	 *             si se produce alg�n error durante la construcci�n de la lista
-	 *             de par�metros del constructor.
+	 *             si se produce alg�n error durante la construcci�n de la
+	 *             lista de par�metros del constructor.
 	 */
 	private Object[] getNecessaryParameters(Constructor<?> constructor, int type)
 			throws RefactoringException {
@@ -349,7 +350,7 @@ public class DynamicRefactoring extends MOONRefactoring {
 	 *             si se produce un error al obtener la definici�n de los
 	 *             par�metros de entrada.
 	 */
-	public static ArrayList<String[]> getDefinitionInputParameters(
+	public static List<String[]> getDefinitionInputParameters(
 			String refactoringFilePath) throws RefactoringException {
 		return DynamicRefactoringDefinition.getRefactoringDefinition(
 				refactoringFilePath).getInputs();
@@ -365,8 +366,8 @@ public class DynamicRefactoring extends MOONRefactoring {
 	}
 
 	/**
-	 * Obtiene el valor asignado a la entrada que ocupa una cierta posici�n para
-	 * un predicado o acci�n concreto.
+	 * Obtiene el valor asignado a la entrada que ocupa una cierta posici�n
+	 * para un predicado o acci�n concreto.
 	 * 
 	 * @param elementName
 	 *            nombre simple del predicado o acci�n.
@@ -382,7 +383,7 @@ public class DynamicRefactoring extends MOONRefactoring {
 	 */
 	private Object getInput(String elementName, int position, int type) {
 		// Se obtienen los argumentos del predicado o acci�n.
-		ArrayList<String[]> parameters = refactoringDefinition
+		List<String[]> parameters = refactoringDefinition
 				.getAmbiguousParameters(elementName, type);
 		// Se obtiene el argumento de la posici�n especificada.
 		String[] parameter = parameters.get(position);
@@ -394,9 +395,10 @@ public class DynamicRefactoring extends MOONRefactoring {
 	/**
 	 * Obtiene la definici�n de las entradas de una refactorizaci�n.
 	 * 
-	 * @return Descripci�n de los par�metros de entrada a la refactorizaci�n.
+	 * @return Descripci�n de los par�metros de entrada a la
+	 *         refactorizaci�n.
 	 */
-	public ArrayList<String[]> getInputs() {
+	public List<String[]> getInputs() {
 		return refactoringDefinition.getInputs();
 	}
 

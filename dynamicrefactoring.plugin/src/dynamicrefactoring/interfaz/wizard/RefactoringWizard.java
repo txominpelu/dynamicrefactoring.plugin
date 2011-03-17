@@ -25,8 +25,8 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
 import java.text.MessageFormat;
-import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
 import org.apache.log4j.Logger;
 import org.eclipse.core.runtime.IProgressMonitor;
@@ -82,9 +82,9 @@ public class RefactoringWizard extends Wizard implements INewWizard {
 	private static final int EDIT = 1;
 
 	/**
-	 * Refactorizaci�n configurada a trav�s del asistente y que debe ser creada
-	 * finalmente (si se trata de una nueva refactorizaci�n) o modificada (si se
-	 * est� editando una ya existente).
+	 * Refactorizaci�n configurada a trav�s del asistente y que debe ser
+	 * creada finalmente (si se trata de una nueva refactorizaci�n) o
+	 * modificada (si se est� editando una ya existente).
 	 */
 	private DynamicRefactoringDefinition refactoring = null;
 
@@ -203,8 +203,8 @@ public class RefactoringWizard extends Wizard implements INewWizard {
 
 	/**
 	 * M�todo llamado cuando se pulsa el bot�n "Finish" en el asistente. Se
-	 * crear� la operaci�n que se deba ejecutar, y se ejecutar� utilizando el
-	 * propio asistente como contexto de ejecuci�n.
+	 * crear� la operaci�n que se deba ejecutar, y se ejecutar� utilizando
+	 * el propio asistente como contexto de ejecuci�n.
 	 * 
 	 * @return <code>true</code> para indicar que la solicitud de finalizaci�n
 	 *         ha sido aceptada; <code>false</code> para indicar que ha sido
@@ -297,8 +297,8 @@ public class RefactoringWizard extends Wizard implements INewWizard {
 	 * 
 	 * @return mapa de parametros antiguos
 	 */
-	private HashMap<String, ArrayList<String[]>>[] getAmbiguousParameters() {
-		HashMap<String, ArrayList<String[]>>[] map = (HashMap<String, ArrayList<String[]>>[]) new HashMap[3];
+	private HashMap<String, List<String[]>>[] getAmbiguousParameters() {
+		HashMap<String, List<String[]>>[] map = (HashMap<String, List<String[]>>[]) new HashMap[3];
 
 		map[RefactoringConstants.PRECONDITION] = pageC.getAmbiguousParameters();
 		map[RefactoringConstants.ACTION] = pageD.getAmbiguousParameters();
@@ -369,7 +369,7 @@ public class RefactoringWizard extends Wizard implements INewWizard {
 				}
 
 				// Se copian los ejemplos que se hayan inclu�do.
-				ArrayList<String[]> examples = resultingRefactoringDefinition
+				List<String[]> examples = resultingRefactoringDefinition
 						.getExamples();
 				for (String[] example : examples) {
 					for (int i = 0; i < example.length; i++) {
@@ -510,7 +510,7 @@ public class RefactoringWizard extends Wizard implements INewWizard {
 		}
 
 		// Se copian los ejemplos si han sido modificados.
-		ArrayList<String[]> examples = resultingRefactoringDefinition
+		List<String[]> examples = resultingRefactoringDefinition
 				.getExamples();
 		for (String[] example : examples) {
 			for (int i = 0; i < example.length; i++) {
@@ -589,8 +589,8 @@ public class RefactoringWizard extends Wizard implements INewWizard {
 	}
 
 	/**
-	 * Renombra los recursos asociados a la refactorizaci�n cuyo nombre se debe
-	 * corresponder con el de la propia refactorizaci�n.
+	 * Renombra los recursos asociados a la refactorizaci�n cuyo nombre se
+	 * debe corresponder con el de la propia refactorizaci�n.
 	 * 
 	 * <p>
 	 * Renombra el directorio que contiene los ficheros de la refactorizaci�n,

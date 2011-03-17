@@ -240,9 +240,9 @@ public class JDOMXMLRefactoringReaderImp implements XMLRefactoringReaderImp {
 		String acti = "";
 
 		Element mechanism = root.getChild(MECHANISM_ELEMENT);
-		HashMap<String, ArrayList<String[]>>[] ambiguousParameters = (HashMap<String, ArrayList<String[]>>[]) new HashMap[3];
+		HashMap<String, List<String[]>>[] ambiguousParameters = (HashMap<String, List<String[]>>[]) new HashMap[3];
 		for (int i = 0; i < ambiguousParameters.length; i++)
-			ambiguousParameters[i] = new HashMap<String, ArrayList<String[]>>();
+			ambiguousParameters[i] = new HashMap<String, List<String[]>>();
 
 		// Se obtienen las precondiciones de la refactorizaci�n.
 		Element preconditionsElement = mechanism
@@ -286,43 +286,27 @@ public class JDOMXMLRefactoringReaderImp implements XMLRefactoringReaderImp {
 	 *         elementos del repositorio.
 	 */
 	@SuppressWarnings({ "unchecked" })//$NON-NLS-1$
-	private ArrayList<String> readMechanismElements(HashMap<String, ArrayList<String[]>>[] ambiguousParameters, List<Element> elements,
+	private List<String> readMechanismElements(
+			HashMap<String, List<String[]>>[] ambiguousParameters,
+			List<Element> elements,
 			int type) {
 
 		ArrayList<String> elementNames = new ArrayList<String>();
 
 		List<Element> params;
 
-		
-		
 		for (Element element : elements) {
 			String elementName = element.getAttributeValue(NAME_ATTRIBUTE);
-			elementNames.add(elementName);
+			elementNames.add(dynamicrefactoring.util.StringUtils
+					.getClassName(elementName));
 
 			params = element.getChildren(PARAM_ELEMENT);
 			if (!params.isEmpty()) {
-				//StringTokenizer st_name = new StringTokenizer(elementName, ".");
-				//String shortname = "";
-				//while (st_name.hasMoreTokens()) {
-					//shortname = st_name.nextElement().toString();
-				//}
-				readAmbiguousParametersOfElement(ambiguousParameters, elementName, type, params);
+				readAmbiguousParametersOfElement(ambiguousParameters,
+						elementName, type, params);
 			}
 		}
 		return elementNames;
-	}
-
-	/**
-	 * Obtiene una lista con los nombre de las distintas precondiciones,
-	 * acciones y postcondiciones.
-	 * 
-	 * @return lista con las precondiciones, acciones y postcondiciones.
-	 */
-	public ArrayList<String> readAllreadMechanismElements(DynamicRefactoringDefinition refactoringDefinition) {
-		ArrayList<String> elements = refactoringDefinition.getPreconditions();
-		elements.addAll(refactoringDefinition.getActions());
-		elements.addAll(refactoringDefinition.getPostconditions());
-		return elements;
 	}
 
 	/**
@@ -339,7 +323,9 @@ public class JDOMXMLRefactoringReaderImp implements XMLRefactoringReaderImp {
 	 * @param params
 	 *            la lista de par�metros ambiguos del elemento.
 	 */
-	private void readAmbiguousParametersOfElement(HashMap<String, ArrayList<String[]>>[] ambiguousParameters, String elementName, int type,
+	private void readAmbiguousParametersOfElement(
+			HashMap<String, List<String[]>>[] ambiguousParameters,
+			String elementName, int type,
 			List<Element> params) {
 
 		ArrayList<String[]> attributes = new ArrayList<String[]>();
