@@ -3,15 +3,15 @@ package dynamicrefactoring.interfaz.view;
 import java.util.Set;
 
 import org.eclipse.swt.SWT;
+import org.eclipse.swt.events.SelectionAdapter;
+import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.layout.RowLayout;
 import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Composite;
-import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Table;
 import org.eclipse.swt.widgets.TableItem;
-import org.eclipse.swt.widgets.Text;
 import org.eclipse.ui.forms.events.ExpansionAdapter;
 import org.eclipse.ui.forms.events.ExpansionEvent;
 import org.eclipse.ui.forms.widgets.ColumnLayout;
@@ -20,6 +20,7 @@ import org.eclipse.ui.forms.widgets.ScrolledForm;
 import org.eclipse.ui.forms.widgets.Section;
 import org.eclipse.ui.part.ViewPart;
 
+import dynamicrefactoring.domain.metadata.interfaces.Catalog;
 import dynamicrefactoring.domain.metadata.interfaces.Classification;
 import dynamicrefactoring.plugin.xml.classifications.imp.PluginCatalog;
 
@@ -29,10 +30,17 @@ public class ClassificationsEditorView extends ViewPart {
 	private FormToolkit toolkit;
 	private ScrolledForm form;
 
+	private ClasifCategoriesEditorSection clasifCatEditor;
+
 	/**
 	 * The constructor.
 	 */
 	public ClassificationsEditorView() {
+		final Set<Classification> classifications = PluginCatalog.getInstance()
+				.getAllClassifications();
+		clasifCatEditor = new ClasifCategoriesEditorSection(classifications
+				.iterator().next().getName(), PluginCatalog.getInstance());
+
 	}
 
 	/**
@@ -47,60 +55,15 @@ public class ClassificationsEditorView extends ViewPart {
 		form.setText("Classifications Editor");
 		ColumnLayout layout = new ColumnLayout();
 		form.getBody().setLayout(layout);
+		createClassificationsSection(PluginCatalog.getInstance());
 
-		// createClassificationsSection();
 		// createSelectedClassificationDataSection();
-		final Set<Classification> classifications = PluginCatalog.getInstance()
-				.getAllClassifications();
-		ClasifCategoriesEditorSection clasifCatEditor = new ClasifCategoriesEditorSection(
-				classifications.iterator().next().getName(),
-				PluginCatalog.getInstance());
-		clasifCatEditor.createCategoriesSection(toolkit, form);
+
 		toolkit.paintBordersFor(form.getBody());
 
 	}
 
-	private void createSelectedClassificationDataSection() {
-		final Section section = toolkit.createSection(form.getBody(),
-				Section.DESCRIPTION | Section.TITLE_BAR | Section.TWISTIE
-						| Section.EXPANDED);
-		section.addExpansionListener(new ExpansionAdapter() {
-			@Override
-			public void expansionStateChanged(ExpansionEvent e) {
-				form.reflow(true);
-			}
-		});
-		section.setText("Selected Classification");
-		section.setDescription("Selected classification data.");
-
-		Composite sectionClient = toolkit.createComposite(section);
-		GridLayout sectionLayout = new GridLayout(2, false);
-		sectionClient.setLayout(sectionLayout);
-
-		Label lbName = toolkit.createLabel(sectionClient, "Name:");
-
-		Composite sectionName = toolkit.createComposite(sectionClient);
-		sectionName.setLayoutData(new GridData(GridData.FILL_BOTH));
-		GridLayout sectionNameLayout = new GridLayout(2, false);
-		sectionName.setLayout(sectionNameLayout);
-		Text txtName = toolkit.createText(sectionName, "Scope");
-		txtName.setEditable(false);
-		txtName.setEnabled(false);
-		txtName.setLayoutData(new GridData(GridData.FILL_BOTH));
-		Button btChangeName = toolkit.createButton(sectionName, "Rename..",
-				SWT.NONE);
-
-		Label lbMultiCategory = toolkit.createLabel(sectionClient, "Multi:");
-		Button chkMulti = toolkit.createButton(sectionClient, "", SWT.CHECK);
-
-		section.setClient(sectionClient);
-		toolkit.paintBordersFor(sectionName);
-		toolkit.paintBordersFor(sectionClient);
-	}
-
-
-
-	private void createClassificationsSection() {
+	public void createClassificationsSection(Catalog catalog) {
 		final Section section = toolkit.createSection(form.getBody(),
 				Section.DESCRIPTION | Section.TITLE_BAR | Section.TWISTIE
 						| Section.EXPANDED);
@@ -118,10 +81,13 @@ public class ClassificationsEditorView extends ViewPart {
 		sectionClient.setLayout(sectionLayout);
 
 		final Table tbClassif = toolkit.createTable(sectionClient, SWT.NONE);
-		for (int loopIndex = 0; loopIndex < 9; loopIndex++) {
+		for (Classification clasif : catalog.getAllClassifications()) {
 			TableItem item = new TableItem(tbClassif, SWT.NONE);
-			item.setText("Item " + loopIndex);
+			item.setText(clasif.getName());
 		}
+		// Selecciona el primero de la lista
+		tbClassif.select(0);
+
 		GridData dataTbClassif = new GridData(GridData.FILL_BOTH);
 		dataTbClassif.heightHint = tbClassif.getItemHeight() * 3;
 		tbClassif.setLayoutData(dataTbClassif);
@@ -139,6 +105,17 @@ public class ClassificationsEditorView extends ViewPart {
 
 		section.setClient(sectionClient);
 		toolkit.paintBordersFor(sectionClient);
+
+		clasifCatEditor.createCategoriesSection(toolkit, form);
+
+		tbClassif.addSelectionListener(new SelectionAdapter() {
+			@Override
+			public void widgetSelected(SelectionEvent e) {
+				clasifCatEditor.setClassification(tbClassif.getSelection()[0]
+						.getText());
+			}
+		});
+
 	}
 
 	/**

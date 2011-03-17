@@ -21,6 +21,12 @@
 			<category>Symplifying conditional expressions</category>
 		</categories>		
 	</classification>
+	<classification name="ClasifPrueba" description="Clasificacion de prueba para probar el editor de clasificaciones.">
+		<categories>
+			<category>Categoria1</category>
+			<category>Categoria2</category>
+		</categories>		
+	</classification>
 	<classification name="BadSmells" multicategory="true" description="Clasificacion basada los Bad Smells definidos en libro de Martin Fowler.">
 		<categories>
 			<category>DuplicatedCode</category>

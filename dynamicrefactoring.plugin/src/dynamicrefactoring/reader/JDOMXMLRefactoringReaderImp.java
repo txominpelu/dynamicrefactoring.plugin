@@ -303,7 +303,8 @@ public class JDOMXMLRefactoringReaderImp implements XMLRefactoringReaderImp {
 			params = element.getChildren(PARAM_ELEMENT);
 			if (!params.isEmpty()) {
 				readAmbiguousParametersOfElement(ambiguousParameters,
-						elementName, type, params);
+						dynamicrefactoring.util.StringUtils
+								.getClassName(elementName), type, params);
 			}
 		}
 		return elementNames;

@@ -123,17 +123,20 @@ public class ExportImportUtilities {
 			DynamicRefactoringDefinition refact) {
 		List<String> allMechanism = new ArrayList<String>();
 		allMechanism
-				.addAll(RefactoringConstants.PRECONDITION,
+				.addAll(dynamicrefactoring.util.StringUtils.getMechanismListFullyQualifiedName(
+						RefactoringConstants.PRECONDITION,
 						refact.getAmbiguousParameters()[RefactoringConstants.PRECONDITION]
-								.keySet());
+								.keySet()));
 		allMechanism
-				.addAll(RefactoringConstants.ACTION,
-				refact.getAmbiguousParameters()[RefactoringConstants.ACTION]
-						.keySet());
+				.addAll(dynamicrefactoring.util.StringUtils.getMechanismListFullyQualifiedName(
+						RefactoringConstants.ACTION,
+						refact.getAmbiguousParameters()[RefactoringConstants.ACTION]
+								.keySet()));
 		allMechanism
-				.addAll(RefactoringConstants.POSTCONDITION,
+				.addAll(dynamicrefactoring.util.StringUtils.getMechanismListFullyQualifiedName(
+						RefactoringConstants.POSTCONDITION,
 						refact.getAmbiguousParameters()[RefactoringConstants.POSTCONDITION]
-								.keySet());
+								.keySet()));
 		return allMechanism;
 	}
 

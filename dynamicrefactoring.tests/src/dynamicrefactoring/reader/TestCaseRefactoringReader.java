@@ -366,101 +366,33 @@ public class TestCaseRefactoringReader {
 
 		assertFalse(entradas.hasNext());
 
-		Iterator<String> preconditions = definition.getPreconditions()
-				.iterator();
-		String pre = preconditions.next();
-		assertEquals(pre, "NotExistsClassWithName"); //$NON-NLS-1$
+		Iterator<String> mechanism = definition.getPreconditions().iterator();
 
-		List<String[]> para1 = definition.getAmbiguousParameters(
-				dynamicrefactoring.util.StringUtils
-						.getMechanismFullyQualifiedName(
-								RefactoringConstants.PRECONDITION, pre),
-				RefactoringConstants.PRECONDITION);
-		assertEquals(para1.get(0)[0], "New_name"); //$NON-NLS-1$
-
-		assertFalse(preconditions.hasNext());
+		checkPredicate(definition, "NotExistsClassWithName", mechanism.next(),
+				RefactoringConstants.PRECONDITION, "New_name");
+		assertFalse(mechanism.hasNext());
 
 		Iterator<String> actions = definition.getActions().iterator();
-		List<String[]> para2;
-		String a = actions.next();
-		assertEquals(a, "RenameClass"); //$NON-NLS-1$
 
-		para2 = definition.getAmbiguousParameters(
-				dynamicrefactoring.util.StringUtils
-						.getMechanismFullyQualifiedName(
-								RefactoringConstants.ACTION, a),
-				RefactoringConstants.ACTION);
-		assertEquals(para2.get(0)[0], "Class"); //$NON-NLS-1$
-		assertEquals(para2.get(1)[0], "New_name"); //$NON-NLS-1$
+		checkAction(definition, "RenameClass", actions.next());
 
-		a = actions.next();
-		assertEquals(a, "RenameReferenceFile"); //$NON-NLS-1$
+		checkAction(definition, "RenameReferenceFile", actions.next());
 
-		para2 = definition.getAmbiguousParameters(
-				dynamicrefactoring.util.StringUtils
-						.getMechanismFullyQualifiedName(
-								RefactoringConstants.ACTION, a),
-				RefactoringConstants.ACTION);
-		assertEquals(para2.get(0)[0], "Class"); //$NON-NLS-1$
-		assertEquals(para2.get(1)[0], "New_name"); //$NON-NLS-1$
+		checkAction(definition, "RenameClassType", actions.next());
 
-		a = actions.next();
-		assertEquals(a, "RenameClassType"); //$NON-NLS-1$
+		checkAction(definition, "RenameGenericClassType", actions.next());
 
-		para2 = definition.getAmbiguousParameters(
-				dynamicrefactoring.util.StringUtils
-						.getMechanismFullyQualifiedName(
-								RefactoringConstants.ACTION, a),
-				RefactoringConstants.ACTION);
-		assertEquals(para2.get(0)[0], "Class"); //$NON-NLS-1$
-		assertEquals(para2.get(1)[0], "New_name"); //$NON-NLS-1$
+		checkAction(definition, "RenameConstructors", actions.next());
 
-		a = actions.next();
-		assertEquals(a, "RenameGenericClassType"); //$NON-NLS-1$
-
-		para2 = definition.getAmbiguousParameters(
-				dynamicrefactoring.util.StringUtils
-						.getMechanismFullyQualifiedName(
-								RefactoringConstants.ACTION, a),
-				RefactoringConstants.ACTION);
-		assertEquals(para2.get(0)[0], "Class"); //$NON-NLS-1$
-		assertEquals(para2.get(1)[0], "New_name"); //$NON-NLS-1$
-
-		a = actions.next();
-		assertEquals(a, "RenameConstructors"); //$NON-NLS-1$
-
-		para2 = definition.getAmbiguousParameters(
-				dynamicrefactoring.util.StringUtils
-						.getMechanismFullyQualifiedName(
-								RefactoringConstants.ACTION, a),
-				RefactoringConstants.ACTION);
-		assertEquals(para2.get(0)[0], "Class"); //$NON-NLS-1$
-		assertEquals(para2.get(1)[0], "New_name"); //$NON-NLS-1$
-
-		a = actions.next();
-		assertEquals(a, "RenameJavaFile"); //$NON-NLS-1$
-
-		para2 = definition.getAmbiguousParameters(
-				dynamicrefactoring.util.StringUtils
-						.getMechanismFullyQualifiedName(
-								RefactoringConstants.ACTION, a),
-				RefactoringConstants.ACTION);
-		assertEquals(para2.get(0)[0], "Class"); //$NON-NLS-1$
-		assertEquals(para2.get(1)[0], "New_name"); //$NON-NLS-1$
+		checkAction(definition, "RenameJavaFile", actions.next());
 
 		assertFalse(actions.hasNext());
 
 		Iterator<String> postconditions = definition.getPostconditions()
 				.iterator();
-		String post = postconditions.next();
-		assertEquals(post, "NotExistsClassWithName"); //$NON-NLS-1$
-
-		List<String[]> para3 = definition.getAmbiguousParameters(
-				dynamicrefactoring.util.StringUtils
-						.getMechanismFullyQualifiedName(
-								RefactoringConstants.POSTCONDITION, post),
-				RefactoringConstants.POSTCONDITION);
-		assertEquals(para3.get(0)[0], "Old_name"); //$NON-NLS-1$
+		checkPredicate(definition, "NotExistsClassWithName",
+				postconditions.next(), RefactoringConstants.POSTCONDITION,
+				"Old_name");
 
 		assertFalse(postconditions.hasNext());
 
@@ -470,5 +402,27 @@ public class TestCaseRefactoringReader {
 		assertEquals(example[1], "ejemplo1_despues.txt"); //$NON-NLS-1$
 
 		assertFalse(examples.hasNext());
+	}
+
+	private void checkAction(DynamicRefactoringDefinition definition,
+			String expectedActionName, String actionName) {
+		List<String[]> para2;
+		assertEquals(actionName, expectedActionName); //$NON-NLS-1$
+
+		para2 = definition.getAmbiguousParameters(actionName,
+				RefactoringConstants.ACTION);
+		assertEquals(para2.get(0)[0], "Class"); //$NON-NLS-1$
+		assertEquals(para2.get(1)[0], "New_name"); //$NON-NLS-1$
+	}
+
+	private void checkPredicate(DynamicRefactoringDefinition definition,
+			String expectedMechanismName, String pre, int type,
+			String attributeExpected) {
+
+		assertEquals(pre, expectedMechanismName); //$NON-NLS-1$
+
+		List<String[]> para1 = definition.getAmbiguousParameters(pre, type);
+		assertEquals(para1.get(0)[0], attributeExpected); //$NON-NLS-1$
+
 	}
 }

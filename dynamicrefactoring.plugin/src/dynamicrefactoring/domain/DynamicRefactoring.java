@@ -279,7 +279,10 @@ public class DynamicRefactoring extends MOONRefactoring {
 				Class<?> parameterType = constrParameters[i];
 
 				// Se busca el valor para el par�metro de la posici�n i.
-				Object param = getInput(elementName, i, type);
+				Object param = getInput(
+						dynamicrefactoring.util.StringUtils
+								.getClassName(elementName),
+						i, type);
 
 				if (param == null) {
 					Object[] messageArgs = { parameterType, elementName };
