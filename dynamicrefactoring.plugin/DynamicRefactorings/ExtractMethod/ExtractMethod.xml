@@ -77,5 +77,7 @@
         </actions>
         <postconditions/>
     </mechanism>
-    <examples/>
+    <examples>
+		<example after="ejemplo1_despues.txt" before="ejemplo1_antes.txt"/>
+	</examples>
 </refactoring>
