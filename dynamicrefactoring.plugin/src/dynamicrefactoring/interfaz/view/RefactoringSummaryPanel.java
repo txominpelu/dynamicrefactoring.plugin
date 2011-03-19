@@ -401,7 +401,8 @@ public class RefactoringSummaryPanel {
 			exLink.setToolTipText(Messages.RefactoringSummaryPanel_ExampleLinkToolTip);
 			exLink.addListener (SWT.Selection, new Listener () {
 				public void handleEvent(Event event) {
-					if(sourceViewer.loadSources(refactoringPath+ex[0], refactoringPath+ex[1])){
+					if(sourceViewer.loadSources(refactoring.getName(),
+							refactoringPath+ex[0], refactoringPath+ex[1])){
 						sourceViewer.open();
 					}
 				}
