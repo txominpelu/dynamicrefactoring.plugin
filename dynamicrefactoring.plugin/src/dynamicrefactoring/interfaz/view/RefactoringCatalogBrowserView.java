@@ -518,8 +518,7 @@ public class RefactoringCatalogBrowserView extends ViewPart {
 			for (Map.Entry<String, String> nextRef : allRefactorings.entrySet()) {
 
 				try {
-					// Se obtiene la definición de la siguiente
-					// refactorización.
+					// Se obtiene la definición de la siguiente refactorización.
 					DynamicRefactoringDefinition definition = 
 						DynamicRefactoringDefinition.getRefactoringDefinition(
 								nextRef.getValue());
@@ -836,17 +835,20 @@ public class RefactoringCatalogBrowserView extends ViewPart {
 				found = true;
 		}
 		
+		Set<DynamicRefactoringDefinition> drd = 
+			new HashSet<DynamicRefactoringDefinition>(refactorings.values());
 		if(found){
 			//si se encuentra seleccionamos ese item, 
 			// mostramos la descripcion y clasificamos según él
 			classCombo.setText(classSelected);
 			descClassLabel.setText(c.getDescription());
-			catalog=(ElementCatalog<DynamicRefactoringDefinition>)catalog.newInstance(c);
+			catalog=new ElementCatalog<DynamicRefactoringDefinition>(drd,c,filter);
 		}else{
 			//sino mostrar por defecto la clasificacion None
 			classCombo.select(0);
 			descClassLabel.setText(NONE_CLASSIFICATION.getDescription());
-			catalog=(ElementCatalog<DynamicRefactoringDefinition>)catalog.newInstance(NONE_CLASSIFICATION);
+			catalog=new ElementCatalog<DynamicRefactoringDefinition>(
+					drd, NONE_CLASSIFICATION, filter);
 		}
 		showTree(classCombo.getText());
 		
@@ -869,7 +871,6 @@ public class RefactoringCatalogBrowserView extends ViewPart {
 		} catch (PartInitException e) {
 			throw Throwables.propagate(e);
 		}
-
 	}
 
 	/**
