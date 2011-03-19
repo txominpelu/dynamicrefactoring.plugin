@@ -59,6 +59,9 @@ import com.google.common.base.Throwables;
 
 import dynamicrefactoring.RefactoringImages;
 import dynamicrefactoring.RefactoringPlugin;
+import dynamicrefactoring.action.ShowLeftAndRightPaneViewAction;
+import dynamicrefactoring.action.ShowLeftPaneViewAction;
+import dynamicrefactoring.action.ShowRightPaneViewAction;
 import dynamicrefactoring.domain.DynamicRefactoringDefinition;
 import dynamicrefactoring.domain.RefactoringException;
 import dynamicrefactoring.domain.metadata.condition.CategoryCondition;
@@ -883,12 +886,9 @@ public class RefactoringCatalogBrowserView extends ViewPart {
 		actionsPane=new ArrayList<IAction>();
 		
 		ArrayList<String> actionsPaneNames=new ArrayList<String>();
-		actionsPaneNames.add(Platform.getResourceString(RefactoringPlugin.getDefault().getBundle(),
-				"%dynamicrefactoring.view.action.showLeftPane")); //$NON-NLS-1$
-		actionsPaneNames.add(Platform.getResourceString(RefactoringPlugin.getDefault().getBundle(),
-				"%dynamicrefactoring.view.action.showRightPane")); //$NON-NLS-1$
-		actionsPaneNames.add(Platform.getResourceString(RefactoringPlugin.getDefault().getBundle(), 
-				"%dynamicrefactoring.view.action.showLeftAndRightPane")); //$NON-NLS-1$
+		actionsPaneNames.add(ShowLeftPaneViewAction.ID);
+		actionsPaneNames.add(ShowRightPaneViewAction.ID);
+		actionsPaneNames.add(ShowLeftAndRightPaneViewAction.ID);
 		
 		IToolBarManager toolBarManager = getViewSite().getActionBars().getToolBarManager();
 	    IContributionItem[] contributionItems=toolBarManager.getItems();
@@ -898,7 +898,7 @@ public class RefactoringCatalogBrowserView extends ViewPart {
 			if(item instanceof ActionContributionItem){
 				actionItem=(ActionContributionItem)item;
 				action=actionItem.getAction();
-				if(actionsPaneNames.contains(action.getText())){
+				if(actionsPaneNames.contains(action.getId())){
 					actionsPane.add(action);
 				}
 			}
