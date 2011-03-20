@@ -94,6 +94,8 @@ public class Messages extends NLS {
 	public static String SourceViewerDialog_Title;
 	public static String SourceViewerDialog_BeforeLabel;
 	public static String SourceViewerDialog_AfterLabel;
+	public static String SourceViewerDialog_Copy;
+	public static String SourceViewerDialog_SelectAll;
 	public static String SourceViewerDialog_Error;
 	public static String SourceViewerDialog_NotAvailable;
 	
