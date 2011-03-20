@@ -398,8 +398,8 @@ public class SourceViewerDialog extends Dialog {
 
 	  
 	  /**
-	   * Actualiza el styledText del visor de texto cuando se modifica 
-	   * la selección de texto en este.
+	   * Actualiza lacción de copiado de texto cuando se modifica 
+	   * la selección del texto del visor de texto.
 	   * 
 	   * @author XPMUser
 	   *
