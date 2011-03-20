@@ -398,7 +398,7 @@ public class SourceViewerDialog extends Dialog {
 
 	  
 	  /**
-	   * Actualiza lacción de copiado de texto cuando se modifica 
+	   * Actualiza la acción de copiado de texto cuando se modifica 
 	   * la selección del texto del visor de texto.
 	   * 
 	   * @author XPMUser
