@@ -65,38 +65,52 @@ public class StringUtils {
 	 * 
 	 * repository.moon.concretepredicate.ExistsClassWithName
 	 * 
-	 * @param preconditionName
+	 * @param mechanismName
 	 *            nombre de la precondicion, accion o postcondicion
 	 * @return nombre totalmente cualificado (con paquete)
 	 */
 	public static String getMechanismFullyQualifiedName(int type,
-			final String preconditionName) {
+			final String mechanismName) {
+		return getMechanismPackage(type, mechanismName) + "." + mechanismName;
+	}
+
+	/**
+	 * Obtiene el nombre del paquete de una pre/poscondicion o de una accion.
+	 * 
+	 * @param type
+	 *            si es RefactoringConstant.PRECONDITION /POSTCONDITION/ACTION
+	 * @param mechanismName
+	 *            mechanism name
+	 * @return package name (Ej. "repository.concreteaction")
+	 */
+	public static String getMechanismPackage(int type,
+			final String mechanismName) {
 		String preconditionPack;
 		switch (type) {
 		case RefactoringConstants.PRECONDITION:
 			if (RepositoryElementProcessor
-					.isPredicateJavaDependent(preconditionName)) {
+					.isPredicateJavaDependent(mechanismName)) {
 				preconditionPack = RefactoringConstants.JAVA_PREDICATES_PACKAGE;
 			} else {
 				preconditionPack = RefactoringConstants.PREDICATES_PACKAGE;
 			}
-			return preconditionPack + preconditionName;
+			return preconditionPack;
 		case RefactoringConstants.ACTION:
 			if (RepositoryElementProcessor
-					.isActionJavaDependent(preconditionName)) {
+.isActionJavaDependent(mechanismName)) {
 				preconditionPack = RefactoringConstants.JAVA_ACTIONS_PACKAGE;
 			} else {
 				preconditionPack = RefactoringConstants.ACTIONS_PACKAGE;
 			}
-			return preconditionPack + preconditionName;
+			return preconditionPack;
 		case RefactoringConstants.POSTCONDITION:
 			if (RepositoryElementProcessor
-					.isPredicateJavaDependent(preconditionName)) {
+					.isPredicateJavaDependent(mechanismName)) {
 				preconditionPack = RefactoringConstants.JAVA_PREDICATES_PACKAGE;
 			} else {
 				preconditionPack = RefactoringConstants.PREDICATES_PACKAGE;
 			}
-			return preconditionPack + preconditionName;
+			return preconditionPack.substring(0, preconditionPack.length() - 2);
 		default:
 			throw new RuntimeException(
 					"type must be one of: RefactoringConstants. PRECONDITION/POSTCONDITION/ACTION");
