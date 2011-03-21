@@ -59,6 +59,9 @@ import com.google.common.base.Throwables;
 
 import dynamicrefactoring.RefactoringImages;
 import dynamicrefactoring.RefactoringPlugin;
+import dynamicrefactoring.action.ShowLeftAndRightPaneViewAction;
+import dynamicrefactoring.action.ShowLeftPaneViewAction;
+import dynamicrefactoring.action.ShowRightPaneViewAction;
 import dynamicrefactoring.domain.DynamicRefactoringDefinition;
 import dynamicrefactoring.domain.RefactoringException;
 import dynamicrefactoring.domain.metadata.condition.CategoryCondition;
@@ -518,8 +521,7 @@ public class RefactoringCatalogBrowserView extends ViewPart {
 			for (Map.Entry<String, String> nextRef : allRefactorings.entrySet()) {
 
 				try {
-					// Se obtiene la definición de la siguiente
-					// refactorización.
+					// Se obtiene la definición de la siguiente refactorización.
 					DynamicRefactoringDefinition definition = 
 						DynamicRefactoringDefinition.getRefactoringDefinition(
 								nextRef.getValue());
@@ -836,17 +838,20 @@ public class RefactoringCatalogBrowserView extends ViewPart {
 				found = true;
 		}
 		
+		Set<DynamicRefactoringDefinition> drd = 
+			new HashSet<DynamicRefactoringDefinition>(refactorings.values());
 		if(found){
 			//si se encuentra seleccionamos ese item, 
 			// mostramos la descripcion y clasificamos según él
 			classCombo.setText(classSelected);
 			descClassLabel.setText(c.getDescription());
-			catalog=(ElementCatalog<DynamicRefactoringDefinition>)catalog.newInstance(c);
+			catalog=new ElementCatalog<DynamicRefactoringDefinition>(drd,c,filter);
 		}else{
 			//sino mostrar por defecto la clasificacion None
 			classCombo.select(0);
 			descClassLabel.setText(NONE_CLASSIFICATION.getDescription());
-			catalog=(ElementCatalog<DynamicRefactoringDefinition>)catalog.newInstance(NONE_CLASSIFICATION);
+			catalog=new ElementCatalog<DynamicRefactoringDefinition>(
+					drd, NONE_CLASSIFICATION, filter);
 		}
 		showTree(classCombo.getText());
 		
@@ -869,7 +874,6 @@ public class RefactoringCatalogBrowserView extends ViewPart {
 		} catch (PartInitException e) {
 			throw Throwables.propagate(e);
 		}
-
 	}
 
 	/**
@@ -882,12 +886,9 @@ public class RefactoringCatalogBrowserView extends ViewPart {
 		actionsPane=new ArrayList<IAction>();
 		
 		ArrayList<String> actionsPaneNames=new ArrayList<String>();
-		actionsPaneNames.add(Platform.getResourceString(RefactoringPlugin.getDefault().getBundle(),
-				"%dynamicrefactoring.view.action.showLeftPane")); //$NON-NLS-1$
-		actionsPaneNames.add(Platform.getResourceString(RefactoringPlugin.getDefault().getBundle(),
-				"%dynamicrefactoring.view.action.showRightPane")); //$NON-NLS-1$
-		actionsPaneNames.add(Platform.getResourceString(RefactoringPlugin.getDefault().getBundle(), 
-				"%dynamicrefactoring.view.action.showLeftAndRightPane")); //$NON-NLS-1$
+		actionsPaneNames.add(ShowLeftPaneViewAction.ID);
+		actionsPaneNames.add(ShowRightPaneViewAction.ID);
+		actionsPaneNames.add(ShowLeftAndRightPaneViewAction.ID);
 		
 		IToolBarManager toolBarManager = getViewSite().getActionBars().getToolBarManager();
 	    IContributionItem[] contributionItems=toolBarManager.getItems();
@@ -897,7 +898,7 @@ public class RefactoringCatalogBrowserView extends ViewPart {
 			if(item instanceof ActionContributionItem){
 				actionItem=(ActionContributionItem)item;
 				action=actionItem.getAction();
-				if(actionsPaneNames.contains(action.getText())){
+				if(actionsPaneNames.contains(action.getId())){
 					actionsPane.add(action);
 				}
 			}

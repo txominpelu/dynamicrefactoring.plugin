@@ -401,7 +401,8 @@ public class RefactoringSummaryPanel {
 			exLink.setToolTipText(Messages.RefactoringSummaryPanel_ExampleLinkToolTip);
 			exLink.addListener (SWT.Selection, new Listener () {
 				public void handleEvent(Event event) {
-					if(sourceViewer.loadSources(refactoringPath+ex[0], refactoringPath+ex[1])){
+					if(sourceViewer.loadSources(refactoring.getName(),
+							refactoringPath+ex[0], refactoringPath+ex[1])){
 						sourceViewer.open();
 					}
 				}
@@ -417,6 +418,10 @@ public class RefactoringSummaryPanel {
 	
 	private void clear(){
 
+		//examplesLink
+		for(Link exLink: examplesLink)
+			exLink.dispose();
+		
 		//hyperLinks
 		Control hyperLinks[]=null;
 		hyperLinks=((Composite)categoriesSection.getClient()).getChildren();
@@ -426,26 +431,22 @@ public class RefactoringSummaryPanel {
 		hyperLinks=((Composite)keyWordsSection.getClient()).getChildren();
 		for(int i=0;i<hyperLinks.length;i++)
 			hyperLinks[i].dispose();
-
+		
+		//componentsTree
+		RefactoringTreeManager.cleanTree(componentsTree);
+		
 		//inputsTable
 		if(inputsTable.getItemCount()>0){
 			TableItem[] items=inputsTable.getItems();
 			for(int i=items.length-1; i>=0; i--){
-				// recuperamos elbotón check asociado a la fila para eliminarlo
+				// recuperamos el botón check asociado a la fila para eliminarlo
 				Object checkB=items[i].getData(CHECKBUTTON_PROPERTY);
 				if(checkB instanceof Button)
 					((Button)checkB).dispose();
 				items[i].dispose();
 			}
 		}
-
-		//componentsTree
-		RefactoringTreeManager.cleanTree(componentsTree);
-
-		//examplesLink
-		for(Link exLink: examplesLink)
-			exLink.dispose();
-		
+	
 		//ImageTab
 		//ExamplesTab	
 		while(minNumTabs!=refTabFolder.getItemCount()){
@@ -578,6 +579,7 @@ public class RefactoringSummaryPanel {
 		fillOverview();
 		fillInputsTable();
 		fillComponentsTree();
+		refTabFolder.setSelection(2);
 		if(refactoring.getImage()!=null && 
 				!refactoring.getImage().equals("")){ //$NON-NLS-1$
 			createAndFillImageTabItem();
