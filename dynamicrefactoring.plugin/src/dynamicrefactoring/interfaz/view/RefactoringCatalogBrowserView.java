@@ -73,6 +73,7 @@ import dynamicrefactoring.domain.metadata.interfaces.Category;
 import dynamicrefactoring.domain.metadata.interfaces.Classification;
 import dynamicrefactoring.domain.metadata.interfaces.ClassifiedElements;
 import dynamicrefactoring.interfaz.TreeEditor;
+import dynamicrefactoring.interfaz.view.classifeditor.ClassificationsEditorView;
 import dynamicrefactoring.plugin.xml.classifications.imp.PluginCatalog;
 import dynamicrefactoring.util.DynamicRefactoringLister;
 import dynamicrefactoring.util.RefactoringTreeManager;

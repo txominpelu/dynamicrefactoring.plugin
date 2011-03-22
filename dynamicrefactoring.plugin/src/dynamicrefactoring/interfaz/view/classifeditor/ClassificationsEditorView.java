@@ -1,4 +1,4 @@
-package dynamicrefactoring.interfaz.view;
+package dynamicrefactoring.interfaz.view.classifeditor;
 
 import java.util.Set;
 
@@ -30,7 +30,7 @@ public class ClassificationsEditorView extends ViewPart {
 	private FormToolkit toolkit;
 	private ScrolledForm form;
 
-	private ClasifCategoriesEditorSection clasifCatEditor;
+	private CategoriesSection clasifCatEditor;
 
 	/**
 	 * The constructor.
@@ -38,7 +38,7 @@ public class ClassificationsEditorView extends ViewPart {
 	public ClassificationsEditorView() {
 		final Set<Classification> classifications = PluginCatalog.getInstance()
 				.getAllClassifications();
-		clasifCatEditor = new ClasifCategoriesEditorSection(classifications
+		clasifCatEditor = new CategoriesSection(classifications
 				.iterator().next().getName(), PluginCatalog.getInstance());
 
 	}

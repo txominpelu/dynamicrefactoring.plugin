@@ -1,4 +1,4 @@
-package dynamicrefactoring.interfaz.view;
+package dynamicrefactoring.interfaz.view.classifeditor;
 
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.layout.GridData;
@@ -15,7 +15,7 @@ import org.eclipse.ui.forms.widgets.Section;
 
 import dynamicrefactoring.domain.metadata.interfaces.Catalog;
 
-public class ClasifEditorClassificationsSection {
+public class ClassifListSection {
 
 	/**
 	 * Catalogo de clasificaciones y categorias.
@@ -32,7 +32,7 @@ public class ClasifEditorClassificationsSection {
 	 * @param catalog
 	 *            catalogo de clasificaciones
 	 */
-	public ClasifEditorClassificationsSection(Catalog catalog,
+	public ClassifListSection(Catalog catalog,
 			String classification) {
 		this.catalog = catalog;
 		this.classification = classification;

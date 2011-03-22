@@ -1,4 +1,4 @@
-package dynamicrefactoring.interfaz.view;
+package dynamicrefactoring.interfaz.view.classifeditor;
 
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.jface.dialogs.IInputValidator;
@@ -23,7 +23,7 @@ import dynamicrefactoring.domain.metadata.interfaces.Catalog;
 import dynamicrefactoring.domain.metadata.interfaces.Category;
 import dynamicrefactoring.domain.metadata.interfaces.Classification;
 
-public class ClasifCategoriesEditorSection {
+public class CategoriesSection {
 
 	/**
 	 * Nombre de la clasificacion a editar.
@@ -50,7 +50,7 @@ public class ClasifCategoriesEditorSection {
 	 * @param catalog
 	 *            catalogo de clasificaciones
 	 */
-	public ClasifCategoriesEditorSection(
+	public CategoriesSection(
 			String classification,
 			Catalog catalog) {
 		this.classification = classification;

@@ -272,7 +272,7 @@
   		</stickyView>
     <view
           category="dynamicrefactoring.views.refactoringViewsCategory"
-          class="dynamicrefactoring.interfaz.view.ClassificationsEditorView"
+          class="dynamicrefactoring.interfaz.view.classifeditor.ClassificationsEditorView"
           icon="icons/class_edit.png"
           id="dynamicrefactoring.views.refactoringClasificationsEditorView"
           name="%dynamicrefactoring.views.refactoringClasificationsEditorView">
