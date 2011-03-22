@@ -3,71 +3,79 @@ package dynamicrefactoring.interfaz.view.classifeditor;
 
 import static org.junit.Assert.assertEquals;
 
-import java.util.HashSet;
 import java.util.Set;
 
 import org.junit.Before;
 import org.junit.Test;
 
 import dynamicrefactoring.domain.metadata.interfaces.Catalog;
-import dynamicrefactoring.domain.metadata.interfaces.Category;
-import dynamicrefactoring.interfaz.view.classifeditor.CategoriesSection;
+import dynamicrefactoring.domain.metadata.interfaces.Classification;
 import dynamicrefactoring.plugin.xml.classifications.imp.CatalogStub;
 
 public class ClassifListSectionTest {
 
+	private static final String NEW_CLASSIF_NAME = "NewClassifName";
+
 	private static final String CLASIF_INICIAL = "ClasifPrueba";
-	private static final String CATEGORY_TO_RENAME = "clasifToRename";
-	private static final String CATEGORY_NEW_NAME = "clasifNewName";
 	
 	private Catalog catalog;
-	private CategoriesSection editor;
+	private ClassifListSection editor;
 
 	@Before
 	public void setUp() throws Exception {
 		catalog = new CatalogStub();
-		editor = new CategoriesSection(CLASIF_INICIAL, catalog);
+		editor = new ClassifListSection(catalog);
 	}
 	
 	/**
-	 * Comprueba que si se pide al editor renombrar una categoria
+	 * Comprueba que si se pide al editor renombrar una clasificacion
 	 * lo hace correctamente.
 	 */
 	@Test
-	public void renameCategoryTest(){
-		Set<Category> expectedCategories = catalog.getClassification(editor.getClassification().getName()).getCategories();
-		expectedCategories.remove(new Category(editor.getClassification().getName(), CATEGORY_TO_RENAME));
-		expectedCategories.add(new Category(editor.getClassification().getName(), CATEGORY_NEW_NAME));
-		editor.renameCategory(CATEGORY_TO_RENAME, CATEGORY_NEW_NAME);
-		assertEquals(expectedCategories, catalog.getClassification(editor.getClassification().getName()).getCategories());
+	public void renameClassificationTest(){
+		Set<Classification> expectedClassifications = catalog.getAllClassifications();
+		Classification classifToRename = getNewClassification();
+		expectedClassifications.remove(classifToRename);
+		expectedClassifications.add(classifToRename.rename(NEW_CLASSIF_NAME));
+		editor.renameClassification(CLASIF_INICIAL, NEW_CLASSIF_NAME);
+		assertEquals(expectedClassifications, catalog.getAllClassifications());
 	}
 	
 	/**
-	 * Comprueba que si se pide al editor agregar una categoria
+	 * Comprueba que si se pide al editor agregar una clasificacion
 	 * lo hace correctamente.
 	 */
 	@Test
-	public void addCategoryTest(){
-		Set<Category> expectedCategories = catalog.getClassification(editor.getClassification().getName()).getCategories();
-		expectedCategories.add(new Category(editor.getClassification().getName(), CATEGORY_NEW_NAME));
-		editor.addCategory(CATEGORY_NEW_NAME);
-		assertEquals(expectedCategories, catalog.getClassification(editor.getClassification().getName()).getCategories());
+	public void addClassificationTest(){
+		Set<Classification> expectedClassifications = catalog.getAllClassifications();
+		expectedClassifications.add(getNewClassification());
+		editor.addClassification(getNewClassification());
+		assertEquals(expectedClassifications, catalog.getAllClassifications());
 	}
+
+	
 	
 	/**
 	 * Comprueba que si se pide al editor eliminar una categoria
 	 * lo hace correctamente.
 	 */
 	@Test
-	public void removeCategoryTest(){
-		Set<Category> expectedCategories = new HashSet<Category>();
-		expectedCategories.add(new Category(editor.getClassification()
-				.getName(), CATEGORY_NEW_NAME));
-
-		editor.addCategory(CATEGORY_NEW_NAME);
-		editor.removeCategory(CATEGORY_TO_RENAME);
-		assertEquals(expectedCategories,
-				catalog.getClassification(CLASIF_INICIAL).getCategories());
+	public void removeClassificationTest(){
+		Set<Classification> expectedClassifications = catalog.getAllClassifications();
+		expectedClassifications.add(getNewClassification());
+		expectedClassifications.remove(catalog.getClassification(CLASIF_INICIAL));
+		editor.removeClassification(CLASIF_INICIAL);
+		assertEquals(expectedClassifications, catalog.getAllClassifications());
+	}
+	
+	/**
+	 * Obtiene la classificacion nueva utilizada para todas las pruebas.
+	 * 
+	 * @return clasificacion nueva
+	 */
+	private Classification getNewClassification() {
+		Classification classifToRename = catalog.getClassification(CLASIF_INICIAL);
+		return classifToRename;
 	}
 	
 

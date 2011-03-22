@@ -35,7 +35,7 @@ public class CategoriesSection {
 	 */
 	private Catalog catalog;
 
-	private Table tbClassif;
+	private Table tbCategories;
 
 	/**
 	 * Validador que comprueba que no se repite una categoria existente.
@@ -76,11 +76,11 @@ public class CategoriesSection {
 		GridLayout sectionLayout = new GridLayout(2, false);
 		sectionClient.setLayout(sectionLayout);
 
-		tbClassif = toolkit.createTable(sectionClient, SWT.NONE);
-		fillCategoriesTableData();
+		tbCategories = toolkit.createTable(sectionClient, SWT.NONE);
+		updateTable();
 		GridData dataTbClassif = new GridData(GridData.FILL_BOTH);
-		dataTbClassif.heightHint = tbClassif.getItemHeight() * 3;
-		tbClassif.setLayoutData(dataTbClassif);
+		dataTbClassif.heightHint = tbCategories.getItemHeight() * 3;
+		tbCategories.setLayoutData(dataTbClassif);
 
 		Composite cpButtons = new Composite(sectionClient, SWT.NONE);
 		GridData dataCpButtons = new GridData();
@@ -105,16 +105,14 @@ public class CategoriesSection {
 	 * Rellena la lista de categorias de la clasificacion con la lista
 	 * actualizada de categorias de la misma.
 	 * 
-	 * @param tbClassif
-	 *            tabla de clasificaciones
 	 */
-	private final void fillCategoriesTableData() {
+	private final void updateTable() {
 		// borramos los elementos que hay en la tabla
-		tbClassif.remove(0, tbClassif.getItemCount() - 1);
+		tbCategories.remove(0, tbCategories.getItemCount() - 1);
 		// rellenamos con los elementos actuales
 		for (Category c : catalog.getClassification(classification)
 				.getCategories()) {
-			TableItem item = new TableItem(tbClassif, SWT.NONE);
+			TableItem item = new TableItem(tbCategories, SWT.NONE);
 			item.setText(c.getName());
 		}
 	}
@@ -169,15 +167,15 @@ public class CategoriesSection {
 	 */
 	protected void setClassification(String classification) {
 		this.classification = classification;
-		fillCategoriesTableData();
+		updateTable();
 	}
 
 	private class ButtonDeleteListener extends SelectionAdapter {
 
 		@Override
 		public void widgetSelected(SelectionEvent e) {
-			removeCategory(tbClassif.getSelection()[0].getText());
-			fillCategoriesTableData();
+			removeCategory(tbCategories.getSelection()[0].getText());
+			updateTable();
 		}
 	}
 
@@ -185,14 +183,14 @@ public class CategoriesSection {
 
 		@Override
 		public void widgetSelected(SelectionEvent e) {
-			InputDialog dialog = new InputDialog(tbClassif.getShell(),
+			InputDialog dialog = new InputDialog(tbCategories.getShell(),
 					"Add Category",
 					"Please enter the name of the new Category", "",
 					inputValidator);
 			if (dialog.open() == IStatus.OK) {
 				String categoryNewName = dialog.getValue();
 				addCategory(categoryNewName);
-				fillCategoriesTableData();
+				updateTable();
 			}
 
 		}
@@ -202,15 +200,15 @@ public class CategoriesSection {
 
 		@Override
 		public void widgetSelected(SelectionEvent e) {
-			final String oldName = tbClassif.getSelection()[0].getText();
-			InputDialog dialog = new InputDialog(tbClassif.getShell(),
+			final String oldName = tbCategories.getSelection()[0].getText();
+			InputDialog dialog = new InputDialog(tbCategories.getShell(),
 					"Renaming Category: " + oldName,
 					"Please enter the name of the new Category", "",
 					inputValidator);
 			if (dialog.open() == IStatus.OK) {
 				String categoryNewName = dialog.getValue();
 				renameCategory(oldName, categoryNewName);
-				fillCategoriesTableData();
+				updateTable();
 			}
 
 		}
