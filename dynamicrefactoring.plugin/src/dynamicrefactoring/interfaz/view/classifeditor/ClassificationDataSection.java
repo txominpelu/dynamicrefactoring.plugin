@@ -15,7 +15,7 @@ import org.eclipse.ui.forms.widgets.Section;
 
 import dynamicrefactoring.domain.metadata.interfaces.Catalog;
 
-public class ClassifListSection {
+public class ClassificationDataSection {
 
 	/**
 	 * Catalogo de clasificaciones y categorias.
@@ -32,7 +32,7 @@ public class ClassifListSection {
 	 * @param catalog
 	 *            catalogo de clasificaciones
 	 */
-	public ClassifListSection(Catalog catalog,
+	public ClassificationDataSection(Catalog catalog,
 			String classification) {
 		this.catalog = catalog;
 		this.classification = classification;
