@@ -24,6 +24,7 @@ import java.io.IOException;
 import java.text.MessageFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
 import org.apache.log4j.Logger;
 import org.eclipse.jface.dialogs.MessageDialog;
@@ -37,15 +38,20 @@ import dynamicrefactoring.domain.DynamicRefactoringDefinition;
 import dynamicrefactoring.util.RepositoryElementLister;
 
 /**
- * Tercera p�gina del asistente de creaci�n o edici�n de refactorizaciones.
+ * Tercera pï¿½gina del asistente de creaciï¿½n o ediciï¿½n de
+ * refactorizaciones.
  * 
- * <p>Permite componer la refactorizaci�n mediante la adici�n de predicados
- * a la lista de precondiciones o postcondiciones, y de acciones que 
- * implementen las modificaciones llevadas a cabo por la refactorizaci�n.</p>
+ * <p>
+ * Permite componer la refactorizaciï¿½n mediante la adiciï¿½n de predicados a
+ * la lista de precondiciones o postcondiciones, y de acciones que implementen
+ * las modificaciones llevadas a cabo por la refactorizaciï¿½n.
+ * </p>
  * 
- * <p>Permite definir el orden en que se comprobar�n los predicados y en que
- * se ejecutar�n las acciones, as� como la lista de entradas de la 
- * refactorizaci�n que deber�n ser transmitidas a cada uno de los componentes.
+ * <p>
+ * Permite definir el orden en que se comprobarï¿½n los predicados y en que se
+ * ejecutarï¿½n las acciones, asï¿½ como la lista de entradas de la
+ * refactorizaciï¿½n que deberï¿½n ser transmitidas a cada uno de los
+ * componentes.
  * </p>
  * 
  * @author <A HREF="mailto:lfd0002@alu.ubu.es">Laura Fuente de la Fuente</A>
@@ -53,15 +59,15 @@ import dynamicrefactoring.util.RepositoryElementLister;
 public class RefactoringWizardPage5 extends WizardPage implements IRefactoringWizardElementPage {
 
 	/**
-	 * T�tulo de la operaci�n sobre la que se configuran las postcondiciones de la 
-	 * refactorizaci�n.
+	 * Tï¿½tulo de la operaciï¿½n sobre la que se configuran las postcondiciones
+	 * de la refactorizaciï¿½n.
 	 */
 	protected static final String POSTCONDITIONS_TITLE = Messages.RefactoringWizardPage3_Postconditions;
-	
+
 	/**
-	 * Refactorizaci�n configurada a trav�s del asistente y que debe ser creada
-	 * finalmente (si se trata de una nueva refactorizaci�n) o modificada (si se
-	 * est� editando una ya existente).
+	 * Refactorizaciï¿½n configurada a travï¿½s del asistente y que debe ser
+	 * creada finalmente (si se trata de una nueva refactorizaciï¿½n) o
+	 * modificada (si se estï¿½ editando una ya existente).
 	 */
 	private DynamicRefactoringDefinition refactoring = null;
 
@@ -70,21 +76,19 @@ public class RefactoringWizardPage5 extends WizardPage implements IRefactoringWi
 	 */
 	private static final Logger logger = 
 		Logger.getLogger(RefactoringWizardPage5.class);
-	
-	
-	
+
 	/**
-	 * Contenedor para la configuraci�n de las postcondiciones de la refactorizaci�n.
+	 * Contenedor para la configuraciï¿½n de las postcondiciones de la
+	 * refactorizaciï¿½n.
 	 */
 	private RepositoryElementComposite postconditionsTab;
-	
 
-	
 	/**
 	 * Constructor.
 	 * 
-	 * @param refactoring la refactorizaci�n que se est� editando, o <code>
-	 * null</code> si se est� construyendo una nueva.
+	 * @param refactoring
+	 *            la refactorizaciï¿½n que se estï¿½ editando, o <code>
+	 * null</code> si se estï¿½ construyendo una nueva.
 	 */
 	public RefactoringWizardPage5(DynamicRefactoringDefinition refactoring) {
 		super("Wizard page"); //$NON-NLS-1$
@@ -92,11 +96,12 @@ public class RefactoringWizardPage5 extends WizardPage implements IRefactoringWi
 		
 		this.refactoring = refactoring;
 	}
-	
+
 	/**
-	 * Hace visible o invisible la p�gina del asistente.
+	 * Hace visible o invisible la pï¿½gina del asistente.
 	 * 
-	 * @param visible si la p�gina se debe hacer visible o no.
+	 * @param visible
+	 *            si la pï¿½gina se debe hacer visible o no.
 	 */
 	@Override
 	public void setVisible(boolean visible){
@@ -114,9 +119,10 @@ public class RefactoringWizardPage5 extends WizardPage implements IRefactoringWi
 	}
 
 	/**
-	 * Crea el contenido de la p�gina del asistente.
+	 * Crea el contenido de la pï¿½gina del asistente.
 	 * 
-	 * @param parent el elemento padre de esta p�gina del asistente.
+	 * @param parent
+	 *            el elemento padre de esta pï¿½gina del asistente.
 	 */
 	@Override
 	public void createControl(Composite parent) {
@@ -125,8 +131,9 @@ public class RefactoringWizardPage5 extends WizardPage implements IRefactoringWi
 
 		setControl(container);
 		
-		// Las precondiciones necesitan un elemento a trav�s del que acceder a las
-		// entradas de la refactorizaci�n.
+		// Las precondiciones necesitan un elemento a travï¿½s del que acceder a
+		// las
+		// entradas de la refactorizaciï¿½n.
 		RefactoringWizardPage2 inputsPage = null;
 		if (getPreviousPage().getPreviousPage().getPreviousPage() instanceof RefactoringWizardPage2)
 			inputsPage = (RefactoringWizardPage2)getPreviousPage().getPreviousPage().getPreviousPage();
@@ -148,20 +155,25 @@ public class RefactoringWizardPage5 extends WizardPage implements IRefactoringWi
 			MessageDialog.openError(getShell(), Messages.RefactoringWizardPage3_Error, message);
 		}
 	}
-	
+
 	/**
-	 * Obtiene el conjunto de par�metros asignados en cada una de las postcondiciones
-	 * del repositorio seleccionadas para formar parte de la refactorizaci�n.
+	 * Obtiene el conjunto de parï¿½metros asignados en cada una de las
+	 * postcondiciones del repositorio seleccionadas para formar parte de la
+	 * refactorizaciï¿½n.
 	 * 
-	 * <p>El formato devuelto se corresponde con una tabla asociativa que sigue la estructura 
-	 * definida en {@link RepositoryElementComposite#getParameters()}.</p>
+	 * <p>
+	 * El formato devuelto se corresponde con una tabla asociativa que sigue la
+	 * estructura definida en {@link RepositoryElementComposite#getParameters()}
+	 * .
+	 * </p>
 	 * 
-	 * @return el conjunto de par�metros asignados a cada elemento concreto del
-	 * repositorio seleccionado para formar parte de la refactorizaci�n.
+	 * @return el conjunto de parï¿½metros asignados a cada elemento concreto
+	 *         del repositorio seleccionado para formar parte de la
+	 *         refactorizaciï¿½n.
 	 * 
 	 * @see RepositoryElementComposite#getParameters()
 	 */
-	public HashMap<String, ArrayList<String[]>> getAmbiguousParameters(){
+	public HashMap<String, List<String[]>> getAmbiguousParameters() {
 		
 		return postconditionsTab.getParameters();
 	}
@@ -190,9 +202,10 @@ public class RefactoringWizardPage5 extends WizardPage implements IRefactoringWi
 	}
 
 	/**
-	 * Actualiza el estado de la pantalla de di�logo del asistente.
+	 * Actualiza el estado de la pantalla de diï¿½logo del asistente.
 	 * 
-	 * @param message mensaje asociado al estado actual de la pantalla.
+	 * @param message
+	 *            mensaje asociado al estado actual de la pantalla.
 	 */
 	public void updateStatus(String message) {
 		setErrorMessage(message);

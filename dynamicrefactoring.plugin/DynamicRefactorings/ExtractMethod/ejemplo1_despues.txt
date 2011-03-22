@@ -1,0 +1,23 @@
+public class A {
+
+	private String _name;
+	private double outstanding;
+
+	private void printBanner(){
+		System.out.println ("This is the banner.");
+	}
+	
+	private void printDetails(double os) {
+		System.out.println ("name:	" + _name);
+		System.out.println ("amount	" + os);
+	}
+	
+	public void printOwing() {
+		printBanner();
+		printDetails(getOutstanding());
+	}
+    public double getOutstanding(){
+		return outstanding;
+	}
+    
+}

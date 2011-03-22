@@ -21,7 +21,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.*/
 package dynamicrefactoring.interfaz.dynamic;
 
 import java.io.File;
-import java.util.ArrayList;
+import java.util.List;
 
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.custom.ScrolledComposite;
@@ -70,7 +70,8 @@ public class DynamicRefactoringTab {
 	private Text t_Motivation;
 
 	/**
-	 * Campo de texto en que se muestra la descripci�n de la refactorizaci�n.
+	 * Campo de texto en que se muestra la descripci�n de la
+	 * refactorizaci�n.
 	 */
 	private Text t_Description;
 
@@ -283,15 +284,15 @@ public class DynamicRefactoringTab {
 	}
 
 	/**
-	 * Puebla los campos de la pesta�a con la informaci�n que se pueda obtener
-	 * de la refactorizaci�n existente que se est� editando o que se est� a
-	 * punto de crear.
+	 * Puebla los campos de la pesta�a con la informaci�n que se pueda
+	 * obtener de la refactorizaci�n existente que se est� editando o que se
+	 * est� a punto de crear.
 	 */
 	private void fillInRefactoringData(){
 		t_Description.setText(refactoringDefinition.getDescription());
 		t_Motivation.setText(refactoringDefinition.getMotivation());
 		
-		ArrayList<String[]> inputs = refactoringDefinition.getInputs();
+		List<String[]> inputs = refactoringDefinition.getInputs();
 		for (String[] input : inputs){
 			TableItem item = new TableItem(tb_Inputs, SWT.BORDER);
 			item.setText(new String[]{input[1], input[0], "", ""}); //$NON-NLS-1$ //$NON-NLS-2$
@@ -306,9 +307,9 @@ public class DynamicRefactoringTab {
 			editor.setEditor(checkButton, item, 2);
 		}
 			
-		ArrayList<String> preconditions = refactoringDefinition.getPreconditions();
-		ArrayList<String> actions = refactoringDefinition.getActions();
-		ArrayList<String> postconditions = refactoringDefinition.getPostconditions();
+		List<String> preconditions = refactoringDefinition.getPreconditions();
+		List<String> actions = refactoringDefinition.getActions();
+		List<String> postconditions = refactoringDefinition.getPostconditions();
 				
 		TreeItem preconditionsChild = TreeEditor.createBranch(tr_Components, 0,
 			Messages.DynamicRefactoringTab_Preconditions, RefactoringImages.CHECK_ICON_PATH);

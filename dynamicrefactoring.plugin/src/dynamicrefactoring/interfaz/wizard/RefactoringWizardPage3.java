@@ -24,6 +24,7 @@ import java.io.IOException;
 import java.text.MessageFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
 import org.apache.log4j.Logger;
 import org.eclipse.jface.dialogs.MessageDialog;
@@ -158,7 +159,7 @@ public class RefactoringWizardPage3 extends WizardPage implements IRefactoringWi
 	 * 
 	 * @see RepositoryElementComposite#getParameters()
 	 */
-	public HashMap<String, ArrayList<String[]>> getAmbiguousParameters(){
+	public HashMap<String, List<String[]>> getAmbiguousParameters() {
 		
 		return preconditionsTab.getParameters();
 	}

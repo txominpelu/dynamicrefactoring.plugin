@@ -1,4 +1,4 @@
-package dynamicrefactoring.interfaz.view;
+package dynamicrefactoring.interfaz.view.classifeditor;
 
 
 import static org.junit.Assert.assertEquals;
@@ -11,21 +11,22 @@ import org.junit.Test;
 
 import dynamicrefactoring.domain.metadata.interfaces.Catalog;
 import dynamicrefactoring.domain.metadata.interfaces.Category;
+import dynamicrefactoring.interfaz.view.classifeditor.CategoriesSection;
 import dynamicrefactoring.plugin.xml.classifications.imp.CatalogStub;
 
-public class ClassificationsDataEditorTest {
+public class CategoriesSectionTest {
 
 	private static final String CLASIF_INICIAL = "ClasifPrueba";
 	private static final String CATEGORY_TO_RENAME = "clasifToRename";
 	private static final String CATEGORY_NEW_NAME = "clasifNewName";
 	
 	private Catalog catalog;
-	private ClasifCategoriesEditorSection editor;
+	private CategoriesSection editor;
 
 	@Before
 	public void setUp() throws Exception {
 		catalog = new CatalogStub();
-		editor = new ClasifCategoriesEditorSection(CLASIF_INICIAL, catalog);
+		editor = new CategoriesSection(CLASIF_INICIAL, catalog);
 	}
 	
 	/**

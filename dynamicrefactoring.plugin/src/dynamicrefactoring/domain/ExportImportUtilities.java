@@ -26,7 +26,6 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
-import java.util.StringTokenizer;
 
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.FilenameUtils;
@@ -37,6 +36,7 @@ import dynamicrefactoring.reader.JDOMXMLRefactoringReaderImp;
 import dynamicrefactoring.reader.RefactoringPlanReader;
 import dynamicrefactoring.reader.XMLRefactoringReaderException;
 import dynamicrefactoring.util.DynamicRefactoringLister;
+import dynamicrefactoring.util.StringUtils;
 import dynamicrefactoring.util.io.FileManager;
 
 /**
@@ -62,18 +62,19 @@ public class ExportImportUtilities {
 	 * @throws XMLRefactoringReaderException
 	 *             XMLRefactoringReaderException.
 	 */
-	public static void ExportRefactoring(String destination, String definition, boolean createFolders) throws IOException, XMLRefactoringReaderException{
+	public static void ExportRefactoring(String destination, String definition,
+			boolean createFolders) throws IOException,
+			XMLRefactoringReaderException {
 		String folder = new File(definition).getParent();
 		FileManager.copyFolder(folder, destination);
 		String definitionFolderName = FilenameUtils.getName(folder);
-		DynamicRefactoringDefinition refact = new JDOMXMLRefactoringReaderImp().getDynamicRefactoringDefinition(new File(definition));
-			
-		
-		for(String rule : readMechanismRefactoring(refact)){
-			String className = splitGetLast(rule, "."); //$NON-NLS-1$
-			
+		DynamicRefactoringDefinition refact = new JDOMXMLRefactoringReaderImp()
+				.getDynamicRefactoringDefinition(new File(definition));
+
+		for (String rule : readMechanismRefactoring(refact)) {
+			String className = StringUtils.splitGetLast(rule, "."); //$NON-NLS-1$
+
 			String rulePath = rule.replace('.', File.separatorChar);
-			
 
 			File currentFile = new File(
 					RefactoringConstants.REFACTORING_CLASSES_DIR
@@ -82,65 +83,61 @@ public class ExportImportUtilities {
 					+ definitionFolderName + File.separatorChar + className
 					+ ".class"); //$NON-NLS-1$
 			File destinationFolder = new File(destination);
-			File newFolder = new File( destinationFolder.getParent()+ File.separatorChar + new File(rulePath).getParent());
+			File newFolder = new File(destinationFolder.getParent()
+					+ File.separatorChar + new File(rulePath).getParent());
 			File newFile = new File(new File(destination).getParent()
 					+ File.separatorChar + rulePath + ".class"); //$NON-NLS-1$
-			
+
 			// Si no existe el destino y si el actual
-			if(!destinationFile.exists() && currentFile.exists()){
-				if(!createFolders){
+			if (!destinationFile.exists() && currentFile.exists()) {
+				if (!createFolders) {
 					FileManager.copyFile(currentFile, destinationFile);
-				}else{
-					if(! newFolder.exists()){
+				} else {
+					if (!newFolder.exists()) {
 						newFolder.mkdirs();
 					}
-					FileManager.copyFile(currentFile, newFile );
+					FileManager.copyFile(currentFile, newFile);
 				}
-			}else{
-				if(! currentFile.exists()){
+			} else {
+				if (!currentFile.exists()) {
 					// falta alg�n fichero .class necesario en esta
 					// refactorizaci�n
-					//En este caso se borra la carpeta generada en destino ya
+					// En este caso se borra la carpeta generada en destino ya
 					// que no estar� completa
-					FileManager.emptyDirectories(destination + File.separatorChar + definitionFolderName);
-					FileManager.deleteDirectories(destination + File.separatorChar + definitionFolderName, true);
+					FileManager.emptyDirectories(destination
+							+ File.separatorChar + definitionFolderName);
+					FileManager.deleteDirectories(destination
+							+ File.separatorChar + definitionFolderName, true);
 					throw new IOException(
 							Messages.ExportImportUtilities_ClassesNotFound
 									+ currentFile.getPath());
 				}
-				
+
 			}
-		    
+
 		}
-		
+
 	}
 
 	static List<String> readMechanismRefactoring(
 			DynamicRefactoringDefinition refact) {
 		List<String> allMechanism = new ArrayList<String>();
-		allMechanism.addAll(refact.getAmbiguousParameters()[RefactoringConstants.PRECONDITION].keySet());
-		allMechanism.addAll(refact.getAmbiguousParameters()[RefactoringConstants.ACTION].keySet());
-		allMechanism.addAll(refact.getAmbiguousParameters()[RefactoringConstants.POSTCONDITION].keySet());
+		allMechanism
+				.addAll(dynamicrefactoring.util.StringUtils.getMechanismListFullyQualifiedName(
+						RefactoringConstants.PRECONDITION,
+						refact.getAmbiguousParameters()[RefactoringConstants.PRECONDITION]
+								.keySet()));
+		allMechanism
+				.addAll(dynamicrefactoring.util.StringUtils.getMechanismListFullyQualifiedName(
+						RefactoringConstants.ACTION,
+						refact.getAmbiguousParameters()[RefactoringConstants.ACTION]
+								.keySet()));
+		allMechanism
+				.addAll(dynamicrefactoring.util.StringUtils.getMechanismListFullyQualifiedName(
+						RefactoringConstants.POSTCONDITION,
+						refact.getAmbiguousParameters()[RefactoringConstants.POSTCONDITION]
+								.keySet()));
 		return allMechanism;
-	}
-
-	/**
-	 * Divide la cadena en partes utilizando como token delim y devuelve la
-	 * �ltima de las particiones hechas.
-	 * 
-	 * @param cadena
-	 *            Cadena a dividir
-	 * @param delim
-	 *            Token para hacer la division
-	 * @return devuelve la ultima de las particiones
-	 */
-	public static String splitGetLast(String cadena, String delim) {
-		String name = ""; //$NON-NLS-1$
-		StringTokenizer st_name = new StringTokenizer(cadena,delim);
-		while(st_name.hasMoreTokens()){
-			name = st_name.nextElement().toString();
-		}
-		return name;
 	}
 
 	/**
@@ -154,7 +151,8 @@ public class ExportImportUtilities {
 	 * @throws XMLRefactoringReaderException
 	 *             XMLRefactoringReaderException.
 	 */
-	public static void exportRefactoringPlan(String destination)throws IOException, XMLRefactoringReaderException{
+	public static void exportRefactoringPlan(String destination)
+			throws IOException, XMLRefactoringReaderException {
 		if (new File(destination + "/refactoringPlan").exists()) { //$NON-NLS-1$
 			FileManager.emptyDirectories(destination + "/refactoringPlan"); //$NON-NLS-1$
 			FileManager.deleteDirectories(
@@ -165,31 +163,34 @@ public class ExportImportUtilities {
 		// Copiamos el fichero xml que guarda la informaci�n relativa al plan.
 		String planFile = new String(RefactoringConstants.REFACTORING_PLAN_FILE);
 		String dtdFile = new String(RefactoringConstants.REFACTORING_PLAN_DTD);
-		FileManager.copyFile(new File(RefactoringConstants.REFACTORING_PLAN_FILE)
-, new File(
+		FileManager.copyFile(new File(
+				RefactoringConstants.REFACTORING_PLAN_FILE), new File(
 				destination + "/refactoringPlan" //$NON-NLS-1$
-					+ planFile.substring(planFile.lastIndexOf('/'))) );
-		FileManager.copyFile(new File(RefactoringConstants.REFACTORING_PLAN_DTD)
-, new File(
+						+ planFile.substring(planFile.lastIndexOf('/'))));
+		FileManager.copyFile(
+				new File(RefactoringConstants.REFACTORING_PLAN_DTD), new File(
 						destination + "/refactoringPlan" //$NON-NLS-1$
-				+ dtdFile.substring(dtdFile.lastIndexOf('/'))) );
-		//Creamos una carpeta donde guardaremos las refactorizaciones.
+								+ dtdFile.substring(dtdFile.lastIndexOf('/'))));
+		// Creamos una carpeta donde guardaremos las refactorizaciones.
 		String refactoringDestination = destination
 				+ "/refactoringPlan/refactorings"; //$NON-NLS-1$
 		new File(refactoringDestination).mkdir();
-		
-		//Pasamos a exportar las refactorizaciones necesarias dentro de la carpeta anterior.
-		ArrayList<String> refactorings = RefactoringPlanReader.readAllRefactoringsFromThePlan();
-		HashMap<String, String> allRefactorings = 
-			DynamicRefactoringLister.getInstance().getDynamicRefactoringNameList(
-				RefactoringPlugin.getDynamicRefactoringsDir(), true, null);
-		
-		for(String next : refactorings){
+
+		// Pasamos a exportar las refactorizaciones necesarias dentro de la
+		// carpeta anterior.
+		ArrayList<String> refactorings = RefactoringPlanReader
+				.readAllRefactoringsFromThePlan();
+		HashMap<String, String> allRefactorings = DynamicRefactoringLister
+				.getInstance().getDynamicRefactoringNameList(
+						RefactoringPlugin.getDynamicRefactoringsDir(), true,
+						null);
+
+		for (String next : refactorings) {
 			String key = next + " (" + next + ".xml)"; //$NON-NLS-1$ //$NON-NLS-2$
 			String definition = allRefactorings.get(key);// ruta del fichero de
 															// definici�n de al
 															// refactorizaci�n
-			ExportRefactoring(refactoringDestination ,definition,true);
+			ExportRefactoring(refactoringDestination, definition, true);
 		}
 	}
 
@@ -212,30 +213,30 @@ public class ExportImportUtilities {
 		File definitionFile = new File(definition);
 		final String originalFolder = definitionFile.getParent();
 		String namefolder = definitionFile.getParentFile().getName();
-		
+
 		FileUtils.copyDirectoryToDirectory(new File(originalFolder), new File(
 				RefactoringPlugin.getDynamicRefactoringsDir()));
-		
-		//Pasamos a copiar los .class de las precondiciones, postcondiciones
+
+		// Pasamos a copiar los .class de las precondiciones, postcondiciones
 		// y acciones en su lugar
-		DynamicRefactoringDefinition refact = new JDOMXMLRefactoringReaderImp().getDynamicRefactoringDefinition(new File(definition));
-		
-		for(String predicado : readMechanismRefactoring(refact)){
-				copyRefactoringFileClassIfNeeded(importingFromPlan, originalFolder,
-						predicado);
+		DynamicRefactoringDefinition refact = new JDOMXMLRefactoringReaderImp()
+				.getDynamicRefactoringDefinition(new File(definition));
+
+		for (String predicado : readMechanismRefactoring(refact)) {
+			copyRefactoringFileClassIfNeeded(importingFromPlan, originalFolder,
+					predicado);
 		}
-		
+
 		// actualizamos el fichero refactorings.xml que guarda la informaci�n de
 		// las refactorizaciones
 		// de la aplicaci�n.
 		updateRefactoringsXml(definition, namefolder);
 
 		if (importingFromPlan) {
-			FileManager
-					.emptyDirectories(RefactoringPlugin.getDynamicRefactoringsDir()
-							+ File.separatorChar
-							+ namefolder
-							+ File.separatorChar + "repository");
+			FileManager.emptyDirectories(RefactoringPlugin
+					.getDynamicRefactoringsDir()
+					+ File.separatorChar
+					+ namefolder + File.separatorChar + "repository");
 			FileManager.deleteDirectories(
 					RefactoringPlugin.getDynamicRefactoringsDir()
 							+ File.separatorChar + namefolder
@@ -262,9 +263,9 @@ public class ExportImportUtilities {
 	 * @throws IOException
 	 *             si la carpeta origen no existe
 	 */
-	private static void copyRefactoringFileClassIfNeeded(boolean importingFromPlan,
-			final String originalFolder, String predicateName)
-			throws IOException {
+	private static void copyRefactoringFileClassIfNeeded(
+			boolean importingFromPlan, final String originalFolder,
+			String predicateName) throws IOException {
 		final String rutaDirectorioPredicadoClass = RefactoringConstants.REFACTORING_CLASSES_DIR
 				+ File.separatorChar
 				+ predicateName.replace('.', File.separatorChar) + ".class";
@@ -283,7 +284,6 @@ public class ExportImportUtilities {
 		}
 	}
 
-
 	/**
 	 * Actualiza el fichero con las nuevas refactorizaciones.
 	 * 
@@ -292,11 +292,14 @@ public class ExportImportUtilities {
 	 */
 	private static void updateRefactoringsXml(String definition,
 			String namefolder) {
-		try{
-			DynamicRefactoringDefinition refactDefinition = DynamicRefactoringDefinition.getRefactoringDefinition(
-				definition);
-			new dynamicrefactoring.writer.JDOMXMLRefactoringWriterImp(null).addNewRefactoringToXml(refactDefinition.getRefactoringScope(),namefolder,definition);
-		}catch(RefactoringException e){
+		try {
+			DynamicRefactoringDefinition refactDefinition = DynamicRefactoringDefinition
+					.getRefactoringDefinition(definition);
+			new dynamicrefactoring.writer.JDOMXMLRefactoringWriterImp(null)
+					.addNewRefactoringToXml(
+							refactDefinition.getRefactoringScope(), namefolder,
+							definition);
+		} catch (RefactoringException e) {
 			e.printStackTrace();
 		}
 	}
@@ -311,15 +314,14 @@ public class ExportImportUtilities {
 	private static void deleteClassFilesFromRefactoringsDir(String namefolder,
 			DynamicRefactoringDefinition refact) {
 		for (String element : readMechanismRefactoring(refact)) {
-			String name = splitGetLast(element, "."); //$NON-NLS-1$
+			String name = StringUtils.splitGetLast(element, "."); //$NON-NLS-1$
 			if (new File(RefactoringPlugin.getDynamicRefactoringsDir()
 					+ File.separatorChar + namefolder + File.separatorChar
 					+ name + ".class").exists()) //$NON-NLS-1$
-				FileManager
-						.deleteFile(RefactoringPlugin.getDynamicRefactoringsDir()
-								+ File.separatorChar
-								+ namefolder
-								+ File.separatorChar + name + ".class"); //$NON-NLS-1$
+				FileManager.deleteFile(RefactoringPlugin
+						.getDynamicRefactoringsDir()
+						+ File.separatorChar
+						+ namefolder + File.separatorChar + name + ".class"); //$NON-NLS-1$
 		}
 	}
 
@@ -336,7 +338,7 @@ public class ExportImportUtilities {
 	 */
 	private static File getClassFileFromPlanBinDir(final String originalFolder,
 			final String predicateName) {
-		
+
 		return new File(new File(originalFolder).getParentFile().getParent()
 				+ File.separatorChar
 				+ predicateName.replace('.', File.separatorChar) + ".class");
@@ -355,9 +357,8 @@ public class ExportImportUtilities {
 	 */
 	private static File getClassFileFromBinDir(final String originalFolder,
 			String predicateName) {
-		final String name = splitGetLast(predicateName, ".");
+		final String name = StringUtils.splitGetLast(predicateName, ".");
 		return new File(originalFolder + File.separatorChar + name + ".class");
 	}
-
 
 }

@@ -20,6 +20,11 @@ public class ShowLeftAndRightPaneViewAction implements IViewActionDelegate{
 	private IViewPart view;
 	
 	/**
+	 * Identificador de la accion.
+	 */
+	public static final String ID = "dynamicrefactoring.viewmenus.showLeftAndRightPaneRefactoringCatalogBrowserAction"; //$NON-NLS-1$
+	
+	/**
 	 * Inicializa la acción con la vista a la que queda asociada.
 	 * 
 	 * @param view la vista a la que se asocia la acción de mostrar los contenedores.

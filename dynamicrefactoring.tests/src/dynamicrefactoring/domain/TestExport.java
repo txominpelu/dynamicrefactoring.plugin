@@ -35,6 +35,7 @@ import dynamicrefactoring.RefactoringConstants;
 import dynamicrefactoring.RefactoringPlugin;
 import dynamicrefactoring.reader.JDOMXMLRefactoringReaderImp;
 import dynamicrefactoring.reader.XMLRefactoringReaderException;
+import dynamicrefactoring.util.StringUtils;
 import dynamicrefactoring.util.io.FileManager;
 
 /**
@@ -96,7 +97,7 @@ public class TestExport {
 						.getDynamicRefactoringDefinition(new File(
 								RENAME_CLASS_XML_FILE)))) {
 
-			String name = FilenameUtils.getName(ExportImportUtilities
+			String name = FilenameUtils.getName(StringUtils
 					.splitGetLast(element, "."));
 			String namefolder = FilenameUtils.getName(new File(
 					RENAME_CLASS_XML_FILE).getParent());

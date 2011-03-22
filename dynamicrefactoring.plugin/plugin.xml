@@ -270,6 +270,13 @@
         	closeable="true"
         	moveable="true">
   		</stickyView>
+    <view
+          category="dynamicrefactoring.views.refactoringViewsCategory"
+          class="dynamicrefactoring.interfaz.view.classifeditor.ClassificationsEditorView"
+          icon="icons/class_edit.png"
+          id="dynamicrefactoring.views.refactoringClasificationsEditorView"
+          name="%dynamicrefactoring.views.refactoringClasificationsEditorView">
+    </view>
 	</extension>
 
 	<extension point="org.eclipse.ui.viewActions">

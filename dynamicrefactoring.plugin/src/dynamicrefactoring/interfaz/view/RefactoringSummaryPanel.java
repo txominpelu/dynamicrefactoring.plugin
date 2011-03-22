@@ -3,6 +3,7 @@ package dynamicrefactoring.interfaz.view;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.List;
 
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.custom.ScrolledComposite;
@@ -55,8 +56,9 @@ import dynamicrefactoring.interfaz.TreeEditor;
 import dynamicrefactoring.util.RefactoringTreeManager;
 
 /**
- * Proporciona un organizador de pestañas, en el cual se muestra
- * la información relativa a la refactorización.
+ * Proporciona un organizador de pestañas, en el cual se muestra la
+ * información relativa a la refactorización.
+ * 
  * @author XPMUser
  */
 public class RefactoringSummaryPanel {
@@ -65,7 +67,7 @@ public class RefactoringSummaryPanel {
 	 * Etiqueta título.
 	 */
 	private Label titleLabel;
-	
+
 	/**
 	 * Número mínimo de pestañas, es el número de pestañas fijas a mostrar.
 	 */
@@ -75,34 +77,36 @@ public class RefactoringSummaryPanel {
 	 * Organizador de pestañas.
 	 */
 	private TabFolder refTabFolder;
-	
+
 	/**
 	 * Etiqueta descripción de la refactorización.
 	 */
 	private Label descriptionLabel;
-	
+
 	/**
-	 * Cuadro de texto en que se mostrará la descripción de la refactorización.
+	 * Cuadro de texto en que se mostrará la descripción de la
+	 * refactorización.
 	 */
 	private Text descriptionText;
-	
+
 	/**
 	 * Etiqueta motivación de la refactorización.
 	 */
 	private Label motivationLabel;
-	
+
 	/**
-	 * Cuadro de texto en que se mostrará la motivación de la refactorización.
+	 * Cuadro de texto en que se mostrará la motivación de la
+	 * refactorización.
 	 */
 	private Text motivationText;
 	
 	private FormToolkit toolkit;
 	private Section keyWordsSection;
 	private Section categoriesSection;
-	
+
 	/**
-	 * Propiedad asociada a las filas de la tabla que indica qué botón check tienen 
-	 * asociado cada una.
+	 * Propiedad asociada a las filas de la tabla que indica qué botón check
+	 * tienen asociado cada una.
 	 */
 	private final String CHECKBUTTON_PROPERTY = "checkButton"; //$NON-NLS-1$
 
@@ -112,9 +116,9 @@ public class RefactoringSummaryPanel {
 	private Table inputsTable;
 
 	/**
-	 * Árbol sobre el que se mostrarán de forma estructurada los diferentes elementos
-	 * del repositorio que componen la refactorización (precondiciones, acciones y 
-	 * postcondiciones).
+	 * Árbol sobre el que se mostrarán de forma estructurada los diferentes
+	 * elementos del repositorio que componen la refactorización
+	 * (precondiciones, acciones y postcondiciones).
 	 */
 	private Tree componentsTree;
 
@@ -125,12 +129,12 @@ public class RefactoringSummaryPanel {
 	
 	private ArrayList<Link> examplesLink;
 	private SourceViewerDialog sourceViewer;
-	
+
 	/**
 	 * Definición de la refactorización.
 	 */
 	private DynamicRefactoringDefinition refactoring;
-	
+
 	/**
 	 * Ruta donde se encuentra almacenada la definición de la refactorización.
 	 */
@@ -386,7 +390,7 @@ public class RefactoringSummaryPanel {
 		comp.setLayout(g);
 		
 		Link exLink=null;
-		final ArrayList<String[]> examples=refactoring.getExamples();
+		final List<String[]> examples = refactoring.getExamples();
 		int numEx=1;
 		
 		for(final String[] ex: examples){
@@ -397,7 +401,8 @@ public class RefactoringSummaryPanel {
 			exLink.setToolTipText(Messages.RefactoringSummaryPanel_ExampleLinkToolTip);
 			exLink.addListener (SWT.Selection, new Listener () {
 				public void handleEvent(Event event) {
-					if(sourceViewer.loadSources(refactoringPath+ex[0], refactoringPath+ex[1])){
+					if(sourceViewer.loadSources(refactoring.getName(),
+							refactoringPath+ex[0], refactoringPath+ex[1])){
 						sourceViewer.open();
 					}
 				}
@@ -413,6 +418,10 @@ public class RefactoringSummaryPanel {
 	
 	private void clear(){
 
+		//examplesLink
+		for(Link exLink: examplesLink)
+			exLink.dispose();
+		
 		//hyperLinks
 		Control hyperLinks[]=null;
 		hyperLinks=((Composite)categoriesSection.getClient()).getChildren();
@@ -422,26 +431,22 @@ public class RefactoringSummaryPanel {
 		hyperLinks=((Composite)keyWordsSection.getClient()).getChildren();
 		for(int i=0;i<hyperLinks.length;i++)
 			hyperLinks[i].dispose();
-
+		
+		//componentsTree
+		RefactoringTreeManager.cleanTree(componentsTree);
+		
 		//inputsTable
 		if(inputsTable.getItemCount()>0){
 			TableItem[] items=inputsTable.getItems();
 			for(int i=items.length-1; i>=0; i--){
-				//recuperamos elbotón check asociado a la fila para eliminarlo
+				// recuperamos el botón check asociado a la fila para eliminarlo
 				Object checkB=items[i].getData(CHECKBUTTON_PROPERTY);
 				if(checkB instanceof Button)
 					((Button)checkB).dispose();
 				items[i].dispose();
 			}
 		}
-
-		//componentsTree
-		RefactoringTreeManager.cleanTree(componentsTree);
-
-		//examplesLink
-		for(Link exLink: examplesLink)
-			exLink.dispose();
-		
+	
 		//ImageTab
 		//ExamplesTab	
 		while(minNumTabs!=refTabFolder.getItemCount()){
@@ -497,7 +502,7 @@ public class RefactoringSummaryPanel {
 	}
 	
 	private void fillInputsTable(){
-		ArrayList<String[]> inputs=refactoring.getInputs();
+		List<String[]> inputs = refactoring.getInputs();
 		Button checkButton=null;
 		TableEditor editor;
 		for(String[] input : inputs){
@@ -524,9 +529,9 @@ public class RefactoringSummaryPanel {
 	private void fillComponentsTree(){
 		componentsTree.setVisible(false);
 
-		ArrayList<String> preconditions=refactoring.getPreconditions();
-		ArrayList<String> actions=refactoring.getActions();
-		ArrayList<String> postconditions=refactoring.getPostconditions();
+		List<String> preconditions = refactoring.getPreconditions();
+		List<String> actions = refactoring.getActions();
+		List<String> postconditions = refactoring.getPostconditions();
 
 		TreeItem preconditionsChild = TreeEditor.createBranch(componentsTree, 0,
 
@@ -554,8 +559,12 @@ public class RefactoringSummaryPanel {
 
 	/**
 	 * Establece la refactorización a mostrar.
-	 * @param ref definición de la refactorización a mostrar
-	 * @param refPath ruta donde se encuentra almacenada la refactorización a mostrar
+	 * 
+	 * @param ref
+	 *            definición de la refactorización a mostrar
+	 * @param refPath
+	 *            ruta donde se encuentra almacenada la refactorización a
+	 *            mostrar
 	 */
 	public void setRefactoringDefinition(DynamicRefactoringDefinition ref, String refPath) {
 		refactoring=ref;
@@ -570,6 +579,7 @@ public class RefactoringSummaryPanel {
 		fillOverview();
 		fillInputsTable();
 		fillComponentsTree();
+		refTabFolder.setSelection(2);
 		if(refactoring.getImage()!=null && 
 				!refactoring.getImage().equals("")){ //$NON-NLS-1$
 			createAndFillImageTabItem();

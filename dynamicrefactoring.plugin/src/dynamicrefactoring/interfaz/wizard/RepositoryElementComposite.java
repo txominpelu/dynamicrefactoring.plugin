@@ -516,7 +516,7 @@ public class RepositoryElementComposite {
 	 * {@link RefactoringConstants#ACTION} o 
 	 * {@link RefactoringConstants#POSTCONDITION}.)
 	 */
-	protected void fillSelectedList(ArrayList<String> elements,
+	protected void fillSelectedList(java.util.List<String> elements,
 		DynamicRefactoringDefinition refactoring, int typePart){
 		// Para cada elemento de la refactorizaci�n (predicado o acci�n).
 		for (String next : elements){
@@ -538,7 +538,7 @@ public class RepositoryElementComposite {
 				RepositoryElementProcessor.isPredicateJavaDependent(next));
 			
 			// Se obtiene su lista de par�metros.
-			ArrayList<String[]> parameters = 
+			java.util.List<String[]> parameters =
 				refactoring.getAmbiguousParameters(next, typePart);
 			// Para cada par�metro.
 			for (String[] nextParam : parameters){
@@ -724,9 +724,8 @@ public class RepositoryElementComposite {
 	 * lista de par�metros.
 	 * 
 	 */
-	public HashMap<String, ArrayList<String[]>> getParameters(){
-		HashMap<String, ArrayList<String[]>> map = 
-			new HashMap<String, ArrayList<String[]>>();
+	public HashMap<String, java.util.List<String[]>> getParameters() {
+		HashMap<String, java.util.List<String[]>> map = new HashMap<String, java.util.List<String[]>>();
 
 		for (Map.Entry<String,RepositoryItem > nextRef : selectedTable.entrySet()){
 			RepositoryItem element = nextRef.getValue();
