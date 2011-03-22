@@ -53,6 +53,13 @@ import org.eclipse.swt.widgets.List;
 import org.eclipse.swt.widgets.Text;
 import org.eclipse.ui.ISharedImages;
 import org.eclipse.ui.PlatformUI;
+import org.eclipse.ui.forms.events.ExpansionAdapter;
+import org.eclipse.ui.forms.events.ExpansionEvent;
+import org.eclipse.ui.forms.widgets.ExpandableComposite;
+import org.eclipse.ui.forms.widgets.FormToolkit;
+import org.eclipse.ui.forms.widgets.ScrolledForm;
+import org.eclipse.ui.forms.widgets.TableWrapData;
+import org.eclipse.ui.forms.widgets.TableWrapLayout;
 
 import com.google.common.base.Throwables;
 
@@ -228,20 +235,31 @@ public class RefactoringWizardPage2 extends WizardPage {
 	 */
 	@Override
 	public void createControl(Composite parent) {
-		Composite container = new Composite(parent, SWT.NULL);
+		
+		Composite container = new Composite(parent, SWT.NONE);
 		container.setLayout(new FormLayout());
 
 		setControl(container);
-
 		
-		SashForm sash_form = new SashForm(container, SWT.VERTICAL | SWT.NULL);
+		// sash_form
+		SashForm sash_form = new SashForm(container, SWT.VERTICAL | SWT.SMOOTH);
+		sash_form.setLayout(new FormLayout());
+		final FormData sashFormData = new FormData();
+		sashFormData.top = new FormAttachment(0, 5);
+		sashFormData.left = new FormAttachment(0, 5);
+		sashFormData.right=new FormAttachment(100, -5);
+		sashFormData.bottom=new FormAttachment(100, -5);
+		sash_form.setLayoutData(sashFormData);
+		sash_form.setSashWidth(2);
+		sash_form.setBackground(parent.getDisplay().getSystemColor(SWT.COLOR_DARK_GRAY));
 		
+		// sash_form Top: composite
 		final Composite composite = new Composite(sash_form, SWT.NONE);
 		composite.setLayout(new FormLayout());
-		final FormData fdCompo = new FormData();
-		fdCompo.top = new FormAttachment(0, 0);
-		fdCompo.left = new FormAttachment(0, 0);
-		composite.setLayoutData(fdCompo);
+		
+		// sash_form Bottom: compBrowser
+		final Composite compBrowser = new Composite(sash_form, SWT.NONE);
+		compBrowser.setLayout(new FormLayout());
 
 		final Composite composite1 = new Composite(composite, SWT.NONE);
 		final FormData fdComposite1 = new FormData();
@@ -299,13 +317,12 @@ public class RefactoringWizardPage2 extends WizardPage {
 		lTypes.addSelectionListener(new TypeSelectionListener());
 		lTypes.setToolTipText(Messages.RefactoringWizardPage2_SelectTypes);
 		
-		
-		navegador = new Browser(sash_form,SWT.BORDER);
-		final FormData fd_navegador = new FormData();
-		fd_navegador.bottom = new FormAttachment(100, 0);
-		fd_navegador.right = new FormAttachment(100, -30);
-		fd_navegador.top = new FormAttachment(100, -50);//-100
+		navegador = new Browser(compBrowser,SWT.BORDER);
+		final FormData fd_navegador = new FormData();	
+		fd_navegador.top = new FormAttachment(0, 10);
 		fd_navegador.left = new FormAttachment(0, 10);
+		fd_navegador.right = new FormAttachment(100, -10);
+		fd_navegador.bottom = new FormAttachment(100, 0);
 		navegador.setLayoutData(fd_navegador);
 		try{
 			navegador.setUrl(FileLocator.toFileURL(RefactoringPlugin.getDefault().getBundle().getEntry(RefactoringConstants.REFACTORING_JAVADOC + "/moon/overview-summary.html" )).toString());
@@ -328,7 +345,9 @@ public class RefactoringWizardPage2 extends WizardPage {
 		fdComposite1.bottom = new FormAttachment(composite_2, 0, SWT.BOTTOM);
 		composite_2.setLayout(new FormLayout());
 		final FormData fdComposite2 = new FormData();
-		fdComposite2.bottom = new FormAttachment(100, -5);
+		//TODO: cambiado para hacer hueco a la seccion
+		//fdComposite2.bottom = new FormAttachment(100, -5);
+		fdComposite2.bottom = new FormAttachment(60, -5);
 		fdComposite2.right = new FormAttachment(100, -5);
 		fdComposite2.top = new FormAttachment(0, 1);
 		fdComposite2.left = new FormAttachment(0, 300);
@@ -490,7 +509,47 @@ public class RefactoringWizardPage2 extends WizardPage {
 			}
 		});
 		
-		sash_form.setWeights(new int[] {5 , 2 });
+		//TODO: nuevo
+		Composite composite_3;
+		composite_3 = new Composite(composite, SWT.BORDER);
+		composite_3.setLayout(new FormLayout());
+		final FormData fdComposite3 = new FormData();
+		fdComposite3.top = new FormAttachment(composite_2, 10);
+		fdComposite3.left = new FormAttachment(0, 10);
+		fdComposite3.right = new FormAttachment(100, -10);
+		fdComposite3.bottom = new FormAttachment(100, -10);
+		composite_3.setLayoutData(fdComposite3);
+			
+		FormToolkit toolkit = new FormToolkit(composite_3.getDisplay());
+		final ScrolledForm form = toolkit.createScrolledForm(composite_3);
+		form.setText("Snippet3");
+		//form.setLayout(new FormLayout());
+		TableWrapLayout layout = new TableWrapLayout();
+		form.getBody().setLayout(layout);
+		
+		ExpandableComposite expandableComp = 
+			toolkit.createExpandableComposite(
+				form.getBody(), 
+				ExpandableComposite.TREE_NODE|
+				ExpandableComposite.CLIENT_INDENT);
+		expandableComp.setText("Expand Me");
+		String textAux = "Lots of text, Lots of text," +
+		"Lots of text, Lots of text, Lots of text," +
+		"Lots of text, Lots of text, Lots of text," +
+		"Lots of text, Lots of text";
+		Label labelAux = toolkit.createLabel(expandableComp, textAux, SWT.WRAP);
+		expandableComp.setClient(labelAux);
+		TableWrapData td = new TableWrapData();
+		td.colspan = 1;
+		expandableComp.setLayoutData(td);
+		expandableComp.addExpansionListener(new ExpansionAdapter() {
+			public void expansionStateChanged(ExpansionEvent e) {
+				form.reflow(true);
+			}
+		});
+
+		
+		sash_form.setWeights(new int[] {5 , 1 });
 
 		fillTypesList();
 		if (refactoring != null)
