@@ -195,7 +195,9 @@ public class RefactoringWizardPage2 extends WizardPage {
 	 */
 	private Button bDefault;
 	
-
+	private ScrolledForm form;
+	private Label formLabel;
+	
 	/**
 	 * Constructor.
 	 * 
@@ -242,7 +244,7 @@ public class RefactoringWizardPage2 extends WizardPage {
 		setControl(container);
 		
 		// sash_form
-		SashForm sash_form = new SashForm(container, SWT.VERTICAL | SWT.SMOOTH);
+		SashForm sash_form = new SashForm(container, SWT.VERTICAL | SWT.NULL);
 		sash_form.setLayout(new FormLayout());
 		final FormData sashFormData = new FormData();
 		sashFormData.top = new FormAttachment(0, 5);
@@ -459,9 +461,9 @@ public class RefactoringWizardPage2 extends WizardPage {
 
 		upButton = new Button(composite_2, SWT.NONE);
 		final FormData fdButton2 = new FormData();
-		fdButton2.left = new FormAttachment(0, 250);
-		fdButton2.top = new FormAttachment(0, 35);
 		fdButton2.bottom = new FormAttachment(0, 58);
+		fdButton2.top = new FormAttachment(0, 35);
+		fdButton2.right = new FormAttachment(parametersGroup, 50, SWT.RIGHT);
 		upButton.setLayoutData(fdButton2);
 		upButton.setImage(RefactoringImages.getArrowUpIcon());
 		upButton.addSelectionListener(new ListUpListener(lInputs));
@@ -470,7 +472,6 @@ public class RefactoringWizardPage2 extends WizardPage {
 		fdList1.bottom = new FormAttachment(downButton, 0, SWT.BOTTOM);
 		fdButton2.right = new FormAttachment(downButton, 0, SWT.RIGHT);
 		final FormData fd_vButton = new FormData();
-		fd_vButton.left = new FormAttachment(0, 250);
 		fd_vButton.bottom = new FormAttachment(0, 100);
 		fd_vButton.top = new FormAttachment(0, 77);
 		fd_vButton.right = new FormAttachment(parametersGroup, 50, SWT.RIGHT);
@@ -519,35 +520,66 @@ public class RefactoringWizardPage2 extends WizardPage {
 		fdComposite3.right = new FormAttachment(100, -10);
 		fdComposite3.bottom = new FormAttachment(100, -10);
 		composite_3.setLayoutData(fdComposite3);
-			
-		FormToolkit toolkit = new FormToolkit(composite_3.getDisplay());
-		final ScrolledForm form = toolkit.createScrolledForm(composite_3);
-		form.setText("Snippet3");
-		//form.setLayout(new FormLayout());
-		TableWrapLayout layout = new TableWrapLayout();
-		form.getBody().setLayout(layout);
 		
-		ExpandableComposite expandableComp = 
+		//form
+		final FormToolkit toolkit = new FormToolkit(composite_3.getDisplay());
+		form = toolkit.createScrolledForm(composite_3);
+		final FormData scrolledFormData = new FormData();
+		scrolledFormData.top = new FormAttachment(0, 0);
+		scrolledFormData.left = new FormAttachment(0, 0);
+		scrolledFormData.right=new FormAttachment(100, 0);
+		scrolledFormData.bottom=new FormAttachment(100, 0);
+		form.setLayoutData(scrolledFormData);
+		form.getBody().setLayout(new TableWrapLayout());
+		
+		//formLabel
+		formLabel=toolkit.createLabel(form.getBody(), "", SWT.WRAP);
+		
+		//refExpandableComp
+		ExpandableComposite refExpandableComp = 
 			toolkit.createExpandableComposite(
 				form.getBody(), 
 				ExpandableComposite.TREE_NODE|
 				ExpandableComposite.CLIENT_INDENT);
-		expandableComp.setText("Expand Me");
-		String textAux = "Lots of text, Lots of text," +
-		"Lots of text, Lots of text, Lots of text," +
-		"Lots of text, Lots of text, Lots of text," +
-		"Lots of text, Lots of text";
-		Label labelAux = toolkit.createLabel(expandableComp, textAux, SWT.WRAP);
-		expandableComp.setClient(labelAux);
+		refExpandableComp.setText("Refactorings it belongs");
 		TableWrapData td = new TableWrapData();
 		td.colspan = 1;
-		expandableComp.setLayoutData(td);
-		expandableComp.addExpansionListener(new ExpansionAdapter() {
+		refExpandableComp.setLayoutData(td);
+		refExpandableComp.addExpansionListener(new ExpansionAdapter() {
 			public void expansionStateChanged(ExpansionEvent e) {
 				form.reflow(true);
 			}
 		});
-
+		
+		String textAux = "Lots of text, Lots of text," +
+		"Lots of text, Lots of text, Lots of text," +
+		"Lots of text, Lots of text, Lots of text," +
+		"Lots of text, Lots of text";
+		Label refLabel = toolkit.createLabel(refExpandableComp, "", SWT.WRAP);
+		refLabel.setText(textAux);
+		refExpandableComp.setClient(refLabel);
+		
+		//refMainExpandableComp
+		ExpandableComposite refMainExpandableComp = 
+			toolkit.createExpandableComposite(
+				form.getBody(), 
+				ExpandableComposite.TREE_NODE|
+				ExpandableComposite.CLIENT_INDENT);
+		refMainExpandableComp.setText("Refactorings where it's Main");
+		td = new TableWrapData();
+		td.colspan = 1;
+		refMainExpandableComp.setLayoutData(td);
+		refMainExpandableComp.addExpansionListener(new ExpansionAdapter() {
+			public void expansionStateChanged(ExpansionEvent e) {
+				form.reflow(true);
+			}
+		});
+		
+		Label refMainLabel = toolkit.createLabel(refMainExpandableComp, "", SWT.WRAP);
+		refMainLabel.setText(textAux);
+		refMainExpandableComp.setClient(refMainLabel);
+		
+		form.getParent().setVisible(false);
 		
 		sash_form.setWeights(new int[] {5 , 1 });
 
@@ -1174,7 +1206,17 @@ public class RefactoringWizardPage2 extends WizardPage {
 			}catch(IOException excp){
 				Throwables.propagate(excp);
 			}
-			//tInformation.setText(getJavadocInformation(path));
+			
+			//TODO: realizar modificaciones oportunas
+			//form
+			form.getParent().setVisible(false);
+			
+			form.setText(lTypes.getItem(lTypes.getSelectionIndex()).toString());
+			formLabel.setText("Esta es la descripcion del tipo " + 
+					lTypes.getItem(lTypes.getSelectionIndex()).toString());
+			
+			form.getParent().setVisible(true);
+			
 			if (lTypes.getSelectionCount() > 0 &&
 				lTypes.getItem(lTypes.getSelectionIndex()) != null)
 				addButton.setEnabled(true);
