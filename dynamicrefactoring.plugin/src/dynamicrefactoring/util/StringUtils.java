@@ -14,7 +14,6 @@ public class StringUtils {
 
 	private static final String PACKAGE_SEPARATOR_CHAR = ".";
 
-
 	/**
 	 * Dado el nombre completo de una clase. Por ejemplo:
 	 * 
@@ -94,15 +93,14 @@ public class StringUtils {
 			} else {
 				preconditionPack = RefactoringConstants.PREDICATES_PACKAGE;
 			}
-			return preconditionPack;
+			break;
 		case RefactoringConstants.ACTION:
-			if (RepositoryElementProcessor
-.isActionJavaDependent(mechanismName)) {
+			if (RepositoryElementProcessor.isActionJavaDependent(mechanismName)) {
 				preconditionPack = RefactoringConstants.JAVA_ACTIONS_PACKAGE;
 			} else {
 				preconditionPack = RefactoringConstants.ACTIONS_PACKAGE;
 			}
-			return preconditionPack;
+			break;
 		case RefactoringConstants.POSTCONDITION:
 			if (RepositoryElementProcessor
 					.isPredicateJavaDependent(mechanismName)) {
@@ -110,11 +108,12 @@ public class StringUtils {
 			} else {
 				preconditionPack = RefactoringConstants.PREDICATES_PACKAGE;
 			}
-			return preconditionPack.substring(0, preconditionPack.length() - 2);
+			break;
 		default:
 			throw new RuntimeException(
 					"type must be one of: RefactoringConstants. PRECONDITION/POSTCONDITION/ACTION");
 		}
+		return preconditionPack.substring(0, preconditionPack.length() - 1);
 
 	}
 
@@ -130,16 +129,15 @@ public class StringUtils {
 	 * @return nombres totalmente cualificados (con paquetes) de los mismos
 	 */
 	public static Set<String> getMechanismListFullyQualifiedName(
-			final int type,
-			Set<String> simpleNames) {
+			final int type, Set<String> simpleNames) {
 		return ImmutableSet.copyOf(Collections2.transform(simpleNames,
 				new Function<String, String>() {
-	
+
 					@Override
 					public String apply(String arg0) {
 						return getMechanismFullyQualifiedName(type, arg0);
 					}
-	
+
 				}));
 	}
 
