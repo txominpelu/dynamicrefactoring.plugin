@@ -49,10 +49,10 @@ import refactoring.engine.PreconditionException;
 import refactoring.engine.Refactoring;
 import repository.moon.MOONRefactoring;
 import dynamicrefactoring.domain.RefactoringSummary;
+import dynamicrefactoring.domain.xml.writer.RefactoringPlanWriter;
 import dynamicrefactoring.integration.ModelGenerator;
 import dynamicrefactoring.interfaz.CustomProgressDialog;
 import dynamicrefactoring.interfaz.dynamic.DynamicRefactoringRunner;
-import dynamicrefactoring.writer.RefactoringPlanWriter;
 
 /**
  * Permite ejecutar una operaci�n de refactorizaci�n, mostrando al usuario el

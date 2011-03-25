@@ -6,7 +6,7 @@
 //
 
 
-package dynamicrefactoring.plugin.xml.classifications;
+package dynamicrefactoring.domain.metadata.classifications.xml;
 
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;

@@ -45,9 +45,9 @@ import org.eclipse.ui.PlatformUI;
 import com.google.common.base.Joiner;
 
 import dynamicrefactoring.domain.DynamicRefactoringDefinition;
+import dynamicrefactoring.domain.metadata.classifications.xml.imp.PluginCatalog;
 import dynamicrefactoring.domain.metadata.interfaces.Category;
 import dynamicrefactoring.interfaz.wizard.classificationscombo.PickCategoryTree;
-import dynamicrefactoring.plugin.xml.classifications.imp.PluginCatalog;
 import dynamicrefactoring.util.io.filter.ImageFilter;
 
 /**

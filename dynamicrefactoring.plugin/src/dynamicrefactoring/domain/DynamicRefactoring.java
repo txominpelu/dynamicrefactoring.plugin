@@ -32,11 +32,11 @@ import refactoring.engine.Action;
 import refactoring.engine.Predicate;
 import repository.moon.MOONRefactoring;
 import dynamicrefactoring.RefactoringConstants;
+import dynamicrefactoring.domain.xml.reader.JDOMXMLRefactoringReaderFactory;
+import dynamicrefactoring.domain.xml.reader.XMLRefactoringReader;
+import dynamicrefactoring.domain.xml.reader.XMLRefactoringReaderFactory;
+import dynamicrefactoring.domain.xml.reader.XMLRefactoringReaderImp;
 import dynamicrefactoring.interfaz.dynamic.RepositoryElementProcessor;
-import dynamicrefactoring.reader.JDOMXMLRefactoringReaderFactory;
-import dynamicrefactoring.reader.XMLRefactoringReader;
-import dynamicrefactoring.reader.XMLRefactoringReaderFactory;
-import dynamicrefactoring.reader.XMLRefactoringReaderImp;
 
 /**
  * Representa una refactorizaci�n din�mica.

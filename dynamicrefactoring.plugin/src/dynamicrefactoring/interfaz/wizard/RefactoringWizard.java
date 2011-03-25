@@ -45,13 +45,13 @@ import dynamicrefactoring.RefactoringImages;
 import dynamicrefactoring.RefactoringPlugin;
 import dynamicrefactoring.domain.DynamicRefactoringDefinition;
 import dynamicrefactoring.domain.Scope;
-import dynamicrefactoring.reader.XMLRefactoringReaderException;
+import dynamicrefactoring.domain.xml.reader.XMLRefactoringReaderException;
+import dynamicrefactoring.domain.xml.writer.JDOMXMLRefactoringWriterFactory;
+import dynamicrefactoring.domain.xml.writer.JDOMXMLRefactoringWriterImp;
+import dynamicrefactoring.domain.xml.writer.XMLRefactoringWriter;
+import dynamicrefactoring.domain.xml.writer.XMLRefactoringWriterException;
+import dynamicrefactoring.domain.xml.writer.XMLRefactoringWriterFactory;
 import dynamicrefactoring.util.io.FileManager;
-import dynamicrefactoring.writer.JDOMXMLRefactoringWriterFactory;
-import dynamicrefactoring.writer.JDOMXMLRefactoringWriterImp;
-import dynamicrefactoring.writer.XMLRefactoringWriter;
-import dynamicrefactoring.writer.XMLRefactoringWriterException;
-import dynamicrefactoring.writer.XMLRefactoringWriterFactory;
 
 /**
  * Proporciona un asistente de Eclipse que permite crear una nueva

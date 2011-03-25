@@ -8,8 +8,8 @@ import org.eclipse.ui.forms.widgets.FormToolkit;
 import org.eclipse.ui.forms.widgets.ScrolledForm;
 import org.eclipse.ui.part.ViewPart;
 
+import dynamicrefactoring.domain.metadata.classifications.xml.imp.PluginCatalog;
 import dynamicrefactoring.domain.metadata.interfaces.Classification;
-import dynamicrefactoring.plugin.xml.classifications.imp.PluginCatalog;
 
 public final class ClassificationsEditorView extends ViewPart {
 	public static final String ID = "dynamicrefactoring.views.refactoringClasificationsEditorView";

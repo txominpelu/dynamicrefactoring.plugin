@@ -36,14 +36,14 @@ import com.google.common.base.Predicate;
 import com.google.common.collect.Collections2;
 
 import dynamicrefactoring.RefactoringConstants;
-import dynamicrefactoring.domain.metadata.interfaces.ClassificationsCatalog;
+import dynamicrefactoring.domain.metadata.classifications.xml.imp.PluginCatalog;
 import dynamicrefactoring.domain.metadata.interfaces.Category;
+import dynamicrefactoring.domain.metadata.interfaces.ClassificationsCatalog;
 import dynamicrefactoring.domain.metadata.interfaces.Element;
-import dynamicrefactoring.plugin.xml.classifications.imp.PluginCatalog;
-import dynamicrefactoring.reader.JDOMXMLRefactoringReaderFactory;
-import dynamicrefactoring.reader.XMLRefactoringReader;
-import dynamicrefactoring.reader.XMLRefactoringReaderFactory;
-import dynamicrefactoring.reader.XMLRefactoringReaderImp;
+import dynamicrefactoring.domain.xml.reader.JDOMXMLRefactoringReaderFactory;
+import dynamicrefactoring.domain.xml.reader.XMLRefactoringReader;
+import dynamicrefactoring.domain.xml.reader.XMLRefactoringReaderFactory;
+import dynamicrefactoring.domain.xml.reader.XMLRefactoringReaderImp;
 
 /**
  * Contiene la definici�n de una refactorizaci�n din�mica.
@@ -456,6 +456,12 @@ public class DynamicRefactoringDefinition implements Element,
 		}
 		return false;
 	}
+	
+
+	@Override
+	public String toString() {
+		return getName();
+	}
 
 	/**
 	 * Definido en base a la convencion especificada en {@link Object} sobre
@@ -569,6 +575,17 @@ public class DynamicRefactoringDefinition implements Element,
 		 */
 		public Builder categories(Set<Category> categories) {
 			this.categories = categories;
+			return this;
+		}
+		
+		/**
+		 * Asigna un nombre distinto al actual.
+		 * 
+		 * @param name
+		 *            nuevo nombre que se asignara
+		 */
+		public Builder name(String name) {
+			this.name = name;
 			return this;
 		}
 

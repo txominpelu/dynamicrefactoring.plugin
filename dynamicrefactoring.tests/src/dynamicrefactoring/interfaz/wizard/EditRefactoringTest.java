@@ -15,8 +15,8 @@ import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
+import dynamicrefactoring.domain.metadata.classifications.xml.imp.PluginCatalog;
 import dynamicrefactoring.domain.metadata.interfaces.Category;
-import dynamicrefactoring.plugin.xml.classifications.imp.PluginCatalog;
 
 @RunWith(SWTBotJunit4ClassRunner.class)
 public class EditRefactoringTest {

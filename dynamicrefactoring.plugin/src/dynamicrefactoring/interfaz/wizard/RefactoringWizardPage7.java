@@ -51,9 +51,9 @@ import com.google.common.base.Preconditions;
 
 import dynamicrefactoring.RefactoringImages;
 import dynamicrefactoring.domain.InputParameter;
+import dynamicrefactoring.domain.metadata.classifications.xml.imp.PluginCatalog;
 import dynamicrefactoring.interfaz.TreeEditor;
 import dynamicrefactoring.interfaz.wizard.classificationscombo.PickCategoryTree;
-import dynamicrefactoring.plugin.xml.classifications.imp.PluginCatalog;
 
 /**
  * S�ptima p�gina del asistente de creaci�n o edici�n de refactorizaciones.

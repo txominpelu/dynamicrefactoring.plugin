@@ -1,6 +1,8 @@
-package dynamicrefactoring.plugin.xml.classifications.imp;
+package dynamicrefactoring.domain.metadata.classifications.xml.imp;
 
 import org.junit.Before;
+
+import dynamicrefactoring.domain.metadata.classifications.xml.imp.ClassificationsReaderFactory;
 
 public class JAXBClassificationsReaderTest extends AbstractClassificationsReaderTest {
 

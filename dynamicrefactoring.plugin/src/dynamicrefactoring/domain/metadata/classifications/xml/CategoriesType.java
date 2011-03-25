@@ -6,7 +6,7 @@
 //
 
 
-package dynamicrefactoring.plugin.xml.classifications;
+package dynamicrefactoring.domain.metadata.classifications.xml;
 
 import java.util.ArrayList;
 import java.util.List;

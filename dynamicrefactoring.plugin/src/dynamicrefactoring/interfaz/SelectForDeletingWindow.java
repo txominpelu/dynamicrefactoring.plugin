@@ -32,9 +32,9 @@ import org.eclipse.swt.widgets.Shell;
 import org.eclipse.ui.PlatformUI;
 
 import dynamicrefactoring.domain.DynamicRefactoringDefinition;
-import dynamicrefactoring.reader.XMLRefactoringReaderException;
+import dynamicrefactoring.domain.xml.reader.XMLRefactoringReaderException;
+import dynamicrefactoring.domain.xml.writer.JDOMXMLRefactoringWriterImp;
 import dynamicrefactoring.util.io.FileManager;
-import dynamicrefactoring.writer.JDOMXMLRefactoringWriterImp;
 
 /**
  * Permite seleccionar una de las refactorizaciones din�micas disponibles para ser

@@ -1,4 +1,4 @@
-package dynamicrefactoring.plugin.xml.classifications.imp;
+package dynamicrefactoring.domain.metadata.classifications.xml.imp;
 
 import java.io.File;
 import java.io.IOException;
@@ -16,10 +16,10 @@ import org.jdom.input.SAXBuilder;
 import com.google.common.base.Preconditions;
 import com.google.common.base.Throwables;
 
+import dynamicrefactoring.domain.metadata.classifications.xml.XmlClassificationsReader;
 import dynamicrefactoring.domain.metadata.imp.SimpleUniLevelClassification;
 import dynamicrefactoring.domain.metadata.interfaces.Category;
 import dynamicrefactoring.domain.metadata.interfaces.Classification;
-import dynamicrefactoring.plugin.xml.classifications.XmlClassificationsReader;
 
 class JDOMClassificationsReader implements XmlClassificationsReader {
 

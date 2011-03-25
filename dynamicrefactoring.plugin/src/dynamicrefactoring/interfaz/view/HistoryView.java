@@ -46,9 +46,9 @@ import dynamicrefactoring.RefactoringImages;
 import dynamicrefactoring.RefactoringPlugin;
 import dynamicrefactoring.RefactoringUndoSystem;
 import dynamicrefactoring.domain.RefactoringSummary;
+import dynamicrefactoring.domain.xml.reader.XMLRefactoringReaderException;
+import dynamicrefactoring.domain.xml.writer.RefactoringPlanWriter;
 import dynamicrefactoring.listener.IRefactoringRunListener;
-import dynamicrefactoring.reader.XMLRefactoringReaderException;
-import dynamicrefactoring.writer.RefactoringPlanWriter;
 
 /**
  * Proporciona una vista de Eclipse en la que quedan reflejadas todas las 

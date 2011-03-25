@@ -18,15 +18,15 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.*/
 
-package dynamicrefactoring.writer;
+package dynamicrefactoring.domain.xml.writer;
 
 import java.io.File;
 
 /**
- * Permite escribir en un fichero XML una refactorización dinámica.
+ * Permite escribir en un fichero XML una refactorizaciï¿½n dinï¿½mica.
  *
- * @author <A HREF="mailto:alc0022@alu.ubu.es">Ángel López Campo</A>
- * @author <A HREF="mailto:epf0006@alu.ubu.es">Eduardo Peña Fernández</A>
+ * @author <A HREF="mailto:alc0022@alu.ubu.es">ï¿½ngel Lï¿½pez Campo</A>
+ * @author <A HREF="mailto:epf0006@alu.ubu.es">Eduardo Peï¿½a Fernï¿½ndez</A>
  * @author <A HREF="mailto:sfd0009@alu.ubu.es">Sonia Fuente de la Fuente</A>
  * @author <A HREF="mailto:ehp0001@alu.ubu.es">Enrique Herrero Paredes</A>
  */
@@ -50,9 +50,9 @@ public class XMLRefactoringWriter {
 
 	
 	/**
-	 * Escribe el fichero XML a partir de la definición de la refactorización.
+	 * Escribe el fichero XML a partir de la definiciï¿½n de la refactorizaciï¿½n.
 	 * 
-	 * @param dir directorio donde se guardará el fichero.
+	 * @param dir directorio donde se guardarï¿½ el fichero.
 	 * 
 	 * @throws XMLRefactoringWriterException
 	 */

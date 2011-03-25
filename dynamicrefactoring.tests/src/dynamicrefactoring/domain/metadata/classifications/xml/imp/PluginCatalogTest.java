@@ -1,4 +1,4 @@
-package dynamicrefactoring.plugin.xml.classifications.imp;
+package dynamicrefactoring.domain.metadata.classifications.xml.imp;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
@@ -11,61 +11,43 @@ import java.util.Set;
 
 import javax.xml.bind.ValidationException;
 
-import org.apache.commons.io.FileUtils;
-import org.apache.commons.io.FilenameUtils;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
+
+import test.util.Utils;
 
 import com.google.common.collect.ImmutableSet;
 
 import dynamicrefactoring.RefactoringConstants;
 import dynamicrefactoring.RefactoringPlugin;
+import dynamicrefactoring.domain.RefactoringCatalogStub;
+import dynamicrefactoring.domain.RefactoringsCatalog;
+import dynamicrefactoring.domain.metadata.classifications.xml.imp.ClassificationsReaderFactory.ClassificationsReaderTypes;
 import dynamicrefactoring.domain.metadata.imp.SimpleUniLevelClassification;
-import dynamicrefactoring.domain.metadata.interfaces.ClassificationsCatalog;
 import dynamicrefactoring.domain.metadata.interfaces.Category;
 import dynamicrefactoring.domain.metadata.interfaces.Classification;
-import dynamicrefactoring.plugin.xml.classifications.imp.ClassificationsReaderFactory.ClassificationsReaderTypes;
-import dynamicrefactoring.reader.JDOMXMLRefactoringReaderImp;
+import dynamicrefactoring.domain.metadata.interfaces.ClassificationsCatalog;
 import dynamicrefactoring.util.io.FileManager;
 
 public class PluginCatalogTest {
 
+	private static final String CLASSIFICATIONS_XML_FILENAME = "classifications.xml";
+	public static final String TEST_REPO_PATH = "/testdata/dynamicrefactoring/plugin/xml/classifications/imp/ClassificationsStoreTest/" ;
 	private static final String MI_NUEVA_CLASSIFICACION = "MiNuevaClassificacion";
-	private static final String REFACT_REPO_PATH = FilenameUtils
-			.separatorsToSystem("testdata/"
-					+ "dynamicrefactoring/plugin/xml/classifications/imp/"
-					+ "ClassificationsStoreTest/");
 	private static final String MI_REFACT1_NAME = "MiRefact1-MiCategoria1";
 	private static final String NEW_CATEGORY = "NewName";
 	private static final String MI_CATEGORIA1 = "MiCategoria1";
 	private static final String MI_CLASIFICACION1 = "MiClasificacion1";
 	private ClassificationsCatalog catalog;
+	private RefactoringsCatalog refactCatalog;
 
 	@Before
 	public void setUp() throws Exception {
-		FileUtils.deleteDirectory(new File(RefactoringPlugin
-				.getDynamicRefactoringsDir()));
-
-		FileManager.copyBundleDirToFileSystem(REFACT_REPO_PATH,
-				RefactoringPlugin.getDefault().getStateLocation().toOSString()
-						+ File.separator + "test" + File.separator);
-
-		FileUtils.copyDirectory(new File(RefactoringPlugin.getDefault()
-				.getStateLocation().toOSString()
-				+ File.separator + "test" + File.separator + REFACT_REPO_PATH),
-				new File(RefactoringPlugin.getDefault().getStateLocation()
-						.toOSString()));
-
-		catalog = new PluginCatalog(
-				AbstractCatalog.getClassificationsFromFile(RefactoringPlugin
-						.getDefault().getStateLocation().toOSString()
-						+ File.separator
-						+ "test"
-						+ File.separator
-						+ REFACT_REPO_PATH + "classifications.xml"),
-				AbstractCatalog.getRefactoringsFromDir(RefactoringPlugin
-						.getDynamicRefactoringsDir()));
+		Utils.setTestRefactoringInRefactoringsDir();
+		FileManager.copyResourceToExactDir(TEST_REPO_PATH + CLASSIFICATIONS_XML_FILENAME, RefactoringPlugin.getDefault().getStateLocation().toOSString() + File.separator + "Classification" + File.separator);
+		refactCatalog = new RefactoringCatalogStub();
+		catalog = new PluginCatalog(AbstractCatalog.getClassificationsFromFile(RefactoringConstants.CLASSIFICATION_TYPES_FILE), refactCatalog);
 	}
 
 	/**
@@ -76,14 +58,7 @@ public class PluginCatalogTest {
 	 */
 	@After
 	public void tearDown() throws IllegalStateException, IOException {
-		FileUtils.deleteDirectory(new File(RefactoringPlugin.getDefault()
-				.getStateLocation().toOSString()
-				+ "/test/"));
-		FileUtils.deleteDirectory(new File(RefactoringPlugin
-				.getDynamicRefactoringsDir()));
-		FileManager.copyBundleDirToFileSystem(
-				RefactoringPlugin.DYNAMIC_REFACTORINGS_FOLDER_NAME,
-				RefactoringPlugin.getDefault().getStateLocation().toOSString());
+		Utils.restoreDefaultRefactorings();
 		FileManager.copyResourceToDir("/Classification/classifications.xml",
 				RefactoringPlugin.getDefault().getStateLocation().toOSString());
 	}
@@ -105,7 +80,7 @@ public class PluginCatalogTest {
 		expectedClassificationCategories.add(new Category(MI_CLASIFICACION1,
 				NEW_CATEGORY));
 
-		Set<Category> expectedRefactoringCategories = catalog.getRefactoring(
+		Set<Category> expectedRefactoringCategories = refactCatalog.getRefactoring(
 				MI_REFACT1_NAME).getCategories();
 		expectedRefactoringCategories.remove(new Category(MI_CLASIFICACION1,
 				MI_CATEGORIA1));
@@ -116,16 +91,9 @@ public class PluginCatalogTest {
 		assertEquals(expectedClassificationCategories, catalog
 				.getClassification(MI_CLASIFICACION1).getCategories());
 		assertEquals(expectedRefactoringCategories,
-				catalog.getRefactoring(MI_REFACT1_NAME).getCategories());
+				refactCatalog.getRefactoring(MI_REFACT1_NAME).getCategories());
 
-		assertEquals(
-				expectedRefactoringCategories,
-				new JDOMXMLRefactoringReaderImp()
-						.getDynamicRefactoringDefinition(
-								new File(
-										PluginCatalog
-												.getXmlRefactoringDefinitionFilePath(MI_REFACT1_NAME)))
-						.getCategories());
+		
 		assertEquals(
 				catalog.getAllClassifications(),
 				ClassificationsReaderFactory.getReader(
@@ -169,17 +137,8 @@ public class PluginCatalogTest {
 						.readClassifications(
 								RefactoringConstants.CLASSIFICATION_TYPES_FILE));
 
-		assertEquals(expectedCategories, catalog
+		assertEquals(expectedCategories, refactCatalog
 				.getRefactoring(MI_REFACT1_NAME).getCategories());
-
-		assertEquals(
-				expectedCategories,
-				new JDOMXMLRefactoringReaderImp()
-						.getDynamicRefactoringDefinition(
-								new File(
-										PluginCatalog
-												.getXmlRefactoringDefinitionFilePath(MI_REFACT1_NAME)))
-						.getCategories());
 	}
 
 	@Test
@@ -203,17 +162,8 @@ public class PluginCatalogTest {
 						.readClassifications(
 								RefactoringConstants.CLASSIFICATION_TYPES_FILE));
 
-		assertEquals(expectedCategories, catalog
+		assertEquals(expectedCategories, refactCatalog
 				.getRefactoring(MI_REFACT1_NAME).getCategories());
-
-		assertEquals(
-				expectedCategories,
-				new JDOMXMLRefactoringReaderImp()
-						.getDynamicRefactoringDefinition(
-								new File(
-										PluginCatalog
-												.getXmlRefactoringDefinitionFilePath(MI_REFACT1_NAME)))
-						.getCategories());
 	}
 
 	@Test
@@ -267,15 +217,7 @@ public class PluginCatalogTest {
 		expectedRefactoringCategories.add(new Category(MI_NUEVA_CLASSIFICACION,
 				NEW_CATEGORY));
 		assertEquals(expectedRefactoringCategories,
-				catalog.getRefactoring(MI_REFACT1_NAME).getCategories());
-		assertEquals(
-				expectedRefactoringCategories,
-				new JDOMXMLRefactoringReaderImp()
-						.getDynamicRefactoringDefinition(
-								new File(
-										PluginCatalog
-												.getXmlRefactoringDefinitionFilePath(MI_REFACT1_NAME)))
-						.getCategories());
+				refactCatalog.getRefactoring(MI_REFACT1_NAME).getCategories());
 
 	}
 

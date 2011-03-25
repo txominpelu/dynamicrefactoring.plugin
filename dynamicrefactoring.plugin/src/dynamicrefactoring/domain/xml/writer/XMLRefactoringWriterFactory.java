@@ -18,16 +18,16 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.*/
 
-package dynamicrefactoring.writer;
+package dynamicrefactoring.domain.xml.writer;
 
 import dynamicrefactoring.domain.DynamicRefactoringDefinition;
 
 /**
- * Define una interfaz para las fábricas que generan instancias que implementan
+ * Define una interfaz para las fï¿½bricas que generan instancias que implementan
  * la interfaz <code>XMLRefactoringWriterImp</code>.
  * 
- * @author <A HREF="mailto:alc0022@alu.ubu.es">Ángel López Campo</A>
- * @author <A HREF="mailto:epf0006@alu.ubu.es">Eduardo Peña Fernández</A>
+ * @author <A HREF="mailto:alc0022@alu.ubu.es">ï¿½ngel Lï¿½pez Campo</A>
+ * @author <A HREF="mailto:epf0006@alu.ubu.es">Eduardo Peï¿½a Fernï¿½ndez</A>
  * @author <A HREF="mailto:sfd0009@alu.ubu.es">Sonia Fuente de la Fuente</A>
  * @author <A HREF="mailto:ehp0001@alu.ubu.es">Enrique Herrero Paredes</A>
  */
@@ -38,7 +38,7 @@ public interface XMLRefactoringWriterFactory {
 	 * para la escritura XML de refactorizaciones definida por <code>
 	 * XMLRefactoringWriterImp</code>.
 	 * 
-	 * @param refactoringDefinition definición de la refactorización que se
+	 * @param refactoringDefinition definiciï¿½n de la refactorizaciï¿½n que se
 	 * debe escribir.
 	 * 
 	 * @return la instancia generada.

@@ -18,7 +18,7 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.*/
 
-package dynamicrefactoring.writer;
+package dynamicrefactoring.domain.xml.writer;
 
 import static org.junit.Assert.assertEquals;
 
@@ -30,6 +30,7 @@ import java.util.HashMap;
 import org.junit.Test;
 
 import dynamicrefactoring.RefactoringConstants;
+import dynamicrefactoring.domain.xml.writer.RefactoringPlanWriter;
 import dynamicrefactoring.util.io.FileManager;
 
 

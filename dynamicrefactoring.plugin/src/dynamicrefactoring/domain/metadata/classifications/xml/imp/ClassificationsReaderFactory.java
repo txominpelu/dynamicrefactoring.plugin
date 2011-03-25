@@ -1,6 +1,6 @@
-package dynamicrefactoring.plugin.xml.classifications.imp;
+package dynamicrefactoring.domain.metadata.classifications.xml.imp;
 
-import dynamicrefactoring.plugin.xml.classifications.XmlClassificationsReader;
+import dynamicrefactoring.domain.metadata.classifications.xml.XmlClassificationsReader;
 
 class ClassificationsReaderFactory {
 	

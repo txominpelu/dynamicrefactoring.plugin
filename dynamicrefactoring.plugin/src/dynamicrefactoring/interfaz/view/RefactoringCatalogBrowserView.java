@@ -64,6 +64,7 @@ import dynamicrefactoring.action.ShowLeftPaneViewAction;
 import dynamicrefactoring.action.ShowRightPaneViewAction;
 import dynamicrefactoring.domain.DynamicRefactoringDefinition;
 import dynamicrefactoring.domain.RefactoringException;
+import dynamicrefactoring.domain.metadata.classifications.xml.imp.PluginCatalog;
 import dynamicrefactoring.domain.metadata.condition.CategoryCondition;
 import dynamicrefactoring.domain.metadata.condition.KeyWordCondition;
 import dynamicrefactoring.domain.metadata.condition.TextCondition;
@@ -74,7 +75,6 @@ import dynamicrefactoring.domain.metadata.interfaces.Classification;
 import dynamicrefactoring.domain.metadata.interfaces.ClassifiedElements;
 import dynamicrefactoring.interfaz.TreeEditor;
 import dynamicrefactoring.interfaz.view.classifeditor.ClassificationsEditorView;
-import dynamicrefactoring.plugin.xml.classifications.imp.PluginCatalog;
 import dynamicrefactoring.util.DynamicRefactoringLister;
 import dynamicrefactoring.util.RefactoringTreeManager;
 

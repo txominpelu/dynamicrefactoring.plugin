@@ -18,7 +18,7 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.*/
 
-package dynamicrefactoring.writer;
+package dynamicrefactoring.domain.xml.writer;
 
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
@@ -43,7 +43,12 @@ import dynamicrefactoring.domain.DynamicRefactoringDefinition;
 import dynamicrefactoring.domain.DynamicRefactoringDefinition.Builder;
 import dynamicrefactoring.domain.InputParameter;
 import dynamicrefactoring.domain.metadata.interfaces.Category;
-import dynamicrefactoring.reader.TestCaseRefactoringReader;
+import dynamicrefactoring.domain.xml.reader.TestCaseRefactoringReader;
+import dynamicrefactoring.domain.xml.writer.JDOMXMLRefactoringWriterFactory;
+import dynamicrefactoring.domain.xml.writer.XMLRefactoringWriter;
+import dynamicrefactoring.domain.xml.writer.XMLRefactoringWriterException;
+import dynamicrefactoring.domain.xml.writer.XMLRefactoringWriterFactory;
+import dynamicrefactoring.domain.xml.writer.XMLRefactoringWriterImp;
 
 /**
  * Comprueba que funciona correctamente el proceso de escritura de la definici�n
@@ -75,7 +80,7 @@ public class RefactoringWriterTest {
 	 * @throws Exception
 	 *             Excepci�n lanzada tras al aparici�n de un fallo en lectura.
 	 */
-	@Test(expected = dynamicrefactoring.writer.XMLRefactoringWriterException.class)
+	@Test(expected = dynamicrefactoring.domain.xml.writer.XMLRefactoringWriterException.class)
 	public void testWritingException() throws Exception {
 		DynamicRefactoringDefinition.Builder rd = createRefactoringDefinition(
 				TestCaseRefactoringReader.MINIMUM_INFORMATION_REFACTORING,

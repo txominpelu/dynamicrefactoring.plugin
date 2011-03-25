@@ -18,7 +18,7 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.*/
 
-package dynamicrefactoring.writer;
+package dynamicrefactoring.domain.xml.writer;
 
 import java.io.File;
 import java.io.FileOutputStream;
@@ -44,8 +44,8 @@ import dynamicrefactoring.domain.DynamicRefactoringDefinition;
 import dynamicrefactoring.domain.InputParameter;
 import dynamicrefactoring.domain.Scope;
 import dynamicrefactoring.domain.metadata.interfaces.Category;
-import dynamicrefactoring.reader.XMLRefactoringReaderException;
-import dynamicrefactoring.reader.XMLRefactoringReaderImp;
+import dynamicrefactoring.domain.xml.reader.XMLRefactoringReaderException;
+import dynamicrefactoring.domain.xml.reader.XMLRefactoringReaderImp;
 import dynamicrefactoring.util.ScopeLimitedLister;
 import dynamicrefactoring.util.StringUtils;
 

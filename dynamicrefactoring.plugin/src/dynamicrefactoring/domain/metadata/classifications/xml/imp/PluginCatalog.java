@@ -1,24 +1,21 @@
-package dynamicrefactoring.plugin.xml.classifications.imp;
+package dynamicrefactoring.domain.metadata.classifications.xml.imp;
 
-import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
-import java.util.List;
 import java.util.Set;
 
 import com.google.common.base.Preconditions;
 import com.google.common.base.Throwables;
 
 import dynamicrefactoring.RefactoringConstants;
-import dynamicrefactoring.RefactoringPlugin;
 import dynamicrefactoring.domain.DynamicRefactoringDefinition;
-import dynamicrefactoring.domain.metadata.interfaces.ClassificationsCatalog;
+import dynamicrefactoring.domain.RefactoringsCatalog;
+import dynamicrefactoring.domain.XMLRefactoringsCatalog;
 import dynamicrefactoring.domain.metadata.interfaces.Category;
 import dynamicrefactoring.domain.metadata.interfaces.Classification;
-import dynamicrefactoring.writer.JDOMXMLRefactoringWriterImp;
-import dynamicrefactoring.writer.XMLRefactoringWriterException;
+import dynamicrefactoring.domain.metadata.interfaces.ClassificationsCatalog;
 
 /**
  * Almacen con todas las clasificaciones leidas del fichero de configuracion xml
@@ -29,7 +26,8 @@ import dynamicrefactoring.writer.XMLRefactoringWriterException;
  * @author imediava
  * 
  */
-public class PluginCatalog extends AbstractCatalog implements ClassificationsCatalog {
+public class PluginCatalog extends AbstractCatalog implements
+		ClassificationsCatalog {
 
 	private static PluginCatalog instance;
 
@@ -43,15 +41,14 @@ public class PluginCatalog extends AbstractCatalog implements ClassificationsCat
 		super(
 				AbstractCatalog
 						.getClassificationsFromFile(RefactoringConstants.CLASSIFICATION_TYPES_FILE),
-				AbstractCatalog.getRefactoringsFromDir(RefactoringPlugin
-						.getDynamicRefactoringsDir()));
+				XMLRefactoringsCatalog.getInstance());
 		Collections.sort(new ArrayList<Classification>(super
 				.getAllClassifications()));
 	}
 
 	protected PluginCatalog(Set<Classification> classifSet,
-			Set<DynamicRefactoringDefinition> refactSet) {
-		super(classifSet, refactSet);
+			RefactoringsCatalog refactCatalog) {
+		super(classifSet, refactCatalog);
 	}
 
 	@Override
@@ -83,9 +80,6 @@ public class PluginCatalog extends AbstractCatalog implements ClassificationsCat
 		final Collection<DynamicRefactoringDefinition> refactsToUpdate = getRefactoringBelongingTo(
 				classifName, name);
 		super.removeCategory(classifName, name);
-		for (DynamicRefactoringDefinition refact : refactsToUpdate) {
-			saveRefactoringToFile(getRefactoring(refact.getName()));
-		}
 		updateClassificationsFile();
 	}
 
@@ -99,21 +93,6 @@ public class PluginCatalog extends AbstractCatalog implements ClassificationsCat
 			String newName) {
 		super.renameCategory(classifName, oldName, newName);
 		updateClassificationsFile();
-		for (DynamicRefactoringDefinition refact : getRefactoringBelongingTo(
-				classifName, newName)) {
-			saveRefactoringToFile(refact);
-		}
-	}
-
-	/**
-	 * Se encarga de la actualizacion del fichero xml de la refact.
-	 */
-	@Override
-	public void addCategoryToRefactoring(String refactName,
-			String classificationName, String categoryName) {
-		super.addCategoryToRefactoring(refactName, classificationName,
-				categoryName);
-		saveRefactoringToFile(getRefactoring(refactName));
 	}
 
 	/**
@@ -131,51 +110,8 @@ public class PluginCatalog extends AbstractCatalog implements ClassificationsCat
 		}
 	}
 
-	/**
-	 * Guarda el fichero xml de definicion de la refactorizacion en la ruta que
-	 * le corresponde.
-	 * 
-	 * @param refact
-	 *            definicion de la refactorizacion a guardar
-	 */
-	private void saveRefactoringToFile(DynamicRefactoringDefinition refact) {
-		try {
-			new JDOMXMLRefactoringWriterImp(refact)
-					.writeRefactoring(getDirectoryToSaveRefactoringFile(refact
-							.getName()));
-		} catch (XMLRefactoringWriterException e) {
-			throw Throwables.propagate(e);
-		}
-	}
 
-	/**
-	 * Obtiene ruta donde se guarda el fichero de definicion de la
-	 * refactorizacion pasada.
-	 * 
-	 * @param refactName
-	 *            nombre de la refactorizacion
-	 * @return ruta donde se guarda la definicion de la refactorizacion
-	 */
-	public static String getXmlRefactoringDefinitionFilePath(String refactName) {
-		return getDirectoryToSaveRefactoringFile(refactName).getPath()
-				+ File.separator + refactName
-				+ RefactoringConstants.FILE_EXTENSION;
 
-	}
-
-	/**
-	 * Obtiene un fichero cuya ruta sera la del directorio donde se guardara el
-	 * fichero de definicion de la refactorizacion.
-	 * 
-	 * @param refact
-	 *            nombre de la refactorizacion
-	 * @return fichero con la ruta donde se guardara la definicion de la
-	 *         refactorizacion
-	 */
-	private static File getDirectoryToSaveRefactoringFile(String refactName) {
-		return new File(RefactoringPlugin.getDynamicRefactoringsDir()
-				+ File.separator + refactName + File.separator);
-	}
 
 	/**
 	 * Obtiene la instancia del almacen con las clasificaciones disponibles.
@@ -205,17 +141,7 @@ public class PluginCatalog extends AbstractCatalog implements ClassificationsCat
 	@Override
 	public void renameClassification(String clasifName, String clasifNewName) {
 		Preconditions.checkArgument(!clasifName.equals(SCOPE_CLASSIFICATION));
-		List<DynamicRefactoringDefinition> refactoringsToUpdate = new ArrayList<DynamicRefactoringDefinition>();
-		for (Category category : getClassification(clasifName).getCategories()) {
-			for (DynamicRefactoringDefinition refact : getRefactoringBelongingTo(
-					clasifName, category.getName())) {
-				refactoringsToUpdate.add(refact);
-			}
-		}
 		super.renameClassification(clasifName, clasifNewName);
-		for (DynamicRefactoringDefinition refact : refactoringsToUpdate) {
-			saveRefactoringToFile(getRefactoring(refact.getName()));
-		}
 		updateClassificationsFile();
 	}
 

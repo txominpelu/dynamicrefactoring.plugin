@@ -39,6 +39,8 @@ import com.google.common.base.Throwables;
  */
 public class RefactoringConstants {
 	
+	public static final String DTD_FILE_NAME = "refactoringDTD.dtd";
+
 	/**
 	 * Nombre del fichero .jar que almacena las clases que componen el modelo moon.
 	 */
@@ -122,7 +124,7 @@ public class RefactoringConstants {
 	 * La ruta al fichero con la DTD de las refactorizaciones din�micas.
 	 */
 	public static final String DTD_PATH = 
-		RefactoringPlugin.getDynamicRefactoringsDir() + File.separatorChar + "refactoringDTD.dtd"; //$NON-NLS-1$ //$NON-NLS-2$
+		RefactoringPlugin.getDynamicRefactoringsDir() + File.separatorChar + DTD_FILE_NAME; //$NON-NLS-1$ //$NON-NLS-2$
 	
 	/**
 	 * Ruta al directorio donde se encuentran las definiciones de las precondiciones.

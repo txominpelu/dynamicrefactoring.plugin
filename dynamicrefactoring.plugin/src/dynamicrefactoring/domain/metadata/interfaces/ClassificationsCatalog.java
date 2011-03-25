@@ -2,8 +2,6 @@ package dynamicrefactoring.domain.metadata.interfaces;
 
 import java.util.Set;
 
-import dynamicrefactoring.domain.DynamicRefactoringDefinition;
-
 /**
  * Catalogo que contiene las clasificaciones existentes en la aplicacion y
  * provee de metodos para editarlas y acceder a sus datos.
@@ -62,21 +60,7 @@ public interface ClassificationsCatalog {
 	 */
 	void addCategoryToClassification(String classificationName, String categoryName);
 
-	/**
-	 * Agrega una categoria nueva a una refactorizacion. Si la refactorizacion
-	 * ya pertenece a la categoria saltara una IllegalArgumentException. Si la
-	 * categoria no existe en el catalogo tambien saltara la excepcion. Si la
-	 * refactorizacion no pertenece al catalogo tambien saltara la excepcion.
-	 * 
-	 * @param refact
-	 *            refactorizacion a la que se agregara la categoria
-	 * @param classificationName
-	 *            nombre de la clasificacion a la que pertenece la categoria
-	 * @param categoryName
-	 *            nombre de la nueva categoria
-	 */
-	void addCategoryToRefactoring(String refact,
-			String classificationName, String categoryName);
+
 
 	/**
 	 * Obtienes todas las clasificaciones del catálogo.
@@ -96,29 +80,7 @@ public interface ClassificationsCatalog {
 	 *            nombre de la categoria
 	 */
 	void removeCategory(String classification, String categoryName);
-
-	/**
-	 * Obtiene la refactorizacion del catalogo cuyo nombre
-	 * es el pasado.
-	 * 
-	 * Saltara {@link IllegalArgumentException} si {@link #hasRefactoring(String)}
-	 * devuelve falso para el nombre pasado, es decir, si no existe una refactorizacion
-	 * con dicho nombre en el catalogo.
-	 * 
-	 * @param refactName
-	 * @return definicion de la refactorizacion
-	 */
-	DynamicRefactoringDefinition getRefactoring(String refactName);
 	
-	
-	/**
-	 * Obtiene si existe una refactorizacion con el nombre
-	 * pasado en el catalogo.
-	 * 
-	 * @param name nombre de la refactorizacion a comprobar
-	 * @return verdadero si existe una refactorizacion con dicho nombre en el catalogo
-	 */
-	boolean hasRefactoring(String name);
 
 	/**
 	 * Cambia el nombre de una clasificacion.
@@ -153,5 +115,21 @@ public interface ClassificationsCatalog {
 	 */
 	void removeClassification(String classification);
 	
+	/**
+	 * Agrega una categoria nueva a una refactorizacion. Si la refactorizacion
+	 * ya pertenece a la categoria saltara una IllegalArgumentException. Si la
+	 * categoria no existe en el catalogo tambien saltara la excepcion. Si la
+	 * refactorizacion no pertenece al catalogo tambien saltara la excepcion.
+	 * 
+	 * @param refact
+	 *            refactorizacion a la que se agregara la categoria
+	 * @param classificationName
+	 *            nombre de la clasificacion a la que pertenece la categoria
+	 * @param categoryName
+	 *            nombre de la nueva categoria
+	 * @param catalog catalogo de clasificaciones
+	 */
+	void addCategoryToRefactoring(String refactName, String classificationName,
+			String categoryName);
 
 }

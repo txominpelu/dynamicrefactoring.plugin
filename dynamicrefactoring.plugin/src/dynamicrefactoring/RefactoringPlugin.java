@@ -58,6 +58,8 @@ import repository.IRefactoringMessageListener;
 import repository.RelayListenerRegistry;
 import repository.moon.MOONRefactoring;
 import dynamicrefactoring.domain.RefactoringSummary;
+import dynamicrefactoring.domain.xml.writer.JDOMXMLRefactoringWriterImp;
+import dynamicrefactoring.domain.xml.writer.RefactoringPlanWriter;
 import dynamicrefactoring.integration.CodeRegenerator;
 import dynamicrefactoring.integration.ModelGenerator;
 import dynamicrefactoring.interfaz.SelectRefactoringWindow;
@@ -70,8 +72,6 @@ import dynamicrefactoring.util.PropertyManager;
 import dynamicrefactoring.util.io.FileManager;
 import dynamicrefactoring.util.io.JavaFileManager;
 import dynamicrefactoring.util.selection.SelectionInfo;
-import dynamicrefactoring.writer.JDOMXMLRefactoringWriterImp;
-import dynamicrefactoring.writer.RefactoringPlanWriter;
 
 /**
  * Representa el <i>plugin</i> de refactorizaci�n ante la plataforma Eclipse.

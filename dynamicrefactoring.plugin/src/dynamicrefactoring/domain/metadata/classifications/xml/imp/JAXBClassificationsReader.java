@@ -1,4 +1,4 @@
-package dynamicrefactoring.plugin.xml.classifications.imp;
+package dynamicrefactoring.domain.metadata.classifications.xml.imp;
 
 import java.io.File;
 import java.net.URL;
@@ -17,13 +17,13 @@ import javax.xml.validation.SchemaFactory;
 import com.google.common.base.Preconditions;
 import com.google.common.base.Throwables;
 
+import dynamicrefactoring.domain.metadata.classifications.xml.ClassificationType;
+import dynamicrefactoring.domain.metadata.classifications.xml.ClassificationsType;
+import dynamicrefactoring.domain.metadata.classifications.xml.ObjectFactory;
+import dynamicrefactoring.domain.metadata.classifications.xml.XmlClassificationsReader;
 import dynamicrefactoring.domain.metadata.imp.SimpleUniLevelClassification;
 import dynamicrefactoring.domain.metadata.interfaces.Category;
 import dynamicrefactoring.domain.metadata.interfaces.Classification;
-import dynamicrefactoring.plugin.xml.classifications.ClassificationType;
-import dynamicrefactoring.plugin.xml.classifications.ClassificationsType;
-import dynamicrefactoring.plugin.xml.classifications.ObjectFactory;
-import dynamicrefactoring.plugin.xml.classifications.XmlClassificationsReader;
 
 class JAXBClassificationsReader implements XmlClassificationsReader {
 

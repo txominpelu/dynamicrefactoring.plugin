@@ -45,13 +45,13 @@ import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.jface.operation.IRunnableWithProgress;
 
 import dynamicrefactoring.RefactoringConstants;
+import dynamicrefactoring.domain.xml.reader.RefactoringPlanReader;
+import dynamicrefactoring.domain.xml.reader.XMLRefactoringReaderException;
 import dynamicrefactoring.integration.CodeRegenerator;
 import dynamicrefactoring.integration.ModelGenerator;
 import dynamicrefactoring.interfaz.dynamic.DynamicRefactoringRunner;
 import dynamicrefactoring.interfaz.dynamic.DynamicRefactoringWindow;
 import dynamicrefactoring.interfaz.view.AvailableRefactoringView;
-import dynamicrefactoring.reader.RefactoringPlanReader;
-import dynamicrefactoring.reader.XMLRefactoringReaderException;
 import dynamicrefactoring.util.io.FileManager;
 
 /**

@@ -18,7 +18,7 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.*/
 
-package dynamicrefactoring.reader;
+package dynamicrefactoring.domain.xml.reader;
 
 import static org.junit.Assert.assertEquals;
 
@@ -27,6 +27,8 @@ import java.util.HashMap;
 import org.junit.Test;
 
 import dynamicrefactoring.domain.Scope;
+import dynamicrefactoring.domain.xml.reader.JDOMXMLRefactoringReaderImp;
+import dynamicrefactoring.domain.xml.reader.XMLRefactoringReaderException;
 
 /**
  * Comprueba que funciona correctamente el proceso de lectura del conjunto de

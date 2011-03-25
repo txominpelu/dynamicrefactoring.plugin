@@ -1,10 +1,9 @@
-package dynamicrefactoring.plugin.xml.classifications.imp;
-
-import java.util.HashSet;
+package dynamicrefactoring.domain.metadata.classifications.xml.imp;
 
 import javax.xml.bind.ValidationException;
 
-import dynamicrefactoring.domain.DynamicRefactoringDefinition;
+import dynamicrefactoring.domain.XMLRefactoringsCatalog;
+import dynamicrefactoring.domain.metadata.classifications.xml.imp.AbstractCatalog;
 import dynamicrefactoring.domain.metadata.interfaces.ClassificationsCatalog;
 
 public class CatalogStub extends AbstractCatalog implements ClassificationsCatalog {
@@ -13,7 +12,7 @@ public class CatalogStub extends AbstractCatalog implements ClassificationsCatal
 	
 	
 	public CatalogStub() throws ValidationException{
-			super(AbstractCatalog.getClassificationsFromFile(CLASSIFICATIONS_EDITOR_TEST_XML_FILE), new HashSet<DynamicRefactoringDefinition>());
+			super(AbstractCatalog.getClassificationsFromFile(CLASSIFICATIONS_EDITOR_TEST_XML_FILE), XMLRefactoringsCatalog.getInstance());
 	}
 
 }

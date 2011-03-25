@@ -18,14 +18,14 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.*/
 
-package dynamicrefactoring.reader;
+package dynamicrefactoring.domain.xml.reader;
 
 /**
- * Excepción lanzada cuando se produce un error al leer el fichero con la
- * refactorización.
+ * Excepciï¿½n lanzada cuando se produce un error al leer el fichero con la
+ * refactorizaciï¿½n.
  * 
- * @author <A HREF="mailto:alc0022@alu.ubu.es">Ángel López Campo</A>
- * @author <A HREF="mailto:epf0006@alu.ubu.es">Eduardo Peña Fernández</A>
+ * @author <A HREF="mailto:alc0022@alu.ubu.es">ï¿½ngel Lï¿½pez Campo</A>
+ * @author <A HREF="mailto:epf0006@alu.ubu.es">Eduardo Peï¿½a Fernï¿½ndez</A>
  * @author <A HREF="mailto:sfd0009@alu.ubu.es">Sonia Fuente de la Fuente</A>
  * @author <A HREF="mailto:ehp0001@alu.ubu.es">Enrique Herrero Paredes</A>
  */
@@ -42,7 +42,7 @@ public class XMLRefactoringReaderException extends Exception {
 	/**
 	 * Constructor.
 	 * 
-	 * @param s el mensaje asociado al origen de la excepción.
+	 * @param s el mensaje asociado al origen de la excepciï¿½n.
 	 */
 	public XMLRefactoringReaderException(String s) {
 		super(s);

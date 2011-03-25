@@ -18,7 +18,7 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.*/
 
-package dynamicrefactoring.writer;
+package dynamicrefactoring.domain.xml.writer;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
@@ -36,8 +36,9 @@ import org.junit.Test;
 import dynamicrefactoring.RefactoringConstants;
 import dynamicrefactoring.RefactoringPlugin;
 import dynamicrefactoring.domain.Scope;
-import dynamicrefactoring.reader.JDOMXMLRefactoringReaderImp;
-import dynamicrefactoring.reader.XMLRefactoringReaderException;
+import dynamicrefactoring.domain.xml.reader.JDOMXMLRefactoringReaderImp;
+import dynamicrefactoring.domain.xml.reader.XMLRefactoringReaderException;
+import dynamicrefactoring.domain.xml.writer.JDOMXMLRefactoringWriterImp;
 import dynamicrefactoring.util.io.FileManager;
 
 /**

@@ -1,4 +1,4 @@
-package dynamicrefactoring.plugin.xml.classifications.imp;
+package dynamicrefactoring.domain.metadata.classifications.xml.imp;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -18,12 +18,12 @@ import org.xml.sax.SAXException;
 import com.google.common.base.Preconditions;
 import com.google.common.base.Throwables;
 
+import dynamicrefactoring.domain.metadata.classifications.xml.CategoriesType;
+import dynamicrefactoring.domain.metadata.classifications.xml.ClassificationType;
+import dynamicrefactoring.domain.metadata.classifications.xml.ClassificationsType;
+import dynamicrefactoring.domain.metadata.classifications.xml.ObjectFactory;
 import dynamicrefactoring.domain.metadata.interfaces.Category;
 import dynamicrefactoring.domain.metadata.interfaces.Classification;
-import dynamicrefactoring.plugin.xml.classifications.CategoriesType;
-import dynamicrefactoring.plugin.xml.classifications.ClassificationType;
-import dynamicrefactoring.plugin.xml.classifications.ClassificationsType;
-import dynamicrefactoring.plugin.xml.classifications.ObjectFactory;
 
 public final class JAXBClassificationsWriter {
 

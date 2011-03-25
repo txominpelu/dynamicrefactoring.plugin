@@ -18,7 +18,7 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.*/
 
-package dynamicrefactoring.writer;
+package dynamicrefactoring.domain.xml.writer;
 
 
 import java.io.File;
@@ -37,7 +37,7 @@ import org.jdom.output.Format;
 import org.jdom.output.XMLOutputter;
 
 import dynamicrefactoring.RefactoringConstants;
-import dynamicrefactoring.reader.XMLRefactoringReaderException;
+import dynamicrefactoring.domain.xml.reader.XMLRefactoringReaderException;
 
 
 /**

@@ -1,4 +1,4 @@
-package dynamicrefactoring.plugin.xml.classifications.imp;
+package dynamicrefactoring.domain.metadata.classifications.xml.imp;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.fail;
@@ -11,10 +11,10 @@ import javax.xml.bind.ValidationException;
 import org.junit.Test;
 
 import dynamicrefactoring.domain.Scope;
+import dynamicrefactoring.domain.metadata.classifications.xml.XmlClassificationsReader;
 import dynamicrefactoring.domain.metadata.imp.SimpleUniLevelClassification;
 import dynamicrefactoring.domain.metadata.interfaces.Category;
 import dynamicrefactoring.domain.metadata.interfaces.Classification;
-import dynamicrefactoring.plugin.xml.classifications.XmlClassificationsReader;
 
 public abstract class AbstractClassificationsReaderTest {
 	

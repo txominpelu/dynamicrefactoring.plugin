@@ -18,7 +18,7 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.*/
 
-package dynamicrefactoring.reader;
+package dynamicrefactoring.domain.xml.reader;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
@@ -38,6 +38,10 @@ import dynamicrefactoring.domain.DynamicRefactoringDefinition;
 import dynamicrefactoring.domain.InputParameter;
 import dynamicrefactoring.domain.RefactoringException;
 import dynamicrefactoring.domain.metadata.interfaces.Category;
+import dynamicrefactoring.domain.xml.reader.JDOMXMLRefactoringReaderFactory;
+import dynamicrefactoring.domain.xml.reader.XMLRefactoringReader;
+import dynamicrefactoring.domain.xml.reader.XMLRefactoringReaderFactory;
+import dynamicrefactoring.domain.xml.reader.XMLRefactoringReaderImp;
 
 /**
  * Comprueba que funciona correctamente el proceso de lectura de la definici�n

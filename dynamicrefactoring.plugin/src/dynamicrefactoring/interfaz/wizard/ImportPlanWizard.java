@@ -63,9 +63,9 @@ import dynamicrefactoring.RefactoringPlugin;
 import dynamicrefactoring.domain.DynamicRefactoringDefinition;
 import dynamicrefactoring.domain.ExportImportUtilities;
 import dynamicrefactoring.domain.RefactoringPlanExecutor;
+import dynamicrefactoring.domain.xml.reader.RefactoringPlanReader;
 import dynamicrefactoring.interfaz.ButtonTextProvider;
 import dynamicrefactoring.interfaz.CustomProgressDialog;
-import dynamicrefactoring.reader.RefactoringPlanReader;
 import dynamicrefactoring.util.DynamicRefactoringLister;
 import dynamicrefactoring.util.io.FileManager;
 

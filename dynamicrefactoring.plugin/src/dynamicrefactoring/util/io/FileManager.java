@@ -458,4 +458,11 @@ public class FileManager {
 						.getResourceAsStream(resourcePath), new File(dirPath
 						+ resourcePath));
 	}
+	
+	public static void copyResourceToExactDir(String resourcePath, String dirPath) throws IOException {
+		FileUtils.copyInputStreamToFile(
+				dynamicrefactoring.util.io.FileManager.class
+						.getResourceAsStream(resourcePath), new File(dirPath
+						+ new File(resourcePath).getName()));
+	}
 }
