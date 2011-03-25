@@ -11,7 +11,7 @@ import dynamicrefactoring.domain.DynamicRefactoringDefinition;
  * @author imediava
  * 
  */
-public interface Catalog {
+public interface ClassificationsCatalog {
 
 	/**
 	 * Obtiene la clasificacion con el nombre dado. Antes debe haberse

@@ -30,6 +30,7 @@ import moon.core.Name;
 import org.apache.log4j.Logger;
 
 import dynamicrefactoring.RefactoringConstants;
+import dynamicrefactoring.domain.InputParameter;
 
 /**
  * Proporciona funciones de procesamiento de las entradas obtenidas a trav�s 
@@ -92,31 +93,31 @@ public class InputProcessor {
 		
 		HashMap<String, Object> inputs = new HashMap<String, Object>();
 		
-		for (String[] input : launcher.refactoringDefinition.getInputs()){
+		for (InputParameter input : launcher.refactoringDefinition.getInputs()){
 			// Si es la entrada principal.
-			if (input[4] != null && input[4].equals("true")) //$NON-NLS-1$
+			if (input.isMain()) //$NON-NLS-1$
 				// Se obtiene la entrada principal seleccionada.
-				inputs.put(input[1], launcher.currentObject);
+				inputs.put(input.getName(), launcher.currentObject);
 			// Si es el modelo MOON.
-			else if (input[0].equals("moon.core.Model")) //$NON-NLS-1$
+			else if (input.getType().equals("moon.core.Model")) //$NON-NLS-1$
 				// Se obtiene el modelo MOON actual.
-				inputs.put(input[1], launcher.model);
+				inputs.put(input.getName(), launcher.model);
 			// Si es una entrada no principal dependiente de otra.
-			else if (input[2] != null && input[2].length() > 0){
+			else if (input.getFrom() != null && input.getFrom().length() > 0){
 				// Su valor tiene que estar ya calculado en la tabla de valores.
-				Object value = launcher.inputValues.get(input[1]);
+				Object value = launcher.inputValues.get(input.getName());
 				Object processed = processInput(input, value);
-				inputs.put(input[1], processed);
+				inputs.put(input.getName(), processed);
 			}
 			// Si es una entrada no principal no dependiente.
 			else {
 				// Se tiene que tratar de un campo de texto.
-				Object field = launcher.inputValues.get(input[1]);
+				Object field = launcher.inputValues.get(input.getName());
 				String text = (field != null && field instanceof String) ? 
 					(String)field : ""; //$NON-NLS-1$
 				Object value = computeValue(input, text);
 				if (value != null)
-					inputs.put(input[1], value);
+					inputs.put(input.getName(), value);
 			}
 		}
 		
@@ -138,20 +139,20 @@ public class InputProcessor {
 	 * @return un objeto MOON asociado a la entrada, o <code>null</code> si no se
 	 * pudo cargar ning�n objeto adecuado.
 	 */
-	public Object computeValue(String[] input, String source){
+	public Object computeValue(InputParameter input, String source){
 		
 		// Se obtiene el nombre del elemento que habr� que buscar.
 		String name = source.trim();
 		
 		// Si la entrada es de tipo moon.core.Name.
-		if (input[0].equals(NAME_NAME))	
+		if (input.getType().equals(NAME_NAME))	
 			// Se construye un nombre MOON.
 			return launcher.model.getMoonFactory().createName(name);
 		
 		// Si no, se comprueba si es alg�n subtipo de moon.core.classdef.ClassDef.
 		try {
 			Class<?> classdef = Class.forName(CLASSDEF_NAME);
-			Class<?> declaration = Class.forName(input[0]);
+			Class<?> declaration = Class.forName(input.getType());
 			
 			if (classdef.isAssignableFrom(declaration)){
 				Name className = launcher.model.getMoonFactory().createName(name);
@@ -167,7 +168,7 @@ public class InputProcessor {
 			}
 		}
 		catch (ClassNotFoundException exception){
-			Object[] messageArgs = {input[1]};
+			Object[] messageArgs = {input.getName()};
 			MessageFormat formatter = new MessageFormat(""); //$NON-NLS-1$
 			formatter.applyPattern(
 				Messages.InputProcessor_ObjectNotLoaded);
@@ -190,8 +191,8 @@ public class InputProcessor {
 	 * @return el resultado de procesar la entrada original para comprobar si es
 	 * necesario aplicarle alguna de las transformaciones b�sicas disponibles.
 	 */
-	private Object processInput (String[] input, Object value){
-		String expectedName = input[0];
+	private Object processInput (InputParameter input, Object value){
+		String expectedName = input.getType();
 		
 		Class<?> source = value.getClass();
 		
@@ -216,7 +217,7 @@ public class InputProcessor {
 			// Si se ha encontrado m�s de un m�todo o no se ha encontrado ninguno
 			// es una situaci�n ambigua o sin soluci�n.
 			if (count > 1 || position == -1) {
-				Object[] messageArgs = {input[1]};
+				Object[] messageArgs = {input.getName()};
 				MessageFormat formatter = new MessageFormat(""); //$NON-NLS-1$
 				formatter.applyPattern(
 					Messages.InputProcessor_AmbiguousInput);

@@ -580,8 +580,7 @@ public class RefactoringPlugin extends AbstractUIPlugin
 			// (el listener puede ser externo).
 			try {
 				next.refactoringFailed(name, message);	
-			}
-			catch (Throwable exception) {
+			}catch (Exception exception) {
 				logger.error(
 					Messages.RefactoringPlugin_ErrorNotifying
 					+ ".\n" + exception.getMessage()); //$NON-NLS-1$
@@ -617,8 +616,7 @@ public class RefactoringPlugin extends AbstractUIPlugin
 			// puede ser externo).
 			try {
 				next.refactoringFinished(summary);
-			}
-			catch(Throwable exception) {
+			}catch(Exception exception) {
 				exception.printStackTrace();
 				logger.error(
 					Messages.RefactoringPlugin_ErrorNotifying

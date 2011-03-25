@@ -19,7 +19,7 @@ import org.eclipse.ui.forms.widgets.FormToolkit;
 import org.eclipse.ui.forms.widgets.ScrolledForm;
 import org.eclipse.ui.forms.widgets.Section;
 
-import dynamicrefactoring.domain.metadata.interfaces.Catalog;
+import dynamicrefactoring.domain.metadata.interfaces.ClassificationsCatalog;
 import dynamicrefactoring.domain.metadata.interfaces.Category;
 import dynamicrefactoring.domain.metadata.interfaces.Classification;
 
@@ -33,7 +33,7 @@ public class CategoriesSection {
 	/**
 	 * Catalogo de clasificaciones y categorias.
 	 */
-	private Catalog catalog;
+	private ClassificationsCatalog catalog;
 
 	private Table tbCategories;
 
@@ -52,7 +52,7 @@ public class CategoriesSection {
 	 */
 	public CategoriesSection(
 			String classification,
-			Catalog catalog) {
+			ClassificationsCatalog catalog) {
 		this.classification = classification;
 		this.catalog = catalog;
 		this.inputValidator = new NotCategoryAlreadyExistsValidator();

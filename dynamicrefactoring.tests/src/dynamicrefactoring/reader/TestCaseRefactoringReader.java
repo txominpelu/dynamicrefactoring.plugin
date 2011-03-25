@@ -22,9 +22,10 @@ package dynamicrefactoring.reader;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertNull;
+import static org.junit.Assert.assertTrue;
 
 import java.io.File;
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
@@ -34,6 +35,7 @@ import org.junit.Test;
 
 import dynamicrefactoring.RefactoringConstants;
 import dynamicrefactoring.domain.DynamicRefactoringDefinition;
+import dynamicrefactoring.domain.InputParameter;
 import dynamicrefactoring.domain.RefactoringException;
 import dynamicrefactoring.domain.metadata.interfaces.Category;
 
@@ -55,8 +57,6 @@ public class TestCaseRefactoringReader {
 	private static final String REPOSITORY_MOON = "repository.moon.";
 	private static final String REPOSITORY_JAVA = "repository.java.";
 	private static final String METHOD = "Method";
-	private static final String FALSE = "false";
-	private static final String TRUE = "true";
 	/**
 	 * Categoria 2
 	 */
@@ -264,19 +264,20 @@ public class TestCaseRefactoringReader {
 
 		assertEquals(definition.getMotivation(), "Motivacion."); //$NON-NLS-1$
 
-		Iterator<String[]> entradas = definition.getInputs().iterator();
-		String[] entrada = entradas.next();
-		assertEquals(entrada[0], "moon.core.Model"); //$NON-NLS-1$
-		assertEquals(entrada[1], "Model"); //$NON-NLS-1$
-		assertNull(entrada[2]);
-		assertNull(entrada[3]);
-		assertEquals(entrada[4], FALSE); //$NON-NLS-1$
-		String[] entrada2 = entradas.next();
-		assertEquals(entrada2[0], "moon.core.classdef.MethDec"); //$NON-NLS-1$
-		assertEquals(entrada2[1], METHOD); //$NON-NLS-1$
-		assertNull(entrada2[2]);
-		assertNull(entrada2[3]);
-		assertEquals(entrada2[4], TRUE); //$NON-NLS-1$
+		Iterator<InputParameter> entradas = definition.getInputs().iterator();
+		InputParameter entrada = entradas.next();
+		assertEquals(entrada.getType(), "moon.core.Model"); //$NON-NLS-1$
+		assertEquals(entrada.getName(), "Model"); //$NON-NLS-1$
+		assertTrue(entrada.getFrom().isEmpty());
+		assertTrue(entrada.getMethod().isEmpty());
+		assertEquals(entrada.isMain(), false); //$NON-NLS-1$
+		
+		InputParameter entrada2 = entradas.next();
+		assertEquals(entrada2.getType(), "moon.core.classdef.MethDec"); //$NON-NLS-1$
+		assertEquals(entrada2.getName(), METHOD); //$NON-NLS-1$
+		assertTrue(entrada2.getFrom().isEmpty());
+		assertTrue(entrada2.getMethod().isEmpty());
+		assertEquals(entrada2.isMain(), true); //$NON-NLS-1$
 		assertFalse(entradas.hasNext());
 
 		Iterator<String> preconditions = definition.getPreconditions()
@@ -335,36 +336,12 @@ public class TestCaseRefactoringReader {
 		assertEquals(definition.getMotivation(),
 				"The name of class does not reveal its intention."); //$NON-NLS-1$
 
-		Iterator<String[]> entradas = definition.getInputs().iterator();
-		String[] entrada = entradas.next();
-		assertEquals(entrada[0], "moon.core.Name"); //$NON-NLS-1$
-		assertEquals(entrada[1], "Old_name"); //$NON-NLS-1$
-		assertEquals(entrada[2], "Class"); //$NON-NLS-1$
-		assertEquals(entrada[3], "getName"); //$NON-NLS-1$
-		assertEquals(entrada[4], FALSE); //$NON-NLS-1$
-
-		entrada = entradas.next();
-		assertEquals(entrada[0], "moon.core.Model"); //$NON-NLS-1$
-		assertEquals(entrada[1], "Model"); //$NON-NLS-1$
-		assertNull(entrada[2]);
-		assertNull(entrada[3]);
-		assertEquals(entrada[4], FALSE); //$NON-NLS-1$
-
-		entrada = entradas.next();
-		assertEquals(entrada[0], "moon.core.classdef.ClassDef"); //$NON-NLS-1$
-		assertEquals(entrada[1], "Class"); //$NON-NLS-1$
-		assertNull(entrada[2]);
-		assertNull(entrada[3]);
-		assertEquals(entrada[4], TRUE); //$NON-NLS-1$
-
-		entrada = entradas.next();
-		assertEquals(entrada[0], "moon.core.Name"); //$NON-NLS-1$
-		assertEquals(entrada[1], "New_name"); //$NON-NLS-1$
-		assertNull(entrada[2]);
-		assertNull(entrada[3]);
-		assertEquals(entrada[4], FALSE); //$NON-NLS-1$
-
-		assertFalse(entradas.hasNext());
+		List<InputParameter> expected = new ArrayList<InputParameter>();
+		expected.add(new InputParameter.Builder( "moon.core.Name").name("Old_name").from("Class").method("getName").main(false).build());
+		expected.add(new InputParameter.Builder( "moon.core.Model").name("Model").from("").method("").main(false).build());
+		expected.add(new InputParameter.Builder( "moon.core.classdef.ClassDef").name( "Class").from("").method("").main(true).build());
+		expected.add(new InputParameter.Builder( "moon.core.Name").name( "New_name").from("").method("").main(false).build());
+		assertEquals(expected, definition.getInputs());
 
 		Iterator<String> mechanism = definition.getPreconditions().iterator();
 
@@ -375,15 +352,10 @@ public class TestCaseRefactoringReader {
 		Iterator<String> actions = definition.getActions().iterator();
 
 		checkAction(definition, "RenameClass", actions.next());
-
 		checkAction(definition, "RenameReferenceFile", actions.next());
-
 		checkAction(definition, "RenameClassType", actions.next());
-
 		checkAction(definition, "RenameGenericClassType", actions.next());
-
 		checkAction(definition, "RenameConstructors", actions.next());
-
 		checkAction(definition, "RenameJavaFile", actions.next());
 
 		assertFalse(actions.hasNext());

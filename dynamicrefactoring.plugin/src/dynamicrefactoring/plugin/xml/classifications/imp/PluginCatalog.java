@@ -14,7 +14,7 @@ import com.google.common.base.Throwables;
 import dynamicrefactoring.RefactoringConstants;
 import dynamicrefactoring.RefactoringPlugin;
 import dynamicrefactoring.domain.DynamicRefactoringDefinition;
-import dynamicrefactoring.domain.metadata.interfaces.Catalog;
+import dynamicrefactoring.domain.metadata.interfaces.ClassificationsCatalog;
 import dynamicrefactoring.domain.metadata.interfaces.Category;
 import dynamicrefactoring.domain.metadata.interfaces.Classification;
 import dynamicrefactoring.writer.JDOMXMLRefactoringWriterImp;
@@ -29,7 +29,7 @@ import dynamicrefactoring.writer.XMLRefactoringWriterException;
  * @author imediava
  * 
  */
-public class PluginCatalog extends AbstractCatalog implements Catalog {
+public class PluginCatalog extends AbstractCatalog implements ClassificationsCatalog {
 
 	private static PluginCatalog instance;
 

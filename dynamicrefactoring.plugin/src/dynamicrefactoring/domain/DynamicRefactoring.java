@@ -353,7 +353,7 @@ public class DynamicRefactoring extends MOONRefactoring {
 	 *             si se produce un error al obtener la definici�n de los
 	 *             par�metros de entrada.
 	 */
-	public static List<String[]> getDefinitionInputParameters(
+	public static List<InputParameter> getDefinitionInputParameters(
 			String refactoringFilePath) throws RefactoringException {
 		return DynamicRefactoringDefinition.getRefactoringDefinition(
 				refactoringFilePath).getInputs();
@@ -401,7 +401,7 @@ public class DynamicRefactoring extends MOONRefactoring {
 	 * @return Descripci�n de los par�metros de entrada a la
 	 *         refactorizaci�n.
 	 */
-	public List<String[]> getInputs() {
+	public List<InputParameter> getInputs() {
 		return refactoringDefinition.getInputs();
 	}
 

@@ -49,6 +49,7 @@ import org.eclipse.ui.forms.widgets.Section;
 import dynamicrefactoring.RefactoringImages;
 import dynamicrefactoring.RefactoringPlugin;
 import dynamicrefactoring.domain.DynamicRefactoringDefinition;
+import dynamicrefactoring.domain.InputParameter;
 import dynamicrefactoring.domain.metadata.condition.CategoryCondition;
 import dynamicrefactoring.domain.metadata.condition.KeyWordCondition;
 import dynamicrefactoring.domain.metadata.interfaces.Category;
@@ -502,16 +503,16 @@ public class RefactoringSummaryPanel {
 	}
 	
 	private void fillInputsTable(){
-		List<String[]> inputs = refactoring.getInputs();
+		List<InputParameter> inputs = refactoring.getInputs();
 		Button checkButton=null;
 		TableEditor editor;
-		for(String[] input : inputs){
+		for(InputParameter input : inputs){
 			TableItem item=new TableItem(inputsTable, SWT.BORDER);
-			item.setText(new String[]{input[1], input[0], input[2], "", ""}); //$NON-NLS-1$ //$NON-NLS-2$
+			item.setText(new String[]{input.getName(), input.getType(), input.getFrom(), "", ""}); //$NON-NLS-1$ //$NON-NLS-2$
 
 			editor = new TableEditor(inputsTable);
 			checkButton = new Button(inputsTable, SWT.CHECK);
-			if(input[4]!=null && input[4].equals("true")) //$NON-NLS-1$
+			if(input.isMain()) //$NON-NLS-1$
 				checkButton.setSelection(true);
 			checkButton.setEnabled(false);
 			checkButton.pack();

@@ -62,6 +62,7 @@ import dynamicrefactoring.RefactoringConstants;
 import dynamicrefactoring.RefactoringImages;
 import dynamicrefactoring.RefactoringPlugin;
 import dynamicrefactoring.domain.DynamicRefactoringDefinition;
+import dynamicrefactoring.domain.InputParameter;
 import dynamicrefactoring.interfaz.dynamic.RepositoryElementProcessor;
 import dynamicrefactoring.interfaz.wizard.listener.ListDownListener;
 import dynamicrefactoring.interfaz.wizard.listener.ListUpListener;
@@ -598,11 +599,11 @@ public class RepositoryElementComposite {
 					tb_parameters.getItemCount() - 1));
 			    
 				
-				for(String[] nextInput : inputsPage.getInputs()){
+				for(InputParameter nextInput : inputsPage.getInputs()){
 					try{
 						//a�adimos al combo las que coinciden con el tipo introducido como par�metro
-						if((Class.forName(type)).isAssignableFrom( Class.forName(nextInput[0])))
-							combo.add(nextInput[1] + " (" + nextInput[0] + ")"); //$NON-NLS-1$ //$NON-NLS-2$	
+						if((Class.forName(type)).isAssignableFrom( Class.forName(nextInput.getType())))
+							combo.add(nextInput.getName() + " (" + nextInput.getType() + ")"); //$NON-NLS-1$ //$NON-NLS-2$	
 					}catch(ClassNotFoundException exception){
 						logger.error(
 								Messages.MainInputValidator_ErrorLoading 
@@ -1037,7 +1038,7 @@ public class RepositoryElementComposite {
 					if (parameter != null){
 						// Se recupera la entrada original por su posici�n en el
 						// desplegable.
-						InputParameter input = new InputParameter("","","","","");
+						InputParameter input = new InputParameter.Builder("").build();
 						for(InputParameter inp : inputsPage.getInputTable()){
 							if(combo.getItem(combo.getSelectionIndex()).toString().equals(inp.getName()+" ("+inp.getType()+")"))
 								input = inp;
@@ -1095,10 +1096,11 @@ public class RepositoryElementComposite {
 				if (element != null){
 					if(element.getParameters().isEmpty()){
 						//inicializamos los par�metros del elemento
-						InputParameter input = new InputParameter("","","","","");
+						InputParameter input = new InputParameter.Builder("").build();
 						
-						for(int i=0; i<getConstructorParameters(element).length; i++)
+						for(int i=0; i<getConstructorParameters(element).length; i++) {
 							element.addParameter(input);
+						}
 					}
 					tb_parameters.setEnabled(true);
 					Class<?>[] parameters = getConstructorParameters(element);

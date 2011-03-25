@@ -18,13 +18,13 @@ import com.google.common.collect.ImmutableSet;
 import dynamicrefactoring.domain.DynamicRefactoringDefinition;
 import dynamicrefactoring.domain.DynamicRefactoringDefinition.Builder;
 import dynamicrefactoring.domain.metadata.condition.CategoryCondition;
-import dynamicrefactoring.domain.metadata.interfaces.Catalog;
+import dynamicrefactoring.domain.metadata.interfaces.ClassificationsCatalog;
 import dynamicrefactoring.domain.metadata.interfaces.Category;
 import dynamicrefactoring.domain.metadata.interfaces.Classification;
 import dynamicrefactoring.reader.JDOMXMLRefactoringReaderImp;
 import dynamicrefactoring.util.DynamicRefactoringLister;
 
-abstract class AbstractCatalog implements Catalog {
+abstract class AbstractCatalog implements ClassificationsCatalog {
 
 	private Set<Classification> classifications;
 	private Set<DynamicRefactoringDefinition> refactorings;

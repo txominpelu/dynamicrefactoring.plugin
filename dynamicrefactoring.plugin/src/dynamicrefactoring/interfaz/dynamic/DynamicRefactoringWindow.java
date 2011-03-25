@@ -71,6 +71,7 @@ import dynamicrefactoring.RefactoringImages;
 import dynamicrefactoring.RefactoringPlugin;
 import dynamicrefactoring.domain.DynamicRefactoring;
 import dynamicrefactoring.domain.DynamicRefactoringDefinition;
+import dynamicrefactoring.domain.InputParameter;
 import dynamicrefactoring.domain.RefactoringException;
 import dynamicrefactoring.integration.ModelGenerator;
 import dynamicrefactoring.integration.NamedObjectHandler;
@@ -138,7 +139,7 @@ public class DynamicRefactoringWindow extends Dialog {
 	 * Tabla asociativa en la que se almacenan los atributos de cada una de las 
 	 * entradas, utilizando como clave de cada entrada su nombre.
 	 */
-	private final HashMap<String, String[]> inputAttributes;
+	private final HashMap<String, InputParameter> inputAttributes;
 
 	/**
 	 * Tabla asociativa que permite actualizar los valores de las entradas que
@@ -296,15 +297,15 @@ public class DynamicRefactoringWindow extends Dialog {
 		scrolledComposite2.setContent(cParameters);
 
 		// Se busca la entrada ra�z.
-		for(String[] nextInput : refactoringDefinition.getInputs()){
+		for(InputParameter nextInput : refactoringDefinition.getInputs()){
 			// Para su entrada de tipo "ra�z".
-			if (nextInput[4] != null && nextInput[4].equals("true")){ //$NON-NLS-1$
-				if (! checkMainInput(nextInput))
+			if (nextInput.isMain()){ //$NON-NLS-1$
+				if (! checkMainInput(nextInput)){
 					return null;
-				
+				}
 				final CLabel lb_Root = new CLabel(cParameters, SWT.NONE);
 				lb_Root.setAlignment(SWT.CENTER);
-				lb_Root.setText(nextInput[1].replaceAll("_", " ")); //$NON-NLS-1$ //$NON-NLS-2$
+				lb_Root.setText(nextInput.getName().replaceAll("_", " ")); //$NON-NLS-1$ //$NON-NLS-2$
 				lb_Root.setBounds(342, 38, 183, 19);
 
 				if(currentObject instanceof NamedObject){
@@ -326,31 +327,30 @@ public class DynamicRefactoringWindow extends Dialog {
 		
 		int rootInputs = 0;
 		// Para el resto de entradas.		
-		for(String[] nextInput : refactoringDefinition.getInputs()){
+		for(InputParameter nextInput : refactoringDefinition.getInputs()){
 
-			if (nextInput[4]== null || nextInput[4].equals("false") || //$NON-NLS-1$
-				nextInput[4].length() == 0){
+			if (!nextInput.isMain()){
 				
 				// Para entradas de tipo from.
-				if (nextInput[2] != null && nextInput[2].length() > 0){
+				if (nextInput.getFrom() != null && nextInput.getFrom().length() > 0){
 					
 					// Si a�n no se ha obtenido su valor.
-					if (! inputValues.containsKey(nextInput[1])){
+					if (! inputValues.containsKey(nextInput.getName())){
 
 						// Se busca la entrada a la que apunta el campo "from".
-						String[] fromInput = inputAttributes.get(nextInput[2]);
+						InputParameter fromInput = inputAttributes.get(nextInput.getFrom());
 					
 						// Si se encuentra la entrada apuntada por el "from".
 						if (fromInput != null) {
 
 							// Si es la entrada principal o ra�z.
-							if(fromInput[4] != null && fromInput[4].equals("true"))	{					 //$NON-NLS-1$
+							if(fromInput.isMain())	{					 //$NON-NLS-1$
 								if(! loadFromMain(cParameters, nextInput))
 									return null;
 							}
 						
 							// Si el "from" apunta al modelo.
-							else if (fromInput[0].equals("moon.core.Model")) { //$NON-NLS-1$
+							else if (fromInput.getType().equals("moon.core.Model")) { //$NON-NLS-1$
 								if (!loadFromModel(cParameters, nextInput))
 									return null;
 							}
@@ -358,7 +358,7 @@ public class DynamicRefactoringWindow extends Dialog {
 							// Para el resto de entradas.
 							else {
 								recursiveInputs = new ArrayList<String>();
-								String[] source = inputAttributes.get(nextInput[2]);
+								InputParameter source = inputAttributes.get(nextInput.getFrom());
 								// Se inicia su obtenci�n.
 								recursiveDependencyResolution(cParameters,
 									source, nextInput);							
@@ -367,7 +367,7 @@ public class DynamicRefactoringWindow extends Dialog {
 					
 						// Si no se encuentra la entrada a la que apunta el campo "from".
 						else {
-							Object[] messageArgs = {"\"" + nextInput[2] + "\"", nextInput[1]}; //$NON-NLS-1$ //$NON-NLS-2$
+							Object[] messageArgs = {"\"" + nextInput.getFrom() + "\"", nextInput.getName()}; //$NON-NLS-1$ //$NON-NLS-2$
 							MessageFormat formatter = new MessageFormat(""); //$NON-NLS-1$
 							formatter.applyPattern(
 								Messages.DynamicRefactoringWindow_ReferencedObjectNotFound);
@@ -384,12 +384,12 @@ public class DynamicRefactoringWindow extends Dialog {
 				// Si no es la entrada principal, ni tiene campo "from"
 				else {
 					// Si no es el propio modelo.
-					if(! nextInput[0].equals(RefactoringConstants.MODEL_PATH)){
+					if(! nextInput.getType().equals(RefactoringConstants.MODEL_PATH)){
 						
 						final CLabel lb_Input = new CLabel(cParameters, SWT.NONE);
 						lb_Input.setBounds(342, desplazamiento + 105 + 67 * count, 183, 19);
 						lb_Input.setAlignment(SWT.CENTER);
-						lb_Input.setText(nextInput[1].replaceAll("_", " ")); //$NON-NLS-1$ //$NON-NLS-2$
+						lb_Input.setText(nextInput.getName().replaceAll("_", " ")); //$NON-NLS-1$ //$NON-NLS-2$
 
 						// Es una entrada cuyo valor debe introducir el usuario
 						// de forma manual (campo de texto).
@@ -398,7 +398,7 @@ public class DynamicRefactoringWindow extends Dialog {
 						t_Input.addModifyListener(new TextModifyListener());
 						// Se indica que el valor de la entrada se almacena en
 						// este campo de texto.
-						inputFields.put(nextInput[1], t_Input);
+						inputFields.put(nextInput.getName(), t_Input);
 						
 						count++;
 					}
@@ -440,10 +440,10 @@ public class DynamicRefactoringWindow extends Dialog {
 	 * @return <code>true</code> si se pudo cargar; <code>false</code> en caso
 	 *         contrario.
 	 */
-	private boolean loadFromMain(final Composite cParameters, String[] loadedInput) {
+	private boolean loadFromMain(final Composite cParameters, InputParameter loadedInput) {
 		
 		try {
-			Method method = currentObject.getClass().getMethod(loadedInput[3], 
+			Method method = currentObject.getClass().getMethod(loadedInput.getMethod(), 
 				(Class[]) null);
 			Object values = method.invoke(currentObject, (Object[]) null);
 		
@@ -452,7 +452,7 @@ public class DynamicRefactoringWindow extends Dialog {
 				final CLabel lb_Input = new CLabel(cParameters, SWT.NONE);
 				lb_Input.setBounds(342, desplazamiento + 105 + 67 * count, 183, 19);
 				lb_Input.setAlignment(SWT.CENTER);
-				lb_Input.setText(loadedInput[1].replaceAll("_", " ")); //$NON-NLS-1$ //$NON-NLS-2$
+				lb_Input.setText(loadedInput.getName().replaceAll("_", " ")); //$NON-NLS-1$ //$NON-NLS-2$
 			
 				// Si se ha obtenido un �nico valor.
 				if (isSingleValue(values)){
@@ -460,9 +460,9 @@ public class DynamicRefactoringWindow extends Dialog {
 					t_Input.setBounds(35, desplazamiento + 132 +67*count, 790, 25);
 					t_Input.setText(NamedObjectHandler.getName(values));
 					t_Input.setEditable(false);
-					inputValues.put(loadedInput[1], values);
+					inputValues.put(loadedInput.getName(), values);
 					// Se indica que el valor de la entrada lo almacena este campo.
-					inputFields.put(loadedInput[1], t_Input);
+					inputFields.put(loadedInput.getName(), t_Input);
 				}
 				// Otras entradas aparte del modelo tambi�n pueden
 				// devolver conjuntos de valores.
@@ -473,11 +473,11 @@ public class DynamicRefactoringWindow extends Dialog {
 					combo.addFocusListener(new ComboEditor());
 			
 					// Se procesa el contenido del conjunto de valores.
-					fillInCombo(values, combo, loadedInput[1]);
+					fillInCombo(values, combo, loadedInput.getName());
 					combo.addSelectionListener(new ComboSelectionListener());
 					// Se indica que el valor de esta entrada se almacena en esta
 					// lista desplegable.
-					inputFields.put(loadedInput[1], combo);
+					inputFields.put(loadedInput.getName(), combo);
 				}
 			}
 			// Se incrementa en uno el espacio necesario.
@@ -507,11 +507,11 @@ public class DynamicRefactoringWindow extends Dialog {
 	 * @return <code>true</code> si se pudo cargar; <code>false</code> en caso
 	 *         contrario.
 	 */
-	private boolean loadFromModel(final Composite cParameters, String[] nextInput) {
+	private boolean loadFromModel(final Composite cParameters, InputParameter nextInput) {
 		
 		try {
 			Method method = model.getClass().getMethod(
-				nextInput[3], (Class[]) null);
+				nextInput.getMethod(), (Class[]) null);
 				
 			Object values = method.invoke(
 				model, (Object[]) null);
@@ -520,7 +520,7 @@ public class DynamicRefactoringWindow extends Dialog {
 				final CLabel lb_Input = new CLabel(cParameters, SWT.NONE);
 				lb_Input.setBounds(342, desplazamiento +105 + 67 * count, 183, 19);
 				lb_Input.setAlignment(SWT.CENTER);
-				lb_Input.setText(nextInput[1].replaceAll("_", " ")); //$NON-NLS-1$ //$NON-NLS-2$
+				lb_Input.setText(nextInput.getName().replaceAll("_", " ")); //$NON-NLS-1$ //$NON-NLS-2$
 				
 				// Los m�todos utilizados del modelo devuelven
 				// siempre conjuntos de valores.
@@ -530,18 +530,18 @@ public class DynamicRefactoringWindow extends Dialog {
 				combo.addFocusListener(new ComboEditor());
 				
 				// Se procesa el contenido del conjunto de valores.
-				fillInCombo(values, combo, nextInput[1]);
+				fillInCombo(values, combo, nextInput.getName());
 				combo.addSelectionListener(new ComboSelectionListener());
 				// Se indica que el valor de la entrada se almacena en esta lista
 				// desplegable.
-				inputFields.put(nextInput[1], combo);
+				inputFields.put(nextInput.getName(), combo);
 			}
 			// Se incrementa en uno el espacio necesario.
 			count++;
 			return true;
 		}
 		catch (Exception e) {
-			Object[] messageArgs = {nextInput[1]};
+			Object[] messageArgs = {nextInput.getName()};
 			MessageFormat formatter = new MessageFormat(""); //$NON-NLS-1$
 			formatter.applyPattern(
 				Messages.DynamicRefactoringWindow_ErrorObtainingValues);
@@ -580,10 +580,10 @@ public class DynamicRefactoringWindow extends Dialog {
 	 * @see DynamicRefactoringDefinition#getInputs() para estudiar el formato de
 	 *      especificaci�n de las entradas de una refactorizaci�n din�mica.
 	 */
-	private boolean checkMainInput(String[] testedInput) {
+	private boolean checkMainInput(InputParameter testedInput) {
 		// El tipo de la entrada debe coincidir con el esperado.
 		try {
-			Class<?> mainClass = Class.forName(testedInput[0]);
+			Class<?> mainClass = Class.forName(testedInput.getType());
 			// La clase de la entrada debe ser una superclase del tipo
 			// que tiene el argumento principal seleccionado en Eclipse.
 			if (! mainClass.isAssignableFrom(currentObject.getClass())){
@@ -849,10 +849,10 @@ public class DynamicRefactoringWindow extends Dialog {
 	 *         caso contrario.
 	 */
 	private boolean recursiveDependencyResolution(Composite cParameters,
-		String[] sourceInput, String[] newInput) {
+		InputParameter sourceInput, InputParameter newInput) {
 		
-		if (recursiveInputs.contains(newInput[1])){
-			Object[] messageArgs = {newInput[1]};
+		if (recursiveInputs.contains(newInput.getName())){
+			Object[] messageArgs = {newInput.getName()};
 			MessageFormat formatter = new MessageFormat(""); //$NON-NLS-1$
 			formatter.applyPattern(
 				Messages.DynamicRefactoringWindow_CycleFound);
@@ -863,36 +863,36 @@ public class DynamicRefactoringWindow extends Dialog {
 			exitWithError(message);
 			return false;
 		}
-		recursiveInputs.add(newInput[1]);
+		recursiveInputs.add(newInput.getName());
 
 		try {
-			if (! inputValues.containsKey(sourceInput[1])){
-				String[] recursiveSource = inputAttributes.get(sourceInput[2]);
+			if (! inputValues.containsKey(sourceInput.getName())){
+				InputParameter recursiveSource = inputAttributes.get(sourceInput.getFrom());
 				if (recursiveSource != null){
-					if (recursiveSource[0].equals("moon.core.Model")) //$NON-NLS-1$
+					if (recursiveSource.getType().equals("moon.core.Model")) //$NON-NLS-1$
 						loadFromModel(cParameters, sourceInput);
-					else if(recursiveSource[4] != null && recursiveSource[4].equals("true")) //$NON-NLS-1$
+					else if(recursiveSource.isMain()) //$NON-NLS-1$
 						loadFromMain(cParameters, sourceInput);
 					else
 						recursiveDependencyResolution(cParameters,
-							inputAttributes.get(sourceInput[2]), sourceInput);
+							inputAttributes.get(sourceInput.getFrom()), sourceInput);
 				}
 			}
 			
 			// Puede que no se haya cargado a�n el valor de origen porque deba
 			// ser
 			// introducido de forma manual. Solo se continua si se ha cargado.
-			if (inputValues.containsKey(sourceInput[1])){
+			if (inputValues.containsKey(sourceInput.getName())){
 				
-				Method runtimeMeth = loadMethod(sourceInput[0], newInput[3]);
-				Object values = runtimeMeth.invoke(inputValues.get(sourceInput[1]),
+				Method runtimeMeth = loadMethod(sourceInput.getType(), newInput.getMethod());
+				Object values = runtimeMeth.invoke(inputValues.get(sourceInput.getName()),
 					(Object[]) null);
 				
 				if (values != null)	{
 					
 					// Si el valor se ha obtenido a partir de una entrada
 					// desplegable, hay que registrar esta dependencia.
-					Scrollable sourceField = inputFields.get(sourceInput[1]); 
+					Scrollable sourceField = inputFields.get(sourceInput.getName()); 
 					if (sourceField != null && sourceField instanceof Combo){
 						String[] dependent = comboDependencies.get(
 							Integer.valueOf(sourceField.hashCode()));
@@ -903,17 +903,17 @@ public class DynamicRefactoringWindow extends Dialog {
 							// Se a�ade el nombre de la nueva entrada a la lista
 							// de
 							// entradas dependientes del desplegable.
-							updated[updated.length] = newInput[1];
+							updated[updated.length] = newInput.getName();
 						}
 						else 
-							updated = new String[]{newInput[1]};
+							updated = new String[]{newInput.getName()};
 						comboDependencies.put(sourceField.hashCode(), updated);
 					}
 					
 					final CLabel lb_Input = new CLabel(cParameters, SWT.NONE);
 					lb_Input.setBounds(342, desplazamiento +105 + 67 * count, 183, 19);
 					lb_Input.setAlignment(SWT.CENTER);
-					lb_Input.setText(newInput[1].replaceAll("_", " ")); //$NON-NLS-1$ //$NON-NLS-2$
+					lb_Input.setText(newInput.getName().replaceAll("_", " ")); //$NON-NLS-1$ //$NON-NLS-2$
 					
 					// Si se ha obtenido un �nico valor.
 					if (isSingleValue(values)){
@@ -921,9 +921,9 @@ public class DynamicRefactoringWindow extends Dialog {
 						t_Input.setBounds(35, desplazamiento +132 + 67 * count, 790, 25);
 						t_Input.setText(NamedObjectHandler.getName(values));
 						t_Input.setEditable(false);
-						inputValues.put(newInput[1], values);
+						inputValues.put(newInput.getName(), values);
 						// Se indica que el valor de esta entrada lo tiene este campo.
-						inputFields.put(newInput[1], t_Input);
+						inputFields.put(newInput.getName(), t_Input);
 					}
 					// Otras entradas aparte del modelo tambi�n pueden
 					// devolver conjuntos de valores.
@@ -934,11 +934,11 @@ public class DynamicRefactoringWindow extends Dialog {
 						combo.addFocusListener(new ComboEditor());
 				
 						// Se procesa el contenido del conjunto de valores.
-						fillInCombo(values, combo, newInput[1]);
+						fillInCombo(values, combo, newInput.getName());
 						combo.addSelectionListener(new ComboSelectionListener());
 						// Se indica que el valor de esta entrada se almacena en
 						// esta lista desplegable.
-						inputFields.put(newInput[1], combo);
+						inputFields.put(newInput.getName(), combo);
 					}
 					
 					// Se incrementa en uno el espacio necesario.
@@ -948,7 +948,7 @@ public class DynamicRefactoringWindow extends Dialog {
 			// No se admiten dependencias de campos cuyo valor deba ser
 			// introducido por el usuario.
 			else {
-				Object[] messageArgs = {newInput[1]};
+				Object[] messageArgs = {newInput.getName()};
 				MessageFormat formatter = new MessageFormat(""); //$NON-NLS-1$
 				formatter.applyPattern(
 					Messages.DynamicRefactoringWindow_DependsOnUser);
@@ -993,13 +993,13 @@ public class DynamicRefactoringWindow extends Dialog {
 	 * @param input
 	 *            entrada cuyo valor se debe recalcular.
 	 */
-	private void recompute(String[] input){
+	private void recompute(InputParameter input){
 		
 		// Se obtiene la entrada de la que depende la actual.
-		String[] sourceInput = inputAttributes.get(input[2]);
+		InputParameter sourceInput = inputAttributes.get(input.getFrom());
 		
 		// Se obtiene el valor de la entrada de la que depende la actual.
-		Object source = inputValues.get(sourceInput[1]);
+		Object source = inputValues.get(sourceInput.getName());
 		
 		try {
 			// Solo se actualiza el valor si el valor de origen ya est�
@@ -1007,22 +1007,22 @@ public class DynamicRefactoringWindow extends Dialog {
 			if (source != null){
 				// Se carga el m�todo con el que se obtendr� el valor de la
 				// entrada.
-				Method method = loadMethod(sourceInput[0], input[3]);
+				Method method = loadMethod(sourceInput.getType(), input.getMethod());
 				// Se calcula el nuevo valor.
 				Object values = method.invoke(source, (Object[]) null);
 				
 				if (values != null){
 					
-					Scrollable field = inputFields.get(input[1]);
+					Scrollable field = inputFields.get(input.getName());
 					if (field instanceof Text){
 						// Se actualiza el valor de la entrada.
-						inputValues.put(input[1], values);
+						inputValues.put(input.getName(), values);
 						((Text)field).setText(NamedObjectHandler.getName(values));
 					}
 					else if (field instanceof Combo)
 						// Se rellena de nuevo el desplegable.
 						// El propio m�todo actualiza las tablas de entradas.
-						fillInCombo(values, (Combo)field, input[1]);
+						fillInCombo(values, (Combo)field, input.getName());
 				}				
 			}
 		}
@@ -1209,7 +1209,7 @@ public class DynamicRefactoringWindow extends Dialog {
 				if (dependent != null)
 					for (String inputName : dependent){
 						// Se obtienen los atributos completos de la entrada.
-						String[] input = inputAttributes.get(inputName);
+						InputParameter input = inputAttributes.get(inputName);
 						recompute(input);
 				}
 			}			

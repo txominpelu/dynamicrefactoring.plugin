@@ -41,6 +41,7 @@ import com.google.common.collect.ImmutableListMultimap.Builder;
 import dynamicrefactoring.RefactoringConstants;
 import dynamicrefactoring.RefactoringPlugin;
 import dynamicrefactoring.domain.DynamicRefactoringDefinition;
+import dynamicrefactoring.domain.InputParameter;
 import dynamicrefactoring.domain.Scope;
 import dynamicrefactoring.domain.metadata.interfaces.Category;
 import dynamicrefactoring.reader.XMLRefactoringReaderException;
@@ -449,26 +450,25 @@ public class JDOMXMLRefactoringWriterImp implements XMLRefactoringWriterImp {
 
 		Element inputs = new Element(XMLRefactoringReaderImp.INPUTS_ELEMENT);
 
-		for (String[] inputDefinition : refactoringDefinition.getInputs()) {
+		for (InputParameter inputDefinition : refactoringDefinition.getInputs()) {
 			Element input = new Element(XMLRefactoringReaderImp.INPUT_ELEMENT);
 			input.setAttribute(XMLRefactoringReaderImp.TYPE_INPUT_ATTRIBUTE,
-					inputDefinition[0]);
-			if (inputDefinition[1].length() != 0)
+					inputDefinition.getType());
+			if (inputDefinition.getName().length() != 0)
 				input.setAttribute(
 						XMLRefactoringReaderImp.NAME_INPUT_ATTRIBUTE,
-						inputDefinition[1]);
-			if (inputDefinition[2] != null && inputDefinition[2].length() != 0)
+						inputDefinition.getName());
+			if (inputDefinition.getFrom() != null && inputDefinition.getFrom().length() != 0)
 				input.setAttribute(
 						XMLRefactoringReaderImp.FROM_INPUT_ATTRIBUTE,
-						inputDefinition[2]);
-			if (inputDefinition[3] != null && inputDefinition[3].length() != 0)
+						inputDefinition.getFrom());
+			if (inputDefinition.getMethod() != null && inputDefinition.getMethod().length() != 0)
 				input.setAttribute(
 						XMLRefactoringReaderImp.METHOD_INPUT_ATTRIBUTE,
-						inputDefinition[3]);
-			if (inputDefinition[4] != null && inputDefinition[4].length() != 0)
-				input.setAttribute(
+						inputDefinition.getMethod());
+			input.setAttribute(
 						XMLRefactoringReaderImp.ROOT_INPUT_ATTRIBUTE,
-						inputDefinition[4]);
+						String.valueOf(inputDefinition.isMain()));
 			inputs.addContent(input);
 		}
 

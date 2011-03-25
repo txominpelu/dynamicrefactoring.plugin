@@ -232,46 +232,46 @@ public class RefactoringPlanExecutor implements IRunnableWithProgress{
 				DynamicRefactoringDefinition.getRefactoringDefinition(
 						refactorings.get(refactoring + " (" + refactoring +".xml)"));
 			
-			ArrayList<String[]> fromInputs = new ArrayList<String[]>();
+			ArrayList<InputParameter> fromInputs = new ArrayList<InputParameter>();
 			
 			//Procesamos todas las entradas menos las de tipo from.
-			for (String[] input : refactoringDefinition.getInputs()){
-				if (input[0].equals("moon.core.Model")){
+			for (InputParameter input : refactoringDefinition.getInputs()){
+				if (input.getType().equals("moon.core.Model")){
 					// Se obtiene el modelo MOON actual.
-					inputs.put(input[1], model);
+					inputs.put(input.getName(), model);
 				// Para entradas de tipo from.
-				}else if(input[2]!=null && input[2].length() > 0){
+				}else if(input.getFrom()!=null && input.getFrom().length() > 0){
 					fromInputs.add(input);
 				}else {
 					String text = RefactoringPlanReader.getInputValue
-						(refactoring, input[1], 
+						(refactoring, input.getName(), 
 						  new File(new File( new File(refactorings.get(refactoring + " (" + refactoring +".xml)")).getParent()).getParent()).getParent() + "/refactoringPlan.xml" );
 					Object value = computeValue(input, text);
-				    inputs.put(input[1], value);
+				    inputs.put(input.getName(), value);
 				}
 			}
 			
 			int j =0;
 			//Calculamos las entradas de tipo from
 			while(fromInputs.size()!=0){
-				String[] input = fromInputs.get(j);
+				InputParameter input = fromInputs.get(j);
 				
-				if(inputs.containsKey(input[2])){
+				if(inputs.containsKey(input.getFrom())){
 					fromInputs.remove(j);
 					try{
-						Method method = inputs.get(input[2]).getClass().getMethod(input[3], 
+						Method method = inputs.get(input.getFrom()).getClass().getMethod(input.getMethod(), 
 								(Class[]) null);
-						Object values = method.invoke(inputs.get(input[2]), (Object[]) null);
+						Object values = method.invoke(inputs.get(input.getFrom()), (Object[]) null);
 						
 						if(DynamicRefactoringWindow.isSingleValue(values)){
-							inputs.put(input[1], values);
+							inputs.put(input.getName(), values);
 							
 						}else{
 							Object value = selectFromGroup( values,input,refactoring);
-							inputs.put(input[1], value);
+							inputs.put(input.getName(), value);
 						}
 					}catch(Exception e){
-						Object[] messageArgs = {input[3],input[2]};
+						Object[] messageArgs = {input.getMethod(),input.getFrom()};
 						MessageFormat formatter = new MessageFormat(""); //$NON-NLS-1$
 						formatter.applyPattern(
 							Messages.RefactoringPlanExecutor_InvokeMethod);
@@ -315,19 +315,19 @@ public class RefactoringPlanExecutor implements IRunnableWithProgress{
 	 * @return un objeto MOON asociado a la entrada, o <code>null</code> si no se
 	 * pudo cargar ning�n objeto adecuado.
 	 */
-	private Object computeValue(String[] input, String source){
+	private Object computeValue(InputParameter input, String source){
 		
 		// Se obtiene el nombre del elemento que habr� que buscar.
 		String name = source.trim();
 		
 		// Si la entrada es de tipo moon.core.Name.
-		if (input[0].equals(NAME_NAME))	
+		if (input.getType().equals(NAME_NAME))	
 			// Se construye un nombre MOON.
 			return model.getMoonFactory().createName(name);
 		
 		try {
 			Class<?> classdef = Class.forName(CLASSDEF_NAME);
-			Class<?> declaration = Class.forName(input[0]);
+			Class<?> declaration = Class.forName(input.getType());
 			
 			// Si no, se comprueba si es alg�n subtipo de moon.core.classdef.ClassDef.
 			if (classdef.isAssignableFrom(declaration)){
@@ -367,7 +367,7 @@ public class RefactoringPlanExecutor implements IRunnableWithProgress{
 			
 		}
 		catch (ClassNotFoundException exception){
-			Object[] messageArgs = {input[1]};
+			Object[] messageArgs = {input.getName()};
 			MessageFormat formatter = new MessageFormat(""); //$NON-NLS-1$
 			formatter.applyPattern(
 				Messages.RefactoringPlanExecutor_ObjectNotLoaded);
@@ -390,7 +390,7 @@ public class RefactoringPlanExecutor implements IRunnableWithProgress{
 	 * @param refactoring nombre de la refactorizaci�n.
 	 * @return objeto que se corresponde con el par�metro.
 	 */
-	private Object selectFromGroup( Object group, String[] input, String refactoring){
+	private Object selectFromGroup( Object group, InputParameter input, String refactoring){
 		try{
 			Class<?> collection = Class.forName(
 				RefactoringConstants.COLLECTION_PATH);
@@ -400,7 +400,7 @@ public class RefactoringPlanExecutor implements IRunnableWithProgress{
 			Class<?> container = group.getClass();
 			
 			
-			String name = RefactoringPlanReader.getInputValue(refactoring, input[1], 
+			String name = RefactoringPlanReader.getInputValue(refactoring, input.getName(), 
 					new File(new File( new File(refactorings.get(refactoring 
 				    + " (" + refactoring +".xml)")).getParent()).getParent()).getParent()
 				    + "/refactoringPlan.xml" );
@@ -420,7 +420,7 @@ public class RefactoringPlanExecutor implements IRunnableWithProgress{
 						return valueIterator.next();
 			}
 		}catch(ClassNotFoundException e){
-			Object[] messageArgs = {input[1]};
+			Object[] messageArgs = {input.getName()};
 			MessageFormat formatter = new MessageFormat(""); //$NON-NLS-1$
 			formatter.applyPattern(
 				Messages.RefactoringPlanExecutor_ObjectNotLoaded);

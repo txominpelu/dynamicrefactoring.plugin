@@ -36,7 +36,7 @@ import com.google.common.base.Predicate;
 import com.google.common.collect.Collections2;
 
 import dynamicrefactoring.RefactoringConstants;
-import dynamicrefactoring.domain.metadata.interfaces.Catalog;
+import dynamicrefactoring.domain.metadata.interfaces.ClassificationsCatalog;
 import dynamicrefactoring.domain.metadata.interfaces.Category;
 import dynamicrefactoring.domain.metadata.interfaces.Element;
 import dynamicrefactoring.plugin.xml.classifications.imp.PluginCatalog;
@@ -79,7 +79,7 @@ public class DynamicRefactoringDefinition implements Element,
 	/**
 	 * Las entradas que debe proporcionar el usuario a la refactorizaci�n.
 	 */
-	private List<String[]> inputs;
+	private List<InputParameter> inputs;
 
 	/**
 	 * Los nombres de las precondiciones de la refactorizaci�n.
@@ -177,7 +177,7 @@ public class DynamicRefactoringDefinition implements Element,
 	 * 
 	 * @see #setInputs
 	 */
-	public List<String[]> getInputs() {
+	public List<InputParameter> getInputs() {
 		return inputs;
 	}
 
@@ -193,12 +193,12 @@ public class DynamicRefactoringDefinition implements Element,
 	 * 
 	 * @see #getInputs para obtener las entradas como una lista.
 	 */
-	public HashMap<String, String[]> getInputsAsHash() {
-		HashMap<String, String[]> map = new HashMap<String, String[]>();
+	public HashMap<String, InputParameter> getInputsAsHash() {
+		HashMap<String, InputParameter> map = new HashMap<String, InputParameter>();
 
-		for (String[] input : inputs)
+		for (InputParameter input : inputs)
 			// El nombre es el segundo atributo (posici�n 1 del array).
-			map.put(input[1], input);
+			map.put(input.getName(), input);
 
 		return map;
 	}
@@ -439,7 +439,7 @@ public class DynamicRefactoringDefinition implements Element,
 
 	/**
 	 * Dos refactorizaciones son consideradas iguales si tienen el mismo nombre.
-	 * Esto es debido a que en el catalogo de refactorizaciones {@link Catalog}
+	 * Esto es debido a que en el catalogo de refactorizaciones {@link ClassificationsCatalog}
 	 * se considera que el nombre es un identificador unico y por tanto no puede
 	 * haber dos refactorizaciones con el mismo nombre.
 	 * 
@@ -501,7 +501,7 @@ public class DynamicRefactoringDefinition implements Element,
 		private String description;
 		private String image = "";
 		private String motivation;
-		private List<String[]> inputs;
+		private List<InputParameter> inputs;
 		private List<String> preconditions;
 		private List<String> actions;
 		private List<String> postconditions;
@@ -656,7 +656,7 @@ public class DynamicRefactoringDefinition implements Element,
 		 * 
 		 * @see #getInputs
 		 */
-		public Builder inputs(List<String[]> inputs) {
+		public Builder inputs(List<InputParameter> inputs) {
 			this.inputs = inputs;
 			return this;
 		}

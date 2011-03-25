@@ -38,6 +38,7 @@ import com.google.common.base.Throwables;
 import dynamicrefactoring.RefactoringConstants;
 import dynamicrefactoring.domain.DynamicRefactoringDefinition;
 import dynamicrefactoring.domain.DynamicRefactoringDefinition.Builder;
+import dynamicrefactoring.domain.InputParameter;
 import dynamicrefactoring.domain.Scope;
 import dynamicrefactoring.domain.metadata.interfaces.Category;
 
@@ -203,19 +204,15 @@ public class JDOMXMLRefactoringReaderImp implements XMLRefactoringReaderImp {
 	 *         el que se puede obtener y si se trata de la entrada principal de
 	 *         la refactorizaci�n, en ese orden.
 	 */
-	private ArrayList<String[]> readInputsElements(List<Element> in) {
+	private ArrayList<InputParameter> readInputsElements(List<Element> in) {
 
-		ArrayList<String[]> inputs = new ArrayList<String[]>();
-		String[] inputContent;
+		ArrayList<InputParameter> inputs = new ArrayList<InputParameter>();
 
 		for (Element input : in) {
-			inputContent = new String[5];
-			inputContent[0] = input.getAttributeValue(TYPE_INPUT_ATTRIBUTE);
-			inputContent[1] = input.getAttributeValue(NAME_INPUT_ATTRIBUTE);
-			inputContent[2] = input.getAttributeValue(FROM_INPUT_ATTRIBUTE);
-			inputContent[3] = input.getAttributeValue(METHOD_INPUT_ATTRIBUTE);
-			inputContent[4] = input.getAttributeValue(ROOT_INPUT_ATTRIBUTE);
-			inputs.add(inputContent);
+			inputs.add(new InputParameter.Builder(input.getAttributeValue(TYPE_INPUT_ATTRIBUTE)).name(input.getAttributeValue(NAME_INPUT_ATTRIBUTE))
+					.from(input.getAttributeValue(FROM_INPUT_ATTRIBUTE))
+					.method(input.getAttributeValue(METHOD_INPUT_ATTRIBUTE))
+					.main(Boolean.valueOf(input.getAttributeValue(ROOT_INPUT_ATTRIBUTE))).build());
 		}
 		return inputs;
 	}

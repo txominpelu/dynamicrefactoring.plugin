@@ -28,6 +28,7 @@ import org.apache.log4j.Logger;
 
 import dynamicrefactoring.RefactoringPlugin;
 import dynamicrefactoring.domain.DynamicRefactoringDefinition;
+import dynamicrefactoring.domain.InputParameter;
 import dynamicrefactoring.domain.RefactoringException;
 import dynamicrefactoring.domain.Scope;
 import dynamicrefactoring.interfaz.SelectRefactoringWindow;
@@ -124,15 +125,16 @@ public class ScopeLimitedLister {
 					DynamicRefactoringDefinition definition = DynamicRefactoringDefinition
 							.getRefactoringDefinition(nextRef.getValue());
 
-					for (String[] nextInput : definition.getInputs()) {
+					for (InputParameter nextInput : definition.getInputs()) {
 						// Para su entrada de tipo "ra�z".
-						if (nextInput[4] != null && nextInput[4].equals("true")) { //$NON-NLS-1$
+						if (nextInput.isMain()) { //$NON-NLS-1$
 							// Si el tipo de la entrada es el que corresponde al
 							// �mbito seleccionado.
 							try {
 								if (Class.forName(convertScope(scope))
 										.isAssignableFrom(
-												Class.forName(nextInput[0]))) {
+												Class.forName(nextInput
+														.getType()))) {
 
 									selected.put(definition.getName(),
 											nextRef.getValue());

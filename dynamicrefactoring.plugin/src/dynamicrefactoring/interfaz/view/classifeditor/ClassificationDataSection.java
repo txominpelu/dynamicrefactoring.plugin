@@ -13,14 +13,14 @@ import org.eclipse.ui.forms.widgets.FormToolkit;
 import org.eclipse.ui.forms.widgets.ScrolledForm;
 import org.eclipse.ui.forms.widgets.Section;
 
-import dynamicrefactoring.domain.metadata.interfaces.Catalog;
+import dynamicrefactoring.domain.metadata.interfaces.ClassificationsCatalog;
 
 public class ClassificationDataSection {
 
 	/**
 	 * Catalogo de clasificaciones y categorias.
 	 */
-	private Catalog catalog;
+	private ClassificationsCatalog catalog;
 	/**
 	 * Nombre de la clasificacion en edicion.
 	 */
@@ -32,7 +32,7 @@ public class ClassificationDataSection {
 	 * @param catalog
 	 *            catalogo de clasificaciones
 	 */
-	public ClassificationDataSection(Catalog catalog,
+	public ClassificationDataSection(ClassificationsCatalog catalog,
 			String classification) {
 		this.catalog = catalog;
 		this.classification = classification;

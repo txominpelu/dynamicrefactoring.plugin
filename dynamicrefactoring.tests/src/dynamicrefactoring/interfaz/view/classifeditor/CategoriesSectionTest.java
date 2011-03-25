@@ -9,7 +9,7 @@ import java.util.Set;
 import org.junit.Before;
 import org.junit.Test;
 
-import dynamicrefactoring.domain.metadata.interfaces.Catalog;
+import dynamicrefactoring.domain.metadata.interfaces.ClassificationsCatalog;
 import dynamicrefactoring.domain.metadata.interfaces.Category;
 import dynamicrefactoring.interfaz.view.classifeditor.CategoriesSection;
 import dynamicrefactoring.plugin.xml.classifications.imp.CatalogStub;
@@ -20,7 +20,7 @@ public class CategoriesSectionTest {
 	private static final String CATEGORY_TO_RENAME = "clasifToRename";
 	private static final String CATEGORY_NEW_NAME = "clasifNewName";
 	
-	private Catalog catalog;
+	private ClassificationsCatalog catalog;
 	private CategoriesSection editor;
 
 	@Before

@@ -22,7 +22,7 @@ import org.eclipse.ui.forms.widgets.ScrolledForm;
 import org.eclipse.ui.forms.widgets.Section;
 
 import dynamicrefactoring.domain.metadata.imp.SimpleUniLevelClassification;
-import dynamicrefactoring.domain.metadata.interfaces.Catalog;
+import dynamicrefactoring.domain.metadata.interfaces.ClassificationsCatalog;
 import dynamicrefactoring.domain.metadata.interfaces.Category;
 import dynamicrefactoring.domain.metadata.interfaces.Classification;
 
@@ -38,7 +38,7 @@ import dynamicrefactoring.domain.metadata.interfaces.Classification;
  */
 public class ClassifListSection {
 
-	private Catalog catalog;
+	private ClassificationsCatalog catalog;
 	private Table tbClassif;
 
 	/**
@@ -49,7 +49,7 @@ public class ClassifListSection {
 	 *            catalogo sobre el que se efectuan los cambios en las
 	 *            clasificaciones
 	 */
-	protected ClassifListSection(Catalog catalog) {
+	protected ClassifListSection(ClassificationsCatalog catalog) {
 		this.catalog = catalog;
 	}
 

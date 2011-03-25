@@ -26,6 +26,7 @@ import java.util.List;
 import refactoring.engine.Refactoring;
 import dynamicrefactoring.RefactoringRunner;
 import dynamicrefactoring.domain.DynamicRefactoring;
+import dynamicrefactoring.domain.InputParameter;
 
 /**
  * Permite ejecutar una operaci�n de refactorizaci�n basado en una
@@ -80,7 +81,7 @@ public class DynamicRefactoringRunner extends RefactoringRunner {
 	 * @return Descripci�n de los par�metros de entrada a la
 	 *         refactorizaci�n.
 	 */
-	public List<String[]> getInputs() {
+	public List<InputParameter> getInputs() {
 		return refactoring.getInputs();
 	}
 

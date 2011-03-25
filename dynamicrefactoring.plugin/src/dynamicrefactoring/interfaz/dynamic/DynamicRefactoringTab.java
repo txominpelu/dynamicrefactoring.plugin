@@ -54,6 +54,7 @@ import com.swtdesigner.SWTResourceManager;
 import dynamicrefactoring.RefactoringImages;
 import dynamicrefactoring.RefactoringPlugin;
 import dynamicrefactoring.domain.DynamicRefactoringDefinition;
+import dynamicrefactoring.domain.InputParameter;
 import dynamicrefactoring.interfaz.TreeEditor;
 
 /**
@@ -292,15 +293,14 @@ public class DynamicRefactoringTab {
 		t_Description.setText(refactoringDefinition.getDescription());
 		t_Motivation.setText(refactoringDefinition.getMotivation());
 		
-		List<String[]> inputs = refactoringDefinition.getInputs();
-		for (String[] input : inputs){
+		List<InputParameter> inputs = refactoringDefinition.getInputs();
+		for (InputParameter input : inputs){
 			TableItem item = new TableItem(tb_Inputs, SWT.BORDER);
-			item.setText(new String[]{input[1], input[0], "", ""}); //$NON-NLS-1$ //$NON-NLS-2$
+			item.setText(new String[]{input.getName(), input.getType(), "", ""}); //$NON-NLS-1$ //$NON-NLS-2$
 				
 			TableEditor editor = new TableEditor(tb_Inputs);
 			Button checkButton = new Button(tb_Inputs, SWT.CHECK);
-			if (input[4] != null && input[4].equals("true")) //$NON-NLS-1$
-				checkButton.setSelection(true);
+			checkButton.setSelection(input.isMain());
 			checkButton.pack();
 			editor.minimumWidth = checkButton.getSize().x;
 			editor.horizontalAlignment = SWT.CENTER;

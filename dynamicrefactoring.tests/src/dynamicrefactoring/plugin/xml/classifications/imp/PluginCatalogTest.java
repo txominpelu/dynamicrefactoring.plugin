@@ -22,7 +22,7 @@ import com.google.common.collect.ImmutableSet;
 import dynamicrefactoring.RefactoringConstants;
 import dynamicrefactoring.RefactoringPlugin;
 import dynamicrefactoring.domain.metadata.imp.SimpleUniLevelClassification;
-import dynamicrefactoring.domain.metadata.interfaces.Catalog;
+import dynamicrefactoring.domain.metadata.interfaces.ClassificationsCatalog;
 import dynamicrefactoring.domain.metadata.interfaces.Category;
 import dynamicrefactoring.domain.metadata.interfaces.Classification;
 import dynamicrefactoring.plugin.xml.classifications.imp.ClassificationsReaderFactory.ClassificationsReaderTypes;
@@ -40,7 +40,7 @@ public class PluginCatalogTest {
 	private static final String NEW_CATEGORY = "NewName";
 	private static final String MI_CATEGORIA1 = "MiCategoria1";
 	private static final String MI_CLASIFICACION1 = "MiClasificacion1";
-	private Catalog catalog;
+	private ClassificationsCatalog catalog;
 
 	@Before
 	public void setUp() throws Exception {

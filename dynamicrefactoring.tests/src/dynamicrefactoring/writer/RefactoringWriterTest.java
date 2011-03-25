@@ -41,6 +41,7 @@ import com.google.common.base.Preconditions;
 import dynamicrefactoring.RefactoringConstants;
 import dynamicrefactoring.domain.DynamicRefactoringDefinition;
 import dynamicrefactoring.domain.DynamicRefactoringDefinition.Builder;
+import dynamicrefactoring.domain.InputParameter;
 import dynamicrefactoring.domain.metadata.interfaces.Category;
 import dynamicrefactoring.reader.TestCaseRefactoringReader;
 
@@ -91,16 +92,17 @@ public class RefactoringWriterTest {
 
 		entradas.add(entrada);
 
-		rd.inputs(new ArrayList<String[]>(addSimpleInputs()));
+		rd.inputs(addSimpleInputs());
 		rd.categories(new HashSet<Category>());
 		rd.keywords(new HashSet<String>());
 		rd.preconditions(new ArrayList<String>());
 		rd.actions(new ArrayList<String>());
 		rd.postconditions(new ArrayList<String>());
 		rd.motivation("");
-		
+
 		XMLRefactoringWriterFactory f = new JDOMXMLRefactoringWriterFactory();
-		XMLRefactoringWriterImp implementor = f.makeXMLRefactoringWriterImp(rd.build());
+		XMLRefactoringWriterImp implementor = f.makeXMLRefactoringWriterImp(rd
+				.build());
 		XMLRefactoringWriter writer = new XMLRefactoringWriter(implementor);
 		writer.writeRefactoring(new File("./testdata/XML/NoExiste")); //$NON-NLS-1$
 
@@ -155,15 +157,17 @@ public class RefactoringWriterTest {
 	 * Similar a {@link #testWritingWithMinimumInformation} pero en este caso el
 	 * fichero xml tiene categorias definidas por lo tanto tambien hay que
 	 * comprobar que estas se escriben bien.
-	 * @throws IOException 
-	 * @throws XMLRefactoringWriterException 
+	 * 
+	 * @throws IOException
+	 * @throws XMLRefactoringWriterException
 	 * 
 	 * @throws Exception
 	 *             si se produce un error al escribir la definici�n de la
 	 *             refactorizaci�n.
 	 */
 	@Test
-	public void testWritingWithMinimunInformationAndCategories() throws XMLRefactoringWriterException, IOException{
+	public void testWritingWithMinimunInformationAndCategories()
+			throws XMLRefactoringWriterException, IOException {
 
 		Set<Category> categories = new HashSet<Category>();
 		categories.add(new Category(
@@ -177,38 +181,43 @@ public class RefactoringWriterTest {
 				new HashSet<String>(), categories);
 	}
 
-
 	/**
-	 * Crea una refactorizacion dinamica con la informacion que le pasamos
-	 * y cierta informacion que asume por defecto para las 
+	 * Crea una refactorizacion dinamica con la informacion que le pasamos y
+	 * cierta informacion que asume por defecto para las
 	 * MinimumInformationDefinition y escribe la refactorizacion a un fichero
 	 * comprobando que lo escrito es lo esperado.
 	 * 
-	 * @param refactoringName nombre de la refactorizacion
-	 * @param keywords palabras clave de la refactorizacion
-	 * @param categories categorias de la refactorizacion
-	 * @throws XMLRefactoringWriterException 
-	 * @throws IOException 
+	 * @param refactoringName
+	 *            nombre de la refactorizacion
+	 * @param keywords
+	 *            palabras clave de la refactorizacion
+	 * @param categories
+	 *            categorias de la refactorizacion
+	 * @throws XMLRefactoringWriterException
+	 * @throws IOException
 	 * @throws Exception
 	 *             si se produce un error al escribir la definici�n de la
 	 *             refactorizaci�n.
 	 */
 	private void assertMinimumInformationDefinition(String refactoringName,
-			Set<String> keywords, Set<Category> categories) throws XMLRefactoringWriterException, IOException {
+			Set<String> keywords, Set<Category> categories)
+			throws XMLRefactoringWriterException, IOException {
 		Preconditions.checkNotNull(keywords);
 		Preconditions.checkNotNull(categories);
 		Preconditions.checkNotNull(refactoringName);
 		DynamicRefactoringDefinition.Builder rd = createRefactoringDefinition(
 				refactoringName, DESCRIPCION, MOTIVACION);
-		rd.inputs(new ArrayList<String[]>(addSimpleInputs()));
+		rd.inputs(addSimpleInputs());
 		rd.categories(categories);
 		rd.keywords(keywords);
 		addSimplePredicates(rd);
 		writeRefactoring(rd.build());
 		assertTrue(FileUtils.contentEquals(new File(
 				TestCaseRefactoringReader.TESTDATA_XML_READER_DIR
-						+ refactoringName + TestCaseRefactoringReader.XML_EXTENSION), //$NON-NLS-1$
-				new File(TESTDATA_XML_WRITER_DIR + refactoringName + TestCaseRefactoringReader.XML_EXTENSION))); //$NON-NLS-1$
+						+ refactoringName
+						+ TestCaseRefactoringReader.XML_EXTENSION), //$NON-NLS-1$
+				new File(TESTDATA_XML_WRITER_DIR + refactoringName
+						+ TestCaseRefactoringReader.XML_EXTENSION))); //$NON-NLS-1$
 	}
 
 	/**
@@ -236,38 +245,19 @@ public class RefactoringWriterTest {
 		rd.image("renameclass.JPG"); //$NON-NLS-1$
 
 		// A�adir entradas
-		ArrayList<String[]> entradas = new ArrayList<String[]>();
-		String entrada1[] = new String[5];
-		entrada1[0] = "moon.core.Name"; //$NON-NLS-1$
-		entrada1[1] = "Old_name"; //$NON-NLS-1$
-		entrada1[2] = CLASS; //$NON-NLS-1$
-		entrada1[3] = "getName"; //$NON-NLS-1$
-		entrada1[4] = "false"; //$NON-NLS-1$
-		entradas.add(entrada1);
+		ArrayList<InputParameter> entradas = new ArrayList<InputParameter>();
+		entradas.add(new InputParameter.Builder("moon.core.Name")
+				.name("Old_name").from(CLASS).method("getName").main(false)
+				.build());
 
-		String entrada2[] = new String[5];
-		entrada2[0] = "moon.core.Model"; //$NON-NLS-1$
-		entrada2[1] = "Model"; //$NON-NLS-1$
-		entrada2[2] = ""; //$NON-NLS-1$
-		entrada2[3] = ""; //$NON-NLS-1$
-		entrada2[4] = "false"; //$NON-NLS-1$
-		entradas.add(entrada2);
+		entradas.add(new InputParameter.Builder("moon.core.Model")
+				.name("Model").from("").method("").main(false).build());
 
-		String entrada3[] = new String[5];
-		entrada3[0] = "moon.core.classdef.ClassDef"; //$NON-NLS-1$
-		entrada3[1] = CLASS; //$NON-NLS-1$
-		entrada3[2] = ""; //$NON-NLS-1$
-		entrada3[3] = ""; //$NON-NLS-1$
-		entrada3[4] = "true"; //$NON-NLS-1$
-		entradas.add(entrada3);
+		entradas.add(new InputParameter.Builder("moon.core.classdef.ClassDef")
+				.name(CLASS).from("").method("").main(true).build());
 
-		String entrada4[] = new String[5];
-		entrada4[0] = "moon.core.Name"; //$NON-NLS-1$
-		entrada4[1] = NEW_NAME; //$NON-NLS-1$
-		entrada4[2] = ""; //$NON-NLS-1$
-		entrada4[3] = ""; //$NON-NLS-1$
-		entrada4[4] = "false"; //$NON-NLS-1$
-		entradas.add(entrada4);
+		entradas.add(new InputParameter.Builder("moon.core.Name")
+				.name(NEW_NAME).from("").method("").main(false).build());
 
 		rd.inputs(entradas);
 
@@ -382,7 +372,7 @@ public class RefactoringWriterTest {
 		categories.add(new Category("MiClasificacion", "MiCategoria"));
 		rd.categories(categories);
 		rd.keywords(new HashSet<String>());
-		
+
 		writeRefactoring(rd.build());
 
 		assertTrue(FileUtils
@@ -407,21 +397,21 @@ public class RefactoringWriterTest {
 				"NotGenerateEmptyExamples", DESCRIPCION, MOTIVACION);
 
 		// Agregamos las entradas
-		ArrayList<String[]> entradas = new ArrayList<String[]>(addSimpleInputs());
-		builder.inputs(entradas);
+		builder.inputs(addSimpleInputs());
 
 		// Agregamos un ejemplo
 		ArrayList<String[]> ejemplos = new ArrayList<String[]>();
 		ejemplos.add(new String[] { "", "" });
 		builder.examples(ejemplos);
-		
+
 		builder.categories(new HashSet<Category>());
 		builder.keywords(new HashSet<String>());
 
 		addSimplePredicates(builder);
 
 		XMLRefactoringWriterFactory f = new JDOMXMLRefactoringWriterFactory();
-		XMLRefactoringWriterImp implementor = f.makeXMLRefactoringWriterImp(builder.build());
+		XMLRefactoringWriterImp implementor = f
+				.makeXMLRefactoringWriterImp(builder.build());
 
 		Document refactoringDefinitionDoc = implementor
 				.getDocumentOfRefactoring();
@@ -463,12 +453,11 @@ public class RefactoringWriterTest {
 	 * 
 	 * @return la refactorizacion creada
 	 */
-	private Builder createRefactoringDefinition(
-			String name, String description, String motivation) {
+	private Builder createRefactoringDefinition(String name,
+			String description, String motivation) {
 		// A�adir informaci�n general
-		return new DynamicRefactoringDefinition.Builder(name)
-			.description(description)
-			.motivation(motivation);
+		return new DynamicRefactoringDefinition.Builder(name).description(
+				description).motivation(motivation);
 	}
 
 	/**
@@ -476,26 +465,12 @@ public class RefactoringWriterTest {
 	 * 
 	 * @return lista de entradas de prueba
 	 */
-	private List<String[]> addSimpleInputs() {
-		// A�adir entradas
-		ArrayList<String[]> entradas = new ArrayList<String[]>();
-		String entrada[] = new String[5];
-		entrada[0] = "moon.core.Model"; //$NON-NLS-1$
-		entrada[1] = "Model"; //$NON-NLS-1$
-		entrada[2] = ""; //$NON-NLS-1$
-		entrada[3] = ""; //$NON-NLS-1$
-		entrada[4] = "false"; //$NON-NLS-1$
-
-		entradas.add(entrada);
-
-		String entrada2[] = new String[5];
-		entrada2[0] = "moon.core.classdef.MethDec"; //$NON-NLS-1$
-		entrada2[1] = "Method"; //$NON-NLS-1$
-		entrada2[2] = ""; //$NON-NLS-1$
-		entrada2[3] = ""; //$NON-NLS-1$
-		entrada2[4] = "true"; //$NON-NLS-1$
-
-		entradas.add(entrada2);
+	private List<InputParameter> addSimpleInputs() {
+		ArrayList<InputParameter> entradas = new ArrayList<InputParameter>();
+		entradas.add(new InputParameter.Builder("moon.core.Model")
+				.name("Model").build());
+		entradas.add(new InputParameter.Builder("moon.core.classdef.MethDec")
+				.name("Method").main(true).build());
 		return entradas;
 	}
 
@@ -519,7 +494,7 @@ public class RefactoringWriterTest {
 		ArrayList<String> postconditions = new ArrayList<String>();
 		postconditions.add("ExistsClass (1)"); //$NON-NLS-1$
 		builder.postconditions(postconditions);
-		
+
 		return builder.build();
 	}
 }

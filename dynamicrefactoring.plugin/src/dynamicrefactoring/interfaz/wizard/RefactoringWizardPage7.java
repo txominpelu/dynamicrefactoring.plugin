@@ -50,6 +50,7 @@ import org.eclipse.swt.widgets.TreeItem;
 import com.google.common.base.Preconditions;
 
 import dynamicrefactoring.RefactoringImages;
+import dynamicrefactoring.domain.InputParameter;
 import dynamicrefactoring.interfaz.TreeEditor;
 import dynamicrefactoring.interfaz.wizard.classificationscombo.PickCategoryTree;
 import dynamicrefactoring.plugin.xml.classifications.imp.PluginCatalog;
@@ -305,17 +306,16 @@ public class RefactoringWizardPage7 extends WizardPage {
 
 		IWizardPage secondPage = firstPage.getNextPage();
 		if (secondPage != null && secondPage instanceof RefactoringWizardPage2) {
-			ArrayList<String[]> inputs = ((RefactoringWizardPage2) secondPage)
+			java.util.List<InputParameter> inputs = ((RefactoringWizardPage2) secondPage)
 					.getInputs();
-			for (String[] input : inputs) {
+			for (InputParameter input : inputs) {
 				TableItem item = new TableItem(tb_Inputs, SWT.BORDER);
-				item.setText(new String[] { input[1], input[0], input[2],
+				item.setText(new String[] { input.getName(), input.getType(), input.getFrom(),
 						"", "" }); //$NON-NLS-1$ //$NON-NLS-2$
 
 				TableEditor editor = new TableEditor(tb_Inputs);
 				Button checkButton = new Button(tb_Inputs, SWT.CHECK);
-				if (input[4] != null && input[4].equals("true")) //$NON-NLS-1$
-					checkButton.setSelection(true);
+				checkButton.setSelection(input.isMain());
 				checkButton.setEnabled(false);
 				checkButton.pack();
 				editor.minimumWidth = checkButton.getSize().x;
