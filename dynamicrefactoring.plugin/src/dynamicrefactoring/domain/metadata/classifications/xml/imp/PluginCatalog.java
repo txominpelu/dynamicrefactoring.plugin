@@ -150,5 +150,11 @@ public class PluginCatalog extends AbstractCatalog implements
 		super.addClassification(classification);
 		updateClassificationsFile();
 	}
+	
+	@Override
+	public void setMultiCategory(String classification, boolean isMultiCategory) {
+		super.setMultiCategory(classification, isMultiCategory);
+		updateClassificationsFile();
+	}
 
 }

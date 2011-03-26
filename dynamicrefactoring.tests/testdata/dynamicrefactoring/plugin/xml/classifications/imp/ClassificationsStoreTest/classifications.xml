@@ -6,4 +6,10 @@
 			<category>MiCategoria1</category>
 		</categories>		
 	</classification>
+	<classification name="MiClasificacion2"  description="MiDescripcion">
+		<categories>
+			<category>MiCategoria2</category>
+			<category>MiCategoria3</category>
+		</categories>		
+	</classification>
 </classifications>

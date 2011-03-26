@@ -22,9 +22,9 @@ import org.eclipse.ui.forms.widgets.ScrolledForm;
 import org.eclipse.ui.forms.widgets.Section;
 
 import dynamicrefactoring.domain.metadata.imp.SimpleUniLevelClassification;
-import dynamicrefactoring.domain.metadata.interfaces.ClassificationsCatalog;
 import dynamicrefactoring.domain.metadata.interfaces.Category;
 import dynamicrefactoring.domain.metadata.interfaces.Classification;
+import dynamicrefactoring.domain.metadata.interfaces.ClassificationsCatalog;
 
 /**
  * Seccion en la que aparece la lista de clasificaciones del catalogo. Dentro de
@@ -64,9 +64,10 @@ public class ClassifListSection {
 	 * @param clasifCatEditor
 	 *            editor de clasificaciones que sera notificado cuando sea
 	 *            necesario cambiar la clasificacion a editar
+	 * @param classifDataSection 
 	 */
 	protected void createClassificationsSection(FormToolkit toolkit,
-			final ScrolledForm form, final CategoriesSection clasifCatEditor) {
+			final ScrolledForm form, final CategoriesSection clasifCatEditor, final ClassificationDataSection classifDataSection) {
 		final Section section = toolkit.createSection(form.getBody(),
 				Section.DESCRIPTION | Section.TITLE_BAR | Section.TWISTIE
 						| Section.EXPANDED);
@@ -113,12 +114,12 @@ public class ClassifListSection {
 		section.setClient(sectionClient);
 		toolkit.paintBordersFor(sectionClient);
 
-		clasifCatEditor.createCategoriesSection(toolkit, form);
-
 		tbClassif.addSelectionListener(new SelectionAdapter() {
 			@Override
 			public void widgetSelected(SelectionEvent e) {
 				clasifCatEditor.setClassification(tbClassif.getSelection()[0]
+						.getText());
+				classifDataSection.setClassification(tbClassif.getSelection()[0]
 						.getText());
 			}
 		});

@@ -14,11 +14,13 @@ import com.google.common.base.Predicate;
 import com.google.common.base.Throwables;
 import com.google.common.collect.Collections2;
 import com.google.common.collect.ImmutableSet;
+import com.google.common.collect.Sets;
 
 import dynamicrefactoring.domain.DynamicRefactoringDefinition;
 import dynamicrefactoring.domain.DynamicRefactoringDefinition.Builder;
 import dynamicrefactoring.domain.RefactoringsCatalog;
 import dynamicrefactoring.domain.metadata.condition.CategoryCondition;
+import dynamicrefactoring.domain.metadata.imp.SimpleUniLevelClassification;
 import dynamicrefactoring.domain.metadata.interfaces.Category;
 import dynamicrefactoring.domain.metadata.interfaces.Classification;
 import dynamicrefactoring.domain.metadata.interfaces.ClassificationsCatalog;
@@ -44,11 +46,12 @@ abstract class AbstractCatalog implements ClassificationsCatalog {
 		Preconditions.checkArgument(getClassification(classificationName)
 				.getCategories().contains(
 						new Category(classificationName, categoryName)));
-		final DynamicRefactoringDefinition refactoringDef = refactCatalog.getRefactoring(refactName);
+		final DynamicRefactoringDefinition refactoringDef = refactCatalog
+				.getRefactoring(refactName);
 		Set<Category> categories = refactoringDef.getCategories();
 		categories.add(new Category(classificationName, categoryName));
-		refactCatalog.updateRefactoring(refactoringDef.getBuilder().categories(categories)
-				.build());
+		refactCatalog.updateRefactoring(refactoringDef.getBuilder()
+				.categories(categories).build());
 	}
 
 	@Override
@@ -60,8 +63,7 @@ abstract class AbstractCatalog implements ClassificationsCatalog {
 	}
 
 	/**
-	 * Determina si existe una clasificación con el nombre pasado por
-	 * parámetro.
+	 * Determina si existe una clasificación con el nombre pasado por parámetro.
 	 * 
 	 * @param name
 	 *            nombre de la clasificación
@@ -131,7 +133,8 @@ abstract class AbstractCatalog implements ClassificationsCatalog {
 	}
 
 	@Override
-	public void addCategoryToClassification(String classificationName, String categoryNewName) {
+	public void addCategoryToClassification(String classificationName,
+			String categoryNewName) {
 		Preconditions.checkArgument(containsClassification(classificationName));
 		Preconditions.checkArgument(
 				!getClassification(classificationName).getCategories()
@@ -226,8 +229,9 @@ abstract class AbstractCatalog implements ClassificationsCatalog {
 		for (Category category : oldClassif.getCategories()) {
 			for (DynamicRefactoringDefinition refact : getRefactoringBelongingTo(
 					clasifName, category.getName())) {
-				refactCatalog.updateRefactoring(updateRefactoringCategoryParent(refact,
-						category, clasifNewName));
+				refactCatalog
+						.updateRefactoring(updateRefactoringCategoryParent(
+								refact, category, clasifNewName));
 			}
 		}
 	}
@@ -273,7 +277,8 @@ abstract class AbstractCatalog implements ClassificationsCatalog {
 	 */
 	protected final Collection<DynamicRefactoringDefinition> getRefactoringBelongingTo(
 			String classification, String categoryName) {
-		return ImmutableSet.copyOf(Collections2.filter(refactCatalog.getAllRefactorings(),
+		return ImmutableSet.copyOf(Collections2.filter(refactCatalog
+				.getAllRefactorings(),
 				new CategoryCondition<DynamicRefactoringDefinition>(
 						classification, categoryName)));
 	}
@@ -328,6 +333,59 @@ abstract class AbstractCatalog implements ClassificationsCatalog {
 		}
 	}
 
+	
+	@Override
+	public void setMultiCategory(String classificationName,
+			boolean isMultiCategory) {
+		Preconditions.checkArgument(containsClassification(classificationName));
+		Preconditions
+				.checkArgument(!(!isMultiCategory && classifHasMultiCategoryRefactorings(classificationName)));
+		final Classification oldClassif = getClassification(classificationName);
+		classifications.remove(oldClassif);
+		classifications.add(new SimpleUniLevelClassification(oldClassif.getName(), oldClassif.getDescription(), oldClassif.getCategories(), isMultiCategory));
+
+	}
+
+	/**
+	 * Devuelve si alguna de todas las refactorizaciones pertenece a varias
+	 * categorias en la clasificacion.
+	 * 
+	 * @param classificationName
+	 *            nombre de la clasificacion
+	 * @return true si al menos una de las refactorizaciones pertenece a varias
+	 *         categorias en la clasificacion
+	 */
+	@Override
+	public boolean classifHasMultiCategoryRefactorings(
+			String classificationName) {
+		Preconditions.checkArgument(containsClassification(classificationName));
+		Classification classif = getClassification(classificationName);
+		for (DynamicRefactoringDefinition refact : refactCatalog
+				.getAllRefactorings()) {
+			if (refactBelongToMultipleCategories(classif, refact)) {
+				return true;
+			}
+		}
+		return false;
+	}
+
+	/**
+	 * Devuelve si una refactorizacion pertenece a mas de una categoria en la
+	 * clasificacion.
+	 * 
+	 * @param classification
+	 *            clasificacion
+	 * @param arg0
+	 *            refactorizacion a comprobar
+	 * @return true si la refactorizacion pertenece a mas de una categoria de la
+	 *         clasificacion
+	 */
+	public boolean refactBelongToMultipleCategories(
+			Classification classification, DynamicRefactoringDefinition arg0) {
+		return Sets.intersection(arg0.getCategories(),
+				classification.getCategories()).size() > 1;
+	}
+
 	/**
 	 * Comprueba si una refactorizacion dada tiene un nombre dado.
 	 * 
@@ -355,4 +413,5 @@ abstract class AbstractCatalog implements ClassificationsCatalog {
 		}
 
 	}
+
 }

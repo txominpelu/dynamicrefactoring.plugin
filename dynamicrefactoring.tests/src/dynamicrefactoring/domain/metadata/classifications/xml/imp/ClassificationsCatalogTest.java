@@ -30,8 +30,9 @@ import dynamicrefactoring.domain.metadata.interfaces.Classification;
 import dynamicrefactoring.domain.metadata.interfaces.ClassificationsCatalog;
 import dynamicrefactoring.util.io.FileManager;
 
-public class PluginCatalogTest {
+public class ClassificationsCatalogTest {
 
+	private static final String MI_CLASIFICACION2 = "MiClasificacion2";
 	private static final String CLASSIFICATIONS_XML_FILENAME = "classifications.xml";
 	public static final String TEST_REPO_PATH = "/testdata/dynamicrefactoring/plugin/xml/classifications/imp/ClassificationsStoreTest/" ;
 	private static final String MI_NUEVA_CLASSIFICACION = "MiNuevaClassificacion";
@@ -165,6 +166,8 @@ public class PluginCatalogTest {
 		assertEquals(expectedCategories, refactCatalog
 				.getRefactoring(MI_REFACT1_NAME).getCategories());
 	}
+	
+	
 
 	@Test
 	public final void testAddClassification() throws ValidationException {
@@ -192,15 +195,9 @@ public class PluginCatalogTest {
 
 	@Test
 	public final void testRemoveClassification() throws ValidationException {
-		Set<Classification> expectedClassifications = new HashSet<Classification>();
-		final SimpleUniLevelClassification newClassification = new SimpleUniLevelClassification(
-				MI_NUEVA_CLASSIFICACION, "", ImmutableSet.of(new Category(
-						MI_NUEVA_CLASSIFICACION, NEW_CATEGORY)));
-		expectedClassifications.add(newClassification);
+		Set<Classification> expectedClassifications = new HashSet<Classification>(catalog.getAllClassifications());
+		expectedClassifications.remove(catalog.getClassification(MI_CLASIFICACION1));
 
-		catalog.addClassification(newClassification);
-		catalog.addCategoryToRefactoring(MI_REFACT1_NAME,
-				MI_NUEVA_CLASSIFICACION, NEW_CATEGORY);
 
 		catalog.removeClassification(MI_CLASIFICACION1);
 
@@ -213,12 +210,36 @@ public class PluginCatalogTest {
 						.readClassifications(
 								RefactoringConstants.CLASSIFICATION_TYPES_FILE));
 
-		Set<Category> expectedRefactoringCategories = new HashSet<Category>();
-		expectedRefactoringCategories.add(new Category(MI_NUEVA_CLASSIFICACION,
-				NEW_CATEGORY));
-		assertEquals(expectedRefactoringCategories,
-				refactCatalog.getRefactoring(MI_REFACT1_NAME).getCategories());
-
+	}
+	
+	/**
+	 * Comprueba que si se intenta hacer unicategory
+	 * una clasificacion con refactorizaciones en mas de una
+	 * categoria salta la excepcion.
+	 */
+	@Test(expected=IllegalArgumentException.class)
+	public final void testTryToMakeUniCategoryWhenIsImpossible(){
+		catalog.setMultiCategory(MI_CLASIFICACION2, false);
+	}
+	
+	/**
+	 * Comprueba que se hace unicategory
+	 * una clasificacion.
+	 */
+	@Test
+	public final void testMakeUniCategoryWhenIsPossible(){
+		catalog.setMultiCategory(MI_CLASIFICACION1, false);
+		assertFalse(catalog.getClassification(MI_CLASIFICACION1).isMultiCategory());
+	}
+	
+	/**
+	 * Comprueba que se hace multicategory
+	 * una clasificacion unicategory.
+	 */
+	@Test
+	public final void testMakeMultiCategory(){
+		catalog.setMultiCategory(MI_CLASIFICACION2, true);
+		assertTrue(catalog.getClassification(MI_CLASIFICACION2).isMultiCategory());
 	}
 
 }

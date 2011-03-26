@@ -132,4 +132,31 @@ public interface ClassificationsCatalog {
 	void addCategoryToRefactoring(String refactName, String classificationName,
 			String categoryName);
 
+	/**
+	 * Cambia el atributo multicategory de una refactorizacion siempre que no se
+	 * intente hacer unicategoria una clasificacion que contiene alguna
+	 * refactorizacion que pertenece a varias categorias de la clasificacion:
+	 * {@link #classifHasMultiCategoryRefactorings(String)}
+	 * 
+	 * Si es asi el metodo devuelve una excepcion.
+	 * 
+	 * 
+	 * @param classificationName
+	 *            nombre de la clasificacion
+	 * @param isMultiCategory
+	 *            el valor a dar al atributo multicategory de la clasificacion
+	 */
+	void setMultiCategory(String classificationName, boolean isMultiCategory);
+
+	/**
+	 * Devuelve si alguna de todas las refactorizaciones pertenece a varias
+	 * categorias en la clasificacion.
+	 * 
+	 * @param classificationName
+	 *            nombre de la clasificacion
+	 * @return true si al menos una de las refactorizaciones pertenece a varias
+	 *         categorias en la clasificacion
+	 */
+	boolean classifHasMultiCategoryRefactorings(String classificationName);
+
 }

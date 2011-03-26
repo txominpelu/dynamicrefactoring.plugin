@@ -82,7 +82,7 @@ public final class RefactoringImages {
 	 *            ruta del fichero de imagen
 	 * @return imagen
 	 */
-	public final static Image getImageForPath(String path) {
+	public static Image getImageForPath(String path) {
 		return ResourceManager.getPluginImage(RefactoringPlugin.getDefault(),
 				path);
 	}
@@ -92,7 +92,7 @@ public final class RefactoringImages {
 	 * 
 	 * @return imagen del icono
 	 */
-	public final static Image getRefIcon() {
+	public static Image getRefIcon() {
 		return getImageForPath(RefactoringImages.REF_ICON_PATH);
 	}
 
@@ -101,7 +101,7 @@ public final class RefactoringImages {
 	 * 
 	 * @return imagen del icono
 	 */
-	public final static Image getClassIcon() {
+	public static Image getClassIcon() {
 		return getImageForPath(CLASS_ICON_PATH);
 	}
 
@@ -110,7 +110,7 @@ public final class RefactoringImages {
 	 * 
 	 * @return imagen del icono
 	 */
-	public final static Image getCatIcon() {
+	public static Image getCatIcon() {
 		return getImageForPath(CAT_ICON_PATH);
 	}
 
@@ -119,7 +119,7 @@ public final class RefactoringImages {
 	 * 
 	 * @return imagen del icono
 	 */
-	public final static Image getCheckIcon() {
+	public static Image getCheckIcon() {
 		return getImageForPath(CHECK_ICON_PATH);
 	}
 
@@ -128,7 +128,7 @@ public final class RefactoringImages {
 	 * 
 	 * @return imagen del icono
 	 */
-	public final static Image getRunIcon() {
+	public static Image getRunIcon() {
 		return getImageForPath(RUN_ICON_PATH);
 	}
 
@@ -137,7 +137,7 @@ public final class RefactoringImages {
 	 * 
 	 * @return imagen del icono
 	 */
-	public final static Image getValidateIcon() {
+	public static Image getValidateIcon() {
 		return getImageForPath(VALIDATE_ICON_PATH);
 	}
 
@@ -146,7 +146,7 @@ public final class RefactoringImages {
 	 * 
 	 * @return imagen del icono
 	 */
-	public final static Image getSearchIcon() {
+	public static Image getSearchIcon() {
 		return getImageForPath(SEARCH_ICON_PATH);
 	}
 
@@ -155,7 +155,7 @@ public final class RefactoringImages {
 	 * 
 	 * @return imagen del icono
 	 */
-	public final static Image getFilIcon() {
+	public static Image getFilIcon() {
 		return getImageForPath(FIL_ICON_PATH);
 	}
 	
@@ -163,7 +163,7 @@ public final class RefactoringImages {
 	 * Obtiene el icono  Export Plan.
 	 * @return imagen del icono
 	 */
-	public final static Image getExportPlanIcon(){
+	public static Image getExportPlanIcon(){
 		return getImageForPath(EXPORT_PLAN_ICON_PATH);
 	};
 	
@@ -172,7 +172,7 @@ public final class RefactoringImages {
 	 * 
 	 * @return imagen del icono
 	 */
-	public final static Image getExportIcon(){
+	public static Image getExportIcon(){
 		return getImageForPath(EXPORT_ICON_PATH);
 	}
 	
@@ -181,7 +181,7 @@ public final class RefactoringImages {
 	 * 
 	 * @return imagen del icono
 	 */
-	public final static Image getImportPlanIcon(){
+	public static Image getImportPlanIcon(){
 		return getImageForPath(IMPORT_PLAN_ICON_PATH);
 	}
 	
@@ -190,7 +190,7 @@ public final class RefactoringImages {
 	 * 
 	 * @return imagen del icono
 	 */
-	public final static Image getImportIcon(){
+	public static Image getImportIcon(){
 		return getImageForPath(IMPORT_ICON_PATH);
 	}
 	
@@ -199,7 +199,7 @@ public final class RefactoringImages {
 	 * 
 	 * @return imagen del icono
 	 */
-	public final static Image getInfoIcon(){
+	public static Image getInfoIcon(){
 		return getImageForPath(INFO_ICON_PATH);
 	}
 	
@@ -208,7 +208,7 @@ public final class RefactoringImages {
 	 * 
 	 * @return imagen del icono
 	 */
-	public final static Image getWarningIcon(){
+	public static Image getWarningIcon(){
 		return getImageForPath(WARNING_ICON_PATH);
 	}	
 	
@@ -217,7 +217,7 @@ public final class RefactoringImages {
 	 * 
 	 * @return imagen del icono
 	 */
-	public final static Image getRecursiveIcon(){
+	public static Image getRecursiveIcon(){
 		return getImageForPath(RECURSIVE_ICON_PATH);
 	}
 	
@@ -226,7 +226,7 @@ public final class RefactoringImages {
 	 * 
 	 * @return imagen del icono
 	 */
-	public final static Image getErrorIcon(){
+	public static Image getErrorIcon(){
 		return getImageForPath(ERROR_ICON_PATH);
 	}
 	
@@ -235,7 +235,7 @@ public final class RefactoringImages {
 	 * 
 	 * @return imagen del icono
 	 */
-	public final static Image getSIIcon(){
+	public static Image getSIIcon(){
 		return getImageForPath(SI_ICON_PATH);
 	}
 	
@@ -244,7 +244,7 @@ public final class RefactoringImages {
 	 * 
 	 * @return imagen del icono
 	 */
-	public final static Image getConfigureIcon(){
+	public static Image getConfigureIcon(){
 		return getImageForPath(CONFIGURE_ICON_PATH);
 	}
 	
@@ -253,7 +253,7 @@ public final class RefactoringImages {
 	 * 
 	 * @return imagen del icono
 	 */
-	public final static Image getUndoIcon(){
+	public static Image getUndoIcon(){
 		return getImageForPath(UNDO_ICON_PATH);
 	}
 	
@@ -262,7 +262,7 @@ public final class RefactoringImages {
 	 * 
 	 * @return imagen del icono
 	 */
-	public final static Image getArrowUpIcon(){
+	public static Image getArrowUpIcon(){
 		return getImageForPath(ARROW_UP_ICON_PATH);
 	}
 	
@@ -271,7 +271,7 @@ public final class RefactoringImages {
 	 * 
 	 * @return imagen del icono
 	 */
-	public final static Image getArrowDownIcon(){
+	public static Image getArrowDownIcon(){
 		return getImageForPath(ARROW_DOWN_ICON_PATH);
 	}
 	
@@ -280,7 +280,7 @@ public final class RefactoringImages {
 	 * 
 	 * @return imagen del icono
 	 */
-	public final static Image getArrowRightIcon(){
+	public static Image getArrowRightIcon(){
 		return getImageForPath(ARROW_RIGHT_ICON_PATH);
 	}
 	
@@ -289,7 +289,7 @@ public final class RefactoringImages {
 	 * 
 	 * @return imagen del icono
 	 */
-	public final static Image getArrowLeftIcon(){
+	public static Image getArrowLeftIcon(){
 		return getImageForPath(ARROW_LEFT_ICON_PATH);
 	}
 	
@@ -298,7 +298,7 @@ public final class RefactoringImages {
 	 * 
 	 * @return imagen del icono
 	 */
-	public final static Image getClearIcon(){
+	public static Image getClearIcon(){
 		return getImageForPath(CLEAR_ICON_PATH);
 	}
 	
@@ -307,7 +307,7 @@ public final class RefactoringImages {
 	 * 
 	 * @return imagen del icono
 	 */
-	public final static Image getHelpIcon(){
+	public static Image getHelpIcon(){
 		return getImageForPath(HELP_ICON_PATH);
 	}
 	
@@ -316,7 +316,7 @@ public final class RefactoringImages {
 	 * 
 	 * @return imagen del icono
 	 */
-	public final static Image getRefViewIcon(){
+	public static Image getRefViewIcon(){
 		return getImageForPath(REF_VIEW_ICON_PATH);
 	}
 	
@@ -325,7 +325,7 @@ public final class RefactoringImages {
 	 * 
 	 * @return imagen del icono
 	 */
-	public final static Image getSourceIcon(){
+	public static Image getSourceIcon(){
 		return getImageForPath(SOURCE_ICON_PATH);
 	}
 	 

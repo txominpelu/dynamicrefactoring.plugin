@@ -32,15 +32,24 @@ public final class ClassificationsEditorView extends ViewPart {
 		
 		final Set<Classification> classifications = PluginCatalog.getInstance()
 		.getAllClassifications();
-		final CategoriesSection clasifCatEditor = new CategoriesSection(classifications
-				.iterator().next().getName(), PluginCatalog.getInstance());
+		final CategoriesSection clasifCatEditor = new CategoriesSection(firstClassif(classifications).getName(), PluginCatalog.getInstance());
+		final ClassificationDataSection classifDataSection = new ClassificationDataSection(PluginCatalog.getInstance(), firstClassif(classifications).getName());
 		final ClassifListSection clasifListEditor = new ClassifListSection(PluginCatalog.getInstance());
-		clasifListEditor.createClassificationsSection(toolkit, form, clasifCatEditor);
+		clasifListEditor.createClassificationsSection(toolkit, form, clasifCatEditor, classifDataSection);
 
-		// createSelectedClassificationDataSection();
-
+		
+		classifDataSection.createSelectedClassificationDataSection(toolkit, form);
+		clasifCatEditor.createCategoriesSection(toolkit, form);
+		
 		toolkit.paintBordersFor(form.getBody());
 
+	}
+
+
+	private Classification firstClassif(
+			final Set<Classification> classifications) {
+		return classifications
+				.iterator().next();
 	}
 
 	
