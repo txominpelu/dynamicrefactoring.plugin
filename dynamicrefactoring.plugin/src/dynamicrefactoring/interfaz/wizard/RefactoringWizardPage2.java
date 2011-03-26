@@ -197,6 +197,9 @@ public class RefactoringWizardPage2 extends WizardPage {
 	
 	private ScrolledForm form;
 	private Label formLabel;
+	private ExpandableComposite refExpandableComp;
+	private ExpandableComposite refMainExpandableComp;
+	
 	
 	/**
 	 * Constructor.
@@ -520,6 +523,7 @@ public class RefactoringWizardPage2 extends WizardPage {
 		fdComposite3.right = new FormAttachment(100, -10);
 		fdComposite3.bottom = new FormAttachment(100, -10);
 		composite_3.setLayoutData(fdComposite3);
+		composite_3.setVisible(false);
 		
 		//form
 		final FormToolkit toolkit = new FormToolkit(composite_3.getDisplay());
@@ -536,12 +540,12 @@ public class RefactoringWizardPage2 extends WizardPage {
 		formLabel=toolkit.createLabel(form.getBody(), "", SWT.WRAP);
 		
 		//refExpandableComp
-		ExpandableComposite refExpandableComp = 
+		refExpandableComp = 
 			toolkit.createExpandableComposite(
 				form.getBody(), 
 				ExpandableComposite.TREE_NODE|
 				ExpandableComposite.CLIENT_INDENT);
-		refExpandableComp.setText("Refactorings it belongs");
+		refExpandableComp.setText(Messages.RefactoringWizardPage2_RefactoringsBelong);
 		TableWrapData td = new TableWrapData();
 		td.colspan = 1;
 		refExpandableComp.setLayoutData(td);
@@ -550,22 +554,17 @@ public class RefactoringWizardPage2 extends WizardPage {
 				form.reflow(true);
 			}
 		});
-		
-		String textAux = "Lots of text, Lots of text," +
-		"Lots of text, Lots of text, Lots of text," +
-		"Lots of text, Lots of text, Lots of text," +
-		"Lots of text, Lots of text";
-		Label refLabel = toolkit.createLabel(refExpandableComp, "", SWT.WRAP);
-		refLabel.setText(textAux);
-		refExpandableComp.setClient(refLabel);
+		Composite refExpandableClient = toolkit.createComposite(refExpandableComp,SWT.WRAP);
+		refExpandableClient.setLayout(new TableWrapLayout());
+		refExpandableComp.setClient(refExpandableClient);
 		
 		//refMainExpandableComp
-		ExpandableComposite refMainExpandableComp = 
+		refMainExpandableComp = 
 			toolkit.createExpandableComposite(
 				form.getBody(), 
 				ExpandableComposite.TREE_NODE|
 				ExpandableComposite.CLIENT_INDENT);
-		refMainExpandableComp.setText("Refactorings where it's Main");
+		refMainExpandableComp.setText(Messages.RefactoringWizardPage2_RefactoringsMain);
 		td = new TableWrapData();
 		td.colspan = 1;
 		refMainExpandableComp.setLayoutData(td);
@@ -574,12 +573,9 @@ public class RefactoringWizardPage2 extends WizardPage {
 				form.reflow(true);
 			}
 		});
-		
-		Label refMainLabel = toolkit.createLabel(refMainExpandableComp, "", SWT.WRAP);
-		refMainLabel.setText(textAux);
-		refMainExpandableComp.setClient(refMainLabel);
-		
-		form.getParent().setVisible(false);
+		Composite refMainExpandableClient = toolkit.createComposite(refMainExpandableComp,SWT.WRAP);
+		refMainExpandableClient.setLayout(new TableWrapLayout());
+		refMainExpandableComp.setClient(refMainExpandableClient);
 		
 		sash_form.setWeights(new int[] {5 , 1 });
 

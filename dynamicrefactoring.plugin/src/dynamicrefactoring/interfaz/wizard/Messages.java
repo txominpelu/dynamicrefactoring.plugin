@@ -138,6 +138,8 @@ public class Messages extends NLS {
 	public static String RefactoringWizardPage2_SelectTypes;
 	public static String RefactoringWizardPage2_Step;
 	public static String RefactoringWizardPage2_Types;
+	public static String RefactoringWizardPage2_RefactoringsBelong;
+	public static String RefactoringWizardPage2_RefactoringsMain;
 	public static String RefactoringWizardPage2_Warning;
 	public static String RefactoringWizardPage4_Actions;
 	public static String RefactoringWizardPage3_DescriptionInputElements;
