@@ -51,7 +51,7 @@ import com.google.common.base.Preconditions;
 
 import dynamicrefactoring.RefactoringImages;
 import dynamicrefactoring.domain.InputParameter;
-import dynamicrefactoring.domain.metadata.classifications.xml.imp.PluginCatalog;
+import dynamicrefactoring.domain.metadata.classifications.xml.imp.PluginClassificationsCatalog;
 import dynamicrefactoring.interfaz.TreeEditor;
 import dynamicrefactoring.interfaz.wizard.classificationscombo.PickCategoryTree;
 
@@ -272,7 +272,7 @@ public class RefactoringWizardPage7 extends WizardPage {
 	 */
 	private void createNotEditableCategoryTree(Composite container,
 			Rectangle bounds) {
-		picker = new PickCategoryTree(container, PluginCatalog
+		picker = new PickCategoryTree(container, PluginClassificationsCatalog
 				.getInstance().getAllClassifications(),
 				firstPage.getCategories(), new ICheckStateListener() {
 

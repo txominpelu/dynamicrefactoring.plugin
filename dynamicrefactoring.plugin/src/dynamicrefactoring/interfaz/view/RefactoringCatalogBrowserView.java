@@ -64,7 +64,7 @@ import dynamicrefactoring.action.ShowLeftPaneViewAction;
 import dynamicrefactoring.action.ShowRightPaneViewAction;
 import dynamicrefactoring.domain.DynamicRefactoringDefinition;
 import dynamicrefactoring.domain.RefactoringException;
-import dynamicrefactoring.domain.metadata.classifications.xml.imp.PluginCatalog;
+import dynamicrefactoring.domain.metadata.classifications.xml.imp.PluginClassificationsCatalog;
 import dynamicrefactoring.domain.metadata.condition.CategoryCondition;
 import dynamicrefactoring.domain.metadata.condition.KeyWordCondition;
 import dynamicrefactoring.domain.metadata.condition.TextCondition;
@@ -127,7 +127,7 @@ public class RefactoringCatalogBrowserView extends ViewPart {
 	/**
 	 * Almacen con todas las clasificaciones.
 	 */
-	private PluginCatalog classStore;
+	private PluginClassificationsCatalog classStore;
 	
 	/**
 	 * Clasificaciones disponibles.
@@ -500,7 +500,7 @@ public class RefactoringCatalogBrowserView extends ViewPart {
 	 * Carga las clasificaciones disponibles.
 	 */
 	private void loadClassifications() {
-		classStore = PluginCatalog.getInstance();
+		classStore = PluginClassificationsCatalog.getInstance();
 		classifications = new ArrayList<Classification> (classStore.getAllClassifications());
 	}
 

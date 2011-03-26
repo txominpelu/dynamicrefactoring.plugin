@@ -25,7 +25,7 @@ import static org.junit.Assert.assertTrue;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.HashMap;
+import java.util.Map;
 
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.FilenameUtils;
@@ -38,7 +38,6 @@ import dynamicrefactoring.RefactoringPlugin;
 import dynamicrefactoring.domain.Scope;
 import dynamicrefactoring.domain.xml.reader.JDOMXMLRefactoringReaderImp;
 import dynamicrefactoring.domain.xml.reader.XMLRefactoringReaderException;
-import dynamicrefactoring.domain.xml.writer.JDOMXMLRefactoringWriterImp;
 import dynamicrefactoring.util.io.FileManager;
 
 /**
@@ -214,7 +213,7 @@ public class AvailableRefactoringsWriterTest {
 	private void assertNumberOfRefactoringsExpectedForScope(Scope scope,
 			int numberOfExpectedRefactorings)
 			throws XMLRefactoringReaderException {
-		HashMap<String, String> refactorings = JDOMXMLRefactoringReaderImp
+		Map<String, String> refactorings = JDOMXMLRefactoringReaderImp
 				.readAvailableRefactorings(scope,
 						RefactoringConstants.REFACTORING_TYPES_FILE);
 
@@ -235,7 +234,7 @@ public class AvailableRefactoringsWriterTest {
 	private void compareRefactoringPath(Scope scope,
 			String availableRefactoringsSomeScopesDir, String refactoringName)
 			throws XMLRefactoringReaderException {
-		HashMap<String, String> refactorings = JDOMXMLRefactoringReaderImp
+		Map<String, String> refactorings = JDOMXMLRefactoringReaderImp
 				.readAvailableRefactorings(scope,
 						RefactoringConstants.REFACTORING_TYPES_FILE);
 		assertEquals(refactorings.get(refactoringName),
@@ -290,7 +289,7 @@ public class AvailableRefactoringsWriterTest {
 						+ "" + File.separatorChar + "ExtractMethod"
 						+ File.separatorChar + "ExtractMethod.xml");
 
-		HashMap<String, String> refactorings = JDOMXMLRefactoringReaderImp
+		Map<String, String> refactorings = JDOMXMLRefactoringReaderImp
 				.readAvailableRefactorings(Scope.CLASS,
 						RefactoringConstants.REFACTORING_TYPES_FILE);
 
@@ -462,7 +461,7 @@ public class AvailableRefactoringsWriterTest {
 		writer.renameRefactoringIntoXml(Scope.CODE_FRAGMENT,
 				"OtherName5", "ExtractMethod");
 
-		HashMap<String, String> refactorings = JDOMXMLRefactoringReaderImp
+		Map<String, String> refactorings = JDOMXMLRefactoringReaderImp
 				.readAvailableRefactorings(Scope.CLASS,
 						RefactoringConstants.REFACTORING_TYPES_FILE);
 

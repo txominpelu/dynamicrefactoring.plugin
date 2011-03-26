@@ -6,7 +6,7 @@ import java.io.IOException;
 import org.apache.commons.io.FileUtils;
 
 import dynamicrefactoring.RefactoringPlugin;
-import dynamicrefactoring.domain.metadata.classifications.xml.imp.ClassificationsCatalogTest;
+import dynamicrefactoring.domain.metadata.classifications.xml.imp.PluginClassificationsCatalogTest;
 import dynamicrefactoring.util.io.FileManager;
 
 /**
@@ -28,13 +28,13 @@ public class Utils {
 		FileUtils.deleteDirectory(new File(RefactoringPlugin
 				.getDynamicRefactoringsDir()));
 	
-		FileManager.copyBundleDirToFileSystem(ClassificationsCatalogTest.TEST_REPO_PATH,
+		FileManager.copyBundleDirToFileSystem(PluginClassificationsCatalogTest.TEST_REPO_PATH,
 				RefactoringPlugin.getDefault().getStateLocation().toOSString()
 						+ File.separator + "test" + File.separator);
 	
 		FileUtils.copyDirectory(new File(RefactoringPlugin.getDefault()
 				.getStateLocation().toOSString()
-				+ File.separator + "test" + File.separator + ClassificationsCatalogTest.TEST_REPO_PATH),
+				+ File.separator + "test" + File.separator + PluginClassificationsCatalogTest.TEST_REPO_PATH),
 				new File(RefactoringPlugin.getDefault().getStateLocation()
 						.toOSString()));
 		FileUtils.deleteDirectory(new File(RefactoringPlugin.getDefault()

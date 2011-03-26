@@ -30,8 +30,15 @@ import dynamicrefactoring.domain.metadata.interfaces.Classification;
 import dynamicrefactoring.domain.metadata.interfaces.ClassificationsCatalog;
 import dynamicrefactoring.util.io.FileManager;
 
-public class ClassificationsCatalogTest {
+/**
+ * Pruebas del catalogo de clasificaciones del plugin.
+ * 
+ * @author imediava
+ *
+ */
+public final class PluginClassificationsCatalogTest {
 
+	private static final String DESCRIPCION = "Descripcion";
 	private static final String MI_CLASIFICACION2 = "MiClasificacion2";
 	private static final String CLASSIFICATIONS_XML_FILENAME = "classifications.xml";
 	public static final String TEST_REPO_PATH = "/testdata/dynamicrefactoring/plugin/xml/classifications/imp/ClassificationsStoreTest/" ;
@@ -48,7 +55,7 @@ public class ClassificationsCatalogTest {
 		Utils.setTestRefactoringInRefactoringsDir();
 		FileManager.copyResourceToExactDir(TEST_REPO_PATH + CLASSIFICATIONS_XML_FILENAME, RefactoringPlugin.getDefault().getStateLocation().toOSString() + File.separator + "Classification" + File.separator);
 		refactCatalog = new RefactoringCatalogStub();
-		catalog = new PluginCatalog(AbstractCatalog.getClassificationsFromFile(RefactoringConstants.CLASSIFICATION_TYPES_FILE), refactCatalog);
+		catalog = new PluginClassificationsCatalog(AbstractCatalog.getClassificationsFromFile(RefactoringConstants.CLASSIFICATION_TYPES_FILE), refactCatalog);
 	}
 
 	/**
@@ -74,7 +81,7 @@ public class ClassificationsCatalogTest {
 	 * @throws ValidationException
 	 */
 	@Test
-	public final void testRenameCategory() throws ValidationException {
+	public void testRenameCategory() throws ValidationException {
 		Set<Category> expectedClassificationCategories = new HashSet<Category>();
 		expectedClassificationCategories.remove(new Category(MI_CLASIFICACION1,
 				MI_CATEGORIA1));
@@ -103,8 +110,13 @@ public class ClassificationsCatalogTest {
 								RefactoringConstants.CLASSIFICATION_TYPES_FILE));
 	}
 
+	/**
+	 * Prueba que se agrega correctamente una clasificacion.
+	 * 
+	 * @throws ValidationException si hay problemas de lectura del fichero de clasificaciones
+	 */
 	@Test
-	public final void testAddCategory() throws ValidationException {
+	public void testAddCategory() throws ValidationException {
 		Set<Category> expectedClassificationCategories = new HashSet<Category>();
 		expectedClassificationCategories.add(new Category(MI_CLASIFICACION1,
 				MI_CATEGORIA1));
@@ -121,8 +133,13 @@ public class ClassificationsCatalogTest {
 								RefactoringConstants.CLASSIFICATION_TYPES_FILE));
 	}
 
+	/**
+	 * Prueba que se elimina correctamente una categoria de una clasificacion.
+	 * 
+	 * @throws ValidationException si hay problemas de lectura del fichero de clasificaciones
+	 */
 	@Test
-	public final void testRemoveCategory() throws ValidationException {
+	public void testRemoveCategory() throws ValidationException {
 		Set<Category> expectedCategories = new HashSet<Category>();
 		expectedCategories.add(new Category(MI_CLASIFICACION1, NEW_CATEGORY));
 		catalog.addCategoryToClassification(MI_CLASIFICACION1, NEW_CATEGORY);
@@ -142,8 +159,13 @@ public class ClassificationsCatalogTest {
 				.getRefactoring(MI_REFACT1_NAME).getCategories());
 	}
 
+	/**
+	 * Prueba que se renombra correctamente una clasificacion.
+	 * 
+	 * @throws ValidationException si hay problemas de lectura del fichero de clasificaciones
+	 */
 	@Test
-	public final void testRenameClassification() throws ValidationException {
+	public void testRenameClassification() throws ValidationException {
 		Set<Category> expectedCategories = new HashSet<Category>();
 		expectedCategories.add(new Category(MI_NUEVA_CLASSIFICACION,
 				MI_CATEGORIA1));
@@ -168,9 +190,13 @@ public class ClassificationsCatalogTest {
 	}
 	
 	
-
+	/**
+	 * Prueba que se agrega correctamente una clasificacion.
+	 * 
+	 * @throws ValidationException si hay problemas de lectura del fichero de clasificaciones
+	 */
 	@Test
-	public final void testAddClassification() throws ValidationException {
+	public void testAddClassification() throws ValidationException {
 		Set<Classification> expectedClassifications = catalog
 				.getAllClassifications();
 		final SimpleUniLevelClassification newClassification = new SimpleUniLevelClassification(
@@ -193,8 +219,13 @@ public class ClassificationsCatalogTest {
 
 	}
 
+	/**
+	 * Prueba que se elimina correctamente una clasificacion.
+	 * 
+	 * @throws ValidationException si hay problemas de lectura del fichero de clasificaciones
+	 */
 	@Test
-	public final void testRemoveClassification() throws ValidationException {
+	public void testRemoveClassification() throws ValidationException {
 		Set<Classification> expectedClassifications = new HashSet<Classification>(catalog.getAllClassifications());
 		expectedClassifications.remove(catalog.getClassification(MI_CLASIFICACION1));
 
@@ -218,7 +249,7 @@ public class ClassificationsCatalogTest {
 	 * categoria salta la excepcion.
 	 */
 	@Test(expected=IllegalArgumentException.class)
-	public final void testTryToMakeUniCategoryWhenIsImpossible(){
+	public void testTryToMakeUniCategoryWhenIsImpossible(){
 		catalog.setMultiCategory(MI_CLASIFICACION2, false);
 	}
 	
@@ -227,7 +258,7 @@ public class ClassificationsCatalogTest {
 	 * una clasificacion.
 	 */
 	@Test
-	public final void testMakeUniCategoryWhenIsPossible(){
+	public void testMakeUniCategoryWhenIsPossible(){
 		catalog.setMultiCategory(MI_CLASIFICACION1, false);
 		assertFalse(catalog.getClassification(MI_CLASIFICACION1).isMultiCategory());
 	}
@@ -237,9 +268,18 @@ public class ClassificationsCatalogTest {
 	 * una clasificacion unicategory.
 	 */
 	@Test
-	public final void testMakeMultiCategory(){
+	public void testMakeMultiCategory(){
 		catalog.setMultiCategory(MI_CLASIFICACION2, true);
 		assertTrue(catalog.getClassification(MI_CLASIFICACION2).isMultiCategory());
+	}
+	
+	/**
+	 * Comprueba que se asigna bien una descripcion a una clasificacion.
+	 */
+	@Test
+	public void testSetDescription(){
+		catalog.setDescription(MI_CLASIFICACION2, DESCRIPCION);
+		assertEquals(DESCRIPCION, catalog.getClassification(MI_CLASIFICACION2).getDescription());
 	}
 
 }

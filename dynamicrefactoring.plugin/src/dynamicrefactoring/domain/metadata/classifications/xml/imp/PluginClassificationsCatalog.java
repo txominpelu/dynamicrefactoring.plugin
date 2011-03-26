@@ -2,7 +2,6 @@ package dynamicrefactoring.domain.metadata.classifications.xml.imp;
 
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.Collections;
 import java.util.Set;
 
@@ -10,7 +9,6 @@ import com.google.common.base.Preconditions;
 import com.google.common.base.Throwables;
 
 import dynamicrefactoring.RefactoringConstants;
-import dynamicrefactoring.domain.DynamicRefactoringDefinition;
 import dynamicrefactoring.domain.RefactoringsCatalog;
 import dynamicrefactoring.domain.XMLRefactoringsCatalog;
 import dynamicrefactoring.domain.metadata.interfaces.Category;
@@ -26,10 +24,10 @@ import dynamicrefactoring.domain.metadata.interfaces.ClassificationsCatalog;
  * @author imediava
  * 
  */
-public class PluginCatalog extends AbstractCatalog implements
+public final class PluginClassificationsCatalog extends AbstractCatalog implements
 		ClassificationsCatalog {
 
-	private static PluginCatalog instance;
+	private static PluginClassificationsCatalog instance;
 
 	public static final String SCOPE_CLASSIFICATION = "Scope";
 
@@ -37,7 +35,7 @@ public class PluginCatalog extends AbstractCatalog implements
 	 * Crea el almacen y lee las clasificaciones del fichero de clasificaciones
 	 * xml.
 	 */
-	private PluginCatalog() {
+	private PluginClassificationsCatalog() {
 		super(
 				AbstractCatalog
 						.getClassificationsFromFile(RefactoringConstants.CLASSIFICATION_TYPES_FILE),
@@ -46,7 +44,7 @@ public class PluginCatalog extends AbstractCatalog implements
 				.getAllClassifications()));
 	}
 
-	protected PluginCatalog(Set<Classification> classifSet,
+	protected PluginClassificationsCatalog(Set<Classification> classifSet,
 			RefactoringsCatalog refactCatalog) {
 		super(classifSet, refactCatalog);
 	}
@@ -77,8 +75,6 @@ public class PluginCatalog extends AbstractCatalog implements
 	 */
 	@Override
 	public void removeCategory(String classifName, String name) {
-		final Collection<DynamicRefactoringDefinition> refactsToUpdate = getRefactoringBelongingTo(
-				classifName, name);
 		super.removeCategory(classifName, name);
 		updateClassificationsFile();
 	}
@@ -99,7 +95,7 @@ public class PluginCatalog extends AbstractCatalog implements
 	 * Actualiza el contenido del fichero de configuracion de clasificaciones de
 	 * acuerdo con el contenido de las clasificaciones del catalogo.
 	 */
-	private final void updateClassificationsFile() {
+	private void updateClassificationsFile() {
 		try {
 			JAXBClassificationsWriter.getInstance().saveClassificationsToXml(
 					getAllClassifications(),
@@ -118,9 +114,9 @@ public class PluginCatalog extends AbstractCatalog implements
 	 * 
 	 * @return instancia del almacen
 	 */
-	public static PluginCatalog getInstance() {
+	public static PluginClassificationsCatalog getInstance() {
 		if (instance == null) {
-			instance = new PluginCatalog();
+			instance = new PluginClassificationsCatalog();
 		}
 		return instance;
 	}
@@ -154,6 +150,12 @@ public class PluginCatalog extends AbstractCatalog implements
 	@Override
 	public void setMultiCategory(String classification, boolean isMultiCategory) {
 		super.setMultiCategory(classification, isMultiCategory);
+		updateClassificationsFile();
+	}
+	
+	@Override
+	public void setDescription(String classification, String description) {
+		super.setDescription(classification, description);
 		updateClassificationsFile();
 	}
 

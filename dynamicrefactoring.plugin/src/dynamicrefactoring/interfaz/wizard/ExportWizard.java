@@ -44,7 +44,7 @@ import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.Text;
 
 import dynamicrefactoring.RefactoringImages;
-import dynamicrefactoring.domain.ExportImportUtilities;
+import dynamicrefactoring.domain.xml.ExportImportUtilities;
 import dynamicrefactoring.interfaz.ButtonTextProvider;
 import dynamicrefactoring.interfaz.CustomProgressDialog;
 import dynamicrefactoring.interfaz.DynamicRefactoringList;

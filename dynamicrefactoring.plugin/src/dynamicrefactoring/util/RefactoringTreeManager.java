@@ -2,8 +2,8 @@ package dynamicrefactoring.util;
 
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.graphics.Color;
@@ -48,7 +48,7 @@ public class RefactoringTreeManager {
 	 * @param tree �rbol sobre el que a�adir sub�rboles
 	 * @throws RefactoringException
 	 */
-	public static void fillTree(HashMap<String, String> refactorings, Tree tree) 
+	public static void fillTree(Map<String, String> refactorings, Tree tree) 
 	throws RefactoringException {
 
 		int refactOrderInBranch = 0;

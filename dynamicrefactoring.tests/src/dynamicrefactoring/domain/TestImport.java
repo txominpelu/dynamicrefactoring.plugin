@@ -34,6 +34,7 @@ import org.junit.Test;
 
 import dynamicrefactoring.RefactoringConstants;
 import dynamicrefactoring.RefactoringPlugin;
+import dynamicrefactoring.domain.xml.ExportImportUtilities;
 import dynamicrefactoring.domain.xml.reader.XMLRefactoringReaderException;
 import dynamicrefactoring.util.io.FileManager;
 

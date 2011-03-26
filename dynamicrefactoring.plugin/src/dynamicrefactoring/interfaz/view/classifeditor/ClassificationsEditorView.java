@@ -8,7 +8,7 @@ import org.eclipse.ui.forms.widgets.FormToolkit;
 import org.eclipse.ui.forms.widgets.ScrolledForm;
 import org.eclipse.ui.part.ViewPart;
 
-import dynamicrefactoring.domain.metadata.classifications.xml.imp.PluginCatalog;
+import dynamicrefactoring.domain.metadata.classifications.xml.imp.PluginClassificationsCatalog;
 import dynamicrefactoring.domain.metadata.interfaces.Classification;
 
 public final class ClassificationsEditorView extends ViewPart {
@@ -30,11 +30,11 @@ public final class ClassificationsEditorView extends ViewPart {
 		ColumnLayout layout = new ColumnLayout();
 		form.getBody().setLayout(layout);
 		
-		final Set<Classification> classifications = PluginCatalog.getInstance()
+		final Set<Classification> classifications = PluginClassificationsCatalog.getInstance()
 		.getAllClassifications();
-		final CategoriesSection clasifCatEditor = new CategoriesSection(firstClassif(classifications).getName(), PluginCatalog.getInstance());
-		final ClassificationDataSection classifDataSection = new ClassificationDataSection(PluginCatalog.getInstance(), firstClassif(classifications).getName());
-		final ClassifListSection clasifListEditor = new ClassifListSection(PluginCatalog.getInstance());
+		final CategoriesSection clasifCatEditor = new CategoriesSection(firstClassif(classifications).getName(), PluginClassificationsCatalog.getInstance());
+		final ClassificationDataSection classifDataSection = new ClassificationDataSection(PluginClassificationsCatalog.getInstance(), firstClassif(classifications).getName());
+		final ClassifListSection clasifListEditor = new ClassifListSection(PluginClassificationsCatalog.getInstance());
 		clasifListEditor.createClassificationsSection(toolkit, form, clasifCatEditor, classifDataSection);
 
 		

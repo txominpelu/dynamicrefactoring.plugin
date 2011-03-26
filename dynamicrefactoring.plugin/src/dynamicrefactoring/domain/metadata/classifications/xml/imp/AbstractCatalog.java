@@ -1,16 +1,12 @@
 package dynamicrefactoring.domain.metadata.classifications.xml.imp;
 
-import java.io.File;
-import java.io.IOException;
 import java.util.Collection;
-import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Set;
 
 import javax.xml.bind.ValidationException;
 
 import com.google.common.base.Preconditions;
-import com.google.common.base.Predicate;
 import com.google.common.base.Throwables;
 import com.google.common.collect.Collections2;
 import com.google.common.collect.ImmutableSet;
@@ -24,8 +20,6 @@ import dynamicrefactoring.domain.metadata.imp.SimpleUniLevelClassification;
 import dynamicrefactoring.domain.metadata.interfaces.Category;
 import dynamicrefactoring.domain.metadata.interfaces.Classification;
 import dynamicrefactoring.domain.metadata.interfaces.ClassificationsCatalog;
-import dynamicrefactoring.domain.xml.reader.JDOMXMLRefactoringReaderImp;
-import dynamicrefactoring.util.DynamicRefactoringLister;
 
 abstract class AbstractCatalog implements ClassificationsCatalog {
 
@@ -175,6 +169,15 @@ abstract class AbstractCatalog implements ClassificationsCatalog {
 
 	}
 
+	@Override
+	public void setDescription(String classification, String descripcion) {
+		Classification oldClassif = getClassification(classification);
+		classifications.remove(oldClassif);
+		classifications.add(new SimpleUniLevelClassification(oldClassif
+				.getName(), descripcion, oldClassif
+				.getCategories(), oldClassif.isMultiCategory()));
+	}
+
 	/**
 	 * Obtiene una copia de la refactorizacion en la que se sustituye el nombre
 	 * de una de las categorias a la que la refactorizacion original pertenecia.
@@ -308,32 +311,6 @@ abstract class AbstractCatalog implements ClassificationsCatalog {
 		classifications.add(classification);
 	}
 
-	/**
-	 * Lee las refactorizaciones existentes en el directorio pasado.
-	 * 
-	 * @param dir
-	 *            directorio contenedor de las refactorizaciones
-	 * @return conjunto de refactorizaciones leidas del directorio
-	 */
-	protected static final Set<DynamicRefactoringDefinition> getRefactoringsFromDir(
-			String dir) {
-		try {
-			HashMap<String, String> lista = DynamicRefactoringLister
-					.getInstance().getDynamicRefactoringNameList(dir, true,
-							null);
-			Set<DynamicRefactoringDefinition> refacts = new HashSet<DynamicRefactoringDefinition>();
-			JDOMXMLRefactoringReaderImp reader = new JDOMXMLRefactoringReaderImp();
-			for (String refactFile : lista.values()) {
-				refacts.add(reader.getDynamicRefactoringDefinition(new File(
-						refactFile)));
-			}
-			return refacts;
-		} catch (IOException e) {
-			throw Throwables.propagate(e);
-		}
-	}
-
-	
 	@Override
 	public void setMultiCategory(String classificationName,
 			boolean isMultiCategory) {
@@ -342,7 +319,9 @@ abstract class AbstractCatalog implements ClassificationsCatalog {
 				.checkArgument(!(!isMultiCategory && classifHasMultiCategoryRefactorings(classificationName)));
 		final Classification oldClassif = getClassification(classificationName);
 		classifications.remove(oldClassif);
-		classifications.add(new SimpleUniLevelClassification(oldClassif.getName(), oldClassif.getDescription(), oldClassif.getCategories(), isMultiCategory));
+		classifications.add(new SimpleUniLevelClassification(oldClassif
+				.getName(), oldClassif.getDescription(), oldClassif
+				.getCategories(), isMultiCategory));
 
 	}
 
@@ -356,8 +335,7 @@ abstract class AbstractCatalog implements ClassificationsCatalog {
 	 *         categorias en la clasificacion
 	 */
 	@Override
-	public boolean classifHasMultiCategoryRefactorings(
-			String classificationName) {
+	public boolean classifHasMultiCategoryRefactorings(String classificationName) {
 		Preconditions.checkArgument(containsClassification(classificationName));
 		Classification classif = getClassification(classificationName);
 		for (DynamicRefactoringDefinition refact : refactCatalog
@@ -384,34 +362,6 @@ abstract class AbstractCatalog implements ClassificationsCatalog {
 			Classification classification, DynamicRefactoringDefinition arg0) {
 		return Sets.intersection(arg0.getCategories(),
 				classification.getCategories()).size() > 1;
-	}
-
-	/**
-	 * Comprueba si una refactorizacion dada tiene un nombre dado.
-	 * 
-	 * @author imediava
-	 * 
-	 */
-	private class SameNamePredicate implements
-			Predicate<DynamicRefactoringDefinition> {
-
-		private String name;
-
-		/**
-		 * Crea el predicado.
-		 * 
-		 * @param name
-		 *            nombre
-		 */
-		public SameNamePredicate(String name) {
-			this.name = name;
-		}
-
-		@Override
-		public boolean apply(DynamicRefactoringDefinition arg0) {
-			return arg0.getName().equals(name);
-		}
-
 	}
 
 }

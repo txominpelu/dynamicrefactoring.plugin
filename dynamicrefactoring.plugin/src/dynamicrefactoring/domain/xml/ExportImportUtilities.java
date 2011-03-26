@@ -18,7 +18,7 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.*/
 
-package dynamicrefactoring.domain;
+package dynamicrefactoring.domain.xml;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -32,6 +32,9 @@ import org.apache.commons.io.FilenameUtils;
 
 import dynamicrefactoring.RefactoringConstants;
 import dynamicrefactoring.RefactoringPlugin;
+import dynamicrefactoring.domain.DynamicRefactoringDefinition;
+import dynamicrefactoring.domain.Messages;
+import dynamicrefactoring.domain.RefactoringException;
 import dynamicrefactoring.domain.xml.reader.JDOMXMLRefactoringReaderImp;
 import dynamicrefactoring.domain.xml.reader.RefactoringPlanReader;
 import dynamicrefactoring.domain.xml.reader.XMLRefactoringReaderException;
@@ -119,7 +122,7 @@ public class ExportImportUtilities {
 
 	}
 
-	static List<String> readMechanismRefactoring(
+	public static List<String> readMechanismRefactoring(
 			DynamicRefactoringDefinition refact) {
 		List<String> allMechanism = new ArrayList<String>();
 		allMechanism

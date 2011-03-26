@@ -20,6 +20,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.*/
 
 package dynamicrefactoring.domain.xml.reader;
 
+
 /**
  * Excepci�n lanzada cuando se produce un error al leer el fichero con la
  * refactorizaci�n.
@@ -42,9 +43,18 @@ public class XMLRefactoringReaderException extends Exception {
 	/**
 	 * Constructor.
 	 * 
-	 * @param s el mensaje asociado al origen de la excepci�n.
+	 * @param s el mensaje asociado al origen de la excepcion
 	 */
 	public XMLRefactoringReaderException(String s) {
 		super(s);
+	}
+
+	/**
+	 * Constructor.
+	 * 
+	 * @param exception la excepcion causa de la actual
+	 */
+	public XMLRefactoringReaderException(Exception exception) {
+		super(exception);
 	}
 }

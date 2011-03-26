@@ -22,13 +22,11 @@ package dynamicrefactoring.domain.xml.reader;
 
 import static org.junit.Assert.assertEquals;
 
-import java.util.HashMap;
+import java.util.Map;
 
 import org.junit.Test;
 
 import dynamicrefactoring.domain.Scope;
-import dynamicrefactoring.domain.xml.reader.JDOMXMLRefactoringReaderImp;
-import dynamicrefactoring.domain.xml.reader.XMLRefactoringReaderException;
 
 /**
  * Comprueba que funciona correctamente el proceso de lectura del conjunto de
@@ -37,7 +35,7 @@ import dynamicrefactoring.domain.xml.reader.XMLRefactoringReaderException;
  * @author <A HREF="mailto:lfd0002@alu.ubu.es">Laura Fuente de la Fuente</A>
  * 
  */
-public class TestAvailableRefactoringsReader {
+public final class TestAvailableRefactoringsReader {
 
 	/**
 	 * Comprueba que la lectura no se realiza cuando la definici�n no contiene
@@ -85,7 +83,7 @@ public class TestAvailableRefactoringsReader {
 	public void testReadingWithMinimumInformation() throws Exception {
 		// Comprueba que no hay ninguna refactorizaci�n en ning�n �mbito
 
-		HashMap<String, String> refactorings = JDOMXMLRefactoringReaderImp
+		Map<String, String> refactorings = JDOMXMLRefactoringReaderImp
 				.readAvailableRefactorings(Scope.CLASS,
 						"./testdata/XML/Reader/availableRefactorings/minimunInformation.xml");
 
@@ -128,7 +126,7 @@ public class TestAvailableRefactoringsReader {
 	public void testReadingWithCompleteInformation() throws Exception {
 		// Comprueba que no hay ninguna refactorizaci�n en ning�n �mbito
 
-		HashMap<String, String> refactorings = JDOMXMLRefactoringReaderImp
+		Map<String, String> refactorings = JDOMXMLRefactoringReaderImp
 				.readAvailableRefactorings(Scope.CLASS,
 						"./testdata/XML/Reader/availableRefactorings/completedInformation.xml");
 

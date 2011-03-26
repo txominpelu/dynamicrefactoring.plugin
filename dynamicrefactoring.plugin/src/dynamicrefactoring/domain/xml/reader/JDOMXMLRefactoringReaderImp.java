@@ -26,6 +26,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 
 import org.jdom.Document;
@@ -79,9 +80,9 @@ public class JDOMXMLRefactoringReaderImp implements XMLRefactoringReaderImp {
 			Document doc = builder.build(file);
 			root = doc.getRootElement();
 		} catch (JDOMException jdomexception) {
-			throw new XMLRefactoringReaderException(jdomexception.getMessage());
+			throw new XMLRefactoringReaderException(jdomexception);
 		} catch (IOException ioexception) {
-			throw new XMLRefactoringReaderException(ioexception.getMessage());
+			throw new XMLRefactoringReaderException(ioexception);
 		}
 		Builder builder = readInformationRefactoring(root);
 		builder = readInputsRefactoring(root, builder);
@@ -367,7 +368,7 @@ public class JDOMXMLRefactoringReaderImp implements XMLRefactoringReaderImp {
 	 * @return lista de arrays de cadenas que contienen para cada ejemplo sus
 	 *         atributos.
 	 */
-	private ArrayList<String[]> readExamplesElements(List<Element> examples) {
+	private List<String[]> readExamplesElements(List<Element> examples) {
 
 		ArrayList<String[]> completed = new ArrayList<String[]>();
 		String[] exampleContent;
@@ -416,7 +417,7 @@ public class JDOMXMLRefactoringReaderImp implements XMLRefactoringReaderImp {
 	 * @throws XMLRefactoringReaderException
 	 *             lanzado en caso de que no se pueda leer el fichero xml.
 	 */
-	public static HashMap<String, String> readAvailableRefactorings(
+	public static Map<String, String> readAvailableRefactorings(
 			Scope scopeClass, String path_file)
 			throws XMLRefactoringReaderException {
 		try {
@@ -427,9 +428,9 @@ public class JDOMXMLRefactoringReaderImp implements XMLRefactoringReaderImp {
 			Element rootElement = doc.getRootElement();
 			return readRefactoringData(rootElement, scopeClass);
 		} catch (JDOMException jdomexception) {
-			throw new XMLRefactoringReaderException(jdomexception.getMessage());
+			throw new XMLRefactoringReaderException(jdomexception);
 		} catch (IOException ioexception) {
-			throw new XMLRefactoringReaderException(ioexception.getMessage());
+			throw new XMLRefactoringReaderException(ioexception);
 		}
 
 	}
@@ -443,7 +444,7 @@ public class JDOMXMLRefactoringReaderImp implements XMLRefactoringReaderImp {
 	 * @return mapa cuyas claves son los nombres y los valores son las rutas de
 	 *         los ficheros con las definiciones de las refactorizaciones
 	 */
-	private static HashMap<String, String> readRefactoringData(Element root,
+	private static Map<String, String> readRefactoringData(Element root,
 			Scope scope) {
 		// FIXME: Si se pasa como scope SCOPE_BOUNDED_PAR debe devolver null o
 		// algo asi

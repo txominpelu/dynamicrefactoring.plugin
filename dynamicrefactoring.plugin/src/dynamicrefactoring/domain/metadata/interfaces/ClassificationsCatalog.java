@@ -159,4 +159,18 @@ public interface ClassificationsCatalog {
 	 */
 	boolean classifHasMultiCategoryRefactorings(String classificationName);
 
+	/**
+	 * Asigna una descripcion nueva a una clasificacion existente.
+	 * 
+	 * La clasificacion debe existir en el catalogo.
+	 * 
+	 * Lanza {@link IllegalArgumentException}
+	 *             si {@link #hasClassification(String)} es falso para el nombre
+	 *             de clasificacion dado.
+	 *             
+	 * @param miClasificacion2
+	 * @param string
+	 */
+	void setDescription(String miClasificacion2, String string);
+
 }

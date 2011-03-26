@@ -36,7 +36,7 @@ import com.google.common.base.Predicate;
 import com.google.common.collect.Collections2;
 
 import dynamicrefactoring.RefactoringConstants;
-import dynamicrefactoring.domain.metadata.classifications.xml.imp.PluginCatalog;
+import dynamicrefactoring.domain.metadata.classifications.xml.imp.PluginClassificationsCatalog;
 import dynamicrefactoring.domain.metadata.interfaces.Category;
 import dynamicrefactoring.domain.metadata.interfaces.ClassificationsCatalog;
 import dynamicrefactoring.domain.metadata.interfaces.Element;
@@ -360,7 +360,7 @@ public class DynamicRefactoringDefinition implements Element,
 					@Override
 					public boolean apply(Category arg0) {
 						return arg0.getParent().equals(
-								PluginCatalog.SCOPE_CLASSIFICATION);
+								PluginClassificationsCatalog.SCOPE_CLASSIFICATION);
 					}
 
 				});

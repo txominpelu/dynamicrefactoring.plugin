@@ -24,6 +24,7 @@ import java.io.File;
 
 import dynamicrefactoring.domain.DynamicRefactoringDefinition;
 
+
 /**
  * Define una interfaz para los lectores de ficheros XML donde se definen
  * refactorizaciones.

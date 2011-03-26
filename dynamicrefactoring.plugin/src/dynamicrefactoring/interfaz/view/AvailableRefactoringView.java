@@ -20,7 +20,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.*/
 
 package dynamicrefactoring.interfaz.view;
 
-import java.util.HashMap;
+import java.util.Map;
 
 import org.apache.log4j.Logger;
 import org.eclipse.core.runtime.NullProgressMonitor;
@@ -74,7 +74,7 @@ public class AvailableRefactoringView extends ViewPart {
 	/**
 	 * Refactorizaciones cargadas en la vista actualmente.
 	 */
-	private HashMap<String, String> refactorings;
+	private Map<String, String> refactorings;
 
 	/**
 	 * �ltima seleci�n v�lida como entrada para una refactorizacion en el
