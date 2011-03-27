@@ -17,7 +17,12 @@ import com.google.common.collect.ImmutableSet;
 
 import dynamicrefactoring.domain.DynamicRefactoringDefinition;
 import dynamicrefactoring.domain.DynamicRefactoringDefinition.Builder;
+import dynamicrefactoring.domain.metadata.condition.ActionCondition;
 import dynamicrefactoring.domain.metadata.condition.CategoryCondition;
+import dynamicrefactoring.domain.metadata.condition.InputTypeCondition;
+import dynamicrefactoring.domain.metadata.condition.PostconditionCondition;
+import dynamicrefactoring.domain.metadata.condition.PreconditionCondition;
+import dynamicrefactoring.domain.metadata.condition.RootInputTypeCondition;
 import dynamicrefactoring.domain.metadata.interfaces.Catalog;
 import dynamicrefactoring.domain.metadata.interfaces.Category;
 import dynamicrefactoring.domain.metadata.interfaces.Classification;

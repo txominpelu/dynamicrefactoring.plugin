@@ -23,6 +23,11 @@ public class PostconditionCondition <K extends Element> implements Predicate<K> 
 		return postcondition;
 	}
 	
+	@Override
+	public boolean apply(K arg0) {
+		return arg0.containsPostcondition(postcondition);
+	}
+	
 	/**
 	 * Son iguales si ambas contienen la misma postcondición.
 	 * 

@@ -23,6 +23,11 @@ public class InputTypeCondition <K extends Element> implements Predicate<K> {
 		return inputType;
 	}
 	
+	@Override
+	public boolean apply(K arg0) {
+		return arg0.containsInputType(inputType);
+	}
+	
 	/**
 	 * Son iguales si ambas contienen el mismo tipo de entrada.
 	 * 

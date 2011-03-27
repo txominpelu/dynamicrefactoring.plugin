@@ -23,6 +23,11 @@ public class ActionCondition <K extends Element> implements Predicate<K> {
 		return action;
 	}
 	
+	@Override
+	public boolean apply(K arg0) {
+		return arg0.containsAction(action);
+	}
+	
 	/**
 	 * Son iguales si ambas contienen la misma acción.
 	 * 
@@ -47,4 +52,5 @@ public class ActionCondition <K extends Element> implements Predicate<K> {
 	public String toString() {
 		return NAME + ":" + action.toString();
 	}
+
 }

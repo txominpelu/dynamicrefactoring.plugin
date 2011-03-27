@@ -23,6 +23,11 @@ public class RootInputTypeCondition <K extends Element> implements Predicate<K> 
 		return rootInputType;
 	}
 	
+	@Override
+	public boolean apply(K arg0) {
+		return arg0.containsRootInputType(rootInputType);
+	}
+	
 	/**
 	 * Son iguales si ambas contienen el mismo tipo de entrada raiz.
 	 * 

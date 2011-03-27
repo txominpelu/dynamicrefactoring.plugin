@@ -23,6 +23,11 @@ public class PreconditionCondition <K extends Element> implements Predicate<K> {
 		return precondition;
 	}
 	
+	@Override
+	public boolean apply(K arg0) {
+		return arg0.containsPrecondition(precondition);
+	}
+	
 	/**
 	 * Son iguales si ambas contienen la misma precondición.
 	 * 
