@@ -164,21 +164,6 @@ public class RefactoringConstants {
 	public static final String JAVAEXTENSION_DIR = getJavaLibDir();
 
 	/**
-	 * Predicado de tipo precondici�n.
-	 */
-	public static final int PRECONDITION = 0;
-
-	/**
-	 * Tipo acci�n.
-	 */
-	public static final int ACTION = 1;
-
-	/**
-	 * Predicado de tipo postcondici�n.
-	 */
-	public static final int POSTCONDITION = 2;
-
-	/**
 	 * La extensi�n de los ficheros donde se definen refactorizaciones
 	 * din�micas.
 	 */

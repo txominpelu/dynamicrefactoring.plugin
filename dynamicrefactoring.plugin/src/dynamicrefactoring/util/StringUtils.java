@@ -8,6 +8,7 @@ import com.google.common.collect.Collections2;
 import com.google.common.collect.ImmutableSet;
 
 import dynamicrefactoring.RefactoringConstants;
+import dynamicrefactoring.domain.RefactoringMechanism;
 import dynamicrefactoring.interfaz.dynamic.RepositoryElementProcessor;
 
 public class StringUtils {
@@ -68,7 +69,8 @@ public class StringUtils {
 	 *            nombre de la precondicion, accion o postcondicion
 	 * @return nombre totalmente cualificado (con paquete)
 	 */
-	public static String getMechanismFullyQualifiedName(int type,
+	public static String getMechanismFullyQualifiedName(
+			RefactoringMechanism type,
 			final String mechanismName) {
 		return getMechanismPackage(type, mechanismName) + "." + mechanismName;
 	}
@@ -82,11 +84,11 @@ public class StringUtils {
 	 *            mechanism name
 	 * @return package name (Ej. "repository.concreteaction")
 	 */
-	public static String getMechanismPackage(int type,
+	public static String getMechanismPackage(RefactoringMechanism type,
 			final String mechanismName) {
 		String preconditionPack;
 		switch (type) {
-		case RefactoringConstants.PRECONDITION:
+		case PRECONDITION:
 			if (RepositoryElementProcessor
 					.isPredicateJavaDependent(mechanismName)) {
 				preconditionPack = RefactoringConstants.JAVA_PREDICATES_PACKAGE;
@@ -94,14 +96,14 @@ public class StringUtils {
 				preconditionPack = RefactoringConstants.PREDICATES_PACKAGE;
 			}
 			break;
-		case RefactoringConstants.ACTION:
+		case ACTION:
 			if (RepositoryElementProcessor.isActionJavaDependent(mechanismName)) {
 				preconditionPack = RefactoringConstants.JAVA_ACTIONS_PACKAGE;
 			} else {
 				preconditionPack = RefactoringConstants.ACTIONS_PACKAGE;
 			}
 			break;
-		case RefactoringConstants.POSTCONDITION:
+		case POSTCONDITION:
 			if (RepositoryElementProcessor
 					.isPredicateJavaDependent(mechanismName)) {
 				preconditionPack = RefactoringConstants.JAVA_PREDICATES_PACKAGE;
@@ -129,7 +131,7 @@ public class StringUtils {
 	 * @return nombres totalmente cualificados (con paquetes) de los mismos
 	 */
 	public static Set<String> getMechanismListFullyQualifiedName(
-			final int type, Set<String> simpleNames) {
+			final RefactoringMechanism type, Set<String> simpleNames) {
 		return ImmutableSet.copyOf(Collections2.transform(simpleNames,
 				new Function<String, String>() {
 

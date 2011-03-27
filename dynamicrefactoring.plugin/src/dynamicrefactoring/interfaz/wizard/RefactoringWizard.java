@@ -44,6 +44,7 @@ import dynamicrefactoring.RefactoringConstants;
 import dynamicrefactoring.RefactoringImages;
 import dynamicrefactoring.RefactoringPlugin;
 import dynamicrefactoring.domain.DynamicRefactoringDefinition;
+import dynamicrefactoring.domain.RefactoringMechanism;
 import dynamicrefactoring.domain.Scope;
 import dynamicrefactoring.domain.xml.reader.XMLRefactoringReaderException;
 import dynamicrefactoring.domain.xml.writer.JDOMXMLRefactoringWriterFactory;
@@ -300,9 +301,11 @@ public class RefactoringWizard extends Wizard implements INewWizard {
 	private HashMap<String, List<String[]>>[] getAmbiguousParameters() {
 		HashMap<String, List<String[]>>[] map = (HashMap<String, List<String[]>>[]) new HashMap[3];
 
-		map[RefactoringConstants.PRECONDITION] = pageC.getAmbiguousParameters();
-		map[RefactoringConstants.ACTION] = pageD.getAmbiguousParameters();
-		map[RefactoringConstants.POSTCONDITION] = pageE
+		map[RefactoringMechanism.PRECONDITION.ordinal()] = pageC
+				.getAmbiguousParameters();
+		map[RefactoringMechanism.ACTION.ordinal()] = pageD
+				.getAmbiguousParameters();
+		map[RefactoringMechanism.POSTCONDITION.ordinal()] = pageE
 				.getAmbiguousParameters();
 		return map;
 	}

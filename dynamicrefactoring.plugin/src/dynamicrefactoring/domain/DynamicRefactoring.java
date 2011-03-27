@@ -143,7 +143,7 @@ public class DynamicRefactoring extends MOONRefactoring {
 
 			Constructor<?> constructor = preconditionClass.getConstructors()[0];
 			Object[] parameters = getNecessaryParameters(constructor,
-					RefactoringConstants.PRECONDITION);
+					RefactoringMechanism.PRECONDITION);
 
 			// Se crea la instancia de la precondici�n y se la a�ade a la
 			// refactorizaci�n.
@@ -184,7 +184,7 @@ public class DynamicRefactoring extends MOONRefactoring {
 
 			Constructor<?> constructor = actionClass.getConstructors()[0];
 			Object[] parameters = getNecessaryParameters(constructor,
-					RefactoringConstants.ACTION);
+					RefactoringMechanism.ACTION);
 
 			// Se crea la instancia de la acci�n concreta y se a�ade a la
 			// refactorizaci�n.
@@ -224,7 +224,7 @@ public class DynamicRefactoring extends MOONRefactoring {
 
 			Constructor<?> constructor = postconditionClass.getConstructors()[0];
 			Object[] parameters = getNecessaryParameters(constructor,
-					RefactoringConstants.POSTCONDITION);
+					RefactoringMechanism.POSTCONDITION);
 
 			// Se crea la instancia de la postcondicion concreta y se a�ade
 			// a la refactorizaci�n.
@@ -260,7 +260,8 @@ public class DynamicRefactoring extends MOONRefactoring {
 	 *             si se produce alg�n error durante la construcci�n de la
 	 *             lista de par�metros del constructor.
 	 */
-	private Object[] getNecessaryParameters(Constructor<?> constructor, int type)
+	private Object[] getNecessaryParameters(Constructor<?> constructor,
+			RefactoringMechanism type)
 			throws RefactoringException {
 
 		ArrayList<Object> parameters = new ArrayList<Object>();
@@ -321,12 +322,13 @@ public class DynamicRefactoring extends MOONRefactoring {
 	 * 
 	 * @return el nombre simple del predicado o acci�n.
 	 */
-	private String getTypeName(Constructor<?> constructor, int type) {
+	private String getTypeName(Constructor<?> constructor,
+			RefactoringMechanism type) {
 
 		switch (type) {
-		case RefactoringConstants.PRECONDITION:
-		case RefactoringConstants.POSTCONDITION:
-		case RefactoringConstants.ACTION:
+		case PRECONDITION:
+		case POSTCONDITION:
+		case ACTION:
 			return constructor.getName();
 		default:
 			throw new RuntimeException();
@@ -384,7 +386,8 @@ public class DynamicRefactoring extends MOONRefactoring {
 	 * 
 	 * @return el valor asignado a la entrada.
 	 */
-	private Object getInput(String elementName, int position, int type) {
+	private Object getInput(String elementName, int position,
+			RefactoringMechanism type) {
 		// Se obtienen los argumentos del predicado o acci�n.
 		List<String[]> parameters = refactoringDefinition
 				.getAmbiguousParameters(elementName, type);

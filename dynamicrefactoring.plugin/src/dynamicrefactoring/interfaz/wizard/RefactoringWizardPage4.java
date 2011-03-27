@@ -32,8 +32,8 @@ import org.eclipse.swt.SWT;
 import org.eclipse.swt.layout.FormLayout;
 import org.eclipse.swt.widgets.Composite;
 
-import dynamicrefactoring.RefactoringConstants;
 import dynamicrefactoring.domain.DynamicRefactoringDefinition;
+import dynamicrefactoring.domain.RefactoringMechanism;
 import dynamicrefactoring.util.RepositoryElementLister;
 
 
@@ -140,7 +140,7 @@ public class RefactoringWizardPage4 extends WizardPage implements  IRefactoringW
 			fillActionList();
 			if (refactoring != null){
 				actionsTab.fillSelectedList(refactoring.getActions(), 
-					refactoring, RefactoringConstants.ACTION);
+						refactoring, RefactoringMechanism.ACTION);
 			}
 		} catch (IOException exception) {
 			String message = Messages.RefactoringWizardPage3_ElementsNotLoaded +

@@ -42,6 +42,7 @@ import dynamicrefactoring.RefactoringConstants;
 import dynamicrefactoring.RefactoringPlugin;
 import dynamicrefactoring.domain.DynamicRefactoringDefinition;
 import dynamicrefactoring.domain.InputParameter;
+import dynamicrefactoring.domain.RefactoringMechanism;
 import dynamicrefactoring.domain.Scope;
 import dynamicrefactoring.domain.metadata.interfaces.Category;
 import dynamicrefactoring.domain.xml.reader.XMLRefactoringReaderException;
@@ -490,19 +491,19 @@ public class JDOMXMLRefactoringWriterImp implements XMLRefactoringWriterImp {
 				XMLRefactoringReaderImp.MECHANISM_ELEMENT);
 
 		mechanism.addContent(createMechanismElement(
-				RefactoringConstants.PRECONDITION,
+				RefactoringMechanism.PRECONDITION,
 				XMLRefactoringReaderImp.PRECONDITIONS_ELEMENT,
 				XMLRefactoringReaderImp.PRECONDITION_ELEMENT,
 				refactoringDefinition.getPreconditions()));
 
 		mechanism.addContent(createMechanismElement(
-				RefactoringConstants.ACTION,
+				RefactoringMechanism.ACTION,
 				XMLRefactoringReaderImp.ACTIONS_ELEMENT,
 				XMLRefactoringReaderImp.ACTION_ELEMENT,
 				refactoringDefinition.getActions()));
 
 		mechanism.addContent(createMechanismElement(
-				RefactoringConstants.POSTCONDITION,
+				RefactoringMechanism.POSTCONDITION,
 				XMLRefactoringReaderImp.POSTCONDITIONS_ELEMENT,
 				XMLRefactoringReaderImp.POSTCONDITION_ELEMENT,
 				refactoringDefinition.getPostconditions()));
@@ -519,7 +520,8 @@ public class JDOMXMLRefactoringWriterImp implements XMLRefactoringWriterImp {
 	 * @param mechanismElements
 	 * @return
 	 */
-	private Element createMechanismElement(int type, String parentTagName,
+	private Element createMechanismElement(RefactoringMechanism type,
+			String parentTagName,
 			String childTagName, List<String> mechanismElements) {
 		Element mechanismElement = new Element(parentTagName);
 
@@ -566,7 +568,7 @@ public class JDOMXMLRefactoringWriterImp implements XMLRefactoringWriterImp {
 	 *            el elemento del tipo del par�metro ambiguo.
 	 */
 	private void constructAmbiguousParameters(Element partOfRefactoring,
-			String nameOfPart, int typeOfPart) {
+			String nameOfPart, RefactoringMechanism typeOfPart) {
 
 		List<String[]> ambiguousParameters = refactoringDefinition
 				.getAmbiguousParameters(nameOfPart, typeOfPart);

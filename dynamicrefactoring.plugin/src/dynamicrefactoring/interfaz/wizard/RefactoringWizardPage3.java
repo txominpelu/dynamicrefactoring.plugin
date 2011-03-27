@@ -33,8 +33,8 @@ import org.eclipse.swt.SWT;
 import org.eclipse.swt.layout.FormLayout;
 import org.eclipse.swt.widgets.Composite;
 
-import dynamicrefactoring.RefactoringConstants;
 import dynamicrefactoring.domain.DynamicRefactoringDefinition;
+import dynamicrefactoring.domain.RefactoringMechanism;
 import dynamicrefactoring.util.RepositoryElementLister;
 
 
@@ -136,8 +136,9 @@ public class RefactoringWizardPage3 extends WizardPage implements IRefactoringWi
 		try {
 			fillPreconditionsList();
 			if (refactoring != null){
-				preconditionsTab.fillSelectedList(refactoring.getPreconditions(),
-					refactoring, RefactoringConstants.PRECONDITION);
+				preconditionsTab.fillSelectedList(
+						refactoring.getPreconditions(), refactoring,
+						RefactoringMechanism.PRECONDITION);
 			}
 		} catch (IOException exception) {
 			String message = Messages.RefactoringWizardPage3_ElementsNotLoaded +

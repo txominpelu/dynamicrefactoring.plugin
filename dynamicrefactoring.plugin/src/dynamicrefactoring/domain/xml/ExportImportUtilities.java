@@ -35,6 +35,7 @@ import dynamicrefactoring.RefactoringPlugin;
 import dynamicrefactoring.domain.DynamicRefactoringDefinition;
 import dynamicrefactoring.domain.Messages;
 import dynamicrefactoring.domain.RefactoringException;
+import dynamicrefactoring.domain.RefactoringMechanism;
 import dynamicrefactoring.domain.xml.reader.JDOMXMLRefactoringReaderImp;
 import dynamicrefactoring.domain.xml.reader.RefactoringPlanReader;
 import dynamicrefactoring.domain.xml.reader.XMLRefactoringReaderException;
@@ -127,18 +128,21 @@ public class ExportImportUtilities {
 		List<String> allMechanism = new ArrayList<String>();
 		allMechanism
 				.addAll(dynamicrefactoring.util.StringUtils.getMechanismListFullyQualifiedName(
-						RefactoringConstants.PRECONDITION,
-						refact.getAmbiguousParameters()[RefactoringConstants.PRECONDITION]
+						RefactoringMechanism.PRECONDITION,
+						refact.getAmbiguousParameters()[RefactoringMechanism.PRECONDITION
+								.ordinal()]
 								.keySet()));
 		allMechanism
 				.addAll(dynamicrefactoring.util.StringUtils.getMechanismListFullyQualifiedName(
-						RefactoringConstants.ACTION,
-						refact.getAmbiguousParameters()[RefactoringConstants.ACTION]
+						RefactoringMechanism.ACTION,
+						refact.getAmbiguousParameters()[RefactoringMechanism.ACTION
+								.ordinal()]
 								.keySet()));
 		allMechanism
 				.addAll(dynamicrefactoring.util.StringUtils.getMechanismListFullyQualifiedName(
-						RefactoringConstants.POSTCONDITION,
-						refact.getAmbiguousParameters()[RefactoringConstants.POSTCONDITION]
+						RefactoringMechanism.POSTCONDITION,
+						refact.getAmbiguousParameters()[RefactoringMechanism.POSTCONDITION
+								.ordinal()]
 								.keySet()));
 		return allMechanism;
 	}

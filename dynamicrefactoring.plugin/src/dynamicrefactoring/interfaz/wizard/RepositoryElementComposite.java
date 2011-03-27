@@ -63,6 +63,7 @@ import dynamicrefactoring.RefactoringImages;
 import dynamicrefactoring.RefactoringPlugin;
 import dynamicrefactoring.domain.DynamicRefactoringDefinition;
 import dynamicrefactoring.domain.InputParameter;
+import dynamicrefactoring.domain.RefactoringMechanism;
 import dynamicrefactoring.interfaz.dynamic.RepositoryElementProcessor;
 import dynamicrefactoring.interfaz.wizard.listener.ListDownListener;
 import dynamicrefactoring.interfaz.wizard.listener.ListUpListener;
@@ -518,7 +519,8 @@ public class RepositoryElementComposite {
 	 * {@link RefactoringConstants#POSTCONDITION}.)
 	 */
 	protected void fillSelectedList(java.util.List<String> elements,
-		DynamicRefactoringDefinition refactoring, int typePart){
+			DynamicRefactoringDefinition refactoring,
+			RefactoringMechanism typePart) {
 		// Para cada elemento de la refactorizaci�n (predicado o acci�n).
 		for (String next : elements){
 			String element = next;
