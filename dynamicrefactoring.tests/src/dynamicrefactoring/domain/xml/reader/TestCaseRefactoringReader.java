@@ -33,15 +33,11 @@ import java.util.Set;
 
 import org.junit.Test;
 
-import dynamicrefactoring.RefactoringConstants;
 import dynamicrefactoring.domain.DynamicRefactoringDefinition;
 import dynamicrefactoring.domain.InputParameter;
 import dynamicrefactoring.domain.RefactoringException;
+import dynamicrefactoring.domain.RefactoringMechanism;
 import dynamicrefactoring.domain.metadata.interfaces.Category;
-import dynamicrefactoring.domain.xml.reader.JDOMXMLRefactoringReaderFactory;
-import dynamicrefactoring.domain.xml.reader.XMLRefactoringReader;
-import dynamicrefactoring.domain.xml.reader.XMLRefactoringReaderFactory;
-import dynamicrefactoring.domain.xml.reader.XMLRefactoringReaderImp;
 
 /**
  * Comprueba que funciona correctamente el proceso de lectura de la definici�n
@@ -56,10 +52,6 @@ import dynamicrefactoring.domain.xml.reader.XMLRefactoringReaderImp;
  */
 public class TestCaseRefactoringReader {
 
-	private static final String ACTION = "concreteaction.";
-	private static final String PREDICATE = "concretepredicate.";
-	private static final String REPOSITORY_MOON = "repository.moon.";
-	private static final String REPOSITORY_JAVA = "repository.java.";
 	private static final String METHOD = "Method";
 	/**
 	 * Categoria 2
@@ -350,7 +342,7 @@ public class TestCaseRefactoringReader {
 		Iterator<String> mechanism = definition.getPreconditions().iterator();
 
 		checkPredicate(definition, "NotExistsClassWithName", mechanism.next(),
-				RefactoringConstants.PRECONDITION, "New_name");
+				RefactoringMechanism.PRECONDITION, "New_name");
 		assertFalse(mechanism.hasNext());
 
 		Iterator<String> actions = definition.getActions().iterator();
@@ -367,7 +359,7 @@ public class TestCaseRefactoringReader {
 		Iterator<String> postconditions = definition.getPostconditions()
 				.iterator();
 		checkPredicate(definition, "NotExistsClassWithName",
-				postconditions.next(), RefactoringConstants.POSTCONDITION,
+				postconditions.next(), RefactoringMechanism.POSTCONDITION,
 				"Old_name");
 
 		assertFalse(postconditions.hasNext());
@@ -386,13 +378,14 @@ public class TestCaseRefactoringReader {
 		assertEquals(actionName, expectedActionName); //$NON-NLS-1$
 
 		para2 = definition.getAmbiguousParameters(actionName,
-				RefactoringConstants.ACTION);
+				RefactoringMechanism.ACTION);
 		assertEquals(para2.get(0)[0], "Class"); //$NON-NLS-1$
 		assertEquals(para2.get(1)[0], "New_name"); //$NON-NLS-1$
 	}
 
 	private void checkPredicate(DynamicRefactoringDefinition definition,
-			String expectedMechanismName, String pre, int type,
+			String expectedMechanismName, String pre,
+			RefactoringMechanism type,
 			String attributeExpected) {
 
 		assertEquals(pre, expectedMechanismName); //$NON-NLS-1$

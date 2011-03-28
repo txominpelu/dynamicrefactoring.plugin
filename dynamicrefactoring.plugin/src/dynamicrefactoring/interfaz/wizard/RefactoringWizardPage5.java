@@ -33,9 +33,8 @@ import org.eclipse.swt.SWT;
 import org.eclipse.swt.layout.FormLayout;
 import org.eclipse.swt.widgets.Composite;
 
-import dynamicrefactoring.RefactoringConstants;
 import dynamicrefactoring.domain.DynamicRefactoringDefinition;
-import dynamicrefactoring.util.RepositoryElementLister;
+import dynamicrefactoring.domain.RefactoringMechanism;
 
 /**
  * Tercera pï¿½gina del asistente de creaciï¿½n o ediciï¿½n de
@@ -145,8 +144,9 @@ public class RefactoringWizardPage5 extends WizardPage implements IRefactoringWi
 		try {
 			fillPostconditionsList();
 			if (refactoring != null){
-				postconditionsTab.fillSelectedList(refactoring.getPostconditions(),
-					refactoring, RefactoringConstants.POSTCONDITION);
+				postconditionsTab.fillSelectedList(
+						refactoring.getPostconditions(), refactoring,
+						RefactoringMechanism.POSTCONDITION);
 			}
 		} catch (IOException exception) {
 			String message = Messages.RefactoringWizardPage3_ElementsNotLoaded +
@@ -195,10 +195,8 @@ public class RefactoringWizardPage5 extends WizardPage implements IRefactoringWi
 	 * @throws IOException si no se encuentra el directorio.
 	 */
 	private void fillPostconditionsList() throws IOException {
-		RepositoryElementLister l = 
-			RepositoryElementLister.getInstance();
-		
-		postconditionsTab.fillRepositoryList(l.getAllPredicatesList());
+		postconditionsTab.fillRepositoryList(RefactoringMechanism
+				.getPredicatesAllList());
 	}
 
 	/**

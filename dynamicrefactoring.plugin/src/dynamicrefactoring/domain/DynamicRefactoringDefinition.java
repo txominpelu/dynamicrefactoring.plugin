@@ -275,10 +275,12 @@ public class DynamicRefactoringDefinition implements Element,
 	 * 
 	 * @see #setAmbiguousParameters
 	 */
-	public List<String[]> getAmbiguousParameters(String name, int typePart) {
+	public List<String[]> getAmbiguousParameters(String name,
+			RefactoringMechanism typePart) {
 
 		// Se obtienen todas las entradas del predicado o accion.
-		List<String[]> inputs = ambiguousParameters[typePart].get(name);
+		List<String[]> inputs = ambiguousParameters[typePart.ordinal()]
+				.get(name);
 
 		if (inputs != null) {
 			List<String[]> params = new ArrayList<String[]>();

@@ -40,6 +40,7 @@ import dynamicrefactoring.RefactoringConstants;
 import dynamicrefactoring.domain.DynamicRefactoringDefinition;
 import dynamicrefactoring.domain.DynamicRefactoringDefinition.Builder;
 import dynamicrefactoring.domain.InputParameter;
+import dynamicrefactoring.domain.RefactoringMechanism;
 import dynamicrefactoring.domain.Scope;
 import dynamicrefactoring.domain.metadata.interfaces.Category;
 
@@ -248,12 +249,14 @@ public class JDOMXMLRefactoringReaderImp implements XMLRefactoringReaderImp {
 		List<Element> pre = preconditionsElement
 				.getChildren(PRECONDITION_ELEMENT);
 		
-		builder.preconditions(readMechanismElements(ambiguousParameters, pre, RefactoringConstants.PRECONDITION));
+		builder.preconditions(readMechanismElements(ambiguousParameters, pre,
+				RefactoringMechanism.PRECONDITION));
 
 		// Se obtienen las acciones de la refactorizaci�n.
 		Element actionsElement = mechanism.getChild(ACTIONS_ELEMENT);
 		List<Element> ac = actionsElement.getChildren(ACTION_ELEMENT);
-		builder.actions(readMechanismElements(ambiguousParameters, ac, RefactoringConstants.ACTION));
+		builder.actions(readMechanismElements(ambiguousParameters, ac,
+				RefactoringMechanism.ACTION));
 
 		// Se obtienen las postcondiciones de la refactorizaci�n.
 		Element postconditionsElement = mechanism
@@ -262,7 +265,7 @@ public class JDOMXMLRefactoringReaderImp implements XMLRefactoringReaderImp {
 				.getChildren(POSTCONDITION_ELEMENT);
 
 		builder.postconditions(readMechanismElements(ambiguousParameters, post,
-				RefactoringConstants.POSTCONDITION));
+				RefactoringMechanism.POSTCONDITION));
 		builder.ambiguousParameters(ambiguousParameters);
 
 		return builder;
@@ -287,7 +290,7 @@ public class JDOMXMLRefactoringReaderImp implements XMLRefactoringReaderImp {
 	private List<String> readMechanismElements(
 			HashMap<String, List<String[]>>[] ambiguousParameters,
 			List<Element> elements,
-			int type) {
+ RefactoringMechanism type) {
 
 		ArrayList<String> elementNames = new ArrayList<String>();
 
@@ -295,13 +298,13 @@ public class JDOMXMLRefactoringReaderImp implements XMLRefactoringReaderImp {
 
 		for (Element element : elements) {
 			String elementName = element.getAttributeValue(NAME_ATTRIBUTE);
-			elementNames.add(dynamicrefactoring.util.StringUtils
+			elementNames.add(dynamicrefactoring.util.PluginStringUtils
 					.getClassName(elementName));
 
 			params = element.getChildren(PARAM_ELEMENT);
 			if (!params.isEmpty()) {
 				readAmbiguousParametersOfElement(ambiguousParameters,
-						dynamicrefactoring.util.StringUtils
+						dynamicrefactoring.util.PluginStringUtils
 								.getClassName(elementName), type, params);
 			}
 		}
@@ -324,7 +327,7 @@ public class JDOMXMLRefactoringReaderImp implements XMLRefactoringReaderImp {
 	 */
 	private void readAmbiguousParametersOfElement(
 			HashMap<String, List<String[]>>[] ambiguousParameters,
-			String elementName, int type,
+			String elementName, RefactoringMechanism type,
 			List<Element> params) {
 
 		ArrayList<String[]> attributes = new ArrayList<String[]>();
@@ -335,7 +338,7 @@ public class JDOMXMLRefactoringReaderImp implements XMLRefactoringReaderImp {
 			attributes.add(attributesParam);
 		}
 
-		ambiguousParameters[type].put(elementName,
+		ambiguousParameters[type.ordinal()].put(elementName,
 				attributes);
 	}
 

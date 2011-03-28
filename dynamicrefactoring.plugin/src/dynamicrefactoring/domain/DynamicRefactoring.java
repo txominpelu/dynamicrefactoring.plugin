@@ -36,7 +36,7 @@ import dynamicrefactoring.domain.xml.reader.JDOMXMLRefactoringReaderFactory;
 import dynamicrefactoring.domain.xml.reader.XMLRefactoringReader;
 import dynamicrefactoring.domain.xml.reader.XMLRefactoringReaderFactory;
 import dynamicrefactoring.domain.xml.reader.XMLRefactoringReaderImp;
-import dynamicrefactoring.interfaz.dynamic.RepositoryElementProcessor;
+import dynamicrefactoring.util.PluginStringUtils;
 
 /**
  * Representa una refactorizaci�n din�mica.
@@ -133,17 +133,14 @@ public class DynamicRefactoring extends MOONRefactoring {
 	private void createPrecondition(String name) throws RefactoringException {
 
 		try {
-			String predicatePack = ""; //$NON-NLS-1$
-			if (RepositoryElementProcessor.isPredicateJavaDependent(name))
-				predicatePack = RefactoringConstants.JAVA_PREDICATES_PACKAGE;
-			else
-				predicatePack = RefactoringConstants.PREDICATES_PACKAGE;
 
-			Class<?> preconditionClass = Class.forName(predicatePack + name);
+			Class<?> preconditionClass = Class.forName(PluginStringUtils
+					.getMechanismFullyQualifiedName(
+							RefactoringMechanism.PRECONDITION, name));
 
 			Constructor<?> constructor = preconditionClass.getConstructors()[0];
 			Object[] parameters = getNecessaryParameters(constructor,
-					RefactoringConstants.PRECONDITION);
+					RefactoringMechanism.PRECONDITION);
 
 			// Se crea la instancia de la precondici�n y se la a�ade a la
 			// refactorizaci�n.
@@ -175,7 +172,7 @@ public class DynamicRefactoring extends MOONRefactoring {
 
 		try {
 			String actionPack = ""; //$NON-NLS-1$
-			if (RepositoryElementProcessor.isActionJavaDependent(name))
+			if (RefactoringMechanism.ACTION.isElementJavaDependent(name))
 				actionPack = RefactoringConstants.JAVA_ACTIONS_PACKAGE;
 			else
 				actionPack = RefactoringConstants.ACTIONS_PACKAGE;
@@ -184,7 +181,7 @@ public class DynamicRefactoring extends MOONRefactoring {
 
 			Constructor<?> constructor = actionClass.getConstructors()[0];
 			Object[] parameters = getNecessaryParameters(constructor,
-					RefactoringConstants.ACTION);
+					RefactoringMechanism.ACTION);
 
 			// Se crea la instancia de la acci�n concreta y se a�ade a la
 			// refactorizaci�n.
@@ -214,17 +211,14 @@ public class DynamicRefactoring extends MOONRefactoring {
 	private void createPostcondition(String name) throws RefactoringException {
 
 		try {
-			String predicatePack = ""; //$NON-NLS-1$
-			if (RepositoryElementProcessor.isPredicateJavaDependent(name))
-				predicatePack = RefactoringConstants.JAVA_PREDICATES_PACKAGE;
-			else
-				predicatePack = RefactoringConstants.PREDICATES_PACKAGE;
 
-			Class<?> postconditionClass = Class.forName(predicatePack + name);
+			Class<?> postconditionClass = Class.forName(PluginStringUtils
+					.getMechanismFullyQualifiedName(
+							RefactoringMechanism.POSTCONDITION, name));
 
 			Constructor<?> constructor = postconditionClass.getConstructors()[0];
 			Object[] parameters = getNecessaryParameters(constructor,
-					RefactoringConstants.POSTCONDITION);
+					RefactoringMechanism.POSTCONDITION);
 
 			// Se crea la instancia de la postcondicion concreta y se a�ade
 			// a la refactorizaci�n.
@@ -260,7 +254,8 @@ public class DynamicRefactoring extends MOONRefactoring {
 	 *             si se produce alg�n error durante la construcci�n de la
 	 *             lista de par�metros del constructor.
 	 */
-	private Object[] getNecessaryParameters(Constructor<?> constructor, int type)
+	private Object[] getNecessaryParameters(Constructor<?> constructor,
+			RefactoringMechanism type)
 			throws RefactoringException {
 
 		ArrayList<Object> parameters = new ArrayList<Object>();
@@ -280,7 +275,7 @@ public class DynamicRefactoring extends MOONRefactoring {
 
 				// Se busca el valor para el par�metro de la posici�n i.
 				Object param = getInput(
-						dynamicrefactoring.util.StringUtils
+						dynamicrefactoring.util.PluginStringUtils
 								.getClassName(elementName),
 						i, type);
 
@@ -321,12 +316,13 @@ public class DynamicRefactoring extends MOONRefactoring {
 	 * 
 	 * @return el nombre simple del predicado o acci�n.
 	 */
-	private String getTypeName(Constructor<?> constructor, int type) {
+	private String getTypeName(Constructor<?> constructor,
+			RefactoringMechanism type) {
 
 		switch (type) {
-		case RefactoringConstants.PRECONDITION:
-		case RefactoringConstants.POSTCONDITION:
-		case RefactoringConstants.ACTION:
+		case PRECONDITION:
+		case POSTCONDITION:
+		case ACTION:
 			return constructor.getName();
 		default:
 			throw new RuntimeException();
@@ -384,7 +380,8 @@ public class DynamicRefactoring extends MOONRefactoring {
 	 * 
 	 * @return el valor asignado a la entrada.
 	 */
-	private Object getInput(String elementName, int position, int type) {
+	private Object getInput(String elementName, int position,
+			RefactoringMechanism type) {
 		// Se obtienen los argumentos del predicado o acci�n.
 		List<String[]> parameters = refactoringDefinition
 				.getAmbiguousParameters(elementName, type);

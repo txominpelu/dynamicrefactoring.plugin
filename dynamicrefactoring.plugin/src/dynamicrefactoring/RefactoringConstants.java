@@ -110,15 +110,13 @@ public class RefactoringConstants {
 	 * Nombre completamente cualificado del paquete que contiene las acciones
 	 * del repositorio dependientes de Java.
 	 */
-	public static final String JAVA_ACTIONS_PACKAGE = 
-		"repository.java.concreteaction."; //$NON-NLS-1$
+	public static final String JAVA_ACTIONS_PACKAGE = "repository.java.concreteaction."; //$NON-NLS-1$
 	
 	/**
 	 * Nombre completamente cualificado del paquete que contiene los predicados
 	 * del repositorio dependientes de Java.
 	 */
-	public static final String JAVA_PREDICATES_PACKAGE = 
-		"repository.java.concretepredicate."; //$NON-NLS-1$
+	public static final String JAVA_PREDICATES_PACKAGE = "repository.java.concretepredicate."; //$NON-NLS-1$
 
 	/**
 	 * La ruta al fichero con la DTD de las refactorizaciones din�micas.
@@ -162,21 +160,6 @@ public class RefactoringConstants {
 	 * Ruta al fichero de la extensi�n Java de MOON.
 	 */
 	public static final String JAVAEXTENSION_DIR = getJavaLibDir();
-
-	/**
-	 * Predicado de tipo precondici�n.
-	 */
-	public static final int PRECONDITION = 0;
-
-	/**
-	 * Tipo acci�n.
-	 */
-	public static final int ACTION = 1;
-
-	/**
-	 * Predicado de tipo postcondici�n.
-	 */
-	public static final int POSTCONDITION = 2;
 
 	/**
 	 * La extensi�n de los ficheros donde se definen refactorizaciones
