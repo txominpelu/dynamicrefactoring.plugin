@@ -298,13 +298,13 @@ public class JDOMXMLRefactoringReaderImp implements XMLRefactoringReaderImp {
 
 		for (Element element : elements) {
 			String elementName = element.getAttributeValue(NAME_ATTRIBUTE);
-			elementNames.add(dynamicrefactoring.util.StringUtils
+			elementNames.add(dynamicrefactoring.util.PluginStringUtils
 					.getClassName(elementName));
 
 			params = element.getChildren(PARAM_ELEMENT);
 			if (!params.isEmpty()) {
 				readAmbiguousParametersOfElement(ambiguousParameters,
-						dynamicrefactoring.util.StringUtils
+						dynamicrefactoring.util.PluginStringUtils
 								.getClassName(elementName), type, params);
 			}
 		}

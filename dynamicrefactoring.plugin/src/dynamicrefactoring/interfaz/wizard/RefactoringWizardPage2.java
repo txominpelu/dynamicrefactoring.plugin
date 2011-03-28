@@ -327,9 +327,8 @@ public class RefactoringWizardPage2 extends WizardPage {
 									RefactoringConstants.REFACTORING_JAVADOC
 											+ "/moon/overview-summary.html"))
 					.toString());
-		} catch (IOException e) {
-			// FIXME: No se puede capturar una excepcion y no hacer nada con
-			// ella
+		} catch (IOException e1) {
+			throw Throwables.propagate(e1);
 		}
 
 		final Group typesGroup = new Group(composite1, SWT.NONE);
@@ -1173,7 +1172,7 @@ public class RefactoringWizardPage2 extends WizardPage {
 									.toString());
 				}
 			} catch (IOException excp) {
-				Throwables.propagate(excp);
+				throw Throwables.propagate(excp);
 			}
 			// tInformation.setText(getJavadocInformation(path));
 			if (lTypes.getSelectionCount() > 0

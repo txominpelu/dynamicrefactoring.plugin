@@ -36,7 +36,7 @@ import dynamicrefactoring.domain.xml.reader.JDOMXMLRefactoringReaderFactory;
 import dynamicrefactoring.domain.xml.reader.XMLRefactoringReader;
 import dynamicrefactoring.domain.xml.reader.XMLRefactoringReaderFactory;
 import dynamicrefactoring.domain.xml.reader.XMLRefactoringReaderImp;
-import dynamicrefactoring.interfaz.dynamic.RepositoryElementProcessor;
+import dynamicrefactoring.util.PluginStringUtils;
 
 /**
  * Representa una refactorizaci�n din�mica.
@@ -133,13 +133,10 @@ public class DynamicRefactoring extends MOONRefactoring {
 	private void createPrecondition(String name) throws RefactoringException {
 
 		try {
-			String predicatePack = ""; //$NON-NLS-1$
-			if (RepositoryElementProcessor.isPredicateJavaDependent(name))
-				predicatePack = RefactoringConstants.JAVA_PREDICATES_PACKAGE;
-			else
-				predicatePack = RefactoringConstants.PREDICATES_PACKAGE;
 
-			Class<?> preconditionClass = Class.forName(predicatePack + name);
+			Class<?> preconditionClass = Class.forName(PluginStringUtils
+					.getMechanismFullyQualifiedName(
+							RefactoringMechanism.PRECONDITION, name));
 
 			Constructor<?> constructor = preconditionClass.getConstructors()[0];
 			Object[] parameters = getNecessaryParameters(constructor,
@@ -175,7 +172,7 @@ public class DynamicRefactoring extends MOONRefactoring {
 
 		try {
 			String actionPack = ""; //$NON-NLS-1$
-			if (RepositoryElementProcessor.isActionJavaDependent(name))
+			if (RefactoringMechanism.ACTION.isElementJavaDependent(name))
 				actionPack = RefactoringConstants.JAVA_ACTIONS_PACKAGE;
 			else
 				actionPack = RefactoringConstants.ACTIONS_PACKAGE;
@@ -214,13 +211,10 @@ public class DynamicRefactoring extends MOONRefactoring {
 	private void createPostcondition(String name) throws RefactoringException {
 
 		try {
-			String predicatePack = ""; //$NON-NLS-1$
-			if (RepositoryElementProcessor.isPredicateJavaDependent(name))
-				predicatePack = RefactoringConstants.JAVA_PREDICATES_PACKAGE;
-			else
-				predicatePack = RefactoringConstants.PREDICATES_PACKAGE;
 
-			Class<?> postconditionClass = Class.forName(predicatePack + name);
+			Class<?> postconditionClass = Class.forName(PluginStringUtils
+					.getMechanismFullyQualifiedName(
+							RefactoringMechanism.POSTCONDITION, name));
 
 			Constructor<?> constructor = postconditionClass.getConstructors()[0];
 			Object[] parameters = getNecessaryParameters(constructor,
@@ -281,7 +275,7 @@ public class DynamicRefactoring extends MOONRefactoring {
 
 				// Se busca el valor para el par�metro de la posici�n i.
 				Object param = getInput(
-						dynamicrefactoring.util.StringUtils
+						dynamicrefactoring.util.PluginStringUtils
 								.getClassName(elementName),
 						i, type);
 

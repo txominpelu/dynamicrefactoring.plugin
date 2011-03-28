@@ -7,11 +7,9 @@ import com.google.common.base.Function;
 import com.google.common.collect.Collections2;
 import com.google.common.collect.ImmutableSet;
 
-import dynamicrefactoring.RefactoringConstants;
 import dynamicrefactoring.domain.RefactoringMechanism;
-import dynamicrefactoring.interfaz.dynamic.RepositoryElementProcessor;
 
-public class StringUtils {
+public class PluginStringUtils {
 
 	private static final String PACKAGE_SEPARATOR_CHAR = ".";
 
@@ -86,36 +84,10 @@ public class StringUtils {
 	 */
 	public static String getMechanismPackage(RefactoringMechanism type,
 			final String mechanismName) {
-		String preconditionPack;
-		switch (type) {
-		case PRECONDITION:
-			if (RepositoryElementProcessor
-					.isPredicateJavaDependent(mechanismName)) {
-				preconditionPack = RefactoringConstants.JAVA_PREDICATES_PACKAGE;
-			} else {
-				preconditionPack = RefactoringConstants.PREDICATES_PACKAGE;
-			}
-			break;
-		case ACTION:
-			if (RepositoryElementProcessor.isActionJavaDependent(mechanismName)) {
-				preconditionPack = RefactoringConstants.JAVA_ACTIONS_PACKAGE;
-			} else {
-				preconditionPack = RefactoringConstants.ACTIONS_PACKAGE;
-			}
-			break;
-		case POSTCONDITION:
-			if (RepositoryElementProcessor
-					.isPredicateJavaDependent(mechanismName)) {
-				preconditionPack = RefactoringConstants.JAVA_PREDICATES_PACKAGE;
-			} else {
-				preconditionPack = RefactoringConstants.PREDICATES_PACKAGE;
-			}
-			break;
-		default:
-			throw new RuntimeException(
-					"type must be one of: RefactoringConstants. PRECONDITION/POSTCONDITION/ACTION");
+		if (type.isElementJavaDependent(mechanismName)) {
+			return type.getMechanismJavaPackage();
 		}
-		return preconditionPack.substring(0, preconditionPack.length() - 1);
+		return type.getMechanismIndependentPackage();
 
 	}
 
