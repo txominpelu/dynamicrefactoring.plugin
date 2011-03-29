@@ -22,8 +22,9 @@ package dynamicrefactoring.util;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Enumeration;
-import java.util.Vector;
+import java.util.List;
 import java.util.jar.JarEntry;
 import java.util.jar.JarFile;
 
@@ -39,6 +40,7 @@ import dynamicrefactoring.RefactoringConstants;
  */
 public class MOONTypeLister {
 
+	private static final String CLASS_EXTENSION = ".class";
 	/**
 	 * La instancia �nica de la clase.
 	 * 
@@ -72,20 +74,16 @@ public class MOONTypeLister {
 	 * @throws IOException cuando no existe el fichero del n�cleo de MOON o de la
 	 * extensi�n JavaMOON.
 	 */
-    public String[] getTypeNameList() throws IOException {
+    public List<String> getTypeNameList() throws IOException {
 
-    	Vector<String> files = new Vector<String>();
+    	List<String> files = new ArrayList<String>();
     	
     	// Biblioteca con el n�cleo de MOON.
         addLibraryTypes(RefactoringConstants.MOONCORE_DIR, files);
         // Biblioteca con la extensi�n para Java de MOON.
         addLibraryTypes(RefactoringConstants.JAVAEXTENSION_DIR, files);
-        
-        String[] retorno = new String[files.size()];
-        for(int i=0; i<files.size(); i++)
-        	retorno[i] = files.elementAt(i);
 
-        return retorno;
+        return files;
     }
     
     /**
@@ -100,15 +98,15 @@ public class MOONTypeLister {
      * @throws IOException si no se encuentra o no existe el fichero <code>.jar
      * </code> de la biblioteca.
      */
-    private void addLibraryTypes(String library, Vector<String> collection) 
+    private void addLibraryTypes(String library, List<String> collection) 
     	throws IOException {
     	
     	File dir = new File(library);
-        if (!dir.exists())
+        if (!dir.exists()) {
         	throw new IOException(
         		Messages.MOONTypeLister_FileNotExists +
         		":\n" + library + ".\n"); //$NON-NLS-1$ //$NON-NLS-2$
-        
+        }
         JarFile jarFile = new JarFile(library);
         Enumeration<JarEntry> fileEnum = jarFile.entries();
         
@@ -121,13 +119,31 @@ public class MOONTypeLister {
 				entry.getName().startsWith("moon/core/genericity") ||  //$NON-NLS-1$
 				entry.getName().startsWith("javamoon/core")) && //$NON-NLS-1$
 				entry.getName().indexOf("Test") == -1 &&  //$NON-NLS-1$
-				entry.getName().endsWith(".class")) //$NON-NLS-1$
+				entry.getName().endsWith(CLASS_EXTENSION)) { //$NON-NLS-1$
         		
-        		if (!collection.contains(entry.getName().substring(
-            		0, entry.getName().length()-6)))
-            		
-        			collection.add(
-            			entry.getName().substring(0, entry.getName().length()-6));
+        		final String className = getClassNameFromEntry(entry);
+        		if (!collection.contains(className)) {	
+        			collection.add(className);
+        		}
+        	}
         }
     }
+
+    /**
+     * Obtiene el nombre de una clase dada su entry.
+     * Pasa de:
+     * 
+     * javamoon/core/instruction/JavaThisConstructorInstr.class
+     * 
+     * a:
+     * 
+     * javamoon.core.instruction.JavaThisConstructorInstr
+     * 
+     * @param entry entrada del fichero de clase
+     * @return nombre completamente cualificado de la clase
+     */
+	private String getClassNameFromEntry(JarEntry entry) {
+		return entry.getName().substring(
+				0, entry.getName().length() - CLASS_EXTENSION.length()).replace("/", ".");
+	}
 }

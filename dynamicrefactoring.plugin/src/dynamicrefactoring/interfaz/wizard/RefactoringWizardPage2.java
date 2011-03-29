@@ -25,7 +25,7 @@ import java.io.IOException;
 import java.lang.reflect.Method;
 import java.text.MessageFormat;
 import java.util.ArrayList;
-import java.util.Arrays;
+import java.util.Collections;
 import java.util.Hashtable;
 
 import org.apache.log4j.Logger;
@@ -680,25 +680,24 @@ public class RefactoringWizardPage2 extends WizardPage {
 	 *            Expresion regular de b�squeda.
 	 */
 	private void fillSearchTypesList(String patron) {
-		String[] itemList;
 
 		try {
 			MOONTypeLister l = MOONTypeLister.getInstance();
 
-			itemList = l.getTypeNameList();
+			java.util.List<String> itemList = l.getTypeNameList();
 			// Se ordena la lista de candidatos.
-			Arrays.sort(itemList);
+			Collections.sort(itemList);
 
 			// se vacia la lista lTypes
 			lTypes.removeAll();
 
-			for (int i = 0; i < itemList.length; i++) {
-				String typeName = itemList[i].replaceAll("/", "."); //$NON-NLS-1$ //$NON-NLS-2$
+			for (String typeName : itemList) {
 
 				// En caso de que el tipo coincida con el patr�n de b�squeda lo
 				// a�adimos a la lista.
-				if (patron.equals("") || typeName.matches(patron))
+				if (patron.equals("") || typeName.matches(patron)) {
 					lTypes.add(typeName);
+				}
 			}
 		} catch (IOException ioe) {
 			logger.error(Messages.RefactoringWizardPage2_ListNotLoaded
@@ -724,26 +723,25 @@ public class RefactoringWizardPage2 extends WizardPage {
 	private void fillTypesList() {
 		listModelTypes = new Hashtable<String, Integer>();
 
-		String[] itemList;
 
 		try {
 			MOONTypeLister l = MOONTypeLister.getInstance();
 
-			itemList = l.getTypeNameList();
+			java.util.List<String> itemList = l.getTypeNameList();
 			// Se ordena la lista de candidatos.
-			Arrays.sort(itemList);
+			Collections.sort(itemList);
 
 			// Se obtiene la lista de candidatos.
 			listModelTypes.put(RefactoringConstants.STRING_PATH, 1);
-			for (int i = 0; i < itemList.length; i++) {
-				String typeName = itemList[i].replaceAll("/", "."); //$NON-NLS-1$ //$NON-NLS-2$
+			for (String typeName : itemList) {
+				
 				listModelTypes.put(typeName, 1);
 				lTypes.add(typeName);
 
 				// Si se est� creando una nueva refactorizaci�n.
 				if (((RefactoringWizard) getWizard()).getOperation() == RefactoringWizard.CREATE) {
 					// Se busca y a�ade autom�ticamente el modelo MOON.
-					if (itemList[i].replaceAll("/", ".").equals( //$NON-NLS-1$ //$NON-NLS-2$
+					if (typeName.equals( //$NON-NLS-1$ //$NON-NLS-2$
 							RefactoringConstants.MODEL_PATH)) {
 						lInputs.add(typeName + " (" + 1 + ")"); //$NON-NLS-1$
 						if (inputsTable == null)

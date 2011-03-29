@@ -243,7 +243,7 @@ public enum RefactoringMechanism {
 	public String getIndexDir() {
 		return RefactoringPlugin.getDefault().getPluginTempDir()
 				+ File.separator + "index"
-				+ File.separator + toString();
+				+ File.separator + toString().toLowerCase();
 	}
 
 }
