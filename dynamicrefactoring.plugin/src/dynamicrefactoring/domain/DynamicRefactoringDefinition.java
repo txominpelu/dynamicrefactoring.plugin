@@ -409,6 +409,40 @@ public class DynamicRefactoringDefinition implements Element,
 				|| motivation.toLowerCase().contains(text);
 	}
 
+	@Override
+	public boolean containsInputType(String inputType) {
+		for(String[] input: inputs){
+			if(input[0].equalsIgnoreCase(inputType))
+				return true;
+		}
+		return false;
+	}
+
+	@Override
+	public boolean containsRootInputType(String rootInputType) {
+		for(String[] input: inputs){
+			if(input[0].equalsIgnoreCase(rootInputType) && 
+			   input[4]!=null &&
+			   input[4].equalsIgnoreCase("true"))
+				return true;
+		}
+		return false;
+	}
+	@Override
+	public boolean containsPrecondition(String precondition) {
+		return preconditions.contains(precondition);
+	}
+
+	@Override
+	public boolean containsAction(String action) {
+		return actions.contains(action);
+	}
+
+	@Override
+	public boolean containsPostcondition(String postcondition) {
+		return postconditions.contains(postcondition);
+	}
+	
 	/**
 	 * Las refactorizaciones se ordenan en base a su nombre.
 	 * 

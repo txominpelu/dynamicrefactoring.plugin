@@ -23,6 +23,7 @@ import dynamicrefactoring.domain.metadata.condition.InputTypeCondition;
 import dynamicrefactoring.domain.metadata.condition.PostconditionCondition;
 import dynamicrefactoring.domain.metadata.condition.PreconditionCondition;
 import dynamicrefactoring.domain.metadata.condition.RootInputTypeCondition;
+import dynamicrefactoring.domain.metadata.condition.TextCondition;
 import dynamicrefactoring.domain.metadata.interfaces.Catalog;
 import dynamicrefactoring.domain.metadata.interfaces.Category;
 import dynamicrefactoring.domain.metadata.interfaces.Classification;
@@ -364,11 +365,11 @@ abstract class AbstractCatalog implements Catalog {
 	 */
 	public Set<DynamicRefactoringDefinition> 
 			getRefactoringsContainsInputType(String inputType){
-		
+
 		return 
-			new HashSet<DynamicRefactoringDefinition>(Collections2
-					.filter(ImmutableSet.copyOf(refactorings),
-							new InputTypeCondition(inputType)));
+			new HashSet<DynamicRefactoringDefinition>(
+				Collections2.filter(ImmutableSet.copyOf(refactorings),
+				new InputTypeCondition<DynamicRefactoringDefinition>(inputType)));
 
 	}
 	
@@ -383,9 +384,9 @@ abstract class AbstractCatalog implements Catalog {
 			getRefactoringsContainsRootInputType(String rootInputType){
 
 		return 
-			new HashSet<DynamicRefactoringDefinition>(Collections2
-					.filter(ImmutableSet.copyOf(refactorings),
-							new RootInputTypeCondition(rootInputType)));
+			new HashSet<DynamicRefactoringDefinition>(
+				Collections2.filter(ImmutableSet.copyOf(refactorings),
+				new RootInputTypeCondition<DynamicRefactoringDefinition>(rootInputType)));
 
 	}
 	
@@ -400,9 +401,9 @@ abstract class AbstractCatalog implements Catalog {
 			getRefactoringsContainsPrecondition(String precondition){
 
 		return 
-			new HashSet<DynamicRefactoringDefinition>(Collections2
-					.filter(ImmutableSet.copyOf(refactorings),
-							new PreconditionCondition(precondition)));
+			new HashSet<DynamicRefactoringDefinition>(
+				Collections2.filter(ImmutableSet.copyOf(refactorings),
+				new PreconditionCondition<DynamicRefactoringDefinition>(precondition)));
 
 	}
 	
@@ -417,9 +418,9 @@ abstract class AbstractCatalog implements Catalog {
 			getRefactoringsContainsAction(String action){
 
 		return 
-			new HashSet<DynamicRefactoringDefinition>(Collections2
-					.filter(ImmutableSet.copyOf(refactorings),
-							new ActionCondition(action)));
+			new HashSet<DynamicRefactoringDefinition>(
+				Collections2.filter(ImmutableSet.copyOf(refactorings),
+				new ActionCondition<DynamicRefactoringDefinition>(action)));
 
 	}
 	
@@ -434,9 +435,9 @@ abstract class AbstractCatalog implements Catalog {
 			getRefactoringsContainsPostcondition(String postcondition){
 
 		return 
-			new HashSet<DynamicRefactoringDefinition>(Collections2
-					.filter(ImmutableSet.copyOf(refactorings),
-							new PostconditionCondition(postcondition)));
+			new HashSet<DynamicRefactoringDefinition>(
+				Collections2.filter(ImmutableSet.copyOf(refactorings),
+				new PostconditionCondition<DynamicRefactoringDefinition>(postcondition)));
 
 	}
 	
