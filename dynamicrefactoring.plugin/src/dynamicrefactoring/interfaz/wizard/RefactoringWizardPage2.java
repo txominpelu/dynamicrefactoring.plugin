@@ -43,9 +43,11 @@ import org.eclipse.swt.events.SelectionListener;
 import org.eclipse.swt.layout.FormAttachment;
 import org.eclipse.swt.layout.FormData;
 import org.eclipse.swt.layout.FormLayout;
+import org.eclipse.swt.layout.RowLayout;
 import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Combo;
 import org.eclipse.swt.widgets.Composite;
+import org.eclipse.swt.widgets.Control;
 import org.eclipse.swt.widgets.Group;
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.List;
@@ -67,6 +69,7 @@ import dynamicrefactoring.RefactoringImages;
 import dynamicrefactoring.RefactoringPlugin;
 import dynamicrefactoring.domain.DynamicRefactoringDefinition;
 import dynamicrefactoring.domain.InputParameter;
+import dynamicrefactoring.domain.metadata.classifications.xml.imp.PluginClassificationsCatalog;
 import dynamicrefactoring.interfaz.dynamic.InputProcessor;
 import dynamicrefactoring.interfaz.wizard.listener.ListDownListener;
 import dynamicrefactoring.interfaz.wizard.listener.ListUpListener;
@@ -203,8 +206,12 @@ public class RefactoringWizardPage2 extends WizardPage {
 	 */
 	private Button bDefault;
 	
+	private FormToolkit toolkit;
 	private ScrolledForm form;
-	private Label formLabel;
+	private Label descriptionFormLabel;
+	private ExpandableComposite refExpandableComp;
+	private ExpandableComposite refMainExpandableComp;
+	
 	
 	/**
 	 * Constructor.
@@ -538,9 +545,10 @@ public class RefactoringWizardPage2 extends WizardPage {
 		fdComposite3.right = new FormAttachment(100, -10);
 		fdComposite3.bottom = new FormAttachment(100, -10);
 		composite_3.setLayoutData(fdComposite3);
+		composite_3.setVisible(false);
 		
 		//form
-		final FormToolkit toolkit = new FormToolkit(composite_3.getDisplay());
+		toolkit = new FormToolkit(composite_3.getDisplay());
 		form = toolkit.createScrolledForm(composite_3);
 		final FormData scrolledFormData = new FormData();
 		scrolledFormData.top = new FormAttachment(0, 0);
@@ -551,15 +559,15 @@ public class RefactoringWizardPage2 extends WizardPage {
 		form.getBody().setLayout(new TableWrapLayout());
 		
 		//formLabel
-		formLabel=toolkit.createLabel(form.getBody(), "", SWT.WRAP);
+		descriptionFormLabel=toolkit.createLabel(form.getBody(), "", SWT.WRAP);
 		
 		//refExpandableComp
-		ExpandableComposite refExpandableComp = 
+		refExpandableComp = 
 			toolkit.createExpandableComposite(
 				form.getBody(), 
 				ExpandableComposite.TREE_NODE|
 				ExpandableComposite.CLIENT_INDENT);
-		refExpandableComp.setText("Refactorings it belongs");
+		refExpandableComp.setText(Messages.RefactoringWizardPage2_RefactoringsBelong);
 		TableWrapData td = new TableWrapData();
 		td.colspan = 1;
 		refExpandableComp.setLayoutData(td);
@@ -568,22 +576,17 @@ public class RefactoringWizardPage2 extends WizardPage {
 				form.reflow(true);
 			}
 		});
-		
-		String textAux = "Lots of text, Lots of text," +
-		"Lots of text, Lots of text, Lots of text," +
-		"Lots of text, Lots of text, Lots of text," +
-		"Lots of text, Lots of text";
-		Label refLabel = toolkit.createLabel(refExpandableComp, "", SWT.WRAP);
-		refLabel.setText(textAux);
-		refExpandableComp.setClient(refLabel);
+		Composite refExpandableClient = toolkit.createComposite(refExpandableComp,SWT.WRAP);
+		refExpandableClient.setLayout(new RowLayout());
+		refExpandableComp.setClient(refExpandableClient);
 		
 		//refMainExpandableComp
-		ExpandableComposite refMainExpandableComp = 
+		refMainExpandableComp = 
 			toolkit.createExpandableComposite(
 				form.getBody(), 
 				ExpandableComposite.TREE_NODE|
 				ExpandableComposite.CLIENT_INDENT);
-		refMainExpandableComp.setText("Refactorings where it's Main");
+		refMainExpandableComp.setText(Messages.RefactoringWizardPage2_RefactoringsMain);
 		td = new TableWrapData();
 		td.colspan = 1;
 		refMainExpandableComp.setLayoutData(td);
@@ -592,12 +595,9 @@ public class RefactoringWizardPage2 extends WizardPage {
 				form.reflow(true);
 			}
 		});
-		
-		Label refMainLabel = toolkit.createLabel(refMainExpandableComp, "", SWT.WRAP);
-		refMainLabel.setText(textAux);
-		refMainExpandableComp.setClient(refMainLabel);
-		
-		form.getParent().setVisible(false);
+		Composite refMainExpandableClient = toolkit.createComposite(refMainExpandableComp,SWT.WRAP);
+		refMainExpandableClient.setLayout(new RowLayout());
+		refMainExpandableComp.setClient(refMainExpandableClient);
 		
 		sash_form.setWeights(new int[] {5 , 1 });
 
@@ -1248,12 +1248,53 @@ public class RefactoringWizardPage2 extends WizardPage {
 			//TODO: realizar modificaciones oportunas
 			//form
 			form.getParent().setVisible(false);
+			//previamente eleminamos las etiquetas que contienen los desplegables
+			Control labels[]=null;
+			labels=((Composite)refExpandableComp.getClient()).getChildren();
+			for(int i=0;i<labels.length;i++)
+				labels[i].dispose();
+			labels=((Composite)refMainExpandableComp.getClient()).getChildren();
+			for(int i=0;i<labels.length;i++)
+				labels[i].dispose();
 			
-			form.setText(lTypes.getItem(lTypes.getSelectionIndex()).toString());
-			formLabel.setText("Esta es la descripcion del tipo " + 
-					lTypes.getItem(lTypes.getSelectionIndex()).toString());
+			String typeSelected=lTypes.getItem(lTypes.getSelectionIndex()).toString();
+			form.setText(typeSelected);
+			descriptionFormLabel.setText("Esta es la descripcion del tipo " + typeSelected);
+			
+			//refactoringsInputType
+			ArrayList<DynamicRefactoringDefinition> refactoringsInputType=
+				new ArrayList<DynamicRefactoringDefinition>(
+					PluginClassificationsCatalog.getInstance()
+							.getRefactoringsContainsInputType(typeSelected));
+			Collections.sort(refactoringsInputType);
+			Label refLabel=null;
+			String refName=null;
+			for(int i=0; i<refactoringsInputType.size();i++){
+				refName=refactoringsInputType.get(i).getName();
+				if(i<refactoringsInputType.size()-1)
+					refName+=",";
+				refLabel = toolkit.createLabel((Composite)refExpandableComp.getClient(),refName);
+			}
+			refExpandableComp.setExpanded(!refactoringsInputType.isEmpty());
+			
+			//refactoringsRootInputType
+			ArrayList<DynamicRefactoringDefinition> refactoringsRootInputType=
+				new ArrayList<DynamicRefactoringDefinition>(
+						PluginClassificationsCatalog.getInstance().getRefactoringsContainsRootInputType(typeSelected));
+			Collections.sort(refactoringsRootInputType);
+			Label refRootLabel=null;
+			String refRootName=null;
+			for(int i=0; i<refactoringsRootInputType.size(); i++){
+				refRootName=refactoringsRootInputType.get(i).getName();
+				if(i<refactoringsRootInputType.size()-1)
+					refRootName+=",";
+				refRootLabel = toolkit.createLabel((Composite)refMainExpandableComp.getClient(),refRootName);
+			}
+			refMainExpandableComp.setExpanded(!refactoringsRootInputType.isEmpty());
 			
 			form.getParent().setVisible(true);
+			form.reflow(true);
+			
 			
 			if (lTypes.getSelectionCount() > 0 &&
 				lTypes.getItem(lTypes.getSelectionIndex()) != null)

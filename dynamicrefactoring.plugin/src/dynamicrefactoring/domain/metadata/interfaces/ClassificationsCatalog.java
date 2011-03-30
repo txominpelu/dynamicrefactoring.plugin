@@ -2,6 +2,8 @@ package dynamicrefactoring.domain.metadata.interfaces;
 
 import java.util.Set;
 
+import dynamicrefactoring.domain.DynamicRefactoringDefinition;
+
 /**
  * Catalogo que contiene las clasificaciones existentes en la aplicacion y
  * provee de metodos para editarlas y acceder a sus datos.
@@ -82,6 +84,51 @@ public interface ClassificationsCatalog {
 	void removeCategory(String classification, String categoryName);
 	
 
+	/**
+	 * Obtiene un subconjunto de refactorizaciones del catálogo que 
+	 * tiene entre sus tipos de entrada el indicado por el parámetro.
+	 * 
+	 * @param inputType tipo de entrada
+	 * @return subconjunto de refactorizaciones del catálogo
+	 */
+	Set<DynamicRefactoringDefinition> getRefactoringsContainsInputType(String inputType);
+	
+	/**
+	 * Obtiene un subconjunto de refactorizaciones del catálogo que 
+	 * tiene como tipo de entrada raiz el indicado por el parámetro.
+	 * 
+	 * @param rootInputType tipo de entrada de la entrada raiz
+	 * @return subconjunto de refactorizaciones del catálogo
+	 */
+	Set<DynamicRefactoringDefinition> getRefactoringsContainsRootInputType(String rootInputType);
+	
+	/**
+	 * Obtiene un subconjunto de refactorizaciones del catálogo que 
+	 * tiene entre sus precondiciones la precondición indicada por el parámetro.
+	 * 
+	 * @param precondition precondición
+	 * @return subconjunto de refactorizaciones del catálogo
+	 */
+	Set<DynamicRefactoringDefinition> getRefactoringsContainsPrecondition(String precondition);
+	
+	/**
+	 * Obtiene un subconjunto de refactorizaciones del catálogo que 
+	 * tiene entre sus acciones la acción indicada por el parámetro.
+	 * 
+	 * @param action acción
+	 * @return subconjunto de refactorizaciones del catálogo
+	 */
+	Set<DynamicRefactoringDefinition> getRefactoringsContainsAction(String action);
+	
+	/**
+	 * Obtiene un subconjunto de refactorizaciones del catálogo que 
+	 * tiene entre sus postcondiciones la postcondición indicada por el parámetro.
+	 * 
+	 * @param postcondition postcondición
+	 * @return subconjunto de refactorizaciones del catálogo
+	 */
+	Set<DynamicRefactoringDefinition> getRefactoringsContainsPostcondition(String postcondition);
+	
 	/**
 	 * Cambia el nombre de una clasificacion.
 	 * 

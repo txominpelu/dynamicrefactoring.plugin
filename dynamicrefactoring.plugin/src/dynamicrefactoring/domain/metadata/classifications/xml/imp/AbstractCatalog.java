@@ -15,7 +15,12 @@ import com.google.common.collect.Sets;
 import dynamicrefactoring.domain.DynamicRefactoringDefinition;
 import dynamicrefactoring.domain.DynamicRefactoringDefinition.Builder;
 import dynamicrefactoring.domain.RefactoringsCatalog;
+import dynamicrefactoring.domain.metadata.condition.ActionCondition;
 import dynamicrefactoring.domain.metadata.condition.CategoryCondition;
+import dynamicrefactoring.domain.metadata.condition.InputTypeCondition;
+import dynamicrefactoring.domain.metadata.condition.PostconditionCondition;
+import dynamicrefactoring.domain.metadata.condition.PreconditionCondition;
+import dynamicrefactoring.domain.metadata.condition.RootInputTypeCondition;
 import dynamicrefactoring.domain.metadata.imp.SimpleUniLevelClassification;
 import dynamicrefactoring.domain.metadata.interfaces.Category;
 import dynamicrefactoring.domain.metadata.interfaces.Classification;
@@ -174,8 +179,8 @@ abstract class AbstractCatalog implements ClassificationsCatalog {
 		Classification oldClassif = getClassification(classification);
 		classifications.remove(oldClassif);
 		classifications.add(new SimpleUniLevelClassification(oldClassif
-				.getName(), descripcion, oldClassif
-				.getCategories(), oldClassif.isMultiCategory()));
+				.getName(), descripcion, oldClassif.getCategories(), oldClassif
+				.isMultiCategory()));
 	}
 
 	/**
@@ -345,6 +350,96 @@ abstract class AbstractCatalog implements ClassificationsCatalog {
 			}
 		}
 		return false;
+	}
+
+	/**
+	 * Obtiene un subconjunto de refactorizaciones del catálogo que tiene entre
+	 * sus tipos de entrada el indicado por el parámetro.
+	 * 
+	 * @param inputType
+	 *            tipo de entrada
+	 * @return subconjunto de refactorizaciones del catálogo
+	 */
+	public Set<DynamicRefactoringDefinition> getRefactoringsContainsInputType(
+			String inputType) {
+
+		return new HashSet<DynamicRefactoringDefinition>(
+				Collections2.filter(ImmutableSet.copyOf(refactCatalog
+						.getAllRefactorings()),
+						new InputTypeCondition<DynamicRefactoringDefinition>(
+								inputType)));
+
+	}
+
+	/**
+	 * Obtiene un subconjunto de refactorizaciones del catálogo que tiene como
+	 * tipo de entrada raiz el indicado por el parámetro.
+	 * 
+	 * @param rootInputType
+	 *            tipo de entrada de la entrada raiz
+	 * @return subconjunto de refactorizaciones del catálogo
+	 */
+	public Set<DynamicRefactoringDefinition> getRefactoringsContainsRootInputType(
+			String rootInputType) {
+
+		return new HashSet<DynamicRefactoringDefinition>(Collections2.filter(
+				ImmutableSet.copyOf(refactCatalog.getAllRefactorings()),
+				new RootInputTypeCondition<DynamicRefactoringDefinition>(
+						rootInputType)));
+
+	}
+
+	/**
+	 * Obtiene un subconjunto de refactorizaciones del catálogo que tiene entre
+	 * sus precondiciones la precondición indicada por el parámetro.
+	 * 
+	 * @param precondition
+	 *            precondición
+	 * @return subconjunto de refactorizaciones del catálogo
+	 */
+	public Set<DynamicRefactoringDefinition> getRefactoringsContainsPrecondition(
+			String precondition) {
+
+		return new HashSet<DynamicRefactoringDefinition>(Collections2.filter(
+				ImmutableSet.copyOf(refactCatalog.getAllRefactorings()),
+				new PreconditionCondition<DynamicRefactoringDefinition>(
+						precondition)));
+
+	}
+
+	/**
+	 * Obtiene un subconjunto de refactorizaciones del catálogo que tiene entre
+	 * sus acciones la acción indicada por el parámetro.
+	 * 
+	 * @param action
+	 *            acción
+	 * @return subconjunto de refactorizaciones del catálogo
+	 */
+	public Set<DynamicRefactoringDefinition> getRefactoringsContainsAction(
+			String action) {
+
+		return new HashSet<DynamicRefactoringDefinition>(Collections2.filter(
+				ImmutableSet.copyOf(refactCatalog.getAllRefactorings()),
+				new ActionCondition<DynamicRefactoringDefinition>(action)));
+
+	}
+
+	/**
+	 * Obtiene un subconjunto de refactorizaciones del catálogo que tiene entre
+	 * sus postcondiciones la postcondición indicada por el parámetro.
+	 * 
+	 * @param postcondition
+	 *            postcondición
+	 * @return subconjunto de refactorizaciones del catálogo
+	 */
+	public Set<DynamicRefactoringDefinition> getRefactoringsContainsPostcondition(
+			String postcondition) {
+
+		return new HashSet<DynamicRefactoringDefinition>(Collections2.filter(
+				ImmutableSet.copyOf(refactCatalog.getAllRefactorings()),
+				new PostconditionCondition<DynamicRefactoringDefinition>(
+						postcondition)));
+
 	}
 
 	/**

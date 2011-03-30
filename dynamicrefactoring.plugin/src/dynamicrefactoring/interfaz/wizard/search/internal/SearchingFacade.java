@@ -108,12 +108,13 @@ public enum SearchingFacade {
 	 *            tipo de elemento sobre el que se buscara
 	 * @param query
 	 *            terminos de la busqueda a realizar
+	 * @return
 	 * @throws ParseException
 	 *             si el formato de los terminos de la busqueda no es valido
 	 */
-	public void search(SearchableType typeToSearch, String query)
+	public Set<QueryResult> search(SearchableType typeToSearch, String query)
 			throws ParseException {
-		searcher.search(typeToSearch, query);
+		return searcher.search(typeToSearch, query);
 	}
 
 }
