@@ -1,5 +1,6 @@
 package dynamicrefactoring.interfaz.wizard.search.javadoc;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashSet;
@@ -11,6 +12,7 @@ import org.eclipse.core.resources.IProjectDescription;
 import org.eclipse.core.resources.IWorkspaceRoot;
 import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.CoreException;
+import org.eclipse.core.runtime.FileLocator;
 import org.eclipse.core.runtime.Path;
 import org.eclipse.jdt.core.IClasspathAttribute;
 import org.eclipse.jdt.core.IClasspathEntry;
@@ -30,8 +32,6 @@ import dynamicrefactoring.RefactoringConstants;
 public enum EclipseBasedJavadocReader implements JavadocReader {
 
 	INSTANCE;
-
-	private static final String REPOSITORY_DIR = "/home/imediava/Escritorio/workspace-proyecto2/dynamicrefactoring.plugin/";
 
 	private final IJavaProject javaProject;
 
@@ -87,16 +87,23 @@ public enum EclipseBasedJavadocReader implements JavadocReader {
 		}
 		javaProject.setRawClasspath(
 				entries.toArray(new IClasspathEntry[entries.size()]), null);
-		addLibraryToReaderClassPath(new Path(RefactoringConstants.REFACTORING_CLASSES_DIR), "file://" + REPOSITORY_DIR
-				+ "dynamicrefactoring.plugin/doc/javadoc/");
-		addLibraryToReaderClassPath(new Path(REPOSITORY_DIR
-				+ "dynamicrefactoring.plugin/lib/moon-2.4.1.jar"), "file://"
-				+ REPOSITORY_DIR
-				+ "dynamicrefactoring.plugin/doc/javadoc/moon/");
-		addLibraryToReaderClassPath(new Path(REPOSITORY_DIR
-				+ "dynamicrefactoring.plugin/lib/" + "javamoon-2.6.0.jar"), "file://"
-				+ REPOSITORY_DIR
-				+ "dynamicrefactoring.plugin/doc/javadoc/javamoon/");
+		addLibraryToReaderClassPath(new Path(
+				RefactoringConstants.REFACTORING_CLASSES_DIR), getClass()
+				.getResource("/doc/javadoc/").toString());
+		try {
+			addLibraryToReaderClassPath(
+					new Path(FileLocator.toFileURL(
+							getClass().getResource("/lib/" + "moon-2.4.1.jar"))
+							.getFile()),
+					getClass().getResource("/doc/javadoc/moon/").toString());
+			addLibraryToReaderClassPath(
+					new Path(FileLocator.toFileURL(
+							getClass().getResource(
+									"/lib/" + "javamoon-2.6.0.jar")).getFile()),
+					getClass().getResource("/doc/javadoc/javamoon/").toString());
+		} catch (IOException e) {
+			throw Throwables.propagate(e);
+		}
 
 	}
 
@@ -133,12 +140,11 @@ public enum EclipseBasedJavadocReader implements JavadocReader {
 			throw Throwables.propagate(e);
 		}
 	}
-	
+
 	@Override
 	public String getTypeJavaDocAsPlainText(String typeFullyQualifiedName) {
 		return html2text(getTypeJavaDocAsHtml(typeFullyQualifiedName));
 	}
-	
 
 	@Override
 	public boolean hasType(String typeFullyQualifiedName) {
@@ -159,7 +165,6 @@ public enum EclipseBasedJavadocReader implements JavadocReader {
 	private static String html2text(String htmlString) {
 		return Jsoup.parse(htmlString).text();
 	}
-	
 
 	/**
 	 * Obtiene una entrada de una libreria que se puede agregar al classpath de
@@ -178,8 +183,7 @@ public enum EclipseBasedJavadocReader implements JavadocReader {
 				IClasspathAttribute.JAVADOC_LOCATION_ATTRIBUTE_NAME,
 				javadocPath);
 		IClasspathEntry miLibreriaEntry = JavaCore.newLibraryEntry(libraryPath,
-				null,
-				null, // no source
+				null, null, // no source
 				null, new IClasspathAttribute[] { attribute }, false);
 		return miLibreriaEntry;
 	}
