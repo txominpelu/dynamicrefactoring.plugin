@@ -1,4 +1,4 @@
-package dynamicrefactoring.wizard.search.javadoc;
+package dynamicrefactoring.interfaz.wizard.search.javadoc;
 
 import java.util.ArrayList;
 import java.util.Arrays;

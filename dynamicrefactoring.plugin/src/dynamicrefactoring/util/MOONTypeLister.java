@@ -28,6 +28,8 @@ import java.util.List;
 import java.util.jar.JarEntry;
 import java.util.jar.JarFile;
 
+import com.google.common.base.Throwables;
+
 import dynamicrefactoring.RefactoringConstants;
 
 /**
@@ -74,15 +76,21 @@ public class MOONTypeLister {
 	 * @throws IOException cuando no existe el fichero del n�cleo de MOON o de la
 	 * extensi�n JavaMOON.
 	 */
-    public List<String> getTypeNameList() throws IOException {
+    public List<String> getTypeNameList() {
 
+    	
     	List<String> files = new ArrayList<String>();
     	
     	// Biblioteca con el n�cleo de MOON.
-        addLibraryTypes(RefactoringConstants.MOONCORE_DIR, files);
+        try {
+			addLibraryTypes(RefactoringConstants.MOONCORE_DIR, files);
+		
         // Biblioteca con la extensi�n para Java de MOON.
         addLibraryTypes(RefactoringConstants.JAVAEXTENSION_DIR, files);
 
+        } catch (IOException e) {
+			throw Throwables.propagate(e);
+		}
         return files;
     }
     

@@ -5,12 +5,20 @@ import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
+import com.google.common.base.Preconditions;
+
 import dynamicrefactoring.RefactoringConstants;
-import dynamicrefactoring.RefactoringPlugin;
 import dynamicrefactoring.util.Messages;
 import dynamicrefactoring.util.io.FileManager;
 import dynamicrefactoring.util.io.filter.ClassFilter;
 
+/**
+ * Tipo de elemento de los que componen los
+ * pasos de una refactorizacion.
+ * 
+ * @author imediava
+ *
+ */
 public enum RefactoringMechanism {
 	
 
@@ -133,7 +141,7 @@ public enum RefactoringMechanism {
 	 * @return todos los predicados
 	 * @throws IOException
 	 */
-	public static Map<String, String> getPredicatesAllList() throws IOException {
+	public static Map<String, String> getPredicatesAllList() {
 		return PRECONDITION.getElementAllList();
 	}
 
@@ -199,17 +207,11 @@ public enum RefactoringMechanism {
 	 *             cuando no existe el directorio, o bien no es un directorio.
 	 */
 	private Map<String, String> getElementList(String sourceDir) {
-
 		File dir = new File(sourceDir);
-		if (!dir.exists())
-			throw new RuntimeException(
-					Messages.RepositoryElementLister_RepositoryDirNotExists
-							+ ".\n"); //$NON-NLS-1$
-		else if (!dir.isDirectory())
-			throw new RuntimeException(
-					Messages.RepositoryElementLister_InvalidElementsPath
-							+ ".\n"); //$NON-NLS-1$
-
+		Preconditions.checkArgument(dir.exists(), Messages.RepositoryElementLister_RepositoryDirNotExists
+				+ ".\n");
+		Preconditions.checkArgument(dir.isDirectory(), Messages.RepositoryElementLister_InvalidElementsPath
+				+ ".\n");
 		HashMap<String, String> h = new HashMap<String, String>();
 		listFiles(dir, h);
 
@@ -225,25 +227,19 @@ public enum RefactoringMechanism {
 	 *            una tabla con el nombre del fichero como clave y la ruta al
 	 *            mismo como contenido. Se usa como valor de retorno.
 	 */
-	private void listFiles(File dir, HashMap<String, String> h) {
+	private void listFiles(File dir, Map<String, String> h) {
 		final ClassFilter fileFilter = new ClassFilter();
 		// Si es un directorio se contin�a recursivamente.
 		if (dir.isDirectory()) {
-			String[] hijos = dir.list();
-			for (int i = 0; i < hijos.length; i++)
-				listFiles(new File(dir, hijos[i]), h);
+			for (String hijo : dir.list()) {
+				listFiles(new File(dir, hijo), h);
+			}
 		}
 		// Si es un fichero de refactorizaci�n se almacena en la tabla.
-		else if (fileFilter.accept(dir, dir.getName()) == true) {
+		else if (fileFilter.accept(dir, dir.getName())) {
 			h.put(FileManager.getFilePathWithoutExtension(dir.getName()),
 					dir.getName());
 		}
-	}
-
-	public String getIndexDir() {
-		return RefactoringPlugin.getDefault().getPluginTempDir()
-				+ File.separator + "index"
-				+ File.separator + toString().toLowerCase();
 	}
 
 }

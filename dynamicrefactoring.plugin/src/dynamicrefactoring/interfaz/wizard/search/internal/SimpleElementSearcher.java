@@ -1,4 +1,4 @@
-package dynamicrefactoring.wizard.search.internal;
+package dynamicrefactoring.interfaz.wizard.search.internal;
 
 import java.io.File;
 import java.io.IOException;
@@ -20,44 +20,13 @@ import org.apache.lucene.util.Version;
 
 import com.google.common.base.Throwables;
 
-import dynamicrefactoring.domain.RefactoringMechanism;
+import dynamicrefactoring.interfaz.wizard.search.internal.SearchingFacade.SearchableType;
 
-public enum SimpleElementSearcher {
+enum SimpleElementSearcher {
 
 	INSTANCE;
 
-	public enum IndexedElement {
-		PRECONDITION {
-			@Override
-			String getIndexDir() {
-				return RefactoringMechanism.PRECONDITION.getIndexDir();
-			}
-		},
-		ACTION {
-			@Override
-			String getIndexDir() {
-				return RefactoringMechanism.ACTION.getIndexDir();
-			}
-		},
-		POSTCONDITION {
-			@Override
-			String getIndexDir() {
-				return RefactoringMechanism.POSTCONDITION.getIndexDir();
-			}
-		},
-		INPUT
-
-		{
-			@Override
-			String getIndexDir() {
-				return InputsIndexer.getInstance().getIndexDir();
-			}
-		};
-
-		abstract String getIndexDir();
-	}
-
-	public Set<QueryResult> search(IndexedElement element, String userQuery)
+	protected Set<QueryResult> search(SearchableType element, String userQuery)
 			throws ParseException {
 
 		try {
@@ -75,8 +44,8 @@ public enum SimpleElementSearcher {
 			IndexSearcher is = new IndexSearcher(dir);
 			QueryParser parser = new MultiFieldQueryParser(Version.LUCENE_30,
 					new String[] {
-							AbstractClassIndexer.CLASS_DESCRIPTION_FIELD,
-							AbstractClassIndexer.CLASS_NAME_FIELD },
+							SearchableTypeIndexer.CLASS_DESCRIPTION_FIELD,
+							SearchableTypeIndexer.CLASS_NAME_FIELD },
 					new SnowballAnalyzer(Version.LUCENE_30, "Spanish"));
 			Query query = parser.parse(userQuery);
 			long start = System.currentTimeMillis();
@@ -89,8 +58,7 @@ public enum SimpleElementSearcher {
 			for (ScoreDoc scoreDoc : hits.scoreDocs) {
 				Document doc = is.doc(scoreDoc.doc);
 				results.add(new QueryResult(doc
-						.get(AbstractClassIndexer.CLASS_NAME_FIELD), doc
-						.get(AbstractClassIndexer.CLASS_DESCRIPTION_FIELD)));
+						.get(SearchableTypeIndexer.CLASS_NAME_FIELD)));
 				System.out.println(doc.get("className"));
 			}
 			is.close();
@@ -110,24 +78,15 @@ public enum SimpleElementSearcher {
 	public static class QueryResult {
 
 		private String className;
-		private String description;
 
-		protected QueryResult(String className, String description) {
+		protected QueryResult(String className) {
 			this.className = className;
-			this.description = description;
 		}
 
 		/**
 		 * @return el nombre de la clase encontrada
 		 */
 		public String getClassName() {
-			return className;
-		}
-
-		/**
-		 * @return la descripcion de la clase encontrada
-		 */
-		public String getDescription() {
 			return className;
 		}
 

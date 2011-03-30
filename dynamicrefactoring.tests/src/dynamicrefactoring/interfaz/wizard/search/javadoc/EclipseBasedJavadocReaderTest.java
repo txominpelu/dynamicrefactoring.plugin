@@ -1,4 +1,4 @@
-package dynamicrefactoring.wizard.search.javadoc;
+package dynamicrefactoring.interfaz.wizard.search.javadoc;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
@@ -9,6 +9,8 @@ import java.io.IOException;
 import org.apache.commons.io.FileUtils;
 import org.junit.BeforeClass;
 import org.junit.Test;
+
+import dynamicrefactoring.interfaz.wizard.search.javadoc.EclipseBasedJavadocReader;
 
 public class EclipseBasedJavadocReaderTest {
 

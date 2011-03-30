@@ -1,4 +1,4 @@
-package dynamicrefactoring.wizard.search.javadoc;
+package dynamicrefactoring.interfaz.wizard.search.javadoc;
 
 /**
  * Permite acceder al javadoc de clases.
