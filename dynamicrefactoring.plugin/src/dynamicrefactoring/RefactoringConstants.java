@@ -110,15 +110,13 @@ public class RefactoringConstants {
 	 * Nombre completamente cualificado del paquete que contiene las acciones
 	 * del repositorio dependientes de Java.
 	 */
-	public static final String JAVA_ACTIONS_PACKAGE = 
-		"repository.java.concreteaction."; //$NON-NLS-1$
+	public static final String JAVA_ACTIONS_PACKAGE = "repository.java.concreteaction."; //$NON-NLS-1$
 	
 	/**
 	 * Nombre completamente cualificado del paquete que contiene los predicados
 	 * del repositorio dependientes de Java.
 	 */
-	public static final String JAVA_PREDICATES_PACKAGE = 
-		"repository.java.concretepredicate."; //$NON-NLS-1$
+	public static final String JAVA_PREDICATES_PACKAGE = "repository.java.concretepredicate."; //$NON-NLS-1$
 
 	/**
 	 * La ruta al fichero con la DTD de las refactorizaciones din�micas.

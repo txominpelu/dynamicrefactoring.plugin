@@ -1,0 +1,15 @@
+<P>
+Model.
+<P>
+
+<P>
+<DL>
+<DT><B>Since:</B></DT>
+  <DD>JavaMoon-2.0</DD>
+<DT><B>Author:</B></DT>
+  <DD><a href="mailto:rmartico@ubu.es">Ra&uacute;l Marticorena</a></DD>
+</DL>
+<HR>
+
+<P>
+

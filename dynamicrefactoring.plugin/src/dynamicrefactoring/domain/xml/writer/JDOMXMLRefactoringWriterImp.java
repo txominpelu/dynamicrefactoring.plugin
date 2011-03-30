@@ -48,7 +48,7 @@ import dynamicrefactoring.domain.metadata.interfaces.Category;
 import dynamicrefactoring.domain.xml.reader.XMLRefactoringReaderException;
 import dynamicrefactoring.domain.xml.reader.XMLRefactoringReaderImp;
 import dynamicrefactoring.util.ScopeLimitedLister;
-import dynamicrefactoring.util.StringUtils;
+import dynamicrefactoring.util.PluginStringUtils;
 
 /**
  * Utiliza la implementaci�n basada en JDOM para escribir los ficheros XML de
@@ -530,7 +530,7 @@ public class JDOMXMLRefactoringWriterImp implements XMLRefactoringWriterImp {
 			childElement
 					.setAttribute(
 							XMLRefactoringReaderImp.NAME_ATTRIBUTE,
-					StringUtils.getMechanismFullyQualifiedName(type,
+					PluginStringUtils.getMechanismFullyQualifiedName(type,
 							getMechanismName(mechanismWithNumber)));
 			constructAmbiguousParameters(childElement, mechanismWithNumber,
 					type);

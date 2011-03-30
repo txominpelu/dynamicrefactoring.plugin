@@ -34,7 +34,6 @@ import org.eclipse.swt.widgets.Composite;
 
 import dynamicrefactoring.domain.DynamicRefactoringDefinition;
 import dynamicrefactoring.domain.RefactoringMechanism;
-import dynamicrefactoring.util.RepositoryElementLister;
 
 
 /**
@@ -183,10 +182,8 @@ public class RefactoringWizardPage4 extends WizardPage implements  IRefactoringW
 	 * @throws IOException si no se encuentra el directorio.
 	 */
 	private void fillActionList() throws IOException {
-		RepositoryElementLister l = 
-			RepositoryElementLister.getInstance();
-		
-		actionsTab.fillRepositoryList(l.getAllActionsList());
+		actionsTab.fillRepositoryList(RefactoringMechanism.ACTION
+				.getElementAllList());
 	}
 		
 

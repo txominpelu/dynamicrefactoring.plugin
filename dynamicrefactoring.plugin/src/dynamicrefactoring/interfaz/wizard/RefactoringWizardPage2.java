@@ -25,7 +25,7 @@ import java.io.IOException;
 import java.lang.reflect.Method;
 import java.text.MessageFormat;
 import java.util.ArrayList;
-import java.util.Arrays;
+import java.util.Collections;
 import java.util.Hashtable;
 
 import org.apache.log4j.Logger;
@@ -349,9 +349,8 @@ public class RefactoringWizardPage2 extends WizardPage {
 									RefactoringConstants.REFACTORING_JAVADOC
 											+ "/moon/overview-summary.html"))
 					.toString());
-		} catch (IOException e) {
-			// FIXME: No se puede capturar una excepcion y no hacer nada con
-			// ella
+		} catch (IOException e1) {
+			throw Throwables.propagate(e1);
 		}
 
 		final Group typesGroup = new Group(composite1, SWT.NONE);
@@ -775,34 +774,22 @@ public class RefactoringWizardPage2 extends WizardPage {
 	 *            Expresion regular de b�squeda.
 	 */
 	private void fillSearchTypesList(String patron) {
-		String[] itemList;
 
-		try {
-			MOONTypeLister l = MOONTypeLister.getInstance();
+		MOONTypeLister l = MOONTypeLister.getInstance();
+		java.util.List<String> itemList = l.getTypeNameList();
+		// Se ordena la lista de candidatos.
+		Collections.sort(itemList);
 
-			itemList = l.getTypeNameList();
-			// Se ordena la lista de candidatos.
-			Arrays.sort(itemList);
+		// se vacia la lista lTypes
+		lTypes.removeAll();
 
-			// se vacia la lista lTypes
-			lTypes.removeAll();
+		for (String typeName : itemList) {
 
-			for (int i = 0; i < itemList.length; i++) {
-				String typeName = itemList[i].replaceAll("/", "."); //$NON-NLS-1$ //$NON-NLS-2$
-
-				// En caso de que el tipo coincida con el patr�n de b�squeda lo
-				// a�adimos a la lista.
-				if (patron.equals("") || typeName.matches(patron))
-					lTypes.add(typeName);
+			// En caso de que el tipo coincida con el patr�n de b�squeda lo
+			// a�adimos a la lista.
+			if (patron.equals("") || typeName.matches(patron)) {
+				lTypes.add(typeName);
 			}
-		} catch (IOException ioe) {
-			logger.error(Messages.RefactoringWizardPage2_ListNotLoaded
-					+ ".\n" + ioe.getMessage()); //$NON-NLS-1$
-			MessageDialog.openError(
-					getShell(),
-					Messages.RefactoringWizardPage2_Error,
-					Messages.RefactoringWizardPage2_ListNotLoaded
-							+ ".\n" + ioe.getMessage()); //$NON-NLS-1$
 		}
 	}
 
@@ -819,52 +806,40 @@ public class RefactoringWizardPage2 extends WizardPage {
 	private void fillTypesList() {
 		listModelTypes = new Hashtable<String, Integer>();
 
-		String[] itemList;
+		MOONTypeLister l = MOONTypeLister.getInstance();
 
-		try {
-			MOONTypeLister l = MOONTypeLister.getInstance();
+		java.util.List<String> itemList = l.getTypeNameList();
+		// Se ordena la lista de candidatos.
+		Collections.sort(itemList);
 
-			itemList = l.getTypeNameList();
-			// Se ordena la lista de candidatos.
-			Arrays.sort(itemList);
+		// Se obtiene la lista de candidatos.
+		listModelTypes.put(RefactoringConstants.STRING_PATH, 1);
+		for (String typeName : itemList) {
 
-			// Se obtiene la lista de candidatos.
-			listModelTypes.put(RefactoringConstants.STRING_PATH, 1);
-			for (int i = 0; i < itemList.length; i++) {
-				String typeName = itemList[i].replaceAll("/", "."); //$NON-NLS-1$ //$NON-NLS-2$
-				listModelTypes.put(typeName, 1);
-				lTypes.add(typeName);
+			listModelTypes.put(typeName, 1);
+			lTypes.add(typeName);
 
-				// Si se est� creando una nueva refactorizaci�n.
-				if (((RefactoringWizard) getWizard()).getOperation() == RefactoringWizard.CREATE) {
-					// Se busca y a�ade autom�ticamente el modelo MOON.
-					if (itemList[i].replaceAll("/", ".").equals( //$NON-NLS-1$ //$NON-NLS-2$
-							RefactoringConstants.MODEL_PATH)) {
-						lInputs.add(typeName + " (" + 1 + ")"); //$NON-NLS-1$
-						if (inputsTable == null)
-							inputsTable = new Hashtable<String, InputParameter>();
-						inputsTable
-								.put(typeName + " (" + 1 + ")", //$NON-NLS-1$
-										new InputParameter.Builder(
-												typeName).name(Messages.RefactoringWizardPage2_ModelName).from(
-												"").method( "").main( false).build()); //$NON-NLS-1$//$NON-NLS-2$ //$NON-NLS-3$ //$NON-NLS-4$
-						listModelTypes.put(typeName, 2);
+			// Si se est� creando una nueva refactorizaci�n.
+			if (((RefactoringWizard) getWizard()).getOperation() == RefactoringWizard.CREATE) {
+				// Se busca y a�ade autom�ticamente el modelo MOON.
+				if (typeName.equals( //$NON-NLS-1$ //$NON-NLS-2$
+						RefactoringConstants.MODEL_PATH)) {
+					lInputs.add(typeName + " (" + 1 + ")"); //$NON-NLS-1$
+					if (inputsTable == null)
+						inputsTable = new Hashtable<String, InputParameter>();
+					inputsTable
+							.put(typeName + " (" + 1 + ")", //$NON-NLS-1$
+									new InputParameter.Builder(typeName)
+											.name(Messages.RefactoringWizardPage2_ModelName)
+											.from("").method("").main(false).build()); //$NON-NLS-1$//$NON-NLS-2$ //$NON-NLS-3$ //$NON-NLS-4$
+					listModelTypes.put(typeName, 2);
 
-						checkForCompletion();
-						lInputs.deselectAll();
-						enableFields(false);
-						enableInputButtons(false);
-					}
+					checkForCompletion();
+					lInputs.deselectAll();
+					enableFields(false);
+					enableInputButtons(false);
 				}
 			}
-		} catch (IOException ioe) {
-			logger.error(Messages.RefactoringWizardPage2_ListNotLoaded
-					+ ".\n" + ioe.getMessage()); //$NON-NLS-1$
-			MessageDialog.openError(
-					getShell(),
-					Messages.RefactoringWizardPage2_Error,
-					Messages.RefactoringWizardPage2_ListNotLoaded
-							+ ".\n" + ioe.getMessage()); //$NON-NLS-1$
 		}
 	}
 
@@ -1267,7 +1242,7 @@ public class RefactoringWizardPage2 extends WizardPage {
 									.toString());
 				}
 			} catch (IOException excp) {
-				Throwables.propagate(excp);
+				throw Throwables.propagate(excp);
 			}
 			
 			//TODO: realizar modificaciones oportunas

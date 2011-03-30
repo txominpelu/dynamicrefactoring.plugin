@@ -58,15 +58,17 @@ import org.eclipse.swt.widgets.TableColumn;
 import org.eclipse.swt.widgets.TableItem;
 import org.eclipse.swt.widgets.Text;
 
+import com.google.common.base.Throwables;
+
 import dynamicrefactoring.RefactoringConstants;
 import dynamicrefactoring.RefactoringImages;
 import dynamicrefactoring.RefactoringPlugin;
 import dynamicrefactoring.domain.DynamicRefactoringDefinition;
 import dynamicrefactoring.domain.InputParameter;
 import dynamicrefactoring.domain.RefactoringMechanism;
-import dynamicrefactoring.interfaz.dynamic.RepositoryElementProcessor;
 import dynamicrefactoring.interfaz.wizard.listener.ListDownListener;
 import dynamicrefactoring.interfaz.wizard.listener.ListUpListener;
+import dynamicrefactoring.util.PluginStringUtils;
 
 /**
  * Contenido de las p�ginas en la que se establecen los diferentes mecanismos de la refactorizaci�n.
@@ -418,7 +420,9 @@ public class RepositoryElementComposite {
 		navegador.setLayoutData(fd_navegador);
 		try{
 			navegador.setUrl(FileLocator.toFileURL(getClass().getResource(RefactoringConstants.REFACTORING_JAVADOC + "/overview-summary.html" )).toString());
-		}catch(IOException e){}
+		} catch (IOException e) {
+			throw Throwables.propagate(e);
+		}
 		
 		sash_form.setWeights(new int[] {5 , 2 });
 		
@@ -435,7 +439,7 @@ public class RepositoryElementComposite {
 	 * (en principio, se trata de una tabla de elementos concretos del repositorio,
 	 * en la que se utiliza como clave el nombre de cada uno de ellos).
 	 */
-	protected void fillRepositoryList(HashMap<String, String> repository){
+	protected void fillRepositoryList(Map<String, String> repository) {
 		
 		// Se ordena la lista de candidatos.
     	Vector<String> orderedList = new Vector<String>(repository.keySet()); 
@@ -465,21 +469,7 @@ public class RepositoryElementComposite {
 				if(patron == "" || element.matches(patron))
 					l_Available.add(element);
 		    }else{
-				String qualified_name = new String();
-				if (title.equals(RefactoringWizardPage3.PRECONDITIONS_TITLE) ||
-					title.equals(RefactoringWizardPage5.POSTCONDITIONS_TITLE)){
-					if (RepositoryElementProcessor.isPredicateJavaDependent(element))
-						qualified_name = RefactoringConstants.JAVA_PREDICATES_PACKAGE;
-					else
-						qualified_name = RefactoringConstants.PREDICATES_PACKAGE;
-				}			
-				else if (title.equals(RefactoringWizardPage4.ACTIONS_TITLE)){
-					if (RepositoryElementProcessor.isActionJavaDependent(element))
-						qualified_name = RefactoringConstants.JAVA_ACTIONS_PACKAGE;
-					else
-						qualified_name = RefactoringConstants.ACTIONS_PACKAGE;
-				}
-				qualified_name = qualified_name + element;
+				String qualified_name = getElementFullyQualifiedName(element);
 				if((qualified==true && cb_qualified.getSelection()==true)){
 					if(patron == "" || element.matches(patron))
 						l_Available.add(qualified_name);
@@ -493,6 +483,19 @@ public class RepositoryElementComposite {
 				
 		}
 			
+	}
+
+	private String getElementFullyQualifiedName(String element) {
+		RefactoringMechanism type = RefactoringMechanism.PRECONDITION;
+		if (title.equals(RefactoringWizardPage3.PRECONDITIONS_TITLE) ||
+			title.equals(RefactoringWizardPage5.POSTCONDITIONS_TITLE)){
+			type = RefactoringMechanism.PRECONDITION;
+		} else if (title.equals(RefactoringWizardPage4.ACTIONS_TITLE)) {
+			type = RefactoringMechanism.ACTION;
+		}
+		String qualified_name = PluginStringUtils
+				.getMechanismFullyQualifiedName(type, element);
+		return qualified_name;
 	}
 	
 	/**
@@ -536,9 +539,8 @@ public class RepositoryElementComposite {
 			l_Selected.add(element);
 			
 			// Se crea un nuevo elemento para representarlo.
-			RepositoryItem elemento = new RepositoryItem(next, 
-				RepositoryElementProcessor.isActionJavaDependent(next) ||
-				RepositoryElementProcessor.isPredicateJavaDependent(next));
+			RepositoryItem elemento = new RepositoryItem(next,
+					typePart.isElementJavaDependent(next));
 			
 			// Se obtiene su lista de par�metros.
 			java.util.List<String[]> parameters =
@@ -679,8 +681,11 @@ public class RepositoryElementComposite {
 			}	
 			l_Selected.add(element);
 			RepositoryItem newElement = new RepositoryItem(selected[i],
-				RepositoryElementProcessor.isActionJavaDependent(selected[i]) ||
-				RepositoryElementProcessor.isPredicateJavaDependent(selected[i]));
+					RefactoringMechanism.ACTION
+							.isElementJavaDependent(selected[i])
+							||
+ RefactoringMechanism
+									.isPredicateJavaDependent(selected[i]));
 			
 			selectedTable.put(element, newElement);
 		}
@@ -827,27 +832,12 @@ public class RepositoryElementComposite {
 	 * 
 	 * @return la lista de par�metros del constructor.
 	 */
-	private Class<?>[] getConstructorParameters(RepositoryItem element){
-		
-		String path = new String();
-		if (title.equals(RefactoringWizardPage3.PRECONDITIONS_TITLE) ||
-			title.equals(RefactoringWizardPage5.POSTCONDITIONS_TITLE)){
-			if (element.isJavaDependent())
-				path = RefactoringConstants.JAVA_PREDICATES_PACKAGE;
-			else
-				path = RefactoringConstants.PREDICATES_PACKAGE;
-		}			
-		else if (title.equals(RefactoringWizardPage4.ACTIONS_TITLE)){
-			if (element.isJavaDependent())
-				path = RefactoringConstants.JAVA_ACTIONS_PACKAGE;
-			else
-				path = RefactoringConstants.ACTIONS_PACKAGE;
-		}			
+	private Class<?>[] getConstructorParameters(RepositoryItem element){	
 				
 		try {
 			// Se recupera su clase y los argumentos formales del constructor.
 			
-			Class<?> itemClass = Class.forName(path + element.getName());
+			Class<?> itemClass = Class.forName(getElementFullyQualifiedName(element.getName()));
 			Class<?>[] parameters = itemClass.getConstructors()[0].getParameterTypes();	
 			return parameters;
 		}
@@ -1159,7 +1149,8 @@ public class RepositoryElementComposite {
 			if(cb_qualified.getSelection() == false){
 				if (title.equals(RefactoringWizardPage3.PRECONDITIONS_TITLE) ||
 							title.equals(RefactoringWizardPage5.POSTCONDITIONS_TITLE)){
-					if (RepositoryElementProcessor.isPredicateJavaDependent
+					if (RefactoringMechanism
+							.isPredicateJavaDependent
 							(l_Available.getItem(l_Available.getSelectionIndex()).toString()))
 						path = RefactoringConstants.JAVA_PREDICATES_PACKAGE; 
 					else 
@@ -1167,11 +1158,14 @@ public class RepositoryElementComposite {
 			
 				}			
 				else if (title.equals(RefactoringWizardPage4.ACTIONS_TITLE)){
-					if (RepositoryElementProcessor.isActionJavaDependent
-							(l_Available.getItem(l_Available.getSelectionIndex()).toString()))
+					if (RefactoringMechanism.ACTION
+							.isElementJavaDependent
+(l_Available.getItem(
+									l_Available.getSelectionIndex()).toString())) {
 						path = RefactoringConstants.JAVA_ACTIONS_PACKAGE;
-					else
+					} else {
 						path = RefactoringConstants.ACTIONS_PACKAGE;
+					}
 				}
 				path = path.replace('.', '/');
 				path = RefactoringConstants.REFACTORING_JAVADOC + "/" + path + l_Available.getItem(l_Available.getSelectionIndex()).toString() + ".html";
@@ -1185,7 +1179,7 @@ public class RepositoryElementComposite {
 				else
 					navegador.setUrl(FileLocator.toFileURL(getClass().getResource(RefactoringConstants.REFACTORING_JAVADOC + "/moon/notFound.html" )).toString());
 			}catch(IOException excp){
-				excp.printStackTrace();
+				throw Throwables.propagate(excp);
 			}
 			
 			if (l_Available.getSelectionCount() > 0 &&
