@@ -226,6 +226,7 @@ public class Messages extends NLS {
 	public static String ImportPlanWizard_0WereExecuted;
 	public static String ImportPlanWizard_1WereExecuted;
 	public static String ImportPlanWizard_SeveralWereExecuted;
+	public static String RepositoryElementComposite_RefactoringsBelong;
 	
 	
 	static {

@@ -1236,6 +1236,9 @@ public class RefactoringWizardPage2 extends WizardPage {
 				if(i<refactoringsInputType.size()-1)
 					refName+=",";
 				refLabel = toolkit.createLabel((Composite)refExpandableComp.getClient(),refName);
+				refLabel.setData(refactoringsInputType.get(i));
+				RefactoringTooltip tooltip = new RefactoringTooltip(refLabel);
+				tooltip.setPopupDelay(200);
 			}
 			refExpandableComp.setExpanded(!refactoringsInputType.isEmpty());
 			
@@ -1251,6 +1254,8 @@ public class RefactoringWizardPage2 extends WizardPage {
 				if(i<refactoringsRootInputType.size()-1)
 					refRootName+=",";
 				refRootLabel = toolkit.createLabel((Composite)refMainExpandableComp.getClient(),refRootName);
+//				RefactoringTooltip tooltip = new RefactoringTooltip(refRootLabel);
+//				tooltip.setPopupDelay(200);
 			}
 			refMainExpandableComp.setExpanded(!refactoringsRootInputType.isEmpty());
 			

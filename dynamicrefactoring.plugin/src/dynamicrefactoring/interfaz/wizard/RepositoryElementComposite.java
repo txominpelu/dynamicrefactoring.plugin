@@ -48,8 +48,10 @@ import org.eclipse.swt.events.SelectionListener;
 import org.eclipse.swt.layout.FormAttachment;
 import org.eclipse.swt.layout.FormData;
 import org.eclipse.swt.layout.FormLayout;
+import org.eclipse.swt.layout.RowLayout;
 import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Composite;
+import org.eclipse.swt.widgets.Control;
 import org.eclipse.swt.widgets.Group;
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.List;
@@ -57,6 +59,13 @@ import org.eclipse.swt.widgets.Table;
 import org.eclipse.swt.widgets.TableColumn;
 import org.eclipse.swt.widgets.TableItem;
 import org.eclipse.swt.widgets.Text;
+import org.eclipse.ui.forms.events.ExpansionAdapter;
+import org.eclipse.ui.forms.events.ExpansionEvent;
+import org.eclipse.ui.forms.widgets.ExpandableComposite;
+import org.eclipse.ui.forms.widgets.FormToolkit;
+import org.eclipse.ui.forms.widgets.ScrolledForm;
+import org.eclipse.ui.forms.widgets.TableWrapData;
+import org.eclipse.ui.forms.widgets.TableWrapLayout;
 
 import dynamicrefactoring.RefactoringConstants;
 import dynamicrefactoring.RefactoringImages;
@@ -65,6 +74,7 @@ import dynamicrefactoring.domain.DynamicRefactoringDefinition;
 import dynamicrefactoring.interfaz.dynamic.RepositoryElementProcessor;
 import dynamicrefactoring.interfaz.wizard.listener.ListDownListener;
 import dynamicrefactoring.interfaz.wizard.listener.ListUpListener;
+import dynamicrefactoring.plugin.xml.classifications.imp.PluginCatalog;
 
 /**
  * Contenido de las p�ginas en la que se establecen los diferentes mecanismos de la refactorizaci�n.
@@ -206,6 +216,11 @@ public class RepositoryElementComposite {
 	 */
 	private ArrayList<String> a_Available;
 	
+	private FormToolkit toolkit;
+	private ScrolledForm form;
+	private Label descriptionFormLabel;
+	private ExpandableComposite refExpandableComp;
+	
 	/**
 	 * Constructor.
 	 * 
@@ -228,9 +243,27 @@ public class RepositoryElementComposite {
 			this.mainPage = main;
 		}
 		
+		// sash_form
 		SashForm sash_form = new SashForm(parent, SWT.VERTICAL | SWT.NULL);
-				
-		final Composite control = new Composite(sash_form, SWT.NONE);
+		sash_form.setLayout(new FormLayout());
+		final FormData sashFormData = new FormData();
+		sashFormData.top = new FormAttachment(0, 5);
+		sashFormData.left = new FormAttachment(0, 5);
+		sashFormData.right=new FormAttachment(100, -5);
+		sashFormData.bottom=new FormAttachment(100, -5);
+		sash_form.setLayoutData(sashFormData);
+		sash_form.setSashWidth(2);
+		sash_form.setBackground(parent.getDisplay().getSystemColor(SWT.COLOR_DARK_GRAY));
+
+		// sash_form Top: control
+		final Composite compTop = new Composite(sash_form, SWT.NONE);
+		compTop.setLayout(new FormLayout());
+		
+		// sash_form Bottom: compBrowser
+		final Composite compBrowser = new Composite(sash_form, SWT.NONE);
+		compBrowser.setLayout(new FormLayout());
+		
+		final Composite control = new Composite(compTop, SWT.NONE);
 		control.setLayout(new FormLayout());
 		
 		composite = new Composite(parent, SWT.NONE);		
@@ -407,18 +440,63 @@ public class RepositoryElementComposite {
 		bt_moveDown.setImage(RefactoringImages.getArrowDownIcon());
 		bt_moveDown.addSelectionListener(new ListDownListener(l_Selected));
 		
-		navegador = new Browser(sash_form,SWT.BORDER);
+		navegador = new Browser(compBrowser,SWT.BORDER);
 		final FormData fd_navegador = new FormData();
-		fd_navegador.bottom = new FormAttachment(100, 0);
-		fd_navegador.right = new FormAttachment(100, -5);
-		fd_navegador.top = new FormAttachment(0, 5);
+		fd_navegador.top = new FormAttachment(0, 10);
 		fd_navegador.left = new FormAttachment(0, 10);
+		fd_navegador.right = new FormAttachment(100, -10);
+		fd_navegador.bottom = new FormAttachment(100, 0);
 		navegador.setLayoutData(fd_navegador);
 		try{
 			navegador.setUrl(FileLocator.toFileURL(getClass().getResource(RefactoringConstants.REFACTORING_JAVADOC + "/overview-summary.html" )).toString());
 		}catch(IOException e){}
 		
-		sash_form.setWeights(new int[] {5 , 2 });
+		//TODO: nuevo
+		Composite formComp;
+		formComp = new Composite(compTop, SWT.BORDER);
+		formComp.setLayout(new FormLayout());
+		final FormData fd_formComp = new FormData();
+		fd_formComp.top = new FormAttachment(control, 10);
+		fd_formComp.left = new FormAttachment(0, 10);
+		fd_formComp.right = new FormAttachment(100, -10);
+		fd_formComp.bottom = new FormAttachment(100, -10);
+		formComp.setLayoutData(fd_formComp);
+		formComp.setVisible(false);
+		
+		//form
+		toolkit = new FormToolkit(formComp.getDisplay());
+		form = toolkit.createScrolledForm(formComp);
+		final FormData scrolledFormData = new FormData();
+		scrolledFormData.top = new FormAttachment(0, 0);
+		scrolledFormData.left = new FormAttachment(0, 0);
+		scrolledFormData.right=new FormAttachment(100, 0);
+		scrolledFormData.bottom=new FormAttachment(100, 0);
+		form.setLayoutData(scrolledFormData);
+		form.getBody().setLayout(new TableWrapLayout());
+		
+		//formLabel
+		descriptionFormLabel=toolkit.createLabel(form.getBody(), "", SWT.WRAP);
+		
+		//refExpandableComp
+		refExpandableComp = 
+			toolkit.createExpandableComposite(
+				form.getBody(), 
+				ExpandableComposite.TREE_NODE|
+				ExpandableComposite.CLIENT_INDENT);
+		refExpandableComp.setText(Messages.RepositoryElementComposite_RefactoringsBelong);
+		TableWrapData td = new TableWrapData();
+		td.colspan = 1;
+		refExpandableComp.setLayoutData(td);
+		refExpandableComp.addExpansionListener(new ExpansionAdapter() {
+			public void expansionStateChanged(ExpansionEvent e) {
+				form.reflow(true);
+			}
+		});
+		Composite refExpandableClient = toolkit.createComposite(refExpandableComp,SWT.WRAP);
+		refExpandableClient.setLayout(new RowLayout());
+		refExpandableComp.setClient(refExpandableClient);
+		
+		sash_form.setWeights(new int[] {5 , 1 });
 		
 		checkForCompletion();
 		enableInputButtons(false);
@@ -1183,6 +1261,51 @@ public class RepositoryElementComposite {
 			}catch(IOException excp){
 				excp.printStackTrace();
 			}
+			
+			//TODO: realizar modificaciones oportunas
+			//form
+			form.getParent().setVisible(false);
+			//previamente eleminamos las etiquetas que contienen los desplegables
+			Control labels[]=null;
+			labels=((Composite)refExpandableComp.getClient()).getChildren();
+			for(int i=0;i<labels.length;i++)
+				labels[i].dispose();
+			
+			String elementSelected=l_Available.getItem(l_Available.getSelectionIndex()).toString();
+			form.setText(elementSelected);
+			descriptionFormLabel.setText("Esta es la descripcion de " + elementSelected);
+			
+			//refactoringsInputType
+			ArrayList<DynamicRefactoringDefinition> refactorings=null;
+			if(title.equals(RefactoringWizardPage3.PRECONDITIONS_TITLE)){
+				refactorings=new ArrayList<DynamicRefactoringDefinition>(
+						PluginCatalog.getInstance().getRefactoringsContainsPrecondition(elementSelected));
+			}else{
+				if(title.equals(RefactoringWizardPage4.ACTIONS_TITLE)){
+					refactorings=new ArrayList<DynamicRefactoringDefinition>(
+							PluginCatalog.getInstance().getRefactoringsContainsAction(elementSelected));
+				}else{ //title.equals(RefactoringWizardPage5.POSTCONDITIONS_TITLE)
+					refactorings=new ArrayList<DynamicRefactoringDefinition>(
+							PluginCatalog.getInstance().getRefactoringsContainsPostcondition(elementSelected));
+				}
+			}
+			Collections.sort(refactorings);
+			Label refLabel=null;
+			String refName=null;
+			for(int i=0; i<refactorings.size();i++){
+				refName=refactorings.get(i).getName();
+				if(i<refactorings.size()-1)
+					refName+=",";
+				refLabel = toolkit.createLabel((Composite)refExpandableComp.getClient(),refName);
+				refLabel.setData(refactorings.get(i));
+				RefactoringTooltip tooltip = new RefactoringTooltip(refLabel);
+				tooltip.setPopupDelay(200);
+			}
+			refExpandableComp.setExpanded(!refactorings.isEmpty());
+			
+			form.getParent().setVisible(true);
+			form.reflow(true);
+			
 			
 			if (l_Available.getSelectionCount() > 0 &&
 				l_Available.getItem(l_Available.getSelectionIndex()) != null)
