@@ -42,13 +42,14 @@ import dynamicrefactoring.RefactoringConstants;
 import dynamicrefactoring.RefactoringPlugin;
 import dynamicrefactoring.domain.DynamicRefactoringDefinition;
 import dynamicrefactoring.domain.InputParameter;
+import dynamicrefactoring.domain.RefactoringExample;
 import dynamicrefactoring.domain.RefactoringMechanism;
 import dynamicrefactoring.domain.Scope;
 import dynamicrefactoring.domain.metadata.interfaces.Category;
 import dynamicrefactoring.domain.xml.reader.XMLRefactoringReaderException;
 import dynamicrefactoring.domain.xml.reader.XMLRefactoringReaderImp;
-import dynamicrefactoring.util.ScopeLimitedLister;
 import dynamicrefactoring.util.PluginStringUtils;
+import dynamicrefactoring.util.ScopeLimitedLister;
 
 /**
  * Utiliza la implementaci�n basada en JDOM para escribir los ficheros XML de
@@ -266,7 +267,7 @@ public class JDOMXMLRefactoringWriterImp implements XMLRefactoringWriterImp {
 	 *            Nombre de la ruta del fichero de definici�n de la
 	 *            refactorizaci�n.
 	 */
-	public void addNewRefactoringToXml(Scope scope, String name, String path) {
+	private void addNewRefactoringToXml(Scope scope, String name, String path) {
 		try {
 			SAXBuilder builder = new SAXBuilder(true);
 			builder.setIgnoringElementContentWhitespace(true);
@@ -597,14 +598,14 @@ public class JDOMXMLRefactoringWriterImp implements XMLRefactoringWriterImp {
 
 		Element examples = new Element(XMLRefactoringReaderImp.EXAMPLES_ELEMENT);
 
-		for (String[] ex : refactoringDefinition.getExamples()) {
-			if (!(ex[0].isEmpty() && ex[1].isEmpty())) {
+		for (RefactoringExample ex : refactoringDefinition.getExamples()) {
+			if (!(ex.getBefore().isEmpty() && ex.getAfter().isEmpty())) {
 				Element example = new Element(
 						XMLRefactoringReaderImp.EXAMPLE_ELEMENT);
 				example.setAttribute(
-						XMLRefactoringReaderImp.BEFORE_EXAMPLE_ATTRIBUTE, ex[0]);
+						XMLRefactoringReaderImp.BEFORE_EXAMPLE_ATTRIBUTE, ex.getBefore());
 				example.setAttribute(
-						XMLRefactoringReaderImp.AFTER_EXAMPLE_ATTRIBUTE, ex[1]);
+						XMLRefactoringReaderImp.AFTER_EXAMPLE_ATTRIBUTE, ex.getAfter());
 				examples.addContent(example);
 			}
 		}

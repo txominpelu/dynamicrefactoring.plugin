@@ -19,7 +19,7 @@ import dynamicrefactoring.domain.metadata.classifications.xml.imp.PluginClassifi
 import dynamicrefactoring.domain.metadata.interfaces.Category;
 
 @RunWith(SWTBotJunit4ClassRunner.class)
-public class EditRefactoringTest {
+public class EditRefactoringCategoriesTest {
 	
 	private static final String BAD_SMELLS_CLASSIF = "BadSmells";
 
@@ -31,14 +31,12 @@ public class EditRefactoringTest {
 
 	private RefactoringWizardPage1Object refactoringWizardPageObject;
 
-	private SWTWorkbenchBot bot;
-
 	/**
 	 * Crea la primera pagina del wizard de crear/editar una refactorizacion.
 	 */
 	@Before
 	public final void setUp(){
-		bot = new SWTWorkbenchBot();
+		SWTWorkbenchBot bot = new SWTWorkbenchBot();
 		 UIThreadRunnable.syncExec(new VoidResult() {
 	            public void run() {
 	                PlatformUI.getWorkbench().getActiveWorkbenchWindow().getShell()

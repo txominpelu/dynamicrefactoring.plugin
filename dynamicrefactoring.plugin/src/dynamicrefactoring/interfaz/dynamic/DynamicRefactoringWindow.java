@@ -72,6 +72,7 @@ import dynamicrefactoring.RefactoringPlugin;
 import dynamicrefactoring.domain.DynamicRefactoring;
 import dynamicrefactoring.domain.DynamicRefactoringDefinition;
 import dynamicrefactoring.domain.InputParameter;
+import dynamicrefactoring.domain.RefactoringExample;
 import dynamicrefactoring.domain.RefactoringException;
 import dynamicrefactoring.integration.ModelGenerator;
 import dynamicrefactoring.integration.NamedObjectHandler;
@@ -1059,13 +1060,15 @@ public class DynamicRefactoringWindow extends Dialog {
 		String dirRefactoring = RefactoringPlugin.getDynamicRefactoringsDir() + File.separator 
 			+ refactoringDefinition.getName();
 		
-		for(String[] ejemplos : refactoringDefinition.getExamples()){
-			for(int i=0; i<ejemplos.length; i++){
+		for(RefactoringExample ejemplos : refactoringDefinition.getExamples()){
 				File html_fich = new File(dirRefactoring + File.separator 
-						+ ejemplos[i].replace("txt", "java") + ".html");
+						+ ejemplos.getBefore().replace("txt", "java") + ".html");
 				if(html_fich.exists())
 					html_fich.delete();
-			}
+				html_fich = new File(dirRefactoring + File.separator 
+						+ ejemplos.getAfter().replace("txt", "java") + ".html");
+				if(html_fich.exists())
+					html_fich.delete();
 		}
 		
 		if(new File(dirRefactoring + File.separator + "AllClasses.html").exists())

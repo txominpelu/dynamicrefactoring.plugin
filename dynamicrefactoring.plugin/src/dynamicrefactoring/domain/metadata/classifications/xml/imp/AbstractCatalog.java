@@ -49,7 +49,7 @@ abstract class AbstractCatalog implements ClassificationsCatalog {
 				.getRefactoring(refactName);
 		Set<Category> categories = refactoringDef.getCategories();
 		categories.add(new Category(classificationName, categoryName));
-		refactCatalog.updateRefactoring(refactoringDef.getBuilder()
+		refactCatalog.updateRefactoring(refactName, refactoringDef.getBuilder()
 				.categories(categories).build());
 	}
 
@@ -127,7 +127,7 @@ abstract class AbstractCatalog implements ClassificationsCatalog {
 				classifName, oldName)) {
 			DynamicRefactoringDefinition renamedCategory = renameRefactoringCategory(
 					refact, classifName, oldName, newName);
-			refactCatalog.updateRefactoring(renamedCategory);
+			refactCatalog.updateRefactoring(refact.getName(), renamedCategory);
 		}
 	}
 
@@ -161,7 +161,7 @@ abstract class AbstractCatalog implements ClassificationsCatalog {
 				classification, categoryName)) {
 			DynamicRefactoringDefinition modifiedRefactoring = deleteRefactoringCategory(
 					refact, classification, categoryName);
-			refactCatalog.updateRefactoring(modifiedRefactoring);
+			refactCatalog.updateRefactoring(refact.getName(), modifiedRefactoring);
 		}
 		Classification oldClassif = getClassification(classification);
 		classifications.remove(oldClassif);
@@ -238,7 +238,7 @@ abstract class AbstractCatalog implements ClassificationsCatalog {
 			for (DynamicRefactoringDefinition refact : getRefactoringBelongingTo(
 					clasifName, category.getName())) {
 				refactCatalog
-						.updateRefactoring(updateRefactoringCategoryParent(
+						.updateRefactoring(refact.getName(), updateRefactoringCategoryParent(
 								refact, category, clasifNewName));
 			}
 		}

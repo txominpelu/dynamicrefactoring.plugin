@@ -35,6 +35,7 @@ import org.junit.Test;
 
 import dynamicrefactoring.domain.DynamicRefactoringDefinition;
 import dynamicrefactoring.domain.InputParameter;
+import dynamicrefactoring.domain.RefactoringExample;
 import dynamicrefactoring.domain.RefactoringException;
 import dynamicrefactoring.domain.RefactoringMechanism;
 import dynamicrefactoring.domain.metadata.interfaces.Category;
@@ -294,7 +295,7 @@ public class TestCaseRefactoringReader {
 		assertEquals(post, "ExistsClass"); //$NON-NLS-1$
 		assertFalse(postconditions.hasNext());
 
-		Iterator<String[]> examples = definition.getExamples().iterator();
+		Iterator<RefactoringExample> examples = definition.getExamples().iterator();
 		assertFalse(examples.hasNext());
 	}
 
@@ -364,10 +365,10 @@ public class TestCaseRefactoringReader {
 
 		assertFalse(postconditions.hasNext());
 
-		Iterator<String[]> examples = definition.getExamples().iterator();
-		String[] example = examples.next();
-		assertEquals(example[0], "ejemplo1_antes.txt"); //$NON-NLS-1$
-		assertEquals(example[1], "ejemplo1_despues.txt"); //$NON-NLS-1$
+		Iterator<RefactoringExample> examples = definition.getExamples().iterator();
+		RefactoringExample example = examples.next();
+		assertEquals(example.getBefore(), "ejemplo1_antes.txt"); //$NON-NLS-1$
+		assertEquals(example.getAfter(), "ejemplo1_despues.txt"); //$NON-NLS-1$
 
 		assertFalse(examples.hasNext());
 	}

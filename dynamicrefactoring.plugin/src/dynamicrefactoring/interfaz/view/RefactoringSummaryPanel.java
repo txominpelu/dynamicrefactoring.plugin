@@ -50,6 +50,7 @@ import dynamicrefactoring.RefactoringImages;
 import dynamicrefactoring.RefactoringPlugin;
 import dynamicrefactoring.domain.DynamicRefactoringDefinition;
 import dynamicrefactoring.domain.InputParameter;
+import dynamicrefactoring.domain.RefactoringExample;
 import dynamicrefactoring.domain.metadata.condition.CategoryCondition;
 import dynamicrefactoring.domain.metadata.condition.KeyWordCondition;
 import dynamicrefactoring.domain.metadata.interfaces.Category;
@@ -391,10 +392,10 @@ public class RefactoringSummaryPanel {
 		comp.setLayout(g);
 		
 		Link exLink=null;
-		final List<String[]> examples = refactoring.getExamples();
+		final List<RefactoringExample> examples = refactoring.getExamples();
 		int numEx=1;
 		
-		for(final String[] ex: examples){
+		for(final RefactoringExample ex: examples){
 			exLink = new Link(comp, SWT.NONE);
 			exLink.setText("<a>"+ //$NON-NLS-1$
 					Messages.RefactoringSummaryPanel_ExampleLink+
@@ -403,7 +404,7 @@ public class RefactoringSummaryPanel {
 			exLink.addListener (SWT.Selection, new Listener () {
 				public void handleEvent(Event event) {
 					if(sourceViewer.loadSources(refactoring.getName(),
-							refactoringPath+ex[0], refactoringPath+ex[1])){
+							refactoringPath+ex.getBefore(), refactoringPath+ex.getAfter())){
 						sourceViewer.open();
 					}
 				}

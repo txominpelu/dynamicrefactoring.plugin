@@ -39,9 +39,9 @@ class AbstractRefactoringsCatalog implements RefactoringsCatalog {
 	}
 
 	@Override
-	public void updateRefactoring(DynamicRefactoringDefinition refactoring){
-		Preconditions.checkArgument(refactorings.contains(refactoring));
-		refactorings.remove(refactoring);
+	public void updateRefactoring(String oldRefactName, DynamicRefactoringDefinition refactoring){
+		Preconditions.checkArgument(hasRefactoring(oldRefactName));
+		refactorings.remove(getRefactoring(oldRefactName));
 		refactorings.add(refactoring);
 	}
 
@@ -54,6 +54,12 @@ class AbstractRefactoringsCatalog implements RefactoringsCatalog {
 	@Override
 	public Set<DynamicRefactoringDefinition> getAllRefactorings() {
 		return new HashSet(refactorings);
+	}
+
+	@Override
+	public void removeRefactoring(String refactoringName) {
+		Preconditions.checkArgument(hasRefactoring(refactoringName));
+		refactorings.remove(getRefactoring(refactoringName));
 	}
 	
 

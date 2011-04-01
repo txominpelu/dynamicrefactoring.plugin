@@ -37,9 +37,11 @@ public interface RefactoringsCatalog {
 	 * Saltara {@link IlegalArgumentException} si la refactorizacion
 	 * no existe en el catalogo. 
 	 * 
+	 * @param oldRefactoringName nombre de la refactorizacion a modificar
 	 * @param refactoring refactorizacion a actualizar
 	 */
-	void updateRefactoring(DynamicRefactoringDefinition refactoring);
+	void updateRefactoring(String oldRefactoringName,
+			DynamicRefactoringDefinition refactoring);
 
 	/**
 	 * Agrega la siguiente refactorizacion al catalogo.
@@ -58,5 +60,18 @@ public interface RefactoringsCatalog {
 	 * @return conjunto de refactorizaciones contenidas en el catalogo
 	 */
 	Set<DynamicRefactoringDefinition> getAllRefactorings();
+
+	/**
+	 * Elimina la refactorizacion con el nombre dado del
+	 * catalogo.
+	 * 
+	 * Saltara {@link IlegalArgumentException} si no existe
+	 * la refactorizacion en el catalogo. 
+	 * 
+	 * @param refactoringName nombre de la refactorizacion a eliminar
+	 */
+	void removeRefactoring(String refactoringName);
+
+	
 
 }

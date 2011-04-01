@@ -107,14 +107,6 @@ public enum Scope {
 	 */
 	private String xmlTag;
 
-	/**
-	 * Obtiene la clase de moon que se corresponde con el �mbito declarado.
-	 * 
-	 * @return the corresponding class
-	 */
-	private Class<? extends ObjectMoon> getCorrespondingClass() {
-		return correspondingClass;
-	}
 
 	/**
 	 * Descripci�n del ambito.

@@ -34,7 +34,6 @@ import dynamicrefactoring.RefactoringConstants;
 import dynamicrefactoring.RefactoringPlugin;
 import dynamicrefactoring.domain.DynamicRefactoringDefinition;
 import dynamicrefactoring.domain.Messages;
-import dynamicrefactoring.domain.RefactoringException;
 import dynamicrefactoring.domain.RefactoringMechanism;
 import dynamicrefactoring.domain.xml.reader.JDOMXMLRefactoringReaderImp;
 import dynamicrefactoring.domain.xml.reader.RefactoringPlanReader;
@@ -299,16 +298,16 @@ public class ExportImportUtilities {
 	 */
 	private static void updateRefactoringsXml(String definition,
 			String namefolder) {
-		try {
-			DynamicRefactoringDefinition refactDefinition = DynamicRefactoringDefinition
-					.getRefactoringDefinition(definition);
-			new dynamicrefactoring.domain.xml.writer.JDOMXMLRefactoringWriterImp(null)
-					.addNewRefactoringToXml(
-							refactDefinition.getRefactoringScope(), namefolder,
-							definition);
-		} catch (RefactoringException e) {
-			e.printStackTrace();
-		}
+//		try {
+//			DynamicRefactoringDefinition refactDefinition = DynamicRefactoringDefinition
+//					.getRefactoringDefinition(definition);
+//			new dynamicrefactoring.domain.xml.writer.JDOMXMLRefactoringWriterImp(null)
+//					.addNewRefactoringToXml(
+//							refactDefinition.getRefactoringScope(), namefolder,
+//							definition);
+//		} catch (RefactoringException e) {
+//			e.printStackTrace();
+//		}
 	}
 
 	/**

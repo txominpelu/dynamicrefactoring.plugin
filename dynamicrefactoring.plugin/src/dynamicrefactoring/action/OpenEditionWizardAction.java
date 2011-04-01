@@ -27,6 +27,7 @@ import org.eclipse.ui.IWorkbenchWindow;
 import org.eclipse.ui.IWorkbenchWindowActionDelegate;
 import org.eclipse.ui.PlatformUI;
 
+import dynamicrefactoring.domain.XMLRefactoringsCatalog;
 import dynamicrefactoring.interfaz.SelectDynamicRefactoringWindow;
 import dynamicrefactoring.interfaz.SelectForEditingWindow;
 
@@ -42,7 +43,7 @@ public class OpenEditionWizardAction implements IWorkbenchWindowActionDelegate  
 	public void run(IAction action) {
 		
 		SelectDynamicRefactoringWindow selector = new SelectForEditingWindow(
-			PlatformUI.getWorkbench().getActiveWorkbenchWindow().getShell());
+			PlatformUI.getWorkbench().getActiveWorkbenchWindow().getShell(), XMLRefactoringsCatalog.getInstance());
 			
 		selector.setBlockOnOpen(true);
 		selector.open();

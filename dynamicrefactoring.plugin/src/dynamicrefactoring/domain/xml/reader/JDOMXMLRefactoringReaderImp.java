@@ -40,6 +40,7 @@ import dynamicrefactoring.RefactoringConstants;
 import dynamicrefactoring.domain.DynamicRefactoringDefinition;
 import dynamicrefactoring.domain.DynamicRefactoringDefinition.Builder;
 import dynamicrefactoring.domain.InputParameter;
+import dynamicrefactoring.domain.RefactoringExample;
 import dynamicrefactoring.domain.RefactoringMechanism;
 import dynamicrefactoring.domain.Scope;
 import dynamicrefactoring.domain.metadata.interfaces.Category;
@@ -371,18 +372,14 @@ public class JDOMXMLRefactoringReaderImp implements XMLRefactoringReaderImp {
 	 * @return lista de arrays de cadenas que contienen para cada ejemplo sus
 	 *         atributos.
 	 */
-	private List<String[]> readExamplesElements(List<Element> examples) {
+	private List<RefactoringExample> readExamplesElements(List<Element> examples) {
 
-		ArrayList<String[]> completed = new ArrayList<String[]>();
-		String[] exampleContent;
+		ArrayList<RefactoringExample> completed = new ArrayList<RefactoringExample>();
 
 		for (Element example : examples) {
-			exampleContent = new String[2];
-			exampleContent[0] = example
-					.getAttributeValue(BEFORE_EXAMPLE_ATTRIBUTE);
-			exampleContent[1] = example
-					.getAttributeValue(AFTER_EXAMPLE_ATTRIBUTE);
-			completed.add(exampleContent);
+			completed.add(new RefactoringExample(example
+					.getAttributeValue(BEFORE_EXAMPLE_ATTRIBUTE), example
+					.getAttributeValue(AFTER_EXAMPLE_ATTRIBUTE)));
 		}
 		return completed;
 	}

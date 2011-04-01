@@ -748,10 +748,11 @@ public class RefactoringWizardPage2 extends WizardPage {
 			if (!selected[i].startsWith(RefactoringConstants.MODEL_PATH + " ")) { //$NON-NLS-1$
 				lInputs.remove(selected[i]);
 				inputsTable.remove(selected[i]);
-			} else
+			} else {
 				MessageDialog.openWarning(getShell(),
 						Messages.RefactoringWizardPage2_Warning,
 						Messages.RefactoringWizardPage2_ModelRequired + "."); //$NON-NLS-1$
+			}
 		}
 
 		checkForCompletion();
@@ -1171,7 +1172,7 @@ public class RefactoringWizardPage2 extends WizardPage {
 						.get(lInputs.getSelection()[0]);
 
 				Boolean isTrue = ch_Root.getSelection();
-				inputsTable.put(input.getName(), input.getBuilder()
+				inputsTable.put(lInputs.getSelection()[0], input.getBuilder()
 						.main(isTrue).build());
 				checkForCompletion();
 			}
@@ -1362,8 +1363,8 @@ public class RefactoringWizardPage2 extends WizardPage {
 
 				if (!tName.getText().equals(current.getName())) {
 					if (checkName(tName.getText(), current)) {
-						inputsTable.remove(current.getName());
-						inputsTable.put(tName.getText(), current.getBuilder()
+						inputsTable.remove(lInputs.getSelection()[0]);
+						inputsTable.put(lInputs.getSelection()[0], current.getBuilder()
 								.name(tName.getText()).build());
 					} else {
 						MessageDialog.openWarning(getShell(),
@@ -1392,11 +1393,14 @@ public class RefactoringWizardPage2 extends WizardPage {
 		 * </code> en caso contrario.
 		 */
 		private boolean checkName(String name, InputParameter current) {
-			for (InputParameter nextInput : inputsTable.values())
+			for (InputParameter nextInput : inputsTable.values()){
 				// Se busca una entrada con el nombre.
-				if (nextInput.getName().equals(name) && nextInput != current)
+				if (nextInput.getName().equals(name) && nextInput.getType().equals(current)){
 					return false;
+				}
+			}
 			return true;
+			
 		}
 	}
 
@@ -1450,7 +1454,8 @@ public class RefactoringWizardPage2 extends WizardPage {
 				if (cFrom.getSelectionIndex() != -1) {
 					InputParameter current = inputsTable.get(lInputs
 							.getSelection()[0]);
-					inputsTable.put(current.getName(), current.getBuilder()
+					inputsTable.put(lInputs
+							.getSelection()[0], current.getBuilder()
 							.from(cFrom.getItem(cFrom.getSelectionIndex()))
 							.build());
 					fillMethodComboBox(
@@ -1511,8 +1516,8 @@ public class RefactoringWizardPage2 extends WizardPage {
 				if (cMethod.getSelectionIndex() != -1) {
 					InputParameter current = inputsTable.get(lInputs
 							.getSelection()[0]);
-					inputsTable.put(
-							current.getName(),
+					inputsTable.put(lInputs
+							.getSelection()[0],
 							current.getBuilder()
 									.method(cMethod.getItem(cMethod
 											.getSelectionIndex())).build());

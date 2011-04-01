@@ -28,6 +28,7 @@ import org.eclipse.ui.IWorkbenchWindow;
 import org.eclipse.ui.IWorkbenchWindowActionDelegate;
 import org.eclipse.ui.PlatformUI;
 
+import dynamicrefactoring.domain.XMLRefactoringsCatalog;
 import dynamicrefactoring.interfaz.wizard.CustomWizardDialog;
 import dynamicrefactoring.interfaz.wizard.RefactoringWizard;
 
@@ -48,7 +49,7 @@ public class OpenCreationWizardAction implements IWorkbenchWindowActionDelegate 
 	 */
 	@Override
 	public void run(IAction action) {
-		RefactoringWizard wizard =  new RefactoringWizard(null);
+		RefactoringWizard wizard =  new RefactoringWizard(null, XMLRefactoringsCatalog.getInstance());
 		wizard.init(PlatformUI.getWorkbench(), null);
 		
 		WizardDialog dialog = new CustomWizardDialog(

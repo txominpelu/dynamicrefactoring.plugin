@@ -28,6 +28,7 @@ import java.util.Collection;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 
 import com.google.common.base.Function;
@@ -100,12 +101,12 @@ public class DynamicRefactoringDefinition implements Element,
 	 * Los valores para los par�metros ambiguos, que se obtienen de la
 	 * definici�n de la refactorizaci�n.
 	 */
-	private HashMap<String, List<String[]>>[] ambiguousParameters;
+	private Map<String, List<String[]>>[] ambiguousParameters;
 
 	/**
 	 * Los ejemplos de esta refactorizaci�n.
 	 */
-	private List<String[]> examples;
+	private List<RefactoringExample> examples;
 
 	/**
 	 * Conjunto de categorias a las que la refactorizacion pertenece.
@@ -166,6 +167,17 @@ public class DynamicRefactoringDefinition implements Element,
 	 */
 	public String getImage() {
 		return image;
+	}
+	
+	/**
+	 * Devuelve la ruta de la imagen asociada a la refactorizaci�n.
+	 * 
+	 * @return una cadena con la ruta a la imagen.
+	 * 
+	 * @see #setImage
+	 */
+	public String getAbsolutePathImage() {
+		return getRefactoringDefinitionFileFullPath(getImage());
 	}
 
 	/**
@@ -254,7 +266,7 @@ public class DynamicRefactoringDefinition implements Element,
 	 * 
 	 * @see #setAmbiguousParameters
 	 */
-	public HashMap<String, List<String[]>>[] getAmbiguousParameters() {
+	public Map<String, List<String[]>>[] getAmbiguousParameters() {
 		return ambiguousParameters;
 	}
 
@@ -304,8 +316,27 @@ public class DynamicRefactoringDefinition implements Element,
 	 * 
 	 * @see #setExamples
 	 */
-	public List<String[]> getExamples() {
+	public List<RefactoringExample> getExamples() {
 		return examples;
+	}
+	
+	/**
+	 * Devuelve los ejemplos de la refactorizaci�n.
+	 * 
+	 * @return una lista de arrays de cadenas con los atributos de cada ejemplo.
+	 * 
+	 * @see #setExamples
+	 */
+	public List<RefactoringExample> getAbsolutePathExamples() {
+		List<RefactoringExample> absolutePathExamples = new ArrayList<RefactoringExample>();
+		for(RefactoringExample ejemplo : examples){
+			absolutePathExamples.add(new RefactoringExample(getRefactoringDefinitionFileFullPath(ejemplo.getBefore()), getRefactoringDefinitionFileFullPath(ejemplo.getAfter())));
+		}
+		return absolutePathExamples;
+	}
+
+	private String getRefactoringDefinitionFileFullPath(String filePath) {
+		return new File(filePath).isAbsolute() ? filePath : XMLRefactoringsCatalog.getDirectoryToSaveRefactoringFile(getName()) + File.separator + filePath;
 	}
 
 	/**
@@ -392,6 +423,21 @@ public class DynamicRefactoringDefinition implements Element,
 
 	}
 
+	/**
+	 * Devuelve si la refactorizacion pertenece a un scope.
+	 * 
+	 * @param definition definicion de la refactorizacion
+	 * @return si pertenece a un scope
+	 */
+	public static boolean containsScopeCategory(Set<Category> categories) {
+		for(Category c:  categories){
+			if(c.getParent().equals(PluginClassificationsCatalog.SCOPE_CLASSIFICATION)){
+				return true;
+			}
+		}
+		return false;
+	}
+	
 	@Override
 	public final boolean belongsTo(Category category) {
 		return categories.contains(category);
@@ -533,11 +579,11 @@ public class DynamicRefactoringDefinition implements Element,
 	 * @author imediava
 	 * 
 	 */
-	public static class Builder {
+	public static final class Builder {
 
 		private Set<Category> categories;
 		private Set<String> keywords = new HashSet<String>();
-		private List<String[]> examples = new ArrayList<String[]>();
+		private List<RefactoringExample> examples = new ArrayList<RefactoringExample>();
 		private String name;
 		private String description;
 		private String image = "";
@@ -546,7 +592,15 @@ public class DynamicRefactoringDefinition implements Element,
 		private List<String> preconditions;
 		private List<String> actions;
 		private List<String> postconditions;
-		private HashMap<String, List<String[]>>[] ambiguousParameters;
+		private Map<String, List<String[]>>[] ambiguousParameters;
+		/**
+		 * Mapa de ejemplos en los que no se tiene la ruta
+		 * absoluta y lo que se hara sera tomar como directorio
+		 * raiz la ruta de la refactorizacion.
+		 * 
+		 * La clave es el before y el valor el after del ejemplo.
+		 */
+		private Map<String, String> examplesToNormalize;
 
 		/**
 		 * Crea un builder para crear una definicion de refactorizacion con el
@@ -558,8 +612,9 @@ public class DynamicRefactoringDefinition implements Element,
 		public Builder(String refactoringName) {
 			this.name = refactoringName;
 			ambiguousParameters = (HashMap<String, List<String[]>>[]) new HashMap[3];
-			for (int i = 0; i < ambiguousParameters.length; i++)
+			for (int i = 0; i < ambiguousParameters.length; i++) {
 				ambiguousParameters[i] = new HashMap<String, List<String[]>>();
+			}
 		}
 
 		/**
@@ -588,8 +643,12 @@ public class DynamicRefactoringDefinition implements Element,
 			checkParameterNotNull(image, "image");
 			checkParameterNotNull(examples, "examples");
 			checkParameterNotNull(keywords, "keywords");
+				
+			//Preconditions.checkArgument(containsScopeCategory(definition.getCategories()), "The refactoring must belong to at least one scope.");
 			return definition;
 		}
+
+		
 
 		private void checkParameterNotNull(Object parameter,
 				String parameterName) {
@@ -640,7 +699,7 @@ public class DynamicRefactoringDefinition implements Element,
 		/**
 		 * Establece los ejemplos a la refactorizaci�n.
 		 * 
-		 * @param examples
+		 * @param list
 		 *            lista de arrays de cadenas con los atributos de cada
 		 *            ejemplo. Cada array de cadenas contendr� dos cadenas,
 		 *            una con la ruta del fichero que contiene el estado del
@@ -651,8 +710,8 @@ public class DynamicRefactoringDefinition implements Element,
 		 * 
 		 * @see #getExamples
 		 */
-		public Builder examples(List<String[]> examples) {
-			this.examples = examples;
+		public Builder examples(List<RefactoringExample> list) {
+			this.examples = list;
 			return this;
 		}
 
@@ -765,7 +824,7 @@ public class DynamicRefactoringDefinition implements Element,
 		 * @see #getAmbiguousParameters
 		 */
 		public Builder ambiguousParameters(
-				HashMap<String, List<String[]>>[] ambiguousParameters) {
+				Map<String, List<String[]>>[] ambiguousParameters) {
 
 			this.ambiguousParameters = ambiguousParameters;
 			return this;

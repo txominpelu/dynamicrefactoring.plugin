@@ -20,7 +20,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.*/
 
 package dynamicrefactoring.interfaz.wizard;
 
-import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
@@ -40,19 +39,12 @@ import org.eclipse.ui.INewWizard;
 import org.eclipse.ui.IWorkbench;
 import org.eclipse.ui.IWorkbenchWizard;
 
-import dynamicrefactoring.RefactoringConstants;
 import dynamicrefactoring.RefactoringImages;
-import dynamicrefactoring.RefactoringPlugin;
 import dynamicrefactoring.domain.DynamicRefactoringDefinition;
 import dynamicrefactoring.domain.RefactoringMechanism;
-import dynamicrefactoring.domain.Scope;
-import dynamicrefactoring.domain.xml.reader.XMLRefactoringReaderException;
-import dynamicrefactoring.domain.xml.writer.JDOMXMLRefactoringWriterFactory;
-import dynamicrefactoring.domain.xml.writer.JDOMXMLRefactoringWriterImp;
-import dynamicrefactoring.domain.xml.writer.XMLRefactoringWriter;
+import dynamicrefactoring.domain.RefactoringsCatalog;
+import dynamicrefactoring.domain.XMLRefactoringsCatalog;
 import dynamicrefactoring.domain.xml.writer.XMLRefactoringWriterException;
-import dynamicrefactoring.domain.xml.writer.XMLRefactoringWriterFactory;
-import dynamicrefactoring.util.io.FileManager;
 
 /**
  * Proporciona un asistente de Eclipse que permite crear una nueva
@@ -104,10 +96,6 @@ public class RefactoringWizard extends Wizard implements INewWizard {
 	 */
 	private String originalName;
 
-	/**
-	 * �mbito original de la clase que se edita.
-	 */
-	private Scope originalScope;
 
 	/**
 	 * Primera p�gina del asistente.
@@ -144,6 +132,8 @@ public class RefactoringWizard extends Wizard implements INewWizard {
 	 */
 	private RefactoringWizardPage7 pageG;
 
+	private RefactoringsCatalog refactCatalog;
+
 	/**
 	 * Constructor.
 	 * 
@@ -151,7 +141,7 @@ public class RefactoringWizard extends Wizard implements INewWizard {
 	 *            refactorizaci�n que se desea editar o <code>null
 	 * </code> si se desea crear una nueva.
 	 */
-	public RefactoringWizard(DynamicRefactoringDefinition refactoring) {
+	public RefactoringWizard(DynamicRefactoringDefinition refactoring, RefactoringsCatalog catalog) {
 		super();
 		setNeedsProgressMonitor(true);
 
@@ -160,12 +150,10 @@ public class RefactoringWizard extends Wizard implements INewWizard {
 
 		setWindowTitle(Messages.RefactoringWizard_WizardTitle);
 
+		this.refactCatalog = catalog;
 		operation = (refactoring == null) ? CREATE : EDIT;
 		this.refactoring = refactoring;
 		this.originalName = (refactoring != null) ? refactoring.getName() : ""; //$NON-NLS-1$
-		// FIXME: Eliminar el null con la enum SCOPE
-		this.originalScope = (refactoring != null) ? refactoring
-				.getRefactoringScope() : null;
 	}
 
 	/**
@@ -178,7 +166,7 @@ public class RefactoringWizard extends Wizard implements INewWizard {
 	 * </p>
 	 */
 	public RefactoringWizard() {
-		new RefactoringWizard(null);
+		new RefactoringWizard(null, XMLRefactoringsCatalog.getInstance());
 	}
 
 	/**
@@ -273,11 +261,11 @@ public class RefactoringWizard extends Wizard implements INewWizard {
 	 * Crea y configura la nueva refactorizaci�n personalizada a partir de los
 	 * datos introducidos por el usuario en las p�ginas del asistente.
 	 */
-	@SuppressWarnings({ "unchecked" })
 	private DynamicRefactoringDefinition.Builder configureRefactoring() {
 		DynamicRefactoringDefinition.Builder builder = new DynamicRefactoringDefinition.Builder(
 				pageA.getNameText().getText().trim());
-
+		
+		
 		return builder.description(pageA.getDescriptionText().getText().trim())
 				.image(pageA.getImageNameText().getText().trim())
 				.motivation(pageA.getMotivationText().getText().trim())
@@ -326,321 +314,29 @@ public class RefactoringWizard extends Wizard implements INewWizard {
 	 *             si se produce un error durante la escritura de la
 	 *             refactorizaci�n en el fichero XML de destino.
 	 */
-	private final void writeRefactoring(
+	private void writeRefactoring(
 			DynamicRefactoringDefinition.Builder builder) {
-		try {
-
-			DynamicRefactoringDefinition resultingRefactoringDefinition = builder.build();
-			
-			File destination = new File(
-					RefactoringPlugin.getDynamicRefactoringsDir()
-							+ File.separatorChar + //$NON-NLS-1$
-							resultingRefactoringDefinition.getName());
-
-			if (operation == CREATE) {
-
-				// Se crea el directorio para la nueva refactorizaci�n.
-				if (!destination.mkdir()) {
-					// Si no se puede crear el directorio (ya existe o error),
-					// se impide
-					// la escritura de la refactorizaci�n.
-					MessageDialog
-							.openError(
-									getShell(),
-									Messages.RefactoringWizard_Error,
-									Messages.RefactoringWizard_DirectoryNotCreated
-											+ ".\n" + Messages.RefactoringWizard_MakeSureNotExists + ".\n"); //$NON-NLS-1$ //$NON-NLS-2$
-					return;
-				}
-				destination.setWritable(true);
-				// Se copia el fichero con la DTD.
-				FileManager.copyFile(new File(RefactoringConstants.DTD_PATH),
-						buildFile(destination, RefactoringConstants.DTD_PATH));
-
-				// Se copia la imagen asociada a la refactorizaci�n.
-				if (resultingRefactoringDefinition.getImage() != null
-						&& resultingRefactoringDefinition.getImage().length() > 0) {
-					File sourceFile = new File(
-							resultingRefactoringDefinition.getImage());
-					FileManager.copyFile(
-							sourceFile,
-							buildFile(destination,
-									resultingRefactoringDefinition.getImage()));
-					resultingRefactoringDefinition = builder.image(FileManager
-							.getFileName(resultingRefactoringDefinition
-									.getImage())).build();
-				}
-
-				// Se copian los ejemplos que se hayan inclu�do.
-				List<String[]> examples = resultingRefactoringDefinition
-						.getExamples();
-				for (String[] example : examples) {
-					for (int i = 0; i < example.length; i++) {
-						if (example[i] != null && example[i].length() > 0) {
-							FileManager.copyFile(new File(example[i]),
-									buildFile(destination, example[i]));
-							example[i] = FileManager.getFileName(example[i]);
-						}
-					}
-				}
-
-				// actualizamos el fichero refactorings.xml que guarda la
-				// informaci�n de las refactorizaciones
-				// de la aplicaci�n.
-				new JDOMXMLRefactoringWriterImp(null).addNewRefactoringToXml(
-						resultingRefactoringDefinition.getRefactoringScope(),
-						resultingRefactoringDefinition.getName(),
-						RefactoringPlugin.getDynamicRefactoringsDir() + "/"
-								+ resultingRefactoringDefinition.getName()
-								+ "/"
-								+ resultingRefactoringDefinition.getName()
-								+ ".xml");
-			}
-
-			else if (operation == EDIT) {
-				editRefactoring(builder, destination);
-			}
-
-			// Se escribe la refactorizaci�n en el fichero XML.
-			XMLRefactoringWriterFactory factory = new JDOMXMLRefactoringWriterFactory();
-			XMLRefactoringWriter writer = new XMLRefactoringWriter(
-					factory.makeXMLRefactoringWriterImp(resultingRefactoringDefinition));
-			writer.writeRefactoring(destination);
-
-			String action = (operation == CREATE) ? Messages.RefactoringWizard_CreatedLower
-					: Messages.RefactoringWizard_ModifiedLower;
-
-			Object[] messageArgs = {
-					"\"" + resultingRefactoringDefinition.getName() + "\"", action }; //$NON-NLS-1$ //$NON-NLS-2$
-			MessageFormat formatter = new MessageFormat(""); //$NON-NLS-1$
-			formatter
-					.applyPattern(Messages.RefactoringWizard_RefactoringSuccessfully);
-
-			MessageDialog.openInformation(getShell(),
-					Messages.RefactoringWizard_Completed,
-					formatter.format(messageArgs) + "."); //$NON-NLS-1$
-
-		} catch (IOException exception) {
-			logWritingError(exception);
-		} catch (XMLRefactoringWriterException exception) {
-			logWritingError(exception);
-		} catch (XMLRefactoringReaderException exception) {
-			logWritingError(exception);
-		}
-	}
-
-	/**
-	 * Realizas los pasos finales del proceso de edicion de una refactorizacion.
-	 * 
-	 * @param resultingRefactoringDefinition
-	 * @param destination
-	 * @throws IOException
-	 * @throws XMLRefactoringReaderException
-	 * @throws FileNotFoundException
-	 */
-	private void editRefactoring(
-			DynamicRefactoringDefinition.Builder builder,
-			File destination) throws IOException,
-			XMLRefactoringReaderException, FileNotFoundException {
-		
 		DynamicRefactoringDefinition resultingRefactoringDefinition = builder.build();
-		final Scope scope = resultingRefactoringDefinition
-				.getRefactoringScope();
-		// Si se ha renombrado la refactorizaci�n.
-		if (!resultingRefactoringDefinition.getName().equals(originalName)) {
-			renameResources(destination);
 
-			if (scope.equals(originalScope)) {
-				new JDOMXMLRefactoringWriterImp(null).renameRefactoringIntoXml(
-						scope, resultingRefactoringDefinition.getName(),
-						originalName);
-			}
+		if (operation == EDIT) {
+			refactCatalog.updateRefactoring(originalName, resultingRefactoringDefinition);;
+		} else {
+			// Se escribe la refactorizaci�n en el fichero XML.
+			refactCatalog.addRefactoring(resultingRefactoringDefinition);
 		}
 
-		// En caso de que el �mbito de la clase haya cambiado hay que editar
-		// refactorings.xml
-		if (scope != originalScope) {
-			JDOMXMLRefactoringWriterImp writer = new JDOMXMLRefactoringWriterImp(
-					null);
-			writer.deleteRefactoringFromXml(originalScope, originalName);
-			writer.addNewRefactoringToXml(scope,
-					resultingRefactoringDefinition.getName(),
-					RefactoringPlugin.getDynamicRefactoringsDir() + "/"
-							+ resultingRefactoringDefinition.getName() + "/"
-							+ resultingRefactoringDefinition.getName() + ".xml");
-		}
+		String action = (operation == CREATE) ? Messages.RefactoringWizard_CreatedLower
+				: Messages.RefactoringWizard_ModifiedLower;
 
-		// Se copia el fichero con la DTD si no existe.
-		File DTDFile = buildFile(destination, RefactoringConstants.DTD_PATH);
-		if (!DTDFile.exists())
-			FileManager.copyFile(new File(RefactoringConstants.DTD_PATH),
-					DTDFile);
-
-		if (resultingRefactoringDefinition.getImage() != null
-				&& resultingRefactoringDefinition.getImage().length() > 0) {
-			// Si la ruta al fichero es relativa.
-			if (resultingRefactoringDefinition.getImage().equals(
-					FileManager.getFileName(resultingRefactoringDefinition
-							.getImage()))) {
-				// La imagen se copi� al crear la refactorizaci�n.
-				File sourceFile = buildFile(destination,
-						resultingRefactoringDefinition.getImage());
-				if (!sourceFile.exists()) {
-					Object[] messageArgs = { sourceFile.getAbsolutePath() };
-					MessageFormat formatter = new MessageFormat(""); //$NON-NLS-1$
-					formatter
-							.applyPattern(Messages.RefactoringWizard_FileNotFound);
-
-					throw new FileNotFoundException(
-							formatter.format(messageArgs) + "."); //$NON-NLS-1$
-				}
-			}
-			// Si la ruta es absoluta.
-			else {
-				File sourceFile = new File(
-						resultingRefactoringDefinition.getImage());
-				File newFile = buildFile(destination,
-						FileManager.getFileName(resultingRefactoringDefinition
-								.getImage()));
-				// Si el origen es distinto del destino.
-				if (!sourceFile.getAbsolutePath().equals(
-						newFile.getAbsolutePath())) {
-					FileManager.copyFile(sourceFile, newFile);
-				}
-			}
-			resultingRefactoringDefinition = builder.image(FileManager
-					.getFileName(resultingRefactoringDefinition.getImage())).build();
-		}
-
-		// Se copian los ejemplos si han sido modificados.
-		List<String[]> examples = resultingRefactoringDefinition
-				.getExamples();
-		for (String[] example : examples) {
-			for (int i = 0; i < example.length; i++) {
-				if (example[i] != null && example[i].length() > 0) {
-					// Se intenta acceder como ruta absoluta.
-					File file = new File(example[i]);
-					// Si no existe, no se puede copiar.
-					if (!file.exists()) {
-						// El ejemplo se copi� al crear la refactorizaci�n.
-						File sourceFile = buildFile(destination,
-								FileManager.getFileName(example[i]));
-						// Si en el directorio tampoco est�.
-						if (!sourceFile.exists()) {
-							Object[] messageArgs = { sourceFile
-									.getAbsolutePath() };
-							MessageFormat formatter = new MessageFormat(""); //$NON-NLS-1$
-							formatter
-									.applyPattern(Messages.RefactoringWizard_FileNotFound);
-
-							throw new FileNotFoundException(
-									formatter.format(messageArgs) + "."); //$NON-NLS-1$
-						}
-					} else {
-						FileManager.copyFile(
-								file,
-								buildFile(destination,
-										FileManager.getFileName(example[i])));
-					}
-				}
-			}
-		}
-	}
-
-	/**
-	 * Realiza las notificaciones que sean oportunas cuando se produce un error
-	 * de escritura de refactorizaci�n.
-	 * 
-	 * @param source
-	 *            la excepci�n que provoc� el error de escritura.
-	 */
-	private void logWritingError(Exception source) {
-		Object[] messageArgs = { "\"" + refactoring.getName() + "\"" }; //$NON-NLS-1$ //$NON-NLS-2$
+		Object[] messageArgs = {
+				"\"" + resultingRefactoringDefinition.getName() + "\"", action }; //$NON-NLS-1$ //$NON-NLS-2$
 		MessageFormat formatter = new MessageFormat(""); //$NON-NLS-1$
-		formatter.applyPattern(Messages.RefactoringWizard_NotSaved);
+		formatter
+				.applyPattern(Messages.RefactoringWizard_RefactoringSuccessfully);
 
-		String message = formatter.format(messageArgs)
-				+ ".\n" + //$NON-NLS-1$
-				Messages.RefactoringWizard_ErrorMessage
-				+ ":\n" + source.getMessage(); //$NON-NLS-1$
-		logger.error(message);
-		MessageDialog.openError(getShell(), Messages.RefactoringWizard_Error,
-				message);
+		MessageDialog.openInformation(getShell(),
+				Messages.RefactoringWizard_Completed,
+				formatter.format(messageArgs) + "."); //$NON-NLS-1$
 	}
 
-	/**
-	 * Construye un nuevo fichero a partir del fichero asociado al directorio en
-	 * que deber� crearse y del nombre con que deber� crearse.
-	 * 
-	 * @param folder
-	 *            directorio en que se deber� crear el fichero.
-	 * @param name
-	 *            nombre o ruta de un fichero con el mismo nombre que el que se
-	 *            quiere crear (�til para la copia de ficheros).
-	 * 
-	 * @return el fichero creado en la ruta especificada por <code>folder</code>
-	 *         con el nombre especificado por <code>name</code> (una vez
-	 *         eliminada su parte correspondiente a la ruta, si es que la
-	 *         tiene).
-	 * 
-	 * @throws IOException
-	 *             si se produce un error al acceder a la ruta del directorio.
-	 */
-	private File buildFile(File folder, String name) throws IOException {
-		return new File(folder.getCanonicalPath() + File.separatorChar + //$NON-NLS-1$
-				FileManager.getFileName(name));
-	}
-
-	/**
-	 * Renombra los recursos asociados a la refactorizaci�n cuyo nombre se
-	 * debe corresponder con el de la propia refactorizaci�n.
-	 * 
-	 * <p>
-	 * Renombra el directorio que contiene los ficheros de la refactorizaci�n,
-	 * as� como el fichero XML en que se define.
-	 * </p>
-	 * 
-	 * @param destination
-	 *            directorio en que deber�an encontrarse los recursos de la
-	 *            refactorizaci�n una vez ejecutado el renombrado.
-	 * 
-	 * @throws IOException
-	 *             si se produce un error durante el manejo de los archivos.
-	 */
-	private void renameResources(File destination) throws IOException {
-		// Se busca el directorio con el nombre original.
-		File folder = new File(RefactoringPlugin.getDynamicRefactoringsDir()
-				+ File.separatorChar + originalName); //$NON-NLS-1$
-		// Si se encuentra.
-		if (folder.exists() && folder.isDirectory()
-				&& folder.renameTo(destination)) {
-
-			// Se busca el fichero XML de la refactorizaci�n original.
-			File refactoringFile = buildFile(destination, originalName + ".xml"); //$NON-NLS-1$
-			// Si se encuentra.
-			if (refactoringFile.exists()) {
-				// Se renombra.
-				refactoringFile.renameTo(buildFile(destination,
-						refactoring.getName() + ".xml")); //$NON-NLS-1$
-			}
-			String fragment = originalName + File.separatorChar; //$NON-NLS-1$
-
-			int index = refactoring.getImage().indexOf(fragment);
-			if (index > -1) {
-				String name = FileManager.getFileName(refactoring.getImage());
-				String path = buildFile(destination, name).getAbsolutePath();
-			}
-
-			for (String[] example : refactoring.getExamples()) {
-				for (int i = 0; i < example.length; i++) {
-					index = example[i].indexOf(fragment);
-					if (index > -1) {
-						String name = FileManager.getFileName(example[i]);
-						example[i] = buildFile(destination, name)
-								.getAbsolutePath();
-					}
-				}
-			}
-		}
-	}
 }

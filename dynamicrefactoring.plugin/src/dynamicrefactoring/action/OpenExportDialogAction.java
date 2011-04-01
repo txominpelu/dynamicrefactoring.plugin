@@ -27,6 +27,7 @@ import org.eclipse.ui.IWorkbenchWindow;
 import org.eclipse.ui.IWorkbenchWindowActionDelegate;
 import org.eclipse.ui.PlatformUI;
 
+import dynamicrefactoring.domain.XMLRefactoringsCatalog;
 import dynamicrefactoring.interfaz.wizard.ExportWizard;
 
 /**
@@ -41,7 +42,7 @@ public class OpenExportDialogAction implements IWorkbenchWindowActionDelegate  {
 	public void run(IAction action) {
 		
 		ExportWizard wizard = new ExportWizard(
-			PlatformUI.getWorkbench().getActiveWorkbenchWindow().getShell());
+			PlatformUI.getWorkbench().getActiveWorkbenchWindow().getShell(), XMLRefactoringsCatalog.getInstance());
 			
 		wizard.setBlockOnOpen(true);
 		wizard.open();

@@ -29,6 +29,7 @@ import org.eclipse.swt.widgets.Shell;
 import org.eclipse.ui.PlatformUI;
 
 import dynamicrefactoring.domain.DynamicRefactoringDefinition;
+import dynamicrefactoring.domain.RefactoringsCatalog;
 import dynamicrefactoring.interfaz.wizard.RefactoringWizard;
 
 /**
@@ -44,14 +45,16 @@ import dynamicrefactoring.interfaz.wizard.RefactoringWizard;
  */
 public class SelectForEditingWindow extends SelectDynamicRefactoringWindow {
 
+	private RefactoringsCatalog refactCatalog;
+
 	/**
 	 * Crea la ventana de di�logo.
 	 * 
 	 * @param parentShell la <i>shell</i> padre de esta ventana de di�logo.
 	 */
-	public SelectForEditingWindow(Shell parentShell) {
-		super(parentShell);
-		
+	public SelectForEditingWindow(Shell parentShell, RefactoringsCatalog refactCatalog) {
+		super(parentShell, refactCatalog);
+		this.refactCatalog = refactCatalog;
 		logger = Logger.getLogger(SelectForEditingWindow.class);
 	}
 
@@ -97,12 +100,11 @@ public class SelectForEditingWindow extends SelectDynamicRefactoringWindow {
 			
 			if (l_Available.getSelectionCount() == 1){
 				
-				DynamicRefactoringDefinition refactoring =
-					refactorings.get(l_Available.getSelection()[0]);
+				DynamicRefactoringDefinition refactoring = refactCatalog.getRefactoring(l_Available.getSelection()[0]);
 				
 				this.close();
 
-				RefactoringWizard wizard =  new RefactoringWizard(refactoring);
+				RefactoringWizard wizard =  new RefactoringWizard(refactoring, refactCatalog);
 				wizard.init(PlatformUI.getWorkbench(), null);
 				
 				WizardDialog dialog = new WizardDialog(

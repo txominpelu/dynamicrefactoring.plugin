@@ -41,6 +41,7 @@ import com.google.common.base.Preconditions;
 import dynamicrefactoring.domain.DynamicRefactoringDefinition;
 import dynamicrefactoring.domain.DynamicRefactoringDefinition.Builder;
 import dynamicrefactoring.domain.InputParameter;
+import dynamicrefactoring.domain.RefactoringExample;
 import dynamicrefactoring.domain.RefactoringMechanism;
 import dynamicrefactoring.domain.metadata.interfaces.Category;
 import dynamicrefactoring.domain.xml.reader.TestCaseRefactoringReader;
@@ -364,11 +365,8 @@ public class RefactoringWriterTest {
 		rd.ambiguousParameters(map);
 
 		// a�adiendo los ejemplos
-		ArrayList<String[]> ejemplos = new ArrayList<String[]>();
-		String ejemplo1[] = new String[2];
-		ejemplo1[0] = "ejemplo1_antes.txt"; //$NON-NLS-1$
-		ejemplo1[1] = "ejemplo1_despues.txt"; //$NON-NLS-1$
-		ejemplos.add(ejemplo1);
+		ArrayList<RefactoringExample> ejemplos = new ArrayList<RefactoringExample>();
+		ejemplos.add(new RefactoringExample("ejemplo1_antes.txt","ejemplo1_despues.txt"));
 		rd.examples(ejemplos);
 
 		HashSet<Category> categories = new HashSet<Category>();
@@ -403,8 +401,8 @@ public class RefactoringWriterTest {
 		builder.inputs(addSimpleInputs());
 
 		// Agregamos un ejemplo
-		ArrayList<String[]> ejemplos = new ArrayList<String[]>();
-		ejemplos.add(new String[] { "", "" });
+		List<RefactoringExample> ejemplos = new ArrayList<RefactoringExample>();
+		ejemplos.add(new RefactoringExample("",""));
 		builder.examples(ejemplos);
 
 		builder.categories(new HashSet<Category>());

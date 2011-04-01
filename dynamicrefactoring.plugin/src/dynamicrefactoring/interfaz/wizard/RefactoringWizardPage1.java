@@ -28,6 +28,8 @@ import java.util.Set;
 import org.eclipse.core.runtime.Platform;
 import org.eclipse.jface.wizard.WizardPage;
 import org.eclipse.swt.SWT;
+import org.eclipse.swt.events.FocusEvent;
+import org.eclipse.swt.events.FocusListener;
 import org.eclipse.swt.events.ModifyEvent;
 import org.eclipse.swt.events.ModifyListener;
 import org.eclipse.swt.events.SelectionEvent;
@@ -227,6 +229,17 @@ public final class RefactoringWizardPage1 extends WizardPage {
 				.getInstance().getAllClassifications(), categories);
 		categoryTree.getControl().setBounds(80, 390, 534, 160);
 
+		categoryTree.getControl().addFocusListener(new FocusListener() {
+			@Override
+			public void focusGained(FocusEvent e) {
+			}
+
+			@Override
+			public void focusLost(FocusEvent e) {
+				dialogChanged();
+			}
+		});
+		
 		this.nameText.addModifyListener(new ModifyListener() {
 			public void modifyText(ModifyEvent e) {
 				dialogChanged();
@@ -290,6 +303,11 @@ public final class RefactoringWizardPage1 extends WizardPage {
 		}
 		if (this.getMotivationText().getText().length() == 0) {
 			updateStatus(Messages.RefactoringWizardPage1_MotivationNeeded);
+			return;
+		}
+		if (!DynamicRefactoringDefinition.containsScopeCategory(getCategories())) {
+			//TODO: Internacionalizar
+			updateStatus("The refactoring must belong to at least one scope.");
 			return;
 		}
 		updateStatus(null);

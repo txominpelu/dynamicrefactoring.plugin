@@ -52,6 +52,7 @@ import org.eclipse.swt.widgets.Text;
 import dynamicrefactoring.RefactoringImages;
 import dynamicrefactoring.RefactoringPlugin;
 import dynamicrefactoring.domain.DynamicRefactoringDefinition;
+import dynamicrefactoring.domain.RefactoringsCatalog;
 
 /**
  * Proporciona la funcionalidad com�n a las ventanas que permiten seleccionar una
@@ -100,9 +101,10 @@ public abstract class SelectDynamicRefactoringWindow extends DynamicRefactoringL
 	 * Crea la ventana de di�logo.
 	 * 
 	 * @param parentShell la <i>shell</i> padre de esta ventana de di�logo.
+	 * @param refactCatalog 
 	 */
-	public SelectDynamicRefactoringWindow(Shell parentShell) {
-		super(parentShell);
+	public SelectDynamicRefactoringWindow(Shell parentShell, RefactoringsCatalog refactCatalog) {
+		super(parentShell, refactCatalog);
 
 		scrollListeners = new Listener[2];
 	}
@@ -184,7 +186,6 @@ public abstract class SelectDynamicRefactoringWindow extends DynamicRefactoringL
 		cv_Image.setBounds(10, 21, 442, 233);
 		gr_Image.setSize(462, 254);
 		
-		loadRefactorings();
 		fillInRefactoringList();
 		
 		return container;
@@ -389,8 +390,7 @@ public abstract class SelectDynamicRefactoringWindow extends DynamicRefactoringL
 			if (l_Available.getSelectionCount() == 1){
 				String key = l_Available.getItem(l_Available.getSelectionIndex());
 				if (key != null){
-					DynamicRefactoringDefinition refactoring = 
-						refactorings.get(key);
+					DynamicRefactoringDefinition refactoring = refactCatalog.getRefactoring(key);
 				
 					if (refactoring != null){
 						fillInData(refactoring);

@@ -108,7 +108,7 @@ public enum SearchingFacade {
 	 *            tipo de elemento sobre el que se buscara
 	 * @param query
 	 *            terminos de la busqueda a realizar
-	 * @return
+	 * @return resultados de la busqueda
 	 * @throws ParseException
 	 *             si el formato de los terminos de la busqueda no es valido
 	 */

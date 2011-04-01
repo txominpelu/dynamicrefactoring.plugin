@@ -465,4 +465,20 @@ public class FileManager {
 						.getResourceAsStream(resourcePath), new File(dirPath
 						+ new File(resourcePath).getName()));
 	}
+
+	/**
+	 * Dado un fichero del jar del plugin devuelve una ruta a ese fichero en el
+	 * sistema de ficheros del usuario.
+	 * 
+	 * @param bundleFilePath
+	 *            ruta del fichero en el bundle
+	 * @return ruta del fichero en el sistema de ficheros
+	 * @throws IOException
+	 *             si ocurre alguna excepcion al acceder al fichero o la ruta
+	 *             del fichero en el bundle no es correcta
+	 */
+	public static File getBundleFileAsSystemFile(String bundleFilePath)
+			throws IOException {
+		return new File(FileLocator.toFileURL(FileManager.class.getResource(bundleFilePath)).getFile());
+	}
 }
