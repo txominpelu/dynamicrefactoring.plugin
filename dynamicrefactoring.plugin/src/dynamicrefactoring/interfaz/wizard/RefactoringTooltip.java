@@ -41,9 +41,6 @@ public class RefactoringTooltip extends ToolTip {
 		form.setTextBackground(new Color[] { top, bot }, new int[] { 100 }, true);
 		TableWrapLayout layout = new TableWrapLayout();
 		form.getBody().setLayout(layout);
-//		GridLayout layout = new GridLayout();
-//		layout.numColumns = 3;
-//		form.getBody().setLayout(layout);
 
 		Label description= toolkit.createLabel(form.getBody(), "Description:");
 		Label descriptionText= toolkit.createLabel(form.getBody(), refactoring.getDescription(),SWT.WRAP);
