@@ -22,6 +22,7 @@ package dynamicrefactoring.domain.xml.reader;
 
 import java.io.File;
 import java.io.IOException;
+import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -29,6 +30,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+import org.apache.commons.io.FileUtils;
 import org.jdom.Document;
 import org.jdom.Element;
 import org.jdom.JDOMException;
@@ -37,6 +39,7 @@ import org.jdom.input.SAXBuilder;
 import com.google.common.base.Throwables;
 
 import dynamicrefactoring.RefactoringConstants;
+import dynamicrefactoring.RefactoringPlugin;
 import dynamicrefactoring.domain.DynamicRefactoringDefinition;
 import dynamicrefactoring.domain.DynamicRefactoringDefinition.Builder;
 import dynamicrefactoring.domain.InputParameter;
@@ -69,7 +72,7 @@ public class JDOMXMLRefactoringReaderImp implements XMLRefactoringReaderImp {
 	 *             si se produce un error al cargar la refactorizaci�n desde el
 	 *             fichero XML.
 	 */
-	private DynamicRefactoringDefinition readFile(File file) throws XMLRefactoringReaderException {
+	private DynamicRefactoringDefinition readFile(InputStream in) throws XMLRefactoringReaderException {
 
 		final Element root;
 		try {
@@ -79,8 +82,9 @@ public class JDOMXMLRefactoringReaderImp implements XMLRefactoringReaderImp {
 			// refactorizaci�n es solo la parte relativa de la ruta del fichero
 			// DTD. Se le antepone la ruta del directorio del plugin que
 			// contiene los ficheros de refactorizaciones din�micas.
-			Document doc = builder.build(file);
+			Document doc = builder.build(in, RefactoringPlugin.getDynamicRefactoringsDir());
 			root = doc.getRootElement();
+			in.close();
 		} catch (JDOMException jdomexception) {
 			throw new XMLRefactoringReaderException(jdomexception);
 		} catch (IOException ioexception) {
@@ -229,15 +233,6 @@ public class JDOMXMLRefactoringReaderImp implements XMLRefactoringReaderImp {
 	 */
 	@SuppressWarnings({ "unchecked" })//$NON-NLS-1$
 	public Builder readMechanismRefactoring(Element root, Builder builder) {
-		ArrayList<String> elements;
-		ArrayList<String> precondiciones = new ArrayList<String>();
-		ArrayList<String> actions = new ArrayList<String>();
-		ArrayList<String> acciones = new ArrayList<String>();
-		ArrayList<String> postconditions = new ArrayList<String>();
-		ArrayList<String> postcondiciones = new ArrayList<String>();
-		String postcond = "";
-		String precond = "";
-		String acti = "";
 
 		Element mechanism = root.getChild(MECHANISM_ELEMENT);
 		HashMap<String, List<String[]>>[] ambiguousParameters = (HashMap<String, List<String[]>>[]) new HashMap[3];
@@ -393,8 +388,23 @@ public class JDOMXMLRefactoringReaderImp implements XMLRefactoringReaderImp {
 	public DynamicRefactoringDefinition getDynamicRefactoringDefinition(
 			File file) {
 		try {
-			return readFile(file);
-		} catch (XMLRefactoringReaderException e) {
+			return readFile(FileUtils.openInputStream(file));
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			throw Throwables.propagate(e);
+		}
+	}
+	
+	/**
+	 * Devuelve la definici�n de la refactorizaci�n.
+	 * 
+	 * @return la definici�n de la refactorizaci�n.
+	 */
+	public DynamicRefactoringDefinition getDynamicRefactoringDefinition(
+			InputStream in) {
+		try {
+			return readFile(in);
+		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			throw Throwables.propagate(e);
 		}
