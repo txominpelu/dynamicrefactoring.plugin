@@ -20,7 +20,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.*/
 
 package dynamicrefactoring.interfaz.dynamic;
 
-import java.io.File;
 import java.util.List;
 
 import org.eclipse.swt.SWT;
@@ -52,7 +51,6 @@ import org.eclipse.swt.widgets.TreeItem;
 import com.swtdesigner.SWTResourceManager;
 
 import dynamicrefactoring.RefactoringImages;
-import dynamicrefactoring.RefactoringPlugin;
 import dynamicrefactoring.domain.DynamicRefactoringDefinition;
 import dynamicrefactoring.domain.InputParameter;
 import dynamicrefactoring.interfaz.TreeEditor;
@@ -139,13 +137,9 @@ public class DynamicRefactoringTab {
 		if (refactoringDefinition.getImage() != null && 
 				refactoringDefinition.getImage().length() != 0){
 
-			String path = RefactoringPlugin.getDynamicRefactoringsDir()
-				+ File.separatorChar //$NON-NLS-1$
-				+ refactoringDefinition.getName() + File.separatorChar //$NON-NLS-1$
-				+ refactoringDefinition.getImage();
 			ImageLoader loader = new ImageLoader();
 
-			final Image image = new Image(canvas.getDisplay(), loader.load(path)[0]);
+			final Image image = new Image(canvas.getDisplay(), loader.load(refactoringDefinition.getImageAbsolutePath())[0]);
 			final Point origin = new Point(0, 0);
 
 			// Los scrolls del canvas para la imagen.

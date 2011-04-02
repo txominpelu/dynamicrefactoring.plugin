@@ -28,7 +28,7 @@ import org.eclipse.ui.IWorkbenchWindow;
 import org.eclipse.ui.IWorkbenchWindowActionDelegate;
 import org.eclipse.ui.PlatformUI;
 
-import dynamicrefactoring.domain.XMLRefactoringsCatalog;
+import dynamicrefactoring.domain.xml.XMLRefactoringsCatalog;
 import dynamicrefactoring.interfaz.wizard.CustomWizardDialog;
 import dynamicrefactoring.interfaz.wizard.RefactoringWizard;
 

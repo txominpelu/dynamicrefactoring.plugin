@@ -2,9 +2,8 @@ package dynamicrefactoring.domain.metadata.classifications.xml.imp;
 
 import javax.xml.bind.ValidationException;
 
-import dynamicrefactoring.domain.XMLRefactoringsCatalog;
-import dynamicrefactoring.domain.metadata.classifications.xml.imp.AbstractCatalog;
 import dynamicrefactoring.domain.metadata.interfaces.ClassificationsCatalog;
+import dynamicrefactoring.domain.xml.XMLRefactoringsCatalog;
 
 public class CatalogStub extends AbstractCatalog implements ClassificationsCatalog {
 	

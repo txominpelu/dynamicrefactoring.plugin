@@ -10,10 +10,10 @@ import com.google.common.base.Throwables;
 
 import dynamicrefactoring.RefactoringConstants;
 import dynamicrefactoring.domain.RefactoringsCatalog;
-import dynamicrefactoring.domain.XMLRefactoringsCatalog;
 import dynamicrefactoring.domain.metadata.interfaces.Category;
 import dynamicrefactoring.domain.metadata.interfaces.Classification;
 import dynamicrefactoring.domain.metadata.interfaces.ClassificationsCatalog;
+import dynamicrefactoring.domain.xml.XMLRefactoringsCatalog;
 
 /**
  * Almacen con todas las clasificaciones leidas del fichero de configuracion xml

@@ -1,6 +1,5 @@
 package dynamicrefactoring.interfaz.view;
 
-import java.io.File;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -47,7 +46,6 @@ import org.eclipse.ui.forms.widgets.ScrolledForm;
 import org.eclipse.ui.forms.widgets.Section;
 
 import dynamicrefactoring.RefactoringImages;
-import dynamicrefactoring.RefactoringPlugin;
 import dynamicrefactoring.domain.DynamicRefactoringDefinition;
 import dynamicrefactoring.domain.InputParameter;
 import dynamicrefactoring.domain.RefactoringExample;
@@ -352,14 +350,8 @@ public class RefactoringSummaryPanel {
 		imageCanvas.setRedraw(true);
 		imageCanvas.setBackground(Display.getCurrent().getSystemColor(SWT.COLOR_WHITE));
 
-		//cargamos la imagen
-		String path = RefactoringPlugin.getDynamicRefactoringsDir() + 
-		File.separatorChar + //$NON-NLS-1$
-		refactoring.getName() + File.separatorChar + //$NON-NLS-1$
-		refactoring.getImage();
-
 		ImageLoader loader = new ImageLoader();
-		final Image image = new Image(imageCanvas.getDisplay(), loader.load(path)[0]);
+		final Image image = new Image(imageCanvas.getDisplay(), loader.load(refactoring.getImageAbsolutePath())[0]);
 
 		final int margin=10;
 		imageCanvas.addPaintListener(new PaintListener() {

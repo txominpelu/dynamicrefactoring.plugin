@@ -21,13 +21,13 @@ import com.google.common.collect.ImmutableSet;
 
 import dynamicrefactoring.RefactoringConstants;
 import dynamicrefactoring.RefactoringPlugin;
-import dynamicrefactoring.domain.RefactoringCatalogStub;
 import dynamicrefactoring.domain.RefactoringsCatalog;
 import dynamicrefactoring.domain.metadata.classifications.xml.imp.ClassificationsReaderFactory.ClassificationsReaderTypes;
 import dynamicrefactoring.domain.metadata.imp.SimpleUniLevelClassification;
 import dynamicrefactoring.domain.metadata.interfaces.Category;
 import dynamicrefactoring.domain.metadata.interfaces.Classification;
 import dynamicrefactoring.domain.metadata.interfaces.ClassificationsCatalog;
+import dynamicrefactoring.domain.xml.RefactoringCatalogStub;
 import dynamicrefactoring.util.io.FileManager;
 
 /**
@@ -53,7 +53,7 @@ public final class PluginClassificationsCatalogTest {
 	@Before
 	public void setUp() throws Exception {
 		Utils.setTestRefactoringInRefactoringsDir();
-		FileManager.copyResourceToExactDir(TEST_REPO_PATH + CLASSIFICATIONS_XML_FILENAME, RefactoringPlugin.getDefault().getStateLocation().toOSString() + File.separator + "Classification" + File.separator);
+		FileManager.copyResourceToExactDir(TEST_REPO_PATH + CLASSIFICATIONS_XML_FILENAME, RefactoringPlugin.getCommonPluginFilesDir() + File.separator + "Classification" + File.separator);
 		refactCatalog = new RefactoringCatalogStub();
 		catalog = new PluginClassificationsCatalog(AbstractCatalog.getClassificationsFromFile(RefactoringConstants.CLASSIFICATION_TYPES_FILE), refactCatalog);
 	}
@@ -68,7 +68,7 @@ public final class PluginClassificationsCatalogTest {
 	public void tearDown() throws IllegalStateException, IOException {
 		Utils.restoreDefaultRefactorings();
 		FileManager.copyResourceToDir("/Classification/classifications.xml",
-				RefactoringPlugin.getDefault().getStateLocation().toOSString());
+				RefactoringPlugin.getCommonPluginFilesDir());
 	}
 
 	/**

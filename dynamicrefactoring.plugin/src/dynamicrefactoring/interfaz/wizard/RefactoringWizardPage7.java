@@ -24,6 +24,7 @@ package dynamicrefactoring.interfaz.wizard;
 import java.text.MessageFormat;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.List;
 
 import org.eclipse.jface.viewers.CheckStateChangedEvent;
 import org.eclipse.jface.viewers.ICheckStateListener;
@@ -332,9 +333,9 @@ public class RefactoringWizardPage7 extends WizardPage {
 					&& fifthPage instanceof RefactoringWizardPage5){
 				ArrayList<String> preconditions = 
 					((RefactoringWizardPage3)thirdPage).getPreconditions();
-				ArrayList<String> actions = 
+				List<String> actions = 
 					((RefactoringWizardPage4)fourthPage).getActions();
-				ArrayList<String> postconditions = 
+				List<String> postconditions = 
 					((RefactoringWizardPage5)fifthPage).getPostconditions();
 								
 				

@@ -21,11 +21,11 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.*/
 package dynamicrefactoring.domain;
 
 /** 
- * Excepción lanzada cuando se produce un error al construir la refactorización
- * dinámica, de forma que no se puede continuar con el proceso.
+ * Excepciï¿½n lanzada cuando se produce un error al construir la refactorizaciï¿½n
+ * dinï¿½mica, de forma que no se puede continuar con el proceso.
  *
- * @author <A HREF="mailto:alc0022@alu.ubu.es">Ángel López Campo</A>
- * @author <A HREF="mailto:epf0006@alu.ubu.es">Eduardo Peña Fernández</A>
+ * @author <A HREF="mailto:alc0022@alu.ubu.es">ï¿½ngel Lï¿½pez Campo</A>
+ * @author <A HREF="mailto:epf0006@alu.ubu.es">Eduardo Peï¿½a Fernï¿½ndez</A>
  * @author <A HREF="mailto:sfd0009@alu.ubu.es">Sonia Fuente de la Fuente</A>
  * @author <A HREF="mailto:ehp0001@alu.ubu.es">Enrique Herrero Paredes</A>
  */
@@ -42,9 +42,20 @@ public class RefactoringException extends Exception {
 	/**
 	 * Constructor.
 	 *
-	 * @param s el mensaje asociado al origen de la excepción.
+	 * @param s el mensaje asociado al origen de la excepciï¿½n.
 	 */
 	public RefactoringException(String s) {		
 		super(s);
+	}
+	
+	/**
+	 * Constructor.
+	 *
+	 * 
+	 * @param s el mensaje asociado al origen de la excepcion.
+	 * @param cause causa de la excepcion
+	 */
+	public RefactoringException(String s, Throwable cause) {		
+		super(s, cause);
 	}
 }

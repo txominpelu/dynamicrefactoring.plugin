@@ -24,7 +24,6 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.List;
-import java.util.Map;
 
 import org.jdom.DocType;
 import org.jdom.Document;
@@ -34,7 +33,6 @@ import org.jdom.input.SAXBuilder;
 import org.jdom.output.Format;
 import org.jdom.output.XMLOutputter;
 
-import com.google.common.base.Throwables;
 import com.google.common.collect.ImmutableListMultimap;
 import com.google.common.collect.ImmutableListMultimap.Builder;
 
@@ -49,7 +47,6 @@ import dynamicrefactoring.domain.metadata.interfaces.Category;
 import dynamicrefactoring.domain.xml.reader.XMLRefactoringReaderException;
 import dynamicrefactoring.domain.xml.reader.XMLRefactoringReaderImp;
 import dynamicrefactoring.util.PluginStringUtils;
-import dynamicrefactoring.util.ScopeLimitedLister;
 
 /**
  * Utiliza la implementaci�n basada en JDOM para escribir los ficheros XML de
@@ -61,7 +58,7 @@ import dynamicrefactoring.util.ScopeLimitedLister;
  * @author <A HREF="mailto:sfd0009@alu.ubu.es">Sonia Fuente de la Fuente</A>
  * @author <A HREF="mailto:ehp0001@alu.ubu.es">Enrique Herrero Paredes</A>
  */
-public class JDOMXMLRefactoringWriterImp implements XMLRefactoringWriterImp {
+public final class JDOMXMLRefactoringWriterImp implements XMLRefactoringWriterImp {
 
 	/**
 	 * La definici�n de refactorizaci�n que se debe escribir.
@@ -79,58 +76,6 @@ public class JDOMXMLRefactoringWriterImp implements XMLRefactoringWriterImp {
 
 		this.refactoringDefinition = refactoringDefinition;
 		initializeFormat();
-	}
-
-	/**
-	 * Escribe el fichero temporal que guarda las refactorizaciones disponibles
-	 * para los diferentes tipos de entrada pricipal de la refactorizaci�n
-	 * posibles.
-	 */
-	public static void writeFileToLoadRefactoringTypes() {
-		try {
-			Element refactoring;
-
-			Element root = new Element("dynamicRefactorings");
-
-			DocType type = new DocType(root.getName(), "refactoringsDTD.dtd"); //$NON-NLS-1$
-
-			for (Scope scope : Scope.values()) {
-				if (scope != Scope.BOUNDED_PAR) {
-					addRefactoringElementForScopeToRoot(root, scope);
-				}
-			}
-
-			Document newdoc = new Document(root, type);
-
-			writeToFile(RefactoringConstants.REFACTORING_TYPES_FILE, newdoc);
-		} catch (Exception e) {
-			throw Throwables.propagate(e);
-		}
-	}
-
-	/**
-	 * Crea la etiqueta con las refactorizaciones disponibles para el ambito
-	 * pasado y los agrega al elemento root.
-	 * 
-	 * @param root
-	 *            elemento root
-	 * @param scope
-	 *            ambito del que se va a generar la etiqueta.
-	 */
-	private static void addRefactoringElementForScopeToRoot(Element root,
-			Scope scope) {
-		Element refactoring;
-		Element classdef = new Element(scope.getXmlTag());
-
-		// a�dimos las refactorizaciones din�micas al grupo de classdef
-		for (Map.Entry<String, String> n_refactoring : ScopeLimitedLister
-				.getAvailableRefactorings(scope).entrySet()) {
-			refactoring = new Element("refactoring");
-			refactoring.setAttribute("name", n_refactoring.getKey());
-			refactoring.setAttribute("path", n_refactoring.getValue());
-			classdef.addContent(refactoring);
-		}
-		root.addContent(classdef);
 	}
 
 	/**
@@ -155,59 +100,6 @@ public class JDOMXMLRefactoringWriterImp implements XMLRefactoringWriterImp {
 		return new Document(refactoring, type);
 	}
 
-	/**
-	 * Elimina una refactoriazci�n dentro del fichero refactorings.xml.
-	 * 
-	 * @param scope
-	 *            �mbito de la refactorizaci�n.
-	 * @param name
-	 *            Nombre de la refactorizaci�n.
-	 * @throws XMLRefactoringReaderException
-	 *             XMLRefactoringReaderException.
-	 */
-	public void deleteRefactoringFromXml(Scope scope, String name)
-			throws XMLRefactoringReaderException {
-		try {
-			SAXBuilder builder = new SAXBuilder(true);
-			builder.setIgnoringElementContentWhitespace(true);
-			Document doc = builder.build(new File(
-					RefactoringConstants.REFACTORING_TYPES_FILE).toURI()
-					.toString());
-			removeScopeTag(name, scope, doc);
-			writeToFile(RefactoringConstants.REFACTORING_TYPES_FILE, doc);
-		} catch (JDOMException jdomexception) {
-			throw new XMLRefactoringReaderException(jdomexception.getMessage());
-		} catch (IOException ioexception) {
-			throw new XMLRefactoringReaderException(ioexception.getMessage());
-		}
-	}
-
-	/**
-	 * Elimina del elemento raiz del fichero de refactorizaciones disponibles
-	 * representado por el argumento doc la refactorizacion con el nombre y el
-	 * ambito dados.
-	 * 
-	 * @param refactoringName
-	 *            nombre de la refactorizacion a borrar
-	 * @param refactoringScope
-	 *            ambito de la refactorizacion a borrar
-	 * @param doc
-	 *            documento de JDOM que representa el fichero de
-	 *            refactorizaciones disponibles
-	 */
-	private void removeScopeTag(String refactoringName, Scope refactoringScope,
-			Document doc) {
-		Element classdef = doc.getRootElement().getChild(
-				refactoringScope.getXmlTag());
-		for (int i = 0; i < classdef.getChildren().size(); i++) {
-			Element refactor = (Element) classdef.getChildren().get(i);
-			if (refactor.getAttribute("name").getValue()
-					.equals(refactoringName)) {
-				classdef.removeContent(refactor);
-				break;
-			}
-		}
-	}
 
 	/**
 	 * Cambia el nombre de una refactorinzaci�n en el fichero temporal que
@@ -253,42 +145,6 @@ public class JDOMXMLRefactoringWriterImp implements XMLRefactoringWriterImp {
 			throw new XMLRefactoringReaderException(jdomexception.getMessage());
 		} catch (IOException ioexception) {
 			throw new XMLRefactoringReaderException(ioexception.getMessage());
-		}
-	}
-
-	/**
-	 * A�ade una l�nea dentro del fichero refactorings.xml.
-	 * 
-	 * @param scope
-	 *            �mbito de la refactorizaci�n.
-	 * @param name
-	 *            Nombre de la refactorizaci�n.
-	 * @param path
-	 *            Nombre de la ruta del fichero de definici�n de la
-	 *            refactorizaci�n.
-	 */
-	private void addNewRefactoringToXml(Scope scope, String name, String path) {
-		try {
-			SAXBuilder builder = new SAXBuilder(true);
-			builder.setIgnoringElementContentWhitespace(true);
-			// El atributo SYSTEM del DOCTYPE de la definici�n XML de la
-			// refactorizaci�n es solo la parte relativa de la ruta del
-			// fichero
-			// DTD. Se le antepone la ruta del directorio del plugin que
-			// contiene los ficheros de refactorizaciones din�micas.
-			Document doc = builder.build(new File(
-					RefactoringConstants.REFACTORING_TYPES_FILE).toURI()
-					.toString());
-			Element root = doc.getRootElement();
-			Element refactoring = new Element("refactoring");
-			refactoring.setAttribute("name", name);
-			refactoring.setAttribute("path", path);
-			root.getChild(scope.getXmlTag()).addContent(refactoring);
-			writeToFile(RefactoringConstants.REFACTORING_TYPES_FILE, doc);
-		} catch (JDOMException jdomexception) {
-
-		} catch (IOException ioexception) {
-
 		}
 	}
 
@@ -531,8 +387,7 @@ public class JDOMXMLRefactoringWriterImp implements XMLRefactoringWriterImp {
 			childElement
 					.setAttribute(
 							XMLRefactoringReaderImp.NAME_ATTRIBUTE,
-					PluginStringUtils.getMechanismFullyQualifiedName(type,
-							getMechanismName(mechanismWithNumber)));
+					PluginStringUtils.getMechanismFullyQualifiedName(type,mechanismWithNumber));
 			constructAmbiguousParameters(childElement, mechanismWithNumber,
 					type);
 			mechanismElement.addContent(childElement);
@@ -540,23 +395,6 @@ public class JDOMXMLRefactoringWriterImp implements XMLRefactoringWriterImp {
 		return mechanismElement;
 	}
 
-	/**
-	 * Recibe una precondicion, accion o postcondicion con el numero:
-	 * 
-	 * NotExistClassWithName(1)
-	 * 
-	 * y devuelve el nombre sin el numero:
-	 * 
-	 * NotExistClassWithName
-	 * 
-	 * @param preconditionWithNumber
-	 *            precondicion con formato nombre(numero)
-	 * @return devuelve nombre
-	 */
-	private String getMechanismName(final String preconditionWithNumber) {
-		return preconditionWithNumber.substring(0,
-				preconditionWithNumber.length() - 4);
-	}
 
 	/**
 	 * Escribe los elementos de los par�metros ambiguos de la refactorizaci�n.

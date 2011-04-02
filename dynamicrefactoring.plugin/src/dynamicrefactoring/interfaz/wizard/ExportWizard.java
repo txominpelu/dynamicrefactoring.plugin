@@ -45,7 +45,6 @@ import org.eclipse.swt.widgets.Text;
 
 import dynamicrefactoring.RefactoringImages;
 import dynamicrefactoring.domain.RefactoringsCatalog;
-import dynamicrefactoring.domain.XMLRefactoringsCatalog;
 import dynamicrefactoring.domain.xml.ExportImportUtilities;
 import dynamicrefactoring.interfaz.ButtonTextProvider;
 import dynamicrefactoring.interfaz.CustomProgressDialog;
@@ -334,8 +333,8 @@ public class ExportWizard extends DynamicRefactoringList {
 						ExportImportUtilities
 								.ExportRefactoring(
 										destination,
-										XMLRefactoringsCatalog
-												.getXmlRefactoringDefinitionFilePath(refactName),
+										refactCatalog.getRefactoring(next)
+												.getXmlRefactoringDefinitionFilePath(),
 										false);
 					}
 					monitor.worked(1);

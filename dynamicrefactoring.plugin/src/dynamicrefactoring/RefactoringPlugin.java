@@ -58,7 +58,6 @@ import repository.IRefactoringMessageListener;
 import repository.RelayListenerRegistry;
 import repository.moon.MOONRefactoring;
 import dynamicrefactoring.domain.RefactoringSummary;
-import dynamicrefactoring.domain.xml.writer.JDOMXMLRefactoringWriterImp;
 import dynamicrefactoring.domain.xml.writer.RefactoringPlanWriter;
 import dynamicrefactoring.integration.CodeRegenerator;
 import dynamicrefactoring.integration.ModelGenerator;
@@ -216,7 +215,6 @@ public class RefactoringPlugin extends AbstractUIPlugin
 		MOONRefactoring.resetModel();
 		LogManager.getInstance().loadLogConfig();
 		copyDefaultDynamicRefactoringsToStateLocation();
-		loadRefactoringTypes();
 		RefactoringPlanWriter.getInstance();
 
 	}
@@ -230,27 +228,31 @@ public class RefactoringPlugin extends AbstractUIPlugin
 	 */
 	private void copyDefaultDynamicRefactoringsToStateLocation()
 			throws IOException {
-		if (!new File(getStateLocation().toOSString()
+		if (!new File(getCommonPluginFilesDir()
 				+ "/Classification/classifications.xml").exists()) {
 			FileManager.copyResourceToDir(
-					"/Classification/classifications.xml", getStateLocation()
-							.toOSString());
+					"/Classification/classifications.xml", getCommonPluginFilesDir());
 		}
 		FileManager.copyResourceToDir("/Classification/classificationsDTD.dtd",
-				getStateLocation().toOSString());
+				getCommonPluginFilesDir());
 		FileManager.copyResourceToDir("/refactoringsDTD.dtd",
-				getStateLocation().toOSString());
+				getCommonPluginFilesDir());
 		FileManager.copyResourceToDir("/refactoringPlanDTD.dtd",
-				getStateLocation().toOSString());
+				getCommonPluginFilesDir());
 
-		if(!new File(getStateLocation().toOSString() + DYNAMIC_REFACTORINGS_FOLDER_NAME).exists()){
-			FileManager.copyBundleDirToFileSystem(
-					DYNAMIC_REFACTORINGS_FOLDER_NAME,
-					getStateLocation().toOSString());
-	
-		}
-		FileManager.copyBundleDirToFileSystem("/bin/", getStateLocation()
-				.toOSString());
+		FileManager.copyBundleDirToFileSystem("/bin/", getCommonPluginFilesDir());
+	}
+
+	/**
+	 * Obtiene la ruta del directorio en el que se guardaran
+	 * todos los ficheros que necesite el usuario en la
+	 * ejecucion del plugin independientemente del workspace
+	 * en el que el usuario este trabajando.
+	 * 
+	 * @return ruta del directorio comun de ficheros
+	 */
+	public static String getCommonPluginFilesDir() {
+		return RefactoringPlugin.getDefault().getStateLocation().toOSString();
 	}
 
 	/**
@@ -259,7 +261,7 @@ public class RefactoringPlugin extends AbstractUIPlugin
 	 * @return el directorio en el que se guardaran los ficheros de refactorizacion.
 	 */
 	public static String getDynamicRefactoringsDir() {
-		return RefactoringPlugin.getDefault().getStateLocation().toOSString()
+		return getCommonPluginFilesDir()
 				+ DYNAMIC_REFACTORINGS_FOLDER_NAME;
 	}
 
@@ -913,14 +915,6 @@ public class RefactoringPlugin extends AbstractUIPlugin
 			PropertyManager.getInstance().getBackupDirectory();
 		
 		return tmpDir + File.separatorChar + backupDirName; //$NON-NLS-1$
-	}
-
-	/**
-	 * Carga en un fichero xml las diferentes refactorizaciones que son posibles
-	 * para los diferentes tipos de entrada principal de una refactorizaci�n.
-	 */
-	private void loadRefactoringTypes(){
-		JDOMXMLRefactoringWriterImp.writeFileToLoadRefactoringTypes();
 	}
 
 	/**

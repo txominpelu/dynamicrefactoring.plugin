@@ -22,8 +22,8 @@ package dynamicrefactoring.interfaz.wizard;
 
 import java.io.IOException;
 import java.text.MessageFormat;
-import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
 import org.apache.log4j.Logger;
 import org.eclipse.jface.dialogs.MessageDialog;
@@ -50,7 +50,7 @@ import dynamicrefactoring.domain.RefactoringMechanism;
  * 
  * @author <A HREF="mailto:lfd0002@alu.ubu.es">Laura Fuente de la Fuente</A>
  */
-public class RefactoringWizardPage4 extends WizardPage implements  IRefactoringWizardElementPage {
+public final class RefactoringWizardPage4 extends WizardPage implements  IRefactoringWizardElementPage {
 
 
 	/**
@@ -161,7 +161,7 @@ public class RefactoringWizardPage4 extends WizardPage implements  IRefactoringW
 	 * 
 	 * @see RepositoryElementComposite#getParameters()
 	 */
-	public HashMap<String, java.util.List<String[]>> getAmbiguousParameters() {
+	public HashMap<String, List<String[]>> getAmbiguousParameters() {
 		return actionsTab.getParameters();
 	}
 
@@ -171,7 +171,7 @@ public class RefactoringWizardPage4 extends WizardPage implements  IRefactoringW
 	 * 
 	 * @return la lista de nombres de acciones seleccionadas.
 	 */
-	public ArrayList<String> getActions(){
+	public List<String> getActions(){
 		return actionsTab.getElements();
 	}
 		

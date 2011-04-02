@@ -50,4 +50,5 @@ public class RefactoringExample {
 				.add("after", getAfter()).toString();
 	}
 
+
 }

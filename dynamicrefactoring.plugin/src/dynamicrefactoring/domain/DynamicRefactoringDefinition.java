@@ -21,6 +21,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.*/
 package dynamicrefactoring.domain;
 
 import java.io.File;
+import java.io.IOException;
 import java.text.MessageFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -32,11 +33,14 @@ import java.util.Map;
 import java.util.Set;
 
 import com.google.common.base.Function;
+import com.google.common.base.Objects;
 import com.google.common.base.Preconditions;
 import com.google.common.base.Predicate;
+import com.google.common.base.Throwables;
 import com.google.common.collect.Collections2;
 
 import dynamicrefactoring.RefactoringConstants;
+import dynamicrefactoring.RefactoringPlugin;
 import dynamicrefactoring.domain.metadata.classifications.xml.imp.PluginClassificationsCatalog;
 import dynamicrefactoring.domain.metadata.interfaces.Category;
 import dynamicrefactoring.domain.metadata.interfaces.ClassificationsCatalog;
@@ -45,6 +49,7 @@ import dynamicrefactoring.domain.xml.reader.JDOMXMLRefactoringReaderFactory;
 import dynamicrefactoring.domain.xml.reader.XMLRefactoringReader;
 import dynamicrefactoring.domain.xml.reader.XMLRefactoringReaderFactory;
 import dynamicrefactoring.domain.xml.reader.XMLRefactoringReaderImp;
+import dynamicrefactoring.util.io.FileManager;
 
 /**
  * Contiene la definici�n de una refactorizaci�n din�mica.
@@ -118,6 +123,12 @@ public class DynamicRefactoringDefinition implements Element,
 	 */
 	private Set<String> keywords;
 
+	/**
+	 * Si la refactorizacion es editable o por el contrario pertenece al plugin
+	 * y no se puede editar.
+	 */
+	private boolean isEditable;
+
 	private DynamicRefactoringDefinition(Builder builder) {
 		name = builder.name;
 		description = builder.description;
@@ -134,6 +145,7 @@ public class DynamicRefactoringDefinition implements Element,
 		ambiguousParameters = builder.ambiguousParameters;
 
 		examples = builder.examples;
+		isEditable = builder.isEditable;
 	}
 
 	/**
@@ -168,29 +180,29 @@ public class DynamicRefactoringDefinition implements Element,
 	public String getImage() {
 		return image;
 	}
-	
-	/**
-	 * Devuelve la ruta de la imagen asociada a la refactorizaci�n.
-	 * 
-	 * @return una cadena con la ruta a la imagen.
-	 * 
-	 * @see #setImage
-	 */
-	public String getAbsolutePathImage() {
-		return getRefactoringDefinitionFileFullPath(getImage());
-	}
 
 	/**
 	 * Devuelve las entradas que se deben solicitar al usuario para construir la
 	 * refactorizaci�n.
 	 * 
-	 * @return una lista de <i>arrays</i> de cadenas con la informaci�n de
-	 *         esas entradas.
+	 * @return una lista de <i>arrays</i> de cadenas con la informaci�n de esas
+	 *         entradas.
 	 * 
 	 * @see #setInputs
 	 */
 	public List<InputParameter> getInputs() {
 		return inputs;
+	}
+
+	/**
+	 * Devuelve si la refactorizacion es editable (puesto que pertenece al
+	 * usuario) o es solo de escritura (pertenece al plugin).
+	 * 
+	 * @return verdadero si la refactorizacion es del usuario y por tanto se
+	 *         puede editar
+	 */
+	public boolean isEditable() {
+		return isEditable;
 	}
 
 	/**
@@ -275,8 +287,8 @@ public class DynamicRefactoringDefinition implements Element,
 	 * postcondici�n determinada.
 	 * 
 	 * @param name
-	 *            nombre simple de la precondici�n, acci�n o postcondici�n
-	 *            cuyos par�metros ambiguos se deben obtener.
+	 *            nombre simple de la precondici�n, acci�n o postcondici�n cuyos
+	 *            par�metros ambiguos se deben obtener.
 	 * @param typePart
 	 *            {@link RefactoringConstants#PRECONDITION},
 	 *            {@link RefactoringConstants#ACTION} o
@@ -291,20 +303,21 @@ public class DynamicRefactoringDefinition implements Element,
 			RefactoringMechanism typePart) {
 
 		// Se obtienen todas las entradas del predicado o accion.
-		List<String[]> inputs = ambiguousParameters[typePart.ordinal()]
+		List<String[]> localInputs = ambiguousParameters[typePart.ordinal()]
 				.get(name);
 
-		if (inputs != null) {
+		if (localInputs != null) {
 			List<String[]> params = new ArrayList<String[]>();
 
 			// Se crea una copia de la lista de entradas del predicado o accion.
-			for (String[] param : inputs) {
+			for (String[] param : localInputs) {
 				String[] temp = Arrays.copyOf(param, param.length);
 				params.add(temp);
 			}
 
-			if (params.size() > 0)
+			if (params.size() > 0) {
 				return params;
+			}
 		}
 		return null;
 	}
@@ -321,23 +334,20 @@ public class DynamicRefactoringDefinition implements Element,
 	}
 	
 	/**
-	 * Devuelve los ejemplos de la refactorizaci�n.
+	 * Obtiene la lista de ejemplos de la refactorizacion pero
+	 * con rutas absolutas a los ficheros de ejemplo.
 	 * 
-	 * @return una lista de arrays de cadenas con los atributos de cada ejemplo.
-	 * 
-	 * @see #setExamples
+	 * @return rutas absolutas a los ficheros de ejemplo de la refactorizacion
 	 */
-	public List<RefactoringExample> getAbsolutePathExamples() {
+	public List<RefactoringExample> getExamplesAbsolutePath() {
 		List<RefactoringExample> absolutePathExamples = new ArrayList<RefactoringExample>();
-		for(RefactoringExample ejemplo : examples){
-			absolutePathExamples.add(new RefactoringExample(getRefactoringDefinitionFileFullPath(ejemplo.getBefore()), getRefactoringDefinitionFileFullPath(ejemplo.getAfter())));
+		for (RefactoringExample ejemplo : getExamples()) {
+			absolutePathExamples.add(new RefactoringExample(getRefactoringFileFullPath(ejemplo
+					.getBefore()), getRefactoringFileFullPath(ejemplo.getAfter())));
 		}
 		return absolutePathExamples;
 	}
 
-	private String getRefactoringDefinitionFileFullPath(String filePath) {
-		return new File(filePath).isAbsolute() ? filePath : XMLRefactoringsCatalog.getDirectoryToSaveRefactoringFile(getName()) + File.separator + filePath;
-	}
 
 	/**
 	 * Devuelve la definici�n de una refactorizaci�n a partir de un fichero.
@@ -348,8 +358,8 @@ public class DynamicRefactoringDefinition implements Element,
 	 * @return la definici�n de la refactorizaci�n descrita en el fichero.
 	 * 
 	 * @throws RefactoringException
-	 *             si se produce un error al cargar la refactorizaci�n desde
-	 *             el fichero indicado.
+	 *             si se produce un error al cargar la refactorizaci�n desde el
+	 *             fichero indicado.
 	 */
 	public static DynamicRefactoringDefinition getRefactoringDefinition(
 			String refactoringFilePath) throws RefactoringException {
@@ -372,7 +382,7 @@ public class DynamicRefactoringDefinition implements Element,
 
 			throw new RefactoringException(formatter.format(messageArgs)
 					+ ".\n" + //$NON-NLS-1$
-					e.getMessage());
+					e.getMessage(), e);
 		}
 		return definition;
 	}
@@ -392,8 +402,9 @@ public class DynamicRefactoringDefinition implements Element,
 					 */
 					@Override
 					public boolean apply(Category arg0) {
-						return arg0.getParent().equals(
-								PluginClassificationsCatalog.SCOPE_CLASSIFICATION);
+						return arg0
+								.getParent()
+								.equals(PluginClassificationsCatalog.SCOPE_CLASSIFICATION);
 					}
 
 				});
@@ -426,18 +437,20 @@ public class DynamicRefactoringDefinition implements Element,
 	/**
 	 * Devuelve si la refactorizacion pertenece a un scope.
 	 * 
-	 * @param definition definicion de la refactorizacion
+	 * @param definition
+	 *            definicion de la refactorizacion
 	 * @return si pertenece a un scope
 	 */
 	public static boolean containsScopeCategory(Set<Category> categories) {
-		for(Category c:  categories){
-			if(c.getParent().equals(PluginClassificationsCatalog.SCOPE_CLASSIFICATION)){
+		for (Category c : categories) {
+			if (c.getParent().equals(
+					PluginClassificationsCatalog.SCOPE_CLASSIFICATION)) {
 				return true;
 			}
 		}
 		return false;
 	}
-	
+
 	@Override
 	public final boolean belongsTo(Category category) {
 		return categories.contains(category);
@@ -475,6 +488,7 @@ public class DynamicRefactoringDefinition implements Element,
 		}
 		return false;
 	}
+
 	@Override
 	public boolean containsPrecondition(String precondition) {
 		return preconditions.contains(precondition);
@@ -489,7 +503,7 @@ public class DynamicRefactoringDefinition implements Element,
 	public boolean containsPostcondition(String postcondition) {
 		return postconditions.contains(postcondition);
 	}
-	
+
 	/**
 	 * Las refactorizaciones se ordenan en base a su nombre.
 	 * 
@@ -509,8 +523,7 @@ public class DynamicRefactoringDefinition implements Element,
 	}
 
 	/**
-	 * Obtiene el conjunto de palabras claves que describen la
-	 * refactorizaci�n.
+	 * Obtiene el conjunto de palabras claves que describen la refactorizaci�n.
 	 * 
 	 * @return conjunto de palabras claves
 	 */
@@ -520,9 +533,10 @@ public class DynamicRefactoringDefinition implements Element,
 
 	/**
 	 * Dos refactorizaciones son consideradas iguales si tienen el mismo nombre.
-	 * Esto es debido a que en el catalogo de refactorizaciones {@link ClassificationsCatalog}
-	 * se considera que el nombre es un identificador unico y por tanto no puede
-	 * haber dos refactorizaciones con el mismo nombre.
+	 * Esto es debido a que en el catalogo de refactorizaciones
+	 * {@link ClassificationsCatalog} se considera que el nombre es un
+	 * identificador unico y por tanto no puede haber dos refactorizaciones con
+	 * el mismo nombre.
 	 * 
 	 * @param object
 	 *            objeto a comparar
@@ -537,7 +551,31 @@ public class DynamicRefactoringDefinition implements Element,
 		}
 		return false;
 	}
-	
+
+	/**
+	 * Devuelve si otra refactorizacion es exactamente igual a otra. Es decir si
+	 * todos sus campos contienen los mismos valores.
+	 * 
+	 * @param otra
+	 *            refactorizacion a comparar
+	 * @return verdaderos si son iguales para cada campo de cada refactorizacion
+	 */
+	public boolean exactlyEquals(DynamicRefactoringDefinition otra) {
+		return Objects.equal(getActions(), otra.getActions())
+				&& Objects.equal(getAmbiguousParameters(),
+						otra.getAmbiguousParameters())
+				&& Objects.equal(getCategories(), otra.getCategories())
+				&& Objects.equal(getExamples(), otra.getExamples())
+				&& Objects.equal(getImage(), otra.getImage())
+				&& Objects.equal(getInputs(), otra.getInputs())
+				&& Objects.equal(getMotivation(), otra.getMotivation())
+				&& Objects.equal(getName(), otra.getName())
+				&& Objects.equal(getDescription(), otra.getDescription())
+				&& Objects.equal(getKeywords(), otra.getKeywords())
+				&& Objects.equal(getPostconditions(), otra.getPostconditions())
+				&& Objects.equal(getPreconditions(), otra.getPreconditions())
+				&& Objects.equal(isEditable(), otra.isEditable());
+	}
 
 	@Override
 	public String toString() {
@@ -571,6 +609,72 @@ public class DynamicRefactoringDefinition implements Element,
 				.postconditions(getPostconditions())
 				.preconditions(getPreconditions());
 	}
+	
+	/**
+	 * Obtiene la ruta absoluta de la imagen en 
+	 * el sistema de ficheros.
+	 * 
+	 * @return ruta absoluta de la imagen
+	 */
+	public String getImageAbsolutePath() {
+		return getRefactoringFileFullPath(getImage());
+	}
+	
+	/**
+	 * Obtiene ruta donde se guarda el fichero de definicion de la
+	 * refactorizacion pasada.
+	 * 
+	 * @param refactName
+	 *            nombre de la refactorizacion
+	 * @return ruta donde se guarda la definicion de la refactorizacion
+	 */
+	public String getXmlRefactoringDefinitionFilePath() {
+		return getDirectoryToSaveRefactoringFile().getPath()
+				+ File.separator + getName()
+				+ RefactoringConstants.FILE_EXTENSION;
+
+	}
+
+	/**
+	 * Obtiene un fichero cuya ruta sera la del directorio donde se guardara el
+	 * fichero de definicion de la refactorizacion.
+	 * @param refactoringName 
+	 * 
+	 * @param refact
+	 *            nombre de la refactorizacion
+	 * @return fichero con la ruta donde se guardara la definicion de la
+	 *         refactorizacion
+	 */
+	public File getDirectoryToSaveRefactoringFile() {
+		return new File(RefactoringPlugin.getDynamicRefactoringsDir()
+				+ File.separator + getName() + File.separator);
+	}
+
+	/**
+	 * Dado una ruta a un fichero devuelve esta misma si es una ruta absoluta o
+	 * devuelve la ruta tomando como directorio base el directorio de la
+	 * refactorizacion si es una ruta relativa.
+	 * 
+	 * @param filePath
+	 *            ruta de un fichero
+	 * @return ruta absoluta del fichero
+	 */
+	private String getRefactoringFileFullPath(String filePath) {
+		if(!new File(filePath).isAbsolute()){
+			if(isEditable()){
+				return getDirectoryToSaveRefactoringFile()
+				+ File.separator + filePath;
+			}else{
+				try {
+					return FileManager.getBundleFileAsSystemFile(String.format("/DynamicRefactorings/%s/%s", getName() ,filePath)).getAbsolutePath();
+				} catch (IOException e) {
+					throw Throwables.propagate(e);
+				}
+			}
+		}
+		return filePath;
+	}
+	
 
 	/**
 	 * Constructor de definiciones de refactorizaciones siguiendo el patrón
@@ -581,6 +685,7 @@ public class DynamicRefactoringDefinition implements Element,
 	 */
 	public static final class Builder {
 
+		private boolean isEditable = false;
 		private Set<Category> categories;
 		private Set<String> keywords = new HashSet<String>();
 		private List<RefactoringExample> examples = new ArrayList<RefactoringExample>();
@@ -593,14 +698,6 @@ public class DynamicRefactoringDefinition implements Element,
 		private List<String> actions;
 		private List<String> postconditions;
 		private Map<String, List<String[]>>[] ambiguousParameters;
-		/**
-		 * Mapa de ejemplos en los que no se tiene la ruta
-		 * absoluta y lo que se hara sera tomar como directorio
-		 * raiz la ruta de la refactorizacion.
-		 * 
-		 * La clave es el before y el valor el after del ejemplo.
-		 */
-		private Map<String, String> examplesToNormalize;
 
 		/**
 		 * Crea un builder para crear una definicion de refactorizacion con el
@@ -643,12 +740,11 @@ public class DynamicRefactoringDefinition implements Element,
 			checkParameterNotNull(image, "image");
 			checkParameterNotNull(examples, "examples");
 			checkParameterNotNull(keywords, "keywords");
-				
-			//Preconditions.checkArgument(containsScopeCategory(definition.getCategories()), "The refactoring must belong to at least one scope.");
+
+			// Preconditions.checkArgument(containsScopeCategory(definition.getCategories()),
+			// "The refactoring must belong to at least one scope.");
 			return definition;
 		}
-
-		
 
 		private void checkParameterNotNull(Object parameter,
 				String parameterName) {
@@ -671,7 +767,7 @@ public class DynamicRefactoringDefinition implements Element,
 			this.categories = categories;
 			return this;
 		}
-		
+
 		/**
 		 * Asigna un nombre distinto al actual.
 		 * 
@@ -701,17 +797,30 @@ public class DynamicRefactoringDefinition implements Element,
 		 * 
 		 * @param list
 		 *            lista de arrays de cadenas con los atributos de cada
-		 *            ejemplo. Cada array de cadenas contendr� dos cadenas,
-		 *            una con la ruta del fichero que contiene el estado del
-		 *            ejemplo antes de la refactorizaci�n, y otra con la ruta
-		 *            del que contiene el estado despu�s de la
-		 *            refactorizaci�n.
+		 *            ejemplo. Cada array de cadenas contendr� dos cadenas, una
+		 *            con la ruta del fichero que contiene el estado del ejemplo
+		 *            antes de la refactorizaci�n, y otra con la ruta del que
+		 *            contiene el estado despu�s de la refactorizaci�n.
 		 * @return devuelve el builder con el nuevo parametro
 		 * 
 		 * @see #getExamples
 		 */
 		public Builder examples(List<RefactoringExample> list) {
 			this.examples = list;
+			return this;
+		}
+
+		/**
+		 * Asigna el atributo editable de la refactorizacion que si no es
+		 * asignado toma como valor por defecto false.
+		 * 
+		 * @param isEditable
+		 *            si la refactorizacion sera editable
+		 * @return devuelve el builder con el nuevo parametro
+		 * @see DynamicRefactoringDefinition#isEditable()
+		 */
+		public Builder isEditable(boolean isEditable) {
+			this.isEditable = isEditable;
 			return this;
 		}
 
@@ -831,5 +940,7 @@ public class DynamicRefactoringDefinition implements Element,
 		}
 
 	}
+
+	
 
 }

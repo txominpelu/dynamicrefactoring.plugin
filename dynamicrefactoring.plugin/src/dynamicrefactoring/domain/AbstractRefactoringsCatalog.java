@@ -10,13 +10,13 @@ import com.google.common.collect.ImmutableSet;
 
 import dynamicrefactoring.domain.condition.SameNamePredicate;
 
-class AbstractRefactoringsCatalog implements RefactoringsCatalog {
+public class AbstractRefactoringsCatalog implements RefactoringsCatalog {
 
 	private final Set<DynamicRefactoringDefinition> refactorings;
 
 	public AbstractRefactoringsCatalog(
 			Set<DynamicRefactoringDefinition> refactorings) {
-		this.refactorings = refactorings;
+		this.refactorings = new HashSet<DynamicRefactoringDefinition>(refactorings);
 	}
 
 	@Override
@@ -59,7 +59,8 @@ class AbstractRefactoringsCatalog implements RefactoringsCatalog {
 	@Override
 	public void removeRefactoring(String refactoringName) {
 		Preconditions.checkArgument(hasRefactoring(refactoringName));
-		refactorings.remove(getRefactoring(refactoringName));
+		final DynamicRefactoringDefinition refactToRemove = getRefactoring(refactoringName);
+		refactorings.remove(refactToRemove);
 	}
 	
 

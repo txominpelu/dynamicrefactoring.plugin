@@ -22,7 +22,6 @@ package dynamicrefactoring.interfaz;
 
 import org.apache.log4j.Logger;
 import org.eclipse.jface.dialogs.Dialog;
-import org.eclipse.jface.dialogs.IDialogConstants;
 import org.eclipse.jface.window.IShellProvider;
 import org.eclipse.swt.widgets.List;
 import org.eclipse.swt.widgets.Shell;
@@ -85,10 +84,6 @@ public abstract class DynamicRefactoringList extends Dialog {
 			l_Available.add(refact.getName());	
 		}
 					
-		if(refactCatalog.getAllRefactorings().size() == 0){
-			l_Available.add(Messages.DynamicRefactoringList_NoneFound);
-			getButton(IDialogConstants.OK_ID).setEnabled(false);
-		}
 	}
 
 }

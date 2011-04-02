@@ -36,19 +36,19 @@
     </inputs>
     <mechanism>
         <preconditions>
-            <precondition name="repository.moon.concretepredicate.SignatureEntityIsNotUsedInMeth">
+            <precondition name="repository.moon.concretepredicate.SignatureEntityIsNotUsedInMethod">
                 <param name="Argument"/>
                 <param name="Method"/>
             </precondition>
         </preconditions>
         <actions>
-            <action name="repository.moon.concreteaction.RemoveFormalA">
+            <action name="repository.moon.concreteaction.RemoveFormalArg">
                 <param name="Argument"/>
                 <param name="Method"/>
             </action>
         </actions>
         <postconditions>
-            <postcondition name="repository.moon.concretepredicate.HasNotFormalA">
+            <postcondition name="repository.moon.concretepredicate.HasNotFormalArg">
                 <param name="Method"/>
                 <param name="Argument"/>
             </postcondition>

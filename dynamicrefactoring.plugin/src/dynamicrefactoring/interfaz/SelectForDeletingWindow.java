@@ -32,8 +32,6 @@ import org.eclipse.ui.PlatformUI;
 
 import dynamicrefactoring.domain.DynamicRefactoringDefinition;
 import dynamicrefactoring.domain.RefactoringsCatalog;
-import dynamicrefactoring.domain.XMLRefactoringsCatalog;
-import dynamicrefactoring.util.io.FileManager;
 
 /**
  * Permite seleccionar una de las refactorizaciones din�micas disponibles para
@@ -57,7 +55,8 @@ public class SelectForDeletingWindow extends SelectDynamicRefactoringWindow {
 	 * @param parentShell
 	 *            la <i>shell</i> padre de esta ventana de di�logo.
 	 */
-	public SelectForDeletingWindow(Shell parentShell, RefactoringsCatalog refactCatalog) {
+	public SelectForDeletingWindow(Shell parentShell,
+			RefactoringsCatalog refactCatalog) {
 		super(parentShell, refactCatalog);
 
 		logger = Logger.getLogger(SelectForDeletingWindow.class);
@@ -98,52 +97,27 @@ public class SelectForDeletingWindow extends SelectDynamicRefactoringWindow {
 	@Override
 	protected void buttonPressed(int buttonId) {
 
-		if (buttonId == IDialogConstants.OK_ID) {
+		if (buttonId == IDialogConstants.OK_ID
+				&& l_Available.getSelectionCount() == 1) {
 
-			if (l_Available.getSelectionCount() == 1) {
+			DynamicRefactoringDefinition refactoring = refactCatalog
+					.getRefactoring(l_Available.getSelection()[0]);
 
-				DynamicRefactoringDefinition refactoring = refactCatalog
-						.getRefactoring(l_Available.getSelection()[0]);
+			if (isConfirmed(refactoring.getName())) {
 
-				if (isConfirmed(refactoring.getName())) {
+				this.close();
 
-					this.close();
+				refactCatalog.removeRefactoring(refactoring.getName());
 
-					FileManager.emptyDirectories(XMLRefactoringsCatalog
-							.getXmlRefactoringDefinitionFilePath(refactoring
-									.getName()));
-					boolean deleted = FileManager
-							.deleteDirectories(
-									XMLRefactoringsCatalog
-											.getXmlRefactoringDefinitionFilePath(refactoring
-													.getName()), true);
+				Object[] messageArgs = { "\"" + refactoring.getName() + "\"" }; //$NON-NLS-1$ //$NON-NLS-2$
+				MessageFormat formatter = new MessageFormat(""); //$NON-NLS-1$
+				formatter
+						.applyPattern(Messages.SelectForDeletingWindow_Deleted);
 
-					Object[] messageArgs = { "\"" + refactoring.getName() + "\"" }; //$NON-NLS-1$ //$NON-NLS-2$
-					MessageFormat formatter = new MessageFormat(""); //$NON-NLS-1$
-					if (deleted) {
-						formatter
-								.applyPattern(Messages.SelectForDeletingWindow_Deleted);
-
-						MessageDialog
-								.openInformation(
-										PlatformUI.getWorkbench()
-												.getActiveWorkbenchWindow()
-												.getShell(),
-										Messages.SelectForDeletingWindow_RefactoringDeleted,
-										formatter.format(messageArgs) + "."); //$NON-NLS-1$
-					} else {
-						formatter
-								.applyPattern(Messages.SelectForDeletingWindow_NotDeleted);
-
-						MessageDialog
-								.openError(
-										PlatformUI.getWorkbench()
-												.getActiveWorkbenchWindow()
-												.getShell(),
-										Messages.SelectForDeletingWindow_RefactoringNotDeleted,
-										formatter.format(messageArgs) + "."); //$NON-NLS-1$
-					}
-				}
+				MessageDialog.openInformation(PlatformUI.getWorkbench()
+						.getActiveWorkbenchWindow().getShell(),
+						Messages.SelectForDeletingWindow_RefactoringDeleted,
+						formatter.format(messageArgs) + "."); //$NON-NLS-1$
 			}
 		}
 

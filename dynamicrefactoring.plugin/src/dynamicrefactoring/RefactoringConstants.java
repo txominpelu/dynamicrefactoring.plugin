@@ -55,8 +55,7 @@ public class RefactoringConstants {
 	 * Nombre del fichero en el que se guardan las distintas refactorizaciones
 	 * din�micas clasificadas seg�n el tipo de entrada principal.
 	 */
-	public static final String REFACTORING_TYPES_FILE = RefactoringPlugin
-			.getDefault().getStateLocation().toOSString()
+	public static final String REFACTORING_TYPES_FILE = RefactoringPlugin.getCommonPluginFilesDir()
 			+ "/refactorings.xml";
 
 	/**
@@ -68,16 +67,14 @@ public class RefactoringConstants {
 	/**
 	 * Fichero DTD que contiene la estructura del REFACTORING_PLAN_FILE.
 	 */
-	public static final String REFACTORING_PLAN_DTD = RefactoringPlugin
-			.getDefault().getStateLocation().toOSString()
+	public static final String REFACTORING_PLAN_DTD = RefactoringPlugin.getCommonPluginFilesDir()
 			+ "/refactoringPlanDTD.dtd";
 
 	/**
 	 * Nombre del fichero en el que se guardan las distintas refactorizaciones
 	 * din�micas que han sido ejecutadas dentro de la aplicaci�n.
 	 */
-	public static final String REFACTORING_PLAN_FILE = RefactoringPlugin
-			.getDefault().getStateLocation().toOSString()
+	public static final String REFACTORING_PLAN_FILE = RefactoringPlugin.getCommonPluginFilesDir()
 			+ "/refactoringPlan.xml";
 	
 	/**
@@ -97,8 +94,7 @@ public class RefactoringConstants {
 	/**
 	 * Ruta al directorio donde se encuentran las clases del plugin.
 	 */
-	public static final String REFACTORING_CLASSES_DIR = RefactoringPlugin
-			.getDefault().getStateLocation().toOSString()
+	public static final String REFACTORING_CLASSES_DIR = RefactoringPlugin.getCommonPluginFilesDir()
 			+ "/bin/"; //$NON-NLS-1$
 	
 	/**
@@ -190,7 +186,7 @@ public class RefactoringConstants {
 	/**
 	 * Ruta al fichero de clasificaciones.
 	 */
-	public static final String CLASSIFICATION_TYPES_FILE = RefactoringPlugin.getDefault().getStateLocation().toOSString() +
+	public static final String CLASSIFICATION_TYPES_FILE = RefactoringPlugin.getCommonPluginFilesDir() +
 			File.separator + "Classification" + File.separator + "classifications.xml";
 
 	/**

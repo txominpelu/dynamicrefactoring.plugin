@@ -22,7 +22,6 @@ package dynamicrefactoring.interfaz.wizard;
 
 import java.io.IOException;
 import java.text.MessageFormat;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
@@ -174,17 +173,22 @@ public class RefactoringWizardPage5 extends WizardPage implements IRefactoringWi
 	 * @see RepositoryElementComposite#getParameters()
 	 */
 	public HashMap<String, List<String[]>> getAmbiguousParameters() {
-		
 		return postconditionsTab.getParameters();
 	}
 	
 	
 	/**
 	 * Obtiene la lista de nombres de postcondiciones seleccionadas.
+	 * Las precondiciones seleccionadas son exclusivamente los nombres
+	 * de los tipos de las mismas.
+	 * 
+	 * Ejemplo:
+	 * 
+	 * AddAtribute
 	 * 
 	 * @return la lista de nombres de postcondiciones seleccionadas.
 	 */
-	public ArrayList<String> getPostconditions(){
+	public List<String> getPostconditions(){
 		return postconditionsTab.getElements();
 	}
 		

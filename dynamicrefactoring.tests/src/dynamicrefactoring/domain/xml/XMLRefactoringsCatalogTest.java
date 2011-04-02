@@ -1,4 +1,4 @@
-package dynamicrefactoring.domain;
+package dynamicrefactoring.domain.xml;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
@@ -17,10 +17,13 @@ import org.junit.Test;
 
 import test.util.Utils;
 import dynamicrefactoring.RefactoringPlugin;
+import dynamicrefactoring.domain.DynamicRefactoringDefinition;
+import dynamicrefactoring.domain.RefactoringExample;
+import dynamicrefactoring.domain.RefactoringsCatalog;
 import dynamicrefactoring.domain.metadata.interfaces.Category;
 import dynamicrefactoring.util.io.FileManager;
 
-public class SimpleRefactoringsCatalogTest {
+public final class XMLRefactoringsCatalogTest {
 
 	private static final String TESTDATA_EXAMPLES_DIR = "/testdata/examples/";
 	private static final String IMAGEN_FILENAME = "imagen.jpeg";
@@ -70,14 +73,16 @@ public class SimpleRefactoringsCatalogTest {
 		expectedRefactoringCategories.add(new Category(MI_CLASIFICACION1,
 				NEW_NAME));
 
+		final DynamicRefactoringDefinition expectedRefact = refactoringToUpdate
+				.getBuilder().categories(expectedRefactoringCategories)
+				.build();
 		refactCatalog
-				.updateRefactoring(MI_REFACT1_NAME, refactoringToUpdate
-						.getBuilder().categories(expectedRefactoringCategories)
-						.build());
+				.updateRefactoring(MI_REFACT1_NAME, expectedRefact);
 
 		assertEquals(expectedRefactoringCategories,
 				new RefactoringCatalogStub().getRefactoring(MI_REFACT1_NAME)
 						.getCategories());
+		assertTrue(expectedRefact.exactlyEquals(new RefactoringCatalogStub().getRefactoring(MI_REFACT1_NAME)));
 	}
 
 	/**
@@ -94,8 +99,7 @@ public class SimpleRefactoringsCatalogTest {
 		expectedRefactorings.add(refactToAdd);
 		refactCatalog.addRefactoring(refactToAdd);
 		assertEquals(expectedRefactorings, refactCatalog.getAllRefactorings());
-		assertEquals(refactToAdd,
-				new RefactoringCatalogStub().getRefactoring(NEW_NAME));
+		assertTrue(refactToAdd.exactlyEquals(new RefactoringCatalogStub().getRefactoring(NEW_NAME)));
 	}
 
 	/**
@@ -121,12 +125,11 @@ public class SimpleRefactoringsCatalogTest {
 		assertEquals(refactToAdd,
 				new RefactoringCatalogStub().getRefactoring(NEW_NAME));
 		// Comprobamos que el directorio existe
-		assertTrue(XMLRefactoringsCatalog.getDirectoryToSaveRefactoringFile(
-				NEW_NAME).exists());
-		checkImage(NEW_NAME);
+		assertTrue(refactToAdd.getDirectoryToSaveRefactoringFile().exists());
+		checkImage(refactToAdd);
 	}
 
-	private void checkImage(String refactoring) throws IOException {
+	private void checkImage(DynamicRefactoringDefinition refactoring) throws IOException {
 		assertTrue(getRefactoringDirectoryFile(refactoring, IMAGEN_FILENAME)
 				.exists());
 		assertTrue(FileUtils.contentEquals(
@@ -134,7 +137,7 @@ public class SimpleRefactoringsCatalogTest {
 				getRefactoringDirectoryFile(refactoring, IMAGEN_FILENAME)));
 		assertEquals(getRefactoringDirectoryFile(refactoring, IMAGEN_FILENAME)
 				.getName(),
-				new RefactoringCatalogStub().getRefactoring(refactoring)
+				new RefactoringCatalogStub().getRefactoring(refactoring.getName())
 						.getImage());
 	}
 
@@ -161,8 +164,7 @@ public class SimpleRefactoringsCatalogTest {
 		assertEquals(refactToAdd,
 				refactoringCatalogStub.getRefactoring(NEW_NAME));
 		// Comprobamos que el directorio existe
-		assertTrue(XMLRefactoringsCatalog.getDirectoryToSaveRefactoringFile(
-				NEW_NAME).exists());
+		assertTrue(refactToAdd.getDirectoryToSaveRefactoringFile().exists());
 		checkExamples(refactoringCatalogStub);
 	}
 	
@@ -176,10 +178,10 @@ public class SimpleRefactoringsCatalogTest {
 	@Test
 	public final void testUpdateRefactoringWithExamples() throws IOException {
 		final Set<DynamicRefactoringDefinition> expectedRefactorings = refactCatalog.getAllRefactorings();
-		expectedRefactorings.remove( refactCatalog
-				.getRefactoring(MI_REFACT1_NAME));
-		final DynamicRefactoringDefinition refactToUpdate = refactCatalog
-				.getRefactoring(MI_REFACT1_NAME).getBuilder().name(NEW_NAME)
+		final DynamicRefactoringDefinition refactToRemove = refactCatalog
+				.getRefactoring(MI_REFACT1_NAME);
+		expectedRefactorings.remove( refactToRemove);
+		final DynamicRefactoringDefinition refactToUpdate = refactToRemove.getBuilder().name(NEW_NAME)
 				.examples(getSourceExamples()).build();
 		expectedRefactorings.add(refactToUpdate);
 		refactCatalog.updateRefactoring(MI_REFACT1_NAME, refactToUpdate);
@@ -188,11 +190,10 @@ public class SimpleRefactoringsCatalogTest {
 		assertEquals(refactToUpdate,
 				refactoringCatalogStub.getRefactoring(NEW_NAME));
 		// Comprobamos que el directorio existe
-		assertTrue(XMLRefactoringsCatalog.getDirectoryToSaveRefactoringFile(
-				NEW_NAME).exists());
+		assertTrue(refactToUpdate.getDirectoryToSaveRefactoringFile(
+				).exists());
 		checkExamples(refactoringCatalogStub);
-		assertFalse(XMLRefactoringsCatalog.getDirectoryToSaveRefactoringFile(
-				MI_REFACT1_NAME).exists());
+		assertFalse(refactToRemove.getDirectoryToSaveRefactoringFile().exists());
 	}
 	
 	/**
@@ -219,9 +220,9 @@ public class SimpleRefactoringsCatalogTest {
 				refactoringCatalogStub.getRefactoring(NEW_NAME));
 		// Comprobamos que el directorio existe
 		// Comprobamos que el directorio existe
-		assertTrue(XMLRefactoringsCatalog.getDirectoryToSaveRefactoringFile(
-				NEW_NAME).exists());
-		checkImage(NEW_NAME);
+		assertTrue(refactToUpdate.getDirectoryToSaveRefactoringFile(
+				).exists());
+		checkImage(refactToUpdate);
 	}
 
 	/**
@@ -235,20 +236,20 @@ public class SimpleRefactoringsCatalogTest {
 		assertEquals(getFinalExamples(),
 				refactoringCatalogStub.getRefactoring(NEW_NAME).getExamples());
 		for (RefactoringExample ejemplo : getFinalExamples()) {
-			assertTrue(getRefactoringDirectoryFile(NEW_NAME,
+			assertTrue(getRefactoringDirectoryFile(refactoringCatalogStub.getRefactoring(NEW_NAME),
 					ejemplo.getBefore()).exists());
 			assertTrue(FileUtils.contentEquals(
 					FileManager.getBundleFileAsSystemFile(TESTDATA_EXAMPLES_DIR
 							+ ejemplo.getBefore()),
-					getRefactoringDirectoryFile(NEW_NAME, ejemplo.getBefore())));
-			assertTrue(getRefactoringDirectoryFile(NEW_NAME, ejemplo.getAfter())
+					getRefactoringDirectoryFile(refactoringCatalogStub.getRefactoring(NEW_NAME), ejemplo.getBefore())));
+			assertTrue(getRefactoringDirectoryFile(refactoringCatalogStub.getRefactoring(NEW_NAME), ejemplo.getAfter())
 					.exists());
-			assertTrue(getRefactoringDirectoryFile(NEW_NAME, ejemplo.getAfter())
+			assertTrue(getRefactoringDirectoryFile(refactoringCatalogStub.getRefactoring(NEW_NAME), ejemplo.getAfter())
 					.exists());
 			assertTrue(FileUtils.contentEquals(
 					FileManager.getBundleFileAsSystemFile(TESTDATA_EXAMPLES_DIR
 							+ ejemplo.getAfter()),
-					getRefactoringDirectoryFile(NEW_NAME, ejemplo.getAfter())));
+					getRefactoringDirectoryFile(refactoringCatalogStub.getRefactoring(NEW_NAME), ejemplo.getAfter())));
 		}
 	}
 
@@ -271,9 +272,9 @@ public class SimpleRefactoringsCatalogTest {
 		return listaEjemplos;
 	}
 	
-	private File getRefactoringDirectoryFile (String refactName, String fileName) {
-		return new File(XMLRefactoringsCatalog
-				.getDirectoryToSaveRefactoringFile(refactName)
+	private File getRefactoringDirectoryFile (DynamicRefactoringDefinition refact, String fileName) {
+		return new File(refact
+				.getDirectoryToSaveRefactoringFile()
 				.getAbsolutePath()
 				+ File.separator + fileName);
 	}

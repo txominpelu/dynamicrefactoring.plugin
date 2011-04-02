@@ -43,7 +43,7 @@ import dynamicrefactoring.RefactoringImages;
 import dynamicrefactoring.domain.DynamicRefactoringDefinition;
 import dynamicrefactoring.domain.RefactoringMechanism;
 import dynamicrefactoring.domain.RefactoringsCatalog;
-import dynamicrefactoring.domain.XMLRefactoringsCatalog;
+import dynamicrefactoring.domain.xml.XMLRefactoringsCatalog;
 import dynamicrefactoring.domain.xml.writer.XMLRefactoringWriterException;
 
 /**
@@ -270,15 +270,16 @@ public class RefactoringWizard extends Wizard implements INewWizard {
 				.image(pageA.getImageNameText().getText().trim())
 				.motivation(pageA.getMotivationText().getText().trim())
 				.inputs(pageB.getInputs())
-				.preconditions(pageC.getPreconditions())
-				.actions(pageD.getActions())
-				.postconditions(pageE.getPostconditions())
+				.preconditions(MechanismNameUtils.getMechanismNameList(pageC.getPreconditions()))
+				.actions(MechanismNameUtils.getMechanismNameList(pageD.getActions()))
+				.postconditions(MechanismNameUtils.getMechanismNameList(pageE.getPostconditions()))
 				.categories(pageA.getCategories())
 				.keywords(pageA.getKeywords())
 				.ambiguousParameters(getAmbiguousParameters())
 				.examples(pageF.getExamples());
 
 	}
+	
 
 	/**
 	 * Genera los parametros ambiguos que tendra la refactorizacion a crear /
@@ -290,7 +291,7 @@ public class RefactoringWizard extends Wizard implements INewWizard {
 		HashMap<String, List<String[]>>[] map = (HashMap<String, List<String[]>>[]) new HashMap[3];
 
 		map[RefactoringMechanism.PRECONDITION.ordinal()] = pageC
-				.getAmbiguousParameters();
+		.getAmbiguousParameters();
 		map[RefactoringMechanism.ACTION.ordinal()] = pageD
 				.getAmbiguousParameters();
 		map[RefactoringMechanism.POSTCONDITION.ordinal()] = pageE

@@ -20,7 +20,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.*/
 
 package dynamicrefactoring.interfaz;
 
-import java.io.File;
 import java.text.MessageFormat;
 
 import org.eclipse.jface.dialogs.IDialogConstants;
@@ -50,7 +49,6 @@ import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.Text;
 
 import dynamicrefactoring.RefactoringImages;
-import dynamicrefactoring.RefactoringPlugin;
 import dynamicrefactoring.domain.DynamicRefactoringDefinition;
 import dynamicrefactoring.domain.RefactoringsCatalog;
 
@@ -202,6 +200,10 @@ public abstract class SelectDynamicRefactoringWindow extends DynamicRefactoringL
 		createButton(parent, IDialogConstants.CANCEL_ID, 
 			ButtonTextProvider.getCancelText(), false);
 		getButton(IDialogConstants.OK_ID).setEnabled(false);
+		if(refactCatalog.getAllRefactorings().size() == 0){
+			l_Available.add(Messages.DynamicRefactoringList_NoneFound);
+			getButton(IDialogConstants.OK_ID).setEnabled(false);
+		}
 	}
 
 	/**
@@ -256,10 +258,7 @@ public abstract class SelectDynamicRefactoringWindow extends DynamicRefactoringL
 			if (refactoring.getMotivation() != null)
 				t_Motivation.setText(refactoring.getMotivation());
 			if (refactoring.getImage() != null && ! refactoring.getImage().equals("")){ //$NON-NLS-1$
-				String path = RefactoringPlugin.getDynamicRefactoringsDir()
-					+ File.separatorChar //$NON-NLS-1$
-					+ refactoring.getName() + File.separatorChar //$NON-NLS-1$
-					+ refactoring.getImage();
+				String path = refactoring.getImageAbsolutePath();
 				ImageLoader loader = new ImageLoader();
 				
 				final Image image = new Image(cv_Image.getDisplay(), loader.load(path)[0]);
