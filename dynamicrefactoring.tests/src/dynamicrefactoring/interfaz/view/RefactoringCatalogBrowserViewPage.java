@@ -21,7 +21,7 @@ public class RefactoringCatalogBrowserViewPage {
 		}
 		view = swtBot.viewByTitle("Refactoring Catalog Browser");
 		view.setFocus();
-		
+		bot.menu("Window").menu("Navigation").menu("Maximize Active View or Editor").click();
 	}
 	
 	/**

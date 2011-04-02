@@ -61,7 +61,7 @@ public class AddRefactoringObject {
 		copyExampleFiles();
 		DynamicRefactoringDefinition refactToAdd = refactBuilder.examples(
 				getExamplesFileNames()).build();
-		saveRefactoringToXmlFile();
+		saveRefactoringToXmlFile(refactToAdd);
 		return refactToAdd;
 
 	}
@@ -176,10 +176,10 @@ public class AddRefactoringObject {
 	 * @param refact
 	 *            definicion de la refactorizacion a guardar
 	 */
-	private void saveRefactoringToXmlFile() {
+	private void saveRefactoringToXmlFile(DynamicRefactoringDefinition refactoringToSave) {
 		try {
-			new JDOMXMLRefactoringWriterImp(refactoring)
-					.writeRefactoring(refactoring
+			new JDOMXMLRefactoringWriterImp(refactoringToSave)
+					.writeRefactoring(refactoringToSave
 							.getDirectoryToSaveRefactoringFile());
 		} catch (Exception e) {
 			throw Throwables.propagate(e);

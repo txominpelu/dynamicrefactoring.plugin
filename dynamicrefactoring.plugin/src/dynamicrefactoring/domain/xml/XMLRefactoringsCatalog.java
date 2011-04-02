@@ -73,10 +73,12 @@ public final class XMLRefactoringsCatalog extends AbstractRefactoringsCatalog
 	@Override
 	public void updateRefactoring(String oldRefactoringName,
 			DynamicRefactoringDefinition refactoring) {
+		Preconditions.checkArgument(hasRefactoring(oldRefactoringName));
+		DynamicRefactoringDefinition refactoringToRemove = getRefactoring(oldRefactoringName);
 		super.removeRefactoring(oldRefactoringName);
 		addRefactoring(refactoring);
 		if (!oldRefactoringName.equals(refactoring.getName())) {
-			XMLRefactoringsFileUtils.deleteRefactoringDir(refactoring);
+			XMLRefactoringsFileUtils.deleteRefactoringDir(refactoringToRemove);
 		}
 
 	}
