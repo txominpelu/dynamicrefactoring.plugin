@@ -41,7 +41,7 @@ import org.eclipse.ui.IWorkbenchWizard;
 
 import dynamicrefactoring.RefactoringImages;
 import dynamicrefactoring.domain.DynamicRefactoringDefinition;
-import dynamicrefactoring.domain.RefactoringMechanism;
+import dynamicrefactoring.domain.RefactoringMechanismType;
 import dynamicrefactoring.domain.RefactoringsCatalog;
 import dynamicrefactoring.domain.xml.XMLRefactoringsCatalog;
 import dynamicrefactoring.domain.xml.writer.XMLRefactoringWriterException;
@@ -290,11 +290,11 @@ public class RefactoringWizard extends Wizard implements INewWizard {
 	private HashMap<String, List<String[]>>[] getAmbiguousParameters() {
 		HashMap<String, List<String[]>>[] map = (HashMap<String, List<String[]>>[]) new HashMap[3];
 
-		map[RefactoringMechanism.PRECONDITION.ordinal()] = pageC
+		map[RefactoringMechanismType.PRECONDITION.ordinal()] = pageC
 		.getAmbiguousParameters();
-		map[RefactoringMechanism.ACTION.ordinal()] = pageD
+		map[RefactoringMechanismType.ACTION.ordinal()] = pageD
 				.getAmbiguousParameters();
-		map[RefactoringMechanism.POSTCONDITION.ordinal()] = pageE
+		map[RefactoringMechanismType.POSTCONDITION.ordinal()] = pageE
 				.getAmbiguousParameters();
 		return map;
 	}

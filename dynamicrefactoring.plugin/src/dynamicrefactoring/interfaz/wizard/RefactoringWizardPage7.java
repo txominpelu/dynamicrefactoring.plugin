@@ -52,6 +52,7 @@ import com.google.common.base.Preconditions;
 
 import dynamicrefactoring.RefactoringImages;
 import dynamicrefactoring.domain.InputParameter;
+import dynamicrefactoring.domain.RefactoringMechanismInstance;
 import dynamicrefactoring.domain.metadata.classifications.xml.imp.PluginClassificationsCatalog;
 import dynamicrefactoring.interfaz.TreeEditor;
 import dynamicrefactoring.interfaz.wizard.classificationscombo.PickCategoryTree;
@@ -333,7 +334,7 @@ public class RefactoringWizardPage7 extends WizardPage {
 					&& fifthPage instanceof RefactoringWizardPage5){
 				ArrayList<String> preconditions = 
 					((RefactoringWizardPage3)thirdPage).getPreconditions();
-				List<String> actions = 
+				List<RefactoringMechanismInstance> actions = 
 					((RefactoringWizardPage4)fourthPage).getActions();
 				List<String> postconditions = 
 					((RefactoringWizardPage5)fifthPage).getPostconditions();
@@ -348,7 +349,7 @@ public class RefactoringWizardPage7 extends WizardPage {
 				
 				TreeEditor.fillInTreeBranch(preconditions, preconditionsChild, 
 						RefactoringImages.CHECK_ICON_PATH); 
-				TreeEditor.fillInTreeBranch(actions, actionsChild, 
+				TreeEditor.fillInTreeBranch(RefactoringMechanismInstance.getActionsClassNames(actions), actionsChild, 
 						RefactoringImages.RUN_ICON_PATH); 
 				TreeEditor.fillInTreeBranch(postconditions, postconditionsChild, 
 						RefactoringImages.VALIDATE_ICON_PATH); 

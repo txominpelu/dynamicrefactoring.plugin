@@ -34,7 +34,7 @@ import org.eclipse.swt.layout.FormLayout;
 import org.eclipse.swt.widgets.Composite;
 
 import dynamicrefactoring.domain.DynamicRefactoringDefinition;
-import dynamicrefactoring.domain.RefactoringMechanism;
+import dynamicrefactoring.domain.RefactoringMechanismType;
 
 
 /**
@@ -137,7 +137,7 @@ public class RefactoringWizardPage3 extends WizardPage implements IRefactoringWi
 			if (refactoring != null){
 				preconditionsTab.fillSelectedList(
 						refactoring.getPreconditions(), refactoring,
-						RefactoringMechanism.PRECONDITION);
+						RefactoringMechanismType.PRECONDITION);
 			}
 		} catch (IOException exception) {
 			String message = Messages.RefactoringWizardPage3_ElementsNotLoaded +
@@ -180,7 +180,7 @@ public class RefactoringWizardPage3 extends WizardPage implements IRefactoringWi
 	 * @throws IOException si no se encuentra el directorio.
 	 */
 	private void fillPreconditionsList() throws IOException {
-		preconditionsTab.fillRepositoryList(RefactoringMechanism
+		preconditionsTab.fillRepositoryList(RefactoringMechanismType
 				.getPredicatesAllList());
 	}	
 	

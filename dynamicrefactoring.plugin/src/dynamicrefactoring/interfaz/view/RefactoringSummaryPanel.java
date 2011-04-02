@@ -49,6 +49,7 @@ import dynamicrefactoring.RefactoringImages;
 import dynamicrefactoring.domain.DynamicRefactoringDefinition;
 import dynamicrefactoring.domain.InputParameter;
 import dynamicrefactoring.domain.RefactoringExample;
+import dynamicrefactoring.domain.RefactoringMechanismInstance;
 import dynamicrefactoring.domain.metadata.condition.CategoryCondition;
 import dynamicrefactoring.domain.metadata.condition.KeyWordCondition;
 import dynamicrefactoring.domain.metadata.interfaces.Category;
@@ -524,7 +525,7 @@ public class RefactoringSummaryPanel {
 		componentsTree.setVisible(false);
 
 		List<String> preconditions = refactoring.getPreconditions();
-		List<String> actions = refactoring.getActions();
+		List<String> actions = RefactoringMechanismInstance.getActionsClassNames(refactoring.getActions());
 		List<String> postconditions = refactoring.getPostconditions();
 
 		TreeItem preconditionsChild = TreeEditor.createBranch(componentsTree, 0,

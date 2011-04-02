@@ -74,7 +74,8 @@ import dynamicrefactoring.RefactoringImages;
 import dynamicrefactoring.RefactoringPlugin;
 import dynamicrefactoring.domain.DynamicRefactoringDefinition;
 import dynamicrefactoring.domain.InputParameter;
-import dynamicrefactoring.domain.RefactoringMechanism;
+import dynamicrefactoring.domain.RefactoringMechanismInstance;
+import dynamicrefactoring.domain.RefactoringMechanismType;
 import dynamicrefactoring.domain.metadata.classifications.xml.imp.PluginClassificationsCatalog;
 import dynamicrefactoring.interfaz.wizard.listener.ListDownListener;
 import dynamicrefactoring.interfaz.wizard.listener.ListUpListener;
@@ -564,12 +565,12 @@ public class RepositoryElementComposite {
 	}
 
 	private String getElementFullyQualifiedName(String element) {
-		RefactoringMechanism type = RefactoringMechanism.PRECONDITION;
+		RefactoringMechanismType type = RefactoringMechanismType.PRECONDITION;
 		if (title.equals(RefactoringWizardPage3.PRECONDITIONS_TITLE) ||
 			title.equals(RefactoringWizardPage5.POSTCONDITIONS_TITLE)){
-			type = RefactoringMechanism.PRECONDITION;
+			type = RefactoringMechanismType.PRECONDITION;
 		} else if (title.equals(RefactoringWizardPage4.ACTIONS_TITLE)) {
-			type = RefactoringMechanism.ACTION;
+			type = RefactoringMechanismType.ACTION;
 		}
 		String qualified_name = PluginStringUtils
 				.getMechanismFullyQualifiedName(type, element);
@@ -599,9 +600,59 @@ public class RepositoryElementComposite {
 	 * {@link RefactoringConstants#ACTION} o 
 	 * {@link RefactoringConstants#POSTCONDITION}.)
 	 */
+	protected void fillSelectedListAsRefactoringMechanism(java.util.List<RefactoringMechanismInstance> elements,
+			DynamicRefactoringDefinition refactoring,
+			RefactoringMechanismType typePart) {
+		// Para cada elemento de la refactorizaci�n (predicado o acci�n).
+		for (String next : RefactoringMechanismInstance.getActionsClassNames(elements)){
+			String element = next;
+			if(selectedTimes.containsKey(next)){
+				int number = selectedTimes.get(next)+1;
+				element = next +" (" + number + ")";
+				selectedTimes.put(next, number);
+			}else{
+				selectedTimes.put(next, 1);
+				element = next+" (" + 1 + ")";
+			}
+			// Se a�ade su nombre a la lista de componentes.
+			l_Selected.add(element);
+			
+			// Se crea un nuevo elemento para representarlo.
+			RepositoryItem elemento = new RepositoryItem(next,
+					typePart.isElementJavaDependent(next));
+			
+			// Se obtiene su lista de par�metros.
+			java.util.List<String[]> parameters =
+				refactoring.getAmbiguousParameters(next, typePart);
+			// Para cada par�metro.
+			for (String[] nextParam : parameters){
+				// Se busca la entrada de la refactorizaci�n con ese nombre.
+				InputParameter[] previousInputs = inputsPage.getInputTable(); 
+				for (int i = 0; i < previousInputs.length; i++)
+					if (previousInputs[i].getName().equals(nextParam[0])){
+						elemento.addParameter(previousInputs[i]);
+						break;
+					}	
+			}
+			selectedTable.put(element, elemento);
+		}
+		l_Selected.deselectAll();
+	}
+	
+	/**
+	 * Puebla la lista de elementos que forman ya parte de una refactorizaci�n
+	 * que se haya cargado para ser editada.
+	 * 
+	 * @param elements elementos que forman ya parte de la refactorizaci�n.
+	 * @param refactoring refactorizaci�n cuyos elementos se cargan.
+	 * @param typePart tipo de elementos que se cargar�n (uno de 
+	 * {@link RefactoringConstants#PRECONDITION}, 
+	 * {@link RefactoringConstants#ACTION} o 
+	 * {@link RefactoringConstants#POSTCONDITION}.)
+	 */
 	protected void fillSelectedList(java.util.List<String> elements,
 			DynamicRefactoringDefinition refactoring,
-			RefactoringMechanism typePart) {
+			RefactoringMechanismType typePart) {
 		// Para cada elemento de la refactorizaci�n (predicado o acci�n).
 		for (String next : elements){
 			String element = next;
@@ -759,10 +810,10 @@ public class RepositoryElementComposite {
 			}	
 			l_Selected.add(element);
 			RepositoryItem newElement = new RepositoryItem(selected[i],
-					RefactoringMechanism.ACTION
+					RefactoringMechanismType.ACTION
 							.isElementJavaDependent(selected[i])
 							||
- RefactoringMechanism
+ RefactoringMechanismType
 									.isPredicateJavaDependent(selected[i]));
 			
 			selectedTable.put(element, newElement);
@@ -1227,7 +1278,7 @@ public class RepositoryElementComposite {
 			if(cb_qualified.getSelection() == false){
 				if (title.equals(RefactoringWizardPage3.PRECONDITIONS_TITLE) ||
 							title.equals(RefactoringWizardPage5.POSTCONDITIONS_TITLE)){
-					if (RefactoringMechanism
+					if (RefactoringMechanismType
 							.isPredicateJavaDependent
 							(l_Available.getItem(l_Available.getSelectionIndex()).toString()))
 						path = RefactoringConstants.JAVA_PREDICATES_PACKAGE; 
@@ -1236,7 +1287,7 @@ public class RepositoryElementComposite {
 			
 				}			
 				else if (title.equals(RefactoringWizardPage4.ACTIONS_TITLE)){
-					if (RefactoringMechanism.ACTION
+					if (RefactoringMechanismType.ACTION
 							.isElementJavaDependent
 (l_Available.getItem(
 									l_Available.getSelectionIndex()).toString())) {

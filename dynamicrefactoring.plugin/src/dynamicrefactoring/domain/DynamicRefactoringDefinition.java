@@ -95,7 +95,7 @@ public class DynamicRefactoringDefinition implements Element,
 	/**
 	 * Los nombres de las acciones de la refactorizaci�n.
 	 */
-	private List<String> actions;
+	private List<RefactoringMechanismInstance> actions;
 
 	/**
 	 * Los nombres de las postcondiciones de la refactorizaci�n.
@@ -252,13 +252,14 @@ public class DynamicRefactoringDefinition implements Element,
 	/**
 	 * Devuelve los nombres de las acciones de la refactorizaci�n.
 	 * 
-	 * @return un <code>List</code> de cadenas con los nombres.
+	 * @return un <code>List</code> de mecanismos con los nombres.
 	 * 
 	 * @see #setActions
 	 */
-	public List<String> getActions() {
-		return new ArrayList<String>(actions);
+	public List<RefactoringMechanismInstance> getActions() {
+		return new ArrayList<RefactoringMechanismInstance>(actions);
 	}
+	
 
 	/**
 	 * Devuelve los nombres de las postcondiciones de la refactorizaci�n.
@@ -300,7 +301,7 @@ public class DynamicRefactoringDefinition implements Element,
 	 * @see #setAmbiguousParameters
 	 */
 	public List<String[]> getAmbiguousParameters(String name,
-			RefactoringMechanism typePart) {
+			RefactoringMechanismType typePart) {
 
 		// Se obtienen todas las entradas del predicado o accion.
 		List<String[]> localInputs = ambiguousParameters[typePart.ordinal()]
@@ -695,7 +696,7 @@ public class DynamicRefactoringDefinition implements Element,
 		private String motivation;
 		private List<InputParameter> inputs;
 		private List<String> preconditions;
-		private List<String> actions;
+		private List<RefactoringMechanismInstance> actions;
 		private List<String> postconditions;
 		private Map<String, List<String[]>>[] ambiguousParameters;
 
@@ -904,7 +905,7 @@ public class DynamicRefactoringDefinition implements Element,
 		 * 
 		 * @see #getActions
 		 */
-		public Builder actions(List<String> actions) {
+		public Builder actions(List<RefactoringMechanismInstance> actions) {
 			this.actions = actions;
 			return this;
 		}

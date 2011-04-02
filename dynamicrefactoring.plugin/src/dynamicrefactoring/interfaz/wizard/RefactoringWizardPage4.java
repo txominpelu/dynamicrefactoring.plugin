@@ -22,6 +22,7 @@ package dynamicrefactoring.interfaz.wizard;
 
 import java.io.IOException;
 import java.text.MessageFormat;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
@@ -33,7 +34,8 @@ import org.eclipse.swt.layout.FormLayout;
 import org.eclipse.swt.widgets.Composite;
 
 import dynamicrefactoring.domain.DynamicRefactoringDefinition;
-import dynamicrefactoring.domain.RefactoringMechanism;
+import dynamicrefactoring.domain.RefactoringMechanismInstance;
+import dynamicrefactoring.domain.RefactoringMechanismType;
 
 
 /**
@@ -138,8 +140,8 @@ public final class RefactoringWizardPage4 extends WizardPage implements  IRefact
 		try {
 			fillActionList();
 			if (refactoring != null){
-				actionsTab.fillSelectedList(refactoring.getActions(), 
-						refactoring, RefactoringMechanism.ACTION);
+				actionsTab.fillSelectedListAsRefactoringMechanism(refactoring.getActions(), 
+						refactoring, RefactoringMechanismType.ACTION);
 			}
 		} catch (IOException exception) {
 			String message = Messages.RefactoringWizardPage3_ElementsNotLoaded +
@@ -171,8 +173,12 @@ public final class RefactoringWizardPage4 extends WizardPage implements  IRefact
 	 * 
 	 * @return la lista de nombres de acciones seleccionadas.
 	 */
-	public List<String> getActions(){
-		return actionsTab.getElements();
+	public List<RefactoringMechanismInstance> getActions(){
+		List<RefactoringMechanismInstance> lista = new ArrayList<RefactoringMechanismInstance>();
+		for(String className : actionsTab.getElements()){
+			lista.add(new RefactoringMechanismInstance(className, RefactoringMechanismType.ACTION));
+		}
+		return lista;
 	}
 		
 	/**
@@ -182,7 +188,7 @@ public final class RefactoringWizardPage4 extends WizardPage implements  IRefact
 	 * @throws IOException si no se encuentra el directorio.
 	 */
 	private void fillActionList() throws IOException {
-		actionsTab.fillRepositoryList(RefactoringMechanism.ACTION
+		actionsTab.fillRepositoryList(RefactoringMechanismType.ACTION
 				.getElementAllList());
 	}
 		

@@ -13,6 +13,7 @@ import org.eclipse.swt.widgets.TreeItem;
 import dynamicrefactoring.RefactoringImages;
 import dynamicrefactoring.domain.DynamicRefactoringDefinition;
 import dynamicrefactoring.domain.RefactoringException;
+import dynamicrefactoring.domain.RefactoringMechanismInstance;
 import dynamicrefactoring.interfaz.TreeEditor;
 
 public class RefactoringTreeManager {
@@ -220,7 +221,8 @@ public class RefactoringTreeManager {
 				Messages.RefactoringTreeManager_Preconditions);
 
 		// Acciones
-		createElementItemWithChildren(refactoring, definition.getActions(),
+
+		createElementItemWithChildren(refactoring, RefactoringMechanismInstance.getActionsClassNames(definition.getActions()),
 				RefactoringImages.RUN_ICON_PATH,
 				Messages.RefactoringTreeManager_Action);
 

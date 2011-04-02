@@ -19,7 +19,7 @@ import dynamicrefactoring.util.io.filter.ClassFilter;
  * @author imediava
  *
  */
-public enum RefactoringMechanism {
+public enum RefactoringMechanismType {
 	
 
 	PRECONDITION(RefactoringConstants.JAVA_PREDICATES_PACKAGE,
@@ -46,7 +46,7 @@ public enum RefactoringMechanism {
 	private final String javaPackage;
 	private final String moonPackage;
 
-	private RefactoringMechanism(String javaPackage, String moonPackage) {
+	private RefactoringMechanismType(String javaPackage, String moonPackage) {
 		this.javaPackage = javaPackage;
 		this.moonPackage = moonPackage;
 	}

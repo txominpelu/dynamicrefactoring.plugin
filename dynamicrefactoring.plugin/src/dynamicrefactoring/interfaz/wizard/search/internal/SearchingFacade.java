@@ -9,7 +9,7 @@ import org.apache.lucene.queryParser.ParseException;
 import com.google.common.collect.ImmutableSet;
 
 import dynamicrefactoring.RefactoringPlugin;
-import dynamicrefactoring.domain.RefactoringMechanism;
+import dynamicrefactoring.domain.RefactoringMechanismType;
 import dynamicrefactoring.util.MOONTypeLister;
 import dynamicrefactoring.util.PluginStringUtils;
 
@@ -35,7 +35,7 @@ public enum SearchingFacade {
 			@Override
 			Set<String> getClassesToIndex() {
 				return PluginStringUtils.getMechanismListFullyQualifiedName(
-						RefactoringMechanism.PRECONDITION, RefactoringMechanism
+						RefactoringMechanismType.PRECONDITION, RefactoringMechanismType
 								.getPredicatesAllList().keySet());
 			}
 		},
@@ -43,8 +43,8 @@ public enum SearchingFacade {
 			@Override
 			Set<String> getClassesToIndex() {
 				return PluginStringUtils.getMechanismListFullyQualifiedName(
-						RefactoringMechanism.ACTION,
-						RefactoringMechanism.ACTION.getElementAllList()
+						RefactoringMechanismType.ACTION,
+						RefactoringMechanismType.ACTION.getElementAllList()
 								.keySet());
 			}
 		},

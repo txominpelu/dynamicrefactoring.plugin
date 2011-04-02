@@ -53,6 +53,7 @@ import com.swtdesigner.SWTResourceManager;
 import dynamicrefactoring.RefactoringImages;
 import dynamicrefactoring.domain.DynamicRefactoringDefinition;
 import dynamicrefactoring.domain.InputParameter;
+import dynamicrefactoring.domain.RefactoringMechanismInstance;
 import dynamicrefactoring.interfaz.TreeEditor;
 
 /**
@@ -302,7 +303,7 @@ public class DynamicRefactoringTab {
 		}
 			
 		List<String> preconditions = refactoringDefinition.getPreconditions();
-		List<String> actions = refactoringDefinition.getActions();
+		List<String> actions = RefactoringMechanismInstance.getActionsClassNames(refactoringDefinition.getActions());
 		List<String> postconditions = refactoringDefinition.getPostconditions();
 				
 		TreeItem preconditionsChild = TreeEditor.createBranch(tr_Components, 0,

@@ -41,7 +41,8 @@ import dynamicrefactoring.RefactoringPlugin;
 import dynamicrefactoring.domain.DynamicRefactoringDefinition;
 import dynamicrefactoring.domain.InputParameter;
 import dynamicrefactoring.domain.RefactoringExample;
-import dynamicrefactoring.domain.RefactoringMechanism;
+import dynamicrefactoring.domain.RefactoringMechanismInstance;
+import dynamicrefactoring.domain.RefactoringMechanismType;
 import dynamicrefactoring.domain.Scope;
 import dynamicrefactoring.domain.metadata.interfaces.Category;
 import dynamicrefactoring.domain.xml.reader.XMLRefactoringReaderException;
@@ -348,19 +349,19 @@ public final class JDOMXMLRefactoringWriterImp implements XMLRefactoringWriterIm
 				XMLRefactoringReaderImp.MECHANISM_ELEMENT);
 
 		mechanism.addContent(createMechanismElement(
-				RefactoringMechanism.PRECONDITION,
+				RefactoringMechanismType.PRECONDITION,
 				XMLRefactoringReaderImp.PRECONDITIONS_ELEMENT,
 				XMLRefactoringReaderImp.PRECONDITION_ELEMENT,
 				refactoringDefinition.getPreconditions()));
 
 		mechanism.addContent(createMechanismElement(
-				RefactoringMechanism.ACTION,
+				RefactoringMechanismType.ACTION,
 				XMLRefactoringReaderImp.ACTIONS_ELEMENT,
 				XMLRefactoringReaderImp.ACTION_ELEMENT,
-				refactoringDefinition.getActions()));
+				RefactoringMechanismInstance.getActionsClassNames(refactoringDefinition.getActions())));
 
 		mechanism.addContent(createMechanismElement(
-				RefactoringMechanism.POSTCONDITION,
+				RefactoringMechanismType.POSTCONDITION,
 				XMLRefactoringReaderImp.POSTCONDITIONS_ELEMENT,
 				XMLRefactoringReaderImp.POSTCONDITION_ELEMENT,
 				refactoringDefinition.getPostconditions()));
@@ -377,7 +378,7 @@ public final class JDOMXMLRefactoringWriterImp implements XMLRefactoringWriterIm
 	 * @param mechanismElements
 	 * @return
 	 */
-	private Element createMechanismElement(RefactoringMechanism type,
+	private Element createMechanismElement(RefactoringMechanismType type,
 			String parentTagName,
 			String childTagName, List<String> mechanismElements) {
 		Element mechanismElement = new Element(parentTagName);
@@ -426,7 +427,7 @@ public final class JDOMXMLRefactoringWriterImp implements XMLRefactoringWriterIm
 	 *            el elemento del tipo del par�metro ambiguo.
 	 */
 	private void constructAmbiguousParameters(Element partOfRefactoring,
-			String nameOfPart, RefactoringMechanism typeOfPart) {
+			String nameOfPart, RefactoringMechanismType typeOfPart) {
 
 		List<String[]> ambiguousParameters = refactoringDefinition
 				.getAmbiguousParameters(nameOfPart, typeOfPart);

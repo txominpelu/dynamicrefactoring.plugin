@@ -7,7 +7,7 @@ import com.google.common.base.Function;
 import com.google.common.collect.Collections2;
 import com.google.common.collect.ImmutableSet;
 
-import dynamicrefactoring.domain.RefactoringMechanism;
+import dynamicrefactoring.domain.RefactoringMechanismType;
 
 public class PluginStringUtils {
 
@@ -68,7 +68,7 @@ public class PluginStringUtils {
 	 * @return nombre totalmente cualificado (con paquete)
 	 */
 	public static String getMechanismFullyQualifiedName(
-			RefactoringMechanism type,
+			RefactoringMechanismType type,
 			final String mechanismName) {
 		return getMechanismPackage(type, mechanismName) + "." + mechanismName;
 	}
@@ -82,7 +82,7 @@ public class PluginStringUtils {
 	 *            mechanism name
 	 * @return package name (Ej. "repository.concreteaction")
 	 */
-	public static String getMechanismPackage(RefactoringMechanism type,
+	public static String getMechanismPackage(RefactoringMechanismType type,
 			final String mechanismName) {
 		if (type.isElementJavaDependent(mechanismName)) {
 			return type.getMechanismJavaPackage();
@@ -103,7 +103,7 @@ public class PluginStringUtils {
 	 * @return nombres totalmente cualificados (con paquetes) de los mismos
 	 */
 	public static Set<String> getMechanismListFullyQualifiedName(
-			final RefactoringMechanism type, Set<String> simpleNames) {
+			final RefactoringMechanismType type, Set<String> simpleNames) {
 		return ImmutableSet.copyOf(Collections2.transform(simpleNames,
 				new Function<String, String>() {
 

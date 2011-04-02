@@ -1,7 +1,7 @@
 package dynamicrefactoring.domain;
 
-import static dynamicrefactoring.domain.RefactoringMechanism.ACTION;
-import static dynamicrefactoring.domain.RefactoringMechanism.isPredicateJavaDependent;
+import static dynamicrefactoring.domain.RefactoringMechanismType.ACTION;
+import static dynamicrefactoring.domain.RefactoringMechanismType.isPredicateJavaDependent;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;

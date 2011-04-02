@@ -16,7 +16,7 @@ import org.apache.lucene.store.RAMDirectory;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
-import dynamicrefactoring.domain.RefactoringMechanism;
+import dynamicrefactoring.domain.RefactoringMechanismType;
 import dynamicrefactoring.interfaz.wizard.search.internal.SearchingFacade.SearchableType;
 import dynamicrefactoring.util.PluginStringUtils;
 /**
@@ -39,8 +39,8 @@ public final class SearchableTypeIndexerTest {
 	@BeforeClass
 	public static void setUp() throws Exception {
 		actionElementName = PluginStringUtils
-				.getMechanismFullyQualifiedName(RefactoringMechanism.ACTION,
-						RefactoringMechanism.ACTION.getElementAllList()
+				.getMechanismFullyQualifiedName(RefactoringMechanismType.ACTION,
+						RefactoringMechanismType.ACTION.getElementAllList()
 								.keySet().iterator().next());
 		final SearchableTypeIndexer indexer = SearchableTypeIndexer.INSTANCE;
 		directory = new RAMDirectory();
@@ -68,7 +68,7 @@ public final class SearchableTypeIndexerTest {
 	@Test
 	public void testIndexedElementsCount() throws Exception{
 		IndexReader reader = IndexReader.open(directory);
-		assertEquals(RefactoringMechanism.ACTION.getElementAllList().size(), reader.numDocs());
+		assertEquals(RefactoringMechanismType.ACTION.getElementAllList().size(), reader.numDocs());
 	}
 
 	/**
