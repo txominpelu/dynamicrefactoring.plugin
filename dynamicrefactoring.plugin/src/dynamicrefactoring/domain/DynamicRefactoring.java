@@ -110,16 +110,17 @@ public class DynamicRefactoring extends MOONRefactoring {
 	 */
 	private void createRefactoring() throws RefactoringException {
 
-		for (String namePart : refactoringDefinition.getPreconditions()){
-			createPrecondition(namePart);
+		for (RefactoringMechanismInstance mecanismo : refactoringDefinition.getPreconditions()){
+			createPrecondition(mecanismo.getClassName());
 		}
 
-		for (String namePart : RefactoringMechanismInstance.getActionsClassNames(refactoringDefinition.getActions())){
-			createAction(namePart);
+		
+		for (RefactoringMechanismInstance mecanismo: refactoringDefinition.getActions()){
+			createAction(mecanismo.getClassName());
 		}
 
-		for (String namePart : refactoringDefinition.getPostconditions()){
-			createPostcondition(namePart);
+		for (RefactoringMechanismInstance mecanismo : refactoringDefinition.getPostconditions()){
+			createPostcondition(mecanismo.getClassName());
 		}
 	}
 

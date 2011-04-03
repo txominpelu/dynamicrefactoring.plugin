@@ -302,9 +302,9 @@ public class DynamicRefactoringTab {
 			editor.setEditor(checkButton, item, 2);
 		}
 			
-		List<String> preconditions = refactoringDefinition.getPreconditions();
-		List<String> actions = RefactoringMechanismInstance.getActionsClassNames(refactoringDefinition.getActions());
-		List<String> postconditions = refactoringDefinition.getPostconditions();
+		List<RefactoringMechanismInstance> preconditions = refactoringDefinition.getPreconditions();
+		List<String> actions = RefactoringMechanismInstance.getMechanismListClassNames(refactoringDefinition.getActions());
+		List<RefactoringMechanismInstance> postconditions = refactoringDefinition.getPostconditions();
 				
 		TreeItem preconditionsChild = TreeEditor.createBranch(tr_Components, 0,
 			Messages.DynamicRefactoringTab_Preconditions, RefactoringImages.CHECK_ICON_PATH);
@@ -313,11 +313,11 @@ public class DynamicRefactoringTab {
 		TreeItem postconditionsChild = TreeEditor.createBranch(tr_Components, 2,
 			Messages.DynamicRefactoringTab_Postconditions, RefactoringImages.VALIDATE_ICON_PATH); 
 				
-		TreeEditor.fillInTreeBranch(preconditions, preconditionsChild, 
+		TreeEditor.fillInTreeBranch(RefactoringMechanismInstance.getMechanismListClassNames(preconditions), preconditionsChild, 
 				RefactoringImages.CHECK_ICON_PATH); 
 		TreeEditor.fillInTreeBranch(actions, actionsChild, 
 				RefactoringImages.RUN_ICON_PATH); 
-		TreeEditor.fillInTreeBranch(postconditions, postconditionsChild,
+		TreeEditor.fillInTreeBranch(RefactoringMechanismInstance.getMechanismListClassNames(postconditions), postconditionsChild,
 				RefactoringImages.VALIDATE_ICON_PATH); 
 	}
 }

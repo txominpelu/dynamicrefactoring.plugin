@@ -216,19 +216,19 @@ public class RefactoringTreeManager {
 			TreeItem refactoring, DynamicRefactoringDefinition definition) {
 		// Precondiciones
 		createElementItemWithChildren(refactoring,
-				definition.getPreconditions(),
+				RefactoringMechanismInstance.getMechanismListClassNames(definition.getPreconditions()),
 				RefactoringImages.CHECK_ICON_PATH,
 				Messages.RefactoringTreeManager_Preconditions);
 
 		// Acciones
 
-		createElementItemWithChildren(refactoring, RefactoringMechanismInstance.getActionsClassNames(definition.getActions()),
+		createElementItemWithChildren(refactoring, RefactoringMechanismInstance.getMechanismListClassNames(definition.getActions()),
 				RefactoringImages.RUN_ICON_PATH,
 				Messages.RefactoringTreeManager_Action);
 
 		// Postcondiciones
 		createElementItemWithChildren(refactoring,
-				definition.getPostconditions(), 
+				RefactoringMechanismInstance.getMechanismListClassNames(definition.getPostconditions()), 
 				RefactoringImages.VALIDATE_ICON_PATH,
 				Messages.RefactoringTreeManager_Postconditions);
 	}

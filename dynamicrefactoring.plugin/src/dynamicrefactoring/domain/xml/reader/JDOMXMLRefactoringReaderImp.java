@@ -246,7 +246,7 @@ public class JDOMXMLRefactoringReaderImp implements XMLRefactoringReaderImp {
 		List<Element> pre = preconditionsElement
 				.getChildren(PRECONDITION_ELEMENT);
 		
-		builder.preconditions(readMechanismElements(ambiguousParameters, pre,
+		builder.preconditions(readMechanismElementsAsRefactoringMechanismInstance(ambiguousParameters, pre,
 				RefactoringMechanismType.PRECONDITION));
 
 		// Se obtienen las acciones de la refactorizaci�n.
@@ -261,51 +261,11 @@ public class JDOMXMLRefactoringReaderImp implements XMLRefactoringReaderImp {
 		List<Element> post = postconditionsElement
 				.getChildren(POSTCONDITION_ELEMENT);
 
-		builder.postconditions(readMechanismElements(ambiguousParameters, post,
+		builder.postconditions(readMechanismElementsAsRefactoringMechanismInstance(ambiguousParameters, post,
 				RefactoringMechanismType.POSTCONDITION));
 		builder.ambiguousParameters(ambiguousParameters);
 
 		return builder;
-	}
-
-	/**
-	 * Lee el nombre de cada elemento de una lista de precondiciones, acciones o
-	 * postcondiciones, y la lista de par�metros ambiguos asociados a cada uno.
-	 * 
-	 * @param elements
-	 *            lista de elementos (precondiciones, acciones o
-	 *            postcondiciones).
-	 * @param type
-	 *            {@link RefactoringConstants#PRECONDITION},
-	 *            {@link RefactoringConstants#ACTION} o
-	 *            {@link RefactoringConstants#POSTCONDITION}.
-	 * 
-	 * @return un <code>ArrayList</code> de cadenas con los nombres de los
-	 *         elementos del repositorio.
-	 */
-	@SuppressWarnings({ "unchecked" })//$NON-NLS-1$
-	private List<String> readMechanismElements(
-			HashMap<String, List<String[]>>[] ambiguousParameters,
-			List<Element> elements,
- RefactoringMechanismType type) {
-
-		ArrayList<String> elementNames = new ArrayList<String>();
-
-		List<Element> params;
-
-		for (Element element : elements) {
-			String elementName = element.getAttributeValue(NAME_ATTRIBUTE);
-			elementNames.add(dynamicrefactoring.util.PluginStringUtils
-					.getClassName(elementName));
-
-			params = element.getChildren(PARAM_ELEMENT);
-			if (!params.isEmpty()) {
-				readAmbiguousParametersOfElement(ambiguousParameters,
-						dynamicrefactoring.util.PluginStringUtils
-								.getClassName(elementName), type, params);
-			}
-		}
-		return elementNames;
 	}
 
 	private List<RefactoringMechanismInstance> readMechanismElementsAsRefactoringMechanismInstance(

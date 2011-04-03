@@ -21,6 +21,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.*/
 package dynamicrefactoring.domain.xml.writer;
 
 import static dynamicrefactoring.domain.RefactoringMechanismType.ACTION;
+import static dynamicrefactoring.domain.RefactoringMechanismType.POSTCONDITION;
+import static dynamicrefactoring.domain.RefactoringMechanismType.PRECONDITION;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
@@ -47,7 +49,6 @@ import dynamicrefactoring.domain.RefactoringMechanismInstance;
 import dynamicrefactoring.domain.RefactoringMechanismType;
 import dynamicrefactoring.domain.metadata.interfaces.Category;
 import dynamicrefactoring.domain.xml.reader.TestCaseRefactoringReader;
-
 /**
  * Comprueba que funciona correctamente el proceso de escritura de la definici�n
  * de una refactorizaci�n din�mica en un fichero XML.
@@ -98,9 +99,9 @@ public class RefactoringWriterTest {
 		rd.inputs(addSimpleInputs());
 		rd.categories(new HashSet<Category>());
 		rd.keywords(new HashSet<String>());
-		rd.preconditions(new ArrayList<String>());
+		rd.preconditions(new ArrayList<RefactoringMechanismInstance>());
 		rd.actions(new ArrayList<RefactoringMechanismInstance>());
-		rd.postconditions(new ArrayList<String>());
+		rd.postconditions(new ArrayList<RefactoringMechanismInstance>());
 		rd.motivation("");
 
 		XMLRefactoringWriterFactory f = new JDOMXMLRefactoringWriterFactory();
@@ -265,8 +266,8 @@ public class RefactoringWriterTest {
 		rd.inputs(entradas);
 
 		// a�adir precondiciones,acciones y postcondiciones
-		ArrayList<String> preconditions = new ArrayList<String>();
-		preconditions.add("NotExistsClassWithName (1)"); //$NON-NLS-1$
+		ArrayList<RefactoringMechanismInstance> preconditions = new ArrayList<RefactoringMechanismInstance>();
+		preconditions.add(new RefactoringMechanismInstance("NotExistsClassWithName (1)", PRECONDITION)); //$NON-NLS-1$
 		rd.preconditions(preconditions);
 
 		ArrayList<RefactoringMechanismInstance> actions = new ArrayList<RefactoringMechanismInstance>();
@@ -278,8 +279,8 @@ public class RefactoringWriterTest {
 		actions.add(new RefactoringMechanismInstance("RenameJavaFile (1)", ACTION)); //$NON-NLS-1$
 		rd.actions(actions);
 
-		ArrayList<String> postconditions = new ArrayList<String>();
-		postconditions.add("NotExistsClassWithName (1)"); //$NON-NLS-1$
+		ArrayList<RefactoringMechanismInstance> postconditions = new ArrayList<RefactoringMechanismInstance>();
+		postconditions.add(new RefactoringMechanismInstance("NotExistsClassWithName (1)", POSTCONDITION)); //$NON-NLS-1$
 		rd.postconditions(postconditions);
 
 		// A�adiendo los par�metros ambiguos.
@@ -486,16 +487,16 @@ public class RefactoringWriterTest {
 	 */
 	private DynamicRefactoringDefinition addSimplePredicates(Builder builder) {
 		// a�adir precondiciones,acciones y postcondiciones
-		ArrayList<String> preconditions = new ArrayList<String>();
-		preconditions.add("ExistsClass (1)"); //$NON-NLS-1$
+		ArrayList<RefactoringMechanismInstance> preconditions = new ArrayList<RefactoringMechanismInstance>();
+		preconditions.add(new RefactoringMechanismInstance("ExistsClass (1)", PRECONDITION)); //$NON-NLS-1$
 		builder.preconditions(preconditions);
 
 		ArrayList<RefactoringMechanismInstance> actions = new ArrayList<RefactoringMechanismInstance>();
 		actions.add(new RefactoringMechanismInstance("RenameClass (1)", ACTION)); //$NON-NLS-1$
 		builder.actions(actions);
 
-		ArrayList<String> postconditions = new ArrayList<String>();
-		postconditions.add("ExistsClass (1)"); //$NON-NLS-1$
+		ArrayList<RefactoringMechanismInstance> postconditions = new ArrayList<RefactoringMechanismInstance>();
+		postconditions.add(new RefactoringMechanismInstance("ExistsClass (1)", POSTCONDITION)); //$NON-NLS-1$
 		builder.postconditions(postconditions);
 
 		return builder.build();

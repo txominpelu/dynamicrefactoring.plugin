@@ -524,9 +524,9 @@ public class RefactoringSummaryPanel {
 	private void fillComponentsTree(){
 		componentsTree.setVisible(false);
 
-		List<String> preconditions = refactoring.getPreconditions();
-		List<String> actions = RefactoringMechanismInstance.getActionsClassNames(refactoring.getActions());
-		List<String> postconditions = refactoring.getPostconditions();
+		List<RefactoringMechanismInstance> preconditions = refactoring.getPreconditions();
+		List<String> actions = RefactoringMechanismInstance.getMechanismListClassNames(refactoring.getActions());
+		List<RefactoringMechanismInstance> postconditions = refactoring.getPostconditions();
 
 		TreeItem preconditionsChild = TreeEditor.createBranch(componentsTree, 0,
 
@@ -536,7 +536,7 @@ public class RefactoringSummaryPanel {
 		TreeItem postconditionsChild = TreeEditor.createBranch(componentsTree, 2,
 				Messages.RefactoringSummaryPanel_Postconditions, RefactoringImages.VALIDATE_ICON_PATH);
 
-		TreeEditor.fillInTreeBranch(preconditions, preconditionsChild, 
+		TreeEditor.fillInTreeBranch(RefactoringMechanismInstance.getMechanismListClassNames(preconditions), preconditionsChild, 
 				RefactoringImages.CHECK_ICON_PATH);
 		preconditionsChild.setExpanded(true);
 
@@ -544,7 +544,7 @@ public class RefactoringSummaryPanel {
 				RefactoringImages.RUN_ICON_PATH);
 		actionsChild.setExpanded(true);
 
-		TreeEditor.fillInTreeBranch(postconditions, postconditionsChild, 
+		TreeEditor.fillInTreeBranch(RefactoringMechanismInstance.getMechanismListClassNames(postconditions), postconditionsChild, 
 				RefactoringImages.VALIDATE_ICON_PATH);
 		postconditionsChild.setExpanded(true);
 

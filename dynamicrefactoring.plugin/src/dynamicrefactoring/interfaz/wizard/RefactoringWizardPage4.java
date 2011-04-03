@@ -169,9 +169,9 @@ public final class RefactoringWizardPage4 extends WizardPage implements  IRefact
 
 	
 	/**
-	 * Obtiene la lista de nombres de acciones seleccionadas.
+	 * Obtiene la lista de acciones seleccionadas.
 	 * 
-	 * @return la lista de nombres de acciones seleccionadas.
+	 * @return la lista de acciones seleccionadas.
 	 */
 	public List<RefactoringMechanismInstance> getActions(){
 		List<RefactoringMechanismInstance> lista = new ArrayList<RefactoringMechanismInstance>();

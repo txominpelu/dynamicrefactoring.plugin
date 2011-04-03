@@ -352,19 +352,19 @@ public final class JDOMXMLRefactoringWriterImp implements XMLRefactoringWriterIm
 				RefactoringMechanismType.PRECONDITION,
 				XMLRefactoringReaderImp.PRECONDITIONS_ELEMENT,
 				XMLRefactoringReaderImp.PRECONDITION_ELEMENT,
-				refactoringDefinition.getPreconditions()));
+				RefactoringMechanismInstance.getMechanismListClassNames(refactoringDefinition.getPreconditions())));
 
 		mechanism.addContent(createMechanismElement(
 				RefactoringMechanismType.ACTION,
 				XMLRefactoringReaderImp.ACTIONS_ELEMENT,
 				XMLRefactoringReaderImp.ACTION_ELEMENT,
-				RefactoringMechanismInstance.getActionsClassNames(refactoringDefinition.getActions())));
+				RefactoringMechanismInstance.getMechanismListClassNames(refactoringDefinition.getActions())));
 
 		mechanism.addContent(createMechanismElement(
 				RefactoringMechanismType.POSTCONDITION,
 				XMLRefactoringReaderImp.POSTCONDITIONS_ELEMENT,
 				XMLRefactoringReaderImp.POSTCONDITION_ELEMENT,
-				refactoringDefinition.getPostconditions()));
+				RefactoringMechanismInstance.getMechanismListClassNames(refactoringDefinition.getPostconditions())));
 
 		refactoringElement.addContent(mechanism);
 	}

@@ -90,7 +90,7 @@ public class DynamicRefactoringDefinition implements Element,
 	/**
 	 * Los nombres de las precondiciones de la refactorizaci�n.
 	 */
-	private List<String> preconditions;
+	private List<RefactoringMechanismInstance> preconditions;
 
 	/**
 	 * Los nombres de las acciones de la refactorizaci�n.
@@ -100,7 +100,7 @@ public class DynamicRefactoringDefinition implements Element,
 	/**
 	 * Los nombres de las postcondiciones de la refactorizaci�n.
 	 */
-	private List<String> postconditions;
+	private List<RefactoringMechanismInstance> postconditions;
 
 	/**
 	 * Los valores para los par�metros ambiguos, que se obtienen de la
@@ -245,7 +245,7 @@ public class DynamicRefactoringDefinition implements Element,
 	 * 
 	 * @see #setPreconditions
 	 */
-	public List<String> getPreconditions() {
+	public List<RefactoringMechanismInstance> getPreconditions() {
 		return preconditions;
 	}
 
@@ -268,8 +268,8 @@ public class DynamicRefactoringDefinition implements Element,
 	 * 
 	 * @see #setPostconditions
 	 */
-	public List<String> getPostconditions() {
-		return new ArrayList<String>(postconditions);
+	public List<RefactoringMechanismInstance> getPostconditions() {
+		return new ArrayList<RefactoringMechanismInstance>(postconditions);
 	}
 
 	/**
@@ -695,9 +695,9 @@ public class DynamicRefactoringDefinition implements Element,
 		private String image = "";
 		private String motivation;
 		private List<InputParameter> inputs;
-		private List<String> preconditions;
+		private List<RefactoringMechanismInstance> preconditions;
 		private List<RefactoringMechanismInstance> actions;
-		private List<String> postconditions;
+		private List<RefactoringMechanismInstance> postconditions;
 		private Map<String, List<String[]>>[] ambiguousParameters;
 
 		/**
@@ -891,7 +891,7 @@ public class DynamicRefactoringDefinition implements Element,
 		 * 
 		 * @see #getPreconditions
 		 */
-		public Builder preconditions(List<String> preconditions) {
+		public Builder preconditions(List<RefactoringMechanismInstance> preconditions) {
 			this.preconditions = preconditions;
 			return this;
 		}
@@ -919,7 +919,7 @@ public class DynamicRefactoringDefinition implements Element,
 		 * 
 		 * @see #getPostconditions
 		 */
-		public Builder postconditions(List<String> postconditions) {
+		public Builder postconditions(List<RefactoringMechanismInstance> postconditions) {
 			this.postconditions = postconditions;
 			return this;
 		}

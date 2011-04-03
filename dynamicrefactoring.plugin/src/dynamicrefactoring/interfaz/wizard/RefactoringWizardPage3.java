@@ -34,6 +34,7 @@ import org.eclipse.swt.layout.FormLayout;
 import org.eclipse.swt.widgets.Composite;
 
 import dynamicrefactoring.domain.DynamicRefactoringDefinition;
+import dynamicrefactoring.domain.RefactoringMechanismInstance;
 import dynamicrefactoring.domain.RefactoringMechanismType;
 
 
@@ -135,7 +136,7 @@ public class RefactoringWizardPage3 extends WizardPage implements IRefactoringWi
 		try {
 			fillPreconditionsList();
 			if (refactoring != null){
-				preconditionsTab.fillSelectedList(
+				preconditionsTab.fillSelectedListAsRefactoringMechanism(
 						refactoring.getPreconditions(), refactoring,
 						RefactoringMechanismType.PRECONDITION);
 			}
@@ -165,12 +166,16 @@ public class RefactoringWizardPage3 extends WizardPage implements IRefactoringWi
 	}
 	
 	/**
-	 * Obtiene la lista de nombres de precondiciones seleccionadas.
+	 * Obtiene la lista de precondiciones seleccionadas.
 	 * 
-	 * @return la lista de nombres de precondiciones seleccionadas.
+	 * @return la lista de precondiciones seleccionadas.
 	 */
-	public ArrayList<String> getPreconditions(){
-		return preconditionsTab.getElements();
+	public List<RefactoringMechanismInstance> getPreconditions(){
+		List<RefactoringMechanismInstance> lista = new ArrayList<RefactoringMechanismInstance>();
+		for(String className : preconditionsTab.getElements()){
+			lista.add(new RefactoringMechanismInstance(className, RefactoringMechanismType.PRECONDITION));
+		}
+		return lista;
 	}
 	
 	/**

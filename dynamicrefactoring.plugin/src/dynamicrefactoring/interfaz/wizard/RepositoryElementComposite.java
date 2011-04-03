@@ -604,57 +604,7 @@ public class RepositoryElementComposite {
 			DynamicRefactoringDefinition refactoring,
 			RefactoringMechanismType typePart) {
 		// Para cada elemento de la refactorizaci�n (predicado o acci�n).
-		for (String next : RefactoringMechanismInstance.getActionsClassNames(elements)){
-			String element = next;
-			if(selectedTimes.containsKey(next)){
-				int number = selectedTimes.get(next)+1;
-				element = next +" (" + number + ")";
-				selectedTimes.put(next, number);
-			}else{
-				selectedTimes.put(next, 1);
-				element = next+" (" + 1 + ")";
-			}
-			// Se a�ade su nombre a la lista de componentes.
-			l_Selected.add(element);
-			
-			// Se crea un nuevo elemento para representarlo.
-			RepositoryItem elemento = new RepositoryItem(next,
-					typePart.isElementJavaDependent(next));
-			
-			// Se obtiene su lista de par�metros.
-			java.util.List<String[]> parameters =
-				refactoring.getAmbiguousParameters(next, typePart);
-			// Para cada par�metro.
-			for (String[] nextParam : parameters){
-				// Se busca la entrada de la refactorizaci�n con ese nombre.
-				InputParameter[] previousInputs = inputsPage.getInputTable(); 
-				for (int i = 0; i < previousInputs.length; i++)
-					if (previousInputs[i].getName().equals(nextParam[0])){
-						elemento.addParameter(previousInputs[i]);
-						break;
-					}	
-			}
-			selectedTable.put(element, elemento);
-		}
-		l_Selected.deselectAll();
-	}
-	
-	/**
-	 * Puebla la lista de elementos que forman ya parte de una refactorizaci�n
-	 * que se haya cargado para ser editada.
-	 * 
-	 * @param elements elementos que forman ya parte de la refactorizaci�n.
-	 * @param refactoring refactorizaci�n cuyos elementos se cargan.
-	 * @param typePart tipo de elementos que se cargar�n (uno de 
-	 * {@link RefactoringConstants#PRECONDITION}, 
-	 * {@link RefactoringConstants#ACTION} o 
-	 * {@link RefactoringConstants#POSTCONDITION}.)
-	 */
-	protected void fillSelectedList(java.util.List<String> elements,
-			DynamicRefactoringDefinition refactoring,
-			RefactoringMechanismType typePart) {
-		// Para cada elemento de la refactorizaci�n (predicado o acci�n).
-		for (String next : elements){
+		for (String next : RefactoringMechanismInstance.getMechanismListClassNames(elements)){
 			String element = next;
 			if(selectedTimes.containsKey(next)){
 				int number = selectedTimes.get(next)+1;

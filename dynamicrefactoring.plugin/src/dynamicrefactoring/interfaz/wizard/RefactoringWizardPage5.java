@@ -22,6 +22,7 @@ package dynamicrefactoring.interfaz.wizard;
 
 import java.io.IOException;
 import java.text.MessageFormat;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
@@ -33,6 +34,7 @@ import org.eclipse.swt.layout.FormLayout;
 import org.eclipse.swt.widgets.Composite;
 
 import dynamicrefactoring.domain.DynamicRefactoringDefinition;
+import dynamicrefactoring.domain.RefactoringMechanismInstance;
 import dynamicrefactoring.domain.RefactoringMechanismType;
 
 /**
@@ -143,7 +145,7 @@ public class RefactoringWizardPage5 extends WizardPage implements IRefactoringWi
 		try {
 			fillPostconditionsList();
 			if (refactoring != null){
-				postconditionsTab.fillSelectedList(
+				postconditionsTab.fillSelectedListAsRefactoringMechanism(
 						refactoring.getPostconditions(), refactoring,
 						RefactoringMechanismType.POSTCONDITION);
 			}
@@ -178,18 +180,16 @@ public class RefactoringWizardPage5 extends WizardPage implements IRefactoringWi
 	
 	
 	/**
-	 * Obtiene la lista de nombres de postcondiciones seleccionadas.
-	 * Las precondiciones seleccionadas son exclusivamente los nombres
-	 * de los tipos de las mismas.
+	 * Obtiene la lista de postccondiciones seleccionadas.
 	 * 
-	 * Ejemplo:
-	 * 
-	 * AddAtribute
-	 * 
-	 * @return la lista de nombres de postcondiciones seleccionadas.
+	 * @return la lista de poscondiciones seleccionadas.
 	 */
-	public List<String> getPostconditions(){
-		return postconditionsTab.getElements();
+	public List<RefactoringMechanismInstance> getPostconditions(){
+		List<RefactoringMechanismInstance> lista = new ArrayList<RefactoringMechanismInstance>();
+		for(String className : postconditionsTab.getElements()){
+			lista.add(new RefactoringMechanismInstance(className, RefactoringMechanismType.POSTCONDITION));
+		}
+		return lista;
 	}
 		
 	/**

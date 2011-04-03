@@ -22,7 +22,6 @@ package dynamicrefactoring.interfaz.wizard;
 
 
 import java.text.MessageFormat;
-import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
@@ -332,11 +331,11 @@ public class RefactoringWizardPage7 extends WizardPage {
 					&& thirdPage instanceof RefactoringWizardPage3
 					&& fourthPage instanceof RefactoringWizardPage4
 					&& fifthPage instanceof RefactoringWizardPage5){
-				ArrayList<String> preconditions = 
+				List<RefactoringMechanismInstance> preconditions = 
 					((RefactoringWizardPage3)thirdPage).getPreconditions();
 				List<RefactoringMechanismInstance> actions = 
 					((RefactoringWizardPage4)fourthPage).getActions();
-				List<String> postconditions = 
+				List<RefactoringMechanismInstance> postconditions = 
 					((RefactoringWizardPage5)fifthPage).getPostconditions();
 								
 				
@@ -347,11 +346,11 @@ public class RefactoringWizardPage7 extends WizardPage {
 				TreeItem postconditionsChild = TreeEditor.createBranch(tr_Components, 2,
 					Messages.RefactoringWizardPage7_Postconditions, RefactoringImages.VALIDATE_ICON_PATH); 
 				
-				TreeEditor.fillInTreeBranch(preconditions, preconditionsChild, 
+				TreeEditor.fillInTreeBranch(RefactoringMechanismInstance.getMechanismListClassNames(preconditions), preconditionsChild, 
 						RefactoringImages.CHECK_ICON_PATH); 
-				TreeEditor.fillInTreeBranch(RefactoringMechanismInstance.getActionsClassNames(actions), actionsChild, 
+				TreeEditor.fillInTreeBranch(RefactoringMechanismInstance.getMechanismListClassNames(actions), actionsChild, 
 						RefactoringImages.RUN_ICON_PATH); 
-				TreeEditor.fillInTreeBranch(postconditions, postconditionsChild, 
+				TreeEditor.fillInTreeBranch(RefactoringMechanismInstance.getMechanismListClassNames(postconditions), postconditionsChild, 
 						RefactoringImages.VALIDATE_ICON_PATH); 
 			}
 		}
