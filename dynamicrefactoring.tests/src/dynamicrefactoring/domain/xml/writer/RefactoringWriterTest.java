@@ -23,13 +23,14 @@ package dynamicrefactoring.domain.xml.writer;
 import static dynamicrefactoring.domain.RefactoringMechanismType.ACTION;
 import static dynamicrefactoring.domain.RefactoringMechanismType.POSTCONDITION;
 import static dynamicrefactoring.domain.RefactoringMechanismType.PRECONDITION;
+import static dynamicrefactoring.domain.xml.RefactoringXMLTest.CLASS;
+import static dynamicrefactoring.domain.xml.RefactoringXMLTest.NEW_NAME;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -46,8 +47,8 @@ import dynamicrefactoring.domain.DynamicRefactoringDefinition.Builder;
 import dynamicrefactoring.domain.InputParameter;
 import dynamicrefactoring.domain.RefactoringExample;
 import dynamicrefactoring.domain.RefactoringMechanismInstance;
-import dynamicrefactoring.domain.RefactoringMechanismType;
 import dynamicrefactoring.domain.metadata.interfaces.Category;
+import dynamicrefactoring.domain.xml.RefactoringXMLTest;
 import dynamicrefactoring.domain.xml.reader.TestCaseRefactoringReader;
 /**
  * Comprueba que funciona correctamente el proceso de escritura de la definici�n
@@ -61,10 +62,10 @@ import dynamicrefactoring.domain.xml.reader.TestCaseRefactoringReader;
  * @author <A HREF="mailto:ehp0001@alu.ubu.es">Enrique Herrero Paredes</A>
  * 
  */
-public class RefactoringWriterTest {
+public class RefactoringWriterTest extends RefactoringXMLTest{
 
-	private static final String CLASS = "Class";
-	private static final String NEW_NAME = "New_name";
+	private static final String RENAME_CLASS_1 = "RenameClass (1)";
+
 	private static final String MOTIVACION = "Motivacion.";
 	private static final String DESCRIPCION = "Descripcion.";
 	/**
@@ -267,105 +268,24 @@ public class RefactoringWriterTest {
 
 		// a�adir precondiciones,acciones y postcondiciones
 		ArrayList<RefactoringMechanismInstance> preconditions = new ArrayList<RefactoringMechanismInstance>();
-		preconditions.add(new RefactoringMechanismInstance("NotExistsClassWithName (1)", PRECONDITION)); //$NON-NLS-1$
+		List<String> preconditionParameters = getPreconditionsParameters();
+		preconditions.add(new RefactoringMechanismInstance("NotExistsClassWithName (1)", preconditionParameters,  PRECONDITION)); //$NON-NLS-1$
 		rd.preconditions(preconditions);
 
 		ArrayList<RefactoringMechanismInstance> actions = new ArrayList<RefactoringMechanismInstance>();
-		actions.add(new RefactoringMechanismInstance("RenameClass (1)", ACTION)); //$NON-NLS-1$
-		actions.add(new RefactoringMechanismInstance("RenameReferenceFile (1)", ACTION)); //$NON-NLS-1$
-		actions.add(new RefactoringMechanismInstance("RenameClassType (1)", ACTION)); //$NON-NLS-1$
-		actions.add(new RefactoringMechanismInstance("RenameGenericClassType (1)", ACTION)); //$NON-NLS-1$
-		actions.add(new RefactoringMechanismInstance("RenameConstructors (1)", ACTION)); //$NON-NLS-1$
-		actions.add(new RefactoringMechanismInstance("RenameJavaFile (1)", ACTION)); //$NON-NLS-1$
+		List<String> actionParameters = getActionsParameters();
+		actions.add(new RefactoringMechanismInstance(RENAME_CLASS_1, actionParameters, ACTION)); //$NON-NLS-1$
+		actions.add(new RefactoringMechanismInstance("RenameReferenceFile (1)", actionParameters, ACTION)); //$NON-NLS-1$
+		actions.add(new RefactoringMechanismInstance("RenameClassType (1)", actionParameters, ACTION)); //$NON-NLS-1$
+		actions.add(new RefactoringMechanismInstance("RenameGenericClassType (1)", actionParameters, ACTION)); //$NON-NLS-1$
+		actions.add(new RefactoringMechanismInstance("RenameConstructors (1)", actionParameters, ACTION)); //$NON-NLS-1$
+		actions.add(new RefactoringMechanismInstance("RenameJavaFile (1)", actionParameters, ACTION)); //$NON-NLS-1$
 		rd.actions(actions);
 
 		ArrayList<RefactoringMechanismInstance> postconditions = new ArrayList<RefactoringMechanismInstance>();
-		postconditions.add(new RefactoringMechanismInstance("NotExistsClassWithName (1)", POSTCONDITION)); //$NON-NLS-1$
+		List<String> postConditionParameters = getPostConditionsParameters();
+		postconditions.add(new RefactoringMechanismInstance("NotExistsClassWithName (1)", postConditionParameters, POSTCONDITION)); //$NON-NLS-1$
 		rd.postconditions(postconditions);
-
-		// A�adiendo los par�metros ambiguos.
-		@SuppressWarnings({ "unchecked" })//$NON-NLS-1$
-		HashMap<String, List<String[]>>[] map = (HashMap<String, List<String[]>>[]) new HashMap[3];
-
-		map[RefactoringMechanismType.PRECONDITION.ordinal()] = new HashMap<String, List<String[]>>();
-		map[RefactoringMechanismType.ACTION.ordinal()] = new HashMap<String, List<String[]>>();
-		map[RefactoringMechanismType.POSTCONDITION.ordinal()] = new HashMap<String, List<String[]>>();
-
-		List<String[]> ambiguous1 = new ArrayList<String[]>();
-		String[] amb1 = new String[1];
-		amb1[0] = NEW_NAME; //$NON-NLS-1$
-		ambiguous1.add(amb1);
-		map[RefactoringMechanismType.PRECONDITION.ordinal()].put(
-				"NotExistsClassWithName (1)", ambiguous1); //$NON-NLS-1$
-
-		List<String[]> ambiguous2 = new ArrayList<String[]>();
-		String[] amb2a = new String[1];
-		amb2a[0] = CLASS; //$NON-NLS-1$
-		String[] amb2b = new String[1];
-		amb2b[0] = NEW_NAME; //$NON-NLS-1$
-		ambiguous2.add(amb2a);
-		ambiguous2.add(amb2b);
-		map[RefactoringMechanismType.ACTION.ordinal()].put(
-				"RenameClass (1)", ambiguous2); //$NON-NLS-1$
-
-		List<String[]> ambiguous3 = new ArrayList<String[]>();
-		String[] amb3a = new String[1];
-		amb3a[0] = CLASS; //$NON-NLS-1$
-		String[] amb3b = new String[1];
-		amb3b[0] = NEW_NAME; //$NON-NLS-1$
-		ambiguous3.add(amb3a);
-		ambiguous3.add(amb3b);
-		map[RefactoringMechanismType.ACTION.ordinal()].put(
-				"RenameReferenceFile (1)", ambiguous3); //$NON-NLS-1$
-
-		List<String[]> ambiguous4 = new ArrayList<String[]>();
-		String[] amb4a = new String[1];
-		amb4a[0] = CLASS; //$NON-NLS-1$
-		String[] amb4b = new String[1];
-		amb4b[0] = NEW_NAME; //$NON-NLS-1$
-		ambiguous4.add(amb4a);
-		ambiguous4.add(amb4b);
-		map[RefactoringMechanismType.ACTION.ordinal()].put(
-				"RenameClassType (1)", ambiguous4); //$NON-NLS-1$
-
-		List<String[]> ambiguous5 = new ArrayList<String[]>();
-		String[] amb5a = new String[1];
-		amb5a[0] = CLASS; //$NON-NLS-1$
-		String[] amb5b = new String[1];
-		amb5b[0] = NEW_NAME; //$NON-NLS-1$
-		ambiguous5.add(amb5a);
-		ambiguous5.add(amb5b);
-		map[RefactoringMechanismType.ACTION.ordinal()].put(
-				"RenameGenericClassType (1)", ambiguous5); //$NON-NLS-1$
-
-		List<String[]> ambiguous6 = new ArrayList<String[]>();
-		String[] amb6a = new String[1];
-		amb6a[0] = CLASS; //$NON-NLS-1$
-		String[] amb6b = new String[1];
-		amb6b[0] = NEW_NAME; //$NON-NLS-1$
-		ambiguous6.add(amb6a);
-		ambiguous6.add(amb6b);
-		map[RefactoringMechanismType.ACTION.ordinal()].put(
-				"RenameConstructors (1)", ambiguous6); //$NON-NLS-1$
-
-		List<String[]> ambiguous7 = new ArrayList<String[]>();
-		String[] amb7a = new String[1];
-		amb7a[0] = CLASS; //$NON-NLS-1$
-		String[] amb7b = new String[1];
-		amb7b[0] = NEW_NAME; //$NON-NLS-1$
-		ambiguous7.add(amb7a);
-		ambiguous7.add(amb7b);
-		map[RefactoringMechanismType.ACTION.ordinal()].put(
-				"RenameJavaFile (1)", ambiguous7); //$NON-NLS-1$
-
-		List<String[]> ambiguous8 = new ArrayList<String[]>();
-		String[] amb8 = new String[1];
-		amb8[0] = "Old_name"; //$NON-NLS-1$
-		ambiguous8.add(amb8);
-		map[RefactoringMechanismType.POSTCONDITION.ordinal()].put(
-				"NotExistsClassWithName (1)", ambiguous8); //$NON-NLS-1$
-
-		rd.ambiguousParameters(map);
 
 		// a�adiendo los ejemplos
 		ArrayList<RefactoringExample> ejemplos = new ArrayList<RefactoringExample>();
@@ -488,15 +408,15 @@ public class RefactoringWriterTest {
 	private DynamicRefactoringDefinition addSimplePredicates(Builder builder) {
 		// a�adir precondiciones,acciones y postcondiciones
 		ArrayList<RefactoringMechanismInstance> preconditions = new ArrayList<RefactoringMechanismInstance>();
-		preconditions.add(new RefactoringMechanismInstance("ExistsClass (1)", PRECONDITION)); //$NON-NLS-1$
+		preconditions.add(new RefactoringMechanismInstance("ExistsClass (1)", new ArrayList<String>() ,PRECONDITION)); //$NON-NLS-1$
 		builder.preconditions(preconditions);
 
 		ArrayList<RefactoringMechanismInstance> actions = new ArrayList<RefactoringMechanismInstance>();
-		actions.add(new RefactoringMechanismInstance("RenameClass (1)", ACTION)); //$NON-NLS-1$
+		actions.add(new RefactoringMechanismInstance(RENAME_CLASS_1, new ArrayList<String>(), ACTION)); //$NON-NLS-1$
 		builder.actions(actions);
 
 		ArrayList<RefactoringMechanismInstance> postconditions = new ArrayList<RefactoringMechanismInstance>();
-		postconditions.add(new RefactoringMechanismInstance("ExistsClass (1)", POSTCONDITION)); //$NON-NLS-1$
+		postconditions.add(new RefactoringMechanismInstance("ExistsClass (1)", new ArrayList<String>() , POSTCONDITION)); //$NON-NLS-1$
 		builder.postconditions(postconditions);
 
 		return builder.build();

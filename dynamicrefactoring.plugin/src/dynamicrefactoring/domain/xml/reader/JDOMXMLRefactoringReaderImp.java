@@ -38,7 +38,6 @@ import org.jdom.input.SAXBuilder;
 
 import com.google.common.base.Throwables;
 
-import dynamicrefactoring.RefactoringConstants;
 import dynamicrefactoring.RefactoringPlugin;
 import dynamicrefactoring.domain.DynamicRefactoringDefinition;
 import dynamicrefactoring.domain.DynamicRefactoringDefinition.Builder;
@@ -233,12 +232,9 @@ public class JDOMXMLRefactoringReaderImp implements XMLRefactoringReaderImp {
 	 * @return mecanismos de la refactorizaci�n.
 	 */
 	@SuppressWarnings({ "unchecked" })//$NON-NLS-1$
-	public Builder readMechanismRefactoring(Element root, Builder builder) {
+	private Builder readMechanismRefactoring(Element root, Builder builder) {
 
 		Element mechanism = root.getChild(MECHANISM_ELEMENT);
-		HashMap<String, List<String[]>>[] ambiguousParameters = (HashMap<String, List<String[]>>[]) new HashMap[3];
-		for (int i = 0; i < ambiguousParameters.length; i++)
-			ambiguousParameters[i] = new HashMap<String, List<String[]>>();
 
 		// Se obtienen las precondiciones de la refactorizaci�n.
 		Element preconditionsElement = mechanism
@@ -246,13 +242,13 @@ public class JDOMXMLRefactoringReaderImp implements XMLRefactoringReaderImp {
 		List<Element> pre = preconditionsElement
 				.getChildren(PRECONDITION_ELEMENT);
 		
-		builder.preconditions(readMechanismElementsAsRefactoringMechanismInstance(ambiguousParameters, pre,
+		builder.preconditions(readMechanismElementsAsRefactoringMechanismInstance(pre,
 				RefactoringMechanismType.PRECONDITION));
 
 		// Se obtienen las acciones de la refactorizaci�n.
 		Element actionsElement = mechanism.getChild(ACTIONS_ELEMENT);
 		List<Element> ac = actionsElement.getChildren(ACTION_ELEMENT);
-		builder.actions(readMechanismElementsAsRefactoringMechanismInstance(ambiguousParameters, ac,
+		builder.actions(readMechanismElementsAsRefactoringMechanismInstance(ac,
 				RefactoringMechanismType.ACTION));
 
 		// Se obtienen las postcondiciones de la refactorizaci�n.
@@ -261,65 +257,39 @@ public class JDOMXMLRefactoringReaderImp implements XMLRefactoringReaderImp {
 		List<Element> post = postconditionsElement
 				.getChildren(POSTCONDITION_ELEMENT);
 
-		builder.postconditions(readMechanismElementsAsRefactoringMechanismInstance(ambiguousParameters, post,
+		builder.postconditions(readMechanismElementsAsRefactoringMechanismInstance(post,
 				RefactoringMechanismType.POSTCONDITION));
-		builder.ambiguousParameters(ambiguousParameters);
 
 		return builder;
 	}
 
-	private List<RefactoringMechanismInstance> readMechanismElementsAsRefactoringMechanismInstance(
-			HashMap<String, List<String[]>>[] ambiguousParameters,
-			List<Element> elements,
-			RefactoringMechanismType type) {
+	private List<RefactoringMechanismInstance> readMechanismElementsAsRefactoringMechanismInstance(List<Element> elements, RefactoringMechanismType type) {
 
 		ArrayList<RefactoringMechanismInstance> elementNames = new ArrayList<RefactoringMechanismInstance>();
-
-		List<Element> params;
 
 		for (Element element : elements) {
 			String elementName = element.getAttributeValue(NAME_ATTRIBUTE);
 			elementNames.add(new RefactoringMechanismInstance(dynamicrefactoring.util.PluginStringUtils
-					.getClassName(elementName), type));
-
-			params = element.getChildren(PARAM_ELEMENT);
-			if (!params.isEmpty()) {
-				readAmbiguousParametersOfElement(ambiguousParameters,
-						dynamicrefactoring.util.PluginStringUtils
-								.getClassName(elementName), type, params);
-			}
+					.getClassName(elementName), getParametersOfMechanism(element.getChildren(PARAM_ELEMENT)), type));
 		}
 		return elementNames;
 	}
 	/**
-	 * Lee la lista de par�metros ambiguos asociados a un elemento, que puede
-	 * ser una precondici�n, una acci�n o una postcondici�n.
+	 * Lee la lista de parametros ambiguos asociados a un elemento, que puede
+	 * ser una precondicion, una accion o una postcondicion.
 	 * 
-	 * @param elementName
-	 *            el nombre del elemento cuyos par�metros ambiguos han de
-	 *            leerse.
-	 * @param type
-	 *            {@link RefactoringConstants#PRECONDITION},
-	 *            {@link RefactoringConstants#ACTION} o
-	 *            {@link RefactoringConstants#POSTCONDITION}.
 	 * @param params
-	 *            la lista de par�metros ambiguos del elemento.
+	 *            elemento xml con la lista de parametros del mecanismo.
+	 * @return lista de los nombres de los parametros del mecanismo
 	 */
-	private void readAmbiguousParametersOfElement(
-			HashMap<String, List<String[]>>[] ambiguousParameters,
-			String elementName, RefactoringMechanismType type,
-			List<Element> params) {
+	private List<String> getParametersOfMechanism(List<Element> params) {
 
-		ArrayList<String[]> attributes = new ArrayList<String[]>();
+		List<String> parametersList = new ArrayList<String>();
 
 		for (Element param : params) {
-			String[] attributesParam = new String[1];
-			attributesParam[0] = param.getAttributeValue(NAME_ATTRIBUTE);
-			attributes.add(attributesParam);
+			parametersList.add(param.getAttributeValue(NAME_ATTRIBUTE));
 		}
-
-		ambiguousParameters[type.ordinal()].put(elementName,
-				attributes);
+		return parametersList;
 	}
 
 	/**

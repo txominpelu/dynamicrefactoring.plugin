@@ -23,7 +23,6 @@ package dynamicrefactoring.interfaz.wizard;
 import java.io.IOException;
 import java.text.MessageFormat;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 
 import org.apache.log4j.Logger;
@@ -139,7 +138,7 @@ public class RefactoringWizardPage5 extends WizardPage implements IRefactoringWi
 			inputsPage = (RefactoringWizardPage2)getPreviousPage().getPreviousPage().getPreviousPage();
 	
 		postconditionsTab = new RepositoryElementComposite(
-			container, POSTCONDITIONS_TITLE, inputsPage,this);
+			container, POSTCONDITIONS_TITLE, inputsPage,this, RefactoringMechanismType.POSTCONDITION);
 		
 		// Se completan las listas de elementos del repositorio candidatos.
 		try {
@@ -156,27 +155,6 @@ public class RefactoringWizardPage5 extends WizardPage implements IRefactoringWi
 			MessageDialog.openError(getShell(), Messages.RefactoringWizardPage3_Error, message);
 		}
 	}
-
-	/**
-	 * Obtiene el conjunto de parï¿½metros asignados en cada una de las
-	 * postcondiciones del repositorio seleccionadas para formar parte de la
-	 * refactorizaciï¿½n.
-	 * 
-	 * <p>
-	 * El formato devuelto se corresponde con una tabla asociativa que sigue la
-	 * estructura definida en {@link RepositoryElementComposite#getParameters()}
-	 * .
-	 * </p>
-	 * 
-	 * @return el conjunto de parï¿½metros asignados a cada elemento concreto
-	 *         del repositorio seleccionado para formar parte de la
-	 *         refactorizaciï¿½n.
-	 * 
-	 * @see RepositoryElementComposite#getParameters()
-	 */
-	public HashMap<String, List<String[]>> getAmbiguousParameters() {
-		return postconditionsTab.getParameters();
-	}
 	
 	
 	/**
@@ -187,7 +165,7 @@ public class RefactoringWizardPage5 extends WizardPage implements IRefactoringWi
 	public List<RefactoringMechanismInstance> getPostconditions(){
 		List<RefactoringMechanismInstance> lista = new ArrayList<RefactoringMechanismInstance>();
 		for(String className : postconditionsTab.getElements()){
-			lista.add(new RefactoringMechanismInstance(className, RefactoringMechanismType.POSTCONDITION));
+			lista.add(new RefactoringMechanismInstance(className, postconditionsTab.getParameters().get(className).getParametersNamesAsString(), RefactoringMechanismType.POSTCONDITION));
 		}
 		return lista;
 	}

@@ -384,16 +384,10 @@ public class DynamicRefactoring extends MOONRefactoring {
 	 * 
 	 * @return el valor asignado a la entrada.
 	 */
-	private Object getInput(String elementName, int position,
+	private RefactoringMechanismInstance getInput(String elementName, int position,
 			RefactoringMechanismType type) {
-		// Se obtienen los argumentos del predicado o acci�n.
-		List<String[]> parameters = refactoringDefinition
-				.getAmbiguousParameters(elementName, type);
-		// Se obtiene el argumento de la posici�n especificada.
-		String[] parameter = parameters.get(position);
-
 		// Se obtiene el valor asociado a la entrada con el nombre dado.
-		return inputParameters.get(parameter[0]);
+		return refactoringDefinition.getMechanismsWithName(elementName, type).get(position);
 	}
 
 	/**

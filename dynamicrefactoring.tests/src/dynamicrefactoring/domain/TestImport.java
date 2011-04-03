@@ -60,6 +60,7 @@ public class TestImport {
 	public void setUp() throws IOException,
 			XMLRefactoringReaderException {
 		FileManager.createDir(TEMP_DIR);
+		FileManager.copyBundleDirToFileSystem("/DynamicRefactorings/Rename Class/", RefactoringPlugin.getCommonPluginFilesDir());
 		// Primero exportamos la refactorizaci�n Rename Class a un directorio
 		// temporal que luego eliminaremos
 		ExportImportUtilities.ExportRefactoring(TEMP_DIR,
@@ -80,6 +81,7 @@ public class TestImport {
 	@After
 	public void tearDown() {
 		// Borramos el directorio temporal al final del test
+		FileManager.deleteDirectories(RefactoringPlugin.getDynamicRefactoringsDir() + File.separator + "Rename Class", true);
 		FileManager.emptyDirectories(TEMP_DIR);
 		FileManager.deleteDirectories(TEMP_DIR, true);
 	}

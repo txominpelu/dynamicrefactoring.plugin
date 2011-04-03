@@ -24,8 +24,6 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
 import java.text.MessageFormat;
-import java.util.HashMap;
-import java.util.List;
 
 import org.apache.log4j.Logger;
 import org.eclipse.core.runtime.IProgressMonitor;
@@ -41,7 +39,6 @@ import org.eclipse.ui.IWorkbenchWizard;
 
 import dynamicrefactoring.RefactoringImages;
 import dynamicrefactoring.domain.DynamicRefactoringDefinition;
-import dynamicrefactoring.domain.RefactoringMechanismType;
 import dynamicrefactoring.domain.RefactoringsCatalog;
 import dynamicrefactoring.domain.xml.XMLRefactoringsCatalog;
 import dynamicrefactoring.domain.xml.writer.XMLRefactoringWriterException;
@@ -275,28 +272,8 @@ public class RefactoringWizard extends Wizard implements INewWizard {
 				.postconditions(pageE.getPostconditions())
 				.categories(pageA.getCategories())
 				.keywords(pageA.getKeywords())
-				.ambiguousParameters(getAmbiguousParameters())
 				.examples(pageF.getExamples());
 
-	}
-	
-
-	/**
-	 * Genera los parametros ambiguos que tendra la refactorizacion a crear /
-	 * editar.
-	 * 
-	 * @return mapa de parametros antiguos
-	 */
-	private HashMap<String, List<String[]>>[] getAmbiguousParameters() {
-		HashMap<String, List<String[]>>[] map = (HashMap<String, List<String[]>>[]) new HashMap[3];
-
-		map[RefactoringMechanismType.PRECONDITION.ordinal()] = pageC
-		.getAmbiguousParameters();
-		map[RefactoringMechanismType.ACTION.ordinal()] = pageD
-				.getAmbiguousParameters();
-		map[RefactoringMechanismType.POSTCONDITION.ordinal()] = pageE
-				.getAmbiguousParameters();
-		return map;
 	}
 
 	/**

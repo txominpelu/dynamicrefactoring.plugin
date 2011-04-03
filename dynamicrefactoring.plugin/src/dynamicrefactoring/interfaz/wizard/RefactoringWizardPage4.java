@@ -23,7 +23,6 @@ package dynamicrefactoring.interfaz.wizard;
 import java.io.IOException;
 import java.text.MessageFormat;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 
 import org.apache.log4j.Logger;
@@ -133,7 +132,7 @@ public final class RefactoringWizardPage4 extends WizardPage implements  IRefact
 			inputsPage = (RefactoringWizardPage2)getPreviousPage().getPreviousPage();
 
 		actionsTab = new RepositoryElementComposite(
-			container, ACTIONS_TITLE, inputsPage,this);
+			container, ACTIONS_TITLE, inputsPage,this, RefactoringMechanismType.ACTION);
 
 		
 		// Se completan las listas de elementos del repositorio candidatos.
@@ -152,23 +151,6 @@ public final class RefactoringWizardPage4 extends WizardPage implements  IRefact
 	}
 	
 	/**
-	 * Obtiene el conjunto de par�metros asignados en cada una de las acciones
-	 * del repositorio seleccionadas para formar parte de la refactorizaci�n.
-	 * 
-	 * <p>El formato devuelto se corresponde con una tabla asociativa que sigue la estructura 
-	 * definida en {@link RepositoryElementComposite#getParameters()}.</p>
-	 * 
-	 * @return el conjunto de par�metros asignados a cada elemento concreto del
-	 * repositorio seleccionado para formar parte de la refactorizaci�n.
-	 * 
-	 * @see RepositoryElementComposite#getParameters()
-	 */
-	public HashMap<String, List<String[]>> getAmbiguousParameters() {
-		return actionsTab.getParameters();
-	}
-
-	
-	/**
 	 * Obtiene la lista de acciones seleccionadas.
 	 * 
 	 * @return la lista de acciones seleccionadas.
@@ -176,7 +158,7 @@ public final class RefactoringWizardPage4 extends WizardPage implements  IRefact
 	public List<RefactoringMechanismInstance> getActions(){
 		List<RefactoringMechanismInstance> lista = new ArrayList<RefactoringMechanismInstance>();
 		for(String className : actionsTab.getElements()){
-			lista.add(new RefactoringMechanismInstance(className, RefactoringMechanismType.ACTION));
+			lista.add(new RefactoringMechanismInstance(className, actionsTab.getParameters().get(className).getParametersNamesAsString(), RefactoringMechanismType.ACTION));
 		}
 		return lista;
 	}

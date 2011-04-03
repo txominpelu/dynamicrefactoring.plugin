@@ -56,10 +56,12 @@ public class TestExport {
 
 	/**
 	 * Preparacion previa a los tests.
+	 * @throws IOException 
 	 */
 	@Before
-	public void setUp() {
+	public void setUp() throws IOException {
 		FileManager.createDir(TEMP_DIR);
+		FileManager.copyBundleDirToFileSystem("/DynamicRefactorings/Rename Class/", RefactoringPlugin.getCommonPluginFilesDir());
 	}
 
 	/**
@@ -70,6 +72,7 @@ public class TestExport {
 		// Borramos el directorio temporal al final del test
 		FileManager.emptyDirectories(TEMP_DIR);
 		FileManager.deleteDirectories(TEMP_DIR, true);
+		FileManager.deleteDirectories(RefactoringPlugin.getDynamicRefactoringsDir() + File.separator + "Rename Class", true);
 	}
 
 	/**
@@ -93,10 +96,9 @@ public class TestExport {
 
 		JDOMXMLRefactoringReaderImp reader = new JDOMXMLRefactoringReaderImp();
 
-		for (String element : ExportImportUtilities
-				.readMechanismRefactoring(reader
+		for (String element : RefactoringMechanismInstance.getMechanismListClassNames(reader
 						.getDynamicRefactoringDefinition(new File(
-								RENAME_CLASS_XML_FILE)))) {
+								RENAME_CLASS_XML_FILE)).getAllMechanisms())) {
 
 			String name = FilenameUtils.getName(PluginStringUtils
 					.splitGetLast(element, "."));

@@ -59,7 +59,8 @@ import dynamicrefactoring.util.PluginStringUtils;
  * @author <A HREF="mailto:sfd0009@alu.ubu.es">Sonia Fuente de la Fuente</A>
  * @author <A HREF="mailto:ehp0001@alu.ubu.es">Enrique Herrero Paredes</A>
  */
-public final class JDOMXMLRefactoringWriterImp implements XMLRefactoringWriterImp {
+public final class JDOMXMLRefactoringWriterImp implements
+		XMLRefactoringWriterImp {
 
 	/**
 	 * La definici�n de refactorizaci�n que se debe escribir.
@@ -100,7 +101,6 @@ public final class JDOMXMLRefactoringWriterImp implements XMLRefactoringWriterIm
 
 		return new Document(refactoring, type);
 	}
-
 
 	/**
 	 * Cambia el nombre de una refactorinzaci�n en el fichero temporal que
@@ -317,17 +317,18 @@ public final class JDOMXMLRefactoringWriterImp implements XMLRefactoringWriterIm
 				input.setAttribute(
 						XMLRefactoringReaderImp.NAME_INPUT_ATTRIBUTE,
 						inputDefinition.getName());
-			if (inputDefinition.getFrom() != null && inputDefinition.getFrom().length() != 0)
+			if (inputDefinition.getFrom() != null
+					&& inputDefinition.getFrom().length() != 0)
 				input.setAttribute(
 						XMLRefactoringReaderImp.FROM_INPUT_ATTRIBUTE,
 						inputDefinition.getFrom());
-			if (inputDefinition.getMethod() != null && inputDefinition.getMethod().length() != 0)
+			if (inputDefinition.getMethod() != null
+					&& inputDefinition.getMethod().length() != 0)
 				input.setAttribute(
 						XMLRefactoringReaderImp.METHOD_INPUT_ATTRIBUTE,
 						inputDefinition.getMethod());
-			input.setAttribute(
-						XMLRefactoringReaderImp.ROOT_INPUT_ATTRIBUTE,
-						String.valueOf(inputDefinition.isMain()));
+			input.setAttribute(XMLRefactoringReaderImp.ROOT_INPUT_ATTRIBUTE,
+					String.valueOf(inputDefinition.isMain()));
 			inputs.addContent(input);
 		}
 
@@ -352,19 +353,22 @@ public final class JDOMXMLRefactoringWriterImp implements XMLRefactoringWriterIm
 				RefactoringMechanismType.PRECONDITION,
 				XMLRefactoringReaderImp.PRECONDITIONS_ELEMENT,
 				XMLRefactoringReaderImp.PRECONDITION_ELEMENT,
-				RefactoringMechanismInstance.getMechanismListClassNames(refactoringDefinition.getPreconditions())));
+				refactoringDefinition
+								.getPreconditions()));
 
 		mechanism.addContent(createMechanismElement(
 				RefactoringMechanismType.ACTION,
 				XMLRefactoringReaderImp.ACTIONS_ELEMENT,
 				XMLRefactoringReaderImp.ACTION_ELEMENT,
-				RefactoringMechanismInstance.getMechanismListClassNames(refactoringDefinition.getActions())));
+				refactoringDefinition
+								.getActions()));
 
 		mechanism.addContent(createMechanismElement(
 				RefactoringMechanismType.POSTCONDITION,
 				XMLRefactoringReaderImp.POSTCONDITIONS_ELEMENT,
 				XMLRefactoringReaderImp.POSTCONDITION_ELEMENT,
-				RefactoringMechanismInstance.getMechanismListClassNames(refactoringDefinition.getPostconditions())));
+				refactoringDefinition
+								.getPostconditions()));
 
 		refactoringElement.addContent(mechanism);
 	}
@@ -379,17 +383,15 @@ public final class JDOMXMLRefactoringWriterImp implements XMLRefactoringWriterIm
 	 * @return
 	 */
 	private Element createMechanismElement(RefactoringMechanismType type,
-			String parentTagName,
-			String childTagName, List<String> mechanismElements) {
+			String parentTagName, String childTagName,
+			List<RefactoringMechanismInstance> mechanismElements) {
 		Element mechanismElement = new Element(parentTagName);
 
-		for (final String mechanismWithNumber : mechanismElements) {
+		for (final RefactoringMechanismInstance mechanismWithNumber : mechanismElements) {
 			final Element childElement = new Element(childTagName);
-			childElement
-					.setAttribute(
-							XMLRefactoringReaderImp.NAME_ATTRIBUTE,
-							PluginStringUtils.getMechanismFullyQualifiedName(type,
-									getMechanismName(mechanismWithNumber)));
+			childElement.setAttribute(XMLRefactoringReaderImp.NAME_ATTRIBUTE,
+					PluginStringUtils.getMechanismFullyQualifiedName(type,
+							getMechanismName(mechanismWithNumber.getClassName())));
 			constructAmbiguousParameters(childElement, mechanismWithNumber,
 					type);
 			mechanismElement.addContent(childElement);
@@ -415,7 +417,6 @@ public final class JDOMXMLRefactoringWriterImp implements XMLRefactoringWriterIm
 				preconditionWithNumber.length() - 4);
 	}
 
-
 	/**
 	 * Escribe los elementos de los par�metros ambiguos de la refactorizaci�n.
 	 * 
@@ -427,20 +428,13 @@ public final class JDOMXMLRefactoringWriterImp implements XMLRefactoringWriterIm
 	 *            el elemento del tipo del par�metro ambiguo.
 	 */
 	private void constructAmbiguousParameters(Element partOfRefactoring,
-			String nameOfPart, RefactoringMechanismType typeOfPart) {
+			RefactoringMechanismInstance nameOfPart, RefactoringMechanismType typeOfPart) {
 
-		List<String[]> ambiguousParameters = refactoringDefinition
-				.getAmbiguousParameters(nameOfPart, typeOfPart);
-
-		if (ambiguousParameters != null) {
-			for (String[] ambiguousParameter : ambiguousParameters) {
-				Element param = new Element(
-						XMLRefactoringReaderImp.PARAM_ELEMENT);
-				param.setAttribute(
-						XMLRefactoringReaderImp.NAME_PARAM_ATTRIBUTE,
-						ambiguousParameter[0]);
-				partOfRefactoring.addContent(param);
-			}
+		for (String ambiguousParameter : nameOfPart.getInputParameters()) {
+			Element param = new Element(XMLRefactoringReaderImp.PARAM_ELEMENT);
+			param.setAttribute(XMLRefactoringReaderImp.NAME_PARAM_ATTRIBUTE,
+					ambiguousParameter);
+			partOfRefactoring.addContent(param);
 		}
 	}
 
@@ -461,9 +455,11 @@ public final class JDOMXMLRefactoringWriterImp implements XMLRefactoringWriterIm
 				Element example = new Element(
 						XMLRefactoringReaderImp.EXAMPLE_ELEMENT);
 				example.setAttribute(
-						XMLRefactoringReaderImp.BEFORE_EXAMPLE_ATTRIBUTE, ex.getBefore());
+						XMLRefactoringReaderImp.BEFORE_EXAMPLE_ATTRIBUTE,
+						ex.getBefore());
 				example.setAttribute(
-						XMLRefactoringReaderImp.AFTER_EXAMPLE_ATTRIBUTE, ex.getAfter());
+						XMLRefactoringReaderImp.AFTER_EXAMPLE_ATTRIBUTE,
+						ex.getAfter());
 				examples.addContent(example);
 			}
 		}

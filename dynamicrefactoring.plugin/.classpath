@@ -3,7 +3,7 @@
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
 	<classpathentry kind="con" path="org.eclipse.pde.core.requiredPlugins"/>
 	<classpathentry kind="src" path="src"/>
-	<classpathentry kind="src" path="test/"/>
+	<classpathentry kind="src" path="test"/>
 	<classpathentry exported="true" kind="lib" path="lib/log4j-1.2.15.jar"/>
 	<classpathentry exported="true" kind="lib" path="lib/jdom.jar" sourcepath="/home/imediava/Escritorio/Proyecto/libs/jdom-1.1.1.zip"/>
 	<classpathentry exported="true" kind="lib" path="lib/swtdesigner.jar"/>
@@ -15,7 +15,11 @@
 	<classpathentry exported="true" kind="lib" path="lib/moon-2.4.1.jar"/>
 	<classpathentry exported="true" kind="lib" path="lib/guava-r07.jar"/>
 	<classpathentry exported="true" kind="lib" path="lib/jsoup-1.5.2.jar"/>
-	<classpathentry exported="true" kind="lib" path="lib/lucene-core-3.0.3.jar"/>
+	<classpathentry exported="true" kind="lib" path="lib/lucene-core-3.0.3.jar">
+		<attributes>
+			<attribute name="javadoc_location" value="file:/home/imediava/Descargas/lucene-3.0.3/docs/api/all/"/>
+		</attributes>
+	</classpathentry>
 	<classpathentry exported="true" kind="lib" path="lib/lucene-snowball-3.0.3.jar"/>
 	<classpathentry kind="output" path="target/classes"/>
 </classpath>

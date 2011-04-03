@@ -24,7 +24,6 @@ import java.io.File;
 import java.io.IOException;
 import java.text.MessageFormat;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -246,7 +245,7 @@ public class DynamicRefactoringDefinition implements Element,
 	 * @see #setPreconditions
 	 */
 	public List<RefactoringMechanismInstance> getPreconditions() {
-		return preconditions;
+		return new ArrayList<RefactoringMechanismInstance>(preconditions);
 	}
 
 	/**
@@ -270,57 +269,6 @@ public class DynamicRefactoringDefinition implements Element,
 	 */
 	public List<RefactoringMechanismInstance> getPostconditions() {
 		return new ArrayList<RefactoringMechanismInstance>(postconditions);
-	}
-
-	/**
-	 * Devuelve los par�metros ambiguos de la refactorizaci�n.
-	 * 
-	 * @return los par�metros ambiguos de la refactorizaci�n.
-	 * 
-	 * @see #setAmbiguousParameters
-	 */
-	public Map<String, List<String[]>>[] getAmbiguousParameters() {
-		return ambiguousParameters;
-	}
-
-	/**
-	 * Devuelve los par�metros ambiguos para una precondici�n, acci�n o
-	 * postcondici�n determinada.
-	 * 
-	 * @param name
-	 *            nombre simple de la precondici�n, acci�n o postcondici�n cuyos
-	 *            par�metros ambiguos se deben obtener.
-	 * @param typePart
-	 *            {@link RefactoringConstants#PRECONDITION},
-	 *            {@link RefactoringConstants#ACTION} o
-	 *            {@link RefactoringConstants#POSTCONDITION}.
-	 * 
-	 * @return lista de <i>arrays</i> de cadenas con los atributos de dichos
-	 *         par�metros.
-	 * 
-	 * @see #setAmbiguousParameters
-	 */
-	public List<String[]> getAmbiguousParameters(String name,
-			RefactoringMechanismType typePart) {
-
-		// Se obtienen todas las entradas del predicado o accion.
-		List<String[]> localInputs = ambiguousParameters[typePart.ordinal()]
-				.get(name);
-
-		if (localInputs != null) {
-			List<String[]> params = new ArrayList<String[]>();
-
-			// Se crea una copia de la lista de entradas del predicado o accion.
-			for (String[] param : localInputs) {
-				String[] temp = Arrays.copyOf(param, param.length);
-				params.add(temp);
-			}
-
-			if (params.size() > 0) {
-				return params;
-			}
-		}
-		return null;
 	}
 
 	/**
@@ -563,8 +511,6 @@ public class DynamicRefactoringDefinition implements Element,
 	 */
 	public boolean exactlyEquals(DynamicRefactoringDefinition otra) {
 		return Objects.equal(getActions(), otra.getActions())
-				&& Objects.equal(getAmbiguousParameters(),
-						otra.getAmbiguousParameters())
 				&& Objects.equal(getCategories(), otra.getCategories())
 				&& Objects.equal(getExamples(), otra.getExamples())
 				&& Objects.equal(getImage(), otra.getImage())
@@ -594,6 +540,51 @@ public class DynamicRefactoringDefinition implements Element,
 	public int hashCode() {
 		return getName().hashCode();
 	}
+	
+	/**
+	 * Obtiene todos los mecanismos 
+	 * (precond, acciones y postcondiciones) de la refactorizacion.
+	 * 
+	 * 
+	 * @return todas las precondiciones, acciones y postcondiciones
+	 */
+	public List<RefactoringMechanismInstance> getAllTypeMechanisms(RefactoringMechanismType type) {
+		switch(type){
+		case PRECONDITION:
+			return getPreconditions();
+		case ACTION:
+			return getActions();
+		default:
+			return getPostconditions();
+		}
+	}
+	
+	public List<RefactoringMechanismInstance> getMechanismsWithName(final String mechanismName, RefactoringMechanismType type){
+		Collection<RefactoringMechanismInstance> filtradas = Collections2.filter(getAllTypeMechanisms(type), new Predicate<RefactoringMechanismInstance>() {
+
+			@Override
+			public boolean apply(RefactoringMechanismInstance arg0) {
+				return arg0.getClassName().equals(mechanismName);
+			}
+		});
+		Preconditions.checkArgument(filtradas.size() > 0, String.format("The element: %s of type %s doesn't exist.", mechanismName, type));
+		return new ArrayList<RefactoringMechanismInstance>(filtradas);
+		
+	}
+	
+	/**
+	 * Obtiene todos los mecanismos 
+	 * (precond, acciones y postcondiciones) de la refactorizacion.
+	 * 
+	 * 
+	 * @return todas las precondiciones, acciones y postcondiciones
+	 */
+	public List<RefactoringMechanismInstance> getAllMechanisms() {
+		final List<RefactoringMechanismInstance> lista = getPreconditions();
+		lista.addAll(getActions());
+		lista.addAll(getPreconditions());
+		return lista;
+	}
 
 	/**
 	 * Genera un builder de refactorizaciones preconfigurado con los parametros
@@ -603,7 +594,6 @@ public class DynamicRefactoringDefinition implements Element,
 	 */
 	public final Builder getBuilder() {
 		return new Builder(getName()).actions(getActions())
-				.ambiguousParameters(getAmbiguousParameters())
 				.categories(getCategories()).description(getDescription())
 				.examples(getExamples()).image(getImage()).inputs(getInputs())
 				.keywords(getKeywords()).motivation(getMotivation())
@@ -921,22 +911,6 @@ public class DynamicRefactoringDefinition implements Element,
 		 */
 		public Builder postconditions(List<RefactoringMechanismInstance> postconditions) {
 			this.postconditions = postconditions;
-			return this;
-		}
-
-		/**
-		 * Establece los par�metros ambiguos de la refactorizaci�n.
-		 * 
-		 * @param ambiguousParameters
-		 *            los par�metros ambiguos de la refactorizaci�n.
-		 * @return devuelve el builder con el nuevo parametro
-		 * 
-		 * @see #getAmbiguousParameters
-		 */
-		public Builder ambiguousParameters(
-				Map<String, List<String[]>>[] ambiguousParameters) {
-
-			this.ambiguousParameters = ambiguousParameters;
 			return this;
 		}
 

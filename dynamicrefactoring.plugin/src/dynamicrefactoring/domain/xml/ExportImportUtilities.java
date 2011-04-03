@@ -25,7 +25,6 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.FilenameUtils;
@@ -34,7 +33,7 @@ import dynamicrefactoring.RefactoringConstants;
 import dynamicrefactoring.RefactoringPlugin;
 import dynamicrefactoring.domain.DynamicRefactoringDefinition;
 import dynamicrefactoring.domain.Messages;
-import dynamicrefactoring.domain.RefactoringMechanismType;
+import dynamicrefactoring.domain.RefactoringMechanismInstance;
 import dynamicrefactoring.domain.xml.reader.JDOMXMLRefactoringReaderImp;
 import dynamicrefactoring.domain.xml.reader.RefactoringPlanReader;
 import dynamicrefactoring.domain.xml.reader.XMLRefactoringReaderException;
@@ -74,8 +73,10 @@ public class ExportImportUtilities {
 		DynamicRefactoringDefinition refact = new JDOMXMLRefactoringReaderImp()
 				.getDynamicRefactoringDefinition(new File(definition));
 
-		for (String rule : readMechanismRefactoring(refact)) {
-			String className = PluginStringUtils.splitGetLast(rule, "."); //$NON-NLS-1$
+		for (RefactoringMechanismInstance mecanismo : refact.getAllMechanisms()) {
+			
+			String rule = PluginStringUtils.getMechanismFullyQualifiedName(mecanismo.getType(), mecanismo.getClassName());
+			final String className = mecanismo.getClassName(); //$NON-NLS-1$
 
 			String rulePath = rule.replace('.', File.separatorChar);
 
@@ -120,30 +121,6 @@ public class ExportImportUtilities {
 
 		}
 
-	}
-
-	public static List<String> readMechanismRefactoring(
-			DynamicRefactoringDefinition refact) {
-		List<String> allMechanism = new ArrayList<String>();
-		allMechanism
-				.addAll(dynamicrefactoring.util.PluginStringUtils.getMechanismListFullyQualifiedName(
-						RefactoringMechanismType.PRECONDITION,
-						refact.getAmbiguousParameters()[RefactoringMechanismType.PRECONDITION
-								.ordinal()]
-								.keySet()));
-		allMechanism
-				.addAll(dynamicrefactoring.util.PluginStringUtils.getMechanismListFullyQualifiedName(
-						RefactoringMechanismType.ACTION,
-						refact.getAmbiguousParameters()[RefactoringMechanismType.ACTION
-								.ordinal()]
-								.keySet()));
-		allMechanism
-				.addAll(dynamicrefactoring.util.PluginStringUtils.getMechanismListFullyQualifiedName(
-						RefactoringMechanismType.POSTCONDITION,
-						refact.getAmbiguousParameters()[RefactoringMechanismType.POSTCONDITION
-								.ordinal()]
-								.keySet()));
-		return allMechanism;
 	}
 
 	/**
@@ -228,9 +205,9 @@ public class ExportImportUtilities {
 		DynamicRefactoringDefinition refact = new JDOMXMLRefactoringReaderImp()
 				.getDynamicRefactoringDefinition(new File(definition));
 
-		for (String predicado : readMechanismRefactoring(refact)) {
+		for (RefactoringMechanismInstance predicado : refact.getAllMechanisms()) {
 			copyRefactoringFileClassIfNeeded(importingFromPlan, originalFolder,
-					predicado);
+					PluginStringUtils.getMechanismFullyQualifiedName(predicado.getType(), predicado.getClassName()));
 		}
 
 		// actualizamos el fichero refactorings.xml que guarda la informaci�n de
@@ -319,7 +296,7 @@ public class ExportImportUtilities {
 	 */
 	private static void deleteClassFilesFromRefactoringsDir(String namefolder,
 			DynamicRefactoringDefinition refact) {
-		for (String element : readMechanismRefactoring(refact)) {
+		for (String element : RefactoringMechanismInstance.getMechanismListClassNames(refact.getAllMechanisms())) {
 			String name = PluginStringUtils.splitGetLast(element, "."); //$NON-NLS-1$
 			if (new File(RefactoringPlugin.getDynamicRefactoringsDir()
 					+ File.separatorChar + namefolder + File.separatorChar

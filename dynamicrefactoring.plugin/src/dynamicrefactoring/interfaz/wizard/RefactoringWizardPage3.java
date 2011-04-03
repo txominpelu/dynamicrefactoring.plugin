@@ -23,8 +23,8 @@ package dynamicrefactoring.interfaz.wizard;
 import java.io.IOException;
 import java.text.MessageFormat;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.apache.log4j.Logger;
 import org.eclipse.jface.dialogs.MessageDialog;
@@ -36,6 +36,7 @@ import org.eclipse.swt.widgets.Composite;
 import dynamicrefactoring.domain.DynamicRefactoringDefinition;
 import dynamicrefactoring.domain.RefactoringMechanismInstance;
 import dynamicrefactoring.domain.RefactoringMechanismType;
+import dynamicrefactoring.interfaz.wizard.RepositoryElementComposite.RepositoryItem;
 
 
 /**
@@ -78,6 +79,8 @@ public class RefactoringWizardPage3 extends WizardPage implements IRefactoringWi
 	 * Pesta�a para la configuraci�n de las precondiciones de la refactorizaci�n.
 	 */
 	private RepositoryElementComposite preconditionsTab;
+
+	private Map<String, RepositoryItem> parameters;
 	
 	
 	/**
@@ -130,7 +133,7 @@ public class RefactoringWizardPage3 extends WizardPage implements IRefactoringWi
 			inputsPage = (RefactoringWizardPage2)getPreviousPage();
 		
 		preconditionsTab = new RepositoryElementComposite(
-				container, PRECONDITIONS_TITLE, inputsPage, this);
+				container, PRECONDITIONS_TITLE, inputsPage, this, RefactoringMechanismType.PRECONDITION);
 		
 		// Se completan las listas de elementos del repositorio candidatos.
 		try {
@@ -149,31 +152,15 @@ public class RefactoringWizardPage3 extends WizardPage implements IRefactoringWi
 	}
 	
 	/**
-	 * Obtiene el conjunto de par�metros asignados en cada una de las precondiciones
-	 * del repositorio seleccionadas para formar parte de la refactorizaci�n.
-	 * 
-	 * <p>El formato devuelto se corresponde con una tabla asociativa que sigue la estructura 
-	 * definida en {@link RepositoryElementComposite#getParameters()}.</p>
-	 * 
-	 * @return el conjunto de par�metros asignados a cada elemento concreto del
-	 * repositorio seleccionado para formar parte de la refactorizaci�n.
-	 * 
-	 * @see RepositoryElementComposite#getParameters()
-	 */
-	public HashMap<String, List<String[]>> getAmbiguousParameters() {
-		
-		return preconditionsTab.getParameters();
-	}
-	
-	/**
 	 * Obtiene la lista de precondiciones seleccionadas.
 	 * 
 	 * @return la lista de precondiciones seleccionadas.
 	 */
 	public List<RefactoringMechanismInstance> getPreconditions(){
+		parameters = preconditionsTab.getParameters();
 		List<RefactoringMechanismInstance> lista = new ArrayList<RefactoringMechanismInstance>();
 		for(String className : preconditionsTab.getElements()){
-			lista.add(new RefactoringMechanismInstance(className, RefactoringMechanismType.PRECONDITION));
+			lista.add(new RefactoringMechanismInstance(className, preconditionsTab.getParameters().get(className).getParametersNamesAsString(), RefactoringMechanismType.PRECONDITION));
 		}
 		return lista;
 	}

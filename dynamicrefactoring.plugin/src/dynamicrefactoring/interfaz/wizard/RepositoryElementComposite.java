@@ -25,7 +25,6 @@ import java.io.IOException;
 import java.text.MessageFormat;
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.HashMap;
 import java.util.Hashtable;
 import java.util.Map;
 import java.util.StringTokenizer;
@@ -236,7 +235,7 @@ public class RepositoryElementComposite {
 	 * @param main P�gina donde se va a a�adir esta estructura.
 	 */
 	public RepositoryElementComposite(Composite parent, String title, 
-		IWizardPage inputsPage,IRefactoringWizardElementPage main){
+		IWizardPage inputsPage,IRefactoringWizardElementPage main, final RefactoringMechanismType type){
 		
 		selectedTable = new Hashtable<String, RepositoryItem>();
 		combosTable = new Hashtable<TableItem, CCombo>();
@@ -383,7 +382,7 @@ public class RepositoryElementComposite {
 		
 		bt_addElement.addSelectionListener(new SelectionAdapter() {
 			public void widgetSelected(SelectionEvent e) {
-				addElements();
+				addElements(type);
 			}
 		});
 	
@@ -618,18 +617,16 @@ public class RepositoryElementComposite {
 			l_Selected.add(element);
 			
 			// Se crea un nuevo elemento para representarlo.
-			RepositoryItem elemento = new RepositoryItem(next,
-					typePart.isElementJavaDependent(next));
+			RepositoryItem elemento = new RepositoryItem(next, typePart);
 			
 			// Se obtiene su lista de par�metros.
-			java.util.List<String[]> parameters =
-				refactoring.getAmbiguousParameters(next, typePart);
+			RefactoringMechanismInstance mechanism = refactoring.getMechanismsWithName(next, typePart).iterator().next();
 			// Para cada par�metro.
-			for (String[] nextParam : parameters){
+			for (String nextParam : mechanism.getInputParameters()){
 				// Se busca la entrada de la refactorizaci�n con ese nombre.
 				InputParameter[] previousInputs = inputsPage.getInputTable(); 
 				for (int i = 0; i < previousInputs.length; i++)
-					if (previousInputs[i].getName().equals(nextParam[0])){
+					if (previousInputs[i].getName().equals(nextParam)){
 						elemento.addParameter(previousInputs[i]);
 						break;
 					}	
@@ -733,7 +730,7 @@ public class RepositoryElementComposite {
 	 * A�ade los elementos concretos disponibles del repositorio seleccionados a la 
 	 * lista de elementos concretos ya seleccionados.
 	 */
-	private void addElements(){
+	private void addElements(RefactoringMechanismType type){
 		String[] selected = l_Available.getSelection();
 		//En caso de estar seleccionado el checkbox nos quedamos solamente
 		//con la parte final del nombre que es el nombre simple
@@ -759,12 +756,7 @@ public class RepositoryElementComposite {
 				element = selected[i]+" (" + 1 + ")";
 			}	
 			l_Selected.add(element);
-			RepositoryItem newElement = new RepositoryItem(selected[i],
-					RefactoringMechanismType.ACTION
-							.isElementJavaDependent(selected[i])
-							||
- RefactoringMechanismType
-									.isPredicateJavaDependent(selected[i]));
+			RepositoryItem newElement = new RepositoryItem(selected[i], type);
 			
 			selectedTable.put(element, newElement);
 		}
@@ -811,24 +803,8 @@ public class RepositoryElementComposite {
 	 * lista de par�metros.
 	 * 
 	 */
-	public HashMap<String, java.util.List<String[]>> getParameters() {
-		HashMap<String, java.util.List<String[]>> map = new HashMap<String, java.util.List<String[]>>();
-
-		for (Map.Entry<String,RepositoryItem > nextRef : selectedTable.entrySet()){
-			RepositoryItem element = nextRef.getValue();
-			ArrayList<String[]> parameters = new ArrayList<String[]>(
-				element.getParameters().size());
-			
-			// En la versi�n actual del DTD y los XML, el �nico atributo que
-			// tienen los par�metros es su nombre, dado que el resto de 
-			// informaci�n aparece en las entradas de la refactorizaci�n.
-			for (InputParameter parameter : element.getParameters())
-				parameters.add(new String[]{parameter.getName()});
-
-			map.put(nextRef.getKey(), parameters);
-		}
-
-		return map;
+	public Map<String, RepositoryItem> getParameters() {
+		return selectedTable;
 	}
 	
 	/**
@@ -943,7 +919,7 @@ public class RepositoryElementComposite {
 	 * @author <A HREF="mailto:sfd0009@alu.ubu.es">Sonia Fuente de la Fuente</A>
 	 * @author <A HREF="mailto:ehp0001@alu.ubu.es">Enrique Herrero Paredes</A>
 	 */
-	private class RepositoryItem {
+	protected class RepositoryItem {
 		
 		/**
 		 * El nombre de la clase del elemento del repositorio.
@@ -955,10 +931,6 @@ public class RepositoryElementComposite {
 		 */
 		private ArrayList<InputParameter> parameters;
 		
-		/**
-		 * Indica si el elemento es dependiente de Java o no.
-		 */
-		private boolean javaDependent;
 		
 		/**
 		 * Constructor.
@@ -966,9 +938,8 @@ public class RepositoryElementComposite {
 		 * @param name nombre del elemento del repositorio.
 		 * @param javaDependent si el elemento es dependiente de Java o no.
 		 */
-		public RepositoryItem(String name, boolean javaDependent) {
+		public RepositoryItem(String name, RefactoringMechanismType type) {
 			this.name = name;
-			this.javaDependent = javaDependent;
 			parameters = new ArrayList<InputParameter>();
 		}		
 		
@@ -980,18 +951,7 @@ public class RepositoryElementComposite {
 		@Override
 		public String toString() {
 			return name;
-		}
-		
-		/**
-		 * Establece el nombre del elemento del repositorio.
-		 * 
-		 * @param name el nombre del elemento del repositorio.
-		 * 
-		 * @see #getName
-		 */
-		public void setName(String name) {
-			this.name = name;
-		}		
+		}	
 		
 		/**
 		 * Obtiene el nombre del elemento del repositorio.
@@ -1003,16 +963,7 @@ public class RepositoryElementComposite {
 		public String getName() {
 			return name;
 		}		
-		
-		/**
-		 * Indica si el elemento es dependiente de Java o no.
-		 * 
-		 * @return <code>true</code> si el elemento es dependiente de Java;
-		 * <code>false</code> en caso contrario.
-		 */
-		public boolean isJavaDependent(){
-			return javaDependent;
-		}
+
 		
 		/**
 		 * A�ade un par�metro ambiguo al elemento del repositorio.
@@ -1030,19 +981,24 @@ public class RepositoryElementComposite {
 		 * @return un <code>ArrayList</code> con la lista de par�metros ambiguos.
 		 * @see #setParameters
 		 */
-		public ArrayList<InputParameter> getParameters() {
+		public java.util.List<InputParameter> getParameters() {
 			return parameters;
 		}
 		
 		/**
-		 * Establece los par�metros ambiguos del elemento del repositorio.
+		 * Obtiene los par�metros ambiguos del elemento del repositorio.
 		 * 
-		 * @param n_parameters un <code>ArrayList</code> con la lista de par�metros ambiguos.
-		 * @see #getParameters
+		 * @return un <code>ArrayList</code> con la lista de par�metros ambiguos.
+		 * @see #setParameters
 		 */
-		public void setParameters(ArrayList<InputParameter> n_parameters) {
-			parameters = n_parameters;
+		public java.util.List<String> getParametersNamesAsString() {
+			final java.util.List<String> parametersAsString = new ArrayList<String>();
+			for(InputParameter parameter :parameters){
+				parametersAsString.add(parameter.getType());
+			}
+			return parametersAsString;
 		}
+		
 	}
 
 	
