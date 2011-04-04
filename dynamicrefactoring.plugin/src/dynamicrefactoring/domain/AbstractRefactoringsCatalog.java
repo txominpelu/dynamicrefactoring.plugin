@@ -7,9 +7,11 @@ import java.util.Set;
 import com.google.common.base.Preconditions;
 import com.google.common.collect.Collections2;
 import com.google.common.collect.ImmutableSet;
+import com.google.common.collect.Sets;
 
 import dynamicrefactoring.domain.condition.SameNamePredicate;
 import dynamicrefactoring.domain.metadata.condition.ActionCondition;
+import dynamicrefactoring.domain.metadata.condition.CategoryCondition;
 import dynamicrefactoring.domain.metadata.condition.InputTypeCondition;
 import dynamicrefactoring.domain.metadata.condition.PostconditionCondition;
 import dynamicrefactoring.domain.metadata.condition.PreconditionCondition;
@@ -60,6 +62,15 @@ public abstract class AbstractRefactoringsCatalog implements RefactoringsCatalog
 	public Set<DynamicRefactoringDefinition> getAllRefactorings() {
 		return new HashSet<DynamicRefactoringDefinition>(refactorings);
 	}
+	
+	@Override
+	public final Set<DynamicRefactoringDefinition> getRefactoringBelongingTo(
+			String classification, String categoryName) {
+		return new HashSet<DynamicRefactoringDefinition>(Sets.filter(getAllRefactorings(),
+				new CategoryCondition<DynamicRefactoringDefinition>(
+						classification, categoryName)));
+	}
+	
 
 	@Override
 	public void removeRefactoring(String refactoringName) {

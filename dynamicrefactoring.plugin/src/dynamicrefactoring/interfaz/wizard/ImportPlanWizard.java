@@ -63,6 +63,7 @@ import dynamicrefactoring.RefactoringPlugin;
 import dynamicrefactoring.domain.RefactoringPlanExecutor;
 import dynamicrefactoring.domain.xml.ExportImportUtilities;
 import dynamicrefactoring.domain.xml.XMLRefactoringUtils;
+import dynamicrefactoring.domain.xml.XMLRefactoringsCatalog;
 import dynamicrefactoring.domain.xml.reader.RefactoringPlanReader;
 import dynamicrefactoring.interfaz.ButtonTextProvider;
 import dynamicrefactoring.interfaz.CustomProgressDialog;
@@ -428,7 +429,7 @@ public class ImportPlanWizard extends Dialog {
 					if(refactorings_to_execute.size()>0){
 					// Ejecutamos las refactorizaciones se�aladas para ser
 					// ejecutadas
-						RefactoringPlanExecutor executeJob = new RefactoringPlanExecutor(refactorings_to_execute,plan,t_Input.getText());
+						RefactoringPlanExecutor executeJob = new RefactoringPlanExecutor(XMLRefactoringsCatalog.getInstance(),plan,t_Input.getText());
 						new CustomProgressDialog(getShell()).run(true, false, executeJob);
 						notExecuted = executeJob.getNotExecuted();
 						

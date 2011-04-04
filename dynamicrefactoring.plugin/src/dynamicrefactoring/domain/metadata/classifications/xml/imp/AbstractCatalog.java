@@ -1,6 +1,5 @@
 package dynamicrefactoring.domain.metadata.classifications.xml.imp;
 
-import java.util.Collection;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -8,14 +7,11 @@ import javax.xml.bind.ValidationException;
 
 import com.google.common.base.Preconditions;
 import com.google.common.base.Throwables;
-import com.google.common.collect.Collections2;
-import com.google.common.collect.ImmutableSet;
 import com.google.common.collect.Sets;
 
 import dynamicrefactoring.domain.DynamicRefactoringDefinition;
 import dynamicrefactoring.domain.DynamicRefactoringDefinition.Builder;
 import dynamicrefactoring.domain.RefactoringsCatalog;
-import dynamicrefactoring.domain.metadata.condition.CategoryCondition;
 import dynamicrefactoring.domain.metadata.imp.SimpleUniLevelClassification;
 import dynamicrefactoring.domain.metadata.interfaces.Category;
 import dynamicrefactoring.domain.metadata.interfaces.Classification;
@@ -118,7 +114,7 @@ abstract class AbstractCatalog implements ClassificationsCatalog {
 		Classification oldClassif = getClassification(classifName);
 		classifications.remove(oldClassif);
 		classifications.add(oldClassif.renameCategory(oldName, newName));
-		for (DynamicRefactoringDefinition refact : getRefactoringBelongingTo(
+		for (DynamicRefactoringDefinition refact : refactCatalog.getRefactoringBelongingTo(
 				classifName, oldName)) {
 			DynamicRefactoringDefinition renamedCategory = renameRefactoringCategory(
 					refact, classifName, oldName, newName);
@@ -152,7 +148,7 @@ abstract class AbstractCatalog implements ClassificationsCatalog {
 						new Category(classification, categoryName)), String
 						.format("The classification %s doesn't exist.",
 								categoryName));
-		for (DynamicRefactoringDefinition refact : getRefactoringBelongingTo(
+		for (DynamicRefactoringDefinition refact : refactCatalog.getRefactoringBelongingTo(
 				classification, categoryName)) {
 			DynamicRefactoringDefinition modifiedRefactoring = deleteRefactoringCategory(
 					refact, classification, categoryName);
@@ -230,7 +226,7 @@ abstract class AbstractCatalog implements ClassificationsCatalog {
 		classifications.remove(oldClassif);
 		classifications.add(oldClassif.rename(clasifNewName));
 		for (Category category : oldClassif.getCategories()) {
-			for (DynamicRefactoringDefinition refact : getRefactoringBelongingTo(
+			for (DynamicRefactoringDefinition refact : refactCatalog.getRefactoringBelongingTo(
 					clasifName, category.getName())) {
 				refactCatalog
 						.updateRefactoring(refact.getName(), updateRefactoringCategoryParent(
@@ -266,24 +262,6 @@ abstract class AbstractCatalog implements ClassificationsCatalog {
 		Set<Category> categories = refact.getCategories();
 		categories.remove(new Category(classificationName, oldName));
 		return builder.categories(categories).build();
-	}
-
-	/**
-	 * Obtiene todas las refactorizaciones que pertenecen a la categoria
-	 * definida por la clasificacion y el nombre de categoria.
-	 * 
-	 * @param classification
-	 *            clasificacion
-	 * @param categoryName
-	 *            nombre de categoria
-	 * @return coleccion de refactorizaciones que pertenecen a la categoria
-	 */
-	protected final Collection<DynamicRefactoringDefinition> getRefactoringBelongingTo(
-			String classification, String categoryName) {
-		return ImmutableSet.copyOf(Collections2.filter(refactCatalog
-				.getAllRefactorings(),
-				new CategoryCondition<DynamicRefactoringDefinition>(
-						classification, categoryName)));
 	}
 
 	/**

@@ -107,7 +107,7 @@ public final class JavaMethodProcessor extends JavaElementProcessor {
 					convertedParameter.lastIndexOf('.') + 1);
 			}
 
-			uniqueName.append(convertedParameter);  //$NON-NLS-1$
+			uniqueName.append("%" + convertedParameter);  //$NON-NLS-1$
 		}
 		
 		return uniqueName.toString();

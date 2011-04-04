@@ -68,13 +68,11 @@ import org.eclipse.ui.PlatformUI;
 import repository.moon.MOONRefactoring;
 import dynamicrefactoring.RefactoringConstants;
 import dynamicrefactoring.RefactoringImages;
-import dynamicrefactoring.RefactoringPlugin;
 import dynamicrefactoring.domain.DynamicRefactoring;
 import dynamicrefactoring.domain.DynamicRefactoringDefinition;
 import dynamicrefactoring.domain.InputParameter;
 import dynamicrefactoring.domain.RefactoringExample;
 import dynamicrefactoring.domain.RefactoringException;
-import dynamicrefactoring.domain.xml.XMLRefactoringUtils;
 import dynamicrefactoring.integration.ModelGenerator;
 import dynamicrefactoring.integration.NamedObjectHandler;
 import dynamicrefactoring.interfaz.ComboEditor;
@@ -164,16 +162,6 @@ public class DynamicRefactoringWindow extends Dialog {
 	protected DynamicRefactoringDefinition refactoringDefinition;
 
 	/**
-	 * Nombre de la refactorizaci�n que permitir� ejecutar la ventana.
-	 */
-	private final String refactoringName;
-
-	/**
-	 * Ruta del fichero con la definici�n de la refactorizaci�n.
-	 */
-	private final String refactoringfilePath;
-
-	/**
 	 * Entrada principal de la refactorizaci�n.
 	 */
 	protected ObjectMoon currentObject;
@@ -210,17 +198,11 @@ public class DynamicRefactoringWindow extends Dialog {
 	 *             si se produce un error al acceder a la definici�n de la
 	 *             refactorizaci�n din�mica que se asociar� a la ventana.
 	 */
-	public DynamicRefactoringWindow(ObjectMoon currentObject, 
-		String refactoringName, String refactoringfilePath) 
-		throws RefactoringException {
+	public DynamicRefactoringWindow(ObjectMoon currentObject, DynamicRefactoringDefinition refactoring) {
 
 		super(PlatformUI.getWorkbench().getActiveWorkbenchWindow().getShell());
 		
-		this.refactoringDefinition = 
-			XMLRefactoringUtils.getRefactoringDefinition(
-				refactoringfilePath);
-		this.refactoringName = refactoringName;
-		this.refactoringfilePath = refactoringfilePath;
+		this.refactoringDefinition = refactoring;
 		this.currentObject = currentObject;
 		
 		inputValues = new Hashtable<String, Object>();
@@ -648,7 +630,7 @@ public class DynamicRefactoringWindow extends Dialog {
 	@Override
 	protected void configureShell(Shell newShell) {
 		super.configureShell(newShell);
-		newShell.setText(Messages.DynamicRefactoringWindow_Refactoring + refactoringName);
+		newShell.setText(Messages.DynamicRefactoringWindow_Refactoring + refactoringDefinition.getName());
 		newShell.setImage(RefactoringImages.getConfigureIcon());
 	}
 
@@ -1058,8 +1040,7 @@ public class DynamicRefactoringWindow extends Dialog {
 	 */
 	private void deleteHTMLS(){
 		//directorio de la refactorizacion
-		String dirRefactoring = RefactoringPlugin.getDynamicRefactoringsDir() + File.separator 
-			+ refactoringDefinition.getName();
+		String dirRefactoring = new File(refactoringDefinition.getExamplesAbsolutePath().get(0).getBefore()).getParent();
 		
 		for(RefactoringExample ejemplos : refactoringDefinition.getExamples()){
 				File html_fich = new File(dirRefactoring + File.separator 
@@ -1072,26 +1053,33 @@ public class DynamicRefactoringWindow extends Dialog {
 					html_fich.delete();
 		}
 		
-		if(new File(dirRefactoring + File.separator + "AllClasses.html").exists())
+		if(new File(dirRefactoring + File.separator + "AllClasses.html").exists()){
 			new File(dirRefactoring + File.separator + "AllClasses.html").delete();
+		}
 		
-		if(new File(dirRefactoring + File.separator + "default.index.html").exists())
+		if(new File(dirRefactoring + File.separator + "default.index.html").exists()){
 			new File(dirRefactoring + File.separator + "default.index.html").delete();
+		}
 		
-		if(new File(dirRefactoring + File.separator + "front.html").exists())
+		if(new File(dirRefactoring + File.separator + "front.html").exists()) {
 			new File(dirRefactoring + File.separator + "front.html").delete();
+		}
 		
-		if(new File(dirRefactoring + File.separator + "index.html").exists())
+		if(new File(dirRefactoring + File.separator + "index.html").exists()) {
 			new File(dirRefactoring + File.separator + "index.html").delete();
+		}
 		
-		if(new File(dirRefactoring + File.separator + "packages.html").exists())
+		if(new File(dirRefactoring + File.separator + "packages.html").exists()) {
 			new File(dirRefactoring + File.separator + "packages.html").delete();
+		}
 		
-		if(new File(dirRefactoring + File.separator + "stylesheet.css").exists())
+		if(new File(dirRefactoring + File.separator + "stylesheet.css").exists()){
 			new File(dirRefactoring + File.separator + "stylesheet.css").delete();
+		}
 		
-		if(new File(dirRefactoring + File.separator + "consola.txt").exists())
+		if(new File(dirRefactoring + File.separator + "consola.txt").exists()){
 			new File(dirRefactoring + File.separator + "consola.txt").delete();
+		}
 		
 	}
 
@@ -1136,8 +1124,7 @@ public class DynamicRefactoringWindow extends Dialog {
 					
 					MOONRefactoring.resetModel();
 					
-					DynamicRefactoring refactoring = new DynamicRefactoring(
-						refactoringfilePath, model, processor.getInputs());
+					DynamicRefactoring refactoring = new DynamicRefactoring(refactoringDefinition, model, processor.getInputs());
 					
 					this.close();
 					

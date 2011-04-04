@@ -71,9 +71,9 @@ public class AddRefactoringObject {
 	 */
 	private void createRefactoringDefinitionDirectory() {
 		try {
-			if (!refactoring.getDirectoryToSaveRefactoringFile().exists()) {
+			if (!refactoring.getRefactoringDirectoryFile().exists()) {
 				FileUtils.forceMkdir(refactoring
-						.getDirectoryToSaveRefactoringFile());
+						.getRefactoringDirectoryFile());
 			}
 		} catch (IOException e) {
 			throw Throwables.propagate(e);
@@ -89,7 +89,7 @@ public class AddRefactoringObject {
 	private void addDtdFile() {
 		try {
 			final File destinationFile = new File(refactoring
-					.getDirectoryToSaveRefactoringFile()
+					.getRefactoringDirectoryFile()
 					.getAbsolutePath()
 					+ File.separator + RefactoringConstants.DTD_FILE_NAME);
 			if (!destinationFile.exists()) {
@@ -141,7 +141,7 @@ public class AddRefactoringObject {
 			Preconditions.checkArgument(sourceFile.exists(), String.format("The file %s doesn't exist.", sourceFile.getAbsolutePath()));
 			final File targetFile = new File(
 					refactoring
-							.getDirectoryToSaveRefactoringFile()
+							.getRefactoringDirectoryFile()
 							+ File.separator + sourceFile.getName());
 			if (!targetFile.exists()) {
 				FileUtils.copyFile(sourceFile, targetFile);
@@ -180,7 +180,7 @@ public class AddRefactoringObject {
 		try {
 			new JDOMXMLRefactoringWriterImp(refactoringToSave)
 					.writeRefactoring(refactoringToSave
-							.getDirectoryToSaveRefactoringFile());
+							.getRefactoringDirectoryFile());
 		} catch (Exception e) {
 			throw Throwables.propagate(e);
 		}

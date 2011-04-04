@@ -55,6 +55,7 @@ import org.eclipse.swt.widgets.Shell;
 
 import dynamicrefactoring.RefactoringImages;
 import dynamicrefactoring.domain.Scope;
+import dynamicrefactoring.domain.xml.XMLRefactoringsCatalog;
 import dynamicrefactoring.interfaz.dynamic.DynamicRefactoringWindowLauncher;
 import dynamicrefactoring.util.ScopeLimitedLister;
 import dynamicrefactoring.util.io.FileManager;
@@ -328,7 +329,7 @@ public class SelectRefactoringWindow extends Dialog {
 				String name = FileManager.getFileName(
 					dynamicRefactorings.get(selectedName));
 				new DynamicRefactoringWindowLauncher(
-					mainObject, FileManager.getFilePathWithoutExtension(name));
+					mainObject, XMLRefactoringsCatalog.getInstance().getRefactoring(name));
 		}
 			
 		super.buttonPressed(buttonId);

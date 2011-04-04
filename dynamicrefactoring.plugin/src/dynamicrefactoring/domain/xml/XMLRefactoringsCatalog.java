@@ -2,8 +2,6 @@ package dynamicrefactoring.domain.xml;
 
 import java.io.File;
 import java.io.IOException;
-import java.net.URL;
-import java.util.Enumeration;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Set;
@@ -54,10 +52,13 @@ public final class XMLRefactoringsCatalog extends AbstractRefactoringsCatalog
 	public static RefactoringsCatalog getInstance() {
 		if (instance == null) {
 
-			instance = new XMLRefactoringsCatalog(Sets.union(
-					getRefactoringsFromPluginJar(),
-					getRefactoringsFromDir(RefactoringPlugin
-							.getDynamicRefactoringsDir())));
+			instance = new XMLRefactoringsCatalog(
+					Sets.union(
+							getRefactoringsFromDir(
+									RefactoringPlugin.getNonEditableDynamicRefactoringsDir(),
+									false),
+							getRefactoringsFromDir(RefactoringPlugin
+									.getDynamicRefactoringsDir(), true)));
 			// instance = new XMLRefactoringsCatalog(
 			// getRefactoringsFrom(RefactoringPlugin
 			// .getDynamicRefactoringsDir()));
@@ -91,26 +92,27 @@ public final class XMLRefactoringsCatalog extends AbstractRefactoringsCatalog
 		XMLRefactoringsFileUtils.deleteRefactoringDir(refactoring);
 	}
 
-	
-
 	/**
 	 * Agrega una refactorizacion al catalogo y crea su fichero de definicion
 	 * xml.
 	 */
 	@Override
 	public void addRefactoring(final DynamicRefactoringDefinition refactoring) {
-		super.addRefactoring(new AddRefactoringObject(refactoring).addRefactoring());
+		super.addRefactoring(new AddRefactoringObject(refactoring)
+				.addRefactoring());
 	}
 
 	/**
 	 * Lee las refactorizaciones existentes en el directorio pasado.
 	 * 
+	 * @param editables
+	 *            si las refactorizaciones leidas seran editables o no
 	 * @param dir
 	 *            directorio contenedor de las refactorizaciones
 	 * @return conjunto de refactorizaciones leidas del directorio
 	 */
 	protected static Set<DynamicRefactoringDefinition> getRefactoringsFromDir(
-			String dir) {
+			String dir, boolean editables) {
 		try {
 			HashMap<String, String> lista = DynamicRefactoringLister
 					.getInstance().getDynamicRefactoringNameList(dir, true,
@@ -120,7 +122,7 @@ public final class XMLRefactoringsCatalog extends AbstractRefactoringsCatalog
 			for (String refactFile : lista.values()) {
 				refacts.add(reader
 						.getDynamicRefactoringDefinition(new File(refactFile))
-						.getBuilder().isEditable(true).build());
+						.getBuilder().isEditable(editables).build());
 			}
 			return refacts;
 		} catch (IOException e) {
@@ -128,33 +130,4 @@ public final class XMLRefactoringsCatalog extends AbstractRefactoringsCatalog
 		}
 	}
 
-	/**
-	 * Lee las refactorizaciones existentes en el directorio pasado.
-	 * 
-	 * @param dir
-	 *            directorio contenedor de las refactorizaciones
-	 * @return conjunto de refactorizaciones leidas del directorio
-	 */
-	protected static Set<DynamicRefactoringDefinition> getRefactoringsFromPluginJar() {
-		Set<DynamicRefactoringDefinition> refacts = new HashSet<DynamicRefactoringDefinition>();
-		JDOMXMLRefactoringReaderImp reader = new JDOMXMLRefactoringReaderImp();
-		final Enumeration xmlFilesEnumeration = RefactoringPlugin.getDefault()
-				.getBundle().findEntries("DynamicRefactorings", "*.xml", true);
-		while (xmlFilesEnumeration.hasMoreElements()) {
-			URL refactoringFile = (URL) xmlFilesEnumeration.nextElement();
-			try {
-				refacts.add(reader
-						.getDynamicRefactoringDefinition(refactoringFile
-								.openStream()));
-			} catch (IOException e) {
-				throw Throwables.propagate(e);
-			}
-		}
-		return refacts;
-	}
-	
-	
-	
-
-	
 }

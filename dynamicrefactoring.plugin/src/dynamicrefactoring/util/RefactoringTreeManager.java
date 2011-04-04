@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.graphics.Color;
@@ -59,6 +60,33 @@ public final class RefactoringTreeManager {
 	
 	/**
 	 * Rellena el �rbol con las refactorizaciones disponibles.
+	 * @param refactorings refactorizaciones disponibles
+	 * @param tree �rbol sobre el que a�adir sub�rboles
+	 * @throws RefactoringException
+	 */
+	public static void fillTree(Set<DynamicRefactoringDefinition> refactorings, Tree tree) {
+
+		int refactOrderInBranch = 0;
+
+		cleanTree(tree);
+		
+		ArrayList<DynamicRefactoringDefinition> refactNames= new ArrayList<DynamicRefactoringDefinition>(refactorings);
+		Collections.sort(refactNames);
+		
+		for (DynamicRefactoringDefinition definition : refactNames) {
+
+			createRefactoringDefinitionTreeItemFromParentTree(
+					refactOrderInBranch, definition,tree);
+			refactOrderInBranch++;
+
+		}
+	}
+	
+	/**
+	 * Rellena el �rbol con las refactorizaciones disponibles.
+	 * 
+	 * @deprecated
+	 * 
 	 * @param refactorings refactorizaciones disponibles
 	 * @param tree �rbol sobre el que a�adir sub�rboles
 	 * @throws RefactoringException

@@ -21,7 +21,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.*/
 package dynamicrefactoring.domain;
 
 import java.io.File;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
@@ -33,7 +32,6 @@ import com.google.common.base.Function;
 import com.google.common.base.Objects;
 import com.google.common.base.Preconditions;
 import com.google.common.base.Predicate;
-import com.google.common.base.Throwables;
 import com.google.common.collect.Collections2;
 
 import dynamicrefactoring.RefactoringConstants;
@@ -42,7 +40,6 @@ import dynamicrefactoring.domain.metadata.classifications.xml.imp.PluginClassifi
 import dynamicrefactoring.domain.metadata.interfaces.Category;
 import dynamicrefactoring.domain.metadata.interfaces.ClassificationsCatalog;
 import dynamicrefactoring.domain.metadata.interfaces.Element;
-import dynamicrefactoring.util.io.FileManager;
 
 /**
  * Contiene la definici�n de una refactorizaci�n din�mica.
@@ -244,7 +241,6 @@ public class DynamicRefactoringDefinition implements Element,
 	public List<RefactoringMechanismInstance> getActions() {
 		return new ArrayList<RefactoringMechanismInstance>(actions);
 	}
-	
 
 	/**
 	 * Devuelve los nombres de las postcondiciones de la refactorizaci�n.
@@ -267,22 +263,22 @@ public class DynamicRefactoringDefinition implements Element,
 	public List<RefactoringExample> getExamples() {
 		return examples;
 	}
-	
+
 	/**
-	 * Obtiene la lista de ejemplos de la refactorizacion pero
-	 * con rutas absolutas a los ficheros de ejemplo.
+	 * Obtiene la lista de ejemplos de la refactorizacion pero con rutas
+	 * absolutas a los ficheros de ejemplo.
 	 * 
 	 * @return rutas absolutas a los ficheros de ejemplo de la refactorizacion
 	 */
 	public List<RefactoringExample> getExamplesAbsolutePath() {
 		List<RefactoringExample> absolutePathExamples = new ArrayList<RefactoringExample>();
 		for (RefactoringExample ejemplo : getExamples()) {
-			absolutePathExamples.add(new RefactoringExample(getRefactoringFileFullPath(ejemplo
-					.getBefore()), getRefactoringFileFullPath(ejemplo.getAfter())));
+			absolutePathExamples.add(new RefactoringExample(
+					getRefactoringFileFullPath(ejemplo.getBefore()),
+					getRefactoringFileFullPath(ejemplo.getAfter())));
 		}
 		return absolutePathExamples;
 	}
-
 
 	/**
 	 * Devuelve el ambito al que pertenece una refactorizacion.
@@ -488,16 +484,17 @@ public class DynamicRefactoringDefinition implements Element,
 	public int hashCode() {
 		return getName().hashCode();
 	}
-	
+
 	/**
-	 * Obtiene todos los mecanismos 
-	 * (precond, acciones y postcondiciones) de la refactorizacion.
+	 * Obtiene todos los mecanismos (precond, acciones y postcondiciones) de la
+	 * refactorizacion.
 	 * 
 	 * 
 	 * @return todas las precondiciones, acciones y postcondiciones
 	 */
-	public List<RefactoringMechanismInstance> getAllTypeMechanisms(RefactoringMechanismType type) {
-		switch(type){
+	public List<RefactoringMechanismInstance> getAllTypeMechanisms(
+			RefactoringMechanismType type) {
+		switch (type) {
 		case PRECONDITION:
 			return getPreconditions();
 		case ACTION:
@@ -506,23 +503,30 @@ public class DynamicRefactoringDefinition implements Element,
 			return getPostconditions();
 		}
 	}
-	
-	public List<RefactoringMechanismInstance> getMechanismsWithName(final String mechanismName, RefactoringMechanismType type){
-		Collection<RefactoringMechanismInstance> filtradas = Collections2.filter(getAllTypeMechanisms(type), new Predicate<RefactoringMechanismInstance>() {
 
-			@Override
-			public boolean apply(RefactoringMechanismInstance arg0) {
-				return arg0.getClassName().equals(mechanismName);
-			}
-		});
-		Preconditions.checkArgument(filtradas.size() > 0, String.format("The element: %s of type %s doesn't exist.", mechanismName, type));
+	public List<RefactoringMechanismInstance> getMechanismsWithName(
+			final String mechanismName, RefactoringMechanismType type) {
+		Collection<RefactoringMechanismInstance> filtradas = Collections2
+				.filter(getAllTypeMechanisms(type),
+						new Predicate<RefactoringMechanismInstance>() {
+
+							@Override
+							public boolean apply(
+									RefactoringMechanismInstance arg0) {
+								return arg0.getClassName()
+										.equals(mechanismName);
+							}
+						});
+		Preconditions.checkArgument(filtradas.size() > 0, String.format(
+				"The element: %s of type %s doesn't exist.", mechanismName,
+				type));
 		return new ArrayList<RefactoringMechanismInstance>(filtradas);
-		
+
 	}
-	
+
 	/**
-	 * Obtiene todos los mecanismos 
-	 * (precond, acciones y postcondiciones) de la refactorizacion.
+	 * Obtiene todos los mecanismos (precond, acciones y postcondiciones) de la
+	 * refactorizacion.
 	 * 
 	 * 
 	 * @return todas las precondiciones, acciones y postcondiciones
@@ -546,19 +550,19 @@ public class DynamicRefactoringDefinition implements Element,
 				.examples(getExamples()).image(getImage()).inputs(getInputs())
 				.keywords(getKeywords()).motivation(getMotivation())
 				.postconditions(getPostconditions())
-				.preconditions(getPreconditions());
+				.preconditions(getPreconditions())
+				.isEditable(isEditable());
 	}
-	
+
 	/**
-	 * Obtiene la ruta absoluta de la imagen en 
-	 * el sistema de ficheros.
+	 * Obtiene la ruta absoluta de la imagen en el sistema de ficheros.
 	 * 
 	 * @return ruta absoluta de la imagen
 	 */
 	public String getImageAbsolutePath() {
 		return getRefactoringFileFullPath(getImage());
 	}
-	
+
 	/**
 	 * Obtiene ruta donde se guarda el fichero de definicion de la
 	 * refactorizacion pasada.
@@ -568,23 +572,26 @@ public class DynamicRefactoringDefinition implements Element,
 	 * @return ruta donde se guarda la definicion de la refactorizacion
 	 */
 	public String getXmlRefactoringDefinitionFilePath() {
-		return getDirectoryToSaveRefactoringFile().getPath()
-				+ File.separator + getName()
-				+ RefactoringConstants.FILE_EXTENSION;
+		return getRefactoringDirectoryFile().getPath() + File.separator
+				+ getName() + RefactoringConstants.FILE_EXTENSION;
 
 	}
 
 	/**
 	 * Obtiene un fichero cuya ruta sera la del directorio donde se guardara el
 	 * fichero de definicion de la refactorizacion.
-	 * @param refactoringName 
+	 * 
+	 * @param refactoringName
 	 * 
 	 * @param refact
 	 *            nombre de la refactorizacion
 	 * @return fichero con la ruta donde se guardara la definicion de la
 	 *         refactorizacion
 	 */
-	public File getDirectoryToSaveRefactoringFile() {
+	public File getRefactoringDirectoryFile() {
+		if(!isEditable()){
+			return new File(RefactoringPlugin.getNonEditableDynamicRefactoringsDir() + File.separator + getName() + File.separator);
+		}
 		return new File(RefactoringPlugin.getDynamicRefactoringsDir()
 				+ File.separator + getName() + File.separator);
 	}
@@ -599,21 +606,12 @@ public class DynamicRefactoringDefinition implements Element,
 	 * @return ruta absoluta del fichero
 	 */
 	private String getRefactoringFileFullPath(String filePath) {
-		if(!new File(filePath).isAbsolute()){
-			if(isEditable()){
-				return getDirectoryToSaveRefactoringFile()
-				+ File.separator + filePath;
-			}else{
-				try {
-					return FileManager.getBundleFileAsSystemFile(String.format("/DynamicRefactorings/%s/%s", getName() ,filePath)).getAbsolutePath();
-				} catch (IOException e) {
-					throw Throwables.propagate(e);
-				}
-			}
+		if (!new File(filePath).isAbsolute()) {
+			return getRefactoringDirectoryFile() + File.separator
+						+ filePath;
 		}
 		return filePath;
 	}
-	
 
 	/**
 	 * Constructor de definiciones de refactorizaciones siguiendo el patrón
@@ -823,7 +821,8 @@ public class DynamicRefactoringDefinition implements Element,
 		 * 
 		 * @see #getPreconditions
 		 */
-		public Builder preconditions(List<RefactoringMechanismInstance> preconditions) {
+		public Builder preconditions(
+				List<RefactoringMechanismInstance> preconditions) {
 			this.preconditions = preconditions;
 			return this;
 		}
@@ -851,13 +850,12 @@ public class DynamicRefactoringDefinition implements Element,
 		 * 
 		 * @see #getPostconditions
 		 */
-		public Builder postconditions(List<RefactoringMechanismInstance> postconditions) {
+		public Builder postconditions(
+				List<RefactoringMechanismInstance> postconditions) {
 			this.postconditions = postconditions;
 			return this;
 		}
 
 	}
-
-	
 
 }

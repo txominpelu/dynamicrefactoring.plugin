@@ -20,7 +20,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.*/
 
 package dynamicrefactoring.domain;
 
-import java.io.File;
 import java.lang.reflect.Constructor;
 import java.text.MessageFormat;
 import java.util.ArrayList;
@@ -33,10 +32,6 @@ import refactoring.engine.Predicate;
 import repository.moon.MOONRefactoring;
 import dynamicrefactoring.RefactoringConstants;
 import dynamicrefactoring.domain.xml.XMLRefactoringUtils;
-import dynamicrefactoring.domain.xml.reader.JDOMXMLRefactoringReaderFactory;
-import dynamicrefactoring.domain.xml.reader.XMLRefactoringReader;
-import dynamicrefactoring.domain.xml.reader.XMLRefactoringReaderFactory;
-import dynamicrefactoring.domain.xml.reader.XMLRefactoringReaderImp;
 import dynamicrefactoring.util.PluginStringUtils;
 
 /**
@@ -74,29 +69,11 @@ public class DynamicRefactoring extends MOONRefactoring {
 	 *             si se produce un error al construir la refactorizaci�n
 	 *             din�mica.
 	 */
-	public DynamicRefactoring(String refactoringFilePath, Model model,
+	public DynamicRefactoring(DynamicRefactoringDefinition refactoringDefinition,  Model model,
 			HashMap<String, Object> parameters) throws RefactoringException {
 
-		super(refactoringFilePath, model);
-
-		try {
-			XMLRefactoringReaderFactory f = new JDOMXMLRefactoringReaderFactory();
-			XMLRefactoringReaderImp implementor = f
-					.makeXMLRefactoringReaderImp();
-			XMLRefactoringReader reader = new XMLRefactoringReader(implementor);
-
-			refactoringDefinition = reader
-					.getDynamicRefactoringDefinition(new File(
-							refactoringFilePath));
-		} catch (Exception e) {
-			Object[] messageArgs = { refactoringFilePath };
-			MessageFormat formatter = new MessageFormat(""); //$NON-NLS-1$
-			formatter.applyPattern(Messages.DynamicRefactoring_ErrorReading);
-
-			throw new RefactoringException(formatter.format(messageArgs)
-					+ ":\n\n" + //$NON-NLS-1$
-					e.getMessage());
-		}
+		super(refactoringDefinition.getName(), model);
+		this.refactoringDefinition = refactoringDefinition;
 		inputParameters = parameters;
 		createRefactoring();
 	}
@@ -158,7 +135,7 @@ public class DynamicRefactoring extends MOONRefactoring {
 
 			throw new RefactoringException(formatter.format(messageArgs)
 					+ ":\n" + //$NON-NLS-1$
-					e.getMessage());
+					e.getMessage(), e);
 		}
 
 	}
@@ -385,10 +362,12 @@ public class DynamicRefactoring extends MOONRefactoring {
 	 * 
 	 * @return el valor asignado a la entrada.
 	 */
-	private RefactoringMechanismInstance getInput(String elementName, int position,
+	private Object getInput(String elementName, int position,
 			RefactoringMechanismType type) {
 		// Se obtiene el valor asociado a la entrada con el nombre dado.
-		return refactoringDefinition.getMechanismsWithName(elementName, type).get(position);
+		//FIXME: Y si hay dos precondiciones con igual nombre?
+		final String inputParameterName = refactoringDefinition.getMechanismsWithName(elementName, type).get(0).getInputParameters().get(position);
+		return inputParameters.get(inputParameterName);
 	}
 
 	/**

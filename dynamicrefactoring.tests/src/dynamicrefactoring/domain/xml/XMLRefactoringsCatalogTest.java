@@ -45,7 +45,7 @@ public final class XMLRefactoringsCatalogTest {
 		Utils.setTestRefactoringInRefactoringsDir();
 		refactCatalog = new XMLRefactoringsCatalog(
 				XMLRefactoringsCatalog.getRefactoringsFromDir(RefactoringPlugin
-						.getDynamicRefactoringsDir()));
+						.getDynamicRefactoringsDir(),true));
 	}
 
 	/**
@@ -125,7 +125,7 @@ public final class XMLRefactoringsCatalogTest {
 		assertEquals(refactToAdd,
 				new RefactoringCatalogStub().getRefactoring(NEW_NAME));
 		// Comprobamos que el directorio existe
-		assertTrue(refactToAdd.getDirectoryToSaveRefactoringFile().exists());
+		assertTrue(refactToAdd.getRefactoringDirectoryFile().exists());
 		checkImage(refactToAdd);
 	}
 
@@ -164,7 +164,7 @@ public final class XMLRefactoringsCatalogTest {
 		assertEquals(refactToAdd,
 				refactoringCatalogStub.getRefactoring(NEW_NAME));
 		// Comprobamos que el directorio existe
-		assertTrue(refactToAdd.getDirectoryToSaveRefactoringFile().exists());
+		assertTrue(refactToAdd.getRefactoringDirectoryFile().exists());
 		checkExamples(refactoringCatalogStub);
 	}
 	
@@ -190,10 +190,10 @@ public final class XMLRefactoringsCatalogTest {
 		assertEquals(refactToUpdate,
 				refactoringCatalogStub.getRefactoring(NEW_NAME));
 		// Comprobamos que el directorio existe
-		assertTrue(refactToUpdate.getDirectoryToSaveRefactoringFile(
+		assertTrue(refactToUpdate.getRefactoringDirectoryFile(
 				).exists());
 		checkExamples(refactoringCatalogStub);
-		assertFalse(refactToRemove.getDirectoryToSaveRefactoringFile().exists());
+		assertFalse(refactToRemove.getRefactoringDirectoryFile().exists());
 	}
 	
 	/**
@@ -220,7 +220,7 @@ public final class XMLRefactoringsCatalogTest {
 				refactoringCatalogStub.getRefactoring(NEW_NAME));
 		// Comprobamos que el directorio existe
 		// Comprobamos que el directorio existe
-		assertTrue(refactToUpdate.getDirectoryToSaveRefactoringFile(
+		assertTrue(refactToUpdate.getRefactoringDirectoryFile(
 				).exists());
 		checkImage(refactToUpdate);
 	}
@@ -274,7 +274,7 @@ public final class XMLRefactoringsCatalogTest {
 	
 	private File getRefactoringDirectoryFile (DynamicRefactoringDefinition refact, String fileName) {
 		return new File(refact
-				.getDirectoryToSaveRefactoringFile()
+				.getRefactoringDirectoryFile()
 				.getAbsolutePath()
 				+ File.separator + fileName);
 	}

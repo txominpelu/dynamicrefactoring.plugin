@@ -95,15 +95,15 @@ public class InputProcessor {
 		
 		for (InputParameter input : launcher.refactoringDefinition.getInputs()){
 			// Si es la entrada principal.
-			if (input.isMain()) //$NON-NLS-1$
+			if (input.isMain()) {//$NON-NLS-1$
 				// Se obtiene la entrada principal seleccionada.
 				inputs.put(input.getName(), launcher.currentObject);
 			// Si es el modelo MOON.
-			else if (input.getType().equals("moon.core.Model")) //$NON-NLS-1$
+			}else if (input.getType().equals("moon.core.Model")){ //$NON-NLS-1$
 				// Se obtiene el modelo MOON actual.
 				inputs.put(input.getName(), launcher.model);
 			// Si es una entrada no principal dependiente de otra.
-			else if (input.getFrom() != null && input.getFrom().length() > 0){
+			}else if (input.getFrom() != null && input.getFrom().length() > 0){
 				// Su valor tiene que estar ya calculado en la tabla de valores.
 				Object value = launcher.inputValues.get(input.getName());
 				Object processed = processInput(input, value);

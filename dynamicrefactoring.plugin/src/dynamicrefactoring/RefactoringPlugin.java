@@ -32,6 +32,7 @@ import moon.core.classdef.ClassDef;
 import moon.core.classdef.FormalArgument;
 import moon.core.classdef.MethDec;
 
+import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.FilenameUtils;
 import org.apache.log4j.Logger;
 import org.eclipse.core.resources.IProject;
@@ -216,6 +217,8 @@ public class RefactoringPlugin extends AbstractUIPlugin
 		LogManager.getInstance().loadLogConfig();
 		copyDefaultDynamicRefactoringsToStateLocation();
 		RefactoringPlanWriter.getInstance();
+		
+		FileManager.copyBundleDirToFileSystem("/DynamicRefactorings", getCommonPluginFilesDir() + File.separator + "temp");
 
 	}
 
@@ -266,6 +269,16 @@ public class RefactoringPlugin extends AbstractUIPlugin
 		return getCommonPluginFilesDir()
 				+ DYNAMIC_REFACTORINGS_FOLDER_NAME;
 	}
+	
+	/**
+	 * Directorio en el que se guardan los ficheros
+	 * 
+	 * @return el directorio en el que se guardaran los ficheros de refactorizacion.
+	 */
+	public static String getNonEditableDynamicRefactoringsDir() {
+		return getCommonPluginFilesDir() + File.separator + "temp" + DYNAMIC_REFACTORINGS_FOLDER_NAME;
+	}
+	
 
 	/** 
 	 * Initializes a preference store with default preference values 
@@ -364,6 +377,7 @@ public class RefactoringPlugin extends AbstractUIPlugin
 	public void stop(BundleContext context) throws Exception{
 		try {
 			deleteFiles();
+			FileUtils.deleteQuietly(new File(getNonEditableDynamicRefactoringsDir()));
 						
 			myInstance = null;			
 		}

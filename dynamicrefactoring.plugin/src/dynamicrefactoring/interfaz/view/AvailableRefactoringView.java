@@ -20,7 +20,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.*/
 
 package dynamicrefactoring.interfaz.view;
 
-import java.util.Map;
+import java.util.Set;
 
 import org.apache.log4j.Logger;
 import org.eclipse.core.runtime.NullProgressMonitor;
@@ -36,19 +36,18 @@ import org.eclipse.ui.IWorkbenchWindow;
 import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.part.ViewPart;
 
-import dynamicrefactoring.RefactoringConstants;
 import dynamicrefactoring.RefactoringPlugin;
 import dynamicrefactoring.SelectionListenerRegistry;
-import dynamicrefactoring.domain.RefactoringException;
-import dynamicrefactoring.domain.xml.reader.JDOMXMLRefactoringReaderImp;
-import dynamicrefactoring.domain.xml.reader.XMLRefactoringReaderException;
+import dynamicrefactoring.domain.DynamicRefactoringDefinition;
+import dynamicrefactoring.domain.RefactoringsCatalog;
+import dynamicrefactoring.domain.metadata.classifications.xml.imp.PluginClassificationsCatalog;
+import dynamicrefactoring.domain.xml.XMLRefactoringsCatalog;
 import dynamicrefactoring.integration.ModelGenerator;
 import dynamicrefactoring.integration.selectionhandler.ISelectionHandler;
 import dynamicrefactoring.integration.selectionhandler.SelectionHandlerFactory;
 import dynamicrefactoring.interfaz.dynamic.DynamicRefactoringWindowLauncher;
 import dynamicrefactoring.listener.IMainSelectionListener;
 import dynamicrefactoring.util.RefactoringTreeManager;
-import dynamicrefactoring.util.io.FileManager;
 import dynamicrefactoring.util.selection.SelectionInfo;
 
 /**
@@ -70,11 +69,10 @@ public class AvailableRefactoringView extends ViewPart {
 	 */
 	public static final String ID = "dynamicrefactoring.views.availableRefactoringView"; //$NON-NLS-1$
 
-
 	/**
 	 * Refactorizaciones cargadas en la vista actualmente.
 	 */
-	private Map<String, String> refactorings;
+	private Set<DynamicRefactoringDefinition> refactorings;
 
 	/**
 	 * �ltima seleci�n v�lida como entrada para una refactorizacion en el
@@ -83,11 +81,18 @@ public class AvailableRefactoringView extends ViewPart {
 	private SelectionInfo select;
 
 	/**
-	 * �rbol sobre el que se mostrar�n de forma estructurada las diferentes refactorizaciones disponibles
-	 * para el elemento selecionado en el espacio de trabajo.
+	 * �rbol sobre el que se mostrar�n de forma estructurada las diferentes
+	 * refactorizaciones disponibles para el elemento selecionado en el espacio
+	 * de trabajo.
 	 */
 	private Tree tr_Refactorings;
 
+	private RefactoringsCatalog refactCatalog;
+
+	public AvailableRefactoringView (){
+		super();
+		this.refactCatalog = XMLRefactoringsCatalog.getInstance();
+	}
 	/**
 	 * Crea los controles SWT para este componente del espacio de trabajo.
 	 * 
@@ -130,6 +135,8 @@ public class AvailableRefactoringView extends ViewPart {
 	 */
 	private class MainSelectionListener implements IMainSelectionListener {
 
+		
+
 		/**
 		 * Notifica al <i>listener</i> que un objeto v�lido como entrada para la
 		 * refactorizaci�n ha sido seleccionado.
@@ -140,23 +147,15 @@ public class AvailableRefactoringView extends ViewPart {
 		public void elementSelected(SelectionInfo selection) {
 			if (selection.isValidSelectionType()) {
 				select = selection;
-				try {
-					if (selection.existsScopeForSelection()) {
-						refactorings = JDOMXMLRefactoringReaderImp
-								.readAvailableRefactorings(
-										selection.getSelectionScope(),
-										RefactoringConstants.REFACTORING_TYPES_FILE);
-						try {
-							RefactoringTreeManager.fillTree(refactorings, tr_Refactorings);
-						} catch (RefactoringException e) {
-							logger.error(Messages.AvailableRefactoringView_NotRepresented
-									+ ".\n" + e.getMessage()); //$NON-NLS-1$
-						}
-					}
-				} catch (XMLRefactoringReaderException e) {
-					logger.error(Messages.AvailableRefactoringView_ReaderFail
-							+ ".\n" + e.getMessage()); //$NON-NLS-1$
+				if (selection.existsScopeForSelection()) {
+					refactorings = refactCatalog
+							.getRefactoringBelongingTo(
+									PluginClassificationsCatalog.SCOPE_CLASSIFICATION,
+									selection.getSelectionScope().toString());
+					RefactoringTreeManager.fillTree(refactorings,
+							tr_Refactorings);
 				}
+
 			} else {
 				RefactoringTreeManager.cleanTree(tr_Refactorings);
 			}
@@ -203,11 +202,8 @@ public class AvailableRefactoringView extends ViewPart {
 							mediator.runRefactoring(handler.getMainObject(),
 									select, false);
 
-						String name = FileManager.getFileName(refactorings
-								.get(selectedName));
 						new DynamicRefactoringWindowLauncher(
-								handler.getMainObject(),
-								FileManager.getFilePathWithoutExtension(name));
+								handler.getMainObject(), refactCatalog.getRefactoring(selectedName));
 					}
 				} catch (Exception excp) {
 					excp.printStackTrace();

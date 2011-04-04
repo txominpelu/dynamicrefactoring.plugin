@@ -16,10 +16,10 @@ public final class XMLRefactoringsFileUtils {
 	 * @param refactoring refactorizacion de la que se borrara su directorio
 	 */
 	public static void deleteRefactoringDir(DynamicRefactoringDefinition refactoring) {
-		if (refactoring.getDirectoryToSaveRefactoringFile().exists()) {
+		if (refactoring.getRefactoringDirectoryFile().exists()) {
 			try {
 				FileUtils
-						.deleteDirectory(refactoring.getDirectoryToSaveRefactoringFile());
+						.deleteDirectory(refactoring.getRefactoringDirectoryFile());
 			} catch (IOException e) {
 				throw Throwables.propagate(e);
 			}

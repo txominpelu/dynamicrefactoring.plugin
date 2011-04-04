@@ -20,22 +20,15 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.*/
 
 package dynamicrefactoring.interfaz.dynamic;
 
-import java.io.IOException;
-import java.text.MessageFormat;
-import java.util.HashMap;
-
 import moon.core.ObjectMoon;
 
-import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.ui.PlatformUI;
 
-import dynamicrefactoring.RefactoringPlugin;
-import dynamicrefactoring.domain.RefactoringException;
-import dynamicrefactoring.util.DynamicRefactoringLister;
+import dynamicrefactoring.domain.DynamicRefactoringDefinition;
 
 /**
- * Construye una nueva ventana de refactorización dinámica y la abre.
+ * Construye una nueva ventana de refactorizaciï¿½n dinï¿½mica y la abre.
  * 
  * @author <A HREF="mailto:sfd0009@alu.ubu.es">Sonia Fuente de la Fuente</A>
  * @author <A HREF="mailto:ehp0001@alu.ubu.es">Enrique Herrero Paredes</A>
@@ -47,62 +40,19 @@ public class DynamicRefactoringWindowLauncher {
 	 * 
 	 * @param currentObject
 	 *            objeto que constituye la entrada principal a la
-	 *            refactorización.
+	 *            refactorizaciï¿½n.
 	 * @param refactoringName
-	 *            nombre de la refactorización dinámica seleccionada.
+	 *            nombre de la refactorizaciï¿½n dinï¿½mica seleccionada.
 	 */
-	public DynamicRefactoringWindowLauncher(
-			ObjectMoon currentObject, String refactoringName) {
+	public DynamicRefactoringWindowLauncher(ObjectMoon currentObject,
+			DynamicRefactoringDefinition refactoring) {
 
-		try {
-			
-			// Se comprueba que la refactorización dinámica solicitada está
-			// disponible.
-			DynamicRefactoringLister drlister = 
-				DynamicRefactoringLister.getInstance();
-			HashMap<String, String> list = drlister.getDynamicRefactoringNameList(
-				RefactoringPlugin.getDynamicRefactoringsDir(), true, null);
-			String refactoringFilePath = 
-				list.get(refactoringName+ " (" + refactoringName + ".xml)"); //$NON-NLS-1$ //$NON-NLS-2$
+		// Si el fichero asociado estï¿½ disponible.
+		DynamicRefactoringWindow drw = new DynamicRefactoringWindow(
+				currentObject, refactoring);
+		drw.setBlockOnOpen(true);
+		drw.open();
 
-			// Si el fichero asociado está disponible.
-			if(refactoringFilePath != null) {
-				DynamicRefactoringWindow drw = 
-					new DynamicRefactoringWindow(currentObject, 
-						refactoringName, refactoringFilePath);
-				drw.setBlockOnOpen(true);
-				drw.open();
-			}
-			else {
-				Object[] messageArgs = {"\"" + refactoringName + "\""}; //$NON-NLS-1$ //$NON-NLS-2$
-				MessageFormat formatter = new MessageFormat(""); //$NON-NLS-1$
-				formatter.applyPattern(
-					Messages.DynamicRefactoringWindowLauncher_RefactoringDoesNotExist);
-				
-				MessageDialog.openError(getShell(), Messages.DynamicRefactoringWindowLauncher_Error,
-					formatter.format(messageArgs) + ".");		 //$NON-NLS-1$
-			}
-		}
-		catch (RefactoringException exception) {
-			Object[] messageArgs = {"\"" + refactoringName + "\""}; //$NON-NLS-1$ //$NON-NLS-2$
-			MessageFormat formatter = new MessageFormat(""); //$NON-NLS-1$
-			formatter.applyPattern(Messages.DynamicRefactoringWindowLauncher_Refactoring);
-			
-			MessageDialog.openError(getShell(), Messages.DynamicRefactoringWindowLauncher_Error,
-				formatter.format(messageArgs) + ": " +  //$NON-NLS-1$
-				Messages.DynamicRefactoringWindowLauncher_ErrorInitializing +
-				".\n" + exception.getMessage());	 //$NON-NLS-1$
-		}
-		catch (IOException ioe) {
-			Object[] messageArgs = {"\"" + refactoringName + "\""}; //$NON-NLS-1$ //$NON-NLS-2$
-			MessageFormat formatter = new MessageFormat(""); //$NON-NLS-1$
-			formatter.applyPattern(Messages.DynamicRefactoringWindowLauncher_Refactoring);
-			
-			MessageDialog.openError(getShell(), Messages.DynamicRefactoringWindowLauncher_Error,
-				formatter.format(messageArgs) + ": " + //$NON-NLS-1$
-				Messages.DynamicRefactoringWindowLauncher_ErrorInitializing +
-				".\n" + ioe.getMessage());	 //$NON-NLS-1$
-		}
 	}
 
 	/**
@@ -110,7 +60,7 @@ public class DynamicRefactoringWindowLauncher {
 	 * 
 	 * @return la shell que se debe pasar a las ventanas creadas.
 	 */
-	private static Shell getShell(){
+	private static Shell getShell() {
 		return PlatformUI.getWorkbench().getActiveWorkbenchWindow().getShell();
 	}
 }

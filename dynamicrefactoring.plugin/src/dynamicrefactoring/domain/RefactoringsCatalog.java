@@ -118,6 +118,18 @@ public interface RefactoringsCatalog {
 	Set<DynamicRefactoringDefinition> getRefactoringsContainsPostcondition(String postcondition);
 	
 
+	/**
+	 * Obtiene todas las refactorizaciones que pertenecen a la categoria
+	 * definida por la clasificacion y el nombre de categoria.
+	 * 
+	 * @param classification
+	 *            clasificacion
+	 * @param categoryName
+	 *            nombre de categoria
+	 * @return coleccion de refactorizaciones que pertenecen a la categoria
+	 */
+	Set<DynamicRefactoringDefinition> getRefactoringBelongingTo(
+			String classification, String categoryName);
 	
 
 }
