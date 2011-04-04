@@ -158,7 +158,7 @@ public final class RefactoringWizardPage4 extends WizardPage implements  IRefact
 	public List<RefactoringMechanismInstance> getActions(){
 		List<RefactoringMechanismInstance> lista = new ArrayList<RefactoringMechanismInstance>();
 		for(String className : actionsTab.getElements()){
-			lista.add(new RefactoringMechanismInstance(className, actionsTab.getParameters().get(className).getParametersNamesAsString(), RefactoringMechanismType.ACTION));
+			lista.add(new RefactoringMechanismInstance(RefactoringWizardPage3.getMechanismName(className), actionsTab.getParameters().get(className).getParametersNames(), RefactoringMechanismType.ACTION));
 		}
 		return lista;
 	}

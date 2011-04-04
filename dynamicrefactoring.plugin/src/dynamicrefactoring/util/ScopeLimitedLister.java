@@ -31,6 +31,7 @@ import dynamicrefactoring.domain.DynamicRefactoringDefinition;
 import dynamicrefactoring.domain.InputParameter;
 import dynamicrefactoring.domain.RefactoringException;
 import dynamicrefactoring.domain.Scope;
+import dynamicrefactoring.domain.xml.XMLRefactoringUtils;
 import dynamicrefactoring.interfaz.SelectRefactoringWindow;
 
 /**
@@ -122,7 +123,7 @@ public class ScopeLimitedLister {
 
 				try {
 					// Se obtiene la definici�n de la siguiente refactorizaci�n.
-					DynamicRefactoringDefinition definition = DynamicRefactoringDefinition
+					DynamicRefactoringDefinition definition = XMLRefactoringUtils
 							.getRefactoringDefinition(nextRef.getValue());
 
 					for (InputParameter nextInput : definition.getInputs()) {

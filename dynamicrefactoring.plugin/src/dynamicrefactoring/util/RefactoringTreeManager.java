@@ -14,9 +14,23 @@ import dynamicrefactoring.RefactoringImages;
 import dynamicrefactoring.domain.DynamicRefactoringDefinition;
 import dynamicrefactoring.domain.RefactoringException;
 import dynamicrefactoring.domain.RefactoringMechanismInstance;
+import dynamicrefactoring.domain.xml.XMLRefactoringUtils;
 import dynamicrefactoring.interfaz.TreeEditor;
 
-public class RefactoringTreeManager {
+/**
+ * Clase con metodos que facilitan la creacion de los
+ * arboles SWT con la descripcion de las refactorizaciones.
+ * 
+ * @author imediava
+ *
+ */
+public final class RefactoringTreeManager {
+	
+	/**
+	 * Evita que se puedan crear instancias de esta
+	 * clase de utilidad.
+	 */
+	private RefactoringTreeManager(){}
 	
 	/**
 	 * Cambia el color del texto de todos los componentes del sub�rbol.
@@ -180,7 +194,7 @@ public class RefactoringTreeManager {
 		if (refactDefinitionFile != "") { //$NON-NLS-1$
 
 			// Obtiene la descripcion de la refactorizacion
-			DynamicRefactoringDefinition definition = DynamicRefactoringDefinition
+			DynamicRefactoringDefinition definition = XMLRefactoringUtils
 			.getRefactoringDefinition(refactDefinitionFile);
 
 			createRefactoringTree(refactoring, definition);

@@ -18,9 +18,9 @@ import dynamicrefactoring.domain.metadata.classifications.xml.imp.PluginClassifi
 
 public final class CreateRefactoringTest {
 	
-	private static final String MI_MOTIVACION = "MiMotivacion";
-	private static final String MI_DESCRIPCION = "MiDescripcion";
-	private static final String MI_NOMBRE = "MiNombre";
+	static final String MI_MOTIVACION = "MiMotivacion";
+	static final String MI_DESCRIPCION = "MiDescripcion";
+	static final String MI_NOMBRE = "MiNombre";
 	private RefactoringWizardPage1Object refactoringWizardPageObject;
 
 	/**
@@ -103,7 +103,8 @@ public final class CreateRefactoringTest {
 		refactoringWizardPageObject.checkCategory(PluginClassificationsCatalog.SCOPE_CLASSIFICATION, Scope.METHOD.toString());
 		refactoringWizardPageObject.setName(MI_NOMBRE);
 		assertTrue(refactoringWizardPageObject.canGoToNextPage());
-		refactoringWizardPageObject.goToNextPage();
 	}
+	
+	
 
 }

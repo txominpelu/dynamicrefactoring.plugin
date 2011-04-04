@@ -69,7 +69,7 @@ import dynamicrefactoring.RefactoringImages;
 import dynamicrefactoring.RefactoringPlugin;
 import dynamicrefactoring.domain.DynamicRefactoringDefinition;
 import dynamicrefactoring.domain.InputParameter;
-import dynamicrefactoring.domain.metadata.classifications.xml.imp.PluginClassificationsCatalog;
+import dynamicrefactoring.domain.xml.XMLRefactoringsCatalog;
 import dynamicrefactoring.interfaz.dynamic.InputProcessor;
 import dynamicrefactoring.interfaz.wizard.listener.ListDownListener;
 import dynamicrefactoring.interfaz.wizard.listener.ListUpListener;
@@ -205,14 +205,13 @@ public class RefactoringWizardPage2 extends WizardPage {
 	 * Bot�n por defecto de esta p�gina del wizard.
 	 */
 	private Button bDefault;
-	
+
 	private FormToolkit toolkit;
 	private ScrolledForm form;
 	private Label descriptionFormLabel;
 	private ExpandableComposite refExpandableComp;
 	private ExpandableComposite refMainExpandableComp;
-	
-	
+
 	/**
 	 * Constructor.
 	 * 
@@ -257,28 +256,29 @@ public class RefactoringWizardPage2 extends WizardPage {
 	 */
 	@Override
 	public void createControl(Composite parent) {
-		
+
 		Composite container = new Composite(parent, SWT.NONE);
 		container.setLayout(new FormLayout());
 
 		setControl(container);
-		
+
 		// sash_form
 		SashForm sash_form = new SashForm(container, SWT.VERTICAL | SWT.NULL);
 		sash_form.setLayout(new FormLayout());
 		final FormData sashFormData = new FormData();
 		sashFormData.top = new FormAttachment(0, 5);
 		sashFormData.left = new FormAttachment(0, 5);
-		sashFormData.right=new FormAttachment(100, -5);
-		sashFormData.bottom=new FormAttachment(100, -5);
+		sashFormData.right = new FormAttachment(100, -5);
+		sashFormData.bottom = new FormAttachment(100, -5);
 		sash_form.setLayoutData(sashFormData);
 		sash_form.setSashWidth(2);
-		sash_form.setBackground(parent.getDisplay().getSystemColor(SWT.COLOR_DARK_GRAY));
-		
+		sash_form.setBackground(parent.getDisplay().getSystemColor(
+				SWT.COLOR_DARK_GRAY));
+
 		// sash_form Top: composite
 		final Composite composite = new Composite(sash_form, SWT.NONE);
 		composite.setLayout(new FormLayout());
-		
+
 		// sash_form Bottom: compBrowser
 		final Composite compBrowser = new Composite(sash_form, SWT.NONE);
 		compBrowser.setLayout(new FormLayout());
@@ -339,9 +339,9 @@ public class RefactoringWizardPage2 extends WizardPage {
 		lTypes.setLayoutData(fdList);
 		lTypes.addSelectionListener(new TypeSelectionListener());
 		lTypes.setToolTipText(Messages.RefactoringWizardPage2_SelectTypes);
-		
-		navegador = new Browser(compBrowser,SWT.BORDER);
-		final FormData fd_navegador = new FormData();	
+
+		navegador = new Browser(compBrowser, SWT.BORDER);
+		final FormData fd_navegador = new FormData();
 		fd_navegador.top = new FormAttachment(0, 10);
 		fd_navegador.left = new FormAttachment(0, 10);
 		fd_navegador.right = new FormAttachment(100, -10);
@@ -375,8 +375,8 @@ public class RefactoringWizardPage2 extends WizardPage {
 		fdComposite1.bottom = new FormAttachment(composite_2, 0, SWT.BOTTOM);
 		composite_2.setLayout(new FormLayout());
 		final FormData fdComposite2 = new FormData();
-		//TODO: cambiado para hacer hueco a la seccion
-		//fdComposite2.bottom = new FormAttachment(100, -5);
+		// TODO: cambiado para hacer hueco a la seccion
+		// fdComposite2.bottom = new FormAttachment(100, -5);
 		fdComposite2.bottom = new FormAttachment(60, -5);
 		fdComposite2.right = new FormAttachment(100, -5);
 		fdComposite2.top = new FormAttachment(0, 1);
@@ -389,6 +389,7 @@ public class RefactoringWizardPage2 extends WizardPage {
 		fdList1.right = new FormAttachment(100, -83);
 		fdList1.left = new FormAttachment(0, 15);
 		fdList1.top = new FormAttachment(0, 30);
+		lInputs.setData("org.eclipse.swtbot.widget.key", "inputs");
 		lInputs.setLayoutData(fdList1);
 		lInputs.addSelectionListener(new InputSelectionListener());
 
@@ -534,8 +535,8 @@ public class RefactoringWizardPage2 extends WizardPage {
 				removeElements();
 			}
 		});
-		
-		//TODO: nuevo
+
+		// TODO: nuevo
 		Composite composite_3;
 		composite_3 = new Composite(composite, SWT.BORDER);
 		composite_3.setLayout(new FormLayout());
@@ -546,28 +547,28 @@ public class RefactoringWizardPage2 extends WizardPage {
 		fdComposite3.bottom = new FormAttachment(100, -10);
 		composite_3.setLayoutData(fdComposite3);
 		composite_3.setVisible(false);
-		
-		//form
+
+		// form
 		toolkit = new FormToolkit(composite_3.getDisplay());
 		form = toolkit.createScrolledForm(composite_3);
 		final FormData scrolledFormData = new FormData();
 		scrolledFormData.top = new FormAttachment(0, 0);
 		scrolledFormData.left = new FormAttachment(0, 0);
-		scrolledFormData.right=new FormAttachment(100, 0);
-		scrolledFormData.bottom=new FormAttachment(100, 0);
+		scrolledFormData.right = new FormAttachment(100, 0);
+		scrolledFormData.bottom = new FormAttachment(100, 0);
 		form.setLayoutData(scrolledFormData);
 		form.getBody().setLayout(new TableWrapLayout());
-		
-		//formLabel
-		descriptionFormLabel=toolkit.createLabel(form.getBody(), "", SWT.WRAP);
-		
-		//refExpandableComp
-		refExpandableComp = 
-			toolkit.createExpandableComposite(
-				form.getBody(), 
-				ExpandableComposite.TREE_NODE|
-				ExpandableComposite.CLIENT_INDENT);
-		refExpandableComp.setText(Messages.RefactoringWizardPage2_RefactoringsBelong);
+
+		// formLabel
+		descriptionFormLabel = toolkit
+				.createLabel(form.getBody(), "", SWT.WRAP);
+
+		// refExpandableComp
+		refExpandableComp = toolkit.createExpandableComposite(form.getBody(),
+				ExpandableComposite.TREE_NODE
+						| ExpandableComposite.CLIENT_INDENT);
+		refExpandableComp
+				.setText(Messages.RefactoringWizardPage2_RefactoringsBelong);
 		TableWrapData td = new TableWrapData();
 		td.colspan = 1;
 		refExpandableComp.setLayoutData(td);
@@ -576,17 +577,17 @@ public class RefactoringWizardPage2 extends WizardPage {
 				form.reflow(true);
 			}
 		});
-		Composite refExpandableClient = toolkit.createComposite(refExpandableComp,SWT.WRAP);
+		Composite refExpandableClient = toolkit.createComposite(
+				refExpandableComp, SWT.WRAP);
 		refExpandableClient.setLayout(new RowLayout());
 		refExpandableComp.setClient(refExpandableClient);
-		
-		//refMainExpandableComp
-		refMainExpandableComp = 
-			toolkit.createExpandableComposite(
-				form.getBody(), 
-				ExpandableComposite.TREE_NODE|
-				ExpandableComposite.CLIENT_INDENT);
-		refMainExpandableComp.setText(Messages.RefactoringWizardPage2_RefactoringsMain);
+
+		// refMainExpandableComp
+		refMainExpandableComp = toolkit.createExpandableComposite(
+				form.getBody(), ExpandableComposite.TREE_NODE
+						| ExpandableComposite.CLIENT_INDENT);
+		refMainExpandableComp
+				.setText(Messages.RefactoringWizardPage2_RefactoringsMain);
 		td = new TableWrapData();
 		td.colspan = 1;
 		refMainExpandableComp.setLayoutData(td);
@@ -595,11 +596,12 @@ public class RefactoringWizardPage2 extends WizardPage {
 				form.reflow(true);
 			}
 		});
-		Composite refMainExpandableClient = toolkit.createComposite(refMainExpandableComp,SWT.WRAP);
+		Composite refMainExpandableClient = toolkit.createComposite(
+				refMainExpandableComp, SWT.WRAP);
 		refMainExpandableClient.setLayout(new RowLayout());
 		refMainExpandableComp.setClient(refMainExpandableClient);
-		
-		sash_form.setWeights(new int[] {5 , 1 });
+
+		sash_form.setWeights(new int[] { 5, 1 });
 
 		fillTypesList();
 		if (refactoring != null)
@@ -1245,64 +1247,72 @@ public class RefactoringWizardPage2 extends WizardPage {
 			} catch (IOException excp) {
 				throw Throwables.propagate(excp);
 			}
-			
-			//TODO: realizar modificaciones oportunas
-			//form
+
+			// TODO: realizar modificaciones oportunas
+			// form
 			form.getParent().setVisible(false);
-			//previamente eleminamos las etiquetas que contienen los desplegables
-			Control labels[]=null;
-			labels=((Composite)refExpandableComp.getClient()).getChildren();
-			for(int i=0;i<labels.length;i++)
+			// previamente eleminamos las etiquetas que contienen los
+			// desplegables
+			Control labels[] = null;
+			labels = ((Composite) refExpandableComp.getClient()).getChildren();
+			for (int i = 0; i < labels.length; i++)
 				labels[i].dispose();
-			labels=((Composite)refMainExpandableComp.getClient()).getChildren();
-			for(int i=0;i<labels.length;i++)
+			labels = ((Composite) refMainExpandableComp.getClient())
+					.getChildren();
+			for (int i = 0; i < labels.length; i++)
 				labels[i].dispose();
-			
-			String typeSelected=lTypes.getItem(lTypes.getSelectionIndex()).toString();
+
+			String typeSelected = lTypes.getItem(lTypes.getSelectionIndex())
+					.toString();
 			form.setText(typeSelected);
-			descriptionFormLabel.setText("Esta es la descripcion del tipo " + typeSelected);
-			
-			//refactoringsInputType
-			ArrayList<DynamicRefactoringDefinition> refactoringsInputType=
-				new ArrayList<DynamicRefactoringDefinition>(
-						PluginClassificationsCatalog.getInstance().getRefactoringsContainsInputType(typeSelected));
+			descriptionFormLabel.setText("Esta es la descripcion del tipo "
+					+ typeSelected);
+
+			// refactoringsInputType
+			java.util.List<DynamicRefactoringDefinition> refactoringsInputType = new ArrayList<DynamicRefactoringDefinition>(
+					XMLRefactoringsCatalog.getInstance()
+							.getRefactoringsContainsInputType(typeSelected));
 			Collections.sort(refactoringsInputType);
-			Label refLabel=null;
-			String refName=null;
-			for(int i=0; i<refactoringsInputType.size();i++){
-				refName=refactoringsInputType.get(i).getName();
-				if(i<refactoringsInputType.size()-1)
-					refName+=",";
-				refLabel = toolkit.createLabel((Composite)refExpandableComp.getClient(),refName);
+			Label refLabel = null;
+			String refName = null;
+			for (int i = 0; i < refactoringsInputType.size(); i++) {
+				refName = refactoringsInputType.get(i).getName();
+				if (i < refactoringsInputType.size() - 1)
+					refName += ",";
+				refLabel = toolkit.createLabel(
+						(Composite) refExpandableComp.getClient(), refName);
 				refLabel.setData(refactoringsInputType.get(i));
 				RefactoringTooltip tooltip = new RefactoringTooltip(refLabel);
 				tooltip.setPopupDelay(200);
 			}
 			refExpandableComp.setExpanded(!refactoringsInputType.isEmpty());
-			
-			//refactoringsRootInputType
-			ArrayList<DynamicRefactoringDefinition> refactoringsRootInputType=
-				new ArrayList<DynamicRefactoringDefinition>(
-						PluginClassificationsCatalog.getInstance().getRefactoringsContainsRootInputType(typeSelected));
+
+			// refactoringsRootInputType
+			ArrayList<DynamicRefactoringDefinition> refactoringsRootInputType = new ArrayList<DynamicRefactoringDefinition>(
+					XMLRefactoringsCatalog.getInstance()
+							.getRefactoringsContainsRootInputType(typeSelected));
 			Collections.sort(refactoringsRootInputType);
-			Label refRootLabel=null;
-			String refRootName=null;
-			for(int i=0; i<refactoringsRootInputType.size(); i++){
-				refRootName=refactoringsRootInputType.get(i).getName();
-				if(i<refactoringsRootInputType.size()-1)
-					refRootName+=",";
-				refRootLabel = toolkit.createLabel((Composite)refMainExpandableComp.getClient(),refRootName);
-				RefactoringTooltip tooltip = new RefactoringTooltip(refRootLabel);
+			Label refRootLabel = null;
+			String refRootName = null;
+			for (int i = 0; i < refactoringsRootInputType.size(); i++) {
+				refRootName = refactoringsRootInputType.get(i).getName();
+				if (i < refactoringsRootInputType.size() - 1)
+					refRootName += ",";
+				refRootLabel = toolkit.createLabel(
+						(Composite) refMainExpandableComp.getClient(),
+						refRootName);
+				RefactoringTooltip tooltip = new RefactoringTooltip(
+						refRootLabel);
 				tooltip.setPopupDelay(200);
 			}
-			refMainExpandableComp.setExpanded(!refactoringsRootInputType.isEmpty());
-			
+			refMainExpandableComp.setExpanded(!refactoringsRootInputType
+					.isEmpty());
+
 			form.getParent().setVisible(true);
 			form.reflow(true);
-			
-			
-			if (lTypes.getSelectionCount() > 0 &&
-				lTypes.getItem(lTypes.getSelectionIndex()) != null)
+
+			if (lTypes.getSelectionCount() > 0
+					&& lTypes.getItem(lTypes.getSelectionIndex()) != null)
 				addButton.setEnabled(true);
 			else
 				addButton.setEnabled(false);
@@ -1368,8 +1378,8 @@ public class RefactoringWizardPage2 extends WizardPage {
 				if (!tName.getText().equals(current.getName())) {
 					if (checkName(tName.getText(), current)) {
 						inputsTable.remove(lInputs.getSelection()[0]);
-						inputsTable.put(lInputs.getSelection()[0], current.getBuilder()
-								.name(tName.getText()).build());
+						inputsTable.put(lInputs.getSelection()[0], current
+								.getBuilder().name(tName.getText()).build());
 					} else {
 						MessageDialog.openWarning(getShell(),
 								Messages.RefactoringWizardPage2_Warning,
@@ -1397,14 +1407,15 @@ public class RefactoringWizardPage2 extends WizardPage {
 		 * </code> en caso contrario.
 		 */
 		private boolean checkName(String name, InputParameter current) {
-			for (InputParameter nextInput : inputsTable.values()){
+			for (InputParameter nextInput : inputsTable.values()) {
 				// Se busca una entrada con el nombre.
-				if (nextInput.getName().equals(name) && nextInput.getType().equals(current)){
+				if (nextInput.getName().equals(name)
+						&& nextInput.getType().equals(current)) {
 					return false;
 				}
 			}
 			return true;
-			
+
 		}
 	}
 
@@ -1458,10 +1469,11 @@ public class RefactoringWizardPage2 extends WizardPage {
 				if (cFrom.getSelectionIndex() != -1) {
 					InputParameter current = inputsTable.get(lInputs
 							.getSelection()[0]);
-					inputsTable.put(lInputs
-							.getSelection()[0], current.getBuilder()
-							.from(cFrom.getItem(cFrom.getSelectionIndex()))
-							.build());
+					inputsTable.put(
+							lInputs.getSelection()[0],
+							current.getBuilder()
+									.from(cFrom.getItem(cFrom
+											.getSelectionIndex())).build());
 					fillMethodComboBox(
 							cFrom.getItem(cFrom.getSelectionIndex()),
 							current.getType());
@@ -1520,8 +1532,8 @@ public class RefactoringWizardPage2 extends WizardPage {
 				if (cMethod.getSelectionIndex() != -1) {
 					InputParameter current = inputsTable.get(lInputs
 							.getSelection()[0]);
-					inputsTable.put(lInputs
-							.getSelection()[0],
+					inputsTable.put(
+							lInputs.getSelection()[0],
 							current.getBuilder()
 									.method(cMethod.getItem(cMethod
 											.getSelectionIndex())).build());

@@ -25,23 +25,23 @@ import org.eclipse.jdt.core.IMethod;
 import dynamicrefactoring.integration.TypeConversor;
 
 /**
- * Proporciona funciones que permiten manejar un método Java tal y como lo
- * define Eclipse en su representación interna.
+ * Proporciona funciones que permiten manejar un mï¿½todo Java tal y como lo
+ * define Eclipse en su representaciï¿½n interna.
  * 
  * @author <A HREF="mailto:sfd0009@alu.ubu.es">Sonia Fuente de la Fuente</A>
  * @author <A HREF="mailto:ehp0001@alu.ubu.es">Enrique Herrero Paredes</A>
  */
-public class JavaMethodProcessor extends JavaElementProcessor {
+public final class JavaMethodProcessor extends JavaElementProcessor {
 	
 	/**
-	 * El método Java que se debe procesar.
+	 * El mï¿½todo Java que se debe procesar.
 	 */
 	private IMethod method;
 	
 	/**
 	 * Constructor.
 	 * 
-	 * @param method el método Java que se debe procesar.
+	 * @param method el mï¿½todo Java que se debe procesar.
 	 */
 	public JavaMethodProcessor(IMethod method){
 		super(method);
@@ -49,12 +49,12 @@ public class JavaMethodProcessor extends JavaElementProcessor {
 	}
 	
 	/**
-	 * Obtiene la posición relativa del método dentro del conjunto de métodos de
+	 * Obtiene la posiciï¿½n relativa del mï¿½todo dentro del conjunto de mï¿½todos de
 	 * la clase en que se define.
 	 * 
-	 * La numeración empieza en 1, no en 0. 
+	 * La numeraciï¿½n empieza en 1, no en 0. 
 	 * 
-	 * @return la posición relativa del método dentro del conjunto de métodos de 
+	 * @return la posiciï¿½n relativa del mï¿½todo dentro del conjunto de mï¿½todos de 
 	 * la clase en que se define.
 	 */	
 	public int getPosition(){
@@ -62,19 +62,15 @@ public class JavaMethodProcessor extends JavaElementProcessor {
 	}
 
 	/**
-	 * Obtiene el nombre único del método según la convención de nomenclatura
-	 * única utilizada en el modelo MOON.
+	 * Obtiene el nombre ï¿½nico del mï¿½todo segï¿½n la convenciï¿½n de nomenclatura
+	 * ï¿½nica utilizada en el modelo MOON.
 	 * 
-	 * @return el nombre único del método según la convención de nomenclatura
-	 * única utilizada en el modelo MOON.
+	 * @return el nombre ï¿½nico del mï¿½todo segï¿½n la convenciï¿½n de nomenclatura
+	 * ï¿½nica utilizada en el modelo MOON.
 	 */
 	@Override
 	public String getUniqueName(){
-		String uniqueName = ""; //$NON-NLS-1$
-		
-		uniqueName += 
-			new JavaClassProcessor(method.getDeclaringType()).getUniqueName();
-		uniqueName += "~" + method.getElementName(); //$NON-NLS-1$
+		StringBuffer uniqueName = new StringBuffer(String.format("%s~%s", new JavaClassProcessor(method.getDeclaringType()).getUniqueName(), method.getElementName())); //$NON-NLS-1$
 		
 		String[] parameters = method.getParameterTypes();
 		String convertedParameter = ""; //$NON-NLS-1$
@@ -83,35 +79,37 @@ public class JavaMethodProcessor extends JavaElementProcessor {
 		for(int i = 0; i < parameters.length; i++){
 			if(parameters[i].substring(1).equals(conversor.convertType(parameters[i]))){
 				// Lo normal es que el nombre del tipo termine en ';', puesto que es 
-				// la convención utilizada por Eclipse.
-				if(parameters[i].endsWith(new Character(';').toString()))
+				// la convenciï¿½n utilizada por Eclipse.
+				if(parameters[i].endsWith(";")){
 					convertedParameter = 
 						parameters[i].substring(1, parameters[i].lastIndexOf(';'));
-				else
+				}else{
 					convertedParameter = parameters[i];
-			}
-			else 
+				}
+			}else {
 				convertedParameter = conversor.convertType(parameters[i]);
+			}
 			
-			// Si el parámetro es de un tipo con genericidad.
+			// Si el parï¿½metro es de un tipo con genericidad.
 			if (convertedParameter.contains("<") && convertedParameter.contains(">")){ //$NON-NLS-1$ //$NON-NLS-2$
 				String convertedType = 
 					convertedParameter.substring(0, 
-					convertedParameter.indexOf("<")); //$NON-NLS-1$
+					convertedParameter.indexOf('<')); //$NON-NLS-1$
 				
-				// Se elimina del nombre único la parte de genericidad.
+				// Se elimina del nombre ï¿½nico la parte de genericidad.
 				convertedParameter = convertedType;
 			}
 			
-			// Si el nombre del tipo del parámetro es un nombre completamente
+			// Si el nombre del tipo del parï¿½metro es un nombre completamente
 			// cualificado, se elimina la parte referente a los paquetes.
-			if (convertedParameter.contains(".")) //$NON-NLS-1$
+			if (convertedParameter.contains(".")){ //$NON-NLS-1$
 				convertedParameter = convertedParameter.substring(
 					convertedParameter.lastIndexOf('.') + 1);
+			}
 
-			uniqueName += "%" + convertedParameter;  //$NON-NLS-1$
+			uniqueName.append(convertedParameter);  //$NON-NLS-1$
 		}
 		
-		return uniqueName;
+		return uniqueName.toString();
 	}
 }

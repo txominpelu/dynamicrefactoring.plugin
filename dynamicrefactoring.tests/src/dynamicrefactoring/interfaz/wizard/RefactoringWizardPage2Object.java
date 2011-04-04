@@ -10,18 +10,15 @@ import org.eclipse.swtbot.eclipse.finder.SWTWorkbenchBot;
  * @author imediava
  * 
  */
-public class RefactoringWizardPage2Object {
+public class RefactoringWizardPage2Object extends AbstractRefactoringWizardPage implements RefactoringWizardPage {
 	
-	
-	private final SWTWorkbenchBot swtBot;
-
 	/**
 	 * Crea un PageObject que permite a los tests de interfaz acceder a la
 	 * primera pagina del interfaz de crear/editar una refactorizacion.
 	 */
 	public RefactoringWizardPage2Object(SWTWorkbenchBot bot) {
-		swtBot = bot;
-		swtBot.shell(RefactoringWizardPage1Object.DYNAMIC_REFACTORING_WIZARD_SHELL_TEXT).activate();
+		super(bot);
+		getBot().shell(RefactoringWizardPage1Object.DYNAMIC_REFACTORING_WIZARD_SHELL_TEXT).activate();
 	}
 	
 	/**
@@ -31,14 +28,15 @@ public class RefactoringWizardPage2Object {
 	 * @param inputName nombre de la entrada en la lista. Sera algo como: "moon.core.Model (1)" .
 	 */
 	public void markInputAsMain(String inputName){
-		
+		getBot().listWithId("inputs").select(inputName);
+		getBot().checkBoxInGroup("Parameters").click();
+	}
+
+	@Override
+	public RefactoringWizardPage goToNextPage() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 	
-	/**
-	 * Cierra la ventana y finaliza el wizard de refactorizacion.
-	 */
-	public void cancelWizard() {
-		swtBot.activeShell().close();
-	}
 
 }

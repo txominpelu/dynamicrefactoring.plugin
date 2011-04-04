@@ -155,7 +155,6 @@ public final class XMLRefactoringsCatalog extends AbstractRefactoringsCatalog
 	
 	
 	
-	
 
 	
 }

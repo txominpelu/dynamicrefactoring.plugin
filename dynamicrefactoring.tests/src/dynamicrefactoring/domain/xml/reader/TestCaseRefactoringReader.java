@@ -42,6 +42,7 @@ import dynamicrefactoring.domain.RefactoringMechanismInstance;
 import dynamicrefactoring.domain.RefactoringMechanismType;
 import dynamicrefactoring.domain.metadata.interfaces.Category;
 import dynamicrefactoring.domain.xml.RefactoringXMLTest;
+import dynamicrefactoring.domain.xml.XMLRefactoringUtils;
 
 /**
  * Comprueba que funciona correctamente el proceso de lectura de la definici�n
@@ -121,7 +122,7 @@ public class TestCaseRefactoringReader extends RefactoringXMLTest{
 	@Test(expected = RefactoringException.class)
 	public void testReadingWithIncompleteInformation() throws Exception {
 
-		DynamicRefactoringDefinition
+		XMLRefactoringUtils
 				.getRefactoringDefinition(TESTDATA_XML_READER_DIR
 						+ "IncompleteInformation" + XML_EXTENSION); //$NON-NLS-1$
 	}
@@ -140,7 +141,7 @@ public class TestCaseRefactoringReader extends RefactoringXMLTest{
 	@Test(expected = RefactoringException.class)
 	public void testReadingNotARefactoring() throws Exception {
 
-		DynamicRefactoringDefinition
+		XMLRefactoringUtils
 				.getRefactoringDefinition(TESTDATA_XML_READER_DIR
 						+ "NotARefactoring" + XML_EXTENSION); //$NON-NLS-1$
 	}
@@ -161,13 +162,13 @@ public class TestCaseRefactoringReader extends RefactoringXMLTest{
 	@Test
 	public void testReadingWithMinimunInformation() throws Exception {
 
-		DynamicRefactoringDefinition definition = DynamicRefactoringDefinition
+		DynamicRefactoringDefinition definition = XMLRefactoringUtils
 				.getRefactoringDefinition(TESTDATA_XML_READER_DIR
 						+ MINIMUM_INFORMATION_REFACTORING + XML_EXTENSION); //$NON-NLS-1$
 
-		assertEquals(definition.getName(), MINIMUM_INFORMATION_REFACTORING); //$NON-NLS-1$
+		//assertEquals(definition.getName(), ); //$NON-NLS-1$
 
-		assertMinimumInformationEqual(definition);
+		assertMinimumInformationEqual(MINIMUM_INFORMATION_REFACTORING, definition, new HashSet<String>(), getMinimumInformationRefactCategories());
 
 	}
 
@@ -181,20 +182,15 @@ public class TestCaseRefactoringReader extends RefactoringXMLTest{
 	public void testReadingWithMinimunInformationWithCategories()
 			throws Exception {
 
-		DynamicRefactoringDefinition definition = DynamicRefactoringDefinition
+		DynamicRefactoringDefinition definition = XMLRefactoringUtils
 				.getRefactoringDefinition(TESTDATA_XML_READER_DIR
 						+ REFACTORING_WITH_CLASSIFICATION + XML_EXTENSION); //$NON-NLS-1$
-
-		assertEquals(definition.getName(), REFACTORING_WITH_CLASSIFICATION); //$NON-NLS-1$
-
-		assertMinimumInformationEqual(definition);
 
 		// Comprobar categorias
 		Set<Category> expectedCategories = new HashSet<Category>();
 		expectedCategories.add(new Category(MI_CLASSIFICATION, MI_CATEGORIA1));
 		expectedCategories.add(new Category(MI_CLASSIFICATION, MI_CATEGORIA2));
-
-		assertEquals(expectedCategories, definition.getCategories());
+		assertMinimumInformationEqual(REFACTORING_WITH_CLASSIFICATION, definition, new HashSet<String>(), expectedCategories);
 
 	}
 
@@ -209,14 +205,10 @@ public class TestCaseRefactoringReader extends RefactoringXMLTest{
 	public void testReadingWithMinimunInformationWithTwoCategories()
 			throws Exception {
 
-		DynamicRefactoringDefinition definition = DynamicRefactoringDefinition
+		DynamicRefactoringDefinition definition = XMLRefactoringUtils
 				.getRefactoringDefinition(TESTDATA_XML_READER_DIR
 						+ REFACTORING_WITH_TWO_CLASSIFICATIONS + XML_EXTENSION); //$NON-NLS-1$
-
-		assertEquals(definition.getName(), REFACTORING_WITH_TWO_CLASSIFICATIONS); //$NON-NLS-1$
-
-		assertMinimumInformationEqual(definition);
-
+		
 		// Comprobar categorias
 		Set<Category> expectedCategories = new HashSet<Category>();
 		expectedCategories.add(new Category(MI_CLASSIFICATION, MI_CATEGORIA1));
@@ -224,7 +216,7 @@ public class TestCaseRefactoringReader extends RefactoringXMLTest{
 		expectedCategories.add(new Category(MI_CLASSIFICATION2, MI_CATEGORIA1));
 		expectedCategories.add(new Category(MI_CLASSIFICATION2, MI_CATEGORIA2));
 
-		assertEquals(expectedCategories, definition.getCategories());
+		assertMinimumInformationEqual(REFACTORING_WITH_TWO_CLASSIFICATIONS, definition, new HashSet<String>(), expectedCategories);
 
 	}
 
@@ -239,77 +231,87 @@ public class TestCaseRefactoringReader extends RefactoringXMLTest{
 	public void testReadingWithMinimunInformationWithKeyWords()
 			throws Exception {
 
-		DynamicRefactoringDefinition definition = DynamicRefactoringDefinition
+		DynamicRefactoringDefinition definition = XMLRefactoringUtils
 				.getRefactoringDefinition(TESTDATA_XML_READER_DIR
 						+ MINIMUM_INFORMATION_WITH_KEYWORDS + XML_EXTENSION); //$NON-NLS-1$
-
-		assertEquals(definition.getName(), MINIMUM_INFORMATION_WITH_KEYWORDS); //$NON-NLS-1$
-
-		assertMinimumInformationEqual(definition);
-
+		
 		// Comprobar categorias
 		Set<String> expectedKeywords = new HashSet<String>();
 		expectedKeywords.add(KEY_WORD1);
 		expectedKeywords.add(KEY_WORD2);
+		
+		
 
-		assertEquals(expectedKeywords, definition.getKeywords());
+		assertMinimumInformationEqual(MINIMUM_INFORMATION_WITH_KEYWORDS, definition, expectedKeywords, getMinimumInformationRefactCategories());
 
 	}
 
-	private void assertMinimumInformationEqual(
-			DynamicRefactoringDefinition definition) {
-		assertEquals(definition.getDescription(), "Descripcion."); //$NON-NLS-1$
+	
+	/**
+	 * Obtiene las categorias de la refactorizacion con informacion minima.
+	 * @return categorias de la refactorizacion con informacion minima
+	 */
+	private Set<Category> getMinimumInformationRefactCategories() {
+		HashSet<Category> expectedCategories = new HashSet<Category>();
+		expectedCategories.add(new Category("MiClasificacion","MiCategoria"));
+		return expectedCategories;
+	}
 
-		assertEquals(definition.getImage(), ""); //$NON-NLS-1$
-
-		assertEquals(definition.getMotivation(), "Motivacion."); //$NON-NLS-1$
-
-		Iterator<InputParameter> entradas = definition.getInputs().iterator();
-		InputParameter entrada = entradas.next();
-		assertEquals(entrada.getType(), "moon.core.Model"); //$NON-NLS-1$
-		assertEquals(entrada.getName(), "Model"); //$NON-NLS-1$
-		assertTrue(entrada.getFrom().isEmpty());
-		assertTrue(entrada.getMethod().isEmpty());
-		assertEquals(entrada.isMain(), false); //$NON-NLS-1$
+	/**
+	 * Comprueba que la refactorizacion leida del xml es exactamente
+	 * igual a la que se esperaba.
+	 * 
+	 * @param expectedName nombre esperado de la refactorizacion
+	 * @param definition refactorizacion leida del xml
+	 */
+	private void assertMinimumInformationEqual(String expectedName, 
+			DynamicRefactoringDefinition definition, Set<String> expectedKeyWords, Set<Category> expectedCategories) {
 		
-		InputParameter entrada2 = entradas.next();
-		assertEquals(entrada2.getType(), "moon.core.classdef.MethDec"); //$NON-NLS-1$
-		assertEquals(entrada2.getName(), METHOD); //$NON-NLS-1$
-		assertTrue(entrada2.getFrom().isEmpty());
-		assertTrue(entrada2.getMethod().isEmpty());
-		assertEquals(entrada2.isMain(), true); //$NON-NLS-1$
-		assertFalse(entradas.hasNext());
+		
+		List<RefactoringMechanismInstance> expectedPreconditions = new ArrayList<RefactoringMechanismInstance>();
+		expectedPreconditions.add(new RefactoringMechanismInstance("ExistsClass", new ArrayList<String>(), RefactoringMechanismType.PRECONDITION));
+		
+		List<RefactoringMechanismInstance> expectedActions = new ArrayList<RefactoringMechanismInstance>();
+		expectedActions.add(new RefactoringMechanismInstance("RenameClass", new ArrayList<String>(), RefactoringMechanismType.ACTION));
+		
+		List<RefactoringMechanismInstance> expectedPostConditions = new ArrayList<RefactoringMechanismInstance>();
+		expectedPostConditions.add(new RefactoringMechanismInstance("ExistsClass", new ArrayList<String>(), RefactoringMechanismType.POSTCONDITION));
+		
+		final DynamicRefactoringDefinition expectedRefactoring = new DynamicRefactoringDefinition.Builder(expectedName)
+					.description("Descripcion.")
+					.motivation("Motivacion.")
+					.keywords(expectedKeyWords)
+					.categories(expectedCategories)
+					.image("")
+					.inputs(getMinimumInformationRefactInputs())
+					.preconditions(expectedPreconditions)
+					.actions(expectedActions)
+					.postconditions(expectedPostConditions)
+					.build();
+		assertTrue(definition.exactlyEquals(expectedRefactoring));
+	}
 
-		Iterator<RefactoringMechanismInstance> preconditions = definition.getPreconditions()
-				.iterator();
-		RefactoringMechanismInstance pre = preconditions.next();
-		assertEquals(pre, new RefactoringMechanismInstance("ExistsClass", new ArrayList<String>(), RefactoringMechanismType.PRECONDITION)); //$NON-NLS-1$
-		assertFalse(preconditions.hasNext());
-
-		Iterator<String> actions = RefactoringMechanismInstance.getMechanismListClassNames(definition.getActions()).iterator();
-		String a = actions.next();
-
-		assertEquals(a, "RenameClass"); //$NON-NLS-1$
-		assertFalse(actions.hasNext());
-
-		Iterator<RefactoringMechanismInstance> postconditions = definition.getPostconditions()
-				.iterator();
-		RefactoringMechanismInstance post = postconditions.next();
-		assertEquals(post, new RefactoringMechanismInstance("ExistsClass", new ArrayList<String>(), POSTCONDITION)); //$NON-NLS-1$
-		assertFalse(postconditions.hasNext());
-
-		Iterator<RefactoringExample> examples = definition.getExamples().iterator();
-		assertFalse(examples.hasNext());
+	/**
+	 * Obtiene los parametros de entrada esperados para las refactorizaciones
+	 * con informacion minima.
+	 * 
+	 * @return parametros de entrada esperados
+	 */
+	private List<InputParameter> getMinimumInformationRefactInputs() {
+		List<InputParameter> expectedParameters = new ArrayList<InputParameter>();
+		expectedParameters.add(new InputParameter.Builder("moon.core.Model").name("Model").build());
+		expectedParameters.add(new InputParameter.Builder("moon.core.classdef.MethDec").name(METHOD).main(true).build());
+		return expectedParameters;
 	}
 
 	/**
 	 * Comprueba que la lectura se realiza correctamente cuando la definici�n
-	 * contiene toda la informaci�n posible. Para ello se realiza la carga de la
-	 * definici�n de una refactorizaci�n desde un fichero XML y luego se
+	 * contiene toda la informacion posible. Para ello se realiza la carga de la
+	 * definicion de una refactorizacion desde un fichero XML y luego se
 	 * comprueba el valor de todos los campos recuperados.
 	 * 
-	 * Esta informaci�n es: el nombre, la descripci�n, la imagen, la motivaci�n,
-	 * varias entradas, precondiciones, acciones, postcondiciones, par�metros
+	 * Esta informacion es: el nombre, la descripcion, la imagen, la motivacion,
+	 * varias entradas, precondiciones, acciones, postcondiciones, parametros
 	 * ambiguos y ejemplos.
 	 * 
 	 * @throws Exception

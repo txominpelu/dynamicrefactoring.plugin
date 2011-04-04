@@ -24,7 +24,6 @@ import java.io.IOException;
 import java.text.MessageFormat;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
 import org.apache.log4j.Logger;
 import org.eclipse.jface.dialogs.MessageDialog;
@@ -36,32 +35,34 @@ import org.eclipse.swt.widgets.Composite;
 import dynamicrefactoring.domain.DynamicRefactoringDefinition;
 import dynamicrefactoring.domain.RefactoringMechanismInstance;
 import dynamicrefactoring.domain.RefactoringMechanismType;
-import dynamicrefactoring.interfaz.wizard.RepositoryElementComposite.RepositoryItem;
-
 
 /**
  * Tercera p�gina del asistente de creaci�n o edici�n de refactorizaciones.
  * 
- * <p>Permite componer la refactorizaci�n mediante la adici�n de predicados
- * a la lista de precondiciones.</p>
+ * <p>
+ * Permite componer la refactorizaci�n mediante la adici�n de predicados a la
+ * lista de precondiciones.
+ * </p>
  * 
- * <p>Permite definir el orden en que se comprobar�n los predicados y en que
- * se ejecutar�n las acciones, as� como la lista de entradas de la 
- * refactorizaci�n que deber�n ser transmitidas a cada uno de los componentes.
+ * <p>
+ * Permite definir el orden en que se comprobar�n los predicados y en que se
+ * ejecutar�n las acciones, as� como la lista de entradas de la refactorizaci�n
+ * que deber�n ser transmitidas a cada uno de los componentes.
  * </p>
  * 
  * @author <A HREF="mailto:lfd0002@alu.ubu.es">Laura Fuente de la Fuente</A>
  * @author <A HREF="mailto:sfd0009@alu.ubu.es">Sonia Fuente de la Fuente</A>
  * @author <A HREF="mailto:ehp0001@alu.ubu.es">Enrique Herrero Paredes</A>
  */
-public class RefactoringWizardPage3 extends WizardPage implements IRefactoringWizardElementPage{
+public final class RefactoringWizardPage3 extends WizardPage implements
+		IRefactoringWizardElementPage {
 
 	/**
-	 * T�tulo de la opearaci�n sobre la que se configuran las precondiciones de la 
-	 * refactorizaci�n.
+	 * T�tulo de la opearaci�n sobre la que se configuran las precondiciones de
+	 * la refactorizaci�n.
 	 */
 	protected static final String PRECONDITIONS_TITLE = Messages.RefactoringWizardPage3_Preconditions;
-	
+
 	/**
 	 * Refactorizaci�n configurada a trav�s del asistente y que debe ser creada
 	 * finalmente (si se trata de una nueva refactorizaci�n) o modificada (si se
@@ -72,21 +73,20 @@ public class RefactoringWizardPage3 extends WizardPage implements IRefactoringWi
 	/**
 	 * Elemento de registro de errores y otros eventos de la clase.
 	 */
-	private static final Logger logger = 
-		Logger.getLogger(RefactoringWizardPage3.class);
-	
+	private static final Logger logger = Logger
+			.getLogger(RefactoringWizardPage3.class);
+
 	/**
-	 * Pesta�a para la configuraci�n de las precondiciones de la refactorizaci�n.
+	 * Pesta�a para la configuraci�n de las precondiciones de la
+	 * refactorizaci�n.
 	 */
 	private RepositoryElementComposite preconditionsTab;
 
-	private Map<String, RepositoryItem> parameters;
-	
-	
 	/**
 	 * Constructor.
 	 * 
-	 * @param refactoring la refactorizaci�n que se est� editando, o <code>
+	 * @param refactoring
+	 *            la refactorizaci�n que se est� editando, o <code>
 	 * null</code> si se est� construyendo una nueva.
 	 */
 	public RefactoringWizardPage3(DynamicRefactoringDefinition refactoring) {
@@ -94,22 +94,25 @@ public class RefactoringWizardPage3 extends WizardPage implements IRefactoringWi
 		setDescription(Messages.RefactoringWizardPage3_DescriptionInputElements);
 		this.refactoring = refactoring;
 	}
-	
+
 	/**
 	 * Hace visible o invisible la p�gina del asistente.
 	 * 
-	 * @param visible si la p�gina se debe hacer visible o no.
+	 * @param visible
+	 *            si la p�gina se debe hacer visible o no.
 	 */
 	@Override
-	public void setVisible(boolean visible){
-		if (visible){
-			Object[] messageArgs = {((RefactoringWizard)getWizard()).getOperationAsString()};
+	public void setVisible(boolean visible) {
+		if (visible) {
+			Object[] messageArgs = { ((RefactoringWizard) getWizard())
+					.getOperationAsString() };
 			MessageFormat formatter = new MessageFormat(""); //$NON-NLS-1$
-			formatter.applyPattern(Messages.RefactoringWizardPage3_DynamicRefactoring);
-			
+			formatter
+					.applyPattern(Messages.RefactoringWizardPage3_DynamicRefactoring);
+
 			setTitle(formatter.format(messageArgs) + " (" + //$NON-NLS-1$
-				Messages.RefactoringWizardPage3_Step + ")"); //$NON-NLS-1$
-			
+					Messages.RefactoringWizardPage3_Step + ")"); //$NON-NLS-1$
+
 			preconditionsTab.deselect();
 		}
 		super.setVisible(visible);
@@ -118,69 +121,94 @@ public class RefactoringWizardPage3 extends WizardPage implements IRefactoringWi
 	/**
 	 * Crea el contenido de la p�gina del asistente.
 	 * 
-	 * @param parent el elemento padre de esta p�gina del asistente.
+	 * @param parent
+	 *            el elemento padre de esta p�gina del asistente.
 	 */
 	@Override
 	public void createControl(Composite parent) {
 		Composite container = new Composite(parent, SWT.NULL);
 		container.setLayout(new FormLayout());
-		
+
 		setControl(container);
-		// Las precondiciones necesitan un elemento a trav�s del que acceder a las
+		// Las precondiciones necesitan un elemento a trav�s del que acceder a
+		// las
 		// entradas de la refactorizaci�n.
 		RefactoringWizardPage2 inputsPage = null;
 		if (getPreviousPage() instanceof RefactoringWizardPage2)
-			inputsPage = (RefactoringWizardPage2)getPreviousPage();
-		
-		preconditionsTab = new RepositoryElementComposite(
-				container, PRECONDITIONS_TITLE, inputsPage, this, RefactoringMechanismType.PRECONDITION);
-		
+			inputsPage = (RefactoringWizardPage2) getPreviousPage();
+
+		preconditionsTab = new RepositoryElementComposite(container,
+				PRECONDITIONS_TITLE, inputsPage, this,
+				RefactoringMechanismType.PRECONDITION);
+
 		// Se completan las listas de elementos del repositorio candidatos.
 		try {
 			fillPreconditionsList();
-			if (refactoring != null){
+			if (refactoring != null) {
 				preconditionsTab.fillSelectedListAsRefactoringMechanism(
 						refactoring.getPreconditions(), refactoring,
 						RefactoringMechanismType.PRECONDITION);
 			}
 		} catch (IOException exception) {
-			String message = Messages.RefactoringWizardPage3_ElementsNotLoaded +
-				".\n" + exception.getMessage(); //$NON-NLS-1$
+			String message = Messages.RefactoringWizardPage3_ElementsNotLoaded
+					+ ".\n" + exception.getMessage(); //$NON-NLS-1$
 			logger.error(message);
-			MessageDialog.openError(getShell(), Messages.RefactoringWizardPage3_Error, message);
+			MessageDialog.openError(getShell(),
+					Messages.RefactoringWizardPage3_Error, message);
 		}
 	}
-	
+
 	/**
 	 * Obtiene la lista de precondiciones seleccionadas.
 	 * 
 	 * @return la lista de precondiciones seleccionadas.
 	 */
-	public List<RefactoringMechanismInstance> getPreconditions(){
-		parameters = preconditionsTab.getParameters();
+	public List<RefactoringMechanismInstance> getPreconditions() {
 		List<RefactoringMechanismInstance> lista = new ArrayList<RefactoringMechanismInstance>();
-		for(String className : preconditionsTab.getElements()){
-			lista.add(new RefactoringMechanismInstance(className, preconditionsTab.getParameters().get(className).getParametersNamesAsString(), RefactoringMechanismType.PRECONDITION));
+		for (String className : preconditionsTab.getElements()) {
+			lista.add(new RefactoringMechanismInstance(getMechanismName(className),
+					preconditionsTab.getParameters().get(className)
+							.getParametersNames(),
+					RefactoringMechanismType.PRECONDITION));
 		}
 		return lista;
 	}
+
+	/**
+	 * Recibe una precondicion, accion o postcondicion con el numero:
+	 * 
+	 * NotExistClassWithName(1)
+	 * 
+	 * y devuelve el nombre sin el numero:
+	 * 
+	 * NotExistClassWithName
+	 * 
+	 * @param preconditionWithNumber
+	 *            precondicion con formato nombre(numero)
+	 * @return devuelve nombre
+	 */
+	protected static String getMechanismName(final String preconditionWithNumber) {
+		return preconditionWithNumber.substring(0,
+				preconditionWithNumber.length() - 4);
+	}
 	
 	/**
-	 * Consulta el directorio de predicados y acciones para obtener los 
+	 * Consulta el directorio de predicados y acciones para obtener los
 	 * elementos posibles de la lista de candidatos.
 	 * 
-	 * @throws IOException si no se encuentra el directorio.
+	 * @throws IOException
+	 *             si no se encuentra el directorio.
 	 */
 	private void fillPreconditionsList() throws IOException {
 		preconditionsTab.fillRepositoryList(RefactoringMechanismType
 				.getPredicatesAllList());
-	}	
-	
+	}
 
 	/**
 	 * Actualiza el estado de la pantalla de di�logo del asistente.
 	 * 
-	 * @param message mensaje asociado al estado actual de la pantalla.
+	 * @param message
+	 *            mensaje asociado al estado actual de la pantalla.
 	 */
 	public void updateStatus(String message) {
 		setErrorMessage(message);

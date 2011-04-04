@@ -74,7 +74,7 @@ public final class XMLRefactoringsCatalogTest {
 				NEW_NAME));
 
 		final DynamicRefactoringDefinition expectedRefact = refactoringToUpdate
-				.getBuilder().categories(expectedRefactoringCategories)
+				.getBuilder().categories(expectedRefactoringCategories).isEditable(true)
 				.build();
 		refactCatalog
 				.updateRefactoring(MI_REFACT1_NAME, expectedRefact);
@@ -82,7 +82,7 @@ public final class XMLRefactoringsCatalogTest {
 		assertEquals(expectedRefactoringCategories,
 				new RefactoringCatalogStub().getRefactoring(MI_REFACT1_NAME)
 						.getCategories());
-		//assertTrue(expectedRefact.exactlyEquals(new RefactoringCatalogStub().getRefactoring(MI_REFACT1_NAME)));
+		assertTrue(expectedRefact.exactlyEquals(new RefactoringCatalogStub().getRefactoring(MI_REFACT1_NAME)));
 	}
 
 	/**
@@ -94,12 +94,12 @@ public final class XMLRefactoringsCatalogTest {
 		final Set<DynamicRefactoringDefinition> expectedRefactorings = refactCatalog
 				.getAllRefactorings();
 		final DynamicRefactoringDefinition refactToAdd = refactCatalog
-				.getRefactoring(MI_REFACT1_NAME).getBuilder().name(NEW_NAME)
+				.getRefactoring(MI_REFACT1_NAME).getBuilder().name(NEW_NAME).isEditable(true)
 				.build();
 		expectedRefactorings.add(refactToAdd);
 		refactCatalog.addRefactoring(refactToAdd);
 		assertEquals(expectedRefactorings, refactCatalog.getAllRefactorings());
-		//assertTrue(refactToAdd.exactlyEquals(new RefactoringCatalogStub().getRefactoring(NEW_NAME)));
+		assertTrue(refactToAdd.exactlyEquals(new RefactoringCatalogStub().getRefactoring(NEW_NAME)));
 	}
 
 	/**

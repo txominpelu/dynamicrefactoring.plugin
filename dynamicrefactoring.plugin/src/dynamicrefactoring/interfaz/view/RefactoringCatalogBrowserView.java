@@ -73,6 +73,7 @@ import dynamicrefactoring.domain.metadata.imp.SimpleUniLevelClassification;
 import dynamicrefactoring.domain.metadata.interfaces.Category;
 import dynamicrefactoring.domain.metadata.interfaces.Classification;
 import dynamicrefactoring.domain.metadata.interfaces.ClassifiedElements;
+import dynamicrefactoring.domain.xml.XMLRefactoringUtils;
 import dynamicrefactoring.interfaz.TreeEditor;
 import dynamicrefactoring.interfaz.view.classifeditor.ClassificationsEditorView;
 import dynamicrefactoring.util.DynamicRefactoringLister;
@@ -524,7 +525,7 @@ public class RefactoringCatalogBrowserView extends ViewPart {
 				try {
 					// Se obtiene la definición de la siguiente refactorización.
 					DynamicRefactoringDefinition definition = 
-						DynamicRefactoringDefinition.getRefactoringDefinition(
+						XMLRefactoringUtils.getRefactoringDefinition(
 								nextRef.getValue());
 
 					File f=null;

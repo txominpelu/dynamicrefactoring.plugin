@@ -47,7 +47,7 @@
             <precondition name="repository.moon.concretepredicate.IsNotInnerClass">
                 <param name="Target_class"/>
             </precondition>
-            <precondition name="repository.moon.concretepredicate.AttributeIsNotAlreadyInClass">
+            <precondition name="repository.moon.concretepredicate.NotExistsAttributeInClass">
                 <param name="Attribute"/>
                 <param name="Target_class"/>
             </precondition>

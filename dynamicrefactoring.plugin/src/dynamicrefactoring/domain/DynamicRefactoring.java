@@ -32,6 +32,7 @@ import refactoring.engine.Action;
 import refactoring.engine.Predicate;
 import repository.moon.MOONRefactoring;
 import dynamicrefactoring.RefactoringConstants;
+import dynamicrefactoring.domain.xml.XMLRefactoringUtils;
 import dynamicrefactoring.domain.xml.reader.JDOMXMLRefactoringReaderFactory;
 import dynamicrefactoring.domain.xml.reader.XMLRefactoringReader;
 import dynamicrefactoring.domain.xml.reader.XMLRefactoringReaderFactory;
@@ -355,7 +356,7 @@ public class DynamicRefactoring extends MOONRefactoring {
 	 */
 	public static List<InputParameter> getDefinitionInputParameters(
 			String refactoringFilePath) throws RefactoringException {
-		return DynamicRefactoringDefinition.getRefactoringDefinition(
+		return XMLRefactoringUtils.getRefactoringDefinition(
 				refactoringFilePath).getInputs();
 	}
 

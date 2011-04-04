@@ -387,34 +387,15 @@ public final class JDOMXMLRefactoringWriterImp implements
 			List<RefactoringMechanismInstance> mechanismElements) {
 		Element mechanismElement = new Element(parentTagName);
 
-		for (final RefactoringMechanismInstance mechanismWithNumber : mechanismElements) {
+		for (final RefactoringMechanismInstance mechanism : mechanismElements) {
 			final Element childElement = new Element(childTagName);
 			childElement.setAttribute(XMLRefactoringReaderImp.NAME_ATTRIBUTE,
-					PluginStringUtils.getMechanismFullyQualifiedName(type,
-							getMechanismName(mechanismWithNumber.getClassName())));
-			constructAmbiguousParameters(childElement, mechanismWithNumber,
+					PluginStringUtils.getMechanismFullyQualifiedName(type,mechanism.getClassName()));
+			constructAmbiguousParameters(childElement, mechanism,
 					type);
 			mechanismElement.addContent(childElement);
 		}
 		return mechanismElement;
-	}
-
-	/**
-	 * Recibe una precondicion, accion o postcondicion con el numero:
-	 * 
-	 * NotExistClassWithName(1)
-	 * 
-	 * y devuelve el nombre sin el numero:
-	 * 
-	 * NotExistClassWithName
-	 * 
-	 * @param preconditionWithNumber
-	 *            precondicion con formato nombre(numero)
-	 * @return devuelve nombre
-	 */
-	private String getMechanismName(final String preconditionWithNumber) {
-		return preconditionWithNumber.substring(0,
-				preconditionWithNumber.length() - 4);
 	}
 
 	/**

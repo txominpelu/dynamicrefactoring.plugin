@@ -75,7 +75,7 @@ import dynamicrefactoring.domain.DynamicRefactoringDefinition;
 import dynamicrefactoring.domain.InputParameter;
 import dynamicrefactoring.domain.RefactoringMechanismInstance;
 import dynamicrefactoring.domain.RefactoringMechanismType;
-import dynamicrefactoring.domain.metadata.classifications.xml.imp.PluginClassificationsCatalog;
+import dynamicrefactoring.domain.xml.XMLRefactoringsCatalog;
 import dynamicrefactoring.interfaz.wizard.listener.ListDownListener;
 import dynamicrefactoring.interfaz.wizard.listener.ListUpListener;
 import dynamicrefactoring.util.PluginStringUtils;
@@ -544,8 +544,9 @@ public class RepositoryElementComposite {
 		l_Available.removeAll();
 		for(String element : a_Available){
 			if(!(qualified && cb_qualified.getSelection()) ){
-				if(patron == "" || element.matches(patron))
+				if(patron == "" || element.matches(patron)) {
 					l_Available.add(element);
+				}
 		    }else{
 				String qualified_name = getElementFullyQualifiedName(element);
 				if((qualified==true && cb_qualified.getSelection()==true)){
@@ -991,10 +992,10 @@ public class RepositoryElementComposite {
 		 * @return un <code>ArrayList</code> con la lista de par�metros ambiguos.
 		 * @see #setParameters
 		 */
-		public java.util.List<String> getParametersNamesAsString() {
+		public java.util.List<String> getParametersNames() {
 			final java.util.List<String> parametersAsString = new ArrayList<String>();
 			for(InputParameter parameter :parameters){
-				parametersAsString.add(parameter.getType());
+				parametersAsString.add(parameter.getName());
 			}
 			return parametersAsString;
 		}
@@ -1234,14 +1235,14 @@ public class RepositoryElementComposite {
 			ArrayList<DynamicRefactoringDefinition> refactorings=null;
 			if(title.equals(RefactoringWizardPage3.PRECONDITIONS_TITLE)){
 				refactorings=new ArrayList<DynamicRefactoringDefinition>(
-						PluginClassificationsCatalog.getInstance().getRefactoringsContainsPrecondition(elementSelected));
+						XMLRefactoringsCatalog.getInstance().getRefactoringsContainsPrecondition(elementSelected));
 			}else{
 				if(title.equals(RefactoringWizardPage4.ACTIONS_TITLE)){
 					refactorings=new ArrayList<DynamicRefactoringDefinition>(
-							PluginClassificationsCatalog.getInstance().getRefactoringsContainsAction(elementSelected));
+							XMLRefactoringsCatalog.getInstance().getRefactoringsContainsAction(elementSelected));
 				}else{ //title.equals(RefactoringWizardPage5.POSTCONDITIONS_TITLE)
 					refactorings=new ArrayList<DynamicRefactoringDefinition>(
-							PluginClassificationsCatalog.getInstance().getRefactoringsContainsPostcondition(elementSelected));
+							XMLRefactoringsCatalog.getInstance().getRefactoringsContainsPostcondition(elementSelected));
 				}
 			}
 			Collections.sort(refactorings);

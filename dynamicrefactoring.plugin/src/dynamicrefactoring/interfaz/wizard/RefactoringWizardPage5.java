@@ -165,7 +165,7 @@ public class RefactoringWizardPage5 extends WizardPage implements IRefactoringWi
 	public List<RefactoringMechanismInstance> getPostconditions(){
 		List<RefactoringMechanismInstance> lista = new ArrayList<RefactoringMechanismInstance>();
 		for(String className : postconditionsTab.getElements()){
-			lista.add(new RefactoringMechanismInstance(className, postconditionsTab.getParameters().get(className).getParametersNamesAsString(), RefactoringMechanismType.POSTCONDITION));
+			lista.add(new RefactoringMechanismInstance(RefactoringWizardPage3.getMechanismName(className), postconditionsTab.getParameters().get(className).getParametersNames(), RefactoringMechanismType.POSTCONDITION));
 		}
 		return lista;
 	}

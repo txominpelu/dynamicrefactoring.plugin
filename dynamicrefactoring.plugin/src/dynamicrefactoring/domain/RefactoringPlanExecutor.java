@@ -45,6 +45,7 @@ import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.jface.operation.IRunnableWithProgress;
 
 import dynamicrefactoring.RefactoringConstants;
+import dynamicrefactoring.domain.xml.XMLRefactoringUtils;
 import dynamicrefactoring.domain.xml.reader.RefactoringPlanReader;
 import dynamicrefactoring.domain.xml.reader.XMLRefactoringReaderException;
 import dynamicrefactoring.integration.CodeRegenerator;
@@ -159,22 +160,22 @@ public class RefactoringPlanExecutor implements IRunnableWithProgress{
 	public void run(IProgressMonitor monitor) {
 		
 		monitor.beginTask(Messages.RefactoringPlanExecutor_ExecutingPlan, refactorings.size()+1);
-		int number_refactoring=1;
+		int numberRefactoring=1;
 		
 		for( String refactoring : plan){
 			if(refactorings.containsKey(refactoring + " (" + refactoring +".xml)")){
 				try{
-					monitor.subTask(number_refactoring + "/" + plan.size() + " " + 
+					monitor.subTask(numberRefactoring + "/" + plan.size() + " " + 
 							Messages.RefactoringPlanExecutor_Executing + " " + refactoring  + " ..." ); 
-					number_refactoring++;
+					numberRefactoring++;
 					HashMap<String, Object> inputs = getInputs(refactoring);
 					if(inputs==null){
 						notExecuted.put(refactorings.get(refactoring + " (" + refactoring +".xml)") , "no inputs");
 					}else{
-						DynamicRefactoring d_refactoring = new DynamicRefactoring(
+						DynamicRefactoring dRefactoring = new DynamicRefactoring(
 								refactorings.get(refactoring + " (" + refactoring +".xml)"), model,inputs);
 						
-						DynamicRefactoringRunner runner = new DynamicRefactoringRunner(d_refactoring);
+						DynamicRefactoringRunner runner = new DynamicRefactoringRunner(dRefactoring);
 						runner.setInputParameters(DynamicRefactoringWindow.getInputParameters(inputs));
 						runner.setFromPlan(true);
 						runner.runRefactoring();	
@@ -183,12 +184,11 @@ public class RefactoringPlanExecutor implements IRunnableWithProgress{
 				}catch(Exception e){
 					e.printStackTrace();
 					monitor.worked(1);	
-					String trace="";
-					trace=e.getMessage();
+					StringBuffer trace=new StringBuffer(e.getMessage());
 					for(StackTraceElement s : e.getStackTrace()){
-						trace= trace + "\n\t" + s.toString();
+						trace.append("\n\t" + s.toString());
 					}
-					notExecuted.put(refactoring,trace);
+					notExecuted.put(refactoring,trace.toString());
 					e.printStackTrace();
 					Object[] messageArgs = {refactoring};
 					MessageFormat formatter = new MessageFormat(""); //$NON-NLS-1$
@@ -229,7 +229,7 @@ public class RefactoringPlanExecutor implements IRunnableWithProgress{
 			HashMap<String, Object> inputs = new HashMap<String, Object>();
 			
 			DynamicRefactoringDefinition refactoringDefinition = 
-				DynamicRefactoringDefinition.getRefactoringDefinition(
+				XMLRefactoringUtils.getRefactoringDefinition(
 						refactorings.get(refactoring + " (" + refactoring +".xml)"));
 			
 			ArrayList<InputParameter> fromInputs = new ArrayList<InputParameter>();

@@ -22,13 +22,11 @@ package dynamicrefactoring.domain;
 
 import java.io.File;
 import java.io.IOException;
-import java.text.MessageFormat;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
-import java.util.Map;
 import java.util.Set;
 
 import com.google.common.base.Function;
@@ -44,10 +42,6 @@ import dynamicrefactoring.domain.metadata.classifications.xml.imp.PluginClassifi
 import dynamicrefactoring.domain.metadata.interfaces.Category;
 import dynamicrefactoring.domain.metadata.interfaces.ClassificationsCatalog;
 import dynamicrefactoring.domain.metadata.interfaces.Element;
-import dynamicrefactoring.domain.xml.reader.JDOMXMLRefactoringReaderFactory;
-import dynamicrefactoring.domain.xml.reader.XMLRefactoringReader;
-import dynamicrefactoring.domain.xml.reader.XMLRefactoringReaderFactory;
-import dynamicrefactoring.domain.xml.reader.XMLRefactoringReaderImp;
 import dynamicrefactoring.util.io.FileManager;
 
 /**
@@ -102,12 +96,6 @@ public class DynamicRefactoringDefinition implements Element,
 	private List<RefactoringMechanismInstance> postconditions;
 
 	/**
-	 * Los valores para los par�metros ambiguos, que se obtienen de la
-	 * definici�n de la refactorizaci�n.
-	 */
-	private Map<String, List<String[]>>[] ambiguousParameters;
-
-	/**
 	 * Los ejemplos de esta refactorizaci�n.
 	 */
 	private List<RefactoringExample> examples;
@@ -140,8 +128,6 @@ public class DynamicRefactoringDefinition implements Element,
 		preconditions = builder.preconditions;
 		actions = builder.actions;
 		postconditions = builder.postconditions;
-
-		ambiguousParameters = builder.ambiguousParameters;
 
 		examples = builder.examples;
 		isEditable = builder.isEditable;
@@ -297,44 +283,6 @@ public class DynamicRefactoringDefinition implements Element,
 		return absolutePathExamples;
 	}
 
-
-	/**
-	 * Devuelve la definici�n de una refactorizaci�n a partir de un fichero.
-	 * 
-	 * @param refactoringFilePath
-	 *            ruta al fichero que define la refactorizaci�n.
-	 * 
-	 * @return la definici�n de la refactorizaci�n descrita en el fichero.
-	 * 
-	 * @throws RefactoringException
-	 *             si se produce un error al cargar la refactorizaci�n desde el
-	 *             fichero indicado.
-	 */
-	public static DynamicRefactoringDefinition getRefactoringDefinition(
-			String refactoringFilePath) throws RefactoringException {
-
-		DynamicRefactoringDefinition definition;
-		try {
-			XMLRefactoringReaderFactory f = new JDOMXMLRefactoringReaderFactory();
-			XMLRefactoringReaderImp implementor = f
-					.makeXMLRefactoringReaderImp();
-			XMLRefactoringReader temporaryReader = new XMLRefactoringReader(
-					implementor);
-			definition = temporaryReader
-					.getDynamicRefactoringDefinition(new File(
-							refactoringFilePath));
-		} catch (Exception e) {
-			Object[] messageArgs = { refactoringFilePath };
-			MessageFormat formatter = new MessageFormat(""); //$NON-NLS-1$
-			formatter
-					.applyPattern(Messages.DynamicRefactoringDefinition_ErrorLoading);
-
-			throw new RefactoringException(formatter.format(messageArgs)
-					+ ".\n" + //$NON-NLS-1$
-					e.getMessage(), e);
-		}
-		return definition;
-	}
 
 	/**
 	 * Devuelve el ambito al que pertenece una refactorizacion.
@@ -688,7 +636,6 @@ public class DynamicRefactoringDefinition implements Element,
 		private List<RefactoringMechanismInstance> preconditions;
 		private List<RefactoringMechanismInstance> actions;
 		private List<RefactoringMechanismInstance> postconditions;
-		private Map<String, List<String[]>>[] ambiguousParameters;
 
 		/**
 		 * Crea un builder para crear una definicion de refactorizacion con el
@@ -699,10 +646,6 @@ public class DynamicRefactoringDefinition implements Element,
 		 */
 		public Builder(String refactoringName) {
 			this.name = refactoringName;
-			ambiguousParameters = (HashMap<String, List<String[]>>[]) new HashMap[3];
-			for (int i = 0; i < ambiguousParameters.length; i++) {
-				ambiguousParameters[i] = new HashMap<String, List<String[]>>();
-			}
 		}
 
 		/**
@@ -727,7 +670,6 @@ public class DynamicRefactoringDefinition implements Element,
 			checkParameterNotNull(preconditions, "preconditions");
 			checkParameterNotNull(actions, "actions");
 			checkParameterNotNull(postconditions, "postconditions");
-			checkParameterNotNull(ambiguousParameters, "ambiguousParameters");
 			checkParameterNotNull(image, "image");
 			checkParameterNotNull(examples, "examples");
 			checkParameterNotNull(keywords, "keywords");

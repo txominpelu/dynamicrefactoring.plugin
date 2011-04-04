@@ -74,6 +74,7 @@ import dynamicrefactoring.domain.DynamicRefactoringDefinition;
 import dynamicrefactoring.domain.InputParameter;
 import dynamicrefactoring.domain.RefactoringExample;
 import dynamicrefactoring.domain.RefactoringException;
+import dynamicrefactoring.domain.xml.XMLRefactoringUtils;
 import dynamicrefactoring.integration.ModelGenerator;
 import dynamicrefactoring.integration.NamedObjectHandler;
 import dynamicrefactoring.interfaz.ComboEditor;
@@ -216,7 +217,7 @@ public class DynamicRefactoringWindow extends Dialog {
 		super(PlatformUI.getWorkbench().getActiveWorkbenchWindow().getShell());
 		
 		this.refactoringDefinition = 
-			DynamicRefactoringDefinition.getRefactoringDefinition(
+			XMLRefactoringUtils.getRefactoringDefinition(
 				refactoringfilePath);
 		this.refactoringName = refactoringName;
 		this.refactoringfilePath = refactoringfilePath;

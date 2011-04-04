@@ -10,7 +10,7 @@ import com.google.common.base.Preconditions;
 
 import dynamicrefactoring.RefactoringPlugin;
 
-public final class RefactoringWizardPage1Object {
+public final class RefactoringWizardPage1Object extends AbstractRefactoringWizardPage{
 
 	public static final String DYNAMIC_REFACTORING_WIZARD_SHELL_TEXT = "Dynamic Refactoring Wizard";
 	public static final String DYNAMIC_REFACTORING_MENU_TEXT = Platform
@@ -18,15 +18,14 @@ public final class RefactoringWizardPage1Object {
 					"%dynamicrefactoring.menu.main");
 	private static final String NEW_REFACTORING_MENU_TEXT = "New Refactoring...";
 
-	private final SWTWorkbenchBot swtBot;
 
 	/**
 	 * Crea un PageObject que permite a los tests de interfaz acceder a la
 	 * primera pagina del interfaz de crear/editar una refactorizacion.
 	 */
 	public RefactoringWizardPage1Object(SWTWorkbenchBot bot) {
-		swtBot = bot;
-		swtBot.menu(DYNAMIC_REFACTORING_MENU_TEXT)
+		super(bot);
+		getBot().menu(DYNAMIC_REFACTORING_MENU_TEXT)
 				.menu(NEW_REFACTORING_MENU_TEXT).click();
 		UIThreadRunnable.syncExec(new VoidResult() {
 			public void run() {
@@ -34,7 +33,7 @@ public final class RefactoringWizardPage1Object {
 						.forceActive();
 			}
 		});
-		swtBot.shell(DYNAMIC_REFACTORING_WIZARD_SHELL_TEXT).activate();
+		getBot().shell(DYNAMIC_REFACTORING_WIZARD_SHELL_TEXT).activate();
 	}
 
 	/**
@@ -47,12 +46,12 @@ public final class RefactoringWizardPage1Object {
 	 *            categoria
 	 */
 	public void checkCategory(String classification, String category) {
-		if (swtBot.tree().expandNode(classification).getNode(category)
+		if (getBot().tree().expandNode(classification).getNode(category)
 				.isChecked()) {
-			swtBot.tree().expandNode(classification).getNode(category)
+			getBot().tree().expandNode(classification).getNode(category)
 					.uncheck();
 		} else {
-			swtBot.tree().expandNode(classification).getNode(category).check();
+			getBot().tree().expandNode(classification).getNode(category).check();
 		}
 	}
 
@@ -66,10 +65,10 @@ public final class RefactoringWizardPage1Object {
 	 *            categoria
 	 */
 	public void checkClassification(String classification) {
-		if (swtBot.tree().getTreeItem(classification).isChecked()) {
-			swtBot.tree().getTreeItem(classification).uncheck();
+		if (getBot().tree().getTreeItem(classification).isChecked()) {
+			getBot().tree().getTreeItem(classification).uncheck();
 		} else {
-			swtBot.tree().getTreeItem(classification).check();
+			getBot().tree().getTreeItem(classification).check();
 		}
 
 	}
@@ -81,7 +80,7 @@ public final class RefactoringWizardPage1Object {
 	 *            nombre a asignar a la refactorizacion.
 	 */
 	public void setName(String name) {
-		swtBot.textWithLabel("Name").setText(name);
+		getBot().textWithLabel("Name").setText(name);
 	}
 
 	/**
@@ -92,7 +91,7 @@ public final class RefactoringWizardPage1Object {
 	 *         refactorizacion
 	 */
 	public String getName() {
-		return swtBot.textWithLabel("Name").getText();
+		return getBot().textWithLabel("Name").getText();
 	}
 
 	/**
@@ -103,7 +102,7 @@ public final class RefactoringWizardPage1Object {
 	 *            descripcion a asignar a la refactorizacion.
 	 */
 	public void setDescription(String description) {
-		swtBot.textWithLabel("Description").setText(description);
+		getBot().textWithLabel("Description").setText(description);
 	}
 
 	/**
@@ -114,7 +113,7 @@ public final class RefactoringWizardPage1Object {
 	 *         refactorizacion
 	 */
 	public String getDescription() {
-		return swtBot.textWithLabel("Description").getText();
+		return getBot().textWithLabel("Description").getText();
 	}
 	
 	/**
@@ -125,7 +124,7 @@ public final class RefactoringWizardPage1Object {
 	 *            motivacion a asignar a la refactorizacion.
 	 */
 	public void setMotivation(String motivation) {
-		swtBot.textWithLabel("Motivation").setText(motivation);
+		getBot().textWithLabel("Motivation").setText(motivation);
 	}
 
 	/**
@@ -136,7 +135,7 @@ public final class RefactoringWizardPage1Object {
 	 *         refactorizacion
 	 */
 	public String getMotivation() {
-		return swtBot.textWithLabel("Motivation").getText();
+		return getBot().textWithLabel("Motivation").getText();
 	}
 
 	/**
@@ -149,25 +148,8 @@ public final class RefactoringWizardPage1Object {
 	 *            categoria
 	 */
 	public boolean isCategoryChecked(String classification, String category) {
-		return swtBot.tree().expandNode(classification).getNode(category)
+		return getBot().tree().expandNode(classification).getNode(category)
 				.isChecked();
-	}
-
-	/**
-	 * Cierra la ventana y finaliza el wizard de refactorizacion.
-	 */
-	public void cancelWizard() {
-		swtBot.activeShell().close();
-	}
-
-	/**
-	 * Devuelve si se puede pasar a la siguiente página del
-	 * wizard.
-	 * 
-	 * @return verdader si se puede pasar, falso en caso contrario
-	 */
-	public boolean canGoToNextPage() {
-		return swtBot.button("Next").isEnabled();
 	}
 	
 	/**
@@ -175,10 +157,10 @@ public final class RefactoringWizardPage1Object {
 	 * 
 	 * @return verdader si se puede pasar, falso en caso contrario
 	 */
-	public RefactoringWizardPage2Object goToNextPage() {
+	public RefactoringWizardPage goToNextPage() {
 		Preconditions.checkArgument(canGoToNextPage());
-		swtBot.button("Next").click();
-		return new RefactoringWizardPage2Object(swtBot);
+		getBot().button("Next").click();
+		return new RefactoringWizardPage2Object(getBot());
 	}
 
 }

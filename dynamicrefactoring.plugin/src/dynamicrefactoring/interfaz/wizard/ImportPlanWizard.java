@@ -60,9 +60,9 @@ import org.eclipse.swt.widgets.Text;
 
 import dynamicrefactoring.RefactoringImages;
 import dynamicrefactoring.RefactoringPlugin;
-import dynamicrefactoring.domain.DynamicRefactoringDefinition;
 import dynamicrefactoring.domain.RefactoringPlanExecutor;
 import dynamicrefactoring.domain.xml.ExportImportUtilities;
+import dynamicrefactoring.domain.xml.XMLRefactoringUtils;
 import dynamicrefactoring.domain.xml.reader.RefactoringPlanReader;
 import dynamicrefactoring.interfaz.ButtonTextProvider;
 import dynamicrefactoring.interfaz.CustomProgressDialog;
@@ -814,7 +814,7 @@ public class ImportPlanWizard extends Dialog {
 					try {
 						// Se intenta obtener la definici�n de la siguiente
 						// refactorizaci�n.
-						DynamicRefactoringDefinition.getRefactoringDefinition(path);
+						XMLRefactoringUtils.getRefactoringDefinition(path);
 						
 						// Solo se recogen refactorizaciones cuya carpeta se
 						// llame igual que su fichero.
