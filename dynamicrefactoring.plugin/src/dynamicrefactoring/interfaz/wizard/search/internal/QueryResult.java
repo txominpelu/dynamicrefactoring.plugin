@@ -9,9 +9,11 @@ package dynamicrefactoring.interfaz.wizard.search.internal;
 public class QueryResult {
 
 	private String className;
+	private String classDescription;
 
-	protected QueryResult(String className) {
+	protected QueryResult(String className, String classDescription) {
 		this.className = className;
+		this.classDescription=classDescription;
 	}
 
 	/**
@@ -21,6 +23,13 @@ public class QueryResult {
 		return className;
 	}
 
+	/**
+	 * @return el descripción de la clase encontrada
+	 */
+	public String getClassDescription() {
+		return classDescription;
+	}
+	
 	/**
 	 * Una QueryResult queda definida por su nombre. No puede haber dos
 	 * resultados para la misma busqueda con el mismo nombre de clase por tanto

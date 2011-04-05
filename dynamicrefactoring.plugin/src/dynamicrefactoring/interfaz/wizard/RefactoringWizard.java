@@ -45,6 +45,7 @@ import dynamicrefactoring.domain.RefactoringMechanism;
 import dynamicrefactoring.domain.RefactoringsCatalog;
 import dynamicrefactoring.domain.xml.XMLRefactoringsCatalog;
 import dynamicrefactoring.domain.xml.writer.XMLRefactoringWriterException;
+import dynamicrefactoring.interfaz.wizard.search.internal.SearchingFacade;
 
 /**
  * Proporciona un asistente de Eclipse que permite crear una nueva
@@ -154,6 +155,14 @@ public class RefactoringWizard extends Wizard implements INewWizard {
 		operation = (refactoring == null) ? CREATE : EDIT;
 		this.refactoring = refactoring;
 		this.originalName = (refactoring != null) ? refactoring.getName() : ""; //$NON-NLS-1$
+		//generamos el indice para poder realizar búsquedas en tipos de elementos y acciones y predicados
+		try {
+			SearchingFacade.INSTANCE.generateAllIndexes();
+		} catch (IOException e) {
+			String message = Messages.RefactoringWizard_AllIndexesNotGenerated
+			+ ".\n" + e.getMessage(); //$NON-NLS-1$
+			logger.error(message);
+		}
 	}
 
 	/**

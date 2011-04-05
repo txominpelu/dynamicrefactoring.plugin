@@ -36,7 +36,7 @@ enum SearchableTypeIndexer implements Indexer {
 	
 	INSTANCE;
 
-	private static final String SEARCH_STOPWORDS_ESPANOL_TXT = "/search/stopwords-espanol.txt";
+	private static final String SEARCH_STOPWORDS_ENGLISH_TXT = "/search/stopwords-english.txt";
 	public static final String CLASS_NAME_FIELD = "className";
 	public static final String CLASS_DESCRIPTION_FIELD = "contents";
 
@@ -130,7 +130,7 @@ enum SearchableTypeIndexer implements Indexer {
 	private IndexWriter createWriter(Directory dir) {
 		try {
 			return new IndexWriter(dir, new SnowballAnalyzer(Version.LUCENE_30,
-					"Spanish", getSpanishStopWords()), true, IndexWriter.MaxFieldLength.UNLIMITED);
+					"English", getEnglishStopWords()), true, IndexWriter.MaxFieldLength.UNLIMITED);
 		} catch (IOException e) {
 			throw Throwables.propagate(e);
 		}
@@ -138,25 +138,25 @@ enum SearchableTypeIndexer implements Indexer {
 	
 	/**
 	 * Obtiene la lista de StopWords para el
-	 * español del fichero {@link #SEARCH_STOPWORDS_ESPANOL_TXT}.
+	 * ingles del fichero {@link #SEARCH_STOPWORDS_ENGLISH_TXT}.
 	 * 
-	 * @return lista de Stopwords para el español
+	 * @return lista de Stopwords para el ingles
 	 * @throws IOException si hay algun problema leyendo el fichero
 	 */
-	private Set<String> getSpanishStopWords() throws IOException{
-		InputStream in = RefactoringPlugin.getDefault().getBundle().getEntry( SEARCH_STOPWORDS_ESPANOL_TXT ).openStream();
-		Set<String> spanishStopWords = new HashSet<String>();
+	private Set<String> getEnglishStopWords() throws IOException{
+		InputStream in = RefactoringPlugin.getDefault().getBundle().getEntry( SEARCH_STOPWORDS_ENGLISH_TXT ).openStream();
+		Set<String> englishStopWords = new HashSet<String>();
 		 try {
 		   for (String line : IOUtils.toString( in ).split("\n")){
-			   final String palabra = line.trim();
-			   if(! palabra.isEmpty()){
-				   spanishStopWords.add(palabra);
+			   final String word = line.trim();
+			   if(! word.isEmpty()){
+				   englishStopWords.add(word);
 			   }
 		   }
 		} finally {
 		   IOUtils.closeQuietly(in);
 		 }
-		return spanishStopWords;
+		return englishStopWords;
 	}
 
 }
