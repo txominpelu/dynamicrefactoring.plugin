@@ -198,9 +198,10 @@ public class AvailableRefactoringView extends ViewPart {
 						ISelectionHandler handler = factory
 								.createHandler(select);
 
-						if (handler != null)
+						if (handler != null){
 							mediator.runRefactoring(handler.getMainObject(),
 									select, false);
+						}
 
 						new DynamicRefactoringWindowLauncher(
 								handler.getMainObject(), refactCatalog.getRefactoring(selectedName));

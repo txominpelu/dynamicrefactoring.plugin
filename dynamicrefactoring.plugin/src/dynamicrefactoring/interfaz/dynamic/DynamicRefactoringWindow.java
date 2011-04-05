@@ -66,6 +66,9 @@ import org.eclipse.swt.widgets.Text;
 import org.eclipse.ui.PlatformUI;
 
 import repository.moon.MOONRefactoring;
+
+import com.google.common.base.Preconditions;
+
 import dynamicrefactoring.RefactoringConstants;
 import dynamicrefactoring.RefactoringImages;
 import dynamicrefactoring.domain.DynamicRefactoring;
@@ -199,8 +202,9 @@ public class DynamicRefactoringWindow extends Dialog {
 	 *             refactorizaci�n din�mica que se asociar� a la ventana.
 	 */
 	public DynamicRefactoringWindow(ObjectMoon currentObject, DynamicRefactoringDefinition refactoring) {
-
 		super(PlatformUI.getWorkbench().getActiveWorkbenchWindow().getShell());
+		
+		Preconditions.checkNotNull(currentObject, "The main object in the refactoring cannot be null.");
 		
 		this.refactoringDefinition = refactoring;
 		this.currentObject = currentObject;

@@ -138,10 +138,12 @@ public class TextSelectionInfo extends SelectionInfo {
 				IType type = getCompilationUnit().findPrimaryType();
 				IMethod[] methods = type.getMethods();
 				
-				for (int i = 0; i < methods.length; i++)
+				for (int i = 0; i < methods.length; i++){
 					if(methods[i].getElementName().equals(
-						getSelectedJavaElement().getElementName()))
+						getSelectedJavaElement().getElementName())){
 						return true;
+					}
+				}
 			}
 			catch (Exception e){
 				return false;

@@ -26,7 +26,7 @@ import dynamicrefactoring.util.selection.TreeSelectionInfo;
 /**
  * Proporciona funciones capaces de obtener cualquiera de los objetos que 
  * permiten hallar el objeto MOON equivalente al seleccionado en Eclipse,
- * en función de su tipo.
+ * en funciï¿½n de su tipo.
  * 
  * @author <A HREF="mailto:sfd0009@alu.ubu.es">Sonia Fuente de la Fuente</A>
  * @author <A HREF="mailto:ehp0001@alu.ubu.es">Enrique Herrero Paredes</A>
@@ -34,21 +34,21 @@ import dynamicrefactoring.util.selection.TreeSelectionInfo;
 public class SelectionHandlerFactory {
 	
 	/**
-	 * Instancia única de la fábrica (patrón Singleton).
+	 * Instancia ï¿½nica de la fï¿½brica (patrï¿½n Singleton).
 	 */
 	private static SelectionHandlerFactory myInstance;
 	
 	/**
 	 * Constructor.
 	 * 
-	 * Privado según la estructura del patrón de diseño Singleton.
+	 * Privado segï¿½n la estructura del patrï¿½n de diseï¿½o Singleton.
 	 */
 	private SelectionHandlerFactory(){}
 
 	/**
-	 * Obtiene la instancia única de la fábrica (patrón Singleton).
+	 * Obtiene la instancia ï¿½nica de la fï¿½brica (patrï¿½n Singleton).
 	 *
-	 * @return la instancia única de la fábrica.
+	 * @return la instancia ï¿½nica de la fï¿½brica.
 	 */
 	public static SelectionHandlerFactory getInstance(){
 		if (myInstance == null)
@@ -57,20 +57,20 @@ public class SelectionHandlerFactory {
 	}
 
 	/**
-	 * Obtiene un integrador para MOON concreto para una selección de un método 
+	 * Obtiene un integrador para MOON concreto para una selecciï¿½n de un mï¿½todo 
 	 * dada.
 	 * 
-	 * Si la selección forma parte de un árbol de selección, devuelve una
+	 * Si la selecciï¿½n forma parte de un ï¿½rbol de selecciï¿½n, devuelve una
 	 * instancia de <code>TreeMethodSelectionHandler</code>.
-	 * Si la selección forma parte de una representación textual, devuelve una
+	 * Si la selecciï¿½n forma parte de una representaciï¿½n textual, devuelve una
 	 * instancia de <code>TextMethodSelectionHandler</code>.
 	 * 
-	 * Método fábrica (patrón de diseño Método fábrica).
+	 * Mï¿½todo fï¿½brica (patrï¿½n de diseï¿½o Mï¿½todo fï¿½brica).
 	 * 
-	 * @param infoProvider el proveedor de información para cuya selección 
+	 * @param infoProvider el proveedor de informaciï¿½n para cuya selecciï¿½n 
 	 * se quiere obtener un integrador con MOON concreto.
 	 * 
-	 * @return un integrador para MOON concreto para una selección de un método.
+	 * @return un integrador para MOON concreto para una selecciï¿½n de un mï¿½todo.
 	 * 
 	 * @throws Exception si se produce un error al intentar crear cualquiera de 
 	 * los integradores concretos.
@@ -81,31 +81,33 @@ public class SelectionHandlerFactory {
 	public MethodSelectionHandler createMethodSelectionHandler(
 		SelectionInfo infoProvider) throws Exception{
 		
-		if(infoProvider instanceof TreeSelectionInfo)
+		if(infoProvider instanceof TreeSelectionInfo){
 			return new TreeMethodSelectionHandler(
 				(TreeSelectionInfo) infoProvider);
-		if(infoProvider instanceof TextSelectionInfo)
+		}
+		if(infoProvider instanceof TextSelectionInfo){
 			return new TextMethodSelectionHandler(
 				(TextSelectionInfo) infoProvider);
+		}
 		
 		return null;
 	}
 
 	/**
-	 * Obtiene un integrador para MOON concreto para una selección de una clase 
+	 * Obtiene un integrador para MOON concreto para una selecciï¿½n de una clase 
 	 * dada.
 	 * 
-	 * Si la selección forma parte de un árbol de selección, devuelve una
+	 * Si la selecciï¿½n forma parte de un ï¿½rbol de selecciï¿½n, devuelve una
 	 * instancia de <code>TreeClassSelectionHandler</code>.
-	 * Si la selección forma parte de una representación textual, devuelve una
+	 * Si la selecciï¿½n forma parte de una representaciï¿½n textual, devuelve una
 	 * instancia de <code>TextClassSelectionHandler</code>.
 	 * 
-	 * Método fábrica (patrón de diseño Método fábrica).
+	 * Mï¿½todo fï¿½brica (patrï¿½n de diseï¿½o Mï¿½todo fï¿½brica).
 	 * 
-	 * @param infoProvider el proveedor de información para cuya selección 
+	 * @param infoProvider el proveedor de informaciï¿½n para cuya selecciï¿½n 
 	 * se quiere obtener un integrador con MOON concreto.
 	 * 
-	 * @return un integrador para MOON concreto para una selección de una clase.
+	 * @return un integrador para MOON concreto para una selecciï¿½n de una clase.
 	 * 
 	 * @throws Exception si se produce un error al intentar crear cualquiera de 
 	 * los integradores concretos. 
@@ -124,20 +126,20 @@ public class SelectionHandlerFactory {
 	}
 
 	/**
-	 * Obtiene un integrador para MOON concreto para una selección de un atributo 
+	 * Obtiene un integrador para MOON concreto para una selecciï¿½n de un atributo 
 	 * dada.
 	 * 
-	 * Si la selección forma parte de un árbol de selección, devuelve una
+	 * Si la selecciï¿½n forma parte de un ï¿½rbol de selecciï¿½n, devuelve una
 	 * instancia de <code>TreeFieldSelectionHandler</code>.
-	 * Si la selección forma parte de una representación textual, devuelve una
+	 * Si la selecciï¿½n forma parte de una representaciï¿½n textual, devuelve una
 	 * instancia de <code>TextFieldSelectionHandler</code>.
 	 * 
-	 * Método fábrica (patrón de diseño Método fábrica).
+	 * Mï¿½todo fï¿½brica (patrï¿½n de diseï¿½o Mï¿½todo fï¿½brica).
 	 * 
-	 * @param infoProvider el proveedor de información para cuya selección 
+	 * @param infoProvider el proveedor de informaciï¿½n para cuya selecciï¿½n 
 	 * se quiere obtener un integrador con MOON concreto.
 	 * 
-	 * @return un integrador para MOON concreto para una selección de un 
+	 * @return un integrador para MOON concreto para una selecciï¿½n de un 
 	 * atributo.
 	 * 
 	 * @throws Exception si se produce un error al intentar crear cualquiera de 
@@ -160,18 +162,18 @@ public class SelectionHandlerFactory {
 	}
 	
 	/**
-	 * Obtiene un integrador para MOON concreto para una selección de un 
+	 * Obtiene un integrador para MOON concreto para una selecciï¿½n de un 
 	 * argumento formal dada.
 	 * 
-	 * Si la selección forma parte de una representación textual, devuelve una
+	 * Si la selecciï¿½n forma parte de una representaciï¿½n textual, devuelve una
 	 * instancia de <code>FormalArgumentSelectionHandler</code>.
 	 * 
-	 * Método fábrica (patrón de diseño Método fábrica).
+	 * Mï¿½todo fï¿½brica (patrï¿½n de diseï¿½o Mï¿½todo fï¿½brica).
 	 * 
-	 * @param infoProvider el proveedor de información para cuya selección 
+	 * @param infoProvider el proveedor de informaciï¿½n para cuya selecciï¿½n 
 	 * se quiere obtener un integrador con MOON concreto.
 	 * 
-	 * @return un integrador para MOON concreto para una selección de un 
+	 * @return un integrador para MOON concreto para una selecciï¿½n de un 
 	 * argumento formal.
 	 * 
 	 * @throws Exception si se produce un error al intentar crear cualquiera de 
@@ -190,19 +192,19 @@ public class SelectionHandlerFactory {
 	}
 	
 	/**
-	 * Obtiene un integrador para MOON concreto para una selección de un 
-	 * parámetro formal dada.
+	 * Obtiene un integrador para MOON concreto para una selecciï¿½n de un 
+	 * parï¿½metro formal dada.
 	 * 
-	 * Si la selección forma parte de una representación textual, devuelve una
+	 * Si la selecciï¿½n forma parte de una representaciï¿½n textual, devuelve una
 	 * instancia de <code>FormalParameterSelectionHandler</code>.
 	 * 
-	 * Método fábrica (patrón de diseño Método fábrica).
+	 * Mï¿½todo fï¿½brica (patrï¿½n de diseï¿½o Mï¿½todo fï¿½brica).
 	 * 
-	 * @param infoProvider el proveedor de información para cuya selección 
+	 * @param infoProvider el proveedor de informaciï¿½n para cuya selecciï¿½n 
 	 * se quiere obtener un integrador con MOON concreto.
 	 * 
-	 * @return un integrador para MOON concreto para una selección de un 
-	 * parámetro formal.
+	 * @return un integrador para MOON concreto para una selecciï¿½n de un 
+	 * parï¿½metro formal.
 	 * 
 	 * @throws Exception si se produce un error al intentar crear el
 	 * integrador concreto.
@@ -218,19 +220,19 @@ public class SelectionHandlerFactory {
 	}
 	
 	/**
-	 * Obtiene un integrador para MOON concreto para una selección de un fragmento de
+	 * Obtiene un integrador para MOON concreto para una selecciï¿½n de un fragmento de
 	 * texto dada.
 	 * 
-	 * Si la selección forma parte de una representación textual, devuelve una
+	 * Si la selecciï¿½n forma parte de una representaciï¿½n textual, devuelve una
 	 * instancia de <code>TextCodeFragmentSelectionHandler</code>.
 	 * 
-	 * Método fábrica (patrón de diseño Método fábrica).
+	 * Mï¿½todo fï¿½brica (patrï¿½n de diseï¿½o Mï¿½todo fï¿½brica).
 	 * 
-	 * @param infoProvider el proveedor de información para cuya selección 
+	 * @param infoProvider el proveedor de informaciï¿½n para cuya selecciï¿½n 
 	 * se quiere obtener un integrador con MOON concreto.
 	 * 
-	 * @return un integrador para MOON concreto para una selección de un 
-	 * parámetro formal.
+	 * @return un integrador para MOON concreto para una selecciï¿½n de un 
+	 * parï¿½metro formal.
 	 * 
 	 * @throws Exception si se produce un error al intentar crear el
 	 * integrador concreto.
@@ -246,21 +248,21 @@ public class SelectionHandlerFactory {
 	}
 	
 	/**
-	 * Obtiene un integrador para MOON concreto para una selección de un 
-	 * objeto dado, que deberá ser un método, una clase, un atributo, un
-	 * argumento formal o un parámetro formal.
+	 * Obtiene un integrador para MOON concreto para una selecciï¿½n de un 
+	 * objeto dado, que deberï¿½ ser un mï¿½todo, una clase, un atributo, un
+	 * argumento formal o un parï¿½metro formal.
 	 * 
-	 * <p>Tiene en cuenta el tipo de selección contenido en el argumento
-	 * recibido (tipo de objeto seleccionado, y si se trata de una selección
-	 * sobre un árbol o sobre texto).</p>
+	 * <p>Tiene en cuenta el tipo de selecciï¿½n contenido en el argumento
+	 * recibido (tipo de objeto seleccionado, y si se trata de una selecciï¿½n
+	 * sobre un ï¿½rbol o sobre texto).</p>
 	 * 
-	 * Método fábrica (patrón de diseño Método fábrica).
+	 * Mï¿½todo fï¿½brica (patrï¿½n de diseï¿½o Mï¿½todo fï¿½brica).
 	 * 
-	 * @param infoProvider el proveedor de información para cuya selección 
+	 * @param infoProvider el proveedor de informaciï¿½n para cuya selecciï¿½n 
 	 * se quiere obtener un integrador con MOON concreto.
 	 * 
-	 * @return un integrador para MOON concreto para una selección de un 
-	 * objeto, o <code>null</code> si la selección no es de ninguno de los
+	 * @return un integrador para MOON concreto para una selecciï¿½n de un 
+	 * objeto, o <code>null</code> si la selecciï¿½n no es de ninguno de los
 	 * tipos esperados.
 	 * 
 	 * @throws Exception si se produce un error al intentar crear el

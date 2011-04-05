@@ -21,6 +21,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.*/
 package dynamicrefactoring.util.processor;
 
 import java.util.Collection;
+import java.util.List;
 
 import javamoon.core.JavaModel;
 import javamoon.core.JavaName;
@@ -29,6 +30,7 @@ import moon.core.classdef.AttDec;
 import org.eclipse.jdt.core.IField;
 import org.eclipse.jdt.core.JavaModelException;
 
+import com.google.common.base.Preconditions;
 import com.google.common.base.Predicate;
 import com.google.common.collect.Collections2;
 
@@ -67,13 +69,10 @@ public class JavaFieldProcessor extends JavaElementProcessor {
 	 */
 	@Override
 	public final String getUniqueName() {
+		final List<AttDec> classAttributes = JavaModel.getInstance().getClassDef(new JavaName(field.getDeclaringType().getFullyQualifiedName())).getAttributes();
+		Preconditions.checkArgument(!classAttributes.isEmpty(), String.format("The class %s doesn't have any attribute so the field %s cannot be found", field.getDeclaringType().getElementName(), field.getElementName()));
 		Collection<AttDec> collection = Collections2.filter(
-				JavaModel
-						.getInstance()
-						.getClassDef(
-								new JavaName(field.getDeclaringType()
-										.getFullyQualifiedName()))
-						.getAttributes(), new Predicate<AttDec>() {
+				classAttributes, new Predicate<AttDec>() {
 
 					@Override
 					public boolean apply(AttDec arg0) {
@@ -82,6 +81,7 @@ public class JavaFieldProcessor extends JavaElementProcessor {
 					}
 
 				});
+		Preconditions.checkArgument(!collection.isEmpty(), "The field %s cannot be found in %s.", field.getElementName(), field.getDeclaringType().getElementName());
 		// Tomamos el primero porque no puede haber mas
 		// (no puede haber mas de un atributo con el mismo nombre en una clase
 		AttDec atributo = collection.iterator().next();

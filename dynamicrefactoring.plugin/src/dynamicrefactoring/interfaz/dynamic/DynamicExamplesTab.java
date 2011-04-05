@@ -22,10 +22,13 @@ package dynamicrefactoring.interfaz.dynamic;
 
 import java.io.File;
 import java.io.FileOutputStream;
+import java.io.IOException;
 import java.io.PrintStream;
 import java.net.MalformedURLException;
 
+import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.FilenameUtils;
+import org.apache.commons.io.filefilter.FileFilterUtils;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.browser.Browser;
 import org.eclipse.swt.custom.ScrolledComposite;
@@ -229,37 +232,33 @@ public class DynamicExamplesTab {
 	}
 	
 	/**
-	 * Reestablece la extensi�n de los ejemplos <code>.txt</code> modificados para
-	 * generar sus htmls asociados.
+	 * Copia los ficheros des ejemplo modificando su nombre para darles
+	 * otra extension.
 	 */
-	private void changeExampleFilesExtension(String fromExtension, String toExtension) {
+	private void copyExampleFilesWithOtherExtension( String toExtension) {
 		for (RefactoringExample ejemplo : refactoringDefinition.getExamplesAbsolutePath()) {
-			changeFileExtension(getFileWithoutExtension(ejemplo.getBefore()) + fromExtension, toExtension);
-			changeFileExtension(getFileWithoutExtension(ejemplo.getAfter()) + fromExtension, toExtension);
+			if(!FilenameUtils.getExtension(ejemplo.getBefore()).equals("java")){
+				copyFileWithOtherExtension(ejemplo.getBefore(), toExtension);
+			}
+			if(!FilenameUtils.getExtension(ejemplo.getAfter()).equals("java")){
+				copyFileWithOtherExtension(ejemplo.getAfter(), toExtension);
+			}
 		}
 	}
 
 	/**
-	 * Renombra el fichero cambiando su extension a la pasada.
+	 * Copia el fichero cambiando su extension a la pasada.
 	 * 
 	 * @param file fichero a renombrar
 	 * @param toExtension extension destino
 	 */
-	private void changeFileExtension(String file, String toExtension) {
-		Preconditions.checkArgument(new File(file).exists());
-		new File(file).renameTo(new File(file.replace("." + FilenameUtils.getExtension(file), toExtension)));
-	}
-
-
-	/**
-	 * Obtiene el nombre del fichero pasando
-	 * pero eliminandole la extension.
-	 * 
-	 * @param file fichero
-	 * @return ruta completa del fichero menos la extension
-	 */
-	public String getFileWithoutExtension(String file) {
-		return new File(file).getParent() + File.separator + FilenameUtils.getBaseName(file);
+	private void copyFileWithOtherExtension(String file, String toExtension) {
+		Preconditions.checkArgument(new File(file).exists(), String.format("The source file %s doesn't exist.", file));
+		try {
+			FileUtils.copyFile(new File(file), new File(file.replace("." + FilenameUtils.getExtension(file), toExtension)));
+		} catch (IOException e) {
+			Throwables.propagate(e);
+		}
 	}
 
 	
@@ -275,7 +274,7 @@ public class DynamicExamplesTab {
 		// Cambiamos de extensi�n los ficheros .txt por .java para que puedan
 		// ser interpretados
 		// por java2HTML
-		changeExampleFilesExtension(".txt", ".java");
+		copyExampleFilesWithOtherExtension(".java");
 
 		try {
 			// redirijo la consola a un fichero .txt para que no salga las
@@ -298,7 +297,19 @@ public class DynamicExamplesTab {
 			e.printStackTrace();
 		}
 
-		// Volvemos a dejar los ficheros como estaban.
-		changeExampleFilesExtension(".java", ".txt");
+	}
+
+
+	/**
+	 * Elimina todos los ficheros del directorio pasado que tengan
+	 * la extension dada.
+	 * 
+	 * @param dirRefactoring directorio del que se eliminaran los ficheros
+	 * @param extension extension de los ficheros
+	 */
+	private void deleteAllFilesFromDirWithExtension(String dirRefactoring, String extension) {
+		for(String file : new File(dirRefactoring).list(FileFilterUtils.suffixFileFilter(extension))){
+			FileUtils.deleteQuietly(new File(file));
+		}
 	}
 }
