@@ -25,12 +25,15 @@ import java.io.IOException;
 import java.text.MessageFormat;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.Hashtable;
 import java.util.Map;
+import java.util.Set;
 import java.util.StringTokenizer;
 import java.util.Vector;
 
 import org.apache.log4j.Logger;
+import org.apache.lucene.queryParser.ParseException;
 import org.eclipse.core.runtime.FileLocator;
 import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.jface.wizard.IWizardPage;
@@ -78,6 +81,10 @@ import dynamicrefactoring.domain.RefactoringMechanismType;
 import dynamicrefactoring.domain.xml.XMLRefactoringsCatalog;
 import dynamicrefactoring.interfaz.wizard.listener.ListDownListener;
 import dynamicrefactoring.interfaz.wizard.listener.ListUpListener;
+import dynamicrefactoring.interfaz.wizard.search.internal.QueryResult;
+import dynamicrefactoring.interfaz.wizard.search.internal.SearchingFacade;
+import dynamicrefactoring.interfaz.wizard.search.internal.SearchingFacade.SearchableType;
+import dynamicrefactoring.interfaz.wizard.search.javadoc.EclipseBasedJavadocReader;
 import dynamicrefactoring.util.PluginStringUtils;
 
 /**
@@ -213,12 +220,14 @@ public class RepositoryElementComposite {
 	private Hashtable<TableItem, CCombo> combosTable;
 	
 	/**
-	 * Array de nombres de los elementos del repositorio disponibles , necesitamos esta
-	 * a parte de la anterior debido a que a la hora
-	 * una b�squeda de un elemento en l_Available no van a aparecer todos los disponibles
-	 * y estos tienen que estar recogidos en alg�n sitio.
+	 * Elementos del repositorio disponibles con su descripción asociada. 
+	 * <p>
+	 * Se utiliza como clave el nombre del elemento (sin cualificar) y
+	 * como valor la descripción correspondiente a este tipo, obtenida a partir
+	 * de la descripción asociada en la documentación del código fuente, javadoc.
+	 * </p>
 	 */
-	private ArrayList<String> a_Available;
+	private HashMap<String, String> a_Available;
 	
 	private FormToolkit toolkit;
 	private ScrolledForm form;
@@ -239,7 +248,7 @@ public class RepositoryElementComposite {
 		
 		selectedTable = new Hashtable<String, RepositoryItem>();
 		combosTable = new Hashtable<TableItem, CCombo>();
-		a_Available = new ArrayList<String>();
+		a_Available = new HashMap<String, String>();
 		
 		
 		if (inputsPage != null && inputsPage instanceof RefactoringWizardPage2){
@@ -314,7 +323,7 @@ public class RepositoryElementComposite {
 		bSearch.setImage(RefactoringImages.getSearchIcon());
 		bSearch.addSelectionListener(new SelectionAdapter() {
 			public void widgetSelected(SelectionEvent e) {
-				fillSearchTypesList(tSearch.getText(), false);	
+				fillSearchTypesList(tSearch.getText());	
 			}
 		});
 		
@@ -338,7 +347,21 @@ public class RepositoryElementComposite {
 		cb_qualified.setLayoutData(fd_cbqualified);
 		cb_qualified.addSelectionListener(new SelectionAdapter() {
 			public void widgetSelected(SelectionEvent e) {
-				fillSearchTypesList(tSearch.getText(), true);	
+				ArrayList<String> orderedList=new ArrayList<String>();
+				for(String element : l_Available.getItems()){
+					if(cb_qualified.getSelection())
+						orderedList.add(getElementFullyQualifiedName(element));
+					else
+						orderedList.add(getElementNotQualifiedName(element));
+				}
+				
+				// se vacia la lista l_Available
+				l_Available.removeAll();
+				
+				Collections.sort(orderedList);
+				//se muestra en orden alfabético
+				for(String element : orderedList)
+					l_Available.add(element);
 			}
 		});
 		
@@ -523,12 +546,12 @@ public class RepositoryElementComposite {
     	Vector<String> orderedList = new Vector<String>(repository.keySet()); 
     	Collections.sort(orderedList);
 		
-    		
 		// Se a�ade a la lista.
     	for (String nextKey : orderedList){
     		if(!nextKey.startsWith("Test")){
     			l_Available.add(nextKey);
-    			a_Available.add(nextKey);
+    			a_Available.put(nextKey,
+    				EclipseBasedJavadocReader.INSTANCE.getTypeJavaDocAsPlainText(getElementFullyQualifiedName(nextKey)));
     		}
     	}
 
@@ -537,29 +560,45 @@ public class RepositoryElementComposite {
 	/**
 	 * Rellena la lista de elementos en funci�n del patr�n de b�squeda.
 	 * 
-	 * @param qualified indica si lo que ha cambiado es el checkbox qualified o no
 	 * @param patron Patr�n de b�squeda.
 	 */
-	protected void fillSearchTypesList(String patron, Boolean qualified){
+	protected void fillSearchTypesList(String patron){
+		boolean search = !(patron.trim().equals("") || patron.trim().equals("*"));
+
+		// se vacia la lista l_Available
 		l_Available.removeAll();
-		for(String element : a_Available){
-			if(!(qualified && cb_qualified.getSelection()) ){
-				if(patron == "" || element.matches(patron)) {
-					l_Available.add(element);
-				}
-		    }else{
-				String qualified_name = getElementFullyQualifiedName(element);
-				if((qualified==true && cb_qualified.getSelection()==true)){
-					if(patron == "" || element.matches(patron))
-						l_Available.add(qualified_name);
-				}if(patron == "" || qualified_name.matches(patron)){
-					if(!cb_qualified.getSelection())
-						l_Available.add(element);
+		
+		if(search){
+			try {
+				SearchableType typeToSearch=SearchableType.PREDICATE;
+				if(title.equals(RefactoringWizardPage4.ACTIONS_TITLE))
+					typeToSearch=SearchableType.ACTION;
+				Set<QueryResult> queryResultTypes=SearchingFacade.INSTANCE.search(typeToSearch, patron);
+				//se muestra por orden de relevancia
+				for(QueryResult qResult: queryResultTypes){
+					if(cb_qualified.getSelection())
+						l_Available.add(qResult.getClassName());
 					else
-						l_Available.add(qualified_name);
+						l_Available.add(getElementNotQualifiedName(qResult.getClassName()));
 				}
+			} catch (ParseException e) {
+				String message = Messages.RepositoryElementComposite_SearchNotSucceded
+								 + ".\n" + e.getMessage(); //$NON-NLS-1$
+				logger.error(message);
+				e.printStackTrace();
 			}
-				
+		}else{
+			ArrayList<String> orderedList=new ArrayList<String>();
+			for(String element : a_Available.keySet()){
+				if(cb_qualified.getSelection())
+					orderedList.add(getElementFullyQualifiedName(element));
+				else
+					orderedList.add(element);
+			}
+			Collections.sort(orderedList);
+			//se muestra en orden alfabético
+			for(String element : orderedList)
+				l_Available.add(element);
 		}
 			
 	}
@@ -575,6 +614,15 @@ public class RepositoryElementComposite {
 		String qualified_name = PluginStringUtils
 				.getMechanismFullyQualifiedName(type, element);
 		return qualified_name;
+	}
+	
+	private String getElementNotQualifiedName(String qualifiedName) {
+		final int SEPARATOR='.';
+		int pos=qualifiedName.lastIndexOf(SEPARATOR);
+		if(pos!=-1){
+			return qualifiedName.substring(pos+1);
+		}
+		return qualifiedName;		
 	}
 	
 	/**
@@ -1180,35 +1228,13 @@ public class RepositoryElementComposite {
 		 */
 		@Override
 		public void widgetSelected(SelectionEvent e) {
-			String path="";
+
+			String qualifiedName=l_Available.getItem(l_Available.getSelectionIndex()).toString();
 			
-			if(cb_qualified.getSelection() == false){
-				if (title.equals(RefactoringWizardPage3.PRECONDITIONS_TITLE) ||
-							title.equals(RefactoringWizardPage5.POSTCONDITIONS_TITLE)){
-					if (RefactoringMechanismType
-							.isPredicateJavaDependent
-							(l_Available.getItem(l_Available.getSelectionIndex()).toString()))
-						path = RefactoringConstants.JAVA_PREDICATES_PACKAGE; 
-					else 
-						path = RefactoringConstants.PREDICATES_PACKAGE;
-			
-				}			
-				else if (title.equals(RefactoringWizardPage4.ACTIONS_TITLE)){
-					if (RefactoringMechanismType.ACTION
-							.isElementJavaDependent
-(l_Available.getItem(
-									l_Available.getSelectionIndex()).toString())) {
-						path = RefactoringConstants.JAVA_ACTIONS_PACKAGE;
-					} else {
-						path = RefactoringConstants.ACTIONS_PACKAGE;
-					}
-				}
-				path = path.replace('.', '/');
-				path = RefactoringConstants.REFACTORING_JAVADOC + "/" + path + l_Available.getItem(l_Available.getSelectionIndex()).toString() + ".html";
-			}else
-				path= RefactoringConstants.REFACTORING_JAVADOC + "/" 
-					+ l_Available.getItem(l_Available.getSelectionIndex()).toString().replace('.', '/') + ".html";
-			
+			if(!cb_qualified.getSelection())
+				qualifiedName=getElementFullyQualifiedName(l_Available.getItem(l_Available.getSelectionIndex()).toString());
+
+			String path=RefactoringConstants.REFACTORING_JAVADOC + "/" + qualifiedName.replace('.', '/') + ".html";
 			try{
 				if(new File(FileLocator.toFileURL(RefactoringPlugin.getDefault().getBundle().getEntry(path)).getFile()).exists())
 					navegador.setUrl(FileLocator.toFileURL(RefactoringPlugin.getDefault().getBundle().getEntry(path)) + "#skip-navbar_top");
@@ -1227,22 +1253,24 @@ public class RepositoryElementComposite {
 			for(int i=0;i<labels.length;i++)
 				labels[i].dispose();
 			
-			String elementSelected=l_Available.getItem(l_Available.getSelectionIndex()).toString();
-			form.setText(elementSelected);
-			descriptionFormLabel.setText("Esta es la descripcion de " + elementSelected);
+			form.setText(qualifiedName);
+			
+			String notQualifiedName=getElementNotQualifiedName(qualifiedName);
+			descriptionFormLabel.setText(a_Available.get(notQualifiedName));
 			
 			//refactoringsInputType
 			ArrayList<DynamicRefactoringDefinition> refactorings=null;
 			if(title.equals(RefactoringWizardPage3.PRECONDITIONS_TITLE)){
 				refactorings=new ArrayList<DynamicRefactoringDefinition>(
-						XMLRefactoringsCatalog.getInstance().getRefactoringsContainsPrecondition(elementSelected));
+
+	XMLRefactoringsCatalog.getInstance().getRefactoringsContainsPrecondition(notQualifiedName));
 			}else{
 				if(title.equals(RefactoringWizardPage4.ACTIONS_TITLE)){
 					refactorings=new ArrayList<DynamicRefactoringDefinition>(
-							XMLRefactoringsCatalog.getInstance().getRefactoringsContainsAction(elementSelected));
+							XMLRefactoringsCatalog.getInstance().getRefactoringsContainsAction(notQualifiedName));
 				}else{ //title.equals(RefactoringWizardPage5.POSTCONDITIONS_TITLE)
 					refactorings=new ArrayList<DynamicRefactoringDefinition>(
-							XMLRefactoringsCatalog.getInstance().getRefactoringsContainsPostcondition(elementSelected));
+							XMLRefactoringsCatalog.getInstance().getRefactoringsContainsPostcondition(notQualifiedName));
 				}
 			}
 			Collections.sort(refactorings);

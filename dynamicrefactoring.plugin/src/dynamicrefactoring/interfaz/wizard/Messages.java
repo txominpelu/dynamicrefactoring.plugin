@@ -91,6 +91,7 @@ public class Messages extends NLS {
 	public static String RefactoringWizard_Edition;
 	public static String RefactoringWizard_Error;
 	public static String RefactoringWizard_ErrorMessage;
+	public static String RefactoringWizard_AllIndexesNotGenerated;
 	public static String RefactoringWizard_FileNotFound;
 	public static String RefactoringWizard_MakeSureNotExists;
 	public static String RefactoringWizard_ModifiedLower;
@@ -192,6 +193,7 @@ public class Messages extends NLS {
 	public static String RepositoryElementTab_SelectElements;
 	public static String RefactoringWizardPage2_NotInformationAvailable;
 	public static String RefactoringWizardPage2_Search;
+	public static String RefactoringWizardPage2_SearchNotSucceded;
 	public static String RefactoringWizardPage6_DynamicRefactoring;
 	public static String RefactoringWizardPage7_DynamicRefactoring;
 	public static String RefactoringWizardPage6_Step;
@@ -227,6 +229,7 @@ public class Messages extends NLS {
 	public static String ImportPlanWizard_1WereExecuted;
 	public static String ImportPlanWizard_SeveralWereExecuted;
 	public static String RepositoryElementComposite_RefactoringsBelong;
+	public static String RepositoryElementComposite_SearchNotSucceded;
 	
 	
 	static {

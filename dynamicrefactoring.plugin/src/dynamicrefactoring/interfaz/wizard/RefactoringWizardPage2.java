@@ -26,9 +26,12 @@ import java.lang.reflect.Method;
 import java.text.MessageFormat;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.Hashtable;
+import java.util.Set;
 
 import org.apache.log4j.Logger;
+import org.apache.lucene.queryParser.ParseException;
 import org.eclipse.core.runtime.FileLocator;
 import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.jface.wizard.WizardPage;
@@ -73,6 +76,10 @@ import dynamicrefactoring.domain.xml.XMLRefactoringsCatalog;
 import dynamicrefactoring.interfaz.dynamic.InputProcessor;
 import dynamicrefactoring.interfaz.wizard.listener.ListDownListener;
 import dynamicrefactoring.interfaz.wizard.listener.ListUpListener;
+import dynamicrefactoring.interfaz.wizard.search.internal.QueryResult;
+import dynamicrefactoring.interfaz.wizard.search.internal.SearchingFacade;
+import dynamicrefactoring.interfaz.wizard.search.internal.SearchingFacade.SearchableType;
+import dynamicrefactoring.interfaz.wizard.search.javadoc.EclipseBasedJavadocReader;
 import dynamicrefactoring.util.MOONTypeLister;
 
 /**
@@ -172,6 +179,17 @@ public class RefactoringWizardPage2 extends WizardPage {
 	private Hashtable<String, Integer> listModelTypes;
 
 	/**
+	 * Tipos disponibles con su descripción asociada.
+	 * 
+	 * <p>
+	 * Se utiliza como clave el nombre completamente cualificado del tipo y
+	 * como valor la descripción correspondiente a este tipo, obtenida a partir
+	 * de la descripción asociada en la documentación del código fuente, javadoc.
+	 * </p>
+	 */
+	private HashMap<String, String> descriptionTypes;
+	
+	/**
 	 * Tabla de par�metros de entrada ya introducidos.
 	 * 
 	 * <p>
@@ -183,7 +201,7 @@ public class RefactoringWizardPage2 extends WizardPage {
 	 * </p>
 	 */
 	private Hashtable<String, InputParameter> inputsTable;
-
+	
 	/**
 	 * Navegador en el que se muestra informaci�n relativa al elemento
 	 * seleccionado dentro de la lista de tipos con el fin de ayudar al usuario
@@ -671,6 +689,8 @@ public class RefactoringWizardPage2 extends WizardPage {
 				if (listModelTypes.get(input.getType()) == null) {
 					listModelTypes.put(input.getType(), 1);
 					lTypes.add(input.getType());
+					descriptionTypes.put(input.getType(), 
+							EclipseBasedJavadocReader.INSTANCE.getTypeJavaDocAsPlainText(input.getType()));
 				}
 				if (inputsTable == null)
 					inputsTable = new Hashtable<String, InputParameter>();
@@ -777,23 +797,31 @@ public class RefactoringWizardPage2 extends WizardPage {
 	 *            Expresion regular de b�squeda.
 	 */
 	private void fillSearchTypesList(String patron) {
-
-		MOONTypeLister l = MOONTypeLister.getInstance();
-		java.util.List<String> itemList = l.getTypeNameList();
-		// Se ordena la lista de candidatos.
-		Collections.sort(itemList);
+		boolean search = !(patron.trim().equals("") || patron.trim().equals("*"));
 
 		// se vacia la lista lTypes
 		lTypes.removeAll();
-
-		for (String typeName : itemList) {
-
-			// En caso de que el tipo coincida con el patr�n de b�squeda lo
-			// a�adimos a la lista.
-			if (patron.equals("") || typeName.matches(patron)) {
-				lTypes.add(typeName);
+		
+		if(search){
+			try {
+				Set<QueryResult> queryResultTypes=SearchingFacade.INSTANCE.search(SearchableType.INPUT, patron);
+				//se muestra por orden de relevancia
+				for(QueryResult qResult: queryResultTypes)
+					lTypes.add(qResult.getClassName());
+			} catch (ParseException e) {
+				String message = Messages.RefactoringWizardPage2_SearchNotSucceded
+								 + ".\n" + e.getMessage(); //$NON-NLS-1$
+				logger.error(message);
+				e.printStackTrace();
 			}
+		}else{
+			ArrayList<String> itemList=new ArrayList<String>(descriptionTypes.keySet());
+			Collections.sort(itemList);
+			//se muestra en orden alfabético
+			for(String item : itemList)
+				lTypes.add(item);
 		}
+		
 	}
 
 	/**
@@ -808,6 +836,7 @@ public class RefactoringWizardPage2 extends WizardPage {
 	 */
 	private void fillTypesList() {
 		listModelTypes = new Hashtable<String, Integer>();
+		descriptionTypes = new HashMap<String,String>();
 
 		MOONTypeLister l = MOONTypeLister.getInstance();
 
@@ -821,6 +850,8 @@ public class RefactoringWizardPage2 extends WizardPage {
 
 			listModelTypes.put(typeName, 1);
 			lTypes.add(typeName);
+			descriptionTypes.put(typeName, 
+					EclipseBasedJavadocReader.INSTANCE.getTypeJavaDocAsPlainText(typeName));
 
 			// Si se est� creando una nueva refactorizaci�n.
 			if (((RefactoringWizard) getWizard()).getOperation() == RefactoringWizard.CREATE) {
@@ -1265,13 +1296,13 @@ public class RefactoringWizardPage2 extends WizardPage {
 			String typeSelected = lTypes.getItem(lTypes.getSelectionIndex())
 					.toString();
 			form.setText(typeSelected);
-			descriptionFormLabel.setText("Esta es la descripcion del tipo "
-					+ typeSelected);
+			descriptionFormLabel.setText(descriptionTypes.get(typeSelected));
 
 			// refactoringsInputType
 			java.util.List<DynamicRefactoringDefinition> refactoringsInputType = new ArrayList<DynamicRefactoringDefinition>(
 					XMLRefactoringsCatalog.getInstance()
 							.getRefactoringsContainsInputType(typeSelected));
+
 			Collections.sort(refactoringsInputType);
 			Label refLabel = null;
 			String refName = null;

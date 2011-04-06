@@ -46,7 +46,7 @@ enum SimpleElementSearcher {
 					new String[] {
 							SearchableTypeIndexer.CLASS_DESCRIPTION_FIELD,
 							SearchableTypeIndexer.CLASS_NAME_FIELD },
-					new SnowballAnalyzer(Version.LUCENE_30, "Spanish"));
+					new SnowballAnalyzer(Version.LUCENE_30, "English"));
 			Query query = parser.parse(userQuery);
 			long start = System.currentTimeMillis();
 			TopDocs hits = is.search(query, 10);
@@ -57,8 +57,10 @@ enum SimpleElementSearcher {
 			Set<QueryResult> results = new HashSet<QueryResult>(hits.totalHits);
 			for (ScoreDoc scoreDoc : hits.scoreDocs) {
 				Document doc = is.doc(scoreDoc.doc);
-				results.add(new QueryResult(doc
-						.get(SearchableTypeIndexer.CLASS_NAME_FIELD)));
+				results.add(
+					new QueryResult(
+						doc.get(SearchableTypeIndexer.CLASS_NAME_FIELD),
+						doc.get(SearchableTypeIndexer.CLASS_DESCRIPTION_FIELD)));
 			}
 			is.close();
 			return results;
