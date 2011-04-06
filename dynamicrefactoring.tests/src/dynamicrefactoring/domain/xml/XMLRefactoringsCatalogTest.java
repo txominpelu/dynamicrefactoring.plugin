@@ -45,7 +45,7 @@ public final class XMLRefactoringsCatalogTest {
 		Utils.setTestRefactoringInRefactoringsDir();
 		refactCatalog = new XMLRefactoringsCatalog(
 				XMLRefactoringsCatalog.getRefactoringsFromDir(RefactoringPlugin
-						.getDynamicRefactoringsDir(),true));
+						.getDynamicRefactoringsDir(),false));
 	}
 
 	/**
@@ -117,6 +117,7 @@ public final class XMLRefactoringsCatalogTest {
 				.getRefactoring(MI_REFACT1_NAME)
 				.getBuilder()
 				.name(NEW_NAME)
+				.isEditable(true)
 				.image(FileManager.getBundleFileAsSystemFile(IMAGEN_ORIGINAL_PATH)
 						.getAbsolutePath()).build();
 		expectedRefactorings.add(refactToAdd);
@@ -156,7 +157,7 @@ public final class XMLRefactoringsCatalogTest {
 				.getAllRefactorings();
 		final DynamicRefactoringDefinition refactToAdd = refactCatalog
 				.getRefactoring(MI_REFACT1_NAME).getBuilder().name(NEW_NAME)
-				.examples(getSourceExamples()).build();
+				.examples(getSourceExamples()).isEditable(true).build();
 		expectedRefactorings.add(refactToAdd);
 		refactCatalog.addRefactoring(refactToAdd);
 		assertEquals(expectedRefactorings, refactCatalog.getAllRefactorings());
@@ -182,7 +183,7 @@ public final class XMLRefactoringsCatalogTest {
 				.getRefactoring(MI_REFACT1_NAME);
 		expectedRefactorings.remove( refactToRemove);
 		final DynamicRefactoringDefinition refactToUpdate = refactToRemove.getBuilder().name(NEW_NAME)
-				.examples(getSourceExamples()).build();
+				.examples(getSourceExamples()).isEditable(true).build();
 		expectedRefactorings.add(refactToUpdate);
 		refactCatalog.updateRefactoring(MI_REFACT1_NAME, refactToUpdate);
 		assertEquals(expectedRefactorings, refactCatalog.getAllRefactorings());
@@ -211,7 +212,7 @@ public final class XMLRefactoringsCatalogTest {
 		final DynamicRefactoringDefinition refactToUpdate = refactCatalog
 				.getRefactoring(MI_REFACT1_NAME).getBuilder().name(NEW_NAME)
 				.image(FileManager.getBundleFileAsSystemFile(IMAGEN_ORIGINAL_PATH)
-						.getAbsolutePath()).build();
+						.getAbsolutePath()).isEditable(true).build();
 		expectedRefactorings.add(refactToUpdate);
 		refactCatalog.updateRefactoring(MI_REFACT1_NAME, refactToUpdate);
 		assertEquals(expectedRefactorings, refactCatalog.getAllRefactorings());

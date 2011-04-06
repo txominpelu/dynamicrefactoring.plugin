@@ -54,10 +54,13 @@ public final class CreateRefactoringTest {
 	 * Cierra el wizard de crear/editar una refactorizacion.
 	 */
 	@After
-	public final void tearDown(){
+	public void tearDown(){
 		refactoringWizardPageObject.cancelWizard();
 	}
 	
+	/**
+	 * Asigna el nombre en el wizard.
+	 */
 	@Test
 	public void setNameTest(){
 		refactoringWizardPageObject.setName(MI_NOMBRE);
@@ -65,6 +68,9 @@ public final class CreateRefactoringTest {
 		assertFalse(refactoringWizardPageObject.canGoToNextPage());
 	}
 	
+	/**
+	 * Asigna la descripcion en el wizard.
+	 */
 	@Test
 	public void setDescriptionTest(){
 		refactoringWizardPageObject.setDescription(MI_DESCRIPCION);
@@ -72,6 +78,9 @@ public final class CreateRefactoringTest {
 		assertFalse(refactoringWizardPageObject.canGoToNextPage());
 	}
 	
+	/**
+	 * Asigna la motivacion en el wizard.
+	 */
 	@Test
 	public void setMotivationTest(){
 		refactoringWizardPageObject.setMotivation(MI_MOTIVACION);
@@ -79,6 +88,11 @@ public final class CreateRefactoringTest {
 		assertFalse(refactoringWizardPageObject.canGoToNextPage());
 	}
 	
+	/**
+	 * Asigna nombre, motivacion y descripcion y comprueba
+	 * que todavia no se puede pasar porque no se ha asignado
+	 * un scope.
+	 */
 	@Test
 	public void notEnabledGoToNextPageIfNoScopeTest(){
 		refactoringWizardPageObject.setName(MI_NOMBRE);
@@ -87,6 +101,10 @@ public final class CreateRefactoringTest {
 		assertFalse(refactoringWizardPageObject.canGoToNextPage());
 	}
 	
+	/**
+	 * Asigna todos los parametros necesarios y comprueba que 
+	 * se puede pasar a la siguiente pagina.
+	 */
 	@Test
 	public void enableGoToNextPageTest(){
 		refactoringWizardPageObject.setMotivation(MI_MOTIVACION);
@@ -95,16 +113,6 @@ public final class CreateRefactoringTest {
 		refactoringWizardPageObject.setName(MI_NOMBRE);
 		assertTrue(refactoringWizardPageObject.canGoToNextPage());
 	}
-	
-	@Test
-	public void goToNextPageTest(){
-		refactoringWizardPageObject.setMotivation(MI_MOTIVACION);
-		refactoringWizardPageObject.setDescription(MI_DESCRIPCION);
-		refactoringWizardPageObject.checkCategory(PluginClassificationsCatalog.SCOPE_CLASSIFICATION, Scope.METHOD.toString());
-		refactoringWizardPageObject.setName(MI_NOMBRE);
-		assertTrue(refactoringWizardPageObject.canGoToNextPage());
-	}
-	
 	
 
 }

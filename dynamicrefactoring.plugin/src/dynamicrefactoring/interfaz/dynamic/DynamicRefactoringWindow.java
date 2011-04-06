@@ -790,7 +790,7 @@ public class DynamicRefactoringWindow extends Dialog {
 	 * @return <code>HashMap</code> con el nombre de los par�metros como clave y
 	 *         su nombre cualificado como valor.
 	 */
-	public static HashMap<String,String> getInputParameters(HashMap<String,Object> inputParameters){
+	public static HashMap<String,String> getInputParameters(Map<String,Object> inputParameters){
 		HashMap<String,String> params = new HashMap<String,String>();
 		
 		// Guardamos la informaci�n de los parametros de entrada para
@@ -857,13 +857,14 @@ public class DynamicRefactoringWindow extends Dialog {
 			if (! inputValues.containsKey(sourceInput.getName())){
 				InputParameter recursiveSource = inputAttributes.get(sourceInput.getFrom());
 				if (recursiveSource != null){
-					if (recursiveSource.getType().equals("moon.core.Model")) //$NON-NLS-1$
+					if (recursiveSource.getType().equals("moon.core.Model")){ //$NON-NLS-1$
 						loadFromModel(cParameters, sourceInput);
-					else if(recursiveSource.isMain()) //$NON-NLS-1$
+					}else if(recursiveSource.isMain()){ //$NON-NLS-1$
 						loadFromMain(cParameters, sourceInput);
-					else
+					}else{
 						recursiveDependencyResolution(cParameters,
 							inputAttributes.get(sourceInput.getFrom()), sourceInput);
+					}
 				}
 			}
 			

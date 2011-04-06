@@ -23,8 +23,8 @@ package dynamicrefactoring.domain;
 import java.lang.reflect.Constructor;
 import java.text.MessageFormat;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import moon.core.Model;
 import refactoring.engine.Action;
@@ -53,7 +53,7 @@ public class DynamicRefactoring extends MOONRefactoring {
 	/**
 	 * Tabla con los par�metros de entrada a la refactorizaci�n.
 	 */
-	private HashMap<String, Object> inputParameters;
+	private Map<String, Object> inputParameters;
 
 	/**
 	 * Constructor.
@@ -70,7 +70,7 @@ public class DynamicRefactoring extends MOONRefactoring {
 	 *             din�mica.
 	 */
 	public DynamicRefactoring(DynamicRefactoringDefinition refactoringDefinition,  Model model,
-			HashMap<String, Object> parameters) throws RefactoringException {
+			Map<String, Object> parameters) throws RefactoringException {
 
 		super(refactoringDefinition.getName(), model);
 		this.refactoringDefinition = refactoringDefinition;
@@ -385,7 +385,7 @@ public class DynamicRefactoring extends MOONRefactoring {
 	 * 
 	 * @return Tabla con los par�metros de entrada a la refactorizaci�n.
 	 */
-	public HashMap<String, Object> getInputsParameters() {
+	public Map<String, Object> getInputsParameters() {
 		return inputParameters;
 	}
 }

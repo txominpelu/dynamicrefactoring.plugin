@@ -29,17 +29,14 @@ public class Utils {
 				.getDynamicRefactoringsDir()));
 	
 		FileManager.copyBundleDirToFileSystem(PluginClassificationsCatalogTest.TEST_REPO_PATH,
-				RefactoringPlugin.getDefault().getStateLocation().toOSString()
+				RefactoringPlugin.getCommonPluginFilesDir()
 						+ File.separator + "test" + File.separator);
 	
-		FileUtils.copyDirectory(new File(RefactoringPlugin.getDefault()
-				.getStateLocation().toOSString()
+		FileUtils.copyDirectory(new File(RefactoringPlugin.getCommonPluginFilesDir()
 				+ File.separator + "test" + File.separator + PluginClassificationsCatalogTest.TEST_REPO_PATH),
-				new File(RefactoringPlugin.getDefault().getStateLocation()
-						.toOSString()));
-		FileUtils.deleteDirectory(new File(RefactoringPlugin.getDefault()
-				.getStateLocation().toOSString()
-				+ "/test/"));
+				new File(RefactoringPlugin.getCommonPluginFilesDir()));
+		FileUtils.deleteDirectory(new File(RefactoringPlugin.getCommonPluginFilesDir()
+				+ "test"));
 	}
 
 	
@@ -56,7 +53,7 @@ public class Utils {
 				.getDynamicRefactoringsDir()));
 		FileManager.copyBundleDirToFileSystem(
 				RefactoringPlugin.DYNAMIC_REFACTORINGS_FOLDER_NAME,
-				RefactoringPlugin.getDefault().getStateLocation().toOSString());
+				RefactoringPlugin.getCommonPluginFilesDir());
 	}
 
 }

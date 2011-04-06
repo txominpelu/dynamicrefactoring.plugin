@@ -90,7 +90,7 @@ public class LogManager {
 		setLogFileProperty();
 		try{
 		String configFilePath =
-			RefactoringPlugin.getDefault().getBundleRootDir() +
+			RefactoringPlugin.getCommonPluginFilesDir() +
 			PropertyManager.getInstance().getLogFileDirectory() +
 			File.separatorChar +  //$NON-NLS-1$
 			LOG_PROPERTIES_FILE;
@@ -129,7 +129,7 @@ public class LogManager {
 			
 			// Se construye la ruta actual del directorio temporal del plugin
 			// y en ella se sit�a la carpeta de log.
-			String logDir = RefactoringPlugin.getDefault().getPluginTempDir() +
+			String logDir = RefactoringPlugin.getCommonPluginFilesDir() +
 				File.separatorChar + //$NON-NLS-1$
 				PropertyManager.getInstance().getLogFileDirectory();
 			String logFile = logDir + File.separatorChar + LOG_FILE; //$NON-NLS-1$

@@ -26,8 +26,8 @@ import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
 import java.text.ChoiceFormat;
 import java.text.MessageFormat;
-import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.StringTokenizer;
 
@@ -87,7 +87,7 @@ public class ImportPlanWizard extends Dialog {
 	 * Tabla con la lista de refactorizaciones que conforman el plan de
 	 * refactorizaci�n.
 	 */
-	private Table tb_Refactorings;
+	private Table tbRefactorings;
 	
 	/**
 	 * Ruta del directorio en que se deben buscar las refactorizaciones.
@@ -108,7 +108,7 @@ public class ImportPlanWizard extends Dialog {
 	/**
 	 * Conjunto de refactorizaciones que confoman el plan de refactorizaciones.
 	 */
-	private ArrayList<String> plan ;
+	private List<String> plan ;
 	
 	/**
 	 * Mensaje informativo mostrado al usuario en cada momento.
@@ -118,7 +118,7 @@ public class ImportPlanWizard extends Dialog {
 	/**
 	 * Tabla de refactorizaciones que ya forman parte del <i>plugin</i>.
 	 */
-	private HashMap<String, String> existing;
+	private Map<String, String> existing;
 
 	/**
 	 * Consejo mostrado al usuario sobre la b�squeda de refactorizaciones.
@@ -134,17 +134,17 @@ public class ImportPlanWizard extends Dialog {
 	/**
 	 * Refactorizaciones que conforman el plan.
 	 */
-	HashMap<String,String> refactorings;
+	private Map<String,String> refactorings;
 	
 	/**
 	 * Refactorizaciones que van a ser ejecutadas.
 	 */
-	Map<String,String> refactorings_to_execute;
+	private Map<String,String> refactoringsToExecute;
 	
 	/**
 	 * Refactorizaciones que van a ser importadas.
 	 */
-	HashMap<String,String> refactorings_to_import;
+	private Map<String,String> refactoringsToImport;
 
 	/**
 	 * Crea la ventana de di�logo.
@@ -196,25 +196,25 @@ public class ImportPlanWizard extends Dialog {
 		gridData.grabExcessVerticalSpace = true;
 		gridData.horizontalSpan = 2;
 		
-		tb_Refactorings = new Table(container, SWT.BORDER);
-		tb_Refactorings.setLayoutData(gridData);
-		tb_Refactorings.setToolTipText(Messages.ImportPlanWizard_PlanRefactorings);
-		tb_Refactorings.setLinesVisible(true);
-		tb_Refactorings.setHeaderVisible(true);
-		tb_Refactorings.setBounds(10, 95, 383, 202);
+		tbRefactorings = new Table(container, SWT.BORDER);
+		tbRefactorings.setLayoutData(gridData);
+		tbRefactorings.setToolTipText(Messages.ImportPlanWizard_PlanRefactorings);
+		tbRefactorings.setLinesVisible(true);
+		tbRefactorings.setHeaderVisible(true);
+		tbRefactorings.setBounds(10, 95, 383, 202);
 		
 
-		final TableColumn cl_Name = new TableColumn(tb_Refactorings, SWT.NONE);
+		final TableColumn cl_Name = new TableColumn(tbRefactorings, SWT.NONE);
 		cl_Name.setWidth(239);
 		cl_Name.setText(Messages.ImportPlanWizard_Name);
 		cl_Name.setResizable(true);
 		
-		final TableColumn cl_Execute = new TableColumn(tb_Refactorings, SWT.CENTER);
+		final TableColumn cl_Execute = new TableColumn(tbRefactorings, SWT.CENTER);
 		cl_Execute.setWidth(70);
 		cl_Execute.setText(Messages.ImportPlanWizard_Execute);
 		cl_Execute.setResizable(true);
 		
-		final TableColumn cl_Import = new TableColumn(tb_Refactorings, SWT.CENTER);
+		final TableColumn cl_Import = new TableColumn(tbRefactorings, SWT.CENTER);
 		cl_Import.setWidth(70);
 		cl_Import.setText(Messages.ImportPlanWizard_Import);
 		cl_Import.setResizable(false);
@@ -230,8 +230,8 @@ public class ImportPlanWizard extends Dialog {
 		t_Message.setBackground(Display.getCurrent().getSystemColor(SWT.COLOR_WIDGET_BACKGROUND));
 		t_Message.setBounds(40, 312, 353, 64);
 
-		refactorings_to_execute = new HashMap<String,String>();
-		refactorings_to_import = new HashMap<String,String>();
+		refactoringsToExecute = new HashMap<String,String>();
+		refactoringsToImport = new HashMap<String,String>();
 		
 		try {
 			existing = DynamicRefactoringLister.getInstance().
@@ -288,14 +288,14 @@ public class ImportPlanWizard extends Dialog {
 	private void fillInTable(){
 		for (String refactoring  : plan){
 			// Se crea la nueva entrada de la tabla.
-			TableItem item = new TableItem(tb_Refactorings, SWT.BORDER);
+			TableItem item = new TableItem(tbRefactorings, SWT.BORDER);
 			item.setText(0, refactoring + " (" + refactoring +".xml)"); //$NON-NLS-1$ //$NON-NLS-2$
 			item.setForeground(Display.getCurrent().getSystemColor(SWT.COLOR_DARK_CYAN));
 			
-			final TableEditor editor2 = new TableEditor(tb_Refactorings);
-			Button ch_Execute = new Button(tb_Refactorings, SWT.CHECK);
+			final TableEditor editor2 = new TableEditor(tbRefactorings);
+			Button ch_Execute = new Button(tbRefactorings, SWT.CHECK);
 			ch_Execute.setSelection(true);
-			ch_Execute.setData("Row", tb_Refactorings.indexOf(item)); //$NON-NLS-1$
+			ch_Execute.setData("Row", tbRefactorings.indexOf(item)); //$NON-NLS-1$
 			ch_Execute.addSelectionListener(new SelectionListener(){
 				public void widgetDefaultSelected(SelectionEvent e){
 					widgetSelected(e);
@@ -304,12 +304,12 @@ public class ImportPlanWizard extends Dialog {
 					Button execute = (Button)e.getSource();
 					boolean selected = execute.getSelection();
 					int row = ((Integer)execute.getData("Row")).intValue(); //$NON-NLS-1$
-					TableItem item = tb_Refactorings.getItem(row);
+					TableItem item = tbRefactorings.getItem(row);
 					String refactoring = item.getText(0);
 					if(selected){
-						refactorings_to_execute.put(refactoring,refactorings.get(refactoring));
+						refactoringsToExecute.put(refactoring,refactorings.get(refactoring));
 					}else{
-						refactorings_to_execute.remove(refactoring);
+						refactoringsToExecute.remove(refactoring);
 					}
 					updateMessage();
 					updateButton();
@@ -322,9 +322,9 @@ public class ImportPlanWizard extends Dialog {
 			editor2.horizontalAlignment = SWT.CENTER;
 			editor2.setEditor(ch_Execute, item, 1);
 			
-			final TableEditor editor = new TableEditor(tb_Refactorings);
-			Button ch_Import = new Button(tb_Refactorings, SWT.CHECK);
-			ch_Import.setData("Row", tb_Refactorings.indexOf(item)); //$NON-NLS-1$
+			final TableEditor editor = new TableEditor(tbRefactorings);
+			Button ch_Import = new Button(tbRefactorings, SWT.CHECK);
+			ch_Import.setData("Row", tbRefactorings.indexOf(item)); //$NON-NLS-1$
 			ch_Import.addSelectionListener(new SelectionListener(){
 				public void widgetDefaultSelected(SelectionEvent e){
 					widgetSelected(e);
@@ -333,10 +333,10 @@ public class ImportPlanWizard extends Dialog {
 					Button btimport = (Button)e.getSource();
 					boolean selected = btimport.getSelection();
 					int row = ((Integer)btimport.getData("Row")).intValue(); //$NON-NLS-1$
-					TableItem item = tb_Refactorings.getItem(row);
+					TableItem item = tbRefactorings.getItem(row);
 					String refactoring = item.getText(0);
 					if(selected){
-						refactorings_to_import.put(refactoring,refactorings.get(refactoring));
+						refactoringsToImport.put(refactoring,refactorings.get(refactoring));
 
 						// Si ya hay una refactorizaci�n con ese nombre.
 						if (existing.containsKey(refactoring)){
@@ -346,7 +346,7 @@ public class ImportPlanWizard extends Dialog {
 							advise = formatter.format(messageArgs);
 						}	
 					}else{
-						refactorings_to_import.remove(refactoring);
+						refactoringsToImport.remove(refactoring);
 					}
 					updateMessage();
 					updateButton();
@@ -359,16 +359,16 @@ public class ImportPlanWizard extends Dialog {
 			editor.horizontalAlignment = SWT.CENTER;
 			editor.setEditor(ch_Import, item, 2);
 			
-			if (tb_Refactorings.getItemCount() == 1){
+			if (tbRefactorings.getItemCount() == 1){
 				// Se aumenta la altura de las filas.
-				tb_Refactorings.addListener(SWT.MeasureItem, new Listener() {
+				tbRefactorings.addListener(SWT.MeasureItem, new Listener() {
 					public void handleEvent(Event event) {
 						event.height = editor.minimumHeight;
 					}
 				});
 			}
 			
-			tb_Refactorings.redraw();
+			tbRefactorings.redraw();
 		}
 	}
 	
@@ -376,7 +376,7 @@ public class ImportPlanWizard extends Dialog {
 	 * Elimina los elementos de la tabla.
 	 */
 	private void cleanTable(){
-		TableItem[] items = this.tb_Refactorings.getItems();
+		TableItem[] items = this.tbRefactorings.getItems();
 		for (int i = items.length - 1; i >= 0; i--){
 			// Primero se recupera los botones asociados a la fila y se eliminan.
 			Object button = items[i].getData(BUTTON_PROPERTY);
@@ -387,7 +387,7 @@ public class ImportPlanWizard extends Dialog {
 				((Button)button2).dispose();
 			items[i].dispose();
 		}
-		tb_Refactorings.removeAll();
+		tbRefactorings.removeAll();
 	}
 
 	/**
@@ -403,7 +403,7 @@ public class ImportPlanWizard extends Dialog {
 			
 			String imported = ""; //$NON-NLS-1$
 
-				 String[] names = refactorings_to_import.keySet().toArray(new String[refactorings_to_import.keySet().size()]);
+				 String[] names = refactoringsToImport.keySet().toArray(new String[refactoringsToImport.keySet().size()]);
 				 HashMap<String,String> notExecuted = new HashMap<String,String>();
 				try {
 				// Ejecutamos la importaci�n de las refactorizaciones se�aladas
@@ -419,14 +419,14 @@ public class ImportPlanWizard extends Dialog {
 							Messages.ImportWizard_SeveralWereImproted};
 						ChoiceFormat form = new ChoiceFormat(limits, formats);
 						
-						Object[] messageArgs = {refactorings_to_import.size()};
+						Object[] messageArgs = {refactoringsToImport.size()};
 						MessageFormat formatter = new MessageFormat(""); //$NON-NLS-1$
-						formatter.applyPattern(form.format(refactorings_to_import.size()));
+						formatter.applyPattern(form.format(refactoringsToImport.size()));
 						
 						imported=formatter.format(messageArgs)+"."; //$NON-NLS-1$
 					}
 					
-					if(refactorings_to_execute.size()>0){
+					if(refactoringsToExecute.size()>0){
 					// Ejecutamos las refactorizaciones se�aladas para ser
 					// ejecutadas
 						RefactoringPlanExecutor executeJob = new RefactoringPlanExecutor(XMLRefactoringsCatalog.getInstance(),plan,t_Input.getText());
@@ -443,9 +443,9 @@ public class ImportPlanWizard extends Dialog {
 							Messages.ImportPlanWizard_SeveralWereExecuted};
 						ChoiceFormat form = new ChoiceFormat(limits, formats);
 						
-						Object[] messageArgs = {refactorings_to_execute.size()-notExecuted.size()};
+						Object[] messageArgs = {refactoringsToExecute.size()-notExecuted.size()};
 						MessageFormat formatter = new MessageFormat(""); //$NON-NLS-1$
-						formatter.applyPattern(form.format(refactorings_to_execute.size()-notExecuted.size()));
+						formatter.applyPattern(form.format(refactoringsToExecute.size()-notExecuted.size()));
 						
 						String executed=formatter.format(messageArgs)+"."; //$NON-NLS-1$
 						
@@ -469,9 +469,9 @@ public class ImportPlanWizard extends Dialog {
 									details.append("\n\n\t- "+ Messages.ImportPlanWizard_Refactoring + " " + e.getKey() + " :\n\t" + e.getValue() + "."); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$ //$NON-NLS-4$
 								}
 						
-						if((refactorings_to_execute.size() - notExecuted.size())>0){
+						if((refactoringsToExecute.size() - notExecuted.size())>0){
 							details.append("\n\n" + Messages.ImportPlanWizard_Executed+ ":"); //$NON-NLS-1$ //$NON-NLS-2$
-							for(Map.Entry<String,String> e: refactorings_to_execute.entrySet()){
+							for(Map.Entry<String,String> e: refactoringsToExecute.entrySet()){
 								if(!notExecuted.containsKey(e.getKey().substring(0,e.getKey().indexOf("(")-1))){ //$NON-NLS-1$
 								    details.append("\n\n\t- " + e.getKey() + " : " + e.getValue() + "." ); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
 								}
@@ -479,9 +479,9 @@ public class ImportPlanWizard extends Dialog {
 						}
 
 						
-						if(refactorings_to_import.size()>0){
+						if(refactoringsToImport.size()>0){
 							details.append("\n\n" + Messages.ImportPlanWizard_Imported + ":"); //$NON-NLS-1$ //$NON-NLS-2$
-								for(Map.Entry<String,String> e: refactorings_to_import.entrySet()){
+								for(Map.Entry<String,String> e: refactoringsToImport.entrySet()){
 									details.append("\n\n\t- " + e.getKey() + " : " + e.getValue() + "."); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
 								}
 						}
@@ -497,24 +497,24 @@ public class ImportPlanWizard extends Dialog {
 						Messages.ImportPlanWizard_SeveralWereExecuted};
 					ChoiceFormat form = new ChoiceFormat(limits, formats);
 					
-					Object[] messageArgs = {refactorings_to_execute.size()-notExecuted.size()};
+					Object[] messageArgs = {refactoringsToExecute.size()-notExecuted.size()};
 					MessageFormat formatter = new MessageFormat(""); //$NON-NLS-1$
-					formatter.applyPattern(form.format(refactorings_to_execute.size()-notExecuted.size()));
+					formatter.applyPattern(form.format(refactoringsToExecute.size()-notExecuted.size()));
 					
 					String executed=formatter.format(messageArgs)+"."; //$NON-NLS-1$
 					
 					String details =""; //$NON-NLS-1$
-						if(refactorings_to_execute.size()>0){
+						if(refactoringsToExecute.size()>0){
 							details = Messages.ImportPlanWizard_Executed +":"; //$NON-NLS-1$
-								for(Map.Entry<String,String> e: refactorings_to_execute.entrySet()){
+								for(Map.Entry<String,String> e: refactoringsToExecute.entrySet()){
 									details = details + "\n\n\t- " + e.getKey() + " : " + e.getValue() + "."; //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
 								}
 								details = details + "\n"; //$NON-NLS-1$
 						}
 						
-						if(refactorings_to_import.size()>0){
+						if(refactoringsToImport.size()>0){
 							details =details +  "\n" + Messages.ImportPlanWizard_Imported +":"; //$NON-NLS-1$ //$NON-NLS-2$
-								for(Map.Entry<String,String> e: refactorings_to_import.entrySet()){
+								for(Map.Entry<String,String> e: refactoringsToImport.entrySet()){
 									details = details + "\n\n\t- " + e.getKey() + " : " + e.getValue() + "."; //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
 								}
 						}
@@ -544,16 +544,16 @@ public class ImportPlanWizard extends Dialog {
 	 */
 	private void updateMessage() {						
 		if (advise == null){
-			Object[] messageArgs = {refactorings_to_import.size(), refactorings_to_execute.size()};
+			Object[] messageArgs = {refactoringsToImport.size(), refactoringsToExecute.size()};
 			MessageFormat formatter = new MessageFormat(""); //$NON-NLS-1$
-			if(refactorings_to_import.size()==1){
-				if(refactorings_to_execute.size()==1){
+			if(refactoringsToImport.size()==1){
+				if(refactoringsToExecute.size()==1){
 					formatter.applyPattern(Messages.ImportPlanWizard_Imported1Executed1);
 				}else{
 					formatter.applyPattern(Messages.ImportPlanWizard_Imported1Executed);
 				}	
 			}else{
-				if(refactorings_to_execute.size()==1){
+				if(refactoringsToExecute.size()==1){
 					formatter.applyPattern(Messages.ImportPlanWizard_ImportedExecuted1);
 				}else{
 					formatter.applyPattern(Messages.ImportPlanWizard_ImportedExecuted);
@@ -575,7 +575,7 @@ public class ImportPlanWizard extends Dialog {
 	 * plan.
 	 */
 	private void updateButton(){
-		if(refactorings_to_execute.size()==0 && refactorings_to_import.size()==0)
+		if(refactoringsToExecute.size()==0 && refactoringsToImport.size()==0)
 			bt_Execute.setEnabled(false);
 		else
 			bt_Execute.setEnabled(true);
@@ -842,9 +842,9 @@ public class ImportPlanWizard extends Dialog {
 						advise = Messages.ImportWizard_NoneFound;
 				}
 				
-				refactorings_to_execute=new HashMap<String,String>();
-				refactorings_to_execute.putAll(refactorings);
-				refactorings_to_import = new HashMap<String,String> ();
+				refactoringsToExecute=new HashMap<String,String>();
+				refactoringsToExecute.putAll(refactorings);
+				refactoringsToImport = new HashMap<String,String> ();
 			}
 			catch (Exception exception){
 				String message = Messages.ImportWizard_ErrorLooking + 

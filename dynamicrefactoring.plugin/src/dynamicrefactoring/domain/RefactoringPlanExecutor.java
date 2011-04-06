@@ -27,6 +27,8 @@ import java.text.MessageFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
+import java.util.List;
+import java.util.Map;
 
 import javamoon.core.JavaModel;
 import javamoon.core.JavaMoonFactory;
@@ -69,7 +71,7 @@ public class RefactoringPlanExecutor implements IRunnableWithProgress {
 	/**
 	 * Conjunto de refactorizaciones que conforman el plan.
 	 */
-	private ArrayList<String> plan;
+	private List<String> plan;
 
 	/**
 	 * Elemento de registro de errores y otros eventos de la clase.
@@ -151,7 +153,7 @@ public class RefactoringPlanExecutor implements IRunnableWithProgress {
 	 *            refactorizaciones.
 	 */
 	public RefactoringPlanExecutor(RefactoringsCatalog refactCatalog,
-			ArrayList<String> plan, String path) {
+			List<String> plan, String path) {
 		this.refactCatalog = refactCatalog;
 		this.plan = plan;
 		new AvailableRefactoringView().saveUnsavedChanges();
@@ -178,8 +180,8 @@ public class RefactoringPlanExecutor implements IRunnableWithProgress {
 							+ Messages.RefactoringPlanExecutor_Executing + " "
 							+ refactoring + " ...");
 					numberRefactoring++;
-					HashMap<String, Object> inputs = getInputs(refactoring);
-					if (inputs == null) {
+					Map<String, Object> inputs = getInputs(refactoring);
+					if (inputs.isEmpty()) {
 						notExecuted.put(refactoring, "no inputs");
 					} else {
 						DynamicRefactoring dRefactoring = new DynamicRefactoring(
@@ -239,7 +241,7 @@ public class RefactoringPlanExecutor implements IRunnableWithProgress {
 	 * @throws RefactoringException
 	 *             RefactoringException
 	 */
-	private HashMap<String, Object> getInputs(String refactoring)
+	private Map<String, Object> getInputs(String refactoring)
 			throws XMLRefactoringReaderException {
 		HashMap<String, Object> inputs = new HashMap<String, Object>();
 
@@ -433,10 +435,11 @@ public class RefactoringPlanExecutor implements IRunnableWithProgress {
 			// Si los valores est�n contenidos en un iterador.
 			else if (iterator.isAssignableFrom(container)) {
 				Iterator<?> valueIterator = (java.util.Iterator<?>) group;
-				while (valueIterator.hasNext())
+				while (valueIterator.hasNext()){
 					if (((NamedObject) valueIterator.next()).getUniqueName()
 							.toString().equals(name))
 						return valueIterator.next();
+				}
 			}
 		} catch (ClassNotFoundException e) {
 			Object[] messageArgs = { input.getName() };

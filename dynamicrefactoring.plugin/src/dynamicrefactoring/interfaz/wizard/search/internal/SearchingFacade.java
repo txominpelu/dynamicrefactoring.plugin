@@ -63,7 +63,7 @@ public enum SearchingFacade {
 		 * @return ruta del directorio en el que se almacena el indice
 		 */
 		String getIndexDir() {
-			return RefactoringPlugin.getDefault().getPluginTempDir()
+			return RefactoringPlugin.getCommonPluginFilesDir()
 					+ File.separator + "index" + File.separator
 					+ toString().toLowerCase();
 		}

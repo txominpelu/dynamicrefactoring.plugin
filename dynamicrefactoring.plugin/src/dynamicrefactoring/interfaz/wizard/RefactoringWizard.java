@@ -272,7 +272,8 @@ public class RefactoringWizard extends Wizard implements INewWizard {
 				.postconditions(pageE.getPostconditions())
 				.categories(pageA.getCategories())
 				.keywords(pageA.getKeywords())
-				.examples(pageF.getExamples());
+				.examples(pageF.getExamples())
+				.isEditable(true);
 
 	}
 

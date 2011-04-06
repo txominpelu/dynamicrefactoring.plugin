@@ -257,7 +257,7 @@ public class RefactoringPlugin extends AbstractUIPlugin
 	 * @return ruta del directorio comun de ficheros
 	 */
 	public static String getCommonPluginFilesDir() {
-		return RefactoringPlugin.getDefault().getStateLocation().toOSString();
+		return Platform.getConfigurationLocation().getURL().getFile() + File.separator + "dynamicrefactoring.plugin";
 	}
 
 	/**
@@ -823,20 +823,6 @@ public class RefactoringPlugin extends AbstractUIPlugin
 		return FilenameUtils.separatorsToSystem(pluginRoot);
 	}
 
-	/**
-	 * Devuelve el directorio del �rea de estado del plugin en el sistema de
-	 * ficheros local. Si el �rea de estado del plugin no exist�a antes de esta
-	 * llamada, se crea. El �rea de estado de un plugin es un directorio dentro
-	 * del �rea de metadatos de la plataforma en el que un plugin es libre para
-	 * crear ficheros bajo su completa responsabilidad.
-	 * 
-	 * @return el directorio del �rea de estado del plugin.
-	 */
-	public String getPluginTempDir(){
-		Bundle pluginBundle = Platform.getBundle(BUNDLE_NAME);
-		
-		return Platform.getStateLocation(pluginBundle).toOSString();
-	}
 
 	/**
 	 * Obtiene la siguiente ruta completa que deber� utilizarse al guardar un
@@ -865,7 +851,7 @@ public class RefactoringPlugin extends AbstractUIPlugin
 			return backupDir + File.separatorChar +  //$NON-NLS-1$
 				getCurrentRefactoring();
 		else
-			return getPluginTempDir() + File.separatorChar + //$NON-NLS-1$
+			return getCommonPluginFilesDir() + File.separatorChar + //$NON-NLS-1$
 				getCurrentRefactoring();
 	}
 
@@ -926,7 +912,7 @@ public class RefactoringPlugin extends AbstractUIPlugin
 	 */
 	private String getBackupDir(){
 		// Directorio temporal asignado para los metadatos del plugin.
-		String tmpDir = getPluginTempDir();
+		String tmpDir = getCommonPluginFilesDir();
 		String backupDirName = 
 			PropertyManager.getInstance().getBackupDirectory();
 		

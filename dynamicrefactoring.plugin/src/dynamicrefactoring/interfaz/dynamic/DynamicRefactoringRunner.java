@@ -20,8 +20,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.*/
 
 package dynamicrefactoring.interfaz.dynamic;
 
-import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import refactoring.engine.Refactoring;
 import dynamicrefactoring.RefactoringRunner;
@@ -90,7 +90,7 @@ public class DynamicRefactoringRunner extends RefactoringRunner {
 	 * 
 	 * @return Tabla con los par�metros de entrada a la refactorizaci�n.
 	 */
-	public HashMap<String, Object> getInputsParameters(){
+	public Map<String, Object> getInputsParameters(){
 		return refactoring.getInputsParameters();
 	}
 	

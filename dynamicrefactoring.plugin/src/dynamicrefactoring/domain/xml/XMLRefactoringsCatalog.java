@@ -98,7 +98,7 @@ public final class XMLRefactoringsCatalog extends AbstractRefactoringsCatalog
 	 */
 	@Override
 	public void addRefactoring(final DynamicRefactoringDefinition refactoring) {
-		super.addRefactoring(new AddRefactoringObject(refactoring)
+		super.addRefactoring(new AddRefactoringObject(refactoring.getBuilder().isEditable(true).build())
 				.addRefactoring());
 	}
 
