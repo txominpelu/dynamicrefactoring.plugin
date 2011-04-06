@@ -108,7 +108,7 @@ public class RefactoringPlugin extends AbstractUIPlugin
 	/**
 	 * Nombre de la carpeta que contiene el catalogo de las refactorizaciones.
 	 */
-	public static final String DYNAMIC_REFACTORINGS_FOLDER_NAME = File.separator + "DynamicRefactorings" + File.separator;
+	public static final String DYNAMIC_REFACTORINGS_FOLDER_NAME = "/" + "DynamicRefactorings" + "/";
 
 	/**
 	 * Identificador que guarda el directorio de exportaci�n de un plan de
@@ -257,7 +257,7 @@ public class RefactoringPlugin extends AbstractUIPlugin
 	 * @return ruta del directorio comun de ficheros
 	 */
 	public static String getCommonPluginFilesDir() {
-		return Platform.getConfigurationLocation().getURL().getFile() + File.separator + "dynamicrefactoring.plugin";
+		return Platform.getConfigurationLocation().getURL().getFile() + "/" + "dynamicrefactoring.plugin";
 	}
 
 	/**
