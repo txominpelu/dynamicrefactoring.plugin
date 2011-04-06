@@ -199,6 +199,16 @@ public class RepositoryElementComposite {
 	private final Button bSearch;
 	
 	/**
+	 * Indicador de búsqueda.
+	 * Verdadero significa que en la lista de elementos del repositorio disponibles
+	 * se encuentran los resultantes de la búsqueda por lo que habrá que mantener el
+	 * orden obtenido de la búsqueda, ya que atiende a los mayor relevancia.
+	 * Falso significa que en la lista se encuentran todo los elementos del repositorio 
+	 * disponibles, por lo que aparecerán en orden alfabético.
+	 */
+	private boolean isSearched;
+	
+	/**
 	 * Bot�n por defecto de esta p�gina del wizard.
 	 */
 	private Button bDefault;
@@ -358,8 +368,11 @@ public class RepositoryElementComposite {
 				// se vacia la lista l_Available
 				l_Available.removeAll();
 				
-				Collections.sort(orderedList);
-				//se muestra en orden alfabético
+				if(!isSearched){
+					Collections.sort(orderedList);
+					//se muestra en orden alfabético
+				}
+				
 				for(String element : orderedList)
 					l_Available.add(element);
 			}
@@ -554,6 +567,7 @@ public class RepositoryElementComposite {
     				EclipseBasedJavadocReader.INSTANCE.getTypeJavaDocAsPlainText(getElementFullyQualifiedName(nextKey)));
     		}
     	}
+    	isSearched=false;
 
 	}
 	
@@ -581,6 +595,7 @@ public class RepositoryElementComposite {
 					else
 						l_Available.add(getElementNotQualifiedName(qResult.getClassName()));
 				}
+				isSearched=true;
 			} catch (ParseException e) {
 				String message = Messages.RepositoryElementComposite_SearchNotSucceded
 								 + ".\n" + e.getMessage(); //$NON-NLS-1$
@@ -599,6 +614,7 @@ public class RepositoryElementComposite {
 			//se muestra en orden alfabético
 			for(String element : orderedList)
 				l_Available.add(element);
+			isSearched=false;
 		}
 			
 	}

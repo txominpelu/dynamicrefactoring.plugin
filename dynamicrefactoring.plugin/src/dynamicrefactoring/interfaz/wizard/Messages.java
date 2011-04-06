@@ -230,7 +230,8 @@ public class Messages extends NLS {
 	public static String ImportPlanWizard_SeveralWereExecuted;
 	public static String RepositoryElementComposite_RefactoringsBelong;
 	public static String RepositoryElementComposite_SearchNotSucceded;
-	
+	public static String RefactoringTooltip_Description;
+	public static String RefactoringTooltip_Motivation;
 	
 	static {
 		// initialize resource bundle

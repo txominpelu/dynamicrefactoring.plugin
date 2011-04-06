@@ -82,7 +82,7 @@ public class JDOMXMLRefactoringReaderImp implements XMLRefactoringReaderImp {
 			// refactorizaci�n es solo la parte relativa de la ruta del fichero
 			// DTD. Se le antepone la ruta del directorio del plugin que
 			// contiene los ficheros de refactorizaciones din�micas.
-			Document doc = builder.build(in, RefactoringPlugin.getDynamicRefactoringsDir());
+			Document doc = builder.build(in, RefactoringPlugin.getNonEditableDynamicRefactoringsDir());
 			root = doc.getRootElement();
 			in.close();
 		} catch (JDOMException jdomexception) {
