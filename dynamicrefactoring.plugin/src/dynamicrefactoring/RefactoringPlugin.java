@@ -245,6 +245,8 @@ public class RefactoringPlugin extends AbstractUIPlugin
 		FileManager.copyResourceToDir("/DynamicRefactorings/refactoringDTD.dtd",
 				getCommonPluginFilesDir());
 
+		FileManager.copyResourceToDir("/log/dynamicrefactoring.plugin.properties",
+				getCommonPluginFilesDir());
 		FileManager.copyBundleDirToFileSystem("/bin/", getCommonPluginFilesDir());
 	}
 
@@ -257,7 +259,7 @@ public class RefactoringPlugin extends AbstractUIPlugin
 	 * @return ruta del directorio comun de ficheros
 	 */
 	public static String getCommonPluginFilesDir() {
-		return Platform.getConfigurationLocation().getURL().getFile() + "/" + "dynamicrefactoring.plugin";
+		return Platform.getConfigurationLocation().getURL().getFile() + "dynamicrefactoring.plugin" + "/";
 	}
 
 	/**

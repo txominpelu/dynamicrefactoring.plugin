@@ -94,7 +94,7 @@ public class LogManager {
 			PropertyManager.getInstance().getLogFileDirectory() +
 			File.separatorChar +  //$NON-NLS-1$
 			LOG_PROPERTIES_FILE;
-		PropertyConfigurator.configure(configFilePath);	
+			PropertyConfigurator.configure(configFilePath);	
 		}catch(Exception e){
 			e.printStackTrace();
 		}
@@ -114,7 +114,7 @@ public class LogManager {
 	private void setLogFileProperty(){
 		try {
 			String configFilePath =
-				RefactoringPlugin.getDefault().getBundleRootDir() +
+				RefactoringPlugin.getCommonPluginFilesDir() +
 				PropertyManager.getInstance().getLogFileDirectory() +
 				File.separatorChar + //$NON-NLS-1$
 				LOG_PROPERTIES_FILE;
@@ -129,10 +129,8 @@ public class LogManager {
 			
 			// Se construye la ruta actual del directorio temporal del plugin
 			// y en ella se sit�a la carpeta de log.
-			String logDir = RefactoringPlugin.getCommonPluginFilesDir() +
-				File.separatorChar + //$NON-NLS-1$
-				PropertyManager.getInstance().getLogFileDirectory();
-			String logFile = logDir + File.separatorChar + LOG_FILE; //$NON-NLS-1$
+			String logDir = RefactoringPlugin.getCommonPluginFilesDir() + PropertyManager.getInstance().getLogFileDirectory();
+			String logFile = logDir + File.separator + LOG_FILE; //$NON-NLS-1$
 			
 			logProperties.setProperty("log4j.appender.A2.File", logFile); //$NON-NLS-1$
 			
