@@ -384,17 +384,17 @@ public class DynamicRefactoringDefinition implements Element,
 
 	@Override
 	public boolean containsPrecondition(String precondition) {
-		return preconditions.contains(precondition);
+		return ! getMechanismsWithName(precondition, RefactoringMechanismType.PRECONDITION).isEmpty();
 	}
 
 	@Override
 	public boolean containsAction(String action) {
-		return actions.contains(action);
+		return ! getMechanismsWithName(action, RefactoringMechanismType.ACTION).isEmpty();
 	}
 
 	@Override
 	public boolean containsPostcondition(String postcondition) {
-		return postconditions.contains(postcondition);
+		return ! getMechanismsWithName(postcondition, RefactoringMechanismType.POSTCONDITION).isEmpty();
 	}
 
 	/**
@@ -517,9 +517,6 @@ public class DynamicRefactoringDefinition implements Element,
 										.equals(mechanismName);
 							}
 						});
-		Preconditions.checkArgument(filtradas.size() > 0, String.format(
-				"The element: %s of type %s doesn't exist.", mechanismName,
-				type));
 		return new ArrayList<RefactoringMechanismInstance>(filtradas);
 
 	}

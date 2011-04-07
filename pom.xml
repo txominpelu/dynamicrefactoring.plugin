@@ -1,49 +1,36 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd" xmlns="http://maven.apache.org/POM/4.0.0"
-    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
   <modelVersion>4.0.0</modelVersion>
   <groupId>dynamicrefactoring</groupId>
   <artifactId>dynamic-refactoring-plugin</artifactId>
-  <version>3.0.4</version>
+  <version>3.0.5</version>
   <packaging>pom</packaging>
-
   <properties>
-	<tycho-version>0.10.0</tycho-version>
-	<jacoco.agent.path>lib/jacocoagent.jar</jacoco.agent.path>
-	<jacoco.file.path>../cobertura/jacoco.exec</jacoco.file.path>
-	<!-- Sonar para cobertura y tests-->
-	<sonar.dynamicAnalysis>reuseReports</sonar.dynamicAnalysis>	
-	<sonar.surefire.reportsPath>target/surefire-reports/</sonar.surefire.reportsPath>
-	<sonar.core.codeCoveragePlugin>jacoco</sonar.core.codeCoveragePlugin>
-	<sonar.jacoco.itReportPath>../cobertura/jacoco.exec</sonar.jacoco.itReportPath>
-	<sonar.skippedModules>dynamicrefactoring.targetplatform</sonar.skippedModules>
-	<!-- Configuracion de sonar con Mysql -->
-	<sonar.jdbc.url>
-          jdbc:mysql://localhost:3306/sonar?useUnicode=true&amp;characterEncoding=utf8
-        </sonar.jdbc.url>
-        <sonar.jdbc.driver>com.mysql.jdbc.Driver</sonar.jdbc.driver>
-        <sonar.jdbc.username>sonar</sonar.jdbc.username>
-        <sonar.jdbc.password>sonar</sonar.jdbc.password>
-
-        <!-- Servidor en equipo local (por defecto) -->
-        <sonar.host.url>http://localhost:9000</sonar.host.url>
-
-	<jdk-version>1.6</jdk-version>
-    	<project.build.sourceEncoding>ISO-8859-1</project.build.sourceEncoding>
+    <tycho-version>0.10.0</tycho-version>
+    <jacoco.agent.path>lib/jacocoagent.jar</jacoco.agent.path>
+    <jacoco.file.path>../cobertura/jacoco.exec</jacoco.file.path>
+    <sonar.dynamicAnalysis>reuseReports</sonar.dynamicAnalysis>
+    <sonar.surefire.reportsPath>target/surefire-reports/</sonar.surefire.reportsPath>
+    <sonar.core.codeCoveragePlugin>jacoco</sonar.core.codeCoveragePlugin>
+    <sonar.jacoco.itReportPath>../cobertura/jacoco.exec</sonar.jacoco.itReportPath>
+    <sonar.skippedModules>dynamicrefactoring.targetplatform</sonar.skippedModules>
+    <sonar.jdbc.url>jdbc:mysql://localhost:3306/sonar?useUnicode=true&amp;characterEncoding=utf8</sonar.jdbc.url>
+    <sonar.jdbc.driver>com.mysql.jdbc.Driver</sonar.jdbc.driver>
+    <sonar.jdbc.username>sonar</sonar.jdbc.username>
+    <sonar.jdbc.password>sonar</sonar.jdbc.password>
+    <sonar.host.url>http://localhost:9000</sonar.host.url>
+    <jdk-version>1.6</jdk-version>
+    <project.build.sourceEncoding>ISO-8859-1</project.build.sourceEncoding>
   </properties>
-
   <modules>
     <module>dynamicrefactoring.targetplatform</module>
     <module>dynamicrefactoring.plugin</module>
     <module>dynamicrefactoring.tests</module>
     <module>dynamicrefactoring.feature</module>
     <module>dynamicrefactoring.p2repository</module>
-    <!-- Debe tomar la target platform de ahi -->
   </modules>
   <build>
-
     <sourceDirectory>src</sourceDirectory>
-
     <plugins>
       <plugin>
         <groupId>org.sonatype.tycho</groupId>
@@ -51,58 +38,51 @@
         <version>${tycho-version}</version>
         <extensions>true</extensions>
       </plugin>
-
-<!-- Para resolver la targetplatform desde el proyecto targetplatform -->
-	<plugin>
-		<groupId>org.sonatype.tycho</groupId>
-		<artifactId>target-platform-configuration</artifactId>
-		<version>${tycho-version}</version>
-		<configuration>
-		<resolver>p2</resolver>
-			<target>
-				<artifact>
-					<groupId>dynamicrefactoring</groupId>
-					<artifactId>dynamicrefactoring.targetplatform</artifactId>
-					<version>3.0.4</version>
-					<classifier>dynamicrefactoring</classifier>
-				</artifact>
-			</target>
-			<ignoreTychoRepositories>false</ignoreTychoRepositories>
-			</configuration>
-	</plugin>
-<!-- Para que el proyecto se compile con java 1.6 -->
-	<plugin>
-		<groupId>org.sonatype.tycho</groupId>
-		<artifactId>maven-osgi-compiler-plugin</artifactId>
-		<version>${tycho-version}</version>
-		<configuration>
-  			<source>${jdk-version}</source>
-  			<target>${jdk-version}</target>
-		</configuration>
-	</plugin>
-
-<!-- JAR signing -->
-	       <plugin>
- 				<groupId>org.apache.maven.plugins</groupId>
- 				<artifactId>maven-jarsigner-plugin</artifactId>
- 				<version>1.2</version>
- 				<executions>
- 					<execution>
- 						<id>signing</id>
- 						<goals>
- 							<goal>sign</goal>
- 						</goals>
- 					</execution>
-				</executions>
- 				<configuration>
-					<keystore>../keystore/mykeystore</keystore>
-					<alias>cjava</alias>
- 					<storepass>ab987c</storepass>
-					<keypass>kpi135</keypass>
- 				</configuration>
- 		</plugin>
-
-<!-- Esto es necesario para que se hagan bien los analisis de codigo de sonar-->
+      <plugin>
+        <groupId>org.sonatype.tycho</groupId>
+        <artifactId>target-platform-configuration</artifactId>
+        <version>${tycho-version}</version>
+        <configuration>
+          <resolver>p2</resolver>
+          <target>
+            <artifact>
+              <groupId>dynamicrefactoring</groupId>
+              <artifactId>dynamicrefactoring.targetplatform</artifactId>
+              <version>3.0.5</version>
+              <classifier>dynamicrefactoring</classifier>
+            </artifact>
+          </target>
+          <ignoreTychoRepositories>false</ignoreTychoRepositories>
+        </configuration>
+      </plugin>
+      <plugin>
+        <groupId>org.sonatype.tycho</groupId>
+        <artifactId>maven-osgi-compiler-plugin</artifactId>
+        <version>${tycho-version}</version>
+        <configuration>
+          <source>${jdk-version}</source>
+          <target>${jdk-version}</target>
+        </configuration>
+      </plugin>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-jarsigner-plugin</artifactId>
+        <version>1.2</version>
+        <executions>
+          <execution>
+            <id>signing</id>
+            <goals>
+              <goal>sign</goal>
+            </goals>
+          </execution>
+        </executions>
+        <configuration>
+          <keystore>../keystore/mykeystore</keystore>
+          <alias>cjava</alias>
+          <storepass>ab987c</storepass>
+          <keypass>kpi135</keypass>
+        </configuration>
+      </plugin>
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-compiler-plugin</artifactId>
@@ -111,61 +91,42 @@
           <target>${jdk-version}</target>
         </configuration>
       </plugin>
-
-
     </plugins>
   </build>
-
-<!-- Para generar el javadoc y haga el doccheck-->
-
-
-      <reporting>
-	<plugins>
-	      <plugin>
-		<groupId>org.apache.maven.plugins</groupId>
-		<artifactId>maven-javadoc-plugin</artifactId>
-		<version>2.7</version>
-
-		<reportSets>
-		  <reportSet>
-		    <id>html</id>
-		    <reports>
-		      <report>javadoc</report>
-		    </reports>
-		  </reportSet>
-		  <reportSet>
-		    <id>doccheck</id>
-		    <configuration>
-		      <doclet>com.sun.tools.doclets.doccheck.DocCheck</doclet>
-
-		      <docletPath>${project.build.directory}/dynamicrefactoring.plugin/doclib/doccheck.jar</docletPath>
-		      <docletArtifact>
-		        <groupId>com.sun.tools.doclets</groupId>
-		        <artifactId>doccheck</artifactId>
-		        <version>1.2b2</version>
-		      </docletArtifact>
-		      <additionalparam>
-		            -d ${project.build.directory}/site/doccheck
-		      </additionalparam>
-
-		      <!-- Other dir than apidocs -->
-		      <destDir>doccheck</destDir>
-
-		      <!-- For the project-reports page-->
-		      <name>DocCheck</name>
-		      <description>DocCheck documentation.</description>
-		    </configuration>
-		    <reports>
-		      <report>javadoc</report>
-		    </reports>
-		  </reportSet>
-		</reportSets>
-
-	      </plugin>
-	</plugins>
-     </reporting>
-
-
-<!-- Maven dependencies -->
-
+  <reporting>
+    <plugins>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-javadoc-plugin</artifactId>
+        <version>2.7</version>
+        <reportSets>
+          <reportSet>
+            <id>html</id>
+            <reports>
+              <report>javadoc</report>
+            </reports>
+          </reportSet>
+          <reportSet>
+            <id>doccheck</id>
+            <configuration>
+              <doclet>com.sun.tools.doclets.doccheck.DocCheck</doclet>
+              <docletPath>${project.build.directory}/dynamicrefactoring.plugin/doclib/doccheck.jar</docletPath>
+              <docletArtifact>
+                <groupId>com.sun.tools.doclets</groupId>
+                <artifactId>doccheck</artifactId>
+                <version>1.2b2</version>
+              </docletArtifact>
+              <additionalparam>-d ${project.build.directory}/site/doccheck</additionalparam>
+              <destDir>doccheck</destDir>
+              <name>DocCheck</name>
+              <description>DocCheck documentation.</description>
+            </configuration>
+            <reports>
+              <report>javadoc</report>
+            </reports>
+          </reportSet>
+        </reportSets>
+      </plugin>
+    </plugins>
+  </reporting>
 </project>

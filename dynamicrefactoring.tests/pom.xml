@@ -1,57 +1,45 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd" xmlns="http://maven.apache.org/POM/4.0.0"
-    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
   <modelVersion>4.0.0</modelVersion>
   <parent>
     <artifactId>dynamic-refactoring-plugin</artifactId>
     <groupId>dynamicrefactoring</groupId>
-    <version>3.0.4</version>
+    <version>3.0.5</version>
   </parent>
   <groupId>dynamicrefactoring</groupId>
   <artifactId>dynamicrefactoring.tests</artifactId>
-  <version>3.0.4</version>
+  <version>3.0.5</version>
   <packaging>eclipse-test-plugin</packaging>
   <properties>
-	<tycho-version>0.10.0</tycho-version>
+    <tycho-version>0.10.0</tycho-version>
   </properties>
-
-  <dependencies>
-  </dependencies>
-  
+  <dependencies/>
   <build>
-	<plugins>
-<!-- Generar report de cobertura -->
-	<plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-antrun-plugin</artifactId>
-                <executions>
-                    <execution>
-                        <phase>integration-test</phase>
-                        <configuration>
-                            <tasks>
-                                <ant target="generate-cobertura-report" inheritRefs="true"/>
-                            </tasks>
-                        </configuration>
-                        <goals>
-                            <goal>run</goal>
-                        </goals>
-                    </execution>
-                </executions>
-
-            </plugin>
-	<!-- Especificar tests a ejecutar-->
-
-    <plugin>
-      <groupId>org.sonatype.tycho</groupId>
-      <artifactId>maven-osgi-test-plugin</artifactId>
-      <version>${tycho-version}</version>
-      <configuration>
-	<argLine>-javaagent:${jacoco.agent.path}=destfile=${jacoco.file.path}</argLine>
-	<useUIHarness>true</useUIHarness>
-	  <!-- <includes>
-		<include>**/TestMessageListener.java</include>
-		 <include>**/EditRefactoringTest.java</include> 
-	  </includes> -->
+    <plugins>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-antrun-plugin</artifactId>
+        <executions>
+          <execution>
+            <phase>integration-test</phase>
+            <configuration>
+              <tasks>
+                <ant target="generate-cobertura-report" inheritRefs="true"/>
+              </tasks>
+            </configuration>
+            <goals>
+              <goal>run</goal>
+            </goals>
+          </execution>
+        </executions>
+      </plugin>
+      <plugin>
+        <groupId>org.sonatype.tycho</groupId>
+        <artifactId>maven-osgi-test-plugin</artifactId>
+        <version>${tycho-version}</version>
+        <configuration>
+          <argLine>-javaagent:${jacoco.agent.path}=destfile=${jacoco.file.path}</argLine>
+          <useUIHarness>true</useUIHarness>
           <useUIThread>false</useUIThread>
           <product>org.eclipse.sdk.ide</product>
           <application>org.eclipse.ui.ide.workbench</application>
@@ -61,13 +49,9 @@
               <artifactId>org.eclipse.sdk.ide</artifactId>
               <version>0.0.0</version>
             </dependency>
-           </dependencies>
-
-      </configuration>
-    </plugin>
-  </plugins>
+          </dependencies>
+        </configuration>
+      </plugin>
+    </plugins>
   </build>
-
-  
-
 </project>
