@@ -64,6 +64,7 @@ import dynamicrefactoring.action.ShowLeftPaneViewAction;
 import dynamicrefactoring.action.ShowRightPaneViewAction;
 import dynamicrefactoring.domain.DynamicRefactoringDefinition;
 import dynamicrefactoring.domain.RefactoringException;
+import dynamicrefactoring.domain.RefactoringsCatalog;
 import dynamicrefactoring.domain.metadata.classifications.xml.imp.PluginClassificationsCatalog;
 import dynamicrefactoring.domain.metadata.condition.CategoryCondition;
 import dynamicrefactoring.domain.metadata.condition.KeyWordCondition;
@@ -74,6 +75,7 @@ import dynamicrefactoring.domain.metadata.interfaces.Category;
 import dynamicrefactoring.domain.metadata.interfaces.Classification;
 import dynamicrefactoring.domain.metadata.interfaces.ClassifiedElements;
 import dynamicrefactoring.domain.xml.XMLRefactoringUtils;
+import dynamicrefactoring.domain.xml.XMLRefactoringsCatalog;
 import dynamicrefactoring.interfaz.TreeEditor;
 import dynamicrefactoring.interfaz.view.classifeditor.ClassificationsEditorView;
 import dynamicrefactoring.util.DynamicRefactoringLister;
@@ -121,14 +123,14 @@ public class RefactoringCatalogBrowserView extends ViewPart {
 	private HashMap<String, DynamicRefactoringDefinition> refactorings;
 
 	/**
-	 * Tabla con las rutas de los ficheros asociados a las refactorizaciones.
-	 */
-	private HashMap<String, String> refactoringLocations;
-	
-	/**
 	 * Almacen con todas las clasificaciones.
 	 */
 	private PluginClassificationsCatalog classStore;
+	
+	/**
+	 * Almacen con todas las refactorizaciones.
+	 */
+	private RefactoringsCatalog refactCatalog;
 	
 	/**
 	 * Clasificaciones disponibles.
@@ -271,6 +273,8 @@ public class RefactoringCatalogBrowserView extends ViewPart {
 		parent.setLayout(new FormLayout());
 
 		//carga de datos
+		classStore = PluginClassificationsCatalog.getInstance();
+		refactCatalog = XMLRefactoringsCatalog.getInstance();
 		loadClassifications();
 		loadRefactorings();
 		createCatalog();
@@ -501,7 +505,6 @@ public class RefactoringCatalogBrowserView extends ViewPart {
 	 * Carga las clasificaciones disponibles.
 	 */
 	private void loadClassifications() {
-		classStore = PluginClassificationsCatalog.getInstance();
 		classifications = new ArrayList<Classification> (classStore.getAllClassifications());
 	}
 
@@ -509,47 +512,12 @@ public class RefactoringCatalogBrowserView extends ViewPart {
 	 * Carga la lista de refactorizaciones dinámicas disponibles.
 	 */
 	private void loadRefactorings() {
-		DynamicRefactoringLister listing = DynamicRefactoringLister.getInstance();
-
-		try {
-			// Se obtiene la lista de todas las refactorizaciones disponibles.
-			HashMap<String, String> allRefactorings = 
-				listing.getDynamicRefactoringNameList(
-						RefactoringPlugin.getDynamicRefactoringsDir(),true, null);
-
-			refactoringLocations = new HashMap<String, String>();
-			refactorings = new HashMap<String, DynamicRefactoringDefinition>();
-
-			for (Map.Entry<String, String> nextRef : allRefactorings.entrySet()) {
-
-				try {
-					// Se obtiene la definición de la siguiente refactorización.
-					DynamicRefactoringDefinition definition = 
-						XMLRefactoringUtils.getRefactoringDefinition(
-								nextRef.getValue());
-
-					File f=null;
-					if (definition != null && definition.getName() != null) {
-						refactorings.put(definition.getName(), definition);
-						f=new File(nextRef.getValue());
-						refactoringLocations.put(definition.getName(), f.getParent()+ File.separatorChar);
-					}
-				} catch (RefactoringException e) {
-					e.printStackTrace();
-					IWorkbenchWindow window = PlatformUI.getWorkbench()
-					.getActiveWorkbenchWindow();
-					String message = 
-						Messages.RefactoringCatalogBrowserView_NotAllListed + 
-						".\n" + e.getMessage(); //$NON-NLS-1$
-					logger.error(message);
-					MessageDialog.openError(window.getShell(),
-							Messages.RefactoringCatalogBrowserView_Error, message);
-				}
-			}
-		} catch (IOException e) {
-			logger.error(Messages.RefactoringCatalogBrowserView_AvailableNotListed + 
-					".\n" + e.getMessage()); //$NON-NLS-1$
-		}
+		
+		refactorings = new HashMap<String, DynamicRefactoringDefinition>();
+		
+		for(DynamicRefactoringDefinition ref : refactCatalog.getAllRefactorings())
+			refactorings.put(ref.getName(), ref);
+		
 	}
 
 	/**
@@ -859,9 +827,7 @@ public class RefactoringCatalogBrowserView extends ViewPart {
 		
 		//si habia alguna refactorizacion mostrada se refresca
 		if(refSelected!=null && refactorings.containsKey(refSelected.getName())){
-			refSummaryPanel.setRefactoringDefinition(
-					refactorings.get(refSelected.getName()),
-					refactoringLocations.get(refSelected.getName()));
+			refSummaryPanel.setRefactoringDefinition(refactorings.get(refSelected.getName()));
 			refSummaryPanel.showRefactoringSummary();
 		}
 	}
@@ -1111,7 +1077,7 @@ public class RefactoringCatalogBrowserView extends ViewPart {
 
 			// comprobamos si se trata de una refactorización
 			if(refSelected!=null){
-				refSummaryPanel.setRefactoringDefinition(refSelected, refactoringLocations.get(selectedName));
+				refSummaryPanel.setRefactoringDefinition(refSelected);
 				refSummaryPanel.showRefactoringSummary();
 			}
 

@@ -47,15 +47,6 @@ public class Messages extends NLS {
 	public static String AvailableRefactoringView_Error;
 	public static String AvailableRefactoringView_ErrorOccurred;
 	public static String AvailableRefactoringView_SaveChanges;
-	public static String RefactoringListView_title;
-	public static String RefactoringListView_NotAllListed;
-	public static String RefactoringListView_ClassificationsNotListed;
-	public static String RefactoringListView_Error;
-	public static String RefactoringListView_AvailableNotListed;
-	public static String RefactoringListView_SelectFromClassification;
-	public static String RefactoringListView_Classification;
-	public static String RefactoringListView_Search;
-	public static String RefactoringListView_ShowFiltered;
 	public static String RefactoringCatalogBrowserView_Title;
 	public static String RefactoringCatalogBrowserView_NoneClassDescription;
 	public static String RefactoringCatalogBrowserView_NotAllListed;

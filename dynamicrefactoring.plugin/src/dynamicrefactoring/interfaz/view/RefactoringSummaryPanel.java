@@ -135,11 +135,6 @@ public class RefactoringSummaryPanel {
 	 * Definición de la refactorización.
 	 */
 	private DynamicRefactoringDefinition refactoring;
-
-	/**
-	 * Ruta donde se encuentra almacenada la definición de la refactorización.
-	 */
-	private String refactoringPath;
 	
 	private RefactoringCatalogBrowserView rcbView;
 	
@@ -385,7 +380,7 @@ public class RefactoringSummaryPanel {
 		comp.setLayout(g);
 		
 		Link exLink=null;
-		final List<RefactoringExample> examples = refactoring.getExamples();
+		final List<RefactoringExample> examples = refactoring.getExamplesAbsolutePath();
 		int numEx=1;
 		
 		for(final RefactoringExample ex: examples){
@@ -396,8 +391,9 @@ public class RefactoringSummaryPanel {
 			exLink.setToolTipText(Messages.RefactoringSummaryPanel_ExampleLinkToolTip);
 			exLink.addListener (SWT.Selection, new Listener () {
 				public void handleEvent(Event event) {
-					if(sourceViewer.loadSources(refactoring.getName(),
-							refactoringPath+ex.getBefore(), refactoringPath+ex.getAfter())){
+					if(sourceViewer.loadSources(
+							refactoring.getName(),
+							ex.getBefore(), ex.getAfter())){
 						sourceViewer.open();
 					}
 				}
@@ -557,13 +553,9 @@ public class RefactoringSummaryPanel {
 	 * 
 	 * @param ref
 	 *            definición de la refactorización a mostrar
-	 * @param refPath
-	 *            ruta donde se encuentra almacenada la refactorización a
-	 *            mostrar
 	 */
-	public void setRefactoringDefinition(DynamicRefactoringDefinition ref, String refPath) {
+	public void setRefactoringDefinition(DynamicRefactoringDefinition ref) {
 		refactoring=ref;
-		refactoringPath=refPath;
 	}
 
 	public void showRefactoringSummary(){

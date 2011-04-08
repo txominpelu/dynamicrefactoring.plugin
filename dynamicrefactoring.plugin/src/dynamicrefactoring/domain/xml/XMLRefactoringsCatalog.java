@@ -57,8 +57,11 @@ public final class XMLRefactoringsCatalog extends AbstractRefactoringsCatalog
 							getRefactoringsFromDir(
 									RefactoringPlugin.getNonEditableDynamicRefactoringsDir(),
 									false),
-							getRefactoringsFromDir(RefactoringPlugin
-									.getDynamicRefactoringsDir(), true)));
+							getRefactoringsFromDir(
+									RefactoringPlugin.getDynamicRefactoringsDir(), 
+									true)
+					)
+			);
 			// instance = new XMLRefactoringsCatalog(
 			// getRefactoringsFrom(RefactoringPlugin
 			// .getDynamicRefactoringsDir()));
@@ -114,20 +117,21 @@ public final class XMLRefactoringsCatalog extends AbstractRefactoringsCatalog
 	protected static Set<DynamicRefactoringDefinition> getRefactoringsFromDir(
 			String dir, boolean editables) {
 		try {
-			HashMap<String, String> lista = DynamicRefactoringLister
-					.getInstance().getDynamicRefactoringNameList(dir, true,
-							null);
-			Set<DynamicRefactoringDefinition> refacts = new HashSet<DynamicRefactoringDefinition>();
+			HashMap<String, String> allRefactorings = DynamicRefactoringLister
+					.getInstance().getDynamicRefactoringNameList(dir, true, null);
+			
+			Set<DynamicRefactoringDefinition> refactorings = new HashSet<DynamicRefactoringDefinition>();
+			
 			JDOMXMLRefactoringReaderImp reader = new JDOMXMLRefactoringReaderImp();
-			for (String refactFile : lista.values()) {
-				refacts.add(reader
+			for (String refactFile : allRefactorings.values()) {
+				refactorings.add(reader
 						.getDynamicRefactoringDefinition(new File(refactFile))
 						.getBuilder().isEditable(editables).build());
 			}
-			return refacts;
+			return refactorings;
 		} catch (IOException e) {
 			throw Throwables.propagate(e);
 		}
 	}
-
+	
 }

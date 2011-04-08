@@ -1,5 +1,6 @@
 package dynamicrefactoring.domain;
 
+import java.util.HashMap;
 import java.util.Set;
 
 
@@ -60,7 +61,7 @@ public interface RefactoringsCatalog {
 	 * @return conjunto de refactorizaciones contenidas en el catalogo
 	 */
 	Set<DynamicRefactoringDefinition> getAllRefactorings();
-
+	
 	/**
 	 * Elimina la refactorizacion con el nombre dado del
 	 * catalogo.
