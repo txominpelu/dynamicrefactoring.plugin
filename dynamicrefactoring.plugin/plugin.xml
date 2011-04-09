@@ -341,6 +341,28 @@
            tooltip="%dynamicrefactoring.view.tooltip.showLeftPane">
      </action>
   </viewContribution>
+  <viewContribution
+        id="dynamicrefactoring.viewmenus.availableRefactoring"
+        targetID="dynamicrefactoring.views.availableRefactoringView">
+     <action
+           class="dynamicrefactoring.action.ShowEditableRefactoringsViewAction"
+           icon="icons/ref.png"
+           id="dynamicrefactoring.viewmenus.showEditableRefactoringsAvailableRefactoringAction"
+           label="%dynamicrefactoring.view.action.showEditableRefactorings"
+           style="toggle"
+           toolbarPath="Normal/additions"
+           tooltip="%dynamicrefactoring.view.tooltip.showEditableRefactorings">
+     </action>
+     <action
+           class="dynamicrefactoring.action.ShowNonEditableRefactoringsViewAction"
+           icon="icons/plugin_ref.png"
+           id="dynamicrefactoring.viewmenus.showNonEditableRefactoringsAvailableRefactoringAction"
+           label="%dynamicrefactoring.view.action.showNonEditableRefactorings"
+           style="toggle"
+           toolbarPath="Normal/additions"
+           tooltip="%dynamicrefactoring.view.tooltip.showNonEditableRefactorings">
+     </action>
+  </viewContribution>
 	</extension>
 
 	<extension-point id="listeners" name="Refactoring listeners"/>

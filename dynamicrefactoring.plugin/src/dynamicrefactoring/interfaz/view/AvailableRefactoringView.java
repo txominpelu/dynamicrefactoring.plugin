@@ -89,10 +89,6 @@ public class AvailableRefactoringView extends ViewPart {
 
 	private RefactoringsCatalog refactCatalog;
 
-	public AvailableRefactoringView (){
-		super();
-		this.refactCatalog = XMLRefactoringsCatalog.getInstance();
-	}
 	/**
 	 * Crea los controles SWT para este componente del espacio de trabajo.
 	 * 
@@ -101,7 +97,9 @@ public class AvailableRefactoringView extends ViewPart {
 	 */
 	@Override
 	public void createPartControl(Composite parent) {
-		this.setPartName(Messages.AvailableRefactoringView_Title);
+		setPartName(Messages.AvailableRefactoringView_Title);
+		
+		refactCatalog = XMLRefactoringsCatalog.getInstance();
 
 		// Registramos el listener de la vista
 		SelectionListenerRegistry.getInstance().addListener(
@@ -126,6 +124,54 @@ public class AvailableRefactoringView extends ViewPart {
 	public void setFocus() {
 	}
 
+	public void showEditableRefactorings(){
+		
+	}
+	
+	public void showNonEditableRefactorings(){
+		
+	}
+	
+	/**
+	 * Pide confirmaci�n al usuario para guardar los cambios pendientes antes de
+	 * continuar. Si obtiene la confirmaci�n, guarda los cambios de todos los
+	 * editores abiertos con cambios pendientes.
+	 * 
+	 * @return <code>true</code> si se guardaron las modificaciones pendientes o
+	 *         si no hab�a ninguna pendiente; <code>false</code> en caso
+	 *         contrario.
+	 */
+	public boolean saveUnsavedChanges() {
+		// FIXME: Esto no deberia estar aqui es util para muchos
+		IWorkbenchWindow window = PlatformUI.getWorkbench()
+				.getActiveWorkbenchWindow();
+		// Se recogen los editores abiertos con cambios sin guardar.
+		IEditorPart[] dirtyEditors = window.getActivePage().getDirtyEditors();
+
+		if (dirtyEditors.length > 0) {
+
+			if (MessageDialog.openConfirm(window.getShell(), "WARNING", //$NON-NLS-1$
+					Messages.AvailableRefactoringView_SaveChanges)) {
+				// Se guardan los cambios de cada editor.
+				for (int i = 0; i < dirtyEditors.length; i++)
+					dirtyEditors[i].doSave(new NullProgressMonitor());
+				return true;
+			}
+
+			return false;
+		} else
+			return true;
+	}
+
+	/**
+	 * Limpia la vista.
+	 */
+	public void cleanView() {
+		RefactoringTreeManager.cleanTree(tr_Refactorings);
+	}
+	
+	
+	
 	/**
 	 * Permite responder a los eventos generados por la selecci�n de un elemento
 	 * v�lido como entrada para una refactorizaci�n
@@ -134,8 +180,6 @@ public class AvailableRefactoringView extends ViewPart {
 	 * @author <A HREF="mailto:lfd0002@alu.ubu.es">Laura Fuente de la Fuente</A>
 	 */
 	private class MainSelectionListener implements IMainSelectionListener {
-
-		
 
 		/**
 		 * Notifica al <i>listener</i> que un objeto v�lido como entrada para la
@@ -231,44 +275,6 @@ public class AvailableRefactoringView extends ViewPart {
 		public void mouseUp(MouseEvent e) {
 		}
 
-	}
-
-	/**
-	 * Pide confirmaci�n al usuario para guardar los cambios pendientes antes de
-	 * continuar. Si obtiene la confirmaci�n, guarda los cambios de todos los
-	 * editores abiertos con cambios pendientes.
-	 * 
-	 * @return <code>true</code> si se guardaron las modificaciones pendientes o
-	 *         si no hab�a ninguna pendiente; <code>false</code> en caso
-	 *         contrario.
-	 */
-	public boolean saveUnsavedChanges() {
-		// FIXME: Esto no deberia estar aqui es util para muchos
-		IWorkbenchWindow window = PlatformUI.getWorkbench()
-				.getActiveWorkbenchWindow();
-		// Se recogen los editores abiertos con cambios sin guardar.
-		IEditorPart[] dirtyEditors = window.getActivePage().getDirtyEditors();
-
-		if (dirtyEditors.length > 0) {
-
-			if (MessageDialog.openConfirm(window.getShell(), "WARNING", //$NON-NLS-1$
-					Messages.AvailableRefactoringView_SaveChanges)) {
-				// Se guardan los cambios de cada editor.
-				for (int i = 0; i < dirtyEditors.length; i++)
-					dirtyEditors[i].doSave(new NullProgressMonitor());
-				return true;
-			}
-
-			return false;
-		} else
-			return true;
-	}
-
-	/**
-	 * Limpia la vista.
-	 */
-	public void cleanView() {
-		RefactoringTreeManager.cleanTree(tr_Refactorings);
 	}
 
 }

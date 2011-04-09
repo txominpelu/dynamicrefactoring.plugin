@@ -470,15 +470,6 @@ public class RefactoringCatalogBrowserView extends ViewPart {
 
 	}
 
-	private void fillClassCombo() {
-		// añadimos la clasificacion por defecto
-		classCombo.add(NONE_CLASSIFICATION.getName());
-
-		for (Classification classification : classifications)
-			classCombo.add(classification.getName());
-		classifications.add(NONE_CLASSIFICATION);
-	}
-
 	/**
 	 * Oculta la vista.
 	 */
@@ -491,6 +482,16 @@ public class RefactoringCatalogBrowserView extends ViewPart {
 	 */
 	@Override
 	public void setFocus() {
+	}
+
+
+	private void fillClassCombo() {
+		// añadimos la clasificacion por defecto
+		classCombo.add(NONE_CLASSIFICATION.getName());
+
+		for (Classification classification : classifications)
+			classCombo.add(classification.getName());
+		classifications.add(NONE_CLASSIFICATION);
 	}
 
 	/**
