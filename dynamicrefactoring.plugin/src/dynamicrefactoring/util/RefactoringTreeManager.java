@@ -3,7 +3,6 @@ package dynamicrefactoring.util;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
-import java.util.Map;
 import java.util.Set;
 
 import org.eclipse.swt.SWT;
@@ -15,7 +14,6 @@ import dynamicrefactoring.RefactoringImages;
 import dynamicrefactoring.domain.DynamicRefactoringDefinition;
 import dynamicrefactoring.domain.RefactoringException;
 import dynamicrefactoring.domain.RefactoringMechanismInstance;
-import dynamicrefactoring.domain.xml.XMLRefactoringUtils;
 import dynamicrefactoring.interfaz.TreeEditor;
 
 /**
@@ -81,37 +79,6 @@ public final class RefactoringTreeManager {
 
 		}
 	}
-	
-	/**
-	 * Rellena el �rbol con las refactorizaciones disponibles.
-	 * 
-	 * @deprecated
-	 * 
-	 * @param refactorings refactorizaciones disponibles
-	 * @param tree �rbol sobre el que a�adir sub�rboles
-	 * @throws RefactoringException
-	 */
-	public static void fillTree(Map<String, String> refactorings, Tree tree) 
-	throws RefactoringException {
-
-		int refactOrderInBranch = 0;
-		String refactDefinitionFile = null;
-
-		cleanTree(tree);
-		
-		ArrayList<String> refactNames= new ArrayList<String>(refactorings.keySet());
-		Collections.sort(refactNames);
-		
-		for (String refactName : refactNames) {
-			refactDefinitionFile = refactorings.get(refactName);
-
-			createRefactoringDefinitionTreeItemFromParentTree(
-					refactOrderInBranch, refactName,
-					refactDefinitionFile, tree);
-			refactOrderInBranch++;
-
-		}
-	}
 
 	/**
 	 * Crea una representacion de una refactorizacion en formato de arbol
@@ -129,9 +96,12 @@ public final class RefactoringTreeManager {
 	public static void createRefactoringDefinitionTreeItemFromParentTree(
 			int refactOrderInBranch, DynamicRefactoringDefinition definition,
 			Tree tree) {
+		String icon=RefactoringImages.PLUGIN_REF_ICON_PATH;
+		if(definition.isEditable())
+			icon=RefactoringImages.REF_ICON_PATH;
 		TreeItem refactoring = TreeEditor.createBranch(tree,
 				refactOrderInBranch, definition.getName(),
-				RefactoringImages.REF_ICON_PATH); 
+				icon); 
 		createRefactoringTree(refactoring, definition);
 	}
 
@@ -151,82 +121,13 @@ public final class RefactoringTreeManager {
 	public static void createRefactoringDefinitionTreeItemFromParentTreeItem(
 			int refactOrderInBranch, DynamicRefactoringDefinition definition,
 			TreeItem itemParent) {
+		String icon=RefactoringImages.PLUGIN_REF_ICON_PATH;
+		if(definition.isEditable())
+			icon=RefactoringImages.REF_ICON_PATH;
 		TreeItem refactoring = TreeEditor.createBranch(itemParent,
 				refactOrderInBranch, definition.getName(),
-				RefactoringImages.REF_ICON_PATH); 
+				icon); 
 		createRefactoringTree(refactoring, definition);
-	}
-	
-	/**
-	 * Crea una representacion de una refactorizacion en formato de arbol
-	 * agregandola al arbol que se pasa.
-	 * 
-	 * @param refactOrderInBranch
-	 *            posicion en la que se agregagra la rama
-	 * @param refactName
-	 *            nombre de la refactorizacion
-	 * @param refactDefinitionFile
-	 *            ruta al fichero xml con la definicion de la
-	 *            refactorizacion
-	 * @param tree
-	 *            arbol al que se agregara la rama con la refactorizacion
-	 * 
-	 * @throws RefactoringException
-	 */
-	public static void createRefactoringDefinitionTreeItemFromParentTree(
-			int refactOrderInBranch, String refactName,
-			String refactDefinitionFile, Tree tree)
-	throws RefactoringException {
-		TreeItem refactoring = TreeEditor.createBranch(tree,
-				refactOrderInBranch, refactName,
-				RefactoringImages.REF_ICON_PATH); 
-		createRefactoringDefinitionItems(refactDefinitionFile, refactoring);
-	}
-
-	/**
-	 * Crea una representacion de una refactorizacion en formato de arbol
-	 * agregandola al arbol que se pasa.
-	 * 
-	 * @param refactOrderInBranch
-	 *            posicion en la que se agregagra la rama
-	 * @param refactName
-	 *            nombre de la refactorizacion
-	 * @param refactDefinitionFile
-	 *            ruta al fichero xml con la definicion de la
-	 *            refactorizacion
-	 * @param itemParent
-	 *            item al que se agregara la rama con la refactorizacion
-	 * 
-	 * @throws RefactoringException
-	 */
-	public static void createRefactoringDefinitionTreeItemFromParentTreeItem(
-			int refactOrderInBranch, String refactName,
-			String refactDefinitionFile, TreeItem itemParent)
-	throws RefactoringException {
-		TreeItem refactoring = TreeEditor.createBranch(itemParent,
-				refactOrderInBranch, refactName,
-				RefactoringImages.REF_ICON_PATH); 
-		createRefactoringDefinitionItems(refactDefinitionFile, refactoring);
-	}
-
-	/**
-	 * Crean de forma efectiva los items de la definicion.
-	 * 
-	 * @param refactDefinitionFile
-	 * @param refactoring
-	 * @throws RefactoringException
-	 */
-	private static void createRefactoringDefinitionItems(
-			String refactDefinitionFile, TreeItem refactoring)
-	throws RefactoringException {
-		if (refactDefinitionFile != "") { //$NON-NLS-1$
-
-			// Obtiene la descripcion de la refactorizacion
-			DynamicRefactoringDefinition definition = XMLRefactoringUtils
-			.getRefactoringDefinition(refactDefinitionFile);
-
-			createRefactoringTree(refactoring, definition);
-		}
 	}
 
 	private static void createRefactoringTree(TreeItem refactoring,
@@ -241,8 +142,7 @@ public final class RefactoringTreeManager {
 		motivation.setText(Messages.RefactoringTreeManager_Motivation + ":"
 				+ definition.getMotivation());
 
-		// Crea precondiciones, acciones y postcondiciones en el
-		// arbol
+		// Crea precondiciones, acciones y postcondiciones en el arbol
 		createRefactoringMechanishmTree(refactoring, definition);
 	}
 
@@ -263,7 +163,6 @@ public final class RefactoringTreeManager {
 				Messages.RefactoringTreeManager_Preconditions);
 
 		// Acciones
-
 		createElementItemWithChildren(refactoring, RefactoringMechanismInstance.getMechanismListClassNames(definition.getActions()),
 				RefactoringImages.RUN_ICON_PATH,
 				Messages.RefactoringTreeManager_Action);

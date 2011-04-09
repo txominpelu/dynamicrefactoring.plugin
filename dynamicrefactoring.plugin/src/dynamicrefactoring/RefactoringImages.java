@@ -16,6 +16,8 @@ public final class RefactoringImages {
 	private static final String ICONS_DIR = "/icons/";
 
 	public static final String REF_ICON_PATH = ICONS_DIR + "ref.png"; //$NON-NLS-1$
+	
+	public static final String PLUGIN_REF_ICON_PATH = ICONS_DIR + "plugin_ref.png"; //$NON-NLS-1$
 
 	public static final String CLASS_ICON_PATH = ICONS_DIR + "class.gif"; //$NON-NLS-1$
 
@@ -96,6 +98,15 @@ public final class RefactoringImages {
 		return getImageForPath(RefactoringImages.REF_ICON_PATH);
 	}
 
+	/**
+	 * Obtiene el icono Refactoring.
+	 * 
+	 * @return imagen del icono
+	 */
+	public static Image getPluginRefIcon() {
+		return getImageForPath(RefactoringImages.PLUGIN_REF_ICON_PATH);
+	}
+	
 	/**
 	 * Obtiene el icono Classification.
 	 * 

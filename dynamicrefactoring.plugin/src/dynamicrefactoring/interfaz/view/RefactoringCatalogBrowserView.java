@@ -1,18 +1,14 @@
 package dynamicrefactoring.interfaz.view;
 
-import java.io.File;
-import java.io.IOException;
 import java.text.MessageFormat;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Iterator;
-import java.util.Map;
 import java.util.Set;
 
 import org.apache.log4j.Logger;
-import org.eclipse.core.runtime.Platform;
 import org.eclipse.jface.action.ActionContributionItem;
 import org.eclipse.jface.action.IAction;
 import org.eclipse.jface.action.IContributionItem;
@@ -58,12 +54,10 @@ import com.google.common.base.Predicate;
 import com.google.common.base.Throwables;
 
 import dynamicrefactoring.RefactoringImages;
-import dynamicrefactoring.RefactoringPlugin;
 import dynamicrefactoring.action.ShowLeftAndRightPaneViewAction;
 import dynamicrefactoring.action.ShowLeftPaneViewAction;
 import dynamicrefactoring.action.ShowRightPaneViewAction;
 import dynamicrefactoring.domain.DynamicRefactoringDefinition;
-import dynamicrefactoring.domain.RefactoringException;
 import dynamicrefactoring.domain.RefactoringsCatalog;
 import dynamicrefactoring.domain.metadata.classifications.xml.imp.PluginClassificationsCatalog;
 import dynamicrefactoring.domain.metadata.condition.CategoryCondition;
@@ -74,11 +68,9 @@ import dynamicrefactoring.domain.metadata.imp.SimpleUniLevelClassification;
 import dynamicrefactoring.domain.metadata.interfaces.Category;
 import dynamicrefactoring.domain.metadata.interfaces.Classification;
 import dynamicrefactoring.domain.metadata.interfaces.ClassifiedElements;
-import dynamicrefactoring.domain.xml.XMLRefactoringUtils;
 import dynamicrefactoring.domain.xml.XMLRefactoringsCatalog;
 import dynamicrefactoring.interfaz.TreeEditor;
 import dynamicrefactoring.interfaz.view.classifeditor.ClassificationsEditorView;
-import dynamicrefactoring.util.DynamicRefactoringLister;
 import dynamicrefactoring.util.RefactoringTreeManager;
 
 /**

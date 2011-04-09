@@ -1,6 +1,5 @@
 package dynamicrefactoring.domain;
 
-import java.util.HashMap;
 import java.util.Set;
 
 
