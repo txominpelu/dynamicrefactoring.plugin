@@ -20,6 +20,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.*/
 
 package dynamicrefactoring.interfaz.view;
 
+import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.Set;
 
 import org.apache.log4j.Logger;
@@ -75,7 +77,7 @@ public class AvailableRefactoringView extends ViewPart {
 	private Set<DynamicRefactoringDefinition> refactorings;
 
 	/**
-	 * �ltima seleci�n v�lida como entrada para una refactorizacion en el
+	 * Última selección marcada como entrada para una refactorizacion en el
 	 * espacio de trabajo.
 	 */
 	private SelectionInfo select;
@@ -89,6 +91,20 @@ public class AvailableRefactoringView extends ViewPart {
 
 	private RefactoringsCatalog refactCatalog;
 
+	/**
+	 * Indicador de si se quiere mostrar las refactorizaciones no
+	 * editables que se encuentran disponibles, es decir, las suministradas 
+	 * en el plugin, que se encuentran disponibles.
+	 */
+	private boolean showNonEditableRef;
+	
+	/**
+	 * Indicador de si se quiere mostrar las refactorizaciones editables
+	 * que se encuentran disponibles, es decir, las propias del usuario,
+	 * en caso de haberlas.
+	 */
+	private boolean showEditableRef;
+	
 	/**
 	 * Crea los controles SWT para este componente del espacio de trabajo.
 	 * 
@@ -107,7 +123,9 @@ public class AvailableRefactoringView extends ViewPart {
 
 		tr_Refactorings = new Tree(parent, SWT.NULL);
 		tr_Refactorings.addMouseListener(new TreeMouseListener());
-
+		showNonEditableRef=true;
+		showEditableRef=true;
+		
 	}
 
 	/**
@@ -123,13 +141,46 @@ public class AvailableRefactoringView extends ViewPart {
 	@Override
 	public void setFocus() {
 	}
-
-	public void showEditableRefactorings(){
-		
+	
+	/**
+	 * Muestra el árbol de refactorizaciones disponibles conforme a
+	 * la entrada seleccionada para la refactorización y a las opciones
+	 * de visualización indicadas en la barra de herramientas de la vista.
+	 * En ella, se podrá indicar si se desean visualizar las refactorizaciones
+	 * editables, es decir, las propias del usuario y las no editables,
+	 * suministradas por el plugin.
+	 */
+	private void fillTree(){
+		if(select.isValidSelectionType()){
+			if(select.existsScopeForSelection()){
+				refactorings = refactCatalog
+						.getRefactoringBelongingTo(
+								PluginClassificationsCatalog.SCOPE_CLASSIFICATION,
+								select.getSelectionScope().toString());
+				HashSet<DynamicRefactoringDefinition> refactoringsToShow=
+					new HashSet<DynamicRefactoringDefinition>();
+				for(DynamicRefactoringDefinition ref : refactorings){
+					if( (showEditableRef && ref.isEditable()) ||
+						(showNonEditableRef && !ref.isEditable()) ){
+						refactoringsToShow.add(ref);
+					}
+				}
+				refactorings = refactoringsToShow;
+				RefactoringTreeManager.fillTree(refactorings,tr_Refactorings);
+			}
+		}else{
+			RefactoringTreeManager.cleanTree(tr_Refactorings);
+		}	
 	}
 	
 	public void showNonEditableRefactorings(){
-		
+		showNonEditableRef=!showNonEditableRef;
+		fillTree();
+	}
+	
+	public void showEditableRefactorings(){
+		showEditableRef=!showEditableRef;
+		fillTree();
 	}
 	
 	/**
@@ -189,20 +240,8 @@ public class AvailableRefactoringView extends ViewPart {
 		 *            selecci�n del espacio de trabajo.
 		 */
 		public void elementSelected(SelectionInfo selection) {
-			if (selection.isValidSelectionType()) {
-				select = selection;
-				if (selection.existsScopeForSelection()) {
-					refactorings = refactCatalog
-							.getRefactoringBelongingTo(
-									PluginClassificationsCatalog.SCOPE_CLASSIFICATION,
-									selection.getSelectionScope().toString());
-					RefactoringTreeManager.fillTree(refactorings,
-							tr_Refactorings);
-				}
-
-			} else {
-				RefactoringTreeManager.cleanTree(tr_Refactorings);
-			}
+			select = selection;
+			fillTree();
 		}
 	}
 
@@ -231,20 +270,15 @@ public class AvailableRefactoringView extends ViewPart {
 				try {
 					if (saveUnsavedChanges()) {
 						// generamos el modelo
-						ModelGenerator.getInstance().generateModel(select,
-								true, false);
+						ModelGenerator.getInstance().generateModel(select,true,false);
+						
+						RefactoringPlugin mediator = RefactoringPlugin.getDefault();
+						
+						SelectionHandlerFactory factory = SelectionHandlerFactory.getInstance();
+						ISelectionHandler handler = factory.createHandler(select);
 
-						RefactoringPlugin mediator = RefactoringPlugin
-								.getDefault();
-
-						SelectionHandlerFactory factory = SelectionHandlerFactory
-								.getInstance();
-						ISelectionHandler handler = factory
-								.createHandler(select);
-
-						if (handler != null){
-							mediator.runRefactoring(handler.getMainObject(),
-									select, false);
+						if(handler!=null){
+							mediator.runRefactoring(handler.getMainObject(),select,false);
 						}
 
 						new DynamicRefactoringWindowLauncher(
