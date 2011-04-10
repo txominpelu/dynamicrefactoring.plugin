@@ -23,6 +23,8 @@ package dynamicrefactoring.interfaz;
 import java.text.MessageFormat;
 
 import org.eclipse.jface.dialogs.IDialogConstants;
+import org.eclipse.jface.viewers.ArrayContentProvider;
+import org.eclipse.jface.viewers.TableViewer;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.PaintEvent;
 import org.eclipse.swt.events.PaintListener;
@@ -42,10 +44,10 @@ import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Event;
 import org.eclipse.swt.widgets.Group;
 import org.eclipse.swt.widgets.Label;
-import org.eclipse.swt.widgets.List;
 import org.eclipse.swt.widgets.Listener;
 import org.eclipse.swt.widgets.ScrollBar;
 import org.eclipse.swt.widgets.Shell;
+import org.eclipse.swt.widgets.Table;
 import org.eclipse.swt.widgets.Text;
 
 import dynamicrefactoring.RefactoringImages;
@@ -139,9 +141,15 @@ public abstract class SelectDynamicRefactoringWindow extends DynamicRefactoringL
 		Object[] messageArgs = {getOperation()};
 		MessageFormat formatter = new MessageFormat(""); //$NON-NLS-1$
 		formatter.applyPattern(Messages.SelectDynamicRefactoringWindow_SelectRefactoring);
-		l_Available = new List(gr_RefList, SWT.BORDER | SWT.V_SCROLL | SWT.H_SCROLL );
-		l_Available.setToolTipText(formatter.format(messageArgs));
-		l_Available.addSelectionListener(new RefactoringSelectionListener());
+		//TODO: modificado
+//		l_Available = new List(gr_RefList, SWT.BORDER | SWT.V_SCROLL | SWT.H_SCROLL );
+//		l_Available.setToolTipText(formatter.format(messageArgs));
+//		l_Available.addSelectionListener(new RefactoringSelectionListener());
+		availableRefListViewer = new TableViewer(gr_RefList, SWT.BORDER | SWT.V_SCROLL | SWT.H_SCROLL );
+		availableRefListViewer.setLabelProvider(new RefactoringListLabelProvider());
+		availableRefListViewer.setContentProvider(new ArrayContentProvider());
+		availableRefListViewer.getTable().setToolTipText(formatter.format(messageArgs));
+		availableRefListViewer.getTable().addSelectionListener(new RefactoringSelectionListener());
 
 		final Group refactoringSummaryGroup = new Group(composite, SWT.NONE);
 		refactoringSummaryGroup.setText(Messages.SelectDynamicRefactoringWindow_Summary);
@@ -201,7 +209,9 @@ public abstract class SelectDynamicRefactoringWindow extends DynamicRefactoringL
 			ButtonTextProvider.getCancelText(), false);
 		getButton(IDialogConstants.OK_ID).setEnabled(false);
 		if(refactCatalog.getAllRefactorings().size() == 0){
-			l_Available.add(Messages.DynamicRefactoringList_NoneFound);
+			//TODO: modificado
+			//l_Available.add(Messages.DynamicRefactoringList_NoneFound);
+			availableRefListViewer.add(Messages.DynamicRefactoringList_NoneFound);
 			getButton(IDialogConstants.OK_ID).setEnabled(false);
 		}
 	}
@@ -354,6 +364,7 @@ public abstract class SelectDynamicRefactoringWindow extends DynamicRefactoringL
 		}
 	}
 
+	
 	/**
 	 * Actualiza el panel derecho de informaci�n para mostrar un resumen con la 
 	 * informaci�n apropiada acerca de la refactorizaci�n seleccionada en la lista 
@@ -386,8 +397,12 @@ public abstract class SelectDynamicRefactoringWindow extends DynamicRefactoringL
 		@Override
 		public void widgetSelected(SelectionEvent e) {
 			// Solo se muestra un resumen si se selecciona una �nica refactorizaci�n.
-			if (l_Available.getSelectionCount() == 1){
-				String key = l_Available.getItem(l_Available.getSelectionIndex());
+			//TODO: modificado
+			//if (l_Available.getSelectionCount() == 1){
+			//String key = l_Available.getItem(l_Available.getSelectionIndex());
+			Table availableList=availableRefListViewer.getTable();
+			if(availableList.getSelectionCount() == 1){
+				String key = availableList.getSelection()[0].getData().toString();
 				if (key != null){
 					DynamicRefactoringDefinition refactoring = refactCatalog.getRefactoring(key);
 				

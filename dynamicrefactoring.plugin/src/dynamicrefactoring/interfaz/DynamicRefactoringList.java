@@ -22,11 +22,10 @@ package dynamicrefactoring.interfaz;
 
 import org.apache.log4j.Logger;
 import org.eclipse.jface.dialogs.Dialog;
+import org.eclipse.jface.viewers.TableViewer;
 import org.eclipse.jface.window.IShellProvider;
-import org.eclipse.swt.widgets.List;
 import org.eclipse.swt.widgets.Shell;
 
-import dynamicrefactoring.domain.DynamicRefactoringDefinition;
 import dynamicrefactoring.domain.RefactoringsCatalog;
 
 /**
@@ -44,11 +43,13 @@ public abstract class DynamicRefactoringList extends Dialog {
 	 */
 	protected static Logger logger = Logger.getLogger(DynamicRefactoringList.class);
 	
+	//TODO:modificado
+//	/**
+//	 * Lista de refactorizaciones disponibles.
+//	 */
+//	protected List l_Available;
 	
-	/**
-	 * Lista de refactorizaciones disponibles.
-	 */
-	protected List l_Available;
+	protected TableViewer availableRefListViewer;
 
 	protected final RefactoringsCatalog refactCatalog;
 
@@ -76,14 +77,15 @@ public abstract class DynamicRefactoringList extends Dialog {
 	}
 
 	/**
-	 * Puebla la tabla de refactorizaciones disponibles con los nombres
+	 * Puebla la lista de refactorizaciones disponibles con los nombres
 	 * ordenados alfabeticamente de las refactorizaciones.
 	 */
 	protected void fillInRefactoringList(){
-		for (DynamicRefactoringDefinition refact : refactCatalog.getAllRefactorings()) {
-			l_Available.add(refact.getName());	
-		}
-					
+		//TODO: modificado
+//		for (DynamicRefactoringDefinition refact : refactCatalog.getAllRefactorings()) {
+//			l_Available.add(refact.getName());	
+//		}
+		availableRefListViewer.setInput(refactCatalog.getAllRefactorings());
 	}
-
+	
 }

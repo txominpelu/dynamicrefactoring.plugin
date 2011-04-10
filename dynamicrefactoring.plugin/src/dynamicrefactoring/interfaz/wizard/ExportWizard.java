@@ -28,6 +28,8 @@ import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.jface.dialogs.IDialogConstants;
 import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.jface.operation.IRunnableWithProgress;
+import org.eclipse.jface.viewers.ArrayContentProvider;
+import org.eclipse.jface.viewers.TableViewer;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.ModifyEvent;
 import org.eclipse.swt.events.ModifyListener;
@@ -39,8 +41,8 @@ import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Control;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Label;
-import org.eclipse.swt.widgets.List;
 import org.eclipse.swt.widgets.Shell;
+import org.eclipse.swt.widgets.TableItem;
 import org.eclipse.swt.widgets.Text;
 
 import dynamicrefactoring.RefactoringImages;
@@ -49,6 +51,7 @@ import dynamicrefactoring.domain.xml.ExportImportUtilities;
 import dynamicrefactoring.interfaz.ButtonTextProvider;
 import dynamicrefactoring.interfaz.CustomProgressDialog;
 import dynamicrefactoring.interfaz.DynamicRefactoringList;
+import dynamicrefactoring.interfaz.RefactoringListLabelProvider;
 
 /**
  * Proporciona un asistente que permite exportar un conjunto de
@@ -95,11 +98,18 @@ public class ExportWizard extends DynamicRefactoringList {
 		Composite container = (Composite) super.createDialogArea(parent);
 		container.setLayout(null);
 
-		l_Available = new List(container, SWT.BORDER | SWT.MULTI);
-		l_Available.setToolTipText(Messages.ExportWizard_AvailableTooltip);
-		l_Available.setBounds(10, 33, 388, 205);
-		l_Available.addSelectionListener(new RefactoringSelectionListener());
-
+		//TODO: modificado
+//		l_Available = new List(container, SWT.BORDER | SWT.MULTI);
+//		l_Available.setToolTipText(Messages.ExportWizard_AvailableTooltip);
+//		l_Available.setBounds(10, 33, 388, 205);
+//		l_Available.addSelectionListener(new RefactoringSelectionListener());
+		availableRefListViewer = new TableViewer(container, SWT.BORDER | SWT.MULTI );
+		availableRefListViewer.setLabelProvider(new RefactoringListLabelProvider());
+		availableRefListViewer.setContentProvider(new ArrayContentProvider());
+		availableRefListViewer.getTable().setToolTipText(Messages.ExportWizard_AvailableTooltip);
+		availableRefListViewer.getTable().addSelectionListener(new RefactoringSelectionListener());
+		availableRefListViewer.getTable().setBounds(10, 33, 388, 205);
+		
 		final Label lb_Output = new Label(container, SWT.NONE);
 		lb_Output.setText(Messages.ExportWizard_OutputFolder);
 		lb_Output.setBounds(10, 258, 326, 13);
@@ -112,7 +122,7 @@ public class ExportWizard extends DynamicRefactoringList {
 		t_Output.setBounds(10, 277, 355, 25);
 		t_Output.addModifyListener(new ModifyListener() {
 			public void modifyText(ModifyEvent e) {
-				if (l_Available.getSelectionCount() > 0
+				if (availableRefListViewer.getTable().getSelectionCount() > 0
 						&& t_Output.getText() != null
 						&& t_Output.getText().length() > 0)
 					btExport.setEnabled(true);
@@ -191,7 +201,7 @@ public class ExportWizard extends DynamicRefactoringList {
 		 */
 		@Override
 		public void widgetSelected(SelectionEvent e) {
-			if (l_Available.getSelectionCount() > 0
+			if (availableRefListViewer.getTable().getSelectionCount() > 0
 					&& t_Output.getText() != null
 					&& t_Output.getText().length() > 0)
 				btExport.setEnabled(true);
@@ -220,11 +230,22 @@ public class ExportWizard extends DynamicRefactoringList {
 
 		if (buttonId == IDialogConstants.OK_ID) {
 
-			if (l_Available.getSelectionCount() > 0) {
-
+			//TODO: modificado
+//			int selectionCount=l_Available.getSelectionCount();
+//			if (selectionCount > 0) {
+//				try {
+//					ExportJob job = new ExportJob(l_Available.getSelection(),
+//							t_Output.getText().trim());
+			int selectionCount=availableRefListViewer.getTable().getSelectionCount();
+			if (selectionCount > 0) {
 				try {
-					ExportJob job = new ExportJob(l_Available.getSelection(),
-							t_Output.getText().trim());
+					String names[]=new String[selectionCount];
+					int i=0;
+					for(TableItem item : availableRefListViewer.getTable().getSelection()){
+						names[i]=item.getData().toString();
+						i++;
+					}
+					ExportJob job = new ExportJob(names, t_Output.getText().trim());
 					new CustomProgressDialog(getShell()).run(true, false, job);
 
 					double limits[] = { 0, 1, ChoiceFormat.nextDouble(1) };
@@ -233,10 +254,9 @@ public class ExportWizard extends DynamicRefactoringList {
 							Messages.ExportWizard_SeveralExported };
 					ChoiceFormat form = new ChoiceFormat(limits, formats);
 
-					Object[] messageArgs = { l_Available.getSelectionCount() };
+					Object[] messageArgs = { selectionCount };
 					MessageFormat formatter = new MessageFormat(""); //$NON-NLS-1$
-					formatter.applyPattern(form.format(l_Available
-							.getSelectionCount()));
+					formatter.applyPattern(form.format(selectionCount));
 
 					MessageDialog.openInformation(getShell(),
 							Messages.ExportWizard_ExportDone,

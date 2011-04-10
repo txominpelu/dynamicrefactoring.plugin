@@ -26,6 +26,7 @@ import org.eclipse.jface.dialogs.IDialogConstants;
 import org.eclipse.jface.wizard.WizardDialog;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Shell;
+import org.eclipse.swt.widgets.Table;
 import org.eclipse.ui.PlatformUI;
 
 import dynamicrefactoring.domain.DynamicRefactoringDefinition;
@@ -98,18 +99,24 @@ public class SelectForEditingWindow extends SelectDynamicRefactoringWindow {
 		
 		if(buttonId == IDialogConstants.OK_ID) {
 			
-			if (l_Available.getSelectionCount() == 1){
+			//TODO: modificado
+//			if (l_Available.getSelectionCount() == 1){
+//				
+//				DynamicRefactoringDefinition refactoring = refactCatalog.getRefactoring(l_Available.getSelection()[0]);
+//			
+			Table availableList=availableRefListViewer.getTable();
+			if (availableList.getSelectionCount() == 1){
 				
-				DynamicRefactoringDefinition refactoring = refactCatalog.getRefactoring(l_Available.getSelection()[0]);
-				
+				DynamicRefactoringDefinition refactoring = 
+					refactCatalog.getRefactoring(availableList.getSelection()[0].getData().toString());
+			
 				this.close();
 
 				RefactoringWizard wizard =  new RefactoringWizard(refactoring, refactCatalog);
 				wizard.init(PlatformUI.getWorkbench(), null);
 				
 				WizardDialog dialog = new WizardDialog(
-					PlatformUI.getWorkbench().getActiveWorkbenchWindow().getShell(),
-					wizard);
+					PlatformUI.getWorkbench().getActiveWorkbenchWindow().getShell(),wizard);
 				dialog.create();
 				dialog.setPageSize(200, 200);
 				dialog.updateSize();

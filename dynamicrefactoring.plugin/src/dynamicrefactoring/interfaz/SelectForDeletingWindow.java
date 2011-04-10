@@ -28,6 +28,7 @@ import org.eclipse.jface.dialogs.IDialogConstants;
 import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Shell;
+import org.eclipse.swt.widgets.Table;
 import org.eclipse.ui.PlatformUI;
 
 import dynamicrefactoring.domain.DynamicRefactoringDefinition;
@@ -97,11 +98,19 @@ public class SelectForDeletingWindow extends SelectDynamicRefactoringWindow {
 	@Override
 	protected void buttonPressed(int buttonId) {
 
+		//TODO: modificado
+//		if (buttonId == IDialogConstants.OK_ID
+//				&& l_Available.getSelectionCount() == 1) {
+//
+//			DynamicRefactoringDefinition refactoring = refactCatalog
+//					.getRefactoring(l_Available.getSelection()[0]);
+
+		Table availableList=availableRefListViewer.getTable();
 		if (buttonId == IDialogConstants.OK_ID
-				&& l_Available.getSelectionCount() == 1) {
+				&& availableList.getSelectionCount() == 1) {
 
 			DynamicRefactoringDefinition refactoring = refactCatalog
-					.getRefactoring(l_Available.getSelection()[0]);
+					.getRefactoring(availableList.getSelection()[0].getData().toString());
 
 			if (isConfirmed(refactoring.getName())) {
 
