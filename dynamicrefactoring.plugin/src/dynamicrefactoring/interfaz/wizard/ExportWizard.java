@@ -98,11 +98,6 @@ public class ExportWizard extends DynamicRefactoringList {
 		Composite container = (Composite) super.createDialogArea(parent);
 		container.setLayout(null);
 
-		//TODO: modificado
-//		l_Available = new List(container, SWT.BORDER | SWT.MULTI);
-//		l_Available.setToolTipText(Messages.ExportWizard_AvailableTooltip);
-//		l_Available.setBounds(10, 33, 388, 205);
-//		l_Available.addSelectionListener(new RefactoringSelectionListener());
 		availableRefListViewer = new TableViewer(container, SWT.BORDER | SWT.MULTI );
 		availableRefListViewer.setLabelProvider(new RefactoringListLabelProvider());
 		availableRefListViewer.setContentProvider(new ArrayContentProvider());
@@ -230,12 +225,6 @@ public class ExportWizard extends DynamicRefactoringList {
 
 		if (buttonId == IDialogConstants.OK_ID) {
 
-			//TODO: modificado
-//			int selectionCount=l_Available.getSelectionCount();
-//			if (selectionCount > 0) {
-//				try {
-//					ExportJob job = new ExportJob(l_Available.getSelection(),
-//							t_Output.getText().trim());
 			int selectionCount=availableRefListViewer.getTable().getSelectionCount();
 			if (selectionCount > 0) {
 				try {

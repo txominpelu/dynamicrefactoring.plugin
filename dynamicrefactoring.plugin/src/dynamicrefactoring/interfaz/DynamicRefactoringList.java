@@ -43,12 +43,6 @@ public abstract class DynamicRefactoringList extends Dialog {
 	 */
 	protected static Logger logger = Logger.getLogger(DynamicRefactoringList.class);
 	
-	//TODO:modificado
-//	/**
-//	 * Lista de refactorizaciones disponibles.
-//	 */
-//	protected List l_Available;
-	
 	protected TableViewer availableRefListViewer;
 
 	protected final RefactoringsCatalog refactCatalog;
@@ -81,10 +75,6 @@ public abstract class DynamicRefactoringList extends Dialog {
 	 * ordenados alfabeticamente de las refactorizaciones.
 	 */
 	protected void fillInRefactoringList(){
-		//TODO: modificado
-//		for (DynamicRefactoringDefinition refact : refactCatalog.getAllRefactorings()) {
-//			l_Available.add(refact.getName());	
-//		}
 		availableRefListViewer.setInput(refactCatalog.getAllRefactorings());
 	}
 	

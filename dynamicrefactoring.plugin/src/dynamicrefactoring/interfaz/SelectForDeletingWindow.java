@@ -98,13 +98,6 @@ public class SelectForDeletingWindow extends SelectDynamicRefactoringWindow {
 	@Override
 	protected void buttonPressed(int buttonId) {
 
-		//TODO: modificado
-//		if (buttonId == IDialogConstants.OK_ID
-//				&& l_Available.getSelectionCount() == 1) {
-//
-//			DynamicRefactoringDefinition refactoring = refactCatalog
-//					.getRefactoring(l_Available.getSelection()[0]);
-
 		Table availableList=availableRefListViewer.getTable();
 		if (buttonId == IDialogConstants.OK_ID
 				&& availableList.getSelectionCount() == 1) {

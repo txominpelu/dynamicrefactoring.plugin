@@ -141,10 +141,6 @@ public abstract class SelectDynamicRefactoringWindow extends DynamicRefactoringL
 		Object[] messageArgs = {getOperation()};
 		MessageFormat formatter = new MessageFormat(""); //$NON-NLS-1$
 		formatter.applyPattern(Messages.SelectDynamicRefactoringWindow_SelectRefactoring);
-		//TODO: modificado
-//		l_Available = new List(gr_RefList, SWT.BORDER | SWT.V_SCROLL | SWT.H_SCROLL );
-//		l_Available.setToolTipText(formatter.format(messageArgs));
-//		l_Available.addSelectionListener(new RefactoringSelectionListener());
 		availableRefListViewer = new TableViewer(gr_RefList, SWT.BORDER | SWT.V_SCROLL | SWT.H_SCROLL );
 		availableRefListViewer.setLabelProvider(new RefactoringListLabelProvider());
 		availableRefListViewer.setContentProvider(new ArrayContentProvider());
@@ -209,8 +205,6 @@ public abstract class SelectDynamicRefactoringWindow extends DynamicRefactoringL
 			ButtonTextProvider.getCancelText(), false);
 		getButton(IDialogConstants.OK_ID).setEnabled(false);
 		if(refactCatalog.getAllRefactorings().size() == 0){
-			//TODO: modificado
-			//l_Available.add(Messages.DynamicRefactoringList_NoneFound);
 			availableRefListViewer.add(Messages.DynamicRefactoringList_NoneFound);
 			getButton(IDialogConstants.OK_ID).setEnabled(false);
 		}
@@ -397,9 +391,6 @@ public abstract class SelectDynamicRefactoringWindow extends DynamicRefactoringL
 		@Override
 		public void widgetSelected(SelectionEvent e) {
 			// Solo se muestra un resumen si se selecciona una �nica refactorizaci�n.
-			//TODO: modificado
-			//if (l_Available.getSelectionCount() == 1){
-			//String key = l_Available.getItem(l_Available.getSelectionIndex());
 			Table availableList=availableRefListViewer.getTable();
 			if(availableList.getSelectionCount() == 1){
 				String key = availableList.getSelection()[0].getData().toString();

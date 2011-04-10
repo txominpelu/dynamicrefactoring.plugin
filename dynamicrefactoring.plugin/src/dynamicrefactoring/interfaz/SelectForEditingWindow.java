@@ -99,11 +99,6 @@ public class SelectForEditingWindow extends SelectDynamicRefactoringWindow {
 		
 		if(buttonId == IDialogConstants.OK_ID) {
 			
-			//TODO: modificado
-//			if (l_Available.getSelectionCount() == 1){
-//				
-//				DynamicRefactoringDefinition refactoring = refactCatalog.getRefactoring(l_Available.getSelection()[0]);
-//			
 			Table availableList=availableRefListViewer.getTable();
 			if (availableList.getSelectionCount() == 1){
 				
