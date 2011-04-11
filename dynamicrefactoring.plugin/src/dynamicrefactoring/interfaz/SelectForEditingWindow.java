@@ -24,7 +24,9 @@ import org.apache.log4j.Logger;
 import org.eclipse.jface.dialogs.Dialog;
 import org.eclipse.jface.dialogs.IDialogConstants;
 import org.eclipse.jface.wizard.WizardDialog;
+import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Composite;
+import org.eclipse.swt.widgets.Control;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.Table;
 import org.eclipse.ui.PlatformUI;
@@ -45,9 +47,9 @@ import dynamicrefactoring.interfaz.wizard.RefactoringWizard;
  * @author <A HREF="mailto:ehp0001@alu.ubu.es">Enrique Herrero Paredes</A>
  */
 public class SelectForEditingWindow extends SelectDynamicRefactoringWindow {
-
+	
 	private RefactoringsCatalog refactCatalog;
-
+	
 	/**
 	 * Crea la ventana de di�logo.
 	 * 
@@ -58,7 +60,7 @@ public class SelectForEditingWindow extends SelectDynamicRefactoringWindow {
 		this.refactCatalog = refactCatalog;
 		logger = Logger.getLogger(SelectForEditingWindow.class);
 	}
-
+	
 	/**
 	 * Crea el bot�n que permite lanzar el asistente para la edici�n de la 
 	 * refactorizaci�n seleccionada.

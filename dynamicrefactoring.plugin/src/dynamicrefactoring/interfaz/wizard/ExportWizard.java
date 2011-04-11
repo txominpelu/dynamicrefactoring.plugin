@@ -33,6 +33,7 @@ import org.eclipse.jface.viewers.TableViewer;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.ModifyEvent;
 import org.eclipse.swt.events.ModifyListener;
+import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.events.SelectionListener;
 import org.eclipse.swt.graphics.Point;
@@ -51,6 +52,7 @@ import dynamicrefactoring.domain.xml.ExportImportUtilities;
 import dynamicrefactoring.interfaz.ButtonTextProvider;
 import dynamicrefactoring.interfaz.CustomProgressDialog;
 import dynamicrefactoring.interfaz.DynamicRefactoringList;
+import dynamicrefactoring.interfaz.RefactoringListFilter;
 import dynamicrefactoring.interfaz.RefactoringListLabelProvider;
 
 /**
@@ -64,6 +66,18 @@ import dynamicrefactoring.interfaz.RefactoringListLabelProvider;
  */
 public class ExportWizard extends DynamicRefactoringList {
 
+	/**
+	 * Check que permite filtrar la lista de refactorizaciones para que 
+	 * únicamente se muestren las propias del usuario.
+	 */
+	private Button filterButton;
+	
+	/**
+	 * Filtro para que únicamente las refactorizaciones del
+	 * usuario sean visibles en la lista de refactorizaciones.
+	 */
+	private RefactoringListFilter filter;
+	
 	/**
 	 * Campo de texto en que se almacena la ruta del directorio al que se
 	 * exportar�n las refactorizaciones.
@@ -105,16 +119,30 @@ public class ExportWizard extends DynamicRefactoringList {
 		availableRefListViewer.getTable().addSelectionListener(new RefactoringSelectionListener());
 		availableRefListViewer.getTable().setBounds(10, 33, 388, 205);
 		
+		filter=new RefactoringListFilter();
+		
+		filterButton = new Button(container, SWT.CHECK);
+		filterButton.setText(Messages.ExportWizard_Filter);
+		filterButton.setBounds(20, 238, 300, 30);
+		filterButton.addSelectionListener(new SelectionAdapter() {
+		      public void widgetSelected(SelectionEvent event) {
+		        if (((Button) event.widget).getSelection())
+		        	availableRefListViewer.addFilter(filter);
+		        else
+		        	availableRefListViewer.removeFilter(filter);
+		      }
+		    });
+		
 		final Label lb_Output = new Label(container, SWT.NONE);
 		lb_Output.setText(Messages.ExportWizard_OutputFolder);
-		lb_Output.setBounds(10, 258, 326, 13);
+		lb_Output.setBounds(10, 278, 326, 13);
 
 		t_Output = new Text(container, SWT.BORDER);
 		t_Output.setBackground(Display.getCurrent().getSystemColor(
 				SWT.COLOR_WHITE));
 		t_Output.setEditable(false);
 		t_Output.setToolTipText(Messages.ExportWizard_SelectOutput);
-		t_Output.setBounds(10, 277, 355, 25);
+		t_Output.setBounds(10, 297, 355, 25);
 		t_Output.addModifyListener(new ModifyListener() {
 			public void modifyText(ModifyEvent e) {
 				if (availableRefListViewer.getTable().getSelectionCount() > 0
@@ -129,7 +157,7 @@ public class ExportWizard extends DynamicRefactoringList {
 		final Button bt_Examine = new Button(container, SWT.NONE);
 		bt_Examine.setToolTipText(Messages.ExportWizard_SelectOutput);
 		bt_Examine.setText("..."); //$NON-NLS-1$
-		bt_Examine.setBounds(371, 279, 27, 23);
+		bt_Examine.setBounds(371, 299, 27, 23);
 		bt_Examine.addSelectionListener(new FolderSelectionListener(t_Output,
 				getShell(), Messages.ExportWizard_SelectOutputFolder + ".")); //$NON-NLS-1$
 

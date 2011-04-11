@@ -28,6 +28,7 @@ public class Messages extends NLS {
 	public static String ExportWizard_1Exported;
 	public static String ExportWizard_AvailableRefactorings;
 	public static String ExportWizard_AvailableTooltip;
+	public static String ExportWizard_Filter;
 	public static String ImportPlanWizard_And;
 	public static String ImportPlanWizard_ProblemExecuting;
 	public static String ImportPlanWizard_SameUnit;

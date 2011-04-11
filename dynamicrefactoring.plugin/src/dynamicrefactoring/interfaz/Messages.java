@@ -41,6 +41,7 @@ public class Messages extends NLS {
 	public static String SelectDynamicRefactoringWindow_RefactoringSelection;
 	public static String SelectDynamicRefactoringWindow_SelectRefactoring;
 	public static String SelectDynamicRefactoringWindow_Summary;
+	public static String SelectDynamicRefactoringWindow_Filter;
 	public static String SelectForDeletingWindow_AreYouSure;
 	public static String SelectForDeletingWindow_Confirmation;
 	public static String SelectForDeletingWindow_DeleteCaps;

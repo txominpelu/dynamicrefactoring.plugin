@@ -27,6 +27,7 @@ import org.eclipse.jface.dialogs.Dialog;
 import org.eclipse.jface.dialogs.IDialogConstants;
 import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.swt.widgets.Composite;
+import org.eclipse.swt.widgets.Control;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.Table;
 import org.eclipse.ui.PlatformUI;
@@ -62,7 +63,7 @@ public class SelectForDeletingWindow extends SelectDynamicRefactoringWindow {
 
 		logger = Logger.getLogger(SelectForDeletingWindow.class);
 	}
-
+	
 	/**
 	 * Crea el bot�n que permite lanzar la ejecuci�n del borrado de la
 	 * refactorizaci�n seleccionada.

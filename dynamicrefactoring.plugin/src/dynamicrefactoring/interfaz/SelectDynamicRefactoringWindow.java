@@ -28,6 +28,7 @@ import org.eclipse.jface.viewers.TableViewer;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.PaintEvent;
 import org.eclipse.swt.events.PaintListener;
+import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.events.SelectionListener;
 import org.eclipse.swt.graphics.Image;
@@ -37,6 +38,7 @@ import org.eclipse.swt.graphics.Rectangle;
 import org.eclipse.swt.layout.FillLayout;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
+import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Canvas;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Control;
@@ -65,6 +67,18 @@ import dynamicrefactoring.domain.RefactoringsCatalog;
  * @author <A HREF="mailto:ehp0001@alu.ubu.es">Enrique Herrero Paredes</A>
  */
 public abstract class SelectDynamicRefactoringWindow extends DynamicRefactoringList {
+	
+	/**
+	 * Check que permite filtrar la lista de refactorizaciones para que 
+	 * únicamente se muestren las propias del usuario.
+	 */
+	private Button filterButton;
+	
+	/**
+	 * Filtro para que únicamente las refactorizaciones del
+	 * usuario sean visibles en la lista de refactorizaciones.
+	 */
+	protected RefactoringListFilter filter;
 	
 	/**
 	 * Campo de texto en que se muestra la motivaci�n de la refactorizaci�n
@@ -129,15 +143,15 @@ public abstract class SelectDynamicRefactoringWindow extends DynamicRefactoringL
 		composite.setLayout(gridLayout_1);
 
 		final Group gr_RefList = new Group(composite, SWT.NONE);
-		final FillLayout fillLayout = new FillLayout(SWT.VERTICAL);
-		fillLayout.marginHeight = 5;
-		gr_RefList.setLayout(fillLayout);
+		gr_RefList.setLayout(new GridLayout());
 		gr_RefList.setText(Messages.SelectDynamicRefactoringWindow_AvailableRefactorings);
-		final GridData gd_gr_RefList = new GridData(SWT.LEFT, SWT.FILL, false, false);
-		gd_gr_RefList.heightHint = 390;
-		gd_gr_RefList.widthHint = 190;
-		gr_RefList.setLayoutData(gd_gr_RefList);
-
+		GridData gd=new GridData();
+		gd.verticalAlignment = GridData.FILL;
+		gd.grabExcessVerticalSpace = true;
+		gd.horizontalAlignment = GridData.FILL;
+		gd.grabExcessHorizontalSpace = true;
+		gr_RefList.setLayoutData(gd);
+		
 		Object[] messageArgs = {getOperation()};
 		MessageFormat formatter = new MessageFormat(""); //$NON-NLS-1$
 		formatter.applyPattern(Messages.SelectDynamicRefactoringWindow_SelectRefactoring);
@@ -146,7 +160,25 @@ public abstract class SelectDynamicRefactoringWindow extends DynamicRefactoringL
 		availableRefListViewer.setContentProvider(new ArrayContentProvider());
 		availableRefListViewer.getTable().setToolTipText(formatter.format(messageArgs));
 		availableRefListViewer.getTable().addSelectionListener(new RefactoringSelectionListener());
-
+		availableRefListViewer.getControl().setLayoutData(gd);
+		
+		filter=new RefactoringListFilter();
+		
+		if(getOperation()==Messages.SelectForEditingWindow_EditLower){
+			filterButton = new Button(gr_RefList, SWT.CHECK);
+			filterButton.setText(Messages.SelectDynamicRefactoringWindow_Filter);
+			filterButton.addSelectionListener(new SelectionAdapter() {
+		      public void widgetSelected(SelectionEvent event) {
+		        if (((Button) event.widget).getSelection())
+		        	availableRefListViewer.addFilter(filter);
+		        else
+		        	availableRefListViewer.removeFilter(filter);
+		      }
+		    });
+		}else{
+			availableRefListViewer.addFilter(filter);
+		}
+		
 		final Group refactoringSummaryGroup = new Group(composite, SWT.NONE);
 		refactoringSummaryGroup.setText(Messages.SelectDynamicRefactoringWindow_Summary);
 		final GridData gd_refactoringSummaryGroup = new GridData(475, 390);
