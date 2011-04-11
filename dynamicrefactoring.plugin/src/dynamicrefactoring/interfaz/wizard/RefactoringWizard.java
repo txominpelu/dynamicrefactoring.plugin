@@ -130,6 +130,9 @@ public class RefactoringWizard extends Wizard implements INewWizard {
 	 */
 	private RefactoringWizardPage7 pageG;
 
+	/**
+	 * 
+	 */
 	protected RefactoringsCatalog refactCatalog;
 
 	/**

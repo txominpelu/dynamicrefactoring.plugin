@@ -93,7 +93,7 @@ public final class RefactoringWizardPage1 extends WizardPage {
 	private Text imageText;
 
 	/**
-	 * Descripci�n de la refactorizaci�n.
+	 * Descripci�n de la refactorización.
 	 */
 	private Text descriptionText;
 

@@ -144,7 +144,6 @@ public class Messages extends NLS {
 	public static String RefactoringWizardPage2_RefactoringsBelong;
 	public static String RefactoringWizardPage2_RefactoringsMain;
 	public static String RefactoringWizardPage2_Warning;
-	public static String RefactoringWizardPage4_Actions;
 	public static String RefactoringWizardPage3_DescriptionInputElements;
 	public static String RefactoringWizardPage3_DynamicRefactoring;
 	public static String RefactoringWizardPage3_ElementsNotLoaded;
@@ -159,6 +158,7 @@ public class Messages extends NLS {
 	public static String RefactoringWizardPage5_DescriptionInputPostconditions;
 	public static String RefactoringWizardPage4_DescriptionInputActions;
 	public static String RefactoringWizardPage4_DynamicRefactoring;
+	public static String RefactoringWizardPage4_Actions;
 	public static String RefactoringWizardPage6_Example1;
 	public static String RefactoringWizardPage6_Example2;
 	public static String RefactoringWizardPage6_FirstIncomplete;
