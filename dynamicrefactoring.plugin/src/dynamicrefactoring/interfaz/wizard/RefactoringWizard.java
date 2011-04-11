@@ -130,7 +130,7 @@ public class RefactoringWizard extends Wizard implements INewWizard {
 	 */
 	private RefactoringWizardPage7 pageG;
 
-	private RefactoringsCatalog refactCatalog;
+	protected RefactoringsCatalog refactCatalog;
 
 	/**
 	 * Constructor.

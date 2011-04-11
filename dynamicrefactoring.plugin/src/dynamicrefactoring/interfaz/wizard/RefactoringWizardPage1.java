@@ -297,6 +297,13 @@ public final class RefactoringWizardPage1 extends WizardPage {
 			updateStatus(Messages.RefactoringWizardPage1_NameNeeded);
 			return;
 		}
+		if ((refactoring==null ||
+			(refactoring!=null && !this.getNameText().getText().equalsIgnoreCase(refactoring.getName())))
+				&&
+			 ((RefactoringWizard)this.getWizard()).refactCatalog.hasRefactoring(getNameText().getText().trim())	) {
+			updateStatus(Messages.RefactoringWizardPage1_NameInUse);
+			return;
+		}
 		if (this.getDescriptionText().getText().length() == 0) {
 			updateStatus(Messages.RefactoringWizardPage1_DescriptionNeeded);
 			return;

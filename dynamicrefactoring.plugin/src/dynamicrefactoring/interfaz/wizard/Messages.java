@@ -109,6 +109,7 @@ public class Messages extends NLS {
 	public static String RefactoringWizardPage1_MotivationNeeded;
 	public static String RefactoringWizardPage1_Name;
 	public static String RefactoringWizardPage1_NameNeeded;
+	public static String RefactoringWizardPage1_NameInUse;
 	public static String RefactoringWizardPage1_SelectImage;
 	public static String RefactoringWizardPage1_SelectRefactoringImage;
 	public static String RefactoringWizardPage1_Step;
