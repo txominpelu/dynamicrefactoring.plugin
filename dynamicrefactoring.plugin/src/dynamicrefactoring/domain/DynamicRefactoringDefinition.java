@@ -129,7 +129,7 @@ public class DynamicRefactoringDefinition implements Element,
 		examples = builder.examples;
 		isEditable = builder.isEditable;
 	}
-
+	
 	/**
 	 * Devuelve el nombre de la refactorizaci�n.
 	 * 

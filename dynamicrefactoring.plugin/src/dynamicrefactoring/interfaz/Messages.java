@@ -52,6 +52,8 @@ public class Messages extends NLS {
 	public static String SelectForDeletingWindow_RefactoringNotDeleted;
 	public static String SelectForEditingWindow_EditCaps;
 	public static String SelectForEditingWindow_EditLower;
+	public static String SelectForEditingWindow_CreateFrom;
+	public static String SelectForEditingWindow_SuffixCopy;
 	public static String SelectRefactoringWindow_Accept;
 	public static String SelectRefactoringWindow_AddParameter;
 	public static String SelectRefactoringWindow_BoundedParameterScope;

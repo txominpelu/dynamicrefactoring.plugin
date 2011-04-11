@@ -306,7 +306,7 @@ public class RefactoringWizard extends Wizard implements INewWizard {
 			DynamicRefactoringDefinition.Builder builder) {
 		DynamicRefactoringDefinition resultingRefactoringDefinition = builder.build();
 
-		if (operation == EDIT) {
+		if (operation == EDIT && refactCatalog.hasRefactoring(originalName)) {
 			refactCatalog.updateRefactoring(originalName, resultingRefactoringDefinition);;
 		} else {
 			// Se escribe la refactorizaci�n en el fichero XML.

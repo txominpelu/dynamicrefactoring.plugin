@@ -47,6 +47,7 @@ import org.eclipse.swt.widgets.TableItem;
 import org.eclipse.swt.widgets.Text;
 
 import dynamicrefactoring.RefactoringImages;
+import dynamicrefactoring.domain.DynamicRefactoringDefinition;
 import dynamicrefactoring.domain.RefactoringsCatalog;
 import dynamicrefactoring.domain.xml.ExportImportUtilities;
 import dynamicrefactoring.interfaz.ButtonTextProvider;
@@ -54,6 +55,7 @@ import dynamicrefactoring.interfaz.CustomProgressDialog;
 import dynamicrefactoring.interfaz.DynamicRefactoringList;
 import dynamicrefactoring.interfaz.RefactoringListFilter;
 import dynamicrefactoring.interfaz.RefactoringListLabelProvider;
+import dynamicrefactoring.interfaz.RefactoringListSorter;
 
 /**
  * Proporciona un asistente que permite exportar un conjunto de
@@ -115,6 +117,7 @@ public class ExportWizard extends DynamicRefactoringList {
 		availableRefListViewer = new TableViewer(container, SWT.BORDER | SWT.MULTI );
 		availableRefListViewer.setLabelProvider(new RefactoringListLabelProvider());
 		availableRefListViewer.setContentProvider(new ArrayContentProvider());
+		availableRefListViewer.setSorter(new RefactoringListSorter());
 		availableRefListViewer.getTable().setToolTipText(Messages.ExportWizard_AvailableTooltip);
 		availableRefListViewer.getTable().addSelectionListener(new RefactoringSelectionListener());
 		availableRefListViewer.getTable().setBounds(10, 33, 388, 205);
@@ -259,7 +262,7 @@ public class ExportWizard extends DynamicRefactoringList {
 					String names[]=new String[selectionCount];
 					int i=0;
 					for(TableItem item : availableRefListViewer.getTable().getSelection()){
-						names[i]=item.getData().toString();
+						names[i]=((DynamicRefactoringDefinition)item.getData()).getName();
 						i++;
 					}
 					ExportJob job = new ExportJob(names, t_Output.getText().trim());

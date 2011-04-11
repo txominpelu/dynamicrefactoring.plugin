@@ -75,7 +75,10 @@ public abstract class DynamicRefactoringList extends Dialog {
 	 * ordenados alfabeticamente de las refactorizaciones.
 	 */
 	protected void fillInRefactoringList(){
-		availableRefListViewer.setInput(refactCatalog.getAllRefactorings());
+		if(refactCatalog.getAllRefactorings().size() == 0)
+			availableRefListViewer.add(Messages.DynamicRefactoringList_NoneFound);
+		else
+			availableRefListViewer.setInput(refactCatalog.getAllRefactorings());
 	}
 	
 }

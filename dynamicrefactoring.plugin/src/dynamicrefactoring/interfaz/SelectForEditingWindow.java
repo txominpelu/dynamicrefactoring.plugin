@@ -24,9 +24,7 @@ import org.apache.log4j.Logger;
 import org.eclipse.jface.dialogs.Dialog;
 import org.eclipse.jface.dialogs.IDialogConstants;
 import org.eclipse.jface.wizard.WizardDialog;
-import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Composite;
-import org.eclipse.swt.widgets.Control;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.Table;
 import org.eclipse.ui.PlatformUI;
@@ -48,8 +46,6 @@ import dynamicrefactoring.interfaz.wizard.RefactoringWizard;
  */
 public class SelectForEditingWindow extends SelectDynamicRefactoringWindow {
 	
-	private RefactoringsCatalog refactCatalog;
-	
 	/**
 	 * Crea la ventana de di�logo.
 	 * 
@@ -57,8 +53,21 @@ public class SelectForEditingWindow extends SelectDynamicRefactoringWindow {
 	 */
 	public SelectForEditingWindow(Shell parentShell, RefactoringsCatalog refactCatalog) {
 		super(parentShell, refactCatalog);
-		this.refactCatalog = refactCatalog;
 		logger = Logger.getLogger(SelectForEditingWindow.class);
+	}
+	
+	/**
+	 * Crea el resto de botones necesarios en el dialogo que permiten 
+	 * lanzar las distintas funcionalidades del dialogo.
+	 * Entre ellos se encuentra el botón OK.
+	 * 
+	 * @param parent el componente padre del botón.
+	 */
+	protected void createOtherButtons(Composite parent){
+		createButton(parent, IDialogConstants.CLIENT_ID, 
+				Messages.SelectForEditingWindow_CreateFrom, true);
+		getButton(IDialogConstants.CLIENT_ID).setEnabled(false);
+		super.createOtherButtons(parent);
 	}
 	
 	/**
@@ -71,7 +80,8 @@ public class SelectForEditingWindow extends SelectDynamicRefactoringWindow {
 	 */
 	@Override
 	protected void createOKButton(Composite parent) {
-		createButton(parent, IDialogConstants.OK_ID, Messages.SelectForEditingWindow_EditCaps, true);		
+		createButton(parent, IDialogConstants.OK_ID, 
+				Messages.SelectForEditingWindow_EditCaps, false);		
 	}
 	
 	/**
@@ -99,25 +109,39 @@ public class SelectForEditingWindow extends SelectDynamicRefactoringWindow {
 	@Override
 	protected void buttonPressed(int buttonId) {
 		
-		if(buttonId == IDialogConstants.OK_ID) {
-			
+		if(buttonId!=IDialogConstants.CANCEL_ID){
 			Table availableList=availableRefListViewer.getTable();
 			if (availableList.getSelectionCount() == 1){
-				
-				DynamicRefactoringDefinition refactoring = 
-					refactCatalog.getRefactoring(availableList.getSelection()[0].getData().toString());
+				Object obj = availableList.getSelection()[0].getData();
+				if(obj instanceof DynamicRefactoringDefinition){
+					DynamicRefactoringDefinition refactoring =(DynamicRefactoringDefinition)obj;
 			
-				this.close();
+					//si se ha seleccionado crear una refactorización a partir de
+					//una copia de una refactorización suministrada por el plugin
+					//customizada por el usuario
+					if(buttonId == IDialogConstants.CLIENT_ID){
+						String name=refactoring.getName()+Messages.SelectForEditingWindow_SuffixCopy;
+						int i=1;
+						String version="";//$NON-NLS-1$
+						while(refactCatalog.hasRefactoring(name+version)){
+							i++;
+							version=String.valueOf(i);
+						}
+						refactoring=refactoring.getBuilder().name(name+version).build();
+					}
+						
+					this.close();
 
-				RefactoringWizard wizard =  new RefactoringWizard(refactoring, refactCatalog);
-				wizard.init(PlatformUI.getWorkbench(), null);
+					RefactoringWizard wizard =  new RefactoringWizard(refactoring, refactCatalog);
+					wizard.init(PlatformUI.getWorkbench(), null);
 				
-				WizardDialog dialog = new WizardDialog(
-					PlatformUI.getWorkbench().getActiveWorkbenchWindow().getShell(),wizard);
-				dialog.create();
-				dialog.setPageSize(200, 200);
-				dialog.updateSize();
-				dialog.open();
+					WizardDialog dialog = new WizardDialog(
+							PlatformUI.getWorkbench().getActiveWorkbenchWindow().getShell(),wizard);
+					dialog.create();
+					dialog.setPageSize(200, 200);
+					dialog.updateSize();
+					dialog.open();
+				}
 			}
 		}
 			

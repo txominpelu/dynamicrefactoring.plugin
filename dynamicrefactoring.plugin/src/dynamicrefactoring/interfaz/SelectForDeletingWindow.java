@@ -27,7 +27,6 @@ import org.eclipse.jface.dialogs.Dialog;
 import org.eclipse.jface.dialogs.IDialogConstants;
 import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.swt.widgets.Composite;
-import org.eclipse.swt.widgets.Control;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.Table;
 import org.eclipse.ui.PlatformUI;
@@ -100,27 +99,28 @@ public class SelectForDeletingWindow extends SelectDynamicRefactoringWindow {
 	protected void buttonPressed(int buttonId) {
 
 		Table availableList=availableRefListViewer.getTable();
-		if (buttonId == IDialogConstants.OK_ID
+		if( buttonId == IDialogConstants.OK_ID
 				&& availableList.getSelectionCount() == 1) {
 
-			DynamicRefactoringDefinition refactoring = refactCatalog
-					.getRefactoring(availableList.getSelection()[0].getData().toString());
+			Object obj = availableList.getSelection()[0].getData();
+			if(obj instanceof DynamicRefactoringDefinition){
+				
+				DynamicRefactoringDefinition refactoring =(DynamicRefactoringDefinition)obj;
+				if (isConfirmed(refactoring.getName())) {
+					
+					this.close();
 
-			if (isConfirmed(refactoring.getName())) {
+					refactCatalog.removeRefactoring(refactoring.getName());
 
-				this.close();
+					Object[] messageArgs = { "\"" + refactoring.getName() + "\"" }; //$NON-NLS-1$ //$NON-NLS-2$
+					MessageFormat formatter = new MessageFormat(""); //$NON-NLS-1$
+						formatter.applyPattern(Messages.SelectForDeletingWindow_Deleted);
 
-				refactCatalog.removeRefactoring(refactoring.getName());
-
-				Object[] messageArgs = { "\"" + refactoring.getName() + "\"" }; //$NON-NLS-1$ //$NON-NLS-2$
-				MessageFormat formatter = new MessageFormat(""); //$NON-NLS-1$
-				formatter
-						.applyPattern(Messages.SelectForDeletingWindow_Deleted);
-
-				MessageDialog.openInformation(PlatformUI.getWorkbench()
-						.getActiveWorkbenchWindow().getShell(),
+					MessageDialog.openInformation(
+						PlatformUI.getWorkbench().getActiveWorkbenchWindow().getShell(),
 						Messages.SelectForDeletingWindow_RefactoringDeleted,
 						formatter.format(messageArgs) + "."); //$NON-NLS-1$
+				}
 			}
 		}
 

@@ -35,7 +35,6 @@ import org.eclipse.swt.graphics.Image;
 import org.eclipse.swt.graphics.ImageLoader;
 import org.eclipse.swt.graphics.Point;
 import org.eclipse.swt.graphics.Rectangle;
-import org.eclipse.swt.layout.FillLayout;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Button;
@@ -158,6 +157,7 @@ public abstract class SelectDynamicRefactoringWindow extends DynamicRefactoringL
 		availableRefListViewer = new TableViewer(gr_RefList, SWT.BORDER | SWT.V_SCROLL | SWT.H_SCROLL );
 		availableRefListViewer.setLabelProvider(new RefactoringListLabelProvider());
 		availableRefListViewer.setContentProvider(new ArrayContentProvider());
+		availableRefListViewer.setSorter(new RefactoringListSorter());
 		availableRefListViewer.getTable().setToolTipText(formatter.format(messageArgs));
 		availableRefListViewer.getTable().addSelectionListener(new RefactoringSelectionListener());
 		availableRefListViewer.getControl().setLayoutData(gd);
@@ -231,22 +231,28 @@ public abstract class SelectDynamicRefactoringWindow extends DynamicRefactoringL
 	 * @param parent el componente padre de los botones a�adidos.
 	 */
 	@Override
-	protected void createButtonsForButtonBar(Composite parent) {
-		createOKButton(parent);
-		createButton(parent, IDialogConstants.CANCEL_ID, 
-			ButtonTextProvider.getCancelText(), false);
-		getButton(IDialogConstants.OK_ID).setEnabled(false);
-		if(refactCatalog.getAllRefactorings().size() == 0){
-			availableRefListViewer.add(Messages.DynamicRefactoringList_NoneFound);
-			getButton(IDialogConstants.OK_ID).setEnabled(false);
-		}
+	protected void createButtonsForButtonBar(Composite parent){
+		createOtherButtons(parent);
+		createButton(parent, IDialogConstants.CANCEL_ID,ButtonTextProvider.getCancelText(), false);
 	}
 
 	/**
-	 * Crea el bot�n que permite lanzar la funcionalidad real para la que
-	 * se aplica la ventana (editar o borrar una refactorizaci�n).
+	 * Crea el resto de botones necesarios en el dialogo que permiten 
+	 * lanzar las distintas funcionalidades del dialogo.
+	 * Entre ellos se encuentra el botón OK.
 	 * 
-	 * @param parent el componente padre del bot�n.
+	 * @param parent el componente padre del botón.
+	 */
+	protected void createOtherButtons(Composite parent){
+		createOKButton(parent);
+		getButton(IDialogConstants.OK_ID).setEnabled(false);
+	}
+	
+	/**
+	 * Crea el botón que permite lanzar la funcionalidad real para la que
+	 * se aplica la ventana (editar o borrar una refactorización).
+	 * 
+	 * @param parent el componente padre del botón.
 	 */
 	protected abstract void createOKButton(Composite parent);
 
@@ -266,7 +272,7 @@ public abstract class SelectDynamicRefactoringWindow extends DynamicRefactoringL
 	 */
 	@Override
 	protected Point getInitialSize() {
-		return new Point(712, 492);
+		return new Point(712, 500);
 	}
 	
 	/**
@@ -425,19 +431,19 @@ public abstract class SelectDynamicRefactoringWindow extends DynamicRefactoringL
 			// Solo se muestra un resumen si se selecciona una �nica refactorizaci�n.
 			Table availableList=availableRefListViewer.getTable();
 			if(availableList.getSelectionCount() == 1){
-				String key = availableList.getSelection()[0].getData().toString();
-				if (key != null){
-					DynamicRefactoringDefinition refactoring = refactCatalog.getRefactoring(key);
-				
-					if (refactoring != null){
-						fillInData(refactoring);
-						getButton(IDialogConstants.OK_ID).setEnabled(true);
-					}
+				Object obj = availableList.getSelection()[0].getData();
+				if(obj instanceof DynamicRefactoringDefinition){
+					DynamicRefactoringDefinition refactoring =(DynamicRefactoringDefinition)obj;
+					fillInData(refactoring);
+					getButton(IDialogConstants.OK_ID).setEnabled(refactoring.isEditable());	
+					if(getButton(IDialogConstants.CLIENT_ID)!=null)
+						getButton(IDialogConstants.CLIENT_ID).setEnabled(true);
 				}
-			}
-			// Si no hay ning�n elemento seleccionado.
-			else
+			}else{ // Si no hay ning�n elemento seleccionado.
 				getButton(IDialogConstants.OK_ID).setEnabled(false);
+				if(getButton(IDialogConstants.CLIENT_ID)!=null)
+					getButton(IDialogConstants.CLIENT_ID).setEnabled(false);
+			}
 		}
 		
 		/**
