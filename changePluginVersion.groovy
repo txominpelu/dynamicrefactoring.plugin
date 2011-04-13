@@ -1,6 +1,6 @@
 import groovy.xml.XmlUtil
 
-def newVersion = "3.0.5"
+def newVersion = "3.0.6"
 
 changeVersionManifestFile("./dynamicrefactoring.plugin/META-INF/MANIFEST.MF",newVersion)
 changeVersionManifestFile("./dynamicrefactoring.tests/META-INF/MANIFEST.MF",newVersion)
