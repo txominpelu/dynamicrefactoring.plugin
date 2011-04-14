@@ -33,6 +33,7 @@ public enum EclipseBasedJavadocReader implements JavadocReader {
 
 	INSTANCE;
 
+	public static final String JAVADOC_READER_PROJECT_NAME = "JavadocReaderProject";
 	private final IJavaProject javaProject;
 
 	private EclipseBasedJavadocReader() {
@@ -53,7 +54,7 @@ public enum EclipseBasedJavadocReader implements JavadocReader {
 	 */
 	private IJavaProject createProject() throws CoreException {
 		IWorkspaceRoot root = ResourcesPlugin.getWorkspace().getRoot();
-		IProject project = root.getProject("MyProject");
+		IProject project = root.getProject(JAVADOC_READER_PROJECT_NAME);
 		project.delete(true, null);
 		project.create(null);
 		project.open(null);

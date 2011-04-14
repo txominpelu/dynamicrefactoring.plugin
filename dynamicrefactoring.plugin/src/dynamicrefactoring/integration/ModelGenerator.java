@@ -245,10 +245,10 @@ public class ModelGenerator {
 		if (rtPath == null)			
 			rtPath = JRE_root + File.separatorChar + BASIC_JAR; //$NON-NLS-1$
 		
-		//binaryLoader.addClassesFromJar(rtPath);
+		binaryLoader.addClassesFromJar(rtPath);
 		
-		for (int i = 0; i < LIBRARIES.length; i++)
-			binaryLoader.addClassesFromPackageInJar(LIBRARIES[i], rtPath);
+		//for (int i = 0; i < LIBRARIES.length; i++)
+			//binaryLoader.addClassesFromPackageInJar(LIBRARIES[i], rtPath);
 		
 		binaryLoader.load();
 	}

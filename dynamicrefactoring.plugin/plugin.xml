@@ -415,5 +415,15 @@
 			file="tocrefactoring.xml">
 		</toc>
 	</extension>
+ <extension
+       point="org.eclipse.jdt.ui.javaElementFilters">
+    <filter
+          class="dynamicrefactoring.interfaz.wizard.search.javadoc.JavadocReaderViewerFilter"
+          description="Hides the project that allows to read the javadoc documentation"
+          enabled="true"
+          id="dynamicrefactoring.javadocreader.filter"
+          name="javadocreader.filter">
+    </filter>
+ </extension>
 
 </plugin>

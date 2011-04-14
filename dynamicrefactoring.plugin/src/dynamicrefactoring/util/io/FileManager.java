@@ -47,7 +47,10 @@ import dynamicrefactoring.RefactoringPlugin;
  * @author <A HREF="mailto:sfd0009@alu.ubu.es">Sonia Fuente de la Fuente</A>
  * @author <A HREF="mailto:ehp0001@alu.ubu.es">Enrique Herrero Paredes</A>
  */
-public class FileManager {
+public final class FileManager {
+	
+	private FileManager(){}
+	
 
 	/**
 	 * Vac�a un directorio y todos sus subdirectorios.
@@ -193,8 +196,9 @@ public class FileManager {
 	 */
 	public static void copyFile(File in, File out) throws IOException {
 		
-		if (!out.exists())
+		if (!out.exists()) {
 		    out.createNewFile();
+		}
 		
 		FileInputStream input  = new FileInputStream(in);
 		FileOutputStream output  = new FileOutputStream(out);
@@ -358,18 +362,19 @@ public class FileManager {
 	 *         introducido en al funci�n.
 	 */
     public static String AbsoluteToRelative(String rutaAbsoluta){
-    	String rutaRelativa ="";
+    	StringBuffer rutaRelativa = new StringBuffer();
     	int contador=0;
     	boolean comun=false;
     	Object absolute=null;
     	Object actual=null;
     	String rutaActual = new File(".").getAbsolutePath();
 
-    	rutaAbsoluta=rutaAbsoluta.replace("/",File.separator);
-    	rutaAbsoluta=rutaAbsoluta.replace("" + File.separatorChar + "",File.separator);
+    	String rAbsoluta=rutaAbsoluta.replace("/",File.separator);
+    	rAbsoluta=rAbsoluta.replace("" + File.separatorChar + "",File.separator);
 
-    	StringTokenizer st_absolute = new StringTokenizer(rutaAbsoluta,File.separator);
+    	StringTokenizer st_absolute = new StringTokenizer(rAbsoluta,File.separator);
     	StringTokenizer st_actual = new StringTokenizer(rutaActual,File.separator);
+    	
     	while(st_absolute.hasMoreTokens() && st_actual.hasMoreElements() ){
     		absolute =st_absolute.nextElement(); 
     		actual= st_actual.nextElement();
@@ -386,28 +391,25 @@ public class FileManager {
     	}
     	contador++;
 
-    	if(comun==true){
+    	if(comun){
     		if(contador>0){
     			for(int i=1; i<contador; i++){
-    				rutaRelativa=rutaRelativa+".." + File.separator;
+    				rutaRelativa.append(".." + File.separator);
     			}
     		}else if(contador==0){
-    			rutaRelativa=rutaRelativa+"." + File.separator;
+    			rutaRelativa.append("." + File.separator);
     		}
     		while(st_absolute.hasMoreElements()){
-    			rutaRelativa=rutaRelativa+absolute.toString()
-    			+ File.separator;
+    			rutaRelativa.append(absolute.toString()
+    			+ File.separator);
     			absolute=st_absolute.nextElement();
     		}
-    		rutaRelativa=rutaRelativa+absolute.toString();
-    		rutaRelativa=rutaRelativa.replace("" + File.separatorChar + "","/" );
+    		rutaRelativa.append(absolute.toString());
+    		return rutaRelativa.toString().replace("" + File.separatorChar + "","/" );
     	}else{
-    		rutaRelativa=rutaAbsoluta; //estan en distinta unidad y por
+    		return rAbsoluta; //estan en distinta unidad y por
     		//tanto no se puede obtener su ruta relativa.
     	}
-
-    	return rutaRelativa;
-
 
     }
 
@@ -448,8 +450,7 @@ public class FileManager {
 	public static URL getURLForPluginResource(String pluginId, String fullPath) {
 		Bundle bundle = Platform.getBundle(pluginId);
 		Path path = new Path(fullPath);
-		URL fileURL = FileLocator.find(bundle, path, null);
-		return fileURL;
+		return FileLocator.find(bundle, path, null);
 	}
 
 	public static void copyResourceToDir(String resourcePath, String dirPath) throws IOException {

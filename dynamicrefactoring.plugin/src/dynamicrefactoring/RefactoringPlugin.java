@@ -36,6 +36,8 @@ import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.FilenameUtils;
 import org.apache.log4j.Logger;
 import org.eclipse.core.resources.IProject;
+import org.eclipse.core.resources.IWorkspaceRoot;
+import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IConfigurationElement;
 import org.eclipse.core.runtime.IExtension;
@@ -66,6 +68,7 @@ import dynamicrefactoring.interfaz.SelectRefactoringWindow;
 import dynamicrefactoring.interfaz.view.AvailableRefactoringView;
 import dynamicrefactoring.interfaz.view.HistoryView;
 import dynamicrefactoring.interfaz.view.ProgressView;
+import dynamicrefactoring.interfaz.wizard.search.javadoc.EclipseBasedJavadocReader;
 import dynamicrefactoring.listener.IRefactoringRunListener;
 import dynamicrefactoring.util.LogManager;
 import dynamicrefactoring.util.PropertyManager;
@@ -380,7 +383,7 @@ public class RefactoringPlugin extends AbstractUIPlugin
 		try {
 			deleteFiles();
 			FileUtils.deleteQuietly(new File(getNonEditableDynamicRefactoringsDir()));
-						
+			deleteJavadocReaderProject();			
 			myInstance = null;			
 		}
 		catch (Exception e){
@@ -391,14 +394,28 @@ public class RefactoringPlugin extends AbstractUIPlugin
 	}
 
 	/**
+	 * Borra el proyecto creado para obtener la documentacion
+	 * de entradas, acciones, precondiciones y postcondiciones
+	 * en el wizard de crear refactorizaciones.
+	 * 
+	 * @throws CoreException
+	 */
+	private void deleteJavadocReaderProject() throws CoreException {
+		IWorkspaceRoot root = ResourcesPlugin.getWorkspace().getRoot();
+		IProject project = root.getProject(EclipseBasedJavadocReader.JAVADOC_READER_PROJECT_NAME);
+		project.delete(true, null);
+	}
+
+	/**
 	 * Elimina los ficheros temporales generados por el <i>plugin</i> hasta ese
 	 * momento (ficheros de <i>backup</i> y de modelo).
 	 */
 	private void deleteFiles() {
 		String backupDir = getBackupDir();
 		// Si existe el directorio de backup, se asegura de borrarlo.
-		if(FileManager.emptyDirectories(backupDir))
+		if(FileManager.emptyDirectories(backupDir)){
 			FileManager.deleteDirectories(backupDir, true);
+		}
 		
 		FileManager.deleteFile(ModelGenerator.DEFAULT_MOD_NAME);
 		FileManager.deleteFile(RefactoringConstants.REFACTORING_TYPES_FILE);
