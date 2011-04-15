@@ -3,7 +3,7 @@ package dynamicrefactoring.interfaz.view;
 import org.eclipse.swtbot.eclipse.finder.SWTWorkbenchBot;
 import org.eclipse.swtbot.eclipse.finder.widgets.SWTBotView;
 
-public class RefactoringCatalogBrowserViewPage {
+public final class RefactoringCatalogBrowserViewPage {
 
 
 	
@@ -33,12 +33,7 @@ public class RefactoringCatalogBrowserViewPage {
 	public void changeSelectedClassification(String classification){
 		swtBot.comboBoxWithLabel("Classification:").setSelection(classification);
 	}
-	
 
-	public void getCategoryForRefactoring(String refactoringName){
-		
-	}
-	
-	
+
 
 }

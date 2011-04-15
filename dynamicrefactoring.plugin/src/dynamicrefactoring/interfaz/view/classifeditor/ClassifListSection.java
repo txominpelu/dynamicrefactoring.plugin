@@ -21,6 +21,8 @@ import org.eclipse.ui.forms.widgets.FormToolkit;
 import org.eclipse.ui.forms.widgets.ScrolledForm;
 import org.eclipse.ui.forms.widgets.Section;
 
+import com.google.common.collect.ImmutableSortedSet;
+
 import dynamicrefactoring.domain.metadata.imp.SimpleUniLevelClassification;
 import dynamicrefactoring.domain.metadata.interfaces.Category;
 import dynamicrefactoring.domain.metadata.interfaces.Classification;
@@ -36,8 +38,9 @@ import dynamicrefactoring.domain.metadata.interfaces.ClassificationsCatalog;
  * @author imediava
  * 
  */
-public class ClassifListSection {
+public final class ClassifListSection {
 
+	public static final String ADD_CLASSIFICATION_BUTTON_TOOLTIP = "Add Classification";
 	private ClassificationsCatalog catalog;
 	private Table tbClassif;
 
@@ -105,6 +108,7 @@ public class ClassifListSection {
 		cpButLayout.type = SWT.VERTICAL;
 		cpButtons.setLayout(cpButLayout);
 		Button btAdd = toolkit.createButton(cpButtons, "Add..", SWT.NONE);
+		btAdd.setToolTipText(ADD_CLASSIFICATION_BUTTON_TOOLTIP);
 		btAdd.addSelectionListener(new ButtonAddListener());
 		Button btDelete = toolkit.createButton(cpButtons, "Delete..", SWT.NONE);
 		btDelete.addSelectionListener(new ButtonDeleteListener());
@@ -134,7 +138,7 @@ public class ClassifListSection {
 		// borramos los elementos que hay en la tabla
 		tbClassif.remove(0, tbClassif.getItemCount() - 1);
 		// rellenamos con los elementos actuales
-		for (Classification classif : catalog.getAllClassifications()) {
+		for (Classification classif : ImmutableSortedSet.copyOf(catalog.getAllClassifications())) {
 			TableItem item = new TableItem(tbClassif, SWT.NONE);
 			item.setText(classif.getName());
 		}
@@ -185,7 +189,7 @@ public class ClassifListSection {
 		@Override
 		public void widgetSelected(SelectionEvent e) {
 			InputDialog dialog = new InputDialog(tbClassif.getShell(),
-					"Add Classification",
+					ADD_CLASSIFICATION_BUTTON_TOOLTIP,
 					"Please enter the name of the new Classification", "",
 					new NotClassificationAlreadyExistsValidator());
 			if (dialog.open() == IStatus.OK) {

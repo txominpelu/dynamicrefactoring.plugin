@@ -239,8 +239,6 @@ public class RefactoringPlugin extends AbstractUIPlugin
 			FileManager.copyResourceToDir(
 					"/Classification/classifications.xml", getCommonPluginFilesDir());
 		}
-		FileManager.copyResourceToDir("/Classification/classificationsDTD.dtd",
-				getCommonPluginFilesDir());
 		FileManager.copyResourceToDir("/refactoringsDTD.dtd",
 				getCommonPluginFilesDir());
 		FileManager.copyResourceToDir("/refactoringPlanDTD.dtd",

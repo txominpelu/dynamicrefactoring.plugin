@@ -5,12 +5,7 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
 import org.eclipse.swtbot.eclipse.finder.SWTWorkbenchBot;
-import org.eclipse.swtbot.swt.finder.finders.UIThreadRunnable;
 import org.eclipse.swtbot.swt.finder.junit.SWTBotJunit4ClassRunner;
-import org.eclipse.swtbot.swt.finder.results.VoidResult;
-import org.eclipse.swtbot.swt.finder.waits.DefaultCondition;
-import org.eclipse.ui.PlatformUI;
-import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -19,7 +14,7 @@ import dynamicrefactoring.domain.metadata.classifications.xml.imp.PluginClassifi
 import dynamicrefactoring.domain.metadata.interfaces.Category;
 
 @RunWith(SWTBotJunit4ClassRunner.class)
-public class EditRefactoringCategoriesTest {
+public class EditRefactoringCategoriesTest extends AbstractRefactoringWizardTest{
 	
 	private static final String BAD_SMELLS_CLASSIF = "BadSmells";
 
@@ -36,35 +31,12 @@ public class EditRefactoringCategoriesTest {
 	 */
 	@Before
 	public final void setUp(){
-		SWTWorkbenchBot bot = new SWTWorkbenchBot();
-		 UIThreadRunnable.syncExec(new VoidResult() {
-	            public void run() {
-	                PlatformUI.getWorkbench().getActiveWorkbenchWindow().getShell()
-	                        .forceActive();
-	            }
-	        });
-
-			bot .waitUntil(new DefaultCondition() {
-
-				public boolean test() throws Exception {
-					return bot.menu(RefactoringWizardPage1Object.DYNAMIC_REFACTORING_MENU_TEXT).isEnabled();
-				}
-
-				public String getFailureMessage() {
-					return "Menu bar not available";
-				}
-			});
+		SWTWorkbenchBot bot = super.setUpBot();
 		refactoringWizardPageObject = new RefactoringWizardPage1Object(bot);
 		//bot.viewByTitle("Welcome").close();
 	}
 	
-	/**
-	 * Cierra el wizard de crear/editar una refactorizacion.
-	 */
-	@After
-	public final void tearDown(){
-		refactoringWizardPageObject.cancelWizard();
-	}
+	
 	
 	/**
 	 * Comprueba que no se pueden asignar dos categorias a una clasificacion
@@ -131,6 +103,13 @@ public class EditRefactoringCategoriesTest {
 			assertFalse(refactoringWizardPageObject.isCategoryChecked(BAD_SMELLS_CLASSIF, c.getName()));
 		}
 		
+	}
+
+
+
+	@Override
+	public AbstractRefactoringWizardPage getPage() {
+		return refactoringWizardPageObject;
 	}
 
 }

@@ -11,7 +11,7 @@ import org.eclipse.jface.viewers.ViewerFilter;
  * @author imediava
  *
  */
-public class JavadocReaderViewerFilter extends ViewerFilter {
+public class JavadocReaderViewerFilter extends ViewerFilter {	
 	
 	@Override
 	public boolean select(Viewer viewer, Object parentElement, Object element) {

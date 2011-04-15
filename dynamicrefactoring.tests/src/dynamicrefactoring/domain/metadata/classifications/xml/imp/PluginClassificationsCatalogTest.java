@@ -22,7 +22,6 @@ import com.google.common.collect.ImmutableSet;
 import dynamicrefactoring.RefactoringConstants;
 import dynamicrefactoring.RefactoringPlugin;
 import dynamicrefactoring.domain.RefactoringsCatalog;
-import dynamicrefactoring.domain.metadata.classifications.xml.imp.ClassificationsReaderFactory.ClassificationsReaderTypes;
 import dynamicrefactoring.domain.metadata.imp.SimpleUniLevelClassification;
 import dynamicrefactoring.domain.metadata.interfaces.Category;
 import dynamicrefactoring.domain.metadata.interfaces.Classification;
@@ -65,7 +64,7 @@ public final class PluginClassificationsCatalogTest {
 	 * @throws IllegalStateException
 	 */
 	@After
-	public void tearDown() throws IllegalStateException, IOException {
+	public void tearDown() throws IOException {
 		Utils.restoreDefaultRefactorings();
 		FileManager.copyResourceToDir("/Classification/classifications.xml",
 				RefactoringPlugin.getCommonPluginFilesDir());
@@ -104,8 +103,7 @@ public final class PluginClassificationsCatalogTest {
 		
 		assertEquals(
 				catalog.getAllClassifications(),
-				ClassificationsReaderFactory.getReader(
-						ClassificationsReaderTypes.JAXB_READER)
+				ClassificationsReaderFactory.getReader()
 						.readClassifications(
 								RefactoringConstants.CLASSIFICATION_TYPES_FILE));
 	}
@@ -127,8 +125,7 @@ public final class PluginClassificationsCatalogTest {
 				.getClassification(MI_CLASIFICACION1).getCategories());
 		assertEquals(
 				catalog.getAllClassifications(),
-				ClassificationsReaderFactory.getReader(
-						ClassificationsReaderTypes.JAXB_READER)
+				ClassificationsReaderFactory.getReader()
 						.readClassifications(
 								RefactoringConstants.CLASSIFICATION_TYPES_FILE));
 	}
@@ -150,8 +147,7 @@ public final class PluginClassificationsCatalogTest {
 				catalog.getClassification(MI_CLASIFICACION1).getCategories());
 		assertEquals(
 				catalog.getAllClassifications(),
-				ClassificationsReaderFactory.getReader(
-						ClassificationsReaderTypes.JAXB_READER)
+				ClassificationsReaderFactory.getReader()
 						.readClassifications(
 								RefactoringConstants.CLASSIFICATION_TYPES_FILE));
 
@@ -180,8 +176,7 @@ public final class PluginClassificationsCatalogTest {
 
 		assertEquals(
 				catalog.getAllClassifications(),
-				ClassificationsReaderFactory.getReader(
-						ClassificationsReaderTypes.JAXB_READER)
+				ClassificationsReaderFactory.getReader()
 						.readClassifications(
 								RefactoringConstants.CLASSIFICATION_TYPES_FILE));
 
@@ -210,8 +205,7 @@ public final class PluginClassificationsCatalogTest {
 		assertEquals(expectedClassifications, catalog.getAllClassifications());
 		assertEquals(
 				expectedClassifications,
-				ClassificationsReaderFactory.getReader(
-						ClassificationsReaderTypes.JAXB_READER)
+				ClassificationsReaderFactory.getReader()
 						.readClassifications(
 								RefactoringConstants.CLASSIFICATION_TYPES_FILE));
 		assertEquals(newClassification,
@@ -236,8 +230,7 @@ public final class PluginClassificationsCatalogTest {
 		assertEquals(expectedClassifications, catalog.getAllClassifications());
 		assertEquals(
 				expectedClassifications,
-				ClassificationsReaderFactory.getReader(
-						ClassificationsReaderTypes.JAXB_READER)
+				ClassificationsReaderFactory.getReader()
 						.readClassifications(
 								RefactoringConstants.CLASSIFICATION_TYPES_FILE));
 

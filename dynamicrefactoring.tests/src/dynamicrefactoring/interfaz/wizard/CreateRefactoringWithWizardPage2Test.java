@@ -3,17 +3,13 @@ package dynamicrefactoring.interfaz.wizard;
 import static org.junit.Assert.assertTrue;
 
 import org.eclipse.swtbot.eclipse.finder.SWTWorkbenchBot;
-import org.eclipse.swtbot.swt.finder.finders.UIThreadRunnable;
-import org.eclipse.swtbot.swt.finder.results.VoidResult;
-import org.eclipse.swtbot.swt.finder.waits.DefaultCondition;
-import org.eclipse.ui.PlatformUI;
 import org.junit.Before;
 import org.junit.Test;
 
 import dynamicrefactoring.domain.Scope;
 import dynamicrefactoring.domain.metadata.classifications.xml.imp.PluginClassificationsCatalog;
 
-public class CreateRefactoringWithWizardPage2Test {
+public final class CreateRefactoringWithWizardPage2Test extends AbstractRefactoringWizardTest{
 	
 	private RefactoringWizardPage2Object refactoringWizardPage2Object;
 
@@ -22,24 +18,7 @@ public class CreateRefactoringWithWizardPage2Test {
 	 */
 	@Before
 	public void setUp(){
-		SWTWorkbenchBot bot = new SWTWorkbenchBot();
-		 UIThreadRunnable.syncExec(new VoidResult() {
-	            public void run() {
-	                PlatformUI.getWorkbench().getActiveWorkbenchWindow().getShell()
-	                        .forceActive();
-	            }
-	        });
-
-			bot .waitUntil(new DefaultCondition() {
-
-				public boolean test() throws Exception {
-					return bot.menu(RefactoringWizardPage1Object.DYNAMIC_REFACTORING_MENU_TEXT).isEnabled();
-				}
-
-				public String getFailureMessage() {
-					return "Menu bar not available";
-				}
-			});
+		SWTWorkbenchBot bot = super.setUpBot();
 		refactoringWizardPage2Object = goToSecondPage(bot);
 		//bot.viewByTitle("Welcome").close();
 	}
@@ -69,6 +48,11 @@ public class CreateRefactoringWithWizardPage2Test {
 	public void canGoToNextPageTest(){
 		refactoringWizardPage2Object.markInputAsMain("moon.core.Model (1)");
 		assertTrue(refactoringWizardPage2Object.canGoToNextPage());
+	}
+
+	@Override
+	public AbstractRefactoringWizardPage getPage() {
+		return refactoringWizardPage2Object;
 	}
 
 }

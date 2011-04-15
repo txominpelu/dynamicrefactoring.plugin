@@ -3,7 +3,7 @@
   <xs:element name="classifications" type="classificationsType"/>
   <xs:complexType name="categoriesType">
     <xs:sequence>
-      <xs:element name="category" maxOccurs="unbounded" minOccurs="1">
+      <xs:element name="category" maxOccurs="unbounded" minOccurs="0">
         <xs:simpleType>
           <xs:restriction base="xs:string">
           </xs:restriction>

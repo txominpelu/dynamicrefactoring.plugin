@@ -275,8 +275,7 @@ abstract class AbstractCatalog implements ClassificationsCatalog {
 			String classifFile) {
 		try {
 			Set<Classification> classifications = ClassificationsReaderFactory
-					.getReader(
-							ClassificationsReaderFactory.ClassificationsReaderTypes.JAXB_READER)
+					.getReader()
 					.readClassifications(classifFile);
 			return classifications;
 		} catch (ValidationException e) {
