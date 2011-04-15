@@ -1,6 +1,7 @@
 package dynamicrefactoring.interfaz.wizard.classificationscombo;
 
 import java.util.Set;
+import java.util.TreeSet;
 
 import org.eclipse.jface.viewers.ITreeContentProvider;
 import org.eclipse.jface.viewers.Viewer;
@@ -29,8 +30,8 @@ class ClassificationsTreeContentProvider implements ITreeContentProvider {
 
 		@SuppressWarnings("unchecked")
 		Set<Classification> classifications = (Set<Classification>) inputElement;
-		this.availableClassifications = classifications;
-		return ((Set<?>) inputElement).toArray();
+		this.availableClassifications = new TreeSet<Classification>(classifications);
+		return (new TreeSet<Classification>(availableClassifications)).toArray();
 
 	}
 

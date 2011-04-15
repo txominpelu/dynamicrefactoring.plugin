@@ -2,6 +2,7 @@ package dynamicrefactoring.interfaz.wizard.classificationscombo;
 
 import java.util.HashSet;
 import java.util.Set;
+import java.util.TreeSet;
 
 import org.eclipse.jface.viewers.CheckboxTreeViewer;
 import org.eclipse.jface.viewers.ICheckStateListener;
@@ -201,7 +202,7 @@ public final class PickCategoryTree {
 	 */
 	static Object[] createClassificationChildren(Object parentElement) {
 		Classification cl = (Classification) parentElement;
-		return cl.getCategories().toArray();
+		return new TreeSet<Category>(cl.getCategories()).toArray();
 	}
 
 	/**
