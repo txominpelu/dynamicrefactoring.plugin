@@ -34,9 +34,10 @@ import org.eclipse.swt.events.ModifyEvent;
 import org.eclipse.swt.events.ModifyListener;
 import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.events.SelectionListener;
-import org.eclipse.swt.layout.FormAttachment;
-import org.eclipse.swt.layout.FormData;
-import org.eclipse.swt.layout.FormLayout;
+import org.eclipse.swt.graphics.FontMetrics;
+import org.eclipse.swt.graphics.GC;
+import org.eclipse.swt.layout.GridData;
+import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.FileDialog;
@@ -74,6 +75,10 @@ import dynamicrefactoring.util.io.filter.ImageFilter;
  * @author <A HREF="mailto:ehp0001@alu.ubu.es">Enrique Herrero Paredes</A>
  */
 public final class RefactoringWizardPage1 extends WizardPage {
+
+	private static final int WIZARD_WINDOW_HEIGHT = 700;
+
+	private static final int WIZARD_WINDOW_WIDTH = 650;
 
 	/**
 	 * Refactorización configurada a trav�s del asistente y que debe ser creada
@@ -155,81 +160,83 @@ public final class RefactoringWizardPage1 extends WizardPage {
 	 *            el elemento padre de esta p�gina.
 	 */
 	public void createControl(Composite parent) {
-		Composite container = new Composite(parent, SWT.NULL);
-		container.setLayout(new FormLayout());
 
-		setControl(container);
+		Composite composite = new Composite(parent, SWT.NULL);
+		final GridLayout compositeLayout = new GridLayout(2, false);
+		compositeLayout.verticalSpacing = 10;
+		composite.setLayout(compositeLayout);
 
-		final Composite composite = new Composite(container, SWT.NONE);
-		final FormData fd_composite = new FormData();
-		fd_composite.left = new FormAttachment(0, 5);
-		fd_composite.top = new FormAttachment(0, 5);
-		fd_composite.bottom = new FormAttachment(100, -5);
-		fd_composite.right = new FormAttachment(100, -5);
-		composite.setLayoutData(fd_composite);
+		setControl(composite);
 
-		final Label nameLabel = new Label(composite, SWT.NONE);
-		nameLabel.setText(Messages.RefactoringWizardPage1_Name);
-		nameLabel.setBounds(10, 20, 52, 13);
-
+		//Name
+		createLabel(composite, Messages.RefactoringWizardPage1_Name, SWT.CENTER);
 		nameText = new Text(composite, SWT.BORDER);
-		nameText.setToolTipText(Messages.RefactoringWizardPage1_FillInName);
-		nameText.setBounds(80, 15, 534, 25);
+		nameText.setLayoutData(getUniLineTextGridData());
+		this.nameText.addModifyListener(new ModifyListener() {
+			public void modifyText(ModifyEvent e) {
+				dialogChanged();
+			}
+		});
 
-		final Label descriptionLabel = new Label(composite, SWT.NONE);
-		descriptionLabel.setText(Messages.RefactoringWizardPage1_Description);
-		descriptionLabel.setBounds(10, 54, 57, 13);
+		//Description
+		createLabel(composite, Messages.RefactoringWizardPage1_Description);
+		descriptionText = createMultiLineText(composite, Messages.RefactoringWizardPage1_GiveDescription);
+		this.descriptionText.addModifyListener(new ModifyListener() {
+			public void modifyText(ModifyEvent e) {
+				dialogChanged();
+			}
+		});
 
-		descriptionText = new Text(composite, SWT.BORDER | SWT.MULTI | SWT.WRAP);
-		descriptionText
-				.setToolTipText(Messages.RefactoringWizardPage1_GiveDescription);
-		descriptionText.setBounds(80, 55, 534, 97);
+		//Image
+		createLabel(composite, Messages.RefactoringWizardPage1_Image, SWT.CENTER);
+		createSelectImageComposite(composite);
 
-		final Label imageLabel = new Label(composite, SWT.NONE);
-		imageLabel.setText(Messages.RefactoringWizardPage1_Image);
-		imageLabel.setBounds(10, 170, 52, 13);
+		//Motivation
+		createLabel(composite, Messages.RefactoringWizardPage1_Motivation);
+		motivationText = createMultiLineText(composite, Messages.RefactoringWizardPage1_GiveMotivation);
+		this.motivationText.addModifyListener(new ModifyListener() {
+			public void modifyText(ModifyEvent e) {
+				dialogChanged();
+			}
+		});
 
-		imageText = new Text(composite, SWT.BORDER);
-		imageText.setToolTipText(Messages.RefactoringWizardPage1_SelectImage);
-		imageText.setBounds(80, 167, 498, 25);
+		//Keywords
+		createLabel(composite, Messages.RefactoringWizardPage1_Keywords);
+		keywordsText = createMultiLineText(composite, Messages.RefactoringWizardPage1_Give_Keywords);
 
-		final Button examineButton = new Button(composite, SWT.NONE);
-		examineButton.setText("..."); //$NON-NLS-1$
-		examineButton.setBounds(584, 167, 30, 25);
-		examineButton.addSelectionListener(new ImageChooserAction());
+		//Categories
+		createLabel(composite, Messages.RefactoringWizardPage1_Categories);
+		categoryTree = createCategoryTree(composite);
 
-		final Label motivationLabel = new Label(composite, SWT.NONE);
-		motivationLabel.setText(Messages.RefactoringWizardPage1_Motivation);
-		motivationLabel.setBounds(12, 210, 50, 13);
 
-		motivationText = new Text(composite, SWT.BORDER | SWT.MULTI | SWT.WRAP);
-		motivationText
-				.setToolTipText(Messages.RefactoringWizardPage1_GiveMotivation);
-		motivationText.setBounds(80, 207, 534, 97);
+		if (refactoring != null) {
+			fillInRefactoringData();
+		}
 
-		final Label keywordsLabel = new Label(composite, SWT.NONE);
-		// FIXME: Internacionalizar
-		keywordsLabel.setText("Keywords");
-		keywordsLabel.setBounds(12, 320, 50, 13);
+	}
 
-		keywordsText = new Text(composite, SWT.BORDER | SWT.MULTI | SWT.WRAP);
-		// FIXME: Internacionalizar
-		keywordsText
-				.setToolTipText("Establish a set of KeyWords to identify the refactoring.");
-		keywordsText.setBounds(80, 317, 534, 57);
-
-		final Label categoriesLabel = new Label(composite, SWT.NONE);
-		// FIXME: Internacionalizar el texto
-		categoriesLabel.setText("Categories");
-		categoriesLabel.setBounds(12, 390, 50, 13);
-
+	/**
+	 * Crea el arbol para escoger las categorias de una refactorizacion.
+	 * 
+	 * @param composite padre del control 
+	 * @return arbol para escoger las categorias de una refactorizacion
+	 */
+	private PickCategoryTree createCategoryTree(Composite composite) {
 		Set<Category> categories = (refactoring == null ? new HashSet<Category>()
 				: refactoring.getCategories());
-		categoryTree = new PickCategoryTree(composite, PluginClassificationsCatalog
-				.getInstance().getAllClassifications(), categories);
-		categoryTree.getControl().setBounds(80, 390, 534, 160);
+		PickCategoryTree pickCategoryTree = new PickCategoryTree(composite,
+				PluginClassificationsCatalog.getInstance()
+						.getAllClassifications(), categories);
 
-		categoryTree.getControl().addFocusListener(new FocusListener() {
+		GridData categoryTreeGridData = new GridData();
+		categoryTreeGridData.grabExcessHorizontalSpace = true;
+		categoryTreeGridData.horizontalAlignment = GridData.FILL;
+		categoryTreeGridData.grabExcessVerticalSpace = true;
+		categoryTreeGridData.verticalAlignment = GridData.FILL;
+
+		pickCategoryTree.getControl().setLayoutData(categoryTreeGridData);
+
+		pickCategoryTree.getControl().addFocusListener(new FocusListener() {
 			@Override
 			public void focusGained(FocusEvent e) {
 			}
@@ -239,28 +246,118 @@ public final class RefactoringWizardPage1 extends WizardPage {
 				dialogChanged();
 			}
 		});
-		
-		this.nameText.addModifyListener(new ModifyListener() {
-			public void modifyText(ModifyEvent e) {
-				dialogChanged();
-			}
-		});
+		return pickCategoryTree;
+	}
 
-		this.descriptionText.addModifyListener(new ModifyListener() {
-			public void modifyText(ModifyEvent e) {
-				dialogChanged();
-			}
-		});
+	/**
+	 * Crea un label para el wizard con
+	 * alineacion vertical BEGINNING.
+	 * 
+	 * @param composite padre del label
+	 * @param labelText texto del label
+	 */
+	private void createLabel(Composite composite, String labelText) {
+		createLabel(composite, labelText, SWT.BEGINNING);
+	}
+	
+	/**
+	 * Crea un label para el wizard.
+	 * 
+	 * @param composite padre del label
+	 * @param labelText texto del label
+	 * @param verticalAlignment alineacion vertical del label
+	 */
+	private void createLabel(Composite composite, String labelText, int verticalAlignment) {
+		final Label descriptionLabel = new Label(composite, SWT.NONE);
+		GridData labelLayoutData = new GridData();
+		labelLayoutData.verticalAlignment = verticalAlignment;
+		descriptionLabel.setLayoutData(labelLayoutData);
+		descriptionLabel.setText(labelText);
+	}
 
-		this.motivationText.addModifyListener(new ModifyListener() {
-			public void modifyText(ModifyEvent e) {
-				dialogChanged();
-			}
-		});
+	/**
+	 * Crea un cuadro de texto multilinea con los parametros pasados.
+	 * 
+	 * @param composite padre del cuadro de texto
+	 * @param toolTipText toolTip que tendra el cuadro de texto
+	 * @return devuelve el cuadro de texto creado
+	 */
+	private Text createMultiLineText(Composite composite, String toolTipText) {
+		Text text = new Text(composite, SWT.BORDER | SWT.MULTI);
+		text.setToolTipText(toolTipText);
+		text.setLayoutData(getMultiLineTextGridData());
+		return text;
+	}
 
-		if (refactoring != null) {
-			fillInRefactoringData();
-		}
+	/**
+	 * Crea el composite que dibuja el cuadro de texto 
+	 * de la imagen y el boton de escoger la imagen.
+	 * 
+	 * @param compositeParent padre del composite a crear
+	 */
+	private void createSelectImageComposite(Composite compositeParent) {
+		Composite imageComposite = new Composite(compositeParent, SWT.NONE);
+		GridData imageCompositeData = new GridData();
+		imageCompositeData.horizontalAlignment = GridData.FILL;
+		imageCompositeData.grabExcessHorizontalSpace = true;
+		imageComposite.setLayoutData(imageCompositeData);
+		imageComposite.setLayout(new GridLayout(2, false));
+
+		imageText = new Text(imageComposite, SWT.BORDER);
+		GridData imageTextData = new GridData();
+		imageTextData.grabExcessHorizontalSpace = true;
+		imageTextData.horizontalAlignment = GridData.FILL;
+		imageText.setToolTipText(Messages.RefactoringWizardPage1_SelectImage);
+		imageText.setLayoutData(imageTextData);
+
+		final Button examineButton = new Button(imageComposite, SWT.NONE);
+		examineButton.setText("..."); //$NON-NLS-1$
+		examineButton.addSelectionListener(new ImageChooserAction());
+	}
+
+	/**
+	 * Obtiene el gridData con la configuracion adecuada para los cuadros de
+	 * texto multilinea en la pagina.
+	 * 
+	 * @return gridData con la configuracion para los cuadros de texto multilinea
+	 */
+	private GridData getMultiLineTextGridData() {
+		GridData multiLineTextGridData = new GridData();
+		multiLineTextGridData.grabExcessHorizontalSpace = true;
+		multiLineTextGridData.horizontalAlignment = GridData.FILL;
+		multiLineTextGridData.heightHint = getMultiLineTextFieldHeight(4);
+		return multiLineTextGridData;
+	}
+
+	/**
+	 * Obtiene el gridData con la configuracion adecuada para los cuadros de
+	 * texto de una sola linea en la pagina.
+	 * 
+	 * @return gridData con la configuracion para los cuadros de texto de una
+	 *         sola linea
+	 */
+	private GridData getUniLineTextGridData() {
+		GridData uniLineTextGridData = new GridData();
+		uniLineTextGridData.grabExcessHorizontalSpace = true;
+		uniLineTextGridData.horizontalAlignment = GridData.FILL;
+		uniLineTextGridData.verticalAlignment = GridData.BEGINNING;
+		return uniLineTextGridData;
+	}
+
+	/**
+	 * Dado un numero de lineas de un cuadro de texto multilinea devuelve la
+	 * altura que debera tener ese cuadro de texto en pixeles.
+	 * 
+	 * @param numLines
+	 *            numero de lineas que tendra el cuadro de texto
+	 * @return altura que debera tener el cuadro de texto en pixeles
+	 */
+	private int getMultiLineTextFieldHeight(int numLines) {
+		GC gc = new GC(nameText);
+		FontMetrics fm = gc.getFontMetrics();
+		int height = fm.getHeight() * numLines;
+		gc.dispose();
+		return height;
 	}
 
 	/**
@@ -283,7 +380,7 @@ public final class RefactoringWizardPage1 extends WizardPage {
 		if (refactoring.getKeywords() != null
 				&& refactoring.getKeywords().size() > 0) {
 			keywordsText
-					.setText(Joiner.on(",").join(refactoring.getKeywords()));
+					.setText(Joiner.on(",").join(refactoring.getKeywords())); //$NON-NLS-1$
 		}
 		dialogChanged();
 	}
@@ -297,10 +394,10 @@ public final class RefactoringWizardPage1 extends WizardPage {
 			updateStatus(Messages.RefactoringWizardPage1_NameNeeded);
 			return;
 		}
-		if ((refactoring==null ||
-			(refactoring!=null && !this.getNameText().getText().equalsIgnoreCase(refactoring.getName())))
-				&&
-			 ((RefactoringWizard)this.getWizard()).refactCatalog.hasRefactoring(getNameText().getText().trim())	) {
+		if ((refactoring == null || (!this.getNameText().getText()
+				.equalsIgnoreCase(refactoring.getName())))
+				&& ((RefactoringWizard) this.getWizard()).refactCatalog
+						.hasRefactoring(getNameText().getText().trim())) {
 			updateStatus(Messages.RefactoringWizardPage1_NameInUse);
 			return;
 		}
@@ -312,9 +409,10 @@ public final class RefactoringWizardPage1 extends WizardPage {
 			updateStatus(Messages.RefactoringWizardPage1_MotivationNeeded);
 			return;
 		}
-		if (!DynamicRefactoringDefinition.containsScopeCategory(getCategories())) {
-			//TODO: Internacionalizar
-			updateStatus("The refactoring must belong to at least one scope.");
+		if (!DynamicRefactoringDefinition
+				.containsScopeCategory(getCategories())) {
+			// TODO: Internacionalizar
+			updateStatus("The refactoring must belong to at least one scope."); //$NON-NLS-1$
 			return;
 		}
 		updateStatus(null);
@@ -339,9 +437,10 @@ public final class RefactoringWizardPage1 extends WizardPage {
 	 */
 	final Set<String> getKeywords() {
 		Set<String> keywords = new HashSet<String>();
-		for (String keyword : keywordsText.getText().split(",")) {
-			if(keyword.trim().length()>0)
+		for (String keyword : keywordsText.getText().split(",")) { //$NON-NLS-1$
+			if (keyword.trim().length() > 0) {
 				keywords.add(keyword.trim().toLowerCase());
+			}
 		}
 		return keywords;
 	}
@@ -351,7 +450,7 @@ public final class RefactoringWizardPage1 extends WizardPage {
 	 * 
 	 * @return el campo de texto con la descripci�n de la refactorizaci�n.
 	 */
-	public final Text getDescriptionText() {
+	public Text getDescriptionText() {
 		return this.descriptionText;
 	}
 
@@ -362,7 +461,7 @@ public final class RefactoringWizardPage1 extends WizardPage {
 	 * @return el campo de texto con la motivaci�n asociada a la
 	 *         refactorizaci�n.
 	 */
-	public final Text getMotivationText() {
+	public Text getMotivationText() {
 		return this.motivationText;
 	}
 
@@ -371,7 +470,7 @@ public final class RefactoringWizardPage1 extends WizardPage {
 	 * 
 	 * @return el campo de texto con el nombre de la refactorizaci�n.
 	 */
-	public final Text getNameText() {
+	public Text getNameText() {
 		return this.nameText;
 	}
 
@@ -382,7 +481,7 @@ public final class RefactoringWizardPage1 extends WizardPage {
 	 * @return el campo de texto con la ruta de la imagen esquem�tica de la
 	 *         refactorizaci�n.
 	 */
-	public final Text getImageNameText() {
+	public Text getImageNameText() {
 		return this.imageText;
 	}
 
@@ -392,7 +491,7 @@ public final class RefactoringWizardPage1 extends WizardPage {
 	 * 
 	 * @return categorias a las que pertenece la refactorizacion
 	 */
-	public final Set<Category> getCategories() {
+	public Set<Category> getCategories() {
 		return categoryTree.getRefactoringCategories();
 	}
 
@@ -431,8 +530,9 @@ public final class RefactoringWizardPage1 extends WizardPage {
 					+ File.separatorChar + ".."); //$NON-NLS-1$ //$NON-NLS-2$
 
 			String returnVal = chooser.open();
-			if (returnVal != null)
+			if (returnVal != null) {
 				imageText.setText(returnVal);
+			}
 		}
 
 		/**

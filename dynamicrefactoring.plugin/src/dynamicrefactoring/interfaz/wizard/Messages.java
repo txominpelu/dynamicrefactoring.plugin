@@ -99,12 +99,15 @@ public class Messages extends NLS {
 	public static String RefactoringWizard_NotSaved;
 	public static String RefactoringWizard_RefactoringSuccessfully;
 	public static String RefactoringWizard_WizardTitle;
+	public static String RefactoringWizardPage1_Categories;
 	public static String RefactoringWizardPage1_Description;
 	public static String RefactoringWizardPage1_DescriptionNeeded;
 	public static String RefactoringWizardPage1_FillInName;
+	public static String RefactoringWizardPage1_Give_Keywords;
 	public static String RefactoringWizardPage1_GiveDescription;
 	public static String RefactoringWizardPage1_GiveMotivation;
 	public static String RefactoringWizardPage1_Image;
+	public static String RefactoringWizardPage1_Keywords;
 	public static String RefactoringWizardPage1_Motivation;
 	public static String RefactoringWizardPage1_MotivationNeeded;
 	public static String RefactoringWizardPage1_Name;

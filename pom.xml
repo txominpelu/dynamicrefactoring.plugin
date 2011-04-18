@@ -6,6 +6,7 @@
   <version>3.0.6</version>
   <packaging>pom</packaging>
   <properties>
+    <org.eclipse.swtbot.playback.poll.delay>1500</org.eclipse.swtbot.playback.poll.delay>
     <tycho-version>0.10.0</tycho-version>
     <jacoco.agent.path>lib/jacocoagent.jar</jacoco.agent.path>
     <jacoco.file.path>../cobertura/jacoco.exec</jacoco.file.path>
