@@ -2,6 +2,8 @@ package dynamicrefactoring.domain.metadata.interfaces;
 
 import java.util.Set;
 
+import dynamicrefactoring.domain.DynamicRefactoringDefinition;
+
 /**
  * Catalogo que contiene las clasificaciones existentes en la aplicacion y
  * provee de metodos para editarlas y acceder a sus datos.
@@ -171,5 +173,16 @@ public interface ClassificationsCatalog {
 	 * @param string
 	 */
 	void setDescription(String miClasificacion2, String string);
+
+	/**
+	 * Devuelve la lista de todas las refactorizaciones que pertenecen a varias
+	 * categorias en la clasificacion.
+	 * 
+	 * @param classificationName
+	 *            nombre de la clasificacion
+	 * @return lista de clasificaciones que pertenecen a mas de una categoria en la clasificacion
+	 */
+	Set<DynamicRefactoringDefinition> getClassifMultiCategoryRefactorings(
+			String classificationName);
 
 }

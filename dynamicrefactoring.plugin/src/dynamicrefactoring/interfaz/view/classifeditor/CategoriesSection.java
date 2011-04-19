@@ -174,8 +174,10 @@ public class CategoriesSection {
 
 		@Override
 		public void widgetSelected(SelectionEvent e) {
-			removeCategory(tbCategories.getSelection()[0].getText());
-			updateTable();
+			if(tbCategories.getSelectionCount() > 0){
+				removeCategory(tbCategories.getSelection()[0].getText());
+				updateTable();
+			}
 		}
 	}
 

@@ -425,5 +425,15 @@
           name="javadocreader.filter">
     </filter>
  </extension>
+ <extension
+       point="org.eclipse.ui.editors">
+    <editor
+          class="dynamicrefactoring.interfaz.view.classifeditor.ClassificationsEditorView"
+          default="false"
+          icon="icons/class_edit.png"
+          id="dynamicrefactoring.editors.refactoringClasificationsEditorView"
+          name="%dynamicrefactoring.views.refactoringClasificationsEditorView">
+    </editor>
+   </extension>
 
 </plugin>

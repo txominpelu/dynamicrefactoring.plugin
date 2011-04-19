@@ -50,6 +50,8 @@ abstract class AbstractCatalog implements ClassificationsCatalog {
 		for (Category c : getClassification(classification).getCategories()) {
 			removeCategory(classification, c.getName());
 		}
+		Classification oldClassif = getClassification(classification);
+		classifications.remove(oldClassif);
 	}
 
 	/**
@@ -156,13 +158,8 @@ abstract class AbstractCatalog implements ClassificationsCatalog {
 		}
 		Classification oldClassif = getClassification(classification);
 		classifications.remove(oldClassif);
-		if (!oldClassif
-				.removeCategory(new Category(classification, categoryName))
-				.getCategories().isEmpty()) {
-			classifications.add(oldClassif.removeCategory(new Category(
+		classifications.add(oldClassif.removeCategory(new Category(
 					classification, categoryName)));
-		}
-
 	}
 
 	@Override
@@ -322,6 +319,28 @@ abstract class AbstractCatalog implements ClassificationsCatalog {
 			}
 		}
 		return false;
+	}
+	
+	/**
+	 * Devuelve la lista de todas las refactorizaciones que pertenecen a varias
+	 * categorias en la clasificacion.
+	 * 
+	 * @param classificationName
+	 *            nombre de la clasificacion
+	 * @return lista de clasificaciones que pertenecen a mas de una categoria en la clasificacion
+	 */
+	@Override
+	public Set<DynamicRefactoringDefinition> getClassifMultiCategoryRefactorings(String classificationName) {
+		Preconditions.checkArgument(containsClassification(classificationName));
+		Classification classif = getClassification(classificationName);
+		Set<DynamicRefactoringDefinition> multicategoryRefactorings = new HashSet<DynamicRefactoringDefinition>();
+		for (DynamicRefactoringDefinition refact : refactCatalog
+				.getAllRefactorings()) {
+			if (refactBelongToMultipleCategories(classif, refact)) {
+				multicategoryRefactorings.add(refact);
+			}
+		}
+		return multicategoryRefactorings;
 	}
 
 

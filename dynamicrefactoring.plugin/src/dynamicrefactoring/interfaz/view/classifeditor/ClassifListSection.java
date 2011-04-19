@@ -13,6 +13,7 @@ import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.layout.RowLayout;
 import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Composite;
+import org.eclipse.swt.widgets.Event;
 import org.eclipse.swt.widgets.Table;
 import org.eclipse.swt.widgets.TableItem;
 import org.eclipse.ui.forms.events.ExpansionAdapter;
@@ -131,10 +132,10 @@ public final class ClassifListSection {
 	}
 
 	/**
-	 * Rellena la lista de clasificaciones del catalogo.
+	 * Rellena la tabla con la lista de clasificaciones del catalogo.
 	 * 
 	 */
-	private final void updateTable() {
+	private void updateTable() {
 		// borramos los elementos que hay en la tabla
 		tbClassif.remove(0, tbClassif.getItemCount() - 1);
 		// rellenamos con los elementos actuales
@@ -179,8 +180,11 @@ public final class ClassifListSection {
 
 		@Override
 		public void widgetSelected(SelectionEvent e) {
-			removeClassification(tbClassif.getSelection()[0].getText());
-			updateTable();
+			if(tbClassif.getSelectionCount() > 0){
+				removeClassification(tbClassif.getSelection()[0].getText());
+				updateTable();
+				selectClassificationAndUpdateGUI(0);
+			}
 		}
 	}
 
@@ -195,6 +199,7 @@ public final class ClassifListSection {
 			if (dialog.open() == IStatus.OK) {
 				addClassification(new SimpleUniLevelClassification(dialog.getValue(),"", new HashSet<Category>()));
 				updateTable();
+				selectClassificationAndUpdateGUI(getTableClassificationIndex(dialog.getValue()));
 			}
 
 		}
@@ -210,12 +215,47 @@ public final class ClassifListSection {
 					"Please enter the new name of the classification", "",
 					new NotClassificationAlreadyExistsValidator());
 			if (dialog.open() == IStatus.OK) {
-				String categoryNewName = dialog.getValue();
-				renameClassification(oldName, categoryNewName);
+				String newName = dialog.getValue();
+				renameClassification(oldName, newName);
 				updateTable();
+				selectClassificationAndUpdateGUI(getTableClassificationIndex(newName));
 			}
 
 		}
+	}
+	
+	/**
+	 * Dada una clasificacion que debe existir en la tabla 
+	 * (sino salta IllegalArgumentException) 
+	 * 
+	 * devuelve el indice que ocupa dicha clasificacion en la
+	 * tabla.
+	 * 
+	 * 
+	 * @param classificationName nombre de la clasificacion
+	 * @return indice de la clasificacion en la tabla
+	 */
+	private int getTableClassificationIndex(String classificationName){
+		for(int i = 0; i < tbClassif.getItems().length; i++){
+			if(tbClassif.getItems()[i].getText().equals(classificationName)){
+				return i;
+			}
+		}
+		throw new IllegalArgumentException();
+	}
+
+	/**
+	 * Selecciona la clasificacion en el indice dado y lanza el evento
+	 * de selección para que el resto de secciones del editor de clasificaciones
+	 * se actualice.
+	 * 
+	 * @param index indice del elemento a seleccionar
+	 */
+	private void selectClassificationAndUpdateGUI(int index) {
+		// Seleccionamos el primer elemento de la lista
+		tbClassif.select(index);
+		// Hacemos que se actualice la interfaz con el cambio
+		tbClassif.notifyListeners(SWT.Selection, new Event());
 	}
 
 	private class NotClassificationAlreadyExistsValidator implements IInputValidator {

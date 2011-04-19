@@ -14,6 +14,7 @@ import org.eclipse.jface.action.IAction;
 import org.eclipse.jface.action.IContributionItem;
 import org.eclipse.jface.action.IToolBarManager;
 import org.eclipse.jface.dialogs.MessageDialog;
+import org.eclipse.jface.resource.ImageDescriptor;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.custom.SashForm;
 import org.eclipse.swt.custom.ScrolledComposite;
@@ -45,6 +46,8 @@ import org.eclipse.swt.widgets.Text;
 import org.eclipse.swt.widgets.ToolTip;
 import org.eclipse.swt.widgets.Tree;
 import org.eclipse.swt.widgets.TreeItem;
+import org.eclipse.ui.IEditorInput;
+import org.eclipse.ui.IPersistableElement;
 import org.eclipse.ui.IWorkbenchWindow;
 import org.eclipse.ui.PartInitException;
 import org.eclipse.ui.PlatformUI;
@@ -831,7 +834,42 @@ public class RefactoringCatalogBrowserView extends ViewPart {
 	public void editClassification() {
 		try {
 			PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage()
-					.showView(ClassificationsEditorView.ID);
+					.openEditor(new IEditorInput(){
+
+						@Override
+						public Object getAdapter(Class adapter) {
+							// TODO Auto-generated method stub
+							return null;
+						}
+
+						@Override
+						public boolean exists() {
+							return false;
+						}
+
+						@Override
+						public ImageDescriptor getImageDescriptor() {
+							// TODO Auto-generated method stub
+							return null;
+						}
+
+						@Override
+						public String getName() {
+							return "Classifications Editor";
+						}
+
+						@Override
+						public IPersistableElement getPersistable() {
+							// TODO Auto-generated method stub
+							return null;
+						}
+
+						@Override
+						public String getToolTipText() {
+							return "Classifications Editor";
+						}
+						
+					}, ClassificationsEditorView.ID);
 		} catch (PartInitException e) {
 			throw Throwables.propagate(e);
 		}
