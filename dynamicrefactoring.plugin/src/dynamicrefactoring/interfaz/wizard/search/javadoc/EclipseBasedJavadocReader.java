@@ -88,23 +88,15 @@ public enum EclipseBasedJavadocReader implements JavadocReader {
 		}
 		javaProject.setRawClasspath(
 				entries.toArray(new IClasspathEntry[entries.size()]), null);
-		addLibraryToReaderClassPath(new Path(
-				RefactoringConstants.REFACTORING_CLASSES_DIR), getClass()
-				.getResource("/doc/javadoc/").toString());
-		try {
-			addLibraryToReaderClassPath(
-					new Path(FileLocator.toFileURL(
-							getClass().getResource("/lib/" + "moon-2.4.1.jar"))
-							.getFile()),
-					getClass().getResource("/doc/javadoc/moon/").toString());
-			addLibraryToReaderClassPath(
-					new Path(FileLocator.toFileURL(
-							getClass().getResource(
-									"/lib/" + "javamoon-2.6.0.jar")).getFile()),
-					getClass().getResource("/doc/javadoc/javamoon/").toString());
-		} catch (IOException e) {
-			throw Throwables.propagate(e);
-		}
+		addLibraryToReaderClassPath(
+				new Path(RefactoringConstants.REFACTORING_CLASSES_DIR), 
+				getClass().getResource("/doc/javadoc/").toString());
+		addLibraryToReaderClassPath(
+				new Path(RefactoringConstants.getLibDir()),
+				getClass().getResource("/doc/javadoc/moon/").toString());
+		addLibraryToReaderClassPath(
+				new Path(RefactoringConstants.getJavaLibDir()),
+				getClass().getResource("/doc/javadoc/javamoon/").toString());
 
 	}
 

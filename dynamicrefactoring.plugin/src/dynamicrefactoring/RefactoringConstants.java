@@ -44,12 +44,12 @@ public class RefactoringConstants {
 	/**
 	 * Nombre del fichero .jar que almacena las clases que componen el modelo moon.
 	 */
-	public static final String BIBLIOTECA_MOON = "moon-2.4.1.jar";
+	public static final String BIBLIOTECA_MOON = "moon-2.4.2.jar";
 	
 	/**
 	 * Nombre del fichero .jar que almacena las clases que componen el modelo javamoon.
 	 */
-	public static final String BIBLIOTECA_JAVA = "javamoon-2.6.0.jar";
+	public static final String BIBLIOTECA_JAVA = "javamoon-2.6.1.jar";
 
 	/**
 	 * Nombre del fichero en el que se guardan las distintas refactorizaciones

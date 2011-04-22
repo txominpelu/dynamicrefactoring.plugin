@@ -110,7 +110,7 @@ public class AddEnumTypeWithClassData extends Action {
 			      try{
 			    	  if(attribute.hasInitializer()&& attribute.getInitializer().getClass().equals(Class.forName("javamoon.core.expression.JavaCallExprCreation"))){
 			    		  List<Expr> inicializacion =  new ArrayList<Expr>();
-			    		  for(Expr e : ((JavaCallExprCreation)attribute.getInitializer()).getExpression().getRealArguments()){
+			    		  for(Expr e : ((JavaCallExprCreation)attribute.getInitializer()).getRealArguments()){
 			    			  inicializacion.add(e);
 			    		  }
 			    		  constant.setSignature(inicializacion);
