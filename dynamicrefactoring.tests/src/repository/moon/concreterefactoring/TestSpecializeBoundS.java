@@ -62,8 +62,6 @@ public class TestSpecializeBoundS extends RefactoringTemplateAbstractTest {
 	public void testSimple() throws Exception{
 
 		SourceLoader sourceLoader = new SourceLoader();
-		System.out.println(formatString(
-		"./testdata/repository/moon/concreterefactoring/TestSpecializeBoundS/testSimple"));
 		sourceLoader.loadFromDirectory(formatString(
 			"./testdata/repository/moon/concreterefactoring/TestSpecializeBoundS/testSimple"));		 //$NON-NLS-1$
 		JavaModel jm = JavaModel.getInstance();
