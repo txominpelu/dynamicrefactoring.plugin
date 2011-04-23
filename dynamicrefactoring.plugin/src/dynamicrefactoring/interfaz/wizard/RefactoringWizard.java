@@ -40,6 +40,7 @@ import org.eclipse.ui.IWorkbenchWizard;
 import dynamicrefactoring.RefactoringImages;
 import dynamicrefactoring.domain.DynamicRefactoringDefinition;
 import dynamicrefactoring.domain.RefactoringsCatalog;
+import dynamicrefactoring.domain.metadata.interfaces.Category;
 import dynamicrefactoring.domain.xml.XMLRefactoringsCatalog;
 import dynamicrefactoring.domain.xml.writer.XMLRefactoringWriterException;
 import dynamicrefactoring.interfaz.wizard.search.internal.SearchingFacade;
@@ -134,6 +135,11 @@ public class RefactoringWizard extends Wizard implements INewWizard {
 	 * 
 	 */
 	protected RefactoringsCatalog refactCatalog;
+	
+	/**
+	 * Categoria Scope que ha sido seleccionada en la primera página del asistente.
+	 */
+	protected Category scope;
 
 	/**
 	 * Constructor.

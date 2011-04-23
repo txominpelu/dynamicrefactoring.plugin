@@ -22,6 +22,7 @@ package dynamicrefactoring.interfaz.wizard;
 
 import java.io.File;
 import java.text.MessageFormat;
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -40,8 +41,10 @@ import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Composite;
+import org.eclipse.swt.widgets.Event;
 import org.eclipse.swt.widgets.FileDialog;
 import org.eclipse.swt.widgets.Label;
+import org.eclipse.swt.widgets.Listener;
 import org.eclipse.swt.widgets.Text;
 import org.eclipse.ui.PlatformUI;
 
@@ -116,6 +119,7 @@ public final class RefactoringWizardPage1 extends WizardPage {
 	 * Palabras clave que identifican la refactorizaci�n.
 	 */
 	private Text keywordsText;
+
 
 	/**
 	 * Constructor.
@@ -235,17 +239,13 @@ public final class RefactoringWizardPage1 extends WizardPage {
 		categoryTreeGridData.verticalAlignment = GridData.FILL;
 
 		pickCategoryTree.getControl().setLayoutData(categoryTreeGridData);
-
-		pickCategoryTree.getControl().addFocusListener(new FocusListener() {
-			@Override
-			public void focusGained(FocusEvent e) {
-			}
-
-			@Override
-			public void focusLost(FocusEvent e) {
+		
+		pickCategoryTree.getControl().addListener(SWT.Selection, new Listener() {
+			public void handleEvent(Event event){
 				dialogChanged();
 			}
 		});
+		
 		return pickCategoryTree;
 	}
 
@@ -427,6 +427,12 @@ public final class RefactoringWizardPage1 extends WizardPage {
 	private void updateStatus(String message) {
 		// TODO: Comprobar que las palabras claves tienen sintaxis correcta
 		setErrorMessage(message);
+		if(message==null){
+			for(Category c: getCategories()){
+				if(c.getParent().equals(PluginClassificationsCatalog.SCOPE_CLASSIFICATION))
+					((RefactoringWizard)this.getWizard()).scope=c;
+			}
+		}
 		setPageComplete(message == null);
 	}
 
@@ -494,7 +500,7 @@ public final class RefactoringWizardPage1 extends WizardPage {
 	public Set<Category> getCategories() {
 		return categoryTree.getRefactoringCategories();
 	}
-
+	
 	/**
 	 * Implementa el proceso de elecci�n de la imagen de la refactorizaci�n
 	 * din�mica.
