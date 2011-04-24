@@ -17,7 +17,7 @@ import dynamicrefactoring.domain.metadata.interfaces.Classification;
 
 public final class ClassificationsEditorView extends EditorPart {
 	
-	public static final String ID = "dynamicrefactoring.editors.refactoringClasificationsEditorView";
+	public static final String ID = "dynamicrefactoring.editors.refactoringClasificationsEditorView"; //$NON-NLS-1$
 
 	private FormToolkit toolkit;
 	private ScrolledForm form;
@@ -31,7 +31,7 @@ public final class ClassificationsEditorView extends EditorPart {
 		toolkit = new FormToolkit(parent.getDisplay());
 		form = toolkit.createScrolledForm(parent);
 
-		form.setText("Classifications Editor");
+		form.setText(Messages.ClassificationsEditorView_FormText1);
 		ColumnLayout layout = new ColumnLayout();
 		form.getBody().setLayout(layout);
 		

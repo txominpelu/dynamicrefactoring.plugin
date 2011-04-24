@@ -9,8 +9,8 @@ import org.junit.Before;
 import org.junit.Test;
 
 import dynamicrefactoring.domain.metadata.classifications.xml.imp.CatalogStub;
-import dynamicrefactoring.domain.metadata.interfaces.ClassificationsCatalog;
 import dynamicrefactoring.domain.metadata.interfaces.Classification;
+import dynamicrefactoring.domain.metadata.interfaces.ClassificationsCatalog;
 
 public class ClassifListSectionTest {
 
@@ -48,8 +48,8 @@ public class ClassifListSectionTest {
 	@Test
 	public void addClassificationTest(){
 		Set<Classification> expectedClassifications = catalog.getAllClassifications();
-		expectedClassifications.add(getNewClassification());
-		editor.addClassification(getNewClassification());
+		expectedClassifications.add(getNewClassification().rename(NEW_CLASSIF_NAME));
+		editor.addClassification(getNewClassification().rename(NEW_CLASSIF_NAME));
 		assertEquals(expectedClassifications, catalog.getAllClassifications());
 	}
 

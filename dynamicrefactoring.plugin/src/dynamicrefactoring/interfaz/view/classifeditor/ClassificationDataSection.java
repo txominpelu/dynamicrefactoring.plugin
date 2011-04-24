@@ -44,6 +44,7 @@ public final class ClassificationDataSection {
 	private Button chkMulti;
 	private Text txtName;
 	private Text txtDescription;
+	private Button btMofifyDescription;
 
 	/**
 	 * Crea un editor de datos de clasificaciones.
@@ -86,8 +87,6 @@ public final class ClassificationDataSection {
 
 		chkMulti = toolkit.createButton(sectionClient,
 				Messages.ClassificationDataSection_Multi, SWT.CHECK);
-		chkMulti.setSelection(catalog.getClassification(classification)
-				.isMultiCategory());
 		chkMulti.addSelectionListener(new ChkMultiCategoryListener());
 
 		Label lblDescription = toolkit.createLabel(sectionClient,
@@ -103,19 +102,20 @@ public final class ClassificationDataSection {
 		sectNameLayoutData.horizontalSpan = SECTION_NUM_COLUMNS;
 		cmpDescription.setLayoutData(sectNameLayoutData);
 
-		txtDescription = toolkit.createText(cmpDescription, catalog
-				.getClassification(classification).getDescription(), SWT.MULTI
+		txtDescription = toolkit.createText(cmpDescription, "", SWT.MULTI
 				| SWT.V_SCROLL | SWT.WRAP);
 		txtDescription.setBackground(txtDescription.getDisplay()
 				.getSystemColor(SWT.COLOR_WIDGET_BACKGROUND));
 		txtDescription.setEditable(false);
 		txtDescription.setLayoutData(new GridData(GridData.FILL_BOTH));
 
-		Button btMofifyDescription = toolkit.createButton(cmpDescription,
+		btMofifyDescription = toolkit.createButton(cmpDescription,
 				Messages.ClassificationDataSection_Modify, SWT.NONE);
 		btMofifyDescription
 				.addSelectionListener(new ButtonModifyDescriptionListener());
 
+		setClassification(classification);
+		
 		section.setClient(sectionClient);
 		toolkit.paintBordersFor(sectionClient);
 	}
@@ -128,9 +128,11 @@ public final class ClassificationDataSection {
 	 */
 	protected void setClassification(String classification) {
 		this.classification = classification;
+		boolean classifIsEditable = catalog.getClassification(classification).isEditable();
 		chkMulti.setSelection(catalog.getClassification(classification)
 				.isMultiCategory());
-		chkMulti.setEnabled(!catalog.classifHasMultiCategoryRefactorings(classification));
+		chkMulti.setEnabled(classifIsEditable && !catalog.classifHasMultiCategoryRefactorings(classification));
+		btMofifyDescription.setEnabled(classifIsEditable);
 		txtDescription.setText(catalog.getClassification(classification)
 				.getDescription());
 		txtName.setText(classification);

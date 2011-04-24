@@ -27,6 +27,7 @@ import java.text.MessageFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.Map;
 
 import javamoon.core.JavaModel;
 
@@ -84,7 +85,7 @@ public abstract class RefactoringRunner implements IRunnableWithProgress {
 	/**
 	 * Fecha de ejecuci�n de la refactorizaci�n.
 	 */
-	Date date;
+	private Date date;
 	
 	/**
 	 * Refactorizaci�n previa a la que se ejecuta.
@@ -95,7 +96,7 @@ public abstract class RefactoringRunner implements IRunnableWithProgress {
 	 * Parametros de entrada de la refactorizaci�n. Pares de la forma nombre del par�metros y
 	 * nombre cualificado del mismo dentro del modelo.
 	 */
-	private HashMap<String,String> inputParameters;
+	private Map<String,String> inputParameters;
 	
 	/**
 	 * Indica si la ejecuci�n del plan esta siendo llamada por el plan de refactorizaciones o no.
@@ -120,17 +121,14 @@ public abstract class RefactoringRunner implements IRunnableWithProgress {
 		refactoring.addContext(context);
 		
 		try {
-			if(history.execute(refactoring, null, null) == Status.OK_STATUS && done==true){
-				if(getInstance() instanceof DynamicRefactoringRunner){
+			if(history.execute(refactoring, null, null) == Status.OK_STATUS && done && getInstance() instanceof DynamicRefactoringRunner){
 					//a�adimos al xml los datos de la refactorizaci�n que se acaba de ejecutar.
 					System.out.println("Ejecutada refactorizaci�n din�mica " + getRefactoringName());
-					DateFormat dateFormat = new SimpleDateFormat(Messages.RefactoringRunner_DateFormat2 + " - HH:mm:ss");  //$NON-NLS-1$
-					String fecha = dateFormat.format(date);
+					DateFormat dFormat = new SimpleDateFormat(Messages.RefactoringRunner_DateFormat2 + " - HH:mm:ss");  //$NON-NLS-1$
+					String fecha = dFormat.format(date);
 					RefactoringPlanWriter.getInstance().writeRefactoring(getRefactoringName(),fecha, inputParameters);
 				}
-			}
-		}
-		catch (ExecutionException exception){
+		}catch (ExecutionException exception){
 			MOONRefactoring.resetModel();
 			Object[] messageArgs = {getRefactoringName()};
 			MessageFormat formatter = new MessageFormat("");  //$NON-NLS-1$
@@ -237,9 +235,10 @@ public abstract class RefactoringRunner implements IRunnableWithProgress {
 		}
 		finally {
 			monitor.done();
-			if (monitor.isCanceled())
+			if (monitor.isCanceled()){
 				throw new InterruptedException(
 					Messages.RefactoringRunner_ProcessCancelled + ".");  //$NON-NLS-1$
+			}
 		}
 	}
 
@@ -254,9 +253,10 @@ public abstract class RefactoringRunner implements IRunnableWithProgress {
 	 */
 	private void checkForCancellation(IProgressMonitor monitor) 
 		throws InterruptedException {
-		if(monitor.isCanceled())
+		if(monitor.isCanceled()){
 			throw new InterruptedException(
 				Messages.RefactoringRunner_UserCancelled + ".\n");  //$NON-NLS-1$
+		}
 	}
 
 	/**
@@ -360,8 +360,7 @@ public abstract class RefactoringRunner implements IRunnableWithProgress {
 				logger.warn(message);
 				MOONRefactoring.resetModel();
 				return Status.CANCEL_STATUS;
-			}
-			catch (Exception exception){
+			}catch (Exception exception){
 				exception.printStackTrace();
 				RefactoringPlugin.getDefault().fireRefactoringFinished(
 					new RefactoringSummary(getRefactoringName(), new Date(), label));

@@ -6,6 +6,7 @@ import static org.junit.Assert.assertTrue;
 
 import org.eclipse.swtbot.eclipse.finder.SWTWorkbenchBot;
 import org.eclipse.swtbot.swt.finder.junit.SWTBotJunit4ClassRunner;
+import org.eclipse.swtbot.swt.finder.utils.SWTBotPreferences;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -32,8 +33,8 @@ public class EditRefactoringCategoriesTest extends AbstractRefactoringWizardTest
 	@Before
 	public final void setUp(){
 		SWTWorkbenchBot bot = super.setUpBot();
+		SWTBotPreferences.TIMEOUT = 10000;
 		refactoringWizardPageObject = new RefactoringWizardPage1Object(bot);
-		//bot.viewByTitle("Welcome").close();
 	}
 	
 	

@@ -4,6 +4,7 @@ import org.eclipse.core.runtime.Platform;
 import org.eclipse.swtbot.eclipse.finder.SWTWorkbenchBot;
 import org.eclipse.swtbot.swt.finder.finders.UIThreadRunnable;
 import org.eclipse.swtbot.swt.finder.results.VoidResult;
+import org.eclipse.swtbot.swt.finder.waits.Conditions;
 import org.eclipse.ui.PlatformUI;
 
 import com.google.common.base.Preconditions;
@@ -33,6 +34,7 @@ public final class RefactoringWizardPage1Object extends AbstractRefactoringWizar
 						.forceActive();
 			}
 		});
+		bot.waitUntil(Conditions.shellIsActive(DYNAMIC_REFACTORING_WIZARD_SHELL_TEXT));
 		getBot().shell(DYNAMIC_REFACTORING_WIZARD_SHELL_TEXT).activate();
 	}
 

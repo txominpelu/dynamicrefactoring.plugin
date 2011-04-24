@@ -99,4 +99,12 @@ public interface Classification extends Comparable<Classification>{
 	 * @return copia de la clasificacion actual con un nuevo nombre
 	 */
 	Classification rename(String clasifNewName);
+	
+	/**
+	 * Obtiene si la clasificacion es editable o es de 
+	 * sólo lectura.
+	 * 
+	 * @return verdadero si la clasificacion se puede editar
+	 */
+	boolean isEditable();
 }

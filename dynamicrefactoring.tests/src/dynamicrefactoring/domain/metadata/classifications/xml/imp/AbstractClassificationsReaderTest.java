@@ -25,21 +25,21 @@ public abstract class AbstractClassificationsReaderTest {
 
 	@Test(expected=ValidationException.class)
 	public final void testReadClassificationsNonValidXml() throws ValidationException {
-		lector.readClassifications(TESTDATA_INVALIDCLASSIFICATIONS_XML);
+		lector.readClassifications(TESTDATA_INVALIDCLASSIFICATIONS_XML, true);
 	}
 	
 	@Test
 	public final void testReadClassificationsXml() throws ValidationException {
-		assertEquals(getExpectedClassification(),lector.readClassifications(TESTDATA_CLASSIFICATIONS_XML));
+		assertEquals(getExpectedClassification(),lector.readClassifications(TESTDATA_CLASSIFICATIONS_XML, true));
 	}
 	
 	@Test
 	public final void testReadClassificationsDosLecturas() throws ValidationException {
 		try{
-			lector.readClassifications(TESTDATA_INVALIDCLASSIFICATIONS_XML);
+			lector.readClassifications(TESTDATA_INVALIDCLASSIFICATIONS_XML, true);
 			fail("Deberia saltar la excepcion de xml invalido. (ValidationException)");
 		}catch(ValidationException e){}
-		assertEquals(getExpectedClassification(),lector.readClassifications(TESTDATA_CLASSIFICATIONS_XML));
+		assertEquals(getExpectedClassification(),lector.readClassifications(TESTDATA_CLASSIFICATIONS_XML, true));
 	}
 	
 	
@@ -65,7 +65,7 @@ public abstract class AbstractClassificationsReaderTest {
 		}
 		Set<Classification> classifications = new HashSet<Classification>();
 		classifications.add(new SimpleUniLevelClassification("Scope", "MiDescripcion", categoriesScope));
-		classifications.add(new SimpleUniLevelClassification("Fowler", "", categories, true));
+		classifications.add(new SimpleUniLevelClassification("Fowler", "", categories, true, false));
 		return classifications;
 		
 	}

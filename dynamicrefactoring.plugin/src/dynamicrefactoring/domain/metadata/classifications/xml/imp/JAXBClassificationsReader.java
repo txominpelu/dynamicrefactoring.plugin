@@ -43,13 +43,15 @@ class JAXBClassificationsReader implements XmlClassificationsReader {
 	 * 
 	 * @param path_file
 	 * 			url del fichero de clasificaciones
+	 * @param editables si las clasificaciones a crear seran editables o no
 	 * @return conjunto de clasificaciones contenidas en el fichero.
 	 * @throws ValidationException si el xml no cumple las especificaciones del esquema
 	 */
 	@Override
-	public Set<Classification> readClassifications(String path_file) throws ValidationException {
+	public Set<Classification> readClassifications(String path_file, boolean editables) throws ValidationException {
 		File file=new File(path_file);
 		Preconditions.checkNotNull(file);
+		Preconditions.checkArgument(file.exists());
 		Set<Classification> availableClassifications = new HashSet<Classification>();
 		ClassificationsType classifications = generateClassificationsXmlType(
 				file);
@@ -60,7 +62,7 @@ class JAXBClassificationsReader implements XmlClassificationsReader {
 						categoryName));
 			}
 			Classification cl = new SimpleUniLevelClassification(
-					clasif.getName(), clasif.getDescription(), categories, clasif.isMulticategory());
+					clasif.getName(), clasif.getDescription(), categories, clasif.isMulticategory(), editables);
 			availableClassifications.add(cl);
 		}
 		return availableClassifications;

@@ -1,8 +1,6 @@
 package dynamicrefactoring.domain.metadata.imp;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
 
 import java.io.IOException;
 import java.util.Set;
@@ -34,7 +32,7 @@ public class ElementCatalogWithMultiCategoryElementTest {
 		catalog = new ElementCatalog<Element>(refactorings,
 				new SimpleUniLevelClassification(
 						"BadSmells",ElementCatalogTest.MI_CLASSIFICATION_DESCRIPTION,
-						classifiedElements.getClassification().getCategories(),true));
+						classifiedElements.getClassification().getCategories(),true, true));
 	}
 
 	
@@ -48,7 +46,7 @@ public class ElementCatalogWithMultiCategoryElementTest {
 			new ElementCatalog<Element>(refactorings,
 										new SimpleUniLevelClassification(
 												"BadSmells",ElementCatalogTest.MI_CLASSIFICATION_DESCRIPTION,
-												classifiedElements[0].getClassification().getCategories(),false));
+												classifiedElements[0].getClassification().getCategories(),false, true));
 	}
 	
 	@Test

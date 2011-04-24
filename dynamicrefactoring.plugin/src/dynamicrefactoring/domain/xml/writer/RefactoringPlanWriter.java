@@ -25,7 +25,6 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.Map;
 
 import org.jdom.DocType;
@@ -46,8 +45,12 @@ import dynamicrefactoring.domain.xml.reader.XMLRefactoringReaderException;
  * 
  * @author <A HREF="mailto:lfd0002@alu.ubu.es">Laura Fuente de la Fuente</A>
  */
-public class RefactoringPlanWriter {
+public final class RefactoringPlanWriter {
 	
+	private static final String NAME = "name";
+
+	private static final String VALUE = "value";
+
 	/**
 	 * El formato del fichero XML.
 	 */
@@ -92,8 +95,9 @@ public class RefactoringPlanWriter {
 	 * @return la instancia �nica del generador.
 	 */
 	public static RefactoringPlanWriter getInstance(){
-		if (myInstance == null)
+		if (myInstance == null){
 			myInstance = new RefactoringPlanWriter();
+		}
 		return myInstance;
 	}
 	
@@ -135,7 +139,7 @@ public class RefactoringPlanWriter {
 	 * @param fecha fecha en la ques e ejecuta la refactorizaci�n.
 	 * @param InputsParameters Par�metros de entrada de la refactorizaci�n.
 	 */
-	public void writeRefactoring (String refactoringName,String fecha, HashMap<String, String> InputsParameters ){
+	public void writeRefactoring (String refactoringName,String fecha, Map<String, String> InputsParameters ){
 		try {
 			SAXBuilder builder = new SAXBuilder(true);
 			builder.setIgnoringElementContentWhitespace(true);
@@ -148,20 +152,20 @@ public class RefactoringPlanWriter {
 			Element root = doc.getRootElement();
 			Element refactoring = new Element("refactoring");
 			
-			Element name = new Element("name");
-			name.setAttribute("value", refactoringName);
+			Element name = new Element(NAME);
+			name.setAttribute(VALUE, refactoringName);
 			refactoring.addContent(name);
 			
 			Element date = new Element("date");
-			date.setAttribute("value", fecha);
+			date.setAttribute(VALUE, fecha);
 			refactoring.addContent(date);
 			
 			Element parameters = new Element("parameters");
 			for(Map.Entry<String ,String> param : InputsParameters.entrySet()){
 				Element parameter = new Element("parameter");
-				parameter.setAttribute("name", param.getKey());
+				parameter.setAttribute(NAME, param.getKey());
 				if(!param.getKey().equals("Model")){
-						parameter.setAttribute("value", param.getValue());
+						parameter.setAttribute(VALUE, param.getValue());
 						parameters.addContent(parameter);
 				}
 			}
@@ -199,36 +203,35 @@ public class RefactoringPlanWriter {
 				if(encontrado){
 					remove.add(refactor);
 				}else{
-					Element name = refactor.getChild("name");
-					String value = name.getAttribute("value").getValue();
+					Element name = refactor.getChild(NAME);
+					String value = name.getAttribute(VALUE).getValue();
 					if(value.equals(refactoringName)){
 						Element date = refactor.getChild("date");
-						String d_value = date.getAttribute("value").getValue();
-						if(d_value.equals(fecha)){
+						String dValue = date.getAttribute(VALUE).getValue();
+						if(dValue.equals(fecha)){
 							encontrado=true;
 							remove.add(refactor);
 						}	
 					}
 				}	
 			}
-			for(Element refactor : remove)
+			for(Element refactor : remove){
 				root.removeContent(refactor);
+			}
 			writeToFile(RefactoringConstants.REFACTORING_PLAN_FILE, doc);
 		} 
 		catch (JDOMException jdomexception) {
-			System.out.println("jdom " + jdomexception.getMessage());
-			throw new XMLRefactoringReaderException(jdomexception.getMessage());
+			throw new XMLRefactoringReaderException(jdomexception);
 		} 
 		catch (IOException ioexception) {
-			System.out.println(ioexception.getMessage());
-			throw new XMLRefactoringReaderException(ioexception.getMessage());
+			throw new XMLRefactoringReaderException(ioexception);
 		}
 	}
 	
 	/**
 	 * La instancia de esta clase pasa a ser nulo.
 	 */
-	public void reset(){
+	public static void reset(){
 		myInstance=null;
 	}
 

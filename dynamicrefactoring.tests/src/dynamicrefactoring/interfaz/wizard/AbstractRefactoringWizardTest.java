@@ -10,10 +10,13 @@ import org.junit.After;
 
 public abstract class AbstractRefactoringWizardTest {
 
-	public SWTWorkbenchBot setUpBot(){
+	private SWTWorkbenchBot bot;
+
+
+	public final SWTWorkbenchBot setUpBot(){
 		// increase timeout to 10 seconds
 		SWTBotPreferences.TIMEOUT = 5000;
-		SWTWorkbenchBot bot = new SWTWorkbenchBot();
+		 bot = new SWTWorkbenchBot();
 		 UIThreadRunnable.syncExec(new VoidResult() {
 	            public void run() {
 	                PlatformUI.getWorkbench().getActiveWorkbenchWindow().getShell()

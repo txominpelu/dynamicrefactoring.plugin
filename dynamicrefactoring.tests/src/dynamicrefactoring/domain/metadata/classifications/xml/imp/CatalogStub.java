@@ -11,7 +11,7 @@ public class CatalogStub extends AbstractCatalog implements ClassificationsCatal
 	
 	
 	public CatalogStub() throws ValidationException{
-			super(AbstractCatalog.getClassificationsFromFile(CLASSIFICATIONS_EDITOR_TEST_XML_FILE), XMLRefactoringsCatalog.getInstance());
+			super(AbstractCatalog.getClassificationsFromFile(CLASSIFICATIONS_EDITOR_TEST_XML_FILE, true), XMLRefactoringsCatalog.getInstance());
 	}
 
 }

@@ -184,12 +184,6 @@ public class RefactoringConstants {
 	public static final String ITERATOR_PATH = "java.util.Iterator"; //$NON-NLS-1$
 
 	/**
-	 * Ruta al fichero de clasificaciones.
-	 */
-	public static final String CLASSIFICATION_TYPES_FILE = RefactoringPlugin.getCommonPluginFilesDir() +
-			File.separator + "Classification" + File.separator + "classifications.xml";
-
-	/**
 	 * Obtiene la ruta de la ra�z de la biblioteca de MOON.
 	 * 
 	 * @return la ruta de la ra�z de la biblioteca de MOON.

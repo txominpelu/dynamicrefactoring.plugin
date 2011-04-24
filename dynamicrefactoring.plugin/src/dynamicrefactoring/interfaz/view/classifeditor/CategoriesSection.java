@@ -3,6 +3,7 @@ package dynamicrefactoring.interfaz.view.classifeditor;
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.jface.dialogs.IInputValidator;
 import org.eclipse.jface.dialogs.InputDialog;
+import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
@@ -23,8 +24,10 @@ import dynamicrefactoring.domain.metadata.interfaces.Category;
 import dynamicrefactoring.domain.metadata.interfaces.Classification;
 import dynamicrefactoring.domain.metadata.interfaces.ClassificationsCatalog;
 
-public class CategoriesSection {
+public final class CategoriesSection {
 
+	private static final String EMPTY_STRING = "";
+	
 	/**
 	 * Nombre de la clasificacion a editar.
 	 */
@@ -42,6 +45,12 @@ public class CategoriesSection {
 	 */
 	private NotCategoryAlreadyExistsValidator inputValidator;
 
+	private Button btAdd;
+
+	private Button btDelete;
+
+	private Button btRename;
+
 	/**
 	 * Crea un editor de datos de una clasificacion.
 	 * 
@@ -50,8 +59,7 @@ public class CategoriesSection {
 	 * @param catalog
 	 *            catalogo de clasificaciones
 	 */
-	public CategoriesSection(
-			String classification,
+	public CategoriesSection(String classification,
 			ClassificationsCatalog catalog) {
 		this.classification = classification;
 		this.catalog = catalog;
@@ -70,14 +78,14 @@ public class CategoriesSection {
 				form.reflow(true);
 			}
 		});
-		section.setText("Categories");
-		section.setDescription("Categories for the classification.");
+		section.setText(Messages.CategoriesSection_Categories);
+		section.setDescription(Messages.CategoriesSection_CategoriesForTheClassification);
 		Composite sectionClient = toolkit.createComposite(section);
 		GridLayout sectionLayout = new GridLayout(2, false);
 		sectionClient.setLayout(sectionLayout);
 
 		tbCategories = toolkit.createTable(sectionClient, SWT.NONE);
-		updateTable();
+
 		GridData dataTbClassif = new GridData(GridData.FILL_BOTH);
 		dataTbClassif.heightHint = tbCategories.getItemHeight() * 3;
 		tbCategories.setLayoutData(dataTbClassif);
@@ -91,22 +99,27 @@ public class CategoriesSection {
 		cpButLayout.type = SWT.VERTICAL;
 		cpButtons.setLayout(cpButLayout);
 
-		Button btAdd = toolkit.createButton(cpButtons, "Add..", SWT.NONE);
+		btAdd = toolkit.createButton(cpButtons, Messages.ClassifListSection_Add, SWT.NONE); 
 		btAdd.addSelectionListener(new ButtonAddListener());
-		Button btDelete = toolkit.createButton(cpButtons, "Delete..", SWT.NONE);
+		btDelete = toolkit.createButton(cpButtons, Messages.ClassifListSection_Delete, SWT.NONE); 
 		btDelete.addSelectionListener(new ButtonDeleteListener());
-		Button btRename = toolkit.createButton(cpButtons, "Rename..", SWT.NONE);
+		btRename = toolkit.createButton(cpButtons, Messages.ClassifListSection_Rename, SWT.NONE); 
 		btRename.addSelectionListener(new ButtonRenameListener());
 
+		updateUI();
 		section.setClient(sectionClient);
 	}
 
 	/**
+	 * Actualiza la interfaz del plugin tras un cambio de clasificacion.
+	 * 
 	 * Rellena la lista de categorias de la clasificacion con la lista
 	 * actualizada de categorias de la misma.
 	 * 
+	 * Deshabilita los botones si la nueva clasificacion no es editable.
+	 * 
 	 */
-	private final void updateTable() {
+	private void updateUI() {
 		// borramos los elementos que hay en la tabla
 		tbCategories.remove(0, tbCategories.getItemCount() - 1);
 		// rellenamos con los elementos actuales
@@ -115,6 +128,11 @@ public class CategoriesSection {
 			TableItem item = new TableItem(tbCategories, SWT.NONE);
 			item.setText(c.getName());
 		}
+		boolean classifIsEditable = catalog.getClassification(classification)
+				.isEditable();
+		btAdd.setEnabled(classifIsEditable);
+		btRename.setEnabled(classifIsEditable);
+		btDelete.setEnabled(classifIsEditable);
 	}
 
 	/**
@@ -167,16 +185,26 @@ public class CategoriesSection {
 	 */
 	protected void setClassification(String classification) {
 		this.classification = classification;
-		updateTable();
+		updateUI();
 	}
 
 	private class ButtonDeleteListener extends SelectionAdapter {
 
 		@Override
 		public void widgetSelected(SelectionEvent e) {
-			if(tbCategories.getSelectionCount() > 0){
-				removeCategory(tbCategories.getSelection()[0].getText());
-				updateTable();
+			if (tbCategories.getSelectionCount() > 0) {
+				MessageDialog dialog = new MessageDialog(
+						tbCategories.getShell(),
+						Messages.CategoriesSection_DeletingCategory,
+						null,
+						Messages.CategoriesSection_DeletingCategoryWarning,
+						MessageDialog.WARNING, new String[] {
+								Messages.ClassifListSection_Proceed,
+								Messages.ClassifListSection_Cancel }, 1);
+				if (dialog.open() == IStatus.OK) {
+					removeCategory(tbCategories.getSelection()[0].getText());
+					updateUI();
+				}
 			}
 		}
 	}
@@ -186,13 +214,13 @@ public class CategoriesSection {
 		@Override
 		public void widgetSelected(SelectionEvent e) {
 			InputDialog dialog = new InputDialog(tbCategories.getShell(),
-					"Add Category",
-					"Please enter the name of the new Category", "",
+					Messages.CategoriesSection_AddCategory,
+					Messages.CategoriesSection_EnterCategoryName, EMPTY_STRING, //$NON-NLS-2$
 					inputValidator);
 			if (dialog.open() == IStatus.OK) {
 				String categoryNewName = dialog.getValue();
 				addCategory(categoryNewName);
-				updateTable();
+				updateUI();
 			}
 
 		}
@@ -200,17 +228,19 @@ public class CategoriesSection {
 
 	private class ButtonRenameListener extends SelectionAdapter {
 
+
+
 		@Override
 		public void widgetSelected(SelectionEvent e) {
 			final String oldName = tbCategories.getSelection()[0].getText();
 			InputDialog dialog = new InputDialog(tbCategories.getShell(),
-					"Renaming Category: " + oldName,
-					"Please enter the name of the new Category", "",
+					Messages.CategoriesSection_RenamingCategory + oldName,
+					Messages.CategoriesSection_EnterNewCategoryName, EMPTY_STRING, //$NON-NLS-2$
 					inputValidator);
 			if (dialog.open() == IStatus.OK) {
 				String categoryNewName = dialog.getValue();
 				renameCategory(oldName, categoryNewName);
-				updateTable();
+				updateUI();
 			}
 
 		}
@@ -222,7 +252,7 @@ public class CategoriesSection {
 		public String isValid(String newText) {
 			if (catalog.getClassification(classification).getCategories()
 					.contains(new Category(classification, newText))) {
-				return String.format("Category %s@%s already exists.",
+				return String.format(Messages.CategoriesSection_CategoryAlreadyExists,
 						classification, newText);
 			}
 			return null;
@@ -231,4 +261,3 @@ public class CategoriesSection {
 	};
 
 }
-

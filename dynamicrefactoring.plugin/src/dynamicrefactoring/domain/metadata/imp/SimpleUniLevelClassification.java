@@ -23,10 +23,15 @@ public final class SimpleUniLevelClassification implements Classification {
 	 * Si la clasificacion admite o no elementos en mas de una categoria.
 	 */
 	private final boolean multicategory;
+	/**
+	 * Si la clasificacion se puede editar o no
+	 */
+	private boolean editable;
 
 	/**
 	 * Crea una clasificacion de un solo nivel y en la que los elementos solo
-	 * pueden pertenecer a una categoria.
+	 * pueden pertenecer a una categoria y que se puede editar 
+	 * (unicategory y editable).
 	 * 
 	 * @param classificationName
 	 *            nombre de la clasificacion
@@ -37,7 +42,7 @@ public final class SimpleUniLevelClassification implements Classification {
 	 */
 	public SimpleUniLevelClassification(String classificationName,
 			String description, Set<Category> categories) {
-		this(classificationName, description, categories, false);
+		this(classificationName, description, categories, false, true);
 	}
 
 	/**
@@ -52,13 +57,15 @@ public final class SimpleUniLevelClassification implements Classification {
 	 *            categoria
 	 * @param categories
 	 *            lista de categorias de la clasificacion
+	 * @param editable si la clasificacion se puede editar o es de solo lectura
 	 */
 	public SimpleUniLevelClassification(String classificationName,
-			String description, Set<Category> categories, boolean multicategory) {
+			String description, Set<Category> categories, boolean multicategory, boolean editable) {
 		this.categories = categories;
 		this.name = classificationName;
 		this.description = description;
 		this.multicategory = multicategory;
+		this.editable = editable;
 	}
 
 	@Override
@@ -175,6 +182,11 @@ public final class SimpleUniLevelClassification implements Classification {
 
 		return new SimpleUniLevelClassification(clasifNewName,
 				getDescription(), newCategories);
+	}
+
+	@Override
+	public boolean isEditable() {
+		return editable;
 	}
 
 }

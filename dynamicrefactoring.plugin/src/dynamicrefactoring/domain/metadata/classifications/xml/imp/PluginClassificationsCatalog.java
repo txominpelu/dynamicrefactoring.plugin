@@ -1,14 +1,17 @@
 package dynamicrefactoring.domain.metadata.classifications.xml.imp;
 
+import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Set;
 
 import com.google.common.base.Preconditions;
+import com.google.common.base.Predicate;
 import com.google.common.base.Throwables;
+import com.google.common.collect.Sets;
 
-import dynamicrefactoring.RefactoringConstants;
+import dynamicrefactoring.RefactoringPlugin;
 import dynamicrefactoring.domain.RefactoringsCatalog;
 import dynamicrefactoring.domain.metadata.interfaces.Category;
 import dynamicrefactoring.domain.metadata.interfaces.Classification;
@@ -24,26 +27,72 @@ import dynamicrefactoring.domain.xml.XMLRefactoringsCatalog;
  * @author imediava
  * 
  */
-public final class PluginClassificationsCatalog extends AbstractCatalog implements
-		ClassificationsCatalog {
+public final class PluginClassificationsCatalog extends AbstractCatalog
+		implements ClassificationsCatalog {
 
 	private static PluginClassificationsCatalog instance;
 
 	public static final String SCOPE_CLASSIFICATION = "Scope";
 
 	/**
+	 * Ruta al fichero de clasificaciones definidas por el plugin.
+	 */
+	protected static final String PLUGIN_CLASSIFICATION_TYPES_FILE = RefactoringPlugin
+			.getCommonPluginFilesDir()
+			+ File.separator
+			+ "temp"
+			+ File.separator
+			+ "Classification"
+			+ File.separator
+			+ "classifications.xml";
+
+	/**
+	 * Ruta al fichero de clasificaciones definidas por el plugin.
+	 */
+	protected static final String USER_CLASSIFICATION_TYPES_FILE = RefactoringPlugin
+			.getCommonPluginFilesDir()
+			+ File.separator
+			+ "Classification"
+			+ File.separator + "user-classifications.xml";
+
+	/**
 	 * Crea el almacen y lee las clasificaciones del fichero de clasificaciones
 	 * xml.
 	 */
 	private PluginClassificationsCatalog() {
-		super(
-				AbstractCatalog
-						.getClassificationsFromFile(RefactoringConstants.CLASSIFICATION_TYPES_FILE),
-				XMLRefactoringsCatalog.getInstance());
+		this(readAllClassificationsFromFiles(), XMLRefactoringsCatalog
+				.getInstance());
 		Collections.sort(new ArrayList<Classification>(super
 				.getAllClassifications()));
 	}
 
+	/**
+	 * Lee las clasificaciones del usuario y del plugin de sus respectivos
+	 * ficheros xml y devuelve la union de ambas.
+	 * 
+	 * @return conjunto que contiene las clasificaciones de usuario y del plugin
+	 */
+	protected static Set<Classification> readAllClassificationsFromFiles() {
+		final Set<Classification> pluginClassifications = AbstractCatalog
+				.getClassificationsFromFile(
+						PluginClassificationsCatalog.PLUGIN_CLASSIFICATION_TYPES_FILE,
+						false);
+		final Set<Classification> userClassifications = AbstractCatalog
+				.getClassificationsFromFile(
+						PluginClassificationsCatalog.USER_CLASSIFICATION_TYPES_FILE,
+						true);
+		return Sets.union(pluginClassifications, userClassifications);
+	}
+
+	/**
+	 * Permite crear un catalogo de clasificaciones a partir de las
+	 * clasificaciones pasadas y de un catalogo de refactorizaciones.
+	 * 
+	 * @param classifSet
+	 *            conjunto de clasificaciones
+	 * @param refactCatalog
+	 *            catalogo de refactorizaciones
+	 */
 	protected PluginClassificationsCatalog(Set<Classification> classifSet,
 			RefactoringsCatalog refactCatalog) {
 		super(classifSet, refactCatalog);
@@ -93,21 +142,40 @@ public final class PluginClassificationsCatalog extends AbstractCatalog implemen
 
 	/**
 	 * Actualiza el contenido del fichero de configuracion de clasificaciones de
-	 * acuerdo con el contenido de las clasificaciones del catalogo.
+	 * acuerdo con el contenido de las clasificaciones de usuario del catalogo
+	 * (recordar que las del plugin no son editables).
 	 */
 	private void updateClassificationsFile() {
 		try {
-			JAXBClassificationsWriter.getInstance().saveClassificationsToXml(
-					getAllClassifications(),
-					RefactoringConstants.CLASSIFICATION_TYPES_FILE);
+			JAXBClassificationsWriter
+					.getInstance()
+					.saveClassificationsToXml(
+							getUserClassifications(),
+							PluginClassificationsCatalog.USER_CLASSIFICATION_TYPES_FILE);
 		} catch (FileNotFoundException e) {
 			// El fichero debe existir sino seria error de programacion
 			throw Throwables.propagate(e);
 		}
 	}
 
+	/**
+	 * Devuelve todas las clasificaciones que son de usuario, es decir, que se
+	 * pueden editar.
+	 * 
+	 * @return devuelve las clasificaciones del catalogo que son de usuario y
+	 *         por tanto se pueden editar
+	 */
+	private Set<Classification> getUserClassifications() {
+		return Sets.filter(getAllClassifications(),
+				new Predicate<Classification>() {
 
+					@Override
+					public boolean apply(Classification arg0) {
+						return arg0.isEditable();
+					}
 
+				});
+	}
 
 	/**
 	 * Obtiene la instancia del almacen con las clasificaciones disponibles.
@@ -146,13 +214,13 @@ public final class PluginClassificationsCatalog extends AbstractCatalog implemen
 		super.addClassification(classification);
 		updateClassificationsFile();
 	}
-	
+
 	@Override
 	public void setMultiCategory(String classification, boolean isMultiCategory) {
 		super.setMultiCategory(classification, isMultiCategory);
 		updateClassificationsFile();
 	}
-	
+
 	@Override
 	public void setDescription(String classification, String description) {
 		super.setDescription(classification, description);

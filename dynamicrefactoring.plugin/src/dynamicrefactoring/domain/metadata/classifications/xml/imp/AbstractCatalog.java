@@ -19,12 +19,14 @@ import dynamicrefactoring.domain.metadata.interfaces.ClassificationsCatalog;
 
 abstract class AbstractCatalog implements ClassificationsCatalog {
 
+	private static final String THE_CLASSIFICATION_DOESNT_EXIST = "The classification %s doesn't exist.";
+	private static final String CATEGORY_ALREADY_EXIST = "The category %s already exist.";
 	private Set<Classification> classifications;
 	private RefactoringsCatalog refactCatalog;
 
 	public AbstractCatalog(Set<Classification> classifSet,
 			RefactoringsCatalog refactCatalog) {
-		this.classifications = classifSet;
+		this.classifications = new HashSet<Classification>(classifSet);
 		this.refactCatalog = refactCatalog;
 	}
 
@@ -47,6 +49,7 @@ abstract class AbstractCatalog implements ClassificationsCatalog {
 	@Override
 	public void removeClassification(String classification) {
 		Preconditions.checkArgument(containsClassification(classification));
+		Preconditions.checkArgument(getClassification(classification).isEditable());
 		for (Category c : getClassification(classification).getCategories()) {
 			removeCategory(classification, c.getName());
 		}
@@ -64,8 +67,9 @@ abstract class AbstractCatalog implements ClassificationsCatalog {
 	@Override
 	public final boolean containsClassification(String name) {
 		for (Classification c : classifications) {
-			if (c.getName().equalsIgnoreCase(name))
+			if (c.getName().equalsIgnoreCase(name)){
 				return true;
+			}
 		}
 		return false;
 	}
@@ -109,15 +113,16 @@ abstract class AbstractCatalog implements ClassificationsCatalog {
 		Preconditions.checkArgument(containsClassification(classifName));
 		Preconditions.checkArgument(getClassification(classifName)
 				.getCategories().contains(new Category(classifName, oldName)),
-				String.format("The classification %s doesn't exist.", oldName));
+				String.format(THE_CLASSIFICATION_DOESNT_EXIST, oldName));
+		Preconditions.checkArgument(getClassification(classifName).isEditable());
 		Preconditions.checkArgument(!getClassification(classifName)
 				.getCategories().contains(new Category(classifName, newName)),
-				String.format("The classification %s already exist.", newName));
+				String.format(CATEGORY_ALREADY_EXIST, newName));
 		Classification oldClassif = getClassification(classifName);
 		classifications.remove(oldClassif);
 		classifications.add(oldClassif.renameCategory(oldName, newName));
-		for (DynamicRefactoringDefinition refact : refactCatalog.getRefactoringBelongingTo(
-				classifName, oldName)) {
+		for (DynamicRefactoringDefinition refact : refactCatalog
+				.getRefactoringBelongingTo(classifName, oldName)) {
 			DynamicRefactoringDefinition renamedCategory = renameRefactoringCategory(
 					refact, classifName, oldName, newName);
 			refactCatalog.updateRefactoring(refact.getName(), renamedCategory);
@@ -128,13 +133,13 @@ abstract class AbstractCatalog implements ClassificationsCatalog {
 	public void addCategoryToClassification(String classificationName,
 			String categoryNewName) {
 		Preconditions.checkArgument(containsClassification(classificationName));
+		Preconditions.checkArgument(getClassification(classificationName).isEditable());
 		Preconditions.checkArgument(
 				!getClassification(classificationName).getCategories()
 						.contains(
 								new Category(classificationName,
-										categoryNewName)), String
-						.format("The classification %s already exist.",
-								categoryNewName));
+										categoryNewName)), String.format(
+						CATEGORY_ALREADY_EXIST, categoryNewName));
 		Classification oldClassif = getClassification(classificationName);
 		classifications.remove(oldClassif);
 		classifications.add(oldClassif.addCategory(new Category(
@@ -145,30 +150,34 @@ abstract class AbstractCatalog implements ClassificationsCatalog {
 	@Override
 	public void removeCategory(String classification, String categoryName) {
 		Preconditions.checkArgument(containsClassification(classification));
+		Preconditions.checkArgument(getClassification(classification).isEditable());
 		Preconditions.checkArgument(
 				getClassification(classification).getCategories().contains(
 						new Category(classification, categoryName)), String
-						.format("The classification %s doesn't exist.",
+						.format(THE_CLASSIFICATION_DOESNT_EXIST,
 								categoryName));
-		for (DynamicRefactoringDefinition refact : refactCatalog.getRefactoringBelongingTo(
-				classification, categoryName)) {
+		for (DynamicRefactoringDefinition refact : refactCatalog
+				.getRefactoringBelongingTo(classification, categoryName)) {
 			DynamicRefactoringDefinition modifiedRefactoring = deleteRefactoringCategory(
 					refact, classification, categoryName);
-			refactCatalog.updateRefactoring(refact.getName(), modifiedRefactoring);
+			refactCatalog.updateRefactoring(refact.getName(),
+					modifiedRefactoring);
 		}
 		Classification oldClassif = getClassification(classification);
 		classifications.remove(oldClassif);
 		classifications.add(oldClassif.removeCategory(new Category(
-					classification, categoryName)));
+				classification, categoryName)));
 	}
 
 	@Override
 	public void setDescription(String classification, String descripcion) {
+		Preconditions.checkArgument(containsClassification(classification));
+		Preconditions.checkArgument(getClassification(classification).isEditable());
 		Classification oldClassif = getClassification(classification);
 		classifications.remove(oldClassif);
 		classifications.add(new SimpleUniLevelClassification(oldClassif
 				.getName(), descripcion, oldClassif.getCategories(), oldClassif
-				.isMultiCategory()));
+				.isMultiCategory(), oldClassif.isEditable()));
 	}
 
 	/**
@@ -185,7 +194,7 @@ abstract class AbstractCatalog implements ClassificationsCatalog {
 	 *            nombre que tomara la nueva categoria
 	 * @return nueva refactorizacion con los cambios aplicados
 	 */
-	private final DynamicRefactoringDefinition renameRefactoringCategory(
+	private DynamicRefactoringDefinition renameRefactoringCategory(
 			DynamicRefactoringDefinition refact, String classificationName,
 			String oldName, String newName) {
 		Preconditions
@@ -203,7 +212,7 @@ abstract class AbstractCatalog implements ClassificationsCatalog {
 		return builder.categories(categories).build();
 	}
 
-	private final DynamicRefactoringDefinition updateRefactoringCategoryParent(
+	private DynamicRefactoringDefinition updateRefactoringCategoryParent(
 			DynamicRefactoringDefinition refact, Category toUpdate,
 			String newParentName) {
 		Preconditions.checkArgument(!refact.getCategories().contains(
@@ -216,18 +225,20 @@ abstract class AbstractCatalog implements ClassificationsCatalog {
 	}
 
 	@Override
-	public void renameClassification(String clasifName, String clasifNewName) {
-		Preconditions.checkArgument(containsClassification(clasifName));
+	public void renameClassification(String classification, String clasifNewName) {
+		Preconditions.checkArgument(containsClassification(classification));
+		Preconditions.checkArgument(getClassification(classification).isEditable());
 		Preconditions.checkArgument(!containsClassification(clasifNewName));
-		final Classification oldClassif = getClassification(clasifName);
+		final Classification oldClassif = getClassification(classification);
 		classifications.remove(oldClassif);
 		classifications.add(oldClassif.rename(clasifNewName));
 		for (Category category : oldClassif.getCategories()) {
-			for (DynamicRefactoringDefinition refact : refactCatalog.getRefactoringBelongingTo(
-					clasifName, category.getName())) {
-				refactCatalog
-						.updateRefactoring(refact.getName(), updateRefactoringCategoryParent(
-								refact, category, clasifNewName));
+			for (DynamicRefactoringDefinition refact : refactCatalog
+					.getRefactoringBelongingTo(classification, category.getName())) {
+				refactCatalog.updateRefactoring(
+						refact.getName(),
+						updateRefactoringCategoryParent(refact, category,
+								clasifNewName));
 			}
 		}
 	}
@@ -244,7 +255,7 @@ abstract class AbstractCatalog implements ClassificationsCatalog {
 	 *            nombre de la categoria a eliminar
 	 * @return nueva refactorizacion con los cambios aplicados
 	 */
-	private final DynamicRefactoringDefinition deleteRefactoringCategory(
+	private DynamicRefactoringDefinition deleteRefactoringCategory(
 			DynamicRefactoringDefinition refact, String classificationName,
 			String oldName) {
 		Preconditions
@@ -266,14 +277,15 @@ abstract class AbstractCatalog implements ClassificationsCatalog {
 	 * 
 	 * @param classifFile
 	 *            fichero de clasificaciones
+	 * @param editables si las clasificaciones que se leeran del fichero se crearan como editables o no
+	 * 
 	 * @return conjunto de clasificaciones leidas del fichero
 	 */
 	protected static final Set<Classification> getClassificationsFromFile(
-			String classifFile) {
+			String classifFile, boolean editables) {
 		try {
 			Set<Classification> classifications = ClassificationsReaderFactory
-					.getReader()
-					.readClassifications(classifFile);
+					.getReader().readClassifications(classifFile, editables);
 			return classifications;
 		} catch (ValidationException e) {
 			throw Throwables.propagate(e);
@@ -282,6 +294,8 @@ abstract class AbstractCatalog implements ClassificationsCatalog {
 
 	@Override
 	public void addClassification(Classification classification) {
+		Preconditions.checkArgument(!containsClassification(classification
+				.getName()));
 		classifications.add(classification);
 	}
 
@@ -289,13 +303,14 @@ abstract class AbstractCatalog implements ClassificationsCatalog {
 	public void setMultiCategory(String classificationName,
 			boolean isMultiCategory) {
 		Preconditions.checkArgument(containsClassification(classificationName));
+		Preconditions.checkArgument(getClassification(classificationName).isEditable());
 		Preconditions
 				.checkArgument(!(!isMultiCategory && classifHasMultiCategoryRefactorings(classificationName)));
 		final Classification oldClassif = getClassification(classificationName);
 		classifications.remove(oldClassif);
 		classifications.add(new SimpleUniLevelClassification(oldClassif
 				.getName(), oldClassif.getDescription(), oldClassif
-				.getCategories(), isMultiCategory));
+				.getCategories(), isMultiCategory, oldClassif.isEditable()));
 
 	}
 
@@ -320,17 +335,19 @@ abstract class AbstractCatalog implements ClassificationsCatalog {
 		}
 		return false;
 	}
-	
+
 	/**
 	 * Devuelve la lista de todas las refactorizaciones que pertenecen a varias
 	 * categorias en la clasificacion.
 	 * 
 	 * @param classificationName
 	 *            nombre de la clasificacion
-	 * @return lista de clasificaciones que pertenecen a mas de una categoria en la clasificacion
+	 * @return lista de clasificaciones que pertenecen a mas de una categoria en
+	 *         la clasificacion
 	 */
 	@Override
-	public Set<DynamicRefactoringDefinition> getClassifMultiCategoryRefactorings(String classificationName) {
+	public Set<DynamicRefactoringDefinition> getClassifMultiCategoryRefactorings(
+			String classificationName) {
 		Preconditions.checkArgument(containsClassification(classificationName));
 		Classification classif = getClassification(classificationName);
 		Set<DynamicRefactoringDefinition> multicategoryRefactorings = new HashSet<DynamicRefactoringDefinition>();
@@ -342,7 +359,6 @@ abstract class AbstractCatalog implements ClassificationsCatalog {
 		}
 		return multicategoryRefactorings;
 	}
-
 
 	/**
 	 * Devuelve si una refactorizacion pertenece a mas de una categoria en la

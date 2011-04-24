@@ -5,6 +5,7 @@ import java.util.HashSet;
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.jface.dialogs.IInputValidator;
 import org.eclipse.jface.dialogs.InputDialog;
+import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
@@ -41,9 +42,16 @@ import dynamicrefactoring.domain.metadata.interfaces.ClassificationsCatalog;
  */
 public final class ClassifListSection {
 
-	public static final String ADD_CLASSIFICATION_BUTTON_TOOLTIP = "Add Classification";
+	/**
+	 * Numero de lineas de alto que tendra la tabla de clasificaciones.
+	 */
+	private static final int TABLE_CLASSIF_LINES_HEIGHT = 3;
+	private static final String EMPTY_STRING = ""; //$NON-NLS-1$
+	public static final String ADD_CLASSIFICATION_BUTTON_TOOLTIP = Messages.ClassifListSection_AddClassification;
 	private ClassificationsCatalog catalog;
 	private Table tbClassif;
+	private Button btDelete;
+	private Button btRename;
 
 	/**
 	 * Crea una seccion en la que se pueden agregar nuevas clasificaciones,
@@ -68,10 +76,11 @@ public final class ClassifListSection {
 	 * @param clasifCatEditor
 	 *            editor de clasificaciones que sera notificado cuando sea
 	 *            necesario cambiar la clasificacion a editar
-	 * @param classifDataSection 
+	 * @param classifDataSection
 	 */
 	protected void createClassificationsSection(FormToolkit toolkit,
-			final ScrolledForm form, final CategoriesSection clasifCatEditor, final ClassificationDataSection classifDataSection) {
+			final ScrolledForm form, final CategoriesSection clasifCatEditor,
+			final ClassificationDataSection classifDataSection) {
 		final Section section = toolkit.createSection(form.getBody(),
 				Section.DESCRIPTION | Section.TITLE_BAR | Section.TWISTIE
 						| Section.EXPANDED);
@@ -81,23 +90,17 @@ public final class ClassifListSection {
 				form.reflow(true);
 			}
 		});
-		section.setText("Classifications");
-		section.setDescription("Pick a classification from the list to edit it"
-				+ "or click on \"Add..\" to create a new one.");
+		section.setText(Messages.ClassifListSection_Classifications);
+		section.setDescription(Messages.ClassifListSection_PickClassificationFromList); //$NON-NLS-1$
 		Composite sectionClient = toolkit.createComposite(section);
 		GridLayout sectionLayout = new GridLayout(2, false);
 		sectionClient.setLayout(sectionLayout);
 
 		tbClassif = toolkit.createTable(sectionClient, SWT.NONE);
-		for (Classification clasif : catalog.getAllClassifications()) {
-			TableItem item = new TableItem(tbClassif, SWT.NONE);
-			item.setText(clasif.getName());
-		}
-		// Selecciona el primero de la lista
-		tbClassif.select(0);
 
 		GridData dataTbClassif = new GridData(GridData.FILL_BOTH);
-		dataTbClassif.heightHint = tbClassif.getItemHeight() * 3;
+		dataTbClassif.heightHint = tbClassif.getItemHeight()
+				* TABLE_CLASSIF_LINES_HEIGHT;
 		tbClassif.setLayoutData(dataTbClassif);
 
 		Composite cpButtons = new Composite(sectionClient, SWT.NONE);
@@ -108,13 +111,20 @@ public final class ClassifListSection {
 		RowLayout cpButLayout = new RowLayout();
 		cpButLayout.type = SWT.VERTICAL;
 		cpButtons.setLayout(cpButLayout);
-		Button btAdd = toolkit.createButton(cpButtons, "Add..", SWT.NONE);
+		Button btAdd = toolkit.createButton(cpButtons,
+				Messages.ClassifListSection_Add, SWT.NONE);
 		btAdd.setToolTipText(ADD_CLASSIFICATION_BUTTON_TOOLTIP);
 		btAdd.addSelectionListener(new ButtonAddListener());
-		Button btDelete = toolkit.createButton(cpButtons, "Delete..", SWT.NONE);
+		btDelete = toolkit.createButton(cpButtons,
+				Messages.ClassifListSection_Delete, SWT.NONE);
+		btDelete.setToolTipText(Messages.ClassifListSection_DeleteClassificationToolTip);
 		btDelete.addSelectionListener(new ButtonDeleteListener());
-		Button btRename = toolkit.createButton(cpButtons, "Rename..", SWT.NONE);
+		btDelete.setEnabled(false);
+		btRename = toolkit.createButton(cpButtons,
+				Messages.ClassifListSection_Rename, SWT.NONE);
+		btRename.setToolTipText(Messages.ClassifListSection_RenameClassificationToolTip);
 		btRename.addSelectionListener(new ButtonRenameListener());
+		btRename.setEnabled(false);
 
 		section.setClient(sectionClient);
 		toolkit.paintBordersFor(sectionClient);
@@ -122,27 +132,42 @@ public final class ClassifListSection {
 		tbClassif.addSelectionListener(new SelectionAdapter() {
 			@Override
 			public void widgetSelected(SelectionEvent e) {
-				clasifCatEditor.setClassification(tbClassif.getSelection()[0]
-						.getText());
-				classifDataSection.setClassification(tbClassif.getSelection()[0]
-						.getText());
+				if(tbClassif.getSelectionCount() > 0){
+					updateButtons(tbClassif.getSelection()[0].getText());
+					clasifCatEditor.setClassification(tbClassif.getSelection()[0]
+							.getText());
+					classifDataSection.setClassification(tbClassif.getSelection()[0]
+							.getText());
+				}
+
 			}
 		});
+
+		updateTable();
 
 	}
 
 	/**
+	 * Actualiza la interfaz tras un cambio de clasificacion por parte del
+	 * usuario.
+	 * 
 	 * Rellena la tabla con la lista de clasificaciones del catalogo.
+	 * 
+	 * Desactiva ciertos botones si la clasificacion seleccionada no es
+	 * editable.
 	 * 
 	 */
 	private void updateTable() {
 		// borramos los elementos que hay en la tabla
 		tbClassif.remove(0, tbClassif.getItemCount() - 1);
+		
 		// rellenamos con los elementos actuales
-		for (Classification classif : ImmutableSortedSet.copyOf(catalog.getAllClassifications())) {
+		for (Classification classif : ImmutableSortedSet.copyOf(catalog
+				.getAllClassifications())) {
 			TableItem item = new TableItem(tbClassif, SWT.NONE);
 			item.setText(classif.getName());
 		}
+
 	}
 
 	/**
@@ -180,10 +205,21 @@ public final class ClassifListSection {
 
 		@Override
 		public void widgetSelected(SelectionEvent e) {
-			if(tbClassif.getSelectionCount() > 0){
-				removeClassification(tbClassif.getSelection()[0].getText());
-				updateTable();
-				selectClassificationAndUpdateGUI(0);
+
+			if (tbClassif.getSelectionCount() > 0) {
+				MessageDialog dialog = new MessageDialog(
+						tbClassif.getShell(),
+						Messages.ClassifListSection_DeleteClassification,
+						null,
+						Messages.ClassifListSection_DeletingClassificationWarning,
+						MessageDialog.WARNING, new String[] {
+								Messages.ClassifListSection_Proceed,
+								Messages.ClassifListSection_Cancel }, 1);
+				if (dialog.open() == IStatus.OK) {
+					removeClassification(tbClassif.getSelection()[0].getText());
+					updateTable();
+					selectClassificationAndUpdateGUI(0);
+				}
 			}
 		}
 	}
@@ -194,25 +230,31 @@ public final class ClassifListSection {
 		public void widgetSelected(SelectionEvent e) {
 			InputDialog dialog = new InputDialog(tbClassif.getShell(),
 					ADD_CLASSIFICATION_BUTTON_TOOLTIP,
-					"Please enter the name of the new Classification", "",
+					Messages.ClassifListSection_EnterNewClassificationName,
+					EMPTY_STRING, 
 					new NotClassificationAlreadyExistsValidator());
 			if (dialog.open() == IStatus.OK) {
-				addClassification(new SimpleUniLevelClassification(dialog.getValue(),"", new HashSet<Category>()));
+				addClassification(new SimpleUniLevelClassification(
+						dialog.getValue(), EMPTY_STRING,
+						new HashSet<Category>())); 
 				updateTable();
-				selectClassificationAndUpdateGUI(getTableClassificationIndex(dialog.getValue()));
+				selectClassificationAndUpdateGUI(getTableClassificationIndex(dialog
+						.getValue()));
 			}
 
 		}
 	}
-	
+
 	private class ButtonRenameListener extends SelectionAdapter {
 
 		@Override
 		public void widgetSelected(SelectionEvent e) {
 			final String oldName = tbClassif.getSelection()[0].getText();
 			InputDialog dialog = new InputDialog(tbClassif.getShell(),
-					"Renaming Classification: " + oldName,
-					"Please enter the new name of the classification", "",
+					Messages.ClassifListSection_RenamingClassification
+							+ oldName,
+					Messages.ClassifListSection_EnterNewClassificationName,
+					EMPTY_STRING, 
 					new NotClassificationAlreadyExistsValidator());
 			if (dialog.open() == IStatus.OK) {
 				String newName = dialog.getValue();
@@ -223,21 +265,21 @@ public final class ClassifListSection {
 
 		}
 	}
-	
+
 	/**
-	 * Dada una clasificacion que debe existir en la tabla 
-	 * (sino salta IllegalArgumentException) 
+	 * Dada una clasificacion que debe existir en la tabla (sino salta
+	 * IllegalArgumentException)
 	 * 
-	 * devuelve el indice que ocupa dicha clasificacion en la
-	 * tabla.
+	 * devuelve el indice que ocupa dicha clasificacion en la tabla.
 	 * 
 	 * 
-	 * @param classificationName nombre de la clasificacion
+	 * @param classificationName
+	 *            nombre de la clasificacion
 	 * @return indice de la clasificacion en la tabla
 	 */
-	private int getTableClassificationIndex(String classificationName){
-		for(int i = 0; i < tbClassif.getItems().length; i++){
-			if(tbClassif.getItems()[i].getText().equals(classificationName)){
+	private int getTableClassificationIndex(String classificationName) {
+		for (int i = 0; i < tbClassif.getItems().length; i++) {
+			if (tbClassif.getItems()[i].getText().equals(classificationName)) {
 				return i;
 			}
 		}
@@ -245,26 +287,44 @@ public final class ClassifListSection {
 	}
 
 	/**
-	 * Selecciona la clasificacion en el indice dado y lanza el evento
-	 * de selección para que el resto de secciones del editor de clasificaciones
-	 * se actualice.
+	 * Selecciona la clasificacion en el indice dado y lanza el evento de
+	 * selección para que el resto de secciones del editor de clasificaciones se
+	 * actualice.
 	 * 
-	 * @param index indice del elemento a seleccionar
+	 * @param index
+	 *            indice del elemento a seleccionar
 	 */
 	private void selectClassificationAndUpdateGUI(int index) {
 		// Seleccionamos el primer elemento de la lista
 		tbClassif.select(index);
 		// Hacemos que se actualice la interfaz con el cambio
 		tbClassif.notifyListeners(SWT.Selection, new Event());
+		updateButtons(tbClassif.getItem(index).getText());
 	}
 
-	private class NotClassificationAlreadyExistsValidator implements IInputValidator {
+	/**
+	 * Actualiza los botones desactivando los que deban estarlo si la
+	 * clasificacion no es editable.
+	 * 
+	 * @param selectedClassification
+	 *            clasificacion actualmente seleccionada
+	 */
+	private void updateButtons(String selectedClassification) {
+		boolean classifIsEditable = catalog.getClassification(
+				selectedClassification).isEditable();
+		btDelete.setEnabled(classifIsEditable);
+		btRename.setEnabled(classifIsEditable);
+	}
+
+	private class NotClassificationAlreadyExistsValidator implements
+			IInputValidator {
 
 		@Override
 		public String isValid(String newText) {
 			if (catalog.containsClassification(newText)) {
-				return String.format("Classification %s already exists.",
-						newText);
+				return String
+						.format(Messages.ClassifListSection_ClassificationAlreadyExists,
+								newText);
 			}
 			return null;
 		}

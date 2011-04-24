@@ -19,7 +19,6 @@ import test.util.Utils;
 
 import com.google.common.collect.ImmutableSet;
 
-import dynamicrefactoring.RefactoringConstants;
 import dynamicrefactoring.RefactoringPlugin;
 import dynamicrefactoring.domain.RefactoringsCatalog;
 import dynamicrefactoring.domain.metadata.imp.SimpleUniLevelClassification;
@@ -39,7 +38,7 @@ public final class PluginClassificationsCatalogTest {
 
 	private static final String DESCRIPCION = "Descripcion";
 	private static final String MI_CLASIFICACION2 = "MiClasificacion2";
-	private static final String CLASSIFICATIONS_XML_FILENAME = "classifications.xml";
+	private static final String CLASSIFICATIONS_XML_FILENAME = "user-classifications.xml";
 	public static final String TEST_REPO_PATH = "/testdata/dynamicrefactoring/plugin/xml/classifications/imp/ClassificationsStoreTest/" ;
 	private static final String MI_NUEVA_CLASSIFICACION = "MiNuevaClassificacion";
 	private static final String MI_REFACT1_NAME = "MiRefact1-MiCategoria1";
@@ -54,7 +53,7 @@ public final class PluginClassificationsCatalogTest {
 		Utils.setTestRefactoringInRefactoringsDir();
 		FileManager.copyResourceToExactDir(TEST_REPO_PATH + CLASSIFICATIONS_XML_FILENAME, RefactoringPlugin.getCommonPluginFilesDir() + File.separator + "Classification" + File.separator);
 		refactCatalog = new RefactoringCatalogStub();
-		catalog = new PluginClassificationsCatalog(AbstractCatalog.getClassificationsFromFile(RefactoringConstants.CLASSIFICATION_TYPES_FILE), refactCatalog);
+		catalog = new PluginClassificationsCatalog(AbstractCatalog.getClassificationsFromFile(PluginClassificationsCatalog.USER_CLASSIFICATION_TYPES_FILE, true), refactCatalog);
 	}
 
 	/**
@@ -102,10 +101,7 @@ public final class PluginClassificationsCatalogTest {
 
 		
 		assertEquals(
-				catalog.getAllClassifications(),
-				ClassificationsReaderFactory.getReader()
-						.readClassifications(
-								RefactoringConstants.CLASSIFICATION_TYPES_FILE));
+				catalog.getAllClassifications(),PluginClassificationsCatalog.getClassificationsFromFile(PluginClassificationsCatalog.USER_CLASSIFICATION_TYPES_FILE, true));
 	}
 
 	/**
@@ -124,10 +120,7 @@ public final class PluginClassificationsCatalogTest {
 		assertEquals(expectedClassificationCategories, catalog
 				.getClassification(MI_CLASIFICACION1).getCategories());
 		assertEquals(
-				catalog.getAllClassifications(),
-				ClassificationsReaderFactory.getReader()
-						.readClassifications(
-								RefactoringConstants.CLASSIFICATION_TYPES_FILE));
+				catalog.getAllClassifications(),PluginClassificationsCatalog.getClassificationsFromFile(PluginClassificationsCatalog.USER_CLASSIFICATION_TYPES_FILE, true));
 	}
 
 	/**
@@ -146,10 +139,7 @@ public final class PluginClassificationsCatalogTest {
 		assertEquals(expectedCategories,
 				catalog.getClassification(MI_CLASIFICACION1).getCategories());
 		assertEquals(
-				catalog.getAllClassifications(),
-				ClassificationsReaderFactory.getReader()
-						.readClassifications(
-								RefactoringConstants.CLASSIFICATION_TYPES_FILE));
+				catalog.getAllClassifications(),PluginClassificationsCatalog.getClassificationsFromFile(PluginClassificationsCatalog.USER_CLASSIFICATION_TYPES_FILE, true));
 
 		assertEquals(expectedCategories, refactCatalog
 				.getRefactoring(MI_REFACT1_NAME).getCategories());
@@ -175,10 +165,7 @@ public final class PluginClassificationsCatalogTest {
 						.getCategories());
 
 		assertEquals(
-				catalog.getAllClassifications(),
-				ClassificationsReaderFactory.getReader()
-						.readClassifications(
-								RefactoringConstants.CLASSIFICATION_TYPES_FILE));
+				catalog.getAllClassifications(), PluginClassificationsCatalog.getClassificationsFromFile(PluginClassificationsCatalog.USER_CLASSIFICATION_TYPES_FILE, true));
 
 		assertEquals(expectedCategories, refactCatalog
 				.getRefactoring(MI_REFACT1_NAME).getCategories());
@@ -203,11 +190,7 @@ public final class PluginClassificationsCatalogTest {
 
 		assertTrue(catalog.containsClassification(MI_NUEVA_CLASSIFICACION));
 		assertEquals(expectedClassifications, catalog.getAllClassifications());
-		assertEquals(
-				expectedClassifications,
-				ClassificationsReaderFactory.getReader()
-						.readClassifications(
-								RefactoringConstants.CLASSIFICATION_TYPES_FILE));
+		assertEquals(expectedClassifications,PluginClassificationsCatalog.getClassificationsFromFile(PluginClassificationsCatalog.USER_CLASSIFICATION_TYPES_FILE, true));
 		assertEquals(newClassification,
 				catalog.getClassification(MI_NUEVA_CLASSIFICACION));
 
@@ -229,10 +212,7 @@ public final class PluginClassificationsCatalogTest {
 		assertFalse(catalog.containsClassification(MI_CLASIFICACION1));
 		assertEquals(expectedClassifications, catalog.getAllClassifications());
 		assertEquals(
-				expectedClassifications,
-				ClassificationsReaderFactory.getReader()
-						.readClassifications(
-								RefactoringConstants.CLASSIFICATION_TYPES_FILE));
+				expectedClassifications,PluginClassificationsCatalog.getClassificationsFromFile(PluginClassificationsCatalog.USER_CLASSIFICATION_TYPES_FILE, true));
 
 	}
 	

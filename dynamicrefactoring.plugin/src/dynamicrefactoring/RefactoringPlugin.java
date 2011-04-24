@@ -218,11 +218,11 @@ public class RefactoringPlugin extends AbstractUIPlugin
 		super.start(context);
 		MOONRefactoring.resetModel();
 		LogManager.getInstance().loadLogConfig();
-		copyDefaultDynamicRefactoringsToStateLocation();
+		copyDefaultFilesToCommonDir();
 		RefactoringPlanWriter.getInstance();
 		
 		FileManager.copyBundleDirToFileSystem("/DynamicRefactorings", getCommonPluginFilesDir() + File.separator + "temp");
-
+		FileManager.copyResourceToDir("/Classification/classifications.xml", getCommonPluginFilesDir() + File.separator + "temp");
 	}
 
 	/**
@@ -232,12 +232,12 @@ public class RefactoringPlugin extends AbstractUIPlugin
 	 * 
 	 * @throws IOException
 	 */
-	private void copyDefaultDynamicRefactoringsToStateLocation()
+	private void copyDefaultFilesToCommonDir()
 			throws IOException {
 		if (!new File(getCommonPluginFilesDir()
-				+ "/Classification/classifications.xml").exists()) {
+				+ "/Classification/user-classifications.xml").exists()) {
 			FileManager.copyResourceToDir(
-					"/Classification/classifications.xml", getCommonPluginFilesDir());
+					"/Classification/user-classifications.xml", getCommonPluginFilesDir());
 		}
 		FileManager.copyResourceToDir("/refactoringsDTD.dtd",
 				getCommonPluginFilesDir());

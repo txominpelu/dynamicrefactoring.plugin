@@ -36,12 +36,15 @@ import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.events.SelectionListener;
 import org.eclipse.swt.graphics.FontMetrics;
 import org.eclipse.swt.graphics.GC;
+import org.eclipse.swt.graphics.Point;
+import org.eclipse.swt.graphics.Rectangle;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.FileDialog;
 import org.eclipse.swt.widgets.Label;
+import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.Text;
 import org.eclipse.ui.PlatformUI;
 
@@ -76,9 +79,15 @@ import dynamicrefactoring.util.io.filter.ImageFilter;
  */
 public final class RefactoringWizardPage1 extends WizardPage {
 
-	private static final int WIZARD_WINDOW_HEIGHT = 700;
+	private static final int MULTILINE_TEXT_WIDTH_HINT = 450;
 
-	private static final int WIZARD_WINDOW_WIDTH = 650;
+	private static final int MULTILINE_TEXT_NUM_LINES = 4;
+
+	private static final int WINDOW_HEIGHT = 800;
+
+	private static final int PAGE_VERTICAL_SPACING = 10;
+
+	private static final int WINDOW_WIDTH = 650;
 
 	/**
 	 * Refactorización configurada a trav�s del asistente y que debe ser creada
@@ -160,10 +169,14 @@ public final class RefactoringWizardPage1 extends WizardPage {
 	 *            el elemento padre de esta p�gina.
 	 */
 	public void createControl(Composite parent) {
+		
+		parent.getShell().setSize(WINDOW_WIDTH, WINDOW_HEIGHT);
+
+		centerShell(parent.getShell());
 
 		Composite composite = new Composite(parent, SWT.NULL);
 		final GridLayout compositeLayout = new GridLayout(2, false);
-		compositeLayout.verticalSpacing = 10;
+		compositeLayout.verticalSpacing = PAGE_VERTICAL_SPACING;
 		composite.setLayout(compositeLayout);
 
 		setControl(composite);
@@ -213,6 +226,22 @@ public final class RefactoringWizardPage1 extends WizardPage {
 			fillInRefactoringData();
 		}
 
+	}
+
+	/**
+	 * Centra la ventana en la pantalla.
+	 * 
+	 * @param shell ventana a centrar
+	 */
+	private void centerShell(Shell shell) {
+		Point size = shell.computeSize(-1, -1);
+		Rectangle screen = shell.getDisplay().getMonitors()[0].getBounds();
+		shell.setBounds(
+		      (screen.width-size.x)/2,
+		      (screen.height-size.y)/2,
+		      size.x,
+		      size.y
+		      );
 	}
 
 	/**
@@ -283,7 +312,7 @@ public final class RefactoringWizardPage1 extends WizardPage {
 	 * @return devuelve el cuadro de texto creado
 	 */
 	private Text createMultiLineText(Composite composite, String toolTipText) {
-		Text text = new Text(composite, SWT.BORDER | SWT.MULTI);
+		Text text = new Text(composite, SWT.BORDER | SWT.MULTI | SWT.V_SCROLL | SWT.WRAP);
 		text.setToolTipText(toolTipText);
 		text.setLayoutData(getMultiLineTextGridData());
 		return text;
@@ -324,8 +353,9 @@ public final class RefactoringWizardPage1 extends WizardPage {
 	private GridData getMultiLineTextGridData() {
 		GridData multiLineTextGridData = new GridData();
 		multiLineTextGridData.grabExcessHorizontalSpace = true;
+		multiLineTextGridData.widthHint = MULTILINE_TEXT_WIDTH_HINT;
 		multiLineTextGridData.horizontalAlignment = GridData.FILL;
-		multiLineTextGridData.heightHint = getMultiLineTextFieldHeight(4);
+		multiLineTextGridData.heightHint = getMultiLineTextFieldHeight(MULTILINE_TEXT_NUM_LINES);
 		return multiLineTextGridData;
 	}
 
@@ -435,7 +465,7 @@ public final class RefactoringWizardPage1 extends WizardPage {
 	 * 
 	 * @return conjunto de palabras clave
 	 */
-	final Set<String> getKeywords() {
+	Set<String> getKeywords() {
 		Set<String> keywords = new HashSet<String>();
 		for (String keyword : keywordsText.getText().split(",")) { //$NON-NLS-1$
 			if (keyword.trim().length() > 0) {

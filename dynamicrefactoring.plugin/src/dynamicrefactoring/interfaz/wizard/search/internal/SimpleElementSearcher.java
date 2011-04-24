@@ -26,6 +26,8 @@ enum SimpleElementSearcher {
 
 	INSTANCE;
 
+	private static final String SEARCH_LANGUAGE = "English";
+
 	protected Set<QueryResult> search(SearchableType element, String userQuery)
 			throws ParseException {
 
@@ -46,14 +48,9 @@ enum SimpleElementSearcher {
 					new String[] {
 							SearchableTypeIndexer.CLASS_DESCRIPTION_FIELD,
 							SearchableTypeIndexer.CLASS_NAME_FIELD },
-					new SnowballAnalyzer(Version.LUCENE_30, "English"));
+					new SnowballAnalyzer(Version.LUCENE_30, SEARCH_LANGUAGE));
 			Query query = parser.parse(userQuery);
-			long start = System.currentTimeMillis();
 			TopDocs hits = is.search(query, 10);
-			long end = System.currentTimeMillis();
-			System.err.println("Found " + hits.totalHits + " document(s) (in "
-					+ (end - start) + " milliseconds) that matched query '"
-					+ userQuery + "':");
 			Set<QueryResult> results = new HashSet<QueryResult>(hits.totalHits);
 			for (ScoreDoc scoreDoc : hits.scoreDocs) {
 				Document doc = is.doc(scoreDoc.doc);

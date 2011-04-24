@@ -13,6 +13,7 @@ import org.eclipse.swtbot.swt.finder.results.VoidResult;
 import org.eclipse.swtbot.swt.finder.waits.DefaultCondition;
 import org.eclipse.ui.PlatformUI;
 import org.junit.Before;
+import org.junit.BeforeClass;
 import org.junit.Test;
 
 import dynamicrefactoring.interfaz.wizard.RefactoringWizardPage1Object;
@@ -25,9 +26,21 @@ import dynamicrefactoring.interfaz.wizard.RefactoringWizardPage1Object;
  */
 public final class ClassifEditorUITest {
 
+	private static final String RENAMED_CLASSIFICATION = "RenamedName";
 	private static final String NEW_CLASSIFICATION = "NewClassification";
 	private ClassifEditorPage page;
 
+	/**
+	 * Elimina la ventana de Welcome si esta abierta.
+	 */
+	@BeforeClass
+	public static void setUpClass(){
+		SWTWorkbenchBot bot = new SWTWorkbenchBot();
+		if(bot.activeView().getTitle().equals("Welcome")){
+			bot.activeView().close();
+		}
+	}
+	
 	@Before
 	public void setUp() throws Exception {
 		SWTWorkbenchBot bot = new SWTWorkbenchBot();
@@ -51,11 +64,40 @@ public final class ClassifEditorUITest {
 		page = new ClassifEditorPage(bot);
 	}
 	
+	/**
+	 * Agrega una clasificacion y la elimina y comprueba
+	 * que hace ambas cosas correctamente.
+	 */
 	@Test
-	public void addClassificationTest(){
+	public void addRemoveClassificationTest(){
 		Set<String> expectedClassifications = new TreeSet<String>(page.getClassifications());
 		expectedClassifications.add(NEW_CLASSIFICATION);
 		page.addClassification(NEW_CLASSIFICATION);
+		assertEquals(new ArrayList<String>(expectedClassifications), page.getClassifications());
+		
+		expectedClassifications.remove(NEW_CLASSIFICATION);
+		page.removeClassification(NEW_CLASSIFICATION);
+		assertEquals(new ArrayList<String>(expectedClassifications), page.getClassifications());
+	}
+	
+	/**
+	 * Agrega una clasificacion y la renombra y comprueba
+	 * que hace ambas cosas correctamente.
+	 */
+	@Test
+	public void renameRemoveClassificationTest(){
+		Set<String> expectedClassifications = new TreeSet<String>(page.getClassifications());
+		expectedClassifications.add(NEW_CLASSIFICATION);
+		page.addClassification(NEW_CLASSIFICATION);
+		assertEquals(new ArrayList<String>(expectedClassifications), page.getClassifications());
+		
+		page.renameClassification(NEW_CLASSIFICATION, RENAMED_CLASSIFICATION);
+		expectedClassifications.remove(NEW_CLASSIFICATION);
+		expectedClassifications.add(RENAMED_CLASSIFICATION);
+		assertEquals(new ArrayList<String>(expectedClassifications), page.getClassifications());
+		
+		expectedClassifications.remove(RENAMED_CLASSIFICATION);
+		page.removeClassification(RENAMED_CLASSIFICATION);
 		assertEquals(new ArrayList<String>(expectedClassifications), page.getClassifications());
 	}
 
