@@ -32,6 +32,10 @@ import dynamicrefactoring.domain.metadata.interfaces.ClassificationsCatalog;
 
 public final class ClassificationDataSection {
 
+	/**
+	 * Numero de lineas de altura del campo de texto de descripcion
+	 */
+	private static final int TEXT_DESCRIPTION_NUMLINE_HEIGHT = 3;
 	private static final int SECTION_NUM_COLUMNS = 3;
 	/**
 	 * Catalogo de clasificaciones y categorias.
@@ -82,7 +86,7 @@ public final class ClassificationDataSection {
 
 		txtName = toolkit.createText(sectionClient, classification);
 		txtName.setEditable(false);
-		txtName.setEnabled(false);
+		txtName.setBackground(txtName.getDisplay().getSystemColor(SWT.COLOR_WHITE));
 		txtName.setLayoutData(new GridData(GridData.FILL_BOTH));
 
 		chkMulti = toolkit.createButton(sectionClient,
@@ -98,16 +102,21 @@ public final class ClassificationDataSection {
 		Composite cmpDescription = toolkit.createComposite(sectionClient);
 		cmpDescription.setLayout(new GridLayout(2, false));
 		GridData sectNameLayoutData = new GridData(GridData.FILL_BOTH);
-		;
+
 		sectNameLayoutData.horizontalSpan = SECTION_NUM_COLUMNS;
 		cmpDescription.setLayoutData(sectNameLayoutData);
 
 		txtDescription = toolkit.createText(cmpDescription, "", SWT.MULTI
-				| SWT.V_SCROLL | SWT.WRAP);
+				| SWT.V_SCROLL | SWT.WRAP | SWT.BORDER);
 		txtDescription.setBackground(txtDescription.getDisplay()
 				.getSystemColor(SWT.COLOR_WIDGET_BACKGROUND));
 		txtDescription.setEditable(false);
-		txtDescription.setLayoutData(new GridData(GridData.FILL_BOTH));
+		txtDescription.setBackground(txtDescription.getDisplay().getSystemColor(SWT.COLOR_WHITE));
+		GridData txtDescriptionData = new GridData();
+		txtDescriptionData.grabExcessHorizontalSpace = true;
+		txtDescriptionData.horizontalAlignment = GridData.FILL;
+		txtDescriptionData.heightHint = txtDescription.getLineHeight() * TEXT_DESCRIPTION_NUMLINE_HEIGHT;
+		txtDescription.setLayoutData(txtDescriptionData);
 
 		btMofifyDescription = toolkit.createButton(cmpDescription,
 				Messages.ClassificationDataSection_Modify, SWT.NONE);
@@ -191,8 +200,7 @@ public final class ClassificationDataSection {
 			Object[] messageArgs = {
 					getMultiCategoryRefactoringsFormatedNames(), classification };
 			MessageFormat formatter = new MessageFormat(Messages.ClassificationDataSection_CannotBeUniCategoryErrorDescription); //$NON-NLS-1$
-			String message = formatter.format(messageArgs);
-			return message;
+			return formatter.format(messageArgs);
 		}
 
 		/**
@@ -215,8 +223,7 @@ public final class ClassificationDataSection {
 							});
 			Joiner joiner = Joiner.on(", ");
 			joiner.skipNulls(); // does nothing!
-			String names = joiner.join(multiCategoryRefactoringsNames);
-			return names;
+			return joiner.join(multiCategoryRefactoringsNames);
 		}
 	}
 

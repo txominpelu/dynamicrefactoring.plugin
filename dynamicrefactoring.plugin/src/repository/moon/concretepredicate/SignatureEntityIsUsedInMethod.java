@@ -42,28 +42,28 @@ import repository.moon.concretefunction.MethodInstructionsCollector;
 /**
  * Permite verificar si una determinada <code>SignatureEntity</code> (atributo
  * de clase o argumento formal) es utilizada dentro del cuerpo de un cierto
- * método.
+ * mï¿½todo.
  * 
  * @author <A HREF="mailto:ehp0001@alu.ubu.es">Enrique Herrero Paredes</A>
- * @author <A HREF="mailto:alc0022@alu.ubu.es">Ángel López Campo</A>
+ * @author <A HREF="mailto:alc0022@alu.ubu.es">ï¿½ngel Lï¿½pez Campo</A>
  * @author <A HREF="mailto:sfd0009@alu.ubu.es">Sonia Fuente de la Fuente</A>
  */ 
 public class SignatureEntityIsUsedInMethod extends Predicate {
 
 	/**
-	 * Entidad cuya utilización en el cuerpo de un método se quiere estudiar.
+	 * Entidad cuya utilizaciï¿½n en el cuerpo de un mï¿½todo se quiere estudiar.
 	 */
 	private SignatureEntity sigEnt;
 
 	/**
-	 * Método en cuyo cuerpo se estudiará la utilización de la entidad.
+	 * Mï¿½todo en cuyo cuerpo se estudiarï¿½ la utilizaciï¿½n de la entidad.
 	 */
 	private MethDec methDec;
 
 	/**
 	 * Identificadores de las expresiones ya analizadas, para evitar bucles
 	 * debidos a la posiblidad de que <code>leftSide</code> o
-	 * <code>rightSide</code> apunten a su vez a la expresión original.
+	 * <code>rightSide</code> apunten a su vez a la expresiï¿½n original.
 	 */
 	private ArrayList<Integer> exprIds;
 
@@ -77,7 +77,7 @@ public class SignatureEntityIsUsedInMethod extends Predicate {
 	 * @param ent
 	 *            la entidad de signatura cuyo uso se desea estudiar.
 	 * @param methDec
-	 *            el método en cuyo cuerpo se estudiará el uso de la entidad.
+	 *            el mï¿½todo en cuyo cuerpo se estudiarï¿½ el uso de la entidad.
 	 */
 	public SignatureEntityIsUsedInMethod(SignatureEntity ent, MethDec methDec) {
 		
@@ -96,7 +96,7 @@ public class SignatureEntityIsUsedInMethod extends Predicate {
 	 * Comprueba el valor de verdad del predicado.
 	 * 
 	 * @return <code>true</code> si el valor de la entidad de signatura se
-	 *         emplea en algún punto del cuerpo del método, <code>false</code>
+	 *         emplea en algï¿½n punto del cuerpo del mï¿½todo, <code>false</code>
 	 *         en caso contrario.
 	 */	 
 	public boolean isValid() {		
@@ -108,14 +108,14 @@ public class SignatureEntityIsUsedInMethod extends Predicate {
 
 	/**
 	 * Comprueba si la entidad de signatura es usada en alguna de las
-	 * instrucciones de una colección.
+	 * instrucciones de una colecciï¿½n.
 	 * 
 	 * @param instructionsColl
 	 *            el conjunto de instrucciones entre las que se estudia el
 	 *            posible uso de la entidad de signatura.
 	 * 
 	 * @return <code>true</code> si la entidad es utilizada en al menos una
-	 *         instrucción; <code>false</code> en caso contrario.
+	 *         instrucciï¿½n; <code>false</code> en caso contrario.
 	 */
 	private boolean checkInstructions(Collection<Instr> instructionsColl) {
 		
@@ -139,14 +139,14 @@ public class SignatureEntityIsUsedInMethod extends Predicate {
 	}
 
 	/**
-	 * Comprueba si la entidad de signatura es usada en una instrucción de
-	 * asignación.
+	 * Comprueba si la entidad de signatura es usada en una instrucciï¿½n de
+	 * asignaciï¿½n.
 	 * 
 	 * @param instr
-	 *            la instrucción de asignación en la que se estudia el posible
+	 *            la instrucciï¿½n de asignaciï¿½n en la que se estudia el posible
 	 *            uso de la entidad de signatura.
 	 * 
-	 * @return <code>true</code> si la entidad es utilizada en la instrucción,
+	 * @return <code>true</code> si la entidad es utilizada en la instrucciï¿½n,
 	 *         <code>false</code> en caso contrario.
 	 */
 	private boolean checkAssignmentInstr(AssignmentInstr instr) {
@@ -181,14 +181,14 @@ public class SignatureEntityIsUsedInMethod extends Predicate {
 	}
 
 	/**
-	 * Comprueba si la entidad de signatura es usada en una instrucción de
+	 * Comprueba si la entidad de signatura es usada en una instrucciï¿½n de
 	 * llamada.
 	 * 
 	 * @param callInstr
-	 *            la instrucción de llamada en la que se estudia el posible uso
+	 *            la instrucciï¿½n de llamada en la que se estudia el posible uso
 	 *            de la entidad de signatura.
 	 * 
-	 * @return <code>true</code> si la entidad es utilizada en la instrucción,
+	 * @return <code>true</code> si la entidad es utilizada en la instrucciï¿½n,
 	 *         <code>false</code> en caso contrario.
 	 */
 	private boolean checkCallInstr(CallInstr callInstr) {
@@ -205,14 +205,14 @@ public class SignatureEntityIsUsedInMethod extends Predicate {
 	}
 
 	/**
-	 * Comprueba si la entidad de signatura es usada en una instrucción de
-	 * creación.
+	 * Comprueba si la entidad de signatura es usada en una instrucciï¿½n de
+	 * creaciï¿½n.
 	 * 
 	 * @param creationInstr
-	 *            la instrucción de instanciación en la que se estudia el
+	 *            la instrucciï¿½n de instanciaciï¿½n en la que se estudia el
 	 *            posible uso de la entidad de signatura.
 	 * 
-	 * @return <code>true</code> si la entidad es utilizada en la instrucción,
+	 * @return <code>true</code> si la entidad es utilizada en la instrucciï¿½n,
 	 *         <code>false</code> en caso contrario.
 	 */
 	private boolean checkCreationInstr(CreationInstr creationInstr) {
@@ -225,10 +225,10 @@ public class SignatureEntityIsUsedInMethod extends Predicate {
 	 * Comprueba si la entidad de signatura forma parte de una CallExpr.
 	 * 
 	 * @param callExpr
-	 *            la expresión de llamada de longitud uno en la que se estudia
+	 *            la expresiï¿½n de llamada de longitud uno en la que se estudia
 	 *            el posible uso de la entidad de signatura.
 	 * 
-	 * @return <code>true</code> si la entidad es utilizada en la expresión de
+	 * @return <code>true</code> si la entidad es utilizada en la expresiï¿½n de
 	 *         llamada; <code>false</code> en caso contrario.
 	 */
 	private boolean checkCallExpr(CallExpr callExpr){
@@ -260,7 +260,7 @@ public class SignatureEntityIsUsedInMethod extends Predicate {
 		
 		// FIXME: Java dependent code
 		if (callExpr instanceof JavaCallExprCreation){
-			CallExpr subexpr = ((JavaCallExprCreation)callExpr).getExpression();
+			CallExpr subexpr = ((JavaCallExprCreation)callExpr);
 			return checkExpr(subexpr);
 		}
 		
@@ -277,10 +277,10 @@ public class SignatureEntityIsUsedInMethod extends Predicate {
 	 * Comprueba si la entidad de signatura forma parte de una Expr.
 	 * 
 	 * @param expr
-	 *            la expresión en la que se estudia el posible uso de la entidad
+	 *            la expresiï¿½n en la que se estudia el posible uso de la entidad
 	 *            de signatura.
 	 * 
-	 * @return <code>true</code> si la entidad es utilizada en la expresión de
+	 * @return <code>true</code> si la entidad es utilizada en la expresiï¿½n de
 	 *         llamada; <code>false</code> en caso contrario.
 	 */
 	private boolean checkExpr(Expr expr){

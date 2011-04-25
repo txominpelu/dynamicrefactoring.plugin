@@ -169,10 +169,16 @@ public abstract class SelectDynamicRefactoringWindow extends DynamicRefactoringL
 			filterButton.setText(Messages.SelectDynamicRefactoringWindow_Filter);
 			filterButton.addSelectionListener(new SelectionAdapter() {
 		      public void widgetSelected(SelectionEvent event) {
-		        if (((Button) event.widget).getSelection())
+		        if (((Button) event.widget).getSelection()){
 		        	availableRefListViewer.addFilter(filter);
-		        else
+		        	//si al aplicar el filtro no hay ningun elemento seleccionado en la lista
+		        	//deshabilitamos el boton de Copy
+		        	if(availableRefListViewer.getTable().getSelectionIndex()<0){
+		        		getButton(IDialogConstants.CLIENT_ID).setEnabled(false);
+		        	}
+		        }else{
 		        	availableRefListViewer.removeFilter(filter);
+		        }
 		      }
 		    });
 		}else{

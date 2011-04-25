@@ -25,6 +25,7 @@ import org.eclipse.ui.forms.widgets.Section;
 
 import com.google.common.collect.ImmutableSortedSet;
 
+import dynamicrefactoring.RefactoringImages;
 import dynamicrefactoring.domain.metadata.imp.SimpleUniLevelClassification;
 import dynamicrefactoring.domain.metadata.interfaces.Category;
 import dynamicrefactoring.domain.metadata.interfaces.Classification;
@@ -165,6 +166,7 @@ public final class ClassifListSection {
 		for (Classification classif : ImmutableSortedSet.copyOf(catalog
 				.getAllClassifications())) {
 			TableItem item = new TableItem(tbClassif, SWT.NONE);
+			item.setImage(RefactoringImages.getClassIcon());
 			item.setText(classif.getName());
 		}
 

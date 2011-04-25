@@ -28,7 +28,7 @@ import repository.java.concretepredicate.HasNotFail;
 /**
  * Collector of exception thrown by code fragment.
  * 
- * @author Raúl Marticorena
+ * @author Raï¿½l Marticorena
  *
  */
 public class ExceptionsThrow extends Function{
@@ -75,8 +75,8 @@ public class ExceptionsThrow extends Function{
 			CallInstr callInstr = (CallInstr) instr;
 			List<JavaThrows> exceptions = ((JavaRoutineDec) callInstr.getRoutineDec()).getException();
 			for (JavaThrows jt : exceptions){
-				if (!listThrow.contains(jt.getException())){
-					this.listThrow.add(jt.getException());
+				if (!listThrow.contains((JavaType)jt.getException())){
+					listThrow.add((JavaType)jt.getException());
 				}
 			}
 		}
@@ -104,8 +104,8 @@ public class ExceptionsThrow extends Function{
 				JavaFunctionDec jfd = (JavaFunctionDec) md;
 				List<JavaThrows> list = jfd.getException();
 				for (JavaThrows jt : list){
-					if (!listThrow.contains(jt.getException())){
-						this.listThrow.add(jt.getException());
+					if (!listThrow.contains((JavaType)jt.getException())){
+						listThrow.add((JavaType)jt.getException());
 					}
 				}
 			}

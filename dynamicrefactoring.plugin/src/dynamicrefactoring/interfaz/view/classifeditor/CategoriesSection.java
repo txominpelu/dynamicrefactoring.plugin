@@ -20,6 +20,7 @@ import org.eclipse.ui.forms.widgets.FormToolkit;
 import org.eclipse.ui.forms.widgets.ScrolledForm;
 import org.eclipse.ui.forms.widgets.Section;
 
+import dynamicrefactoring.RefactoringImages;
 import dynamicrefactoring.domain.metadata.interfaces.Category;
 import dynamicrefactoring.domain.metadata.interfaces.Classification;
 import dynamicrefactoring.domain.metadata.interfaces.ClassificationsCatalog;
@@ -84,11 +85,11 @@ public final class CategoriesSection {
 		GridLayout sectionLayout = new GridLayout(2, false);
 		sectionClient.setLayout(sectionLayout);
 
-		tbCategories = toolkit.createTable(sectionClient, SWT.NONE);
+		tbCategories = toolkit.createTable(sectionClient, SWT.BORDER);
 
-		GridData dataTbClassif = new GridData(GridData.FILL_BOTH);
-		dataTbClassif.heightHint = tbCategories.getItemHeight() * 3;
-		tbCategories.setLayoutData(dataTbClassif);
+		GridData dataTbCategories = new GridData(GridData.FILL_BOTH);
+		dataTbCategories.heightHint = tbCategories.getItemHeight() * 4;
+		tbCategories.setLayoutData(dataTbCategories);
 
 		Composite cpButtons = new Composite(sectionClient, SWT.NONE);
 		GridData dataCpButtons = new GridData();
@@ -126,6 +127,7 @@ public final class CategoriesSection {
 		for (Category c : catalog.getClassification(classification)
 				.getCategories()) {
 			TableItem item = new TableItem(tbCategories, SWT.NONE);
+			item.setImage(RefactoringImages.getCatIcon());
 			item.setText(c.getName());
 		}
 		boolean classifIsEditable = catalog.getClassification(classification)

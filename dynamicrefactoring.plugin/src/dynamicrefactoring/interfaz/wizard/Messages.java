@@ -128,6 +128,7 @@ public class Messages extends NLS {
 	public static String RefactoringWizardPage2_Main;
 	public static String RefactoringWizardPage2_MainCannotBeObtained;
 	public static String RefactoringWizardPage2_MainMustConform;
+	public static String RefactoringWizardPage2_MainMustConformWithScope;
 	public static String RefactoringWizardPage2_MainNeeded;
 	public static String RefactoringWizardPage2_Method;
 	public static String RefactoringWizardPage2_MethodNeeded;

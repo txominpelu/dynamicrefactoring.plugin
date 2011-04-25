@@ -72,6 +72,7 @@ import dynamicrefactoring.RefactoringImages;
 import dynamicrefactoring.RefactoringPlugin;
 import dynamicrefactoring.domain.DynamicRefactoringDefinition;
 import dynamicrefactoring.domain.InputParameter;
+import dynamicrefactoring.domain.Scope;
 import dynamicrefactoring.domain.xml.XMLRefactoringsCatalog;
 import dynamicrefactoring.interfaz.dynamic.InputProcessor;
 import dynamicrefactoring.interfaz.wizard.listener.ListDownListener;
@@ -393,8 +394,6 @@ public class RefactoringWizardPage2 extends WizardPage {
 		fdComposite1.bottom = new FormAttachment(composite_2, 0, SWT.BOTTOM);
 		composite_2.setLayout(new FormLayout());
 		final FormData fdComposite2 = new FormData();
-		// TODO: cambiado para hacer hueco a la seccion
-		// fdComposite2.bottom = new FormAttachment(100, -5);
 		fdComposite2.bottom = new FormAttachment(60, -5);
 		fdComposite2.right = new FormAttachment(100, -5);
 		fdComposite2.top = new FormAttachment(0, 1);
@@ -554,7 +553,6 @@ public class RefactoringWizardPage2 extends WizardPage {
 			}
 		});
 
-		// TODO: nuevo
 		Composite composite_3;
 		composite_3 = new Composite(composite, SWT.BORDER);
 		composite_3.setLayout(new FormLayout());
@@ -1081,6 +1079,16 @@ public class RefactoringWizardPage2 extends WizardPage {
 					updateStatus(formatter.format(messageArgs));
 					return;
 				}
+				//El tipo del parámetro principal debe cumplir con el ambito seleccinado
+				//para la refactorización elegido en la pagina 1 del wizard.
+				String scopeName=((RefactoringWizard) this.getWizard()).scope.getName();
+				if( scopeName==null ||
+					validator.convertScopeCategory(nextInput.getType())==null ||
+					!validator.convertScopeCategory(nextInput.getType()).equalsIgnoreCase(scopeName)){
+					updateStatus(Messages.RefactoringWizardPage2_MainMustConformWithScope + "."); //$NON-NLS-1$
+					return ;
+				}
+					
 			}
 			if (nextInput.getFrom() != null
 					&& nextInput.getFrom().length() != 0)
