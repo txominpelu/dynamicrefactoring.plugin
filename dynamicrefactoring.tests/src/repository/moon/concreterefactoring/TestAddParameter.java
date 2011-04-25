@@ -340,7 +340,7 @@ public class TestAddParameter extends RefactoringTemplateAbstractTest {
 				if (instMetodoB.toString().contains(TestRemoveParameter.METODO_A)) //$NON-NLS-1$
 					assertEquals("A�adir par�metro con llamadas complejas: " + //$NON-NLS-1$
 						"no se ha a�adido el par�metro real para el nuevo argumento.", //$NON-NLS-1$
-						"metodoA('0') * 2 / metodoA('0')", instMetodoB.toString()); //$NON-NLS-1$
+						"metodoA('0') * 2 /  metodoA('0')", instMetodoB.toString()); //$NON-NLS-1$
 		
 		for (Instr instrMetodoC : metodoC.getFlattenedInstructions())
 				if (instrMetodoC.toString().contains(TestRemoveParameter.METODO_A)) //$NON-NLS-1$
