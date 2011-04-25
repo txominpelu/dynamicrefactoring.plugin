@@ -166,7 +166,12 @@ public final class ClassifListSection {
 		for (Classification classif : ImmutableSortedSet.copyOf(catalog
 				.getAllClassifications())) {
 			TableItem item = new TableItem(tbClassif, SWT.NONE);
-			item.setImage(RefactoringImages.getClassIcon());
+			if(classif.isEditable()){
+				item.setImage(RefactoringImages.getClassIcon());
+			}else{
+				item.setImage(RefactoringImages.getPluginClassificationIcon());
+			}
+			
 			item.setText(classif.getName());
 		}
 

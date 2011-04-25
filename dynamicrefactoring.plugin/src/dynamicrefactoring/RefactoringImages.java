@@ -71,6 +71,8 @@ public final class RefactoringImages {
 	
 	public static final String SOURCE_ICON_PATH = ICONS_DIR + "source.gif"; //$NON-NLS-1$
 
+	private static final String PlUGIN_CLASSIFICATION_ICON_PATH = ICONS_DIR + "plugin-classif.ico"; //$NON-NLS-1$
+
 	/**
 	 * Evita que se creen instancias del objeto.
 	 */
@@ -114,6 +116,16 @@ public final class RefactoringImages {
 	 */
 	public static Image getClassIcon() {
 		return getImageForPath(CLASS_ICON_PATH);
+	}
+	
+	/**
+	 * Obtiene el icono de una classification perteneciente al
+	 * plugin, es decir, no editable.
+	 * 
+	 * @return imagen del icono
+	 */
+	public static Image getPluginClassificationIcon() {
+		return getImageForPath(PlUGIN_CLASSIFICATION_ICON_PATH);
 	}
 
 	/**
