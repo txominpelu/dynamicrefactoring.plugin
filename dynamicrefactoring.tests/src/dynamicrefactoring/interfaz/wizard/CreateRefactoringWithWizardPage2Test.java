@@ -34,7 +34,7 @@ public final class CreateRefactoringWithWizardPage2Test extends AbstractRefactor
 		RefactoringWizardPage1Object refactoringWizardPageObject = new RefactoringWizardPage1Object(bot);
 		refactoringWizardPageObject.setMotivation(CreateRefactoringTest.MI_MOTIVACION);
 		refactoringWizardPageObject.setDescription(CreateRefactoringTest.MI_DESCRIPCION);
-		refactoringWizardPageObject.checkCategory(PluginClassificationsCatalog.SCOPE_CLASSIFICATION, Scope.METHOD.toString());
+		refactoringWizardPageObject.checkCategory(PluginClassificationsCatalog.SCOPE_CLASSIFICATION, Scope.CLASS.toString());
 		refactoringWizardPageObject.setName(CreateRefactoringTest.MI_NOMBRE);
 		return  (RefactoringWizardPage2Object) refactoringWizardPageObject.goToNextPage();
 	}
@@ -46,7 +46,9 @@ public final class CreateRefactoringWithWizardPage2Test extends AbstractRefactor
 	 */
 	@Test
 	public void canGoToNextPageTest(){
-		refactoringWizardPage2Object.markInputAsMain("moon.core.Model (1)");
+		refactoringWizardPage2Object.addInput("javamoon.core.classdef.JavaClassDef");
+		refactoringWizardPage2Object.setNameForInput("clase", "javamoon.core.classdef.JavaClassDef (1)");
+		refactoringWizardPage2Object.markInputAsMain("javamoon.core.classdef.JavaClassDef (1)");
 		assertTrue(refactoringWizardPage2Object.canGoToNextPage());
 	}
 

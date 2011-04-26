@@ -331,6 +331,7 @@ public final class RefactoringWizardPage1 extends WizardPage {
 
 		imageText = new Text(imageComposite, SWT.BORDER);
 		GridData imageTextData = new GridData();
+		imageTextData.widthHint = MULTILINE_TEXT_WIDTH_HINT;
 		imageTextData.grabExcessHorizontalSpace = true;
 		imageTextData.horizontalAlignment = GridData.FILL;
 		imageText.setToolTipText(Messages.RefactoringWizardPage1_SelectImage);
@@ -365,6 +366,7 @@ public final class RefactoringWizardPage1 extends WizardPage {
 	 */
 	private GridData getUniLineTextGridData() {
 		GridData uniLineTextGridData = new GridData();
+		uniLineTextGridData.widthHint = MULTILINE_TEXT_WIDTH_HINT;
 		uniLineTextGridData.grabExcessHorizontalSpace = true;
 		uniLineTextGridData.horizontalAlignment = GridData.FILL;
 		uniLineTextGridData.verticalAlignment = GridData.BEGINNING;

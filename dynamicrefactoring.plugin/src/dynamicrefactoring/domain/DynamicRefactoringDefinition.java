@@ -603,11 +603,11 @@ public class DynamicRefactoringDefinition implements Element,
 	 * @return ruta absoluta del fichero
 	 */
 	private String getRefactoringFileFullPath(String filePath) {
-		if (!new File(filePath).isAbsolute()) {
-			return getRefactoringDirectoryFile() + File.separator
-						+ filePath;
+		if (filePath.isEmpty() || new File(filePath).isAbsolute()) {
+			return filePath;
 		}
-		return filePath;
+		return getRefactoringDirectoryFile() + File.separator
+					+ filePath;
 	}
 
 	/**

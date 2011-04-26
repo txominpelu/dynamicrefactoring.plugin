@@ -72,7 +72,6 @@ import dynamicrefactoring.RefactoringImages;
 import dynamicrefactoring.RefactoringPlugin;
 import dynamicrefactoring.domain.DynamicRefactoringDefinition;
 import dynamicrefactoring.domain.InputParameter;
-import dynamicrefactoring.domain.Scope;
 import dynamicrefactoring.domain.xml.XMLRefactoringsCatalog;
 import dynamicrefactoring.interfaz.dynamic.InputProcessor;
 import dynamicrefactoring.interfaz.wizard.listener.ListDownListener;
@@ -350,6 +349,8 @@ public class RefactoringWizardPage2 extends WizardPage {
 
 		lTypes = new List(composite1, SWT.MULTI | SWT.V_SCROLL | SWT.H_SCROLL
 				| SWT.BORDER);
+		lTypes.setData("org.eclipse.swtbot.widget.key", "types");
+		
 		final FormData fdList = new FormData();
 		fdList.bottom = new FormAttachment(0, 247);
 		fdList.right = new FormAttachment(0, 225);
@@ -533,6 +534,7 @@ public class RefactoringWizardPage2 extends WizardPage {
 				.getImage(ISharedImages.IMG_TOOL_DELETE));
 
 		addButton = new Button(composite, SWT.NONE);
+		addButton.setData("org.eclipse.swtbot.widget.key","addInput");
 		final FormData fdButton1 = new FormData();
 		fdButton1.bottom = new FormAttachment(0, 61);
 		fdButton1.top = new FormAttachment(0, 40);

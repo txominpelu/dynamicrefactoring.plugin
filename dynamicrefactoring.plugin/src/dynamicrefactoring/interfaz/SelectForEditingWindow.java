@@ -30,69 +30,76 @@ import org.eclipse.swt.widgets.Table;
 import org.eclipse.ui.PlatformUI;
 
 import dynamicrefactoring.domain.DynamicRefactoringDefinition;
+import dynamicrefactoring.domain.DynamicRefactoringDefinition.Builder;
 import dynamicrefactoring.domain.RefactoringsCatalog;
 import dynamicrefactoring.interfaz.wizard.RefactoringWizard;
 
 /**
- * Permite seleccionar una de las refactorizaciones din�micas disponibles para ser
- * editada.
+ * Permite seleccionar una de las refactorizaciones din�micas disponibles para
+ * ser editada.
  * 
- * <p>Muestra en todo momento un resumen con las caracter�sticas principales de la
- * refactorizaci�n seleccionada, hasta que se pulsa el bot�n que inicia el 
- * asistente para la edici�n de refactorizaciones.</p>
+ * <p>
+ * Muestra en todo momento un resumen con las caracter�sticas principales de la
+ * refactorizaci�n seleccionada, hasta que se pulsa el bot�n que inicia el
+ * asistente para la edici�n de refactorizaciones.
+ * </p>
  * 
  * @author <A HREF="mailto:sfd0009@alu.ubu.es">Sonia Fuente de la Fuente</A>
  * @author <A HREF="mailto:ehp0001@alu.ubu.es">Enrique Herrero Paredes</A>
  */
 public class SelectForEditingWindow extends SelectDynamicRefactoringWindow {
-	
+
 	/**
 	 * Crea la ventana de di�logo.
 	 * 
-	 * @param parentShell la <i>shell</i> padre de esta ventana de di�logo.
+	 * @param parentShell
+	 *            la <i>shell</i> padre de esta ventana de di�logo.
 	 */
-	public SelectForEditingWindow(Shell parentShell, RefactoringsCatalog refactCatalog) {
+	public SelectForEditingWindow(Shell parentShell,
+			RefactoringsCatalog refactCatalog) {
 		super(parentShell, refactCatalog);
 		logger = Logger.getLogger(SelectForEditingWindow.class);
 	}
-	
+
 	/**
-	 * Crea el resto de botones necesarios en el dialogo que permiten 
-	 * lanzar las distintas funcionalidades del dialogo.
-	 * Entre ellos se encuentra el botón OK.
+	 * Crea el resto de botones necesarios en el dialogo que permiten lanzar las
+	 * distintas funcionalidades del dialogo. Entre ellos se encuentra el botón
+	 * OK.
 	 * 
-	 * @param parent el componente padre del botón.
+	 * @param parent
+	 *            el componente padre del botón.
 	 */
-	protected void createOtherButtons(Composite parent){
-		createButton(parent, IDialogConstants.CLIENT_ID, 
+	protected void createOtherButtons(Composite parent) {
+		createButton(parent, IDialogConstants.CLIENT_ID,
 				Messages.SelectForEditingWindow_CreateFrom, true);
 		getButton(IDialogConstants.CLIENT_ID).setEnabled(false);
 		super.createOtherButtons(parent);
 	}
-	
+
 	/**
-	 * Crea el bot�n que permite lanzar el asistente para la edici�n de la 
+	 * Crea el bot�n que permite lanzar el asistente para la edici�n de la
 	 * refactorizaci�n seleccionada.
 	 * 
-	 * @param parent el componente padre del bot�n.
+	 * @param parent
+	 *            el componente padre del bot�n.
 	 * 
 	 * @see SelectDynamicRefactoringWindow#createOKButton(Composite)
 	 */
 	@Override
 	protected void createOKButton(Composite parent) {
-		createButton(parent, IDialogConstants.OK_ID, 
-				Messages.SelectForEditingWindow_EditCaps, false);		
+		createButton(parent, IDialogConstants.OK_ID,
+				Messages.SelectForEditingWindow_EditCaps, false);
 	}
-	
+
 	/**
-	 * Obtiene el verbo asociado a la acci�n que permite iniciar la ventana
-	 * de di�logo sobre la refactorizaci�n seleccionada.
+	 * Obtiene el verbo asociado a la acci�n que permite iniciar la ventana de
+	 * di�logo sobre la refactorizaci�n seleccionada.
 	 * 
-	 * @return el verbo asociado a la acci�n que permite iniciar la ventana
-	 * de di�logo sobre la refactorizaci�n seleccionada.
+	 * @return el verbo asociado a la acci�n que permite iniciar la ventana de
+	 *         di�logo sobre la refactorizaci�n seleccionada.
 	 */
 	@Override
-	protected String getOperation(){
+	protected String getOperation() {
 		return Messages.SelectForEditingWindow_EditLower;
 	}
 
@@ -100,43 +107,33 @@ public class SelectForEditingWindow extends SelectDynamicRefactoringWindow {
 	 * Notifica que el bot�n de este di�logo con el identificador especificado
 	 * ha sido pulsado.
 	 * 
-	 * @param buttonId el identificador del bot�n que ha sido pulsado (v�anse
-	 * las constantes <code>IDialogConstants.*ID</code>).
+	 * @param buttonId
+	 *            el identificador del bot�n que ha sido pulsado (v�anse las
+	 *            constantes <code>IDialogConstants.*ID</code>).
 	 * 
 	 * @see Dialog#buttonPressed
 	 * @see IDialogConstants
 	 */
 	@Override
 	protected void buttonPressed(int buttonId) {
-		
-		if(buttonId!=IDialogConstants.CANCEL_ID){
-			Table availableList=availableRefListViewer.getTable();
-			if (availableList.getSelectionCount() == 1){
+
+		if (buttonId != IDialogConstants.CANCEL_ID) {
+			Table availableList = availableRefListViewer.getTable();
+			if (availableList.getSelectionCount() == 1) {
 				Object obj = availableList.getSelection()[0].getData();
-				if(obj instanceof DynamicRefactoringDefinition){
-					DynamicRefactoringDefinition refactoring =(DynamicRefactoringDefinition)obj;
-			
-					//si se ha seleccionado crear una refactorización a partir de
-					//una copia de una refactorización suministrada por el plugin
-					//customizada por el usuario
-					if(buttonId == IDialogConstants.CLIENT_ID){
-						String name=refactoring.getName()+Messages.SelectForEditingWindow_SuffixCopy;
-						int i=1;
-						String version="";//$NON-NLS-1$
-						while(refactCatalog.hasRefactoring(name+version)){
-							i++;
-							version=String.valueOf(i);
-						}
-						refactoring=refactoring.getBuilder().name(name+version).build();
-					}
-						
+				if (obj instanceof DynamicRefactoringDefinition) {
+
 					this.close();
 
-					RefactoringWizard wizard =  new RefactoringWizard(refactoring, refactCatalog);
+					DynamicRefactoringDefinition refactoring = (buttonId == IDialogConstants.CLIENT_ID) ? getRefactoringCopy(obj)
+							: (DynamicRefactoringDefinition) obj;
+					RefactoringWizard wizard = new RefactoringWizard(
+							refactoring, refactCatalog);
 					wizard.init(PlatformUI.getWorkbench(), null);
-				
-					WizardDialog dialog = new WizardDialog(
-							PlatformUI.getWorkbench().getActiveWorkbenchWindow().getShell(),wizard);
+
+					WizardDialog dialog = new WizardDialog(PlatformUI
+							.getWorkbench().getActiveWorkbenchWindow()
+							.getShell(), wizard);
 					dialog.create();
 					dialog.setPageSize(200, 200);
 					dialog.updateSize();
@@ -144,7 +141,35 @@ public class SelectForEditingWindow extends SelectDynamicRefactoringWindow {
 				}
 			}
 		}
-			
+
 		super.buttonPressed(buttonId);
-	}	
+	}
+
+	/**
+	 * Devuelve una copia de la refactorizacion con ciertos parametros
+	 * modificados para hacer la viable. Es necesario llamar a este metodo
+	 * cuando se crean copias de las refactorizaciones del plugin
+	 * 
+	 * @param obj
+	 *            refactorizacion
+	 * @return copia de la refactorizacion modificada
+	 */
+	private DynamicRefactoringDefinition getRefactoringCopy(Object obj) {
+		DynamicRefactoringDefinition refactoring = ((DynamicRefactoringDefinition) obj);
+
+		String name = refactoring.getName()
+				+ Messages.SelectForEditingWindow_SuffixCopy;
+		int i = 1;
+		String version = "";//$NON-NLS-1$
+		while (refactCatalog.hasRefactoring(name + version)) {
+			i++;
+			version = String.valueOf(i);
+		}
+		Builder builder = refactoring.getBuilder();
+		builder.image(refactoring.getImageAbsolutePath());
+		builder.examples(refactoring.getExamplesAbsolutePath());
+		builder.name(name + version);
+		return builder.build();
+
+	}
 }

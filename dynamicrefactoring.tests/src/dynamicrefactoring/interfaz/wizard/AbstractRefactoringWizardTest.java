@@ -15,7 +15,7 @@ public abstract class AbstractRefactoringWizardTest {
 
 	public final SWTWorkbenchBot setUpBot(){
 		// increase timeout to 10 seconds
-		SWTBotPreferences.TIMEOUT = 5000;
+		SWTBotPreferences.TIMEOUT = 10000;
 		 bot = new SWTWorkbenchBot();
 		 UIThreadRunnable.syncExec(new VoidResult() {
 	            public void run() {

@@ -58,6 +58,7 @@ import repository.moon.RepositoryUtils;
  */
 public class TestAddParameter extends RefactoringTemplateAbstractTest {
 
+	private static final String INT = "int";
 	public static final String PAQUETE_A_CLASE_A = "paqueteA.ClaseA";
 
 	/** 
@@ -84,7 +85,7 @@ public class TestAddParameter extends RefactoringTemplateAbstractTest {
 
 		Name name = factory.createName("ParameterA"); //$NON-NLS-1$
 
-		Type tipo = jm.getType(factory.createName("int"));	 //$NON-NLS-1$
+		Type tipo = jm.getType(factory.createName(INT));	 //$NON-NLS-1$
 
 		MOONRefactoring adition = new AddParameter(metodo, tipo, name, jm);			
 		adition.run();
@@ -227,7 +228,7 @@ public class TestAddParameter extends RefactoringTemplateAbstractTest {
 
 		Name name = factory.createName("ParameterD"); //$NON-NLS-1$
 
-		Type tipo = jm.getType(factory.createName("int")); //$NON-NLS-1$
+		Type tipo = jm.getType(factory.createName(INT)); //$NON-NLS-1$
 
 		MOONRefactoring adition = new AddParameter(metodo, tipo, name, jm);			
 		adition.run();		
@@ -340,27 +341,33 @@ public class TestAddParameter extends RefactoringTemplateAbstractTest {
 				if (instMetodoB.toString().contains(TestRemoveParameter.METODO_A)) //$NON-NLS-1$
 					assertEquals("A�adir par�metro con llamadas complejas: " + //$NON-NLS-1$
 						"no se ha a�adido el par�metro real para el nuevo argumento.", //$NON-NLS-1$
-						"metodoA('0') * 2 /  metodoA('0')", instMetodoB.toString()); //$NON-NLS-1$
+						" metodoA('0') * 2 /  metodoA('0')", instMetodoB.toString()); //$NON-NLS-1$
 		
-		for (Instr instrMetodoC : metodoC.getFlattenedInstructions())
-				if (instrMetodoC.toString().contains(TestRemoveParameter.METODO_A)) //$NON-NLS-1$
+		for (Instr instrMetodoC : metodoC.getFlattenedInstructions()) {
+				if (instrMetodoC.toString().contains(TestRemoveParameter.METODO_A)) { //$NON-NLS-1$
 					assertEquals("A�adir par�metro con llamadas complejas: " + //$NON-NLS-1$
 						"no se ha a�adido el par�metro real en el segundo m�todo.", //$NON-NLS-1$
-						"a=metodoA('0').intValue() - metodoB()", instrMetodoC.toString()); //$NON-NLS-1$
+						" a= metodoA('0'). intValue() -  metodoB()", instrMetodoC.toString()); //$NON-NLS-1$
+				}
+		}
 		
 		addition.undoActions();
 		
-		for (Instr subi : metodoB.getFlattenedInstructions())
-				if (subi.toString().contains(TestRemoveParameter.METODO_A)) //$NON-NLS-1$
+		for (Instr subi : metodoB.getFlattenedInstructions()) {
+				if (subi.toString().contains(TestRemoveParameter.METODO_A)) { //$NON-NLS-1$
 					assertEquals("Deshacer a�adir par�metro con llamadas complejas: " + //$NON-NLS-1$
 						"no se ha eliminado el par�metro real para el nuevo argumento.", //$NON-NLS-1$
-						"metodoA() * 2 / metodoA()", subi.toString()); //$NON-NLS-1$
+						" metodoA() * 2 /  metodoA()", subi.toString()); //$NON-NLS-1$
+				}
+		}
 		
-		for (Instr subi : metodoC.getFlattenedInstructions())
-				if (subi.toString().contains(TestRemoveParameter.METODO_A)) //$NON-NLS-1$
+		for (Instr subi : metodoC.getFlattenedInstructions()) {
+				if (subi.toString().contains(TestRemoveParameter.METODO_A)) {//$NON-NLS-1$
 					assertEquals("Deshacer a�adir par�metro con llamadas complejas: " + //$NON-NLS-1$
 						"no se ha eliminado el par�metro real en el segundo m�todo.", //$NON-NLS-1$
-						"a=metodoA().intValue() - metodoB()", subi.toString()); //$NON-NLS-1$
+						" a= metodoA(). intValue() -  metodoB()", subi.toString()); //$NON-NLS-1$
+				}
+		}
 	}
 
 	/** 
@@ -390,7 +397,7 @@ public class TestAddParameter extends RefactoringTemplateAbstractTest {
 		MethDec metodo = lMetodo.get(0);
 
 		Name name = factory.createName("newParanuevoParametro"); //$NON-NLS-1$
-		Type tipo = jm.getType(factory.createName("int")); //$NON-NLS-1$
+		Type tipo = jm.getType(factory.createName(INT)); //$NON-NLS-1$
 
 		MOONRefactoring adition = new AddParameter(metodo, tipo, name, jm);			
 		adition.run();	
@@ -494,7 +501,7 @@ public class TestAddParameter extends RefactoringTemplateAbstractTest {
 
 		Name name = factory.createName("a"); //$NON-NLS-1$
 
-		Type tipo = jm.getType(factory.createName("int"));	 //$NON-NLS-1$
+		Type tipo = jm.getType(factory.createName(INT));	 //$NON-NLS-1$
 
 		MOONRefactoring adition = new AddParameter(metodo, tipo, name, jm);			
 		adition.run();
@@ -523,7 +530,7 @@ public class TestAddParameter extends RefactoringTemplateAbstractTest {
 		MethDec metodo = lMetodo.get(0);
 
 		Name name = factory.createName("a"); //$NON-NLS-1$
-		Type tipo = jm.getType(factory.createName("int"));	 //$NON-NLS-1$
+		Type tipo = jm.getType(factory.createName(INT));	 //$NON-NLS-1$
 
 		MOONRefactoring adition = new AddParameter(metodo, tipo, name, jm);			
 		adition.run();
@@ -552,7 +559,7 @@ public class TestAddParameter extends RefactoringTemplateAbstractTest {
 		MethDec metodo = lMetodo.get(0);
 
 		Name name = factory.createName("a"); //$NON-NLS-1$
-		Type tipo = jm.getType(factory.createName("int"));	 //$NON-NLS-1$
+		Type tipo = jm.getType(factory.createName(INT));	 //$NON-NLS-1$
 
 		MOONRefactoring adition = new AddParameter(metodo, tipo, name, jm);			
 		adition.run();
@@ -581,7 +588,7 @@ public class TestAddParameter extends RefactoringTemplateAbstractTest {
         MethDec metodo = lMetodo.get(0);
 
         Name name = factory.createName("b"); //$NON-NLS-1$
-        Type tipo = jm.getType(factory.createName("int")); //$NON-NLS-1$
+        Type tipo = jm.getType(factory.createName(INT)); //$NON-NLS-1$
         
         MOONRefactoring adition = new AddParameter(metodo, tipo, name, jm);            
         adition.run();
@@ -610,7 +617,7 @@ public class TestAddParameter extends RefactoringTemplateAbstractTest {
 		MethDec metodo = lMetodo.get(0);
 
 		Name name = factory.createName("a"); //$NON-NLS-1$
-		Type tipo = jm.getType(factory.createName("int"));	 //$NON-NLS-1$
+		Type tipo = jm.getType(factory.createName(INT));	 //$NON-NLS-1$
 
 		MOONRefactoring adition = new AddParameter(metodo, tipo, name, jm);			
 		adition.run();
@@ -640,7 +647,7 @@ public class TestAddParameter extends RefactoringTemplateAbstractTest {
 		MethDec metodo = lMetodo.get(0);
 
 		Name name = factory.createName("ParameterA"); //$NON-NLS-1$
-		Type tipo = jm.getType(factory.createName("int"));	 //$NON-NLS-1$
+		Type tipo = jm.getType(factory.createName(INT));	 //$NON-NLS-1$
 
 		MOONRefactoring adition = new AddParameter(metodo, tipo, name, jm);			
 		adition.run();
@@ -680,7 +687,7 @@ public class TestAddParameter extends RefactoringTemplateAbstractTest {
 		MethDec metodo = lMetodo.get(0);
 
 		Name name = factory.createName("newParanuevoParametro"); //$NON-NLS-1$
-		Type tipo = jm.getType(factory.createName("int")); //$NON-NLS-1$
+		Type tipo = jm.getType(factory.createName(INT)); //$NON-NLS-1$
 
 		MOONRefactoring addition = new AddParameter(metodo, tipo, name, jm);			
 		addition.run();
