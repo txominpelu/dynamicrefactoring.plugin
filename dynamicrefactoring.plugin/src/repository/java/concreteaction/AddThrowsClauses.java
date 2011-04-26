@@ -30,6 +30,7 @@ import javamoon.core.instruction.JavaCodeFragment;
 import moon.core.Name;
 import moon.core.classdef.ClassDef;
 import moon.core.classdef.MethDec;
+import moon.core.classdef.Type;
 import moon.core.instruction.CodeFragment;
 import refactoring.engine.Action;
 import refactoring.engine.Function;
@@ -103,8 +104,8 @@ public class AddThrowsClauses extends Action {
 		
 		
 		Function function = new ExceptionsThrow((JavaCodeFragment)fragment);
-		List<JavaType> exceptions = (List<JavaType>) function.getCollection();
-		for (JavaType jt : exceptions) {
+		List<Type> exceptions = (List<Type>) function.getCollection();
+		for (Type jt : exceptions) {
 		
 			if (methDec instanceof JavaRoutineDec){
 				((JavaRoutineDec) methDec).add(new JavaThrows(jt,-1,-1));
