@@ -5,13 +5,13 @@ import java.util.Collection;
 import java.util.List;
 
 import javamoon.core.DefinitionLanguage;
-import javamoon.core.classdef.JavaType;
 import javamoon.core.entity.JavaFunctionDec;
 import javamoon.core.entity.JavaRoutineDec;
 import javamoon.core.entity.JavaThrows;
 import javamoon.core.instruction.JavaCodeFragment;
 import javamoon.core.instruction.JavaFalseLocalDec;
 import javamoon.core.instruction.JavaInstrNoMoon;
+import moon.core.classdef.Type;
 import moon.core.classdef.ClassType;
 import moon.core.classdef.MethDec;
 import moon.core.entity.Result;
@@ -37,7 +37,7 @@ public class ExceptionsThrow extends Function{
 	 */
 	private JavaCodeFragment fragment; 
 	
-	private List<JavaType> listThrow = new ArrayList<JavaType>();
+	private List<Type> listThrow;
 	/**
 	 * Collector.
 	 * 
@@ -45,7 +45,7 @@ public class ExceptionsThrow extends Function{
 	 */
 	public ExceptionsThrow(JavaCodeFragment fragment){
 		this.fragment = fragment;
-		listThrow = new ArrayList<JavaType>();
+		listThrow = new ArrayList<Type>();
 	}
 	
 	/**
@@ -75,8 +75,8 @@ public class ExceptionsThrow extends Function{
 			CallInstr callInstr = (CallInstr) instr;
 			List<JavaThrows> exceptions = ((JavaRoutineDec) callInstr.getRoutineDec()).getException();
 			for (JavaThrows jt : exceptions){
-				if (!listThrow.contains((JavaType)jt.getException())){
-					listThrow.add((JavaType)jt.getException());
+				if (!listThrow.contains(jt.getException())){
+					listThrow.add(jt.getException());
 				}
 			}
 		}
@@ -104,8 +104,8 @@ public class ExceptionsThrow extends Function{
 				JavaFunctionDec jfd = (JavaFunctionDec) md;
 				List<JavaThrows> list = jfd.getException();
 				for (JavaThrows jt : list){
-					if (!listThrow.contains((JavaType)jt.getException())){
-						listThrow.add((JavaType)jt.getException());
+					if (!listThrow.contains(jt.getException())){
+						listThrow.add(jt.getException());
 					}
 				}
 			}

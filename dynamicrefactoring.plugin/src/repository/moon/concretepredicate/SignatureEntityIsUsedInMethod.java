@@ -260,8 +260,7 @@ public class SignatureEntityIsUsedInMethod extends Predicate {
 		
 		// FIXME: Java dependent code
 		if (callExpr instanceof JavaCallExprCreation){
-			CallExpr subexpr = ((JavaCallExprCreation)callExpr);
-			return checkExpr(subexpr);
+			return checkExpr((JavaCallExprCreation)callExpr);
 		}
 		
 		// RMS
