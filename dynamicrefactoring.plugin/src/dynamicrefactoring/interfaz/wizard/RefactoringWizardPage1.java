@@ -20,12 +20,18 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.*/
 
 package dynamicrefactoring.interfaz.wizard;
 
+import java.beans.PropertyChangeListener;
+import java.beans.PropertyChangeSupport;
 import java.io.File;
 import java.text.MessageFormat;
 import java.util.HashSet;
 import java.util.Set;
 
+import org.eclipse.core.databinding.DataBindingContext;
+import org.eclipse.core.databinding.beans.BeansObservables;
+import org.eclipse.core.databinding.observable.value.IObservableValue;
 import org.eclipse.core.runtime.Platform;
+import org.eclipse.jface.databinding.swt.SWTObservables;
 import org.eclipse.jface.wizard.WizardPage;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.ModifyEvent;
@@ -105,6 +111,11 @@ public final class RefactoringWizardPage1 extends WizardPage {
 	 * Ruta a un fichero de imagen con un esquema de la refactorizaci�n.
 	 */
 	private Text imageText;
+
+	/**
+	 * Path de la imagen.
+	 */
+	private String refactoringImage;
 
 	/**
 	 * Descripci�n de la refactorización.
@@ -223,10 +234,30 @@ public final class RefactoringWizardPage1 extends WizardPage {
 		categoryTree = createCategoryTree(composite);
 
 
+		DataBindingContext dbc = new DataBindingContext();
+		IObservableValue modelObservable = BeansObservables.observeValue(this,
+				"refactoringImage");
+		dbc.bindValue(SWTObservables.observeText(imageText, SWT.Modify),
+				modelObservable, null, null);
+
 		if (refactoring != null) {
 			fillInRefactoringData();
+			refactoringImage = refactoring.getImageAbsolutePath();
 		}
 
+	}
+
+	private PropertyChangeSupport changeSupport = new PropertyChangeSupport(
+			this);
+
+	public void addPropertyChangeListener(String propertyName,
+			PropertyChangeListener listener) {
+		changeSupport.addPropertyChangeListener(propertyName, listener);
+	}
+
+	public void removePropertyChangeListener(String propertyName,
+			PropertyChangeListener listener) {
+		changeSupport.removePropertyChangeListener(propertyName, listener);
 	}
 
 	/**
@@ -398,7 +429,7 @@ public final class RefactoringWizardPage1 extends WizardPage {
 			nameText.setText(refactoring.getName());
 		}
 		if (refactoring.getImage() != null) {
-			imageText.setText(refactoring.getImage());
+			imageText.setText(new File(refactoring.getImage()).getName());
 		}
 		if (refactoring.getMotivation() != null) {
 			motivationText.setText(refactoring.getMotivation());
@@ -510,17 +541,6 @@ public final class RefactoringWizardPage1 extends WizardPage {
 	}
 
 	/**
-	 * Obtiene el campo de texto con la ruta de la imagen esquem�tica de la
-	 * refactorizaci�n.
-	 * 
-	 * @return el campo de texto con la ruta de la imagen esquem�tica de la
-	 *         refactorizaci�n.
-	 */
-	public Text getImageNameText() {
-		return this.imageText;
-	}
-
-	/**
 	 * Obtiene las categorias que se han seleccionado en el �rbol y a las que va
 	 * a pertenecer la refactorizacion.
 	 * 
@@ -582,5 +602,20 @@ public final class RefactoringWizardPage1 extends WizardPage {
 	@Override
 	public void performHelp() {
 		PlatformUI.getWorkbench().getHelpSystem().displayHelp();
+	}
+
+	/**
+	 * @param refactoringImage
+	 *            the refactoringImage to set
+	 */
+	public void setRefactoringImage(String refactoringImage) {
+		this.refactoringImage = refactoringImage;
+	}
+
+	/**
+	 * @return the refactoringImage
+	 */
+	public String getRefactoringImage() {
+		return refactoringImage;
 	}
 }

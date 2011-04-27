@@ -20,12 +20,17 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.*/
 
 package dynamicrefactoring.interfaz.wizard;
 
+import java.beans.PropertyChangeListener;
+import java.beans.PropertyChangeSupport;
 import java.io.File;
 import java.text.MessageFormat;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.eclipse.core.databinding.DataBindingContext;
+import org.eclipse.core.databinding.beans.BeansObservables;
 import org.eclipse.core.runtime.Platform;
+import org.eclipse.jface.databinding.swt.SWTObservables;
 import org.eclipse.jface.wizard.WizardPage;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.ModifyEvent;
@@ -70,25 +75,25 @@ public class RefactoringWizardPage6 extends WizardPage {
 	 * Campo de texto con la ruta del fichero que contiene el estado del primer
 	 * ejemplo antes de la refactorizaci�n.
 	 */
-	private Text t_Before1;
+	private Text textBefore1;
 
 	/**
 	 * Campo de texto con la ruta del fichero que contiene el estado del primer
 	 * ejemplo despu�s de la refactorizaci�n.
 	 */
-	private Text t_After1;
+	private Text textAfter1;
 
 	/**
 	 * Campo de texto con la ruta del fichero que contiene el estado del segundo
 	 * ejemplo antes de la refactorizaci�n.
 	 */
-	private Text t_Before2;
+	private Text textBefore2;
 
 	/**
 	 * Campo de texto con la ruta del fichero que contiene el estado del segundo
 	 * ejemplo despu�s de la refactorizaci�n.
 	 */
-	private Text t_After2;
+	private Text textAfter2;
 
 	/**
 	 * Refactorizaci�n configurada a trav�s del asistente y que debe ser creada
@@ -101,6 +106,8 @@ public class RefactoringWizardPage6 extends WizardPage {
 	 * �ltima ruta en la que se seleccion� un archivo de ejemplo.
 	 */
 	private String lastSelectionPath = null;
+
+	private RefactoringExampleModel model;
 
 	/**
 	 * Constructor.
@@ -175,9 +182,9 @@ public class RefactoringWizardPage6 extends WizardPage {
 				.setText(Messages.RefactoringWizardPage6_AfterRefactoring);
 		afterRefactoringLabel.setBounds(10, 75, 116, 13);
 
-		t_Before1 = new Text(example1Group, SWT.BORDER);
-		t_Before1.setBounds(132, 26, 420, 25);
-		t_Before1.addModifyListener(new ModifyListener() {
+		textBefore1 = new Text(example1Group, SWT.BORDER);
+		textBefore1.setBounds(132, 26, 420, 25);
+		textBefore1.addModifyListener(new ModifyListener() {
 			public void modifyText(ModifyEvent e) {
 				dialogChanged();
 			}
@@ -187,21 +194,21 @@ public class RefactoringWizardPage6 extends WizardPage {
 		bt_examineBefore1.setText("..."); //$NON-NLS-1$
 		bt_examineBefore1.setBounds(558, 29, 30, 18);
 		bt_examineBefore1.addSelectionListener(new ExampleChooserAction(
-				t_Before1));
+				textBefore1));
 
-		t_After1 = new Text(example1Group, SWT.BORDER);
-		t_After1.setBounds(132, 72, 420, 25);
-		t_After1.addModifyListener(new ModifyListener() {
+		textAfter1 = new Text(example1Group, SWT.BORDER);
+		textAfter1.setBounds(132, 72, 420, 25);
+		textAfter1.addModifyListener(new ModifyListener() {
 			public void modifyText(ModifyEvent e) {
 				dialogChanged();
 			}
 		});
 
-		final Button bt_examineAfter1 = new Button(example1Group, SWT.NONE);
-		bt_examineAfter1.setText("..."); //$NON-NLS-1$
-		bt_examineAfter1.setBounds(558, 75, 30, 18);
-		bt_examineAfter1
-				.addSelectionListener(new ExampleChooserAction(t_After1));
+		final Button btExamineAfter1 = new Button(example1Group, SWT.NONE);
+		btExamineAfter1.setText("..."); //$NON-NLS-1$
+		btExamineAfter1.setBounds(558, 75, 30, 18);
+		btExamineAfter1.addSelectionListener(new ExampleChooserAction(
+				textAfter1));
 
 		final Group example1Group_1 = new Group(composite, SWT.NONE);
 		example1Group_1.setBounds(23, 195, 602, 117);
@@ -219,9 +226,9 @@ public class RefactoringWizardPage6 extends WizardPage {
 		afterRefactoringLabel_1
 				.setText(Messages.RefactoringWizardPage6_AfterRefactoring);
 
-		t_Before2 = new Text(example1Group_1, SWT.BORDER);
-		t_Before2.setBounds(134, 26, 418, 25);
-		t_Before2.addModifyListener(new ModifyListener() {
+		textBefore2 = new Text(example1Group_1, SWT.BORDER);
+		textBefore2.setBounds(134, 26, 418, 25);
+		textBefore2.addModifyListener(new ModifyListener() {
 			public void modifyText(ModifyEvent e) {
 				dialogChanged();
 			}
@@ -231,11 +238,11 @@ public class RefactoringWizardPage6 extends WizardPage {
 		bt_examineBefore2.setBounds(558, 29, 30, 18);
 		bt_examineBefore2.setText("..."); //$NON-NLS-1$
 		bt_examineBefore2.addSelectionListener(new ExampleChooserAction(
-				t_Before2));
+				textBefore2));
 
-		t_After2 = new Text(example1Group_1, SWT.BORDER);
-		t_After2.setBounds(134, 72, 418, 25);
-		t_After2.addModifyListener(new ModifyListener() {
+		textAfter2 = new Text(example1Group_1, SWT.BORDER);
+		textAfter2.setBounds(134, 72, 418, 25);
+		textAfter2.addModifyListener(new ModifyListener() {
 			public void modifyText(ModifyEvent e) {
 				dialogChanged();
 			}
@@ -244,11 +251,40 @@ public class RefactoringWizardPage6 extends WizardPage {
 		final Button bt_examineAfter2 = new Button(example1Group_1, SWT.NONE);
 		bt_examineAfter2.setBounds(558, 75, 30, 18);
 		bt_examineAfter2.setText("..."); //$NON-NLS-1$
-		bt_examineAfter2
-				.addSelectionListener(new ExampleChooserAction(t_After2));
+		bt_examineAfter2.addSelectionListener(new ExampleChooserAction(
+				textAfter2));
 
-		if (refactoring != null)
+		model = new RefactoringExampleModel();
+		DataBindingContext dbc = new DataBindingContext();
+		dbc.bindValue(SWTObservables.observeText(textBefore1, SWT.Modify),
+				BeansObservables.observeValue(model, "beforeExample1"), null,
+				null);
+		dbc.bindValue(SWTObservables.observeText(textBefore2, SWT.Modify),
+				BeansObservables.observeValue(model, "beforeExample2"), null,
+				null);
+		dbc.bindValue(SWTObservables.observeText(textAfter1, SWT.Modify),
+				BeansObservables.observeValue(model, "afterExample1"), null,
+				null);
+		dbc.bindValue(SWTObservables.observeText(textAfter2, SWT.Modify),
+				BeansObservables.observeValue(model, "afterExample2"), null,
+				null);
+
+		if (refactoring != null) {
 			fillInRefactoringData();
+			if (refactoring.getExamplesAbsolutePath().size() > 0) {
+				model.setBeforeExample1(refactoring.getExamplesAbsolutePath()
+						.get(0).getBefore());
+				model.setAfterExample1(refactoring.getExamplesAbsolutePath()
+						.get(0).getAfter());
+			}
+			if (refactoring.getExamplesAbsolutePath().size() > 1) {
+				model.setBeforeExample2(refactoring.getExamplesAbsolutePath()
+						.get(1).getBefore());
+
+				model.setAfterExample2(refactoring.getExamplesAbsolutePath()
+						.get(1).getAfter());
+			}
+		}
 	}
 
 	/**
@@ -261,14 +297,18 @@ public class RefactoringWizardPage6 extends WizardPage {
 
 			// Se intentan cargar los datos del primer ejemplo.
 			if (examples.size() > 0) {
-				t_Before1.setText(examples.get(0).getBefore());
-				t_After1.setText(examples.get(0).getAfter());
+				textBefore1.setText(new File(examples.get(0).getBefore())
+						.getName());
+				textAfter1.setText(new File(examples.get(0).getAfter())
+						.getName());
 			}
 
 			// Se intentan cargar los datos del segundo ejemplo.
 			if (examples.size() > 1) {
-				t_Before2.setText(examples.get(1).getBefore());
-				t_After2.setText(examples.get(1).getAfter());
+				textBefore2.setText(new File(examples.get(1).getBefore())
+						.getName());
+				textAfter2.setText(new File(examples.get(1).getAfter())
+						.getName());
 			}
 
 			dialogChanged();
@@ -286,13 +326,15 @@ public class RefactoringWizardPage6 extends WizardPage {
 	 */
 	public List<RefactoringExample> getExamples() {
 		List<RefactoringExample> examples = new ArrayList<RefactoringExample>();
-		if (!t_Before1.getText().trim().isEmpty() && !t_After1.getText().trim().isEmpty()){ //$NON-NLS-1$ //$NON-NLS-2$
-			examples.add(new RefactoringExample(t_Before1.getText().trim(),
-					t_After1.getText().trim()));
+		if (!textBefore1.getText().trim().isEmpty()
+				&& !textAfter1.getText().trim().isEmpty()) { //$NON-NLS-1$ //$NON-NLS-2$
+			examples.add(new RefactoringExample(model.getBeforeExample1()
+					.trim(), model.getAfterExample1().trim()));
 		}
-		if (!t_Before2.getText().trim().isEmpty() && !t_After2.getText().trim().isEmpty()){ //$NON-NLS-1$ //$NON-NLS-2$
-			examples.add(new RefactoringExample(t_Before2.getText().trim(),
-					t_After2.getText().trim()));
+		if (!textBefore2.getText().trim().isEmpty()
+				&& !textAfter2.getText().trim().isEmpty()) { //$NON-NLS-1$ //$NON-NLS-2$
+			examples.add(new RefactoringExample(model.getBeforeExample2()
+					.trim(), model.getAfterExample2().trim()));
 		}
 		return examples;
 	}
@@ -303,18 +345,19 @@ public class RefactoringWizardPage6 extends WizardPage {
 	 * ejemplo.
 	 */
 	private void dialogChanged() {
-		if (isNotValidString(t_Before1) || isNotValidString(t_After1)
-				|| isNotValidString(t_Before2) || isNotValidString(t_After2)) {
+		if (isNotValidString(textBefore1) || isNotValidString(textAfter1)
+				|| isNotValidString(textBefore2)
+				|| isNotValidString(textAfter2)) {
 			updateStatus(Messages.RefactoringWizardPage6_MustBeType);
 			return;
 		}
-		if ((t_Before1.getText() != "" && t_After1.getText() == "") || //$NON-NLS-1$ //$NON-NLS-2$
-				(t_Before1.getText() == "" && t_After1.getText() != "")) { //$NON-NLS-1$ //$NON-NLS-2$
+		if ((textBefore1.getText() != "" && textAfter1.getText() == "") || //$NON-NLS-1$ //$NON-NLS-2$
+				(textBefore1.getText() == "" && textAfter1.getText() != "")) { //$NON-NLS-1$ //$NON-NLS-2$
 			updateStatus(Messages.RefactoringWizardPage6_FirstIncomplete);
 			return;
 		}
-		if ((t_Before2.getText() != "" && t_After2.getText() == "") || //$NON-NLS-1$ //$NON-NLS-2$
-				(t_Before2.getText() == "" && t_After2.getText() != "")) { //$NON-NLS-1$ //$NON-NLS-2$
+		if ((textBefore2.getText() != "" && textAfter2.getText() == "") || //$NON-NLS-1$ //$NON-NLS-2$
+				(textBefore2.getText() == "" && textAfter2.getText() != "")) { //$NON-NLS-1$ //$NON-NLS-2$
 			updateStatus(Messages.RefactoringWizardPage6_SecondIncomplete);
 			return;
 		}
@@ -436,6 +479,86 @@ public class RefactoringWizardPage6 extends WizardPage {
 		@Override
 		public void widgetDefaultSelected(SelectionEvent e) {
 			widgetSelected(e);
+		}
+	}
+
+	public static class RefactoringExampleModel {
+		private String beforeExample1;
+		private String afterExample1;
+		private String beforeExample2;
+		private String afterExample2;
+
+		/**
+		 * @param beforeExample1
+		 *            the beforeExample1 to set
+		 */
+		public void setBeforeExample1(String beforeExample1) {
+			this.beforeExample1 = beforeExample1;
+		}
+
+		/**
+		 * @return the beforeExample1
+		 */
+		public String getBeforeExample1() {
+			return beforeExample1;
+		}
+
+		/**
+		 * @param afterExample1
+		 *            the afterExample1 to set
+		 */
+		public void setAfterExample1(String afterExample1) {
+			this.afterExample1 = afterExample1;
+		}
+
+		/**
+		 * @return the afterExample1
+		 */
+		public String getAfterExample1() {
+			return afterExample1;
+		}
+
+		/**
+		 * @param beforeExample2
+		 *            the beforeExample2 to set
+		 */
+		public void setBeforeExample2(String beforeExample2) {
+			this.beforeExample2 = beforeExample2;
+		}
+
+		/**
+		 * @return the beforeExample2
+		 */
+		public String getBeforeExample2() {
+			return beforeExample2;
+		}
+
+		/**
+		 * @param afterExample2
+		 *            the afterExample2 to set
+		 */
+		public void setAfterExample2(String afterExample2) {
+			this.afterExample2 = afterExample2;
+		}
+
+		/**
+		 * @return the afterExample2
+		 */
+		public String getAfterExample2() {
+			return afterExample2;
+		}
+
+		private PropertyChangeSupport changeSupport = new PropertyChangeSupport(
+				this);
+
+		public void addPropertyChangeListener(String propertyName,
+				PropertyChangeListener listener) {
+			changeSupport.addPropertyChangeListener(propertyName, listener);
+		}
+
+		public void removePropertyChangeListener(String propertyName,
+				PropertyChangeListener listener) {
+			changeSupport.removePropertyChangeListener(propertyName, listener);
 		}
 	}
 }

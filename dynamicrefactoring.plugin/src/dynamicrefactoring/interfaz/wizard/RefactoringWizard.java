@@ -282,7 +282,7 @@ public class RefactoringWizard extends Wizard implements INewWizard {
 		
 		
 		return builder.description(pageA.getDescriptionText().getText().trim())
-				.image(pageA.getImageNameText().getText().trim())
+				.image(pageA.getRefactoringImage().trim())
 				.motivation(pageA.getMotivationText().getText().trim())
 				.inputs(pageB.getInputs())
 				.preconditions(pageC.getPreconditions())
