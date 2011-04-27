@@ -52,7 +52,7 @@ public class LogManager {
 	/**
 	 * Nombre del fichero de configuraci�n del registro de errores.
 	 */
-	public static final String LOG_PROPERTIES_FILE = 
+	private static final String LOG_PROPERTIES_FILE = 
 		"dynamicrefactoring.plugin.properties"; //$NON-NLS-1$
 	
 	/**
