@@ -262,6 +262,7 @@ public class RefactoringWizardPage2 extends WizardPage {
 
 			setTitle(formatter.format(messageArgs) + " (" + //$NON-NLS-1$
 					Messages.RefactoringWizardPage2_Step + ")"); //$NON-NLS-1$
+			checkForCompletion();
 		}
 		super.setVisible(visible);
 	}
