@@ -158,6 +158,7 @@ public class ModelGenerator {
 				for(String directory : JavaFileManager.getSourceDirsForProject(project)){
 					sourceLoader.loadFromDirectory(directory);
 				}
+				// FIXME: Eliminar por innecesario (no se lee en ningun lado)
 				JavaModel.save(DEFAULT_MOD_NAME);	
 			}
 			
@@ -175,24 +176,6 @@ public class ModelGenerator {
 		}
 		
 		return false;
-	}
-	
-	/**
-	 * Carga el modelo MOON guardado en el fichero por defecto.
-	 * 
-	 * @see ModelGenerator#DEFAULT_MOD_NAME
-	 */
-	public void loadMOONModel(){
-	
-		try {
-			JavaModel.load(DEFAULT_MOD_NAME);
-		}
-		catch (Exception exception){
-			String message = Messages.ModelGenerator_NotLoaded +
-				".\n" + exception.getLocalizedMessage(); //$NON-NLS-1$
-			logger.error(message);
-			Logger.getRootLogger().error(message);
-		}
 	}
 
 	/**
@@ -245,10 +228,10 @@ public class ModelGenerator {
 		if (rtPath == null)			
 			rtPath = JRE_root + File.separatorChar + BASIC_JAR; //$NON-NLS-1$
 		
-		binaryLoader.addClassesFromJar(rtPath);
+		// binaryLoader.addClassesFromJar(rtPath);
 		
-//		for (int i = 0; i < LIBRARIES.length; i++)
-//			binaryLoader.addClassesFromPackageInJar(LIBRARIES[i], rtPath);
+		for (int i = 0; i < LIBRARIES.length; i++)
+			binaryLoader.addClassesFromPackageInJar(LIBRARIES[i], rtPath);
 		
 		binaryLoader.load();
 	}
