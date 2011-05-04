@@ -63,7 +63,6 @@ import repository.moon.MOONRefactoring;
 import dynamicrefactoring.domain.RefactoringSummary;
 import dynamicrefactoring.domain.xml.writer.RefactoringPlanWriter;
 import dynamicrefactoring.integration.CodeRegenerator;
-import dynamicrefactoring.integration.ModelGenerator;
 import dynamicrefactoring.interfaz.SelectRefactoringWindow;
 import dynamicrefactoring.interfaz.view.AvailableRefactoringView;
 import dynamicrefactoring.interfaz.view.HistoryView;
@@ -415,7 +414,8 @@ public class RefactoringPlugin extends AbstractUIPlugin
 			FileManager.deleteDirectories(backupDir, true);
 		}
 		
-		FileManager.deleteFile(ModelGenerator.DEFAULT_MOD_NAME);
+		//FIXME: Eliminar por innecesario
+		//FileManager.deleteFile(ModelGenerator.DEFAULT_MOD_NAME);
 		FileManager.deleteFile(RefactoringConstants.REFACTORING_TYPES_FILE);
 		FileManager.deleteFile(RefactoringConstants.REFACTORING_PLAN_FILE);
 	}
