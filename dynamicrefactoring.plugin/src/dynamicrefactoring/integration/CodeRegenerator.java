@@ -243,8 +243,8 @@ public class CodeRegenerator {
 					monitor.worked(1);
 										
 					monitor.subTask(Messages.CodeRegenerator_SettingContents);
-					javaFiles.get(i).setContents(stream, IFile.KEEP_HISTORY, 
-						new NullProgressMonitor());
+					
+					javaFiles.get(i).setContents( stream,true, true, new NullProgressMonitor());
 					javaFiles.get(i).refreshLocal(IResource.DEPTH_INFINITE,
 						new NullProgressMonitor());
 					monitor.worked(1);

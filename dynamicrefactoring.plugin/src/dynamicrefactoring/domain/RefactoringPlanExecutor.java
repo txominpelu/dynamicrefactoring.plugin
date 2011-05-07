@@ -132,6 +132,11 @@ public class RefactoringPlanExecutor implements IRunnableWithProgress {
 	private RefactoringsCatalog refactCatalog;
 
 	/**
+	 * Ruta de la carpeta en la que se encuentra el plan de la refactorizacion.
+	 */
+	private String refactoringPlanFolder;
+
+	/**
 	 * Devuelve el conjunto de refactorizaciones que han sufrido alg�n problema
 	 * durante la ejecuci�n del plan de refactorizaciones.
 	 * 
@@ -156,6 +161,7 @@ public class RefactoringPlanExecutor implements IRunnableWithProgress {
 			List<String> plan, String path) {
 		this.refactCatalog = refactCatalog;
 		this.plan = plan;
+		this.refactoringPlanFolder = path;
 		new AvailableRefactoringView().saveUnsavedChanges();
 		generateModel();
 		setFilesIntoClasspath(path + "/repository");
@@ -261,8 +267,7 @@ public class RefactoringPlanExecutor implements IRunnableWithProgress {
 			} else {
 				String text = RefactoringPlanReader.getInputValue(refactoring,
 						input.getName(),
-						RefactoringPlugin.getCommonPluginFilesDir()
-								+ File.separator + "refactoringPlan.xml");
+						refactoringPlanFolder + File.separator + "refactoringPlan.xml");
 				Object value = computeValue(input, text);
 				inputs.put(input.getName(), value);
 			}

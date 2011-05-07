@@ -63,7 +63,6 @@ import repository.moon.MOONRefactoring;
 import dynamicrefactoring.domain.RefactoringSummary;
 import dynamicrefactoring.domain.xml.writer.RefactoringPlanWriter;
 import dynamicrefactoring.integration.CodeRegenerator;
-import dynamicrefactoring.integration.ModelGenerator;
 import dynamicrefactoring.interfaz.SelectRefactoringWindow;
 import dynamicrefactoring.interfaz.view.AvailableRefactoringView;
 import dynamicrefactoring.interfaz.view.HistoryView;
@@ -420,7 +419,6 @@ public class RefactoringPlugin extends AbstractUIPlugin
 			FileManager.deleteDirectories(backupDir, true);
 		}
 		
-		FileManager.deleteFile(ModelGenerator.DEFAULT_MOD_NAME);
 		FileManager.deleteFile(RefactoringConstants.REFACTORING_TYPES_FILE);
 		FileManager.deleteFile(RefactoringConstants.REFACTORING_PLAN_FILE);
 	}
@@ -845,49 +843,6 @@ public class RefactoringPlugin extends AbstractUIPlugin
 		return FilenameUtils.separatorsToSystem(pluginRoot);
 	}
 
-
-	/**
-	 * Obtiene la siguiente ruta completa que deber� utilizarse al guardar un
-	 * modelo MOON de backup.
-	 * 
-	 * @return la siguiente ruta completa que deber� utilizarse al guardar un
-	 *         modelo MOON de backup.
-	 */
-	public String getNextBackupDestiny(){
-		
-		boolean backupDirExists = true;
-		
-		String backupDir = getBackupDir();
-		// Si no existe todav�a el directorio de backup, se asegura de crearlo.
-		File backupDirectory = new File(backupDir);
-		if(! backupDirectory.exists()){
-			try {
-				backupDirExists = backupDirectory.mkdir();
-			}
-			catch(Exception e){
-				backupDirExists = false;
-			}
-		}
-		
-		if (backupDirExists)
-			return backupDir + File.separatorChar +  //$NON-NLS-1$
-				getCurrentRefactoring();
-		else
-			return getCommonPluginFilesDir() + File.separatorChar + //$NON-NLS-1$
-				getCurrentRefactoring();
-	}
-
-	/**
-	 * Obtiene el nombre del fichero mod que contiene el estado actual del
-	 * modelo en proceso de refactorizaci�n.
-	 * 
-	 * @return El nombre del fichero mod que contiene el estado actual del
-	 *         modelo en proceso de refactorizaci�n.
-	 */
-	public String getCurrentRefactoring() {
-		return currentRefactoring;
-	}
-
 	/**
 	 * Obtiene el proyecto sobre el que se est� trabajando en un momento dado.
 	 * 
@@ -895,7 +850,7 @@ public class RefactoringPlugin extends AbstractUIPlugin
 	 */
 	public IProject getAffectedProject(){
 		if(currentSelection==null){
-			IWorkbenchWindow window = PlatformUI.getWorkbench().getActiveWorkbenchWindow();
+			IWorkbenchWindow window = PlatformUI.getWorkbench().getWorkbenchWindows()[0];
 			IEditorInput input = 
 				window.getPages()[0].getActiveEditor().getEditorInput(); 
 			currentProject = JavaUI.getEditorInputJavaElement(input).getJavaProject();
@@ -932,7 +887,7 @@ public class RefactoringPlugin extends AbstractUIPlugin
 	 * 
 	 * @return la ruta del directorio de backup utilizado por el plugin.
 	 */
-	private String getBackupDir(){
+	String getBackupDir(){
 		// Directorio temporal asignado para los metadatos del plugin.
 		String tmpDir = getCommonPluginFilesDir();
 		String backupDirName = 

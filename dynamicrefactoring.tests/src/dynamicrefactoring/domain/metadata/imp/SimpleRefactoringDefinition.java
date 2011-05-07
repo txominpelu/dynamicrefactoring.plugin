@@ -80,43 +80,36 @@ public class SimpleRefactoringDefinition implements Element {
 
 	@Override
 	public boolean belongsTo(String keyWord) {
-		// TODO Auto-generated method stub
 		return false;
 	}
 
 	@Override
 	public boolean containsText(String text) {
-		// TODO Auto-generated method stub
 		return false;
 	}
 
 	@Override
 	public boolean containsInputType(String inputType) {
-		// TODO Auto-generated method stub
 		return false;
 	}
 
 	@Override
 	public boolean containsRootInputType(String rootInputType) {
-		// TODO Auto-generated method stub
 		return false;
 	}
 
 	@Override
 	public boolean containsPrecondition(String precondition) {
-		// TODO Auto-generated method stub
 		return false;
 	}
 
 	@Override
 	public boolean containsAction(String action) {
-		// TODO Auto-generated method stub
 		return false;
 	}
 
 	@Override
 	public boolean containsPostcondition(String postcondition) {
-		// TODO Auto-generated method stub
 		return false;
 	}
 

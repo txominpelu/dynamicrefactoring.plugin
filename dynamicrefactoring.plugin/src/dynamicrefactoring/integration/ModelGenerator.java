@@ -61,7 +61,7 @@ public class ModelGenerator {
 	 * El nombre con el que se crea por defecto el fichero .mod que contendr�
 	 * el modelo MOON-Java obtenido a partir de los fuentes .java.
 	 */
-	public final static String DEFAULT_MOD_NAME = "out.mod"; //$NON-NLS-1$
+	private final static String DEFAULT_MOD_NAMES = "out.mod"; //$NON-NLS-1$
 	
 	/**
 	 * La ruta del fichero "rt.jar" de Java, relativa a la ra�z del directorio de 
@@ -158,8 +158,6 @@ public class ModelGenerator {
 				for(String directory : JavaFileManager.getSourceDirsForProject(project)){
 					sourceLoader.loadFromDirectory(directory);
 				}
-				// FIXME: Eliminar por innecesario (no se lee en ningun lado)
-				JavaModel.save(DEFAULT_MOD_NAME);	
 			}
 			
 			return true;
@@ -201,17 +199,17 @@ public class ModelGenerator {
 			if (classpath[i].getEntryKind() == IClasspathEntry.CPE_LIBRARY &&
 				classpath[i].getContentKind() == IPackageFragmentRoot.K_BINARY){
 				IPath path = classpath[i].getPath();
-				if (path.toOSString().endsWith(BASIC_JAR))
+				if (path.toOSString().endsWith(BASIC_JAR)){
 					rtPath = path.toOSString();
 				// Se a�aden el resto de bibliotecas de forma normal.
-				else if (path.toOSString().toLowerCase().endsWith(LIB_EXTENSION))
+				}else if (path.toOSString().toLowerCase().endsWith(LIB_EXTENSION))
 					// Salvo las que pertenezcan al JRE o el JDK.
 					if (! path.toOSString().startsWith(JRE_root)){
 						// Si la ruta no es relativa al proyecto.
-						if(! path.toOSString().startsWith(project.getPath().toOSString()))
+						if(! path.toOSString().startsWith(project.getPath().toOSString())){
 							binaryLoader.addClassesFromJar(path.toOSString());
 						// Para las rutas relativas al proyecto.
-						else {
+						}else {
 							String relativePath = path.removeFirstSegments(1).toOSString();
 							if (project.getJavaProject().getResource() != null){
 								String projectPath = 
@@ -225,13 +223,14 @@ public class ModelGenerator {
 			}
 		}
 		
-		if (rtPath == null)			
+		if (rtPath == null)	{		
 			rtPath = JRE_root + File.separatorChar + BASIC_JAR; //$NON-NLS-1$
+		}
 		
-		// binaryLoader.addClassesFromJar(rtPath);
+		binaryLoader.addClassesFromJar(rtPath);
 		
-		for (int i = 0; i < LIBRARIES.length; i++)
-			binaryLoader.addClassesFromPackageInJar(LIBRARIES[i], rtPath);
+		//for (int i = 0; i < LIBRARIES.length; i++)
+			//binaryLoader.addClassesFromPackageInJar(LIBRARIES[i], rtPath);
 		
 		binaryLoader.load();
 	}
@@ -323,7 +322,7 @@ public class ModelGenerator {
 				monitor.worked(1);
 						
 				monitor.subTask(Messages.ModelGenerator_Saving);
-				JavaModel.save(DEFAULT_MOD_NAME);
+				
 				checkForCancellation(monitor);
 				monitor.worked(1);
 			}

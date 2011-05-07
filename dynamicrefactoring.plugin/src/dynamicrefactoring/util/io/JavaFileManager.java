@@ -315,4 +315,32 @@ public class JavaFileManager {
 		}
 		return null;
 	}
+	
+	/**
+	 * Obtiene la lista de directorios de fuentes del proyecto seleccionado.
+	 * 
+	 * @param project proyecto cuyos directorios de fuentes se deben obtener.
+	 * 
+	 * @return la lista de directorios de fuentes del proyecto seleccionado.
+	 */
+	public static List<IPackageFragmentRoot> getSourceFragmentRootDirsForProject(IJavaProject project){
+		
+		try {
+			if (project != null){
+				IPackageFragmentRoot[] dirs = 
+					project.getAllPackageFragmentRoots();
+				List<IPackageFragmentRoot> dirPaths = new ArrayList<IPackageFragmentRoot>();
+				for(int i = 0; i < dirs.length; i++)
+					if ( dirs[i].getKind() == IPackageFragmentRoot.K_SOURCE &&
+						!dirs[i].isArchive())
+						dirPaths.add(dirs[i]);
+				return dirPaths;
+			}
+		}
+		catch (JavaModelException exception){
+			logger.error(Messages.JavaFileManager_PackageRootNotFound +
+				"." + exception.getLocalizedMessage()); //$NON-NLS-1$
+		}
+		return null;
+	}
 }
