@@ -56,6 +56,15 @@ public class LogManager {
 		"dynamicrefactoring.plugin.properties"; //$NON-NLS-1$
 	
 	/**
+	 * Nombre de la ruta donde se encuentra el fichero de configuración del registro de errores.
+	 */
+	public static final String LOG_PROPERTIES_FILE_PATH =
+		RefactoringPlugin.getCommonPluginFilesDir() +
+		PropertyManager.getInstance().getLogFileDirectory() +
+		File.separatorChar + 
+		LOG_PROPERTIES_FILE;
+	
+	/**
 	 * Nombre del fichero de log de salida.
 	 */
 	private static final String LOG_FILE = "dynamicrefactoring.log"; //$NON-NLS-1$
@@ -81,7 +90,7 @@ public class LogManager {
 			singletonInstance = new LogManager();
 		return singletonInstance;
 	}
-
+	
 	/**
 	 * Carga la configuraci�n de la actividad de registro.
 	 */
@@ -89,12 +98,7 @@ public class LogManager {
 		
 		setLogFileProperty();
 		try{
-		String configFilePath =
-			RefactoringPlugin.getCommonPluginFilesDir() +
-			PropertyManager.getInstance().getLogFileDirectory() +
-			File.separatorChar +  //$NON-NLS-1$
-			LOG_PROPERTIES_FILE;
-			PropertyConfigurator.configure(configFilePath);	
+			PropertyConfigurator.configure(LOG_PROPERTIES_FILE_PATH);	
 		}catch(Exception e){
 			e.printStackTrace();
 		}
@@ -113,13 +117,8 @@ public class LogManager {
 	 */
 	private void setLogFileProperty(){
 		try {
-			String configFilePath =
-				RefactoringPlugin.getCommonPluginFilesDir() +
-				PropertyManager.getInstance().getLogFileDirectory() +
-				File.separatorChar + //$NON-NLS-1$
-				LOG_PROPERTIES_FILE;
 		
-			FileInputStream configFile = new FileInputStream(configFilePath);
+			FileInputStream configFile = new FileInputStream(LOG_PROPERTIES_FILE_PATH);
 			
 			// Se cargan las propiedades de la actividad de registro.
 			Properties logProperties = new Properties();
@@ -134,7 +133,7 @@ public class LogManager {
 			
 			logProperties.setProperty("log4j.appender.A2.File", logFile); //$NON-NLS-1$
 			
-			FileOutputStream outputFile = new FileOutputStream(configFilePath);
+			FileOutputStream outputFile = new FileOutputStream(LOG_PROPERTIES_FILE_PATH);
 				
 			logProperties.store(outputFile, ""); //$NON-NLS-1$
 			

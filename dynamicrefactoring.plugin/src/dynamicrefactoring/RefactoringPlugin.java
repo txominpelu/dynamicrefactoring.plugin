@@ -217,7 +217,15 @@ public class RefactoringPlugin extends AbstractUIPlugin
 	public void start(BundleContext context) throws Exception{
 		super.start(context);
 		MOONRefactoring.resetModel();
-		LogManager.getInstance().loadLogConfig();
+		
+		//si no existe el fichero de propiedades de log se crea y se cargan la configuración en él
+		//si ya existe se debe mantener la configuración que haya establecido el usuario 
+		File logPropertiesFile = new File(LogManager.LOG_PROPERTIES_FILE_PATH);
+		if(!logPropertiesFile.exists()){
+			logPropertiesFile.createNewFile();
+			LogManager.getInstance().loadLogConfig();
+		}
+		
 		copyDefaultFilesToCommonDir();
 		RefactoringPlanWriter.getInstance();
 		
@@ -244,9 +252,6 @@ public class RefactoringPlugin extends AbstractUIPlugin
 		FileManager.copyResourceToDir("/refactoringPlanDTD.dtd",
 				getCommonPluginFilesDir());
 		FileManager.copyResourceToDir("/DynamicRefactorings/refactoringDTD.dtd",
-				getCommonPluginFilesDir());
-
-		FileManager.copyResourceToDir("/log/dynamicrefactoring.plugin.properties",
 				getCommonPluginFilesDir());
 		FileManager.copyBundleDirToFileSystem("/bin/", getCommonPluginFilesDir());
 	}
