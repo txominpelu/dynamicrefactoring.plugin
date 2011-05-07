@@ -167,6 +167,11 @@ public class ExportImportUtilities {
 				.getInstance().getDynamicRefactoringNameList(
 						RefactoringPlugin.getDynamicRefactoringsDir(), true,
 						null);
+		
+		allRefactorings.putAll(DynamicRefactoringLister
+				.getInstance().getDynamicRefactoringNameList(
+						RefactoringPlugin.getNonEditableDynamicRefactoringsDir(), true,
+						null));
 
 		for (String next : refactorings) {
 			String key = next + " (" + next + ".xml)"; //$NON-NLS-1$ //$NON-NLS-2$

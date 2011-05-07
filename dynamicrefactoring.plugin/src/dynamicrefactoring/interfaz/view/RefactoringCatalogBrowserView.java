@@ -860,7 +860,6 @@ public class RefactoringCatalogBrowserView extends ViewPart {
 
 						@Override
 						public IPersistableElement getPersistable() {
-							// TODO Auto-generated method stub
 							return null;
 						}
 

@@ -25,6 +25,8 @@ import java.text.DateFormat;
 import java.text.MessageFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
@@ -42,19 +44,21 @@ import org.eclipse.core.resources.IResource;
 import org.eclipse.core.runtime.IAdaptable;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.IStatus;
-import org.eclipse.core.runtime.NullProgressMonitor;
 import org.eclipse.core.runtime.Status;
 import org.eclipse.jface.operation.IRunnableWithProgress;
-import org.eclipse.swt.SWT;
-import org.eclipse.team.core.RepositoryProvider;
 import org.eclipse.ui.PlatformUI;
 
 import refactoring.engine.PostconditionException;
 import refactoring.engine.PreconditionException;
 import refactoring.engine.Refactoring;
 import repository.moon.MOONRefactoring;
+
+import com.google.common.base.Function;
+import com.google.common.collect.Collections2;
+
 import dynamicrefactoring.domain.RefactoringSummary;
 import dynamicrefactoring.domain.xml.writer.RefactoringPlanWriter;
+import dynamicrefactoring.integration.CodeRegenerator;
 import dynamicrefactoring.interfaz.CustomProgressDialog;
 import dynamicrefactoring.interfaz.dynamic.DynamicRefactoringRunner;
 import dynamicrefactoring.util.io.JavaFileManager;
@@ -75,6 +79,8 @@ public abstract class RefactoringRunner implements IRunnableWithProgress {
 	 */
 	private static final Logger logger = Logger.getLogger(RefactoringRunner.class);
 	
+	private static final int ONE_SECOND = 1000;
+	
 	/**
 	 * Si la refactorizaci�n se complet� con �xito o no.
 	 */
@@ -84,17 +90,12 @@ public abstract class RefactoringRunner implements IRunnableWithProgress {
 	 * Ruta del fichero .mod en que se guarda el modelo actual antes de la
 	 * ejecuci�n de la refactorizaci�n.
 	 */
-	private String backup;
+	private Date currentRefactoringDate;
 	
 	/**
 	 * Fecha de ejecuci�n de la refactorizaci�n.
 	 */
 	private Date date;
-	
-	/**
-	 * Refactorizaci�n previa a la que se ejecuta.
-	 */
-	private String previous;
 	
 	/**
 	 * Parametros de entrada de la refactorizaci�n. Pares de la forma nombre del par�metros y
@@ -178,6 +179,24 @@ public abstract class RefactoringRunner implements IRunnableWithProgress {
 	}
 		
 	/**
+	 * Devuelve de entre todos los ficheros la fecha de modificacion
+	 * del ultimo de los modificados.
+	 * 
+	 * @return fecha de modificacion del ultimo fichero modificado
+	 */
+	private long getLastFileModificationTime() {
+		Collection<Long> fileModificationTimes = Collections2.transform(JavaFileManager.getJavaProjectFiles(RefactoringPlugin.getDefault().getAffectedProject()), new Function<IFile, Long>(){
+
+			@Override
+			public Long apply(IFile arg0) {
+				return arg0.getLocalTimeStamp();
+			}
+			
+		});
+		return Collections.max(fileModificationTimes);
+	}
+	
+	/**
 	 * Ejecuta la refactorizaci�n de manera que su progreso pueda ser seguido
 	 * por un monitor de progreso.
 	 * 
@@ -203,10 +222,7 @@ public abstract class RefactoringRunner implements IRunnableWithProgress {
 			// Se guarda una copia del estado del modelo antes de la 
 			// refactorizaci�n.
 			monitor.subTask(Messages.RefactoringRunner_Saving);
-			backup = RefactoringPlugin.getDefault().getNextBackupDestiny();
-			previous = RefactoringPlugin.getDefault().getCurrentRefactoring();
-			//FIXME: Eliminar JavaModel.save
-			//JavaModel.save(backup);
+			currentRefactoringDate = new Date(getLastFileModificationTime() + ONE_SECOND);
 			
 			checkForCancellation(monitor);
 			monitor.worked(1);
@@ -319,49 +335,30 @@ public abstract class RefactoringRunner implements IRunnableWithProgress {
 				if(!fromPlan){//Si no se ejecuta desde el plan se abre una barra de progreso.
 					dialog.run(true, true, getInstance());
 				}else{
-					backup = RefactoringPlugin.getDefault().getNextBackupDestiny();
-					previous = RefactoringPlugin.getDefault().getCurrentRefactoring();
-					//FIXME: ELiminar javamodel.save
-					//JavaModel.save(backup);
+					currentRefactoringDate = new Date(getLastFileModificationTime() + ONE_SECOND);
 					getRefactoring().run();
 				}
 				
-				MOONRefactoring.resetModel();
-				
 				date = new Date();
 				
-				// Si se realiz� la refactorizaci�n
+				// Si se realizo la refactorizacion
 				if(done){
-					//FIXME: Eliminar por innecesario
-//					try {
-//						
-//						JavaModel.save(ModelGenerator.DEFAULT_MOD_NAME);
-//					} catch (IOException ex){
-//						String message = Messages.RefactoringRunner_NotStored + 
-//							":\n\n" + ex.getMessage();  //$NON-NLS-1$
-//						logger.error(message);
-//						Logger.getRootLogger().error(message);
-//					}
 					
-					if(!fromPlan){
-						RefactoringPlugin.getDefault().updateEnvironment(
-								getRefactoringName());
-					}else{
-						RefactoringPlugin.getDefault().storeRefactoring(getRefactoringName());
-					}
+					CodeRegenerator.getInstance().refresh();
 					
 					if (RenamingRegistry.getInstance().isPending())
 						RenamingRegistry.getInstance().bindRenaming(label);
 				}
 				
+				MOONRefactoring.resetModel();
 				
 				RefactoringPlugin.getDefault().fireRefactoringFinished(
 					new RefactoringSummary(getRefactoringName(),date, label));
+				
 
 				return Status.OK_STATUS;
 			} 
 			catch (InterruptedException e) {
-				//e.printStackTrace();
 				RefactoringPlugin.getDefault().fireRefactoringFinished(
 					new RefactoringSummary(getRefactoringName(), new Date(), label));
 				
@@ -384,6 +381,7 @@ public abstract class RefactoringRunner implements IRunnableWithProgress {
 			}
 		}
 	
+
 		/**
 		 * Deshace la operaci�n de refactorizaci�n.
 		 * 
@@ -403,8 +401,6 @@ public abstract class RefactoringRunner implements IRunnableWithProgress {
 				new CustomProgressDialog(
 					PlatformUI.getWorkbench().getActiveWorkbenchWindow().getShell()
 					).run(true, false, job);
-				
-				RefactoringPlugin.getDefault().updateEnvironment(previous);
 				
 				RefactoringPlugin.getDefault().fireRefactoringUndone(label);
 				
@@ -474,22 +470,23 @@ public abstract class RefactoringRunner implements IRunnableWithProgress {
 			
 			try {	
 				
-				
-				
 				monitor.beginTask(Messages.RefactoringRunner_Undoing, IProgressMonitor.UNKNOWN); 
 				monitor.subTask(Messages.RefactoringRunner_Loading);
+				
+				
 				ArrayList<IFile> ficherosFuente = JavaFileManager.getJavaProjectFiles(RefactoringPlugin.getDefault().getAffectedProject());
 				for(IFile fichero: ficherosFuente){
-					RepositoryProvider.getProvider(RefactoringPlugin.getDefault().getAffectedProject()).getFileHistoryProvider().getFileHistoryFor(fichero, SWT.NONE, new NullProgressMonitor()).getFileRevisions();
-					IFileState[] states = fichero.getHistory(new NullProgressMonitor());
+					
+					
+					IFileState[] states = fichero.getHistory(null);
 					if(states.length > 0){
-						fichero.setContents(getFileStatePreviousToRefactoring(states, date).getContents(), IFile.KEEP_HISTORY, 
-									new NullProgressMonitor());
+						fichero.setContents(getFileStatePreviousToRefactoring(states, currentRefactoringDate), IFile.KEEP_HISTORY, 
+									null);
 						fichero.refreshLocal(IResource.DEPTH_INFINITE,
-									new NullProgressMonitor());
+									null);
 					}
 				}
-				//JavaModel.load(backup);
+				
 			}
 			catch(Exception e){
 				String message = Messages.RefactoringRunner_RefactoringNotUndone + 
@@ -502,7 +499,7 @@ public abstract class RefactoringRunner implements IRunnableWithProgress {
 				monitor.done();
 			}
 		}
-
+		
 		/**
 		 * Devuelve el estado del archivo no inmediatamente anterior
 		 * a la fecha pasada sino el anterior.
@@ -516,7 +513,7 @@ public abstract class RefactoringRunner implements IRunnableWithProgress {
 			while(states.length > i && states[i].getModificationTime() > refactoringDate.getTime()){
 				i++;
 			}
-			return states[i+1];
+			return states[i];
 		}
 	}
 }

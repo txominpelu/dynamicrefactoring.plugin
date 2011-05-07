@@ -344,7 +344,6 @@ public class JDOMXMLRefactoringReaderImp implements XMLRefactoringReaderImp {
 		try {
 			return readFile(FileUtils.openInputStream(file));
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
 			throw Throwables.propagate(e);
 		}
 	}
@@ -359,7 +358,6 @@ public class JDOMXMLRefactoringReaderImp implements XMLRefactoringReaderImp {
 		try {
 			return readFile(in);
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
 			throw Throwables.propagate(e);
 		}
 	}
