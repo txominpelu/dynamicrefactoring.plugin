@@ -215,12 +215,16 @@ public class RefactoringPlugin extends AbstractUIPlugin
 	@Override
 	public void start(BundleContext context) throws Exception{
 		super.start(context);
+		
+		
 		MOONRefactoring.resetModel();
 		
 		//si no existe el fichero de propiedades de log se crea y se cargan la configuración en él
 		//si ya existe se debe mantener la configuración que haya establecido el usuario 
 		File logPropertiesFile = new File(LogManager.LOG_PROPERTIES_FILE_PATH);
 		if(!logPropertiesFile.exists()){
+			FileUtils.forceMkdir(new File(RefactoringPlugin.getCommonPluginFilesDir() +
+					PropertyManager.getInstance().getLogFileDirectory()));
 			logPropertiesFile.createNewFile();
 			LogManager.getInstance().loadLogConfig();
 		}
@@ -230,6 +234,14 @@ public class RefactoringPlugin extends AbstractUIPlugin
 		
 		FileManager.copyBundleDirToFileSystem("/DynamicRefactorings", getCommonPluginFilesDir() + File.separator + "temp");
 		FileManager.copyResourceToDir("/Classification/classifications.xml", getCommonPluginFilesDir() + File.separator + "temp");
+		
+		Runnable createJavaDocReaderProject = new Runnable() {
+			@Override
+			public void run() {
+				EclipseBasedJavadocReader.INSTANCE.hasType("");
+			}
+		};
+		createJavaDocReaderProject.run();
 	}
 
 	/**

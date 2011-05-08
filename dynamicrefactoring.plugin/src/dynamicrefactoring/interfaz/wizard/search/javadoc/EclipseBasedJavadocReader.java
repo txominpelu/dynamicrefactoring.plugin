@@ -1,6 +1,5 @@
 package dynamicrefactoring.interfaz.wizard.search.javadoc;
 
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashSet;
@@ -12,7 +11,6 @@ import org.eclipse.core.resources.IProjectDescription;
 import org.eclipse.core.resources.IWorkspaceRoot;
 import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.CoreException;
-import org.eclipse.core.runtime.FileLocator;
 import org.eclipse.core.runtime.Path;
 import org.eclipse.jdt.core.IClasspathAttribute;
 import org.eclipse.jdt.core.IClasspathEntry;
@@ -33,6 +31,7 @@ public enum EclipseBasedJavadocReader implements JavadocReader {
 
 	INSTANCE;
 
+	private static final String JAVADOC_PATH = "/doc/javadoc/";
 	public static final String JAVADOC_READER_PROJECT_NAME = "JavadocReaderProject";
 	private final IJavaProject javaProject;
 
@@ -90,7 +89,7 @@ public enum EclipseBasedJavadocReader implements JavadocReader {
 				entries.toArray(new IClasspathEntry[entries.size()]), null);
 		addLibraryToReaderClassPath(
 				new Path(RefactoringConstants.REFACTORING_CLASSES_DIR), 
-				getClass().getResource("/doc/javadoc/").toString());
+				getClass().getResource(JAVADOC_PATH).toString());
 		addLibraryToReaderClassPath(
 				new Path(RefactoringConstants.getLibDir()),
 				getClass().getResource("/doc/javadoc/moon/").toString());

@@ -61,7 +61,7 @@ import dynamicrefactoring.util.io.FileManager;
  * 
  * @author <A HREF="mailto:lfd0002@alu.ubu.es">Laura Fuente de la Fuente</A>
  */
-public class RefactoringPlanExecutor implements IRunnableWithProgress {
+public final class RefactoringPlanExecutor implements IRunnableWithProgress {
 
 	/**
 	 * Modelo actual sobre el que ejecutar el plan.
@@ -82,49 +82,49 @@ public class RefactoringPlanExecutor implements IRunnableWithProgress {
 	/**
 	 * Nombre completamente cualificado del tipo MOON que representa una clase.
 	 */
-	private final String CLASSDEF_NAME = "moon.core.classdef.ClassDef"; //$NON-NLS-1$
+	private static final String CLASSDEF_NAME = "moon.core.classdef.ClassDef"; //$NON-NLS-1$
 
 	/**
 	 * Nombre completamente cualificado del tipo MOON que representa un tipo de
 	 * una clase.
 	 */
-	private final String TYPE_NAME = "moon.core.classdef.Type"; //$NON-NLS-1$
+	private static final String TYPE_NAME = "moon.core.classdef.Type"; //$NON-NLS-1$
 
 	/**
 	 * Nombre completamente cualificado del tipo MOON que representa un m�todo
 	 * de una clase.
 	 */
-	private final String METHOD_NAME = "moon.core.classdef.MethDec"; //$NON-NLS-1$
+	private static final String METHOD_NAME = "moon.core.classdef.MethDec"; //$NON-NLS-1$
 
 	/**
 	 * Nombre completamente cualificado del tipo MOON que representa un atributo
 	 * de una clase.
 	 */
-	private final String ATTDEC_NAME = "moon.core.classdef.AttDec"; //$NON-NLS-1$
+	private static final String ATTDEC_NAME = "moon.core.classdef.AttDec"; //$NON-NLS-1$
 
 	/**
 	 * Nombre completamente cualificado del tipo MOON que representa un
 	 * argumento de un m�todo.
 	 */
-	private final String FORMALARGUMENT_NAME = "moon.core.classdef.FormalArgument"; //$NON-NLS-1$
+	private static final String FORMALARGUMENT_NAME = "moon.core.classdef.FormalArgument"; //$NON-NLS-1$
 
 	/**
 	 * Nombre completamente cualificado del tipo MOON que representa el nombre
 	 * de un objeto MOON con nombre.
 	 */
-	private final String NAME_NAME = "moon.core.Name"; //$NON-NLS-1$
+	private static final String NAME_NAME = "moon.core.Name"; //$NON-NLS-1$
 
 	/**
 	 * Nombre completamente cualificado del tipo MOON que representa un
 	 * fragmento de c�digo.
 	 */
-	private final String CODEFRAGMENT_NAME = "moon.core.instruction.CodeFragment"; //$NON-NLS-1$
+	private static final String CODEFRAGMENT_NAME = "moon.core.instruction.CodeFragment"; //$NON-NLS-1$
 
 	/**
 	 * Refactorizaciones con problemas durante la ejecuci�n del plan de
 	 * refactorizaciones.
 	 */
-	private HashMap<String, String> notExecuted = new HashMap<String, String>();
+	private Map<String, String> notExecuted = new HashMap<String, String>();
 
 	/**
 	 * Catalogo de refactorizaciones.
@@ -142,7 +142,7 @@ public class RefactoringPlanExecutor implements IRunnableWithProgress {
 	 * 
 	 * @return refactorizaciones con problemas y la traza del problema.
 	 */
-	public HashMap<String, String> getNotExecuted() {
+	public Map<String, String> getNotExecuted() {
 		return notExecuted;
 	}
 

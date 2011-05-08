@@ -5,24 +5,25 @@ class PluginVersionChanger {
 	def static main(String[] args){
 		assert args.length == 1;
 		def newVersion = args[0]
-		changeVersionManifestFile("./dynamicrefactoring.plugin/META-INF/MANIFEST.MF",newVersion)
-		changeVersionManifestFile("./dynamicrefactoring.tests/META-INF/MANIFEST.MF",newVersion)
-		modifyRootPomFile("pom.xml", newVersion)
-		modifyFeatureFile("./dynamicrefactoring.feature/feature.xml", newVersion)
-		modifyPom("./dynamicrefactoring.feature/pom.xml", newVersion)
-		modifyPom("./dynamicrefactoring.targetplatform/pom.xml", newVersion)
-		modifyPom("./dynamicrefactoring.plugin/pom.xml", newVersion)
-		modifyPom("./dynamicrefactoring.tests/pom.xml", newVersion)
-		modifyPom("./dynamicrefactoring.p2repository/pom.xml", newVersion)
+		def changer = new PluginVersionChanger()
+		changer.changeVersionManifestFile("./dynamicrefactoring.plugin/META-INF/MANIFEST.MF",newVersion)
+		changer.changeVersionManifestFile("./dynamicrefactoring.tests/META-INF/MANIFEST.MF",newVersion)
+		changer.modifyRootPomFile("pom.xml", newVersion)
+		changer.modifyFeatureFile("./dynamicrefactoring.feature/feature.xml", newVersion)
+		changer.modifyPom("./dynamicrefactoring.feature/pom.xml", newVersion)
+		changer.modifyPom("./dynamicrefactoring.targetplatform/pom.xml", newVersion)
+		changer.modifyPom("./dynamicrefactoring.plugin/pom.xml", newVersion)
+		changer.modifyPom("./dynamicrefactoring.tests/pom.xml", newVersion)
+		changer.modifyPom("./dynamicrefactoring.p2repository/pom.xml", newVersion)
 
 	}
 
 	def changeVersionManifestFile(filePath, version){
 	    def newFileContent = ""
 	    new File(filePath).eachLine { line ->
-		linea = line
+		def linea = line
 		if (line =~ /Bundle-Version:/ ){
-		    match = line =~ /Bundle-Version: (\d+\.\d+\.\d+)/
+		    def match = line =~ /Bundle-Version: (\d+\.\d+\.\d+)/
 		    linea = linea.replace(match[0][1], version)
 		}
 		newFileContent += linea + "\n"

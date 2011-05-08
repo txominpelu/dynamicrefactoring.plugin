@@ -4,11 +4,11 @@
   <parent>
     <artifactId>dynamic-refactoring-plugin</artifactId>
     <groupId>dynamicrefactoring</groupId>
-    <version>3.0.7</version>
+    <version>3.0.8</version>
   </parent>
   <groupId>dynamicrefactoring</groupId>
   <artifactId>dynamicrefactoring.tests</artifactId>
-  <version>3.0.7</version>
+  <version>3.0.8</version>
   <packaging>eclipse-test-plugin</packaging>
   <properties>
     <tycho-version>0.10.0</tycho-version>
@@ -38,11 +38,6 @@
         <artifactId>maven-osgi-test-plugin</artifactId>
         <version>${tycho-version}</version>
         <configuration>
-          <!--<excludes>
-            <exclude>**/EditRefactoringCategoriesTest.java</exclude>
-            <exclude>**/CreateRefactoringWithWizardPage2Test.java</exclude>
-            <exclude>**/TestAddParameter.java</exclude>
-          </excludes>-->
           <argLine>-javaagent:${jacoco.agent.path}=destfile=${jacoco.file.path}</argLine>
           <useUIHarness>true</useUIHarness>
           <useUIThread>false</useUIThread>

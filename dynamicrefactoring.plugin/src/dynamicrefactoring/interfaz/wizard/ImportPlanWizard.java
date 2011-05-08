@@ -404,7 +404,7 @@ public class ImportPlanWizard extends Dialog {
 			String imported = ""; //$NON-NLS-1$
 
 				 String[] names = refactoringsToImport.keySet().toArray(new String[refactoringsToImport.keySet().size()]);
-				 HashMap<String,String> notExecuted = new HashMap<String,String>();
+				 Map<String,String> notExecuted = new HashMap<String,String>();
 				try {
 				// Ejecutamos la importaci�n de las refactorizaciones se�aladas
 				// para ser importadas.
