@@ -240,7 +240,9 @@ public class AvailableRefactoringView extends ViewPart {
 		 */
 		public void elementSelected(SelectionInfo selection) {
 			select = selection;
-			fillTree();
+			if(!tr_Refactorings.isDisposed()){
+				fillTree();
+			}
 		}
 	}
 
