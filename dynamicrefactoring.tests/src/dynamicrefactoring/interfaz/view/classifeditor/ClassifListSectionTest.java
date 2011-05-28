@@ -11,6 +11,7 @@ import org.junit.Test;
 import dynamicrefactoring.domain.metadata.classifications.xml.imp.CatalogStub;
 import dynamicrefactoring.domain.metadata.interfaces.Classification;
 import dynamicrefactoring.domain.metadata.interfaces.ClassificationsCatalog;
+import dynamicrefactoring.interfaz.editor.classifeditor.ClassifListSection;
 
 public class ClassifListSectionTest {
 

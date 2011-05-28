@@ -12,7 +12,7 @@ import org.junit.Test;
 import dynamicrefactoring.domain.metadata.classifications.xml.imp.CatalogStub;
 import dynamicrefactoring.domain.metadata.interfaces.ClassificationsCatalog;
 import dynamicrefactoring.domain.metadata.interfaces.Category;
-import dynamicrefactoring.interfaz.view.classifeditor.CategoriesSection;
+import dynamicrefactoring.interfaz.editor.classifeditor.CategoriesSection;
 
 public class CategoriesSectionTest {
 

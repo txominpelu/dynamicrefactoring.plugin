@@ -1,4 +1,4 @@
-package dynamicrefactoring.interfaz.view.classifeditor;
+package dynamicrefactoring.interfaz.editor.classifeditor;
 
 import org.eclipse.osgi.util.NLS;
 

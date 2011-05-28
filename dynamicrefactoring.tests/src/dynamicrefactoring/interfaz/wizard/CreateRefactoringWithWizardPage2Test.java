@@ -20,7 +20,6 @@ public final class CreateRefactoringWithWizardPage2Test extends AbstractRefactor
 	public void setUp(){
 		SWTWorkbenchBot bot = super.setUpBot();
 		refactoringWizardPage2Object = goToSecondPage(bot);
-		//bot.viewByTitle("Welcome").close();
 	}
 
 	/**

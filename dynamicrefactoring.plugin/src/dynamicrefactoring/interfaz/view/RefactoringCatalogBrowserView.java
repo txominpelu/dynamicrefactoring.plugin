@@ -73,7 +73,7 @@ import dynamicrefactoring.domain.metadata.interfaces.Classification;
 import dynamicrefactoring.domain.metadata.interfaces.ClassifiedElements;
 import dynamicrefactoring.domain.xml.XMLRefactoringsCatalog;
 import dynamicrefactoring.interfaz.TreeEditor;
-import dynamicrefactoring.interfaz.view.classifeditor.ClassificationsEditorView;
+import dynamicrefactoring.interfaz.editor.classifeditor.ClassificationsEditor;
 import dynamicrefactoring.util.RefactoringTreeManager;
 
 /**
@@ -711,36 +711,40 @@ public class RefactoringCatalogBrowserView extends ViewPart {
 					Button clearB=(Button)e.getSource();
 					int row=((Integer)clearB.getData(ROW_PROPERTY)).intValue();
 					
-					TableItem itemLast = conditionsTable.getItem(conditionsTable.getItemCount()-1);
-					// recuperamos los botones check y clear asociados a la
-					// última fila
-					Object checkBLast=itemLast.getData(CHECKBUTTON_PROPERTY);
-					Object clearBLast=itemLast.getData(CLEARBUTTON_PROPERTY);
-					
-					conditionsTable.setVisible(false);
-					
-					//eliminamos los botones recuperados
-					if(checkBLast instanceof Button)
-						((Button)checkBLast).dispose();
-					if(clearBLast instanceof Button)
-						((Button)clearBLast).dispose();
-					//reestablecemos los nombres de las condiciones en las filas correspondientes
-					String nameCondition=null;	
-					for(int i=row+1;i<conditionsTable.getItemCount();i++){
-						nameCondition=conditionsTable.getItem(i).getText(1);
-						conditionsTable.getItem(i-1).setText(1,nameCondition);	
-					}
-					itemLast.dispose();
-					if(conditionsTable.getItemCount()==0)
-						clearAllButton.setEnabled(false);
-					
-					conditionsTable.setVisible(true);
-					packTableColumns();
+					deletRowFromConditionsTable(row);
 					
 					catalog.removeConditionFromFilter(filter.get(row));
 					filter.remove(row);
 					showTree(classCombo.getText());
 				}
+			}
+
+			private void deletRowFromConditionsTable(int row) {
+				TableItem itemLast = conditionsTable.getItem(conditionsTable.getItemCount()-1);
+				// recuperamos los botones check y clear asociados a la
+				// última fila
+				Object checkBLast=itemLast.getData(CHECKBUTTON_PROPERTY);
+				Object clearBLast=itemLast.getData(CLEARBUTTON_PROPERTY);
+				
+				conditionsTable.setVisible(false);
+				
+				//eliminamos los botones recuperados
+				if(checkBLast instanceof Button)
+					((Button)checkBLast).dispose();
+				if(clearBLast instanceof Button)
+					((Button)clearBLast).dispose();
+				//reestablecemos los nombres de las condiciones en las filas correspondientes
+				String nameCondition=null;	
+				for(int i=row+1;i<conditionsTable.getItemCount();i++){
+					nameCondition=conditionsTable.getItem(i).getText(1);
+					conditionsTable.getItem(i-1).setText(1,nameCondition);	
+				}
+				itemLast.dispose();
+				if(conditionsTable.getItemCount()==0)
+					clearAllButton.setEnabled(false);
+				
+				conditionsTable.setVisible(true);
+				packTableColumns();
 			}
 		});
 		clearButton.setData(ROW_PROPERTY, conditionsTable.indexOf(item));
@@ -868,7 +872,7 @@ public class RefactoringCatalogBrowserView extends ViewPart {
 							return "Classifications Editor";
 						}
 						
-					}, ClassificationsEditorView.ID);
+					}, ClassificationsEditor.ID);
 		} catch (PartInitException e) {
 			throw Throwables.propagate(e);
 		}

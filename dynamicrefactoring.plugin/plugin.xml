@@ -2,6 +2,13 @@
 <?eclipse version="3.2"?>
 <plugin>
 
+	<extension point="org.eclipse.ui.intro.configExtension">
+	 	<configExtension
+			configId="org.eclipse.ui.intro.universalConfig"
+			content="intro/welcome.xml" />
+	</extension>
+
+
    <extension point = "org.eclipse.ui.actionSets">
 		<actionSet id="dynamicrefactoring.actionSets.refactoringActionSet"
 			label="%dynamicrefactoring.actionSet"
@@ -272,7 +279,7 @@
   		</stickyView>
     <view
           category="dynamicrefactoring.views.refactoringViewsCategory"
-          class="dynamicrefactoring.interfaz.view.classifeditor.ClassificationsEditorView"
+          class="dynamicrefactoring.interfaz.editor.classifeditor.ClassificationsEditor"
           icon="icons/class_edit.png"
           id="dynamicrefactoring.views.refactoringClasificationsEditorView"
           name="%dynamicrefactoring.views.refactoringClasificationsEditorView">
@@ -428,7 +435,7 @@
  <extension
        point="org.eclipse.ui.editors">
     <editor
-          class="dynamicrefactoring.interfaz.view.classifeditor.ClassificationsEditorView"
+          class="dynamicrefactoring.interfaz.editor.classifeditor.ClassificationsEditor"
           default="false"
           icon="icons/class_edit.png"
           id="dynamicrefactoring.editors.refactoringClasificationsEditorView"

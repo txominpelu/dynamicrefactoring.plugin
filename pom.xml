@@ -3,7 +3,7 @@
   <modelVersion>4.0.0</modelVersion>
   <groupId>dynamicrefactoring</groupId>
   <artifactId>dynamic-refactoring-plugin</artifactId>
-  <version>3.0.8</version>
+  <version>3.0.9</version>
   <packaging>pom</packaging>
   <properties>
     <org.eclipse.swtbot.playback.poll.delay>1500</org.eclipse.swtbot.playback.poll.delay>
@@ -49,7 +49,7 @@
             <artifact>
               <groupId>dynamicrefactoring</groupId>
               <artifactId>dynamicrefactoring.targetplatform</artifactId>
-              <version>3.0.8</version>
+              <version>3.0.9</version>
               <classifier>dynamicrefactoring</classifier>
             </artifact>
           </target>

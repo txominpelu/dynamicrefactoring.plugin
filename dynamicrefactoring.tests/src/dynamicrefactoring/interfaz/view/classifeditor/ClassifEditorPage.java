@@ -7,6 +7,9 @@ import org.eclipse.swtbot.eclipse.finder.SWTWorkbenchBot;
 import org.eclipse.swtbot.eclipse.finder.widgets.SWTBotView;
 import org.eclipse.swtbot.forms.finder.SWTFormsBot;
 
+import dynamicrefactoring.interfaz.editor.classifeditor.ClassifListSection;
+import dynamicrefactoring.interfaz.editor.classifeditor.Messages;
+
 
 public final class ClassifEditorPage {
 	

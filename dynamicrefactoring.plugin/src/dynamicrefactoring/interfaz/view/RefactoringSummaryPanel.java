@@ -563,9 +563,7 @@ public class RefactoringSummaryPanel {
 		refTabFolder.setVisible(false);
 		clear();
 
-		fillOverview();
-		fillInputsTable();
-		fillComponentsTree();
+		fillConstantComponents();
 		refTabFolder.setSelection(2);
 		if(refactoring.getImage()!=null && 
 				!refactoring.getImage().equals("")){ //$NON-NLS-1$
@@ -578,6 +576,12 @@ public class RefactoringSummaryPanel {
 		
 		refTabFolder.setSelection(0);
 		refTabFolder.setVisible(true);
+	}
+
+	private void fillConstantComponents() {
+		fillOverview();
+		fillInputsTable();
+		fillComponentsTree();
 	}
 
 	public DynamicRefactoringDefinition getRefactoringSelected(){

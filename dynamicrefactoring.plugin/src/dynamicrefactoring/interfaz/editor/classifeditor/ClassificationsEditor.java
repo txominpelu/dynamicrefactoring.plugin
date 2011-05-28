@@ -1,4 +1,4 @@
-package dynamicrefactoring.interfaz.view.classifeditor;
+package dynamicrefactoring.interfaz.editor.classifeditor;
 
 import java.util.Set;
 
@@ -15,7 +15,7 @@ import org.eclipse.ui.part.EditorPart;
 import dynamicrefactoring.domain.metadata.classifications.xml.imp.PluginClassificationsCatalog;
 import dynamicrefactoring.domain.metadata.interfaces.Classification;
 
-public final class ClassificationsEditorView extends EditorPart {
+public final class ClassificationsEditor extends EditorPart {
 	
 	public static final String ID = "dynamicrefactoring.editors.refactoringClasificationsEditorView"; //$NON-NLS-1$
 

@@ -4,10 +4,10 @@
   <parent>
     <artifactId>dynamic-refactoring-plugin</artifactId>
     <groupId>dynamicrefactoring</groupId>
-    <version>3.0.8</version>
+    <version>3.0.9</version>
   </parent>
   <groupId>dynamicrefactoring</groupId>
   <artifactId>dynamicrefactoring.feature</artifactId>
-  <version>3.0.8</version>
+  <version>3.0.9</version>
   <packaging>eclipse-feature</packaging>
 </project>
