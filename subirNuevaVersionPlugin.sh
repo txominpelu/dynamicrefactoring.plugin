@@ -1,11 +1,11 @@
 #!/bin/bash
 
-fecha=20110515
-plugin_version=3.0.9
+fecha=20110528
+plugin_version=3.1.0
 ruta_proyecto=/home/imediava/Escritorio/workspace-proyecto2/dynamicrefactoring.plugin/
 
 cd $ruta_proyecto 
-~/Descargas/groovy-1.7.10/bin/groovy changePluginVersion.groovy $plugin_version
+groovy changePluginVersion.groovy $plugin_version
 
 mvn clean install
 

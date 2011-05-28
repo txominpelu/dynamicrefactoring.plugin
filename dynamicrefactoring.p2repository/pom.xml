@@ -4,11 +4,11 @@
   <parent>
     <artifactId>dynamic-refactoring-plugin</artifactId>
     <groupId>dynamicrefactoring</groupId>
-    <version>3.0.9</version>
+    <version>3.1.0</version>
   </parent>
   <groupId>dynamicrefactoring</groupId>
   <artifactId>dynamicrefactoring.p2repository</artifactId>
-  <version>3.0.9</version>
+  <version>3.1.0</version>
   <packaging>eclipse-repository</packaging>
   <build>
     <plugins>

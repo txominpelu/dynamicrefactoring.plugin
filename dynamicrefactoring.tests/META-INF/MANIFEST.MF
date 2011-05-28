@@ -2,7 +2,7 @@ Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: Test
 Bundle-SymbolicName: dynamicrefactoring.tests
-Bundle-Version: 3.0.9
+Bundle-Version: 3.1.0
 Fragment-Host: dynamicrefactoring.plugin
 Bundle-ClassPath: .,
  lib/refactoringengine-1.1.1.jar,

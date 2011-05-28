@@ -1,4 +1,4 @@
-package dynamicrefactoring.interfaz.view.classifeditor;
+package dynamicrefactoring.interfaz.editor.classifeditor;
 
 import java.util.ArrayList;
 import java.util.List;
