@@ -23,10 +23,10 @@ public enum RefactoringMechanismType {
 	
 
 	PRECONDITION(RefactoringConstants.JAVA_PREDICATES_PACKAGE,
-			RefactoringConstants.PREDICATES_PACKAGE), ACTION(
-			RefactoringConstants.JAVA_ACTIONS_PACKAGE,
-			RefactoringConstants.ACTIONS_PACKAGE), POSTCONDITION(
-			RefactoringConstants.JAVA_PREDICATES_PACKAGE,
+			RefactoringConstants.PREDICATES_PACKAGE), 
+	ACTION(RefactoringConstants.JAVA_ACTIONS_PACKAGE,
+			RefactoringConstants.ACTIONS_PACKAGE), 
+	POSTCONDITION(RefactoringConstants.JAVA_PREDICATES_PACKAGE,
 			RefactoringConstants.PREDICATES_PACKAGE);
 	
 	/**

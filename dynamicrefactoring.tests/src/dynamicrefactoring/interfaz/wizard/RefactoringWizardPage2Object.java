@@ -1,5 +1,8 @@
 package dynamicrefactoring.interfaz.wizard;
 
+import java.util.Arrays;
+import java.util.List;
+
 import org.eclipse.swtbot.eclipse.finder.SWTWorkbenchBot;
 
 
@@ -64,6 +67,27 @@ public final class RefactoringWizardPage2Object extends AbstractRefactoringWizar
 		getBot().listWithId("types").select(inputType);
 		getBot().buttonWithId("addInput").click();
 		
+	}
+
+	/**
+	 * Devuelve la lista de resultados que se muestran
+	 * en el panel de busqueda de elementos.
+	 * 
+	 * @return lista de resultados del panel de elementos
+	 */
+	public List<String> getSearchResults() {
+		return Arrays.asList(getBot().list().getItems());
+	}
+
+	/**
+	 * Realiza una busqueda sobre los elementos
+	 * en el panel de busquedas de la pagina.
+	 * 
+	 * @param query busqueda a realizar
+	 */
+	public void searchElement(String query) {
+		getBot().text().setText(query);
+		getBot().button().click();
 	}
 	
 

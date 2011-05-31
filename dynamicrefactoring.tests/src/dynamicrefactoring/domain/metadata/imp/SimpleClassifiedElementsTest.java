@@ -13,6 +13,13 @@ import dynamicrefactoring.domain.metadata.interfaces.Category;
 import dynamicrefactoring.domain.metadata.interfaces.ClassifiedElements;
 import dynamicrefactoring.domain.metadata.interfaces.Element;
 
+/**
+ * Pruebas sobre los conjuntos de elementos
+ * clasificados.
+ * 
+ * @author imediava
+ *
+ */
 public class SimpleClassifiedElementsTest {
 
 	/**
@@ -32,6 +39,11 @@ public class SimpleClassifiedElementsTest {
 	 */
 	private SimpleClassifiedElements<Element> copiaFilteredClassifiedElements;
 
+	/**
+	 * Configuracion previa para los tests.
+	 * 
+	 * @throws Exception
+	 */
 	@Before
 	public void setUp() throws Exception {
 		ClassifiedElements<Element>[] ce=MetadataDomainTestUtils
@@ -54,6 +66,9 @@ public class SimpleClassifiedElementsTest {
 				filteredClassifiedElements.getClassification().getName(),ElementCatalogTest.MI_CLASSIFICATION_DESCRIPTION,filteredMap.keySet()), filteredMap);
 	}
 
+	/**
+	 * Comprueba que las clasificaciones se crean correctamente.
+	 */
 	@Test
 	public void testGetClassification() {
 		assertEquals(classifiedElements.getClassification(),
@@ -62,6 +77,9 @@ public class SimpleClassifiedElementsTest {
 				copiaFilteredClassifiedElements.getClassification());
 	}
 
+	/**
+	 * Comprueba que las categorías se construyen correctamente.
+	 */
 	@Test
 	public void testGetCategoryChildren() {
 		for (Category c : classifiedElements.getClassification()
@@ -76,6 +94,10 @@ public class SimpleClassifiedElementsTest {
 		}
 	}
 
+	/**
+	 * Comprueba que los objetos son iguales mediante su 
+	 * metodo equals.
+	 */
 	@Test
 	public void testEqualsObject() {
 		assertEquals(classifiedElements, copiaClassifiedElements);

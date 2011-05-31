@@ -3,7 +3,7 @@ package dynamicrefactoring.interfaz.editor.classifeditor;
 import org.eclipse.osgi.util.NLS;
 
 public class Messages extends NLS {
-	private static final String BUNDLE_NAME = "dynamicrefactoring.interfaz.view.classifeditor.messages"; //$NON-NLS-1$
+	private static final String BUNDLE_NAME = "dynamicrefactoring.interfaz.editor.classifeditor.messages"; //$NON-NLS-1$
 	public static String CategoriesSection_AddCategory;
 	public static String CategoriesSection_Categories;
 	public static String CategoriesSection_CategoriesForTheClassification;

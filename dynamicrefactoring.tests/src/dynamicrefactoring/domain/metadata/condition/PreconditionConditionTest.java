@@ -6,19 +6,16 @@ import static org.junit.Assert.assertTrue;
 import org.junit.Before;
 import org.junit.Test;
 
-import dynamicrefactoring.domain.metadata.interfaces.Category;
 import dynamicrefactoring.domain.metadata.interfaces.Element;
 
 
-public final class CategoryConditionTest {
+public final class PreconditionConditionTest {
 	
-	private CategoryCondition<Element> condition;
-	private Category category;
+	private PreconditionCondition<Element> condition;
 
 	@Before
 	public void setUp(){
-		category = new Category("myparent" , "mycategory");
-		condition = new CategoryCondition<Element>(category);
+		condition = new PreconditionCondition<Element>("MyCondition");
 	}
 	
 	@Test
@@ -26,7 +23,7 @@ public final class CategoryConditionTest {
 		Element element = new ElementAdapter(){
 
 			@Override
-			public boolean belongsTo(Category category) {
+			public boolean containsPrecondition(String condition) {
 				return true;
 			}
 			
@@ -40,7 +37,7 @@ public final class CategoryConditionTest {
 		Element element = new ElementAdapter(){
 
 			@Override
-			public boolean belongsTo(Category category) {
+			public boolean containsPrecondition(String condition) {
 				return false;
 			}
 			

@@ -9,7 +9,9 @@ import java.util.Set;
 
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.IOUtils;
+import org.apache.lucene.analysis.PerFieldAnalyzerWrapper;
 import org.apache.lucene.analysis.snowball.SnowballAnalyzer;
+import org.apache.lucene.analysis.standard.StandardAnalyzer;
 import org.apache.lucene.document.Document;
 import org.apache.lucene.document.Field;
 import org.apache.lucene.index.CorruptIndexException;
@@ -25,6 +27,7 @@ import dynamicrefactoring.RefactoringPlugin;
 import dynamicrefactoring.interfaz.wizard.search.internal.SearchingFacade.SearchableType;
 import dynamicrefactoring.interfaz.wizard.search.javadoc.EclipseBasedJavadocReader;
 import dynamicrefactoring.interfaz.wizard.search.javadoc.JavadocReader;
+import dynamicrefactoring.util.PluginStringUtils;
 
 /**
  * Indexador de clases y sus descripciones en Javadoc.
@@ -33,28 +36,41 @@ import dynamicrefactoring.interfaz.wizard.search.javadoc.JavadocReader;
  * 
  */
 enum SearchableTypeIndexer implements Indexer {
-	
+
 	INSTANCE;
 
 	private static final String SEARCH_STOPWORDS_ENGLISH_TXT = "/search/stopwords-english.txt";
 	public static final String CLASS_NAME_FIELD = "className";
 	public static final String CLASS_DESCRIPTION_FIELD = "contents";
+	public static final String FULLY_QUALIFIED_CLASS_NAME_FIELD = "fullyQualifiedName";
+	public static final Set<String> ENGLISH_STOP_WORDS;
+
+	static {
+		ENGLISH_STOP_WORDS = getEnglishStopWords();
+	}
 
 	/**
 	 * Genera un documento para una clase.
 	 * 
-	 * @param className
-	 *            nombre de la clase
 	 * @param classDescription
 	 *            descripcion de la clase
+	 * @param fullyQualifiedName
+	 *            nombre completo de la clase
 	 * @return documento a indexar para la clase
 	 */
-	protected Document getDocument(String className, String classDescription) {
+	protected Document getDocument(String fullyQualifiedName,
+			String classDescription) {
 		Document doc = new Document();
 		doc.add(new Field(CLASS_DESCRIPTION_FIELD, new StringReader(
 				classDescription)));
-		doc.add(new Field(CLASS_NAME_FIELD, className, Field.Store.YES,
-				Field.Index.NOT_ANALYZED));
+		Field classNameField = new Field(CLASS_NAME_FIELD,
+				PluginStringUtils.getClassName(fullyQualifiedName),
+				Field.Store.YES, Field.Index.ANALYZED);
+		classNameField.setBoost(2.0f);
+		doc.add(classNameField);
+		doc.add(new Field(FULLY_QUALIFIED_CLASS_NAME_FIELD, fullyQualifiedName,
+				Field.Store.YES, Field.Index.NOT_ANALYZED));
+
 		return doc;
 	}
 
@@ -69,7 +85,8 @@ enum SearchableTypeIndexer implements Indexer {
 		if (!new File(elementType.getIndexDir()).exists()) {
 			FileUtils.forceMkdir(new File(elementType.getIndexDir()));
 		}
-		return index(elementType, FSDirectory.open(new File(elementType.getIndexDir())));
+		return index(elementType,
+				FSDirectory.open(new File(elementType.getIndexDir())));
 	}
 
 	/**
@@ -129,34 +146,59 @@ enum SearchableTypeIndexer implements Indexer {
 	 */
 	private IndexWriter createWriter(Directory dir) {
 		try {
-			return new IndexWriter(dir, new SnowballAnalyzer(Version.LUCENE_30,
-					"English", getEnglishStopWords()), true, IndexWriter.MaxFieldLength.UNLIMITED);
+			
+			return new IndexWriter(dir, getTermsAnalyzer(), true,
+					IndexWriter.MaxFieldLength.UNLIMITED);
 		} catch (IOException e) {
 			throw Throwables.propagate(e);
 		}
 	}
-	
+
 	/**
-	 * Obtiene la lista de StopWords para el
-	 * ingles del fichero {@link #SEARCH_STOPWORDS_ENGLISH_TXT}.
+	 * Obtiene el analizador de terminos que debe ser comun para
+	 * el indizador y para el buscador.
+	 * 
+	 * @return analizador de terminos
+	 */
+	public static PerFieldAnalyzerWrapper getTermsAnalyzer() {
+		PerFieldAnalyzerWrapper aWrapper = new PerFieldAnalyzerWrapper(
+				new StandardAnalyzer(Version.LUCENE_30));
+		aWrapper.addAnalyzer(CLASS_DESCRIPTION_FIELD, new SnowballAnalyzer(
+				Version.LUCENE_30, "English", ENGLISH_STOP_WORDS));
+		aWrapper.addAnalyzer(CLASS_NAME_FIELD, new StandardAnalyzer(
+				Version.LUCENE_30));
+		return aWrapper;
+	}
+
+	/**
+	 * Obtiene la lista de StopWords para el ingles del fichero
+	 * {@link #SEARCH_STOPWORDS_ENGLISH_TXT}.
 	 * 
 	 * @return lista de Stopwords para el ingles
-	 * @throws IOException si hay algun problema leyendo el fichero
+	 * @throws IOException
+	 *             si hay algun problema leyendo el fichero
 	 */
-	private Set<String> getEnglishStopWords() throws IOException{
-		InputStream in = RefactoringPlugin.getDefault().getBundle().getEntry( SEARCH_STOPWORDS_ENGLISH_TXT ).openStream();
+	private static Set<String> getEnglishStopWords() {
+		InputStream in = null;
 		Set<String> englishStopWords = new HashSet<String>();
-		 try {
-		   for (String line : IOUtils.toString( in ).split("\n")){
-			   final String word = line.trim();
-			   if(! word.isEmpty()){
-				   englishStopWords.add(word);
-			   }
-		   }
+		try {
+			in = RefactoringPlugin.getDefault().getBundle()
+					.getEntry(SEARCH_STOPWORDS_ENGLISH_TXT).openStream();
+			englishStopWords = new HashSet<String>();
+			for (String line : IOUtils.toString(in).split("\n")) {
+				final String word = line.trim();
+				if (!word.isEmpty()) {
+					englishStopWords.add(word);
+				}
+			}
+			return englishStopWords;
+		} catch (IOException e) {
+			Throwables.propagate(e);
 		} finally {
-		   IOUtils.closeQuietly(in);
-		 }
+			IOUtils.closeQuietly(in);
+		}
 		return englishStopWords;
+
 	}
 
 }

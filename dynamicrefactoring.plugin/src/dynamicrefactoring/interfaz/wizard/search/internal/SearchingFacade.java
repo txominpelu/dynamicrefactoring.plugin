@@ -38,6 +38,7 @@ public enum SearchingFacade {
 						RefactoringMechanismType.PRECONDITION, RefactoringMechanismType
 								.getPredicatesAllList().keySet());
 			}
+		
 		},
 		ACTION {
 			@Override
@@ -47,6 +48,7 @@ public enum SearchingFacade {
 						RefactoringMechanismType.ACTION.getElementAllList()
 								.keySet());
 			}
+
 		},
 		INPUT {
 			@Override
@@ -54,6 +56,7 @@ public enum SearchingFacade {
 				return ImmutableSet.copyOf(MOONTypeLister.getInstance()
 						.getTypeNameList());
 			}
+			
 		};
 
 		/**

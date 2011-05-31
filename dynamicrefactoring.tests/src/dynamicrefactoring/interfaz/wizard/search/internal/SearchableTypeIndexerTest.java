@@ -55,8 +55,8 @@ public final class SearchableTypeIndexerTest {
 	 */
 	@Test
 	public void testElementExists() throws Exception {
-		TopDocs result = searchTerm(SearchableTypeIndexer.CLASS_NAME_FIELD, actionElementName);
-		assertEquals(result.totalHits, 1);
+		TopDocs result = searchTerm(SearchableTypeIndexer.FULLY_QUALIFIED_CLASS_NAME_FIELD, actionElementName);
+		assertEquals(1, result.totalHits);
 	}
 	
 	/**

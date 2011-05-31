@@ -1,6 +1,10 @@
 package dynamicrefactoring.interfaz.wizard;
 
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import org.eclipse.swtbot.eclipse.finder.SWTWorkbenchBot;
 import org.junit.Before;
@@ -49,6 +53,18 @@ public final class CreateRefactoringWithWizardPage2Test extends AbstractRefactor
 		refactoringWizardPage2Object.setNameForInput("clase", "javamoon.core.classdef.JavaClassDef (1)");
 		refactoringWizardPage2Object.markInputAsMain("javamoon.core.classdef.JavaClassDef (1)");
 		assertTrue(refactoringWizardPage2Object.canGoToNextPage());
+	}
+	
+	/**
+	 * Comprueba que la busqueda de un elemento se realiza de forma
+	 * correcta.
+	 */
+	@Test
+	public void searchJavaFileTest(){
+		refactoringWizardPage2Object.searchElement("JavaFile");
+		List<String> expectedSearchResults = new ArrayList<String>();
+		expectedSearchResults.add("javamoon.core.JavaFile");
+		assertEquals(expectedSearchResults, refactoringWizardPage2Object.getSearchResults());
 	}
 
 	@Override

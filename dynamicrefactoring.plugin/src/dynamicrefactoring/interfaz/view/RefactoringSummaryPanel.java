@@ -65,7 +65,7 @@ import dynamicrefactoring.util.RefactoringTreeManager;
 public class RefactoringSummaryPanel {
 
 	/**
-	 * Etiqueta t√≠tulo.
+	 * Etiqueta ti≠tulo.
 	 */
 	private Label titleLabel;
 
@@ -75,7 +75,7 @@ public class RefactoringSummaryPanel {
 	private int minNumTabs;
 
 	/**
-	 * Organizador de pesta√±as.
+	 * Organizador de pestaÒas.
 	 */
 	private TabFolder refTabFolder;
 
