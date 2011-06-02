@@ -20,10 +20,24 @@ import com.google.common.base.Throwables;
 
 import dynamicrefactoring.interfaz.wizard.search.internal.SearchingFacade.SearchableType;
 
+/**
+ * Elemento encargado de realizar las busquedas.
+ * 
+ * @author imediava
+ *
+ */
 enum SimpleElementSearcher {
 
 	INSTANCE;
 
+	/**
+	 * Realiza una consulta sobre el indice de un tipo de elemento.
+	 * 
+	 * @param element tipo de elemento sobre el que se buscara
+	 * @param userQuery consulta a realizar
+	 * @return resultados de la busqueda
+	 * @throws ParseException si la consulta no es valida
+	 */
 	protected Set<QueryResult> search(SearchableType element, String userQuery)
 			throws ParseException {
 
@@ -36,19 +50,32 @@ enum SimpleElementSearcher {
 
 	}
 
-	protected Set<QueryResult> search(SearchableType element, String userQuery, Directory dir)
-			throws ParseException {
+	/**
+	 * Realiza una consulta sobre el indice de un tipo de elemento.
+	 * 
+	 * @param element tipo de elemento a buscar
+	 * @param userQuery consulta a realizar
+	 * @param dir directorio del indice
+	 * @return resultados de la busqueda
+	 * @throws ParseException si la consulta no es valida
+	 */
+	protected Set<QueryResult> search(SearchableType element, String userQuery,
+			Directory dir) throws ParseException {
 		try {
 			IndexSearcher is = new IndexSearcher(dir);
-			QueryParser parser = new MultiFieldQueryParser(Version.LUCENE_30,new String[] { SearchableTypeIndexer.CLASS_DESCRIPTION_FIELD, SearchableTypeIndexer.CLASS_NAME_FIELD},
+			QueryParser parser = new MultiFieldQueryParser(Version.LUCENE_30,
+					new String[] {
+							SearchableTypeIndexer.CLASS_DESCRIPTION_FIELD,
+							SearchableTypeIndexer.CLASS_NAME_FIELD,
+							SearchableTypeIndexer.PACKAGE_FIELD },
 					SearchableTypeIndexer.getTermsAnalyzer());
-			
-			TopDocs hits = is.search(parser.parse(userQuery), 10);
+
+			TopDocs hits = is.search(parser.parse(userQuery), 30);
 			Set<QueryResult> results = new HashSet<QueryResult>(hits.totalHits);
 			for (ScoreDoc scoreDoc : hits.scoreDocs) {
 				Document doc = is.doc(scoreDoc.doc);
-				results.add(
-					new QueryResult(doc.get(SearchableTypeIndexer.FULLY_QUALIFIED_CLASS_NAME_FIELD),
+				results.add(new QueryResult(
+						doc.get(SearchableTypeIndexer.FULLY_QUALIFIED_CLASS_NAME_FIELD),
 						doc.get(SearchableTypeIndexer.CLASS_DESCRIPTION_FIELD)));
 			}
 			is.close();

@@ -106,10 +106,11 @@ public class ReplaceCodeFragment extends Action {
 		List<Instr> bodyMethod = methDec.getInstructions();
 		List<Instr> newBodyMethod = new ArrayList<Instr>();
 		List<Instr> newBodyMethodAux = new ArrayList<Instr>();
+		
 		// removing instructions to new method
 		
 		for (Instr instr : bodyMethod){
-			if (! (instr instanceof CompoundInstr )){
+			if (! (instr instanceof CompoundInstr )){		
 				
 				newBodyMethod.add(instr);
 			}
@@ -125,6 +126,7 @@ public class ReplaceCodeFragment extends Action {
 				// if the instructions is not in the fragment add...
 				
 				newBodyMethodAux.add(instr);
+				
 			}
 			else{
 				if (!found){
@@ -137,17 +139,14 @@ public class ReplaceCodeFragment extends Action {
 						
 						Function function3 = new LocalEntitiesDeclared(fragment);
 						List<Entity> listLocalDeclared = (List<Entity>) function3.getCollection();
-						
-				
-						
-						
-						
+												
 						Function function = new LocalEntitiesAccessed(fragment.getFlattenedInstructionsInMethod());
 						List<Entity> entities = (List<Entity>) function.getCollection();
 						List<Expr> arguments = new ArrayList<Expr>();
 						for (Entity entity : entities){
 							if (!listLocalDeclared.contains(entity)){
 								Expr ce = new JavaCallExpr(entity);
+								ce.setLine((int)instr.getLine());
 								arguments.add(ce);
 							}
 						}
@@ -200,9 +199,11 @@ public class ReplaceCodeFragment extends Action {
 							fragment.getMethDec().add(ld);
 							
 							CallExpr ce = new JavaCallExpr(ld);
+							ce.setLine((int)instr.getLine());
 							
 							CallExpr ce2 = new JavaCallExpr(((FunctionDec) newMethDec).getFunctionResultEntity(),arguments);
-						
+							ce2.setLine((int)instr.getLine());
+							
 							AssignmentInstr assignmentInstr = new JavaAssignmentInstr((Expr)ce,DefinitionLanguage.ASSIGNMENT,(Expr)ce2,
 									(int)instr.getLine(),(int)instr.getColumn(), (JavaFalseLocalDec) instrFalseLocalDec);
 						
@@ -214,9 +215,11 @@ public class ReplaceCodeFragment extends Action {
 							
 							// only catch the return value
 							CallExpr ce = new JavaCallExpr(entity);
+							ce.setLine((int)instr.getLine());
 						
 							CallExpr ce2 = new JavaCallExpr(((FunctionDec) newMethDec).getFunctionResultEntity(),arguments);
-						
+							ce2.setLine((int)instr.getLine());
+							
 							AssignmentInstr assignmentInstr = new JavaAssignmentInstr(ce,DefinitionLanguage.ASSIGNMENT,ce2,(int)instr.getLine(),(int)instr.getColumn());
 						
 							newBodyMethodAux.add(assignmentInstr);
@@ -258,8 +261,10 @@ public class ReplaceCodeFragment extends Action {
 						
 						for (Entity entity : listAux){
 							Expr ce = new JavaCallExpr(entity);
+							ce.setLine((int)instr.getLine());
 							arguments.add(ce);
 						}
+						
 						CallInstr jcil1 = new JavaCallInstr((RoutineDec) newMethDec,arguments,(int)instr.getLine(),(int)instr.getColumn());
 						newBodyMethodAux.add(jcil1);
 						newBodyMethodAux.add(new JavaInstrNoMoon(DefinitionLanguage.ENDLINE,-1,-1));
@@ -293,6 +298,7 @@ public class ReplaceCodeFragment extends Action {
 	}
 	
 	private boolean isInFragment(Instr instr){
+		/*
 		if (instr instanceof CallInstr ||
 				instr instanceof CreationInstr ||
 				instr instanceof AssignmentInstr || 
@@ -303,7 +309,15 @@ public class ReplaceCodeFragment extends Action {
 				return true;
 			}					
 		}
+		return false;*/
+		List<Instr> list = this.fragment.getFlattenedInstructionsInMethod();
+		for (Instr instrInFragment : list) {
+			if (instrInFragment.getId()==instr.getId()){
+				return true;
+			}
+		}
 		return false;
+		
 	}
 	
 	private void visit(CompoundInstr compound, List<Instr> newBodyMethod){

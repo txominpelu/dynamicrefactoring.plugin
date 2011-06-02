@@ -70,6 +70,8 @@ public final class RefactoringImages {
 	public static final String REF_VIEW_ICON_PATH = ICONS_DIR + "ref_view.png"; //$NON-NLS-1$
 	
 	public static final String SOURCE_ICON_PATH = ICONS_DIR + "source.gif"; //$NON-NLS-1$
+	
+	public static final String ECLIPSE_CLASS_ICON_PATH = ICONS_DIR + "class_obj.gif";
 
 	private static final String PlUGIN_CLASSIFICATION_ICON_PATH = ICONS_DIR + "plugin-classif.ico"; //$NON-NLS-1$
 
@@ -91,6 +93,15 @@ public final class RefactoringImages {
 				path);
 	}
 
+	/**
+	 * Obtiene el icono de clase de Eclipse.
+	 * 
+	 * @return imagen del icono
+	 */
+	public static Image getEclipseClassIcon() {
+		return getImageForPath(RefactoringImages.ECLIPSE_CLASS_ICON_PATH);
+	}
+	
 	/**
 	 * Obtiene el icono Refactoring.
 	 * 

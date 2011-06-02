@@ -143,12 +143,15 @@ public class AddReturnCode extends Action {
 			if (list.size()>0){
 				//entityResult = new JavaFunctionResult(new JavaName(DefinitionLanguage.RETURN), list.get(0).getType(), (FunctionDec) methDec);
 				entityResult = ((FunctionDec) methDec).getFunctionResultEntity();
+				entityResult.setLine(end+1);
 			}
 			else {
 				//entityResult = new JavaFunctionResult(new JavaName(DefinitionLanguage.RETURN), aux.get(0).getType(), (FunctionDec) methDec);
 				entityResult = ((FunctionDec) methDec).getFunctionResultEntity();
+				entityResult.setLine(end+1);
 			}
 			JavaCallExpr jcel1 = new JavaCallExpr(entityResult);
+			jcel1.setLine(entityResult.getLine());
 			
 			Entity entity = null;
 			if (list.size()>0){
@@ -159,7 +162,8 @@ public class AddReturnCode extends Action {
 				entity = aux.get(0);
 			}
 			Expr expr = new JavaCallExpr(entity);
-			methDec.add(new JavaFalseAssignmentInstr(jcel1, expr,end+1, -1));
+			expr.setLine(end+1);
+			methDec.add(new JavaFalseAssignmentInstr(jcel1, expr, end+1, -1));
 			methDec.add(new JavaInstrNoMoon(DefinitionLanguage.ENDLINE,end+1,-1));
 			methDec.add(new JavaInstrNoMoon("}",end+2,-1));
 		

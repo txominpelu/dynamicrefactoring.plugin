@@ -6,11 +6,7 @@ Bundle-Version: 3.1.0
 Fragment-Host: dynamicrefactoring.plugin
 Bundle-ClassPath: .,
  lib/refactoringengine-1.1.1.jar,
- lib/commons-io-2.0.jar,
- lib/javamoon-2.6.1.jar,
- lib/moon-2.4.2.jar,
- lib/guava-r07.jar,
- lib/jgrapht-jdk1.5.jar
+ lib/guava-r07.jar
 Require-Bundle: org.hamcrest;bundle-version="1.1.0",
  org.apache.log4j;bundle-version="1.2.13",
  org.eclipse.swtbot.swt.finder;bundle-version="2.0.2",

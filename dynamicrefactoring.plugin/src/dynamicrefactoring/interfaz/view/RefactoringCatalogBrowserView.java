@@ -6,6 +6,7 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Iterator;
+import java.util.Map;
 import java.util.Set;
 
 import org.apache.log4j.Logger;
@@ -14,7 +15,6 @@ import org.eclipse.jface.action.IAction;
 import org.eclipse.jface.action.IContributionItem;
 import org.eclipse.jface.action.IToolBarManager;
 import org.eclipse.jface.dialogs.MessageDialog;
-import org.eclipse.jface.resource.ImageDescriptor;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.custom.SashForm;
 import org.eclipse.swt.custom.ScrolledComposite;
@@ -46,8 +46,6 @@ import org.eclipse.swt.widgets.Text;
 import org.eclipse.swt.widgets.ToolTip;
 import org.eclipse.swt.widgets.Tree;
 import org.eclipse.swt.widgets.TreeItem;
-import org.eclipse.ui.IEditorInput;
-import org.eclipse.ui.IPersistableElement;
 import org.eclipse.ui.IWorkbenchWindow;
 import org.eclipse.ui.PartInitException;
 import org.eclipse.ui.PlatformUI;
@@ -81,7 +79,7 @@ import dynamicrefactoring.util.RefactoringTreeManager;
  * refactorizaciones asi como la información asociada a las mismas. Sobre estas
  * se pueden realizar clasificaciones y filtros.
  */
-public class RefactoringCatalogBrowserView extends ViewPart {
+public final class RefactoringCatalogBrowserView extends ViewPart {
 
 	/**
 	 * Clasificacion cuya unica categoria es NONE_CATEGORY.
@@ -115,7 +113,7 @@ public class RefactoringCatalogBrowserView extends ViewPart {
 	 * propia representación de la definición de la refactorización.
 	 * </p>
 	 */
-	private HashMap<String, DynamicRefactoringDefinition> refactorings;
+	private Map<String, DynamicRefactoringDefinition> refactorings;
 
 	/**
 	 * Almacen con todas las clasificaciones.
@@ -130,7 +128,7 @@ public class RefactoringCatalogBrowserView extends ViewPart {
 	/**
 	 * Clasificaciones disponibles.
 	 */
-	private ArrayList<Classification> classifications;
+	private java.util.List<Classification> classifications;
 
 	/**
 	 * Catálogo que esta siendo utilizado conforme a la clasificación
@@ -141,12 +139,8 @@ public class RefactoringCatalogBrowserView extends ViewPart {
 	/**
 	 * Lista de condiciones que conforman el filtro actual aplicado.
 	 */
-	private ArrayList<Predicate<DynamicRefactoringDefinition>> filter;
+	private java.util.List<Predicate<DynamicRefactoringDefinition>> filter;
 
-	/**
-	 * Etiqueta clasificación.
-	 */
-	private Label classLabel;
 
 	/**
 	 * Combo que contiene los tipos de clasificaciones de refactorizaciones
@@ -302,7 +296,7 @@ public class RefactoringCatalogBrowserView extends ViewPart {
 		refSummaryPanel=new RefactoringSummaryPanel(refComp,this);
 
 		//classLabel
-		classLabel=new Label(classComp, SWT.LEFT);
+		Label classLabel = new Label(classComp, SWT.LEFT);
 		classLabel.setText(Messages.RefactoringCatalogBrowserView_Classification);
 		classFormData=new FormData();
 		classFormData.top=new FormAttachment(0,10);
@@ -838,41 +832,7 @@ public class RefactoringCatalogBrowserView extends ViewPart {
 	public void editClassification() {
 		try {
 			PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage()
-					.openEditor(new IEditorInput(){
-
-						@Override
-						public Object getAdapter(Class adapter) {
-							// TODO Auto-generated method stub
-							return null;
-						}
-
-						@Override
-						public boolean exists() {
-							return false;
-						}
-
-						@Override
-						public ImageDescriptor getImageDescriptor() {
-							// TODO Auto-generated method stub
-							return null;
-						}
-
-						@Override
-						public String getName() {
-							return "Classifications Editor";
-						}
-
-						@Override
-						public IPersistableElement getPersistable() {
-							return null;
-						}
-
-						@Override
-						public String getToolTipText() {
-							return "Classifications Editor";
-						}
-						
-					}, ClassificationsEditor.ID);
+					.showView(ClassificationsEditor.ID);
 		} catch (PartInitException e) {
 			throw Throwables.propagate(e);
 		}

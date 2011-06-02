@@ -1,13 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <classpath>
-	<classpathentry exported="true" kind="lib" path="lib/jgrapht-jdk1.5.jar"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
 	<classpathentry kind="con" path="org.eclipse.pde.core.requiredPlugins"/>
 	<classpathentry kind="src" path="src"/>
 	<classpathentry exported="true" kind="lib" path="lib/refactoringengine-1.1.1.jar"/>
-	<classpathentry exported="true" kind="lib" path="lib/commons-io-2.0.jar"/>
 	<classpathentry exported="true" kind="lib" path="lib/guava-r07.jar"/>
-	<classpathentry kind="lib" path="lib/javamoon-2.6.1.jar"/>
-	<classpathentry kind="lib" path="lib/moon-2.4.2.jar"/>
 	<classpathentry kind="output" path="target/classes"/>
 </classpath>

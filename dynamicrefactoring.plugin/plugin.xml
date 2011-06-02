@@ -281,7 +281,7 @@
           category="dynamicrefactoring.views.refactoringViewsCategory"
           class="dynamicrefactoring.interfaz.editor.classifeditor.ClassificationsEditor"
           icon="icons/class_edit.png"
-          id="dynamicrefactoring.views.refactoringClasificationsEditorView"
+          id="dynamicrefactoring.editors.refactoringClasificationsEditor"
           name="%dynamicrefactoring.views.refactoringClasificationsEditorView">
     </view>
 	</extension>
@@ -434,13 +434,6 @@
  </extension>
  <extension
        point="org.eclipse.ui.editors">
-    <editor
-          class="dynamicrefactoring.interfaz.editor.classifeditor.ClassificationsEditor"
-          default="false"
-          icon="icons/class_edit.png"
-          id="dynamicrefactoring.editors.refactoringClasificationsEditorView"
-          name="%dynamicrefactoring.views.refactoringClasificationsEditorView">
-    </editor>
    </extension>
 
 </plugin>

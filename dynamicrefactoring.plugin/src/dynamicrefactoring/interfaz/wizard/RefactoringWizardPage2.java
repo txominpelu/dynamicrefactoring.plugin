@@ -182,13 +182,13 @@ public class RefactoringWizardPage2 extends WizardPage {
 	 * Tipos disponibles con su descripción asociada.
 	 * 
 	 * <p>
-	 * Se utiliza como clave el nombre completamente cualificado del tipo y
-	 * como valor la descripción correspondiente a este tipo, obtenida a partir
-	 * de la descripción asociada en la documentación del código fuente, javadoc.
+	 * Se utiliza como clave el nombre completamente cualificado del tipo y como
+	 * valor la descripción correspondiente a este tipo, obtenida a partir de la
+	 * descripción asociada en la documentación del código fuente, javadoc.
 	 * </p>
 	 */
 	private HashMap<String, String> descriptionTypes;
-	
+
 	/**
 	 * Tabla de par�metros de entrada ya introducidos.
 	 * 
@@ -201,7 +201,7 @@ public class RefactoringWizardPage2 extends WizardPage {
 	 * </p>
 	 */
 	private Hashtable<String, InputParameter> inputsTable;
-	
+
 	/**
 	 * Navegador en el que se muestra informaci�n relativa al elemento
 	 * seleccionado dentro de la lista de tipos con el fin de ayudar al usuario
@@ -335,6 +335,9 @@ public class RefactoringWizardPage2 extends WizardPage {
 			}
 		});
 
+		RefactoringWizardUtils.addContentProposalToTextField(tSearch,
+				MOONTypeLister.getInstance().getInputTypeNames());
+
 		bSearch = new Button(composite1, SWT.PUSH);
 		final FormData fdButtonSearch = new FormData();
 		fdButtonSearch.right = new FormAttachment(0, 225);
@@ -351,7 +354,7 @@ public class RefactoringWizardPage2 extends WizardPage {
 		lTypes = new List(composite1, SWT.MULTI | SWT.V_SCROLL | SWT.H_SCROLL
 				| SWT.BORDER);
 		lTypes.setData("org.eclipse.swtbot.widget.key", "types");
-		
+
 		final FormData fdList = new FormData();
 		fdList.bottom = new FormAttachment(0, 247);
 		fdList.right = new FormAttachment(0, 225);
@@ -535,7 +538,7 @@ public class RefactoringWizardPage2 extends WizardPage {
 				.getImage(ISharedImages.IMG_TOOL_DELETE));
 
 		addButton = new Button(composite, SWT.NONE);
-		addButton.setData("org.eclipse.swtbot.widget.key","addInput");
+		addButton.setData("org.eclipse.swtbot.widget.key", "addInput");
 		final FormData fdButton1 = new FormData();
 		fdButton1.bottom = new FormAttachment(0, 61);
 		fdButton1.top = new FormAttachment(0, 40);
@@ -690,8 +693,11 @@ public class RefactoringWizardPage2 extends WizardPage {
 				if (listModelTypes.get(input.getType()) == null) {
 					listModelTypes.put(input.getType(), 1);
 					lTypes.add(input.getType());
-					descriptionTypes.put(input.getType(), 
-							EclipseBasedJavadocReader.INSTANCE.getTypeJavaDocAsPlainText(input.getType()));
+					descriptionTypes
+							.put(input.getType(),
+									EclipseBasedJavadocReader.INSTANCE
+											.getTypeJavaDocAsPlainText(input
+													.getType()));
 				}
 				if (inputsTable == null)
 					inputsTable = new Hashtable<String, InputParameter>();
@@ -798,31 +804,34 @@ public class RefactoringWizardPage2 extends WizardPage {
 	 *            Expresion regular de b�squeda.
 	 */
 	private void fillSearchTypesList(String patron) {
-		boolean search = !(patron.trim().equals("") || patron.trim().equals("*"));
+		boolean search = !(patron.trim().equals("") || patron.trim()
+				.equals("*"));
 
 		// se vacia la lista lTypes
 		lTypes.removeAll();
-		
-		if(search){
+
+		if (search) {
 			try {
-				Set<QueryResult> queryResultTypes=SearchingFacade.INSTANCE.search(SearchableType.INPUT, patron);
-				//se muestra por orden de relevancia
-				for(QueryResult qResult: queryResultTypes)
+				Set<QueryResult> queryResultTypes = SearchingFacade.INSTANCE
+						.search(SearchableType.INPUT, patron);
+				// se muestra por orden de relevancia
+				for (QueryResult qResult : queryResultTypes)
 					lTypes.add(qResult.getClassName());
 			} catch (ParseException e) {
 				String message = Messages.RefactoringWizardPage2_SearchNotSucceded
-								 + ".\n" + e.getMessage(); //$NON-NLS-1$
+						+ ".\n" + e.getMessage(); //$NON-NLS-1$
 				logger.error(message);
 				e.printStackTrace();
 			}
-		}else{
-			ArrayList<String> itemList=new ArrayList<String>(descriptionTypes.keySet());
+		} else {
+			ArrayList<String> itemList = new ArrayList<String>(
+					descriptionTypes.keySet());
 			Collections.sort(itemList);
-			//se muestra en orden alfabético
-			for(String item : itemList)
+			// se muestra en orden alfabético
+			for (String item : itemList)
 				lTypes.add(item);
 		}
-		
+
 	}
 
 	/**
@@ -837,7 +846,7 @@ public class RefactoringWizardPage2 extends WizardPage {
 	 */
 	private void fillTypesList() {
 		listModelTypes = new Hashtable<String, Integer>();
-		descriptionTypes = new HashMap<String,String>();
+		descriptionTypes = new HashMap<String, String>();
 
 		MOONTypeLister l = MOONTypeLister.getInstance();
 
@@ -851,8 +860,8 @@ public class RefactoringWizardPage2 extends WizardPage {
 
 			listModelTypes.put(typeName, 1);
 			lTypes.add(typeName);
-			descriptionTypes.put(typeName, 
-					EclipseBasedJavadocReader.INSTANCE.getTypeJavaDocAsPlainText(typeName));
+			descriptionTypes.put(typeName, EclipseBasedJavadocReader.INSTANCE
+					.getTypeJavaDocAsPlainText(typeName));
 
 			// Si se est� creando una nueva refactorizaci�n.
 			if (((RefactoringWizard) getWizard()).getOperation() == RefactoringWizard.CREATE) {
@@ -1082,16 +1091,20 @@ public class RefactoringWizardPage2 extends WizardPage {
 					updateStatus(formatter.format(messageArgs));
 					return;
 				}
-				//El tipo del parámetro principal debe cumplir con el ambito seleccinado
-				//para la refactorización elegido en la pagina 1 del wizard.
-				String scopeName=((RefactoringWizard) this.getWizard()).scope.getName();
-				if( scopeName==null ||
-					validator.convertScopeCategory(nextInput.getType())==null ||
-					!validator.convertScopeCategory(nextInput.getType()).equalsIgnoreCase(scopeName)){
-					updateStatus(Messages.RefactoringWizardPage2_MainMustConformWithScope + "."); //$NON-NLS-1$
-					return ;
+				// El tipo del parámetro principal debe cumplir con el ambito
+				// seleccinado
+				// para la refactorización elegido en la pagina 1 del wizard.
+				String scopeName = ((RefactoringWizard) this.getWizard()).scope
+						.getName();
+				if (scopeName == null
+						|| validator.convertScopeCategory(nextInput.getType()) == null
+						|| !validator.convertScopeCategory(nextInput.getType())
+								.equalsIgnoreCase(scopeName)) {
+					updateStatus(Messages.RefactoringWizardPage2_MainMustConformWithScope
+							+ "."); //$NON-NLS-1$
+					return;
 				}
-					
+
 			}
 			if (nextInput.getFrom() != null
 					&& nextInput.getFrom().length() != 0)

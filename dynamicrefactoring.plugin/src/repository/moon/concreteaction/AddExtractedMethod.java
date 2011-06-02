@@ -41,11 +41,9 @@ import repository.moon.concretefunction.LocalEntitiesAccessedAfterCodeFragment;
 import repository.moon.concretefunction.LocalEntitiesInLoopReentrance;
 
 /**
- * Permite mover un método de una clase a otra del modelo.
+ * Add the extracted method.
  *
- * @author <A HREF="mailto:ehp0001@alu.ubu.es">Enrique Herrero Paredes</A>
- * @author <A HREF="mailto:alc0022@alu.ubu.es">Ángel López Campo</A>
- * @author <A HREF="mailto:sfd0009@alu.ubu.es">Sonia Fuente de la Fuente</A>
+ * @author <A HREF="mailto:rmartico@ubu.es">Raúl Marticorena</A>
  */ 
 public class AddExtractedMethod extends Action {
 	
@@ -125,37 +123,31 @@ public class AddExtractedMethod extends Action {
 		
 		if (function.getCollection().size()==0 && col.size()==0){
 			// routine
-			methDec = new JavaRoutineDec(newModifier,name,-1,-1);
+			methDec = new JavaRoutineDec(newModifier,name, -1,-1);
 		}
 		else{
 			// function
 			methDec = new JavaFunctionDec(newModifier,name,null, -1,-1,false);
-		}	
-		
-		
-		
+		}		
 		
 		List<Instr> list = fragment.getFlattenedInstructionsInMethod();
 		// adding instructions to new method
 		methDec.add(new JavaInstrNoMoon("{",-1,-1));
 
+		
 		for (Instr instr : list){
 		
 			methDec.add(instr);
-		}
-
-
-	
-		
+			//System.err.println("instr: " + instr.toString());
+		}	
 			
-		classDef.format(methDec);
-		
+		classDef.format(methDec);		
 		classDef.add(methDec);
 		methDec.setClassDef(classDef);
 		
+		// Recalculate the new number of lines in the class to put the last {
 		int numberOfInstructions = fragment.getMethDec().getFlattenedInstructions().size();
-		int endOfClass = ((JavaClassDef) classDef).getEndLine();
-			
+		int endOfClass = ((JavaClassDef) classDef).getEndLine();			
 		// FIXME why do we have to *2 size?
 		((JavaClassDef) classDef).setEndLine(endOfClass + numberOfInstructions*2);
 		

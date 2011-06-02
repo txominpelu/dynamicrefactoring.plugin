@@ -28,15 +28,17 @@ import java.util.List;
 import java.util.jar.JarEntry;
 import java.util.jar.JarFile;
 
+import com.google.common.base.Function;
 import com.google.common.base.Throwables;
+import com.google.common.collect.Collections2;
 
 import dynamicrefactoring.RefactoringConstants;
 
 /**
  * Obtiene las clases de MOON disponibles.
  *
- * @author <A HREF="mailto:alc0022@alu.ubu.es">�ngel L�pez Campo</A>
- * @author <A HREF="mailto:epf0006@alu.ubu.es">Eduardo Pe�a Fern�ndez</A>
+ * @author <A HREF="mailto:alc0022@alu.ubu.es">Àngel López Campo</A>
+ * @author <A HREF="mailto:epf0006@alu.ubu.es">Eduardo Peña Fernández</A>
  * @author <A HREF="mailto:sfd0009@alu.ubu.es">Sonia Fuente de la Fuente</A>
  * @author <A HREF="mailto:ehp0001@alu.ubu.es">Enrique Herrero Paredes</A>
  */
@@ -44,23 +46,23 @@ public class MOONTypeLister {
 
 	private static final String CLASS_EXTENSION = ".class";
 	/**
-	 * La instancia �nica de la clase.
+	 * La instancia unica de la clase.
 	 * 
-	 * Patr�n de dise�o Singleton.
+	 * Patron de diseño Singleton.
 	 */
 	private static MOONTypeLister instance;
 	
 	/**
 	 * Constructor.
 	 * 
-	 * Patr�n de dise�o Singleton.
+	 * Patron de diseño Singleton.
 	 */
 	private MOONTypeLister() {}
 		
 	/**
-	 * Devuelve la instancia �nica de la clase.
+	 * Devuelve la instancia unica de la clase.
 	 * 
-	 * @return la instancia �nica de la clase.
+	 * @return la instancia unica de la clase.
 	 */
 	public static MOONTypeLister getInstance() {		
 		if(instance == null)
@@ -69,23 +71,21 @@ public class MOONTypeLister {
 	}	
 	
 	/**
-	 * Obtiene la lista de clases MOON y de su extensi�n para Java.
+	 * Obtiene la lista de clases MOON y de su extension para Java
+	 * con sus nombres completamente cualificados.
 	 * 
-	 * @return un array con los nombres de las clases.
-	 * 
-	 * @throws IOException cuando no existe el fichero del n�cleo de MOON o de la
-	 * extensi�n JavaMOON.
+	 * @return una lista con los nombres de las clases.
 	 */
     public List<String> getTypeNameList() {
 
     	
     	List<String> files = new ArrayList<String>();
     	
-    	// Biblioteca con el n�cleo de MOON.
+    	// Biblioteca con el nucleo de MOON.
         try {
 			addLibraryTypes(RefactoringConstants.MOONCORE_DIR, files);
 		
-        // Biblioteca con la extensi�n para Java de MOON.
+        // Biblioteca con la extension para Java de MOON.
         addLibraryTypes(RefactoringConstants.JAVAEXTENSION_DIR, files);
 
         } catch (IOException e) {
@@ -93,6 +93,27 @@ public class MOONTypeLister {
 		}
         return files;
     }
+    
+    
+    /**
+	 * Obtiene la lista de clases MOON y de su extension para Java
+	 * con sus nombres completamente cualificados.
+	 * 
+	 * @return un lista con los nombres de las clases.
+	 */
+	public  java.util.List<String> getInputTypeNames() {
+		java.util.List<String> proposals = new ArrayList<String>(
+				Collections2.transform(MOONTypeLister.getInstance()
+						.getTypeNameList(), new Function<String, String>() {
+
+					@Override
+					public String apply(String fullyQualifiedName) {
+						return PluginStringUtils
+								.getClassName(fullyQualifiedName);
+					}
+				}));
+		return proposals;
+	}
     
     /**
      * A�ade a una colecci�n las clases encontradas en una biblioteca <i>JAR</i>

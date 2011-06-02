@@ -32,6 +32,18 @@ public class PluginStringUtils {
 	}
 
 	/**
+	 * Devuelve el nombre de paquete a partir del nombre
+	 * completo de una clase
+	 * 
+	 * @param fullyQualifiedName nombre completo de la clase
+	 * @return nombre del paquete
+	 */
+	public static String getPackage(String fullyQualifiedName){
+		String className = splitGetLast(fullyQualifiedName, ".");
+		return fullyQualifiedName.substring(0, fullyQualifiedName.length() - className.length() -1 );
+	}
+	
+	/**
 	 * Divide la cadena en partes utilizando como token delim y devuelve la
 	 * �ltima de las particiones hechas.
 	 * 
@@ -82,8 +94,7 @@ public class PluginStringUtils {
 	 *            mechanism name
 	 * @return package name (Ej. "repository.concreteaction")
 	 */
-	public static String getMechanismPackage(RefactoringMechanismType type,
-			final String mechanismName) {
+	public static String getMechanismPackage(RefactoringMechanismType type, final String mechanismName) {
 		if (type.isElementJavaDependent(mechanismName)) {
 			return type.getMechanismJavaPackage();
 		}

@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <classpath>
-	<classpathentry exported="true" kind="lib" path="lib/jgrapht-jdk1.5.jar"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
 	<classpathentry kind="con" path="org.eclipse.pde.core.requiredPlugins"/>
 	<classpathentry kind="src" path="src"/>
+	<classpathentry kind="src" path="test/"/>
 	<classpathentry exported="true" kind="lib" path="lib/log4j-1.2.15.jar" sourcepath="/home/imediava/.m2/repository/log4j/log4j/1.2.15/log4j-1.2.15-sources.jar"/>
 	<classpathentry exported="true" kind="lib" path="lib/jdom.jar" sourcepath="/home/imediava/Escritorio/Proyecto/libs/jdom-1.1.1.zip"/>
 	<classpathentry exported="true" kind="lib" path="lib/swtdesigner.jar"/>
@@ -11,6 +11,8 @@
 	<classpathentry exported="true" kind="lib" path="lib/refactoringengine-1.1.1.jar"/>
 	<classpathentry exported="true" kind="lib" path="lib/j2h.jar"/>
 	<classpathentry exported="true" kind="lib" path="lib/commons-io-2.0.jar" sourcepath="/home/imediava/.m2/repository/commons-io/commons-io/2.0/commons-io-2.0-sources.jar"/>
+	<classpathentry exported="true" kind="lib" path="lib/javamoon-2.6.1.jar"/>
+	<classpathentry exported="true" kind="lib" path="lib/moon-2.4.2.jar"/>
 	<classpathentry exported="true" kind="lib" path="lib/guava-r07.jar"/>
 	<classpathentry exported="true" kind="lib" path="lib/jsoup-1.5.2.jar"/>
 	<classpathentry exported="true" kind="lib" path="lib/lucene-core-3.0.3.jar" sourcepath="/home/imediava/.m2/repository/org/apache/lucene/lucene-core/3.0.3/lucene-core-3.0.3-sources.jar">
@@ -19,7 +21,6 @@
 		</attributes>
 	</classpathentry>
 	<classpathentry exported="true" kind="lib" path="lib/lucene-snowball-3.0.3.jar"/>
-	<classpathentry kind="lib" path="lib/javamoon-2.6.1.jar"/>
-	<classpathentry kind="lib" path="lib/moon-2.4.2.jar"/>
+	<classpathentry exported="true" kind="lib" path="lib/jgrapht-jdk1.5.jar"/>
 	<classpathentry kind="output" path="target/classes"/>
 </classpath>

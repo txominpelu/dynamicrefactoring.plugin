@@ -323,6 +323,8 @@ public class RepositoryElementComposite {
 				e.display.getShells()[0].setDefaultButton(bDefault);
 			}
 		});
+
+		RefactoringWizardUtils.addContentProposalToTextField(tSearch, new ArrayList<String>(type.getElementAllList().keySet()));
 		
 		bSearch = new Button(control, SWT.PUSH);
 		final FormData fd_bsearch = new FormData();

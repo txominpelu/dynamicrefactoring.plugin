@@ -42,6 +42,7 @@ enum SearchableTypeIndexer implements Indexer {
 	private static final String SEARCH_STOPWORDS_ENGLISH_TXT = "/search/stopwords-english.txt";
 	public static final String CLASS_NAME_FIELD = "className";
 	public static final String CLASS_DESCRIPTION_FIELD = "contents";
+	public static final String PACKAGE_FIELD = "package";
 	public static final String FULLY_QUALIFIED_CLASS_NAME_FIELD = "fullyQualifiedName";
 	public static final Set<String> ENGLISH_STOP_WORDS;
 
@@ -66,6 +67,9 @@ enum SearchableTypeIndexer implements Indexer {
 		Field classNameField = new Field(CLASS_NAME_FIELD,
 				PluginStringUtils.getClassName(fullyQualifiedName),
 				Field.Store.YES, Field.Index.ANALYZED);
+		doc.add(new Field(PACKAGE_FIELD,PluginStringUtils.getPackage(fullyQualifiedName),
+				Field.Store.YES, Field.Index.ANALYZED));
+		
 		classNameField.setBoost(2.0f);
 		doc.add(classNameField);
 		doc.add(new Field(FULLY_QUALIFIED_CLASS_NAME_FIELD, fullyQualifiedName,
