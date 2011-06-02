@@ -2,16 +2,20 @@ package dynamicrefactoring.interfaz.editor.classifeditor;
 
 import java.util.Set;
 
+import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.swt.widgets.Composite;
+import org.eclipse.ui.IEditorInput;
+import org.eclipse.ui.IEditorSite;
+import org.eclipse.ui.PartInitException;
 import org.eclipse.ui.forms.widgets.ColumnLayout;
 import org.eclipse.ui.forms.widgets.FormToolkit;
 import org.eclipse.ui.forms.widgets.ScrolledForm;
-import org.eclipse.ui.part.ViewPart;
+import org.eclipse.ui.part.EditorPart;
 
 import dynamicrefactoring.domain.metadata.classifications.xml.imp.PluginClassificationsCatalog;
 import dynamicrefactoring.domain.metadata.interfaces.Classification;
 
-public final class ClassificationsEditor extends ViewPart {
+public final class ClassificationsEditor extends EditorPart  {
 	
 	public static final String ID = "dynamicrefactoring.editors.refactoringClasificationsEditor"; //$NON-NLS-1$
 
@@ -69,6 +73,37 @@ public final class ClassificationsEditor extends ViewPart {
 	public void dispose() {
 		toolkit.dispose();
 		super.dispose();
+	}
+	
+	@Override
+	public void doSave(IProgressMonitor monitor) {
+		
+	}
+
+
+	@Override
+	public void doSaveAs() {
+		
+	}
+
+
+	@Override
+	public void init(IEditorSite site, IEditorInput input)
+			throws PartInitException {
+		setSite(site);
+        setInput(input);
+	}
+
+
+	@Override
+	public boolean isDirty() {
+		return false;
+	}
+
+
+	@Override
+	public boolean isSaveAsAllowed() {
+		return false;
 	}
 
 

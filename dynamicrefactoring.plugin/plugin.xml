@@ -434,6 +434,14 @@
  </extension>
  <extension
        point="org.eclipse.ui.editors">
+           <editor
+          class="dynamicrefactoring.interfaz.editor.classifeditor.ClassificationsEditor"
+          default="false"
+          icon="icons/class_edit.png"
+          id="dynamicrefactoring.editors.refactoringClasificationsEditor"
+          name="%dynamicrefactoring.views.refactoringClasificationsEditorView">
+    		</editor>
+       
    </extension>
 
 </plugin>
