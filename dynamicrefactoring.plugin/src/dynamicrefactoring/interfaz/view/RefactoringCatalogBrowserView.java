@@ -252,6 +252,7 @@ public final class RefactoringCatalogBrowserView extends ViewPart {
 	 */
 	private ArrayList<IAction> actionsPane;
 
+	private ClassificationsEditorInput classEditorIntup;
 	
 	/**
 	 * Crea los controles SWT para este componente del espacio de trabajo.
@@ -270,6 +271,8 @@ public final class RefactoringCatalogBrowserView extends ViewPart {
 		loadClassifications();
 		loadRefactorings();
 		createCatalog();
+		
+		classEditorIntup=new ClassificationsEditorInput();
 
 		//scrolledComp
 		final ScrolledComposite scrolledComp = 
@@ -832,48 +835,13 @@ public final class RefactoringCatalogBrowserView extends ViewPart {
 	/**
 	 * Muestra el editor de clasificaciones.
 	 */
-	public void editClassification() {
+	public void editClassification() {	
 		try {
 			PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage()
-					.openEditor(new IEditorInput(){
-
-						@Override
-						public Object getAdapter(Class adapter) {
-							// TODO Auto-generated method stub
-							return null;
-						}
-
-						@Override
-						public boolean exists() {
-							return false;
-						}
-
-						@Override
-						public ImageDescriptor getImageDescriptor() {
-							// TODO Auto-generated method stub
-							return null;
-						}
-
-						@Override
-						public String getName() {
-							return "Classifications Editor";
-						}
-
-						@Override
-						public IPersistableElement getPersistable() {
-							return null;
-						}
-
-						@Override
-						public String getToolTipText() {
-							return "Classifications Editor";
-						}
-						
-					}, ClassificationsEditor.ID);
+					.openEditor(classEditorIntup, ClassificationsEditor.ID);
 		} catch (PartInitException e) {
 			throw Throwables.propagate(e);
 		}
-
 	}
 
 	/**
@@ -1130,5 +1098,42 @@ public final class RefactoringCatalogBrowserView extends ViewPart {
 		}
 	}
 
+	private class ClassificationsEditorInput implements IEditorInput{
+
+		@Override
+		public Object getAdapter(Class adapter) {
+			// TODO Auto-generated method stub
+			return null;
+		}
+
+		@Override
+		public boolean exists() {
+			return false;
+		}
+
+		@Override
+		public ImageDescriptor getImageDescriptor() {
+			// TODO Auto-generated method stub
+			return null;
+		}
+
+		@Override
+		public String getName() {
+			//TODO: Internacionalizar
+			return "Classifications Editor";
+		}
+
+		@Override
+		public IPersistableElement getPersistable() {
+			return null;
+		}
+
+		@Override
+		public String getToolTipText() {
+			//TODO: Internacionalizar
+			return "Classifications Editor";
+		}
+		
+	}
 }
 
