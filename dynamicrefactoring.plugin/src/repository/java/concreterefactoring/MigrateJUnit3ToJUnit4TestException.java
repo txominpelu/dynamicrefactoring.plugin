@@ -34,13 +34,13 @@ import repository.moon.MOONRefactoring;
  * Migrate a class test method containing exception catch
  * from JUnit 3 to JUnit 4.
  * 
- * @author Raúl Marticorena
+ * @author RaÃºl Marticorena
  * 
  */
 public class MigrateJUnit3ToJUnit4TestException extends MOONRefactoring {
 
 	/**
-	 * Nombre de la refactorización.
+	 * Nombre de la refactorizaciÃ³n.
 	 */
 	private static final String NAME = "MigrateJUnit3ToJUnit4ExceptionTest";
 	

@@ -76,8 +76,8 @@ public class TreeFieldSelectionHandler extends FieldSelectionHandler {
 	}
 
 	/**
-	 * Implementaci�n de la operaci�n primitiva.
-	 * (Patr�n de dise�o M�todo Plantilla).
+	 * Implementación de la operación primitiva.
+	 * (Patr�n de dise�o Método Plantilla).
 	 * 
 	 * @see FieldSelectionHandler#getFieldProcessor()
 	 */

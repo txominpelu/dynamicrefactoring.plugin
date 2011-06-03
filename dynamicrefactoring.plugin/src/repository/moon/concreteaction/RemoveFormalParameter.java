@@ -26,34 +26,34 @@ import refactoring.engine.Action;
 import repository.RelayListenerRegistry;
 
 /**
- * Permite borrar un par�metro formal de una clase.
+ * Permite borrar un parámetro formal de una clase.
  *
- * @author <A HREF="mailto:sam0006@alu.ubu.es">Sara Alcal� Mart�n</A>
- * @author <A HREF="mailto:dbm0005@alu.ubu.es">Diego Ba�uelos Molledo</A>
+ * @author <A HREF="mailto:sam0006@alu.ubu.es">Sara Alcalá Martín</A>
+ * @author <A HREF="mailto:dbm0005@alu.ubu.es">Diego Bañuelos Molledo</A>
  * @author <A HREF="mailto:sfd0009@alu.ubu.es">Sonia Fuente de la Fuente</A>
  * @author <A HREF="mailto:ehp0001@alu.ubu.es">Enrique Herrero Paredes</A>
  */
 public class RemoveFormalParameter extends Action {
  
 	/**
-	 * Clase de la que eliminar el par�metro formal.
+	 * Clase de la que eliminar el parámetro formal.
 	 */
 	private ClassDef classDef;
 	
 	/**
-	 * Par�metro formal que se debe eliminar.
+	 * Parámetro formal que se debe eliminar.
 	 */
 	private FormalPar formalPar;
 	
 	/**
-	 * Receptor de los mensajes enviados por la acci�n concreta.
+	 * Receptor de los mensajes enviados por la acción concreta.
 	 */
 	private RelayListenerRegistry listenerReg;
 	
 	/**
-	 * Constructor de la acci�n eliminar par�metro formal.
+	 * Constructor de la acción eliminar parámetro formal.
 	 *
-	 * @param formalPar par�metro formal que se debe eliminar.
+	 * @param formalPar parámetro formal que se debe eliminar.
 	 */	
 	public RemoveFormalParameter(FormalPar formalPar) {
 		super();
@@ -64,7 +64,7 @@ public class RemoveFormalParameter extends Action {
 	}
 
 	/**
-	 * Ejecuta la eliminaci�n del par�metro formal.
+	 * Ejecuta la eliminación del parámetro formal.
 	 */
 	@Override
 	public void run() {
@@ -80,7 +80,7 @@ public class RemoveFormalParameter extends Action {
 	}
 
 	/**
-	 * Deshace la eliminaci�n del par�metro formal, incluy�ndolo de nuevo en 
+	 * Deshace la eliminación del parámetro formal, incluy�ndolo de nuevo en 
 	 * la clase.
 	 */
 	@Override

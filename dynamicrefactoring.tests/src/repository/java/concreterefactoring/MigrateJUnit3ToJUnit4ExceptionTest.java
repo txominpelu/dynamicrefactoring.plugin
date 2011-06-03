@@ -41,7 +41,7 @@ import refactoring.engine.Refactoring;
  * Tests the refactoring that migrates fromo JUnit 3 exception test
  * to new versions.
  * 
- * @author Ra�l Marticorena
+ * @author Raúl Marticorena
  * @since JavaMoon-2.1.0
  */
 public class MigrateJUnit3ToJUnit4ExceptionTest extends RefactoringTemplateAbstractTest{

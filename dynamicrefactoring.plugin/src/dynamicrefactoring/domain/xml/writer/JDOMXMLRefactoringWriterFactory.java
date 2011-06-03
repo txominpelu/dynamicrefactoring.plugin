@@ -27,8 +27,8 @@ import dynamicrefactoring.domain.DynamicRefactoringDefinition;
  * <code>XMLRefactoringWriterImp</code> bas�ndose en JDOM para escribir los 
  * ficheros XML.
  * 
- * @author <A HREF="mailto:alc0022@alu.ubu.es">�ngel L�pez Campo</A>
- * @author <A HREF="mailto:epf0006@alu.ubu.es">Eduardo Pe�a Fern�ndez</A>
+ * @author <A HREF="mailto:alc0022@alu.ubu.es">Ángel López Campo</A>
+ * @author <A HREF="mailto:epf0006@alu.ubu.es">Eduardo Peña Fernández</A>
  * @author <A HREF="mailto:sfd0009@alu.ubu.es">Sonia Fuente de la Fuente</A>
  * @author <A HREF="mailto:ehp0001@alu.ubu.es">Enrique Herrero Paredes</A>
  */
@@ -40,7 +40,7 @@ public class JDOMXMLRefactoringWriterFactory
 	 * XMLRefactoringWriterImp</code> bas�ndose en JDOM para la escritura de 
 	 * refactorizaciones en ficheros XML.
 	 * 
-	 * @param refactoringDefinition definici�n de refactorizaci�n que se debe
+	 * @param refactoringDefinition definición de refactorización que se debe
 	 * escribir.
 	 * 
 	 * @return la instancia generada.

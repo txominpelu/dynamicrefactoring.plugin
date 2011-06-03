@@ -38,7 +38,7 @@ import dynamicrefactoring.util.selection.SelectionInfo;
 
 /**
  * Proporciona funciones que permiten manejar una variable local Java tal y como
- * la define Eclipse en su representaci�n interna.
+ * la define Eclipse en su representación interna.
  * 
  * @author <A HREF="mailto:sfd0009@alu.ubu.es">Sonia Fuente de la Fuente</A>
  * @author <A HREF="mailto:ehp0001@alu.ubu.es">Enrique Herrero Paredes</A>
@@ -64,19 +64,19 @@ public class JavaLocalVariableProcessor extends JavaElementProcessor {
 
 	/**
 	 * Determina si una variable local de Eclipse se corresponde con un
-	 * argumento formal de un m�todo o con una variable local en si.
+	 * argumento formal de un método o con una variable local en si.
 	 * 
 	 * @return {@link SelectionInfo#FORMAL_ARGUMENT} si se trata de un argumento
-	 *         formal de un m�todo; {@link SelectionInfo#LOCAL_VARIABLE} si se
-	 *         trata de una variable local de m�todo.
+	 *         formal de un método; {@link SelectionInfo#LOCAL_VARIABLE} si se
+	 *         trata de una variable local de método.
 	 */
 	public int discernLocalVariable() {
-		// El elemento padre de la variable, deber�a ser un m�todo.
+		// El elemento padre de la variable, debería ser un método.
 		if (variable.getParent() instanceof IMethod)
 			try {
 				String names[] = ((IMethod) variable.getParent())
 						.getParameterNames();
-				// Si entre los argumentos formales del m�todo hay alguno con el
+				// Si entre los argumentos formales del método hay alguno con el
 				// mismo nombre que la variable, ha de ser �sta misma.
 				for (int i = 0; i < names.length; i++)
 					if (names[i].equals(variable.getElementName()))
@@ -90,10 +90,10 @@ public class JavaLocalVariableProcessor extends JavaElementProcessor {
 	}
 
 	/**
-	 * Obtiene un procesador de informaci�n para el m�todo al que pertenece la
+	 * Obtiene un procesador de información para el método al que pertenece la
 	 * variable local.
 	 * 
-	 * @return un procesador de informaci�n para el m�todo al que pertenece la
+	 * @return un procesador de información para el método al que pertenece la
 	 *         variable local.
 	 * 
 	 * @see JavaMethodProcessor

@@ -34,11 +34,11 @@ import repository.moon.concretepredicate.IsNotFormalPar;
 import repository.moon.concretepredicate.IsSingleGenericInstance;
 
 /**
- * Permite establecer los par�metros para una refactorizaci�n 
+ * Permite establecer los parámetros para una refactorización 
  * "ReplaceFormalParameterWithType".
  *
- * @author <A HREF="mailto:sam0006@alu.ubu.es">Sara Alcal� Mart�n</A>
- * @author <A HREF="mailto:dbm0005@alu.ubu.es">Diego Ba�uelos Molledo</A>
+ * @author <A HREF="mailto:sam0006@alu.ubu.es">Sara Alcalá Martín</A>
+ * @author <A HREF="mailto:dbm0005@alu.ubu.es">Diego Bañuelos Molledo</A>
  * @author <A HREF="mailto:ehp0001@alu.ubu.es">Enrique Herrero Paredes</A>
  * @author <A HREF="mailto:sfd0009@alu.ubu.es">Sonia Fuente de la Fuente</A>
  */
@@ -53,9 +53,9 @@ public class ReplaceFormalParameterWithType extends MOONRefactoring {
 	 * Constructor.<p>
 	 *
 	 * Obtiene una nueva instancia de ReplaceFormalParameterWithType.
-     * @param formalPar par�metro formal que se va a reemplazar por un tipo.
-     * @param classType tipo por el que se va a reemplazar el par�metro formal.
-     * @param model el modelo sobre el que se va a hacer la refactorizaci�n.
+     * @param formalPar parámetro formal que se va a reemplazar por un tipo.
+     * @param classType tipo por el que se va a reemplazar el parámetro formal.
+     * @param model el modelo sobre el que se va a hacer la refactorización.
 	 */
     public ReplaceFormalParameterWithType(FormalPar formalPar, 
     	ClassType classType, Model model) {

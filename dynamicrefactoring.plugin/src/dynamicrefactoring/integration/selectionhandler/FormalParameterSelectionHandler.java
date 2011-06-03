@@ -39,8 +39,8 @@ import dynamicrefactoring.util.processor.JavaMethodProcessor;
 import dynamicrefactoring.util.selection.TextSelectionInfo;
 
 /**
- * Proporciona las funciones necesarias para obtener el par�metro formal MOON 
- * de una clase gen�rica con el que se corresponde un par�metro formal 
+ * Proporciona las funciones necesarias para obtener el parámetro formal MOON 
+ * de una clase genérica con el que se corresponde un parámetro formal 
  * seleccionado en Eclipse.
  * 
  * @author <A HREF="mailto:sfd0009@alu.ubu.es">Sonia Fuente de la Fuente</A>
@@ -49,7 +49,7 @@ import dynamicrefactoring.util.selection.TextSelectionInfo;
 public class FormalParameterSelectionHandler implements ISelectionHandler {
 	
 	/**
-	 * El proveedor de informaci�n concreto para la selecci�n de texto.
+	 * El proveedor de información concreto para la selecci�n de texto.
 	 */
 	private TextSelectionInfo infoProvider;
 	
@@ -59,18 +59,18 @@ public class FormalParameterSelectionHandler implements ISelectionHandler {
 	private ITypeParameter selectedParameter;
 	
 	/**
-	 * La descripci�n MOON del par�metro formal seleccionado.
+	 * La descripci�n MOON del parámetro formal seleccionado.
 	 */
 	private FormalPar formalParameter;
 	
 	/**
-	 * La descripci�n MOON de la clase en cuya declaraci�n aparece el par�metro
+	 * La descripci�n MOON de la clase en cuya declaración aparece el parámetro
 	 * formal.
 	 */
 	private ClassDef fParClass;
 	
 	/**
-	 * La descripci�n MOON del m�todo en cuya declaraci�n aparece el par�metro
+	 * La descripci�n MOON del método en cuya declaración aparece el parámetro
 	 * formal.
 	 */
 	private MethDec fParMethod;
@@ -81,7 +81,7 @@ public class FormalParameterSelectionHandler implements ISelectionHandler {
 	 * @param selectionInfo contenedor de la selecci�n que se desea manejar.
 	 * 
 	 * @throws Exception si la selecci�n contenida en #selectionInfo no es una
-	 * selecci�n de un par�metro formal sobre una representaci�n textual.
+	 * selecci�n de un parámetro formal sobre una representación textual.
 	 */
 	public FormalParameterSelectionHandler (
 		TextSelectionInfo selectionInfo) throws Exception{
@@ -101,15 +101,15 @@ public class FormalParameterSelectionHandler implements ISelectionHandler {
 	}
 	
 	/**
-	 * Obtiene la descripci�n MOON del par�metro formal representado por una 
+	 * Obtiene la descripci�n MOON del parámetro formal representado por una 
 	 * selecci�n del interfaz gr�fico.
 	 * 
 	 * @return la descripci�n MOON del argumento formal representado por una 
 	 * selecci�n del interfaz gr�fico.
 	 * 
 	 * @throws ClassNotFoundException si se no se consigue encontrar la clase 
-	 * del par�metro formal en el modelo MOON cargado.
-	 * @throws IOException si se produce alg�n error al acceder al modelo MOON.
+	 * del parámetro formal en el modelo MOON cargado.
+	 * @throws IOException si se produce algún error al acceder al modelo MOON.
 	 * 
 	 * @see ISelectionHandler#getMainObject()
 	 */
@@ -118,20 +118,20 @@ public class FormalParameterSelectionHandler implements ISelectionHandler {
 		throws IOException, ClassNotFoundException {
 		
 		if (formalParameter == null){
-			// Se construye el nombre con el que se buscar� el par�metro formal.
+			// Se construye el nombre con el que se buscar� el parámetro formal.
 			Model MOONModel = ModelGenerator.getInstance().getModel();
 			Name fParName = MOONModel.getMoonFactory().createName(
 				selectedParameter.getElementName());
 			
 			if (selectedParameter.getDeclaringMember() instanceof IMethod){
 			
-				// Primero se comprueba si pertenece a un m�todo gen�rico.
+				// Primero se comprueba si pertenece a un método genérico.
 				MethDec declaringMethod = getFormalParameterMethod();
 				formalParameter = declaringMethod.getFormalPar(fParName);
 			}
 			else if (selectedParameter.getDeclaringMember() instanceof IType){
 
-				// Si no, se supone que pertenece a una clase gen�rica.
+				// Si no, se supone que pertenece a una clase genérica.
 				ClassDef declaringClass = getFormalParameterClass();
 				formalParameter = declaringClass.getFormalPar(fParName);
 			}	
@@ -141,20 +141,20 @@ public class FormalParameterSelectionHandler implements ISelectionHandler {
 	}
 	
 	/**
-	 * Obtiene la descripci�n MOON del m�todo al que pertenece el par�metro
+	 * Obtiene la descripci�n MOON del método al que pertenece el parámetro
 	 * formal seleccionado.
 	 * 
-	 * @return la descripci�n MOON del m�todo al que pertenece el par�metro
+	 * @return la descripci�n MOON del método al que pertenece el parámetro
 	 * formal seleccionado.
 	 * 
 	 * @throws ClassNotFoundException si se no se consigue encontrar la clase a
-	 * la que pertenece el m�todo en el modelo MOON cargado.
-	 * @throws IOException si se produce alg�n error al acceder al modelo MOON.
+	 * la que pertenece el método en el modelo MOON cargado.
+	 * @throws IOException si se produce algún error al acceder al modelo MOON.
 	 */
 	public MethDec getFormalParameterMethod() 
 		throws IOException, ClassNotFoundException {
 		
-		// Si el par�metro formal no est� declarado en un m�todo, ser� de clase.
+		// Si el parámetro formal no est� declarado en un método, ser� de clase.
 		if (! (selectedParameter.getDeclaringMember() instanceof IMethod))
 			return null;
 		
@@ -171,15 +171,15 @@ public class FormalParameterSelectionHandler implements ISelectionHandler {
 	}
 	
 	/**
-	 * Obtiene la descripci�n MOON de la clase a la que pertenece el par�metro
+	 * Obtiene la descripci�n MOON de la clase a la que pertenece el parámetro
 	 * formal seleccionado.
 	 * 
-	 * @return la descripci�n MOON de la clase a la que pertenece el par�metro
+	 * @return la descripci�n MOON de la clase a la que pertenece el parámetro
 	 * formal seleccionado.
 	 * 
 	 * @throws ClassNotFoundException si se no se consigue encontrar la clase en
 	 * el modelo MOON cargado.
-	 * @throws IOException si se produce alg�n error al acceder al modelo MOON.
+	 * @throws IOException si se produce algún error al acceder al modelo MOON.
 	 */
 	public ClassDef getFormalParameterClass() 
 		throws ClassNotFoundException, IOException {

@@ -7,4 +7,5 @@ temp/**/*
 /out.mod
 /bin
 /.settings/*
-/doc
+doc/src_html/*
+doc/doccheck/*

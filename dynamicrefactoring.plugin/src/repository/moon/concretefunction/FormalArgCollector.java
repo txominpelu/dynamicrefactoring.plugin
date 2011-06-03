@@ -27,16 +27,16 @@ import moon.core.classdef.MethDec;
 import refactoring.engine.Function;
 
 /**
- * Permite obtener los argumentos formales de un m�todo determinado.
+ * Permite obtener los argumentos formales de un método determinado.
  *
  * @author <A HREF="mailto:ehp0001@alu.ubu.es">Enrique Herrero Paredes</A>
- * @author <A HREF="mailto:alc0022@alu.ubu.es">�ngel L�pez Campo</A>
+ * @author <A HREF="mailto:alc0022@alu.ubu.es">Ángel López Campo</A>
  * @author <A HREF="mailto:sfd0009@alu.ubu.es">Sonia Fuente de la Fuente</A>
  */ 
 public class FormalArgCollector extends Function {
 	
 	/**
-	 * M�todo de cuya signatura se desean obtener los argumentos formales.
+	 * Método de cuya signatura se desean obtener los argumentos formales.
 	 */
 	private MethDec methDec;
 	
@@ -45,7 +45,7 @@ public class FormalArgCollector extends Function {
 	 *
 	 * Devuelve una nueva instancia de FormalArgCollector.
 	 *
-	 * @param methDec el m�todo cuyos par�metros se quieren obtener.
+	 * @param methDec el método cuyos parámetros se quieren obtener.
 	 */
 	public FormalArgCollector(MethDec methDec) {
 		super();
@@ -53,7 +53,7 @@ public class FormalArgCollector extends Function {
 	}
 
 	/**
-	 * Sin implementaci�n.
+	 * Sin implementación.
 	 *
 	 * @return null.
 	 */
@@ -62,9 +62,9 @@ public class FormalArgCollector extends Function {
 	}
 	
 	/**
-	 * Obtiene el conjunto de par�metros formales de un m�todo.
+	 * Obtiene el conjunto de parámetros formales de un método.
 	 *
-	 * @return el conjunto de par�metros del m�todo.
+	 * @return el conjunto de parámetros del método.
 	 */
 	public Collection<FormalArgument> getCollection() {
 		return methDec.getFormalArgument();

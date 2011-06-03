@@ -33,22 +33,22 @@ import repository.RelayListenerRegistry;
 import repository.moon.MOONRefactoring;
 
 /**
- * Permite borrar un par�metro real de una clase.
+ * Permite borrar un parámetro real de una clase.
  *
- * @author <A HREF="mailto:sam0006@alu.ubu.es">Sara Alcal� Mart�n</A>
- * @author <A HREF="mailto:dbm0005@alu.ubu.es">Diego Ba�uelos Molledo</A>
+ * @author <A HREF="mailto:sam0006@alu.ubu.es">Sara Alcalá Martín</A>
+ * @author <A HREF="mailto:dbm0005@alu.ubu.es">Diego Bañuelos Molledo</A>
  * @author <A HREF="mailto:sfd0009@alu.ubu.es">Sonia Fuente de la Fuente</A>
  * @author <A HREF="mailto:ehp0001@alu.ubu.es">Enrique Herrero Paredes</A>
  */
 public class RemoveRealParameter extends Action{
 
 	/**
-	 * Clase sobre la que eliminar el par�metro formal.
+	 * Clase sobre la que eliminar el parámetro formal.
 	 */
 	private ClassDef classDef;
 	
 	/**
-	 * Par�metro formal sobre el que se hacen las sustituciones del par�metro 
+	 * Parámetro formal sobre el que se hacen las sustituciones del parámetro 
 	 * real.
 	 */
 	private FormalPar formalPar;
@@ -59,15 +59,15 @@ public class RemoveRealParameter extends Action{
 	private Collection<Type> types;
 	
 	/**
-	 * Receptor de los mensajes enviados por la acci�n concreta.
+	 * Receptor de los mensajes enviados por la acción concreta.
 	 */
 	private RelayListenerRegistry listenerReg;
 		
 	/**
-	 * Constructor de la acci�n que permite borrar un par�metro real.
+	 * Constructor de la acción que permite borrar un parámetro real.
 	 *
-	 * @param formalPar par�metro formal sobre el que se hacen las sustituciones 
-	 * del par�metro real.
+	 * @param formalPar parámetro formal sobre el que se hacen las sustituciones 
+	 * del parámetro real.
 	 */
 	public RemoveRealParameter(FormalPar formalPar) {
 		super();
@@ -79,13 +79,13 @@ public class RemoveRealParameter extends Action{
 	}
 	
 	/**
-	 * Ejecuta la eliminaci�n del par�metro real.
+	 * Ejecuta la eliminación del parámetro real.
 	 */
 	public void run() {
 		listenerReg.notify("# run():RemoveRealParameter #"); //$NON-NLS-1$
 		
-		// Se obtiene la posici�n del par�metro formal en la lista 
-		// de par�metros formales de la clase.
+		// Se obtiene la posición del parámetro formal en la lista 
+		// de parámetros formales de la clase.
 		int index = 0;
 		List<FormalPar> classParameters = this.classDef.getFormalPars();
 		for(FormalPar nextPar : classParameters){
@@ -129,10 +129,10 @@ public class RemoveRealParameter extends Action{
 	}
 
 	/**
-	 * Deshace la eliminaci�n del par�metro real, incluy�ndolo de nuevo en 
+	 * Deshace la eliminación del parámetro real, incluy�ndolo de nuevo en 
 	 * la clase.
 	 * 
-	 * �Sin implementaci�n!
+	 * �Sin implementación!
 	 */
 	@Override
 	public void undo() {}

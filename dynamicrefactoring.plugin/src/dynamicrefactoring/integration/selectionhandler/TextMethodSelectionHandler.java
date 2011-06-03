@@ -30,8 +30,8 @@ import dynamicrefactoring.util.processor.JavaMethodProcessor;
 import dynamicrefactoring.util.selection.TextSelectionInfo;
 
 /**
- * Proporciona las funciones necesarias para obtener el m�todo MOON con el que
- * se corresponde un m�todo seleccionado en Eclipse sobre un editor de texto.
+ * Proporciona las funciones necesarias para obtener el método MOON con el que
+ * se corresponde un método seleccionado en Eclipse sobre un editor de texto.
  * 
  * @author <A HREF="mailto:sfd0009@alu.ubu.es">Sonia Fuente de la Fuente</A>
  * @author <A HREF="mailto:ehp0001@alu.ubu.es">Enrique Herrero Paredes</A>
@@ -39,7 +39,7 @@ import dynamicrefactoring.util.selection.TextSelectionInfo;
 public class TextMethodSelectionHandler extends MethodSelectionHandler {
 	
 	/**
-	 * El proveedor de informaci�n concreto para la selecci�n de texto.
+	 * El proveedor de información concreto para la selecci�n de texto.
 	 */
 	private TextSelectionInfo infoProvider;
 	
@@ -49,7 +49,7 @@ public class TextMethodSelectionHandler extends MethodSelectionHandler {
 	 * @param selectionInfo contenedor de la selecci�n que se desea manejar.
 	 * 
 	 * @throws Exception si la selecci�n contenida en #selectionInfo no es una
-	 * selecci�n de un m�todo sobre una representaci�n textual.
+	 * selecci�n de un método sobre una representación textual.
 	 */
 	public TextMethodSelectionHandler (TextSelectionInfo selectionInfo) 
 		throws Exception{
@@ -74,8 +74,8 @@ public class TextMethodSelectionHandler extends MethodSelectionHandler {
 	}
 
 	/**
-	 * Implementaci�n de la operaci�n primitiva.
-	 * (Patr�n de dise�o M�todo Plantilla).
+	 * Implementación de la operación primitiva.
+	 * (Patr�n de dise�o Método Plantilla).
 	 * 
 	 * @see MethodSelectionHandler#getMethodProcessor()
 	 */

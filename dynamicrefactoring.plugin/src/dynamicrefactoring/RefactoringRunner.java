@@ -64,9 +64,9 @@ import dynamicrefactoring.interfaz.dynamic.DynamicRefactoringRunner;
 import dynamicrefactoring.util.io.JavaFileManager;
 
 /**
- * Permite ejecutar una operaci�n de refactorizaci�n, mostrando al usuario el
- * progreso de la operaci�n y permitiendo su cancelaci�n hasta cierto momento de
- * la refactorizaci�n.
+ * Permite ejecutar una operación de refactorización, mostrando al usuario el
+ * progreso de la operación y permitiendo su cancelación hasta cierto momento de
+ * la refactorización.
  * 
  * @author <A HREF="mailto:lfd0002@alu.ubu.es">Laura Fuente de la Fuente</A>
  * @author <A HREF="mailto:sfd0009@alu.ubu.es">Sonia Fuente de la Fuente</A>
@@ -81,8 +81,8 @@ public abstract class RefactoringRunner {
 			.getLogger(RefactoringRunner.class);
 
 	/**
-	 * Parametros de entrada de la refactorizaci�n. Pares de la forma nombre del
-	 * par�metros y nombre cualificado del mismo dentro del modelo.
+	 * Parametros de entrada de la refactorización. Pares de la forma nombre del
+	 * parámetros y nombre cualificado del mismo dentro del modelo.
 	 */
 	private Map<String, String> inputParameters;
 
@@ -93,15 +93,15 @@ public abstract class RefactoringRunner {
 	private boolean fromPlan = false;
 
 	/**
-	 * Formato utilizado para almacenar la hora de creaci�n de una operaci�n de
-	 * refactorizaci�n.
+	 * Formato utilizado para almacenar la hora de creación de una operación de
+	 * refactorización.
 	 */
 	private final static DateFormat dateFormat = new SimpleDateFormat(
 			Messages.RefactoringRunner_DateFormat);
 
 	/**
-	 * Dirige la ejecuci�n de una refactorizaci�n concreta, mostr�ndole al
-	 * usuario el progreso de la misma a trav�s de una ventana de progreso.
+	 * Dirige la ejecuci�n de una refactorización concreta, mostr�ndole al
+	 * usuario el progreso de la misma a través de una ventana de progreso.
 	 */
 	public void runRefactoring() {
 		IUndoableOperation refactoring = new RefactoringOperation(new Date(), getRefactoring(), getRefactoringName(), this.fromPlan);
@@ -115,7 +115,7 @@ public abstract class RefactoringRunner {
 		try {
 			if (history.execute(refactoring, null, null) == Status.OK_STATUS
 					&& getInstance() instanceof DynamicRefactoringRunner) {
-				// a�adimos al xml los datos de la refactorizaci�n que se acaba
+				// a�adimos al xml los datos de la refactorización que se acaba
 				// de ejecutar.
 				System.out.println("Ejecutada refactorizacion dinamica "
 						+ getRefactoringName());
@@ -151,24 +151,24 @@ public abstract class RefactoringRunner {
 	}
 
 	/**
-	 * Obtiene el nombre de la refactorizaci�n que se permite ejecutar.
+	 * Obtiene el nombre de la refactorización que se permite ejecutar.
 	 * 
-	 * @return el nombre de la refactorizaci�n que se permite ejecutar.
+	 * @return el nombre de la refactorización que se permite ejecutar.
 	 */
 	protected abstract String getRefactoringName();
 
 	/**
-	 * Obtiene la refactorizaci�n que se permite ejecutar.
+	 * Obtiene la refactorización que se permite ejecutar.
 	 * 
-	 * @return la refactorizaci�n que se permite ejecutar.
+	 * @return la refactorización que se permite ejecutar.
 	 */
 	protected abstract Refactoring getRefactoring();
 
 	/**
-	 * Establece los parametros de entrada de una refactorizaci�n.
+	 * Establece los parametros de entrada de una refactorización.
 	 * 
 	 * @param inputParameters
-	 *            par�metros de entrada.
+	 *            parámetros de entrada.
 	 */
 	public void setInputParameters(HashMap<String, String> inputParameters) {
 		this.inputParameters = inputParameters;
@@ -184,7 +184,7 @@ public abstract class RefactoringRunner {
 	}
 
 	/**
-	 * Implementa la operaci�n de refactorizaci�n como una operaci�n capaz de
+	 * Implementa la operación de refactorización como una operación capaz de
 	 * ser deshecha por el entorno de Eclipse.
 	 * 
 	 * @author <A HREF="mailto:sfd0009@alu.ubu.es">Sonia Fuente de la Fuente</A>
@@ -196,7 +196,7 @@ public abstract class RefactoringRunner {
 		private static final int ONE_SECOND = 1000;
 		
 		/**
-		 * Cadena que identifica la operaci�n de refactorizaci�n a la hora de
+		 * Cadena que identifica la operación de refactorización a la hora de
 		 * deshacerla dentro del entorno de operaciones de Eclipse.
 		 */
 		private String label;
@@ -227,8 +227,8 @@ public abstract class RefactoringRunner {
 		 * Constructor.
 		 * 
 		 * @param start
-		 *            hora a la que se construye la operaci�n de
-		 *            refactorizaci�n.
+		 *            hora a la que se construye la operación de
+		 *            refactorización.
 		 */
 		public RefactoringOperation(Date start, Refactoring refactoring, String name,
 				boolean fromPlan) {
@@ -240,12 +240,12 @@ public abstract class RefactoringRunner {
 		}
 
 		/**
-		 * Ejecuta la operaci�n de refactorizaci�n.
+		 * Ejecuta la operación de refactorización.
 		 * 
 		 * @param monitor
 		 *            monitor de progreso (no se utiliza).
 		 * @param info
-		 *            informaci�n del entorno gr�fico (no se utiliza).
+		 *            información del entorno gr�fico (no se utiliza).
 		 * 
 		 * @return {@link Status#OK_STATUS} si el proceso se ejecut�
 		 *         correctamente; {@link Status#CANCEL_STATUS}, si no.
@@ -327,13 +327,13 @@ public abstract class RefactoringRunner {
 
 		/**
 		 * Comprueba si un monitor de progreso ha recibido una orden de
-		 * cancelaci�n por parte del usuario.
+		 * cancelación por parte del usuario.
 		 * 
 		 * @param monitor
-		 *            el monitor cuyo estado de cancelaci�n se comprueba.
+		 *            el monitor cuyo estado de cancelación se comprueba.
 		 * 
 		 * @throws InterruptedException
-		 *             si el monitor ha recibido una orden de cancelaci�n por
+		 *             si el monitor ha recibido una orden de cancelación por
 		 *             parte del usuario.
 		 */
 		private void checkForCancellation(IProgressMonitor monitor)
@@ -345,19 +345,19 @@ public abstract class RefactoringRunner {
 		}
 
 		/**
-		 * Ejecuta la refactorizaci�n de manera que su progreso pueda ser
+		 * Ejecuta la refactorización de manera que su progreso pueda ser
 		 * seguido por un monitor de progreso.
 		 * 
 		 * @param monitor
 		 *            el monitor de progreso que mostrar� el avance de la
-		 *            operaci�n de refactorizaci�n.
+		 *            operación de refactorización.
 		 * 
 		 * @throws InvocationTargetException
 		 *             si se produce alguna clase de excepci�n durante la
 		 *             ejecuci�n, se relanza envuelta en este tipo de excepci�n.
 		 * @throws InterruptedException
 		 *             si el usuario interrumpi� el proceso pulsando el bot�n de
-		 *             cancelaci�n.
+		 *             cancelación.
 		 */
 		@Override
 		public void run(IProgressMonitor monitor)
@@ -372,13 +372,13 @@ public abstract class RefactoringRunner {
 
 			try {
 				// Se guarda una copia del estado del modelo antes de la
-				// refactorizaci�n.
+				// refactorización.
 				monitor.subTask(Messages.RefactoringRunner_Saving);
 
 				checkForCancellation(monitor);
 				monitor.worked(1);
 
-				// Ejecuta la refactorizaci�n.
+				// Ejecuta la refactorización.
 				monitor.subTask(Messages.RefactoringRunner_Running + "..."); //$NON-NLS-1$
 				refactoring.run();
 				monitor.worked(1);
@@ -409,12 +409,12 @@ public abstract class RefactoringRunner {
 		}
 
 		/**
-		 * Deshace la operaci�n de refactorizaci�n.
+		 * Deshace la operación de refactorización.
 		 * 
 		 * @param monitor
 		 *            monitor de progreso (no se utiliza).
 		 * @param info
-		 *            informaci�n del entorno gr�fico (no se utiliza).
+		 *            información del entorno gr�fico (no se utiliza).
 		 * 
 		 * @return {@link Status#OK_STATUS} si el proceso se ejecut�
 		 *         correctamente; {@link Status#CANCEL_STATUS}, si no.
@@ -445,12 +445,12 @@ public abstract class RefactoringRunner {
 		}
 
 		/**
-		 * Sin implementaci�n.
+		 * Sin implementación.
 		 * 
 		 * @param monitor
 		 *            monitor de progreso (no se utiliza).
 		 * @param info
-		 *            informaci�n del entorno gr�fico (no se utiliza).
+		 *            información del entorno gr�fico (no se utiliza).
 		 * 
 		 * @return {@link Status#OK_STATUS}.
 		 * 
@@ -461,7 +461,7 @@ public abstract class RefactoringRunner {
 		}
 
 		/**
-		 * Determina si la operaci�n se puede rehacer una vez deshecha. En este
+		 * Determina si la operación se puede rehacer una vez deshecha. En este
 		 * caso, no se puede.
 		 * 
 		 * @return <code>false</code>.
@@ -474,7 +474,7 @@ public abstract class RefactoringRunner {
 
 	/**
 	 * Envuelve en un "trabajo" o <code>job</code> el proceso de deshacer la
-	 * refactorizaci�n ejecutada.
+	 * refactorización ejecutada.
 	 * 
 	 * @author <A HREF="mailto:sfd0009@alu.ubu.es">Sonia Fuente de la Fuente</A>
 	 * @author <A HREF="mailto:ehp0001@alu.ubu.es">Enrique Herrero Paredes</A>
@@ -492,18 +492,18 @@ public abstract class RefactoringRunner {
 		}
 
 		/**
-		 * Ejecuta la operaci�n de deshacer la refactorizaci�n.
+		 * Ejecuta la operación de deshacer la refactorización.
 		 * 
 		 * @param monitor
 		 *            el monitor de progreso que mostrar� el avance de la
-		 *            operaci�n de recuperaci�n de c�digo.
+		 *            operación de recuperación de c�digo.
 		 * 
 		 * @throws InvocationTargetException
 		 *             si se produce cualquier clase de excepci�n se relanza
 		 *             envuelta en una excepci�n de este tipo.
 		 * @throws InterruptedException
 		 *             si el usuario interrumpi� el proceso pulsando sobre el
-		 *             bot�n de cancelaci�n (deshabilitado).
+		 *             bot�n de cancelación (deshabilitado).
 		 */
 		@Override
 		public void run(IProgressMonitor monitor)

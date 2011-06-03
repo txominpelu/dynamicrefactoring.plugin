@@ -29,23 +29,23 @@ import refactoring.engine.Predicate;
 import repository.moon.concretefunction.FormalParSubstitutionCollector;
 
 /**
- * Comprueba si todas las sustituciones de un par�metro formal corresponden a un 
+ * Comprueba si todas las sustituciones de un parámetro formal corresponden a un 
  * determinado tipo.
  *
- * @author <A HREF="mailto:sam0006@alu.ubu.es">Sara Alcal� Mart�n</A>
- * @author <A HREF="mailto:dbm0005@alu.ubu.es">Diego Ba�uelos Molledo</A>
+ * @author <A HREF="mailto:sam0006@alu.ubu.es">Sara Alcalá Martín</A>
+ * @author <A HREF="mailto:dbm0005@alu.ubu.es">Diego Bañuelos Molledo</A>
  * @author <A HREF="mailto:sfd0009@alu.ubu.es">Sonia Fuente de la Fuente</A>
  * @author <A HREF="mailto:ehp0001@alu.ubu.es">Enrique Herrero Paredes</A>
  */
 public class IsSingleGenericInstance extends Predicate {
 	
 	/**
-	 * Par�metro formal del que se quiere saber si las sustituciones son �nicas.
+	 * Parámetro formal del que se quiere saber si las sustituciones son únicas.
 	 */
 	private FormalPar formalParam;
 	
 	/**
-	 * Tipo con el que deber�n corresponderse todas las sustituciones.
+	 * Tipo con el que deberín corresponderse todas las sustituciones.
 	 */
 	private ClassType ctype;
 	
@@ -54,7 +54,7 @@ public class IsSingleGenericInstance extends Predicate {
 	 *
 	 * Devuelve una nueva instancia del predicado <code>IsSubtypeBoundType</code>.
 	 *
-	 * @param formalParam par�metro formal cuyas sustituciones se estudian.
+	 * @param formalParam parámetro formal cuyas sustituciones se estudian.
 	 * @param ctype tipo con el que deben conformar las sustituciones.
 	 */
 	public IsSingleGenericInstance(FormalPar formalParam, ClassType ctype) {
@@ -71,7 +71,7 @@ public class IsSingleGenericInstance extends Predicate {
 	/**
 	 * Comprueba el valor de verdad del predicado.
 	 * 
-	 * @return <code>true</code> si todas las sustituciones del par�metro formal 
+	 * @return <code>true</code> si todas las sustituciones del parámetro formal 
 	 * corresponden a un determinado tipo; <code>false</code> en caso contrario.
 	 */
 	@Override
@@ -84,7 +84,7 @@ public class IsSingleGenericInstance extends Predicate {
 			return false;
 		else {
 			if(substitutions.size() == 0)
-				// No est� completamente instanciado.
+				// No está completamente instanciado.
 				return true;
 			if(substitutions.size() > 0){
 				if(!substitutions.contains(ctype))

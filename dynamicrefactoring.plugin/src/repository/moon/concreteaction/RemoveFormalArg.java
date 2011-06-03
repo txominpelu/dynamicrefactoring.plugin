@@ -38,50 +38,50 @@ import repository.moon.concretefunction.ClassesAffectedByMethRenameCollector;
 import repository.moon.concretefunction.MethodCollector;
 
 /**
- * Permite eliminar un argumento formal de la signatura de un m�todo.<p>
+ * Permite eliminar un argumento formal de la signatura de un método.<p>
  *
- * Se ocupa de eliminarlo tanto en la definici�n del m�todo, como en todas las
+ * Se ocupa de eliminarlo tanto en la definición del método, como en todas las
  * llamadas al mismo.<p>
  *
  * Extiende el cambio a todas las clases que, por herencia, se puedan ver 
- * afectadas por un cambio en la signatura del m�todo afectado.
+ * afectadas por un cambio en la signatura del método afectado.
  *
  * @author <A HREF="mailto:ehp0001@alu.ubu.es">Enrique Herrero Paredes</A>
- * @author <A HREF="mailto:alc0022@alu.ubu.es">�ngel L�pez Campo</A>
+ * @author <A HREF="mailto:alc0022@alu.ubu.es">Ángel López Campo</A>
  * @author <A HREF="mailto:sfd0009@alu.ubu.es">Sonia Fuente de la Fuente</A>
  */ 
 public class RemoveFormalArg extends Action {
 	
 	/**
-	 * El par�metro formal que se va a eliminar de la signatura del m�todo.
+	 * El parámetro formal que se va a eliminar de la signatura del método.
 	 */
 	private FormalArgument deletedParameter;
 	
 	/**
-	 * El m�todo de cuya signatura se va a eliminar el argumento formal.
+	 * El método de cuya signatura se va a eliminar el argumento formal.
 	 */
 	private MethDec method;
 	
 	/**
-	 * La clase a la que pertenece el m�todo que se va a modificar.
+	 * La clase a la que pertenece el método que se va a modificar.
 	 */
 	private ClassDef classDef;
 		
 	/**
-	 * La posici�n que ocupa el argumento formal dentro de la signatura del
-	 * m�todo.
+	 * La posición que ocupa el argumento formal dentro de la signatura del
+	 * método.
 	 */
 	private int paramPosition;	
 		
 	/**
-	 * Elemento auxiliar para extender el cambio en el m�todo a otras clases,
-	 * en caso de que dicho m�todo aparezca en clases superiores o inferiores en
-	 * la jerarqu�a de herencia.
+	 * Elemento auxiliar para extender el cambio en el método a otras clases,
+	 * en caso de que dicho método aparezca en clases superiores o inferiores en
+	 * la jerarquía de herencia.
 	 */
 	private Vector<Action> removeParInOtherClassVec;
 	
 	/**
-	 * Receptor de los mensajes enviados por la acci�n concreta.
+	 * Receptor de los mensajes enviados por la acción concreta.
 	 */
 	private RelayListenerRegistry listenerReg;
 		 
@@ -91,7 +91,7 @@ public class RemoveFormalArg extends Action {
 	 * Obtiene una nueva instancia de RemoveFormalArg.
 	 *
 	 * @param formalArg el argumento formal que se va a eliminar.
-	 * @param method el m�todo de cuya signatura se va a eliminar un argumento.
+	 * @param method el método de cuya signatura se va a eliminar un argumento.
 	 */	
 	public RemoveFormalArg(FormalArgument formalArg, MethDec method){
 		
@@ -110,7 +110,7 @@ public class RemoveFormalArg extends Action {
 	}
 		
 	/**
-	 * Elimina un par�metro formal de la signatura de un m�todo.
+	 * Elimina un parámetro formal de la signatura de un método.
 	 */
 	public void run() {
 		
@@ -158,7 +158,7 @@ public class RemoveFormalArg extends Action {
 	}
 
 	/**
-	 * Restaura el par�metro formal a la signatura del m�todo.
+	 * Restaura el parámetro formal a la signatura del método.
 	 */
 	public void undo() {
 		
@@ -175,14 +175,14 @@ public class RemoveFormalArg extends Action {
 	}
 	
 	/**
-	 * Elimina el par�metro de la signatura del m�todo en las clases inferiores 
-	 * y superiores de la jerarqu�a de herencia que, a trav�s de herencia, 
-	 * posean el mismo m�todo (clases que hereden de la que posee el m�todo
-	 * afectado, o superclases de la misma que contengan el mismo m�todo, y a su
+	 * Elimina el parámetro de la signatura del método en las clases inferiores 
+	 * y superiores de la jerarquía de herencia que, a través de herencia, 
+	 * posean el mismo método (clases que hereden de la que posee el método
+	 * afectado, o superclases de la misma que contengan el mismo método, y a su
 	 * vez, recursivamente, subclases o superclases de las mismas).
 	 *
-	 * @param affectedClasses las clases de la jerarqu�a de herencia que se ven 
-	 * afectadas por el cambio de la signatura del m�todo.
+	 * @param affectedClasses las clases de la jerarquía de herencia que se ven 
+	 * afectadas por el cambio de la signatura del método.
 	 */
 	private void removeArgFromSubAndSuperclasses (
 		Collection<ClassDef> affectedClasses){

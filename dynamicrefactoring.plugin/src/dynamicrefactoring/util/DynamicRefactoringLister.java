@@ -33,15 +33,15 @@ import dynamicrefactoring.util.io.filter.DynamicRefactoringFilter;
 /**
  * Obtiene los ficheros XML con refactorizaciones din�micas disponibles.
  *
- * @author <A HREF="mailto:alc0022@alu.ubu.es">�ngel L�pez Campo</A>
- * @author <A HREF="mailto:epf0006@alu.ubu.es">Eduardo Pe�a Fern�ndez</A>
+ * @author <A HREF="mailto:alc0022@alu.ubu.es">Ángel López Campo</A>
+ * @author <A HREF="mailto:epf0006@alu.ubu.es">Eduardo Peña Fernández</A>
  * @author <A HREF="mailto:sfd0009@alu.ubu.es">Sonia Fuente de la Fuente</A>
  * @author <A HREF="mailto:ehp0001@alu.ubu.es">Enrique Herrero Paredes</A>
  */
 public class DynamicRefactoringLister {
 
 	/**
-	 * La instancia �nica de la clase.
+	 * La instancia única de la clase.
 	 */
 	private static DynamicRefactoringLister instance;
 
@@ -51,7 +51,7 @@ public class DynamicRefactoringLister {
 	private FilenameFilter fileFilter;
 	
 	/**
-	 * N�mero de iteraci�n actual en la b�squeda recursiva.
+	 * N�mero de iteración actual en la b�squeda recursiva.
 	 */
 	private int iteration = 0;
 	
@@ -63,9 +63,9 @@ public class DynamicRefactoringLister {
 	}
 		
 	/**
-	 * Devuelve la instancia �nica de la clase.
+	 * Devuelve la instancia única de la clase.
 	 * 
-	 * @return la instancia �nica de la clase.
+	 * @return la instancia única de la clase.
 	 */
 	public static DynamicRefactoringLister getInstance() {
 		if(instance == null)
@@ -81,7 +81,7 @@ public class DynamicRefactoringLister {
 	 * @param folder el directorio en que se buscan las refactorizaciones.
 	 * @param recursive si la b�squeda ha de ser recursiva o no.
 	 * @param monitor monitor al que deber� consultarse peri�dicamente si la
-	 * operaci�n ha sido cancelada, en cuyo caso deber� detenerse.
+	 * operación ha sido cancelada, en cuyo caso deber� detenerse.
 	 * 
 	 * @return una tabla de pares [clave, valor] en la que se utiliza como clave
 	 * el nombre comprensible del fichero y como valor la ruta del fichero; 
@@ -127,7 +127,7 @@ public class DynamicRefactoringLister {
 	 * si la b�squeda ha sido cancelada, en cuyo caso, habr� que detenerla y retornar.
 	 * 
 	 * @throws InterruptedException si la b�squeda se est� ejecutando bajo la
-	 * vigilancia de un monitor de progreso que ha detectado una orden de cancelaci�n.
+	 * vigilancia de un monitor de progreso que ha detectado una orden de cancelación.
 	 */
     private void dynamicRefactoringNameList(File dir, HashMap<String, String> h, 
     	boolean recursive, IProgressMonitor monitor) throws InterruptedException {
@@ -144,7 +144,7 @@ public class DynamicRefactoringLister {
             iteration--;
         }
         
-    	// Si es un fichero de refactorizaci�n se almacena en la tabla.
+    	// Si es un fichero de refactorización se almacena en la tabla.
         else if(fileFilter.accept(dir, dir.getName()) == true)
     		h.put(FileManager.getReadableName(dir.getName()), 
     			dir.getPath());
@@ -152,12 +152,12 @@ public class DynamicRefactoringLister {
     
     /**
 	 * Comprueba si un monitor de progreso ha recibido una orden de 
-	 * cancelaci�n por parte del usuario.
+	 * cancelación por parte del usuario.
 	 * 
-	 * @param monitor el monitor cuyo estado de cancelaci�n se comprueba.
+	 * @param monitor el monitor cuyo estado de cancelación se comprueba.
 	 * 
 	 * @throws InterruptedException si el monitor ha recibido una orden de
-	 * cancelaci�n por parte del usuario.
+	 * cancelación por parte del usuario.
 	 */
 	private void checkForCancellation(IProgressMonitor monitor) 
 		throws InterruptedException {

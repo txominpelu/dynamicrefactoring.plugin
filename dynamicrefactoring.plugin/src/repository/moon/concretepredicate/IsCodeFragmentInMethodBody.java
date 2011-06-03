@@ -6,7 +6,7 @@ import refactoring.engine.Predicate;
 /**
  * Checks if a code fragmen is in a method body.
  * 
- * @author Raúl Marticorena
+ * @author RaÃºl Marticorena
  * @since JavaMoon-2.3.0
  *
  */

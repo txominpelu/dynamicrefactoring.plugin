@@ -51,12 +51,12 @@ import dynamicrefactoring.domain.DynamicRefactoringDefinition;
 import dynamicrefactoring.domain.RefactoringExample;
 
 /**
- * Sexta p�gina del asistente de creaci�n o edici�n de refactorizaciones.
+ * Sexta p�gina del asistente de creación o edición de refactorizaciones.
  * 
  * <p>
  * Permite asociar hasta un m�ximo de dos ejemplos concretos a la
- * refactorizaci�n. Cada uno de los ejemplos vendr� definido por un fichero con
- * el estado del sistema antes de la refactorizaci�n, y otro con su estado
+ * refactorización. Cada uno de los ejemplos vendr� definido por un fichero con
+ * el estado del sistema antes de la refactorización, y otro con su estado
  * posterior, una vez ejecutada.
  * </p>
  * 
@@ -73,31 +73,31 @@ public class RefactoringWizardPage6 extends WizardPage {
 
 	/**
 	 * Campo de texto con la ruta del fichero que contiene el estado del primer
-	 * ejemplo antes de la refactorizaci�n.
+	 * ejemplo antes de la refactorización.
 	 */
 	private Text textBefore1;
 
 	/**
 	 * Campo de texto con la ruta del fichero que contiene el estado del primer
-	 * ejemplo despu�s de la refactorizaci�n.
+	 * ejemplo despu�s de la refactorización.
 	 */
 	private Text textAfter1;
 
 	/**
 	 * Campo de texto con la ruta del fichero que contiene el estado del segundo
-	 * ejemplo antes de la refactorizaci�n.
+	 * ejemplo antes de la refactorización.
 	 */
 	private Text textBefore2;
 
 	/**
 	 * Campo de texto con la ruta del fichero que contiene el estado del segundo
-	 * ejemplo despu�s de la refactorizaci�n.
+	 * ejemplo despu�s de la refactorización.
 	 */
 	private Text textAfter2;
 
 	/**
-	 * Refactorizaci�n configurada a trav�s del asistente y que debe ser creada
-	 * finalmente (si se trata de una nueva refactorizaci�n) o modificada (si se
+	 * Refactorización configurada a través del asistente y que debe ser creada
+	 * finalmente (si se trata de una nueva refactorización) o modificada (si se
 	 * est� editando una ya existente).
 	 */
 	private DynamicRefactoringDefinition refactoring = null;
@@ -113,7 +113,7 @@ public class RefactoringWizardPage6 extends WizardPage {
 	 * Constructor.
 	 * 
 	 * @param refactoring
-	 *            refactorizaci�n que se est� editando o <code>null
+	 *            refactorización que se est� editando o <code>null
 	 * </code> si se est� creando una nueva.
 	 */
 	public RefactoringWizardPage6(DynamicRefactoringDefinition refactoring) {
@@ -288,8 +288,8 @@ public class RefactoringWizardPage6 extends WizardPage {
 	}
 
 	/**
-	 * Puebla los campos del formulario del asistente con la informaci�n que se
-	 * pueda obtener de la refactorizaci�n existente que se est� editando.
+	 * Puebla los campos del formulario del asistente con la información que se
+	 * pueda obtener de la refactorización existente que se est� editando.
 	 */
 	private void fillInRefactoringData() {
 		if (refactoring.getExamples() != null) {
@@ -316,13 +316,13 @@ public class RefactoringWizardPage6 extends WizardPage {
 	}
 
 	/**
-	 * Obtiene los ejemplos asociados a la refactorizaci�n.
+	 * Obtiene los ejemplos asociados a la refactorización.
 	 * 
 	 * @return una lista de arrays de cadenas en que cada array contiene dos
 	 *         cadenas: una con la ruta del fichero que contiene el estado del
-	 *         ejemplo antes de la refactorizaci�n, y otra con la ruta del
+	 *         ejemplo antes de la refactorización, y otra con la ruta del
 	 *         fichero que contiene el estado del ejemplo despu�s de la
-	 *         refactorizaci�n.
+	 *         refactorización.
 	 */
 	public List<RefactoringExample> getExamples() {
 		List<RefactoringExample> examples = new ArrayList<RefactoringExample>();
@@ -341,7 +341,7 @@ public class RefactoringWizardPage6 extends WizardPage {
 
 	/**
 	 * Se asegura de que ambos ejemplos est�n completos o vac�os, es decir, no
-	 * se admite la asociaci�n de solo uno de los dos ficheros que componen el
+	 * se admite la asociación de solo uno de los dos ficheros que componen el
 	 * ejemplo.
 	 */
 	private void dialogChanged() {
@@ -434,8 +434,8 @@ public class RefactoringWizardPage6 extends WizardPage {
 		}
 
 		/**
-		 * Recibe una notificaci�n de que se ha pulsado el bot�n que permite
-		 * seleccionar un fichero de ejemplo asociado a la refactorizaci�n.
+		 * Recibe una notificación de que se ha pulsado el bot�n que permite
+		 * seleccionar un fichero de ejemplo asociado a la refactorización.
 		 * 
 		 * <p>
 		 * Abre una ventana de selecci�n de fichero con un filtro que permite

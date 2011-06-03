@@ -30,22 +30,22 @@ import refactoring.engine.Predicate;
 import repository.moon.concretefunction.FormalArgCollector;
 
 /**
- * Permite verificar que no existe ningun par�metro formal cuyo nombre coincida
- * con el indicado, dentro de la signatura de un m�todo.
+ * Permite verificar que no existe ningun parámetro formal cuyo nombre coincida
+ * con el indicado, dentro de la signatura de un método.
  *
  * @author <A HREF="mailto:ehp0001@alu.ubu.es">Enrique Herrero Paredes</A>
- * @author <A HREF="mailto:alc0022@alu.ubu.es">�ngel L�pez Campo</A>
+ * @author <A HREF="mailto:alc0022@alu.ubu.es">Ángel López Campo</A>
  * @author <A HREF="mailto:sfd0009@alu.ubu.es">Sonia Fuente de la Fuente</A>
  */ 
 public class HasNotFormalArgWithName extends Predicate {
 	
 	/**
-	 * M�todo en el que se busca un par�metro con cierto nombre.
+	 * Método en el que se busca un parámetro con cierto nombre.
 	 */
 	private MethDec methDec;
 	
 	/**
-	 * Nombre del par�metro cuya presencia en un m�todo se quiere comprobar.
+	 * Nombre del parámetro cuya presencia en un método se quiere comprobar.
 	 */
 	private Name name;
 	
@@ -54,8 +54,8 @@ public class HasNotFormalArgWithName extends Predicate {
 	 *
 	 * Obtiene una nueva instancia del predicado HasNotFormalArgWithName.
 	 *
-	 * @param methDec el m�todo en que se busca el par�metro.
-	 * @param newname el nombre con el que se busca un par�metro en el m�todo.
+	 * @param methDec el método en que se busca el parámetro.
+	 * @param newname el nombre con el que se busca un parámetro en el método.
 	 */
 	public HasNotFormalArgWithName(MethDec methDec, Name newname) {
 		
@@ -71,7 +71,7 @@ public class HasNotFormalArgWithName extends Predicate {
 	/**
 	 * Comprueba el valor de verdad del predicado.
 	 * 
-	 * @return <code>true</code> si no existe el par�metro en el m�todo 
+	 * @return <code>true</code> si no existe el parámetro en el método 
 	 * especificado; <code>false</code> en caso contrario.
 	 */	 
 	public boolean isValid() {

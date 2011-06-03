@@ -38,7 +38,7 @@ import repository.moon.MOONRefactoring;
  * Adds the JUnit4 annotations. For example, @Test,
  * @Before and @After depending on the name convention.
  * 
- * @author Ra�l Marticorena
+ * @author Raúl Marticorena
  *
  */
 public class AddJUnit4Annotation extends Action{
@@ -66,7 +66,7 @@ public class AddJUnit4Annotation extends Action{
 	/**
 	 * Constructor.
 	 * 
-	 * @param jcd Clase en la que se a�adir� la anotaci�n.
+	 * @param jcd Clase en la que se a�adir� la anotación.
 	 */
 	public AddJUnit4Annotation(ClassDef jcd){
 		this.javaClassDef = (JavaClassDef) jcd;

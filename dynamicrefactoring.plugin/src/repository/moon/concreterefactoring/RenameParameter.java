@@ -31,19 +31,19 @@ import repository.moon.concretepredicate.HasNotFormalArgWithName;
 import repository.moon.concretepredicate.NotExistsLocalDecWithName;
 
 /**
- * Permite renombrar un par�metro formal dentro de la signatura de un m�todo
+ * Permite renombrar un parámetro formal dentro de la signatura de un método
  * perteneciente a una clase de un modelo.<p>
  *
- * Comprueba que exista el par�metro que se desea renombrar, que no exista ya 
- * otro par�metro en el m�todo con el nuevo nombre y que no existen variables 
- * locales a ese m�todo con nombre igual al nuevo.<p>
+ * Comprueba que exista el parámetro que se desea renombrar, que no exista ya 
+ * otro parámetro en el método con el nuevo nombre y que no existen variables 
+ * locales a ese método con nombre igual al nuevo.<p>
  *
- * Si la comprobaci�n no falla, lleva a cabo el renombrado.<p>
+ * Si la comprobación no falla, lleva a cabo el renombrado.<p>
  *
  * Finalmente, comprueba que el renombrado se ha llevado a cabo con �xito.
  *
  * @author <A HREF="mailto:ehp0001@alu.ubu.es">Enrique Herrero Paredes</A>
- * @author <A HREF="mailto:alc0022@alu.ubu.es">�ngel L�pez Campo</A>
+ * @author <A HREF="mailto:alc0022@alu.ubu.es">Ángel López Campo</A>
  * @author <A HREF="mailto:sfd0009@alu.ubu.es">Sonia Fuente de la Fuente</A>
  */
 public class RenameParameter extends MOONRefactoring {
@@ -59,9 +59,9 @@ public class RenameParameter extends MOONRefactoring {
 	 * Obtiene una nueva instancia de RenameParameter.
 	 *
 	 * @param newname el nuevo nombre que se le va a dar al argumento formal.
-	 * @param formalArg el par�metro que se desea renombrar.
-	 * @param meth el m�todo que contiene el par�metro que se desea renombrar.
-	 * @param model el modelo sobre el que se ejecuta la refactorizaci�n.
+	 * @param formalArg el parámetro que se desea renombrar.
+	 * @param meth el método que contiene el parámetro que se desea renombrar.
+	 * @param model el modelo sobre el que se ejecuta la refactorización.
 	 */
 	public RenameParameter(Name newname, FormalArgument formalArg, MethDec meth,
 		Model model) {

@@ -24,11 +24,11 @@ import org.eclipse.jdt.core.IJavaElement;
 
 /**
  * Proporciona funciones que permiten manejar un elemento Java en general 
- * tal y como lo define Eclipse en su representación interna.
+ * tal y como lo define Eclipse en su representaciÃ³n interna.
  * 
  * <p>Los elementos Java pueden representar cualquier tipo de componente que
  * forme parte de un proyecto Java en Eclipse, como un proyecto, un paquete,
- * una clase, un método, etc.</p>.
+ * una clase, un mÃ©todo, etc.</p>.
  * 
  * @author <A HREF="mailto:sfd0009@alu.ubu.es">Sonia Fuente de la Fuente</A>
  * @author <A HREF="mailto:ehp0001@alu.ubu.es">Enrique Herrero Paredes</A>

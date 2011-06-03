@@ -30,17 +30,17 @@ import moon.core.instruction.Instr;
 import refactoring.engine.Function;
 
 /**
- * Permite obtener todas las instrucciones de un m�todo determinado, separando
+ * Permite obtener todas las instrucciones de un método determinado, separando
  * las instrucciones compuestas en sus componentes simples.
  *
  * @author <A HREF="mailto:ehp0001@alu.ubu.es">Enrique Herrero Paredes</A>
- * @author <A HREF="mailto:alc0022@alu.ubu.es">�ngel L�pez Campo</A>
+ * @author <A HREF="mailto:alc0022@alu.ubu.es">Ángel López Campo</A>
  * @author <A HREF="mailto:sfd0009@alu.ubu.es">Sonia Fuente de la Fuente</A>
  */ 
 public class MethodInstructionsCollector extends Function {
 	
 	/**
-	 * M�todo cuyas instrucciones se desea obtener.
+	 * Método cuyas instrucciones se desea obtener.
 	 */
 	private MethDec methDec;
 	
@@ -49,7 +49,7 @@ public class MethodInstructionsCollector extends Function {
 	 *
 	 * Devuelve una nueva instancia de MethodInstructionsCollector.
 	 *
-	 * @param methDec el m�todo cuyas instrucciones se quiere obtener.
+	 * @param methDec el método cuyas instrucciones se quiere obtener.
 	 */
 	public MethodInstructionsCollector(MethDec methDec) {		
 		super();
@@ -58,7 +58,7 @@ public class MethodInstructionsCollector extends Function {
 	}
 
 	/**
-	 * Sin implementaci�n.
+	 * Sin implementación.
 	 *
 	 * @return null.
 	 */
@@ -67,9 +67,9 @@ public class MethodInstructionsCollector extends Function {
 	}
 		
 	/**
-	 * Obtiene el conjunto de instrucciones simples (no compuestas) de un m�todo.
+	 * Obtiene el conjunto de instrucciones simples (no compuestas) de un método.
 	 *
-	 * @return El conjunto de instrucciones simples (no compuestas) del m�todo.
+	 * @return El conjunto de instrucciones simples (no compuestas) del método.
 	 */
 	public Collection<Instr> getCollection() {
 		Collection<Instr> collectedInstructions = new Vector<Instr>(10,1);

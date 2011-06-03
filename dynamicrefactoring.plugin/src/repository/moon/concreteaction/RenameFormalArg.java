@@ -26,32 +26,32 @@ import refactoring.engine.Action;
 import repository.RelayListenerRegistry;
 
 /**
- * Permite renombrar un argumento formal de un m�todo en una representaci�n MOON
+ * Permite renombrar un argumento formal de un método en una representación MOON
  * de un modelo Java.
  *
  * @author <A HREF="mailto:ehp0001@alu.ubu.es">Enrique Herrero Paredes</A>
- * @author <A HREF="mailto:alc0022@alu.ubu.es">�ngel L�pez Campo</A>
+ * @author <A HREF="mailto:alc0022@alu.ubu.es">Ángel López Campo</A>
  * @author <A HREF="mailto:sfd0009@alu.ubu.es">Sonia Fuente de la Fuente</A>
  */ 
 public class RenameFormalArg extends Action {
 
 	/**
-	 * Par�metro formal que se debe renombrar.
+	 * Parámetro formal que se debe renombrar.
 	 */
 	private FormalArgument formalArg;
 		
 	/**
-	 * Nuevo nombre que se dar� al par�metro.
+	 * Nuevo nombre que se dar� al parámetro.
 	 */
 	private Name newName;
 	
 	/**
-	 * Nombre del par�metro antes del renombrado.
+	 * Nombre del parámetro antes del renombrado.
 	 */
 	private Name originalName;
 	
 	/**
-	 * Receptor de los mensajes enviados por la acci�n concreta.
+	 * Receptor de los mensajes enviados por la acción concreta.
 	 */
 	private RelayListenerRegistry listenerReg;
 		
@@ -60,8 +60,8 @@ public class RenameFormalArg extends Action {
 	 *
 	 * Obtiene una nueva instancia de RenameFormalArg.
 	 *
-	 * @param formalArg el par�metro cuyo nombre se desea cambiar.
-	 * @param newName el nuevo nombre que se dar� al par�metro.
+	 * @param formalArg el parámetro cuyo nombre se desea cambiar.
+	 * @param newName el nuevo nombre que se dar� al parámetro.
 	 */	
 	public RenameFormalArg(FormalArgument formalArg, Name newName){	
 		super();
@@ -74,7 +74,7 @@ public class RenameFormalArg extends Action {
 	}
 	
 	/**
-	 * Ejecuta el renombrado del par�metro formal.
+	 * Ejecuta el renombrado del parámetro formal.
 	 */
 	public void run() {		
 		listenerReg.notify("# run():RenameFormalArg #"); //$NON-NLS-1$

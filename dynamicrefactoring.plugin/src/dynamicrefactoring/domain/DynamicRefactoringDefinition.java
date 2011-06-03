@@ -42,10 +42,10 @@ import dynamicrefactoring.domain.metadata.interfaces.ClassificationsCatalog;
 import dynamicrefactoring.domain.metadata.interfaces.Element;
 
 /**
- * Contiene la definici�n de una refactorizaci�n din�mica.
+ * Contiene la definición de una refactorización din�mica.
  * 
- * @author <A HREF="mailto:alc0022@alu.ubu.es">�ngel L�pez Campo</A>
- * @author <A HREF="mailto:epf0006@alu.ubu.es">Eduardo Pe�a Fern�ndez</A>
+ * @author <A HREF="mailto:alc0022@alu.ubu.es">Ángel López Campo</A>
+ * @author <A HREF="mailto:epf0006@alu.ubu.es">Eduardo Peña Fernández</A>
  * @author <A HREF="mailto:sfd0009@alu.ubu.es">Sonia Fuente de la Fuente</A>
  * @author <A HREF="mailto:ehp0001@alu.ubu.es">Enrique Herrero Paredes</A>
  */
@@ -53,47 +53,47 @@ public class DynamicRefactoringDefinition implements Element,
 		Comparable<DynamicRefactoringDefinition> {
 
 	/**
-	 * Nombre de la refactorizaci�n.
+	 * Nombre de la refactorización.
 	 */
 	private String name;
 
 	/**
-	 * Descripci�n de la refactorizaci�n.
+	 * Descripci�n de la refactorización.
 	 */
 	private String description;
 
 	/**
-	 * Ruta de la imagen asociada a la refactorizaci�n.
+	 * Ruta de la imagen asociada a la refactorización.
 	 */
 	private String image;
 
 	/**
-	 * Motivaci�n de la refactorizaci�n.
+	 * Motivación de la refactorización.
 	 */
 	private String motivation;
 
 	/**
-	 * Las entradas que debe proporcionar el usuario a la refactorizaci�n.
+	 * Las entradas que debe proporcionar el usuario a la refactorización.
 	 */
 	private List<InputParameter> inputs;
 
 	/**
-	 * Los nombres de las precondiciones de la refactorizaci�n.
+	 * Los nombres de las precondiciones de la refactorización.
 	 */
 	private List<RefactoringMechanismInstance> preconditions;
 
 	/**
-	 * Los nombres de las acciones de la refactorizaci�n.
+	 * Los nombres de las acciones de la refactorización.
 	 */
 	private List<RefactoringMechanismInstance> actions;
 
 	/**
-	 * Los nombres de las postcondiciones de la refactorizaci�n.
+	 * Los nombres de las postcondiciones de la refactorización.
 	 */
 	private List<RefactoringMechanismInstance> postconditions;
 
 	/**
-	 * Los ejemplos de esta refactorizaci�n.
+	 * Los ejemplos de esta refactorización.
 	 */
 	private List<RefactoringExample> examples;
 
@@ -131,9 +131,9 @@ public class DynamicRefactoringDefinition implements Element,
 	}
 	
 	/**
-	 * Devuelve el nombre de la refactorizaci�n.
+	 * Devuelve el nombre de la refactorización.
 	 * 
-	 * @return una cadena con el nombre de la refactorizaci�n.
+	 * @return una cadena con el nombre de la refactorización.
 	 * 
 	 * @see #setName
 	 */
@@ -142,7 +142,7 @@ public class DynamicRefactoringDefinition implements Element,
 	}
 
 	/**
-	 * Devuelve la descripci�n de la refactorizaci�n.
+	 * Devuelve la descripci�n de la refactorización.
 	 * 
 	 * @return una cadena con la descripci�n.
 	 * 
@@ -153,7 +153,7 @@ public class DynamicRefactoringDefinition implements Element,
 	}
 
 	/**
-	 * Devuelve la ruta de la imagen asociada a la refactorizaci�n.
+	 * Devuelve la ruta de la imagen asociada a la refactorización.
 	 * 
 	 * @return una cadena con la ruta a la imagen.
 	 * 
@@ -165,9 +165,9 @@ public class DynamicRefactoringDefinition implements Element,
 
 	/**
 	 * Devuelve las entradas que se deben solicitar al usuario para construir la
-	 * refactorizaci�n.
+	 * refactorización.
 	 * 
-	 * @return una lista de <i>arrays</i> de cadenas con la informaci�n de esas
+	 * @return una lista de <i>arrays</i> de cadenas con la información de esas
 	 *         entradas.
 	 * 
 	 * @see #setInputs
@@ -189,7 +189,7 @@ public class DynamicRefactoringDefinition implements Element,
 
 	/**
 	 * Devuelve las entradas que se deben solicitar al usuario para construir la
-	 * refactorizaci�n en una tabla asociativa de tipo <i>hash</i> que permite
+	 * refactorización en una tabla asociativa de tipo <i>hash</i> que permite
 	 * encontrar la entrada con un nombre determinado de forma f�cil.
 	 * 
 	 * @return un mapa asociativo <i>hash</i> organizado de tal modo que las
@@ -203,16 +203,16 @@ public class DynamicRefactoringDefinition implements Element,
 		HashMap<String, InputParameter> map = new HashMap<String, InputParameter>();
 
 		for (InputParameter input : inputs)
-			// El nombre es el segundo atributo (posici�n 1 del array).
+			// El nombre es el segundo atributo (posición 1 del array).
 			map.put(input.getName(), input);
 
 		return map;
 	}
 
 	/**
-	 * Devuelve la motivaci�n de la refactorizaci�n.
+	 * Devuelve la motivación de la refactorización.
 	 * 
-	 * @return una cadena con la motivaci�n de la refactorizaci�n.
+	 * @return una cadena con la motivación de la refactorización.
 	 * 
 	 * @see #setMotivation
 	 */
@@ -221,7 +221,7 @@ public class DynamicRefactoringDefinition implements Element,
 	}
 
 	/**
-	 * Devuelve los nombres de las precondiciones de la refactorizaci�n.
+	 * Devuelve los nombres de las precondiciones de la refactorización.
 	 * 
 	 * @return un <code>List</code> de cadenas con los nombres.
 	 * 
@@ -232,7 +232,7 @@ public class DynamicRefactoringDefinition implements Element,
 	}
 
 	/**
-	 * Devuelve los nombres de las acciones de la refactorizaci�n.
+	 * Devuelve los nombres de las acciones de la refactorización.
 	 * 
 	 * @return un <code>List</code> de mecanismos con los nombres.
 	 * 
@@ -243,7 +243,7 @@ public class DynamicRefactoringDefinition implements Element,
 	}
 
 	/**
-	 * Devuelve los nombres de las postcondiciones de la refactorizaci�n.
+	 * Devuelve los nombres de las postcondiciones de la refactorización.
 	 * 
 	 * @return un <code>List</code> de cadenas con los nombres.
 	 * 
@@ -254,7 +254,7 @@ public class DynamicRefactoringDefinition implements Element,
 	}
 
 	/**
-	 * Devuelve los ejemplos de la refactorizaci�n.
+	 * Devuelve los ejemplos de la refactorización.
 	 * 
 	 * @return una lista de arrays de cadenas con los atributos de cada ejemplo.
 	 * 
@@ -416,7 +416,7 @@ public class DynamicRefactoringDefinition implements Element,
 	}
 
 	/**
-	 * Obtiene el conjunto de palabras claves que describen la refactorizaci�n.
+	 * Obtiene el conjunto de palabras claves que describen la refactorización.
 	 * 
 	 * @return conjunto de palabras claves
 	 */
@@ -709,7 +709,7 @@ public class DynamicRefactoringDefinition implements Element,
 
 		/**
 		 * Asigna el conjunto de palabras claves que describen la
-		 * refactorizaci�n.
+		 * refactorización.
 		 * 
 		 * @param keywords
 		 *            conjunto de palabras clave
@@ -721,14 +721,14 @@ public class DynamicRefactoringDefinition implements Element,
 		}
 
 		/**
-		 * Establece los ejemplos a la refactorizaci�n.
+		 * Establece los ejemplos a la refactorización.
 		 * 
 		 * @param list
 		 *            lista de arrays de cadenas con los atributos de cada
 		 *            ejemplo. Cada array de cadenas contendr� dos cadenas, una
 		 *            con la ruta del fichero que contiene el estado del ejemplo
-		 *            antes de la refactorizaci�n, y otra con la ruta del que
-		 *            contiene el estado despu�s de la refactorizaci�n.
+		 *            antes de la refactorización, y otra con la ruta del que
+		 *            contiene el estado despu�s de la refactorización.
 		 * @return devuelve el builder con el nuevo parametro
 		 * 
 		 * @see #getExamples
@@ -753,7 +753,7 @@ public class DynamicRefactoringDefinition implements Element,
 		}
 
 		/**
-		 * Asigna la descripci�n de la refactorizaci�n.
+		 * Asigna la descripci�n de la refactorización.
 		 * 
 		 * @param description
 		 *            una cadena con la descripci�n.
@@ -767,7 +767,7 @@ public class DynamicRefactoringDefinition implements Element,
 		}
 
 		/**
-		 * Asigna la ruta de la imagen asociada a la refactorizaci�n.
+		 * Asigna la ruta de la imagen asociada a la refactorización.
 		 * 
 		 * @param image
 		 *            una cadena con la ruta a la imagen.
@@ -781,10 +781,10 @@ public class DynamicRefactoringDefinition implements Element,
 		}
 
 		/**
-		 * Establece la motivaci�n de la refactorizaci�n.
+		 * Establece la motivación de la refactorización.
 		 * 
 		 * @param motivation
-		 *            una cadena con la motivaci�n de la refactorizaci�n.
+		 *            una cadena con la motivación de la refactorización.
 		 * @return devuelve el builder con el nuevo parametro
 		 * 
 		 * @see #getMotivation
@@ -796,10 +796,10 @@ public class DynamicRefactoringDefinition implements Element,
 
 		/**
 		 * Asigna las entradas que se deben solicitar al usuario para construir
-		 * la refactorizaci�n.
+		 * la refactorización.
 		 * 
 		 * @param inputs
-		 *            lista de cadenas con la informaci�n de esas entradas.
+		 *            lista de cadenas con la información de esas entradas.
 		 * @return devuelve el builder con el nuevo parametro
 		 * 
 		 * @see #getInputs
@@ -810,7 +810,7 @@ public class DynamicRefactoringDefinition implements Element,
 		}
 
 		/**
-		 * Establece los nombres de las precondiciones de la refactorizaci�n.
+		 * Establece los nombres de las precondiciones de la refactorización.
 		 * 
 		 * @param preconditions
 		 *            lista de cadenas con los nombres de las precondiciones.
@@ -825,7 +825,7 @@ public class DynamicRefactoringDefinition implements Element,
 		}
 
 		/**
-		 * Establece los nombres de las acciones de la refactorizaci�n.
+		 * Establece los nombres de las acciones de la refactorización.
 		 * 
 		 * @param actions
 		 *            lista de cadenas con los nombres de las acciones.
@@ -839,7 +839,7 @@ public class DynamicRefactoringDefinition implements Element,
 		}
 
 		/**
-		 * Establece los nombres de las postcondiciones de la refactorizaci�n.
+		 * Establece los nombres de las postcondiciones de la refactorización.
 		 * 
 		 * @param postconditions
 		 *            lista de cadenas con los nombres de las postcondiciones.

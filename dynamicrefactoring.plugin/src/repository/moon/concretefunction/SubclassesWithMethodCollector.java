@@ -31,10 +31,10 @@ import refactoring.engine.Function;
 import repository.moon.MOONRefactoring;
 
 /**
- * Permite obtener las subclases a una clase dada que redefinan un cierto m�todo.
+ * Permite obtener las subclases a una clase dada que redefinan un cierto método.
  *
  * @author <A HREF="mailto:ehp0001@alu.ubu.es">Enrique Herrero Paredes</A>
- * @author <A HREF="mailto:alc0022@alu.ubu.es">�ngel L�pez Campo</A>
+ * @author <A HREF="mailto:alc0022@alu.ubu.es">Ángel López Campo</A>
  * @author <A HREF="mailto:sfd0009@alu.ubu.es">Sonia Fuente de la Fuente</A>
  */ 
 public class SubclassesWithMethodCollector extends Function {
@@ -45,7 +45,7 @@ public class SubclassesWithMethodCollector extends Function {
 	private ClassDef classDef;
 	
 	/**
-	 * El nombre �nico del m�todo cuyo equivalente en una subclase se busca.
+	 * El nombre único del método cuyo equivalente en una subclase se busca.
 	 */
 	private String methodUniqueName;
 				
@@ -55,7 +55,7 @@ public class SubclassesWithMethodCollector extends Function {
 	 * Obtiene una nueva instancia de SubclassesWithMethodCollector.
 	 *
 	 * @param classDef la clase cuyas subclases se van a explorar.
-	 * @param uniqueName el nombre �nico del m�todo cuyo equivalente se busca.
+	 * @param uniqueName el nombre único del método cuyo equivalente se busca.
 	 */
 	public SubclassesWithMethodCollector(ClassDef classDef, String uniqueName) {
 		
@@ -65,8 +65,8 @@ public class SubclassesWithMethodCollector extends Function {
 
 	/**
 	 * Obtiene las clases que se encuentra al recorrer hacia abajo la
-	 * jerarqu�a de herencia a partir de la clase <code>classDef</code>, y que
-	 * contengan un cierto m�todo.
+	 * jerarquía de herencia a partir de la clase <code>classDef</code>, y que
+	 * contengan un cierto método.
 	 *
 	 * @return Las clases encontradas, o null si no se encontr� ninguna.
 	 */ 
@@ -109,7 +109,7 @@ public class SubclassesWithMethodCollector extends Function {
 	}
 	
 	/**
-	 * Sin implementaci�n.
+	 * Sin implementación.
 	 *
 	 * @return null.
 	 */

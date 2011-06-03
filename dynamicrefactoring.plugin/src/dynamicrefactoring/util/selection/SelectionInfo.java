@@ -38,7 +38,7 @@ import dynamicrefactoring.util.io.JavaFileManager;
 
 /**
  * Proporciona funciones capaces de determinar el tipo de elemento que se
- * encuentra seleccionado en una ventana y otra información adicional relativa
+ * encuentra seleccionado en una ventana y otra informaciÃ³n adicional relativa
  * al mismo.
  * 
  * @author <A HREF="mailto:sfd0009@alu.ubu.es">Sonia Fuente de la Fuente</A>
@@ -47,31 +47,31 @@ import dynamicrefactoring.util.io.JavaFileManager;
 public abstract class SelectionInfo {
 
 	/**
-	 * Constante que representa una declaración de argumento formal.
+	 * Constante que representa una declaraciÃ³n de argumento formal.
 	 * 
 	 * @see IJavaElement#LOCAL_VARIABLE
 	 */
 	public static final int FORMAL_ARGUMENT = -1;
 
 	/**
-	 * Constante que representa una declaración de variable local.
+	 * Constante que representa una declaraciÃ³n de variable local.
 	 * 
 	 * @see IJavaElement#LOCAL_VARIABLE
 	 */
 	public static final int LOCAL_VARIABLE = -2;
 
 	/**
-	 * Selección genérica cuya información se desea consultar.
+	 * Selecciï¿½n genÃ©rica cuya informaciÃ³n se desea consultar.
 	 */
 	private ISelection selection;
 
 	/**
-	 * Ventana del espacio de trabajo sobre la que se ha hecho la selección.
+	 * Ventana del espacio de trabajo sobre la que se ha hecho la selecciï¿½n.
 	 */
 	protected IWorkbenchWindow window;
 
 	/**
-	 * Nombre completamente cualificado del tipo de selección.
+	 * Nombre completamente cualificado del tipo de selecciï¿½n.
 	 */
 	protected String selectionName;
 	
@@ -81,7 +81,7 @@ public abstract class SelectionInfo {
 	protected final static String TYPE_NAME = "org.eclipse.jdt.internal.core.SourceType"; //$NON-NLS-1$
 
 	/**
-	 * Nombre completamente cualificado del elemento "Método" o "Función".
+	 * Nombre completamente cualificado del elemento "MÃ©todo" o "Funciï¿½n".
 	 */
 	protected final static String METHOD_NAME = "org.eclipse.jdt.internal.core.SourceMethod"; //$NON-NLS-1$
 	
@@ -91,7 +91,7 @@ public abstract class SelectionInfo {
 	protected final static String FIELD_NAME = "org.eclipse.jdt.internal.core.SourceField"; //$NON-NLS-1$
 
 	/**
-	 * Nombre completamente cualificado del elemento "Parámetro formal".
+	 * Nombre completamente cualificado del elemento "ParÃ¡metro formal".
 	 */
 	protected final static String PARAMETER_NAME = "org.eclipse.jdt.internal.core.TypeParameter"; //$NON-NLS-1$
 	
@@ -104,9 +104,9 @@ public abstract class SelectionInfo {
 	 * Constructor.
 	 * 
 	 * @param selection
-	 *            la selección sobre la que se desea obtener información.
+	 *            la selecciï¿½n sobre la que se desea obtener informaciÃ³n.
 	 * @param window
-	 *            la ventana sobre la que se ha efectuado la selección.
+	 *            la ventana sobre la que se ha efectuado la selecciï¿½n.
 	 */
 	public SelectionInfo (ISelection selection, 
 		IWorkbenchWindow window){
@@ -118,7 +118,7 @@ public abstract class SelectionInfo {
 
 	/**
 	 * Determina el tipo de elemento seleccionado en una ventana. Solo tiene en
-	 * consideración los tipos indicados por {@link #TYPE_NAME},
+	 * consideraciÃ³n los tipos indicados por {@link #TYPE_NAME},
 	 * {@link #METHOD_NAME}, {@link #FIELD_NAME}, {@link #PARAMETER_NAME} y
 	 * {@link #FORMAL_ARGUMENT_NAME}.
 	 * 
@@ -129,12 +129,12 @@ public abstract class SelectionInfo {
 	public abstract String getSelectionType();
 
 	/**
-	 * Comprueba si el nombre completamente cualificado de tipo de selección se
-	 * corresponde con alguno de los tipos de selección válidos como entrada
-	 * para la herramienta de refactorización.
+	 * Comprueba si el nombre completamente cualificado de tipo de selecciï¿½n se
+	 * corresponde con alguno de los tipos de selecciï¿½n vï¿½lidos como entrada
+	 * para la herramienta de refactorizaciÃ³n.
 	 * 
 	 * @return <code>true</code> si es uno de los tipos contemplados como
-	 *         válidos; <code>false</code> en caso contrario.
+	 *         vï¿½lidos; <code>false</code> en caso contrario.
 	 */
 	public boolean isValidSelectionType(){
 		ArrayList<String> validTypes = new ArrayList<String>();
@@ -150,7 +150,7 @@ public abstract class SelectionInfo {
 	}
 
 	/**
-	 * Comprueba si el nombre completamente cualificado del tipo de la selección
+	 * Comprueba si el nombre completamente cualificado del tipo de la selecciï¿½n
 	 * corresponde a un atributo seleccionado.
 	 * 
 	 * @return <code>true</code> si se trata de un atributo seleccionado;
@@ -161,10 +161,10 @@ public abstract class SelectionInfo {
 	}
 
 	/**
-	 * Comprueba si un nombre completamente cualificado del tipo de la selección
-	 * corresponde a un método seleccionado.
+	 * Comprueba si un nombre completamente cualificado del tipo de la selecciï¿½n
+	 * corresponde a un mÃ©todo seleccionado.
 	 * 
-	 * @return <code>true</code> si se trata de un método seleccionado;
+	 * @return <code>true</code> si se trata de un mÃ©todo seleccionado;
 	 *         <code>false</code> en caso contrario.
 	 */
 	public boolean isMethodSelection(){
@@ -172,7 +172,7 @@ public abstract class SelectionInfo {
 	}
 
 	/**
-	 * Comprueba si un nombre completamente cualificado del tipo de la selección
+	 * Comprueba si un nombre completamente cualificado del tipo de la selecciï¿½n
 	 * corresponde a una clase seleccionada.
 	 * 
 	 * @return <code>true</code> si se trata de una clase seleccionada;
@@ -183,21 +183,21 @@ public abstract class SelectionInfo {
 	}
 
 	/**
-	 * Comprueba si un nombre completamente cualificado del tipo de la selección
-	 * corresponde a un argumento formal de un método seleccionado.
+	 * Comprueba si un nombre completamente cualificado del tipo de la selecciï¿½n
+	 * corresponde a un argumento formal de un mÃ©todo seleccionado.
 	 * 
 	 * @return <code>true</code> si se trata de un argumento formal de un
-	 *         método; <code>false</code> en caso contrario.
+	 *         mÃ©todo; <code>false</code> en caso contrario.
 	 */
 	public boolean isFormalArgumentSelection(){
 		return (getSelectionType().equals(FORMAL_ARGUMENT_NAME));
 	}
 
 	/**
-	 * Comprueba si un nombre completamente cualificado del tipo de la selección
-	 * corresponde a un parámetro formal.
+	 * Comprueba si un nombre completamente cualificado del tipo de la selecciï¿½n
+	 * corresponde a un parÃ¡metro formal.
 	 * 
-	 * @return <code>true</code> si se trata de un parámetro formal;
+	 * @return <code>true</code> si se trata de un parÃ¡metro formal;
 	 *         <code>false</code> en caso contrario.
 	 */
 	public boolean isFormalParameterSelection(){
@@ -205,9 +205,9 @@ public abstract class SelectionInfo {
 	}
 
 	/**
-	 * Comprueba si la selección es parte de una representación en árbol.
+	 * Comprueba si la selecciï¿½n es parte de una representaciÃ³n en ï¿½rbol.
 	 * 
-	 * @return <code>true</code> si se trata de una selección en un árbol;
+	 * @return <code>true</code> si se trata de una selecciï¿½n en un ï¿½rbol;
 	 *         <code>false</code> en caso contrario.
 	 */
 	public boolean isTreeSelection(){
@@ -215,9 +215,9 @@ public abstract class SelectionInfo {
 	}
 
 	/**
-	 * Comprueba si la selección es parte de una representación textual.
+	 * Comprueba si la selecciï¿½n es parte de una representaciÃ³n textual.
 	 * 
-	 * @return <code>true</code> si se trata de una selección de texto;
+	 * @return <code>true</code> si se trata de una selecciï¿½n de texto;
 	 *         <code>false</code> en caso contrario.
 	 */
 	public boolean isTextSelection(){
@@ -260,7 +260,7 @@ public abstract class SelectionInfo {
 	 * Obtiene la lista de directorios de fuentes del proyecto al que pertenece
 	 * el elemento seleccionado.
 	 * 
-	 * Método plantilla (patrón de diseño Método Plantilla).
+	 * MÃ©todo plantilla (patrï¿½n de diseï¿½o MÃ©todo Plantilla).
 	 * 
 	 * @return la lista de directorios de fuentes del proyecto al que pertenece
 	 *         el elemento seleccionado.
@@ -286,21 +286,21 @@ public abstract class SelectionInfo {
 	}
 
 	/**
-	 * Obtiene el proyecto al que pertenece la selección actual como un <code>
+	 * Obtiene el proyecto al que pertenece la selecciï¿½n actual como un <code>
 	 * IJavaElement</code>, de manera que se pueda manejar aprovechando las
 	 * posibilidades de Eclipse para el manejo de elementos Java.
 	 * 
-	 * Operación primitiva (patrón de diseño Método Plantilla).
+	 * OperaciÃ³n primitiva (patrï¿½n de diseï¿½o MÃ©todo Plantilla).
 	 * 
-	 * @return el proyecto al que pertenece la selección actual como un <code>
+	 * @return el proyecto al que pertenece la selecciï¿½n actual como un <code>
 	 * IJavaElement</code>.
 	 */
 	public abstract IJavaProject getJavaProjectForSelection();
 
 	/**
-	 * Obtiene la selección asociada al procesador de información.
+	 * Obtiene la selecciï¿½n asociada al procesador de informaciÃ³n.
 	 * 
-	 * @return la selección asociada al procesador de información.
+	 * @return la selecciï¿½n asociada al procesador de informaciÃ³n.
 	 */
 	public ISelection getSelection(){
 		return selection;

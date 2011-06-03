@@ -32,8 +32,8 @@ import com.google.common.base.Throwables;
  * refactorizaciones din�micas.
  * 
  * @author <A HREF="mailto:lfd0002@alu.ubu.es">Laura Fuente de la Fuente</A>
- * @author <A HREF="mailto:alc0022@alu.ubu.es">�ngel L�pez Campo</A>
- * @author <A HREF="mailto:epf0006@alu.ubu.es">Eduardo Pe�a Fern�ndez</A>
+ * @author <A HREF="mailto:alc0022@alu.ubu.es">Ángel López Campo</A>
+ * @author <A HREF="mailto:epf0006@alu.ubu.es">Eduardo Peña Fernández</A>
  * @author <A HREF="mailto:sfd0009@alu.ubu.es">Sonia Fuente de la Fuente</A>
  * @author <A HREF="mailto:ehp0001@alu.ubu.es">Enrique Herrero Paredes</A>
  */
@@ -72,7 +72,7 @@ public class RefactoringConstants {
 
 	/**
 	 * Nombre del fichero en el que se guardan las distintas refactorizaciones
-	 * din�micas que han sido ejecutadas dentro de la aplicaci�n.
+	 * din�micas que han sido ejecutadas dentro de la aplicación.
 	 */
 	public static final String REFACTORING_PLAN_FILE = RefactoringPlugin.getCommonPluginFilesDir()
 			+ "/refactoringPlan.xml";

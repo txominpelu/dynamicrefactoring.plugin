@@ -46,29 +46,29 @@ import dynamicrefactoring.domain.DynamicRefactoringDefinition;
 import dynamicrefactoring.domain.RefactoringExample;
 
 /**
- * Pesta�a con los ejemplos de una refactorizaci�n.
+ * Pesta�a con los ejemplos de una refactorización.
  * 
  * @author <A HREF="mailto:lfd0002@alu.ubu.es">Laura Fuente de la Fuente</A>
  */
 public class DynamicExamplesTab {
 
 	/**
-	 * Pesta�a asociada a los ejemplos de la refactorizaci�n.
+	 * Pesta�a asociada a los ejemplos de la refactorización.
 	 */
 	private TabItem tab;
 
 	/**
-	 * La definici�n de la refactorizaci�n.
+	 * La definición de la refactorización.
 	 */
 	protected DynamicRefactoringDefinition refactoringDefinition;
 
 	/**
-	 * Crea la pesta�a con el resumen de la refactorizaci�n.
+	 * Crea la pesta�a con el resumen de la refactorización.
 	 * 
 	 * @param parent
 	 *            el contenedor de pesta�as que contendr� esta pesta�a.
 	 * @param definition
-	 *            la definici�n de la refactorizaci�n.
+	 *            la definición de la refactorización.
 	 */
 	public DynamicExamplesTab(TabFolder parent,
 			DynamicRefactoringDefinition definition) {
@@ -265,7 +265,7 @@ public class DynamicExamplesTab {
 
 	/**
 	 * Genera htmls mediante java2html para visualizar los ejemplos de la
-	 * refactorizaci�n en un navegador html.
+	 * refactorización en un navegador html.
 	 */
 	private void generarHTMLS() {
 		// directorio de la refactorizacion

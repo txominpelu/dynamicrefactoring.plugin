@@ -26,8 +26,8 @@ import dynamicrefactoring.domain.DynamicRefactoringDefinition;
  * Define una interfaz para las f�bricas que generan instancias que implementan
  * la interfaz <code>XMLRefactoringWriterImp</code>.
  * 
- * @author <A HREF="mailto:alc0022@alu.ubu.es">�ngel L�pez Campo</A>
- * @author <A HREF="mailto:epf0006@alu.ubu.es">Eduardo Pe�a Fern�ndez</A>
+ * @author <A HREF="mailto:alc0022@alu.ubu.es">Ángel López Campo</A>
+ * @author <A HREF="mailto:epf0006@alu.ubu.es">Eduardo Peña Fernández</A>
  * @author <A HREF="mailto:sfd0009@alu.ubu.es">Sonia Fuente de la Fuente</A>
  * @author <A HREF="mailto:ehp0001@alu.ubu.es">Enrique Herrero Paredes</A>
  */
@@ -38,7 +38,7 @@ public interface XMLRefactoringWriterFactory {
 	 * para la escritura XML de refactorizaciones definida por <code>
 	 * XMLRefactoringWriterImp</code>.
 	 * 
-	 * @param refactoringDefinition definici�n de la refactorizaci�n que se
+	 * @param refactoringDefinition definición de la refactorización que se
 	 * debe escribir.
 	 * 
 	 * @return la instancia generada.

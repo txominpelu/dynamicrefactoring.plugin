@@ -12,7 +12,7 @@ import refactoring.engine.Action;
 /**
  * Removes fail instructions.
  * 
- * @author Raúl Marticorena
+ * @author RaÃºl Marticorena
  *
  */
 public class RemoveJUnit3FailInstructions  extends Action{

@@ -28,7 +28,7 @@ import repository.java.concretepredicate.HasNotFail;
 /**
  * Collector of exception thrown by code fragment.
  * 
- * @author Ra�l Marticorena
+ * @author Raúl Marticorena
  *
  */
 public class ExceptionsThrow extends Function{

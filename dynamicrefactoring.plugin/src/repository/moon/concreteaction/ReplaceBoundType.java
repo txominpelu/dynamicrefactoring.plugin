@@ -29,7 +29,7 @@ import refactoring.engine.Action;
 import repository.RelayListenerRegistry;
 
 /**
- * Permite sustituir la acotaci�n de un par�metro formal por una acotaci�n
+ * Permite sustituir la acotación de un parámetro formal por una acotación
  * de otro tipo.
  *
  * @author <A HREF="mailto:sfd0009@alu.ubu.es">Sonia Fuente de la Fuente</A>
@@ -38,37 +38,37 @@ import repository.RelayListenerRegistry;
 public class ReplaceBoundType extends Action {
 
 	/**
-	 * Clase sobre la que sustituir la acotaci�n.
+	 * Clase sobre la que sustituir la acotación.
 	 */
 	private ClassDef classDef;
 	
 	/**
-	 * Par�metro formal cuyo tipo de acotaci�n se debe sustituir.
+	 * Parámetro formal cuyo tipo de acotación se debe sustituir.
 	 */
 	private BoundS formalPar;
 	
 	/**
-	 * Nuevo tipo de acotaci�n.
+	 * Nuevo tipo de acotación.
 	 */
 	private ClassType newBoundingType;
 	
 	/**
-	 * Tipo de acotaci�n original.
+	 * Tipo de acotación original.
 	 */
 	private ClassType oldBoundingType;
 	
 	/**
-	 * Receptor de los mensajes enviados por la acci�n concreta.
+	 * Receptor de los mensajes enviados por la acción concreta.
 	 */
 	private RelayListenerRegistry listenerReg;
 	
 	/**
 	 * Constructor.
 	 * 
-	 * @param formalPar par�metro formal cuyo tipo de acotaci�n se debe sustituir.
-	 * @param oldBoundingType el tipo de acotaci�n original.
+	 * @param formalPar parámetro formal cuyo tipo de acotación se debe sustituir.
+	 * @param oldBoundingType el tipo de acotación original.
 	 * @param newBoundingType nuevo tipo completamente instanciado por el que 
-	 * sustituir el tipo de acotaci�n original.
+	 * sustituir el tipo de acotación original.
 	 */
 	public ReplaceBoundType(FormalPar formalPar, 
 		ClassType oldBoundingType, ClassType newBoundingType) {
@@ -85,7 +85,7 @@ public class ReplaceBoundType extends Action {
 	}
 
 	/**
-	 * Ejecuta la sustituci�n de la acotaci�n del  par�metro formal.
+	 * Ejecuta la sustituci�n de la acotación del  parámetro formal.
 	 */	
 	public void run() {	
 		listenerReg.notify("# run():ReplaceBoundType #"); //$NON-NLS-1$
@@ -108,7 +108,7 @@ public class ReplaceBoundType extends Action {
 	}
 
 	/**
-	 * Deshace la sustituci�n de la acotaci�n del par�metro formal.
+	 * Deshace la sustituci�n de la acotación del parámetro formal.
 	 */
 	public void undo() {
 		listenerReg.notify("# undo():ReplaceBoundType #"); //$NON-NLS-1$

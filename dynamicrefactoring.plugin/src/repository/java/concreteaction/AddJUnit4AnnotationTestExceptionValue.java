@@ -24,7 +24,7 @@ import repository.java.concretefunction.CatchExceptionWithoutFailCollector;
  * Adds the expected=<exception> to a test method and throws
  * of other exceptions. 
  * 
- * @author Raúl Marticorena
+ * @author RaÃºl Marticorena
  *
  */
 public class AddJUnit4AnnotationTestExceptionValue extends Action {

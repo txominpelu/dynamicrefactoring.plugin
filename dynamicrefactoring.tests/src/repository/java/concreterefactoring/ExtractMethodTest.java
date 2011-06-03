@@ -254,13 +254,13 @@ public class ExtractMethodTest extends RefactoringTemplateAbstractTest{
 
 	
 	/**
-	 * Ejecuta la refactorizaci�n sobre un caso determinado.
+	 * Ejecuta la refactorización sobre un caso determinado.
 	 * 
 	 * @param dir directorio sobre el que se encuentra el caso a probar.
 	 * @param paquete paquete java de la clase sobre la que se esta probando 
-	 * 		  la refactorizaci�n.
-	 * @throws Exception Excepci�n en caso de haber alg�n problema durante
-	 * la ejecuci�n de la refactorizaci�n.
+	 * 		  la refactorización.
+	 * @throws Exception Excepci�n en caso de haber algún problema durante
+	 * la ejecuci�n de la refactorización.
 	 */
 	private void check(String dir, String paquete, String nombreClase, Fragmento fragmento) throws PreconditionException,Exception{
 		SourceLoader sourceLoader = new SourceLoader();

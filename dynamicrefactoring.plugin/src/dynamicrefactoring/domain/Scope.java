@@ -26,7 +26,7 @@ public enum Scope {
 	CLASS(ClassDef.class, Messages.SelectRefactoringWindow_ClassScope,
 			"classdef"),
 	/**
-	 * �mbito de m�todo.
+	 * �mbito de método.
 	 */
 	METHOD(MethDec.class, Messages.SelectRefactoringWindow_MethodScope,
 			"methdec"),
@@ -42,12 +42,12 @@ public enum Scope {
 			Messages.SelectRefactoringWindow_FormalArgumentScope,
 			"formalArgument"),
 	/**
-	 * �mbito de par�metro formal.
+	 * �mbito de parámetro formal.
 	 */
 	FORMAL_PAR(FormalPar.class,
 			Messages.SelectRefactoringWindow_FormalParameterScope, "formalPar"),
 	/**
-	 * �mbito de par�metro formal acotado.
+	 * �mbito de parámetro formal acotado.
 	 */
 	BOUNDED_PAR(BoundS.class,
 			Messages.SelectRefactoringWindow_BoundedParameterScope, ""),

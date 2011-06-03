@@ -42,15 +42,15 @@ import repository.moon.MOONRefactoring;
 import repository.moon.RepositoryUtils;
 
 /**
- * Permite incluir un nuevo par�metro real en las instrucciones que contengan
- * una llamada a un determinado m�todo.<p>
+ * Permite incluir un nuevo parámetro real en las instrucciones que contengan
+ * una llamada a un determinado método.<p>
  *
- * Si el par�metro real es de alguno de los tipos primitivos, le asigna su
+ * Si el parámetro real es de alguno de los tipos primitivos, le asigna su
  * valor habitual por defecto. Si es cualquier otro tipo de referencia, le 
  * asigna el valor null.
  *
  * @author <A HREF="mailto:ehp0001@alu.ubu.es">Enrique Herrero Paredes</A>
- * @author <A HREF="mailto:alc0022@alu.ubu.es">�ngel L�pez Campo</A>
+ * @author <A HREF="mailto:alc0022@alu.ubu.es">Ángel López Campo</A>
  * @author <A HREF="mailto:sfd0009@alu.ubu.es">Sonia Fuente de la Fuente</A>
  */ 
 public class AddFormalArgIntoInstructions extends Action {
@@ -63,17 +63,17 @@ public class AddFormalArgIntoInstructions extends Action {
 	/**
 	 * Identificadores de las expresiones ya analizadas, para evitar bucles debidos
 	 * a la posiblidad de que <code>leftSide</code> o <code>rightSide</code> apunten
-	 * a su vez a la expresi�n original.
+	 * a su vez a la expresión original.
 	 */
 	private ArrayList<Integer> exprIds;
 	
 	/**
-	 * El argumento formal que se ha a�adido al m�todo.
+	 * El argumento formal que se ha a�adido al método.
 	 */
 	private FormalArgument newParameter;
 	
 	/**
-	 * El m�todo a cuyas llamadas hay que incluir un nuevo argumento real.
+	 * El método a cuyas llamadas hay que incluir un nuevo argumento real.
 	 */
 	private MethDec method;
 		
@@ -83,7 +83,7 @@ public class AddFormalArgIntoInstructions extends Action {
 	private ManifestConstant defaultValue;
 	
 	/**
-	 * Receptor de los mensajes enviados por la acci�n concreta.
+	 * Receptor de los mensajes enviados por la acción concreta.
 	 */
 	private RelayListenerRegistry listenerReg;
 		
@@ -93,10 +93,10 @@ public class AddFormalArgIntoInstructions extends Action {
 	 * Obtiene una nueva instancia de <code>AddFormalArgIntoInstructions</code>.
 	 *
 	 * @param instructions las instrucciones en las que, de contener llamadas al 
-	 * m�todo, habr� que incluir un nuevo argumento real.
-	 * @param parameter el argumento formal del m�todo en cuyas llamadas hay que 
+	 * método, habr� que incluir un nuevo argumento real.
+	 * @param parameter el argumento formal del método en cuyas llamadas hay que 
 	 * incluir un nuevo argumento real correspondiente.
-	 * @param method el m�todo en cuyas llamadas se va a incluir un argumento.
+	 * @param method el método en cuyas llamadas se va a incluir un argumento.
 	 */
 	public AddFormalArgIntoInstructions(List<Instr> instructions, 
 		FormalArgument parameter, MethDec method){
@@ -111,7 +111,7 @@ public class AddFormalArgIntoInstructions extends Action {
 	}	
 	
 	/**
-	 * A�ade un argumento real a las llamadas a un m�todo.
+	 * A�ade un argumento real a las llamadas a un método.
 	 */
 	@Override
 	public void run() {
@@ -148,7 +148,7 @@ public class AddFormalArgIntoInstructions extends Action {
 	}
 
 	/**
-	 * Elimina el nuevo argumento real de las llamadas al m�todo.
+	 * Elimina el nuevo argumento real de las llamadas al método.
 	 */
 	@Override
 	public void undo() {
@@ -162,13 +162,13 @@ public class AddFormalArgIntoInstructions extends Action {
 	}
 	
 	/**
-	 * Comprueba si una expresi�n de llamada de longitud uno contiene una
-	 * llamada al m�todo especificado.
+	 * Comprueba si una expresión de llamada de longitud uno contiene una
+	 * llamada al método especificado.
 	 *
-	 * @param exp la expresi�n de llamada de longitud uno.
+	 * @param exp la expresión de llamada de longitud uno.
 	 *
-	 * @return <code>true</code> si la expresi�n contiene una llamada al
-	 * m�todo, <code>false</code> en caso contrario.
+	 * @return <code>true</code> si la expresión contiene una llamada al
+	 * método, <code>false</code> en caso contrario.
 	 */
 	private boolean checkCallExpr(CallExpr exp){
 		
@@ -192,9 +192,9 @@ public class AddFormalArgIntoInstructions extends Action {
 	}
 	
 	/**
-	 * A�ade el valor por defecto para el argumento formal en una instrucci�n.
+	 * A�ade el valor por defecto para el argumento formal en una instrucción.
 	 * 
-	 * @param instr instrucci�n en la que puede ser necesario a�adir un valor para
+	 * @param instr instrucción en la que puede ser necesario a�adir un valor para
 	 * el argumento como argumento real.
 	 */
 	private void addFormalArg(Instr instr){
@@ -210,9 +210,9 @@ public class AddFormalArgIntoInstructions extends Action {
 
 	/**
 	 * A�ade el valor por defecto para el argumento formal en las componentes 
-	 * de una instrucci�n compuesta en que sea necesario.
+	 * de una instrucción compuesta en que sea necesario.
 	 * 
-	 * @param instr instrucci�n compuesta en cuyas componentes se a�adir� el 
+	 * @param instr instrucción compuesta en cuyas componentes se a�adir� el 
 	 * nuevo argumento en caso de ser necesario.
 	 */
 	private void addFormalArg(CompoundInstr instr){
@@ -222,10 +222,10 @@ public class AddFormalArgIntoInstructions extends Action {
 	}
 
 	/**
-	 * A�ade el valor por defecto para el argumento formal en una instrucci�n de
+	 * A�ade el valor por defecto para el argumento formal en una instrucción de
 	 * llamada de longitud uno, en caso de que sea necesario.
 	 * 
-	 * @param instr instrucci�n de llamada de longitud uno.
+	 * @param instr instrucción de llamada de longitud uno.
 	 */
 	private void addFormalArg(CallInstr instr){
 		RoutineDec routine = instr.getRoutineDec();
@@ -243,10 +243,10 @@ public class AddFormalArgIntoInstructions extends Action {
 
 	
 	/**
-	 * A�ade el valor por defecto para el argumento formal en una instrucci�n de
-	 * asignaci�n, en caso de que sea necesario.
+	 * A�ade el valor por defecto para el argumento formal en una instrucción de
+	 * asignación, en caso de que sea necesario.
 	 * 
-	 * @param instr instrucci�n de asignaci�n.
+	 * @param instr instrucción de asignación.
 	 */
 	private void addFormalArg(AssignmentInstr instr){
 		
@@ -254,10 +254,10 @@ public class AddFormalArgIntoInstructions extends Action {
 	}
 	
 	/**
-	 * A�ade el valor por defecto para el argumento formal en una expresi�n de
+	 * A�ade el valor por defecto para el argumento formal en una expresión de
 	 * llamada de longitud uno, en caso de que sea necesario.
 	 * 
-	 * @param expr expresi�n de llamada de longitud uno.
+	 * @param expr expresión de llamada de longitud uno.
 	 */
 	private void addFormalArg(CallExpr expr){
 		
@@ -290,10 +290,10 @@ public class AddFormalArgIntoInstructions extends Action {
 	}
 
 	/**
-	 * A�ade el valor por defecto para el argumento formal en una expresi�n, en
+	 * A�ade el valor por defecto para el argumento formal en una expresión, en
 	 * caso de que sea necesario.
 	 * 
-	 * @param expr expresi�n a la que se a�ade un nuevo argumento en caso de 
+	 * @param expr expresión a la que se a�ade un nuevo argumento en caso de 
 	 * ser necesario.
 	 */
 	private void addFormalArg(Expr expr){
@@ -303,10 +303,10 @@ public class AddFormalArgIntoInstructions extends Action {
 	}
 
 	/**
-	 * Si una instrucci�n contiene una llamada al m�todo modificado, elimina su
+	 * Si una instrucción contiene una llamada al método modificado, elimina su
 	 * �ltimo argumento real de la llamada.
 	 *  
-	 * @param instr instrucci�n de la que se elimina el �ltimo argumento, en caso
+	 * @param instr instrucción de la que se elimina el �ltimo argumento, en caso
 	 * de ser necesario.
 	 */
 	private void removeFormalArg(Instr instr){
@@ -319,11 +319,11 @@ public class AddFormalArgIntoInstructions extends Action {
 	}
 	
 	/**
-	 * Si una instrucci�n compuesta contiene llamadas al m�todo modificado, elimina
+	 * Si una instrucción compuesta contiene llamadas al método modificado, elimina
 	 * en cada caso el �ltimo argumento formal de la llamada.
 	 * 
-	 * @param instr instrucci�n compuesta de la que se elimina el �ltimo argumento
-	 * formal de las llamadas al m�todo, en caso de ser necesario.
+	 * @param instr instrucción compuesta de la que se elimina el �ltimo argumento
+	 * formal de las llamadas al método, en caso de ser necesario.
 	 */
 	private void removeFormalArg(CompoundInstr instr){
 		List<Instr> instructions = instr.getInstructions();
@@ -332,11 +332,11 @@ public class AddFormalArgIntoInstructions extends Action {
 	}
 
 	/**
-	 * Si una instrucci�n de llamada de longitud uno contiene llamadas al m�todo 
+	 * Si una instrucción de llamada de longitud uno contiene llamadas al método 
 	 * modificado, elimina en cada caso el �ltimo argumento formal de la llamada.
 	 * 
-	 * @param instr instrucci�n de llamada de longitud uno de la que se elimina el 
-	 * �ltimo argumento formal de las llamadas al m�todo, en caso de ser necesario.
+	 * @param instr instrucción de llamada de longitud uno de la que se elimina el 
+	 * �ltimo argumento formal de las llamadas al método, en caso de ser necesario.
 	 */
 	private void removeFormalArg(CallInstr instr){
 		RoutineDec routine = instr.getRoutineDec();
@@ -352,22 +352,22 @@ public class AddFormalArgIntoInstructions extends Action {
 	}
 
 	/**
-	 * Si una instrucci�n de asignaci�n contiene llamadas al m�todo 
+	 * Si una instrucción de asignación contiene llamadas al método 
 	 * modificado, elimina en cada caso el �ltimo argumento formal de la llamada.
 	 * 
-	 * @param instr instrucci�n de asignaci�n de la que se elimina el 
-	 * �ltimo argumento formal de las llamadas al m�todo, en caso de ser necesario.
+	 * @param instr instrucción de asignación de la que se elimina el 
+	 * �ltimo argumento formal de las llamadas al método, en caso de ser necesario.
 	 */
 	private void removeFormalArg(AssignmentInstr instr){
 		removeFormalArg(instr.getRighSide());
 	}
 
 	/**
-	 * Si una expresi�n de llamada de longitud uno contiene llamadas al m�todo 
+	 * Si una expresión de llamada de longitud uno contiene llamadas al método 
 	 * modificado, elimina en cada caso el �ltimo argumento formal de la llamada.
 	 * 
-	 * @param expr expresi�n de llamada de longitud dos de la que se elimina el 
-	 * �ltimo argumento formal de las llamadas al m�todo, en caso de ser necesario.
+	 * @param expr expresión de llamada de longitud dos de la que se elimina el 
+	 * �ltimo argumento formal de las llamadas al método, en caso de ser necesario.
 	 */
 	private void removeFormalArg(CallExpr expr){
 		if (checkCallExpr(expr)){
@@ -398,11 +398,11 @@ public class AddFormalArgIntoInstructions extends Action {
 	
 	
 	/**
-	 * Si una expresi�n contiene llamadas al m�todo 
+	 * Si una expresión contiene llamadas al método 
 	 * modificado, elimina en cada caso el �ltimo argumento formal de la llamada.
 	 * 
-	 * @param expr expresi�n de la que se elimina el 
-	 * �ltimo argumento formal de las llamadas al m�todo, en caso de ser necesario.
+	 * @param expr expresión de la que se elimina el 
+	 * �ltimo argumento formal de las llamadas al método, en caso de ser necesario.
 	 */
 	private void removeFormalArg(Expr expr){
 		if (expr instanceof CallExpr)

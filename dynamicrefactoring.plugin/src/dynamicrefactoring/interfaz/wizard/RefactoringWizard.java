@@ -47,7 +47,7 @@ import dynamicrefactoring.interfaz.wizard.search.internal.SearchingFacade;
 
 /**
  * Proporciona un asistente de Eclipse que permite crear una nueva
- * refactorizaci�n din�mica o modificar una ya existente.
+ * refactorización din�mica o modificar una ya existente.
  * 
  * @author <A HREF="mailto:lfd0002@alu.ubu.es">Laura Fuente de la Fuente</A>
  * @author <A HREF="mailto:sfd0009@alu.ubu.es">Sonia Fuente de la Fuente</A>
@@ -62,26 +62,26 @@ public class RefactoringWizard extends Wizard implements INewWizard {
 			.getLogger(RefactoringWizard.class);
 
 	/**
-	 * Indica que el asistente debe crear una refactorizaci�n nueval al
+	 * Indica que el asistente debe crear una refactorización nueval al
 	 * terminar.
 	 */
 	protected static final int CREATE = 0;
 
 	/**
-	 * Indica que el asistente debe modificar una refactorizaci�n existente al
+	 * Indica que el asistente debe modificar una refactorización existente al
 	 * terminar.
 	 */
 	private static final int EDIT = 1;
 
 	/**
-	 * Refactorizaci�n configurada a trav�s del asistente y que debe ser
-	 * creada finalmente (si se trata de una nueva refactorizaci�n) o
+	 * Refactorización configurada a través del asistente y que debe ser
+	 * creada finalmente (si se trata de una nueva refactorización) o
 	 * modificada (si se est� editando una ya existente).
 	 */
 	private DynamicRefactoringDefinition refactoring = null;
 
 	/**
-	 * Indica el tipo de operaci�n que debe realizar el asistente cuando el
+	 * Indica el tipo de operación que debe realizar el asistente cuando el
 	 * usuario pulse el bot�n "Finalizar".
 	 * 
 	 * <p>
@@ -91,7 +91,7 @@ public class RefactoringWizard extends Wizard implements INewWizard {
 	private int operation;
 
 	/**
-	 * Nombre original de la refactorizaci�n que se edita.
+	 * Nombre original de la refactorización que se edita.
 	 */
 	private String originalName;
 
@@ -145,7 +145,7 @@ public class RefactoringWizard extends Wizard implements INewWizard {
 	 * Constructor.
 	 * 
 	 * @param refactoring
-	 *            refactorizaci�n que se desea editar o <code>null
+	 *            refactorización que se desea editar o <code>null
 	 * </code> si se desea crear una nueva.
 	 */
 	public RefactoringWizard(DynamicRefactoringDefinition refactoring, RefactoringsCatalog catalog) {
@@ -175,9 +175,9 @@ public class RefactoringWizard extends Wizard implements INewWizard {
 	 * Constructor.
 	 * 
 	 * <p>
-	 * Crea un nuevo asistente para la creaci�n de una refactorizaci�n desde
-	 * cero. Necesario para la integraci�n del asistente en Eclipse y su
-	 * activaci�n asistente desde el men� <i>New</i> de Eclipse.
+	 * Crea un nuevo asistente para la creación de una refactorización desde
+	 * cero. Necesario para la integración del asistente en Eclipse y su
+	 * activación asistente desde el men� <i>New</i> de Eclipse.
 	 * </p>
 	 */
 	public RefactoringWizard() {
@@ -206,11 +206,11 @@ public class RefactoringWizard extends Wizard implements INewWizard {
 	}
 
 	/**
-	 * M�todo llamado cuando se pulsa el bot�n "Finish" en el asistente. Se
-	 * crear� la operaci�n que se deba ejecutar, y se ejecutar� utilizando
+	 * Método llamado cuando se pulsa el bot�n "Finish" en el asistente. Se
+	 * crear� la operación que se deba ejecutar, y se ejecutar� utilizando
 	 * el propio asistente como contexto de ejecuci�n.
 	 * 
-	 * @return <code>true</code> para indicar que la solicitud de finalizaci�n
+	 * @return <code>true</code> para indicar que la solicitud de finalización
 	 *         ha sido aceptada; <code>false</code> para indicar que ha sido
 	 *         rechazada.
 	 */
@@ -243,7 +243,7 @@ public class RefactoringWizard extends Wizard implements INewWizard {
 	}
 
 	/**
-	 * M�todo de inicializaci�n.
+	 * Método de inicialización.
 	 * 
 	 * @see IWorkbenchWizard#init(IWorkbench, IStructuredSelection)
 	 */
@@ -252,19 +252,19 @@ public class RefactoringWizard extends Wizard implements INewWizard {
 	}
 
 	/**
-	 * Obtiene el tipo de operaci�n que est� configurando el asistente.
+	 * Obtiene el tipo de operación que est� configurando el asistente.
 	 * 
-	 * @return el tipo de operaci�n que est� configurando el asistente.
+	 * @return el tipo de operación que est� configurando el asistente.
 	 */
 	public final int getOperation() {
 		return operation;
 	}
 
 	/**
-	 * Obtiene el nombre del tipo de operaci�n que est� configurando el
+	 * Obtiene el nombre del tipo de operación que est� configurando el
 	 * asistente.
 	 * 
-	 * @return el nombre del tipo de operaci�n que est� configurando el
+	 * @return el nombre del tipo de operación que est� configurando el
 	 *         asistente.
 	 */
 	public final String getOperationAsString() {
@@ -273,7 +273,7 @@ public class RefactoringWizard extends Wizard implements INewWizard {
 	}
 
 	/**
-	 * Crea y configura la nueva refactorizaci�n personalizada a partir de los
+	 * Crea y configura la nueva refactorización personalizada a partir de los
 	 * datos introducidos por el usuario en las p�ginas del asistente.
 	 */
 	private DynamicRefactoringDefinition.Builder configureRefactoring() {
@@ -296,20 +296,20 @@ public class RefactoringWizard extends Wizard implements INewWizard {
 	}
 
 	/**
-	 * Copia los ficheros asociados a una refactorizaci�n al directorio
-	 * seleccionado y escribe el fichero con la refactorizaci�n creada.
+	 * Copia los ficheros asociados a una refactorización al directorio
+	 * seleccionado y escribe el fichero con la refactorización creada.
 	 * 
 	 * @param resultingRefactoringDefinition
 	 * 
 	 * @throws IOException
 	 *             si se produce un error de lectura / escritura durante el
-	 *             proceso de escritura de la refactorizaci�n.
+	 *             proceso de escritura de la refactorización.
 	 * @throws FileNotFoundException
 	 *             si no se encuentra uno de los ficheros o directorios
 	 *             implicados en el proceso.
 	 * @throws XMLRefactoringWriterException
 	 *             si se produce un error durante la escritura de la
-	 *             refactorizaci�n en el fichero XML de destino.
+	 *             refactorización en el fichero XML de destino.
 	 */
 	private void writeRefactoring(
 			DynamicRefactoringDefinition.Builder builder) {
@@ -318,7 +318,7 @@ public class RefactoringWizard extends Wizard implements INewWizard {
 		if (operation == EDIT && refactCatalog.hasRefactoring(originalName)) {
 			refactCatalog.updateRefactoring(originalName, resultingRefactoringDefinition);;
 		} else {
-			// Se escribe la refactorizaci�n en el fichero XML.
+			// Se escribe la refactorización en el fichero XML.
 			refactCatalog.addRefactoring(resultingRefactoringDefinition);
 		}
 

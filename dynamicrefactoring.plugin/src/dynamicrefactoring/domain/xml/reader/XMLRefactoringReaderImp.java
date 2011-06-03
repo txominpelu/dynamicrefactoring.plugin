@@ -29,66 +29,66 @@ import dynamicrefactoring.domain.DynamicRefactoringDefinition;
  * Define una interfaz para los lectores de ficheros XML donde se definen
  * refactorizaciones.
  * 
- * @author <A HREF="mailto:alc0022@alu.ubu.es">�ngel L�pez Campo</A>
- * @author <A HREF="mailto:epf0006@alu.ubu.es">Eduardo Pe�a Fern�ndez</A>
+ * @author <A HREF="mailto:alc0022@alu.ubu.es">Ángel López Campo</A>
+ * @author <A HREF="mailto:epf0006@alu.ubu.es">Eduardo Peña Fernández</A>
  * @author <A HREF="mailto:sfd0009@alu.ubu.es">Sonia Fuente de la Fuente</A>
  * @author <A HREF="mailto:ehp0001@alu.ubu.es">Enrique Herrero Paredes</A>
  */
 public interface XMLRefactoringReaderImp {
 
 	/**
-	 * Nombre de la etiqueta ra�z de la especificaci�n XML de una
-	 * refactorizaci�n.
+	 * Nombre de la etiqueta ra�z de la especificación XML de una
+	 * refactorización.
 	 */
 	public static final String REFACTORING_TAG = "refactoring"; //$NON-NLS-1$
 
 	/**
-	 * Nombre del atributo con el nombre de la refactorizaci�n.
+	 * Nombre del atributo con el nombre de la refactorización.
 	 */
 	public static final String NAME_ATTRIBUTE = "name"; //$NON-NLS-1$
 
 	/**
-	 * Nombre del atributo con el n�mero de versi�n de la refactorizaci�n.
+	 * Nombre del atributo con el n�mero de versi�n de la refactorización.
 	 */
 	public static final String VERSION_ATTRIBUTE = "version"; //$NON-NLS-1$
 
 	/**
-	 * Nombre de la etiqueta con la informaci�n b�sica de la refactorizaci�n.
+	 * Nombre de la etiqueta con la información b�sica de la refactorización.
 	 */
 	public static final String INFORMATION_ELEMENT = "information"; //$NON-NLS-1$
 
 	/**
-	 * Nombre de la etiqueta con la descripci�n de la refactorizaci�n.
+	 * Nombre de la etiqueta con la descripci�n de la refactorización.
 	 */
 	public static final String DESCRIPTION_ELEMENT = "description"; //$NON-NLS-1$
 
 	/**
-	 * Nombre de la etiqueta para la imagen de la refactorizaci�n.
+	 * Nombre de la etiqueta para la imagen de la refactorización.
 	 */
 	public static final String IMAGE_ELEMENT = "image"; //$NON-NLS-1$
 
 	/**
-	 * Nombre del atributo con la ruta a la imagen de la refactorizaci�n.
+	 * Nombre del atributo con la ruta a la imagen de la refactorización.
 	 */
 	public static final String SRC_IMAGE_ATTRIBUTE = "src"; //$NON-NLS-1$
 
 	/**
-	 * Nombre de la etiqueta con la motivaci�n de la refactorizaci�n.
+	 * Nombre de la etiqueta con la motivación de la refactorización.
 	 */
 	public static final String MOTIVATION_ELEMENT = "motivation"; //$NON-NLS-1$
 
 	/**
-	 * Nombre de la etiqueta con las categor�as de la refactorizaci�n.
+	 * Nombre de la etiqueta con las categor�as de la refactorización.
 	 */
 	public static final String CATEGORIZATION_ELEMENT = "categorization"; //$NON-NLS-1$
 	
 	/**
-	 * Nombre de la etiqueta con las categor�as de la refactorizaci�n.
+	 * Nombre de la etiqueta con las categor�as de la refactorización.
 	 */
 	public static final String CLASSIFICATION_ELEMENT = "classification"; //$NON-NLS-1$
 
 	/**
-	 * Nombre de la etiqueta con la motivaci�n de la refactorizaci�n.
+	 * Nombre de la etiqueta con la motivación de la refactorización.
 	 */
 	public static final String CATEGORY_ELEMENT = "category"; //$NON-NLS-1$
 
@@ -110,23 +110,23 @@ public interface XMLRefactoringReaderImp {
 	public static final String KEYWORDS_ELEMENT = "keywords";
 	/**
 	 * Nombre de la etiqueta bajo la cual se especifican las entradas de la
-	 * refactorizaci�n.
+	 * refactorización.
 	 */
 	public static final String INPUTS_ELEMENT = "inputs"; //$NON-NLS-1$
 
 	/**
 	 * Nombre de la etiqueta bajo la cual se especifica una entrada concreta de
-	 * la refactorizaci�n.
+	 * la refactorización.
 	 */
 	public static final String INPUT_ELEMENT = "input"; //$NON-NLS-1$
 
 	/**
-	 * Nombre del atributo con el tipo de una entrada de la refactorizaci�n.
+	 * Nombre del atributo con el tipo de una entrada de la refactorización.
 	 */
 	public static final String TYPE_INPUT_ATTRIBUTE = "type"; //$NON-NLS-1$
 
 	/**
-	 * Nombre del atributo con el nombre de una entrada de la refactorizaci�n.
+	 * Nombre del atributo con el nombre de una entrada de la refactorización.
 	 */
 	public static final String NAME_INPUT_ATTRIBUTE = "name"; //$NON-NLS-1$
 
@@ -136,97 +136,97 @@ public interface XMLRefactoringReaderImp {
 	public static final String FROM_INPUT_ATTRIBUTE = "from"; //$NON-NLS-1$
 
 	/**
-	 * Nombre del m�todo que permite obtener el valor que se debe asignar a la
+	 * Nombre del método que permite obtener el valor que se debe asignar a la
 	 * entrada o la lista de valores entre los que se puede elegir su valor.
 	 */
 	public static final String METHOD_INPUT_ATTRIBUTE = "method"; //$NON-NLS-1$
 
 	/**
 	 * Nombre del atributo que indica si una entrada es la entrada principal de
-	 * la refactorizaci�n.
+	 * la refactorización.
 	 */
 	public static final String ROOT_INPUT_ATTRIBUTE = "root"; //$NON-NLS-1$
 
 	/**
 	 * Nombre de la etiqueta bajo la que se especifica el mecanismo de
-	 * funcionamiento de la refactorizaci�n.
+	 * funcionamiento de la refactorización.
 	 */
 	public static final String MECHANISM_ELEMENT = "mechanism"; //$NON-NLS-1$
 
 	/**
 	 * Nombre de la etiqueta bajo la que se listan las precondiciones de la
-	 * refactorizaci�n.
+	 * refactorización.
 	 */
 	public static final String PRECONDITIONS_ELEMENT = "preconditions"; //$NON-NLS-1$
 
 	/**
-	 * Nombre de la etiqueta que especifica una precondici�n concreta de la
-	 * refactorizaci�n.
+	 * Nombre de la etiqueta que especifica una precondición concreta de la
+	 * refactorización.
 	 */
 	public static final String PRECONDITION_ELEMENT = "precondition"; //$NON-NLS-1$
 
 	/**
 	 * Nombre de la etiqueta bajo la que se listan las acciones de la
-	 * refactorizaci�n.
+	 * refactorización.
 	 */
 	public static final String ACTIONS_ELEMENT = "actions"; //$NON-NLS-1$
 
 	/**
-	 * Nombre de la etiqueta que especifica una acci�n concreta de la
-	 * refactorizaci�n.
+	 * Nombre de la etiqueta que especifica una acción concreta de la
+	 * refactorización.
 	 */
 	public static final String ACTION_ELEMENT = "action"; //$NON-NLS-1$
 
 	/**
 	 * Nombre de la etiqueta bajo la que se listan las postcondiciones de la
-	 * refactorizaci�n.
+	 * refactorización.
 	 */
 	public static final String POSTCONDITIONS_ELEMENT = "postconditions"; //$NON-NLS-1$
 
 	/**
-	 * Nombre de la etiqueta que especifica una postcondici�n concreta de la
-	 * refactorizaci�n.
+	 * Nombre de la etiqueta que especifica una postcondición concreta de la
+	 * refactorización.
 	 */
 	public static final String POSTCONDITION_ELEMENT = "postcondition"; //$NON-NLS-1$
 
 	/**
-	 * Nombre de la etiqueta que define un par�metro ambiguo para una
-	 * precondici�n, acci�n o postcondici�n de la refactorizaci�n.
+	 * Nombre de la etiqueta que define un parámetro ambiguo para una
+	 * precondición, acción o postcondición de la refactorización.
 	 */
 	public static final String PARAM_ELEMENT = "param"; //$NON-NLS-1$
 
 	/**
-	 * Nombre del atributo con el nombre de un par�metro ambiguo.
+	 * Nombre del atributo con el nombre de un parámetro ambiguo.
 	 */
 	public static final String NAME_PARAM_ATTRIBUTE = "name"; //$NON-NLS-1$
 
 	/**
-	 * Nombre de la etiqueta con los ejemplos de la refactorizaci�n.
+	 * Nombre de la etiqueta con los ejemplos de la refactorización.
 	 */
 	public static final String EXAMPLES_ELEMENT = "examples"; //$NON-NLS-1$
 
 	/**
 	 * Nombre de la etiqueta que especifica un ejemplo concreto de la
-	 * refactorizaci�n.
+	 * refactorización.
 	 */
 	public static final String EXAMPLE_ELEMENT = "example"; //$NON-NLS-1$
 
 	/**
-	 * Nombre del atributo con un ejemplo de la situaci�n antes de aplicar la
-	 * refactorizaci�n.
+	 * Nombre del atributo con un ejemplo de la situación antes de aplicar la
+	 * refactorización.
 	 */
 	public static final String BEFORE_EXAMPLE_ATTRIBUTE = "before"; //$NON-NLS-1$
 
 	/**
-	 * Nombre del atributo con un ejemplo de la situaci�n despu�s de aplicar la
-	 * refactorizaci�n.
+	 * Nombre del atributo con un ejemplo de la situación despu�s de aplicar la
+	 * refactorización.
 	 */
 	public static final String AFTER_EXAMPLE_ATTRIBUTE = "after"; //$NON-NLS-1$
 
 	/**
-	 * Devuelve la definici�n de la refactorizaci�n.
+	 * Devuelve la definición de la refactorización.
 	 * 
-	 * @return la definici�n de la refactorizaci�n.
+	 * @return la definición de la refactorización.
 	 */
 	public DynamicRefactoringDefinition getDynamicRefactoringDefinition(File file);
 }

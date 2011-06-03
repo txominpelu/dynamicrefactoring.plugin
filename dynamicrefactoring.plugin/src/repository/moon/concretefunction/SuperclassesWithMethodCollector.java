@@ -34,10 +34,10 @@ import refactoring.engine.Function;
 
 /**
  * Permite obtener las superclases de una clase dada que declaren un cierto 
- * m�todo.
+ * método.
  *
  * @author <A HREF="mailto:ehp0001@alu.ubu.es">Enrique Herrero Paredes</A>
- * @author <A HREF="mailto:alc0022@alu.ubu.es">�ngel L�pez Campo</A>
+ * @author <A HREF="mailto:alc0022@alu.ubu.es">Ángel López Campo</A>
  * @author <A HREF="mailto:sfd0009@alu.ubu.es">Sonia Fuente de la Fuente</A>
  */ 
 public class SuperclassesWithMethodCollector extends Function {
@@ -48,7 +48,7 @@ public class SuperclassesWithMethodCollector extends Function {
 	private ClassDef classDef;
 	
 	/**
-	 * El nombre �nico del m�todo cuyo equivalente en una superclase se busca.
+	 * El nombre único del método cuyo equivalente en una superclase se busca.
 	 */
 	private String methodUniqueName;
 		
@@ -58,7 +58,7 @@ public class SuperclassesWithMethodCollector extends Function {
 	 * Obtiene una nueva instancia de SuperclassesWithMethodCollector.
 	 *
 	 * @param classDef la clase cuyas superclases se van a explorar.
-	 * @param methodUniqueName el nombre �nico del m�todo que se busca en una superclase.
+	 * @param methodUniqueName el nombre único del método que se busca en una superclase.
 	 */
 	public SuperclassesWithMethodCollector(ClassDef classDef, String methodUniqueName){
 		
@@ -68,12 +68,12 @@ public class SuperclassesWithMethodCollector extends Function {
 
 	/**
 	 * Obtiene las clases que se encuentra al recorrer hacia arriba la
-	 * jerarqu�a de herencia a partir de la clase <code>classDef</code>, y que
-	 * contengan un cierto m�todo.<p>
+	 * jerarquía de herencia a partir de la clase <code>classDef</code>, y que
+	 * contengan un cierto método.<p>
 	 *
-	 * Si por una rama de herencia encuentra una clase que contiene el m�todo,
+	 * Si por una rama de herencia encuentra una clase que contiene el método,
 	 * no sigue buscando hacia las superclases de la misma. En cambio, si 
-	 * encuentra superclases que no contienen el m�todo, contin�a buscando a su
+	 * encuentra superclases que no contienen el método, contin�a buscando a su
 	 * vez en las clases superiores de las mismas.
 	 *
 	 * @return Las clases encontradas o null, si no se encontr� ninguna.
@@ -126,7 +126,7 @@ public class SuperclassesWithMethodCollector extends Function {
 	}
 	
 	/**
-	 * Sin implementaci�n.
+	 * Sin implementación.
 	 *
 	 * @return null.
 	 */

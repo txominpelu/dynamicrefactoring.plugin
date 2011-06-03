@@ -28,22 +28,22 @@ import moon.core.classdef.MethDec;
 import refactoring.engine.Function;
 
 /**
- * Permite buscar un m�todo determinado en una clase bas�ndose en el nombre �nico
+ * Permite buscar un método determinado en una clase bas�ndose en el nombre único
  * de aqu�l.
  *
  * @author <A HREF="mailto:ehp0001@alu.ubu.es">Enrique Herrero Paredes</A>
- * @author <A HREF="mailto:alc0022@alu.ubu.es">�ngel L�pez Campo</A>
+ * @author <A HREF="mailto:alc0022@alu.ubu.es">Ángel López Campo</A>
  * @author <A HREF="mailto:sfd0009@alu.ubu.es">Sonia Fuente de la Fuente</A>
  */ 
 public class MethodRetriever extends Function {
 	
 	/**
-	 * Clase en la que se buscar� el m�todo.
+	 * Clase en la que se buscar� el método.
 	 */
 	private ClassDef classDef;
 	
 	/**
-	 * Nombre �nico del m�todo buscado.
+	 * Nombre único del método buscado.
 	 */
 	private String methodUniqueName;
 	
@@ -52,8 +52,8 @@ public class MethodRetriever extends Function {
 	 *
 	 * Obtiene una nueva instancia de MethodRetriever.
 	 *
-	 * @param classDef la clase en la que se buscar� el m�todo.
-	 * @param methodUniqueName el nombre �nico del m�todo buscado.
+	 * @param classDef la clase en la que se buscar� el método.
+	 * @param methodUniqueName el nombre único del método buscado.
 	 */
 	public MethodRetriever(ClassDef classDef, String methodUniqueName) {
 		super();
@@ -62,11 +62,11 @@ public class MethodRetriever extends Function {
 	}
 
 	/**
-	 * Obtiene el m�todo de la clase {@link #classDef} cuyo nombre �nico se 
+	 * Obtiene el método de la clase {@link #classDef} cuyo nombre único se 
 	 * corresponde con {@link #methodUniqueName}.
 	 *
-	 * @return si lo encuentra, el m�todo de la clase {@link #classDef} cuyo 
-	 * nombre �nico se corresponde con {@link #methodUniqueName}. Si no, <code>null
+	 * @return si lo encuentra, el método de la clase {@link #classDef} cuyo 
+	 * nombre único se corresponde con {@link #methodUniqueName}. Si no, <code>null
 	 * </code>.
 	 */
 	public Object getValue() {
@@ -79,7 +79,7 @@ public class MethodRetriever extends Function {
 	}
 	
 	/**
-	 * Sin implementaci�n.
+	 * Sin implementación.
 	 *
 	 * @return null.
 	 */

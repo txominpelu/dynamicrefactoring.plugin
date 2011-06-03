@@ -41,14 +41,14 @@ public abstract class ClassSelectionHandler implements ISelectionHandler {
 	
 	/**
 	 * Obtiene la clase del modelo MOON que se corresponde con la clase 
-	 * a la que pertenece la selección del interfaz gráfico.
+	 * a la que pertenece la selecciï¿½n del interfaz grï¿½fico.
 	 * 
 	 * @return la clase del modelo MOON que se corresponde con la clase
-	 * a la que pertenece la selección del interfaz gráfico.
+	 * a la que pertenece la selecciï¿½n del interfaz grï¿½fico.
 	 * 
 	 * @throws ClassNotFoundException si se no se consigue encontrar la clase en
 	 * el modelo MOON cargado.
-	 * @throws IOException si se produce algún error al acceder al modelo MOON.
+	 * @throws IOException si se produce algÃºn error al acceder al modelo MOON.
 	 * 
 	 * @see ISelectionHandler#getMainObject()
 	 */

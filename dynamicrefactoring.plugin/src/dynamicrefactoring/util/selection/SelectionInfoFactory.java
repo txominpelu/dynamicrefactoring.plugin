@@ -26,8 +26,8 @@ import org.eclipse.jface.viewers.TreeSelection;
 import org.eclipse.ui.IWorkbenchWindow;
 
 /**
- * Proporciona funciones de creación de cualquiera de los objetos que 
- * permiten manejar la información relativa a la selección actual sobre
+ * Proporciona funciones de creaciÃ³n de cualquiera de los objetos que 
+ * permiten manejar la informaciÃ³n relativa a la selecciï¿½n actual sobre
  * Eclipse.
  * 
  * @author <A HREF="mailto:sfd0009@alu.ubu.es">Sonia Fuente de la Fuente</A>
@@ -36,21 +36,21 @@ import org.eclipse.ui.IWorkbenchWindow;
 public class SelectionInfoFactory {
 	
 	/**
-	 * Instancia única de la fábrica (patrón Singleton).
+	 * Instancia Ãºnica de la fï¿½brica (patrï¿½n Singleton).
 	 */
 	private static SelectionInfoFactory myInstance;
 	
 	/**
 	 * Constructor.
 	 * 
-	 * Privado según la estructura del patrón de diseño Singleton.
+	 * Privado segï¿½n la estructura del patrï¿½n de diseï¿½o Singleton.
 	 */
 	private SelectionInfoFactory(){}
 
 	/**
-	 * Obtiene la instancia única de la fábrica (patrón Singleton).
+	 * Obtiene la instancia Ãºnica de la fï¿½brica (patrï¿½n Singleton).
 	 *
-	 * @return la instancia única de la fábrica.
+	 * @return la instancia Ãºnica de la fï¿½brica.
 	 */
 	public static SelectionInfoFactory getInstance(){
 		if (myInstance == null)
@@ -59,24 +59,24 @@ public class SelectionInfoFactory {
 	}
 
 	/**
-	 * Obtiene un proveedor de información concreto para una selección dada.
+	 * Obtiene un proveedor de informaciÃ³n concreto para una selecciï¿½n dada.
 	 * 
-	 * Si la selección forma parte de un árbol de selección, devuelve una
+	 * Si la selecciï¿½n forma parte de un ï¿½rbol de selecciï¿½n, devuelve una
 	 * instancia de <code>TreeSelectionInfo</code>.
-	 * Si la selección forma parte de una representación textual, devuelve una
+	 * Si la selecciï¿½n forma parte de una representaciÃ³n textual, devuelve una
 	 * instancia de <code>TextSelectionInfo</code>.
 	 * 
-	 * Método fábrica (patrón de diseño Método fábrica).
+	 * MÃ©todo fï¿½brica (patrï¿½n de diseï¿½o MÃ©todo fï¿½brica).
 	 * 
-	 * @param selection la selección para la que se quiere obtener un proveedor
-	 * de información concreto.
-	 * @param window ventana que se deberá pasar al proveedor de información
-	 * creado para su interacción con la interfaz gráfica.
+	 * @param selection la selecciï¿½n para la que se quiere obtener un proveedor
+	 * de informaciÃ³n concreto.
+	 * @param window ventana que se deberï¿½ pasar al proveedor de informaciÃ³n
+	 * creado para su interacciÃ³n con la interfaz grï¿½fica.
 	 * 
-	 * @return un proveedor de información concreto para una selección dada.
+	 * @return un proveedor de informaciÃ³n concreto para una selecciï¿½n dada.
 	 * 
 	 * @throws Exception si se produce un error al intentar crear cualquiera de 
-	 * los proveedores de información concretos.
+	 * los proveedores de informaciÃ³n concretos.
 	 * 
 	 * @see TextSelectionInfo#TextSelectionInfo(TextSelection, IWorkbenchWindow)
 	 */

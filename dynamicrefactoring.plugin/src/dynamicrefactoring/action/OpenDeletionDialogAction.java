@@ -32,7 +32,7 @@ import dynamicrefactoring.interfaz.SelectDynamicRefactoringWindow;
 import dynamicrefactoring.interfaz.SelectForDeletingWindow;
 
 /**
- * Acci�n que inicia el asistente de eliminaci�n de una refactorizaci�n existente.
+ * Acci�n que inicia el asistente de eliminación de una refactorización existente.
  */
 public class OpenDeletionDialogAction implements IWorkbenchWindowActionDelegate  {
 

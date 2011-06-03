@@ -183,8 +183,8 @@ public class AvailableRefactoringView extends ViewPart {
 	}
 	
 	/**
-	 * Pide confirmaci�n al usuario para guardar los cambios pendientes antes de
-	 * continuar. Si obtiene la confirmaci�n, guarda los cambios de todos los
+	 * Pide confirmación al usuario para guardar los cambios pendientes antes de
+	 * continuar. Si obtiene la confirmación, guarda los cambios de todos los
 	 * editores abiertos con cambios pendientes.
 	 * 
 	 * @return <code>true</code> si se guardaron las modificaciones pendientes o
@@ -224,7 +224,7 @@ public class AvailableRefactoringView extends ViewPart {
 	
 	/**
 	 * Permite responder a los eventos generados por la selecci�n de un elemento
-	 * v�lido como entrada para una refactorizaci�n
+	 * v�lido como entrada para una refactorización
 	 * {@link AvailableRefactoringView}.
 	 * 
 	 * @author <A HREF="mailto:lfd0002@alu.ubu.es">Laura Fuente de la Fuente</A>
@@ -233,7 +233,7 @@ public class AvailableRefactoringView extends ViewPart {
 
 		/**
 		 * Notifica al <i>listener</i> que un objeto v�lido como entrada para la
-		 * refactorizaci�n ha sido seleccionado.
+		 * refactorización ha sido seleccionado.
 		 * 
 		 * @param selection
 		 *            selecci�n del espacio de trabajo.
@@ -255,7 +255,7 @@ public class AvailableRefactoringView extends ViewPart {
 	private class TreeMouseListener implements MouseListener {
 
 		/**
-		 * Recibe una notificaci�n de que un elemento del �rbol que forma la
+		 * Recibe una notificación de que un elemento del �rbol que forma la
 		 * vista ha sido presionado doblemente con el rat�n.
 		 * 
 		 * @param e
@@ -265,7 +265,7 @@ public class AvailableRefactoringView extends ViewPart {
 		 */
 		public void mouseDoubleClick(MouseEvent e) {
 			TreeItem[] selection = tr_Refactorings.getSelection();
-			// Si se ha se�alado el nombre de la refactorizaci�n
+			// Si se ha se�alado el nombre de la refactorización
 			String selectedName = selection[0].getText();
 			if (selection[0].getParentItem() == null) {
 				try {

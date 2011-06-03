@@ -23,7 +23,7 @@ package dynamicrefactoring.preferences;
 import org.eclipse.osgi.util.NLS;
 
 /**
- * Define las constantes que permiten la internacionalización del
+ * Define las constantes que permiten la internacionalizaciÃ³n del
  * paquete dynamicrefactoring.
  * 
  * @author <A HREF="mailto:lfd0002@alu.ubu.es">Laura Fuente de la Fuente</A>

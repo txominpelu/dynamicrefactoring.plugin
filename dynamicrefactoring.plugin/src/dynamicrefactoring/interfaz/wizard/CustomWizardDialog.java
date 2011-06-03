@@ -29,7 +29,7 @@ import dynamicrefactoring.RefactoringImages;
 import dynamicrefactoring.interfaz.ButtonTextProvider;
 
 /**
- * Proporciona una especializaci�n del di�logo de asistente de Eclipse.
+ * Proporciona una especialización del di�logo de asistente de Eclipse.
  * 
  * <p>Permite internacionalizar los textos de los botones del di�logo por defecto
  * en el que se abren los asistentes en Eclipse, que de otra forma tendr�an siempre

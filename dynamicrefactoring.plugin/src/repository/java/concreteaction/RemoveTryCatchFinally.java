@@ -12,7 +12,7 @@ import refactoring.engine.Action;
 /**
  * Removes the try-catch-finally blocks.
  * 
- * @author Raúl Marticorena
+ * @author RaÃºl Marticorena
  *
  */
 public class RemoveTryCatchFinally  extends Action{

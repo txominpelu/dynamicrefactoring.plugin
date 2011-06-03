@@ -39,11 +39,11 @@ import repository.moon.RepositoryUtils;
 import repository.moon.concretefunction.FormalArgRetriever;
 
 /**
- * Permite eliminar un par�metro real de las instrucciones que contengan
- * una llamada a un determinado m�todo.
+ * Permite eliminar un parámetro real de las instrucciones que contengan
+ * una llamada a un determinado método.
  *
  * @author <A HREF="mailto:ehp0001@alu.ubu.es">Enrique Herrero Paredes</A>
- * @author <A HREF="mailto:alc0022@alu.ubu.es">�ngel L�pez Campo</A>
+ * @author <A HREF="mailto:alc0022@alu.ubu.es">Ángel López Campo</A>
  * @author <A HREF="mailto:sfd0009@alu.ubu.es">Sonia Fuente de la Fuente</A>
  */ 
 public class RemoveFormalArgFromInstructions extends Action {
@@ -54,22 +54,22 @@ public class RemoveFormalArgFromInstructions extends Action {
 	private Iterator<Instr> instructionIterator;
 	
 	/**
-	 * El par�metro formal que se trata de eliminar de las llamadas a un m�todo.
+	 * El parámetro formal que se trata de eliminar de las llamadas a un método.
 	 */
 	private FormalArgument deletedParameter;
 	
 	/**
-	 * El m�todo de cuyas llamadas hay que eliminar un cierto par�metro real.
+	 * El método de cuyas llamadas hay que eliminar un cierto parámetro real.
 	 */
 	private MethDec method;
 	
 	/**
-	 * La posici�n ocupada por el argumento formal en la signatura del m�todo.
+	 * La posición ocupada por el argumento formal en la signatura del método.
 	 */
 	private int argPosition;
 	
 	/**
-	 * Receptor de los mensajes enviados por la acci�n concreta.
+	 * Receptor de los mensajes enviados por la acción concreta.
 	 */
 	private RelayListenerRegistry listenerReg;
 			 
@@ -79,10 +79,10 @@ public class RemoveFormalArgFromInstructions extends Action {
 	 * Obtiene una nueva instancia de RemoveFormalArgFromInstructions.
 	 *
 	 * @param instrIt las instrucciones en las que, de contener llamadas al 
-	 * m�todo, habr� que eliminar un argumento real.
-	 * @param parameter el par�metro formal del m�todo cuyos valores actuales
-	 * deben eliminarse de las llamadas al m�todo.
-	 * @param method el m�todo de cuyas llamadas se va a eliminar un argumento.
+	 * método, habr� que eliminar un argumento real.
+	 * @param parameter el parámetro formal del método cuyos valores actuales
+	 * deben eliminarse de las llamadas al método.
+	 * @param method el método de cuyas llamadas se va a eliminar un argumento.
 	 */	
 	public RemoveFormalArgFromInstructions(Iterator<Instr> instrIt, 
 		FormalArgument parameter, MethDec method){
@@ -100,7 +100,7 @@ public class RemoveFormalArgFromInstructions extends Action {
 	}
 	
 	/**
-	 * Elimina un determinado par�metro actual de las llamadas a un m�todo.
+	 * Elimina un determinado parámetro actual de las llamadas a un método.
 	 */
 	public void run() {
 		
@@ -157,10 +157,10 @@ public class RemoveFormalArgFromInstructions extends Action {
 	}
 
 	/**
-	 * Restaura los valores actuales del par�metro formal en las llamadas al 
-	 * m�todo.<p>
+	 * Restaura los valores actuales del parámetro formal en las llamadas al 
+	 * método.<p>
 	 *
-	 * Actualmente, sin implementaci�n.
+	 * Actualmente, sin implementación.
 	 */
 	public void undo() {
 		listenerReg.notify(
@@ -168,13 +168,13 @@ public class RemoveFormalArgFromInstructions extends Action {
 	}
 	
 	/**
-	 * Comprueba si una expresi�n de llamada de longitud uno contiene una
-	 * llamada al m�todo especificado.
+	 * Comprueba si una expresión de llamada de longitud uno contiene una
+	 * llamada al método especificado.
 	 *
-	 * @param exp la expresi�n de llamada de longitud uno.
+	 * @param exp la expresión de llamada de longitud uno.
 	 *
-	 * @return <code>true</code> si la expresi�n contiene una llamada al
-	 * m�todo, <code>false</code> en caso contrario.
+	 * @return <code>true</code> si la expresión contiene una llamada al
+	 * método, <code>false</code> en caso contrario.
 	 */
 	private boolean checkCallExpr(CallExpr exp){
 		

@@ -23,14 +23,14 @@ package dynamicrefactoring.listener;
 import dynamicrefactoring.domain.RefactoringSummary;
 
 /**
- * Define la interfaz común a todos los objetos que deseen actuar como 
- * observadores del proceso de refactorización.
+ * Define la interfaz comÃºn a todos los objetos que deseen actuar como 
+ * observadores del proceso de refactorizaciÃ³n.
  * 
- * <p>Define métodos suficientes para hacer un seguimiento efectivo del proceso
- * desde el momento en que se inicia, hasta que termina, incluyendo métodos de
- * notificación específicos para aquellos casos en los que la refactorización
- * falle o sea deshecha, así como para enviar mensajes detallados a medida que
- * tienen lugar cada uno de los pasos que componen una refactorización.</p>
+ * <p>Define mÃ©todos suficientes para hacer un seguimiento efectivo del proceso
+ * desde el momento en que se inicia, hasta que termina, incluyendo mÃ©todos de
+ * notificaciÃ³n especï¿½ficos para aquellos casos en los que la refactorizaciÃ³n
+ * falle o sea deshecha, asï¿½ como para enviar mensajes detallados a medida que
+ * tienen lugar cada uno de los pasos que componen una refactorizaciÃ³n.</p>
  * 
  * @author <A HREF="mailto:sfd0009@alu.ubu.es">Sonia Fuente de la Fuente</A>
  * @author <A HREF="mailto:ehp0001@alu.ubu.es">Enrique Herrero Paredes</A>
@@ -38,30 +38,30 @@ import dynamicrefactoring.domain.RefactoringSummary;
 public interface IRefactoringRunListener {
 	
 	/**
-	 * Notifica al <i>listener</i> acerca del comienzo de una refactorización.
+	 * Notifica al <i>listener</i> acerca del comienzo de una refactorizaciÃ³n.
 	 * 
-	 * @param name nombre de la refactorización que ha comenzado.
+	 * @param name nombre de la refactorizaciÃ³n que ha comenzado.
 	 */
 	public void refactoringStarted(String name);
 	
 	/**
-	 * Notifica al <i>listener</i> acerca de la finalización de una refactorización.
+	 * Notifica al <i>listener</i> acerca de la finalizaciÃ³n de una refactorizaciÃ³n.
 	 * 
-	 * @param summary resumen de la refactorización que ha finalizado.
+	 * @param summary resumen de la refactorizaciÃ³n que ha finalizado.
 	 */
 	public void refactoringFinished(RefactoringSummary summary);
 
 	/**
-	 * Notifica al <i>listener</i> acerca de un fallo durante una refactorización.
+	 * Notifica al <i>listener</i> acerca de un fallo durante una refactorizaciÃ³n.
 	 * 
-	 * @param name nombre de la refactorización que ha fallado.
+	 * @param name nombre de la refactorizaciÃ³n que ha fallado.
 	 * @param message mensaje asociado al fallo ocurrido.
 	 */
 	public void refactoringFailed(String name, String message);
 
 	/**
-	 * Notifica al <i>listener</i> acerca de la realización de un paso concreto en la 
-	 * ejecución de una refactorización.
+	 * Notifica al <i>listener</i> acerca de la realizaciÃ³n de un paso concreto en la 
+	 * ejecuciï¿½n de una refactorizaciÃ³n.
 	 * 
 	 * @param message el mensaje asociado al paso llevado a cabo.
 	 */
@@ -69,9 +69,9 @@ public interface IRefactoringRunListener {
 	
 	/**
 	 * Notifica al <i>listener</i> acerca del hecho de que se haya recuperado el
-	 * estado anterior a una refactorización.
+	 * estado anterior a una refactorizaciÃ³n.
 	 * 
-	 * @param name identificador de la refactorización cuyo estado anterior
+	 * @param name identificador de la refactorizaciÃ³n cuyo estado anterior
 	 * se ha recuperado.
 	 */
 	public void refactoringUndone(String name);

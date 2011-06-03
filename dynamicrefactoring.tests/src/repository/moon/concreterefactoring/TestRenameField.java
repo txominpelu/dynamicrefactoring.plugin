@@ -40,7 +40,7 @@ import repository.moon.MOONRefactoring;
 
 /**
  * 
- * Comprueba el correcto funcionamiento de la refactorizaci�n RenameField.
+ * Comprueba el correcto funcionamiento de la refactorización RenameField.
  * 
  * @author <A HREF="mailto:lfd0002@alu.ubu.es">Laura Fuente de la Fuente</A>
  */
@@ -52,7 +52,7 @@ public class TestRenameField extends RefactoringTemplateAbstractTest{
 	private static final String ANONYMOUS = "<anonymous>";
 	private static final String PAQUETE_A = "paqueteA";
 	/**
-	 * Comprueba la correcta ejecuci�n de la refactorizaci�n RenameField sobre
+	 * Comprueba la correcta ejecuci�n de la refactorización RenameField sobre
 	 * una clase sencilla con un constructor, un atributo.
 	 * 
 	 * @throws Exception si se produce un error durante la ejecuci�n de la prueba.
@@ -63,8 +63,8 @@ public class TestRenameField extends RefactoringTemplateAbstractTest{
 	}
 	
 	/**
-	 * Comprueba la correcta ejecuci�n de la refactorizaci�n RenameField sobre una clase que
-	 * contiene una asignaci�n de valor al atributo en la propia clase.
+	 * Comprueba la correcta ejecuci�n de la refactorización RenameField sobre una clase que
+	 * contiene una asignación de valor al atributo en la propia clase.
 	 *    
 	 * @throws Exception si se produce un error durante la ejecuci�n de la prueba.
 	 */
@@ -74,7 +74,7 @@ public class TestRenameField extends RefactoringTemplateAbstractTest{
 	}
 	
 	/**
-	 * Comprueba la correcta ejecuci�n de la refactorizaci�n RenameField sobre una clase que
+	 * Comprueba la correcta ejecuci�n de la refactorización RenameField sobre una clase que
 	 * utiliza el valor del atributo para asignar a una variable dicho valor.
 	 *    
 	 * @throws Exception si se produce un error durante la ejecuci�n de la prueba.
@@ -85,9 +85,9 @@ public class TestRenameField extends RefactoringTemplateAbstractTest{
 	}
 	
 	/**
-	 * Comprueba la correcta ejecuci�n de la refactorizaci�n RenameField sobre una clase
+	 * Comprueba la correcta ejecuci�n de la refactorización RenameField sobre una clase
 	 * que esta dentro de un paquete con un atributo y un constructor y que hace una 
-	 * llamada a un m�todo utilizando como par�metro al atributo a renombrar.
+	 * llamada a un método utilizando como parámetro al atributo a renombrar.
 	 *    
 	 * @throws Exception si se produce un error durante la ejecuci�n de la prueba.
 	 */
@@ -97,9 +97,9 @@ public class TestRenameField extends RefactoringTemplateAbstractTest{
 	}
 	
 	/**
-	 * Comprueba la correcta ejecuci�n de la refactorizaci�n RenameField sobre una clase
+	 * Comprueba la correcta ejecuci�n de la refactorización RenameField sobre una clase
 	 * que esta dentro de un paquete con un atributo y un constructor y que devuelve
-	 * el atributo a refactorizar como valor de retorno de un m�todo.
+	 * el atributo a refactorizar como valor de retorno de un método.
 	 *    
 	 * @throws Exception si se produce un error durante la ejecuci�n de la prueba.
 	 */
@@ -109,8 +109,8 @@ public class TestRenameField extends RefactoringTemplateAbstractTest{
 	}
 	
 	/**
-	 * Comprueba la correcta ejecuci�n de la refactorizaci�n RenameField sobre una clase que
-	 * contiene una asignaci�n de valor de un atributo de otra clase (que va a ser 
+	 * Comprueba la correcta ejecuci�n de la refactorización RenameField sobre una clase que
+	 * contiene una asignación de valor de un atributo de otra clase (que va a ser 
 	 * el atributo a renombrar).
 	 *    
 	 * @throws Exception si se produce un error durante la ejecuci�n de la prueba.
@@ -121,7 +121,7 @@ public class TestRenameField extends RefactoringTemplateAbstractTest{
 	}
 	
 	/**
-	 * Comprueba la correcta ejecuci�n de la refactorizaci�n RenameField sobre una clase que
+	 * Comprueba la correcta ejecuci�n de la refactorización RenameField sobre una clase que
 	 * utiliza el valor de un atributo (el que va a ser renombrado) 
 	 * de otra clase para asignar a una variable dicho valor.
 	 *    
@@ -133,8 +133,8 @@ public class TestRenameField extends RefactoringTemplateAbstractTest{
 	}
 	
 	/**
-	 * Comprueba la correcta ejecuci�n de la refactorizaci�n RenameField sobre una clase que
-	 * que tiene un m�todo que devuelve el valor del atributo (atributo a ser renombrado)
+	 * Comprueba la correcta ejecuci�n de la refactorización RenameField sobre una clase que
+	 * que tiene un método que devuelve el valor del atributo (atributo a ser renombrado)
 	 * de otra clase.  
 	 *    
 	 * @throws Exception si se produce un error durante la ejecuci�n de la prueba.
@@ -145,7 +145,7 @@ public class TestRenameField extends RefactoringTemplateAbstractTest{
 	}
 	
 	/**
-	 * Comprueba la correcta ejecuci�n de la refactorizaci�n RenameField sobre una subclase que
+	 * Comprueba la correcta ejecuci�n de la refactorización RenameField sobre una subclase que
 	 * utiliza el atributo de su superclase (atributo que va a ser renonbrado).
 	 *    
 	 * @throws Exception si se produce un error durante la ejecuci�n de la prueba.
@@ -155,9 +155,9 @@ public class TestRenameField extends RefactoringTemplateAbstractTest{
 		check("subclassUsingAttribute",PAQUETE_A);				
 	}
 	/**
-	 * Comprueba la correcta ejecuci�n de la refactorizaci�n RenameField sobre una clase que
+	 * Comprueba la correcta ejecuci�n de la refactorización RenameField sobre una clase que
 	 * utiliza el valor de un atributo de otra clase (el que va a ser renombrado) como 
-	 * par�metro de un m�todo determinado.
+	 * parámetro de un método determinado.
 	 *    
 	 * @throws Exception si se produce un error durante la ejecuci�n de la prueba.
 	 */
@@ -167,7 +167,7 @@ public class TestRenameField extends RefactoringTemplateAbstractTest{
 	}
 	
 	/**
-	 * Verifica el funcionamiento de las precondiciones de la refactorizaci�n.
+	 * Verifica el funcionamiento de las precondiciones de la refactorización.
 	 *
 	 * <p>Comprueba que se lanza una cuando ya existe un atributo con dixho nombre
 	 * en la clase a la que pertenece el atributo a ser renombrado.</p>
@@ -182,13 +182,13 @@ public class TestRenameField extends RefactoringTemplateAbstractTest{
 	
 
 	/**
-	 * Ejecuta la refactorizaci�n sobre un caso determinado.
+	 * Ejecuta la refactorización sobre un caso determinado.
 	 * 
 	 * @param dir directorio sobre el que se encuentra el caso a probar.
 	 * @param paquete paquete java de la clase sobre la que se esta probando 
-	 * 		  la refactorizaci�n.
-	 * @throws Exception Excepci�n en caso de haber alg�n problema durante
-	 * la ejecuci�n de la refactorizaci�n.
+	 * 		  la refactorización.
+	 * @throws Exception Excepci�n en caso de haber algún problema durante
+	 * la ejecuci�n de la refactorización.
 	 */
 	private void check(String dir, String paquete) throws Exception{
 		SourceLoader sourceLoader = new SourceLoader();
@@ -251,13 +251,13 @@ public class TestRenameField extends RefactoringTemplateAbstractTest{
 		}
 	}
 	/**
-	 * Comprueba que la refactorizaci�n se deshace de forma correcta.
+	 * Comprueba que la refactorización se deshace de forma correcta.
 	 * 
 	 * @param dir directorio sobre el que se encuentra el caso a probar.
 	 * @param paquete paquete de la clase sobre la que se esta probando 
-	 * 		  la refactorizaci�n.
-	 * @throws Exception Excepci�n en caso de haber alg�n problema mientras se
-	 * deshace la refactorizaci�n.
+	 * 		  la refactorización.
+	 * @throws Exception Excepci�n en caso de haber algún problema mientras se
+	 * deshace la refactorización.
 	 */
 	private void undo(String dir, String paquete) throws Exception {
 		SourceLoader sourceLoader = new SourceLoader();
@@ -321,7 +321,7 @@ public class TestRenameField extends RefactoringTemplateAbstractTest{
 	}
 	
 	/**
-	 * Comprueba que la refactorizaci�n se deshace de forma correcta sobre
+	 * Comprueba que la refactorización se deshace de forma correcta sobre
 	 * una clase sencilla con un constructor, un atributo.
 	 * 
 	 * @throws Exception si se produce un error durante la ejecuci�n de la prueba.
@@ -332,8 +332,8 @@ public class TestRenameField extends RefactoringTemplateAbstractTest{
 	}
 	
 	/**
-	 * CComprueba que la refactorizaci�n se deshace de forma correcta sobre una clase que
-	 * contiene una asignaci�n de valor al atributo en la propia clase.
+	 * CComprueba que la refactorización se deshace de forma correcta sobre una clase que
+	 * contiene una asignación de valor al atributo en la propia clase.
 	 *    
 	 * @throws Exception si se produce un error durante la ejecuci�n de la prueba.
 	 */
@@ -343,7 +343,7 @@ public class TestRenameField extends RefactoringTemplateAbstractTest{
 	}
 	
 	/**
-	 * Comprueba que la refactorizaci�n se deshace de forma correcta sobre una clase que
+	 * Comprueba que la refactorización se deshace de forma correcta sobre una clase que
 	 * utiliza el valor del atributo para asignar a una variable dicho valor.
 	 *    
 	 * @throws Exception si se produce un error durante la ejecuci�n de la prueba.
@@ -354,9 +354,9 @@ public class TestRenameField extends RefactoringTemplateAbstractTest{
 	}
 	
 	/**
-	 * Comprueba que la refactorizaci�n se deshace de forma correcta sobre una clase
+	 * Comprueba que la refactorización se deshace de forma correcta sobre una clase
 	 * que esta dentro de un paquete con un atributo y un constructor y que hace una 
-	 * llamada a un m�todo utilizando como par�metro a ese atributo.
+	 * llamada a un método utilizando como parámetro a ese atributo.
 	 *    
 	 * @throws Exception si se produce un error durante la ejecuci�n de la prueba.
 	 */
@@ -366,9 +366,9 @@ public class TestRenameField extends RefactoringTemplateAbstractTest{
 	}
 	
 	/**
-	 * Comprueba que la refactorizaci�n se deshace de forma correcta. sobre una clase
+	 * Comprueba que la refactorización se deshace de forma correcta. sobre una clase
 	 * que esta dentro de un paquete con un atributo y un constructor y que devuelve
-	 * el atributo a refactorizar en un m�todo.
+	 * el atributo a refactorizar en un método.
 	 *    
 	 * @throws Exception si se produce un error durante la ejecuci�n de la prueba.
 	 */
@@ -378,8 +378,8 @@ public class TestRenameField extends RefactoringTemplateAbstractTest{
 	}
 	
 	/**
-	 * Comprueba que la refactorizaci�n se deshace de forma correcta sobre una clase que
-	 * contiene una asignaci�n de valor de un atributo de otra clase.
+	 * Comprueba que la refactorización se deshace de forma correcta sobre una clase que
+	 * contiene una asignación de valor de un atributo de otra clase.
 	 *    
 	 * @throws Exception si se produce un error durante la ejecuci�n de la prueba.
 	 */
@@ -389,7 +389,7 @@ public class TestRenameField extends RefactoringTemplateAbstractTest{
 	}
 	
 	/**
-	 * Comprueba que la refactorizaci�n se deshace de forma correcta sobre una clase que
+	 * Comprueba que la refactorización se deshace de forma correcta sobre una clase que
 	 * utiliza el valor de un atributo de otra clase para asignar a una variable dicho valor.
 	 *    
 	 * @throws Exception si se produce un error durante la ejecuci�n de la prueba.
@@ -400,7 +400,7 @@ public class TestRenameField extends RefactoringTemplateAbstractTest{
 	}
 	
 	/**
-	 * Comprueba que la refactorizaci�n se deshace de forma correcta sobre una clase que
+	 * Comprueba que la refactorización se deshace de forma correcta sobre una clase que
 	 * utiliza el valor de un atributo de otra clase para asignar a una variable dicho valor.
 	 *    
 	 * @throws Exception si se produce un error durante la ejecuci�n de la prueba.
@@ -411,7 +411,7 @@ public class TestRenameField extends RefactoringTemplateAbstractTest{
 	}
 	
 	/**
-	 * Comprueba que la refactorizaci�n se deshace de forma correcta sobre una subclase que
+	 * Comprueba que la refactorización se deshace de forma correcta sobre una subclase que
 	 * utiliza el atributo de su superclase.
 	 *    
 	 * @throws Exception si se produce un error durante la ejecuci�n de la prueba.
@@ -421,7 +421,7 @@ public class TestRenameField extends RefactoringTemplateAbstractTest{
 		undo("subclassUsingAttribute",PAQUETE_A);				
 	}
 	/**
-	 * Comprueba que la refactorizaci�n se deshace de forma correcta sobre una clase que
+	 * Comprueba que la refactorización se deshace de forma correcta sobre una clase que
 	 * utiliza el valor de un atributo de otra clase para asignar a una variable dicho valor.
 	 *    
 	 * @throws Exception si se produce un error durante la ejecuci�n de la prueba.

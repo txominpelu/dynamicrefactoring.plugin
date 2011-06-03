@@ -39,8 +39,8 @@ import dynamicrefactoring.domain.xml.reader.XMLRefactoringReaderException;
 public class TestRefactoringPlanReader {
 
 	/**
-	 * Comprueba que la lectura no se realiza cuando la definici�n no contiene
-	 * toda la informaci�n m�nima necesaria (no cumple las reglas del DTD).
+	 * Comprueba que la lectura no se realiza cuando la definición no contiene
+	 * toda la información m�nima necesaria (no cumple las reglas del DTD).
 	 * 
 	 * Para ello se realiza una lectura del documento para obtener todas las
 	 * refactorizaciones del mismo.
@@ -55,7 +55,7 @@ public class TestRefactoringPlanReader {
 	}
 
 	/**
-	 * Comprueba que la lectura no se realiza cuando la definici�n utiliza otra
+	 * Comprueba que la lectura no se realiza cuando la definición utiliza otra
 	 * estructura que la que se define en el DTD.
 	 * 
 	 * Para ello se realiza una lectura del documento para obtener todas las
@@ -72,8 +72,8 @@ public class TestRefactoringPlanReader {
 
 	/**
 	 * Comprueba que la lectura se realiza correctamente cuando el plan
-	 * contiene la informaci�n m�nima necesaria.Es decir que el plan solo tiene
-	 * la etiqueta principal refactoring plan y ninguna refactorizaci�n.
+	 * contiene la información m�nima necesaria.Es decir que el plan solo tiene
+	 * la etiqueta principal refactoring plan y ninguna refactorización.
 	 * 
 	 * @throws Exception si se produce un error durante la lectura.
 	 */
@@ -82,16 +82,16 @@ public class TestRefactoringPlanReader {
 		ArrayList<String> refactorings =RefactoringPlanReader
 			.readAllRefactoringsFromThePlan("./testdata/XML/Reader/refactoringPlan" +
 					"/minimunRefactoringPlan.xml");
-		//Comprueba que el plan no tiene ninguna refactorizaci�n.
+		//Comprueba que el plan no tiene ninguna refactorización.
 		assertEquals(0,refactorings.size());
 	}
 
 	/**
 	 * Comprueba que la lectura se realiza correctamente cuando el plan
-	 * contiene toda la informaci�n posible. 
+	 * contiene toda la información posible. 
 	 * 
-	 * Esta informaci�n es: un conjunto de refactorizaciones con su nombre, fecha
-	 * de ejecuci�n y par�metros.
+	 * Esta información es: un conjunto de refactorizaciones con su nombre, fecha
+	 * de ejecuci�n y parámetros.
 	 * 
 	 * @throws Exception si se produce un error durante la lectura.
 	 */
@@ -109,7 +109,7 @@ public class TestRefactoringPlanReader {
 		assertEquals("Move Field",refactorings.get(1));
 		assertEquals("ExtractMethod",refactorings.get(2));
 		
-		//Comprobamos que lee correctamente los par�metros de las refactorizaciones.
+		//Comprobamos que lee correctamente los parámetros de las refactorizaciones.
 		assertEquals(RefactoringPlanReader.getInputValue("Add Parameter","Name","./testdata/XML" +
 				"/Reader/refactoringPlan/completeRefactoringPlan.xml"), "p4");
 		assertEquals(RefactoringPlanReader.getInputValue("Add Parameter","Method","./testdata/XML" +

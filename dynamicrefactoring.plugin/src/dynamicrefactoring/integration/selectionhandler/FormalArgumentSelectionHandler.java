@@ -37,7 +37,7 @@ import dynamicrefactoring.util.selection.TextSelectionInfo;
 
 /**
  * Proporciona las funciones necesarias para obtener el argumento formal de un
- * m�todo MOON con el que se corresponde un argumento formal seleccionado en 
+ * método MOON con el que se corresponde un argumento formal seleccionado en 
  * Eclipse.
  * 
  * @author <A HREF="mailto:sfd0009@alu.ubu.es">Sonia Fuente de la Fuente</A>
@@ -46,12 +46,12 @@ import dynamicrefactoring.util.selection.TextSelectionInfo;
 public class FormalArgumentSelectionHandler implements ISelectionHandler {
 	
 	/**
-	 * El proveedor de informaci�n concreto para la selecci�n de texto.
+	 * El proveedor de información concreto para la selecci�n de texto.
 	 */
 	private TextSelectionInfo infoProvider;
 	
 	/**
-	 * Procesador de informaci�n de la variable local con que se identifica el
+	 * Procesador de información de la variable local con que se identifica el
 	 * argumento formal seleccionado.
 	 */
 	private JavaLocalVariableProcessor variableProcessor;
@@ -62,12 +62,12 @@ public class FormalArgumentSelectionHandler implements ISelectionHandler {
 	private FormalArgument formalArgument;
 	
 	/**
-	 * La descripci�n MOON del m�todo al que pertenece el argumento formal.
+	 * La descripci�n MOON del método al que pertenece el argumento formal.
 	 */
 	private MethDec method;
 	
 	/**
-	 * La descripci�n MOON de la clase a la que pertenece el m�todo uno de cuyos
+	 * La descripci�n MOON de la clase a la que pertenece el método uno de cuyos
 	 * argumentos formales se ha seleccionado.
 	 */
 	private ClassDef methodClass;
@@ -78,7 +78,7 @@ public class FormalArgumentSelectionHandler implements ISelectionHandler {
 	 * @param selectionInfo contenedor de la selecci�n que se desea manejar.
 	 * 
 	 * @throws Exception si la selecci�n contenida en #selectionInfo no es una
-	 * selecci�n de un argumento formal sobre una representaci�n textual.
+	 * selecci�n de un argumento formal sobre una representación textual.
 	 */
 	public FormalArgumentSelectionHandler (TextSelectionInfo selectionInfo) 
 		throws Exception{
@@ -108,7 +108,7 @@ public class FormalArgumentSelectionHandler implements ISelectionHandler {
 	 * 
 	 * @throws ClassNotFoundException si se no se consigue encontrar la clase
 	 * del argumento formal en el modelo MOON cargado.
-	 * @throws IOException si se produce alg�n error al acceder al modelo MOON.
+	 * @throws IOException si se produce algún error al acceder al modelo MOON.
 	 * 
 	 * @see ISelectionHandler#getMainObject()
 	 */
@@ -133,15 +133,15 @@ public class FormalArgumentSelectionHandler implements ISelectionHandler {
 	}
 	
 	/**
-	 * Obtiene la descripci�n MOON del m�todo al que pertenece el argumento formal
+	 * Obtiene la descripci�n MOON del método al que pertenece el argumento formal
 	 * seleccionado.
 	 * 
-	 * @return la descripci�n MOON del m�todo al que pertenece el argumento formal
+	 * @return la descripci�n MOON del método al que pertenece el argumento formal
 	 * seleccionado.
 	 * 
 	 * @throws ClassNotFoundException si se no se consigue encontrar la clase a
-	 * la que pertenece el m�todo en el modelo MOON cargado.
-	 * @throws IOException si se produce alg�n error al acceder al modelo MOON.
+	 * la que pertenece el método en el modelo MOON cargado.
+	 * @throws IOException si se produce algún error al acceder al modelo MOON.
 	 */
 	public MethDec getFormalArgumentMethod() 
 		throws IOException, ClassNotFoundException {
@@ -160,15 +160,15 @@ public class FormalArgumentSelectionHandler implements ISelectionHandler {
 	}
 	
 	/**
-	 * Obtiene la descripci�n MOON de la clase a la que pertenece el m�todo uno de
+	 * Obtiene la descripci�n MOON de la clase a la que pertenece el método uno de
 	 * cuyos argumentos formales se ha seleccionado.
 	 * 
-	 * @return la descripci�n MOON de la clase a la que pertenece el m�todo uno de
+	 * @return la descripci�n MOON de la clase a la que pertenece el método uno de
 	 * cuyos argumentos formales se ha seleccionado.
 	 * 
 	 * @throws ClassNotFoundException si se no se consigue encontrar la clase en
 	 * el modelo MOON cargado.
-	 * @throws IOException si se produce alg�n error al acceder al modelo MOON.
+	 * @throws IOException si se produce algún error al acceder al modelo MOON.
 	 */
 	public ClassDef getMethodClass() throws ClassNotFoundException, IOException {
 		if (methodClass == null)

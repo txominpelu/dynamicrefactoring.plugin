@@ -28,22 +28,22 @@ import org.jdom.Document;
  * Define una interfaz para los escritores de ficheros XML donde se definen
  * refactorizaciones.
  * 
- * @author <A HREF="mailto:alc0022@alu.ubu.es">�ngel L�pez Campo</A>
- * @author <A HREF="mailto:epf0006@alu.ubu.es">Eduardo Pe�a Fern�ndez</A>
+ * @author <A HREF="mailto:alc0022@alu.ubu.es">Ángel López Campo</A>
+ * @author <A HREF="mailto:epf0006@alu.ubu.es">Eduardo Peña Fernández</A>
  * @author <A HREF="mailto:sfd0009@alu.ubu.es">Sonia Fuente de la Fuente</A>
  * @author <A HREF="mailto:ehp0001@alu.ubu.es">Enrique Herrero Paredes</A>
  */
 public interface XMLRefactoringWriterImp {
 
 	/**
-	 * Escribe el fichero XML a partir de la definici�n de la refactorizaci�n.
+	 * Escribe el fichero XML a partir de la definición de la refactorización.
 	 * 
 	 * @param dir
 	 *            directorio donde se guardar� el fichero.
 	 * 
 	 * @throws XMLRefactoringWriterException
 	 *             si se produce un error durante la escritura de la
-	 *             refactorizaci�n en el fichero.
+	 *             refactorización en el fichero.
 	 */
 	public void writeRefactoring(File dir) throws XMLRefactoringWriterException;
 

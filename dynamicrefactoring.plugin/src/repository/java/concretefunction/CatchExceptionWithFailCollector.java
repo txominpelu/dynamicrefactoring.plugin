@@ -17,7 +17,7 @@ import repository.java.concretepredicate.HasNotFail;
 /**
  * Collector of catch exception blocks with fail instructions.
  * 
- * @author Raúl Marticorena
+ * @author RaÃºl Marticorena
  *
  */
 public class CatchExceptionWithFailCollector extends Function{

@@ -27,24 +27,24 @@ import moon.core.classdef.ClassDef;
 import refactoring.engine.Function;
 
 /**
- * Permite obtener las clases de una jerarqu�a de herencia que se podr�an ver 
- * afectadas por un cambio en la signatura de un m�todo en una cierta clase de 
- * la jerarqu�a.
+ * Permite obtener las clases de una jerarquía de herencia que se podr�an ver 
+ * afectadas por un cambio en la signatura de un método en una cierta clase de 
+ * la jerarquía.
  *
  * @author <A HREF="mailto:ehp0001@alu.ubu.es">Enrique Herrero Paredes</A>
- * @author <A HREF="mailto:alc0022@alu.ubu.es">�ngel L�pez Campo</A>
+ * @author <A HREF="mailto:alc0022@alu.ubu.es">Ángel López Campo</A>
  * @author <A HREF="mailto:sfd0009@alu.ubu.es">Sonia Fuente de la Fuente</A>
  */ 
 public class ClassesAffectedByMethRenameCollector extends Function {
 	
 	/**
-	 * La clase a la que pertenece el m�todo que se ver�a afectado por un cambio
+	 * La clase a la que pertenece el método que se ver�a afectado por un cambio
 	 * en su signatura.
 	 */
 	private ClassDef classDef;
 	
 	/**
-	 * El nombre �nico del m�todo que sufrir�a un cambio en su signatura.
+	 * El nombre único del método que sufrir�a un cambio en su signatura.
 	 */
 	private String methodUniqueName;
 	
@@ -64,8 +64,8 @@ public class ClassesAffectedByMethRenameCollector extends Function {
 	 *
 	 * Obtiene una nueva instancia de ClassesAffectedByMethRenameCollector.
 	 *
-	 * @param classDef la clase que sufrir�a el cambio en la signatura de un m�todo.
-	 * @param methodUniqueName el nombre �nico del m�todo cuya signatura sufrir�a un cambio.
+	 * @param classDef la clase que sufrir�a el cambio en la signatura de un método.
+	 * @param methodUniqueName el nombre único del método cuya signatura sufrir�a un cambio.
 	 * @param alreadyFound la lista de clases ya incluidas como afectadas.
 	 * @param subclases indica si se quiere revisar tambi�n las subclases o solo se
 	 * quiere revisar las superclases.
@@ -80,9 +80,9 @@ public class ClassesAffectedByMethRenameCollector extends Function {
 
 	/**
 	 * Obtiene las clases que se encuentra al recorrer recursivamente la
-	 * jerarqu�a de herencia de una clase y que, por tanto, podr�an 
+	 * jerarquía de herencia de una clase y que, por tanto, podr�an 
 	 * hipot�ticamente verse afectadas por un cambio en la signatura de un 
-	 * m�todo de la clase original.
+	 * método de la clase original.
 	 *
 	 * @return Las clases encontradas o una colecci�n vac�a, si no se encontr� ninguna.
 	 */ 
@@ -147,7 +147,7 @@ public class ClassesAffectedByMethRenameCollector extends Function {
 	}
 	
 	/**
-	 * Sin implementaci�n.
+	 * Sin implementación.
 	 *
 	 * @return null.
 	 */

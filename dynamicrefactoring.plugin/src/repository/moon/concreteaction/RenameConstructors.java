@@ -33,7 +33,7 @@ import repository.RelayListenerRegistry;
  * que coincida con el de la clase.
  *
  * @author <A HREF="mailto:ehp0001@alu.ubu.es">Enrique Herrero Paredes</A>
- * @author <A HREF="mailto:alc0022@alu.ubu.es">�ngel L�pez Campo</A>
+ * @author <A HREF="mailto:alc0022@alu.ubu.es">Ángel López Campo</A>
  * @author <A HREF="mailto:sfd0009@alu.ubu.es">Sonia Fuente de la Fuente</A>
  */ 
 public class RenameConstructors extends Action {
@@ -44,7 +44,7 @@ public class RenameConstructors extends Action {
 	private ClassDef classDef;
 		
 	/**
-	 * Nuevo nombre que se deber� dar a los constructores.
+	 * Nuevo nombre que se deberí dar a los constructores.
 	 */
 	private Name newName;
 	
@@ -55,7 +55,7 @@ public class RenameConstructors extends Action {
 	private Name originalName;
 	
 	/**
-	 * Receptor de los mensajes enviados por la acci�n concreta.
+	 * Receptor de los mensajes enviados por la acción concreta.
 	 */
 	private RelayListenerRegistry listenerReg;
 	
@@ -65,7 +65,7 @@ public class RenameConstructors extends Action {
 	 * Obtiene una nueva instancia de RenameConstructors.
 	 *
 	 * @param classDef la clase cuyos constructores se desea cambiar de nombre.
-	 * @param newName el nuevo nombre que se dar� a los constructores de la clase.
+	 * @param newName el nuevo nombre que se darí a los constructores de la clase.
 	 */	
 	public RenameConstructors(ClassDef classDef, Name newName){
 		
@@ -79,7 +79,7 @@ public class RenameConstructors extends Action {
 	}
 	
 	/**
-	 * Ejecuta la actualizaci�n de nombre de los constructores.
+	 * Ejecuta la actualización de nombre de los constructores.
 	 */
 	public void run() {
 		
@@ -95,8 +95,8 @@ public class RenameConstructors extends Action {
 	 * Renombra los constructores de la clase para mantener la consistencia de 
 	 * nombres entre ambos.
 	 *
-	 * @param md m�todo constructor que se renombrar�.
-	 * @param name el nombre que se asignar� al constructor.
+	 * @param md método constructor que se renombrarí.
+	 * @param name el nombre que se asignarí al constructor.
 	 */
 	public void substituteName(MethDec md, Name name){			
 		

@@ -31,7 +31,7 @@ import refactoring.engine.Action;
 import repository.RelayListenerRegistry;
 
 /**
- * Permite a�adir una sentencia de importaci�n a una clase.
+ * Permite a�adir una sentencia de importación a una clase.
  * 
  * @author <A HREF="mailto:sfd0009@alu.ubu.es">Sonia Fuente de la Fuente</A>
  * @author <A HREF="mailto:ehp0001@alu.ubu.es">Enrique Herrero Paredes</A>
@@ -39,32 +39,32 @@ import repository.RelayListenerRegistry;
 public class AddImportClause extends Action {
 	
 	/**
-	 * Receptor de los mensajes enviados por la acci�n concreta.
+	 * Receptor de los mensajes enviados por la acción concreta.
 	 */
 	private RelayListenerRegistry listenerReg;
 	
 	/**
-	 * Tipo de la sentencia de importaci�n que se debe a�adir.
+	 * Tipo de la sentencia de importación que se debe a�adir.
 	 */
 	private Type type;
 	
 	/**
-	 * Clase a la que se debe a�adir la sentencia de importaci�n.
+	 * Clase a la que se debe a�adir la sentencia de importación.
 	 */
 	private ClassDef classdef;
 	
 	/**
-	 * Cl�usula de importaci�n a�adida a la clase.
+	 * Cl�usula de importación a�adida a la clase.
 	 */
 	private JavaImport jimport;
 	
 	/**
 	 * Constructor.<p>
 	 * 
-	 * Obtiene una nueva instancia de la acci�n <code>AddImportClause</code>.
+	 * Obtiene una nueva instancia de la acción <code>AddImportClause</code>.
 	 *
-	 * @param classdef clase a la que se debe a�adir la sentencia de importaci�n.
-	 * @param type tipo que debe importar la sentencia de importaci�n.
+	 * @param classdef clase a la que se debe a�adir la sentencia de importación.
+	 * @param type tipo que debe importar la sentencia de importación.
 	 */
 	public AddImportClause(ClassDef classdef, Type type){
 		super();
@@ -76,7 +76,7 @@ public class AddImportClause extends Action {
 	}
 	
 	/**
-	 * A�ade la sentencia de importaci�n.
+	 * A�ade la sentencia de importación.
 	 * 
 	 * @see Action#run()
 	 */
@@ -101,7 +101,7 @@ public class AddImportClause extends Action {
 	/**
 	 * Comprueba si un tipo es tipo primitivo.
 	 * 
-	 * @param type tipo sobre el que se realiza la comprobaci�n.
+	 * @param type tipo sobre el que se realiza la comprobación.
 	 * 
 	 * @return <code>true</code> si es un tipo primitivo; <code>false</code>
 	 * en caso contrario.

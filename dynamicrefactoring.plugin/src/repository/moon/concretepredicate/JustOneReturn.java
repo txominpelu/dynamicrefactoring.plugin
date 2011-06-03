@@ -16,7 +16,7 @@ import repository.moon.concretefunction.LocalEntitiesInLoopReentrance;
 /**
  * Checks if there is just one return. Just one variable is written.
  * 
- * @author Ra�l Marticorena
+ * @author Raúl Marticorena
  * @since JavaMoon-2.3.0
  *
  */

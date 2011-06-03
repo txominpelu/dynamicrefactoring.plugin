@@ -29,11 +29,11 @@ import moon.core.instruction.Instr;
 import refactoring.engine.Function;
 
 /**
- * Permite obtener las instrucciones simples que componen una instrucci�n
+ * Permite obtener las instrucciones simples que componen una instrucción
  * compuesta.
  *
  * @author <A HREF="mailto:ehp0001@alu.ubu.es">Enrique Herrero Paredes</A>
- * @author <A HREF="mailto:alc0022@alu.ubu.es">�ngel L�pez Campo</A>
+ * @author <A HREF="mailto:alc0022@alu.ubu.es">Ángel López Campo</A>
  * @author <A HREF="mailto:sfd0009@alu.ubu.es">Sonia Fuente de la Fuente</A>
  */ 
 public class SimpleInstructionCollector extends Function {
@@ -48,7 +48,7 @@ public class SimpleInstructionCollector extends Function {
 	 *
 	 * Devuelve una nueva instancia de SimpleInstructionCollector.
 	 *
-	 * @param compound la instrucci�n compuesta cuyas componentes se desean 
+	 * @param compound la instrucción compuesta cuyas componentes se desean 
 	 * obtener.
 	 */
 	public SimpleInstructionCollector(CompoundInstr compound) {
@@ -57,7 +57,7 @@ public class SimpleInstructionCollector extends Function {
 	}
 
 	/**
-	 * Sin implementaci�n.
+	 * Sin implementación.
 	 *
 	 * @return null.
 	 */
@@ -67,10 +67,10 @@ public class SimpleInstructionCollector extends Function {
 	
 	/**
 	 * Obtiene el conjunto de instrucciones simples (no compuestas) que componen
-	 * una instrucci�n compuesta.
+	 * una instrucción compuesta.
 	 *
 	 * @return el conjunto de instrucciones simples (no compuestas) que componen 
-	 * una instrucci�n compuesta.
+	 * una instrucción compuesta.
 	 */
 	public Collection<Instr> getCollection() {
 		Instr instr;

@@ -30,7 +30,7 @@ import repository.moon.concretepredicate.MethodSignatureIsInSuperclass;
 
 /**
  * 
- * A�ade una anotaci�n override a un m�todo.
+ * A�ade una anotación override a un método.
  * 
  * @author <A HREF="mailto:lfd0002@alu.ubu.es">Laura Fuente de la Fuente</A>
  * 
@@ -43,9 +43,9 @@ public class OverrideAnnotation extends MOONRefactoring {
 	private static final String NAME = "Override";
 	
 	/**
-	 * a�ade una notaci�n.
+	 * a�ade una notación.
 	 * 
-	 * @param methDec m�todo sobre el que se a�ade la notaci�n.
+	 * @param methDec método sobre el que se a�ade la notación.
 	 * @param model modelo sobre el que se esta trabajando.
 	 */
 	public OverrideAnnotation(MethDec methDec, Model model) {

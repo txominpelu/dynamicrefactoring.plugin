@@ -40,7 +40,7 @@ import dynamicrefactoring.domain.xml.reader.XMLRefactoringReaderException;
 
 
 /**
- * Se encarga escribir la informaci�n almacenada en el xml que guarda el plan de 
+ * Se encarga escribir la información almacenada en el xml que guarda el plan de 
  * refactorizaciones.
  * 
  * @author <A HREF="mailto:lfd0002@alu.ubu.es">Laura Fuente de la Fuente</A>
@@ -57,7 +57,7 @@ public final class RefactoringPlanWriter {
 	private Format format;
 	
 	/**
-	 * Instancia �nica de la clase.
+	 * Instancia única de la clase.
 	 * 
 	 * Patr�n de dise�o Singleton.
 	 */
@@ -88,11 +88,11 @@ public final class RefactoringPlanWriter {
 	}
 
 	/**
-	 * Obtiene la instancia �nica del generador.
+	 * Obtiene la instancia única del generador.
 	 * 
 	 * Patr�n de dise�o Singleton.
 	 * 
-	 * @return la instancia �nica del generador.
+	 * @return la instancia única del generador.
 	 */
 	public static RefactoringPlanWriter getInstance(){
 		if (myInstance == null){
@@ -132,19 +132,19 @@ public final class RefactoringPlanWriter {
 	}
 	
 	/**
-	 * Escribe los datos de una refactorizaci�n dentro del fichero que guarda el plan de 
+	 * Escribe los datos de una refactorización dentro del fichero que guarda el plan de 
 	 * refactorizaciones.
 	 * 
-	 * @param refactoringName Nombre de la refactorizaci�n.
-	 * @param fecha fecha en la ques e ejecuta la refactorizaci�n.
-	 * @param InputsParameters Par�metros de entrada de la refactorizaci�n.
+	 * @param refactoringName Nombre de la refactorización.
+	 * @param fecha fecha en la ques e ejecuta la refactorización.
+	 * @param InputsParameters Parámetros de entrada de la refactorización.
 	 */
 	public void writeRefactoring (String refactoringName,String fecha, Map<String, String> InputsParameters ){
 		try {
 			SAXBuilder builder = new SAXBuilder(true);
 			builder.setIgnoringElementContentWhitespace(true);
-			// El atributo SYSTEM del DOCTYPE de la definici�n XML de la
-			// refactorizaci�n es solo la parte relativa de la ruta del fichero
+			// El atributo SYSTEM del DOCTYPE de la definición XML de la
+			// refactorización es solo la parte relativa de la ruta del fichero
 			// DTD. Se le antepone la ruta del directorio del plugin que 
 			// contiene los ficheros de refactorizaciones din�micas.
 			Document doc = builder.build(new File(RefactoringConstants
@@ -182,11 +182,11 @@ public final class RefactoringPlanWriter {
 	}
 	
 	/**
-	 * Elimina una refactorizaci�n y las siguientes (ya que al deshacer la primera se deshacen 
+	 * Elimina una refactorización y las siguientes (ya que al deshacer la primera se deshacen 
 	 * el resto) del fichero xml que contiene el plan de refactorizaciones.
 	 * 
-	 * @param refactoringName refactorizaci�n a eliminar
-	 * @param fecha fecha de ejecuci�n de la refactorizaci�n.
+	 * @param refactoringName refactorización a eliminar
+	 * @param fecha fecha de ejecuci�n de la refactorización.
 	 * @throws XMLRefactoringReaderException XMLRefactoringReaderException
 	 */
 	public void deleteRefactorings (String refactoringName, String fecha) throws XMLRefactoringReaderException {

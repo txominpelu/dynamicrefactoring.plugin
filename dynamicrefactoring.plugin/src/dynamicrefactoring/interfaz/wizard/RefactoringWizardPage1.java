@@ -63,20 +63,20 @@ import dynamicrefactoring.interfaz.wizard.classificationscombo.PickCategoryTree;
 import dynamicrefactoring.util.io.filter.ImageFilter;
 
 /**
- * Primera p�gina del asistente de creaci�n o edici�n de refactorizaciones.
+ * Primera p�gina del asistente de creación o edición de refactorizaciones.
  * 
  * <p>
- * Permite configurar los datos b�sicos de la refactorizaci�n, como son:
+ * Permite configurar los datos b�sicos de la refactorización, como son:
  * <ul>
  * <li>Su nombre.</li>
  * <li>Su descripci�n.</li>
- * <li>Su motivaci�n.</li>
+ * <li>Su motivación.</li>
  * </ul>
  * </p>
  * 
  * <p>
- * Tambi�n permite asociar una imagen a la refactorizaci�n, que muestre de
- * manera gr�fica la intenci�n de la refactorizaci�n.
+ * Tambi�n permite asociar una imagen a la refactorización, que muestre de
+ * manera gr�fica la intenci�n de la refactorización.
  * </p>
  * 
  * @author <A HREF="mailto:lfd0002@alu.ubu.es">Laura Fuente de la Fuente</A>
@@ -96,19 +96,19 @@ public final class RefactoringWizardPage1 extends WizardPage {
 	private static final int WINDOW_WIDTH = 650;
 
 	/**
-	 * Refactorización configurada a trav�s del asistente y que debe ser creada
-	 * finalmente (si se trata de una nueva refactorizaci�n) o modificada (si se
+	 * Refactorización configurada a través del asistente y que debe ser creada
+	 * finalmente (si se trata de una nueva refactorización) o modificada (si se
 	 * est� editando una ya existente).
 	 */
 	private DynamicRefactoringDefinition refactoring = null;
 
 	/**
-	 * Motivaci�n asociada la refactorizaci�n.
+	 * Motivación asociada la refactorización.
 	 */
 	private Text motivationText;
 
 	/**
-	 * Ruta a un fichero de imagen con un esquema de la refactorizaci�n.
+	 * Ruta a un fichero de imagen con un esquema de la refactorización.
 	 */
 	private Text imageText;
 
@@ -123,7 +123,7 @@ public final class RefactoringWizardPage1 extends WizardPage {
 	private Text descriptionText;
 
 	/**
-	 * Nombre de la refactorizaci�n.
+	 * Nombre de la refactorización.
 	 */
 	private Text nameText;
 
@@ -133,7 +133,7 @@ public final class RefactoringWizardPage1 extends WizardPage {
 	private PickCategoryTree categoryTree;
 
 	/**
-	 * Palabras clave que identifican la refactorizaci�n.
+	 * Palabras clave que identifican la refactorización.
 	 */
 	private Text keywordsText;
 
@@ -142,7 +142,7 @@ public final class RefactoringWizardPage1 extends WizardPage {
 	 * Constructor.
 	 * 
 	 * @param refactoring
-	 *            refactorizaci�n refactorizaci�n que se quiere editar, o
+	 *            refactorización refactorización que se quiere editar, o
 	 *            <code>null</code> si se est� creando una nueva.
 	 */
 	public RefactoringWizardPage1(DynamicRefactoringDefinition refactoring) {
@@ -421,8 +421,8 @@ public final class RefactoringWizardPage1 extends WizardPage {
 	}
 
 	/**
-	 * Puebla los campos del formulario del asistente con la informaci�n que se
-	 * pueda obtener de la refactorizaci�n existente que se est� editando.
+	 * Puebla los campos del formulario del asistente con la información que se
+	 * pueda obtener de la refactorización existente que se est� editando.
 	 */
 	private void fillInRefactoringData() {
 		if (refactoring.getName() != null) {
@@ -512,29 +512,29 @@ public final class RefactoringWizardPage1 extends WizardPage {
 	}
 
 	/**
-	 * Obtiene el campo de texto con la descripci�n de la refactorizaci�n.
+	 * Obtiene el campo de texto con la descripci�n de la refactorización.
 	 * 
-	 * @return el campo de texto con la descripci�n de la refactorizaci�n.
+	 * @return el campo de texto con la descripci�n de la refactorización.
 	 */
 	public Text getDescriptionText() {
 		return this.descriptionText;
 	}
 
 	/**
-	 * Obtiene el campo de texto con la motivaci�n asociada a la
-	 * refactorizaci�n.
+	 * Obtiene el campo de texto con la motivación asociada a la
+	 * refactorización.
 	 * 
-	 * @return el campo de texto con la motivaci�n asociada a la
-	 *         refactorizaci�n.
+	 * @return el campo de texto con la motivación asociada a la
+	 *         refactorización.
 	 */
 	public Text getMotivationText() {
 		return this.motivationText;
 	}
 
 	/**
-	 * Obtiene el campo de texto con el nombre de la refactorizaci�n.
+	 * Obtiene el campo de texto con el nombre de la refactorización.
 	 * 
-	 * @return el campo de texto con el nombre de la refactorizaci�n.
+	 * @return el campo de texto con el nombre de la refactorización.
 	 */
 	public Text getNameText() {
 		return this.nameText;
@@ -551,19 +551,19 @@ public final class RefactoringWizardPage1 extends WizardPage {
 	}
 	
 	/**
-	 * Implementa el proceso de elecci�n de la imagen de la refactorizaci�n
+	 * Implementa el proceso de elecci�n de la imagen de la refactorización
 	 * din�mica.
 	 * 
-	 * @author <A HREF="mailto:alc0022@alu.ubu.es">�ngel L�pez Campo</A>
-	 * @author <A HREF="mailto:epf0006@alu.ubu.es">Eduardo Pe�a Fern�ndez</A>
+	 * @author <A HREF="mailto:alc0022@alu.ubu.es">Ángel López Campo</A>
+	 * @author <A HREF="mailto:epf0006@alu.ubu.es">Eduardo Peña Fernández</A>
 	 * @author <A HREF="mailto:sfd0009@alu.ubu.es">Sonia Fuente de la Fuente</A>
 	 * @author <A HREF="mailto:ehp0001@alu.ubu.es">Enrique Herrero Paredes</A>
 	 */
 	private class ImageChooserAction implements SelectionListener {
 
 		/**
-		 * Recibe una notificaci�n de que se ha pulsado el bot�n que permite
-		 * seleccionar una imagen asociada a la refactorizaci�n.
+		 * Recibe una notificación de que se ha pulsado el bot�n que permite
+		 * seleccionar una imagen asociada a la refactorización.
 		 * 
 		 * <p>
 		 * Abre una ventana de selecci�n de fichero con un filtro que permite

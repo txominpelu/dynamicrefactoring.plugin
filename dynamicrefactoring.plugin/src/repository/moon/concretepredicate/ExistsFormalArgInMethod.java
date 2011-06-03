@@ -28,22 +28,22 @@ import refactoring.engine.Predicate;
 import repository.moon.concretefunction.FormalArgRetriever;
 
 /**
- * Permite verificar que existe el par�metro especificado dentro de la signatura
- * de un m�todo.
+ * Permite verificar que existe el parámetro especificado dentro de la signatura
+ * de un método.
  *
  * @author <A HREF="mailto:ehp0001@alu.ubu.es">Enrique Herrero Paredes</A>
- * @author <A HREF="mailto:alc0022@alu.ubu.es">�ngel L�pez Campo</A>
+ * @author <A HREF="mailto:alc0022@alu.ubu.es">Ángel López Campo</A>
  * @author <A HREF="mailto:sfd0009@alu.ubu.es">Sonia Fuente de la Fuente</A>
  */ 
 public class ExistsFormalArgInMethod extends Predicate {
 	
 	/**
-	 * Par�metro formal cuya presencia en un m�todo se quiere comprobar.
+	 * Parámetro formal cuya presencia en un método se quiere comprobar.
 	 */
 	private FormalArgument formalArg;
 	
 	/**
-	 * M�todo en el que se busca un cierto par�metro formal.
+	 * Método en el que se busca un cierto parámetro formal.
 	 */
 	private MethDec methDec;
 	
@@ -52,8 +52,8 @@ public class ExistsFormalArgInMethod extends Predicate {
 	 *
 	 * Obtiene una nueva instancia del predicado ExistsFormalArgInMethod.
 	 *
-	 * @param formalArg el par�metro formal que se desea buscar.
-	 * @param methDec el m�todo en que se busca el par�metro formal.
+	 * @param formalArg el parámetro formal que se desea buscar.
+	 * @param methDec el método en que se busca el parámetro formal.
 	 */
 	public ExistsFormalArgInMethod(FormalArgument formalArg, MethDec methDec) {
 		

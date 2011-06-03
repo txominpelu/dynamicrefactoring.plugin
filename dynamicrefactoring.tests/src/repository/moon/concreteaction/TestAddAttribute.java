@@ -31,7 +31,7 @@ import org.junit.Test;
 import repository.RefactoringTemplateAbstractTest;
 
 /** 
- * Comprueba que funciona correctamente la acci�n que a�ade un atributo a una clase. <p>
+ * Comprueba que funciona correctamente la acción que a�ade un atributo a una clase. <p>
  * 
  * @author <A HREF="mailto:sfd0009@alu.ubu.es">Sonia Fuente de la Fuente</A>
  * @author <A HREF="mailto:ehp0001@alu.ubu.es">Enrique Herrero Paredes</A>
@@ -39,8 +39,8 @@ import repository.RefactoringTemplateAbstractTest;
 public class TestAddAttribute extends RefactoringTemplateAbstractTest {
 
 	/** 
-	 * Comprueba que la acci�n funciona correctamente al a�adir un atributo a una 
-	 * clase y deshacer despu�s la operaci�n. <p>
+	 * Comprueba que la acción funciona correctamente al a�adir un atributo a una 
+	 * clase y deshacer despu�s la operación. <p>
 	 * 
 	 * @throws Exception si se produce un error durante la ejecuci�n de la prueba.
 	 */

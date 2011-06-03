@@ -27,20 +27,20 @@ import refactoring.engine.Action;
 import repository.java.concreteaction.AddImportClause;
 
 /**
- * Permite a�adir un par�metro a la signatura de un m�todo de una representaci�n 
+ * Permite a�adir un parámetro a la signatura de un método de una representación 
  * MOON de un modelo.<p>
  *
  * No tiene en cuenta las clases que, por herencia, se puedan ver afectadas por
- * un cambio en la signatura del m�todo.
+ * un cambio en la signatura del método.
  *
- * @author <A HREF="mailto:alc0022@alu.ubu.es">�ngel L�pez Campo</A>
+ * @author <A HREF="mailto:alc0022@alu.ubu.es">Ángel López Campo</A>
  * @author <A HREF="mailto:ehp0001@alu.ubu.es">Enrique Herrero Paredes</A>
  * @author <A HREF="mailto:sfd0009@alu.ubu.es">Sonia Fuente de la Fuente</A>
  */ 
 public class AddFormalArgWithoutHierarchy extends AddFormalArg {
 	
 	/**
-	 * Acci�n auxiliar que permite a�adir la sentencia de importaci�n si es
+	 * Acci�n auxiliar que permite a�adir la sentencia de importación si es
 	 * necesario.
 	 */
 	private Action helper;	
@@ -50,9 +50,9 @@ public class AddFormalArgWithoutHierarchy extends AddFormalArg {
 	 *
 	 * Obtiene una nueva instancia de AddFormalArgWithoutHierarchy
 	 *
-	 * @param method el m�todo en cuya signatura se va a a�adir un par�metro.
-	 * @param paramName el nombre que se dar� al nuevo par�metro formal.
-	 * @param paramType el tipo que tendr� el nuevo par�metro formal.
+	 * @param method el método en cuya signatura se va a a�adir un parámetro.
+	 * @param paramName el nombre que se dar� al nuevo parámetro formal.
+	 * @param paramType el tipo que tendr� el nuevo parámetro formal.
 	 */
 	public AddFormalArgWithoutHierarchy (MethDec method,  
 		Name paramName, Type paramType){
@@ -61,7 +61,7 @@ public class AddFormalArgWithoutHierarchy extends AddFormalArg {
 	}
 	
 	/**
-	 * No se debe extender la acci�n a las suclases ni superclases.
+	 * No se debe extender la acción a las suclases ni superclases.
 	 */
 	void addIntoHierarchy(){
 		helper = new AddImportClause(method.getClassDef(), newParameter.getType());

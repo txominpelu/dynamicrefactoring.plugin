@@ -24,7 +24,7 @@ import org.eclipse.jdt.core.IType;
 
 /**
  * Proporciona funciones que permiten manejar un tipo Java tal y como lo
- * define Eclipse en su representación interna.
+ * define Eclipse en su representaciÃ³n interna.
  * 
  * @author <A HREF="mailto:sfd0009@alu.ubu.es">Sonia Fuente de la Fuente</A>
  * @author <A HREF="mailto:ehp0001@alu.ubu.es">Enrique Herrero Paredes</A>
@@ -47,10 +47,10 @@ public class JavaClassProcessor extends JavaElementProcessor {
 	}
 	
 	/** 
-	 * Obtiene el nombre único de la clase Java dentro de la estructura del 
+	 * Obtiene el nombre Ãºnico de la clase Java dentro de la estructura del 
 	 * espacio de nombres al que pertenece.
 	 * 
-	 * @return el nombre único de la clase Java dentro de la estructura del
+	 * @return el nombre Ãºnico de la clase Java dentro de la estructura del
 	 * espacio de nombres al que pertenece.
 	 */
 	@Override

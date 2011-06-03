@@ -25,22 +25,22 @@ import moon.core.classdef.MethDec;
 import refactoring.engine.Predicate;
 
 /**
- * Permite verificar que un cierto m�todo no es constructor de la clase que lo 
+ * Permite verificar que un cierto método no es constructor de la clase que lo 
  * alberga.
  *
- * @author <A HREF="mailto:alc0022@alu.ubu.es">�ngel L�pez Campo</A>
+ * @author <A HREF="mailto:alc0022@alu.ubu.es">Ángel López Campo</A>
  * @author <A HREF="mailto:ehp0001@alu.ubu.es">Enrique Herrero Paredes</A>
  * @author <A HREF="mailto:sfd0009@alu.ubu.es">Sonia Fuente de la Fuente</A>
  */ 
 public class MethodIsNotConstructor extends Predicate {
 	
 	/**
-	 * M�todo cuyo car�cter de constructor se quiere verificar.
+	 * Método cuyo carácter de constructor se quiere verificar.
 	 */
 	private MethDec method;
 	
 	/**
-	 * Clase que contiene al m�todo.
+	 * Clase que contiene al método.
 	 */
 	private ClassDef classDef;
 	
@@ -49,7 +49,7 @@ public class MethodIsNotConstructor extends Predicate {
 	 *
 	 * Obtiene una nueva instancia de MethodIsNotConstructor.
 	 *
-	 * @param method el m�todo cuyo car�cter de constructor se quiere verificar.
+	 * @param method el método cuyo carácter de constructor se quiere verificar.
 	 */
 	public MethodIsNotConstructor(MethDec method) {
 		
@@ -64,7 +64,7 @@ public class MethodIsNotConstructor extends Predicate {
 	/**
 	 * Comprueba el valor de verdad del predicado.
 	 * 
-	 * @return <code>true</code> si el m�todo no act�a como constructor de 
+	 * @return <code>true</code> si el método no actúa como constructor de 
 	 * la clase especificada, <code>false</code> en caso contrario.
 	 */	 
 	public boolean isValid() {

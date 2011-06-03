@@ -27,10 +27,10 @@ import repository.RelayListenerRegistry;
 import repository.moon.MOONRefactoring;
 
 /**
- * Permite renombrar una clase de una representaci�n MOON de un modelo Java.
+ * Permite renombrar una clase de una representación MOON de un modelo Java.
  *
  * @author <A HREF="mailto:ehp0001@alu.ubu.es">Enrique Herrero Paredes</A>
- * @author <A HREF="mailto:alc0022@alu.ubu.es">�ngel L�pez Campo</A>
+ * @author <A HREF="mailto:alc0022@alu.ubu.es">Ángel López Campo</A>
  * @author <A HREF="mailto:sfd0009@alu.ubu.es">Sonia Fuente de la Fuente</A>
  */ 
 public class RenameClass extends Action {
@@ -51,7 +51,7 @@ public class RenameClass extends Action {
 	private Name originalName;
 	
 	/**
-	 * Receptor de los mensajes enviados por la acci�n concreta.
+	 * Receptor de los mensajes enviados por la acción concreta.
 	 */
 	private RelayListenerRegistry listenerReg;
 	

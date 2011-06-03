@@ -35,38 +35,38 @@ import repository.moon.MOONRefactoring;
 import repository.moon.concretefunction.MethodCollector;
 
 /**
- * Permite eliminar un argumento formal de la signatura de un m�todo.<p>
+ * Permite eliminar un argumento formal de la signatura de un método.<p>
  *
- * Se ocupa de eliminarlo tanto en la definici�n del m�todo, como en todas las
+ * Se ocupa de eliminarlo tanto en la definición del método, como en todas las
  * llamadas al mismo.<p>
  *
  * No tiene en cuenta las posibles implicaciones derivadas del hecho de que 
- * existan otras clases de la jerarqu�a de herencia que definan o redefinan el 
- * mismo m�todo.
+ * existan otras clases de la jerarquía de herencia que definan o redefinan el 
+ * mismo método.
  *
  * @author <A HREF="mailto:ehp0001@alu.ubu.es">Enrique Herrero Paredes</A>
- * @author <A HREF="mailto:alc0022@alu.ubu.es">�ngel L�pez Campo</A>
+ * @author <A HREF="mailto:alc0022@alu.ubu.es">Ángel López Campo</A>
  * @author <A HREF="mailto:sfd0009@alu.ubu.es">Sonia Fuente de la Fuente</A>
  */ 
 public class RemoveFormalArgWithoutHierarchy extends Action {
 	
 	/**
-	 * El par�metro formal que se va a eliminar de la signatura del m�todo.
+	 * El parámetro formal que se va a eliminar de la signatura del método.
 	 */
 	private FormalArgument deletedParameter;
 	
 	/**
-	 * El m�todo de cuya signatura se va a eliminar el argumento formal.
+	 * El método de cuya signatura se va a eliminar el argumento formal.
 	 */
 	private MethDec method;
 			
 	/**
-	 * La posici�n que ocupa el argumento formal dentro de la signatura del m�todo.
+	 * La posición que ocupa el argumento formal dentro de la signatura del método.
 	 */
 	private int paramPosition;
 	
 	/**
-	 * Receptor de los mensajes enviados por la acci�n concreta.
+	 * Receptor de los mensajes enviados por la acción concreta.
 	 */
 	private RelayListenerRegistry listenerReg;
 			 
@@ -76,7 +76,7 @@ public class RemoveFormalArgWithoutHierarchy extends Action {
 	 * Obtiene una nueva instancia de RemoveFormalArgWithoutHierarchy.
 	 *
 	 * @param formalArg el argumento formal que se va a eliminar.
-	 * @param method el m�todo de cuya signatura se va a eliminar un argumento.
+	 * @param method el método de cuya signatura se va a eliminar un argumento.
 	 */	
 	public RemoveFormalArgWithoutHierarchy(FormalArgument formalArg, MethDec method){
 		
@@ -92,7 +92,7 @@ public class RemoveFormalArgWithoutHierarchy extends Action {
 	}	
 	
 	/**
-	 * Elimina un par�metro formal de la signatura de un m�todo.
+	 * Elimina un parámetro formal de la signatura de un método.
 	 */
 	public void run() {
 		
@@ -126,7 +126,7 @@ public class RemoveFormalArgWithoutHierarchy extends Action {
 	}
 
 	/**
-	 * Restaura el par�metro formal a la signatura del m�todo.
+	 * Restaura el parámetro formal a la signatura del método.
 	 */
 	public void undo() {
 		

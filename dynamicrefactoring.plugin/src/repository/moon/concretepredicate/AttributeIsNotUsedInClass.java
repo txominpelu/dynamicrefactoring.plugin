@@ -28,10 +28,10 @@ import repository.moon.concretefunction.MethodCollector;
 
 /**
  * Permite comprobar que un determinado atributo de clase no es utilizado en 
- * ning�n punto de la misma.
+ * ningún punto de la misma.
  *
  * @author <A HREF="mailto:ehp0001@alu.ubu.es">Enrique Herrero Paredes</A>
- * @author <A HREF="mailto:alc0022@alu.ubu.es">�ngel L�pez Campo</A>
+ * @author <A HREF="mailto:alc0022@alu.ubu.es">Ángel López Campo</A>
  * @author <A HREF="mailto:sfd0009@alu.ubu.es">Sonia Fuente de la Fuente</A>
  */
 public class AttributeIsNotUsedInClass extends Predicate {
@@ -68,7 +68,7 @@ public class AttributeIsNotUsedInClass extends Predicate {
 	/**
 	 * Comprueba el valor de verdad del predicado.
 	 * 
-	 * @return <code>true</code> si el atributo no se emplea en ning�n punto de 
+	 * @return <code>true</code> si el atributo no se emplea en ningún punto de 
 	 * la clase; <code>false</code> en caso contrario.
 	 */	 
 	public boolean isValid() {		

@@ -32,7 +32,7 @@ import refactoring.engine.Predicate;
 public class IsNotInnerClass extends Predicate {
 	
 	/**
-	 * Clase cuyo car�cter de clase no interna se debe comprobar.
+	 * Clase cuyo carácter de clase no interna se debe comprobar.
 	 */
 	private ClassDef classDef;
 	
@@ -41,7 +41,7 @@ public class IsNotInnerClass extends Predicate {
 	 *
 	 * Devuelve una nueva instancia del predicado <code>IsNotInnerClass</code>.
 	 *
-	 * @param classDef clase cuyo car�cter de clase no interna se debe comprobar.
+	 * @param classDef clase cuyo carácter de clase no interna se debe comprobar.
 	 */
 	public IsNotInnerClass(ClassDef classDef) {
 

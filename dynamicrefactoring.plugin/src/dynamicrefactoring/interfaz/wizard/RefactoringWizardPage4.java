@@ -38,15 +38,15 @@ import dynamicrefactoring.domain.RefactoringMechanismType;
 
 
 /**
- * Cuarta p�gina del asistente de creaci�n o edici�n de refactorizaciones.
+ * Cuarta p�gina del asistente de creación o edición de refactorizaciones.
  * 
- * <p>Permite componer la refactorizaci�n mediante la adici�n de predicados
+ * <p>Permite componer la refactorización mediante la adición de predicados
  * a la lista de acciones que implementen las modificaciones llevadas a cabo 
- * por la refactorizaci�n.</p>
+ * por la refactorización.</p>
  * 
  * <p>Permite definir el orden en que se comprobar�n los predicados y en que
  * se ejecutar�n las acciones, as� como la lista de entradas de la 
- * refactorizaci�n que deber�n ser transmitidas a cada uno de los componentes.
+ * refactorización que deber�n ser transmitidas a cada uno de los componentes.
  * </p>
  * 
  * @author <A HREF="mailto:lfd0002@alu.ubu.es">Laura Fuente de la Fuente</A>
@@ -55,15 +55,15 @@ public final class RefactoringWizardPage4 extends WizardPage implements  IRefact
 
 
 	/**
-	 * T�tulo de la operaci�n sobre la que se configuran las acciones de la 
-	 * refactorizaci�n.
+	 * T�tulo de la operación sobre la que se configuran las acciones de la 
+	 * refactorización.
 	 */
 	protected static final String ACTIONS_TITLE = Messages.RefactoringWizardPage4_Actions;
 
 	
 	/**
-	 * Refactorizaci�n configurada a trav�s del asistente y que debe ser creada
-	 * finalmente (si se trata de una nueva refactorizaci�n) o modificada (si se
+	 * Refactorización configurada a través del asistente y que debe ser creada
+	 * finalmente (si se trata de una nueva refactorización) o modificada (si se
 	 * est� editando una ya existente).
 	 */
 	private DynamicRefactoringDefinition refactoring = null;
@@ -76,14 +76,14 @@ public final class RefactoringWizardPage4 extends WizardPage implements  IRefact
 	
 	
 	/**
-	 * Contenedor para la configuraci�n de las acciones de la refactorizaci�n.
+	 * Contenedor para la configuración de las acciones de la refactorización.
 	 */
 	private RepositoryElementComposite actionsTab;
 	
 	/**
 	 * Constructor.
 	 * 
-	 * @param refactoring la refactorizaci�n que se est� editando, o <code>
+	 * @param refactoring la refactorización que se est� editando, o <code>
 	 * null</code> si se est� construyendo una nueva.
 	 */
 	public RefactoringWizardPage4(DynamicRefactoringDefinition refactoring) {
@@ -125,8 +125,8 @@ public final class RefactoringWizardPage4 extends WizardPage implements  IRefact
 
 		setControl(container);
 		
-		// Las precondiciones necesitan un elemento a trav�s del que acceder a las
-		// entradas de la refactorizaci�n.
+		// Las precondiciones necesitan un elemento a través del que acceder a las
+		// entradas de la refactorización.
 		RefactoringWizardPage2 inputsPage = null;
 		if (getPreviousPage().getPreviousPage() instanceof RefactoringWizardPage2)
 			inputsPage = (RefactoringWizardPage2)getPreviousPage().getPreviousPage();

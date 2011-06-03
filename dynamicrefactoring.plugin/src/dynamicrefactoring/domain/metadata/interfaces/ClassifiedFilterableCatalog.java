@@ -69,7 +69,7 @@ public interface ClassifiedFilterableCatalog<K> {
 	ClassifiedFilterableCatalog<K> newInstance(Classification classification);
 
 	/**
-	 * Devuelve la clasificaci�n que divide en categorias los elementos de este
+	 * Devuelve la clasificación que divide en categorias los elementos de este
 	 * catalogo.
 	 * 
 	 * @return clasificacion que divide en categorias el catalogo.

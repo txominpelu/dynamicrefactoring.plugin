@@ -31,7 +31,7 @@ import refactoring.engine.Action;
 /**
  * Removes one inheritance clause in a class.
  * 
- * @author Raúl Marticorena
+ * @author RaÃºl Marticorena
  *
  */
 public class RemoveInheritanceClause  extends Action{

@@ -35,7 +35,7 @@ import repository.moon.concretepredicate.IsSubtype;
  * 
  * Migrate a class test from JUnit 3 to JUnit 4.
  * 
- * @author Raúl Marticorena
+ * @author RaÃºl Marticorena
  * 
  */
 public class MigrateJUnit3ToJUnit4 extends MOONRefactoring {

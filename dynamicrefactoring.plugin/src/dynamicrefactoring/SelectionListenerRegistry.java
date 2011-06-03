@@ -28,7 +28,7 @@ import dynamicrefactoring.util.selection.SelectionInfo;
 
 /**
  * Mantiene un registro de todos los observadores que quieren recibir notificaciones
- * de que un elemento válido como entrada para una refactorización ha sido seleccionado.
+ * de que un elemento vï¿½lido como entrada para una refactorizaciÃ³n ha sido seleccionado.
  * 
  * @author <A HREF="mailto:lfd0002@alu.ubu.es">Laura Fuente de la Fuente</A>
  *
@@ -36,9 +36,9 @@ import dynamicrefactoring.util.selection.SelectionInfo;
 public class SelectionListenerRegistry {
 
 	/**
-	 * Instancia única del generador.
+	 * Instancia Ãºnica del generador.
 	 * 
-	 * Patrón de diseño Singleton.
+	 * Patrï¿½n de diseï¿½o Singleton.
 	 */
 	private static SelectionListenerRegistry myInstance;
 	
@@ -48,11 +48,11 @@ public class SelectionListenerRegistry {
 	private ArrayList<IMainSelectionListener> listeners;
 	
 	/**
-	 * Obtiene la instancia única del generador.
+	 * Obtiene la instancia Ãºnica del generador.
 	 * 
-	 * Patrón de diseño Singleton.
+	 * Patrï¿½n de diseï¿½o Singleton.
 	 * 
-	 * @return la instancia única del generador.
+	 * @return la instancia Ãºnica del generador.
 	 */
 	public static SelectionListenerRegistry getInstance(){
 		if (myInstance == null)
@@ -63,7 +63,7 @@ public class SelectionListenerRegistry {
 	/**
 	 * Constructor for SelectionListenerRegistry.
 	 * 
-	 *  Privado, según la estructura del patrón de diseño Singleton.
+	 *  Privado, segï¿½n la estructura del patrï¿½n de diseï¿½o Singleton.
 	 */
 	private SelectionListenerRegistry() {
 		listeners = new ArrayList<IMainSelectionListener>();
@@ -71,7 +71,7 @@ public class SelectionListenerRegistry {
 	
 	/**
 	 * Notifica a todos los listener registrados que un objeto del espacio de trabajo
-	 * válido como entrada para una refactorización ha sido seleccionado.
+	 * vï¿½lido como entrada para una refactorizaciÃ³n ha sido seleccionado.
 	 * 
 	 * @param selection elemento seleccionado en el espacio de trabajo.
 	 */
@@ -84,10 +84,10 @@ public class SelectionListenerRegistry {
 	
 
 	/**
-	 * Añade un listener dentro de la lista de listeners que son atendidos por esta clase
-	 * que actúa como sujeto dentro del patrón observador.
+	 * Aï¿½ade un listener dentro de la lista de listeners que son atendidos por esta clase
+	 * que actï¿½a como sujeto dentro del patrï¿½n observador.
 	 * 
-	 * @param listener listener a añadir.
+	 * @param listener listener a aï¿½adir.
 	 */
 	public void addListener(IMainSelectionListener listener){
 		if (listener != null)
@@ -96,7 +96,7 @@ public class SelectionListenerRegistry {
 
 	/**
 	 * Elimina un listener dentro de la lista de listeners que son atendidos por esta clase
-	 * que actúa como sujeto dentro del patrón observador.
+	 * que actï¿½a como sujeto dentro del patrï¿½n observador.
 	 * 
 	 * @param listener listener a eliminar.
 	 * @see #addListener

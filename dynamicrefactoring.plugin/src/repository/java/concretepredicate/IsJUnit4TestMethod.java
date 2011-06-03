@@ -11,7 +11,7 @@ import refactoring.engine.Predicate;
  * Check if is a test method in JUnit4. It contains an annotation
  * @Test.
  * 
- * @author Raúl Marticorena
+ * @author RaÃºl Marticorena
  *
  */
 public class IsJUnit4TestMethod extends Predicate{

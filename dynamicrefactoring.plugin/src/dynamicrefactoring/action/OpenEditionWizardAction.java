@@ -32,7 +32,7 @@ import dynamicrefactoring.interfaz.SelectDynamicRefactoringWindow;
 import dynamicrefactoring.interfaz.SelectForEditingWindow;
 
 /**
- * Acci�n que inicia el asistente de edici�n de una refactorizaci�n existente.
+ * Acci�n que inicia el asistente de edición de una refactorización existente.
  */
 public class OpenEditionWizardAction implements IWorkbenchWindowActionDelegate  {
 	

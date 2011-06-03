@@ -36,7 +36,7 @@ import dynamicrefactoring.interfaz.SelectRefactoringWindow;
 
 /**
  * Permite obtener el conjunto de refactorizaciones din�micas disponibles y
- * aplicables sobre un �nico �mbito (de clase, de m�todo, etc.).
+ * aplicables sobre un único �mbito (de clase, de método, etc.).
  * 
  * @author <A HREF="mailto:lfd0002@alu.ubu.es">Laura Fuente de la Fuente</A>
  * @author <A HREF="mailto:sfd0009@alu.ubu.es">Sonia Fuente de la Fuente</A>
@@ -67,18 +67,18 @@ public class ScopeLimitedLister {
 	private final static String FORMAL_ARG_SCOPE = "moon.core.classdef.FormalArgument"; //$NON-NLS-1$
 
 	/**
-	 * �mbito de refactorizaciones cuya entrada principal es un par�metro
+	 * �mbito de refactorizaciones cuya entrada principal es un parámetro
 	 * formal.
 	 */
 	private final static String FORMAL_PAR_SCOPE = "moon.core.genericity.FormalPar"; //$NON-NLS-1$
 
 	/**
-	 * �mbito de refactorizaciones cuya entrada principal es un m�todo.
+	 * �mbito de refactorizaciones cuya entrada principal es un método.
 	 */
 	private final static String METHOD_SCOPE = "moon.core.classdef.MethDec"; //$NON-NLS-1$
 
 	/**
-	 * �mbito de refactorizaciones cuya entrada principal es un par�metro formal
+	 * �mbito de refactorizaciones cuya entrada principal es un parámetro formal
 	 * acotado.
 	 */
 	private final static String BOUNDED_PAR_SCOPE = "moon.core.genericity.BoundS"; //$NON-NLS-1$
@@ -92,7 +92,7 @@ public class ScopeLimitedLister {
 	/**
 	 * Filtra la lista de refactorizaciones din�micas disponibles a aqu�llas que
 	 * pertenezcan a un determinado �mbito (de atributo, de clase, de argumento
-	 * formal, de par�metro formal o de m�todo).
+	 * formal, de parámetro formal o de método).
 	 * 
 	 * @param scope
 	 *            c�digo del �mbito para el que deben obtenerse las
@@ -101,7 +101,7 @@ public class ScopeLimitedLister {
 	 * 
 	 * @return una tabla <i>hash</i> con la lista de refactorizaciones
 	 *         aplicables al �mbito indicado. En la tabla se sigue el convenio
-	 *         de utilizar como clave el nombre de la refactorizaci�n y como
+	 *         de utilizar como clave el nombre de la refactorización y como
 	 *         valor la ruta del fichero que la contiene.
 	 */
 	public static HashMap<String, String> getAvailableRefactorings(Scope scope) {
@@ -122,7 +122,7 @@ public class ScopeLimitedLister {
 			for (Map.Entry<String, String> nextRef : allRefactorings.entrySet()) {
 
 				try {
-					// Se obtiene la definici�n de la siguiente refactorizaci�n.
+					// Se obtiene la definición de la siguiente refactorización.
 					DynamicRefactoringDefinition definition = XMLRefactoringUtils
 							.getRefactoringDefinition(nextRef.getValue());
 
@@ -162,12 +162,12 @@ public class ScopeLimitedLister {
 	}
 
 	/**
-	 * Convierte los c�digos de �mbito de refactorizaci�n utilizados en la capa
+	 * Convierte los c�digos de �mbito de refactorización utilizados en la capa
 	 * de interfaz por los nombres completamente cualificados utilizados en la
-	 * representaci�n XML de las refactorizaciones.
+	 * representación XML de las refactorizaciones.
 	 * 
 	 * @param scope
-	 *            c�digo del �mbito de la refactorizaci�n seg�n se especifican
+	 *            c�digo del �mbito de la refactorización seg�n se especifican
 	 *            en {@link SelectRefactoringWindow}.
 	 * 
 	 * @return el nombre completamente cualificado del tipo de objeto para el
@@ -198,15 +198,15 @@ public class ScopeLimitedLister {
 
 	/**
 	 * Convierte los nombres completamente cualificados utilizados en la
-	 * representaci�n XML de las refactorizaciones por los c�digos de �mbito de
-	 * refactorizaci�n utilizados en la capa de interfaz.
+	 * representación XML de las refactorizaciones por los c�digos de �mbito de
+	 * refactorización utilizados en la capa de interfaz.
 	 * 
 	 * @param name
 	 *            nombre completamente cualificado del tipo de objeto para el
 	 *            cual se define el �mbito de refactorizaciones seg�n el valor
 	 *            de #scope.
 	 * 
-	 * @return c�digo del �mbito de la refactorizaci�n seg�n se especifican en
+	 * @return c�digo del �mbito de la refactorización seg�n se especifican en
 	 *         {@link SelectRefactoringWindow}.
 	 */
 	private static Scope getScope(String name) {

@@ -31,7 +31,7 @@ import refactoring.engine.Predicate;
 
 /**
  * Compueba que los atributos que pasar�n a ser constantes en el tipo enumerado 
- * est�n antes que el resto de los m�todos y atributos.
+ * est�n antes que el resto de los métodos y atributos.
  *
  * @author <A HREF="mailto:lfd0002@alu.ubu.es">LauraFuente de la Fuente</A>
  */ 
@@ -39,7 +39,7 @@ public class EnumConstantsBeforeProperties extends Predicate {
 	
 	/**
 	 * Nombre de la clase sobre la que se quiere comprobar que los atributos que pasar�n a 
-	 * ser constantes en el tipo enumerado est�n antes que el resto de los m�todos y atributos.
+	 * ser constantes en el tipo enumerado est�n antes que el resto de los métodos y atributos.
 	 */
 	private JavaClassDef clase;
 	
@@ -49,7 +49,7 @@ public class EnumConstantsBeforeProperties extends Predicate {
 	 * Obtiene una nueva instancia del predicado EnumConstantsBeforeOthers.
 	 *
 	 * @param clase Clase sobre la que se quiere comprobar que los atributos que pasar�n a 
-	 * ser constantes en el tipo enumerado est�n antes que el resto de los m�todos y atributos.
+	 * ser constantes en el tipo enumerado est�n antes que el resto de los métodos y atributos.
 	 */
 	public EnumConstantsBeforeProperties(JavaClassDef clase) {
 		

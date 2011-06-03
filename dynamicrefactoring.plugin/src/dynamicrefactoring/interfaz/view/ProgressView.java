@@ -43,10 +43,10 @@ import dynamicrefactoring.listener.IRefactoringRunListener;
 
 /**
  * Proporciona una vista de Eclipse en la que quedan reflejados todos los 
- * pasos que una refactorizaci�n lleva acabo durante su ejecuci�n.
+ * pasos que una refactorización lleva acabo durante su ejecuci�n.
  * 
- * <p>Proporciona informaci�n detallada en tiempo real de los pasos concretos que 
- * componen la refactorizaci�n que se est� ejecutando.</p>
+ * <p>Proporciona información detallada en tiempo real de los pasos concretos que 
+ * componen la refactorización que se est� ejecutando.</p>
  * 
  * @author <A HREF="mailto:sfd0009@alu.ubu.es">Sonia Fuente de la Fuente</A>
  * @author <A HREF="mailto:ehp0001@alu.ubu.es">Enrique Herrero Paredes</A>
@@ -85,7 +85,7 @@ public class ProgressView extends ViewPart
 	private Color cyan;
 
 	/**
-	 * Tabla en la que se muestran los mensajes de progreso de la refactorizaci�n.
+	 * Tabla en la que se muestran los mensajes de progreso de la refactorización.
 	 */
 	private Table tb_Messages;
 	
@@ -95,13 +95,13 @@ public class ProgressView extends ViewPart
 	private static final int TABLE_WIDTH = 90;
 	
 	/**
-	 * Datos de una refactorizaci�n que ha fallado y cuyo mensaje de error
+	 * Datos de una refactorización que ha fallado y cuyo mensaje de error
 	 * est� pendiente de ser mostrado al usuario.
 	 */
 	private String[] failedRefactoring;
 		
 	/**
-	 * Mensajes enviados por la refactorizaci�n durante su ejecuci�n.
+	 * Mensajes enviados por la refactorización durante su ejecuci�n.
 	 */
 	private ArrayList<String> stepMessages;
 	
@@ -139,9 +139,9 @@ public class ProgressView extends ViewPart
 	}
 	
 	/**
-	 * Notifica al <i>listener</i> acerca del comienzo de una refactorizaci�n.
+	 * Notifica al <i>listener</i> acerca del comienzo de una refactorización.
 	 * 
-	 * @param name nombre de la refactorizaci�n que ha comenzado.
+	 * @param name nombre de la refactorización que ha comenzado.
 	 * 
 	 * @see IRefactoringRunListener#refactoringStarted(String)
 	 */
@@ -160,8 +160,8 @@ public class ProgressView extends ViewPart
 	}
 	
 	/**
-	 * Notifica al <i>listener</i> acerca de la realizaci�n de un paso concreto
-	 * en una refactorizaci�n.
+	 * Notifica al <i>listener</i> acerca de la realización de un paso concreto
+	 * en una refactorización.
 	 *
 	 * @param message mensaje asociado al paso realizado.
 	 * 
@@ -173,10 +173,10 @@ public class ProgressView extends ViewPart
 	}
 	
 	/**
-	 * Notifica al <i>listener</i> acerca de un fallo en una refactorizaci�n.
+	 * Notifica al <i>listener</i> acerca de un fallo en una refactorización.
 	 * 
-	 * @param name nombre de la refactorizaci�n que ha fallado.
-	 * @param message mensaje asociado al fallo de la refactorizaci�n.
+	 * @param name nombre de la refactorización que ha fallado.
+	 * @param message mensaje asociado al fallo de la refactorización.
 	 * 
 	 * @see IRefactoringRunListener#refactoringFailed(String, String)
 	 */
@@ -186,9 +186,9 @@ public class ProgressView extends ViewPart
 	}
 	
 	/**
-	 * Notifica al <i>listener</i> acerca de la finalizaci�n de una refactorizaci�n.
+	 * Notifica al <i>listener</i> acerca de la finalización de una refactorización.
 	 * 	
-	 * @param summary resumen informativo de la refactorizaci�n que ha finalizado.
+	 * @param summary resumen informativo de la refactorización que ha finalizado.
 	 * 	
 	 * @see IRefactoringRunListener#refactoringFinished(RefactoringSummary)
 	 */
@@ -198,7 +198,7 @@ public class ProgressView extends ViewPart
 		for (String message : stepMessages)
 			addMessage(formatString(message), blue, false);
 		}
-		// Si la refactorizaci�n termin� correctamente.
+		// Si la refactorización termin� correctamente.
 		if (failedRefactoring == null) {
 			Object[] messageArgs = {summary.getName(), "(" + //$NON-NLS-1$
 				summary.getStrCompletionTime() + ")"}; //$NON-NLS-1$
@@ -209,7 +209,7 @@ public class ProgressView extends ViewPart
 				"."), green, true); //$NON-NLS-1$
 		}
 
-		// Si se produjo alg�n fallo.
+		// Si se produjo algún fallo.
 		else {
 			Object[] messageArgs = {failedRefactoring[0]};
 			MessageFormat formatter = new MessageFormat(""); //$NON-NLS-1$
@@ -232,9 +232,9 @@ public class ProgressView extends ViewPart
 	
 	/**
 	 * Notifica al <i>listener</i> acerca del hecho de que se haya recuperado el
-	 * estado anterior a una refactorizaci�n.
+	 * estado anterior a una refactorización.
 	 * 
-	 * @param name identificador de la refactorizaci�n cuyo estado anterior
+	 * @param name identificador de la refactorización cuyo estado anterior
 	 * se ha recuperado.
 	 */
 	@Override
@@ -281,7 +281,7 @@ public class ProgressView extends ViewPart
 	}
 	
 	/**
-	 * Formatea una cadena de manera adecuada para que se adapte a la representaci�n
+	 * Formatea una cadena de manera adecuada para que se adapte a la representación
 	 * en forma de tabla de la vista, separ�ndola en fragmentos en aquellos puntos que
 	 * contengan un salto de l�nea, y sustituyendo las tabulaciones por espacios
 	 * en blanco.
@@ -310,7 +310,7 @@ public class ProgressView extends ViewPart
 	 * cuartos del ancho de la tabla de salida.
 	 * 
 	 * <p>Las cadenas conservan los saltos de l�nea de la cadena original, 
-	 * as� como la correcta separaci�n entre palabras. Los nuevos saltos de
+	 * as� como la correcta separación entre palabras. Los nuevos saltos de
 	 * l�nea se insertan en los espacios blancos entre palabras.</p>
 	 * 
 	 * @param original cadena original.

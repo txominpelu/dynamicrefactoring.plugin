@@ -44,12 +44,12 @@ import repository.RefactoringTemplateAbstractTest;
 import repository.moon.MOONRefactoring;
 
 /**
- * Comprueba que funciona correctamente la refactorizaci�n que renombra un
- * m�todo de una clase.
+ * Comprueba que funciona correctamente la refactorización que renombra un
+ * método de una clase.
  * 
  * <p>
  * Indirectamente, se comprueba tambi�n la correcci�n de las funciones, acciones
- * y predicados utilizados por la refactorizaci�n.
+ * y predicados utilizados por la refactorización.
  * </p>
  * 
  * @author <A HREF="mailto:sfd0009@alu.ubu.es">Sonia Fuente de la Fuente</A>
@@ -63,13 +63,13 @@ public class TestRenameMethod extends RefactoringTemplateAbstractTest {
 	private static final String NUEVO_METODO = "nuevoMetodo";
 
 	/**
-	 * Comprueba que la refactorizaci�n funciona correctamente al hacer un
-	 * renombrado sencillo de un m�todo.
+	 * Comprueba que la refactorización funciona correctamente al hacer un
+	 * renombrado sencillo de un método.
 	 * 
 	 * <p>
-	 * En un modelo con una �nica clase, toma un m�todo sin argumentos formales,
+	 * En un modelo con una única clase, toma un método sin argumentos formales,
 	 * valor de retorno, ni variables locales, y le asigna un nuevo nombre
-	 * correcto, distinto al de los dem�s m�todos de la clase.
+	 * correcto, distinto al de los dem�s métodos de la clase.
 	 * </p>
 	 * 
 	 * @throws Exception
@@ -104,22 +104,22 @@ public class TestRenameMethod extends RefactoringTemplateAbstractTest {
 
 		// Comienzan las comprobaciones.
 		List <MethDec> lMetodo2 = classDef.getMethDecByName(factory.createName(METODO1)); //$NON-NLS-1$
-		assertTrue("Test renombrar m�todo simple: todav�a existe el " + //$NON-NLS-1$
-				"m�todo con el nombre anterior.", lMetodo2.isEmpty()); //$NON-NLS-1$
+		assertTrue("Test renombrar método simple: todav�a existe el " + //$NON-NLS-1$
+				"método con el nombre anterior.", lMetodo2.isEmpty()); //$NON-NLS-1$
 
 		List <MethDec> lMetodo3 = classDef.getMethDecByName(factory.createName(NUEVO_METODO)); //$NON-NLS-1$
-		assertFalse("Test renombrar m�todo simpel: no existe el m�todo" + //$NON-NLS-1$
+		assertFalse("Test renombrar método simpel: no existe el método" + //$NON-NLS-1$
 			" con el nuevo nombre.", lMetodo3.isEmpty()); //$NON-NLS-1$
 	}
 
 	/**
-	 * Comprueba que la refactorizaci�n funciona correctamente al hacer un
-	 * renombrado de un m�todo en una superclase.
+	 * Comprueba que la refactorización funciona correctamente al hacer un
+	 * renombrado de un método en una superclase.
 	 * 
 	 * <p>
-	 * En un modelo con dos clases (una extiende a la otra), renombra un m�todo
+	 * En un modelo con dos clases (una extiende a la otra), renombra un método
 	 * en la superclase que est� siendo redefinido en la subclase, comprobando
-	 * que los cambios se extiendan correctamente por la jerarqu�a de herencia.
+	 * que los cambios se extiendan correctamente por la jerarquía de herencia.
 	 * </p>
 	 * 
 	 * @throws Exception
@@ -154,26 +154,26 @@ public class TestRenameMethod extends RefactoringTemplateAbstractTest {
 
 		// Comienzan las comprobaciones.
 		List <MethDec> lMetodo2 = classDef.getMethDecByName(factory.createName(METODO1)); //$NON-NLS-1$
-		assertTrue("Test renombrar m�todo con herencia: todav�a existe el " + //$NON-NLS-1$
-				"m�todo con el nombre anterior.", lMetodo2.isEmpty()); //$NON-NLS-1$
+		assertTrue("Test renombrar método con herencia: todav�a existe el " + //$NON-NLS-1$
+				"método con el nombre anterior.", lMetodo2.isEmpty()); //$NON-NLS-1$
 
 		List <MethDec> lMetodo3 = classDef.getMethDecByName(factory.createName(NUEVO_METODO)); //$NON-NLS-1$
-		assertFalse("Test renombrar m�todo con herencia: No existe el m�todo" + //$NON-NLS-1$
+		assertFalse("Test renombrar método con herencia: No existe el método" + //$NON-NLS-1$
 			" con el nuevo nombre.", lMetodo3.isEmpty()); //$NON-NLS-1$
 
 		ClassDef classDef2 = jm.getClassDef(factory.createName("paqueteA.ClaseB")); //$NON-NLS-1$
 		List <MethDec> lMetodo4 = classDef2.getMethDecByName(factory.createName(METODO1)); //$NON-NLS-1$
-		assertTrue("Test renombrar m�todo con herencia: Todav�a existe el " + //$NON-NLS-1$
-				"m�todo con el nombre anterior.", lMetodo4.isEmpty()); //$NON-NLS-1$
+		assertTrue("Test renombrar método con herencia: Todav�a existe el " + //$NON-NLS-1$
+				"método con el nombre anterior.", lMetodo4.isEmpty()); //$NON-NLS-1$
 
 		List <MethDec> lMetodo5 = classDef2.getMethDecByName(factory.createName(NUEVO_METODO)); //$NON-NLS-1$
-		assertFalse("Test renombrar m�todo con herencia: no existe el m�todo" + //$NON-NLS-1$
+		assertFalse("Test renombrar método con herencia: no existe el método" + //$NON-NLS-1$
 			" con el nuevo nombre", lMetodo5.isEmpty()); //$NON-NLS-1$
 	}
 
 	/**
-	 * Comprueba que la refactorizaci�n funciona correctamente al hacer un
-	 * renombrado un m�todo con argumentos formales, variables locales y valor
+	 * Comprueba que la refactorización funciona correctamente al hacer un
+	 * renombrado un método con argumentos formales, variables locales y valor
 	 * de retorno.
 	 * 
 	 * @throws Exception
@@ -208,12 +208,12 @@ public class TestRenameMethod extends RefactoringTemplateAbstractTest {
 
 		// Comienzan las comprobaciones.
 		List <MethDec> lMetodo2 = classDef.getMethDecByName(factory.createName(METODO1)); //$NON-NLS-1$
-		assertTrue("Test renombrar m�todo con contenidos: todav�a existe el " + //$NON-NLS-1$
-				"m�todo con el nombre anterior.", lMetodo2.isEmpty()); //$NON-NLS-1$
+		assertTrue("Test renombrar método con contenidos: todav�a existe el " + //$NON-NLS-1$
+				"método con el nombre anterior.", lMetodo2.isEmpty()); //$NON-NLS-1$
 
 		List <MethDec> lMetodo3 = classDef.getMethDecByName(factory.createName(NUEVO_METODO)); //$NON-NLS-1$
 		assertFalse(
-				"Test renombrar m�todo con contenidos: no existe el m�todo" + //$NON-NLS-1$
+				"Test renombrar método con contenidos: no existe el método" + //$NON-NLS-1$
 			" con el nuevo nombre.", lMetodo3.isEmpty()); //$NON-NLS-1$
 
 		MethDec metodo3 = lMetodo3.get(0);
@@ -221,8 +221,8 @@ public class TestRenameMethod extends RefactoringTemplateAbstractTest {
 		FormalArgument argumento = lArgumentos.get(0);
 
 		assertEquals(
-				"Test renombrar m�todo con contenidos: no se ha " + //$NON-NLS-1$
-						"modificado correctamente el nombre del argumento formal en el m�todo", //$NON-NLS-1$
+				"Test renombrar método con contenidos: no se ha " + //$NON-NLS-1$
+						"modificado correctamente el nombre del argumento formal en el método", //$NON-NLS-1$
 				factory.createName("paqueteA.ClaseA~nuevoMetodo%String#java.lang.String:b(0)"), //$NON-NLS-1$
 			argumento.getUniqueName());
 
@@ -230,25 +230,25 @@ public class TestRenameMethod extends RefactoringTemplateAbstractTest {
 		LocalDec local = ld.get(0);
 
 		assertEquals(
-				"Test renombrar m�todo con contenidos: no se " + //$NON-NLS-1$
-						"encuentra la variable local del m�todo.", //$NON-NLS-1$
+				"Test renombrar método con contenidos: no se " + //$NON-NLS-1$
+						"encuentra la variable local del método.", //$NON-NLS-1$
 				factory.createName("paqueteA.ClaseA~nuevoMetodo%String@java.lang.String:a(10)"), //$NON-NLS-1$
 			local.getUniqueName());
 	}
 
 	/**
-	 * Verifica el funcionamiento de las precondiciones de la refactorizaci�n.
+	 * Verifica el funcionamiento de las precondiciones de la refactorización.
 	 * 
 	 * <p>
 	 * Comprueba que se lanza una excepci�n cuando se intenta renombrar un
-	 * m�todo y su signatura vaya a coincidir con la de alg�n otro m�todo de las
-	 * clases de la jerarqu�a de herencia.
+	 * método y su signatura vaya a coincidir con la de algún otro método de las
+	 * clases de la jerarquía de herencia.
 	 * </p>
 	 * 
 	 * <p>
-	 * En un modelo con dos clases (la una hereda de la otra), toma un m�todo de
+	 * En un modelo con dos clases (la una hereda de la otra), toma un método de
 	 * la subclase y lo renombra de manera que su signatura vaya a coincidir con
-	 * la de un m�todo de la superclase.
+	 * la de un método de la superclase.
 	 * </p>
 	 * 
 	 * @throws Exception
@@ -283,11 +283,11 @@ public class TestRenameMethod extends RefactoringTemplateAbstractTest {
 	}
 
 	/**
-	 * Verifica el funcionamiento de las precondiciones de la refactorizaci�n.
+	 * Verifica el funcionamiento de las precondiciones de la refactorización.
 	 * 
 	 * <p>
 	 * Comprueba que se lanza una excepci�n cuando se intenta renombrar un
-	 * m�todo constructor de su clase.
+	 * método constructor de su clase.
 	 * </p>
 	 * 
 	 * @throws Exception
@@ -322,14 +322,14 @@ public class TestRenameMethod extends RefactoringTemplateAbstractTest {
 	}
 
 	/**
-	 * Comprueba que funciona correctamente la operaci�n que deshace el
-	 * renombrado de un m�todo.
+	 * Comprueba que funciona correctamente la operación que deshace el
+	 * renombrado de un método.
 	 * 
 	 * <p>
-	 * En un modelo con una �nica clase, toma un m�todo sin argumentos formales,
+	 * En un modelo con una única clase, toma un método sin argumentos formales,
 	 * valor de retorno, ni variables locales, y le asigna un nuevo nombre
-	 * correcto, distinto al de los dem�s m�todos de la clase. Despu�s, deshace
-	 * la operaci�n de renombrado.
+	 * correcto, distinto al de los dem�s métodos de la clase. Despu�s, deshace
+	 * la operación de renombrado.
 	 * </p>
 	 * 
 	 * @throws Exception
@@ -365,18 +365,18 @@ public class TestRenameMethod extends RefactoringTemplateAbstractTest {
 
 		// Comienzan las comprobaciones.
 		List <MethDec> lMetodo2 = classDef.getMethDecByName(factory.createName(METODO1)); //$NON-NLS-1$
-		assertFalse("Test deshacer renombrado de m�todo simple: " + //$NON-NLS-1$
-				"no se ha recuperado el m�todo antiguo", lMetodo2.isEmpty()); //$NON-NLS-1$
+		assertFalse("Test deshacer renombrado de método simple: " + //$NON-NLS-1$
+				"no se ha recuperado el método antiguo", lMetodo2.isEmpty()); //$NON-NLS-1$
 
 		List <MethDec> lMetodo3 = classDef.getMethDecByName(factory.createName(NUEVO_METODO)); //$NON-NLS-1$
-		assertTrue("Test deshacer renombrado de m�todo simple: t" + //$NON-NLS-1$
-				"todav�a existe el m�todo con el nuevo nombre",
+		assertTrue("Test deshacer renombrado de método simple: t" + //$NON-NLS-1$
+				"todav�a existe el método con el nuevo nombre",
 				lMetodo3.isEmpty()); //$NON-NLS-1$
 	}
 
 	/**
-	 * Comprueba que la refactorizaci�n se deshace correctamente al deshacer un
-	 * renombrado de un m�todo en una superclase.
+	 * Comprueba que la refactorización se deshace correctamente al deshacer un
+	 * renombrado de un método en una superclase.
 	 * 
 	 * @throws Exception
 	 *             si se produce un error durante la ejecuci�n de la prueba.
@@ -410,29 +410,29 @@ public class TestRenameMethod extends RefactoringTemplateAbstractTest {
 
 		// Comienzan las comprobaciones.
 		List <MethDec> lMetodo2 = classDef.getMethDecByName(factory.createName(METODO1)); //$NON-NLS-1$
-		assertFalse("Deshacer renombrado de m�todo con herencia: " + //$NON-NLS-1$
-				"no existe el m�todo con el nombre original.",
+		assertFalse("Deshacer renombrado de método con herencia: " + //$NON-NLS-1$
+				"no existe el método con el nombre original.",
 				lMetodo2.isEmpty()); //$NON-NLS-1$
 
 		List <MethDec> lMetodo3 = classDef.getMethDecByName(factory.createName("renombrado")); //$NON-NLS-1$
-		assertTrue("Deshacer renombrado de m�todo con herencia: " + //$NON-NLS-1$
-				"sigue existiendo el m�todo renombrado.", lMetodo3.isEmpty()); //$NON-NLS-1$
+		assertTrue("Deshacer renombrado de método con herencia: " + //$NON-NLS-1$
+				"sigue existiendo el método renombrado.", lMetodo3.isEmpty()); //$NON-NLS-1$
 
 		ClassDef classDef2 = jm.getClassDef(factory.createName("paqueteA.ClaseB")); //$NON-NLS-1$
 
 		List <MethDec> lMetodo4 = classDef2.getMethDecByName(factory.createName(METODO1)); //$NON-NLS-1$
-		assertFalse("Deshacer renombrado de m�todo con herencia: " + //$NON-NLS-1$
-				"no existe el m�todo con el nombre original.",
+		assertFalse("Deshacer renombrado de método con herencia: " + //$NON-NLS-1$
+				"no existe el método con el nombre original.",
 				lMetodo4.isEmpty()); //$NON-NLS-1$
 
 		List <MethDec> lMetodo5 = classDef2.getMethDecByName(factory.createName("renombrado")); //$NON-NLS-1$
-		assertTrue("Deshacer renombrado de m�todo con herencia: " + //$NON-NLS-1$
-				"sigue existiendo el m�todo renombrado por herencia.",
+		assertTrue("Deshacer renombrado de método con herencia: " + //$NON-NLS-1$
+				"sigue existiendo el método renombrado por herencia.",
 				lMetodo5.isEmpty()); //$NON-NLS-1$
 	}
 
 	/**
-	 * Comprueba el renombrado de un m�todo.
+	 * Comprueba el renombrado de un método.
 	 * 
 	 * @throws Exception
 	 *             excepci�n.

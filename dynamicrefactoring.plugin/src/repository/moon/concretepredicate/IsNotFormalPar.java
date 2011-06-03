@@ -25,10 +25,10 @@ import moon.core.genericity.FormalPar;
 import refactoring.engine.Predicate;
 
 /**
- * Comprueba que un par�metro formal no es un par�metro de una clase.
+ * Comprueba que un parámetro formal no es un parámetro de una clase.
  *
- * @author <A HREF="mailto:sam0006@alu.ubu.es">Sara Alcal� Mart�n</A>
- * @author <A HREF="mailto:dbm0005@alu.ubu.es">Diego Ba�uelos Molledo</A>
+ * @author <A HREF="mailto:sam0006@alu.ubu.es">Sara Alcalá Martín</A>
+ * @author <A HREF="mailto:dbm0005@alu.ubu.es">Diego Bañuelos Molledo</A>
  * @author <A HREF="mailto:sfd0009@alu.ubu.es">Sonia Fuente de la Fuente</A>
  * @author <A HREF="mailto:ehp0001@alu.ubu.es">Enrique Herrero Paredes</A>
  */
@@ -44,8 +44,8 @@ public class IsNotFormalPar extends Predicate {
 	 *
 	 * Devuelve una nueva instancia del predicado <code>IsNotFormalPar</code>.
 	 *
-	 * @param formalParam par�metro formal cuya pertenencia a una clase se comprueba.
-	 * @param classDef clase a la que no debe pertenecer el par�metro formal.
+	 * @param formalParam parámetro formal cuya pertenencia a una clase se comprueba.
+	 * @param classDef clase a la que no debe pertenecer el parámetro formal.
 	 */
 	public IsNotFormalPar(FormalPar formalParam, ClassDef classDef) {
 
@@ -61,7 +61,7 @@ public class IsNotFormalPar extends Predicate {
 	/**
 	 * Comprueba el valor de verdad del predicado.
 	 * 
-	 * @return <code>true</code> si el par�metro formal no pertenece a la clase;
+	 * @return <code>true</code> si el parámetro formal no pertenece a la clase;
 	 * <code>false</code> en caso contrario.
 	 */
 	@Override

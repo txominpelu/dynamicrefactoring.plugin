@@ -45,7 +45,7 @@ public class TextCodeFragmentSelectionHandler implements ISelectionHandler {
 	protected CodeFragment codeFragment;
 	
 	/**
-	 * El proveedor de informaci�n concreto para la selecci�n de texto.
+	 * El proveedor de información concreto para la selecci�n de texto.
 	 */
 	private TextSelectionInfo infoProvider;
 	
@@ -55,7 +55,7 @@ public class TextCodeFragmentSelectionHandler implements ISelectionHandler {
 	 * @param selectionInfo contenedor de la selecci�n que se desea manejar.
 	 * 
 	 * @throws Exception si la selecci�n contenida en #selectionInfo no es una
-	 * selecci�n de una representaci�n textual.
+	 * selecci�n de una representación textual.
 	 */
 	public TextCodeFragmentSelectionHandler (TextSelectionInfo selectionInfo)
 		throws Exception{

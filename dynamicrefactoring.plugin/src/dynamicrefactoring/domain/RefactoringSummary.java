@@ -25,7 +25,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 
 /**
- * Proporciona un resumen informativo acerca de una refactorizaci�n ejecutada.
+ * Proporciona un resumen informativo acerca de una refactorización ejecutada.
  * 
  * @author <A HREF="mailto:sfd0009@alu.ubu.es">Sonia Fuente de la Fuente</A>
  * @author <A HREF="mailto:ehp0001@alu.ubu.es">Enrique Herrero Paredes</A>
@@ -33,30 +33,30 @@ import java.util.Date;
 public class RefactoringSummary {
 	
 	/**
-	 * Nombre de la refactorizaci�n.
+	 * Nombre de la refactorización.
 	 */
 	private String name;
 	
 	/**
-	 * Fecha y hora a la que se complet� la refactorizaci�n.
+	 * Fecha y hora a la que se complet� la refactorización.
 	 */
 	private Date completionTime;
 	
 	/**
-	 * Identificador de la operaci�n de refactorizaci�n dentro del entorno de
+	 * Identificador de la operación de refactorización dentro del entorno de
 	 * operaciones de Eclipse.
 	 * 
-	 * <p>Este identificador permite recuperar la operaci�n que ejecut� esta
-	 * refactorizaci�n y solicitar que se deshaga.</p>
+	 * <p>Este identificador permite recuperar la operación que ejecut� esta
+	 * refactorización y solicitar que se deshaga.</p>
 	 */
 	private String id;
 	
 	/**
 	 * Constructor.
 	 * 
-	 * @param name nombre de la refactorizaci�n.
-	 * @param completionTime fecha y hora a la que se complet� la refactorizaci�n.
-	 * @param id identificador de la operaci�n de refactorizaci�n dentro del 
+	 * @param name nombre de la refactorización.
+	 * @param completionTime fecha y hora a la que se complet� la refactorización.
+	 * @param id identificador de la operación de refactorización dentro del 
 	 * entorno de operaciones de Eclipse.
 	 */
 	public RefactoringSummary(String name, Date completionTime, String id){
@@ -66,27 +66,27 @@ public class RefactoringSummary {
 	}
 
 	/**
-	 * Obtiene el nombre de la refactorizaci�n.
+	 * Obtiene el nombre de la refactorización.
 	 * 
-	 * @return el nombre de la refactorizaci�n.
+	 * @return el nombre de la refactorización.
 	 */
 	public String getName() {
 		return name;
 	}
 
 	/**
-	 * Obtiene la fecha y la hora a la que se complet� la refactorizaci�n.
+	 * Obtiene la fecha y la hora a la que se complet� la refactorización.
 	 * 
-	 * @return la fecha y la hora a la que se complet� la refactorizaci�n
+	 * @return la fecha y la hora a la que se complet� la refactorización
 	 */
 	public Date getCompletionTime() {
 		return completionTime;
 	}
 	
 	/**
-	 * Obtiene el identificador de la operaci�n que ejecut� la refactorizaci�n.
+	 * Obtiene el identificador de la operación que ejecut� la refactorización.
 	 * 
-	 * @return el identificador de la operaci�n que ejecut� la refactorizaci�n.
+	 * @return el identificador de la operación que ejecut� la refactorización.
 	 */
 	public String getId(){
 		return id;
@@ -94,14 +94,14 @@ public class RefactoringSummary {
 	
 	/**
 	 * Obtiene como cadena de caracteres la fecha y la hora a la que se complet� 
-	 * la refactorizaci�n.
+	 * la refactorización.
 	 * 
 	 * <p>El formato utilizado es "MM/dd/yyyy - HH:mm:ss".</p>
 	 * 
 	 * <p>En la versi�n internacionalizada al castellano, se utiliza el 
 	 * formato de fecha espa�ol "dd/MM/yyyy".</p>
 	 * 
-	 * @return la fecha y la hora a la que se complet� la refactorizaci�n en formato
+	 * @return la fecha y la hora a la que se complet� la refactorización en formato
 	 * de cadena de caracteres.
 	 */
 	public String getStrCompletionTime() {
@@ -110,9 +110,9 @@ public class RefactoringSummary {
 	}
 	
 	/**
-	 * Obtiene una representaci�n textual de la refactorizaci�n.
+	 * Obtiene una representación textual de la refactorización.
 	 * 
-	 * @return una representaci�n textual de la refactorizaci�n.
+	 * @return una representación textual de la refactorización.
 	 */
 	@Override
 	public String toString(){

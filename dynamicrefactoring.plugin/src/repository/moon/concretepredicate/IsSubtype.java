@@ -39,12 +39,12 @@ import repository.moon.concretefunction.SupertypeCollector;
 public class IsSubtype extends Predicate {
 
 	/**
-	 * Tipo cuyo car�cter de subtipo de otro se debe estudiar.
+	 * Tipo cuyo carácter de subtipo de otro se debe estudiar.
 	 */
 	private ClassType subType;
 	
 	/**
-	 * Tipo del que deber�a ser subtipo {@link #subType}.  
+	 * Tipo del que debería ser subtipo {@link #subType}.  
 	 */
 	private ClassType superType;
 
@@ -53,8 +53,8 @@ public class IsSubtype extends Predicate {
 	 *
 	 * Devuelve una nueva instancia del predicado <code>IsSubtype</code>.
 	 *
-	 * @param subType tipo cuyo car�cter de subtipo de otro se debe estudiar.
-	 * @param superType tipo del que deber�a ser subtipo {@link #subType}.
+	 * @param subType tipo cuyo carácter de subtipo de otro se debe estudiar.
+	 * @param superType tipo del que debería ser subtipo {@link #subType}.
 	 */
     public IsSubtype(ClassType subType, ClassType superType) {
     	super("IsSubtype:\n\t" +  //$NON-NLS-1$
@@ -79,7 +79,7 @@ public class IsSubtype extends Predicate {
 		
 		Name superUniqueName = superType.getUniqueName();
 
-		// Se busca la superclase a trav�s de su nombre �nico para evitar
+		// Se busca la superclase a través de su nombre único para evitar
 		// el problema de los tipos decorados, que aun conteniendo el mismo
 		// tipo interno, representan un objeto distinto, una "envoltura".
 		ArrayList<Name> superNames = new ArrayList<Name>();

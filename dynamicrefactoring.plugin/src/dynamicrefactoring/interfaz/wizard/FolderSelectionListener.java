@@ -67,7 +67,7 @@ public class FolderSelectionListener implements SelectionListener {
 	}
 	
 	/**
-	 * Recibe una notificaci�n de que se ha pulsado el bot�n que permite 
+	 * Recibe una notificación de que se ha pulsado el bot�n que permite 
 	 * seleccionar un directorio.
 	 * 
 	 * <p>Abre una ventana de selecci�n de directorio.</p>

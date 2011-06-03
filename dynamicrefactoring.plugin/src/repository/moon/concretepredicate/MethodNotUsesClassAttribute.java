@@ -27,17 +27,17 @@ import moon.core.classdef.MethDec;
 import refactoring.engine.Predicate;
 
 /**
- * Permite comprobar que un determinado m�todo no utiliza ninguno de los 
+ * Permite comprobar que un determinado método no utiliza ninguno de los 
  * atributos de la clase a la que pertenece.
  *
  * @author <A HREF="mailto:ehp0001@alu.ubu.es">Enrique Herrero Paredes</A>
- * @author <A HREF="mailto:alc0022@alu.ubu.es">�ngel L�pez Campo</A>
+ * @author <A HREF="mailto:alc0022@alu.ubu.es">Ángel López Campo</A>
  * @author <A HREF="mailto:sfd0009@alu.ubu.es">Sonia Fuente de la Fuente</A>
  */
 public class MethodNotUsesClassAttribute extends Predicate {
 	
 	/**
-	 * El m�todo en el que se estudia el uso de atributos de la clase.
+	 * El método en el que se estudia el uso de atributos de la clase.
 	 */
 	private MethDec method;
 		
@@ -46,7 +46,7 @@ public class MethodNotUsesClassAttribute extends Predicate {
 	 *
 	 * Devuelve una nueva instancia del predicado MethodNotUsesClassAttribute.
 	 *
-	 * @param method el m�todo en el que se estudia el uso de atributos de clase.
+	 * @param method el método en el que se estudia el uso de atributos de clase.
 	 */
 	public MethodNotUsesClassAttribute(MethDec method) {
 		
@@ -61,7 +61,7 @@ public class MethodNotUsesClassAttribute extends Predicate {
 	/**
 	 * Comprueba el valor de verdad del predicado.
 	 * 
-	 * @return <code>true</code> si el m�todo no emplea ning�n atributo de la 
+	 * @return <code>true</code> si el método no emplea ningún atributo de la 
 	 * clase; <code>false</code>, en caso contrario.
 	 */
 	@Override

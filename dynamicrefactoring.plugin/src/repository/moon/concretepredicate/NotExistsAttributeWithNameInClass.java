@@ -25,7 +25,7 @@ import moon.core.classdef.ClassDef;
 import refactoring.engine.Predicate;
 
 /**
- * Permite verificar que no existe ning�n atributo con un cierto nombre
+ * Permite verificar que no existe ningún atributo con un cierto nombre
  *  en una clase determinada.
  *
  * @author <A HREF="mailto:lfd0002@alu.ubu.es">Laura Fuente de la Fuente</A>
@@ -33,7 +33,7 @@ import refactoring.engine.Predicate;
 public class NotExistsAttributeWithNameInClass extends Predicate {
 	
 	/**
-	 * Condici�n opuesta a la que se comprueba.
+	 * Condición opuesta a la que se comprueba.
 	 */
 	private Predicate oppositePredicate;
 	
@@ -42,7 +42,7 @@ public class NotExistsAttributeWithNameInClass extends Predicate {
 	 *
 	 * Obtiene una nueva instancia de ExistsAttributeWithNameInClass.
 	 * @param classDef la clase en la que se busca el atributo.
-	 * @param attUniqueName el nombre �nico del atributo que se desea buscar.
+	 * @param attUniqueName el nombre único del atributo que se desea buscar.
 	 */
 	public NotExistsAttributeWithNameInClass(ClassDef classDef, Name attUniqueName) {
 		
@@ -58,7 +58,7 @@ public class NotExistsAttributeWithNameInClass extends Predicate {
 	/**
 	 * Comprueba el valor de verdad del predicado.
 	 * 
-	 * @return <code>true</code> si no existe el m�todo en la clase especificada, 
+	 * @return <code>true</code> si no existe el método en la clase especificada, 
 	 * <code>false</code> en caso contrario.
 	 */	 
 	public boolean isValid() {

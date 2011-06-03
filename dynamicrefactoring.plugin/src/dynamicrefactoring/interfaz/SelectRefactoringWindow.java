@@ -62,7 +62,7 @@ import dynamicrefactoring.util.io.FileManager;
 
 /**
  * Proporciona una interfaz sencilla sobre la que el usuario puede seleccionar
- * la refactorizaci�n que desea ejecutar a continuaci�n sobre el elemento
+ * la refactorización que desea ejecutar a continuación sobre el elemento
  * seleccionado.
  * 
  * <p>Muestra un listado poblado de forma din�mica con las refactorizaciones
@@ -70,7 +70,7 @@ import dynamicrefactoring.util.io.FileManager;
  * objeto seleccionado en la interfaz en ese momento.</p>
  * 
  * <p>El objeto seleccionado en la interfaz constituir� la entrada principal de
- * la refactorizaci�n que se seleccione para ser ejecutada.</p>
+ * la refactorización que se seleccione para ser ejecutada.</p>
  * 
  * @author <A HREF="mailto:lfd0002@alu.ubu.es">Laura Fuente de la Fuente</A>
  * @author <A HREF="mailto:sfd0009@alu.ubu.es">Sonia Fuente de la Fuente</A>
@@ -79,12 +79,12 @@ import dynamicrefactoring.util.io.FileManager;
 public class SelectRefactoringWindow extends Dialog {
 	
 	/**
-	 * �mbito de aplicaci�n de refactorizaciones con el que trabajar� la ventana.
+	 * �mbito de aplicación de refactorizaciones con el que trabajar� la ventana.
 	 */
 	private Scope scope;
 	
 	/**
-	 * Objeto seleccionado como entrada principal al proceso de refactorizaci�n. 
+	 * Objeto seleccionado como entrada principal al proceso de refactorización. 
 	 */
 	private ObjectMoon mainObject;
 	
@@ -159,8 +159,8 @@ public class SelectRefactoringWindow extends Dialog {
 		
 		
 		fillInDynamicRefactorings(dynamicRefactorings);
-		// Para un par�metro formal acotado valen tambi�n las refactorizaciones
-		// generales sobre par�metros formales.
+		// Para un parámetro formal acotado valen tambi�n las refactorizaciones
+		// generales sobre parámetros formales.
 		if (scope == Scope.BOUNDED_PAR){
 			HashMap <String, String> tempMap =
 				ScopeLimitedLister.getAvailableRefactorings(Scope.FORMAL_PAR);

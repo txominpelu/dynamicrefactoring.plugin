@@ -23,9 +23,9 @@ package repository;
 /**
  * Define la interfaz que deben implementar los <i>listeners</i> que deban
  * registrar los mensajes lanzados por los elementos concretos del repositorio
- * que componen una refactorización.
+ * que componen una refactorizaciÃ³n.
  * 
- * <p>Desempeña el papel de Observador Abstracto en el patrón de diseño 
+ * <p>DesempeÃ±a el papel de Observador Abstracto en el patrÃ³n de diseÃ±o 
  * Observador.</p>
  * 
  * @author <A HREF="mailto:sfd0009@alu.ubu.es">Sonia Fuente de la Fuente</A>
@@ -35,7 +35,7 @@ public interface IRefactoringMessageListener {
 	
 	/**
 	 * Notifica al <i>listener</i> que se ha enviado un mensaje desde uno de los
-	 * elementos concretos del repositorio que componen la refactorización.
+	 * elementos concretos del repositorio que componen la refactorizaciÃ³n.
 	 * 
 	 * @param message el mensaje enviado.
 	 */

@@ -40,8 +40,8 @@ import dynamicrefactoring.interfaz.wizard.RefactoringWizard;
  * 
  * <p>
  * Muestra en todo momento un resumen con las caracter�sticas principales de la
- * refactorizaci�n seleccionada, hasta que se pulsa el bot�n que inicia el
- * asistente para la edici�n de refactorizaciones.
+ * refactorización seleccionada, hasta que se pulsa el bot�n que inicia el
+ * asistente para la edición de refactorizaciones.
  * </p>
  * 
  * @author <A HREF="mailto:sfd0009@alu.ubu.es">Sonia Fuente de la Fuente</A>
@@ -77,8 +77,8 @@ public class SelectForEditingWindow extends SelectDynamicRefactoringWindow {
 	}
 
 	/**
-	 * Crea el bot�n que permite lanzar el asistente para la edici�n de la
-	 * refactorizaci�n seleccionada.
+	 * Crea el bot�n que permite lanzar el asistente para la edición de la
+	 * refactorización seleccionada.
 	 * 
 	 * @param parent
 	 *            el componente padre del bot�n.
@@ -92,11 +92,11 @@ public class SelectForEditingWindow extends SelectDynamicRefactoringWindow {
 	}
 
 	/**
-	 * Obtiene el verbo asociado a la acci�n que permite iniciar la ventana de
-	 * di�logo sobre la refactorizaci�n seleccionada.
+	 * Obtiene el verbo asociado a la acción que permite iniciar la ventana de
+	 * di�logo sobre la refactorización seleccionada.
 	 * 
-	 * @return el verbo asociado a la acci�n que permite iniciar la ventana de
-	 *         di�logo sobre la refactorizaci�n seleccionada.
+	 * @return el verbo asociado a la acción que permite iniciar la ventana de
+	 *         di�logo sobre la refactorización seleccionada.
 	 */
 	@Override
 	protected String getOperation() {

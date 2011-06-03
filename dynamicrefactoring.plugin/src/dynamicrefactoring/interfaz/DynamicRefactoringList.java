@@ -29,7 +29,7 @@ import org.eclipse.swt.widgets.Shell;
 import dynamicrefactoring.domain.RefactoringsCatalog;
 
 /**
- * Proporciona el comportamiento abstracto por defecto com�n a las ventanas de
+ * Proporciona el comportamiento abstracto por defecto común a las ventanas de
  * di�logo que deben mostrar una lista seleccionable con el conjunto de
  * refactorizaciones din�micas disponibles.
  * 

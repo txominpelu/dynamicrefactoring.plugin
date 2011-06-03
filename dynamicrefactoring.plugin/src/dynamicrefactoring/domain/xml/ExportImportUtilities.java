@@ -42,20 +42,20 @@ import dynamicrefactoring.util.PluginStringUtils;
 import dynamicrefactoring.util.io.FileManager;
 
 /**
- * Proporciona una serie de m�todos que se encargan de la exportaci�n e
- * importaci�n de refactorizaciones din�micas.
+ * Proporciona una serie de métodos que se encargan de la exportación e
+ * importación de refactorizaciones din�micas.
  * 
  * @author <A HREF="mailto:lfd0002@alu.ubu.es">Laura Fuente de la Fuente</A>
  */
 public class ExportImportUtilities {
 
 	/**
-	 * Se encarga del proceso de exportaci�n de una refactorizaci�n din�mica.
+	 * Se encarga del proceso de exportación de una refactorización din�mica.
 	 * 
 	 * @param destination
-	 *            directorio a donde se quiere exportar la refactorizaci�n.
+	 *            directorio a donde se quiere exportar la refactorización.
 	 * @param definition
-	 *            ruta del fichero con la definici�n de la refactorizaci�n.
+	 *            ruta del fichero con la definición de la refactorización.
 	 * @param createFolders
 	 *            indica si los ficheros .class se copian en al carpeta ra�z o
 	 *            si se gener� la estructura de carpetas correspondiente.
@@ -104,8 +104,8 @@ public class ExportImportUtilities {
 				}
 			} else {
 				if (!currentFile.exists()) {
-					// falta alg�n fichero .class necesario en esta
-					// refactorizaci�n
+					// falta algún fichero .class necesario en esta
+					// refactorización
 					// En este caso se borra la carpeta generada en destino ya
 					// que no estar� completa
 					FileManager.emptyDirectories(destination
@@ -124,7 +124,7 @@ public class ExportImportUtilities {
 	}
 
 	/**
-	 * Se encarga del proceso de exportaci�n de un plan de refactorizaciones
+	 * Se encarga del proceso de exportación de un plan de refactorizaciones
 	 * din�micas.
 	 * 
 	 * @param destination
@@ -143,7 +143,7 @@ public class ExportImportUtilities {
 		}
 		// Creamos el directorio donde se guardar� el plan.
 		new File(destination + "/refactoringPlan").mkdir(); //$NON-NLS-1$
-		// Copiamos el fichero xml que guarda la informaci�n relativa al plan.
+		// Copiamos el fichero xml que guarda la información relativa al plan.
 		String planFile = new String(RefactoringConstants.REFACTORING_PLAN_FILE);
 		String dtdFile = new String(RefactoringConstants.REFACTORING_PLAN_DTD);
 		FileManager.copyFile(new File(
@@ -176,19 +176,19 @@ public class ExportImportUtilities {
 		for (String next : refactorings) {
 			String key = next + " (" + next + ".xml)"; //$NON-NLS-1$ //$NON-NLS-2$
 			String definition = allRefactorings.get(key);// ruta del fichero de
-															// definici�n de al
-															// refactorizaci�n
+															// definición de al
+															// refactorización
 			ExportRefactoring(refactoringDestination, definition, true);
 		}
 	}
 
 	/**
-	 * Se encarga del proceso de importaci�n de una refactorizaci�n din�mica.
+	 * Se encarga del proceso de importación de una refactorización din�mica.
 	 * 
 	 * @param definition
-	 *            ruta del fichero con la definici�n de la refactorizaci�n.
+	 *            ruta del fichero con la definición de la refactorización.
 	 * @param importingFromPlan
-	 *            indica si la importaci�n de la refactorizaci�n ha sido
+	 *            indica si la importación de la refactorización ha sido
 	 *            solicitada cuando se importaba un plan de refactorizaciones.
 	 * @throws IOException
 	 *             IOException en caso de fallo al copiar la carpeta
@@ -215,9 +215,9 @@ public class ExportImportUtilities {
 					PluginStringUtils.getMechanismFullyQualifiedName(predicado.getType(), predicado.getClassName()));
 		}
 
-		// actualizamos el fichero refactorings.xml que guarda la informaci�n de
+		// actualizamos el fichero refactorings.xml que guarda la información de
 		// las refactorizaciones
-		// de la aplicaci�n.
+		// de la aplicación.
 		updateRefactoringsXml(definition, namefolder);
 
 		if (importingFromPlan) {
@@ -231,7 +231,7 @@ public class ExportImportUtilities {
 							+ File.separatorChar + "repository", true);
 
 		} else {
-			// Borramos los .class para no tener almacenada la misma informaci�n
+			// Borramos los .class para no tener almacenada la misma información
 			// en dos sitios
 			deleteClassFilesFromRefactoringsDir(namefolder, refact);
 		}

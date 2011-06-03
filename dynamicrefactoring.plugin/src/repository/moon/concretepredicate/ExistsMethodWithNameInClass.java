@@ -28,22 +28,22 @@ import moon.core.classdef.MethDec;
 import refactoring.engine.Predicate;
 
 /**
- * Permite verificar que existe un m�todo con un cierto nombre �nico (es decir,
+ * Permite verificar que existe un método con un cierto nombre único (es decir,
  * con una cierta signatura) en un clase determinada.
  *
- * @author <A HREF="mailto:alc0022@alu.ubu.es">�ngel L�pez Campo</A>
+ * @author <A HREF="mailto:alc0022@alu.ubu.es">Ángel López Campo</A>
  * @author <A HREF="mailto:ehp0001@alu.ubu.es">Enrique Herrero Paredes</A>
  * @author <A HREF="mailto:sfd0009@alu.ubu.es">Sonia Fuente de la Fuente</A>
  */ 
 public class ExistsMethodWithNameInClass extends Predicate {
 		
 	/**
-	 * Nombre �nico del m�todo cuya presencia en una clase se quiere comprobar.
+	 * Nombre único del método cuya presencia en una clase se quiere comprobar.
 	 */
 	private Name methodUniqueName;
 	
 	/**
-	 * Clase en la que se busca un m�todo con cierto nombre.
+	 * Clase en la que se busca un método con cierto nombre.
 	 */
 	private ClassDef classDef;
 		
@@ -51,8 +51,8 @@ public class ExistsMethodWithNameInClass extends Predicate {
 	 * Constructor.<p>
 	 *
 	 * Obtiene una nueva instancia del predicado ExistsMethodInClass.
-	 * @param classDef la clase en la que se busca el m�todo.
-	 * @param methodUniqueName el nombre �nico del m�todo que se desea buscar.
+	 * @param classDef la clase en la que se busca el método.
+	 * @param methodUniqueName el nombre único del método que se desea buscar.
 	 */
 	public ExistsMethodWithNameInClass(ClassDef classDef, Name methodUniqueName) {
 		
@@ -68,7 +68,7 @@ public class ExistsMethodWithNameInClass extends Predicate {
 	/**
 	 * Comprueba el valor de verdad del predicado.
 	 * 
-	 * @return <code>true</code> si existe el m�todo en la clase especificada, 
+	 * @return <code>true</code> si existe el método en la clase especificada, 
 	 * <code>false</code> en caso contrario.
 	 */	 
 	public boolean isValid() {

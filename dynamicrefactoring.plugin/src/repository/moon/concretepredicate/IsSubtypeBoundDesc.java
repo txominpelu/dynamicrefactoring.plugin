@@ -32,9 +32,9 @@ import repository.moon.MOONRefactoring;
 import repository.moon.concretefunction.SuperclassCollector;
 
 /**
- * Comprueba que el tipo de acotaci�n que ocupa una posici�n determinada en la
- * lista de acotaciones de un cierto par�metro formal en las subclases de una 
- * clase gen�rica es en todos los casos subtipo de un cierto tipo.
+ * Comprueba que el tipo de acotación que ocupa una posición determinada en la
+ * lista de acotaciones de un cierto parámetro formal en las subclases de una 
+ * clase genérica es en todos los casos subtipo de un cierto tipo.
  *
  * @author <A HREF="mailto:sfd0009@alu.ubu.es">Sonia Fuente de la Fuente</A>
  * @author <A HREF="mailto:ehp0001@alu.ubu.es">Enrique Herrero Paredes</A>
@@ -42,25 +42,25 @@ import repository.moon.concretefunction.SuperclassCollector;
 public class IsSubtypeBoundDesc extends Predicate {
 
 	/**
-	 * Par�metro formal cuyos tipos de acotaci�n en la jerarqu�a de herencia se
+	 * Parámetro formal cuyos tipos de acotación en la jerarquía de herencia se
 	 * estudian.
 	 */
 	private FormalPar formalPar;
 	
 	/**
-	 * Clase a la que pertenece el par�metro formal.
+	 * Clase a la que pertenece el parámetro formal.
 	 */
 	private ClassDef classDef;
 	
 	/**
-	 * Tipo del que deben ser subtipo todos los tipos de acotaci�n del par�metro
-	 * formal {@link #formalPar} que ocupan una cierta posici�n en las subclases 
+	 * Tipo del que deben ser subtipo todos los tipos de acotación del parámetro
+	 * formal {@link #formalPar} que ocupan una cierta posición en las subclases 
 	 * de {@link #classDef}.
 	 */
 	private ClassType classType;
 	
 	/**
-	 * Posici�n de los tipos de acotaci�n del par�metro formal que deben ser
+	 * Posición de los tipos de acotación del parámetro formal que deben ser
 	 * subtipo del tipo indicado por {@link #classType}.
 	 */
 	private int position;
@@ -70,12 +70,12 @@ public class IsSubtypeBoundDesc extends Predicate {
 	 *
 	 * Devuelve una nueva instancia del predicado <code>IsSubtypeBoundDesc</code>.
 	 *
-	 * @param formalPar par�metro formal cuyos tipos de acotaci�n en la jerarqu�a
+	 * @param formalPar parámetro formal cuyos tipos de acotación en la jerarquía
 	 * de herencia se estudian.
-	 * @param referenceType tipo de acotaci�n a partir del cual se calcula la 
-	 * posici�n de las acotaciones que deben cumplir la condici�n de subtipado.
-	 * @param classType tipo del que deben ser subtipo todos los tipos de acotaci�n
-	 * del par�metro que ocupen una determinada posici�n en la lista de acotaciones.
+	 * @param referenceType tipo de acotación a partir del cual se calcula la 
+	 * posición de las acotaciones que deben cumplir la condición de subtipado.
+	 * @param classType tipo del que deben ser subtipo todos los tipos de acotación
+	 * del parámetro que ocupen una determinada posición en la lista de acotaciones.
 	 */
 	public IsSubtypeBoundDesc(FormalPar formalPar,
 		ClassType referenceType, ClassType classType) {
@@ -99,12 +99,12 @@ public class IsSubtypeBoundDesc extends Predicate {
 	 * Comprueba el valor de verdad del predicado.
 	 * 
 	 * @return <code>true</code> si en todas las subclases de {@link #classDef}
-	 * el tipo de acotaci�n del par�metro formal {@link #formalPar} en la 
-	 * posici�n indicada es subtipo del tipo representado por {@link #classType}. 
+	 * el tipo de acotación del parámetro formal {@link #formalPar} en la 
+	 * posición indicada es subtipo del tipo representado por {@link #classType}. 
 	 */	 
 	public boolean isValid() {
 		
-		// Posici�n del par�metro formal en la superclase.
+		// Posición del parámetro formal en la superclase.
 		int fpPosition = classDef.getFormalPars().indexOf(formalPar);
 		
 		// Lista de todas las clases del modelo.
@@ -116,27 +116,27 @@ public class IsSubtypeBoundDesc extends Predicate {
 				new SuperclassCollector(modelClass);
 			Collection<ClassDef> ancestors = ancestorCollector.getCollection();
 			
-			// Se busca una superclase gen�rica que coincida con nuestra clase.
+			// Se busca una superclase genérica que coincida con nuestra clase.
 			for (ClassDef nextAncestor : ancestors){
 				if (nextAncestor.isGeneric() && nextAncestor == classDef){
 					// Se ha encontrado una, luego #modelClass es una subclase
-					// gen�rica de la superclase estudiada.
+					// genérica de la superclase estudiada.
 					
 					FormalPar subClassFormalPar = null;
 					if (modelClass.getFormalPars().size() > fpPosition){
-						// Se toma el par�metro formal equivalente al par�metro formal
+						// Se toma el parámetro formal equivalente al parámetro formal
 						// de la superclase.
 						subClassFormalPar = modelClass.getFormalPars().get(fpPosition);
 					}
 					
-					// Si no est� acotado, no cumple la condici�n.
+					// Si no está acotado, no cumple la condición.
 					if (subClassFormalPar == null || ! (subClassFormalPar instanceof BoundS))
 						return false;
 					BoundS subClassBound = (BoundS)subClassFormalPar;
-					// Se toma el tipo de acotaci�n de la posici�n estudiada.
+					// Se toma el tipo de acotación de la posición estudiada.
 					Type boundType = subClassBound.getBounds().get(position);
 					
-					// Si no es un tipo ClassType, no cumple la condici�n.
+					// Si no es un tipo ClassType, no cumple la condición.
 					if (! (boundType instanceof ClassType))
 						return false;
 					IsSubtype subtype = new IsSubtype((ClassType)boundType, classType);
@@ -147,7 +147,7 @@ public class IsSubtypeBoundDesc extends Predicate {
 				}
 			}
 		}
-		// Si no se ha encontrado ning�n caso contrario, se devuelve verdadero.
+		// Si no se ha encontrado ningún caso contrario, se devuelve verdadero.
 		return true;
 	}
 }

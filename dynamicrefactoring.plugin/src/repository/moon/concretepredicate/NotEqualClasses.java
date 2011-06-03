@@ -27,18 +27,18 @@ import refactoring.engine.Predicate;
  * Permite comprobar que dos clases no son en realidad una misma.
  *
  * @author <A HREF="mailto:ehp0001@alu.ubu.es">Enrique Herrero Paredes</A>
- * @author <A HREF="mailto:alc0022@alu.ubu.es">�ngel L�pez Campo</A>>
+ * @author <A HREF="mailto:alc0022@alu.ubu.es">Ángel López Campo</A>>
  * @author <A HREF="mailto:sfd0009@alu.ubu.es">Sonia Fuente de la Fuente</A>
  */ 
 public class NotEqualClasses extends Predicate {
 	
 	/**
-	 * La primera clase de la comprobaci�n. 
+	 * La primera clase de la comprobación. 
 	 */
 	private ClassDef firstClass;
 	
 	/**
-	 * La segunda clase de la comprobaci�n. 
+	 * La segunda clase de la comprobación. 
 	 */
 	private ClassDef secondClass;
 	
@@ -47,7 +47,7 @@ public class NotEqualClasses extends Predicate {
 	 *
 	 * Obtiene una nueva instancia del predicado NotEqualClasses.
 	 *
-	 * @param firstClass la primera clase de la comprobaci�n.
+	 * @param firstClass la primera clase de la comprobación.
 	 * @param secondClass la segunda clase de la comprobacion. 
 	 */
 	public NotEqualClasses(ClassDef firstClass, ClassDef secondClass) {

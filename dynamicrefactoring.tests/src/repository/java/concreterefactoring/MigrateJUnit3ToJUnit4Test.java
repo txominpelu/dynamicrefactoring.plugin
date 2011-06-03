@@ -42,7 +42,7 @@ import refactoring.engine.Refactoring;
  * Tests the refactoring that migrates fromo JUnit 3 test
  * to new versions.
  * 
- * @author Ra�l Marticorena
+ * @author Raúl Marticorena
  * @since JavaMoon-2.1.0
  */
 public class MigrateJUnit3ToJUnit4Test extends RefactoringTemplateAbstractTest{
@@ -82,7 +82,7 @@ public class MigrateJUnit3ToJUnit4Test extends RefactoringTemplateAbstractTest{
 	/**
 	 * Checks.
 	 * 
-	 * @param dir directorio de la refactorizaci�n.
+	 * @param dir directorio de la refactorización.
 	 * @throws BinaryClassFileException BinaryClassFileException.
 	 * @throws PreconditionException PreconditionException.
 	 * @throws PostconditionException PostconditionException.
@@ -139,9 +139,9 @@ public class MigrateJUnit3ToJUnit4Test extends RefactoringTemplateAbstractTest{
 	
 	
 	/**
-	 * Permite deshacer la refactorizaci�n.
+	 * Permite deshacer la refactorización.
 	 * 
-	 * @param dir directorio de la refactorizaci�n.
+	 * @param dir directorio de la refactorización.
 	 * @throws BinaryClassFileException BinaryClassFileException.
 	 * @throws PreconditionException PreconditionException.
 	 * @throws PostconditionException PostconditionException.

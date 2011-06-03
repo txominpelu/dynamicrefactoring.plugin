@@ -35,7 +35,7 @@ import dynamicrefactoring.util.io.FileManager;
 public class PropertyManager {
 
 	/**
-	 * La instancia única de la clase.
+	 * La instancia Ãºnica de la clase.
 	 */
 	private static PropertyManager singletonInstance = null;
 
@@ -51,19 +51,19 @@ public class PropertyManager {
 	private final String CONFIGURATION_FILE = "refactoring.properties"; //$NON-NLS-1$
 
 	/**
-	 * El nombre de la propiedad que almacena dónde se guardan los ficheros .mod
+	 * El nombre de la propiedad que almacena dï¿½nde se guardan los ficheros .mod
 	 * para recuperar estados intermedios.
 	 */
 	private final String BACKUP_PROPERTY = "backup"; //$NON-NLS-1$
 
 	/**
-	 * El nombre de la propiedad que almacena dónde se guardan temporalmente los
+	 * El nombre de la propiedad que almacena dï¿½nde se guardan temporalmente los
 	 * ficheros sobre los que se refactoriza.
 	 */
 	private final String TEMP_PROPERTY = "temp"; //$NON-NLS-1$
 
 	/**
-	 * El nombre de la propiedad que almacena dónde se guardan los ficheros de
+	 * El nombre de la propiedad que almacena dï¿½nde se guardan los ficheros de
 	 * registro.
 	 */
 	protected static final String LOG_PROPERTY = "log"; //$NON-NLS-1$
@@ -74,7 +74,7 @@ public class PropertyManager {
 	private Properties properties;
 
 	/**
-	 * Bloque de inicialización.
+	 * Bloque de inicializaciÃ³n.
 	 * 
 	 * Recupera las propiedades almacenadas en el fichero de propiedades.
 	 */
@@ -105,7 +105,7 @@ public class PropertyManager {
 	/**
 	 * Constructor.
 	 * 
-	 * Privado, siguiendo la estructura del patrón Singleton.
+	 * Privado, siguiendo la estructura del patrï¿½n Singleton.
 	 */
 	private PropertyManager(){
 		super();
@@ -114,11 +114,11 @@ public class PropertyManager {
 	}
 
 	/**
-	 * Obtiene la instancia única del gestor de propiedades.
+	 * Obtiene la instancia Ãºnica del gestor de propiedades.
 	 * 
-	 * Método definido por el patrón de diseño Singleton.
+	 * MÃ©todo definido por el patrï¿½n de diseï¿½o Singleton.
 	 * 
-	 * @return la instancia única del gestor de propiedades.
+	 * @return la instancia Ãºnica del gestor de propiedades.
 	 */
 	public static PropertyManager getInstance(){
 		if (singletonInstance == null)
@@ -139,10 +139,10 @@ public class PropertyManager {
 
 	/**
 	 * Recupera la propiedad que almacena el nombre del directorio donde se
-	 * copian temporalmente los ficheros sobre los que se está refactorizando.
+	 * copian temporalmente los ficheros sobre los que se estï¿½ refactorizando.
 	 * 
 	 * @return La propiedad que almacena el nombre del directorio donde se
-	 *         copian temporalmente los ficheros sobre los que se está
+	 *         copian temporalmente los ficheros sobre los que se estï¿½
 	 *         refactorizando.
 	 */
 	public String getTempRefactoredFileDirectory(){
@@ -167,7 +167,7 @@ public class PropertyManager {
 	 *            el nombre de la propiedad que se busca.
 	 * 
 	 * @return el valor de la propiedad con el nombre especificado por <code>
-	 * name</code>; <code>null</code> si no se encuentra ningún valor para ese
+	 * name</code>; <code>null</code> si no se encuentra ningÃºn valor para ese
 	 *         nombre.
 	 */
 	public String getCustomProperty(String name){

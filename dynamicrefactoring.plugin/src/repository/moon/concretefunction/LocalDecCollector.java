@@ -27,16 +27,16 @@ import moon.core.classdef.MethDec;
 import refactoring.engine.Function;
 
 /**
- * Permite obtener el conjunto de variables locales de un m�todo determinado.
+ * Permite obtener el conjunto de variables locales de un método determinado.
  *
  * @author <A HREF="mailto:ehp0001@alu.ubu.es">Enrique Herrero Paredes</A>
- * @author <A HREF="mailto:alc0022@alu.ubu.es">�ngel L�pez Campo</A>
+ * @author <A HREF="mailto:alc0022@alu.ubu.es">Ángel López Campo</A>
  * @author <A HREF="mailto:sfd0009@alu.ubu.es">Sonia Fuente de la Fuente</A>
  */ 
 public class LocalDecCollector extends Function {
 	
 	/**
-	 * M�todo cuyas variables locales se desea obtener.
+	 * Método cuyas variables locales se desea obtener.
 	 */
 	private MethDec methDec;
 	
@@ -45,7 +45,7 @@ public class LocalDecCollector extends Function {
 	 *
 	 * Obtiene una nueva instancia de LocalDecCollector.
 	 *
-	 * @param methDec el m�todo cuyas variables locales se quieren obtener.
+	 * @param methDec el método cuyas variables locales se quieren obtener.
 	 */
 	public LocalDecCollector(MethDec methDec) {
 		super();
@@ -54,7 +54,7 @@ public class LocalDecCollector extends Function {
 	}
 
 	/**
-	 * Sin implementaci�n.
+	 * Sin implementación.
 	 *
 	 * @return null.
 	 */
@@ -63,9 +63,9 @@ public class LocalDecCollector extends Function {
 	}
 	
 	/**
-	 * Obtiene el conjunto de variables locales de un m�todo.
+	 * Obtiene el conjunto de variables locales de un método.
 	 *
-	 * @return el conjunto de variables locales del m�todo.
+	 * @return el conjunto de variables locales del método.
 	 */
 	public Collection<LocalDec> getCollection() {
 		return methDec.getLocalDecs();

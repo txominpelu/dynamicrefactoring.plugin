@@ -45,7 +45,7 @@ import repository.RelayListenerRegistry;
  * Adds new formal parameter to the method if it would be necessary.
  * It includes the bounds.
  * 
- * @author <A HREF="mailto:rmartico@ubu.es">Ra�l Marticorena</A>
+ * @author <A HREF="mailto:rmartico@ubu.es">Raúl Marticorena</A>
  */ 
 public class AddMethodFormalParameter extends Action {
 	
@@ -60,17 +60,17 @@ public class AddMethodFormalParameter extends Action {
 	private Name name;
 	
 	/**
-	 * Clase a la que se mover� el m�todo.
+	 * Clase a la que se mover� el método.
 	 */
 	private ClassDef classDef;
 	
 	/**
-	 * M�todo que se va a mover de una clase a otra.
+	 * Método que se va a mover de una clase a otra.
 	 */
 	 private MethDec method;
 	 
 	 /**
-	  * Receptor de los mensajes enviados por la acci�n concreta.
+	  * Receptor de los mensajes enviados por la acción concreta.
 	  */
 	 private RelayListenerRegistry listenerReg;
 	 	
@@ -78,8 +78,8 @@ public class AddMethodFormalParameter extends Action {
 	 * Constructor.<p>
 	 *
 	 * Obtiene una nueva instancia de MoveMethod.
-	 * @param method m�todo que se va a mover de una clase a otra.
-	 * @param classDefDest clase a la que se mover� el m�todo.
+	 * @param method método que se va a mover de una clase a otra.
+	 * @param classDefDest clase a la que se mover� el método.
 	 */	
 	public AddMethodFormalParameter(Name name, CodeFragment fragment){
 		super();
@@ -92,7 +92,7 @@ public class AddMethodFormalParameter extends Action {
 	}
 	
 	/**
-	 * Ejecuta el movimiento del m�todo de una clase a otra.
+	 * Ejecuta el movimiento del método de una clase a otra.
 	 */
 	@Override
 	public void run() {		
@@ -172,7 +172,7 @@ public class AddMethodFormalParameter extends Action {
 	}
 
 	/**
-	 * Deshace el movimiento del m�todo, devolvi�ndolo a su clase de origen y 
+	 * Deshace el movimiento del método, devolvi�ndolo a su clase de origen y 
 	 * elimin�ndolo de la nueva clase destino.
 	 */
 	@Override

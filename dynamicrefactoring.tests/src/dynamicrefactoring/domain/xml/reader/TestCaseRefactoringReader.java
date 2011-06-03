@@ -45,8 +45,8 @@ import dynamicrefactoring.domain.xml.RefactoringXMLTest;
 import dynamicrefactoring.domain.xml.XMLRefactoringUtils;
 
 /**
- * Comprueba que funciona correctamente el proceso de lectura de la definici�n
- * de una refactorizaci�n din�mica.
+ * Comprueba que funciona correctamente el proceso de lectura de la definición
+ * de una refactorización din�mica.
  * 
  * Indirectamente, se comprueba tambi�n el funcionamiento de las clases que
  * implementan los patrones Bridge y Factory Method.
@@ -109,10 +109,10 @@ public class TestCaseRefactoringReader extends RefactoringXMLTest{
 	public static final String TESTDATA_XML_READER_DIR = "./testdata/XML/Reader/";
 
 	/**
-	 * Comprueba que la lectura no se realiza cuando la definici�n no contiene
-	 * toda la informaci�n m�nima necesaria (no cumple las reglas del DTD).
+	 * Comprueba que la lectura no se realiza cuando la definición no contiene
+	 * toda la información m�nima necesaria (no cumple las reglas del DTD).
 	 * 
-	 * Para ello se realiza la carga de una definici�n incompleta desde un
+	 * Para ello se realiza la carga de una definición incompleta desde un
 	 * fichero XML y luego se comprueba que se lanza una excepci�n de tipo
 	 * DynamicRefactoringException.
 	 * 
@@ -128,7 +128,7 @@ public class TestCaseRefactoringReader extends RefactoringXMLTest{
 	}
 
 	/**
-	 * Comprueba que la lectura no se realiza cuando la definici�n utiliza otra
+	 * Comprueba que la lectura no se realiza cuando la definición utiliza otra
 	 * estructura que la que se define en el DTD.
 	 * 
 	 * Para ello se realiza la carga de un fichero XML con una estructura
@@ -147,14 +147,14 @@ public class TestCaseRefactoringReader extends RefactoringXMLTest{
 	}
 
 	/**
-	 * Comprueba que la lectura se realiza correctamente cuando la definici�n
-	 * contiene la informaci�n m�nima necesaria. Para ello se realiza la carga
-	 * de la definici�n de una refactorizaci�n desde un fichero XML y luego se
+	 * Comprueba que la lectura se realiza correctamente cuando la definición
+	 * contiene la información m�nima necesaria. Para ello se realiza la carga
+	 * de la definición de una refactorización desde un fichero XML y luego se
 	 * comprueba el valor de todos los campos recuperados.
 	 * 
-	 * Esta informaci�n es: el nombre, la descripci�n, la motivaci�n, una
-	 * entrada, una precondici�n, una acci�n y una postcondici�n; no tiene ni
-	 * imagen, ni par�metros ambiguos ni ejemplos.
+	 * Esta información es: el nombre, la descripci�n, la motivación, una
+	 * entrada, una precondición, una acción y una postcondición; no tiene ni
+	 * imagen, ni parámetros ambiguos ni ejemplos.
 	 * 
 	 * @throws Exception
 	 *             si se produce un error durante la lectura.
@@ -305,7 +305,7 @@ public class TestCaseRefactoringReader extends RefactoringXMLTest{
 	}
 
 	/**
-	 * Comprueba que la lectura se realiza correctamente cuando la definici�n
+	 * Comprueba que la lectura se realiza correctamente cuando la definición
 	 * contiene toda la informacion posible. Para ello se realiza la carga de la
 	 * definicion de una refactorizacion desde un fichero XML y luego se
 	 * comprueba el valor de todos los campos recuperados.

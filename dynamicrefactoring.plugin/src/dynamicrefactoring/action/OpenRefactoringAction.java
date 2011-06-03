@@ -89,7 +89,7 @@ public class OpenRefactoringAction implements IWorkbenchWindowActionDelegate,
 	}
 
 	/**
-	 * Sin implementaci�n.
+	 * Sin implementación.
 	 * 
 	 * @see IWorkbenchWindowActionDelegate#dispose
 	 */
@@ -108,13 +108,13 @@ public class OpenRefactoringAction implements IWorkbenchWindowActionDelegate,
 
 	/**
 	 * Implementa las operaciones que deben ejecutarse cuando se invoque la
-	 * acci�n.
+	 * acción.
 	 * 
 	 * @param action
-	 *            la acci�n que ha sido invocada.
+	 *            la acción que ha sido invocada.
 	 */
 	public void run(IAction action) {
-		// Si la acci�n se ha disparado desde un men� desplegable,
+		// Si la acción se ha disparado desde un men� desplegable,
 		// hay que recuperar la ventana de trabajo de forma manual.
 		if (window == null)
 			window = PlatformUI.getWorkbench().getActiveWorkbenchWindow();
@@ -131,7 +131,7 @@ public class OpenRefactoringAction implements IWorkbenchWindowActionDelegate,
 						.getInstance().createSelectionInfo(selection, window);
 
 				// Si el elemento seleccionado es v�lido como entrada para la
-				// refactorizaci�n.
+				// refactorización.
 				if (selectionInfo.isValidSelectionType()
 						&& saveUnsavedChanges()
 						&& generateMOONModel(selectionInfo, true)
@@ -177,7 +177,7 @@ public class OpenRefactoringAction implements IWorkbenchWindowActionDelegate,
 	 * 
 	 * @param createwindow
 	 *            indica si se quiere mostrar al usuario una ventana indicando
-	 *            el proceso de generaci�n del modelo o no.
+	 *            el proceso de generación del modelo o no.
 	 * 
 	 * @return <code>true</code> si se pudo crear el modelo correctamente;
 	 *         <code>
@@ -208,8 +208,8 @@ public class OpenRefactoringAction implements IWorkbenchWindowActionDelegate,
 	}
 
 	/**
-	 * Pide confirmaci�n al usuario para guardar los cambios pendientes antes de
-	 * continuar. Si obtiene la confirmaci�n, guarda los cambios de todos los
+	 * Pide confirmación al usuario para guardar los cambios pendientes antes de
+	 * continuar. Si obtiene la confirmación, guarda los cambios de todos los
 	 * editores abiertos con cambios pendientes.
 	 * 
 	 * @return <code>true</code> si se guardaron las modificaciones pendientes o

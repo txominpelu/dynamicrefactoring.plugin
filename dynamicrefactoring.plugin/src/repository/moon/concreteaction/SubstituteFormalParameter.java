@@ -36,23 +36,23 @@ import refactoring.engine.Action;
 import repository.RelayListenerRegistry;
 
 /**
- * Permite sustituir un par�metro formal de una clase por un tipo
+ * Permite sustituir un parámetro formal de una clase por un tipo
  * totalmente instanciado.
  *
- * @author <A HREF="mailto:sam0006@alu.ubu.es">Sara Alcal� Mart�n</A>
- * @author <A HREF="mailto:dbm0005@alu.ubu.es">Diego Ba�uelos Molledo</A>
+ * @author <A HREF="mailto:sam0006@alu.ubu.es">Sara Alcalá Martín</A>
+ * @author <A HREF="mailto:dbm0005@alu.ubu.es">Diego Bañuelos Molledo</A>
  * @author <A HREF="mailto:sfd0009@alu.ubu.es">Sonia Fuente de la Fuente</A>
  * @author <A HREF="mailto:ehp0001@alu.ubu.es">Enrique Herrero Paredes</A>
  */
 public class SubstituteFormalParameter extends Action {
 
 	/**
-	 * Clase sobre la que sustituir el par�metro formal.
+	 * Clase sobre la que sustituir el parámetro formal.
 	 */
 	private ClassDef classDef;
 	
 	/**
-	 * Par�metro formal que se debe sustituir.
+	 * Parámetro formal que se debe sustituir.
 	 */
 	private FormalPar formalPar;
 	
@@ -62,16 +62,16 @@ public class SubstituteFormalParameter extends Action {
 	private ClassType classType;
 	
 	/**
-	 * Receptor de los mensajes enviados por la acci�n concreta.
+	 * Receptor de los mensajes enviados por la acción concreta.
 	 */
 	private RelayListenerRegistry listenerReg;
 		
 	/**
-	 * Constructor de la acci�n sustituir par�metro formal.
+	 * Constructor de la acción sustituir parámetro formal.
 	 * 
-	 * @param formalPar par�metro formal que se debe sustituir.
+	 * @param formalPar parámetro formal que se debe sustituir.
 	 * @param classType tipo completamente instanciado por el que sustituir el 
-	 * par�metro formal.
+	 * parámetro formal.
 	 */
 	public SubstituteFormalParameter(FormalPar formalPar, ClassType classType) {
 
@@ -84,7 +84,7 @@ public class SubstituteFormalParameter extends Action {
 	}
 	
 	/**
-	 * Ejecuta la sustituci�n del par�metro formal.
+	 * Ejecuta la sustituci�n del parámetro formal.
 	 */
 	@Override
 	public void run() {
@@ -105,10 +105,10 @@ public class SubstituteFormalParameter extends Action {
 	}
 		
 	/**
-	 * Sustituye el par�metro formal dentro de los m�todos.
+	 * Sustituye el parámetro formal dentro de los métodos.
 	 * 
-	 * @param md m�todo sobre el que hacer la sustituci�n.
-	 * @param ct nuevo tipo para el m�todo.
+	 * @param md método sobre el que hacer la sustituci�n.
+	 * @param ct nuevo tipo para el método.
 	 */
 	private void substitute(MethDec md, ClassType ct){
 		
@@ -118,7 +118,7 @@ public class SubstituteFormalParameter extends Action {
 		 
 		if (md instanceof FunctionDec){		
 			FunctionDec f = (FunctionDec) md;
-			// Si el tipo de retorno es el par�metro formal.
+			// Si el tipo de retorno es el parámetro formal.
 			if (f.getReturnType().equals(this.formalPar)){
 				f.setFunctionResultEntity(ct);
 				// FIXME: Es necesario? f.getFunctionResultEntity().setType(ct);	
@@ -132,7 +132,7 @@ public class SubstituteFormalParameter extends Action {
 	} 
 	
 	/**
-	 * Sustituye el par�metro formal en las entidades.
+	 * Sustituye el parámetro formal en las entidades.
 	 *
 	 * @param e entidad sobre la que hacer el cambio.
 	 * @param ct nuevo tipo para la entidad.
@@ -144,9 +144,9 @@ public class SubstituteFormalParameter extends Action {
 	}
 	
 	/**
-	 * Deshace la sustituci�n del par�metro formal.
+	 * Deshace la sustituci�n del parámetro formal.
 	 * 
-	 * �Sin implementaci�n!
+	 * �Sin implementación!
 	 */
 	@Override
 	public void undo() {}

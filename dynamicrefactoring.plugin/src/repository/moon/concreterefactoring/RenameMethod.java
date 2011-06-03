@@ -33,24 +33,24 @@ import repository.moon.concretepredicate.MethodIsNotInSubNorSuperclass;
 import repository.moon.concretepredicate.NotExistsMethodWithNameInClass;
 
 /**
- * Permite renombrar un m�todo perteneciente a una clase de un modelo.<p>
+ * Permite renombrar un método perteneciente a una clase de un modelo.<p>
  *
- * Comprueba que no exista ya otro m�todo en la misma clase con el nuevo nombre 
- * (o en otras clases de la jerarqu�a de herencia), que el m�todo pertenezca a 
+ * Comprueba que no exista ya otro método en la misma clase con el nuevo nombre 
+ * (o en otras clases de la jerarquía de herencia), que el método pertenezca a 
  * la clase especificada, y que no sea constructor.<p>
  *
- * Si la comprobaci�n no falla, lleva a cabo el renombrado.<p>
+ * Si la comprobación no falla, lleva a cabo el renombrado.<p>
  *
  * Finalmente, comprueba que el renombrado se ha llevado a cabo con �xito.
  *
- * @author <A HREF="mailto:alc0022@alu.ubu.es">�ngel L�pez Campo</A>
+ * @author <A HREF="mailto:alc0022@alu.ubu.es">Ángel López Campo</A>
  * @author <A HREF="mailto:ehp0001@alu.ubu.es">Enrique Herrero Paredes</A>
  * @author <A HREF="mailto:sfd0009@alu.ubu.es">Sonia Fuente de la Fuente</A>
  */
 public class RenameMethod extends MOONRefactoring {
 	
 	/**
-	 * Nombre de la refactorizaci�n concreta.
+	 * Nombre de la refactorización concreta.
 	 */
 	private static final String NAME = "RenameMethod"; //$NON-NLS-1$
 	
@@ -59,11 +59,11 @@ public class RenameMethod extends MOONRefactoring {
 	 *
 	 * Obtiene una nueva instancia de RenameMethod.
 	 *
-	 * @param method el m�todo que se desea renombrar.
-	 * @param classDef la clase que contiene el m�todo que se desea renombrar.
-	 * @param newName el nuevo nombre que se le va a dar al m�todo.
-	 * @param newUniqueName nuevo nombre �nico que tendr� el m�todo.
-	 * @param model el modelo que contiene la clase cuyo m�todo se renombra.
+	 * @param method el método que se desea renombrar.
+	 * @param classDef la clase que contiene el método que se desea renombrar.
+	 * @param newName el nuevo nombre que se le va a dar al método.
+	 * @param newUniqueName nuevo nombre único que tendr� el método.
+	 * @param model el modelo que contiene la clase cuyo método se renombra.
 	 */
 	public RenameMethod(MethDec method, ClassDef classDef, Name newName,
 		Name newUniqueName, Model model) {

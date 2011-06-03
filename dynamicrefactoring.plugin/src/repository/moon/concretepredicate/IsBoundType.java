@@ -27,7 +27,7 @@ import refactoring.engine.Predicate;
 
 /**
  * Comprueba si un determinado <code>classType</code> forma parte de las 
- * acotaciones de un cierto par�metro formal.
+ * acotaciones de un cierto parámetro formal.
  *
  * @author <A HREF="mailto:sfd0009@alu.ubu.es">Sonia Fuente de la Fuente</A>
  * @author <A HREF="mailto:ehp0001@alu.ubu.es">Enrique Herrero Paredes</A>
@@ -35,13 +35,13 @@ import refactoring.engine.Predicate;
 public class IsBoundType extends Predicate {
 
 	/**
-	 * Par�metro formal entre cuyos tipos de acotaci�n debe encontrarse el tipo 
+	 * Parámetro formal entre cuyos tipos de acotación debe encontrarse el tipo 
 	 * tratado.
 	 */
 	private FormalPar formalPar;
 	
 	/**
-	 * Tipo que debe formar parte de los tipos de acotaci�n de un par�metro formal.
+	 * Tipo que debe formar parte de los tipos de acotación de un parámetro formal.
 	 */
 	private ClassType classType;	
 	
@@ -50,10 +50,10 @@ public class IsBoundType extends Predicate {
 	 *
 	 * Devuelve una nueva instancia del predicado <code>IsBoundType</code>.
 	 *
-	 * @param formalPar par�metro formal a cuya lista de acotaciones debe 
+	 * @param formalPar parámetro formal a cuya lista de acotaciones debe 
 	 * pertenecer el tipo representado por {@link #classType}.
-	 * @param classType tipo que debe formar parte de los tipos de acotaci�n del
-	 * par�metro formal representado por {@link #formalPar}.
+	 * @param classType tipo que debe formar parte de los tipos de acotación del
+	 * parámetro formal representado por {@link #formalPar}.
 	 */
 	public IsBoundType(FormalPar formalPar, ClassType classType) {
 		super("IsBoundType:\n\t" + //$NON-NLS-1$
@@ -70,7 +70,7 @@ public class IsBoundType extends Predicate {
 	 * Comprueba el valor de verdad del predicado.
 	 * 
 	 * @return <code>true</code> si el tipo representado por {@link #classType}
-	 * es uno de los tipos de acotaci�n de {@link #formalPar}; <code>false</code>
+	 * es uno de los tipos de acotación de {@link #formalPar}; <code>false</code>
 	 * en caso contrario.
 	 */	 
 	public boolean isValid() {

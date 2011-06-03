@@ -31,7 +31,7 @@ import org.eclipse.ui.PlatformUI;
 import dynamicrefactoring.interfaz.wizard.ImportWizard;
 
 /**
- * Acci�n que inicia el asistente de importaci�n de refactorizaciones din�micas.
+ * Acci�n que inicia el asistente de importación de refactorizaciones din�micas.
  */
 public class OpenImportDialogAction implements IWorkbenchWindowActionDelegate  {
 

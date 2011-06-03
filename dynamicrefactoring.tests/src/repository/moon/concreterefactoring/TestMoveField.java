@@ -38,11 +38,11 @@ import repository.RefactoringTemplateAbstractTest;
 import repository.moon.MOONRefactoring;
 
 /** 
- * Comprueba que funciona correctamente la refactorizaci�n que mueve un atributo
+ * Comprueba que funciona correctamente la refactorización que mueve un atributo
  * de una clase del modelo a otra.
  * 
  * <p>Indirectamente, se comprueba tambi�n la correcci�n de las funciones,
- * acciones y predicados utilizados por la refactorizaci�n.</p>
+ * acciones y predicados utilizados por la refactorización.</p>
  *
  * @author <A HREF="mailto:sfd0009@alu.ubu.es">Sonia Fuente de la Fuente</A>
  * @author <A HREF="mailto:ehp0001@alu.ubu.es">Enrique Herrero Paredes</A>
@@ -52,7 +52,7 @@ import repository.moon.MOONRefactoring;
 public class TestMoveField extends RefactoringTemplateAbstractTest {
 
 	/** 
-	 * Comprueba que la refactorizaci�n funciona correctamente al mover un
+	 * Comprueba que la refactorización funciona correctamente al mover un
 	 * atributo de una clase a otra en un caso correcto.
 	 * 
 	 * <p>En un modelo con dos clases, se mueve un atributo que cumple todas las
@@ -94,7 +94,7 @@ public class TestMoveField extends RefactoringTemplateAbstractTest {
 	}
 
 	/**
-	 * Verifica el funcionamiento de las precondiciones de la refactorizaci�n.
+	 * Verifica el funcionamiento de las precondiciones de la refactorización.
 	 *
 	 * <p>Comprueba que se lanza una excepci�n cuando se intenta mover un atributo 
 	 * a la misma clase que originalmente lo contiene.</p>
@@ -120,7 +120,7 @@ public class TestMoveField extends RefactoringTemplateAbstractTest {
 	}
 
 	/**
-	 * Verifica el funcionamiento de las precondiciones de la refactorizaci�n.
+	 * Verifica el funcionamiento de las precondiciones de la refactorización.
 	 *
 	 * <p>Comprueba que se lanza una excepci�n cuando se intenta mover un atributo 
 	 * que est� siendo utilizado en su clase de origen.</p>
@@ -147,10 +147,10 @@ public class TestMoveField extends RefactoringTemplateAbstractTest {
 	}
 
 	/**
-	 * Verifica el funcionamiento de las precondiciones de la refactorizaci�n.
+	 * Verifica el funcionamiento de las precondiciones de la refactorización.
 	 *
 	 * <p>Comprueba que se lanza una excepci�n cuando se intenta mover un atributo
-	 * que est� siendo utilizado en alg�n punto del modelo.</p>
+	 * que est� siendo utilizado en algún punto del modelo.</p>
 	 * 
 	 * @throws Exception si se produce un error durante la ejecuci�n de la prueba.
 	 */
@@ -174,7 +174,7 @@ public class TestMoveField extends RefactoringTemplateAbstractTest {
 	}
 
 	/** 
-	 * Comprueba que funciona correctamente la operaci�n que deshace el
+	 * Comprueba que funciona correctamente la operación que deshace el
 	 * movimiento de un atributo de una clase a otra en un caso correcto
 	 * simple.
 	 * 

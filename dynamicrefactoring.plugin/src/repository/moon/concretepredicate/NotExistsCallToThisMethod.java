@@ -41,24 +41,24 @@ import repository.moon.RepositoryUtils;
 import repository.moon.concretefunction.MethodInstructionsCollector;
 
 /**
- * Permite verificar que no existen llamadas a un determinado m�todo en ninguna
+ * Permite verificar que no existen llamadas a un determinado método en ninguna
  * clase de un modelo MOON-Java.
  *
  * @author <A HREF="mailto:ehp0001@alu.ubu.es">Enrique Herrero Paredes</A>
- * @author <A HREF="mailto:alc0022@alu.ubu.es">�ngel L�pez Campo</A>
+ * @author <A HREF="mailto:alc0022@alu.ubu.es">Ángel López Campo</A>
  * @author <A HREF="mailto:sfd0009@alu.ubu.es">Sonia Fuente de la Fuente</A>
  */ 
 public class NotExistsCallToThisMethod extends Predicate {
 	
 	/**
-	 * El m�todo cuyas llamadas se buscan.
+	 * El método cuyas llamadas se buscan.
 	 */
 	private MethDec method;
 	
 	/**
 	 * Identificadores de las expresiones ya analizadas, para evitar bucles debidos
 	 * a la posiblidad de que <code>leftSide</code> o <code>rightSide</code> apunten
-	 * a su vez a la expresi�n original.
+	 * a su vez a la expresión original.
 	 */
 	private ArrayList<Integer> exprIds;
 		
@@ -67,7 +67,7 @@ public class NotExistsCallToThisMethod extends Predicate {
 	 *
 	 * Obtiene una nueva instancia de NotExistsCallToThisMethod.
 	 *
-	 * @param method el m�todo cuyas llamadas se buscan.
+	 * @param method el método cuyas llamadas se buscan.
 	 */
 	public NotExistsCallToThisMethod(MethDec method) {
 		
@@ -83,7 +83,7 @@ public class NotExistsCallToThisMethod extends Predicate {
 	/**
 	 * Comprueba el valor de verdad del predicado.
 	 * 
-	 * @return <code>true</code> si no existen llamadas al m�todo en todo el 
+	 * @return <code>true</code> si no existen llamadas al método en todo el 
 	 * modelo; <code>false</code>, en caso contrario.
 	 */	 
 	@Override
@@ -126,13 +126,13 @@ public class NotExistsCallToThisMethod extends Predicate {
 	}
 	
 	/**
-	 * Comprueba que una expresi�n de llamada de longitud uno no contiene una
-	 * llamada al m�todo especificado.
+	 * Comprueba que una expresión de llamada de longitud uno no contiene una
+	 * llamada al método especificado.
 	 *
-	 * @param exp la expresi�n de llamada de longitud uno.
+	 * @param exp la expresión de llamada de longitud uno.
 	 *
-	 * @return <code>true</code> si la expresi�n no contiene ninguna llamada al
-	 * m�todo; <code>false</code> en caso contrario.
+	 * @return <code>true</code> si la expresión no contiene ninguna llamada al
+	 * método; <code>false</code> en caso contrario.
 	 */
 	private boolean checkCallExpr(CallExpr exp){
 		
@@ -174,14 +174,14 @@ public class NotExistsCallToThisMethod extends Predicate {
 	}
 
 	/**
-	 * Comprueba que una expresi�n no contiene una llamada al m�todo 
+	 * Comprueba que una expresión no contiene una llamada al método 
 	 * especificado.
 	 * 
-	 * @param expr la expresi�n en la que se estudia la posible presencia de 
-	 * llamadas al m�todo.
+	 * @param expr la expresión en la que se estudia la posible presencia de 
+	 * llamadas al método.
 	 * 
-	 * @return <code>true</code> si la expresi�n no contiene ninguna llamada al
-	 * m�todo especificado; <code>false</code> en caso contrario.
+	 * @return <code>true</code> si la expresión no contiene ninguna llamada al
+	 * método especificado; <code>false</code> en caso contrario.
 	 */
 	private boolean checkExpr(Expr expr){
 		if (expr instanceof CallExpr)
@@ -191,13 +191,13 @@ public class NotExistsCallToThisMethod extends Predicate {
 	}
 	
 	/**
-	 * Comprueba que una instrucci�n de llamada de longitud uno no contiene una
-	 * llamada al m�todo especificado.
+	 * Comprueba que una instrucción de llamada de longitud uno no contiene una
+	 * llamada al método especificado.
 	 *
-	 * @param instr la instrucci�n de llamada de longitud uno.
+	 * @param instr la instrucción de llamada de longitud uno.
 	 *
-	 * @return <code>true</code> si la instrucci�n no contiene ninguna llamada 
-	 * al m�todo; <code>false</code> en caso contrario.
+	 * @return <code>true</code> si la instrucción no contiene ninguna llamada 
+	 * al método; <code>false</code> en caso contrario.
 	 */
 	private boolean checkCallInstr(CallInstr instr){
 		

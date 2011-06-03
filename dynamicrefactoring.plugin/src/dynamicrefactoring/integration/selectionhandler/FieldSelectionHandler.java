@@ -51,14 +51,14 @@ public abstract class FieldSelectionHandler implements ISelectionHandler {
 	 * Obtiene la descripci�n MOON del atributo representado por una selecci�n 
 	 * del interfaz gr�fico.
 	 * 
-	 * M�todo plantilla (patr�n de dise�o M�todo Plantilla).
+	 * Método plantilla (patr�n de dise�o Método Plantilla).
 	 * 
 	 * @return la descripci�n MOON del atributo representado por una selecci�n 
 	 * del interfaz gr�fico.
 	 * 
 	 * @throws ClassNotFoundException si se no se consigue encontrar la clase a
 	 * la que pertenece el atributo en el modelo MOON cargado.
-	 * @throws IOException si se produce alg�n error al acceder al modelo MOON.
+	 * @throws IOException si se produce algún error al acceder al modelo MOON.
 	 * 
 	 * @see ISelectionHandler#getMainObject()
 	 */
@@ -67,7 +67,7 @@ public abstract class FieldSelectionHandler implements ISelectionHandler {
 		throws ClassNotFoundException, IOException {
 		
 		if (fieldDescription == null){
-			// Llamada a la operaci�n primitiva (patr�n de dise�o M�todo Plantilla).
+			// Llamada a la operación primitiva (patr�n de dise�o Método Plantilla).
 			JavaFieldProcessor fieldProcessor = getFieldProcessor();
 			
 			String uniqueName = fieldProcessor.getUniqueName();
@@ -92,17 +92,17 @@ public abstract class FieldSelectionHandler implements ISelectionHandler {
 	 * 
 	 * @throws ClassNotFoundException si se no se consigue encontrar la clase en
 	 * el modelo MOON cargado.
-	 * @throws IOException si se produce alg�n error al acceder al modelo MOON.
+	 * @throws IOException si se produce algún error al acceder al modelo MOON.
 	 */
 	public abstract ClassDef getFieldClass() 
 		throws ClassNotFoundException, IOException;
 	
 	/**
-	 * Obtiene un elemento capaz de procesar la informaci�n de un atributo Java.
+	 * Obtiene un elemento capaz de procesar la información de un atributo Java.
 	 * 
-	 * Operaci�n primitiva (patr�n de dise�o M�todo Plantilla).
+	 * Operación primitiva (patr�n de dise�o Método Plantilla).
 	 * 
-	 * @return un elemento capaz de procesar la informaci�n de un atributo Java.
+	 * @return un elemento capaz de procesar la información de un atributo Java.
 	 */
 	protected abstract JavaFieldProcessor getFieldProcessor();
 }

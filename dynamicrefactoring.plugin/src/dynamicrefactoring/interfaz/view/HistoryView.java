@@ -54,8 +54,8 @@ import dynamicrefactoring.listener.IRefactoringRunListener;
  * Proporciona una vista de Eclipse en la que quedan reflejadas todas las 
  * refactorizaciones que ejecuta el <i>plugin</i> de refactorizaciones din�micas.
  * 
- * <p>Proporciona informaci�n de resumen acerca de cada una de las refactorizaciones,
- * as� como la posibilidad de ordenarlas por tipo de refactorizaci�n y por orden de
+ * <p>Proporciona información de resumen acerca de cada una de las refactorizaciones,
+ * as� como la posibilidad de ordenarlas por tipo de refactorización y por orden de
  * ejecuci�n real.</p>
  * 
  * @author <A HREF="mailto:lfd0002@alu.ubu.es">Laura Fuente de la Fuente</A>
@@ -75,7 +75,7 @@ public class HistoryView extends ViewPart {
 	public static final String ID = "dynamicrefactoring.views.historyView"; //$NON-NLS-1$
 	
 	/**
-	 * <i>Listener</i> a trav�s del que la vista es notificada acerca de los 
+	 * <i>Listener</i> a través del que la vista es notificada acerca de los 
 	 * eventos relativos a las refactorizaciones realizadas.
 	 */
 	private IRefactoringRunListener listener;
@@ -86,21 +86,21 @@ public class HistoryView extends ViewPart {
 	private Table table;
 	
 	/**
-	 * Refactorizaciones cuya finalizaci�n ha registrado la vista.
+	 * Refactorizaciones cuya finalización ha registrado la vista.
 	 * 
-	 * <p>Se utiliza como clave la hora de finalizaci�n, y como valor, el 
-	 * elemento resumen de la refactorizaci�n.</p>
+	 * <p>Se utiliza como clave la hora de finalización, y como valor, el 
+	 * elemento resumen de la refactorización.</p>
 	 */
 	private HashMap<String, RefactoringSummary> elements;
 	
 	/**
-	 * Descripci�n de la columna que mostrar� el nombre de la refactorizaci�n. 
+	 * Descripci�n de la columna que mostrar� el nombre de la refactorización. 
 	 */
 	private final String NAME_COLUMN = Messages.HistoryView_Refactoring;
 	
 	/**
-	 * Descripci�n de la columna que mostrar� la hora de finalizaci�n de la 
-	 * refactorizaci�n.
+	 * Descripci�n de la columna que mostrar� la hora de finalización de la 
+	 * refactorización.
 	 */
 	private final String TIME_COLUMN = Messages.HistoryView_Time;
 	
@@ -128,7 +128,7 @@ public class HistoryView extends ViewPart {
 	private TableColumn col_undo;
 	
 	/**
-	 * Indica si una operaci�n de deshacer se dispar� desde la vista.
+	 * Indica si una operación de deshacer se dispar� desde la vista.
 	 */
 	private boolean viewFired = false;
 	
@@ -242,7 +242,7 @@ public class HistoryView extends ViewPart {
 
 
 	/**
-	 * Permite responder a los eventos del proceso de refactorizaci�n disparados por
+	 * Permite responder a los eventos del proceso de refactorización disparados por
 	 * el <i>plugin</i>.
 	 * 
 	 * <p>
@@ -250,8 +250,8 @@ public class HistoryView extends ViewPart {
 	 * </p>
 	 * 
 	 * <p>
-	 * Responde a los eventos de finalizaci�n de refactorizaci�n registrando los 
-	 * datos de la refactorizaci�n completada en la vista {@link HistoryView}.
+	 * Responde a los eventos de finalización de refactorización registrando los 
+	 * datos de la refactorización completada en la vista {@link HistoryView}.
 	 * </p>
 	 * 
 	 * @author <A HREF="mailto:sfd0009@alu.ubu.es">Sonia Fuente de la Fuente</A>
@@ -260,18 +260,18 @@ public class HistoryView extends ViewPart {
 	private class HistoryListener implements IRefactoringRunListener {
 		
 		/**
-		 * Indica si la refactorizaci�n se ha completado correctamente.
+		 * Indica si la refactorización se ha completado correctamente.
 		 */
 		private boolean correct = true;
 	
 		
 		/**
-		 * Notifica al <i>listener</i> acerca del comienzo de una refactorizaci�n.
+		 * Notifica al <i>listener</i> acerca del comienzo de una refactorización.
 		 * 
-		 * <p>Sin impelementaci�n. Se trata de una vista de tipo hist�rico, por lo 
+		 * <p>Sin impelementación. Se trata de una vista de tipo hist�rico, por lo 
 		 * que solo procesa refactorizaciones que se hayan completado.</p>
 		 * 
-		 * @param name nombre de la refactorizaci�n que ha comenzado.
+		 * @param name nombre de la refactorización que ha comenzado.
 		 * 
 		 * @see IRefactoringRunListener#refactoringStarted(String)
 		 */
@@ -279,11 +279,11 @@ public class HistoryView extends ViewPart {
 		public void refactoringStarted(String name){}
 		
 		/**
-		 * Notifica al <i>listener</i> acerca de la realizaci�n de un paso concreto
-		 * en una refactorizaci�n.
+		 * Notifica al <i>listener</i> acerca de la realización de un paso concreto
+		 * en una refactorización.
 		 * 
-		 * <p>Sin impelementaci�n. Se trata de una vista de tipo hist�rico, por lo 
-		 * que solo tiene en cuenta la finalizaci�n de refactorizaciones.</p>
+		 * <p>Sin impelementación. Se trata de una vista de tipo hist�rico, por lo 
+		 * que solo tiene en cuenta la finalización de refactorizaciones.</p>
 		 * 
 		 * @param message mensaje asociado al paso realizado.
 		 * 
@@ -293,10 +293,10 @@ public class HistoryView extends ViewPart {
 		public void refactoringStepTaken(String message){}
 		
 		/**
-		 * Notifica al <i>listener</i> acerca de un fallo durante una refactorizaci�n.
+		 * Notifica al <i>listener</i> acerca de un fallo durante una refactorización.
 		 * 
-		 * @param name nombre de la refactorizaci�n que ha fallado.
-		 * @param message mensaje asociado al fallo de la refactorizaci�n.
+		 * @param name nombre de la refactorización que ha fallado.
+		 * @param message mensaje asociado al fallo de la refactorización.
 		 * 
 		 * @see IRefactoringRunListener#refactoringFailed(String, String)
 		 */
@@ -306,9 +306,9 @@ public class HistoryView extends ViewPart {
 		}
 	
 		/**
-		 * Notifica al <i>listener</i> acerca de la finalizaci�n de una refactorizaci�n.
+		 * Notifica al <i>listener</i> acerca de la finalización de una refactorización.
 		 * 	
-		 * @param summary resumen informativo de la refactorizaci�n que ha finalizado.
+		 * @param summary resumen informativo de la refactorización que ha finalizado.
 		 * 	
 		 * @see IRefactoringRunListener#refactoringFinished(RefactoringSummary)
 		 */
@@ -333,15 +333,15 @@ public class HistoryView extends ViewPart {
 	
 		/**
 		 * Notifica al <i>listener</i> acerca del hecho de que se haya recuperado el
-		 * estado anterior a una refactorizaci�n.
+		 * estado anterior a una refactorización.
 		 * 
-		 * @param id identificador de la refactorizaci�n cuyo estado anterior
+		 * @param id identificador de la refactorización cuyo estado anterior
 		 * se ha recuperado.
 		 */
 		@Override
 		public void refactoringUndone(String id){
 			if (!viewFired){
-				// Se busca la refactorizaci�n que se ha deshecho.
+				// Se busca la refactorización que se ha deshecho.
 				String time = ""; //$NON-NLS-1$
 				for (RefactoringSummary summary : elements.values()){
 					if (summary.getId().equals(id)){
@@ -357,7 +357,7 @@ public class HistoryView extends ViewPart {
 					}
 				}
 				
-				// Se busca la posici�n de la refactorizaci�n en la tabla.
+				// Se busca la posición de la refactorización en la tabla.
 				int index = 0;
 				TableItem[] items = table.getItems();
 				for (int i = 0; i < items.length; i++){
@@ -375,10 +375,10 @@ public class HistoryView extends ViewPart {
 	
 	/**
 	 * Elimina los elementos de la tabla que se encuentren entre la �ltima 
-	 * posici�n y la posici�n indicada, �sta �ltima incluida.
+	 * posición y la posición indicada, �sta �ltima incluida.
 	 * 
-	 * @param toIndex posici�n de la primera fila de la tabla a partir de la que
-	 * debe comenzar la eliminaci�n de elementos. La numeraci�n de las filas 
+	 * @param toIndex posición de la primera fila de la tabla a partir de la que
+	 * debe comenzar la eliminación de elementos. La numeración de las filas 
 	 * comienza en 0, y la fila indicada ser� la primera en ser eliminada.
 	 */
 	private void cleanTable(int toIndex){
@@ -397,7 +397,7 @@ public class HistoryView extends ViewPart {
 	/**
 	 * Permite responder a los eventos de los botones de la tabla que solicitan
 	 * que el proyecto sea restaurado a un determinado punto anterior a una
-	 * refactorizaci�n.
+	 * refactorización.
 	 * 
 	 * @author <A HREF="mailto:sfd0009@alu.ubu.es">Sonia Fuente de la Fuente</A>
 	 * @author <A HREF="mailto:ehp0001@alu.ubu.es">Enrique Herrero Paredes</A>
@@ -414,7 +414,7 @@ public class HistoryView extends ViewPart {
 		
 		/**
 		 * Responde a los eventos de selecci�n sobre uno de los botones de la
-		 * tabla, deshaciendo la refactorizaci�n asociada al bot�n y eliminando
+		 * tabla, deshaciendo la refactorización asociada al bot�n y eliminando
 		 * de la tabla todos los estados posteriores al del punto recuperado.
 		 * 
 		 * @param event el evento de selecci�n disparado sobre la ventana.
@@ -428,7 +428,7 @@ public class HistoryView extends ViewPart {
 				TableItem item = table.getItem(row);
 				String time = item.getText(0);
 				
-				// Se recupera el ID de la operaci�n que ejecut� la refactorizaci�n.
+				// Se recupera el ID de la operación que ejecut� la refactorización.
 				RefactoringSummary summary = elements.get(time);
 				
 				/*****************************undo*********************************/
@@ -459,7 +459,7 @@ public class HistoryView extends ViewPart {
 	
 	/**
 	 * Permite actualizar la tabla de refactorizaciones ejecutadas cada vez que se ejecuta
-	 * una refactorizaci�n.
+	 * una refactorización.
 	 * 
 	 * @author <A HREF="mailto:lfd0002@alu.ubu.es">Laura Fuente de la Fuente</A>
 	 * @author <A HREF="mailto:sfd0009@alu.ubu.es">Sonia Fuente de la Fuente</A>
@@ -468,14 +468,14 @@ public class HistoryView extends ViewPart {
 	 */
 	private class TableRunnable implements Runnable{
 		/**
-		 * Resumen de la refactorizaci�n que se est� ejecutando.
+		 * Resumen de la refactorización que se est� ejecutando.
 		 */
 		private RefactoringSummary summary;
 		
 		/**
-		 * Establece el resumen de la refactorizaci�n.
+		 * Establece el resumen de la refactorización.
 		 * 
-		 * @param summary resumen de la refactorizaci�n.
+		 * @param summary resumen de la refactorización.
 		 */
 		public void setSummary(RefactoringSummary summary){
 			this.summary=summary;

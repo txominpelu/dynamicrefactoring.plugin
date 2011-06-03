@@ -29,7 +29,7 @@ import refactoring.engine.Action;
 import repository.RelayListenerRegistry;
 
 /**
- * Permite renombrar un atributo de una representaci�n MOON de un modelo Java.<p>
+ * Permite renombrar un atributo de una representación MOON de un modelo Java.<p>
  *
  * @author <A HREF="mailto:sfd0009@alu.ubu.es">Laura Fuente de la Fuente</A>
  */ 
@@ -42,7 +42,7 @@ public class RenameField extends Action {
 	
 	
 	/**
-	 * Nuevo nombre que se dar� al atributo.
+	 * Nuevo nombre que se darí al atributo.
 	 */
 	private Name newName;
 	
@@ -53,13 +53,13 @@ public class RenameField extends Action {
 	
 	
 	/**
-	 * Elemento auxiliar para renombrar el m�todo en caso de que aparezca en
-	 * clases superiores o inferiores en la jerarqu�a de herencia.
+	 * Elemento auxiliar para renombrar el método en caso de que aparezca en
+	 * clases superiores o inferiores en la jerarquía de herencia.
 	 */
 	private Vector<RenameMethodWithoutHierarchy> renMethInOtherClassVec;
 
 	/**
-	 * Receptor de los mensajes enviados por la acci�n concreta.
+	 * Receptor de los mensajes enviados por la acción concreta.
 	 */
 	private RelayListenerRegistry listenerReg;
 		
@@ -68,7 +68,7 @@ public class RenameField extends Action {
 	 *
 	 * Obtiene una nueva instancia de RenameMethod.
 	 *
-	 * @param newName el nuevo nombre que se dar� al atributo.
+	 * @param newName el nuevo nombre que se darí al atributo.
 	 * @param att atributo a ser modificado.
 	 */
 	public RenameField ( AttDec att, Name newName){
@@ -85,7 +85,7 @@ public class RenameField extends Action {
 	}
 	
 	/**
-	 * Ejecuta el renombrado del m�todo.
+	 * Ejecuta el renombrado del método.
 	 */
 	public void run(){
 		

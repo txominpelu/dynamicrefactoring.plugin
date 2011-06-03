@@ -39,10 +39,10 @@ import org.junit.Before;
 import repository.moon.MOONRefactoring;
 
 /**
- * Proporciona el comportamiento de inicializaci�n y finalizaci�n por defecto de los
+ * Proporciona el comportamiento de inicialización y finalización por defecto de los
  * test ejecutados sobre el repositorio.
  * 
- * @author Ra�l Marticorena
+ * @author Raúl Marticorena
  * 
  * @since JavaMoon-2.1.0
  */
@@ -64,14 +64,14 @@ public abstract class RefactoringTemplateAbstractTest {
 	private static final String JUNITJARFILE = "junit-4.4.jar"; //$NON-NLS-1$
 	
 	/**
-	 * Car�cter separador de rutas en el sistema operativo.
+	 * Carácter separador de rutas en el sistema operativo.
 	 */
 	public static final String SEPARATOR = File.separator;
 
 	/**
 	 * Inicializa los test.
 	 * 
-	 * @throws Exception si se produce un fallo durante la inicializaci�n.
+	 * @throws Exception si se produce un fallo durante la inicialización.
 	 */
 	@Before
 	public void setUp() throws Exception{     	
@@ -88,7 +88,7 @@ public abstract class RefactoringTemplateAbstractTest {
 	}    
     
     /**
-     * M�todo de finalizaci�n.
+     * Método de finalización.
      */
 	@After
     public void tearDown() {

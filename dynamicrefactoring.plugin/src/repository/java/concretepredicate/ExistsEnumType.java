@@ -57,7 +57,7 @@ public class ExistsEnumType extends Predicate {
 	/**
 	 * Comprueba el valor de verdad del predicado.
 	 * 
-	 * @return <code>true</code> si no existe el par�metro en el m�todo 
+	 * @return <code>true</code> si no existe el parámetro en el método 
 	 * especificado; <code>false</code> en caso contrario.
 	 */
 	@Override

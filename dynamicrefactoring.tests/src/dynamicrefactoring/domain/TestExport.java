@@ -40,7 +40,7 @@ import dynamicrefactoring.util.PluginStringUtils;
 import dynamicrefactoring.util.io.FileManager;
 
 /**
- * Comprueba que funciona correctamente el proceso de exportaci�n de
+ * Comprueba que funciona correctamente el proceso de exportación de
  * refactorizaciones.
  * 
  * @author <A HREF="mailto:lfd0002@alu.ubu.es">Laura Fuente de la Fuente</A>
@@ -76,7 +76,7 @@ public class TestExport {
 	}
 
 	/**
-	 * Comprueba que el proceso de exportaci�n de la refactorizaci�n din�mica
+	 * Comprueba que el proceso de exportación de la refactorización din�mica
 	 * Rename Class a un directorio temporal "./temp" se ha realizado
 	 * correctamente.
 	 * 
@@ -89,7 +89,7 @@ public class TestExport {
 	public void testExportRefactoring() throws XMLRefactoringReaderException,
 			IOException {
 
-		// Primero exportamos la refactorizaci�n Rename Class a un directorio
+		// Primero exportamos la refactorización Rename Class a un directorio
 		// temporal que luego eliminaremos
 		ExportImportUtilities.ExportRefactoring(TEMP_DIR,
 				RENAME_CLASS_XML_FILE, false);
@@ -113,7 +113,7 @@ public class TestExport {
 	}
 
 	/**
-	 * Comprueba que el proceso de exportaci�n de la refactorizaci�n din�mica
+	 * Comprueba que el proceso de exportación de la refactorización din�mica
 	 * Rename Class a un directorio temporal "./temp" teniendo en cuenta que uno
 	 * de los ficheros .class requeridos no se encuentra en el repositorio.
 	 * 
@@ -137,7 +137,7 @@ public class TestExport {
 
 		try {
 			// Copiamos uno de los ficheros .class que necesita la
-			// refactorizaci�n al directorio
+			// refactorización al directorio
 			// temporal y luego lo borramos para que posteriormente salte la
 			// excepci�n.
 
@@ -149,9 +149,9 @@ public class TestExport {
 					RENAME_CLASS_XML_FILE, false);
 
 		} catch (IOException e) {
-			// Comprobamos que el directorio en el que se generar�a la
-			// refactorizaci�n no existe al no
-			// poderse completar la operaci�n.
+			// Comprobamos que el directorio en el que se generaría la
+			// refactorización no existe al no
+			// poderse completar la operación.
 			assertEquals(false, new File(TEMP_DIR + File.separatorChar
 					+ definitionFolderName).exists());
 

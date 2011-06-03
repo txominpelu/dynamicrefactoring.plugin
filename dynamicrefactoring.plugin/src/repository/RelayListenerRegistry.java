@@ -23,13 +23,13 @@ package repository;
 import org.eclipse.core.runtime.ListenerList;
 
 /**
- * Proporciona las funciones de registro y notificación de <i> listeners</i> que 
+ * Proporciona las funciones de registro y notificaciÃ³n de <i> listeners</i> que 
  * deban registrar los mensajes enviados desde los elementos del repositorio.
  * 
  * <p>Se limita a reenviar todos los mensajes recibidos a su lista de 
  * <i>listeners</i> registrados.
  * 
- * <p>Desempeña el papel de Sujeto Concreto en el patrón de diseño Observador.</p>
+ * <p>DesempeÃ±a el papel de Sujeto Concreto en el patrÃ³n de diseÃ±o Observador.</p>
  * 
  * @author <A HREF="mailto:sfd0009@alu.ubu.es">Sonia Fuente de la Fuente</A>
  * @author <A HREF="mailto:ehp0001@alu.ubu.es">Enrique Herrero Paredes</A>
@@ -42,27 +42,27 @@ public class RelayListenerRegistry implements IListenerRegistry {
 	private ListenerList listeners;
 	
 	/**
-	 * Instancia única de la clase.
+	 * Instancia Ãºnica de la clase.
 	 * 
-	 * <p>Patrón de diseño Singleton.</p>
+	 * <p>PatrÃ³n de diseÃ±o Singleton.</p>
 	 */
 	private static RelayListenerRegistry myInstance;
 	
 	/**
 	 * Constructor.
 	 * 
-	 * <p>Privado, según la estructura del patrón de diseño Singleton.</p>
+	 * <p>Privado, segÃºn la estructura del patrÃ³n de diseÃ±o Singleton.</p>
 	 */
 	private RelayListenerRegistry(){
 		listeners = new ListenerList();
 	}
 	
 	/**
-	 * Obtiene la instancia única del registro.
+	 * Obtiene la instancia Ãºnica del registro.
 	 * 
-	 * <p>Método definido en el patrón de diseño Singleton.</p>
+	 * <p>MÃ©todo definido en el patrÃ³n de diseÃ±o Singleton.</p>
 	 * 
-	 * @return la instancia única del registro.
+	 * @return la instancia Ãºnica del registro.
 	 */
 	public static RelayListenerRegistry getInstance(){
 		if (myInstance == null)
@@ -71,9 +71,9 @@ public class RelayListenerRegistry implements IListenerRegistry {
 	}
 	
 	/**
-	 * Añade un <i>listener</i> a la lista de <i>listeners</i> registrados.
+	 * AÃ±ade un <i>listener</i> a la lista de <i>listeners</i> registrados.
 	 * 
-	 * @param listener el <i>listener</i> que se debe añadir.
+	 * @param listener el <i>listener</i> que se debe aÃ±adir.
 	 * 
 	 * @see IListenerRegistry#add(IRefactoringMessageListener)
 	 */
@@ -97,7 +97,7 @@ public class RelayListenerRegistry implements IListenerRegistry {
 	}
 	
 	/**
-	 * Notifica a todos los <i>listeners</i> registrados acerca del envío de un
+	 * Notifica a todos los <i>listeners</i> registrados acerca del envÃ­o de un
 	 * mensaje desde uno de los elementos del repositorio.
 	 * 
 	 * @param message el mensaje enviado por un elemento concreto del repositorio.

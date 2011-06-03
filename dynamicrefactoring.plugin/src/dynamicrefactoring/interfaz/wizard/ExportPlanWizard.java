@@ -66,7 +66,7 @@ public class ExportPlanWizard extends Dialog {
 	private Text t_Output;
 	
 	/**
-	 * Bot�n que permite iniciar la exportaci�n.
+	 * Bot�n que permite iniciar la exportación.
 	 */
 	private Button bt_Export;
 		
@@ -157,8 +157,8 @@ public class ExportPlanWizard extends Dialog {
 	
 
 	/**
-	 * Implementa la funcionalidad de exportaci�n de un plan de refactorizaciones, lanzada como 
-	 * respuesta a la pulsaci�n del bot�n correspondiente.
+	 * Implementa la funcionalidad de exportación de un plan de refactorizaciones, lanzada como 
+	 * respuesta a la pulsación del bot�n correspondiente.
 	 * 
 	 * @param buttonId identificador del bot�n que ha sido pulsado en el di�logo.
 	 */
@@ -191,7 +191,7 @@ public class ExportPlanWizard extends Dialog {
 	}
 	
 	/**
-	 * Permite lanzar el trabajo de exportaci�n de refactorizaciones y hacer un
+	 * Permite lanzar el trabajo de exportación de refactorizaciones y hacer un
 	 * seguimiento de su progreso.
 	 * 
 	 * @author <A HREF="mailto:lfd0002@alu.ubu.es">Laura Fuente de la Fuente</A>
@@ -215,17 +215,17 @@ public class ExportPlanWizard extends Dialog {
 		}
 
 		/**
-		 * Ejecuta el trabajo de exportaci�n de refactorizaciones.
+		 * Ejecuta el trabajo de exportación de refactorizaciones.
 		 * 
 		 * @param monitor el monitor de progreso que deber� usarse para mostrar
 		 * el progreso.
 		 * 
-		 * @throws InvocationTargetException utilizada como envoltura si el m�todo 
+		 * @throws InvocationTargetException utilizada como envoltura si el método 
 		 * debe propagar una excepci�n (<i>checked exception</i>). Las excepciones
 		 * de tipo <i>runtime exception</i> se envuelven autom�ticamente en una
 		 * excepci�n de este tipo por el contexto que efect�a la llamada.
-		 * @throws InterruptedException si la operaci�n detecta una solicitud de 
-		 * cancelaci�n (no disponible).
+		 * @throws InterruptedException si la operación detecta una solicitud de 
+		 * cancelación (no disponible).
 		 * 
 		 * @see IRunnableWithProgress#run(IProgressMonitor)
 		 */

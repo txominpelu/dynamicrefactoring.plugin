@@ -25,17 +25,17 @@ import moon.core.classdef.ClassDef;
 import refactoring.engine.Predicate;
 
 /**
- * Permite verificar que no existe ning�n m�todo con un cierto nombre �nico (es,
+ * Permite verificar que no existe ningún método con un cierto nombre único (es,
  * decir, con una cierta signatura) en una clase determinada.
  *
- * @author <A HREF="mailto:alc0022@alu.ubu.es">�ngel L�pez Campo</A>
+ * @author <A HREF="mailto:alc0022@alu.ubu.es">Ángel López Campo</A>
  * @author <A HREF="mailto:ehp0001@alu.ubu.es">Enrique Herrero Paredes</A>
  * @author <A HREF="mailto:sfd0009@alu.ubu.es">Sonia Fuente de la Fuente</A>
  */ 
 public class NotExistsMethodWithNameInClass extends Predicate {
 	
 	/**
-	 * Condici�n opuesta a la que se comprueba.
+	 * Condición opuesta a la que se comprueba.
 	 */
 	private Predicate oppositePredicate;
 	
@@ -43,8 +43,8 @@ public class NotExistsMethodWithNameInClass extends Predicate {
 	 * Constructor.<p>
 	 *
 	 * Obtiene una nueva instancia de NotExistsMethodWithNameInClass.
-	 * @param classDef la clase en la que se busca el m�todo.
-	 * @param methodUniqueName el nombre �nico del m�todo que se desea buscar.
+	 * @param classDef la clase en la que se busca el método.
+	 * @param methodUniqueName el nombre único del método que se desea buscar.
 	 */
 	public NotExistsMethodWithNameInClass(ClassDef classDef, Name methodUniqueName) {
 		
@@ -60,7 +60,7 @@ public class NotExistsMethodWithNameInClass extends Predicate {
 	/**
 	 * Comprueba el valor de verdad del predicado.
 	 * 
-	 * @return <code>true</code> si no existe el m�todo en la clase especificada, 
+	 * @return <code>true</code> si no existe el método en la clase especificada, 
 	 * <code>false</code> en caso contrario.
 	 */	 
 	public boolean isValid() {

@@ -41,11 +41,11 @@ import repository.RefactoringTemplateAbstractTest;
 import repository.moon.MOONRefactoring;
 
 /** 
- * Comprueba que funciona correctamente la refactorizaci�n que reemplaza un 
- * par�metro formal por un tipo.
+ * Comprueba que funciona correctamente la refactorización que reemplaza un 
+ * parámetro formal por un tipo.
  * 
  * <p>Indirectamente, se comprueba tambi�n la correcci�n de las funciones,
- * acciones y predicados utilizados por la refactorizaci�n.</p>
+ * acciones y predicados utilizados por la refactorización.</p>
  *
  * @author <A HREF="mailto:sfd0009@alu.ubu.es">Sonia Fuente de la Fuente</A>
  * @author <A HREF="mailto:ehp0001@alu.ubu.es">Enrique Herrero Paredes</A>
@@ -56,7 +56,7 @@ public class TestReplaceFormalParameterWithType
 	extends RefactoringTemplateAbstractTest {
 
 	/** 
-	 * Comprueba que la refactorizaci�n funciona correctamente en un caso simple.
+	 * Comprueba que la refactorización funciona correctamente en un caso simple.
 	 * 
 	 * @throws Exception si se produce un error durante la ejecuci�n de la prueba.
 	 */  
@@ -80,15 +80,15 @@ public class TestReplaceFormalParameterWithType
 
 		// Comienzan las comprobaciones.
 		List<FormalPar> lFormalPar2 = classDef.getFormalPars();
-		assertTrue("Test reemplazar par�metro formal por tipo simple: " + //$NON-NLS-1$
-			"no se ha remplazado correctamente el par�metro formal.",  //$NON-NLS-1$
+		assertTrue("Test reemplazar parámetro formal por tipo simple: " + //$NON-NLS-1$
+			"no se ha remplazado correctamente el parámetro formal.",  //$NON-NLS-1$
 			lFormalPar2.isEmpty());
 	}
 	
 	/** 
-	 * Comprueba que la refactorizaci�n funciona correctamente en un caso 
-	 * en que el tipo param�trico se utiliza en la declaraci�n de atributos
-	 * y argumentos formales de m�todos y como tipo de retorno de m�todos.
+	 * Comprueba que la refactorización funciona correctamente en un caso 
+	 * en que el tipo param�trico se utiliza en la declaración de atributos
+	 * y argumentos formales de métodos y como tipo de retorno de métodos.
 	 * 
 	 * @throws Exception si se produce un error durante la ejecuci�n de la prueba.
 	 */  
@@ -112,10 +112,10 @@ public class TestReplaceFormalParameterWithType
 
 		// Comienzan las comprobaciones.
 		List<FormalPar> pars = classDef.getFormalPars();
-		assertTrue("Test sustituir par�metro formal por tipo: " + //$NON-NLS-1$
-			"no se ha eliminado el par�metro formal de la clase.", pars.isEmpty()); //$NON-NLS-1$
+		assertTrue("Test sustituir parámetro formal por tipo: " + //$NON-NLS-1$
+			"no se ha eliminado el parámetro formal de la clase.", pars.isEmpty()); //$NON-NLS-1$
 		
-		assertEquals("Test sustituir par�metro formal por tipo: " + //$NON-NLS-1$
+		assertEquals("Test sustituir parámetro formal por tipo: " + //$NON-NLS-1$
 			"no se ha sustituido el tipo del atributo.", //$NON-NLS-1$
 			jm.getType(factory.createName("java.lang.Integer")),  //$NON-NLS-1$
 			classDef.getAttributes().get(0).getType());
@@ -128,8 +128,8 @@ public class TestReplaceFormalParameterWithType
 	}
 
 	/** 
-	 * Comprueba que la refactorizaci�n funciona correctamente en un caso con
-	 * m�s de un par�metro formal.
+	 * Comprueba que la refactorización funciona correctamente en un caso con
+	 * m�s de un parámetro formal.
 	 * 
 	 * @throws Exception si se produce un error durante la ejecuci�n de la prueba.
 	 */  
@@ -153,21 +153,21 @@ public class TestReplaceFormalParameterWithType
 
 		// Comienzan las comprobaciones.
 		List<FormalPar> lFormalPar2 = classDef.getFormalPars(); 
-		assertEquals("Test reemplazar par�metro formal por tipo: " + //$NON-NLS-1$
-			"no se ha remplazado correctamente el par�metro formal.", 1,  //$NON-NLS-1$
+		assertEquals("Test reemplazar parámetro formal por tipo: " + //$NON-NLS-1$
+			"no se ha remplazado correctamente el parámetro formal.", 1,  //$NON-NLS-1$
 			lFormalPar2.size());
 
 		FormalPar fp =lFormalPar2.get(0);
-		assertEquals("Test reemplazar par�metro formal por tipo: " + //$NON-NLS-1$
-			"se ha modificado el segundo par�metro formal.", //$NON-NLS-1$
+		assertEquals("Test reemplazar parámetro formal por tipo: " + //$NON-NLS-1$
+			"se ha modificado el segundo parámetro formal.", //$NON-NLS-1$
 			"paqueteA.ClaseA@PB", fp.getUniqueName().toString()); //$NON-NLS-1$
 	}
 
 	/**
-	 * Verifica el funcionamiento de las precondiciones de la refactorizaci�n.
+	 * Verifica el funcionamiento de las precondiciones de la refactorización.
 	 *
 	 * <p>Comprueba que se lanza una excepci�n cuando se intenta  reemplazar 
-	 * un par�metro formal y existe una sustituci�n a este diferente al tipo 
+	 * un parámetro formal y existe una sustituci�n a este diferente al tipo 
 	 * propuesto.</p>
 	 * 
 	 * @throws Exception si se produce un error durante la ejecuci�n de la prueba.

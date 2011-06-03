@@ -35,9 +35,9 @@ import dynamicrefactoring.util.io.FileManager;
  * Permite cargar las propiedades de la actividad de registro de traza del 
  * <i>plugin</i>.
  * 
- * <p>Utiliza un fichero de configuraci�n por defecto, que deber� 
+ * <p>Utiliza un fichero de configuración por defecto, que deber� 
  * modificarse solo en caso de necesidad y con precauci�n, y guardando en
- * todo momento una copia de la configuraci�n original.</p>
+ * todo momento una copia de la configuración original.</p>
  * 
  * @author <A HREF="mailto:sfd0009@alu.ubu.es">Sonia Fuente de la Fuente</A>
  * @author <A HREF="mailto:ehp0001@alu.ubu.es">Enrique Herrero Paredes</A>
@@ -45,12 +45,12 @@ import dynamicrefactoring.util.io.FileManager;
 public class LogManager {
 	
 	/**
-	 * La instancia �nica de la clase.
+	 * La instancia única de la clase.
 	 */
 	private static LogManager singletonInstance = null;
 	
 	/**
-	 * Nombre del fichero de configuraci�n del registro de errores.
+	 * Nombre del fichero de configuración del registro de errores.
 	 */
 	private static final String LOG_PROPERTIES_FILE = 
 		"dynamicrefactoring.plugin.properties"; //$NON-NLS-1$
@@ -79,11 +79,11 @@ public class LogManager {
 	}
 	
 	/**
-	 * Obtiene la instancia �nica del gestor del registro.
+	 * Obtiene la instancia única del gestor del registro.
 	 * 
-	 * M�todo definido por el patr�n de dise�o Singleton.
+	 * Método definido por el patr�n de dise�o Singleton.
 	 * 
-	 * @return la instancia �nica del gestor del registro.
+	 * @return la instancia única del gestor del registro.
 	 */
 	public static LogManager getInstance(){
 		if (singletonInstance == null)
@@ -92,7 +92,7 @@ public class LogManager {
 	}
 	
 	/**
-	 * Carga la configuraci�n de la actividad de registro.
+	 * Carga la configuración de la actividad de registro.
 	 */
 	public void loadLogConfig(){
 		
@@ -109,7 +109,7 @@ public class LogManager {
 	 * directorio perteneciente al plugin, en lugar de en la ra�z del ejecutable
 	 * de eclipse.
 	 * 
-	 * Modifica el fichero de configuraci�n de la actividad de registro para que
+	 * Modifica el fichero de configuración de la actividad de registro para que
 	 * el destino de la salida del <code>appender</code> A2 sea un fichero en la
 	 * carpeta de registro del directorio temporal del plugin.
 	 * 

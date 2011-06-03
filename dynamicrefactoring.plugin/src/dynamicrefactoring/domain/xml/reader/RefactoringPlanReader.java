@@ -33,7 +33,7 @@ import dynamicrefactoring.RefactoringConstants;
 import dynamicrefactoring.util.io.FileManager;
 
 /**
- * Se encarga de interpretar la informaci�n almacenada en el xml que guarda el plan de 
+ * Se encarga de interpretar la información almacenada en el xml que guarda el plan de 
  * refactorizaciones actual.
  * 
  * @author <A HREF="mailto:lfd0002@alu.ubu.es">Laura Fuente de la Fuente</A>
@@ -42,7 +42,7 @@ public class RefactoringPlanReader {
 	
 	/**
 	 * Permite obtener el conjunto de refactorizaciones din�micas que actualmente forman el plan
-	 * de refactorizaci�n. 
+	 * de refactorización. 
 	 * 
 	 * @param path ruta del fichero que contiene el plan de refactorizaciones.
 	 * @return Conjunto de los nombres de las refactorizaciones del plan.
@@ -76,7 +76,7 @@ public class RefactoringPlanReader {
 	
 	/**
 	 * Permite obtener el conjunto de refactorizaciones din�micas que actualmente forman el plan
-	 * de refactorizaci�n. 
+	 * de refactorización. 
 	 * 
 	 * @return Conjunto de los nombres de las refactorizaciones del plan.
 	 * @throws XMLRefactoringReaderException XMLRefactoringReaderException.
@@ -86,12 +86,12 @@ public class RefactoringPlanReader {
 	}
 	
 	/**
-	 * Obtiene el valor de un determinado par�metro de una determinada refactorizaci�n.
+	 * Obtiene el valor de un determinado parámetro de una determinada refactorización.
 	 * 
-	 * @param refactoringName nombre de la refactorizaci�n.
-	 * @param inputName nombre del par�metro.
+	 * @param refactoringName nombre de la refactorización.
+	 * @param inputName nombre del parámetro.
 	 * @param path fichero xml donde esta almacenado el plan
-	 * @return valor del par�metro
+	 * @return valor del parámetro
 	 * @throws XMLRefactoringReaderException XMLRefactoringReaderException
 	 */
 	public static String getInputValue(String refactoringName,String inputName, String path)throws XMLRefactoringReaderException {

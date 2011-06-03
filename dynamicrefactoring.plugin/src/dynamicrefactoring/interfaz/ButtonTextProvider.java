@@ -23,8 +23,8 @@ package dynamicrefactoring.interfaz;
 /**
  * Proporciona el texto que se debe asignar a los botones por defecto habituales.
  * 
- * <p>Permite centralizar el proceso de asignación de etiquetas a los botones
- * típicos de "Aceptar", "Cancelar" y otros, de manera que la internacionalización
+ * <p>Permite centralizar el proceso de asignaciÃ³n de etiquetas a los botones
+ * tï¿½picos de "Aceptar", "Cancelar" y otros, de manera que la internacionalizaciÃ³n
  * de este aspecto quede controlada.
  * 
  * @author <A HREF="mailto:sfd0009@alu.ubu.es">Sonia Fuente de la Fuente</A>
@@ -33,45 +33,45 @@ package dynamicrefactoring.interfaz;
 public class ButtonTextProvider {
 
 	/**
-	 * Obtiene el texto asociado al botón "Aceptar".
+	 * Obtiene el texto asociado al botï¿½n "Aceptar".
 	 * 
-	 * @return el texto asociado al botón "Aceptar".
+	 * @return el texto asociado al botï¿½n "Aceptar".
 	 */
 	public static String getOKText(){
 		return Messages.ButtonTextProvider_Accept;
 	}
 	
 	/**
-	 * Obtiene el texto asociado al botón "Cancelar".
+	 * Obtiene el texto asociado al botï¿½n "Cancelar".
 	 * 
-	 * @return el texto asociado al botón "Cancelar".
+	 * @return el texto asociado al botï¿½n "Cancelar".
 	 */
 	public static String getCancelText(){
 		return Messages.ButtonTextProvider_Cancel;
 	}
 	
 	/**
-	 * Obtiene el texto asociado al botón "Siguiente".
+	 * Obtiene el texto asociado al botï¿½n "Siguiente".
 	 * 
-	 * @return el texto asociado al botón "Siguiente".
+	 * @return el texto asociado al botï¿½n "Siguiente".
 	 */
 	public static String getNextText(){
 		return Messages.ButtonTextProvider_Next;
 	}
 	
 	/**
-	 * Obtiene el texto asociado al botón "Anterior".
+	 * Obtiene el texto asociado al botï¿½n "Anterior".
 	 * 
-	 * @return el texto asociado al botón "Anterior".
+	 * @return el texto asociado al botï¿½n "Anterior".
 	 */
 	public static String getBackText(){
 		return Messages.ButtonTextProvider_Back;
 	}
 	
 	/**
-	 * Obtiene el texto asociado al botón "Finalizar".
+	 * Obtiene el texto asociado al botï¿½n "Finalizar".
 	 * 
-	 * @return el texto asociado al botón "Finalizar".
+	 * @return el texto asociado al botï¿½n "Finalizar".
 	 */
 	public static String getFinishText(){
 		return Messages.ButtonTextProvider_Finish;

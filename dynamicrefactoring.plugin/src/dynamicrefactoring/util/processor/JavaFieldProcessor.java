@@ -36,7 +36,7 @@ import com.google.common.collect.Collections2;
 
 /**
  * Proporciona funciones que permiten manejar un atributo de un tipo Java tal y
- * como lo define Eclipse en su representaci�n interna.
+ * como lo define Eclipse en su representación interna.
  * 
  * @author <A HREF="mailto:sfd0009@alu.ubu.es">Sonia Fuente de la Fuente</A>
  * @author <A HREF="mailto:ehp0001@alu.ubu.es">Enrique Herrero Paredes</A>
@@ -60,11 +60,11 @@ public class JavaFieldProcessor extends JavaElementProcessor {
 	}
 
 	/**
-	 * Obtiene el nombre �nico del atributo seg�n la convenci�n de nomenclatura
-	 * �nica utilizada en el modelo MOON.
+	 * Obtiene el nombre único del atributo seg�n la convenci�n de nomenclatura
+	 * única utilizada en el modelo MOON.
 	 * 
-	 * @return el nombre �nico del atributo seg�n la convenci�n de nomenclatura
-	 *         �nica utilizada en el modelo MOON.
+	 * @return el nombre único del atributo seg�n la convenci�n de nomenclatura
+	 *         única utilizada en el modelo MOON.
 	 * @throws JavaModelException
 	 */
 	@Override

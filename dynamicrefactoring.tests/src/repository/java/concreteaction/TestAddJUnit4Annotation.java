@@ -38,7 +38,7 @@ import repository.RefactoringTemplateAbstractTest;
 import repository.moon.MOONRefactoring;
 
 /** 
- * Comprueba que funciona correctamente la acci�n que a�ade las anotaciones
+ * Comprueba que funciona correctamente la acción que a�ade las anotaciones
  * de JUnit4 a una clase bas�ndose en la convenci�n de nombres utilizada desde
  * JUnit3.
  * 
@@ -48,10 +48,10 @@ import repository.moon.MOONRefactoring;
 public class TestAddJUnit4Annotation extends RefactoringTemplateAbstractTest {
 
 	/** 
-	 * Comprueba que la acci�n a�ade correctamente la anotaci�n <code>@Before
-	 * </code> al m�todo <code>setUp()</code>.
+	 * Comprueba que la acción a�ade correctamente la anotación <code>@Before
+	 * </code> al método <code>setUp()</code>.
 	 * 
-	 * @throws Exception si se produjo alg�n error durante la ejecuci�n de la prueba.
+	 * @throws Exception si se produjo algún error durante la ejecuci�n de la prueba.
 	 */
 	@Test
 	public void testSetUp() throws Exception{
@@ -74,16 +74,16 @@ public class TestAddJUnit4Annotation extends RefactoringTemplateAbstractTest {
 		List<JavaAnnotationReference> annotations = ((JavaRoutineDec)setup).getAnnotations();
 		
 		assertEquals("Test a�adir anotaciones JUnit4: no se ha a�adido" + //$NON-NLS-1$
-			" la anotaci�n al m�todo setUp()", 1, annotations.size()); //$NON-NLS-1$
+			" la anotación al método setUp()", 1, annotations.size()); //$NON-NLS-1$
 		assertEquals("Test a�adir anotaciones JUnit4: no se ha a�adido" + //$NON-NLS-1$
-			" la anotaci�n @Before al m�todo setUp()", "@Before", annotations.get(0).toString()); //$NON-NLS-1$ //$NON-NLS-2$
+			" la anotación @Before al método setUp()", "@Before", annotations.get(0).toString()); //$NON-NLS-1$ //$NON-NLS-2$
 	}
 	
 	/** 
-	 * Comprueba que la acci�n a�ade correctamente la anotaci�n <code>@After
-	 * </code> al m�todo <code>tearDown()</code>.
+	 * Comprueba que la acción a�ade correctamente la anotación <code>@After
+	 * </code> al método <code>tearDown()</code>.
 	 * 
-	 * @throws Exception si se produjo alg�n error durante la ejecuci�n de la prueba.
+	 * @throws Exception si se produjo algún error durante la ejecuci�n de la prueba.
 	 */
 	@Test
 	public void testTearDown() throws Exception{
@@ -106,16 +106,16 @@ public class TestAddJUnit4Annotation extends RefactoringTemplateAbstractTest {
 		List<JavaAnnotationReference> annotations = ((JavaRoutineDec)tearDown).getAnnotations();
 		
 		assertEquals("Test a�adir anotaciones JUnit4: no se ha a�adido" + //$NON-NLS-1$
-			" la anotaci�n al m�todo tearDown()", 1, annotations.size()); //$NON-NLS-1$
+			" la anotación al método tearDown()", 1, annotations.size()); //$NON-NLS-1$
 		assertEquals("Test a�adir anotaciones JUnit4: no se ha a�adido" + //$NON-NLS-1$
-			" la anotaci�n @After al m�todo tearDown()", "@After", annotations.get(0).toString()); //$NON-NLS-1$ //$NON-NLS-2$
+			" la anotación @After al método tearDown()", "@After", annotations.get(0).toString()); //$NON-NLS-1$ //$NON-NLS-2$
 	}
 	
 	/** 
-	 * Comprueba que la acci�n a�ade correctamente las anotaciones <code>@Test
-	 * </code> a los m�todos de test.
+	 * Comprueba que la acción a�ade correctamente las anotaciones <code>@Test
+	 * </code> a los métodos de test.
 	 * 
-	 * @throws Exception si se produjo alg�n error durante la ejecuci�n de la prueba.
+	 * @throws Exception si se produjo algún error durante la ejecuci�n de la prueba.
 	 */
 	@Test
 	public void testTestMethods() throws Exception{
@@ -138,24 +138,24 @@ public class TestAddJUnit4Annotation extends RefactoringTemplateAbstractTest {
 		List<JavaAnnotationReference> annotations = ((JavaRoutineDec)test).getAnnotations();
 				
 		assertEquals("Test a�adir anotaciones JUnit4: no se ha a�adido" + //$NON-NLS-1$
-			" la anotaci�n al m�todo testMetodo()", 1, annotations.size()); //$NON-NLS-1$
+			" la anotación al método testMetodo()", 1, annotations.size()); //$NON-NLS-1$
 		assertEquals("Test a�adir anotaciones JUnit4: no se ha a�adido" + //$NON-NLS-1$
-			" la anotaci�n @Test al m�todo testMetodo()", "@Test", annotations.get(0).toString()); //$NON-NLS-1$ //$NON-NLS-2$
+			" la anotación @Test al método testMetodo()", "@Test", annotations.get(0).toString()); //$NON-NLS-1$ //$NON-NLS-2$
 	
 		test = classdef.getMethDecByName(factory.createName("testMetodo2")).get(0); //$NON-NLS-1$
 		annotations = ((JavaRoutineDec)test).getAnnotations();
 				
 		assertEquals("Test a�adir anotaciones JUnit4: no se ha a�adido" + //$NON-NLS-1$
-			" la anotaci�n al m�todo testMetodo2()", 1, annotations.size()); //$NON-NLS-1$
+			" la anotación al método testMetodo2()", 1, annotations.size()); //$NON-NLS-1$
 		assertEquals("Test a�adir anotaciones JUnit4: no se ha a�adido" + //$NON-NLS-1$
-			" la anotaci�n @Test al m�todo testMetodo2()", "@Test", annotations.get(0).toString()); //$NON-NLS-1$ //$NON-NLS-2$
+			" la anotación @Test al método testMetodo2()", "@Test", annotations.get(0).toString()); //$NON-NLS-1$ //$NON-NLS-2$
 	}
 	
 	/** 
-	 * Comprueba que la acci�n deshace correctamente las anotaciones <code>@Test
+	 * Comprueba que la acción deshace correctamente las anotaciones <code>@Test
 	 * </code>, <code>@Before</code> y <code>@After</code>.
 	 * 
-	 * @throws Exception si se produjo alg�n error durante la ejecuci�n de la prueba.
+	 * @throws Exception si se produjo algún error durante la ejecuci�n de la prueba.
 	 */
 	@Test
 	public void testUndo() throws Exception {
@@ -183,10 +183,10 @@ public class TestAddJUnit4Annotation extends RefactoringTemplateAbstractTest {
 		List<JavaAnnotationReference> annTeardown = ((JavaRoutineDec)tearDown).getAnnotations();
 				
 		assertEquals("Test deshacer anotaciones JUnit4: no se ha eliminado" + //$NON-NLS-1$
-			" la anotaci�n al m�todo testMetodo()", 0, annTest.size()); //$NON-NLS-1$
+			" la anotación al método testMetodo()", 0, annTest.size()); //$NON-NLS-1$
 		assertEquals("Test deshacer anotaciones JUnit4: no se ha eliminado" + //$NON-NLS-1$
-			" la anotaci�n al m�todo setUp()", 0, annSetup.size()); //$NON-NLS-1$
+			" la anotación al método setUp()", 0, annSetup.size()); //$NON-NLS-1$
 		assertEquals("Test deshacer anotaciones JUnit4: no se ha eliminado" + //$NON-NLS-1$
-			" la anotaci�n al m�todo tearDown()", 0, annTeardown.size()); //$NON-NLS-1$
+			" la anotación al método tearDown()", 0, annTeardown.size()); //$NON-NLS-1$
 	}
 }

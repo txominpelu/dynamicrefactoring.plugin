@@ -235,7 +235,7 @@ public enum RefactoringMechanismType {
 				listFiles(new File(dir, hijo), h);
 			}
 		}
-		// Si es un fichero de refactorizaci�n se almacena en la tabla.
+		// Si es un fichero de refactorización se almacena en la tabla.
 		else if (fileFilter.accept(dir, dir.getName())) {
 			h.put(FileManager.getFilePathWithoutExtension(dir.getName()),
 					dir.getName());

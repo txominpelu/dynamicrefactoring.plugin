@@ -40,8 +40,8 @@ import dynamicrefactoring.domain.RefactoringsCatalog;
  * 
  * <p>
  * Muestra en todo momento un resumen con las caracter�sticas principales de la
- * refactorizaci�n seleccionada, hasta que se pulsa el bot�n que inicia el
- * borrado de la refactorizaci�n.
+ * refactorización seleccionada, hasta que se pulsa el bot�n que inicia el
+ * borrado de la refactorización.
  * </p>
  * 
  * @author <A HREF="mailto:lfd0002@alu.ubu.es">Laura Fuente de la Fuente</A>
@@ -65,7 +65,7 @@ public class SelectForDeletingWindow extends SelectDynamicRefactoringWindow {
 	
 	/**
 	 * Crea el bot�n que permite lanzar la ejecuci�n del borrado de la
-	 * refactorizaci�n seleccionada.
+	 * refactorización seleccionada.
 	 * 
 	 * @see SelectDynamicRefactoringWindow#createOKButton(Composite)
 	 */
@@ -76,8 +76,8 @@ public class SelectForDeletingWindow extends SelectDynamicRefactoringWindow {
 	}
 
 	/**
-	 * Obtiene el verbo asociado a la acci�n que permite iniciar la ventana de
-	 * di�logo sobre la refactorizaci�n seleccionada.
+	 * Obtiene el verbo asociado a la acción que permite iniciar la ventana de
+	 * di�logo sobre la refactorización seleccionada.
 	 */
 	@Override
 	protected String getOperation() {
@@ -128,14 +128,14 @@ public class SelectForDeletingWindow extends SelectDynamicRefactoringWindow {
 	}
 
 	/**
-	 * Pide confirmaci�n al usuario para proceder a eliminar una refactorizaci�n
+	 * Pide confirmación al usuario para proceder a eliminar una refactorización
 	 * din�mica.
 	 * 
 	 * @param name
-	 *            nombre de la refactorizaci�n seleccionada para ser eliminada.
+	 *            nombre de la refactorización seleccionada para ser eliminada.
 	 * 
-	 * @return <code>true</code> si el usuario da su confirmaci�n para eliminar
-	 *         la refactorizaci�n seleccionada; <code>false</code> en caso
+	 * @return <code>true</code> si el usuario da su confirmación para eliminar
+	 *         la refactorización seleccionada; <code>false</code> en caso
 	 *         contrario.
 	 */
 	private boolean isConfirmed(String name) {

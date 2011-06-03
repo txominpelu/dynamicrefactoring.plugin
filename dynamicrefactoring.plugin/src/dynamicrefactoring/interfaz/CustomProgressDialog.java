@@ -26,7 +26,7 @@ import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Shell;
 
 /**
- * Proporciona una especializaci�n del di�logo de progreso de Eclipse.
+ * Proporciona una especialización del di�logo de progreso de Eclipse.
  * 
  * <p>Permite internacionalizar los textos de los botones y el t�tulo del di�logo 
  * de progreso por defecto utilizado en Eclipse, que de otra forma tendr�an siempre
@@ -47,7 +47,7 @@ public class CustomProgressDialog extends ProgressMonitorDialog {
 	}
 	
 	/**
-	 * Crea el bot�n de cancelaci�n.
+	 * Crea el bot�n de cancelación.
 	 * 
 	 * @param parent el componente padre del bot�n.
 	 */

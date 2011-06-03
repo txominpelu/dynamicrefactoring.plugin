@@ -49,8 +49,8 @@ import dynamicrefactoring.domain.metadata.interfaces.Category;
 import dynamicrefactoring.domain.xml.RefactoringXMLTest;
 import dynamicrefactoring.domain.xml.reader.TestCaseRefactoringReader;
 /**
- * Comprueba que funciona correctamente el proceso de escritura de la definici�n
- * de una refactorizaci�n din�mica en un fichero XML.
+ * Comprueba que funciona correctamente el proceso de escritura de la definición
+ * de una refactorización din�mica en un fichero XML.
  * 
  * Indirectamente, se comprueba tambi�n el funcionamiento de las clases que
  * implementan los patrones Bridge y Factory Method.
@@ -76,7 +76,7 @@ public final class RefactoringWriterTest extends RefactoringXMLTest{
 	 * escritura.
 	 * 
 	 * @throws Exception
-	 *             Excepci�n lanzada tras al aparici�n de un fallo en lectura.
+	 *             Excepci�n lanzada tras al aparición de un fallo en lectura.
 	 */
 	@Test(expected = dynamicrefactoring.domain.xml.writer.XMLRefactoringWriterException.class)
 	public void testWritingException() throws Exception {
@@ -102,18 +102,18 @@ public final class RefactoringWriterTest extends RefactoringXMLTest{
 
 	/**
 	 * Comprueba que la escritura se realiza correctamente cuando se a�ade la
-	 * informaci�n m�nima necesaria. Para ello se da valor a los campos de un
+	 * información m�nima necesaria. Para ello se da valor a los campos de un
 	 * objeto de tipo DynamicRefactoringDefinition y luego se realiza la
-	 * escritura; posteriormente se hace una comprobaci�n del contenido del
-	 * fichero creado con el contenido que deber�a tener.
+	 * escritura; posteriormente se hace una comprobación del contenido del
+	 * fichero creado con el contenido que debería tener.
 	 * 
-	 * Esta informaci�n es: el nombre, la descripci�n, la motivaci�n, una
-	 * entrada, una precondici�n, una acci�n y una postcondici�n; no tiene ni
-	 * imagen, ni par�metros ambiguos ni ejemplos.
+	 * Esta información es: el nombre, la descripci�n, la motivación, una
+	 * entrada, una precondición, una acción y una postcondición; no tiene ni
+	 * imagen, ni parámetros ambiguos ni ejemplos.
 	 * 
 	 * @throws Exception
-	 *             si se produce un error al escribir la definici�n de la
-	 *             refactorizaci�n.
+	 *             si se produce un error al escribir la definición de la
+	 *             refactorización.
 	 */
 	@Test
 	public void testWritingWithMinimunInformation() throws Exception {
@@ -130,8 +130,8 @@ public final class RefactoringWriterTest extends RefactoringXMLTest{
 	 * comprobar que estas se escriben bien.
 	 * 
 	 * @throws Exception
-	 *             si se produce un error al escribir la definici�n de la
-	 *             refactorizaci�n.
+	 *             si se produce un error al escribir la definición de la
+	 *             refactorización.
 	 */
 	@Test
 	public void testWritingWithMinimunInformationAndKeyWords() throws Exception {
@@ -154,8 +154,8 @@ public final class RefactoringWriterTest extends RefactoringXMLTest{
 	 * @throws XMLRefactoringWriterException
 	 * 
 	 * @throws Exception
-	 *             si se produce un error al escribir la definici�n de la
-	 *             refactorizaci�n.
+	 *             si se produce un error al escribir la definición de la
+	 *             refactorización.
 	 */
 	@Test
 	public void testWritingWithMinimunInformationAndCategories()
@@ -188,8 +188,8 @@ public final class RefactoringWriterTest extends RefactoringXMLTest{
 	 * @throws XMLRefactoringWriterException
 	 * @throws IOException
 	 * @throws Exception
-	 *             si se produce un error al escribir la definici�n de la
-	 *             refactorizaci�n.
+	 *             si se produce un error al escribir la definición de la
+	 *             refactorización.
 	 */
 	private void assertMinimumInformationDefinition(String refactoringName,
 			Set<String> keywords, Set<Category> categories)
@@ -214,23 +214,23 @@ public final class RefactoringWriterTest extends RefactoringXMLTest{
 
 	/**
 	 * Comprueba que la escritura se realiza correctamente cuando se a�ade toda
-	 * la informaci�n posible. Para ello se da valor a los campos de un objeto
+	 * la información posible. Para ello se da valor a los campos de un objeto
 	 * de tipo DynamicRefactoringDefinition y luego se realiza la escritura;
-	 * posteriormente se hace una comprobaci�n del contenido del fichero creado
-	 * con el contenido que deber�a tener.
+	 * posteriormente se hace una comprobación del contenido del fichero creado
+	 * con el contenido que debería tener.
 	 * 
-	 * Esta informaci�n es: el nombre, la descripci�n, la imagen, la motivaci�n,
-	 * varias entradas, precondiciones, acciones, postcondiciones, par�metros
+	 * Esta información es: el nombre, la descripci�n, la imagen, la motivación,
+	 * varias entradas, precondiciones, acciones, postcondiciones, parámetros
 	 * ambiguos y ejemplos.
 	 * 
 	 * @throws Exception
-	 *             si se produce un error durante la escritura de la definici�n
-	 *             de la refactorizaci�n.
+	 *             si se produce un error durante la escritura de la definición
+	 *             de la refactorización.
 	 */
 	@Test
 	public void testWritingWithFullInformation() throws Exception {
 
-		// A�adir informaci�n general
+		// A�adir información general
 		DynamicRefactoringDefinition.Builder rd = createRefactoringDefinition(
 				"FullInformation", "Renames the class.",
 				"The name of class does not reveal its intention.");
@@ -342,7 +342,7 @@ public final class RefactoringWriterTest extends RefactoringXMLTest{
 	 * @param rd
 	 *            definicion de la refactorizacion
 	 * @throws XMLRefactoringWriterException
-	 *             si se produce un error al escribir una refactorizaci�n.
+	 *             si se produce un error al escribir una refactorización.
 	 */
 	private void writeRefactoring(DynamicRefactoringDefinition rd)
 			throws XMLRefactoringWriterException {
@@ -366,7 +366,7 @@ public final class RefactoringWriterTest extends RefactoringXMLTest{
 	 */
 	private Builder createRefactoringDefinition(String name,
 			String description, String motivation) {
-		// A�adir informaci�n general
+		// A�adir información general
 		return new DynamicRefactoringDefinition.Builder(name).description(
 				description).motivation(motivation);
 	}

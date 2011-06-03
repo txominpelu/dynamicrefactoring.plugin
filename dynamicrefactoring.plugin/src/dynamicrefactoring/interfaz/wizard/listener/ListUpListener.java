@@ -28,11 +28,11 @@ import org.eclipse.swt.widgets.List;
 
 /**
  * Actualiza el orden en que aparecen las entradas de la lista, desplazando
- * un puesto hacia arriba aquélla que se encuentre seleccionada.
+ * un puesto hacia arriba aquï¿½lla que se encuentre seleccionada.
  * 
  * <p>Si se tienen varias entradas seleccionadas, se desplazan todas ellas
  * un puesto hacia arriba. Si la primera entrada se encuentra seleccionada
- * la acción sobre el botón no tiene efecto alguno.</p>
+ * la acciÃ³n sobre el botï¿½n no tiene efecto alguno.</p>
  * 
  * @author <A HREF="mailto:sfd0009@alu.ubu.es">Sonia Fuente de la Fuente</A>
  * @author <A HREF="mailto:ehp0001@alu.ubu.es">Enrique Herrero Paredes</A>
@@ -55,14 +55,14 @@ public class ListUpListener implements SelectionListener {
 	}
 	
 	/**
-	 * Recibe una notificación de que se ha pulsado el botón que permite 
+	 * Recibe una notificaciÃ³n de que se ha pulsado el botï¿½n que permite 
 	 * desplazar una entrada hacia arriba en la lista de entradas 
 	 * seleccionadas.
 	 * 
 	 * <p>Inicia las acciones que sean necesarias para actualizar el orden en 
 	 * que se muestran las entradas seleccionadas.</p>
 	 * 
-	 * @param e el evento de selección disparado en la ventana.
+	 * @param e el evento de selecciï¿½n disparado en la ventana.
 	 * 
 	 * @see SelectionListener#widgetSelected(SelectionEvent)
 	 */
@@ -80,7 +80,7 @@ public class ListUpListener implements SelectionListener {
 			if (Arrays.binarySearch(indices, 0) < 0){
 				// Se eliminan de la lista las entradas seleccionadas.
 				list.remove(indices);
-				// Se añaden de una en una, una posición más abajo.
+				// Se aï¿½aden de una en una, una posiciÃ³n mï¿½s abajo.
 				for (int i = 0; i < selected.length && i < indices.length; i++)
 					list.add(selected[i], indices[i] - 1);
 			}

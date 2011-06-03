@@ -50,7 +50,7 @@ public class OverrideAnnotationTest extends RefactoringTemplateAbstractTest{
 
 
 	/**
-	 * Prueba la refactorizaci�n con un m�todo carente de par�metros.
+	 * Prueba la refactorización con un método carente de parámetros.
 	 * 
 	 * @throws Exception if something goes wrong
 	 */
@@ -60,7 +60,7 @@ public class OverrideAnnotationTest extends RefactoringTemplateAbstractTest{
 	}
 	
 	/**
-	 * Prueba la refactorizaci�n con un m�todo con par�metros.
+	 * Prueba la refactorización con un método con parámetros.
 	 * 
 	 * @throws Exception if something goes wrong
 	 */
@@ -115,7 +115,7 @@ public class OverrideAnnotationTest extends RefactoringTemplateAbstractTest{
 
 
 	/**
-	 * Prueba a deshacer un caso correcto sobre un m�todo sin par�metros.
+	 * Prueba a deshacer un caso correcto sobre un método sin parámetros.
 	 * 
 	 * @throws Exception if something goes wrong
 	 */
@@ -125,7 +125,7 @@ public class OverrideAnnotationTest extends RefactoringTemplateAbstractTest{
 	}
 	
 	/**
-	 * Prueba a deshacer un caso correcto sobre un m�todo sin par�metros.
+	 * Prueba a deshacer un caso correcto sobre un método sin parámetros.
 	 * 
 	 * @throws Exception if something goes wrong
 	 */
@@ -136,7 +136,7 @@ public class OverrideAnnotationTest extends RefactoringTemplateAbstractTest{
 	
 	
 	/**
-	 * Comprueba que la refactorizaci�n se deshace de forma correcta.
+	 * Comprueba que la refactorización se deshace de forma correcta.
 	 * 
 	 * @param dir directorio sobre el que se encuentra el caso a probar.
 	 * @throws ParseException ParseException
@@ -179,10 +179,10 @@ public class OverrideAnnotationTest extends RefactoringTemplateAbstractTest{
 	
 	
 	/**
-	 * Verifica el funcionamiento de las precondiciones de la refactorizaci�n.
+	 * Verifica el funcionamiento de las precondiciones de la refactorización.
 	 *
 	 * <p>Comprueba que se lanza una cuando la superclase de la clase en donde se 
-	 *    encuentra el m�todo sobre el que operamos no tiene un m�todo con la misma
+	 *    encuentra el método sobre el que operamos no tiene un método con la misma
 	 *    signatura que este.</p>
 	 * 
 	 * @throws Exception si se produce un error durante la ejecuci�n de la prueba.
@@ -193,10 +193,10 @@ public class OverrideAnnotationTest extends RefactoringTemplateAbstractTest{
 	}
 	
 	/**
-	 * Verifica el funcionamiento de las precondiciones de la refactorizaci�n.
+	 * Verifica el funcionamiento de las precondiciones de la refactorización.
 	 *
-	 * <p>Comprueba que se lanza una cuando el m�todo sobre el que estamos operando
-	 *    ya tiene una anotaci�n override.</p>
+	 * <p>Comprueba que se lanza una cuando el método sobre el que estamos operando
+	 *    ya tiene una anotación override.</p>
 	 * 
 	 * @throws Exception si se produce un error durante la ejecuci�n de la prueba.
 	 */    

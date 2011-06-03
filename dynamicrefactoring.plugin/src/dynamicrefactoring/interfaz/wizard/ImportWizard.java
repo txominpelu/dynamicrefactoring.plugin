@@ -89,7 +89,7 @@ public class ImportWizard extends Dialog {
 	private Text t_Input;
 
 	/**
-	 * Bot�n que lanza el proceso de importaci�n.
+	 * Bot�n que lanza el proceso de importación.
 	 */
 	private Button bt_Import;
 
@@ -298,8 +298,8 @@ public class ImportWizard extends Dialog {
 	}
 
 	/**
-	 * Implementa la funcionalidad de importaci�n, lanzada como respuesta a la
-	 * pulsaci�n del bot�n correspondiente.
+	 * Implementa la funcionalidad de importación, lanzada como respuesta a la
+	 * pulsación del bot�n correspondiente.
 	 * 
 	 * @param buttonId
 	 *            identificador del bot�n que ha sido pulsado en el di�logo.
@@ -353,7 +353,7 @@ public class ImportWizard extends Dialog {
 
 	/**
 	 * Actualiza el mensaje de aviso mostrado en la ventana, en funci�n de los
-	 * valores de configuraci�n actuales resultantes de la �ltima b�squeda.
+	 * valores de configuración actuales resultantes de la �ltima b�squeda.
 	 */
 	private void updateMessage() {
 		if (overwritten != null && overwritten.size() > 0){
@@ -398,7 +398,7 @@ public class ImportWizard extends Dialog {
 		 * Recibe notificaciones cada vez que se modifica el texto observado.
 		 * 
 		 * @param e
-		 *            el evento de modificaci�n del texto.
+		 *            el evento de modificación del texto.
 		 */
 		@Override
 		public void modifyText(ModifyEvent e){
@@ -438,7 +438,7 @@ public class ImportWizard extends Dialog {
 	}
 
 	/**
-	 * Permite lanzar el trabajo de importaci�n de refactorizaciones y hacer un
+	 * Permite lanzar el trabajo de importación de refactorizaciones y hacer un
 	 * seguimiento de su progreso.
 	 * 
 	 * @author <A HREF="mailto:sfd0009@alu.ubu.es">Sonia Fuente de la Fuente</A>
@@ -461,20 +461,20 @@ public class ImportWizard extends Dialog {
 		}
 
 		/**
-		 * Ejecuta el trabajo de importaci�n de refactorizaciones.
+		 * Ejecuta el trabajo de importación de refactorizaciones.
 		 * 
 		 * @param monitor
 		 *            el monitor de progreso que deber� usarse para mostrar el
 		 *            progreso.
 		 * 
 		 * @throws InvocationTargetException
-		 *             utilizada como envoltura si el m�todo debe propagar una
+		 *             utilizada como envoltura si el método debe propagar una
 		 *             excepci�n (<i>checked exception</i>). Las excepciones de
 		 *             tipo <i>runtime exception</i> se envuelven
 		 *             autom�ticamente en una excepci�n de este tipo por el
 		 *             contexto que efect�a la llamada.
 		 * @throws InterruptedException
-		 *             si la operaci�n detecta una solicitud de cancelaci�n (no
+		 *             si la operación detecta una solicitud de cancelación (no
 		 *             disponible).
 		 * 
 		 * @see IRunnableWithProgress#run(IProgressMonitor)
@@ -493,7 +493,7 @@ public class ImportWizard extends Dialog {
 					formatter.applyPattern(Messages.ImportWizard_ImportingFile);					
 					monitor.subTask(formatter.format(messageArgs) + "..."); //$NON-NLS-1$
 
-					// Se obtiene la ruta del fichero con la definici�n.
+					// Se obtiene la ruta del fichero con la definición.
 					String definition = refactorings.get(next);
 					String folder = new File(definition).getParent();
 				
@@ -502,7 +502,7 @@ public class ImportWizard extends Dialog {
 								definition, false);
 					} catch (FileNotFoundException e) {
 
-						// Elimina la carpeta de la refactorizaci�n ya que
+						// Elimina la carpeta de la refactorización ya que
 							// si ha llegado
 							//a este punto quiere decir que no se ha podido completar la tarea
 							//adecuadamente.
@@ -578,13 +578,13 @@ public class ImportWizard extends Dialog {
 		 *            progreso.
 		 * 
 		 * @throws InvocationTargetException
-		 *             utilizada como envoltura si el m�todo debe propagar una
+		 *             utilizada como envoltura si el método debe propagar una
 		 *             excepci�n (<i>checked exception</i>). Las excepciones de
 		 *             tipo <i>runtime exception</i> se envuelven
 		 *             autom�ticamente en una excepci�n de este tipo por el
 		 *             contexto que efect�a la llamada.
 		 * @throws InterruptedException
-		 *             si la operaci�n detecta una solicitud de cancelaci�n (no
+		 *             si la operación detecta una solicitud de cancelación (no
 		 *             disponible).
 		 * 
 		 * @see IRunnableWithProgress#run(IProgressMonitor)
@@ -613,8 +613,8 @@ public class ImportWizard extends Dialog {
 					monitor.subTask(formatter.format(messageArgs) + "..."); //$NON-NLS-1$
 					
 					try {
-						// Se intenta obtener la definici�n de la siguiente
-						// refactorizaci�n.
+						// Se intenta obtener la definición de la siguiente
+						// refactorización.
 						XMLRefactoringUtils.getRefactoringDefinition(path);
 						
 						// Solo se recogen refactorizaciones cuya carpeta se
@@ -631,7 +631,7 @@ public class ImportWizard extends Dialog {
 							throw new Exception();
 						}
 						
-						// Si ya hay una refactorizaci�n con ese nombre.
+						// Si ya hay una refactorización con ese nombre.
 						if (existing.containsKey(names[i])){
 							String old = new File(existing.get(names[i])).getCanonicalPath();
 							String now = new File(path).getCanonicalPath();

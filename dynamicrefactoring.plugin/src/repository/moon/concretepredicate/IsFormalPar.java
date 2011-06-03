@@ -25,22 +25,22 @@ import moon.core.genericity.FormalPar;
 import refactoring.engine.Predicate;
 
 /**
- * Comprueba si un par�metro formal pertenece a una clase.
+ * Comprueba si un parámetro formal pertenece a una clase.
  *
- * @author <A HREF="mailto:sam0006@alu.ubu.es">Sara Alcal� Mart�n</A>
- * @author <A HREF="mailto:dbm0005@alu.ubu.es">Diego Ba�uelos Molledo</A>
+ * @author <A HREF="mailto:sam0006@alu.ubu.es">Sara Alcalá Martín</A>
+ * @author <A HREF="mailto:dbm0005@alu.ubu.es">Diego Bañuelos Molledo</A>
  * @author <A HREF="mailto:sfd0009@alu.ubu.es">Sonia Fuente de la Fuente</A>
  * @author <A HREF="mailto:ehp0001@alu.ubu.es">Enrique Herrero Paredes</A>
  */
 public class IsFormalPar extends Predicate {
 
 	/**
-	 * Par�metro formal cuya pertenencia a una clase se desea comprobar.
+	 * Parámetro formal cuya pertenencia a una clase se desea comprobar.
 	 */
 	private FormalPar formalParam;
 	
 	/**
-	 * Clase a la que debe pertenecer el par�metro formal.
+	 * Clase a la que debe pertenecer el parámetro formal.
 	 */
 	private ClassDef classDef;
 	
@@ -49,9 +49,9 @@ public class IsFormalPar extends Predicate {
 	 *
 	 * Obtiene una nueva instancia del predicado <code>IsFormalPar</code>.
 	 *
-	 * @param formalParam par�metro formal cuya pertenencia a una clase se 
+	 * @param formalParam parámetro formal cuya pertenencia a una clase se 
 	 * desea comprobar.
-	 * @param classDef clase a la que debe pertenecer el par�metro formal.
+	 * @param classDef clase a la que debe pertenecer el parámetro formal.
 	 */
 	public IsFormalPar(FormalPar formalParam, ClassDef classDef) {
 		super("IsFormalPar:\n\t" + //$NON-NLS-1$
@@ -67,7 +67,7 @@ public class IsFormalPar extends Predicate {
 	/**
 	 * Comprueba el valor de verdad del predicado.
 	 * 
-	 * @return <code>true</code> si el par�metro formal pertenece a la clase;
+	 * @return <code>true</code> si el parámetro formal pertenece a la clase;
 	 * <code>false</code> en caso contrario.
 	 */
 	@Override

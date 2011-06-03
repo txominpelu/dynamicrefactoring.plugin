@@ -40,11 +40,11 @@ import repository.RefactoringTemplateAbstractTest;
 import repository.moon.MOONRefactoring;
 
 /** 
- * Comprueba que funciona correctamente la refactorizaci�n que especializa la 
- * acotaci�n de un par�metro formal.
+ * Comprueba que funciona correctamente la refactorización que especializa la 
+ * acotación de un parámetro formal.
  * 
  * <p>Indirectamente, se comprueba tambi�n la correcci�n de las funciones,
- * acciones y predicados utilizados por la refactorizaci�n.</p>
+ * acciones y predicados utilizados por la refactorización.</p>
  *
  * @author <A HREF="mailto:sfd0009@alu.ubu.es">Sonia Fuente de la Fuente</A>
  * @author <A HREF="mailto:ehp0001@alu.ubu.es">Enrique Herrero Paredes</A>
@@ -54,7 +54,7 @@ import repository.moon.MOONRefactoring;
 public class TestSpecializeBoundS extends RefactoringTemplateAbstractTest {
 
 	/** 
-	 * Comprueba que la refactorizaci�n funciona correctamente en un caso simple.
+	 * Comprueba que la refactorización funciona correctamente en un caso simple.
 	 * 
 	 * @throws Exception si se produce un error durante la ejecuci�n de la prueba.
 	 */ 
@@ -94,8 +94,8 @@ public class TestSpecializeBoundS extends RefactoringTemplateAbstractTest {
 	}
 
 	/** 
-	 * Comprueba que la refactorizaci�n funciona correctamente en un caso 
-	 * con varios par�metros formales.
+	 * Comprueba que la refactorización funciona correctamente en un caso 
+	 * con varios parámetros formales.
 	 * 
 	 * @throws Exception si se produce un error durante la ejecuci�n de la prueba.
 	 */
@@ -135,10 +135,10 @@ public class TestSpecializeBoundS extends RefactoringTemplateAbstractTest {
 	}
 
 	/**
-	 * Verifica el funcionamiento de las precondiciones de la refactorizaci�n.
+	 * Verifica el funcionamiento de las precondiciones de la refactorización.
 	 *
 	 * <p>Comprueba que se lanza una excepci�n cuando se intenta hacer la 
-	 * refactorizaci�n y el tipo elegido no es descendiente de la acotaci�n 
+	 * refactorización y el tipo elegido no es descendiente de la acotación 
 	 * inicial.</p>
 	 * 
 	 * @throws Exception si se produce un error durante la ejecuci�n de la prueba.
@@ -175,10 +175,10 @@ public class TestSpecializeBoundS extends RefactoringTemplateAbstractTest {
 	}
 
 	/**
-	 * Verifica el funcionamiento de las precondiciones de la refactorizaci�n.
+	 * Verifica el funcionamiento de las precondiciones de la refactorización.
 	 *
 	 * <p>Comprueba que se lanza una excepci�n cuando se intenta hacer la 
-	 * refactorizaci�n y existe una sustituci�n del par�metro formal que no 
+	 * refactorización y existe una sustituci�n del parámetro formal que no 
 	 * es descendiente del seleccionado.</p>
 	 * 
 	 * @throws Exception si se produce un error durante la ejecuci�n de la prueba.
@@ -216,10 +216,10 @@ public class TestSpecializeBoundS extends RefactoringTemplateAbstractTest {
 	}
 
 	/**
-	 * Verifica el funcionamiento de las precondiciones de la refactorizaci�n.
+	 * Verifica el funcionamiento de las precondiciones de la refactorización.
 	 *
 	 * <p>Comprueba que se lanza una excepci�n cuando se intenta hacer la 
-	 * refactorizaci�n y hay una sustituci�n inv�lida del par�metro formal 
+	 * refactorización y hay una sustituci�n inv�lida del parámetro formal 
 	 * en un descendiente.</p>
 	 * 
 	 * @throws Exception si se produce un error durante la ejecuci�n de la prueba.

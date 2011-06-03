@@ -37,16 +37,16 @@ import dynamicrefactoring.domain.RefactoringMechanismInstance;
 import dynamicrefactoring.domain.RefactoringMechanismType;
 
 /**
- * Tercera p�gina del asistente de creaci�n o edici�n de refactorizaciones.
+ * Tercera p�gina del asistente de creación o edición de refactorizaciones.
  * 
  * <p>
- * Permite componer la refactorizaci�n mediante la adici�n de predicados a la
+ * Permite componer la refactorización mediante la adición de predicados a la
  * lista de precondiciones.
  * </p>
  * 
  * <p>
  * Permite definir el orden en que se comprobar�n los predicados y en que se
- * ejecutar�n las acciones, as� como la lista de entradas de la refactorizaci�n
+ * ejecutar�n las acciones, as� como la lista de entradas de la refactorización
  * que deber�n ser transmitidas a cada uno de los componentes.
  * </p>
  * 
@@ -58,14 +58,14 @@ public final class RefactoringWizardPage3 extends WizardPage implements
 		IRefactoringWizardElementPage {
 
 	/**
-	 * T�tulo de la opearaci�n sobre la que se configuran las precondiciones de
-	 * la refactorizaci�n.
+	 * T�tulo de la opearación sobre la que se configuran las precondiciones de
+	 * la refactorización.
 	 */
 	protected static final String PRECONDITIONS_TITLE = Messages.RefactoringWizardPage3_Preconditions;
 
 	/**
-	 * Refactorizaci�n configurada a trav�s del asistente y que debe ser creada
-	 * finalmente (si se trata de una nueva refactorizaci�n) o modificada (si se
+	 * Refactorización configurada a través del asistente y que debe ser creada
+	 * finalmente (si se trata de una nueva refactorización) o modificada (si se
 	 * est� editando una ya existente).
 	 */
 	private DynamicRefactoringDefinition refactoring = null;
@@ -77,8 +77,8 @@ public final class RefactoringWizardPage3 extends WizardPage implements
 			.getLogger(RefactoringWizardPage3.class);
 
 	/**
-	 * Pesta�a para la configuraci�n de las precondiciones de la
-	 * refactorizaci�n.
+	 * Pesta�a para la configuración de las precondiciones de la
+	 * refactorización.
 	 */
 	private RepositoryElementComposite preconditionsTab;
 
@@ -86,7 +86,7 @@ public final class RefactoringWizardPage3 extends WizardPage implements
 	 * Constructor.
 	 * 
 	 * @param refactoring
-	 *            la refactorizaci�n que se est� editando, o <code>
+	 *            la refactorización que se est� editando, o <code>
 	 * null</code> si se est� construyendo una nueva.
 	 */
 	public RefactoringWizardPage3(DynamicRefactoringDefinition refactoring) {
@@ -130,9 +130,9 @@ public final class RefactoringWizardPage3 extends WizardPage implements
 		container.setLayout(new FormLayout());
 
 		setControl(container);
-		// Las precondiciones necesitan un elemento a trav�s del que acceder a
+		// Las precondiciones necesitan un elemento a través del que acceder a
 		// las
-		// entradas de la refactorizaci�n.
+		// entradas de la refactorización.
 		RefactoringWizardPage2 inputsPage = null;
 		if (getPreviousPage() instanceof RefactoringWizardPage2)
 			inputsPage = (RefactoringWizardPage2) getPreviousPage();

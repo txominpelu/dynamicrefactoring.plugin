@@ -120,7 +120,7 @@ public class InformationDialog extends Dialog {
 	}
 	
 	/**
-	 * Configuraci�n inicial de la ventana.
+	 * Configuración inicial de la ventana.
 	 */
 	protected void configureShell(Shell newShell) {
 		super.configureShell(newShell);

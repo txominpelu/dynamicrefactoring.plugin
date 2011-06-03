@@ -35,7 +35,7 @@ import repository.RefactoringTemplateAbstractTest;
 
 /** 
  * Comprueba que funciona correctamente el predicado que comprueba que no 
- * exista en la signatura de un m�todo ning�n argumento formal con el mismo 
+ * exista en la signatura de un método ningún argumento formal con el mismo 
  * nombre que el argumento indicado.
  * 
  * @author <A HREF="mailto:sfd0009@alu.ubu.es">Sonia Fuente de la Fuente</A>
@@ -45,11 +45,11 @@ public class TestHasNotFormalArg extends RefactoringTemplateAbstractTest {
 
 	/**
 	 * Comprueba que el predicado funciona correctamente cuando s� existe ya
-	 * un argumento formal del m�todo con el mismo nombre que el argumento
+	 * un argumento formal del método con el mismo nombre que el argumento
 	 * indicado.<p>
 	 * 
-	 * En un m�todo con dos argumentos, ejecuta la comprobaci�n sobre uno de los
-	 * propios argumentos del m�todo.
+	 * En un método con dos argumentos, ejecuta la comprobación sobre uno de los
+	 * propios argumentos del método.
 	 * 
 	 * @throws Exception si se produce un error durante la ejecuci�n de la prueba.
 	 */
@@ -75,10 +75,10 @@ public class TestHasNotFormalArg extends RefactoringTemplateAbstractTest {
 
 	/**
 	 * Comprueba que el predicado funciona correctamente cuando no existe a�n
-	 * un argumento formal del m�todo con el mismo nombre que el argumento
+	 * un argumento formal del método con el mismo nombre que el argumento
 	 * indicado.<p>
 	 * 
-	 * En un m�todo con dos argumentos, ejecuta la comprobaci�n sobre un argumento
+	 * En un método con dos argumentos, ejecuta la comprobación sobre un argumento
 	 * formal externo con distinto nombre a ambos.
 	 * 
 	 * @throws Exception si se produce un error durante la ejecuci�n de la prueba.

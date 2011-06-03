@@ -38,7 +38,7 @@ import repository.moon.concreterefactoring.TestAddParameter;
 /** 
  * Comprueba que funciona correctamente el mecanismo de distribuci�n de
  * mensajes enviados por los elementos del repositorio durante la ejecuci�n
- * de una refactorizaci�n.<p>
+ * de una refactorización.<p>
  * 
  * @author <A HREF="mailto:sfd0009@alu.ubu.es">Sonia Fuente de la Fuente</A>
  * @author <A HREF="mailto:ehp0001@alu.ubu.es">Enrique Herrero Paredes</A>
@@ -52,7 +52,7 @@ public class TestMessageListener extends RefactoringTemplateAbstractTest
 	private boolean received = false; 
 	
 	/**
-	 * Este m�todo se invoca despu�s de cada test.
+	 * Este método se invoca despu�s de cada test.
 	 */
 	@After @Override
 	public void tearDown(){
@@ -61,9 +61,9 @@ public class TestMessageListener extends RefactoringTemplateAbstractTest
 	}
 	
 	/**
-	 * Este m�todo se invoca antes de cada test.
+	 * Este método se invoca antes de cada test.
 	 * 
-	 * @throws Exception si se produce un error durante la inicializaci�n.
+	 * @throws Exception si se produce un error durante la inicialización.
 	 */
 	@Before @Override
 	public void setUp() throws Exception {
@@ -82,12 +82,12 @@ public class TestMessageListener extends RefactoringTemplateAbstractTest
 	
 	/** 
 	 * Comprueba que se reciben mensajes durante la ejecuci�n de una
-	 * refactorizaci�n. <p>
+	 * refactorización. <p>
 	 * 
-	 * Ejecuta una refactorizaci�n "Mover Atributo" y comprueba que se han
-	 * recibido mensajes de refactorizaci�n en el proceso.
+	 * Ejecuta una refactorización "Mover Atributo" y comprueba que se han
+	 * recibido mensajes de refactorización en el proceso.
 	 * 
-	 * @throws Exception si se produjo alg�n error durante la ejecuci�n de la prueba.
+	 * @throws Exception si se produjo algún error durante la ejecuci�n de la prueba.
 	 */
 	@Test
 	public void testMessageReceived() throws Exception{
@@ -107,6 +107,6 @@ public class TestMessageListener extends RefactoringTemplateAbstractTest
 		refactoring.run();
 		
 		assertTrue("Test distribuci�n de mensajes: " + //$NON-NLS-1$
-			"no se ha recibido ning�n mensaje durante la refactorizaci�n.", received); //$NON-NLS-1$
+			"no se ha recibido ningún mensaje durante la refactorización.", received); //$NON-NLS-1$
 	}
 }

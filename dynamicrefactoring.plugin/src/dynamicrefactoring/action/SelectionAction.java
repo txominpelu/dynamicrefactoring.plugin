@@ -54,7 +54,7 @@ public class SelectionAction implements IWorkbenchWindowActionDelegate {
 	
 	/**
 	 * Env�a notificaciones cada vez que el usuario selecciona un elemento de entrada v�lido 
-	 * para al refactorizaci�n.
+	 * para al refactorización.
 	 * 
 	 * @param action no se utiliza.
 	 * @param selection elemento seleccionado por el usuario del espacio de trabajo.
@@ -89,7 +89,7 @@ public class SelectionAction implements IWorkbenchWindowActionDelegate {
 	
 	
 	/**
-	 * Sin implementaci�n.
+	 * Sin implementación.
 	 * 
 	 * @see IWorkbenchWindowActionDelegate#dispose
 	 */
@@ -106,9 +106,9 @@ public class SelectionAction implements IWorkbenchWindowActionDelegate {
 	}
 	
 	/**
-	 * Sin implementaci�n.
+	 * Sin implementación.
 	 * 
-	 * @param action la acci�n que ha sido invocada.
+	 * @param action la acción que ha sido invocada.
 	 */
 	public void run(IAction action) {
 	}

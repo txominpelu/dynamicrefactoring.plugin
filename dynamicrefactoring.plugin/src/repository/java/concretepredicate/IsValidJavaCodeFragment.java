@@ -8,7 +8,7 @@ import refactoring.engine.Predicate;
  * Checks if a code fragment is a valid set of statements,
  * expression, etc. sintactically correct
  * 
- * @author Raúl Marticorena
+ * @author RaÃºl Marticorena
  * @since JavaMoon-2.3.0
  *
  */

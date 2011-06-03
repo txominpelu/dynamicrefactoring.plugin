@@ -270,7 +270,7 @@ public final class ElementCatalog<K extends Element> implements
 	}
 
 	/**
-	 * Devuelve la clasificaci�n que divide en categorias los elementos de este
+	 * Devuelve la clasificación que divide en categorias los elementos de este
 	 * catalogo.
 	 * 
 	 * @return clasificacion que divide en categorias el catalogo.

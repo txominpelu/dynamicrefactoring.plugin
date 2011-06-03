@@ -44,8 +44,8 @@ public class TestExistsClass extends RefactoringTemplateAbstractTest {
 	 * Comprueba que el predicado funciona correctamente cuando la clase
 	 * no es parte del modelo.<p>
 	 * 
-	 * Ejecuta la comprobaci�n sobre una clase obtenida a partir de una instancia
-	 * distinta del modelo utilizado en la verificaci�n.
+	 * Ejecuta la comprobación sobre una clase obtenida a partir de una instancia
+	 * distinta del modelo utilizado en la verificación.
 	 * 
 	 * @throws Exception si se produce un error durante la ejecuci�n de la prueba.
 	 */

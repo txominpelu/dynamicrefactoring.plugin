@@ -29,7 +29,7 @@ import repository.RelayListenerRegistry;
 /**
  * Permite a�adir un atributo a una clase de un modelo MOON.<p>
  *
- * @author <A HREF="mailto:alc0022@alu.ubu.es">�ngel L�pez Campo</A>
+ * @author <A HREF="mailto:alc0022@alu.ubu.es">Ángel López Campo</A>
  * @author <A HREF="mailto:ehp0001@alu.ubu.es">Enrique Herrero Paredes</A>
  * @author <A HREF="mailto:sfd0009@alu.ubu.es">Sonia Fuente de la Fuente</A>
  */
@@ -46,14 +46,14 @@ public class AddAttribute extends Action {
 	private ClassDef dest;
 	
 	/**
-	 * Receptor de los mensajes enviados por la acci�n concreta.
+	 * Receptor de los mensajes enviados por la acción concreta.
 	 */
 	private RelayListenerRegistry listenerReg;
 		
 	/**
 	 * Constructor.<p>
 	 *
-	 * Obtiene una nueva instancia de la acci�n RenameJavaFile.
+	 * Obtiene una nueva instancia de la acción RenameJavaFile.
 	 *
 	 * @param att el atributo que se va a a�adir a una clase.
 	 * @param dest la clase de destino del atributo.
@@ -68,7 +68,7 @@ public class AddAttribute extends Action {
 	}
 	
 	/**
-	 * Ejecuta la adici�n del atributo a la clase destino.
+	 * Ejecuta la adición del atributo a la clase destino.
 	 */
 	public void run(){	
 		listenerReg.notify("# run():AddAttribute #"); //$NON-NLS-1$

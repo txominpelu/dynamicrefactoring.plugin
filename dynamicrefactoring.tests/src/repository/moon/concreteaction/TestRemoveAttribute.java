@@ -33,7 +33,7 @@ import org.junit.Test;
 import repository.RefactoringTemplateAbstractTest;
 
 /** 
- * Comprueba que funciona correctamente la acci�n que eliminar un atributo 
+ * Comprueba que funciona correctamente la acción que eliminar un atributo 
  * de una clase. <p>
  * 
  * @author <A HREF="mailto:sfd0009@alu.ubu.es">Sonia Fuente de la Fuente</A>
@@ -42,11 +42,11 @@ import repository.RefactoringTemplateAbstractTest;
 public class TestRemoveAttribute extends RefactoringTemplateAbstractTest {
 
 	/** 
-	 * Comprueba que la acci�n funciona correctamente al eliminar un atributo de 
-	 * una clase y deshacer despu�s la operaci�n.<p>
+	 * Comprueba que la acción funciona correctamente al eliminar un atributo de 
+	 * una clase y deshacer despu�s la operación.<p>
 	 * 
-	 * En una clase simple con un �nico atributo, elimina el atributo y despu�s
-	 * deshace la eliminaci�n.
+	 * En una clase simple con un único atributo, elimina el atributo y despu�s
+	 * deshace la eliminación.
 	 * 
 	 * @throws Exception si se produce un error durante la ejecuci�n de la prueba.
 	 */
@@ -67,16 +67,16 @@ public class TestRemoveAttribute extends RefactoringTemplateAbstractTest {
 		action.undo();
 
 		// Comienzan las comprobaciones
-		assertEquals("Deshacer eliminaci�n de atributo: la clase no ha recuperado " + //$NON-NLS-1$
-			"el atributo �nico al deshacer.", 1, classdef.getAttributes().size()); //$NON-NLS-1$
+		assertEquals("Deshacer eliminación de atributo: la clase no ha recuperado " + //$NON-NLS-1$
+			"el atributo único al deshacer.", 1, classdef.getAttributes().size()); //$NON-NLS-1$
 		
 		AttDec recovered = classdef.getAttributes().get(0);
-		assertNotNull("Deshacer eliminaci�n de atributo: el atributo no se " + //$NON-NLS-1$
+		assertNotNull("Deshacer eliminación de atributo: el atributo no se " + //$NON-NLS-1$
 			"ha recuperado.", recovered); //$NON-NLS-1$
-		assertEquals("Deshacer eliminaci�n de atributo: el tipo del atributo " + //$NON-NLS-1$
+		assertEquals("Deshacer eliminación de atributo: el tipo del atributo " + //$NON-NLS-1$
 			"recuperado no es el correcto.", classdef.getClassType().getUniqueName(),  //$NON-NLS-1$
 			recovered.getType().getUniqueName());
-		assertEquals("Deshacer eliminaci�n de atributo: el nombre del atributo " + //$NON-NLS-1$
+		assertEquals("Deshacer eliminación de atributo: el nombre del atributo " + //$NON-NLS-1$
 			"recuperado no es el original.", "attribute", recovered.getName().toString()); //$NON-NLS-1$ //$NON-NLS-2$
 	}
 }

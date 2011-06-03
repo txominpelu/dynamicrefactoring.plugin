@@ -38,7 +38,7 @@ import dynamicrefactoring.util.processor.JavaLocalVariableProcessor;
 /**
  * Proporciona funciones capaces de determinar el tipo de elemento que se 
  * encuentra seleccionado en una ventana sobre un editor de texto, as� como
- * otra informaci�n adicional relativa al mismo.
+ * otra información adicional relativa al mismo.
  * 
  * @author <A HREF="mailto:sfd0009@alu.ubu.es">Sonia Fuente de la Fuente</A>
  * @author <A HREF="mailto:ehp0001@alu.ubu.es">Enrique Herrero Paredes</A>
@@ -46,14 +46,14 @@ import dynamicrefactoring.util.processor.JavaLocalVariableProcessor;
 public class TextSelectionInfo extends SelectionInfo {
 	
 	/**
-	 * Selecci�n de texto cuya informaci�n se desea consultar.
+	 * Selecci�n de texto cuya información se desea consultar.
 	 */
 	private TextSelection textSelection;
 	
 	/**
 	 * Constructor.
 	 * 
-	 * @param selection la selecci�n sobre la que se desea obtener informaci�n.
+	 * @param selection la selecci�n sobre la que se desea obtener información.
 	 * @param window la ventana sobre la que se ha efectuado la selecci�n.
 	 * 
 	 * @throws Exception si #selection no es una selecci�n sobre un �rbol.
@@ -73,7 +73,7 @@ public class TextSelectionInfo extends SelectionInfo {
 	
 	/**
 	 * Determina el tipo de elemento seleccionado en una ventana.
-	 * Solo tiene en consideraci�n los tipos indicados por #typeName, #methodName 
+	 * Solo tiene en consideración los tipos indicados por #typeName, #methodName 
 	 * #formalArgumentName, #fieldName y #parameterName.
 	 * 
 	 * @return el nombre completamente cualificado del tipo de elemento 
@@ -109,7 +109,7 @@ public class TextSelectionInfo extends SelectionInfo {
 		// Se debe haber seleccionado un fragmento que Eclipse considere parte
 		// de una selecci�n de clase.
 		if (getSelectionType().equals(TYPE_NAME)){
-			// Eclipse considera tambi�n las cl�usulas de importaci�n como 
+			// Eclipse considera tambi�n las cl�usulas de importación como 
 			// selecci�n de clase. Hay que filtrar esos casos.
 			IJavaElement selectedElement = getSelectedJavaElement();
 			if(selectedElement != null){
@@ -130,10 +130,10 @@ public class TextSelectionInfo extends SelectionInfo {
 	@Override
 	public boolean isMethodSelection(){
 		// Se debe haber seleccionado un fragmento que Eclipse considere parte
-		// de una selecci�n de m�todo.
+		// de una selecci�n de método.
 		if (getSelectionType().equals(METHOD_NAME)){
-			// Eclipse considera tambi�n las llamadas a m�todos como selecci�n
-			// de m�todo. Hay que filtrar esos casos.
+			// Eclipse considera tambi�n las llamadas a métodos como selecci�n
+			// de método. Hay que filtrar esos casos.
 			try {
 				IType type = getCompilationUnit().findPrimaryType();
 				IMethod[] methods = type.getMethods();
@@ -195,9 +195,9 @@ public class TextSelectionInfo extends SelectionInfo {
 	}
 		
 	/**
-	 * Obtiene la unidad de compilaci�n sobre la que se est� trabajando.
+	 * Obtiene la unidad de compilación sobre la que se est� trabajando.
 	 * 
-	 * @return la unidad de compilaci�n sobre la que se est� trabajando.
+	 * @return la unidad de compilación sobre la que se est� trabajando.
 	 */
 	public ICompilationUnit getCompilationUnit(){
 		
@@ -213,11 +213,11 @@ public class TextSelectionInfo extends SelectionInfo {
 	}
 	
 	/**
-	 * Obtiene el tipo primario sobre cuya representaci�n textual se est�
+	 * Obtiene el tipo primario sobre cuya representación textual se est�
 	 * trabajando (es decir, la clase a la que pertenece la selecci�n, sin
 	 * tener en cuenta clases internas).
 	 * 
-	 * @return el tipo primario sobre cuya representaci�n textual se trabaja.
+	 * @return el tipo primario sobre cuya representación textual se trabaja.
 	 */
 	public IType getPrimaryType(){
 		

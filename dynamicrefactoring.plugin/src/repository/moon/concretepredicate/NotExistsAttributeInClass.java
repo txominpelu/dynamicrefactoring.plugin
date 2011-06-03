@@ -27,14 +27,14 @@ import refactoring.engine.Predicate;
 /**
  * Permite verificar que no existe un cierto atributo en una clase determinada.
  *
- * @author <A HREF="mailto:alc0022@alu.ubu.es">�ngel L�pez Campo</A>
+ * @author <A HREF="mailto:alc0022@alu.ubu.es">Ángel López Campo</A>
  * @author <A HREF="mailto:ehp0001@alu.ubu.es">Enrique Herrero Paredes</A>
  * @author <A HREF="mailto:sfd0009@alu.ubu.es">Sonia Fuente de la Fuente</A>
  */ 
 public class NotExistsAttributeInClass extends Predicate {
 	
 	/**
-	 * Condici�n opuesta a la que se comprueba.
+	 * Condición opuesta a la que se comprueba.
 	 */
 	private Predicate oppositePredicate;
 		

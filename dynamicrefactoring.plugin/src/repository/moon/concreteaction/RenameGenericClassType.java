@@ -32,33 +32,33 @@ import repository.RelayListenerRegistry;
 import repository.moon.MOONRefactoring;
 
 /**
- * Permite renombrar el tipo de objetos definido por las clases gen�ricas de 
+ * Permite renombrar el tipo de objetos definido por las clases genéricas de 
  * una clase.
  *
  * @author <A HREF="mailto:ehp0001@alu.ubu.es">Enrique Herrero Paredes</A>
- * @author <A HREF="mailto:alc0022@alu.ubu.es">�ngel L�pez Campo</A>
+ * @author <A HREF="mailto:alc0022@alu.ubu.es">Ángel López Campo</A>
  * @author <A HREF="mailto:sfd0009@alu.ubu.es">Sonia Fuente de la Fuente</A>
  */ 
 public class RenameGenericClassType extends Action {
 
 	/**
 	 * Las acciones auxiliares utilizadas para el renombrado
-	 * en las clases gen�ricas.
+	 * en las clases genéricas.
 	 */
 	private ArrayList<Action> actions;
 	
 	/**
-	 * La clase cuyos tipos gen�ricos deben renombrarse.
+	 * La clase cuyos tipos genéricos deben renombrarse.
 	 */
 	private ClassDef classDef;
 	
 	/**
-	 * El nuevo nombre que debe asignarse a los tipos gen�ricos de la clase.
+	 * El nuevo nombre que debe asignarse a los tipos genéricos de la clase.
 	 */
 	private Name newName;
 	
 	/**
-	 * Receptor de los mensajes enviados por la acci�n concreta.
+	 * Receptor de los mensajes enviados por la acción concreta.
 	 */
 	private RelayListenerRegistry listenerReg;
 	
@@ -67,7 +67,7 @@ public class RenameGenericClassType extends Action {
 	 *
 	 * Obtiene una nueva instancia de <code>RenameGenericClassType</code>.
 	 *
-	 * @param classDef la clase cuyos tipos gen�ricos se deben renombrar.
+	 * @param classDef la clase cuyos tipos genéricos se deben renombrar.
 	 * @param newName el nuevo que debe darse a los tipos renombrados.
 	 */	
 	public RenameGenericClassType(ClassDef classDef, Name newName){

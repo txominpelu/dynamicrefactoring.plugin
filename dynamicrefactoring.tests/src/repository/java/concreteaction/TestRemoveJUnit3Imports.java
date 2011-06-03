@@ -37,7 +37,7 @@ import repository.RefactoringTemplateAbstractTest;
 import repository.moon.MOONRefactoring;
 
 /** 
- * Comprueba que funciona correctamente la acci�n que elimina de una clase las
+ * Comprueba que funciona correctamente la acción que elimina de una clase las
  * importaciones que corresponden a JUnit3.
  * 
  * @author <A HREF="mailto:sfd0009@alu.ubu.es">Sonia Fuente de la Fuente</A>
@@ -46,7 +46,7 @@ import repository.moon.MOONRefactoring;
 public class TestRemoveJUnit3Imports extends RefactoringTemplateAbstractTest {
 
 	/** 
-	 * Comprueba que la acci�n elimina correctamente las importaciones 
+	 * Comprueba que la acción elimina correctamente las importaciones 
 	 * correspondientes a JUnit3.
 	 * 
 	 * @throws Exception si se produce un error durante la ejecuci�n de la prueba.
@@ -73,7 +73,7 @@ public class TestRemoveJUnit3Imports extends RefactoringTemplateAbstractTest {
 	}
 	
 	/** 
-	 * Comprueba que la acci�n deshace correctamente la eliminaci�n de las 
+	 * Comprueba que la acción deshace correctamente la eliminación de las 
 	 * importaciones correspondientes a JUnit3.
 	 * 
 	 * @throws Exception si se produce un error durante la ejecuci�n de la prueba.
@@ -97,7 +97,7 @@ public class TestRemoveJUnit3Imports extends RefactoringTemplateAbstractTest {
 		
 		List<JavaImport> imports = ((JavaClassDef)classdef).getImport();
 		assertEquals("Test deshacer eliminar importaciones JUnit3: " + //$NON-NLS-1$
-			"no se deshizo la eliminaci�n las importaciones", 1, imports.size()); //$NON-NLS-1$
+			"no se deshizo la eliminación las importaciones", 1, imports.size()); //$NON-NLS-1$
 		assertEquals("Test deshacer eliminar importaciones JUnit3: " + //$NON-NLS-1$
 			"no se mantuvo el tipo esperado.",  //$NON-NLS-1$
 			"junit.framework.TestCase", imports.get(0).getUniqueName().toString()); //$NON-NLS-1$

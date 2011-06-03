@@ -43,7 +43,7 @@ import repository.moon.concretefunction.LocalEntitiesInLoopReentrance;
 /**
  * Add the extracted method.
  *
- * @author <A HREF="mailto:rmartico@ubu.es">Raúl Marticorena</A>
+ * @author <A HREF="mailto:rmartico@ubu.es">RaÃºl Marticorena</A>
  */ 
 public class AddExtractedMethod extends Action {
 	
@@ -58,17 +58,17 @@ public class AddExtractedMethod extends Action {
 	private Name name;
 	
 	/**
-	 * Clase a la que se moverá el método.
+	 * Clase a la que se moverï¿½ el mÃ©todo.
 	 */
 	private ClassDef classDef;
 	
 	/**
-	 * Método que se va a mover de una clase a otra.
+	 * MÃ©todo que se va a mover de una clase a otra.
 	 */
 	 private MethDec method;
 	 
 	 /**
-	  * Receptor de los mensajes enviados por la acción concreta.
+	  * Receptor de los mensajes enviados por la acciÃ³n concreta.
 	  */
 	 private RelayListenerRegistry listenerReg;
 	 	
@@ -76,8 +76,8 @@ public class AddExtractedMethod extends Action {
 	 * Constructor.<p>
 	 *
 	 * Obtiene una nueva instancia de MoveMethod.
-	 * @param method método que se va a mover de una clase a otra.
-	 * @param classDefDest clase a la que se moverá el método.
+	 * @param method mÃ©todo que se va a mover de una clase a otra.
+	 * @param classDefDest clase a la que se moverï¿½ el mÃ©todo.
 	 */	
 	public AddExtractedMethod(Name name, CodeFragment fragment){
 		super();
@@ -90,7 +90,7 @@ public class AddExtractedMethod extends Action {
 	}
 	
 	/**
-	 * Ejecuta el movimiento del método de una clase a otra.
+	 * Ejecuta el movimiento del mÃ©todo de una clase a otra.
 	 */
 	@Override
 	public void run() {		
@@ -160,8 +160,8 @@ public class AddExtractedMethod extends Action {
 	}
 
 	/**
-	 * Deshace el movimiento del método, devolviéndolo a su clase de origen y 
-	 * eliminándolo de la nueva clase destino.
+	 * Deshace el movimiento del mÃ©todo, devolviï¿½ndolo a su clase de origen y 
+	 * eliminï¿½ndolo de la nueva clase destino.
 	 */
 	@Override
 	public void undo() {		

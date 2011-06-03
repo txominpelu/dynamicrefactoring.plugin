@@ -88,10 +88,10 @@ import dynamicrefactoring.interfaz.wizard.search.javadoc.EclipseBasedJavadocRead
 import dynamicrefactoring.util.PluginStringUtils;
 
 /**
- * Contenido de las p�ginas en la que se establecen los diferentes mecanismos de la refactorizaci�n.
+ * Contenido de las p�ginas en la que se establecen los diferentes mecanismos de la refactorización.
  * 
- * <p>Implementa de forma gen�rica la interfaz y el proceso de adici�n de 
- * componentes concretos del repositorio a la refactorizaci�n.</p>
+ * <p>Implementa de forma genérica la interfaz y el proceso de adición de 
+ * componentes concretos del repositorio a la refactorización.</p>
  * 
  * <p>Configurable para mostrar el tipo de elementos que sea necesario:
  * predicados (como precondiciones o como postcondiciones) o acciones.</p>
@@ -110,7 +110,7 @@ public class RepositoryElementComposite {
 	
 	/**
 	 * P�gina del asistente a partir de la cual se pueden obtener las entradas
-	 * de la refactorizaci�n.
+	 * de la refactorización.
 	 */
 
 	private RefactoringWizardPage2 inputsPage;
@@ -121,7 +121,7 @@ public class RepositoryElementComposite {
 	private IRefactoringWizardElementPage mainPage;
 	
 	/**
-	 * T�tulo de la operaci�n.
+	 * T�tulo de la operación.
 	 */
 	private String title;
 	
@@ -131,7 +131,7 @@ public class RepositoryElementComposite {
 	private Composite composite;
 	
 	/**
-	 * Tabla con los par�metros ambiguos del elemento del repositorio.
+	 * Tabla con los parámetros ambiguos del elemento del repositorio.
 	 */
 	private Table tb_parameters;
 	
@@ -148,31 +148,31 @@ public class RepositoryElementComposite {
 	
 	/**
 	 * CheckBox que permite seleccionar al usuario la manera (cualificados o no) en la que se 
-	 * muestran los nombres de los mecanismos de la refactorizaci�n a seleccionar.
+	 * muestran los nombres de los mecanismos de la refactorización a seleccionar.
 	 */
 	private Button cb_qualified;
 	
 	/**
 	 * Bot�n que permite a�adir un elemento del repositorio a la lista de elementos
-	 * que forman parte de la refactorizaci�n.
+	 * que forman parte de la refactorización.
 	 */
 	private Button bt_addElement;
 	
 	/**
 	 * Bot�n que permite eliminar un elemento seleccionado como parte de la
-	 * refactorizaci�n y devolverlo a la lista de elementos del repositorio.
+	 * refactorización y devolverlo a la lista de elementos del repositorio.
 	 */
 	private Button bt_delElement;
 	
 	/**
 	 * Bot�n que permite mover hacia arriba en la lista elementos seleccionados 
-	 * como parte de la refactorizaci�n.
+	 * como parte de la refactorización.
 	 */
 	private Button bt_moveUp;
 	
 	/**
 	 * Bot�n que permite mover hacia abajo en la lista elementos seleccionados 
-	 * como parte de la refactorizaci�n.
+	 * como parte de la refactorización.
 	 */
 	private Button bt_moveDown;
 	
@@ -183,7 +183,7 @@ public class RepositoryElementComposite {
 	private Hashtable<String, Integer>selectedTimes;
 	
 	/**
-	 * Navegador en el que se muestra informaci�n relativa al elemento seleccionado dentro de
+	 * Navegador en el que se muestra información relativa al elemento seleccionado dentro de
 	 * la lista de elementos.
 	 */
 	private Browser navegador;
@@ -218,14 +218,14 @@ public class RepositoryElementComposite {
 	 *  
 	 * <p>Se utiliza como clave el nombre del elemento concreto del repositorio, 
 	 * y como valor, un objeto de tipo <code>RepositoryItem</code> con toda la 
-	 * informaci�n asociada a la precondici�n.</p>
+	 * información asociada a la precondición.</p>
 	 */
 	private Hashtable<String, RepositoryItem> selectedTable;
 	
 	/**
 	 * Tabla asociativa que permite mantener un seguimiento de las listas 
 	 * desplegables que han sido asociadas a los elementos de la tabla de
-	 * par�metros.
+	 * parámetros.
 	 */
 	private Hashtable<TableItem, CCombo> combosTable;
 	
@@ -249,7 +249,7 @@ public class RepositoryElementComposite {
 	 * 
 	 * @param parent elemento padre de la pesta�a.
 	 * @param inputsPage p�gina del asistente a partir de la cual se pueden 
-	 * obtener las entradas que se han seleccionado para la refactorizaci�n.
+	 * obtener las entradas que se han seleccionado para la refactorización.
 	 * @param title t�tulo asociado a la pesta�a.
 	 * @param main P�gina donde se va a a�adir esta estructura.
 	 */
@@ -452,7 +452,7 @@ public class RepositoryElementComposite {
 		tb_parameters.setHeaderVisible(true);
 		
 		
-		// Se crean las columnas para la tabla de par�metros.
+		// Se crean las columnas para la tabla de parámetros.
 		TableColumn cl_parameter2 = new TableColumn(tb_parameters, SWT.NONE);
 		cl_parameter2.setResizable(false);
 		cl_parameter2.setText(Messages.RepositoryElementTab_Type);
@@ -645,7 +645,7 @@ public class RepositoryElementComposite {
 	
 	/**
 	 * Deselecciona todos los elementos de cualquiera de las listas y vac�a
-	 * la tabla de par�metros.
+	 * la tabla de parámetros.
 	 */
 	protected void deselect(){
 		l_Selected.deselectAll();
@@ -656,11 +656,11 @@ public class RepositoryElementComposite {
 	}
 	
 	/**
-	 * Puebla la lista de elementos que forman ya parte de una refactorizaci�n
+	 * Puebla la lista de elementos que forman ya parte de una refactorización
 	 * que se haya cargado para ser editada.
 	 * 
-	 * @param elements elementos que forman ya parte de la refactorizaci�n.
-	 * @param refactoring refactorizaci�n cuyos elementos se cargan.
+	 * @param elements elementos que forman ya parte de la refactorización.
+	 * @param refactoring refactorización cuyos elementos se cargan.
 	 * @param typePart tipo de elementos que se cargar�n (uno de 
 	 * {@link RefactoringConstants#PRECONDITION}, 
 	 * {@link RefactoringConstants#ACTION} o 
@@ -669,7 +669,7 @@ public class RepositoryElementComposite {
 	protected void fillSelectedListAsRefactoringMechanism(java.util.List<RefactoringMechanismInstance> elements,
 			DynamicRefactoringDefinition refactoring,
 			RefactoringMechanismType typePart) {
-		// Para cada elemento de la refactorizaci�n (predicado o acci�n).
+		// Para cada elemento de la refactorización (predicado o acción).
 		for (String next : RefactoringMechanismInstance.getMechanismListClassNames(elements)){
 			String element = next;
 			if(selectedTimes.containsKey(next)){
@@ -686,11 +686,11 @@ public class RepositoryElementComposite {
 			// Se crea un nuevo elemento para representarlo.
 			RepositoryItem elemento = new RepositoryItem(next, typePart);
 			
-			// Se obtiene su lista de par�metros.
+			// Se obtiene su lista de parámetros.
 			RefactoringMechanismInstance mechanism = refactoring.getMechanismsWithName(next, typePart).iterator().next();
-			// Para cada par�metro.
+			// Para cada parámetro.
 			for (String nextParam : mechanism.getInputParameters()){
-				// Se busca la entrada de la refactorizaci�n con ese nombre.
+				// Se busca la entrada de la refactorización con ese nombre.
 				InputParameter[] previousInputs = inputsPage.getInputTable(); 
 				for (int i = 0; i < previousInputs.length; i++)
 					if (previousInputs[i].getName().equals(nextParam)){
@@ -704,10 +704,10 @@ public class RepositoryElementComposite {
 	}
 	
 	/**
-	 * Puebla la tabla de par�metros ambiguos con los datos de los par�metros ya
+	 * Puebla la tabla de parámetros ambiguos con los datos de los parámetros ya
 	 * asociados al elementos concreto del repositorio que se indica.
 	 * 
-	 * @param selected el elemento del repositorio cuyos par�metros se deben
+	 * @param selected el elemento del repositorio cuyos parámetros se deben
 	 * ver reflejados en la tabla.
 	 * @param type tipo de los elementos que van a ir en el combo.
 	 */
@@ -722,7 +722,7 @@ public class RepositoryElementComposite {
 				//indica si el parametero ya ha sido estblecido
 				int establecido = 0;
 				
-				//en caso de estar establecido pone el nombre del par�metro como texto del comboBox
+				//en caso de estar establecido pone el nombre del parámetro como texto del comboBox
 				for(InputParameter p: selected.getParameters()){
 					try{
 						if((Class.forName(type)).isAssignableFrom( Class.forName(p.getType()))){
@@ -748,7 +748,7 @@ public class RepositoryElementComposite {
 				
 				for(InputParameter nextInput : inputsPage.getInputs()){
 					try{
-						//a�adimos al combo las que coinciden con el tipo introducido como par�metro
+						//a�adimos al combo las que coinciden con el tipo introducido como parámetro
 						if((Class.forName(type)).isAssignableFrom( Class.forName(nextInput.getType())))
 							combo.add(nextInput.getName() + " (" + nextInput.getType() + ")"); //$NON-NLS-1$ //$NON-NLS-2$	
 					}catch(ClassNotFoundException exception){
@@ -769,7 +769,7 @@ public class RepositoryElementComposite {
 	}
 	
 	/**
-	 * Vac�a la tabla de par�metros ambiguos.
+	 * Vac�a la tabla de parámetros ambiguos.
 	 */
 	private void emptyTable() {
 		TableItem items[] = tb_parameters.getItems();
@@ -837,7 +837,7 @@ public class RepositoryElementComposite {
 	}
 	
 	/**
-	 * Elimina de la lista de elementos concretos ya a�adidos a la refactorizaci�n
+	 * Elimina de la lista de elementos concretos ya a�adidos a la refactorización
 	 * aqu�llos que se encuentren seleccionados.
 	 */
 	private void removeElements(){
@@ -857,17 +857,17 @@ public class RepositoryElementComposite {
 	
 	/**
 	 * Obtiene una tabla asociativa con los elementos del repositorio 
-	 * seleccionados en esta pesta�a para formar parte de la refactorizaci�n,
-	 * as� como con su lista de par�metros.
+	 * seleccionados en esta pesta�a para formar parte de la refactorización,
+	 * as� como con su lista de parámetros.
 	 * 
 	 * <p>En la tabla devuelta, la clave la constituye el nombre simple del 
-	 * predicado o acci�n, y el valor es un <code>ArrayList</code> que contiene
+	 * predicado o acción, y el valor es un <code>ArrayList</code> que contiene
 	 * las entradas asignadas al elemento del repositorio. El formato de cada
 	 * entrada es el de un <i>array</i> de cadenas, donde cada cadena es un
-	 * atributo del par�metro de entrada.</p>
+	 * atributo del parámetro de entrada.</p>
 	 * 
 	 * @return una tabla con los elementos del repositorio seleccionados y su
-	 * lista de par�metros.
+	 * lista de parámetros.
 	 * 
 	 */
 	public Map<String, RepositoryItem> getParameters() {
@@ -876,10 +876,10 @@ public class RepositoryElementComposite {
 	
 	/**
 	 * Obtiene la lista de elementos del repositorio seleccionados en esta pesta�a
-	 * como componentes de la refactorizaci�n.
+	 * como componentes de la refactorización.
 	 * 
 	 * @return la lista de elementos del repositorio seleccionados en esta pesta�a
-	 * como componentes de la refactorizaci�n.
+	 * como componentes de la refactorización.
 	 */
 	public ArrayList<String> getElements(){
 		ArrayList<String> elements = new ArrayList<String>(l_Selected.getItemCount());
@@ -893,7 +893,7 @@ public class RepositoryElementComposite {
 	 * Comprueba si todos los campos necesarios se han completado y si se puede 
 	 * continuar con el siguiente paso del asistente.
 	 * 
-	 * <p>Para que se pueda continuar no deber� quedar ning�n elemento del 
+	 * <p>Para que se pueda continuar no deber� quedar ningún elemento del 
 	 * repositorio con atributos pendientes de completar.</p>
 	 */
 	private void checkForCompletion() {
@@ -921,8 +921,8 @@ public class RepositoryElementComposite {
 	 * 
 	 * @param element el elemento del repositorio.
 	 * 
-	 * @return <code>true</code> si la tabla de par�metros contiene ya tantos
-	 * elementos como par�metros necesita el constructor del elemento dado;
+	 * @return <code>true</code> si la tabla de parámetros contiene ya tantos
+	 * elementos como parámetros necesita el constructor del elemento dado;
 	 * <code>false</code> en caso contrario.
 	 */
 	private boolean isElementComplete(RepositoryItem element){
@@ -931,11 +931,11 @@ public class RepositoryElementComposite {
 		
 		if (parameters != null){
 			
-			// Si al elemento todav�a le faltan par�metros para completar la
+			// Si al elemento todav�a le faltan parámetros para completar la
 			// lista de argumentos formales del constructor.
 			if (element.getParameters().size() < parameters.length)
 				return false;
-			// Si alguno de los par�metros todav�a no ha sido configurado.
+			// Si alguno de los parámetros todav�a no ha sido configurado.
 			for (InputParameter next : element.getParameters())
 				if (next.getName() == null || next.getName().length() == 0)
 					return false;
@@ -947,12 +947,12 @@ public class RepositoryElementComposite {
 	}
 	
 	/**
-	 * Obtiene la lista de par�metros del constructor de un elemento del
+	 * Obtiene la lista de parámetros del constructor de un elemento del
 	 * repositorio.
 	 * 
-	 * @param element el elemento los par�metros de cuyo constructor se obtienen.
+	 * @param element el elemento los parámetros de cuyo constructor se obtienen.
 	 * 
-	 * @return la lista de par�metros del constructor.
+	 * @return la lista de parámetros del constructor.
 	 */
 	private Class<?>[] getConstructorParameters(RepositoryItem element){	
 				
@@ -979,10 +979,10 @@ public class RepositoryElementComposite {
 	}
 	
 	/** 
-	 * Representa en elemento concreto del repositorio (un predicado o una acci�n).
+	 * Representa en elemento concreto del repositorio (un predicado o una acción).
 	 *
-	 * @author <A HREF="mailto:alc0022@alu.ubu.es">�ngel L�pez Campo</A>
-	 * @author <A HREF="mailto:epf0006@alu.ubu.es">Eduardo Pe�a Fern�ndez</A>
+	 * @author <A HREF="mailto:alc0022@alu.ubu.es">Ángel López Campo</A>
+	 * @author <A HREF="mailto:epf0006@alu.ubu.es">Eduardo Peña Fernández</A>
 	 * @author <A HREF="mailto:sfd0009@alu.ubu.es">Sonia Fuente de la Fuente</A>
 	 * @author <A HREF="mailto:ehp0001@alu.ubu.es">Enrique Herrero Paredes</A>
 	 */
@@ -994,7 +994,7 @@ public class RepositoryElementComposite {
 		private String name;
 		
 		/**
-		 * Par�metros ambiguos del elemento del repositorio.
+		 * Parámetros ambiguos del elemento del repositorio.
 		 */
 		private ArrayList<InputParameter> parameters;
 		
@@ -1033,19 +1033,19 @@ public class RepositoryElementComposite {
 
 		
 		/**
-		 * A�ade un par�metro ambiguo al elemento del repositorio.
+		 * A�ade un parámetro ambiguo al elemento del repositorio.
 		 * 
 		 * @see #setParameters
-		 * @param parameter el par�metro ambiguo que se debe a�adir.
+		 * @param parameter el parámetro ambiguo que se debe a�adir.
 		 */
 		public void addParameter(InputParameter parameter) {
 			parameters.add(parameter);
 		}		
 		
 		/**
-		 * Obtiene los par�metros ambiguos del elemento del repositorio.
+		 * Obtiene los parámetros ambiguos del elemento del repositorio.
 		 * 
-		 * @return un <code>ArrayList</code> con la lista de par�metros ambiguos.
+		 * @return un <code>ArrayList</code> con la lista de parámetros ambiguos.
 		 * @see #setParameters
 		 */
 		public java.util.List<InputParameter> getParameters() {
@@ -1053,9 +1053,9 @@ public class RepositoryElementComposite {
 		}
 		
 		/**
-		 * Obtiene los par�metros ambiguos del elemento del repositorio.
+		 * Obtiene los parámetros ambiguos del elemento del repositorio.
 		 * 
-		 * @return un <code>ArrayList</code> con la lista de par�metros ambiguos.
+		 * @return un <code>ArrayList</code> con la lista de parámetros ambiguos.
 		 * @see #setParameters
 		 */
 		public java.util.List<String> getParametersNames() {
@@ -1071,7 +1071,7 @@ public class RepositoryElementComposite {
 	
 	/**
 	 * Permite observar el desplegable que permite asignar un valor de entrada
-	 * a uno de los par�metros de la tabla.
+	 * a uno de los parámetros de la tabla.
 	 * 
 	 * @author <A HREF="mailto:lfd0002@alu.ubu.es">Laura Fuente de la Fuente</A>
 	 * @author <A HREF="mailto:sfd0009@alu.ubu.es">Sonia Fuente de la Fuente</A>
@@ -1085,7 +1085,7 @@ public class RepositoryElementComposite {
 		private CCombo combo;
 		
 		/**
-		 * Fila de la tabla de par�metros en la que se encuentra el combo.
+		 * Fila de la tabla de parámetros en la que se encuentra el combo.
 		 */
 		private int position;
 		
@@ -1093,7 +1093,7 @@ public class RepositoryElementComposite {
 		 * Constructor.
 		 * 
 		 * @param combo desplegable cuyas modificaciones se registran.
-		 * @param position fila de la tabla de par�metros en la que se encuentra 
+		 * @param position fila de la tabla de parámetros en la que se encuentra 
 		 * el desplegable observado.
 		 */		
 		public ParameterListener(CCombo combo, int position){
@@ -1130,7 +1130,7 @@ public class RepositoryElementComposite {
 					InputParameter parameter = 
 						element.getParameters().get(position);
 					if (parameter != null){
-						// Se recupera la entrada original por su posici�n en el
+						// Se recupera la entrada original por su posición en el
 						// desplegable.
 						InputParameter input = new InputParameter.Builder("").build();
 						for(InputParameter inp : inputsPage.getInputTable()){
@@ -1153,9 +1153,9 @@ public class RepositoryElementComposite {
 	/**
 	 * Actualiza la pesta�a del asistente en funci�n del elemento del 
 	 * repositorio que se encuentre seleccionado sobre la lista de elementos
-	 * a�adidos como parte de la refactorizaci�n.
+	 * a�adidos como parte de la refactorización.
 	 * 
-	 * <p>Actualiza la tabla con los par�metros asignados hasta el momento al
+	 * <p>Actualiza la tabla con los parámetros asignados hasta el momento al
 	 * elemento seleccionado, as� como los botones que sea necesario activar o
 	 * desactivar en funci�n del estado de la selecci�n.
 	 * 
@@ -1166,8 +1166,8 @@ public class RepositoryElementComposite {
 	private class ElementSelectionListener implements SelectionListener {
 
 		/**
-		 * Recibe una notificaci�n de que un componente de la lista de elementos
-		 * del repositorio que forman parte de la refactorizaci�n ha sido 
+		 * Recibe una notificación de que un componente de la lista de elementos
+		 * del repositorio que forman parte de la refactorización ha sido 
 		 * seleccionado.
 		 * 
 		 * @param e el evento de selecci�n disparado en la ventana.
@@ -1189,7 +1189,7 @@ public class RepositoryElementComposite {
 
 				if (element != null){
 					if(element.getParameters().isEmpty()){
-						//inicializamos los par�metros del elemento
+						//inicializamos los parámetros del elemento
 						InputParameter input = new InputParameter.Builder("").build();
 						
 						for(int i=0; i<getConstructorParameters(element).length; i++) {
@@ -1208,7 +1208,7 @@ public class RepositoryElementComposite {
 					}
 				}
 			}
-			// Si no hay ning�n elemento seleccionado o hay m�s de uno.
+			// Si no hay ningún elemento seleccionado o hay m�s de uno.
 			else {
 				tb_parameters.setEnabled(false);
 			}
@@ -1234,11 +1234,11 @@ public class RepositoryElementComposite {
 	private class RepositorySelectionListener implements SelectionListener {
 
 		/**
-		 * Recibe una notificaci�n de que un miembro de la lista de elementos
+		 * Recibe una notificación de que un miembro de la lista de elementos
 		 * concretos del repositorio disponibles ha sido seleccionado.
 		 * 
 		 * <p>Activa el bot�n que permite a�adir el o los elementos seleccionados
-		 * a la lista de componentes de la refactorizaci�n.</p>
+		 * a la lista de componentes de la refactorización.</p>
 		 * 
 		 * @param e el evento de selecci�n disparado en la ventana.
 		 * 

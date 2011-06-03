@@ -161,20 +161,20 @@ public class JavaFileManager {
 
 	/**
 	 * Obtiene el fichero fuente Java que representa la mejor coincidencia para un
-	 * cierto nombre �nico de clase.
+	 * cierto nombre único de clase.
 	 * 
 	 * Busca entre todos los ficheros Java del proyecto aqu�l cuyo nombre 
-	 * completamente cualificado sea la mejor coincidencia para el nombre �nico de
+	 * completamente cualificado sea la mejor coincidencia para el nombre único de
 	 * clase determinado por #MOONUniqueName en el formato utilizado en MOON.
 	 * 
-	 * @param MOONUniqueName el nombre �nico de la clase cuyo fichero fuente se 
+	 * @param MOONUniqueName el nombre único de la clase cuyo fichero fuente se 
 	 * busca. Debe estar en el formato utilizado por el modelo MOON, donde el 
-	 * car�cter <code>'.'</code> se utiliza como separador entre los nombres de los 
+	 * carácter <code>'.'</code> se utiliza como separador entre los nombres de los 
 	 * paquetes y el de la clase. No debe incluir la extensi�n <code>'.java'</code>.
 	 * @param project el proyecto en el que se buscar� el fichero fuente de la clase.
 	 * 
 	 * @return el fichero fuente Java que represente la mejor coincidencia para un
-	 * cierto nombre �nico de clase. <code>null</code> si no se encuentra ninguna 
+	 * cierto nombre único de clase. <code>null</code> si no se encuentra ninguna 
 	 * coincidencia.
 	 */
 	public static IFile retrieveSourceFile(String MOONUniqueName, IProject project) {
@@ -182,7 +182,7 @@ public class JavaFileManager {
 		ArrayList<IFile> javaFiles = getJavaProjectFiles(project);
 		
 		// Las clases sin paquete en MOON se asignan al paquete por
-		// defecto "<anonymous>". Se elimina esta asignaci�n.
+		// defecto "<anonymous>". Se elimina esta asignación.
 		if (MOONUniqueName.startsWith("<anonymous>")) //$NON-NLS-1$
 			MOONUniqueName = MOONUniqueName.substring(
 				MOONUniqueName.indexOf("<anonymous>") + 12);  //$NON-NLS-1$

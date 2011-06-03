@@ -28,11 +28,11 @@ import repository.RelayListenerRegistry;
 /**
  * Permite eliminar un atributo de una clase de un modelo MOON.<p>
  *
- * Antes de eliminar el atributo se deber�a comprobar que no est� siendo 
- * utilizado por ninguna clase. De otra manera, el modelo podr�a quedar en un
+ * Antes de eliminar el atributo se debería comprobar que no está siendo 
+ * utilizado por ninguna clase. De otra manera, el modelo podría quedar en un
  * estado inconsistente.
  *
- * @author <A HREF="mailto:alc0022@alu.ubu.es">�ngel L�pez Campo</A>
+ * @author <A HREF="mailto:alc0022@alu.ubu.es">Ángel López Campo</A>
  * @author <A HREF="mailto:ehp0001@alu.ubu.es">Enrique Herrero Paredes</A>
  * @author <A HREF="mailto:sfd0009@alu.ubu.es">Sonia Fuente de la Fuente</A>
  */ 
@@ -44,19 +44,19 @@ public class RemoveAttribute extends Action {
 	private AttDec att;
 	
 	/**
-	 * Clase de la que se eliminar� el atributo.
+	 * Clase de la que se eliminará el atributo.
 	 */
 	private ClassDef classDef;
 	
 	/**
-	 * Receptor de los mensajes enviados por la acci�n concreta.
+	 * Receptor de los mensajes enviados por la acción concreta.
 	 */
 	private RelayListenerRegistry listenerReg;
 			
 	/**
 	 * Constructor.<p>
 	 *
-	 * Obtiene una nueva instancia de la acci�n RemoveAttribute.
+	 * Obtiene una nueva instancia de la acción RemoveAttribute.
 	 *
 	 * @param att el atributo que se va a eliminar de una clase.
 	 */
@@ -70,7 +70,7 @@ public class RemoveAttribute extends Action {
 	}
 	
 	/**
-	 * Ejecuta la eliminaci�n del atributo de la clase.
+	 * Ejecuta la eliminación del atributo de la clase.
 	 */
 	public void run(){		
 		listenerReg.notify("# run():RemoveAttribute #"); //$NON-NLS-1$
@@ -83,7 +83,7 @@ public class RemoveAttribute extends Action {
 	}	
 	
 	/**
-	 * Restaura el atributo a la clase de la que se elimin�.
+	 * Restaura el atributo a la clase de la que se eliminó.
 	 */
 	public void undo(){		
 		listenerReg.notify("# undo():RemoveAttribute #"); //$NON-NLS-1$

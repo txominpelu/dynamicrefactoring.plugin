@@ -28,7 +28,7 @@ import moon.core.classdef.ClassDef;
 import refactoring.engine.Predicate;
 
 /**
- * Permite verificar que existe un atributo con un cierto nombre �nico (es decir,
+ * Permite verificar que existe un atributo con un cierto nombre único (es decir,
  * con una cierta signatura) en un clase determinada.
  *
  * @author <A HREF="mailto:lfd0002@alu.ubu.es">Laura Fuente de la Fuente</A>
@@ -36,12 +36,12 @@ import refactoring.engine.Predicate;
 public class ExistsAttributeWithNameInClass extends Predicate {
 		
 	/**
-	 * Nombre �nico del atributo cuya presencia en una clase se quiere comprobar.
+	 * Nombre único del atributo cuya presencia en una clase se quiere comprobar.
 	 */
 	private Name attName;
 	
 	/**
-	 * Clase en la que se busca un m�todo con cierto nombre.
+	 * Clase en la que se busca un método con cierto nombre.
 	 */
 	private ClassDef classDef;
 		
@@ -50,7 +50,7 @@ public class ExistsAttributeWithNameInClass extends Predicate {
 	 *
 	 * Obtiene una nueva instancia del predicado ExistsAttributeWithNameInClass.
 	 * @param classDef la clase en la que se busca el atributo.
-	 * @param attName el nombre �nico del atributo que se desea buscar.
+	 * @param attName el nombre único del atributo que se desea buscar.
 	 */
 	public ExistsAttributeWithNameInClass(ClassDef classDef, Name attName) {
 		
@@ -66,7 +66,7 @@ public class ExistsAttributeWithNameInClass extends Predicate {
 	/**
 	 * Comprueba el valor de verdad del predicado.
 	 * 
-	 * @return <code>true</code> si existe el m�todo en la clase especificada, 
+	 * @return <code>true</code> si existe el método en la clase especificada, 
 	 * <code>false</code> en caso contrario.
 	 */	 
 	public boolean isValid() {

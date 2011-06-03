@@ -24,18 +24,18 @@ import moon.core.classdef.ClassDef;
 import refactoring.engine.Predicate;
 
 /**
- * Permite verificar que no existe ning�n m�todo con un cierto nombre en ninguna
+ * Permite verificar que no existe ningún método con un cierto nombre en ninguna
  * superclase ni subclase de una clase dada, y a su vez, recursivamente, en 
- * ninguna superclase ni subclase de �stas.
+ * ninguna superclase ni subclase de éstas.
  *
- * @author <A HREF="mailto:alc0022@alu.ubu.es">�ngel L�pez Campo</A>
+ * @author <A HREF="mailto:alc0022@alu.ubu.es">Ángel López Campo</A>
  * @author <A HREF="mailto:ehp0001@alu.ubu.es">Enrique Herrero Paredes</A>
  * @author <A HREF="mailto:sfd0009@alu.ubu.es">Sonia Fuente de la Fuente</A>
  */ 
 public class MethodIsNotInSubNorSuperclass extends Predicate {
 	
 	/**
-	 * Condici�n opuesta a la que se comprueba.
+	 * Condición opuesta a la que se comprueba.
 	 */
 	private Predicate oppositePredicate;
 	
@@ -43,8 +43,8 @@ public class MethodIsNotInSubNorSuperclass extends Predicate {
 	 * Constructor.<p>
 	 *
 	 * Obtiene una nueva instancia de MethodIsNotInSubNorSuperclass.
-	 * @param classDef la clase a partir de la cual se busca el m�todo.
-	 * @param methodUniqueName el nombre �nico del m�todo que se desea buscar.
+	 * @param classDef la clase a partir de la cual se busca el método.
+	 * @param methodUniqueName el nombre único del método que se desea buscar.
 	 */
 	public MethodIsNotInSubNorSuperclass(ClassDef classDef, String methodUniqueName){
 			
@@ -59,9 +59,9 @@ public class MethodIsNotInSubNorSuperclass extends Predicate {
 	/**
 	 * Comprueba el valor de verdad del predicado.
 	 * 
-	 * @return <code>true</code> si no existe el m�todo con ese nombre en 
-	 * ninguna clase de la jerarqu�a de herencia que se fuera a ver afectada por 
-	 * un cambio de signatura en el m�todo de la clase modificada; <code>false
+	 * @return <code>true</code> si no existe el método con ese nombre en 
+	 * ninguna clase de la jerarquía de herencia que se fuera a ver afectada por 
+	 * un cambio de signatura en el método de la clase modificada; <code>false
 	 * </code> en caso contrario.
 	 */	 
 	public boolean isValid() {

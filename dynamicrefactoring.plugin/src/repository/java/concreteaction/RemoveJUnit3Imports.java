@@ -31,7 +31,7 @@ import refactoring.engine.Action;
 /**
  * Removes the JUnit3 imports.
  * 
- * @author Ra�l Marticorena
+ * @author Raúl Marticorena
  *
  */
 public class RemoveJUnit3Imports extends Action{

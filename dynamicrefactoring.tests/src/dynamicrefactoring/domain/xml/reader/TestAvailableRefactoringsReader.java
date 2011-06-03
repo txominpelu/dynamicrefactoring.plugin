@@ -38,8 +38,8 @@ import dynamicrefactoring.domain.Scope;
 public final class TestAvailableRefactoringsReader {
 
 	/**
-	 * Comprueba que la lectura no se realiza cuando la definici�n no contiene
-	 * toda la informaci�n m�nima necesaria (no cumple las reglas del DTD).
+	 * Comprueba que la lectura no se realiza cuando la definición no contiene
+	 * toda la información m�nima necesaria (no cumple las reglas del DTD).
 	 * 
 	 * Para ello se realiza una lectura del documento para un �mbito
 	 * determinado.
@@ -55,7 +55,7 @@ public final class TestAvailableRefactoringsReader {
 	}
 
 	/**
-	 * Comprueba que la lectura no se realiza cuando la definici�n utiliza otra
+	 * Comprueba que la lectura no se realiza cuando la definición utiliza otra
 	 * estructura que la que se define en el DTD.
 	 * 
 	 * Para ello se realiza una lectura del documento para un �mbito
@@ -73,15 +73,15 @@ public final class TestAvailableRefactoringsReader {
 
 	/**
 	 * Comprueba que la lectura se realiza correctamente cuando el fichero xml
-	 * contiene la informaci�n m�nima necesaria.Es decir que el fichero no tiene
-	 * ninguna refactorizaci�n de ning�n �mbito.
+	 * contiene la información m�nima necesaria.Es decir que el fichero no tiene
+	 * ninguna refactorización de ningún �mbito.
 	 * 
 	 * @throws Exception
 	 *             si se produce un error durante la lectura.
 	 */
 	@Test
 	public void testReadingWithMinimumInformation() throws Exception {
-		// Comprueba que no hay ninguna refactorizaci�n en ning�n �mbito
+		// Comprueba que no hay ninguna refactorización en ningún �mbito
 
 		Map<String, String> refactorings = JDOMXMLRefactoringReaderImp
 				.readAvailableRefactorings(Scope.CLASS,
@@ -116,7 +116,7 @@ public final class TestAvailableRefactoringsReader {
 
 	/**
 	 * Comprueba que la lectura se realiza correctamente cuando el plan contiene
-	 * la informaci�n completa. Hay refactorizaciones para cada uno de los
+	 * la información completa. Hay refactorizaciones para cada uno de los
 	 * �mbitos.
 	 * 
 	 * @throws Exception
@@ -124,7 +124,7 @@ public final class TestAvailableRefactoringsReader {
 	 */
 	@Test
 	public void testReadingWithCompleteInformation() throws Exception {
-		// Comprueba que no hay ninguna refactorizaci�n en ning�n �mbito
+		// Comprueba que no hay ninguna refactorización en ningún �mbito
 
 		Map<String, String> refactorings = JDOMXMLRefactoringReaderImp
 				.readAvailableRefactorings(Scope.CLASS,

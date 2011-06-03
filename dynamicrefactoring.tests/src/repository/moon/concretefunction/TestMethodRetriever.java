@@ -34,7 +34,7 @@ import repository.RefactoringTemplateAbstractTest;
 
 /** 
  * Comprueba que funciona correctamente la funci�n que permite recuperar
- * un m�todo de una clase en base a su nombre �nico.
+ * un método de una clase en base a su nombre único.
  * 
  * @author <A HREF="mailto:sfd0009@alu.ubu.es">Sonia Fuente de la Fuente</A>
  * @author <A HREF="mailto:ehp0001@alu.ubu.es">Enrique Herrero Paredes</A>
@@ -42,9 +42,9 @@ import repository.RefactoringTemplateAbstractTest;
 public class TestMethodRetriever extends RefactoringTemplateAbstractTest {
 
 	/**
-	 * Comprueba que la funci�n obtiene correctamente un m�todo sin argumentos.<p>
+	 * Comprueba que la funci�n obtiene correctamente un método sin argumentos.<p>
 	 * 
-	 * En una clase con dos m�todos, intenta obtener el m�todo sin argumentos ni
+	 * En una clase con dos métodos, intenta obtener el método sin argumentos ni
 	 * tipo de retorno.
 	 * 
 	 * @throws Exception si se produce un error durante la ejecuci�n de la prueba.
@@ -66,17 +66,17 @@ public class TestMethodRetriever extends RefactoringTemplateAbstractTest {
 		MethDec recovered = (MethDec)function.getValue();
 		
 		// Comienzan las comprobaciones
-		assertNotNull("Recuperar m�todo por nombre �nico: no se ha obtenido el " + //$NON-NLS-1$
-			"m�todo simple sin argumentos.", recovered); //$NON-NLS-1$
-		assertEquals("Recuperar m�todo por nombre �nico: el m�todo obtenido no " + //$NON-NLS-1$
-			"es el m�todo esperado.", method, recovered); //$NON-NLS-1$
+		assertNotNull("Recuperar método por nombre único: no se ha obtenido el " + //$NON-NLS-1$
+			"método simple sin argumentos.", recovered); //$NON-NLS-1$
+		assertEquals("Recuperar método por nombre único: el método obtenido no " + //$NON-NLS-1$
+			"es el método esperado.", method, recovered); //$NON-NLS-1$
 	}
 
 	/**
-	 * Comprueba que la funci�n obtiene correctamente un m�todo con argumentos
+	 * Comprueba que la funci�n obtiene correctamente un método con argumentos
 	 * y tipo de retorno.<p>
 	 * 
-	 * En una clase con dos m�todos, intenta obtener el m�todo con argumentos y
+	 * En una clase con dos métodos, intenta obtener el método con argumentos y
 	 * tipo de retorno.
 	 * 
 	 * @throws Exception si se produce un error durante la ejecuci�n de la prueba.
@@ -98,9 +98,9 @@ public class TestMethodRetriever extends RefactoringTemplateAbstractTest {
 		MethDec recovered = (MethDec)function.getValue();
 		
 		// Comienzan las comprobaciones
-		assertNotNull("Recuperar m�todo por nombre �nico: no se ha obtenido el " + //$NON-NLS-1$
-			"m�todo con argumentos.", recovered); //$NON-NLS-1$
-		assertEquals("Recuperar m�todo por nombre �nico: el m�todo obtenido no " + //$NON-NLS-1$
-			"es el m�todo esperado.", method, recovered); //$NON-NLS-1$
+		assertNotNull("Recuperar método por nombre único: no se ha obtenido el " + //$NON-NLS-1$
+			"método con argumentos.", recovered); //$NON-NLS-1$
+		assertEquals("Recuperar método por nombre único: el método obtenido no " + //$NON-NLS-1$
+			"es el método esperado.", method, recovered); //$NON-NLS-1$
 	}
 }

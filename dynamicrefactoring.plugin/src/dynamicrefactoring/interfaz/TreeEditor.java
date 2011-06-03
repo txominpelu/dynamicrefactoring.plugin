@@ -29,7 +29,7 @@ import org.eclipse.swt.widgets.TreeItem;
 import dynamicrefactoring.RefactoringImages;
 
 /**
- * Proporciona m�todos de edici�n de elementos gr�ficos de tipo �rbol
+ * Proporciona métodos de edición de elementos gr�ficos de tipo �rbol
  * desplegable.
  * 
  * @author <A HREF="mailto:sfd0009@alu.ubu.es">Sonia Fuente de la Fuente</A>
@@ -64,7 +64,7 @@ public class TreeEditor {
 	 * @param parent
 	 *            �rbol al que se le a�adir� una rama.
 	 * @param position
-	 *            posici�n de la rama en el �rbol (empezando en 0).
+	 *            posición de la rama en el �rbol (empezando en 0).
 	 * @param text
 	 *            texto asociado a la nueva rama.
 	 * @param icon
@@ -84,7 +84,7 @@ public class TreeEditor {
 	 * @param parent
 	 *            rama padre a la que se a�adir� una rama.
 	 * @param position
-	 *            posici�n de la rama en el �rbol (empezando en 0).
+	 *            posición de la rama en el �rbol (empezando en 0).
 	 * @param text
 	 *            texto asociado a la nueva rama.
 	 * @param icon

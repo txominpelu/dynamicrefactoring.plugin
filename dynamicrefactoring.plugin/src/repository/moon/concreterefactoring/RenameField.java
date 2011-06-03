@@ -35,7 +35,7 @@ import repository.moon.concretepredicate.NotExistsAttributeWithNameInClass;
  *
  * Comprueba que no exista ya otro atributo en la misma clase con el nuevo nombre. 
  *
- * Si la comprobaci�n no falla, lleva a cabo el renombrado.<p>
+ * Si la comprobación no falla, lleva a cabo el renombrado.<p>
  *
  * Finalmente, comprueba que el renombrado se ha llevado a cabo con �xito.
 
@@ -44,7 +44,7 @@ import repository.moon.concretepredicate.NotExistsAttributeWithNameInClass;
 public class RenameField extends MOONRefactoring {
 	
 	/**
-	 * Nombre de la refactorizaci�n concreta.
+	 * Nombre de la refactorización concreta.
 	 */
 	private static final String NAME = "RenameField"; //$NON-NLS-1$
 	

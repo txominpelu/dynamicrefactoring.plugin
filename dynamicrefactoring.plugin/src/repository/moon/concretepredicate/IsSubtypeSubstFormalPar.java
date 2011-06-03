@@ -30,23 +30,23 @@ import repository.moon.concretefunction.FormalParSubstitutionCollector;
 import repository.moon.concretefunction.SupertypeCollector;
 
 /**
- * Comprueba si todas las sustituciones de un par�metro formal en un modelo
+ * Comprueba si todas las sustituciones de un parámetro formal en un modelo
  * son descendientes de un tipo determinado.
  *
- * @author <A HREF="mailto:sam0006@alu.ubu.es">Sara Alcal� Mart�n</A>
- * @author <A HREF="mailto:dbm0005@alu.ubu.es">Diego Ba�uelos Molledo</A>
+ * @author <A HREF="mailto:sam0006@alu.ubu.es">Sara Alcalá Martín</A>
+ * @author <A HREF="mailto:dbm0005@alu.ubu.es">Diego Bañuelos Molledo</A>
  * @author <A HREF="mailto:sfd0009@alu.ubu.es">Sonia Fuente de la Fuente</A>
  * @author <A HREF="mailto:ehp0001@alu.ubu.es">Enrique Herrero Paredes</A>
  */
 public class IsSubtypeSubstFormalPar extends Predicate {
    
 	/**
-	 * Par�metro formal cuyas sustituciones en el modelo se deben estudiar.
+	 * Parámetro formal cuyas sustituciones en el modelo se deben estudiar.
 	 */
     private FormalPar formalPar;
     
 	/**
-	 * Supertipo que deben tener en com�n todas las sustituciones del par�metro.
+	 * Supertipo que deben tener en común todas las sustituciones del parámetro.
 	 */
     private ClassType classType;
     
@@ -56,9 +56,9 @@ public class IsSubtypeSubstFormalPar extends Predicate {
 	 * Devuelve una nueva instancia del predicado <code>IsSubtypeSubstFormalPar
 	 * </code>.
 	 * 
-	 * @param formalPar par�metro formal cuyas sustituciones se deben estudiar.
-	 * @param classType supertipo que deben tener en com�n todas las sustituciones
-	 * del par�metro.
+	 * @param formalPar parámetro formal cuyas sustituciones se deben estudiar.
+	 * @param classType supertipo que deben tener en común todas las sustituciones
+	 * del parámetro.
 	 */
     public IsSubtypeSubstFormalPar(FormalPar formalPar, ClassType classType) {
     	
@@ -88,7 +88,7 @@ public class IsSubtypeSubstFormalPar extends Predicate {
         Collection<ClassType> substitutions = collector.getCollection();
         Iterator<ClassType> substitutionsIt = substitutions.iterator();
 
-        // Para cada sustituci�n.
+        // Para cada sustitución.
         while (substitutionsIt.hasNext()) {
         	
             ClassType ct = (ClassType) substitutionsIt.next();
@@ -98,7 +98,7 @@ public class IsSubtypeSubstFormalPar extends Predicate {
             Collection<ClassType> supertypes = superTypeCollector.getCollection();
             Iterator<ClassType> superTypesIt = supertypes.iterator();
             
-            // El supertipo com�n buscado deber�a estar en la lista.
+            // El supertipo común buscado debería estar en la lista.
             boolean found = false;
             while (superTypesIt.hasNext()) {
                 ClassType nextSuperType = (ClassType) superTypesIt.next();
@@ -108,7 +108,7 @@ public class IsSubtypeSubstFormalPar extends Predicate {
                 }
             }
             
-            // En cuanto se encuentre una sustituci�n que no cumple la condici�n
+            // En cuanto se encuentre una sustitución que no cumple la condición
             // se puede devolver falso.
             if (!found)
                 return false;

@@ -88,11 +88,11 @@ public class SubtypeCollector extends Function {
 	/**
 	 * Obtiene todos los subtipos del <code>ClassType</code> representado por
 	 * {@link #classType}, incluyendo aqu�llos que se puedan obtener 
-	 * recursivamente a trav�s de sus subtipos directos.
+	 * recursivamente a través de sus subtipos directos.
 	 * 
 	 * @return los subtipos del <code>ClassType</code> representado por
 	 * {@link #classType}, incluyendo aqu�llos que se puedan obtener
-	 * recursivamente a trav�s de sus subtipos directos.
+	 * recursivamente a través de sus subtipos directos.
 	 */	
 	@Override
 	public Collection<ClassType> getCollection() {

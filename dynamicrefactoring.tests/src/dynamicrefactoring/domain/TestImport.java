@@ -39,7 +39,7 @@ import dynamicrefactoring.domain.xml.reader.XMLRefactoringReaderException;
 import dynamicrefactoring.util.io.FileManager;
 
 /**
- * Comprueba que funciona correctamente el proceso de importaci�n de
+ * Comprueba que funciona correctamente el proceso de importación de
  * refactorizaciones.
  * 
  * @author <A HREF="mailto:lfd0002@alu.ubu.es">Laura Fuente de la Fuente</A>
@@ -61,7 +61,7 @@ public class TestImport {
 			XMLRefactoringReaderException {
 		FileManager.createDir(TEMP_DIR);
 		FileManager.copyBundleDirToFileSystem("/DynamicRefactorings/Rename Class/", RefactoringPlugin.getCommonPluginFilesDir());
-		// Primero exportamos la refactorizaci�n Rename Class a un directorio
+		// Primero exportamos la refactorización Rename Class a un directorio
 		// temporal que luego eliminaremos
 		ExportImportUtilities.ExportRefactoring(TEMP_DIR,
 				getRenameClassXmlFile(), false);
@@ -87,7 +87,7 @@ public class TestImport {
 	}
 
 	/**
-	 * Comprueba que el proceso de importaci�n de la refactorizaci�n din�mica
+	 * Comprueba que el proceso de importación de la refactorización din�mica
 	 * Rename Class a partir de un directorio temporal "./temp" se ha realizado
 	 * correctamente.
 	 * 
@@ -100,8 +100,8 @@ public class TestImport {
 	public void testImportRefactoring() throws XMLRefactoringReaderException, IOException{
 		
 		// Eliminamos alguno de los ficheros .class requeridos por dicha
-		// refactorizaci�n para
-		// comprobar que tras la importaci�n esos ficheros se encuentran donde
+		// refactorización para
+		// comprobar que tras la importación esos ficheros se encuentran donde
 		// deben
 		final String renameClassFile = getMoonRefactoryDir() + "concreteaction"
 				+ File.separatorChar + "RenameClass.class";
@@ -112,10 +112,10 @@ public class TestImport {
 		FileManager.deleteFile(renameClassFile);
 		FileManager.deleteFile(notExistsClassWithNameClassFile);
 		
-		// Importamos la refactorizaci�n
+		// Importamos la refactorización
 		ExportImportUtilities.ImportRefactoring(FilenameUtils.separatorsToSystem(".\\temp\\Rename Class\\Rename Class.xml"),false);
 		
-		// Comprobamos que existe el fichero de definici�n de la refactorizaci�n
+		// Comprobamos que existe el fichero de definición de la refactorización
 		// y los .class que
 		// anteriormente hab�amos borrado
 		assertEquals(true, new File(getRenameClassXmlFile()).exists());
@@ -125,10 +125,10 @@ public class TestImport {
 	}
 
 	/**
-	 * Comprueba que el proceso de importaci�n de la refactorizaci�n din�mica
+	 * Comprueba que el proceso de importación de la refactorización din�mica
 	 * Rename Class a partir de un directorio temporal "./temp" devuelve la
 	 * cadena NotExistsClassWithName en el caso de borrar este mecanismo de la
-	 * carpeta donde esta exportada la refactorizaci�n y del repositorio.
+	 * carpeta donde esta exportada la refactorización y del repositorio.
 	 * 
 	 * @throws XMLRefactoringReaderException
 	 *             XMLRefactoringReaderException.
@@ -139,9 +139,9 @@ public class TestImport {
 	public void testImportErroneousRefactoring() throws XMLRefactoringReaderException, IOException{
 		
 		// Eliminamos alguno de los ficheros .class requeridos por dicha
-		// refactorizaci�n tanto
+		// refactorización tanto
 		// del repositorio como de la carpeta exportada para ver que la
-		// improtaci�n devuelve
+		// improtación devuelve
 		//el nombre de este fichero indicando que no existe.
 		final String notExistClassWithNameClassFile = FilenameUtils
 				.separatorsToSystem(getMoonRefactoryDir()
@@ -159,7 +159,7 @@ public class TestImport {
 		// comprobamos que el nombre devuelto es el del fichero que no
 		// encuentra.
 		try {
-			// Importamos la refactorizaci�n
+			// Importamos la refactorización
 			ExportImportUtilities
 					.ImportRefactoring(
 					FilenameUtils.separatorsToSystem(TEMP_DIR
@@ -169,7 +169,7 @@ public class TestImport {
 		} catch (FileNotFoundException e) {
 			// Comprobamos que no existe el fichero del mecanismo que hemos
 			// borrado de la carpeta
-			// de la refactorizaci�n y del repositorio.
+			// de la refactorización y del repositorio.
 			assertEquals(false,
 					new File(notExistClassWithNameClassFile).exists());
 		} finally {

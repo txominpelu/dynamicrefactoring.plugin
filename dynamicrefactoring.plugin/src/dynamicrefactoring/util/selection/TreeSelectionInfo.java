@@ -29,7 +29,7 @@ import org.eclipse.ui.IWorkbenchWindow;
 /**
  * Proporciona funciones capaces de determinar el tipo de elemento que se 
  * encuentra seleccionado en una ventana sobre un �rbol desplegable, as� como
- * otra informaci�n adicional relativa al mismo.
+ * otra información adicional relativa al mismo.
  * 
  * @author <A HREF="mailto:sfd0009@alu.ubu.es">Sonia Fuente de la Fuente</A>
  * @author <A HREF="mailto:ehp0001@alu.ubu.es">Enrique Herrero Paredes</A>
@@ -37,7 +37,7 @@ import org.eclipse.ui.IWorkbenchWindow;
 public class TreeSelectionInfo extends SelectionInfo {
 		
 	/**
-	 * Selecci�n sobre un �rbol de selecci�n cuya informaci�n se desea consultar.
+	 * Selecci�n sobre un �rbol de selecci�n cuya información se desea consultar.
 	 */
 	private TreeSelection treeSelection;
 	
@@ -64,7 +64,7 @@ public class TreeSelectionInfo extends SelectionInfo {
 	
 	/**
 	 * Determina el tipo de elemento seleccionado en una ventana.
-	 * Solo tiene en consideraci�n los tipos indicados por #typeName, #methodName 
+	 * Solo tiene en consideración los tipos indicados por #typeName, #methodName 
 	 * y #fieldName.
 	 * 
 	 * @return el nombre completamente cualificado del tipo de elemento 

@@ -37,7 +37,7 @@ import repository.moon.concretepredicate.NotExistsClassWithName;
  * Comprueba que exista la clase que se desea renombrar y que no exista ya otra 
  * clase en el modelo con el nuevo nombre.<p>
  *
- * Si la comprobaci�n no falla, lleva a cabo el renombrado.<p>
+ * Si la comprobación no falla, lleva a cabo el renombrado.<p>
  *
  * Finalmente, comprueba que el renombrado se ha llevado a cabo con �xito.<p>
  *
@@ -48,12 +48,12 @@ import repository.moon.concretepredicate.NotExistsClassWithName;
  * futuras modificaciones que podr�an llevarse a cabo.
  *
  * @author <A HREF="mailto:ehp0001@alu.ubu.es">Enrique Herrero Paredes</A>
- * @author <A HREF="mailto:alc0022@alu.ubu.es">�ngel L�pez Campo</A>
+ * @author <A HREF="mailto:alc0022@alu.ubu.es">Ángel López Campo</A>
  */
 public class RenameClassTestVersion extends MOONRefactoring {
 
 	/**
-	 * Nombre de la refactorizaci�n concreta.
+	 * Nombre de la refactorización concreta.
 	 */
 	private static final String NAME = "RenameClass"; //$NON-NLS-1$
 	

@@ -29,8 +29,8 @@ import repository.moon.concretefunction.MethodRetriever;
 import dynamicrefactoring.util.processor.JavaMethodProcessor;
 
 /**
- * Proporciona las funciones necesarias para obtener el m�todo MOON con el que
- * se corresponde un m�todo seleccionado en Eclipse.
+ * Proporciona las funciones necesarias para obtener el método MOON con el que
+ * se corresponde un método seleccionado en Eclipse.
  * 
  * @author <A HREF="mailto:sfd0009@alu.ubu.es">Sonia Fuente de la Fuente</A>
  * @author <A HREF="mailto:ehp0001@alu.ubu.es">Enrique Herrero Paredes</A>
@@ -38,27 +38,27 @@ import dynamicrefactoring.util.processor.JavaMethodProcessor;
 public abstract class MethodSelectionHandler implements ISelectionHandler {
 	
 	/**
-	 * La clase MOON en la que se define el m�todo.
+	 * La clase MOON en la que se define el método.
 	 */
 	protected ClassDef methodClass;
 	
 	/**
-	 * La descripci�n MOON del m�todo seleccionado.
+	 * La descripci�n MOON del método seleccionado.
 	 */
 	protected MethDec methodDescription;
 	
 	/**
-	 * Obtiene la descripci�n MOON del m�todo representado por una selecci�n del
+	 * Obtiene la descripci�n MOON del método representado por una selecci�n del
 	 * interfaz gr�fico.
 	 * 
-	 * M�todo plantilla (patr�n de dise�o M�todo Plantilla).
+	 * Método plantilla (patr�n de dise�o Método Plantilla).
 	 * 
-	 * @return la descripci�n MOON del m�todo representado por una selecci�n del 
+	 * @return la descripci�n MOON del método representado por una selecci�n del 
 	 * interfaz gr�fico.
 	 * 
 	 * @throws ClassNotFoundException si se no se consigue encontrar la clase a
-	 * la que pertenece el m�todo en el modelo MOON cargado.
-	 * @throws IOException si se produce alg�n error al acceder al modelo MOON.
+	 * la que pertenece el método en el modelo MOON cargado.
+	 * @throws IOException si se produce algún error al acceder al modelo MOON.
 	 * 
 	 * @see ISelectionHandler#getMainObject()
 	 */
@@ -66,8 +66,8 @@ public abstract class MethodSelectionHandler implements ISelectionHandler {
 		throws ClassNotFoundException, IOException {
 		
 		if (methodDescription == null){
-			// Llamada a la operaci�n primitiva 
-			// (patr�n de dise�o M�todo Plantilla).
+			// Llamada a la operación primitiva 
+			// (patr�n de dise�o Método Plantilla).
 			JavaMethodProcessor methodProcessor = getMethodProcessor(); 
 							
 			String uniqueName = methodProcessor.getUniqueName();
@@ -80,25 +80,25 @@ public abstract class MethodSelectionHandler implements ISelectionHandler {
 	}
 	
 	/**
-	 * Obtiene la clase del modelo MOON en la que se define el m�todo 
+	 * Obtiene la clase del modelo MOON en la que se define el método 
 	 * representado por una selecci�n del interfaz gr�fico.
 	 * 
-	 * @return la clase del modelo MOON en la que se define el m�todo
+	 * @return la clase del modelo MOON en la que se define el método
 	 * representado por una selecci�n del interfaz gr�fico.
 	 * 
 	 * @throws ClassNotFoundException si se no se consigue encontrar la clase en
 	 * el modelo MOON cargado.
-	 * @throws IOException si se produce alg�n error al acceder al modelo MOON.
+	 * @throws IOException si se produce algún error al acceder al modelo MOON.
 	 */
 	public abstract ClassDef getMethodClass() 
 		throws ClassNotFoundException, IOException; 
 
 	/**
-	 * Obtiene un elemento capaz de procesar la informaci�n de un m�todo Java.
+	 * Obtiene un elemento capaz de procesar la información de un método Java.
 	 * 
-	 * Operaci�n primitiva (patr�n de dise�o M�todo Plantilla).
+	 * Operación primitiva (patr�n de dise�o Método Plantilla).
 	 * 
-	 * @return un elemento capaz de procesar la informaci�n de un m�todo Java.
+	 * @return un elemento capaz de procesar la información de un método Java.
 	 */
 	protected abstract JavaMethodProcessor getMethodProcessor();
 }

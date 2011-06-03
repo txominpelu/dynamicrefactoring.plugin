@@ -8,7 +8,7 @@ import refactoring.engine.Predicate;
 /**
  * Check if contains a fail instruction.
  * 
- * @author Raúl Marticorena
+ * @author RaÃºl Marticorena
  *
  */
 public class HasNotFail extends Predicate{

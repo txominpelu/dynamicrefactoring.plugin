@@ -145,7 +145,7 @@ public final class PickCategoryTree {
 
 	/**
 	 * Obtiene el control que permite escoger las categor�as de una
-	 * clasificaci�n.
+	 * clasificación.
 	 * 
 	 * @return control
 	 */

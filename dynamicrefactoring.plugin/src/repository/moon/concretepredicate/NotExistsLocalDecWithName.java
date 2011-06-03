@@ -31,16 +31,16 @@ import repository.moon.concretefunction.LocalDecCollector;
 
 /**
  * Permite verificar que no existe ninguna variable local cuyo nombre coincida 
- * con el especificado, dentro de la signatura de un m�todo.
+ * con el especificado, dentro de la signatura de un método.
  *
  * @author <A HREF="mailto:ehp0001@alu.ubu.es">Enrique Herrero Paredes</A>
- * @author <A HREF="mailto:alc0022@alu.ubu.es">�ngel L�pez Campo</A>
+ * @author <A HREF="mailto:alc0022@alu.ubu.es">Ángel López Campo</A>
  * @author <A HREF="mailto:sfd0009@alu.ubu.es">Sonia Fuente de la Fuente</A>
  */ 
 public class NotExistsLocalDecWithName extends Predicate {
 	
 	/**
-	 * M�todo en el que se busca una variable local con cierto nombre.
+	 * Método en el que se busca una variable local con cierto nombre.
 	 */
 	private MethDec methDec;
 	
@@ -54,8 +54,8 @@ public class NotExistsLocalDecWithName extends Predicate {
 	 *
 	 * Obtiene una nueva instancia del predicado NotExistsLocalDecWithName.
 	 *
-	 * @param methDec el m�todo en que se busca la variable local.
-	 * @param newname el nombre con el que se busca una variable local al m�todo.
+	 * @param methDec el método en que se busca la variable local.
+	 * @param newname el nombre con el que se busca una variable local al método.
 	 */
 	public NotExistsLocalDecWithName(MethDec methDec, Name newname) {
 		
@@ -71,7 +71,7 @@ public class NotExistsLocalDecWithName extends Predicate {
 	/**
 	 * Comprueba el valor de verdad del predicado.
 	 * 
-	 * @return <code>true</code> si no existe la variable local en el m�todo 
+	 * @return <code>true</code> si no existe la variable local en el método 
 	 * especificado, <code>false</code> en caso contrario.
 	 */	 
 	public boolean isValid() {

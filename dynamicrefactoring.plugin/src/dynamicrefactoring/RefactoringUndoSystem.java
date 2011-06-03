@@ -30,7 +30,7 @@ import org.eclipse.core.runtime.NullProgressMonitor;
 import org.eclipse.ui.PlatformUI;
 
 /**
- * Permite deshacer una operaci�n del entorno de Eclipse si se efectu� 
+ * Permite deshacer una operación del entorno de Eclipse si se efectu� 
  * utilizando las herramientas de ejecuci�n de operaciones aptas para ser
  * deshechas.
  * 
@@ -45,19 +45,19 @@ public class RefactoringUndoSystem {
 	private static final Logger logger = Logger.getLogger(RefactoringUndoSystem.class);
 
 	/**
-	 * Deshace una refactorizaci�n identificada por la etiqueta con la que deber�a
+	 * Deshace una refactorización identificada por la etiqueta con la que debería
 	 * aparecer en el hist�rico de operaciones que el entorno Eclipse puede
 	 * deshacer.
 	 * 
-	 * @param id etiqueta asociada a la operaci�n que originalmente ejecut� la
-	 * refactorizaci�n.
+	 * @param id etiqueta asociada a la operación que originalmente ejecut� la
+	 * refactorización.
 	 * @param checkRenamings TODO
 	 * 
-	 * @throws Exception si se produce un error al deshacer la refactorizaci�n.
+	 * @throws Exception si se produce un error al deshacer la refactorización.
 	 */
 	public static void undoRefactoring(String id, boolean checkRenamings) throws Exception {
 		
-		// Si se ha producido alg�n renombrado despu�s de la refactorizaci�n,
+		// Si se ha producido algún renombrado despu�s de la refactorización,
 		// hay que deshacerlo primero. Si no, al acceder al hist�rico de 
 		// operaciones, desaparecen las operaciones posteriores.
 		if (checkRenamings){
@@ -84,13 +84,13 @@ public class RefactoringUndoSystem {
 	}
 	
 	/**
-	 * Obtiene una operaci�n que se puede deshacer del entorno de operaciones 
+	 * Obtiene una operación que se puede deshacer del entorno de operaciones 
 	 * de Eclipse a partir de su etiqueta identificadora.
 	 * 
-	 * @param id etiqueta que identifica la operaci�n que se puede deshacer.
+	 * @param id etiqueta que identifica la operación que se puede deshacer.
 	 * 
-	 * @return la operaci�n recuperada o <code>null</code> si no se encuentra
-	 * ninguna operaci�n con dicha etiqueta en el contexto global de ejecuci�n.
+	 * @return la operación recuperada o <code>null</code> si no se encuentra
+	 * ninguna operación con dicha etiqueta en el contexto global de ejecuci�n.
 	 */
 	private static IUndoableOperation getUndoable(String id){
 		IOperationHistory history = OperationHistoryFactory.getOperationHistory();

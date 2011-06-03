@@ -17,10 +17,25 @@
         <artifactId>maven-antrun-plugin</artifactId>
         <executions>
           <execution>
+	    <id>copy-classes</id>
             <phase>compile</phase>
             <configuration>
               <tasks>
                 <ant target="copy-classes-to-bin" inheritRefs="true"/>
+              </tasks>
+            </configuration>
+            <goals>
+              <goal>run</goal>
+            </goals>
+          </execution>
+          <execution>
+            <phase>compile</phase>
+	    <id>generate-javadoc</id>
+            <configuration>
+              <tasks>
+                <ant antfile="${basedir}/javadoc.xml" inheritRefs="true">
+			<property name="maven.local.repo" value="${settings.localRepository}" />
+		</ant>
               </tasks>
             </configuration>
             <goals>

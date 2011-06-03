@@ -32,7 +32,7 @@ import repository.moon.concretepredicate.IsSingleGenericInstance;
 import repository.moon.concretepredicate.IsSubtypeBoundDesc;
 
 /**
- * Permite establecer los par�metros para una refactorizaci�n "SpecializeBoundF".
+ * Permite establecer los parámetros para una refactorización "SpecializeBoundF".
  *
  * @author <A HREF="mailto:sfd0009@alu.ubu.es">Sonia Fuente de la Fuente</A>
  * @author <A HREF="mailto:ehp0001@alu.ubu.es">Enrique Herrero Paredes</A>
@@ -48,13 +48,13 @@ public class SpecializeBoundF extends MOONRefactoring {
 	 * Constructor.<p>
 	 *
 	 * Obtiene una nueva instancia de <code>SpecializeBoundF</code>.
-	 * @param formalPar par�metro formal sobre el que se quiere eliminar la acotaci�n F.
-	 * @param oldInstantiation tipo de acotaci�n original, instanciado a partir de
-	 * una clase gen�rica y el propio par�metro formal como par�metro real de
-	 * instanciaci�n.
-	 * @param newInstantiation nuevo tipo de acotaci�n instanciado con el subtipo
-	 * de la propia clase gen�rica adecuado.
-	 * @param model el modelo sobre el que se va a efectuar la refactorizaci�n.
+	 * @param formalPar parámetro formal sobre el que se quiere eliminar la acotación F.
+	 * @param oldInstantiation tipo de acotación original, instanciado a partir de
+	 * una clase genérica y el propio parámetro formal como parámetro real de
+	 * instanciación.
+	 * @param newInstantiation nuevo tipo de acotación instanciado con el subtipo
+	 * de la propia clase genérica adecuado.
+	 * @param model el modelo sobre el que se va a efectuar la refactorización.
 	 */
 	public SpecializeBoundF(FormalPar formalPar, ClassType oldInstantiation, 
 		ClassType newInstantiation, Model model){

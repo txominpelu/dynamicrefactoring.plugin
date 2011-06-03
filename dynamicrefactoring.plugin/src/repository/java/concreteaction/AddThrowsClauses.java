@@ -38,10 +38,10 @@ import repository.RelayListenerRegistry;
 import repository.java.concretefunction.ExceptionsThrow;
 
 /**
- * Permite mover un m�todo de una clase a otra del modelo.
+ * Permite mover un método de una clase a otra del modelo.
  *
  * @author <A HREF="mailto:ehp0001@alu.ubu.es">Enrique Herrero Paredes</A>
- * @author <A HREF="mailto:alc0022@alu.ubu.es">�ngel L�pez Campo</A>
+ * @author <A HREF="mailto:alc0022@alu.ubu.es">Ángel López Campo</A>
  * @author <A HREF="mailto:sfd0009@alu.ubu.es">Sonia Fuente de la Fuente</A>
  */ 
 public class AddThrowsClauses extends Action {
@@ -57,17 +57,17 @@ public class AddThrowsClauses extends Action {
 	private Name name;
 	
 	/**
-	 * Clase a la que se mover� el m�todo.
+	 * Clase a la que se mover� el método.
 	 */
 	private ClassDef classDef;
 	
 	/**
-	 * M�todo que se va a mover de una clase a otra.
+	 * Método que se va a mover de una clase a otra.
 	 */
 	 private MethDec method;
 	 
 	 /**
-	  * Receptor de los mensajes enviados por la acci�n concreta.
+	  * Receptor de los mensajes enviados por la acción concreta.
 	  */
 	 private RelayListenerRegistry listenerReg;
 	 	
@@ -75,8 +75,8 @@ public class AddThrowsClauses extends Action {
 	 * Constructor.<p>
 	 *
 	 * Obtiene una nueva instancia de MoveMethod.
-	 * @param method m�todo que se va a mover de una clase a otra.
-	 * @param classDefDest clase a la que se mover� el m�todo.
+	 * @param method método que se va a mover de una clase a otra.
+	 * @param classDefDest clase a la que se mover� el método.
 	 */	
 	public AddThrowsClauses(Name name, CodeFragment fragment){
 		super();
@@ -89,7 +89,7 @@ public class AddThrowsClauses extends Action {
 	}
 	
 	/**
-	 * Ejecuta el movimiento del m�todo de una clase a otra.
+	 * Ejecuta el movimiento del método de una clase a otra.
 	 */
 	@Override
 	public void run() {		
@@ -122,7 +122,7 @@ public class AddThrowsClauses extends Action {
 	}
 
 	/**
-	 * Deshace el movimiento del m�todo, devolvi�ndolo a su clase de origen y 
+	 * Deshace el movimiento del método, devolvi�ndolo a su clase de origen y 
 	 * elimin�ndolo de la nueva clase destino.
 	 */
 	@Override

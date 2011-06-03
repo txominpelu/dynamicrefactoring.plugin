@@ -44,7 +44,7 @@ public class TestIsNotInnerClass extends RefactoringTemplateAbstractTest {
 	 * Comprueba que el predicado funciona correctamente cuando la clase
 	 * no es, efectivamente, clase interna.<p>
 	 * 
-	 * Ejecuta la comprobaci�n sobre una clase que contiene una clase interna.
+	 * Ejecuta la comprobación sobre una clase que contiene una clase interna.
 	 * 
 	 * @throws Exception si se produce un error durante la ejecuci�n de la prueba.
 	 */
@@ -62,7 +62,7 @@ public class TestIsNotInnerClass extends RefactoringTemplateAbstractTest {
 		IsNotInnerClass predicate = new IsNotInnerClass(classdef);
 				
 		// Comienzan las comprobaciones
-		assertTrue("Comprobar car�cter de clase interna: se ha detectado " + //$NON-NLS-1$
+		assertTrue("Comprobar carácter de clase interna: se ha detectado " + //$NON-NLS-1$
 			"como clase interna una que no lo es.", predicate.isValid());		 //$NON-NLS-1$
 	}
 
@@ -70,7 +70,7 @@ public class TestIsNotInnerClass extends RefactoringTemplateAbstractTest {
 	 * Comprueba que el predicado funciona correctamente cuando la clase
 	 * s� es clase interna de otra.<p>
 	 * 
-	 * Ejecuta la comprobaci�n sobre una clase interna contenida en otra.
+	 * Ejecuta la comprobación sobre una clase interna contenida en otra.
 	 * 
 	 * @throws Exception si se produce un error durante la ejecuci�n de la prueba.
 	 */
@@ -88,7 +88,7 @@ public class TestIsNotInnerClass extends RefactoringTemplateAbstractTest {
 		IsNotInnerClass predicate = new IsNotInnerClass(classdef);
 				
 		// Comienzan las comprobaciones
-		assertFalse("Comprobar car�cter de clase interna: no se ha detectado " + //$NON-NLS-1$
+		assertFalse("Comprobar carácter de clase interna: no se ha detectado " + //$NON-NLS-1$
 			"como clase interna una que s� lo es.", predicate.isValid());		 //$NON-NLS-1$
 	}
 }

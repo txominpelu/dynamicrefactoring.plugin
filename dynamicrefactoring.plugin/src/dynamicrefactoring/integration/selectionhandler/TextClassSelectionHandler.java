@@ -35,7 +35,7 @@ import dynamicrefactoring.util.selection.TextSelectionInfo;
 public class TextClassSelectionHandler extends ClassSelectionHandler {
 	
 	/**
-	 * El proveedor de informaci�n concreto para la selecci�n de texto.
+	 * El proveedor de información concreto para la selecci�n de texto.
 	 */
 	private TextSelectionInfo infoProvider;
 	
@@ -45,7 +45,7 @@ public class TextClassSelectionHandler extends ClassSelectionHandler {
 	 * @param selectionInfo contenedor de la selecci�n que se desea manejar.
 	 * 
 	 * @throws Exception si la selecci�n contenida en #selectionInfo no es una
-	 * selecci�n de una clase sobre una representaci�n textual.
+	 * selecci�n de una clase sobre una representación textual.
 	 */
 	public TextClassSelectionHandler (TextSelectionInfo selectionInfo)
 		throws Exception{

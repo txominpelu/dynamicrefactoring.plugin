@@ -31,7 +31,7 @@ import dynamicrefactoring.domain.Scope;
 /**
  * Proporciona la capacidad de comprobar que un determinado tipo, identificado
  * por su nombre completamente cualificado, es apto para ser admitido como 
- * entrada principal de una refactorizaci�n.  
+ * entrada principal de una refactorización.  
  * 
  * @author <A HREF="mailto:sfd0009@alu.ubu.es">Sonia Fuente de la Fuente</A>
  * @author <A HREF="mailto:ehp0001@alu.ubu.es">Enrique Herrero Paredes</A>
@@ -81,7 +81,7 @@ public class MainInputValidator {
 	
 	/**
 	 * Nombres completamente cualificados de los tipos que se admiten como 
-	 * entrada principal de una refactorizaci�n.
+	 * entrada principal de una refactorización.
 	 */
 	private ArrayList<String> validMain;
 	
@@ -154,7 +154,7 @@ public class MainInputValidator {
 	/**
 	 * Comprueba si el tipo referenciado por su nombre completamente cualificado
 	 * conforma con alguno de los tipos v�lidos como entrada principal de una
-	 * refactorizaci�n.
+	 * refactorización.
 	 * 
 	 * @param typeName nombre completamente cualificado del tipo.
 	 * 

@@ -32,19 +32,19 @@ import repository.RelayListenerRegistry;
 import repository.moon.MOONRefactoring;
 
 /**
- * A�ade una la anotaci�n @override encima del m�todo que esta siendo redefinido. 
+ * A�ade una la anotación @override encima del método que esta siendo redefinido. 
  * 
  * @author <A HREF="mailto:lfd0002@alu.ubu.es">Laura Fuente de la Fuente</A>
  */
 public class AddOverrideAnnotation extends Action{
 	
 	/**
-	 * Receptor de los mensajes enviados por la acci�n concreta.
+	 * Receptor de los mensajes enviados por la acción concreta.
 	 */
 	private RelayListenerRegistry listenerReg;
 
 	/**
-	 * M�todo al que se a�adir�n las anotaciones.
+	 * Método al que se a�adir�n las anotaciones.
 	 */
 	private MethDec methdec;
 	
@@ -56,7 +56,7 @@ public class AddOverrideAnnotation extends Action{
 	/**
 	 * Constructor.
 	 * 
-	 * @param method m�todo al que se a�adir�n las anotaciones.
+	 * @param method método al que se a�adir�n las anotaciones.
 	 */
 	public AddOverrideAnnotation(MethDec method){
 		this.methdec = method;
@@ -65,7 +65,7 @@ public class AddOverrideAnnotation extends Action{
 	}
 	
 	/**
-	 * A�ade la anotaci�n correspondiente.
+	 * A�ade la anotación correspondiente.
 	 */
 	@Override
 	public void run() {
@@ -84,7 +84,7 @@ public class AddOverrideAnnotation extends Action{
 	}
 
 	/**
-	 * Deshace la anotaci�n.
+	 * Deshace la anotación.
 	 */
 	@Override
 	public void undo() {

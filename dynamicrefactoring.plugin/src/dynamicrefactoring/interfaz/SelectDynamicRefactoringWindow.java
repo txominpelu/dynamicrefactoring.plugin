@@ -56,8 +56,8 @@ import dynamicrefactoring.domain.DynamicRefactoringDefinition;
 import dynamicrefactoring.domain.RefactoringsCatalog;
 
 /**
- * Proporciona la funcionalidad com�n a las ventanas que permiten seleccionar una
- * de las refactorizaciones din�micas disponibles para su edici�n o eliminaci�n.
+ * Proporciona la funcionalidad común a las ventanas que permiten seleccionar una
+ * de las refactorizaciones din�micas disponibles para su edición o eliminación.
  * 
  * <p>Proporciona un listado de refactorizaciones din�micas disponibles, as� como
  * un breve resumen con las caracter�sticas fundamentales de cada una de ellas.</p>
@@ -80,14 +80,14 @@ public abstract class SelectDynamicRefactoringWindow extends DynamicRefactoringL
 	protected RefactoringListFilter filter;
 	
 	/**
-	 * Campo de texto en que se muestra la motivaci�n de la refactorizaci�n
+	 * Campo de texto en que se muestra la motivación de la refactorización
 	 * seleccionada en un momento dado sobre la lista de refactorizaciones
 	 * disponibles.
 	 */
 	private Text t_Motivation;
 	
 	/**
-	 * Campo de texto en que se muestra la descripci�n de la refactorizaci�n
+	 * Campo de texto en que se muestra la descripci�n de la refactorización
 	 * seleccionada en un momento dado sobre la lista de refactorizaciones
 	 * disponibles.
 	 */
@@ -100,13 +100,13 @@ public abstract class SelectDynamicRefactoringWindow extends DynamicRefactoringL
 	
 	/**
 	 * <i>Listeners</i> que manejan la funcionalidad de <i>scroll</i> del �rea de
-	 * imagen cuando la imagen asociada a la refactorizaci�n seleccionada supera
+	 * imagen cuando la imagen asociada a la refactorización seleccionada supera
 	 * el tama�o del �rea disponible.
 	 */
 	private Listener[] scrollListeners;
 	
 	/**
-	 * �rea en que se muestra la imagen asociada a la refactorizaci�n.
+	 * �rea en que se muestra la imagen asociada a la refactorización.
 	 */
 	private Canvas cv_Image ;
 		
@@ -263,11 +263,11 @@ public abstract class SelectDynamicRefactoringWindow extends DynamicRefactoringL
 	protected abstract void createOKButton(Composite parent);
 
 	/**
-	 * Obtiene el verbo asociado a la acci�n que permite iniciar la ventana
-	 * de di�logo sobre la refactorizaci�n seleccionada.
+	 * Obtiene el verbo asociado a la acción que permite iniciar la ventana
+	 * de di�logo sobre la refactorización seleccionada.
 	 * 
-	 * @return el verbo asociado a la acci�n que permite iniciar la ventana
-	 * de di�logo sobre la refactorizaci�n seleccionada.
+	 * @return el verbo asociado a la acción que permite iniciar la ventana
+	 * de di�logo sobre la refactorización seleccionada.
 	 */
 	protected abstract String getOperation();
 	
@@ -294,9 +294,9 @@ public abstract class SelectDynamicRefactoringWindow extends DynamicRefactoringL
 	}
 
 	/**
-	 * Completa los datos resumen de una refactorizaci�n en el panel derecho.
+	 * Completa los datos resumen de una refactorización en el panel derecho.
 	 * 
-	 * @param refactoring la refactorizaci�n din�mica cuyos datos se mostrar�n en
+	 * @param refactoring la refactorización din�mica cuyos datos se mostrar�n en
 	 * el panel resumen derecho.
 	 */
 	private void fillInData(DynamicRefactoringDefinition refactoring){
@@ -404,8 +404,8 @@ public abstract class SelectDynamicRefactoringWindow extends DynamicRefactoringL
 
 	
 	/**
-	 * Actualiza el panel derecho de informaci�n para mostrar un resumen con la 
-	 * informaci�n apropiada acerca de la refactorizaci�n seleccionada en la lista 
+	 * Actualiza el panel derecho de información para mostrar un resumen con la 
+	 * información apropiada acerca de la refactorización seleccionada en la lista 
 	 * del refactorizaciones din�micas disponibles.
 	 * 
 	 * @author <A HREF="mailto:sfd0009@alu.ubu.es">Sonia Fuente de la Fuente</A>
@@ -421,11 +421,11 @@ public abstract class SelectDynamicRefactoringWindow extends DynamicRefactoringL
 		}
 		
 		/**
-		 * Recibe una notificaci�n de que un elemento de la lista de 
+		 * Recibe una notificación de que un elemento de la lista de 
 		 * refactorizaciones din�micas disponibles ha sido seleccionado.
 		 * 
 		 * <p>Inicia las acciones que sean necesarias para actualizar la 
-		 * informaci�n mostrada en el panel derecho acerca de la refactorizacion
+		 * información mostrada en el panel derecho acerca de la refactorizacion
 		 * seleccionada.</p>
 		 * 
 		 * @param e el evento de selecci�n disparado en la ventana.
@@ -434,7 +434,7 @@ public abstract class SelectDynamicRefactoringWindow extends DynamicRefactoringL
 		 */
 		@Override
 		public void widgetSelected(SelectionEvent e) {
-			// Solo se muestra un resumen si se selecciona una �nica refactorizaci�n.
+			// Solo se muestra un resumen si se selecciona una única refactorización.
 			Table availableList=availableRefListViewer.getTable();
 			if(availableList.getSelectionCount() == 1){
 				Object obj = availableList.getSelection()[0].getData();
@@ -445,7 +445,7 @@ public abstract class SelectDynamicRefactoringWindow extends DynamicRefactoringL
 					if(getButton(IDialogConstants.CLIENT_ID)!=null)
 						getButton(IDialogConstants.CLIENT_ID).setEnabled(true);
 				}
-			}else{ // Si no hay ning�n elemento seleccionado.
+			}else{ // Si no hay ningún elemento seleccionado.
 				getButton(IDialogConstants.OK_ID).setEnabled(false);
 				if(getButton(IDialogConstants.CLIENT_ID)!=null)
 					getButton(IDialogConstants.CLIENT_ID).setEnabled(false);

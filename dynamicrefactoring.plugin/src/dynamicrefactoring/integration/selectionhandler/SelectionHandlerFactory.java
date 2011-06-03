@@ -34,7 +34,7 @@ import dynamicrefactoring.util.selection.TreeSelectionInfo;
 public class SelectionHandlerFactory {
 	
 	/**
-	 * Instancia �nica de la f�brica (patr�n Singleton).
+	 * Instancia única de la f�brica (patr�n Singleton).
 	 */
 	private static SelectionHandlerFactory myInstance;
 	
@@ -46,9 +46,9 @@ public class SelectionHandlerFactory {
 	private SelectionHandlerFactory(){}
 
 	/**
-	 * Obtiene la instancia �nica de la f�brica (patr�n Singleton).
+	 * Obtiene la instancia única de la f�brica (patr�n Singleton).
 	 *
-	 * @return la instancia �nica de la f�brica.
+	 * @return la instancia única de la f�brica.
 	 */
 	public static SelectionHandlerFactory getInstance(){
 		if (myInstance == null)
@@ -57,20 +57,20 @@ public class SelectionHandlerFactory {
 	}
 
 	/**
-	 * Obtiene un integrador para MOON concreto para una selecci�n de un m�todo 
+	 * Obtiene un integrador para MOON concreto para una selecci�n de un método 
 	 * dada.
 	 * 
 	 * Si la selecci�n forma parte de un �rbol de selecci�n, devuelve una
 	 * instancia de <code>TreeMethodSelectionHandler</code>.
-	 * Si la selecci�n forma parte de una representaci�n textual, devuelve una
+	 * Si la selecci�n forma parte de una representación textual, devuelve una
 	 * instancia de <code>TextMethodSelectionHandler</code>.
 	 * 
-	 * M�todo f�brica (patr�n de dise�o M�todo f�brica).
+	 * Método f�brica (patr�n de dise�o Método f�brica).
 	 * 
-	 * @param infoProvider el proveedor de informaci�n para cuya selecci�n 
+	 * @param infoProvider el proveedor de información para cuya selecci�n 
 	 * se quiere obtener un integrador con MOON concreto.
 	 * 
-	 * @return un integrador para MOON concreto para una selecci�n de un m�todo.
+	 * @return un integrador para MOON concreto para una selecci�n de un método.
 	 * 
 	 * @throws Exception si se produce un error al intentar crear cualquiera de 
 	 * los integradores concretos.
@@ -99,12 +99,12 @@ public class SelectionHandlerFactory {
 	 * 
 	 * Si la selecci�n forma parte de un �rbol de selecci�n, devuelve una
 	 * instancia de <code>TreeClassSelectionHandler</code>.
-	 * Si la selecci�n forma parte de una representaci�n textual, devuelve una
+	 * Si la selecci�n forma parte de una representación textual, devuelve una
 	 * instancia de <code>TextClassSelectionHandler</code>.
 	 * 
-	 * M�todo f�brica (patr�n de dise�o M�todo f�brica).
+	 * Método f�brica (patr�n de dise�o Método f�brica).
 	 * 
-	 * @param infoProvider el proveedor de informaci�n para cuya selecci�n 
+	 * @param infoProvider el proveedor de información para cuya selecci�n 
 	 * se quiere obtener un integrador con MOON concreto.
 	 * 
 	 * @return un integrador para MOON concreto para una selecci�n de una clase.
@@ -131,12 +131,12 @@ public class SelectionHandlerFactory {
 	 * 
 	 * Si la selecci�n forma parte de un �rbol de selecci�n, devuelve una
 	 * instancia de <code>TreeFieldSelectionHandler</code>.
-	 * Si la selecci�n forma parte de una representaci�n textual, devuelve una
+	 * Si la selecci�n forma parte de una representación textual, devuelve una
 	 * instancia de <code>TextFieldSelectionHandler</code>.
 	 * 
-	 * M�todo f�brica (patr�n de dise�o M�todo f�brica).
+	 * Método f�brica (patr�n de dise�o Método f�brica).
 	 * 
-	 * @param infoProvider el proveedor de informaci�n para cuya selecci�n 
+	 * @param infoProvider el proveedor de información para cuya selecci�n 
 	 * se quiere obtener un integrador con MOON concreto.
 	 * 
 	 * @return un integrador para MOON concreto para una selecci�n de un 
@@ -165,12 +165,12 @@ public class SelectionHandlerFactory {
 	 * Obtiene un integrador para MOON concreto para una selecci�n de un 
 	 * argumento formal dada.
 	 * 
-	 * Si la selecci�n forma parte de una representaci�n textual, devuelve una
+	 * Si la selecci�n forma parte de una representación textual, devuelve una
 	 * instancia de <code>FormalArgumentSelectionHandler</code>.
 	 * 
-	 * M�todo f�brica (patr�n de dise�o M�todo f�brica).
+	 * Método f�brica (patr�n de dise�o Método f�brica).
 	 * 
-	 * @param infoProvider el proveedor de informaci�n para cuya selecci�n 
+	 * @param infoProvider el proveedor de información para cuya selecci�n 
 	 * se quiere obtener un integrador con MOON concreto.
 	 * 
 	 * @return un integrador para MOON concreto para una selecci�n de un 
@@ -193,18 +193,18 @@ public class SelectionHandlerFactory {
 	
 	/**
 	 * Obtiene un integrador para MOON concreto para una selecci�n de un 
-	 * par�metro formal dada.
+	 * parámetro formal dada.
 	 * 
-	 * Si la selecci�n forma parte de una representaci�n textual, devuelve una
+	 * Si la selecci�n forma parte de una representación textual, devuelve una
 	 * instancia de <code>FormalParameterSelectionHandler</code>.
 	 * 
-	 * M�todo f�brica (patr�n de dise�o M�todo f�brica).
+	 * Método f�brica (patr�n de dise�o Método f�brica).
 	 * 
-	 * @param infoProvider el proveedor de informaci�n para cuya selecci�n 
+	 * @param infoProvider el proveedor de información para cuya selecci�n 
 	 * se quiere obtener un integrador con MOON concreto.
 	 * 
 	 * @return un integrador para MOON concreto para una selecci�n de un 
-	 * par�metro formal.
+	 * parámetro formal.
 	 * 
 	 * @throws Exception si se produce un error al intentar crear el
 	 * integrador concreto.
@@ -223,16 +223,16 @@ public class SelectionHandlerFactory {
 	 * Obtiene un integrador para MOON concreto para una selecci�n de un fragmento de
 	 * texto dada.
 	 * 
-	 * Si la selecci�n forma parte de una representaci�n textual, devuelve una
+	 * Si la selecci�n forma parte de una representación textual, devuelve una
 	 * instancia de <code>TextCodeFragmentSelectionHandler</code>.
 	 * 
-	 * M�todo f�brica (patr�n de dise�o M�todo f�brica).
+	 * Método f�brica (patr�n de dise�o Método f�brica).
 	 * 
-	 * @param infoProvider el proveedor de informaci�n para cuya selecci�n 
+	 * @param infoProvider el proveedor de información para cuya selecci�n 
 	 * se quiere obtener un integrador con MOON concreto.
 	 * 
 	 * @return un integrador para MOON concreto para una selecci�n de un 
-	 * par�metro formal.
+	 * parámetro formal.
 	 * 
 	 * @throws Exception si se produce un error al intentar crear el
 	 * integrador concreto.
@@ -249,16 +249,16 @@ public class SelectionHandlerFactory {
 	
 	/**
 	 * Obtiene un integrador para MOON concreto para una selecci�n de un 
-	 * objeto dado, que deber� ser un m�todo, una clase, un atributo, un
-	 * argumento formal o un par�metro formal.
+	 * objeto dado, que deber� ser un método, una clase, un atributo, un
+	 * argumento formal o un parámetro formal.
 	 * 
 	 * <p>Tiene en cuenta el tipo de selecci�n contenido en el argumento
 	 * recibido (tipo de objeto seleccionado, y si se trata de una selecci�n
 	 * sobre un �rbol o sobre texto).</p>
 	 * 
-	 * M�todo f�brica (patr�n de dise�o M�todo f�brica).
+	 * Método f�brica (patr�n de dise�o Método f�brica).
 	 * 
-	 * @param infoProvider el proveedor de informaci�n para cuya selecci�n 
+	 * @param infoProvider el proveedor de información para cuya selecci�n 
 	 * se quiere obtener un integrador con MOON concreto.
 	 * 
 	 * @return un integrador para MOON concreto para una selecci�n de un 

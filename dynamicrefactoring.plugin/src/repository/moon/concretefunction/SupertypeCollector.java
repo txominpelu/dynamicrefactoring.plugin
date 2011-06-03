@@ -68,11 +68,11 @@ public class SupertypeCollector extends Function {
 	/**
 	 * Obtiene todos los supertipos del <code>ClassType</code> representado por
 	 * {@link #classType}, incluyendo aqu�llos que se puedan obtener 
-	 * recursivamente a trav�s de sus supertipos directos.
+	 * recursivamente a través de sus supertipos directos.
 	 * 
 	 * @return los supertipos del <code>ClassType</code> representado por
 	 * {@link #classType}, incluyendo aqu�llos que se puedan obtener
-	 * recursivamente a trav�s de sus supertipos directos.
+	 * recursivamente a través de sus supertipos directos.
 	 */	
 	@Override
 	public Collection<ClassType> getCollection() {

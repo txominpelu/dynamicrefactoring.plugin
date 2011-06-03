@@ -64,7 +64,7 @@ public class HasPublicFinalStaticAttributes extends Predicate {
 	 * Comprueba el valor de verdad del predicado.
 	 * 
 	 * @return <code>true</code> si la clase posee un constructor con un entero 
-	 * como par�metro, <code>false</code> en caso contrario.
+	 * como parámetro, <code>false</code> en caso contrario.
 	 */	 
 	public boolean isValid() {	
 		List<AttDec> attributes = classDef.getAttributes();

@@ -34,10 +34,10 @@ import repository.moon.concretepredicate.IsSubtypeBoundDesc;
 import repository.moon.concretepredicate.IsSubtypeSubstFormalPar;
 
 /**
- * Permite establecer los par�metros para una refactorizaci�n "SpecializeBoundS".
+ * Permite establecer los parámetros para una refactorización "SpecializeBoundS".
  *
- * @author <A HREF="mailto:sam0006@alu.ubu.es">Sara Alcal� Mart�n</A>
- * @author <A HREF="mailto:dbm0005@alu.ubu.es">Diego Ba�uelos Molledo</A>
+ * @author <A HREF="mailto:sam0006@alu.ubu.es">Sara Alcalá Martín</A>
+ * @author <A HREF="mailto:dbm0005@alu.ubu.es">Diego Bañuelos Molledo</A>
  * @author <A HREF="mailto:ehp0001@alu.ubu.es">Enrique Herrero Paredes</A>
  * @author <A HREF="mailto:sfd0009@alu.ubu.es">Sonia Fuente de la Fuente</A>
  */
@@ -52,12 +52,12 @@ public class SpecializeBoundS extends MOONRefactoring {
 	 * Constructor.<p>
 	 *
 	 * Obtiene una nueva instancia de <code>SpecializeBoundS</code>.
-	 * @param formalPar par�metro formal cuyo tipo de acotaci�n se 
+	 * @param formalPar parámetro formal cuyo tipo de acotación se 
 	 * quiere especializar.
-	 * @param oldBoundingType el tipo de acotaci�n que se debe sustituir por uno
+	 * @param oldBoundingType el tipo de acotación que se debe sustituir por uno
 	 * m�s especializado.
-	 * @param newBoundingType nuevo tipo de acotaci�n especializado.
-	 * @param model el modelo sobre el que se va a hacer la refactorizaci�n.
+	 * @param newBoundingType nuevo tipo de acotación especializado.
+	 * @param model el modelo sobre el que se va a hacer la refactorización.
 	 */
 	public SpecializeBoundS(FormalPar formalPar, ClassType oldBoundingType,
 		ClassType newBoundingType, Model model){

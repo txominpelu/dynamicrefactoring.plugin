@@ -28,22 +28,22 @@ import moon.core.classdef.MethDec;
 import refactoring.engine.Function;
 
 /**
- * Permite obtener un par�metro con un nombre concreto (en el caso de que exista)
- * de la signatura de un m�todo de una clase determinada.
+ * Permite obtener un parámetro con un nombre concreto (en el caso de que exista)
+ * de la signatura de un método de una clase determinada.
  *
  * @author <A HREF="mailto:ehp0001@alu.ubu.es">Enrique Herrero Paredes</A>
- * @author <A HREF="mailto:alc0022@alu.ubu.es">�ngel L�pez Campo</A>
+ * @author <A HREF="mailto:alc0022@alu.ubu.es">Ángel López Campo</A>
  * @author <A HREF="mailto:sfd0009@alu.ubu.es">Sonia Fuente de la Fuente</A>
  */ 
 public class FormalArgRetriever extends Function {
 	
 	/**
-	 * M�todo del que se quiere obtener un par�metro con un nombre concreto.
+	 * Método del que se quiere obtener un parámetro con un nombre concreto.
 	 */
 	private MethDec methDec;
 	
 	/**
-	 * Par�metro cuya existencia dentro de la signatura de un m�todo se quiere 
+	 * Parámetro cuya existencia dentro de la signatura de un método se quiere 
 	 * verificar.
 	 */
 	private FormalArgument formalArg;
@@ -52,9 +52,9 @@ public class FormalArgRetriever extends Function {
 	 * Constructor.<p>
 	 *
 	 * Obtiene una nueva instancia de FormalArgRetriever.
-	 * @param formalArg el par�metro cuya existencia en la signatura del m�todo
+	 * @param formalArg el parámetro cuya existencia en la signatura del método
 	 * se quiere comprobar.
-	 * @param methDec el m�todo de cuya signatura se quiere obtener el par�metro 
+	 * @param methDec el método de cuya signatura se quiere obtener el parámetro 
 	 * formal con un nombre concreto.
 	 */
 	public FormalArgRetriever(FormalArgument formalArg, MethDec methDec) {
@@ -65,7 +65,7 @@ public class FormalArgRetriever extends Function {
 	}
 
 	/**
-	 * Sin implementaci�n.
+	 * Sin implementación.
 	 *
 	 * @return null.
 	 */
@@ -74,10 +74,10 @@ public class FormalArgRetriever extends Function {
 	}
 	
 	/**
-	 * Obtiene el par�metro formal con un nombre concreto de la signatura de un
-	 * m�todo en caso de que exista.
+	 * Obtiene el parámetro formal con un nombre concreto de la signatura de un
+	 * método en caso de que exista.
 	 *
-	 * @return el par�metro con el nombre especificado.
+	 * @return el parámetro con el nombre especificado.
 	 */
 	public Object getValue() {
 			

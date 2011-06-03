@@ -35,7 +35,7 @@ import repository.moon.MOONRefactoring;
 /**
  * Adds the particular java import clauses in the JUnit 4 version.
  * 
- * @author Raúl Marticorena
+ * @author RaÃºl Marticorena
  * 
  */
 public class AddJUnit4Imports extends Action{

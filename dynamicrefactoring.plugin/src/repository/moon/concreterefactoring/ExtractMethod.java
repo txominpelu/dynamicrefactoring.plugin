@@ -18,7 +18,7 @@ import repository.moon.concretepredicate.JustOneReturn;
  * 
  * Extract Method Refactoring (110).
  * 
- * @author Raúl Marticorena
+ * @author RaÃºl Marticorena
  * @since MOON-2.3.0
  */
 public class ExtractMethod extends MOONRefactoring {

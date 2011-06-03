@@ -24,9 +24,9 @@ import moon.core.Model;
 import refactoring.engine.Refactoring;
 
 /**
- * Representa una refactorizaci�n en el contexto del lenguaje MOON.
+ * Representa una refactorización en el contexto del lenguaje MOON.
  * 
- * @author Ra�l Marticorena
+ * @author Raúl Marticorena
  * 
  * @since MOONRepository-2.1.2
  */
@@ -40,9 +40,9 @@ public class MOONRefactoring extends Refactoring {
 	/**
 	 * Constructor.
 	 * 
-	 * @param name nombre de la refactorizaci�n.
+	 * @param name nombre de la refactorización.
 	 * 
-	 * @param model modelo sobre el que se ejecuta la refactorizaci�n.
+	 * @param model modelo sobre el que se ejecuta la refactorización.
 	 */
 	public MOONRefactoring(String name, Model model) {
 		super(name);

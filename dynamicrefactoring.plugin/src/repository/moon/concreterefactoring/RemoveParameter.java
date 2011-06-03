@@ -35,29 +35,29 @@ import repository.moon.concretepredicate.NotExistsMethodWithNameInClass;
 import repository.moon.concretepredicate.SignatureEntityIsNotUsedInMethod;
 
 /**
- * Permite eliminar un determinado par�metro de la signatura de un m�todo.<p>
+ * Permite eliminar un determinado parámetro de la signatura de un método.<p>
  *
- * Verifica que exista un par�metro en el m�todo con el nombre indicado y
- * que no exista ya un m�todo con la signatura que tendr�a el m�todo afectado
- * una vez llevada a cabo la refactorizaci�n, ni en la propia clase, ni en
+ * Verifica que exista un parámetro en el método con el nombre indicado y
+ * que no exista ya un método con la signatura que tendr�a el método afectado
+ * una vez llevada a cabo la refactorización, ni en la propia clase, ni en
  * clases a las que se deba extender el cambio de signatura a causa de las
  * relaciones de herencia. Tambi�n comprueba que el argumento formal no sea
- * utilizado en el cuerpo del propio m�todo.<p>
+ * utilizado en el cuerpo del propio método.<p>
  *
- * Si las comprobaciones no fallan, elimina el par�metro formal en la definici�n 
- * del m�todo en la clase correspondiente. Adem�s, elimina en todas las llamadas 
- * al m�todo el par�metro real correspondiente al argumento formal eliminado.<p>
+ * Si las comprobaciones no fallan, elimina el parámetro formal en la definición 
+ * del método en la clase correspondiente. Adem�s, elimina en todas las llamadas 
+ * al método el parámetro real correspondiente al argumento formal eliminado.<p>
  *
  * Finalmente, comprueba que el proceso se ha llevado a cabo con �xito.
  *
  * @author <A HREF="mailto:ehp0001@alu.ubu.es">Enrique Herrero Paredes</A>
- * @author <A HREF="mailto:alc0022@alu.ubu.es">�ngel L�pez Campo</A>
+ * @author <A HREF="mailto:alc0022@alu.ubu.es">Ángel López Campo</A>
  * @author <A HREF="mailto:sfd0009@alu.ubu.es">Sonia Fuente de la Fuente</A>
  */
 public class RemoveParameter extends MOONRefactoring {
 
 	/**
-	 * Nombre de la refactorizaci�n concreta.
+	 * Nombre de la refactorización concreta.
 	 */
 	private static final String NAME = "RemoveParameter"; //$NON-NLS-1$
 		
@@ -66,7 +66,7 @@ public class RemoveParameter extends MOONRefactoring {
 	 *
 	 * Obtiene una nueva instancia de RemoveParameter.
 	 *
-	 * @param formalArg el par�metro formal que se desea eliminar.
+	 * @param formalArg el parámetro formal que se desea eliminar.
 	 * @param model el modelo que contiene la clase afectada por el cambio.
 	 */
 	public RemoveParameter(FormalArgument formalArg, Model model) {

@@ -39,7 +39,7 @@ import repository.RefactoringTemplateAbstractTest;
 import repository.moon.MOONRefactoring;
 
 /** 
- * Comprueba que funciona correctamente la acci�n que a�ade las importaciones
+ * Comprueba que funciona correctamente la acción que a�ade las importaciones
  * correspondientes a JUnit4 a una clase.
  * 
  * @author <A HREF="mailto:sfd0009@alu.ubu.es">Sonia Fuente de la Fuente</A>
@@ -48,8 +48,8 @@ import repository.moon.MOONRefactoring;
 public class TestAddJUnit4Imports extends RefactoringTemplateAbstractTest {
 
 	/** 
-	 * Comprueba que la acci�n a�ade correctamente todas las cl�usulas de 
-	 * importaci�n esperadas.
+	 * Comprueba que la acción a�ade correctamente todas las cl�usulas de 
+	 * importación esperadas.
 	 * 
 	 * @throws Exception si se produce un error durante la ejecuci�n de la prueba.
 	 */
@@ -102,8 +102,8 @@ public class TestAddJUnit4Imports extends RefactoringTemplateAbstractTest {
 	}
 	
 	/** 
-	 * Comprueba que la acci�n deshace correctamente la adici�n de todas las 
-	 * cl�usulas de importaci�n esperadas.
+	 * Comprueba que la acción deshace correctamente la adición de todas las 
+	 * cl�usulas de importación esperadas.
 	 * 
 	 * @throws Exception si se produce un error durante la ejecuci�n de la prueba.
 	 */

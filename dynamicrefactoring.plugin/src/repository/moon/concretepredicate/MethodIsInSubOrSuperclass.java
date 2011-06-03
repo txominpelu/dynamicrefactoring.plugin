@@ -29,23 +29,23 @@ import refactoring.engine.Predicate;
 import repository.moon.concretefunction.ClassesAffectedByMethRenameCollector;
 
 /**
- * Permite verificar que existe un m�todo con un cierto nombre en alguna 
+ * Permite verificar que existe un método con un cierto nombre en alguna 
  * superclase o subclase de una clase dada, o a su vez, recursivamente, en 
- * alguna superclase o subclase de �stas.
+ * alguna superclase o subclase de éstas.
  *
- * @author <A HREF="mailto:alc0022@alu.ubu.es">�ngel L�pez Campo</A>
+ * @author <A HREF="mailto:alc0022@alu.ubu.es">Ángel López Campo</A>
  * @author <A HREF="mailto:ehp0001@alu.ubu.es">Enrique Herrero Paredes</A>
  * @author <A HREF="mailto:sfd0009@alu.ubu.es">Sonia Fuente de la Fuente</A>
  */ 
 public class MethodIsInSubOrSuperclass extends Predicate {
 	
 	/**
-	 * Nombre �nico del m�todo cuya presencia en las clases se quiere comprobar.
+	 * Nombre único del método cuya presencia en las clases se quiere comprobar.
 	 */
 	private String methodUniqueName;
 	
 	/**
-	 * Clase a partir de la cual se busca un m�todo con un cierto nombre.
+	 * Clase a partir de la cual se busca un método con un cierto nombre.
 	 */
 	private ClassDef classDef;
 	
@@ -53,8 +53,8 @@ public class MethodIsInSubOrSuperclass extends Predicate {
 	 * Constructor.<p>
 	 *
 	 * Obtiene una nueva instancia de MethodIsInSubOrSuperclass.
-	 * @param classDef la clase a partir de la cual se busca el m�todo.
-	 * @param methodUniqueName el nombre �nico del m�todo que se desea buscar.
+	 * @param classDef la clase a partir de la cual se busca el método.
+	 * @param methodUniqueName el nombre único del método que se desea buscar.
 	 */
 	public MethodIsInSubOrSuperclass(ClassDef classDef, String methodUniqueName){
 			
@@ -69,9 +69,9 @@ public class MethodIsInSubOrSuperclass extends Predicate {
 	/**
 	 * Comprueba el valor de verdad del predicado.
 	 * 
-	 * @return <code>true</code> si se encuentra el m�todo en alguna clase de la
-	 * jerarqu�a de herencia de la clase original (o recursivamente en las 
-	 * jerarqu�as de herencia de las clases que se vayan encontrando); <code>
+	 * @return <code>true</code> si se encuentra el método en alguna clase de la
+	 * jerarquía de herencia de la clase original (o recursivamente en las 
+	 * jerarquías de herencia de las clases que se vayan encontrando); <code>
 	 * false</code> en caso contrario.
 	 */	 
 	public boolean isValid() {

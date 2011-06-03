@@ -25,8 +25,8 @@ import org.eclipse.jdt.core.IMethod;
 import dynamicrefactoring.integration.TypeConversor;
 
 /**
- * Proporciona funciones que permiten manejar un m�todo Java tal y como lo
- * define Eclipse en su representaci�n interna.
+ * Proporciona funciones que permiten manejar un método Java tal y como lo
+ * define Eclipse en su representación interna.
  * 
  * @author <A HREF="mailto:sfd0009@alu.ubu.es">Sonia Fuente de la Fuente</A>
  * @author <A HREF="mailto:ehp0001@alu.ubu.es">Enrique Herrero Paredes</A>
@@ -34,14 +34,14 @@ import dynamicrefactoring.integration.TypeConversor;
 public final class JavaMethodProcessor extends JavaElementProcessor {
 	
 	/**
-	 * El m�todo Java que se debe procesar.
+	 * El método Java que se debe procesar.
 	 */
 	private IMethod method;
 	
 	/**
 	 * Constructor.
 	 * 
-	 * @param method el m�todo Java que se debe procesar.
+	 * @param method el método Java que se debe procesar.
 	 */
 	public JavaMethodProcessor(IMethod method){
 		super(method);
@@ -49,12 +49,12 @@ public final class JavaMethodProcessor extends JavaElementProcessor {
 	}
 	
 	/**
-	 * Obtiene la posici�n relativa del m�todo dentro del conjunto de m�todos de
+	 * Obtiene la posición relativa del método dentro del conjunto de métodos de
 	 * la clase en que se define.
 	 * 
-	 * La numeraci�n empieza en 1, no en 0. 
+	 * La numeración empieza en 1, no en 0. 
 	 * 
-	 * @return la posici�n relativa del m�todo dentro del conjunto de m�todos de 
+	 * @return la posición relativa del método dentro del conjunto de métodos de 
 	 * la clase en que se define.
 	 */	
 	public int getPosition(){
@@ -62,11 +62,11 @@ public final class JavaMethodProcessor extends JavaElementProcessor {
 	}
 
 	/**
-	 * Obtiene el nombre �nico del m�todo seg�n la convenci�n de nomenclatura
-	 * �nica utilizada en el modelo MOON.
+	 * Obtiene el nombre único del método seg�n la convenci�n de nomenclatura
+	 * única utilizada en el modelo MOON.
 	 * 
-	 * @return el nombre �nico del m�todo seg�n la convenci�n de nomenclatura
-	 * �nica utilizada en el modelo MOON.
+	 * @return el nombre único del método seg�n la convenci�n de nomenclatura
+	 * única utilizada en el modelo MOON.
 	 */
 	@Override
 	public String getUniqueName(){
@@ -90,17 +90,17 @@ public final class JavaMethodProcessor extends JavaElementProcessor {
 				convertedParameter = conversor.convertType(parameters[i]);
 			}
 			
-			// Si el par�metro es de un tipo con genericidad.
+			// Si el parámetro es de un tipo con genericidad.
 			if (convertedParameter.contains("<") && convertedParameter.contains(">")){ //$NON-NLS-1$ //$NON-NLS-2$
 				String convertedType = 
 					convertedParameter.substring(0, 
 					convertedParameter.indexOf('<')); //$NON-NLS-1$
 				
-				// Se elimina del nombre �nico la parte de genericidad.
+				// Se elimina del nombre único la parte de genericidad.
 				convertedParameter = convertedType;
 			}
 			
-			// Si el nombre del tipo del par�metro es un nombre completamente
+			// Si el nombre del tipo del parámetro es un nombre completamente
 			// cualificado, se elimina la parte referente a los paquetes.
 			if (convertedParameter.contains(".")){ //$NON-NLS-1$
 				convertedParameter = convertedParameter.substring(

@@ -24,11 +24,11 @@ import java.io.File;
 import java.io.FilenameFilter;
 
 /**
- * Filtra el contenido de un directorio según la extensión de
+ * Filtra el contenido de un directorio segï¿½n la extensiï¿½n de
  * los ficheros, que se corresponden con un fichero de clase.
  * 
- * @author <A HREF="mailto:alc0022@alu.ubu.es">Ángel López Campo</A>
- * @author <A HREF="mailto:epf0006@alu.ubu.es">Eduardo Peña Fernández</A>
+ * @author <A HREF="mailto:alc0022@alu.ubu.es">Ãngel LÃ³pez Campo</A>
+ * @author <A HREF="mailto:epf0006@alu.ubu.es">Eduardo PeÃ±a FernÃ¡ndez</A>
  * @author <A HREF="mailto:sfd0009@alu.ubu.es">Sonia Fuente de la Fuente</A>
  * @author <A HREF="mailto:ehp0001@alu.ubu.es">Enrique Herrero Paredes</A>
  */

@@ -25,21 +25,21 @@ import moon.core.classdef.MethDec;
 import refactoring.engine.Predicate;
 
 /**
- * Comprueba si un método tiene una anotación override.
+ * Comprueba si un mÃ©todo tiene una anotaciÃ³n override.
  * 
  * @author <A HREF="mailto:lfd0002@alu.ubu.es">Laura Fuente de la Fuente</A>
  */
 public class NotHasOverrideAnnotation extends Predicate{
 
 	/**
-	 * Método que se comprueba.
+	 * MÃ©todo que se comprueba.
 	 */
 	private MethDec methDec;
 	
 	/**
 	 * Constructor.
 	 * 
-	 * @param methDec método que se comprueba.
+	 * @param methDec mÃ©todo que se comprueba.
 	 */
 	public NotHasOverrideAnnotation(MethDec methDec){
 		super("NotHasOverrideannotation: \n\t" + //$NON-NLS-1$
@@ -49,9 +49,9 @@ public class NotHasOverrideAnnotation extends Predicate{
 		}
 	
 	/**
-	 * Comprueba si el método no tiene una anotación override.
+	 * Comprueba si el mÃ©todo no tiene una anotaciÃ³n override.
 	 * 
-	 * @return <code>true</code> si el método no tiene una anotación override;
+	 * @return <code>true</code> si el mÃ©todo no tiene una anotaciÃ³n override;
 	 * <code>false</code> en caso contrario.
 	 */
 	@Override

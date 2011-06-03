@@ -37,10 +37,10 @@ import repository.moon.concretefunction.LocalEntitiesDeclared;
 import repository.moon.concretefunction.LocalEntitiesInLoopReentrance;
 
 /**
- * Permite mover un mÈtodo de una clase a otra del modelo.
+ * Permite mover un m√©todo de una clase a otra del modelo.
  *
  * @author <A HREF="mailto:ehp0001@alu.ubu.es">Enrique Herrero Paredes</A>
- * @author <A HREF="mailto:alc0022@alu.ubu.es">¡ngel LÛpez Campo</A>
+ * @author <A HREF="mailto:alc0022@alu.ubu.es">√Ångel L√≥pez Campo</A>
  * @author <A HREF="mailto:sfd0009@alu.ubu.es">Sonia Fuente de la Fuente</A>
  */ 
 public class AddExtractedFormalArgToMethod extends Action {
@@ -56,17 +56,17 @@ public class AddExtractedFormalArgToMethod extends Action {
 	private Name name;
 	
 	/**
-	 * Clase a la que se mover· el mÈtodo.
+	 * Clase a la que se moverÔøΩ el m√©todo.
 	 */
 	private ClassDef classDef;
 	
 	/**
-	 * MÈtodo que se va a mover de una clase a otra.
+	 * M√©todo que se va a mover de una clase a otra.
 	 */
 	 private MethDec method;
 	 
 	 /**
-	  * Receptor de los mensajes enviados por la acciÛn concreta.
+	  * Receptor de los mensajes enviados por la acci√≥n concreta.
 	  */
 	 private RelayListenerRegistry listenerReg;
 	 	
@@ -74,8 +74,8 @@ public class AddExtractedFormalArgToMethod extends Action {
 	 * Constructor.<p>
 	 *
 	 * Obtiene una nueva instancia de MoveMethod.
-	 * @param method mÈtodo que se va a mover de una clase a otra.
-	 * @param classDefDest clase a la que se mover· el mÈtodo.
+	 * @param method m√©todo que se va a mover de una clase a otra.
+	 * @param classDefDest clase a la que se moverÔøΩ el m√©todo.
 	 */	
 	public AddExtractedFormalArgToMethod(Name name, CodeFragment fragment){
 		super();
@@ -88,7 +88,7 @@ public class AddExtractedFormalArgToMethod extends Action {
 	}
 	
 	/**
-	 * Ejecuta el movimiento del mÈtodo de una clase a otra.
+	 * Ejecuta el movimiento del m√©todo de una clase a otra.
 	 */
 	@Override
 	public void run() {		
@@ -147,8 +147,8 @@ public class AddExtractedFormalArgToMethod extends Action {
 	}
 
 	/**
-	 * Deshace el movimiento del mÈtodo, devolviÈndolo a su clase de origen y 
-	 * elimin·ndolo de la nueva clase destino.
+	 * Deshace el movimiento del m√©todo, devolviÔøΩndolo a su clase de origen y 
+	 * eliminÔøΩndolo de la nueva clase destino.
 	 */
 	@Override
 	public void undo() {		

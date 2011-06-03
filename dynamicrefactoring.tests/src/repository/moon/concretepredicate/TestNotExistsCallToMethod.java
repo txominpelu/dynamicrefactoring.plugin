@@ -34,7 +34,7 @@ import repository.moon.MOONRefactoring;
 
 /** 
  * Comprueba que funciona correctamente el predicado que comprueba que no existan
- * llamadas a un determinado m�todo.
+ * llamadas a un determinado método.
  * 
  * @author <A HREF="mailto:sfd0009@alu.ubu.es">Sonia Fuente de la Fuente</A>
  * @author <A HREF="mailto:ehp0001@alu.ubu.es">Enrique Herrero Paredes</A>
@@ -43,7 +43,7 @@ public class TestNotExistsCallToMethod extends RefactoringTemplateAbstractTest {
 
 	/**
 	 * Comprueba que el predicado funciona correctamente cuando existen
-	 * llamadas al m�todo dentro de distintos tipos de instrucciones y 
+	 * llamadas al método dentro de distintos tipos de instrucciones y 
 	 * expresiones.
 	 * 
 	 * @throws Exception si se produce un error durante la ejecuci�n de la prueba.
@@ -64,13 +64,13 @@ public class TestNotExistsCallToMethod extends RefactoringTemplateAbstractTest {
 		NotExistsCallToThisMethod predicate = new NotExistsCallToThisMethod(method);
 				
 		// Comienzan las comprobaciones
-		assertFalse("Comprobar llamadas a un m�todo: no se han detectado " + //$NON-NLS-1$
-			"las llamadas existentes a un m�todo.", predicate.isValid()); //$NON-NLS-1$
+		assertFalse("Comprobar llamadas a un método: no se han detectado " + //$NON-NLS-1$
+			"las llamadas existentes a un método.", predicate.isValid()); //$NON-NLS-1$
 	}
 
 	/**
 	 * Comprueba que el predicado funciona correctamente cuando existen
-	 * llamadas al m�todo dentro de distintos tipos de instrucciones y 
+	 * llamadas al método dentro de distintos tipos de instrucciones y 
 	 * expresiones.
 	 * 
 	 * @throws Exception si se produce un error durante la ejecuci�n de la prueba.
@@ -92,13 +92,13 @@ public class TestNotExistsCallToMethod extends RefactoringTemplateAbstractTest {
 		NotExistsCallToThisMethod predicate = new NotExistsCallToThisMethod(method);
 				
 		// Comienzan las comprobaciones
-		assertFalse("Comprobar llamadas a un m�todo: no se han detectado " + //$NON-NLS-1$
-			"las llamadas existentes a un m�todo.", predicate.isValid()); //$NON-NLS-1$
+		assertFalse("Comprobar llamadas a un método: no se han detectado " + //$NON-NLS-1$
+			"las llamadas existentes a un método.", predicate.isValid()); //$NON-NLS-1$
 	}
 
 	/**
 	 * Comprueba que el predicado funciona correctamente cuando existen
-	 * llamadas al m�todo dentro de distintos tipos de instrucciones y 
+	 * llamadas al método dentro de distintos tipos de instrucciones y 
 	 * expresiones.
 	 * 
 	 * @throws Exception si se produce un error durante la ejecuci�n de la prueba.
@@ -120,7 +120,7 @@ public class TestNotExistsCallToMethod extends RefactoringTemplateAbstractTest {
 		NotExistsCallToThisMethod predicate = new NotExistsCallToThisMethod(method);
 
 		// Comienzan las comprobaciones
-		assertFalse("Comprobar llamadas a un m�todo: no se han detectado " + //$NON-NLS-1$
-				"las llamadas existentes a un m�todo.", predicate.isValid()); //$NON-NLS-1$
+		assertFalse("Comprobar llamadas a un método: no se han detectado " + //$NON-NLS-1$
+				"las llamadas existentes a un método.", predicate.isValid()); //$NON-NLS-1$
 	}
 }

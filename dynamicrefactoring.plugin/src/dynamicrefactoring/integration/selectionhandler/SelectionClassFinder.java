@@ -48,19 +48,19 @@ public class SelectionClassFinder {
 	
 	/**
 	 * Obtiene la clase del modelo MOON a la que pertenece el elemento seleccionado
-	 * en una representaci�n textual del interfaz gr�fico.
+	 * en una representación textual del interfaz gr�fico.
 	 * 
 	 * @param selectionClass apuntador sobre el que se almacena la referencia 
 	 * a la clase MOON a que pertenece la selecci�n actual.
-	 * @param selectionInfo proveedor de informaci�n sobre el elemento 
+	 * @param selectionInfo proveedor de información sobre el elemento 
 	 * seleccionado actualmente en Eclipse sobre un editor de texto.
 	 * 
 	 * @return la clase del modelo MOON a la que pertenece el elemento seleccionado
-	 * en una representaci�n textual del interfaz gr�fico.
+	 * en una representación textual del interfaz gr�fico.
 	 * 
 	 * @throws ClassNotFoundException si se no se consigue encontrar la clase en
 	 * el modelo MOON cargado.
-	 * @throws IOException si se produce alg�n error al acceder al modelo MOON.
+	 * @throws IOException si se produce algún error al acceder al modelo MOON.
 	 */
 	public static ClassDef getTextSelectionClass(ClassDef selectionClass, 
 		TextSelectionInfo selectionInfo)
@@ -81,19 +81,19 @@ public class SelectionClassFinder {
 	
 	/**
 	 * Obtiene la clase del modelo MOON a la que pertenece el elemento seleccionado
-	 * en una representaci�n en �rbol del interfaz gr�fico.
+	 * en una representación en �rbol del interfaz gr�fico.
 	 * 
 	 * @param selectionClass apuntador sobre el que se almacena la referencia 
 	 * a la clase MOON a que pertenece la selecci�n actual.
-	 * @param selectionInfo proveedor de informaci�n sobre el elemento 
+	 * @param selectionInfo proveedor de información sobre el elemento 
 	 * seleccionado actualmente en Eclipse sobre un �rbol desplegable.
 	 * 
 	 * @return la clase del modelo MOON a la que pertenece el elemento seleccionado
-	 * en una representaci�n en �rbol del interfaz gr�fico.
+	 * en una representación en �rbol del interfaz gr�fico.
 	 * 
 	 * @throws ClassNotFoundException si se no se consigue encontrar la clase en
 	 * el modelo MOON cargado.
-	 * @throws IOException si se produce alg�n error al acceder al modelo MOON.
+	 * @throws IOException si se produce algún error al acceder al modelo MOON.
 	 */
 	public static ClassDef getTreeSelectionClass(ClassDef selectionClass, 
 		TreeSelectionInfo selectionInfo)

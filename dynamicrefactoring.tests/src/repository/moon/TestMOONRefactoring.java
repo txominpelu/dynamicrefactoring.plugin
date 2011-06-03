@@ -30,7 +30,7 @@ import repository.RefactoringTemplateAbstractTest;
 
 /** 
  * Comprueba que funciona correctamente la clase que representa una 
- * refactorizaci�n sobre MOON.<p>
+ * refactorización sobre MOON.<p>
  * 
  * @author <A HREF="mailto:sfd0009@alu.ubu.es">Sonia Fuente de la Fuente</A>
  * @author <A HREF="mailto:ehp0001@alu.ubu.es">Enrique Herrero Paredes</A>

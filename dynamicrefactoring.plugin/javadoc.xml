@@ -4,8 +4,7 @@
 <property name="test.dir" value="${basedir}\test" />
 <property name="lib.dir" value="${basedir}\lib" />
 <property name="doclib.dir" value="${basedir}\doclib" />
-<property name="eclipse.dir" value=""/>
-<property name="eclipse.lib" value="${eclipse.dir}\plugins"/>
+<property name="eclipse.lib" value="${maven.local.repo}/p2/osgi/bundle"/>
 
 <!-- ==================== Definition of CLASSPATH ====================== -->
 <path id="doc.classpath">
@@ -28,11 +27,15 @@
 	<mkdir dir="${basedir}\doc\javadoc" />
 	<mkdir dir="${basedir}\doc\javadoc\moon" />
 	<mkdir dir="${basedir}\doc\javadoc\javamoon" />
-	<copy todir="${basedir}\doc\javadoc\moon">
-		<fileset dir="${basedir}\moon"/>
+	<copy todir="${basedir}\doc\javadoc\moon">
+
+		<fileset dir="${basedir}\moon"/>
+
 	</copy>
-	<copy todir="${basedir}\doc\javadoc\javamoon">
-		<fileset dir="${basedir}\javamoon"/>
+	<copy todir="${basedir}\doc\javadoc\javamoon">
+
+		<fileset dir="${basedir}\javamoon"/>
+
 	</copy>
 	<delete dir="${basedir}\javamoon" />
 	<delete dir="${basedir}\moon" />
@@ -45,11 +48,15 @@
 <target description="Borra los directorios generados" name="clean">
 	<mkdir dir="${basedir}\doc\javadoc\moon" />
 	<mkdir dir="${basedir}\doc\javadoc\javamoon" />
-	<copy todir="${basedir}\moon">
-		<fileset dir="${basedir}\doc\javadoc\moon"/>
+	<copy todir="${basedir}\moon">
+
+		<fileset dir="${basedir}\doc\javadoc\moon"/>
+
 	</copy>
-	<copy todir="${basedir}\javamoon">
-		<fileset dir="${basedir}\doc\javadoc\javamoon"/>
+	<copy todir="${basedir}\javamoon">
+
+		<fileset dir="${basedir}\doc\javadoc\javamoon"/>
+
 	</copy>
 	<delete dir="${basedir}\doc" />
 </target>

@@ -21,15 +21,15 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.*/
 package repository;
 
 /**
- * Define las funciones de registro y notificación de <i> listeners</i> que 
+ * Define las funciones de registro y notificaciÃ³n de <i> listeners</i> que 
  * deban registrar los mensajes enviados desde los elementos del repositorio.
  * 
- * <p>Los clientes que implementen la interfaz recibirán los mensajes de 
- * proceso de los componentes concretos del repositorio y actuarán en
- * consecuencia registrando o mostrando dichos mensajes, o extendiéndolos
+ * <p>Los clientes que implementen la interfaz recibirÃ¡n los mensajes de 
+ * proceso de los componentes concretos del repositorio y actuarÃ¡n en
+ * consecuencia registrando o mostrando dichos mensajes, o extendiÃ©ndolos
  * a su lista de <i>listeners</i>.
  * 
- * <p>Desempeña el papel de Sujeto Abstracto en el patrón de diseño Observador.</p>
+ * <p>DesempeÃ±a el papel de Sujeto Abstracto en el patrÃ³n de diseÃ±o Observador.</p>
  * 
  * @author <A HREF="mailto:sfd0009@alu.ubu.es">Sonia Fuente de la Fuente</A>
  * @author <A HREF="mailto:ehp0001@alu.ubu.es">Enrique Herrero Paredes</A>
@@ -37,9 +37,9 @@ package repository;
 public interface IListenerRegistry {
 	
 	/**
-	 * Añade un <i>listener</i> a la lista de <i>listeners</i> registrados.
+	 * AÃ±ade un <i>listener</i> a la lista de <i>listeners</i> registrados.
 	 * 
-	 * @param listener el <i>listener</i> que se debe añadir.
+	 * @param listener el <i>listener</i> que se debe aÃ±adir.
 	 */
 	public void add(IRefactoringMessageListener listener);
 	
@@ -51,7 +51,7 @@ public interface IListenerRegistry {
 	public void remove(IRefactoringMessageListener listener);
 	
 	/**
-	 * Notifica a todos los <i>listeners</i> registrados acerca del envío de un
+	 * Notifica a todos los <i>listeners</i> registrados acerca del envÃ­o de un
 	 * mensaje desde uno de los elementos del repositorio.
 	 * 
 	 * @param message el mensaje enviado por un elemento concreto del repositorio.

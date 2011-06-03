@@ -83,13 +83,13 @@ import dynamicrefactoring.interfaz.wizard.search.javadoc.EclipseBasedJavadocRead
 import dynamicrefactoring.util.MOONTypeLister;
 
 /**
- * Segunda p�gina del asistente de creaci�n o edici�n de refactorizaciones.
+ * Segunda p�gina del asistente de creación o edición de refactorizaciones.
  * 
  * <p>
  * Permite definir las entradas de la refactorizacion, asociarles un tipo y un
  * nombre, determinar a partir de qu� otra entrada y mediante la llamada a qu�
- * m�todo se puede obtener su valor, as� como establecer cu�l de todas
- * constituir� la entrada principal a la refactorizaci�n.
+ * método se puede obtener su valor, as� como establecer cu�l de todas
+ * constituir� la entrada principal a la refactorización.
  * </p>
  * 
  * @author <A HREF="mailto:lfd0002@alu.ubu.es">Laura Fuente de la Fuente</A>
@@ -115,55 +115,55 @@ public class RefactoringWizardPage2 extends WizardPage {
 	private Button delButton;
 
 	/**
-	 * Bot�n que permite desplazar una entrada de la refactorizaci�n hacia
+	 * Bot�n que permite desplazar una entrada de la refactorización hacia
 	 * abajo.
 	 */
 	private Button downButton;
 
 	/**
-	 * Bot�n que permite desplazar una entrada de la refactorizaci�n hacia
+	 * Bot�n que permite desplazar una entrada de la refactorización hacia
 	 * abajo.
 	 */
 	private Button upButton;
 
 	/**
-	 * Refactorizaci�n configurada a trav�s del asistente y que debe ser creada
-	 * finalmente (si se trata de una nueva refactorizaci�n) o modificada (si se
+	 * Refactorización configurada a través del asistente y que debe ser creada
+	 * finalmente (si se trata de una nueva refactorización) o modificada (si se
 	 * est� editando una ya existente).
 	 */
 	private DynamicRefactoringDefinition refactoring = null;
 
 	/**
-	 * Lista desplegable con los nombres de los m�todos del objeto seleccionado
+	 * Lista desplegable con los nombres de los métodos del objeto seleccionado
 	 * en {@link #cFrom} que permiten obtener iteradores o colecciones.
 	 */
 	private Combo cMethod;
 
 	/**
-	 * Lista desplegable con los identificadores de par�metros disponibles ya en
+	 * Lista desplegable con los identificadores de parámetros disponibles ya en
 	 * la lista de elegidos.
 	 */
 	private Combo cFrom;
 
 	/**
-	 * Campo de texto en que se muestra el nombre del par�metro de entrada
+	 * Campo de texto en que se muestra el nombre del parámetro de entrada
 	 * seleccionado sobre la lista de entradas.
 	 */
 	private Text tName;
 
 	/**
 	 * Marca de selecci�n que permite indicar si una entrada es la entrada
-	 * principal de la refactorizaci�n o no.
+	 * principal de la refactorización o no.
 	 */
 	private Button ch_Root;
 
 	/**
-	 * Lista de entradas elegidas para la refactorizaci�n.
+	 * Lista de entradas elegidas para la refactorización.
 	 */
 	private List lInputs;
 
 	/**
-	 * Lista de tipos disponibles como tipos de los par�metros de entrada.
+	 * Lista de tipos disponibles como tipos de los parámetros de entrada.
 	 */
 	private List lTypes;
 
@@ -190,20 +190,20 @@ public class RefactoringWizardPage2 extends WizardPage {
 	private HashMap<String, String> descriptionTypes;
 
 	/**
-	 * Tabla de par�metros de entrada ya introducidos.
+	 * Tabla de parámetros de entrada ya introducidos.
 	 * 
 	 * <p>
 	 * Se utiliza como clave el nombre completamente cualificado del tipo de
 	 * cada entrada concatenado con un espacio en blanco y el n�mero de entrada
 	 * que utiliza ese tipo, y como valor, un objeto de tipo
 	 * <code>InputParameter
-	 * </code> con toda la informaci�n asociada a la entrada.
+	 * </code> con toda la información asociada a la entrada.
 	 * </p>
 	 */
 	private Hashtable<String, InputParameter> inputsTable;
 
 	/**
-	 * Navegador en el que se muestra informaci�n relativa al elemento
+	 * Navegador en el que se muestra información relativa al elemento
 	 * seleccionado dentro de la lista de tipos con el fin de ayudar al usuario
 	 * a la compresi�n de la interfaz.
 	 */
@@ -234,7 +234,7 @@ public class RefactoringWizardPage2 extends WizardPage {
 	 * Constructor.
 	 * 
 	 * @param refactoring
-	 *            refactorizaci�n que se est� editando o <code>null
+	 *            refactorización que se est� editando o <code>null
 	 * </code> si se est� creando una nueva.
 	 */
 	public RefactoringWizardPage2(DynamicRefactoringDefinition refactoring) {
@@ -634,7 +634,7 @@ public class RefactoringWizardPage2 extends WizardPage {
 	}
 
 	/**
-	 * Obtiene la lista de entradas seleccionadas para la refactorizaci�n.
+	 * Obtiene la lista de entradas seleccionadas para la refactorización.
 	 * 
 	 * <p>
 	 * El formato devuelve es el de una lista de <i>arrays</i> de cadenas en la
@@ -657,22 +657,22 @@ public class RefactoringWizardPage2 extends WizardPage {
 	 * </ol>
 	 * <ol>
 	 * El valor que indica si la entrada es la entrada principal de la
-	 * refactorizaci�n (en cuyo caso vale <code>"true"</code>) o no (si tiene
+	 * refactorización (en cuyo caso vale <code>"true"</code>) o no (si tiene
 	 * cualquier otro valor, como <code>"false"</code>, una cadena vac�a o
 	 * incluso <code>null</code>).
 	 * </ol>
 	 * </p>
 	 * 
-	 * @return la lista de entradas seleccionadas para la refactorizaci�n.
+	 * @return la lista de entradas seleccionadas para la refactorización.
 	 */
 	public java.util.List<InputParameter> getInputs() {
 		return new ArrayList<InputParameter>(inputsTable.values());
 	}
 
 	/**
-	 * Obtiene la tabla temporal de par�metros.
+	 * Obtiene la tabla temporal de parámetros.
 	 * 
-	 * @return la tabla temporal de par�metros.
+	 * @return la tabla temporal de parámetros.
 	 */
 	public InputParameter[] getInputTable() {
 		return inputsTable.values().toArray(
@@ -680,14 +680,14 @@ public class RefactoringWizardPage2 extends WizardPage {
 	}
 
 	/**
-	 * Puebla los campos del formulario del asistente con la informaci�n que se
-	 * pueda obtener de la refactorizaci�n existente que se est� editando.
+	 * Puebla los campos del formulario del asistente con la información que se
+	 * pueda obtener de la refactorización existente que se est� editando.
 	 */
 	private void fillInRefactoringData() {
 		if (refactoring.getInputs() != null)
 			for (InputParameter input : refactoring.getInputs()) {
 
-				// Se a�ade a la tabla de par�metros.
+				// Se a�ade a la tabla de parámetros.
 				// Si el tipo no est� en la lista de tipos disponibles, se
 				// a�ade.
 				if (listModelTypes.get(input.getType()) == null) {
@@ -706,7 +706,7 @@ public class RefactoringWizardPage2 extends WizardPage {
 				inputsTable.put(input.getType() + " (" + number + ")", input); //$NON-NLS-1$
 				listModelTypes.put(input.getType(), number + 1);
 
-				// Se a�ade a la lista de par�metros elegidos.
+				// Se a�ade a la lista de parámetros elegidos.
 				lInputs.add(input.getType() + " (" + number + ")"); //$NON-NLS-1$
 			}
 		lInputs.deselectAll();
@@ -715,7 +715,7 @@ public class RefactoringWizardPage2 extends WizardPage {
 		checkForCompletion();
 
 		// Se comprueba que ninguna entrada de las cargadas apunte en el campo
-		// "from" a un nombre que no pertenece a ning�n par�metro.
+		// "from" a un nombre que no pertenece a ningún parámetro.
 		for (InputParameter nextInput : inputsTable.values())
 			// Si tiene un campo a partir del cual se obtiene.
 			if (nextInput.getFrom() != null && !nextInput.getFrom().equals("")) { //$NON-NLS-1$
@@ -791,11 +791,11 @@ public class RefactoringWizardPage2 extends WizardPage {
 	}
 
 	/**
-	 * Puebla la lista de tipos disponibles para los par�metros de entrada con
+	 * Puebla la lista de tipos disponibles para los parámetros de entrada con
 	 * los tipos disponibles en el modelo MOON.
 	 * 
 	 * <p>
-	 * Solo se tienen en cuenta los tipos de representaci�n de los paquetes
+	 * Solo se tienen en cuenta los tipos de representación de los paquetes
 	 * <code>moon.core.classdef</code>, <code>moon.core.genericity</code> y
 	 * algunos otros.
 	 * </p>
@@ -835,11 +835,11 @@ public class RefactoringWizardPage2 extends WizardPage {
 	}
 
 	/**
-	 * Puebla la lista de tipos disponibles para los par�metros de entrada con
+	 * Puebla la lista de tipos disponibles para los parámetros de entrada con
 	 * los tipos disponibles en el modelo MOON.
 	 * 
 	 * <p>
-	 * Solo se tienen en cuenta los tipos de representaci�n de los paquetes
+	 * Solo se tienen en cuenta los tipos de representación de los paquetes
 	 * <code>moon.core.classdef</code>, <code>moon.core.genericity</code> y
 	 * algunos otros.
 	 * </p>
@@ -863,7 +863,7 @@ public class RefactoringWizardPage2 extends WizardPage {
 			descriptionTypes.put(typeName, EclipseBasedJavadocReader.INSTANCE
 					.getTypeJavaDocAsPlainText(typeName));
 
-			// Si se est� creando una nueva refactorizaci�n.
+			// Si se est� creando una nueva refactorización.
 			if (((RefactoringWizard) getWizard()).getOperation() == RefactoringWizard.CREATE) {
 				// Se busca y a�ade autom�ticamente el modelo MOON.
 				if (typeName.equals( //$NON-NLS-1$ //$NON-NLS-2$
@@ -889,7 +889,7 @@ public class RefactoringWizardPage2 extends WizardPage {
 
 	/**
 	 * Activa o desactiva todos los campos del formulario para la introducci�n
-	 * de datos de un par�metro seleccionado.
+	 * de datos de un parámetro seleccionado.
 	 * 
 	 * @param enable
 	 *            <code>true</code> si se deben habilitar todos los campos;
@@ -917,7 +917,7 @@ public class RefactoringWizardPage2 extends WizardPage {
 	}
 
 	/**
-	 * Completa los campos referentes al par�metro seleccionado en un cierto
+	 * Completa los campos referentes al parámetro seleccionado en un cierto
 	 * instante con los datos de la entrada representada por #parameter.
 	 * 
 	 * @param parameter
@@ -943,7 +943,7 @@ public class RefactoringWizardPage2 extends WizardPage {
 
 	/**
 	 * Rellena la lista desplegable de posibles objetos de origen para un valor
-	 * con los identificadores de los par�metros ya disponibles.
+	 * con los identificadores de los parámetros ya disponibles.
 	 */
 	private void fillFromComboBox() {
 		for (InputParameter nextParameter : inputsTable.values())
@@ -956,24 +956,24 @@ public class RefactoringWizardPage2 extends WizardPage {
 	}
 
 	/**
-	 * Rellena el desplegable con los nombres de los m�todos disponibles para la
-	 * obtenci�n del par�metro de entrada seleccionado a partir de la entrada
+	 * Rellena el desplegable con los nombres de los métodos disponibles para la
+	 * obtenci�n del parámetro de entrada seleccionado a partir de la entrada
 	 * especificada en la secci�n <i>from</i>.
 	 * 
 	 * @param fromName
 	 *            nombre de la entrada a partir de la cual se obtendr�a el valor
-	 *            de esta entrada mediante la aplicaci�n del m�todo
+	 *            de esta entrada mediante la aplicación del método
 	 *            seleccionado.
 	 * @param returnType
-	 *            tipo del resultado que deben devolver los m�todos en caso de
-	 *            que devuelvan un valor �nico en lugar de un conjunto.
+	 *            tipo del resultado que deben devolver los métodos en caso de
+	 *            que devuelvan un valor único en lugar de un conjunto.
 	 */
 	private void fillMethodComboBox(String fromName, String returnType) {
 
 		String[] methods = new String[0];
 
 		// Nombre completamente cualificado del tipo de la entrada a partir de
-		// la que se deber�a obtener el valor del par�metro tratado.
+		// la que se debería obtener el valor del parámetro tratado.
 		String type = "";
 
 		// Si no se especifica otra entrada como origen, se intentar� obtener
@@ -992,22 +992,22 @@ public class RefactoringWizardPage2 extends WizardPage {
 		if (type.length() > 0)
 			methods = getMethodsFromType(type, returnType);
 
-		// Se rellena el desplegable con todos los m�todos encontrados.
+		// Se rellena el desplegable con todos los métodos encontrados.
 		for (int i = 0; i < methods.length; i++)
 			cMethod.add(methods[i]);
 	}
 
 	/**
-	 * Obtiene los nombres de los m�todos de una clase que devuelven objetos de
+	 * Obtiene los nombres de los métodos de una clase que devuelven objetos de
 	 * tipo <code>Iterator</code> ,<code>Collection</code> o <code>List</code>,
-	 * as� como aqu�llos que devuelven un �nico valor del tipo especificado.
+	 * as� como aqu�llos que devuelven un único valor del tipo especificado.
 	 * 
 	 * @param className
-	 *            nombre de la clase cuyos m�todos se deben obtener.
+	 *            nombre de la clase cuyos métodos se deben obtener.
 	 * @param type
-	 *            tipo del valor �nico que pueden devolver los m�todos.
+	 *            tipo del valor único que pueden devolver los métodos.
 	 * 
-	 * @return un <i>array</i> de cadenas con los nombres de los m�todos.
+	 * @return un <i>array</i> de cadenas con los nombres de los métodos.
 	 */
 	private String[] getMethodsFromType(String className, String type) {
 
@@ -1049,9 +1049,9 @@ public class RefactoringWizardPage2 extends WizardPage {
 	private void checkForCompletion() {
 		int rootInputs = 0;
 
-		// Se comprueban todos los par�metros de entrada.
+		// Se comprueban todos los parámetros de entrada.
 		for (InputParameter nextInput : inputsTable.values()) {
-			// Todos los par�metros deben tener nombre.
+			// Todos los parámetros deben tener nombre.
 			if (!nextInput.getType().equals(RefactoringConstants.MODEL_PATH)
 					&& nextInput.getName().equals("")) { //$NON-NLS-1$
 
@@ -1066,7 +1066,7 @@ public class RefactoringWizardPage2 extends WizardPage {
 
 			if (nextInput.isMain()) { //$NON-NLS-1$
 				rootInputs++;
-				// El par�metro principal no puede obtenerse a partir de otro.
+				// El parámetro principal no puede obtenerse a partir de otro.
 				if ((nextInput.getFrom() != null && nextInput.getFrom()
 						.length() != 0)
 						|| (nextInput.getMethod() != null && nextInput
@@ -1075,7 +1075,7 @@ public class RefactoringWizardPage2 extends WizardPage {
 							+ "."); //$NON-NLS-1$
 					return;
 				}
-				// El par�metro principal no puede ser de cualquier tipo.
+				// El parámetro principal no puede ser de cualquier tipo.
 				MainInputValidator validator = new MainInputValidator();
 				if (!validator.checkMainType(nextInput.getType())) {
 
@@ -1138,8 +1138,8 @@ public class RefactoringWizardPage2 extends WizardPage {
 
 	/**
 	 * Actualiza el panel inferior para mostrar en cada uno de los campos del
-	 * formulario la informaci�n apropiada acerca del par�metro seleccionado en
-	 * la lista del panel de par�metros.
+	 * formulario la información apropiada acerca del parámetro seleccionado en
+	 * la lista del panel de parámetros.
 	 * 
 	 * @author <A HREF="mailto:lfd0002@alu.ubu.es">Laura Fuente de la Fuente</A>
 	 * @author <A HREF="mailto:sfd0009@alu.ubu.es">Sonia Fuente de la Fuente</A>
@@ -1148,12 +1148,12 @@ public class RefactoringWizardPage2 extends WizardPage {
 	private class InputSelectionListener implements SelectionListener {
 
 		/**
-		 * Recibe una notificaci�n de que un elemento de la lista de par�metros
+		 * Recibe una notificación de que un elemento de la lista de parámetros
 		 * de entrada ha sido seleccionado.
 		 * 
 		 * <p>
 		 * Inicia las acciones que sean necesarias para actualizar la
-		 * informaci�n mostrada en el panel inferior acerca del par�metro
+		 * información mostrada en el panel inferior acerca del parámetro
 		 * seleccionado.
 		 * </p>
 		 * 
@@ -1187,7 +1187,7 @@ public class RefactoringWizardPage2 extends WizardPage {
 					}
 				}
 			}
-			// Si no hay ning�n elemento seleccionado.
+			// Si no hay ningún elemento seleccionado.
 			else {
 				enableFields(false);
 				enableInputButtons(false);
@@ -1204,7 +1204,7 @@ public class RefactoringWizardPage2 extends WizardPage {
 
 	/**
 	 * Actualiza el valor del atributo de la entrada seleccionada que indica si
-	 * se trata de la entrada principal de la refactorizaci�n o no.
+	 * se trata de la entrada principal de la refactorización o no.
 	 * 
 	 * @author <A HREF="mailto:lfd0002@alu.ubu.es">Laura Fuente de la Fuente</A>
 	 * @author <A HREF="mailto:sfd0009@alu.ubu.es">Sonia Fuente de la Fuente</A>
@@ -1213,7 +1213,7 @@ public class RefactoringWizardPage2 extends WizardPage {
 	private class RootSelectionListener implements SelectionListener {
 
 		/**
-		 * Recibe una notificaci�n de que la marca de selecci�n ha sido
+		 * Recibe una notificación de que la marca de selecci�n ha sido
 		 * seleccionada o deseleccionada.
 		 * 
 		 * @param e
@@ -1254,7 +1254,7 @@ public class RefactoringWizardPage2 extends WizardPage {
 	private class TypeSelectionListener implements SelectionListener {
 
 		/**
-		 * Recibe una notificaci�n de que un elemento de la lista de tipos
+		 * Recibe una notificación de que un elemento de la lista de tipos
 		 * disponibles ha sido seleccionado.
 		 * 
 		 * <p>
@@ -1383,11 +1383,11 @@ public class RefactoringWizardPage2 extends WizardPage {
 
 	/**
 	 * Permite observar y controlar los cambios realizados sobre el contenido
-	 * del campo que contiene el nombre del par�metro de entrada seleccionado.
+	 * del campo que contiene el nombre del parámetro de entrada seleccionado.
 	 * 
 	 * <p>
 	 * Cuando se modifica el contenido de dicho campo, se actualiza el nombre
-	 * del par�metro, a menos que se trate de un nombre ya asignado a otra
+	 * del parámetro, a menos que se trate de un nombre ya asignado a otra
 	 * entrada.
 	 * </p>
 	 * 
@@ -1398,12 +1398,12 @@ public class RefactoringWizardPage2 extends WizardPage {
 	private class NameFocusListener implements FocusListener {
 
 		/**
-		 * Recibe una notificaci�n indicando que el texto observado ha recibido
-		 * el foco (en este caso, el texto que contiene el nombre del par�metro
+		 * Recibe una notificación indicando que el texto observado ha recibido
+		 * el foco (en este caso, el texto que contiene el nombre del parámetro
 		 * seleccionado).
 		 * 
 		 * @param e
-		 *            evento con la informaci�n referente a la recepci�n del
+		 *            evento con la información referente a la recepci�n del
 		 *            foco.
 		 * 
 		 * @see FocusListener#focusGained(FocusEvent)
@@ -1413,11 +1413,11 @@ public class RefactoringWizardPage2 extends WizardPage {
 		}
 
 		/**
-		 * Recibe una notificaci�n indicando que el texto observado ha perdido
+		 * Recibe una notificación indicando que el texto observado ha perdido
 		 * el foco.
 		 * 
 		 * @param e
-		 *            evento con la informaci�n referente a la p�rdida del foco.
+		 *            evento con la información referente a la p�rdida del foco.
 		 * 
 		 * @see FocusListener#focusLost(FocusEvent)
 		 */
@@ -1449,13 +1449,13 @@ public class RefactoringWizardPage2 extends WizardPage {
 		}
 
 		/**
-		 * Comprueba que un nombre dado no pertenezca a alg�n otro elemento
+		 * Comprueba que un nombre dado no pertenezca a algún otro elemento
 		 * distinto del indicado.
 		 * 
 		 * @param name
 		 *            el nombre cuya unicidad se debe verificar.
 		 * @param current
-		 *            el �nico par�metro de entrada para el que se admite el
+		 *            el único parámetro de entrada para el que se admite el
 		 *            nombre como v�lido.
 		 * 
 		 * @return <code>false</code> si el nombre ya existe; <code>true
@@ -1481,7 +1481,7 @@ public class RefactoringWizardPage2 extends WizardPage {
 	 * 
 	 * <p>
 	 * Cuando se modifica el contenido de dicho campo, se actualiza el apuntador
-	 * del par�metro al objeto a partir del que se puede obtener su valor.
+	 * del parámetro al objeto a partir del que se puede obtener su valor.
 	 * </p>
 	 * 
 	 * @author <A HREF="mailto:sfd0009@alu.ubu.es">Sonia Fuente de la Fuente</A>
@@ -1490,12 +1490,12 @@ public class RefactoringWizardPage2 extends WizardPage {
 	private class FromFocusListener implements FocusListener {
 
 		/**
-		 * Recibe una notificaci�n indicando que el elemento observado ha
+		 * Recibe una notificación indicando que el elemento observado ha
 		 * recibido el foco (en este caso, el desplegable que contiene los
 		 * nombres de las entradas).
 		 * 
 		 * @param e
-		 *            evento con la informaci�n referente a la recepci�n del
+		 *            evento con la información referente a la recepci�n del
 		 *            foco.
 		 * 
 		 * @see FocusListener#focusGained(FocusEvent)
@@ -1505,11 +1505,11 @@ public class RefactoringWizardPage2 extends WizardPage {
 		}
 
 		/**
-		 * Recibe una notificaci�n indicando que el elemento observado ha
+		 * Recibe una notificación indicando que el elemento observado ha
 		 * perdido el foco.
 		 * 
 		 * @param e
-		 *            evento con la informaci�n referente a la p�rdida del foco.
+		 *            evento con la información referente a la p�rdida del foco.
 		 * 
 		 * @see FocusListener#focusLost(FocusEvent)
 		 */
@@ -1541,12 +1541,12 @@ public class RefactoringWizardPage2 extends WizardPage {
 
 	/**
 	 * Permite observar y controlar los cambios realizados sobre el contenido
-	 * del campo desplegable que contiene el m�todo mediante el que se puede
+	 * del campo desplegable que contiene el método mediante el que se puede
 	 * obtener a su vez el valor de la entrada actual.
 	 * 
 	 * <p>
 	 * Cuando se modifica el contenido de dicho campo, se actualiza el apuntador
-	 * del par�metro al m�todo mediante el que se puede obtener su valor.
+	 * del parámetro al método mediante el que se puede obtener su valor.
 	 * </p>
 	 * 
 	 * @author <A HREF="mailto:sfd0009@alu.ubu.es">Sonia Fuente de la Fuente</A>
@@ -1555,12 +1555,12 @@ public class RefactoringWizardPage2 extends WizardPage {
 	private class MethodFocusListener implements FocusListener {
 
 		/**
-		 * Recibe una notificaci�n indicando que el elemento observado ha
+		 * Recibe una notificación indicando que el elemento observado ha
 		 * recibido el foco (en este caso, el desplegable que contiene los
-		 * m�todos de la entrada seleccionada como origen).
+		 * métodos de la entrada seleccionada como origen).
 		 * 
 		 * @param e
-		 *            evento con la informaci�n referente a la recepci�n del
+		 *            evento con la información referente a la recepci�n del
 		 *            foco.
 		 * 
 		 * @see FocusListener#focusGained(FocusEvent)
@@ -1570,11 +1570,11 @@ public class RefactoringWizardPage2 extends WizardPage {
 		}
 
 		/**
-		 * Recibe una notificaci�n indicando que el elemento observado ha
+		 * Recibe una notificación indicando que el elemento observado ha
 		 * perdido el foco.
 		 * 
 		 * @param e
-		 *            evento con la informaci�n referente a la p�rdida del foco.
+		 *            evento con la información referente a la p�rdida del foco.
 		 * 
 		 * @see FocusListener#focusLost(FocusEvent)
 		 */

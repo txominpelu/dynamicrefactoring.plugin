@@ -40,7 +40,7 @@ import repository.RelayListenerRegistry;
 import repository.moon.MOONRefactoring;
 
 /**
- * Permite a�adir un tipo enumerado al modelo a partir de la informaci�n de 
+ * Permite a�adir un tipo enumerado al modelo a partir de la información de 
  * una clase que pretende sustituir a un tipo enumerado.<p>
  *
  * @author <A HREF="mailto:lfd0002@alu.ubu.es">Laura Fuente de la Fuente</A>
@@ -49,21 +49,21 @@ public class AddEnumTypeWithClassData extends Action {
 	
 	
 	/**
-	 * Clase que contiene la informaci�n necesaria para crear el tipo enumerado.
+	 * Clase que contiene la información necesaria para crear el tipo enumerado.
 	 */
 	private ClassDef classDef;
 	
 	/**
-	 * Receptor de los mensajes enviados por la acci�n concreta.
+	 * Receptor de los mensajes enviados por la acción concreta.
 	 */
 	private RelayListenerRegistry listenerReg;
 		
 	/**
 	 * Constructor.<p>
 	 *
-	 * Obtiene una nueva instancia de la acci�n AddEnumTypeWithClassData.
+	 * Obtiene una nueva instancia de la acción AddEnumTypeWithClassData.
 	 *
-	 * @param classDef clase que contiene la informaci�n necesaria para crear el tipo enumerado.
+	 * @param classDef clase que contiene la información necesaria para crear el tipo enumerado.
 	 */
 	public AddEnumTypeWithClassData ( ClassDef classDef){
 		super();
@@ -74,7 +74,7 @@ public class AddEnumTypeWithClassData extends Action {
 	}
 	
 	/**
-	 * Ejecuta la acci�n de convertir una clase en tipo enumerado.
+	 * Ejecuta la acción de convertir una clase en tipo enumerado.
 	 */
 	public void run(){	
 		

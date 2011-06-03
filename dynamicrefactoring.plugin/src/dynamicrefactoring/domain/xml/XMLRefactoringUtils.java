@@ -14,15 +14,15 @@ import dynamicrefactoring.domain.xml.reader.XMLRefactoringReaderImp;
 public class XMLRefactoringUtils {
 
 	/**
-	 * Devuelve la definici�n de una refactorizaci�n a partir de un fichero.
+	 * Devuelve la definición de una refactorización a partir de un fichero.
 	 * 
 	 * @param refactoringFilePath
-	 *            ruta al fichero que define la refactorizaci�n.
+	 *            ruta al fichero que define la refactorización.
 	 * 
-	 * @return la definici�n de la refactorizaci�n descrita en el fichero.
+	 * @return la definición de la refactorización descrita en el fichero.
 	 * 
 	 * @throws RefactoringException
-	 *             si se produce un error al cargar la refactorizaci�n desde el
+	 *             si se produce un error al cargar la refactorización desde el
 	 *             fichero indicado.
 	 */
 	public static DynamicRefactoringDefinition getRefactoringDefinition(

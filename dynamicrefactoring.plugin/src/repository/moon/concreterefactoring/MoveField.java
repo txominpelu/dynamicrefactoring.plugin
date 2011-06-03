@@ -42,18 +42,18 @@ import repository.moon.concretepredicate.NotExistsAttributeInClass;
  * est� siendo utilizado desde ninguna clase del modelo. Las clases de origen
  * y de destino no pueden ser la misma.<p>
  *
- * Si las comprobaciones no fallan, se lleva a cabo la refactorizaci�n.<p>
+ * Si las comprobaciones no fallan, se lleva a cabo la refactorización.<p>
  *
  * Finalmente, comprueba que el proceso se ha llevado a cabo con �xito.
  *
- * @author <A HREF="mailto:alc0022@alu.ubu.es">�ngel L�pez Campo</A>
+ * @author <A HREF="mailto:alc0022@alu.ubu.es">Ángel López Campo</A>
  * @author <A HREF="mailto:ehp0001@alu.ubu.es">Enrique Herrero Paredes</A>
  * @author <A HREF="mailto:sfd0009@alu.ubu.es">Sonia Fuente de la Fuente</A>
  */
 public class MoveField extends MOONRefactoring {
 	
 	/**
-	 * Nombre de la refactorizaci�n concreta.
+	 * Nombre de la refactorización concreta.
 	 */
 	private static final String NAME = "MoveField"; //$NON-NLS-1$
 	

@@ -34,22 +34,22 @@ import refactoring.engine.Function;
 import repository.moon.MOONRefactoring;
 
 /**
- * Permite obtener todas las sustituciones existentes de un par�metro formal.
+ * Permite obtener todas las sustituciones existentes de un parámetro formal.
  *
- * @author <A HREF="mailto:sam0006@alu.ubu.es">Sara Alcal� Mart�n</A>
- * @author <A HREF="mailto:dbm0005@alu.ubu.es">Diego Ba�uelos Molledo</A>
+ * @author <A HREF="mailto:sam0006@alu.ubu.es">Sara Alcalá Martín</A>
+ * @author <A HREF="mailto:dbm0005@alu.ubu.es">Diego Bañuelos Molledo</A>
  * @author <A HREF="mailto:sfd0009@alu.ubu.es">Sonia Fuente de la Fuente</A>
  * @author <A HREF="mailto:ehp0001@alu.ubu.es">Enrique Herrero Paredes</A>
  */
 public class FormalParSubstitutionCollector extends Function {
 
 	/**
-	 * La clase a la que pertenece el par�metro formal.
+	 * La clase a la que pertenece el parámetro formal.
 	 */
 	private ClassDef classDef;
 	
 	/**
-	 * El par�metro formal cuyas sustituciones se quieren obtener.
+	 * El parámetro formal cuyas sustituciones se quieren obtener.
 	 */
 	private FormalPar formalPar;
 	
@@ -58,7 +58,7 @@ public class FormalParSubstitutionCollector extends Function {
 	 *
 	 * Obtiene una nueva instancia de FormalParSubstitutionCollector.
 	 *
-	 * @param formalPar el par�metro formal cuyas sustituciones se deben obtener.
+	 * @param formalPar el parámetro formal cuyas sustituciones se deben obtener.
 	 */
 	public FormalParSubstitutionCollector(FormalPar formalPar) {
 		super();
@@ -67,7 +67,7 @@ public class FormalParSubstitutionCollector extends Function {
 	}
 	
 	/**
-	 * Sin implementaci�n.
+	 * Sin implementación.
 	 *
 	 * @return null.
 	 */
@@ -77,16 +77,16 @@ public class FormalParSubstitutionCollector extends Function {
 	}
 	
 	/**
-	 * Devuelve todos las sustituciones del par�metro formal.
+	 * Devuelve todos las sustituciones del parámetro formal.
 	 * 
-	 * @return todas las sustituciones del par�metro formal.
+	 * @return todas las sustituciones del parámetro formal.
 	 */
 	@Override
 	public Collection<ClassType> getCollection() {
 		ArrayList<ClassType> substitutions = new ArrayList<ClassType>();
 		
-		// Se obtiene la posici�n del par�metro formal en la lista de 
-		// par�metros formales de la clase.
+		// Se obtiene la posición del parámetro formal en la lista de 
+		// parámetros formales de la clase.
 		int index = 0;
 		List<FormalPar> classParameters = this.classDef.getFormalPars();
 		for(FormalPar nextPar : classParameters){

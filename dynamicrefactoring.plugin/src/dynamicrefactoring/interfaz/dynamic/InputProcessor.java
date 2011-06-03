@@ -33,11 +33,11 @@ import dynamicrefactoring.RefactoringConstants;
 import dynamicrefactoring.domain.InputParameter;
 
 /**
- * Proporciona funciones de procesamiento de las entradas obtenidas a trav�s 
- * de una ventana de refactorizaci�n din�mica.
+ * Proporciona funciones de procesamiento de las entradas obtenidas a través 
+ * de una ventana de refactorización din�mica.
  * 
  * <p>Permite adaptar los valores introducidos en la ventana a las necesidades
- * de la refactorizaci�n que se debe ejecutar.</p>
+ * de la refactorización que se debe ejecutar.</p>
  * 
  * @author <A HREF="mailto:sfd0009@alu.ubu.es">Sonia Fuente de la Fuente</A>
  * @author <A HREF="mailto:ehp0001@alu.ubu.es">Enrique Herrero Paredes</A>
@@ -67,7 +67,7 @@ public class InputProcessor {
 	private final String NAME_NAME = "moon.core.Name"; //$NON-NLS-1$
 	
 	/**
-	 * Ventana a la que se consultan los datos necesarios para la composici�n del
+	 * Ventana a la que se consultan los datos necesarios para la composición del
 	 * conjunto de entradas de la refactorizacion.
 	 */
 	private DynamicRefactoringWindow launcher;
@@ -75,14 +75,14 @@ public class InputProcessor {
 	/**
 	 * Constructor.
 	 * 
-	 * @param launcher ventana de configuraci�n de la refactorizaci�n.
+	 * @param launcher ventana de configuración de la refactorización.
 	 */
 	public InputProcessor(DynamicRefactoringWindow launcher){
 		this.launcher = launcher;
 	}
 	
 	/**
-	 * Obtiene las entradas de la refactorizaci�n a partir de los valores cargados
+	 * Obtiene las entradas de la refactorización a partir de los valores cargados
 	 * mediante la interfaz de {@link DynamicRefactoringWindow}.
 	 * 
 	 * @return una tabla asociativa con los valores de las entradas. Se utiliza
@@ -126,10 +126,10 @@ public class InputProcessor {
 	
 	/**
 	 * Intenta obtener un objeto MOON asociado a una entrada cuyo valor especifica
-	 * el usuario a trav�s de un campo de texto.
+	 * el usuario a través de un campo de texto.
 	 * 
 	 * <p>Por defecto, se interpreta que los campos de texto solo pueden contener
-	 * nombres (<code>moon.core.Name</code>) o nombres �nicos de clases (<code>
+	 * nombres (<code>moon.core.Name</code>) o nombres únicos de clases (<code>
 	 * moon.core.classdef.ClassDef</code>).</p>
 	 * 
 	 * @param input entrada cuyo valor asociado se intenta obtener.
@@ -137,7 +137,7 @@ public class InputProcessor {
 	 * asigna valor a la entrada.
 	 * 
 	 * @return un objeto MOON asociado a la entrada, o <code>null</code> si no se
-	 * pudo cargar ning�n objeto adecuado.
+	 * pudo cargar ningún objeto adecuado.
 	 */
 	public Object computeValue(InputParameter input, String source){
 		
@@ -149,7 +149,7 @@ public class InputProcessor {
 			// Se construye un nombre MOON.
 			return launcher.model.getMoonFactory().createName(name);
 		
-		// Si no, se comprueba si es alg�n subtipo de moon.core.classdef.ClassDef.
+		// Si no, se comprueba si es algún subtipo de moon.core.classdef.ClassDef.
 		try {
 			Class<?> classdef = Class.forName(CLASSDEF_NAME);
 			Class<?> declaration = Class.forName(input.getType());
@@ -186,7 +186,7 @@ public class InputProcessor {
 	 * obtener unos tipos de datos del modelo a partir de otros.
 	 * 
 	 * @param input la entrada cuyo valor se procesa.
-	 * @param value el valor original obtenido a trav�s de la interfaz.
+	 * @param value el valor original obtenido a través de la interfaz.
 	 * 
 	 * @return el resultado de procesar la entrada original para comprobar si es
 	 * necesario aplicarle alguna de las transformaciones b�sicas disponibles.
@@ -202,11 +202,11 @@ public class InputProcessor {
 			if (expected.isAssignableFrom(source))
 				return value;
 			
-			// Si no, se obtienen todos los m�todos del tipo del objeto disponible.
+			// Si no, se obtienen todos los métodos del tipo del objeto disponible.
 			int count = 0, position = -1;
 			Method[] methods = source.getMethods();			
 			for (int i = 0; i < methods.length; i++)
-				// Se busca un m�todo sin argumentos y cuyo tipo de retorno 
+				// Se busca un método sin argumentos y cuyo tipo de retorno 
 				// coincida con el deseado.
 				if (expected.isAssignableFrom(methods[i].getReturnType()))
 					if (methods[i].getParameterTypes().length == 0){
@@ -214,8 +214,8 @@ public class InputProcessor {
 						position = i;
 					}
 			
-			// Si se ha encontrado m�s de un m�todo o no se ha encontrado ninguno
-			// es una situaci�n ambigua o sin soluci�n.
+			// Si se ha encontrado m�s de un método o no se ha encontrado ninguno
+			// es una situación ambigua o sin soluci�n.
 			if (count > 1 || position == -1) {
 				Object[] messageArgs = {input.getName()};
 				MessageFormat formatter = new MessageFormat(""); //$NON-NLS-1$
@@ -244,14 +244,14 @@ public class InputProcessor {
 	}
 
 	/**
-	 * Comprueba si un determinado m�todo es v�lido como m�todo de obtenci�n del 
+	 * Comprueba si un determinado método es v�lido como método de obtenci�n del 
 	 * valor o posibles valores de un determinado tipo.
 	 * 
-	 * @param method m�todo cuya validez se comprueba.
+	 * @param method método cuya validez se comprueba.
 	 * @param returnType nombre completamente cualificado del tipo con el que debe
-	 * conformar el tipo de retorno del m�todo, en caso de ser un �nico elemento.
+	 * conformar el tipo de retorno del método, en caso de ser un único elemento.
 	 * 
-	 * @return <code>true</code> si el tipo de retorno del m�todo devuelve un
+	 * @return <code>true</code> si el tipo de retorno del método devuelve un
 	 * iterador, una colecci�n o un objeto cuyo tipo conforma con el especificado;
 	 * <code>false</code> en caso contrario. 
 	 * 

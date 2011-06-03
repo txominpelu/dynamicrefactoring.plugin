@@ -58,7 +58,7 @@ public final class FileManager {
 	 * @param rootDirectory
 	 *            ruta o nombre del directorio ra�z.
 	 * 
-	 * @return <code>true</code> si se pudo completar la operaci�n con �xito.
+	 * @return <code>true</code> si se pudo completar la operación con �xito.
 	 *         <code>false</code> en caso contrario.
 	 */
 	public static boolean emptyDirectories(String rootDirectory){
@@ -423,7 +423,7 @@ public final class FileManager {
 	 */
 	public static void copyBundleDirToFileSystem(String bundleDir,
 			String fileSystemDir) throws IOException {
-		// TODO: Test para este m�todo
+		// TODO: Test para este método
 		final Bundle bundle = Platform.getBundle(RefactoringPlugin.BUNDLE_NAME);
 		final Enumeration<?> entries = bundle.findEntries(FilenameUtils.separatorsToUnix(bundleDir), "*", true);
 		//FIXME: Falla si no existe la carpeta o no hay nada en ella solucionar y agregar tests

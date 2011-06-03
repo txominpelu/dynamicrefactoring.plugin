@@ -11,7 +11,7 @@ import refactoring.engine.Function;
 /**
  * Gets the set of entities declared in an instruction set.
  * 
- * @author Raúl Marticorena
+ * @author RaÃºl Marticorena
  * @since JavaMoon-2.3.0
  * @see repository.moon.concretefunction.LocalWrittenEntitiesAccessed
  * @see repository.moon.concretefunction.LocalReadEntitiesAccessed

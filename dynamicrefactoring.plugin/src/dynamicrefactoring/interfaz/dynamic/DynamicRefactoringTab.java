@@ -57,7 +57,7 @@ import dynamicrefactoring.domain.RefactoringMechanismInstance;
 import dynamicrefactoring.interfaz.TreeEditor;
 
 /**
- * Pesta�a con el contenido resumen de una refactorizaci�n.
+ * Pesta�a con el contenido resumen de una refactorización.
  * 
  * @author <A HREF="mailto:sfd0009@alu.ubu.es">Sonia Fuente de la Fuente</A>
  * @author <A HREF="mailto:ehp0001@alu.ubu.es">Enrique Herrero Paredes</A>
@@ -65,43 +65,43 @@ import dynamicrefactoring.interfaz.TreeEditor;
 public class DynamicRefactoringTab {
 
 	/**
-	 * Campo de texto en que se muestra la motivaci�n de la refactorizaci�n.
+	 * Campo de texto en que se muestra la motivación de la refactorización.
 	 */
 	private Text t_Motivation;
 
 	/**
 	 * Campo de texto en que se muestra la descripci�n de la
-	 * refactorizaci�n.
+	 * refactorización.
 	 */
 	private Text t_Description;
 
 	/**
-	 * Tabla de entradas de la refactorizaci�n.
+	 * Tabla de entradas de la refactorización.
 	 */
 	private Table tb_Inputs;
 
 	/**
-	 * Tabla de componentes de la refactorizaci�n.
+	 * Tabla de componentes de la refactorización.
 	 */
 	private Tree tr_Components;
 
 	/**
-	 * Pesta�a asociada al resumen de la refactorizaci�n.
+	 * Pesta�a asociada al resumen de la refactorización.
 	 */
 	private TabItem tab;
 
 	/**
-	 * La definici�n de la refactorizaci�n.
+	 * La definición de la refactorización.
 	 */
 	protected DynamicRefactoringDefinition refactoringDefinition;
 
 	/**
-	 * Crea la pesta�a con el resumen de la refactorizaci�n.
+	 * Crea la pesta�a con el resumen de la refactorización.
 	 * 
 	 * @param parent
 	 *            el contenedor de pesta�as que contendr� esta pesta�a.
 	 * @param definition
-	 *            la definici�n de la refactorizaci�n.
+	 *            la definición de la refactorización.
 	 */
 	public DynamicRefactoringTab(TabFolder parent,
 		DynamicRefactoringDefinition definition){
@@ -118,7 +118,7 @@ public class DynamicRefactoringTab {
 		scrolledComposite.setExpandHorizontal(true);
 		scrolledComposite.setExpandVertical(true);
 		
-		// Pesta�a de informaci�n.
+		// Pesta�a de información.
 		final Composite cInformation = new Composite(scrolledComposite, SWT.NONE);
 		cInformation.setLocation(0, 0);
 		cInformation.setSize(872, 390);
@@ -280,8 +280,8 @@ public class DynamicRefactoringTab {
 	}
 
 	/**
-	 * Puebla los campos de la pesta�a con la informaci�n que se pueda
-	 * obtener de la refactorizaci�n existente que se est� editando o que se
+	 * Puebla los campos de la pesta�a con la información que se pueda
+	 * obtener de la refactorización existente que se est� editando o que se
 	 * est� a punto de crear.
 	 */
 	private void fillInRefactoringData(){

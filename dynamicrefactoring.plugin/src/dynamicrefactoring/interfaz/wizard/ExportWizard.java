@@ -87,7 +87,7 @@ public class ExportWizard extends DynamicRefactoringList {
 	private Text t_Output;
 
 	/**
-	 * Bot�n que permite iniciar la exportaci�n.
+	 * Bot�n que permite iniciar la exportación.
 	 */
 	private Button btExport;
 
@@ -208,7 +208,7 @@ public class ExportWizard extends DynamicRefactoringList {
 	}
 
 	/**
-	 * Actualiza el estado del bot�n de exportaci�n en funci�n de la selecci�n
+	 * Actualiza el estado del bot�n de exportación en funci�n de la selecci�n
 	 * sobre la lista de refactorizaciones disponibles.
 	 * 
 	 * @author <A HREF="mailto:sfd0009@alu.ubu.es">Sonia Fuente de la Fuente</A>
@@ -217,7 +217,7 @@ public class ExportWizard extends DynamicRefactoringList {
 	private class RefactoringSelectionListener implements SelectionListener {
 
 		/**
-		 * Recibe una notificaci�n de que un elemento de la lista de
+		 * Recibe una notificación de que un elemento de la lista de
 		 * refactorizaciones din�micas disponibles ha sido seleccionado.
 		 * 
 		 * @param e
@@ -245,8 +245,8 @@ public class ExportWizard extends DynamicRefactoringList {
 	}
 
 	/**
-	 * Implementa la funcionalidad de exportaci�n, lanzada como respuesta a la
-	 * pulsaci�n del bot�n correspondiente.
+	 * Implementa la funcionalidad de exportación, lanzada como respuesta a la
+	 * pulsación del bot�n correspondiente.
 	 * 
 	 * @param buttonId
 	 *            identificador del bot�n que ha sido pulsado en el di�logo.
@@ -297,7 +297,7 @@ public class ExportWizard extends DynamicRefactoringList {
 	}
 
 	/**
-	 * Permite lanzar el trabajo de exportaci�n de refactorizaciones y hacer un
+	 * Permite lanzar el trabajo de exportación de refactorizaciones y hacer un
 	 * seguimiento de su progreso.
 	 * 
 	 * @author <A HREF="mailto:sfd0009@alu.ubu.es">Sonia Fuente de la Fuente</A>
@@ -331,20 +331,20 @@ public class ExportWizard extends DynamicRefactoringList {
 		}
 
 		/**
-		 * Ejecuta el trabajo de exportaci�n de refactorizaciones.
+		 * Ejecuta el trabajo de exportación de refactorizaciones.
 		 * 
 		 * @param monitor
 		 *            el monitor de progreso que deber� usarse para mostrar el
 		 *            progreso.
 		 * 
 		 * @throws InvocationTargetException
-		 *             utilizada como envoltura si el m�todo debe propagar una
+		 *             utilizada como envoltura si el método debe propagar una
 		 *             excepci�n (<i>checked exception</i>). Las excepciones de
 		 *             tipo <i>runtime exception</i> se envuelven
 		 *             autom�ticamente en una excepci�n de este tipo por el
 		 *             contexto que efect�a la llamada.
 		 * @throws InterruptedException
-		 *             si la operaci�n detecta una solicitud de cancelaci�n (no
+		 *             si la operación detecta una solicitud de cancelación (no
 		 *             disponible).
 		 * 
 		 * @see IRunnableWithProgress#run(IProgressMonitor)
@@ -365,8 +365,8 @@ public class ExportWizard extends DynamicRefactoringList {
 							.applyPattern(Messages.ExportWizard_ExportingRefactoring);
 					monitor.subTask(formatter.format(messageArgs) + "..."); //$NON-NLS-1$
 
-					// Se obtiene la ruta del fichero con la definici�n de la
-					// refactorizaci�n.
+					// Se obtiene la ruta del fichero con la definición de la
+					// refactorización.
 					if (refactCatalog.hasRefactoring(next)) {
 						String refactName = refactCatalog.getRefactoring(next)
 								.getName();

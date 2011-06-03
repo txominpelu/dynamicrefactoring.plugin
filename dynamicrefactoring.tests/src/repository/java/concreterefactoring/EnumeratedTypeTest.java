@@ -50,7 +50,7 @@ public class EnumeratedTypeTest extends RefactoringTemplateAbstractTest{
 
 
 	/**
-	 * Comprueba la correcta ejecuci�n de la refactorizaci�n EnumeratedType sobre
+	 * Comprueba la correcta ejecuci�n de la refactorización EnumeratedType sobre
 	 * una clase sencilla con un constructor, un atributo y una constante.
 	 * 
 	 * @throws Exception si se produce un error durante la ejecuci�n de la prueba.
@@ -61,7 +61,7 @@ public class EnumeratedTypeTest extends RefactoringTemplateAbstractTest{
 	}
 	
 	/**
-	 * Comprueba la correcta ejecuci�n de la refactorizaci�n EnumeratedType sobre
+	 * Comprueba la correcta ejecuci�n de la refactorización EnumeratedType sobre
 	 * una clase sencilla dentro de un paquete con un constructor, un atributo
 	 * y varias constantes.
 	 * 
@@ -73,7 +73,7 @@ public class EnumeratedTypeTest extends RefactoringTemplateAbstractTest{
 	}
 	
 	/**
-	 * Comprueba la correcta ejecuci�n de la refactorizaci�n EnumeratedType sobre
+	 * Comprueba la correcta ejecuci�n de la refactorización EnumeratedType sobre
 	 * una clase sencilla que solo tiene constantes.
 	 * 
 	 * @throws Exception si se produce un error durante la ejecuci�n de la prueba.
@@ -84,7 +84,7 @@ public class EnumeratedTypeTest extends RefactoringTemplateAbstractTest{
 	}
 	
 	/**
-	 * Comprueba la correcta ejecuci�n de la refactorizaci�n EnumeratedType sobre
+	 * Comprueba la correcta ejecuci�n de la refactorización EnumeratedType sobre
 	 * una clase sencilla cuyo constructor cuenta con dos enteros.
 	 * 
 	 * @throws Exception si se produce un error durante la ejecuci�n de la prueba.
@@ -96,7 +96,7 @@ public class EnumeratedTypeTest extends RefactoringTemplateAbstractTest{
 	
 	
 	/**
-	 * Verifica el funcionamiento de las precondiciones de la refactorizaci�n.
+	 * Verifica el funcionamiento de las precondiciones de la refactorización.
 	 *
 	 * <p>Comprueba que se lanza una cuando la clase no dispone de constantes.</p>
 	 * 
@@ -108,7 +108,7 @@ public class EnumeratedTypeTest extends RefactoringTemplateAbstractTest{
 	}
 	
 	/**
-	 * Verifica el funcionamiento de las precondiciones de la refactorizaci�n.
+	 * Verifica el funcionamiento de las precondiciones de la refactorización.
 	 *
 	 * <p>Comprueba que se lanza una cuando los atributos de la clase se encuentran
 	 *    antes que las constantes de la misma.</p>
@@ -121,7 +121,7 @@ public class EnumeratedTypeTest extends RefactoringTemplateAbstractTest{
 	}
 	
 	/**
-	 * Verifica el funcionamiento de las precondiciones de la refactorizaci�n.
+	 * Verifica el funcionamiento de las precondiciones de la refactorización.
 	 *
 	 * <p>Comprueba que se lanza una cuando los atributos de la clase se encuentran
 	 *    antes que alguna de las constantes de la misma.</p>
@@ -134,7 +134,7 @@ public class EnumeratedTypeTest extends RefactoringTemplateAbstractTest{
 	}
 	
 	/**
-	 * Verifica el funcionamiento de las precondiciones de la refactorizaci�n.
+	 * Verifica el funcionamiento de las precondiciones de la refactorización.
 	 *
 	 * <p>Comprueba que se lanza una cuando los metodos de la clase se encuentran
 	 *    antes que las constantes de la misma.</p>
@@ -147,9 +147,9 @@ public class EnumeratedTypeTest extends RefactoringTemplateAbstractTest{
 	}
 	
 	/**
-	 * Verifica el funcionamiento de las precondiciones de la refactorizaci�n.
+	 * Verifica el funcionamiento de las precondiciones de la refactorización.
 	 *
-	 * <p>Comprueba que se lanza una cuando los atributos y m�todos de la clase se encuentran
+	 * <p>Comprueba que se lanza una cuando los atributos y métodos de la clase se encuentran
 	 *    por medio de las constantes de la misma.</p>
 	 * 
 	 * @throws Exception si se produce un error durante la ejecuci�n de la prueba.
@@ -160,7 +160,7 @@ public class EnumeratedTypeTest extends RefactoringTemplateAbstractTest{
 	}
 	
 	/**
-	 * Verifica el funcionamiento de las precondiciones de la refactorizaci�n.
+	 * Verifica el funcionamiento de las precondiciones de la refactorización.
 	 *
 	 * <p>Comprueba que se lanza una cuando hay un constructor que no es privado.</p>
 	 * 
@@ -173,11 +173,11 @@ public class EnumeratedTypeTest extends RefactoringTemplateAbstractTest{
 	
 	 
 	/**
-	 * Ejecuta la refactorizaci�n sobre un caso determinado.
+	 * Ejecuta la refactorización sobre un caso determinado.
 	 * 
 	 * @param dir directorio sobre el que se encuentra el caso a probar.
 	 * @param paquete paquete java de la clase sobre la que se esta probando 
-	 * 		  la refactorizaci�n.
+	 * 		  la refactorización.
 	 * @throws ParseException ParseException
 	 * @throws BinaryClassFileException BinaryClassFileException
 	 * @throws PreconditionException PreconditionException
@@ -219,12 +219,12 @@ public class EnumeratedTypeTest extends RefactoringTemplateAbstractTest{
 	}
 	
 	/**
-	 * Ejecuta la refactorizaci�n sobre un caso determinado en el que va a aparecer
+	 * Ejecuta la refactorización sobre un caso determinado en el que va a aparecer
 	 * una excepci�n.
 	 * 
 	 * @param dir directorio sobre el que se encuentra el caso a probar.
 	 * @param paquete paquete de la clase sobre la que se esta probando 
-	 * 		  la refactorizaci�n.
+	 * 		  la refactorización.
 	 * @throws ParseException ParseException
 	 * @throws BinaryClassFileException BinaryClassFileException
 	 * @throws PreconditionException PreconditionException
@@ -247,7 +247,7 @@ public class EnumeratedTypeTest extends RefactoringTemplateAbstractTest{
 	}
 
 	/**
-	 * Comprueba que la refactorizaci�n se deshace de forma correcta.
+	 * Comprueba que la refactorización se deshace de forma correcta.
 	 * @throws Exception si se produce un error durante la ejecuci�n de la prueba.
 	 */
 	@Test
@@ -256,7 +256,7 @@ public class EnumeratedTypeTest extends RefactoringTemplateAbstractTest{
 	}
 	
 	/**
-	 * Comprueba que la refactorizaci�n se deshace de forma correcta.
+	 * Comprueba que la refactorización se deshace de forma correcta.
 	 * @throws Exception si se produce un error durante la ejecuci�n de la prueba.
 	 */
 	@Test
@@ -265,7 +265,7 @@ public class EnumeratedTypeTest extends RefactoringTemplateAbstractTest{
 	}
 	
 	/**
-	 * Comprueba que la refactorizaci�n se deshace de forma correcta.
+	 * Comprueba que la refactorización se deshace de forma correcta.
 	 * @throws Exception si se produce un error durante la ejecuci�n de la prueba.
 	 */
 	@Test
@@ -274,7 +274,7 @@ public class EnumeratedTypeTest extends RefactoringTemplateAbstractTest{
 	}
 	
 	/**
-	 * Comprueba que la refactorizaci�n se deshace de forma correcta.
+	 * Comprueba que la refactorización se deshace de forma correcta.
 	 * @throws Exception si se produce un error durante la ejecuci�n de la prueba.
 	 */
 	@Test
@@ -283,11 +283,11 @@ public class EnumeratedTypeTest extends RefactoringTemplateAbstractTest{
 	}
 	
 	/**
-	 * Comprueba que la refactorizaci�n se deshace de forma correcta.
+	 * Comprueba que la refactorización se deshace de forma correcta.
 	 * 
 	 * @param dir directorio sobre el que se encuentra el caso a probar.
 	 * @param paquete paquete de la clase sobre la que se esta probando 
-	 * 		  la refactorizaci�n.
+	 * 		  la refactorización.
 	 * @throws ParseException ParseException
 	 * @throws BinaryClassFileException BinaryClassFileException
 	 * @throws PreconditionException PreconditionException

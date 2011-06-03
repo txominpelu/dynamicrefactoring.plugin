@@ -23,17 +23,17 @@ package dynamicrefactoring.domain;
 import com.google.common.base.Objects;
 
 /**
- * Representa una entrada de la refactorizaci�n din�mica en la interfaz.
+ * Representa una entrada de la refactorización din�mica en la interfaz.
  * 
- * @author <A HREF="mailto:alc0022@alu.ubu.es">�ngel L�pez Campo</A>
- * @author <A HREF="mailto:epf0006@alu.ubu.es">Eduardo Pe�a Fern�ndez</A>
+ * @author <A HREF="mailto:alc0022@alu.ubu.es">Ángel López Campo</A>
+ * @author <A HREF="mailto:epf0006@alu.ubu.es">Eduardo Peña Fernández</A>
  * @author <A HREF="mailto:sfd0009@alu.ubu.es">Sonia Fuente de la Fuente</A>
  * @author <A HREF="mailto:ehp0001@alu.ubu.es">Enrique Herrero Paredes</A>
  */
 public final class InputParameter {
 
 	/**
-	 * El nombre completamente cualificado del tipo de declaraci�n del par�metro
+	 * El nombre completamente cualificado del tipo de declaración del parámetro
 	 * de entrada.
 	 */
 	private String type;
@@ -44,20 +44,20 @@ public final class InputParameter {
 	private String name;
 
 	/**
-	 * El m�todo que permite obtener el valor de la entrada.
+	 * El método que permite obtener el valor de la entrada.
 	 */
 	private String method;
 
 	/**
 	 * El nombre identificador de la entrada a partir de la cual se puede
-	 * obtener el valor de este par�metro de entrada mediante la aplicaci�n del
-	 * m�todo {@link #method}.
+	 * obtener el valor de este parámetro de entrada mediante la aplicación del
+	 * método {@link #method}.
 	 */
 	private String from;
 
 	/**
 	 * El atributo que indica si una entrada es la entrada principal de la
-	 * refactorizaci�n o no.
+	 * refactorización o no.
 	 */
 	private boolean isMain;
 
@@ -67,15 +67,15 @@ public final class InputParameter {
 	 * @param type
 	 *            nombre completamente cualificado del tipo de la entrada.
 	 * @param name
-	 *            nombre identificador del par�metro de entrada.
+	 *            nombre identificador del parámetro de entrada.
 	 * @param from
 	 *            nombre identificador de la entrada a partir de la que se puede
-	 *            obtener el valor de esta nueva entrada mediante la aplicaci�n
-	 *            del m�todo #method.
+	 *            obtener el valor de esta nueva entrada mediante la aplicación
+	 *            del método #method.
 	 * @param method
-	 *            m�todo que permite obtener el valor de la entrada.
+	 *            método que permite obtener el valor de la entrada.
 	 * @param root
-	 *            si la entrada es la entrada principal de la refactorizaci�n.
+	 *            si la entrada es la entrada principal de la refactorización.
 	 */
 	private InputParameter(String type, String name, String from,
 			String method, boolean root) {
@@ -87,9 +87,9 @@ public final class InputParameter {
 	}
 
 	/**
-	 * Obtiene el nombre identificador del par�metro de entrada.
+	 * Obtiene el nombre identificador del parámetro de entrada.
 	 * 
-	 * @return el nombre identificador del par�metro de entrada.
+	 * @return el nombre identificador del parámetro de entrada.
 	 * 
 	 * @see #setName(String)
 	 */
@@ -111,9 +111,9 @@ public final class InputParameter {
 	}
 
 	/**
-	 * Obtiene el nombre completamente cualificado del tipo del par�metro.
+	 * Obtiene el nombre completamente cualificado del tipo del parámetro.
 	 * 
-	 * @return el nombre completamente cualificado del tipo del par�metro.
+	 * @return el nombre completamente cualificado del tipo del parámetro.
 	 * 
 	 * @see #setType(String)
 	 */
@@ -122,11 +122,11 @@ public final class InputParameter {
 	}
 
 	/**
-	 * Obtiene el nombre del m�todo que permite obtener los posibles valores del
-	 * par�metro de entrada a partir del objeto #from.
+	 * Obtiene el nombre del método que permite obtener los posibles valores del
+	 * parámetro de entrada a partir del objeto #from.
 	 * 
-	 * @return el nombre del m�todo que permite obtener los posibles valores del
-	 *         par�metro de entrada a partir del objeto {@link #from}.
+	 * @return el nombre del método que permite obtener los posibles valores del
+	 *         parámetro de entrada a partir del objeto {@link #from}.
 	 * 
 	 * @see #setMethod(String)
 	 */
@@ -136,10 +136,10 @@ public final class InputParameter {
 
 	/**
 	 * Obtiene el valor del atributo que indica si la entrada es la entrada
-	 * principal de la refactorizaci�n o no.
+	 * principal de la refactorización o no.
 	 * 
 	 * @return el valor del atributo que indica si la entrada es la entrada
-	 *         principal de la refactorizaci�n o no.
+	 *         principal de la refactorización o no.
 	 * 
 	 */
 	public boolean isMain() {
@@ -158,9 +158,9 @@ public final class InputParameter {
 	}
 
 	/**
-	 * Devuelve la representaci�n del par�metro como cadena de caracteres.
+	 * Devuelve la representación del parámetro como cadena de caracteres.
 	 * 
-	 * @return una cadena de caracteres con la representaci�n del par�metro.
+	 * @return una cadena de caracteres con la representación del parámetro.
 	 */
 	@Override
 	public String toString() {

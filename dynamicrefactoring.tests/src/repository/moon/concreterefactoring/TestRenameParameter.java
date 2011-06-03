@@ -39,12 +39,12 @@ import repository.RefactoringTemplateAbstractTest;
 import repository.moon.MOONRefactoring;
 
 /**
- * Comprueba que funciona correctamente la refactorizaci�n que renombra un
- * argumento formal de un m�todo.
+ * Comprueba que funciona correctamente la refactorización que renombra un
+ * argumento formal de un método.
  * 
  * <p>
  * Indirectamente, se comprueba tambi�n la correcci�n de las funciones, acciones
- * y predicados utilizados por la refactorizaci�n.
+ * y predicados utilizados por la refactorización.
  * </p>
  * 
  * @author <A HREF="mailto:sfd0009@alu.ubu.es">Sonia Fuente de la Fuente</A>
@@ -55,12 +55,12 @@ import repository.moon.MOONRefactoring;
 public class TestRenameParameter extends RefactoringTemplateAbstractTest {
 
 	/**
-	 * Comprueba que la refactorizaci�n funciona correctamente al hacer un
+	 * Comprueba que la refactorización funciona correctamente al hacer un
 	 * renombrado sencillo de un argumento formal.
 	 * 
 	 * <p>
-	 * Se toma un m�todo sencillo de una clase, con un �nico argumento formal en
-	 * su lista de par�metros y sin variables locales, y se le asigna un nombre
+	 * Se toma un método sencillo de una clase, con un único argumento formal en
+	 * su lista de parámetros y sin variables locales, y se le asigna un nombre
 	 * correcto, distinto al de cualquier atributo de la clase.
 	 * </p>
 	 * 
@@ -92,7 +92,7 @@ public class TestRenameParameter extends RefactoringTemplateAbstractTest {
 		FormalArgument argumento2 = lArgumentos2.get(0);
 
 		assertEquals("Test renombrar argumento simple: " + //$NON-NLS-1$
-						"no se ha renombrado correctamente el par�metro.", //$NON-NLS-1$
+						"no se ha renombrado correctamente el parámetro.", //$NON-NLS-1$
 				factory.createName("paqueteA.ClaseA~metodo1%int#int:nuevoArgumento(0)"), //$NON-NLS-1$
 			argumento2.getUniqueName());
 	}
@@ -100,12 +100,12 @@ public class TestRenameParameter extends RefactoringTemplateAbstractTest {
 	/**
 	 * Comprueba que el renombrado de argumentos formales se realiza
 	 * correctamente cuando afecta a un argumento que no se encuentre en los
-	 * extremos de la lista de par�metros del m�todo.
+	 * extremos de la lista de parámetros del método.
 	 * 
 	 * <p>
-	 * Se toma en una clase sin atributos un m�todo que tiene variables locales
+	 * Se toma en una clase sin atributos un método que tiene variables locales
 	 * y varios argumentos formales, y se intenta renombrar el argumento que
-	 * ocupa la posici�n central en la lista de par�metros, d�ndole un nombre
+	 * ocupa la posición central en la lista de parámetros, d�ndole un nombre
 	 * distinto al de cualquiera de las variables locales o de los dem�s
 	 * argumentos.
 	 * </p>
@@ -138,37 +138,37 @@ public class TestRenameParameter extends RefactoringTemplateAbstractTest {
 		FormalArgument argumento2 = lArgumentos2.get(0);
 
 		assertEquals(
-				"Test renombrar par�metro central: " + //$NON-NLS-1$
-						"se ha renombrado el primer par�metro.", //$NON-NLS-1$
+				"Test renombrar parámetro central: " + //$NON-NLS-1$
+						"se ha renombrado el primer parámetro.", //$NON-NLS-1$
 				factory.createName("paqueteA.ClaseA~metodo1%int%int%int#int:p1(0)"), //$NON-NLS-1$
 			argumento2.getUniqueName());
 
 		FormalArgument argumento3 = lArgumentos2.get(1);
 		assertEquals(
-				"Test renombrar par�metro central: " + //$NON-NLS-1$
-						"no se ha renombrado correctamente el par�metro que deb�a.", //$NON-NLS-1$
+				"Test renombrar parámetro central: " + //$NON-NLS-1$
+						"no se ha renombrado correctamente el parámetro que deb�a.", //$NON-NLS-1$
 				factory.createName("paqueteA.ClaseA~metodo1%int%int%int#int:nuevoArgumento(0)"), //$NON-NLS-1$
 			argumento3.getUniqueName());
 
 		FormalArgument argumento4 = lArgumentos2.get(2);
 		assertEquals(
-				"Test renombrar par�metro central: " + //$NON-NLS-1$
-						"se ha renombrado el �ltimo par�metro.", //$NON-NLS-1$
+				"Test renombrar parámetro central: " + //$NON-NLS-1$
+						"se ha renombrado el �ltimo parámetro.", //$NON-NLS-1$
 				factory.createName("paqueteA.ClaseA~metodo1%int%int%int#int:p3(0)"), //$NON-NLS-1$
 			argumento4.getUniqueName());
 	}
 
 	/**
-	 * Verifica el funcionamiento de las precondiciones de la refactorizaci�n.
+	 * Verifica el funcionamiento de las precondiciones de la refactorización.
 	 * 
 	 * <p>
 	 * Comprueba que se lanza la excepci�n cuando se intenta renombrar un
 	 * argumento formal para darle un nombre que ya est� asignado a otro
-	 * par�metro del m�todo.
+	 * parámetro del método.
 	 * </p>
 	 * 
 	 * <p>
-	 * En un m�todo con dos argumentos formales, intenta asignarle al primero el
+	 * En un método con dos argumentos formales, intenta asignarle al primero el
 	 * mismo nombre que ya tiene el segundo.
 	 * </p>
 	 * 
@@ -197,16 +197,16 @@ public class TestRenameParameter extends RefactoringTemplateAbstractTest {
 	}
 
 	/**
-	 * Verifica el funcionamiento de las precondiciones de la refactorizaci�n.
+	 * Verifica el funcionamiento de las precondiciones de la refactorización.
 	 * 
 	 * <p>
 	 * Comprueba que se lanza la excepci�n cuando se intenta renombrar un
 	 * argumento formal para darle un nombre que ya est� asignado a una variable
-	 * local del m�todo.
+	 * local del método.
 	 * </p>
 	 * 
 	 * <p>
-	 * En un m�todo con un argumento formal y una variable local, intenta
+	 * En un método con un argumento formal y una variable local, intenta
 	 * asignarle al primero el mismo nombre que ya tiene la variable local.
 	 * </p>
 	 * 
@@ -235,12 +235,12 @@ public class TestRenameParameter extends RefactoringTemplateAbstractTest {
 	}
 
 	/**
-	 * Comprueba que funciona correctamente la operaci�n que deshace un
+	 * Comprueba que funciona correctamente la operación que deshace un
 	 * renombrado de un argumento formal.
 	 * 
 	 * <p>
-	 * Se toma un m�todo sencillo de una clase, con un �nico argumento formal en
-	 * su lista de par�metros y sin variables locales, y se le asigna un nombre
+	 * Se toma un método sencillo de una clase, con un único argumento formal en
+	 * su lista de parámetros y sin variables locales, y se le asigna un nombre
 	 * correcto, distinto al de cualquier atributo de la clase. Despu�s, se
 	 * deshace el renombrado.
 	 * </p>
@@ -274,7 +274,7 @@ public class TestRenameParameter extends RefactoringTemplateAbstractTest {
 		FormalArgument argumento2 = lArgumentos2.get(0);
 
 		assertEquals(
-				"Test deshacer renombrado de par�metro simple: " + //$NON-NLS-1$
+				"Test deshacer renombrado de parámetro simple: " + //$NON-NLS-1$
 			"no se ha restaurado correctamente el nombre del argumento formal.", //$NON-NLS-1$
 				"paqueteA.ClaseA~metodo1%int#int:p1(0)", argumento2.getUniqueName().toString()); //$NON-NLS-1$
 	}

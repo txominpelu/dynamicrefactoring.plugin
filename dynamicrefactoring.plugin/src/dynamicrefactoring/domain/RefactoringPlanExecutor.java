@@ -91,7 +91,7 @@ public final class RefactoringPlanExecutor implements IRunnableWithProgress {
 	private static final String TYPE_NAME = "moon.core.classdef.Type"; //$NON-NLS-1$
 
 	/**
-	 * Nombre completamente cualificado del tipo MOON que representa un m�todo
+	 * Nombre completamente cualificado del tipo MOON que representa un método
 	 * de una clase.
 	 */
 	private static final String METHOD_NAME = "moon.core.classdef.MethDec"; //$NON-NLS-1$
@@ -104,7 +104,7 @@ public final class RefactoringPlanExecutor implements IRunnableWithProgress {
 
 	/**
 	 * Nombre completamente cualificado del tipo MOON que representa un
-	 * argumento de un m�todo.
+	 * argumento de un método.
 	 */
 	private static final String FORMALARGUMENT_NAME = "moon.core.classdef.FormalArgument"; //$NON-NLS-1$
 
@@ -137,7 +137,7 @@ public final class RefactoringPlanExecutor implements IRunnableWithProgress {
 	private String refactoringPlanFolder;
 
 	/**
-	 * Devuelve el conjunto de refactorizaciones que han sufrido alg�n problema
+	 * Devuelve el conjunto de refactorizaciones que han sufrido algún problema
 	 * durante la ejecuci�n del plan de refactorizaciones.
 	 * 
 	 * @return refactorizaciones con problemas y la traza del problema.
@@ -235,7 +235,7 @@ public final class RefactoringPlanExecutor implements IRunnableWithProgress {
 	}
 
 	/**
-	 * Obtiene las entradas de una refactorizaci�n.
+	 * Obtiene las entradas de una refactorización.
 	 * 
 	 * @param refactoring
 	 *            refactorizacion de la que se quiere obtener las entradas.
@@ -317,12 +317,12 @@ public final class RefactoringPlanExecutor implements IRunnableWithProgress {
 
 	/**
 	 * Intenta obtener un objeto MOON asociado a una entrada cuyo valor
-	 * especifica el usuario a trav�s de un campo de texto.
+	 * especifica el usuario a través de un campo de texto.
 	 * 
 	 * <p>
 	 * Por defecto, se interpreta que los campos de texto solo pueden contener
-	 * nombres (<code>moon.core.Name</code>) , nombres �nicos de clases (<code>
-	 * moon.core.classdef.ClassDef</code>) o nombres �nicos de m�todos (<code>
+	 * nombres (<code>moon.core.Name</code>) , nombres únicos de clases (<code>
+	 * moon.core.classdef.ClassDef</code>) o nombres únicos de métodos (<code>
 	 * moon.core.classdef.MethDec</code>).
 	 * </p>
 	 * 
@@ -333,7 +333,7 @@ public final class RefactoringPlanExecutor implements IRunnableWithProgress {
 	 *            valor a la entrada.
 	 * 
 	 * @return un objeto MOON asociado a la entrada, o <code>null</code> si no
-	 *         se pudo cargar ning�n objeto adecuado.
+	 *         se pudo cargar ningún objeto adecuado.
 	 */
 	private Object computeValue(InputParameter input, String source) {
 
@@ -349,7 +349,7 @@ public final class RefactoringPlanExecutor implements IRunnableWithProgress {
 			Class<?> classdef = Class.forName(CLASSDEF_NAME);
 			Class<?> declaration = Class.forName(input.getType());
 
-			// Si no, se comprueba si es alg�n subtipo de
+			// Si no, se comprueba si es algún subtipo de
 			// moon.core.classdef.ClassDef.
 			if (classdef.isAssignableFrom(declaration)) {
 				Name className = model.getMoonFactory().createName(name);
@@ -404,15 +404,15 @@ public final class RefactoringPlanExecutor implements IRunnableWithProgress {
 
 	/**
 	 * Busca un objeto entre un grupo de objetos que se corresponada con la
-	 * entrada de la refactorizaci�n.
+	 * entrada de la refactorización.
 	 * 
 	 * @param group
 	 *            Colecci�n que posiblemente contiene el objeto buscado.
 	 * @param input
-	 *            par�metro que se esta procesando.
+	 *            parámetro que se esta procesando.
 	 * @param refactoring
-	 *            nombre de la refactorizaci�n.
-	 * @return objeto que se corresponde con el par�metro.
+	 *            nombre de la refactorización.
+	 * @return objeto que se corresponde con el parámetro.
 	 */
 	private Object selectFromGroup(Object group, InputParameter input,
 			String refactoring) {
@@ -462,12 +462,12 @@ public final class RefactoringPlanExecutor implements IRunnableWithProgress {
 	}
 
 	/**
-	 * Obtiene el m�todo del modelo correspondiente al nombre cualificado del
+	 * Obtiene el método del modelo correspondiente al nombre cualificado del
 	 * mismo que se le pasa como entrada.
 	 * 
 	 * @param uniqueName
-	 *            nombre cualificado del m�todo a obtener.
-	 * @return m�todo del modelo correspondiente con uniqueName.
+	 *            nombre cualificado del método a obtener.
+	 * @return método del modelo correspondiente con uniqueName.
 	 */
 	private MethDec processMethod(String uniqueName) {
 		String s_methodName = "";
@@ -509,12 +509,12 @@ public final class RefactoringPlanExecutor implements IRunnableWithProgress {
 	}
 
 	/**
-	 * Obtiene el par�metro de un m�todo del modelo correspondiente al nombre
+	 * Obtiene el parámetro de un método del modelo correspondiente al nombre
 	 * cualificado del mismo que se le pasa como entrada.
 	 * 
 	 * @param uniqueName
-	 *            nombre cualificado del par�metro a obtener.
-	 * @return par�metro del modelo correspondiente con uniqueName.
+	 *            nombre cualificado del parámetro a obtener.
+	 * @return parámetro del modelo correspondiente con uniqueName.
 	 */
 	private FormalArgument processFormalArgument(String uniqueName) {
 		String s_methodName = uniqueName.substring(uniqueName.indexOf('~') + 1,
@@ -541,11 +541,11 @@ public final class RefactoringPlanExecutor implements IRunnableWithProgress {
 
 	/**
 	 * Obtiene el CodeFragment correspondiente a la entrada principal de una
-	 * refactorizaci�n.
+	 * refactorización.
 	 * 
 	 * @param data
 	 *            datos sobre el frgamento de c�digo a obtener.
-	 * @return par�metro del modelo correspondiente con uniqueName.
+	 * @return parámetro del modelo correspondiente con uniqueName.
 	 */
 	private CodeFragment processCodeFragment(String data) {
 		int beginLine = Integer.valueOf(data.substring(0, data.indexOf(',')));

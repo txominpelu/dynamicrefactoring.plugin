@@ -26,35 +26,35 @@ import refactoring.engine.Action;
 import repository.RelayListenerRegistry;
 
 /**
- * Permite renombrar un m�todo de una representaci�n MOON de un modelo Java.<p>
+ * Permite renombrar un método de una representación MOON de un modelo Java.<p>
  *
  * No tiene en cuenta las clases que se puedan ver afectadas por el renombrado
- * a causa de su relaci�n a trav�s de herencia con la clase sobre la que se 
- * lleva a cabo el renombrado de un m�todo.
+ * a causa de su relación a través de herencia con la clase sobre la que se 
+ * lleva a cabo el renombrado de un método.
  *
- * @author <A HREF="mailto:alc0022@alu.ubu.es">�ngel L�pez Campo</A>
+ * @author <A HREF="mailto:alc0022@alu.ubu.es">Ángel López Campo</A>
  * @author <A HREF="mailto:ehp0001@alu.ubu.es">Enrique Herrero Paredes</A>
  * @author <A HREF="mailto:sfd0009@alu.ubu.es">Sonia Fuente de la Fuente</A>
  */ 
 public class RenameMethodWithoutHierarchy extends Action {
 	
 	/**
-	 * M�todo que se debe renombrar.
+	 * Método que se debe renombrar.
 	 */
 	private MethDec method;
 			
 	/**
-	 * Nuevo nombre que se dar� al m�todo.
+	 * Nuevo nombre que se dar� al método.
 	 */
 	private Name newName;
 	
 	/**
-	 * Nombre del m�todo antes del renombrado.
+	 * Nombre del método antes del renombrado.
 	 */
 	private Name originalName;
 	
 	/**
-	 * Receptor de los mensajes enviados por la acci�n concreta.
+	 * Receptor de los mensajes enviados por la acción concreta.
 	 */
 	private RelayListenerRegistry listenerReg;
 				
@@ -63,8 +63,8 @@ public class RenameMethodWithoutHierarchy extends Action {
 	 *
 	 * Obtiene una nueva instancia de RenameMethodWithoutHierarchy.
 	 *
-	 * @param method el m�todo cuyo nombre se desea cambiar.
-	 * @param newName el nuevo nombre que se dar� al m�todo.
+	 * @param method el método cuyo nombre se desea cambiar.
+	 * @param newName el nuevo nombre que se dar� al método.
 	 */
 	public RenameMethodWithoutHierarchy (MethDec method, Name newName){
 			
@@ -78,7 +78,7 @@ public class RenameMethodWithoutHierarchy extends Action {
 	}
 	
 	/**
-	 * Ejecuta el renombrado del m�todo.
+	 * Ejecuta el renombrado del método.
 	 */
 	public void run(){
 		
@@ -92,7 +92,7 @@ public class RenameMethodWithoutHierarchy extends Action {
 	}
 	
 	/**
-	 * Deshace el renombrado del m�todo.
+	 * Deshace el renombrado del método.
 	 */
 	public void undo(){
 		

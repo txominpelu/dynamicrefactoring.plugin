@@ -35,20 +35,20 @@ import dynamicrefactoring.RefactoringPlugin;
 import dynamicrefactoring.interfaz.wizard.FolderSelectionListener;
 
 /**
- * P�gina de preferencias para determinar el directorio de importaci�n de un plan de refactorizaciones y el directorio de 
- * exportaci�n del mismo .
+ * P�gina de preferencias para determinar el directorio de importación de un plan de refactorizaciones y el directorio de 
+ * exportación del mismo .
  * 
  * @author <A HREF="mailto:lfd0002@alu.ubu.es">Laura Fuente de la Fuente</A>
  */
 public class DirectoriesPreferencePage extends PreferencePage implements IWorkbenchPreferencePage {
 
 	/**
-	 * Directorio de importaci�n de un plan de refactorizaciones.
+	 * Directorio de importación de un plan de refactorizaciones.
 	 */
 	private Text t_Import;
 	
 	/**
-	 * Directorio de exportaci�n de un plan de refactorizaciones.
+	 * Directorio de exportación de un plan de refactorizaciones.
 	 */
 	private Text t_Export;
 	
@@ -113,8 +113,8 @@ public class DirectoriesPreferencePage extends PreferencePage implements IWorkbe
 	}
 
 	/**
-	 * Establece los valores por defecto de los directorioa de importaci�n de un plan 
-	 * de refactorizaciones y de exportaci�n del mismo.
+	 * Establece los valores por defecto de los directorioa de importación de un plan 
+	 * de refactorizaciones y de exportación del mismo.
 	 */
 	protected void performDefaults() {
 		t_Import.setText(RefactoringPlugin.getDefault().getDefaultImportRefactoringPlanPreference());
@@ -122,8 +122,8 @@ public class DirectoriesPreferencePage extends PreferencePage implements IWorkbe
 	}
 	/** 
 	 * Metodo declarado en <code>IPreferencePage</code>. Guarda en el almac�n de preferencias 
-	 * el directorio de importaci�n de un plan de refactorizaciones y el directorio de 
-	 * exportaci�n del mismo.
+	 * el directorio de importación de un plan de refactorizaciones y el directorio de 
+	 * exportación del mismo.
 	 */
 	public boolean performOk() {
 		RefactoringPlugin.getDefault().setImportRefactoringPlanPreference(t_Import.getText());

@@ -56,7 +56,7 @@ import dynamicrefactoring.util.io.JavaFileManager;
 /**
  * Permite regenerar el c�digo de los ficheros fuente del proyecto sobre el
  * que se trabaja actualmente a partir del modelo MOON utilizado para su
- * representaci�n durante las refactorizaciones.
+ * representación durante las refactorizaciones.
  * 
  * @author <A HREF="mailto:sfd0009@alu.ubu.es">Sonia Fuente de la Fuente</A>
  * @author <A HREF="mailto:ehp0001@alu.ubu.es">Enrique Herrero Paredes</A>
@@ -70,7 +70,7 @@ public class CodeRegenerator {
 		Logger.getLogger(CodeRegenerator.class);
 	
 	/**
-	 * Instancia �nica del regenerador.
+	 * Instancia única del regenerador.
 	 * 
 	 * Patr�n de dise�o Singleton.
 	 */
@@ -84,11 +84,11 @@ public class CodeRegenerator {
 	private CodeRegenerator(){}
 
 	/**
-	 * Obtiene la instancia �nica del regenerador.
+	 * Obtiene la instancia única del regenerador.
 	 * 
 	 * Patr�n de dise�o Singleton.
 	 * 
-	 * @return la instancia �nica del regenerador.
+	 * @return la instancia única del regenerador.
 	 */
 	public static CodeRegenerator getInstance(){
 		if (myInstance == null)
@@ -97,7 +97,7 @@ public class CodeRegenerator {
 	}
 	
 	/**
-	 * Dirige la regeneraci�n de c�digo, mostr�ndosela al usuario a trav�s de un
+	 * Dirige la regeneración de c�digo, mostr�ndosela al usuario a través de un
 	 * di�logo de progreso de Eclipse.
 	 */
 	public void refreshCode() {
@@ -126,7 +126,7 @@ public class CodeRegenerator {
 	}
 	
 	/**
-	 * Dirige la regeneraci�n de c�digo.
+	 * Dirige la regeneración de c�digo.
 	 */
 	public void refresh() {
 		
@@ -147,7 +147,7 @@ public class CodeRegenerator {
 	
 		
 	/**
-	 * Coordina la regeneraci�n del c�digo de las clases del modelo.
+	 * Coordina la regeneración del c�digo de las clases del modelo.
 	 * 
 	 * Se encarga de recuperar el c�digo de cada una de ellas y 
 	 * notificar al resto del entorno de trabajo de los cambios realizados.
@@ -177,15 +177,15 @@ public class CodeRegenerator {
 		}
 		
 		/**
-		 * Ejecuta la operaci�n de recuperaci�n de c�digo.
+		 * Ejecuta la operación de recuperación de c�digo.
 		 * 
 		 * @param monitor el monitor de progreso que mostrar� el avance de la
-		 * operaci�n de recuperaci�n de c�digo.
+		 * operación de recuperación de c�digo.
 		 * 
 		 * @throws InvocationTargetException si se produce cualquier clase de
 		 * excepci�n se relanza envuelta en una excepci�n de este tipo.
 		 * @throws InterruptedException si el usuario interrumpi� el proceso
-		 * pulsando sobre el bot�n de cancelaci�n.
+		 * pulsando sobre el bot�n de cancelación.
 		 */
 		@Override
 		public void run(IProgressMonitor monitor)
@@ -269,12 +269,12 @@ public class CodeRegenerator {
 	
 		/**
 		 * Comprueba si un monitor de progreso ha recibido una orden de 
-		 * cancelaci�n por parte del usuario.
+		 * cancelación por parte del usuario.
 		 * 
-		 * @param monitor el monitor cuyo estado de cancelaci�n se comprueba.
+		 * @param monitor el monitor cuyo estado de cancelación se comprueba.
 		 * 
 		 * @throws InterruptedException si el monitor ha recibido una orden de
-		 * cancelaci�n por parte del usuario.
+		 * cancelación por parte del usuario.
 		 */
 		private void checkForCancellation(IProgressMonitor monitor) 
 			throws InterruptedException {
