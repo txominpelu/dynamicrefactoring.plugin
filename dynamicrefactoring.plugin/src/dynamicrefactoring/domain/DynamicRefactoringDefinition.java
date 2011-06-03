@@ -703,7 +703,7 @@ public class DynamicRefactoringDefinition implements Element,
 		 *            nuevo nombre que se asignara
 		 */
 		public Builder name(String name) {
-			this.name = name;
+			this.name = name.trim();
 			return this;
 		}
 
@@ -762,7 +762,7 @@ public class DynamicRefactoringDefinition implements Element,
 		 * @see #getDescription
 		 */
 		public Builder description(String description) {
-			this.description = description;
+			this.description = description.trim();
 			return this;
 		}
 
@@ -776,7 +776,9 @@ public class DynamicRefactoringDefinition implements Element,
 		 * @see #getImage
 		 */
 		public Builder image(String image) {
-			this.image = image;
+			if(image==null)
+				image="";
+			this.image = image.trim();
 			return this;
 		}
 
@@ -790,7 +792,7 @@ public class DynamicRefactoringDefinition implements Element,
 		 * @see #getMotivation
 		 */
 		public Builder motivation(String motivation) {
-			this.motivation = motivation;
+			this.motivation = motivation.trim();
 			return this;
 		}
 

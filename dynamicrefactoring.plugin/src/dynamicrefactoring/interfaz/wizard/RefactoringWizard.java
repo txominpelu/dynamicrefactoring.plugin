@@ -278,12 +278,11 @@ public class RefactoringWizard extends Wizard implements INewWizard {
 	 */
 	private DynamicRefactoringDefinition.Builder configureRefactoring() {
 		DynamicRefactoringDefinition.Builder builder = new DynamicRefactoringDefinition.Builder(
-				pageA.getNameText().getText().trim());
+				pageA.getNameText().getText());
 		
-		
-		return builder.description(pageA.getDescriptionText().getText().trim())
-				.image(pageA.getRefactoringImage().trim())
-				.motivation(pageA.getMotivationText().getText().trim())
+		return builder.description(pageA.getDescriptionText().getText())
+				.image(pageA.getRefactoringImage())
+				.motivation(pageA.getMotivationText().getText())
 				.inputs(pageB.getInputs())
 				.preconditions(pageC.getPreconditions())
 				.actions(pageD.getActions())
