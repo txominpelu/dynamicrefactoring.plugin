@@ -79,7 +79,7 @@ public class RemoveFormalArgFromInstructions extends Action {
 	 * Obtiene una nueva instancia de RemoveFormalArgFromInstructions.
 	 *
 	 * @param instrIt las instrucciones en las que, de contener llamadas al 
-	 * método, habr� que eliminar un argumento real.
+	 * método, habrá que eliminar un argumento real.
 	 * @param parameter el parámetro formal del método cuyos valores actuales
 	 * deben eliminarse de las llamadas al método.
 	 * @param method el método de cuyas llamadas se va a eliminar un argumento.
@@ -164,7 +164,7 @@ public class RemoveFormalArgFromInstructions extends Action {
 	 */
 	public void undo() {
 		listenerReg.notify(
-			"# undo():RemoveFormalArgFromInstructions - �NOT IMPLEMENTED! #");		 //$NON-NLS-1$
+			"# undo():RemoveFormalArgFromInstructions -  NOT IMPLEMENTED! #");		 //$NON-NLS-1$
 	}
 	
 	/**

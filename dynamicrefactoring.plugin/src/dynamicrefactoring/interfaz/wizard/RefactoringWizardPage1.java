@@ -63,20 +63,20 @@ import dynamicrefactoring.interfaz.wizard.classificationscombo.PickCategoryTree;
 import dynamicrefactoring.util.io.filter.ImageFilter;
 
 /**
- * Primera p�gina del asistente de creación o edición de refactorizaciones.
+ * Primera página del asistente de creación o edición de refactorizaciones.
  * 
  * <p>
- * Permite configurar los datos b�sicos de la refactorización, como son:
+ * Permite configurar los datos básicos de la refactorización, como son:
  * <ul>
  * <li>Su nombre.</li>
- * <li>Su descripci�n.</li>
+ * <li>Su descripción.</li>
  * <li>Su motivación.</li>
  * </ul>
  * </p>
  * 
  * <p>
- * Tambi�n permite asociar una imagen a la refactorización, que muestre de
- * manera gr�fica la intenci�n de la refactorización.
+ * También permite asociar una imagen a la refactorización, que muestre de
+ * manera gráfica la intención de la refactorización.
  * </p>
  * 
  * @author <A HREF="mailto:lfd0002@alu.ubu.es">Laura Fuente de la Fuente</A>
@@ -98,7 +98,7 @@ public final class RefactoringWizardPage1 extends WizardPage {
 	/**
 	 * Refactorización configurada a través del asistente y que debe ser creada
 	 * finalmente (si se trata de una nueva refactorización) o modificada (si se
-	 * est� editando una ya existente).
+	 * está editando una ya existente).
 	 */
 	private DynamicRefactoringDefinition refactoring = null;
 
@@ -118,7 +118,7 @@ public final class RefactoringWizardPage1 extends WizardPage {
 	private String refactoringImage;
 
 	/**
-	 * Descripci�n de la refactorización.
+	 * Descripción de la refactorización.
 	 */
 	private Text descriptionText;
 
@@ -143,7 +143,7 @@ public final class RefactoringWizardPage1 extends WizardPage {
 	 * 
 	 * @param refactoring
 	 *            refactorización refactorización que se quiere editar, o
-	 *            <code>null</code> si se est� creando una nueva.
+	 *            <code>null</code> si se está creando una nueva.
 	 */
 	public RefactoringWizardPage1(DynamicRefactoringDefinition refactoring) {
 		super("Wizard page"); //$NON-NLS-1$
@@ -154,10 +154,10 @@ public final class RefactoringWizardPage1 extends WizardPage {
 	}
 
 	/**
-	 * Hace visible o invisible la p�gina del asistente.
+	 * Hace visible o invisible la página del asistente.
 	 * 
 	 * @param visible
-	 *            si la p�gina se debe hacer visible o no.
+	 *            si la página se debe hacer visible o no.
 	 */
 	@Override
 	public void setVisible(boolean visible) {
@@ -175,10 +175,10 @@ public final class RefactoringWizardPage1 extends WizardPage {
 	}
 
 	/**
-	 * Crea el contenido de la p�gina del wizard.
+	 * Crea el contenido de la página del wizard.
 	 * 
 	 * @param parent
-	 *            el elemento padre de esta p�gina.
+	 *            el elemento padre de esta página.
 	 */
 	public void createControl(Composite parent) {
 		
@@ -422,7 +422,7 @@ public final class RefactoringWizardPage1 extends WizardPage {
 
 	/**
 	 * Puebla los campos del formulario del asistente con la información que se
-	 * pueda obtener de la refactorización existente que se est� editando.
+	 * pueda obtener de la refactorización existente que se está editando.
 	 */
 	private void fillInRefactoringData() {
 		if (refactoring.getName() != null) {
@@ -479,7 +479,7 @@ public final class RefactoringWizardPage1 extends WizardPage {
 	}
 
 	/**
-	 * Actualiza el estado de la pantalla de di�logo del asistente.
+	 * Actualiza el estado de la pantalla de diálogo del asistente.
 	 * 
 	 * @param message
 	 *            mensaje asociado al estado actual de la pantalla.
@@ -512,9 +512,9 @@ public final class RefactoringWizardPage1 extends WizardPage {
 	}
 
 	/**
-	 * Obtiene el campo de texto con la descripci�n de la refactorización.
+	 * Obtiene el campo de texto con la descripción de la refactorización.
 	 * 
-	 * @return el campo de texto con la descripci�n de la refactorización.
+	 * @return el campo de texto con la descripción de la refactorización.
 	 */
 	public Text getDescriptionText() {
 		return this.descriptionText;
@@ -541,7 +541,7 @@ public final class RefactoringWizardPage1 extends WizardPage {
 	}
 
 	/**
-	 * Obtiene las categorias que se han seleccionado en el �rbol y a las que va
+	 * Obtiene las categorias que se han seleccionado en el árbol y a las que va
 	 * a pertenecer la refactorizacion.
 	 * 
 	 * @return categorias a las que pertenece la refactorizacion
@@ -551,8 +551,8 @@ public final class RefactoringWizardPage1 extends WizardPage {
 	}
 	
 	/**
-	 * Implementa el proceso de elecci�n de la imagen de la refactorización
-	 * din�mica.
+	 * Implementa el proceso de elección de la imagen de la refactorización
+	 * dinámica.
 	 * 
 	 * @author <A HREF="mailto:alc0022@alu.ubu.es">Ángel López Campo</A>
 	 * @author <A HREF="mailto:epf0006@alu.ubu.es">Eduardo Peña Fernández</A>
@@ -562,16 +562,16 @@ public final class RefactoringWizardPage1 extends WizardPage {
 	private class ImageChooserAction implements SelectionListener {
 
 		/**
-		 * Recibe una notificación de que se ha pulsado el bot�n que permite
+		 * Recibe una notificación de que se ha pulsado el botón que permite
 		 * seleccionar una imagen asociada a la refactorización.
 		 * 
 		 * <p>
-		 * Abre una ventana de selecci�n de fichero con un filtro que permite
-		 * seleccionar solamente im�genes.
+		 * Abre una ventana de selección de fichero con un filtro que permite
+		 * seleccionar solamente imágenes.
 		 * </p>
 		 * 
 		 * @param e
-		 *            el evento de selecci�n disparado.
+		 *            el evento de selección disparado.
 		 * 
 		 * @see SelectionListener#widgetSelected(SelectionEvent)
 		 */

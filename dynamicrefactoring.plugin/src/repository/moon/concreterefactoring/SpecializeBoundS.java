@@ -55,7 +55,7 @@ public class SpecializeBoundS extends MOONRefactoring {
 	 * @param formalPar parámetro formal cuyo tipo de acotación se 
 	 * quiere especializar.
 	 * @param oldBoundingType el tipo de acotación que se debe sustituir por uno
-	 * m�s especializado.
+	 * más especializado.
 	 * @param newBoundingType nuevo tipo de acotación especializado.
 	 * @param model el modelo sobre el que se va a hacer la refactorización.
 	 */

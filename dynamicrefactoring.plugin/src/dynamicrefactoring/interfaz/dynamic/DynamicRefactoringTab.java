@@ -57,7 +57,7 @@ import dynamicrefactoring.domain.RefactoringMechanismInstance;
 import dynamicrefactoring.interfaz.TreeEditor;
 
 /**
- * Pesta�a con el contenido resumen de una refactorización.
+ * Pestaña con el contenido resumen de una refactorización.
  * 
  * @author <A HREF="mailto:sfd0009@alu.ubu.es">Sonia Fuente de la Fuente</A>
  * @author <A HREF="mailto:ehp0001@alu.ubu.es">Enrique Herrero Paredes</A>
@@ -70,7 +70,7 @@ public class DynamicRefactoringTab {
 	private Text t_Motivation;
 
 	/**
-	 * Campo de texto en que se muestra la descripci�n de la
+	 * Campo de texto en que se muestra la descripción de la
 	 * refactorización.
 	 */
 	private Text t_Description;
@@ -86,7 +86,7 @@ public class DynamicRefactoringTab {
 	private Tree tr_Components;
 
 	/**
-	 * Pesta�a asociada al resumen de la refactorización.
+	 * Pestaña asociada al resumen de la refactorización.
 	 */
 	private TabItem tab;
 
@@ -96,10 +96,10 @@ public class DynamicRefactoringTab {
 	protected DynamicRefactoringDefinition refactoringDefinition;
 
 	/**
-	 * Crea la pesta�a con el resumen de la refactorización.
+	 * Crea la pestaña con el resumen de la refactorización.
 	 * 
 	 * @param parent
-	 *            el contenedor de pesta�as que contendr� esta pesta�a.
+	 *            el contenedor de pestañas que contendrá esta pestaña.
 	 * @param definition
 	 *            la definición de la refactorización.
 	 */
@@ -118,7 +118,7 @@ public class DynamicRefactoringTab {
 		scrolledComposite.setExpandHorizontal(true);
 		scrolledComposite.setExpandVertical(true);
 		
-		// Pesta�a de información.
+		// Pestaña de información.
 		final Composite cInformation = new Composite(scrolledComposite, SWT.NONE);
 		cInformation.setLocation(0, 0);
 		cInformation.setSize(872, 390);
@@ -130,7 +130,7 @@ public class DynamicRefactoringTab {
 		nameLabel.setFont(SWTResourceManager.getFont("Tahoma", 14, SWT.NONE)); //$NON-NLS-1$
 		nameLabel.setBounds(10, 15, 354, 39);
 		
-		// Se a�ade la imagen.
+		// Se añade la imagen.
 		final Canvas canvas = new Canvas(cInformation, SWT.NO_REDRAW_RESIZE | SWT.H_SCROLL |SWT.V_SCROLL | SWT.BORDER);
 		canvas.setBounds(456, 15, 385, 162);
 		canvas.setBackground(new Color(null, 255,255, 255));
@@ -280,9 +280,9 @@ public class DynamicRefactoringTab {
 	}
 
 	/**
-	 * Puebla los campos de la pesta�a con la información que se pueda
-	 * obtener de la refactorización existente que se est� editando o que se
-	 * est� a punto de crear.
+	 * Puebla los campos de la pestaña con la información que se pueda
+	 * obtener de la refactorización existente que se está editando o que se
+	 * está a punto de crear.
 	 */
 	private void fillInRefactoringData(){
 		t_Description.setText(refactoringDefinition.getDescription());

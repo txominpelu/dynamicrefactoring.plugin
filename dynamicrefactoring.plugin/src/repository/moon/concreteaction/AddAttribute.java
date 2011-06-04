@@ -27,7 +27,7 @@ import refactoring.engine.Action;
 import repository.RelayListenerRegistry;
 
 /**
- * Permite a�adir un atributo a una clase de un modelo MOON.<p>
+ * Permite añadir un atributo a una clase de un modelo MOON.<p>
  *
  * @author <A HREF="mailto:alc0022@alu.ubu.es">Ángel López Campo</A>
  * @author <A HREF="mailto:ehp0001@alu.ubu.es">Enrique Herrero Paredes</A>
@@ -36,7 +36,7 @@ import repository.RelayListenerRegistry;
 public class AddAttribute extends Action {
 	
 	/**
-	 * Atributo que se debe a�adir a la clase destino.
+	 * Atributo que se debe añadir a la clase destino.
 	 */
 	private AttDec att;
 	
@@ -55,7 +55,7 @@ public class AddAttribute extends Action {
 	 *
 	 * Obtiene una nueva instancia de la acción RenameJavaFile.
 	 *
-	 * @param att el atributo que se va a a�adir a una clase.
+	 * @param att el atributo que se va a añadir a una clase.
 	 * @param dest la clase de destino del atributo.
 	 */
 	public AddAttribute (AttDec att, ClassDef dest){
@@ -78,7 +78,7 @@ public class AddAttribute extends Action {
 	}
 	
 	/**
-	 * Elimina el atributo a�adido de la clase destino.
+	 * Elimina el atributo añadido de la clase destino.
 	 */
 	public void undo(){		
 		listenerReg.notify("# undo():AddAttribute #"); //$NON-NLS-1$

@@ -79,7 +79,7 @@ import dynamicrefactoring.util.selection.SelectionInfo;
  * Representa el <i>plugin</i> de refactorización ante la plataforma Eclipse.
  * 
  * <p>
- * Act�a a modo de mediador entre muchos de los componentes que conforman el
+ * Actúa a modo de mediador entre muchos de los componentes que conforman el
  * <i>plugin</i> y los coordina de manera que todas las operaciones se completen
  * en el orden adecuado.
  * </p>
@@ -87,8 +87,8 @@ import dynamicrefactoring.util.selection.SelectionInfo;
  * <p>
  * Implementa las funciones de arranque y finalización ordenados del
  * <i>plugin</i>, asignando al principio los recursos que sen necesarios, y
- * liber�ndolos al final de forma ordenada. Tambi�n elimina al finalizar los
- * ficheros temporales creados por el <i>plugin</i> durante la ejecuci�n.
+ * liberándolos al final de forma ordenada. También elimina al finalizar los
+ * ficheros temporales creados por el <i>plugin</i> durante la ejecución.
  * </p>
  * 
  * <p>
@@ -152,7 +152,7 @@ public class RefactoringPlugin extends AbstractUIPlugin
 	public static final String BUNDLE_NAME = "dynamicrefactoring.plugin"; //$NON-NLS-1$
 
 	/**
-	 * El nombre del punto de extensi�n de los <i>listeners</i>.
+	 * El nombre del punto de extensión de los <i>listeners</i>.
 	 */
 	private static final String LISTENER_EXTPOINT = BUNDLE_NAME + "." + "listeners"; //$NON-NLS-1$ //$NON-NLS-2$
 
@@ -163,18 +163,18 @@ public class RefactoringPlugin extends AbstractUIPlugin
 		Logger.getLogger(RefactoringPlugin.class);
 
 	/**
-	 * Instancia única del plug-in (patr�n de dise�o Singleton).
+	 * Instancia única del plug-in (patrón de diseño Singleton).
 	 */
 	private static RefactoringPlugin myInstance;
 
 	/**
 	 * Nombre del fichero mod que contiene el estado actual del modelo sobre el
-	 * que se est�n ejecutando refactorizaciones.
+	 * que se están ejecutando refactorizaciones.
 	 */
 	private String currentRefactoring;
 
 	/**
-	 * Selecci�n actual sobre la interfaz.
+	 * Selección actual sobre la interfaz.
 	 */
 	private SelectionInfo currentSelection;
 	
@@ -192,7 +192,7 @@ public class RefactoringPlugin extends AbstractUIPlugin
 	/**
 	 * Constructor.
 	 * 
-	 * P�blico, para que sea accesible a Eclipse como plug-in.
+	 * Público, para que sea accesible a Eclipse como plug-in.
 	 */
 	public RefactoringPlugin(){
 		super();
@@ -312,7 +312,7 @@ public class RefactoringPlugin extends AbstractUIPlugin
 	}
 
 	/**
-	 * Devuelve el valor por defecto del directorio de d�nde selecciona el plan
+	 * Devuelve el valor por defecto del directorio de dónde selecciona el plan
 	 * de refactorizaciones a importar.
 	 * 
 	 * @return valor por defecto del directorio de importación del plan.
@@ -322,7 +322,7 @@ public class RefactoringPlugin extends AbstractUIPlugin
 	}
 
 	/**
-	 * Devuelve el valor del directorio de d�nde selecciona el plan de
+	 * Devuelve el valor del directorio de dónde selecciona el plan de
 	 * refactorizaciones a importar.
 	 * 
 	 * @return valor del directorio de importación del plan.
@@ -333,7 +333,7 @@ public class RefactoringPlugin extends AbstractUIPlugin
 	}
 
 	/**
-	 * Devuelve el valor por defecto del directorio en d�nde se exportara el
+	 * Devuelve el valor por defecto del directorio en dónde se exportara el
 	 * plan de refactorizaciones.
 	 * 
 	 * @return valor por defecto del directorio de exportación del plan.
@@ -344,7 +344,7 @@ public class RefactoringPlugin extends AbstractUIPlugin
 	}
 
 	/**
-	 * Devuelve el valor del directorio en d�nde se exportara el plan de
+	 * Devuelve el valor del directorio en dónde se exportara el plan de
 	 * refactorizaciones.
 	 * 
 	 * @return valor del directorio de exportación del plan.
@@ -355,7 +355,7 @@ public class RefactoringPlugin extends AbstractUIPlugin
 	}
 
 	/**
-	 * Establece el valor del directorio en d�nde se exportara el plan de
+	 * Establece el valor del directorio en dónde se exportara el plan de
 	 * refactorizaciones.
 	 * 
 	 * @param directory
@@ -367,7 +367,7 @@ public class RefactoringPlugin extends AbstractUIPlugin
 	}
 
 	/**
-	 * Establece el valor del directorio de d�nde selecciona el plan de
+	 * Establece el valor del directorio de dónde selecciona el plan de
 	 * refactorizaciones a importar.
 	 * 
 	 * @param directory
@@ -380,7 +380,7 @@ public class RefactoringPlugin extends AbstractUIPlugin
 
 	/**
 	 * Elimina el directorio y posibles los ficheros de <i>backup</i> generados
-	 * por el <i>plugin</i> durante la ejecuci�n de refactorizaciones, as� como
+	 * por el <i>plugin</i> durante la ejecución de refactorizaciones, así como
 	 * el fichero MOD utilizado por defecto para guardar el modelo MOON en uso.
 	 * 
 	 * @param context
@@ -437,7 +437,7 @@ public class RefactoringPlugin extends AbstractUIPlugin
 
 	/**
 	 * Carga bajo demanda la lista de <i>listeners</i> registrados para el punto
-	 * de extensi�n declarado por el <i>plugin</i> para el registro de <i>
+	 * de extensión declarado por el <i>plugin</i> para el registro de <i>
 	 * listeners</i> que hagan un seguimiento del progreso de las
 	 * refactorizaciones ejecutadas.
 	 * 
@@ -459,7 +459,7 @@ public class RefactoringPlugin extends AbstractUIPlugin
 
 	/**
 	 * Obtiene la lista de <i>listeners</i> que se han registrado en el punto de
-	 * extensi�n declarado por el <i>plugin</i> para el registro de <i>
+	 * extensión declarado por el <i>plugin</i> para el registro de <i>
 	 * listeners</i> a los que notificar acerca del progreso de las
 	 * refactorizaciones.
 	 * 
@@ -468,23 +468,23 @@ public class RefactoringPlugin extends AbstractUIPlugin
 	private ListenerList computeListeners(){
 		// Se accede al registro de extensiones de Eclipse.
 		IExtensionRegistry registry = Platform.getExtensionRegistry();
-		// Se solicita el punto de extensi�n declarado para los listener del
+		// Se solicita el punto de extensión declarado para los listener del
 		// plugin.
 		IExtensionPoint extensionPoint = registry.getExtensionPoint(LISTENER_EXTPOINT); 
 		// Se solicitan todas las extensiones registradas en el punto de
-		// extensi�n.
+		// extensión.
 		IExtension[] extensions = extensionPoint.getExtensions();
 	
 		// Se crea la lista de listeners del plugin.
 		ListenerList results = new ListenerList();
 		for (int i = 0; i < extensions.length; i++){
-			// Se accede a la configuración de la siguiente extensi�n.
+			// Se accede a la configuración de la siguiente extensión.
 			IConfigurationElement[] elements = 
 				extensions[i].getConfigurationElements();
 			for (int j = 0; j < elements.length; j++){
 				try {
 					// Se intenta instanciar un listener a partir de la clase
-					// que implementa la extensi�n.
+					// que implementa la extensión.
 					Object listener = 
 						elements[j].createExecutableExtension("class"); //$NON-NLS-1$
 					if (listener instanceof IRefactoringRunListener)
@@ -502,7 +502,7 @@ public class RefactoringPlugin extends AbstractUIPlugin
 	}
 
 	/**
-	 * Registra din�micamente un nuevo <i>listener</i> en la lista de
+	 * Registra dinámicamente un nuevo <i>listener</i> en la lista de
 	 * <i>listeners </i> a los que hay que informar acerca del progreso de las
 	 * refactorizaciones.
 	 * 
@@ -517,7 +517,7 @@ public class RefactoringPlugin extends AbstractUIPlugin
 	}
 
 	/**
-	 * Elimina din�micamente un <i>listener</i> de la lista de <i>listeners </i>
+	 * Elimina dinámicamente un <i>listener</i> de la lista de <i>listeners </i>
 	 * a los que hay que informar acerca del progreso de las refactorizaciones.
 	 * 
 	 * @param listener
@@ -536,8 +536,8 @@ public class RefactoringPlugin extends AbstractUIPlugin
 	 * 
 	 * <p>
 	 * Si una de las extensiones registradas da lugar a algún tipo de error, se
-	 * puede controlar el problema y continuar con la ejecuci�n normal. En ese
-	 * caso, el <i> listener</i> que hubiera provocado el problema ser�a
+	 * puede controlar el problema y continuar con la ejecución normal. En ese
+	 * caso, el <i> listener</i> que hubiera provocado el problema sería
 	 * eliminado de la lista de <i>listeners</i> registrados.
 	 * </p>
 	 * 
@@ -552,7 +552,7 @@ public class RefactoringPlugin extends AbstractUIPlugin
 			final IRefactoringRunListener next = 
 				(IRefactoringRunListener) registeredListeners[i];
 			// Se envuelve la llamada para evitar que se extiendan fallos 
-			// que se pudieran producir en la ejecuci�n de la llamada
+			// que se pudieran producir en la ejecución de la llamada
 			// (el listener puede ser externo).
 			try {
 				next.refactoringStarted(name);
@@ -571,8 +571,8 @@ public class RefactoringPlugin extends AbstractUIPlugin
 	 * 
 	 * <p>
 	 * Si una de las extensiones registradas da lugar a algún tipo de error, se
-	 * puede controlar el problema y continuar con la ejecuci�n normal. En ese
-	 * caso, el <i>listener</i> que hubier provocado el problema ser�a eliminado
+	 * puede controlar el problema y continuar con la ejecución normal. En ese
+	 * caso, el <i>listener</i> que hubier provocado el problema sería eliminado
 	 * de la lista de <i>listeners</i> registrados.
 	 * </p>
 	 * 
@@ -590,7 +590,7 @@ public class RefactoringPlugin extends AbstractUIPlugin
 			final IRefactoringRunListener next = 
 				(IRefactoringRunListener) registeredListeners[i];
 			// Se envuelve la llamada para evitar que se extiendan fallos 
-			// que se pudieran producir en la ejecuci�n de la llamada
+			// que se pudieran producir en la ejecución de la llamada
 			// (el listener puede ser externo).
 			try {
 				next.refactoringStepTaken(message);
@@ -609,7 +609,7 @@ public class RefactoringPlugin extends AbstractUIPlugin
 	 * 
 	 * <p>
 	 * Si una de las extensiones registradas da lugar a algún tipo de error, el
-	 * <i> listener</i> que hubiera provocado el problema ser�a eliminado de la
+	 * <i> listener</i> que hubiera provocado el problema sería eliminado de la
 	 * lista de <i>listeners</i> registrados.
 	 * </p>
 	 * 
@@ -626,7 +626,7 @@ public class RefactoringPlugin extends AbstractUIPlugin
 			final IRefactoringRunListener next = 
 				(IRefactoringRunListener) registeredListeners[i];
 			// Se envuelve la llamada para evitar que se extiendan fallos 
-			// que se pudieran producir en la ejecuci�n de la llamada
+			// que se pudieran producir en la ejecución de la llamada
 			// (el listener puede ser externo).
 			try {
 				next.refactoringFailed(name, message);	
@@ -645,8 +645,8 @@ public class RefactoringPlugin extends AbstractUIPlugin
 	 * 
 	 * <p>
 	 * Si una de las extensiones registradas da lugar a algún tipo de error, se
-	 * puede controlar el problema y continuar con la ejecuci�n normal. En ese
-	 * caso, el <i> listener</i> que hubiera provocado el problema ser�a
+	 * puede controlar el problema y continuar con la ejecución normal. En ese
+	 * caso, el <i> listener</i> que hubiera provocado el problema sería
 	 * eliminado de la lista de <i>listeners</i> registrados.
 	 * </p>
 	 * 
@@ -662,7 +662,7 @@ public class RefactoringPlugin extends AbstractUIPlugin
 			final IRefactoringRunListener next = 
 				(IRefactoringRunListener) registeredListeners[i];
 			// Se envuelve la llamada para evitar que se extiendan fallos que 
-			// se pudieran producir en la ejecuci�n de la llamada (el listener
+			// se pudieran producir en la ejecución de la llamada (el listener
 			// puede ser externo).
 			try {
 				next.refactoringFinished(summary);
@@ -683,8 +683,8 @@ public class RefactoringPlugin extends AbstractUIPlugin
 	 * 
 	 * <p>
 	 * Si una de las extensiones registradas da lugar a algún tipo de error, se
-	 * puede controlar el problema y continuar con la ejecuci�n normal. En ese
-	 * caso, el <i> listener</i> que hubiera provocado el problema ser�a
+	 * puede controlar el problema y continuar con la ejecución normal. En ese
+	 * caso, el <i> listener</i> que hubiera provocado el problema sería
 	 * eliminado de la lista de <i>listeners</i> registrados.
 	 * </p>
 	 * 
@@ -699,7 +699,7 @@ public class RefactoringPlugin extends AbstractUIPlugin
 			final IRefactoringRunListener next = 
 				(IRefactoringRunListener) registeredListeners[i];
 			// Se envuelve la llamada para evitar que se extiendan fallos que 
-			// se pudieran producir en la ejecuci�n de la llamada (el listener
+			// se pudieran producir en la ejecución de la llamada (el listener
 			// puede ser externo).
 			try {
 				next.refactoringUndone(id);
@@ -715,7 +715,7 @@ public class RefactoringPlugin extends AbstractUIPlugin
 	/**
 	 * Obtiene la instancia única del plug-in.
 	 * 
-	 * Método definido por el patr�n de dise�o Singleton.
+	 * Método definido por el patrón de diseño Singleton.
 	 * 
 	 * @return la instancia única del plug-in.
 	 */
@@ -726,7 +726,7 @@ public class RefactoringPlugin extends AbstractUIPlugin
 	}
 
 	/**
-	 * Inicia el proceso de configuración y ejecuci�n de una refactorización
+	 * Inicia el proceso de configuración y ejecución de una refactorización
 	 * sobre un elemento seleccionado.
 	 * 
 	 * @param selectedElement
@@ -734,7 +734,7 @@ public class RefactoringPlugin extends AbstractUIPlugin
 	 *            <code>ClassDef</code>, <code>MethDec</code> o
 	 *            <code>AttDec</code>.
 	 * @param selection
-	 *            el proveedor de información para la selecci�n actual.
+	 *            el proveedor de información para la selección actual.
 	 * @param showSelector
 	 *            indica si se quiere o no mostrar la ventana selectora,
 	 */
@@ -786,7 +786,7 @@ public class RefactoringPlugin extends AbstractUIPlugin
 
 	/**
 	 * Realiza las actualizaciones necesarias sobre los recursos del plugin y
-	 * del entorno de Eclipse despu�s de la ejecuci�n de una refactorización.
+	 * del entorno de Eclipse después de la ejecución de una refactorización.
 	 * 
 	 * @param refactoring
 	 *            el nombre de la refactorización ejecutada.
@@ -827,11 +827,11 @@ public class RefactoringPlugin extends AbstractUIPlugin
 	}
 
 	/**
-	 * Obtiene la ruta ra�z del "bundle" asociado al plugin.
+	 * Obtiene la ruta raíz del "bundle" asociado al plugin.
 	 * 
-	 * La ruta termina en el s�mbolo separador del sistema operativo.
+	 * La ruta termina en el símbolo separador del sistema operativo.
 	 * 
-	 * @return la ruta ra�z del "bundle" asociado al plugin.
+	 * @return la ruta raíz del "bundle" asociado al plugin.
 	 */
 	public String getBundleRootDir(){
 		Bundle pluginBundle = Platform.getBundle(BUNDLE_NAME);
@@ -856,9 +856,9 @@ public class RefactoringPlugin extends AbstractUIPlugin
 	}
 
 	/**
-	 * Obtiene el proyecto sobre el que se est� trabajando en un momento dado.
+	 * Obtiene el proyecto sobre el que se está trabajando en un momento dado.
 	 * 
-	 * @return el proyecto sobre el que se est� trabajando en un momento dado.
+	 * @return el proyecto sobre el que se está trabajando en un momento dado.
 	 */
 	public IProject getAffectedProject(){
 		if(currentSelection==null){
@@ -874,10 +874,10 @@ public class RefactoringPlugin extends AbstractUIPlugin
 	}
 
 	/**
-	 * Obtiene el proyecto Java sobre el que se est� trabajando en un momento
+	 * Obtiene el proyecto Java sobre el que se está trabajando en un momento
 	 * dado.
 	 * 
-	 * @return el proyecto Java sobre el que se est� trabajando en un momento
+	 * @return el proyecto Java sobre el que se está trabajando en un momento
 	 *         dado.
 	 */
 	public IJavaProject getAffectedJavaProject(){
@@ -885,10 +885,10 @@ public class RefactoringPlugin extends AbstractUIPlugin
 	}
 
 	/**
-	 * Obtiene los directorios ra�z a partir de los cuales se pueden encontrar
+	 * Obtiene los directorios raíz a partir de los cuales se pueden encontrar
 	 * los ficheros fuente del proyecto afectado.
 	 * 
-	 * @return los directorios ra�z de los ficheros fuente.
+	 * @return los directorios raíz de los ficheros fuente.
 	 */
 	public List<String> getAffectedSourceDirs(){
 		return JavaFileManager.getSourceDirsForProject(getAffectedJavaProject());

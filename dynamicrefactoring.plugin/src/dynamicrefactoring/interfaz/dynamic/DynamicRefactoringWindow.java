@@ -81,8 +81,8 @@ import dynamicrefactoring.integration.NamedObjectHandler;
 import dynamicrefactoring.interfaz.ComboEditor;
 
 /**
- * Ventana generada din�micamente para la configuración de una refactorización
- * din�mica antes de su ejecuci�n.
+ * Ventana generada dinámicamente para la configuración de una refactorización
+ * dinámica antes de su ejecución.
  * 
  * @author <A HREF="mailto:lfd0002@alu.ubu.es">Laura Fuente de la Fuente</A>
  * @author <A HREF="mailto:sfd0009@alu.ubu.es">Sonia Fuente de la Fuente</A>
@@ -97,12 +97,12 @@ public class DynamicRefactoringWindow extends Dialog {
 		Logger.getLogger(DynamicRefactoringWindow.class);
 
 	/**
-	 * Campo de texto utilizado para la introducci�n manual de valores.
+	 * Campo de texto utilizado para la introducción manual de valores.
 	 */
 	private Text t_Input;
 
 	/**
-	 * Campo desplegable utilizado para la selecci�n de valores entre un
+	 * Campo desplegable utilizado para la selección de valores entre un
 	 * conjunto.
 	 */
 	private Combo combo;
@@ -120,10 +120,10 @@ public class DynamicRefactoringWindow extends Dialog {
 
 	/**
 	 * Tabla asociativa en la que se almacenan los posibles valores asociados a
-	 * una lista desplegable, en el mismo orden en que �sta los muestra.
+	 * una lista desplegable, en el mismo orden en que ésta los muestra.
 	 * 
 	 * <p>
-	 * Se utiliza como clave el c�digo <i>hash</i> del desplegable, y como valor
+	 * Se utiliza como clave el código <i>hash</i> del desplegable, y como valor
 	 * la lista de objetos cuya representación muestra.
 	 * </p>
 	 */
@@ -146,9 +146,9 @@ public class DynamicRefactoringWindow extends Dialog {
 
 	/**
 	 * Tabla asociativa que permite actualizar los valores de las entradas que
-	 * dependen de la selecci�n de un determinado desplegable. Se utiliza como
+	 * dependen de la selección de un determinado desplegable. Se utiliza como
 	 * clave un objeto de envoltura que contiene el <code>hashcode</code> del
-	 * combo en cuesti�n, y como valor un <i>array</i> con los nombres de las
+	 * combo en cuestión, y como valor un <i>array</i> con los nombres de las
 	 * entradas que dependen de dicho desplegable.
 	 */
 	private final HashMap<Integer, String[]> comboDependencies;
@@ -175,7 +175,7 @@ public class DynamicRefactoringWindow extends Dialog {
 	protected JavaModel model;
 
 	/**
-	 * Variable auxiliar para la situación din�mica de los campos.
+	 * Variable auxiliar para la situación dinámica de los campos.
 	 */
 	private int count = 0;
 
@@ -187,7 +187,7 @@ public class DynamicRefactoringWindow extends Dialog {
 	private int desplazamiento=0;
 
 	/**
-	 * Crea la ventana de di�logo.
+	 * Crea la ventana de diálogo.
 	 * 
 	 * @param currentObject
 	 *            objeto que constituye la entrada principal de la
@@ -199,7 +199,7 @@ public class DynamicRefactoringWindow extends Dialog {
 	 * 
 	 * @throws RefactoringException
 	 *             si se produce un error al acceder a la definición de la
-	 *             refactorización din�mica que se asociar� a la ventana.
+	 *             refactorización dinámica que se asociará a la ventana.
 	 */
 	public DynamicRefactoringWindow(ObjectMoon currentObject, DynamicRefactoringDefinition refactoring) {
 		super(PlatformUI.getWorkbench().getActiveWorkbenchWindow().getShell());
@@ -235,12 +235,12 @@ public class DynamicRefactoringWindow extends Dialog {
 	}
 
 	/**
-	 * Crea el contenido de la ventana de di�logo.
+	 * Crea el contenido de la ventana de diálogo.
 	 * 
 	 * @param parent
-	 *            el elemento compuesto padre que contendr� el �rea de di�logo.
+	 *            el elemento compuesto padre que contendrá el área de diálogo.
 	 * 
-	 * @return el control del �rea de di�logo.
+	 * @return el control del área de diálogo.
 	 * 
 	 * @see Dialog#createDialogArea
 	 */
@@ -260,7 +260,7 @@ public class DynamicRefactoringWindow extends Dialog {
 		final GridLayout gridLayout = new GridLayout();
 		composite.setLayout(gridLayout);
 
-		// Se a�aden las pesta�as a la interfaz.
+		// Se añaden las pestañas a la interfaz.
 		final TabFolder tabFolder = new TabFolder(composite, SWT.NONE);
 		tabFolder.setLayoutData(new GridData(867, 393));
 
@@ -278,15 +278,15 @@ public class DynamicRefactoringWindow extends Dialog {
 		scrolledComposite2.setExpandHorizontal(true);
 		scrolledComposite2.setExpandVertical(true);
 
-		// Pesta�a de parámetros.
+		// Pestaña de parámetros.
 		final Composite cParameters = new Composite(scrolledComposite2, SWT.NONE);
 		cParameters.setLocation(0, 0);
 		cParameters.setSize(872, 390);
 		scrolledComposite2.setContent(cParameters);
 
-		// Se busca la entrada ra�z.
+		// Se busca la entrada raíz.
 		for(InputParameter nextInput : refactoringDefinition.getInputs()){
-			// Para su entrada de tipo "ra�z".
+			// Para su entrada de tipo "raíz".
 			if (nextInput.isMain()){ //$NON-NLS-1$
 				if (! checkMainInput(nextInput)){
 					return null;
@@ -322,7 +322,7 @@ public class DynamicRefactoringWindow extends Dialog {
 				// Para entradas de tipo from.
 				if (nextInput.getFrom() != null && nextInput.getFrom().length() > 0){
 					
-					// Si a�n no se ha obtenido su valor.
+					// Si aún no se ha obtenido su valor.
 					if (! inputValues.containsKey(nextInput.getName())){
 
 						// Se busca la entrada a la que apunta el campo "from".
@@ -331,7 +331,7 @@ public class DynamicRefactoringWindow extends Dialog {
 						// Si se encuentra la entrada apuntada por el "from".
 						if (fromInput != null) {
 
-							// Si es la entrada principal o ra�z.
+							// Si es la entrada principal o raíz.
 							if(fromInput.isMain())	{					 //$NON-NLS-1$
 								if(! loadFromMain(cParameters, nextInput))
 									return null;
@@ -347,7 +347,7 @@ public class DynamicRefactoringWindow extends Dialog {
 							else {
 								recursiveInputs = new ArrayList<String>();
 								InputParameter source = inputAttributes.get(nextInput.getFrom());
-								// Se inicia su obtenci�n.
+								// Se inicia su obtención.
 								recursiveDependencyResolution(cParameters,
 									source, nextInput);							
 							}
@@ -395,7 +395,7 @@ public class DynamicRefactoringWindow extends Dialog {
 			// Se ha encontrado una entrada marcada como principal.
 			else 
 				if (++rootInputs > 1){
-				// Se han encontrado varias entradas se�aladas como principales.
+				// Se han encontrado varias entradas señaladas como principales.
 				// La refactorización contiene un error.
 					Object[] messageArgs = {"\"" + Messages.DynamicRefactoringWindow_Root + "\""}; //$NON-NLS-1$ //$NON-NLS-2$
 					MessageFormat formatter = new MessageFormat(""); //$NON-NLS-1$
@@ -420,7 +420,7 @@ public class DynamicRefactoringWindow extends Dialog {
 	 * Carga el valor de una entrada a partir de la entrada principal.
 	 * 
 	 * @param cParameters
-	 *            <code>Composite</code> que contendr� las nuevas etiqueta y
+	 *            <code>Composite</code> que contendrá las nuevas etiqueta y
 	 *            campo de texto o desplegable la entrada cargada.
 	 * @param loadedInput
 	 *            entrada cuyo valor se intenta cargar.
@@ -452,7 +452,7 @@ public class DynamicRefactoringWindow extends Dialog {
 					// Se indica que el valor de la entrada lo almacena este campo.
 					inputFields.put(loadedInput.getName(), t_Input);
 				}
-				// Otras entradas aparte del modelo tambi�n pueden
+				// Otras entradas aparte del modelo también pueden
 				// devolver conjuntos de valores.
 				else {
 					combo = new Combo(cParameters, SWT.BORDER);
@@ -487,7 +487,7 @@ public class DynamicRefactoringWindow extends Dialog {
 	 * MOON.
 	 * 
 	 * @param cParameters
-	 *            <code>Composite</code> en que se integrar�n la nueva etiqueta
+	 *            <code>Composite</code> en que se integrarán la nueva etiqueta
 	 *            y el nuevo desplegable con los valores de la entrada.
 	 * @param nextInput
 	 *            entrada cuyo valor se debe obtener.
@@ -546,17 +546,17 @@ public class DynamicRefactoringWindow extends Dialog {
 	 * Comprueba si una entrada identificada como <code>root</code> (la entrada
 	 * principal de la refactorización) conforma con el tipo del objeto
 	 * seleccionado como entrada principal de la refactorización en tiempo de
-	 * ejecuci�n.
+	 * ejecución.
 	 * 
 	 * <p>
-	 * El objeto seleccionado deber� ser del mismo tipo o de un subtipo del tipo
-	 * con que se define la entrada ra�z de la refactorización.
+	 * El objeto seleccionado deberá ser del mismo tipo o de un subtipo del tipo
+	 * con que se define la entrada raíz de la refactorización.
 	 * </p>
 	 * 
 	 * <p>
-	 * Si la comprobación falla, se mostrar� un mensaje de error y se forzar� el
-	 * cierre de la ventana de di�logo de refactorización, puesto que es un
-	 * error grave que impide la ejecuci�n normal de la refactorización.
+	 * Si la comprobación falla, se mostrará un mensaje de error y se forzará el
+	 * cierre de la ventana de diálogo de refactorización, puesto que es un
+	 * error grave que impide la ejecución normal de la refactorización.
 	 * 
 	 * @param testedInput
 	 *            entrada identificada como <code>root</code> y que conforma con
@@ -566,7 +566,7 @@ public class DynamicRefactoringWindow extends Dialog {
 	 *         con otro; <code>false</code> en caso contrario.
 	 * 
 	 * @see DynamicRefactoringDefinition#getInputs() para estudiar el formato de
-	 *      especificación de las entradas de una refactorización din�mica.
+	 *      especificación de las entradas de una refactorización dinámica.
 	 */
 	private boolean checkMainInput(InputParameter testedInput) {
 		// El tipo de la entrada debe coincidir con el esperado.
@@ -597,7 +597,7 @@ public class DynamicRefactoringWindow extends Dialog {
 	}
 
 	/**
-	 * A�ade los botones a la barra de botones de este di�logo.
+	 * Añade los botones a la barra de botones de este diálogo.
 	 * 
 	 * @param parent
 	 *            el elemento compuesto de la barra de botones.
@@ -611,9 +611,9 @@ public class DynamicRefactoringWindow extends Dialog {
 	}
 
 	/**
-	 * Devuelve el tama�o inicial que se debe utilizar.
+	 * Devuelve el tamaño inicial que se debe utilizar.
 	 * 
-	 * @return el tama�o inicial de la ventana.
+	 * @return el tamaño inicial de la ventana.
 	 * 
 	 * @see Dialog#getInitialSize()
 	 */
@@ -623,10 +623,10 @@ public class DynamicRefactoringWindow extends Dialog {
 	}
 
 	/**
-	 * Configura la shell proporcionada, prepar�ndola para la apertura de esta
+	 * Configura la shell proporcionada, preparándola para la apertura de esta
 	 * ventana sobre ella.
 	 * 
-	 * Método plantilla (patr�n de dise�o Método Plantilla).
+	 * Método plantilla (patrón de diseño Método Plantilla).
 	 * 
 	 * @param newShell
 	 *            la shell que se configura.
@@ -639,7 +639,7 @@ public class DynamicRefactoringWindow extends Dialog {
 	}
 
 	/**
-	 * Muestra una ventana de di�logo con un mensaje de error y cierra la
+	 * Muestra una ventana de diálogo con un mensaje de error y cierra la
 	 * ventana actual.
 	 * 
 	 * @param errorMsg
@@ -651,14 +651,14 @@ public class DynamicRefactoringWindow extends Dialog {
 	}
 
 	/**
-	 * Analiza el tipo de ejecuci�n de un objeto que debería contener un
-	 * conjunto de elementos y, si es as�, los obtiene uno a uno y los a�ade
+	 * Analiza el tipo de ejecución de un objeto que debería contener un
+	 * conjunto de elementos y, si es así, los obtiene uno a uno y los añade
 	 * como cadenas de texto al contenido de una lista desplegable.
 	 * 
 	 * <p>
-	 * El contenido de la lista desplegable depender� de la implementación que
+	 * El contenido de la lista desplegable dependerá de la implementación que
 	 * los elementos del conjunto proporcionen para el método de
-	 * <code>Object</code> <code>toString()</code>, ya que es el que se emplear�
+	 * <code>Object</code> <code>toString()</code>, ya que es el que se empleará
 	 * para obtener su representación.
 	 * </p>
 	 * 
@@ -691,12 +691,12 @@ public class DynamicRefactoringWindow extends Dialog {
 		
 		ArrayList<Object> elements = new ArrayList<Object>();
 		
-		// Si los valores est�n contenidos en una colecci�n.
+		// Si los valores están contenidos en una colección.
 		if (collection.isAssignableFrom(container))
 			for (Object next : ((java.util.Collection<?>)values))
 				elements.add(next);
 		
-		// Si los valores est�n contenidos en un iterador.
+		// Si los valores están contenidos en un iterador.
 		else if (iterator.isAssignableFrom(container)){
 			Iterator<?> valueIterator = (java.util.Iterator<?>)values;
 			while(valueIterator.hasNext())
@@ -712,7 +712,7 @@ public class DynamicRefactoringWindow extends Dialog {
 	}
 
 	/**
-	 * Analiza el tipo de ejecuci�n de un objeto para determinar si contiene un
+	 * Analiza el tipo de ejecución de un objeto para determinar si contiene un
 	 * único elemento o, por el contrario, se trata de algún tipo de conjunto.
 	 * 
 	 * <p>
@@ -764,7 +764,7 @@ public class DynamicRefactoringWindow extends Dialog {
 	 * @param method
 	 *            nombre simple del método que se debe cargar.
 	 * 
-	 * @return el método obtenido por reflexi�n a partir de la clase de nombre
+	 * @return el método obtenido por reflexión a partir de la clase de nombre
 	 *         dado.
 	 * 
 	 * @throws ClassNotFoundException
@@ -811,7 +811,7 @@ public class DynamicRefactoringWindow extends Dialog {
 			}else{
 				// no necesito guardar información sobre el modelo ya que al
 				// exportar el plan
-				// el modelo sobre el que se trabajar� ser� diferente.
+				// el modelo sobre el que se trabajará será diferente.
 				params.put(param.getKey(), "");
 			}
 		}
@@ -823,7 +823,7 @@ public class DynamicRefactoringWindow extends Dialog {
 	 * entrada distinta de la entrada principal y del modelo.
 	 * 
 	 * @param cParameters
-	 *            elemento sobre el que se situar� el campo de texto o
+	 *            elemento sobre el que se situará el campo de texto o
 	 *            desplegable asociado a la nueva entrada una vez resuelta.
 	 * @param sourceInput
 	 *            <i>array</i> de cadenas con los atributos de la entrada a
@@ -832,7 +832,7 @@ public class DynamicRefactoringWindow extends Dialog {
 	 *            <i>array</i> de cadenas con los atributos de la nueva entrada
 	 *            que se debe intentar resolver.
 	 * 
-	 * @return <code>true</code> si se logr� resolver correctamente la nueva
+	 * @return <code>true</code> si se lográ resolver correctamente la nueva
 	 *         entrada a partir de la entrada de origen; <code>false</code> en
 	 *         caso contrario.
 	 */
@@ -868,7 +868,7 @@ public class DynamicRefactoringWindow extends Dialog {
 				}
 			}
 			
-			// Puede que no se haya cargado a�n el valor de origen porque deba
+			// Puede que no se haya cargado aún el valor de origen porque deba
 			// ser
 			// introducido de forma manual. Solo se continua si se ha cargado.
 			if (inputValues.containsKey(sourceInput.getName())){
@@ -889,7 +889,7 @@ public class DynamicRefactoringWindow extends Dialog {
 						if (dependent != null){
 							updated = Arrays.copyOf(
 								dependent, dependent.length + 1);
-							// Se a�ade el nombre de la nueva entrada a la lista
+							// Se añade el nombre de la nueva entrada a la lista
 							// de
 							// entradas dependientes del desplegable.
 							updated[updated.length] = newInput.getName();
@@ -914,7 +914,7 @@ public class DynamicRefactoringWindow extends Dialog {
 						// Se indica que el valor de esta entrada lo tiene este campo.
 						inputFields.put(newInput.getName(), t_Input);
 					}
-					// Otras entradas aparte del modelo tambi�n pueden
+					// Otras entradas aparte del modelo también pueden
 					// devolver conjuntos de valores.
 					else {
 						combo = new Combo(cParameters, SWT.BORDER);
@@ -975,7 +975,7 @@ public class DynamicRefactoringWindow extends Dialog {
 	 * <p>
 	 * Solo debe llamarse para entradas que dependan de terceras entradas
 	 * distintas de la entrada principal de la refactorización y del modelo,
-	 * puesto que ninguna de las dos puede cambiar y se obtendr�a siempre, por
+	 * puesto que ninguna de las dos puede cambiar y se obtendría siempre, por
 	 * tanto, el mismo valor.
 	 * </p>
 	 * 
@@ -991,10 +991,10 @@ public class DynamicRefactoringWindow extends Dialog {
 		Object source = inputValues.get(sourceInput.getName());
 		
 		try {
-			// Solo se actualiza el valor si el valor de origen ya est�
+			// Solo se actualiza el valor si el valor de origen ya está
 			// disponible.
 			if (source != null){
-				// Se carga el método con el que se obtendr� el valor de la
+				// Se carga el método con el que se obtendrá el valor de la
 				// entrada.
 				Method method = loadMethod(sourceInput.getType(), input.getMethod());
 				// Se calcula el nuevo valor.
@@ -1089,7 +1089,7 @@ public class DynamicRefactoringWindow extends Dialog {
 	}
 
 	/**
-	 * Cierra la ventana de di�logo.
+	 * Cierra la ventana de diálogo.
 	 */
 	@Override
 	public boolean close(){
@@ -1101,11 +1101,11 @@ public class DynamicRefactoringWindow extends Dialog {
 	}
 
 	/**
-	 * Notifica que el bot�n de este di�logo con el identificador especificado
+	 * Notifica que el botón de este diálogo con el identificador especificado
 	 * ha sido pulsado.
 	 * 
 	 * @param buttonId
-	 *            el identificador del bot�n que ha sido pulsado (v�anse las
+	 *            el identificador del botón que ha sido pulsado (véanse las
 	 *            constantes <code>IDialogConstants.*ID</code>).
 	 * 
 	 * @see Dialog#buttonPressed
@@ -1114,7 +1114,7 @@ public class DynamicRefactoringWindow extends Dialog {
 	@Override
 	protected void buttonPressed(int buttonId) {
 		
-		// Independiente del tipo de bot�n que pusemos en este di�logo, es
+		// Independiente del tipo de botón que pusemos en este diálogo, es
 		//necesario hacer limpieza de los ficheros html generados cuando
 		//hay ejemplos que mostrar.
 		if(!refactoringDefinition.getExamples().isEmpty())
@@ -1158,7 +1158,7 @@ public class DynamicRefactoringWindow extends Dialog {
 	}
 
 	/**
-	 * Recibe notificaciones cuando cambia la selecci�n en uno de los
+	 * Recibe notificaciones cuando cambia la selección en uno de los
 	 * desplegables asociado a una de las entradas.
 	 * 
 	 * @author <A HREF="mailto:sfd0009@alu.ubu.es">Sonia Fuente de la Fuente</A>
@@ -1176,7 +1176,7 @@ public class DynamicRefactoringWindow extends Dialog {
 		 * </p>
 		 * 
 		 * @param e
-		 *            el evento de selecci�n disparado en la ventana.
+		 *            el evento de selección disparado en la ventana.
 		 * 
 		 * @see SelectionListener#widgetSelected(SelectionEvent)
 		 */
@@ -1196,7 +1196,7 @@ public class DynamicRefactoringWindow extends Dialog {
 				// Se obtiene la lista de valores asociada al desplegable.
 				List<Object> values = comboValues.get(Integer.valueOf(observed.hashCode()));
 				// Se actualiza el valor de la entrada asociada al desplegable.
-				// Se toma el valor de la posición indicada por la selecci�n.
+				// Se toma el valor de la posición indicada por la selección.
 				inputValues.put(thisInput, values.get(observed.getSelectionIndex()));
 								
 				// Se obtienen los nombes de las entradas dependientes del combo.
@@ -1221,7 +1221,7 @@ public class DynamicRefactoringWindow extends Dialog {
 	}
 
 	/**
-	 * Recibe notificaciones cuando cambia la selecci�n en uno de los campos de
+	 * Recibe notificaciones cuando cambia la selección en uno de los campos de
 	 * texto editables asociado a una de las entradas.
 	 * 
 	 * @author <A HREF="mailto:sfd0009@alu.ubu.es">Sonia Fuente de la Fuente</A>

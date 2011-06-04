@@ -2,7 +2,13 @@ package dynamicrefactoring.domain;
 
 import java.util.Set;
 
-
+/**
+ * Catálogo que contiene refactorizaciones
+ * y permite consultarlas o modificarlas.
+ * 
+ * @author imediava
+ *
+ */
 public interface RefactoringsCatalog {
 
 	/**

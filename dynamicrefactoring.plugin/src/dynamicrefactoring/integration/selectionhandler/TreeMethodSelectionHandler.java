@@ -32,7 +32,7 @@ import dynamicrefactoring.util.selection.TreeSelectionInfo;
 
 /**
  * Proporciona las funciones necesarias para obtener el método MOON con el que
- * se corresponde un método seleccionado en Eclipse sobre un �rbol desplegable.
+ * se corresponde un método seleccionado en Eclipse sobre un árbol desplegable.
  * 
  * @author <A HREF="mailto:sfd0009@alu.ubu.es">Sonia Fuente de la Fuente</A>
  * @author <A HREF="mailto:ehp0001@alu.ubu.es">Enrique Herrero Paredes</A>
@@ -40,17 +40,17 @@ import dynamicrefactoring.util.selection.TreeSelectionInfo;
 public class TreeMethodSelectionHandler extends MethodSelectionHandler {
 	
 	/**
-	 * La selecci�n de un método sobre un �rbol de selecci�n.
+	 * La selección de un método sobre un árbol de selección.
 	 */
 	private TreeSelectionInfo infoProvider;
 	
 	/**
 	 * Constructor.
 	 * 
-	 * @param selectionInfo contenedor de la selecci�n que se desea manejar.
+	 * @param selectionInfo contenedor de la selección que se desea manejar.
 	 * 
-	 * @throws Exception si la selecci�n contenida en #selectionInfo no es una
-	 * selecci�n de un método sobre un �rbol de selecci�n.
+	 * @throws Exception si la selección contenida en #selectionInfo no es una
+	 * selección de un método sobre un árbol de selección.
 	 */
 	public TreeMethodSelectionHandler (TreeSelectionInfo selectionInfo) 
 		throws Exception{
@@ -76,7 +76,7 @@ public class TreeMethodSelectionHandler extends MethodSelectionHandler {
 
 	/**
 	 * Implementación de la operación primitiva.
-	 * (Patr�n de dise�o Método Plantilla).
+	 * (Patrón de diseño Método Plantilla).
 	 * 
 	 * @see MethodSelectionHandler#getMethodProcessor()
 	 */

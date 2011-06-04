@@ -51,19 +51,19 @@ public class PropertyManager {
 	private final String CONFIGURATION_FILE = "refactoring.properties"; //$NON-NLS-1$
 
 	/**
-	 * El nombre de la propiedad que almacena d�nde se guardan los ficheros .mod
+	 * El nombre de la propiedad que almacena dónde se guardan los ficheros .mod
 	 * para recuperar estados intermedios.
 	 */
 	private final String BACKUP_PROPERTY = "backup"; //$NON-NLS-1$
 
 	/**
-	 * El nombre de la propiedad que almacena d�nde se guardan temporalmente los
+	 * El nombre de la propiedad que almacena dónde se guardan temporalmente los
 	 * ficheros sobre los que se refactoriza.
 	 */
 	private final String TEMP_PROPERTY = "temp"; //$NON-NLS-1$
 
 	/**
-	 * El nombre de la propiedad que almacena d�nde se guardan los ficheros de
+	 * El nombre de la propiedad que almacena dónde se guardan los ficheros de
 	 * registro.
 	 */
 	protected static final String LOG_PROPERTY = "log"; //$NON-NLS-1$
@@ -105,7 +105,7 @@ public class PropertyManager {
 	/**
 	 * Constructor.
 	 * 
-	 * Privado, siguiendo la estructura del patr�n Singleton.
+	 * Privado, siguiendo la estructura del patrón Singleton.
 	 */
 	private PropertyManager(){
 		super();
@@ -116,7 +116,7 @@ public class PropertyManager {
 	/**
 	 * Obtiene la instancia única del gestor de propiedades.
 	 * 
-	 * Método definido por el patr�n de dise�o Singleton.
+	 * Método definido por el patrón de diseño Singleton.
 	 * 
 	 * @return la instancia única del gestor de propiedades.
 	 */
@@ -139,10 +139,10 @@ public class PropertyManager {
 
 	/**
 	 * Recupera la propiedad que almacena el nombre del directorio donde se
-	 * copian temporalmente los ficheros sobre los que se est� refactorizando.
+	 * copian temporalmente los ficheros sobre los que se esté refactorizando.
 	 * 
 	 * @return La propiedad que almacena el nombre del directorio donde se
-	 *         copian temporalmente los ficheros sobre los que se est�
+	 *         copian temporalmente los ficheros sobre los que se esté
 	 *         refactorizando.
 	 */
 	public String getTempRefactoredFileDirectory(){

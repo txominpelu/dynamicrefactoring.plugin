@@ -48,7 +48,7 @@ import dynamicrefactoring.interfaz.CustomProgressDialog;
 
 /**
  * Proporciona un asistente que permite exportar un plan formado por un conjunto de 
- * refactorizaciones din�micas existentes.
+ * refactorizaciones dinámicas existentes.
  * 
  * @author <A HREF="mailto:lfd0002@alu.ubu.es">Laura Fuente de la Fuente</A>
  */
@@ -61,17 +61,17 @@ public class ExportPlanWizard extends Dialog {
 	
 	/**
 	 * Campo de texto en que se almacena la ruta del directorio al que se
-	 * exportar�n las refactorizaciones.
+	 * exportarán las refactorizaciones.
 	 */
 	private Text t_Output;
 	
 	/**
-	 * Bot�n que permite iniciar la exportación.
+	 * Botón que permite iniciar la exportación.
 	 */
 	private Button bt_Export;
 		
 	/**
-	 * Crea la ventana de di�logo.
+	 * Crea la ventana de diálogo.
 	 * 
 	 * @param parentShell la <i>shell</i> padre de esta ventana.
 	 */
@@ -80,11 +80,11 @@ public class ExportPlanWizard extends Dialog {
 	}
 
 	/**
-	 * Crea el contenido de la ventana de di�logo.
+	 * Crea el contenido de la ventana de diálogo.
 	 * 
 	 * @param parent el elemento padre para los contenidos de la ventana.
 	 * 
-	 * @return el control del �rea de di�logo.
+	 * @return el control del área de diálogo.
 	 */
 	@Override
 	protected Control createDialogArea(Composite parent) {
@@ -136,9 +136,9 @@ public class ExportPlanWizard extends Dialog {
 	}
 
 	/**
-	 * Obtiene el tama�o inicial de la ventana de di�logo.
+	 * Obtiene el tamaño inicial de la ventana de diálogo.
 	 * 
-	 * @return el tama�o inicial de la ventana de di�logo.
+	 * @return el tamaño inicial de la ventana de diálogo.
 	 */
 	@Override
 	protected Point getInitialSize() {
@@ -158,9 +158,9 @@ public class ExportPlanWizard extends Dialog {
 
 	/**
 	 * Implementa la funcionalidad de exportación de un plan de refactorizaciones, lanzada como 
-	 * respuesta a la pulsación del bot�n correspondiente.
+	 * respuesta a la pulsación del botón correspondiente.
 	 * 
-	 * @param buttonId identificador del bot�n que ha sido pulsado en el di�logo.
+	 * @param buttonId identificador del botón que ha sido pulsado en el diálogo.
 	 */
 	@Override
 	protected void buttonPressed(int buttonId) {
@@ -177,7 +177,7 @@ public class ExportPlanWizard extends Dialog {
 							Messages.ExportWizard_Successfully ); //$NON-NLS-1$
 				}
 				catch (InterruptedException e) {
-					// El usuario cancel� el proceso.			 
+					// El usuario canceló el proceso.			 
 					logger.warn(e.getMessage());
 				}
 				catch (Exception exception){
@@ -199,7 +199,7 @@ public class ExportPlanWizard extends Dialog {
 	private class ExportPlanJob implements IRunnableWithProgress{
 		
 		/**
-		 * Directorio donde se crear�n las copias de las carpetas de cada una de
+		 * Directorio donde se crearán las copias de las carpetas de cada una de
 		 * las refactorizaciones exportadas.
 		 */
 		String destination;
@@ -207,7 +207,7 @@ public class ExportPlanWizard extends Dialog {
 		/**
 		 * Constructor.
 		 * 
-		 * @param destination directorio donde se crear�n las copias de las
+		 * @param destination directorio donde se crearán las copias de las
 		 * refactorizaciones exportadas.
 		 */
 		public ExportPlanJob(String destination){
@@ -217,13 +217,13 @@ public class ExportPlanWizard extends Dialog {
 		/**
 		 * Ejecuta el trabajo de exportación de refactorizaciones.
 		 * 
-		 * @param monitor el monitor de progreso que deber� usarse para mostrar
+		 * @param monitor el monitor de progreso que deberá usarse para mostrar
 		 * el progreso.
 		 * 
 		 * @throws InvocationTargetException utilizada como envoltura si el método 
-		 * debe propagar una excepci�n (<i>checked exception</i>). Las excepciones
-		 * de tipo <i>runtime exception</i> se envuelven autom�ticamente en una
-		 * excepci�n de este tipo por el contexto que efect�a la llamada.
+		 * debe propagar una excepción (<i>checked exception</i>). Las excepciones
+		 * de tipo <i>runtime exception</i> se envuelven automáticamente en una
+		 * excepción de este tipo por el contexto que efectúa la llamada.
 		 * @throws InterruptedException si la operación detecta una solicitud de 
 		 * cancelación (no disponible).
 		 * 

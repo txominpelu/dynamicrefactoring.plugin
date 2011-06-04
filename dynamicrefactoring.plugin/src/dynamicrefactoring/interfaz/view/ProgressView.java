@@ -43,10 +43,10 @@ import dynamicrefactoring.listener.IRefactoringRunListener;
 
 /**
  * Proporciona una vista de Eclipse en la que quedan reflejados todos los 
- * pasos que una refactorización lleva acabo durante su ejecuci�n.
+ * pasos que una refactorización lleva acabo durante su ejecución.
  * 
  * <p>Proporciona información detallada en tiempo real de los pasos concretos que 
- * componen la refactorización que se est� ejecutando.</p>
+ * componen la refactorización que se está ejecutando.</p>
  * 
  * @author <A HREF="mailto:sfd0009@alu.ubu.es">Sonia Fuente de la Fuente</A>
  * @author <A HREF="mailto:ehp0001@alu.ubu.es">Enrique Herrero Paredes</A>
@@ -90,18 +90,18 @@ public class ProgressView extends ViewPart
 	private Table tb_Messages;
 	
 	/**
-	 * Anchura m�xima de la consola.
+	 * Anchura máxima de la consola.
 	 */
 	private static final int TABLE_WIDTH = 90;
 	
 	/**
 	 * Datos de una refactorización que ha fallado y cuyo mensaje de error
-	 * est� pendiente de ser mostrado al usuario.
+	 * está pendiente de ser mostrado al usuario.
 	 */
 	private String[] failedRefactoring;
 		
 	/**
-	 * Mensajes enviados por la refactorización durante su ejecuci�n.
+	 * Mensajes enviados por la refactorización durante su ejecución.
 	 */
 	private ArrayList<String> stepMessages;
 	
@@ -198,7 +198,7 @@ public class ProgressView extends ViewPart
 		for (String message : stepMessages)
 			addMessage(formatString(message), blue, false);
 		}
-		// Si la refactorización termin� correctamente.
+		// Si la refactorización terminó correctamente.
 		if (failedRefactoring == null) {
 			Object[] messageArgs = {summary.getName(), "(" + //$NON-NLS-1$
 				summary.getStrCompletionTime() + ")"}; //$NON-NLS-1$
@@ -220,7 +220,7 @@ public class ProgressView extends ViewPart
 			addMessage(formatString(
 				Messages.ProgressView_Details + failedRefactoring[1]), red, true);
 			
-			// Se muestra el mensaje de error que deber� haberse almacenado.
+			// Se muestra el mensaje de error que deberá haberse almacenado.
 			MessageDialog.openError(
 				PlatformUI.getWorkbench().getActiveWorkbenchWindow().getShell(),
 				formatter.format(messageArgs),
@@ -260,10 +260,10 @@ public class ProgressView extends ViewPart
 	}
 	
 	/**
-	 * A�ade un mensaje a la tabla de mensajes de progreso.
+	 * Añade un mensaje a la tabla de mensajes de progreso.
 	 * 
-	 * @param msg mensaje que se debe a�adir.
-	 * @param color color con que se a�adir� el mensaje.
+	 * @param msg mensaje que se debe añadir.
+	 * @param color color con que se añadirá el mensaje.
 	 * @param showdate si se debe mostrar la hora junto al mensaje o no.
 	 */
 	private void addMessage(String[] msg, Color color, boolean showdate){
@@ -282,8 +282,8 @@ public class ProgressView extends ViewPart
 	
 	/**
 	 * Formatea una cadena de manera adecuada para que se adapte a la representación
-	 * en forma de tabla de la vista, separ�ndola en fragmentos en aquellos puntos que
-	 * contengan un salto de l�nea, y sustituyendo las tabulaciones por espacios
+	 * en forma de tabla de la vista, separándola en fragmentos en aquellos puntos que
+	 * contengan un salto de línea, y sustituyendo las tabulaciones por espacios
 	 * en blanco.
 	 * 
 	 * @param original la cadena que se debe formatear.
@@ -306,17 +306,17 @@ public class ProgressView extends ViewPart
 	}
 	
 	/**
-	 * Divide una cadena en subcadenas de un tama�o menor o igual a tres
+	 * Divide una cadena en subcadenas de un tamaño menor o igual a tres
 	 * cuartos del ancho de la tabla de salida.
 	 * 
-	 * <p>Las cadenas conservan los saltos de l�nea de la cadena original, 
-	 * as� como la correcta separación entre palabras. Los nuevos saltos de
-	 * l�nea se insertan en los espacios blancos entre palabras.</p>
+	 * <p>Las cadenas conservan los saltos de línea de la cadena original, 
+	 * así como la correcta separación entre palabras. Los nuevos saltos de
+	 * línea se insertan en los espacios blancos entre palabras.</p>
 	 * 
 	 * @param original cadena original.
 	 * 
 	 * @return un <i>array</i> con las subcadenas obtenidas a partir de la
-	 * cadena original, cada una de las cuales podr�a imprimirse sobre la 
+	 * cadena original, cada una de las cuales podría imprimirse sobre la 
 	 * tabla de salida de la vista con una longitud adecuada.
 	 */
 	private String[] splitString(String original){
@@ -327,7 +327,7 @@ public class ProgressView extends ViewPart
 		
 		if (original.length() > width){
 			// Se busca el primer espacio blanco que supera la 
-			// longitud m�xima prevista para cada l�nea.
+			// longitud máxima prevista para cada línea.
 			int index = 0;
 			while(index < original.length()){
 				index = original.indexOf(' ', index);
@@ -343,7 +343,7 @@ public class ProgressView extends ViewPart
 				index++;
 			}
 
-			// Se a�ade el �ltimo fragmento.
+			// Se añade el último fragmento.
 			strings.add(original);
 			
 			return strings.toArray(new String[strings.size()]);

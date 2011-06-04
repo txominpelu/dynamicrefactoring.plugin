@@ -48,7 +48,7 @@ public class TestSignatureEntityIsUsedInMethod extends RefactoringTemplateAbstra
 	 * argumento formal en la sentencia de retorno del método, que devuelve el
 	 * resultado de invocar un método sobre el argumento formal.
 	 * 
-	 * @throws Exception si se produce un error durante la ejecuci�n de la prueba.
+	 * @throws Exception si se produce un error durante la ejecución de la prueba.
 	 */
 	@Test
 	public void testSignatureUsedA() throws Exception{
@@ -76,7 +76,7 @@ public class TestSignatureEntityIsUsedInMethod extends RefactoringTemplateAbstra
 	 * Comprueba que el predicado funciona correctamente cuando se utiliza un
 	 * argumento formal en el lado derecho de una sentencia de asignación.
 	 * 
-	 * @throws Exception si se produce un error durante la ejecuci�n de la prueba.
+	 * @throws Exception si se produce un error durante la ejecución de la prueba.
 	 */
 	@Test
 	public void testSignatureUsedB() throws Exception{
@@ -105,7 +105,7 @@ public class TestSignatureEntityIsUsedInMethod extends RefactoringTemplateAbstra
 	 * argumento formal como parte de una operación matem�tica en una sentencia
 	 * de retorno.
 	 * 
-	 * @throws Exception si se produce un error durante la ejecuci�n de la prueba.
+	 * @throws Exception si se produce un error durante la ejecución de la prueba.
 	 */
 	@Test
 	public void testSignatureUsedC() throws Exception{
@@ -133,7 +133,7 @@ public class TestSignatureEntityIsUsedInMethod extends RefactoringTemplateAbstra
 	 * Comprueba que el predicado funciona correctamente cuando se utiliza un
 	 * argumento formal como argumento de una instrucción de creación.
 	 * 
-	 * @throws Exception si se produce un error durante la ejecuci�n de la prueba.
+	 * @throws Exception si se produce un error durante la ejecución de la prueba.
 	 */
 	@Test
 	public void testSignatureUsedD() throws Exception{

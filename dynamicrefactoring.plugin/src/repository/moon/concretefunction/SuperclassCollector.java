@@ -78,8 +78,8 @@ public class SuperclassCollector extends Function {
 	}
 	
 	/**
-	 * Llamada recursiva que va subiendo por el �rbol de ancestros y
-	 * a�adi�ndolos a la lista.
+	 * Llamada recursiva que va subiendo por el árbol de ancestros y
+	 * añadiéndolos a la lista.
 	 * 
 	 * @param cd clase cuyos ancestros se quieren obtener.
 	 * @param ancestors lista de ancestros.
@@ -95,7 +95,7 @@ public class SuperclassCollector extends Function {
 				if(ic.getType() instanceof ClassType){
 					ClassType ct2 = (ClassType)ic.getType();
 					ancestors.add(ct2.getClassDef());
-					// Se a�aden a su vez los ancestros de los ancestros.
+					// Se añaden a su vez los ancestros de los ancestros.
 					recursiveAdd(ct2.getClassDef(), ancestors);
 				}
 			}

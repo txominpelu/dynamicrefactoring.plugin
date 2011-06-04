@@ -87,7 +87,7 @@ public abstract class RefactoringRunner {
 	private Map<String, String> inputParameters;
 
 	/**
-	 * Indica si la ejecuci�n del plan esta siendo llamada por el plan de
+	 * Indica si la ejecución del plan esta siendo llamada por el plan de
 	 * refactorizaciones o no.
 	 */
 	private boolean fromPlan = false;
@@ -100,7 +100,7 @@ public abstract class RefactoringRunner {
 			Messages.RefactoringRunner_DateFormat);
 
 	/**
-	 * Dirige la ejecuci�n de una refactorización concreta, mostr�ndole al
+	 * Dirige la ejecución de una refactorización concreta, mostrándole al
 	 * usuario el progreso de la misma a través de una ventana de progreso.
 	 */
 	public void runRefactoring() {
@@ -115,7 +115,7 @@ public abstract class RefactoringRunner {
 		try {
 			if (history.execute(refactoring, null, null) == Status.OK_STATUS
 					&& getInstance() instanceof DynamicRefactoringRunner) {
-				// a�adimos al xml los datos de la refactorización que se acaba
+				// añadimos al xml los datos de la refactorización que se acaba
 				// de ejecutar.
 				System.out.println("Ejecutada refactorizacion dinamica "
 						+ getRefactoringName());
@@ -143,7 +143,7 @@ public abstract class RefactoringRunner {
 	 * Permite establecer el valor del atributo fromPlan.
 	 * 
 	 * @param fromPlan
-	 *            tru en caso de que la ejecuci�n provenga del plan de
+	 *            tru en caso de que la ejecución provenga del plan de
 	 *            refactorizaciones.
 	 */
 	public void setFromPlan(boolean fromPlan) {
@@ -245,9 +245,9 @@ public abstract class RefactoringRunner {
 		 * @param monitor
 		 *            monitor de progreso (no se utiliza).
 		 * @param info
-		 *            información del entorno gr�fico (no se utiliza).
+		 *            información del entorno gráfico (no se utiliza).
 		 * 
-		 * @return {@link Status#OK_STATUS} si el proceso se ejecut�
+		 * @return {@link Status#OK_STATUS} si el proceso se ejecutó
 		 *         correctamente; {@link Status#CANCEL_STATUS}, si no.
 		 * 
 		 * @see AbstractOperation#execute(IProgressMonitor, IAdaptable)
@@ -284,7 +284,7 @@ public abstract class RefactoringRunner {
 				RefactoringPlugin.getDefault().fireRefactoringFinished(
 						new RefactoringSummary(name, new Date(), label));
 
-				// El usuario cancel� el proceso.
+				// El usuario canceló el proceso.
 				String message = Messages.RefactoringRunner_UserCancelled
 						+ ".\n"; //$NON-NLS-1$
 				logger.warn(message);
@@ -349,14 +349,14 @@ public abstract class RefactoringRunner {
 		 * seguido por un monitor de progreso.
 		 * 
 		 * @param monitor
-		 *            el monitor de progreso que mostrar� el avance de la
+		 *            el monitor de progreso que mostrará el avance de la
 		 *            operación de refactorización.
 		 * 
 		 * @throws InvocationTargetException
-		 *             si se produce alguna clase de excepci�n durante la
-		 *             ejecuci�n, se relanza envuelta en este tipo de excepci�n.
+		 *             si se produce alguna clase de excepción durante la
+		 *             ejecución, se relanza envuelta en este tipo de excepción.
 		 * @throws InterruptedException
-		 *             si el usuario interrumpi� el proceso pulsando el bot�n de
+		 *             si el usuario interrumpió el proceso pulsando el botón de
 		 *             cancelación.
 		 */
 		@Override
@@ -414,9 +414,9 @@ public abstract class RefactoringRunner {
 		 * @param monitor
 		 *            monitor de progreso (no se utiliza).
 		 * @param info
-		 *            información del entorno gr�fico (no se utiliza).
+		 *            información del entorno gráfico (no se utiliza).
 		 * 
-		 * @return {@link Status#OK_STATUS} si el proceso se ejecut�
+		 * @return {@link Status#OK_STATUS} si el proceso se ejecutó
 		 *         correctamente; {@link Status#CANCEL_STATUS}, si no.
 		 * 
 		 * @see AbstractOperation#undo(IProgressMonitor, IAdaptable)
@@ -450,7 +450,7 @@ public abstract class RefactoringRunner {
 		 * @param monitor
 		 *            monitor de progreso (no se utiliza).
 		 * @param info
-		 *            información del entorno gr�fico (no se utiliza).
+		 *            información del entorno gráfico (no se utiliza).
 		 * 
 		 * @return {@link Status#OK_STATUS}.
 		 * 
@@ -495,15 +495,15 @@ public abstract class RefactoringRunner {
 		 * Ejecuta la operación de deshacer la refactorización.
 		 * 
 		 * @param monitor
-		 *            el monitor de progreso que mostrar� el avance de la
-		 *            operación de recuperación de c�digo.
+		 *            el monitor de progreso que mostrará el avance de la
+		 *            operación de recuperación de código.
 		 * 
 		 * @throws InvocationTargetException
-		 *             si se produce cualquier clase de excepci�n se relanza
-		 *             envuelta en una excepci�n de este tipo.
+		 *             si se produce cualquier clase de excepción se relanza
+		 *             envuelta en una excepción de este tipo.
 		 * @throws InterruptedException
-		 *             si el usuario interrumpi� el proceso pulsando sobre el
-		 *             bot�n de cancelación (deshabilitado).
+		 *             si el usuario interrumpió el proceso pulsando sobre el
+		 *             botón de cancelación (deshabilitado).
 		 */
 		@Override
 		public void run(IProgressMonitor monitor)

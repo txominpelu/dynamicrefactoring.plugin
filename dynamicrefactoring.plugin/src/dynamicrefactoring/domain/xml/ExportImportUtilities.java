@@ -43,22 +43,22 @@ import dynamicrefactoring.util.io.FileManager;
 
 /**
  * Proporciona una serie de métodos que se encargan de la exportación e
- * importación de refactorizaciones din�micas.
+ * importación de refactorizaciones dinámicas.
  * 
  * @author <A HREF="mailto:lfd0002@alu.ubu.es">Laura Fuente de la Fuente</A>
  */
 public class ExportImportUtilities {
 
 	/**
-	 * Se encarga del proceso de exportación de una refactorización din�mica.
+	 * Se encarga del proceso de exportación de una refactorización dinámica.
 	 * 
 	 * @param destination
 	 *            directorio a donde se quiere exportar la refactorización.
 	 * @param definition
 	 *            ruta del fichero con la definición de la refactorización.
 	 * @param createFolders
-	 *            indica si los ficheros .class se copian en al carpeta ra�z o
-	 *            si se gener� la estructura de carpetas correspondiente.
+	 *            indica si los ficheros .class se copian en al carpeta raíz o
+	 *            si se genera la estructura de carpetas correspondiente.
 	 * @throws IOException
 	 *             IOException.
 	 * @throws XMLRefactoringReaderException
@@ -107,7 +107,7 @@ public class ExportImportUtilities {
 					// falta algún fichero .class necesario en esta
 					// refactorización
 					// En este caso se borra la carpeta generada en destino ya
-					// que no estar� completa
+					// que no estará completa
 					FileManager.emptyDirectories(destination
 							+ File.separatorChar + definitionFolderName);
 					FileManager.deleteDirectories(destination
@@ -125,7 +125,7 @@ public class ExportImportUtilities {
 
 	/**
 	 * Se encarga del proceso de exportación de un plan de refactorizaciones
-	 * din�micas.
+	 * dinámicas.
 	 * 
 	 * @param destination
 	 *            directorio a donde se quiere exportar el plan.
@@ -141,7 +141,7 @@ public class ExportImportUtilities {
 			FileManager.deleteDirectories(
 					destination + "/refactoringPlan", true); //$NON-NLS-1$
 		}
-		// Creamos el directorio donde se guardar� el plan.
+		// Creamos el directorio donde se guardará el plan.
 		new File(destination + "/refactoringPlan").mkdir(); //$NON-NLS-1$
 		// Copiamos el fichero xml que guarda la información relativa al plan.
 		String planFile = new String(RefactoringConstants.REFACTORING_PLAN_FILE);
@@ -183,7 +183,7 @@ public class ExportImportUtilities {
 	}
 
 	/**
-	 * Se encarga del proceso de importación de una refactorización din�mica.
+	 * Se encarga del proceso de importación de una refactorización dinámica.
 	 * 
 	 * @param definition
 	 *            ruta del fichero con la definición de la refactorización.

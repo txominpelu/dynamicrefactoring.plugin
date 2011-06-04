@@ -238,7 +238,7 @@ public final class ElementCatalog<K extends Element> implements
 	}
 
 	/**
-	 * Construye una cat�logo con los mismos filtros y elementos que el actual
+	 * Construye una catálogo con los mismos filtros y elementos que el actual
 	 * pero con una clasificacion distinta.
 	 * 
 	 * @param classification

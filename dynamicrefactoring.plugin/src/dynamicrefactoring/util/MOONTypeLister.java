@@ -116,13 +116,13 @@ public class MOONTypeLister {
 	}
     
     /**
-     * A�ade a una colecci�n las clases encontradas en una biblioteca <i>JAR</i>
-     * que pertenezcan a uno de los paquetes del n�cleo de MOON o de JavaMOON
+     * Añade a una colección las clases encontradas en una biblioteca <i>JAR</i>
+     * que pertenezcan a uno de los paquetes del núcleo de MOON o de JavaMOON
      * <code>moon.core.classdef</code>, <code>moon.core.genericity</code> o
      * <code>javamoon.core</code>.
      * 
      * @param library biblioteca <i>JAR</i> en que buscar nuevas clases.
-     * @param collection colecci�n a la que se a�aden las clases encontradas.
+     * @param collection colección a la que se añaden las clases encontradas.
      * 
      * @throws IOException si no se encuentra o no existe el fichero <code>.jar
      * </code> de la biblioteca.

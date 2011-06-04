@@ -48,7 +48,7 @@ import repository.moon.MOONRefactoring;
  * método de una clase.
  * 
  * <p>
- * Indirectamente, se comprueba tambi�n la correcci�n de las funciones, acciones
+ * Indirectamente, se comprueba también la correcci�n de las funciones, acciones
  * y predicados utilizados por la refactorización.
  * </p>
  * 
@@ -69,11 +69,11 @@ public class TestRenameMethod extends RefactoringTemplateAbstractTest {
 	 * <p>
 	 * En un modelo con una única clase, toma un método sin argumentos formales,
 	 * valor de retorno, ni variables locales, y le asigna un nuevo nombre
-	 * correcto, distinto al de los dem�s métodos de la clase.
+	 * correcto, distinto al de los demás métodos de la clase.
 	 * </p>
 	 * 
 	 * @throws Exception
-	 *             si se produce un error durante la ejecuci�n de la prueba.
+	 *             si se produce un error durante la ejecución de la prueba.
 	 */    
 	@Test
 	public void testSimple() throws Exception{
@@ -118,12 +118,12 @@ public class TestRenameMethod extends RefactoringTemplateAbstractTest {
 	 * 
 	 * <p>
 	 * En un modelo con dos clases (una extiende a la otra), renombra un método
-	 * en la superclase que est� siendo redefinido en la subclase, comprobando
+	 * en la superclase que está siendo redefinido en la subclase, comprobando
 	 * que los cambios se extiendan correctamente por la jerarquía de herencia.
 	 * </p>
 	 * 
 	 * @throws Exception
-	 *             si se produce un error durante la ejecuci�n de la prueba.
+	 *             si se produce un error durante la ejecución de la prueba.
 	 */  
 	@Test
 	public void testWithInheritance() throws Exception{
@@ -177,7 +177,7 @@ public class TestRenameMethod extends RefactoringTemplateAbstractTest {
 	 * de retorno.
 	 * 
 	 * @throws Exception
-	 *             si se produce un error durante la ejecuci�n de la prueba.
+	 *             si se produce un error durante la ejecución de la prueba.
 	 */  
 	@Test
 	public void testWithContents() throws Exception{
@@ -240,7 +240,7 @@ public class TestRenameMethod extends RefactoringTemplateAbstractTest {
 	 * Verifica el funcionamiento de las precondiciones de la refactorización.
 	 * 
 	 * <p>
-	 * Comprueba que se lanza una excepci�n cuando se intenta renombrar un
+	 * Comprueba que se lanza una excepción cuando se intenta renombrar un
 	 * método y su signatura vaya a coincidir con la de algún otro método de las
 	 * clases de la jerarquía de herencia.
 	 * </p>
@@ -252,7 +252,7 @@ public class TestRenameMethod extends RefactoringTemplateAbstractTest {
 	 * </p>
 	 * 
 	 * @throws Exception
-	 *             si se produce un error durante la ejecuci�n de la prueba.
+	 *             si se produce un error durante la ejecución de la prueba.
 	 */
 	@Test(expected=PreconditionException.class)	
 	public void testCheckMethodIsNotInSubNorSuperclass() throws Exception{
@@ -286,12 +286,12 @@ public class TestRenameMethod extends RefactoringTemplateAbstractTest {
 	 * Verifica el funcionamiento de las precondiciones de la refactorización.
 	 * 
 	 * <p>
-	 * Comprueba que se lanza una excepci�n cuando se intenta renombrar un
+	 * Comprueba que se lanza una excepción cuando se intenta renombrar un
 	 * método constructor de su clase.
 	 * </p>
 	 * 
 	 * @throws Exception
-	 *             si se produce un error durante la ejecuci�n de la prueba.
+	 *             si se produce un error durante la ejecución de la prueba.
 	 */
 	@Test(expected=PreconditionException.class)
 	public void testCheckMethodIsNotConstructor() throws Exception{
@@ -328,12 +328,12 @@ public class TestRenameMethod extends RefactoringTemplateAbstractTest {
 	 * <p>
 	 * En un modelo con una única clase, toma un método sin argumentos formales,
 	 * valor de retorno, ni variables locales, y le asigna un nuevo nombre
-	 * correcto, distinto al de los dem�s métodos de la clase. Despu�s, deshace
+	 * correcto, distinto al de los demás métodos de la clase. Después, deshace
 	 * la operación de renombrado.
 	 * </p>
 	 * 
 	 * @throws Exception
-	 *             si se produce un error durante la ejecuci�n de la prueba.
+	 *             si se produce un error durante la ejecución de la prueba.
 	 */    
 	@Test
 	public void testUndoSimple() throws Exception{
@@ -379,7 +379,7 @@ public class TestRenameMethod extends RefactoringTemplateAbstractTest {
 	 * renombrado de un método en una superclase.
 	 * 
 	 * @throws Exception
-	 *             si se produce un error durante la ejecuci�n de la prueba.
+	 *             si se produce un error durante la ejecución de la prueba.
 	 */  
 	@Test
 	public void testUndoWithInheritance() throws Exception{
@@ -435,7 +435,7 @@ public class TestRenameMethod extends RefactoringTemplateAbstractTest {
 	 * Comprueba el renombrado de un método.
 	 * 
 	 * @throws Exception
-	 *             excepci�n.
+	 *             excepción.
 	 */
 	@Test
 	public void testProbando() throws Exception{

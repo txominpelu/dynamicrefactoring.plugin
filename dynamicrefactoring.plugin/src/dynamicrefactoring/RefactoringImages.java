@@ -15,62 +15,149 @@ public final class RefactoringImages {
 
 	private static final String ICONS_DIR = "/icons/";
 
+	/**
+	 * Icono de refactorizacion.
+	 */
 	public static final String REF_ICON_PATH = ICONS_DIR + "ref.png"; //$NON-NLS-1$
 	
+	/**
+	 * Icono de plugin.
+	 */
 	public static final String PLUGIN_REF_ICON_PATH = ICONS_DIR + "plugin_ref.png"; //$NON-NLS-1$
 
+	/**
+	 * Icono de clase.
+	 */
 	public static final String CLASS_ICON_PATH = ICONS_DIR + "class.gif"; //$NON-NLS-1$
 
+	/**
+	 * Icono de categoria.
+	 */
 	public static final String CAT_ICON_PATH = ICONS_DIR + "cat.gif"; //$NON-NLS-1$
 
+	/**
+	 * Icono de check.
+	 */
 	public static final String CHECK_ICON_PATH = ICONS_DIR + "check.gif"; //$NON-NLS-1$
 
+	/**
+	 * Icono de ejecutar refactorizacion.
+	 */
 	public static final String RUN_ICON_PATH = ICONS_DIR + "run.gif"; //$NON-NLS-1$
 
+	/**
+	 * Icono de validar.
+	 */
 	public static final String VALIDATE_ICON_PATH = ICONS_DIR + "validate.gif"; //$NON-NLS-1$
 
+	/**
+	 * Icono de buscar.
+	 */
 	public static final String SEARCH_ICON_PATH = ICONS_DIR + "search.png"; //$NON-NLS-1$
 
+	/**
+	 * Icono de refactorizacion.
+	 */
 	public static final String FIL_ICON_PATH = ICONS_DIR + "fil.png"; //$NON-NLS-1$
 
+	/**
+	 * Icono de exportar plan.
+	 */
 	public static final String EXPORT_PLAN_ICON_PATH = ICONS_DIR + "export_plan.ico"; //$NON-NLS-1$
 	
+	/**
+	 * Icono de exportar.
+	 */
 	public static final String EXPORT_ICON_PATH = ICONS_DIR + "export.ico"; //$NON-NLS-1$
 	
+	/**
+	 * Icono de importar plan.
+	 */
 	public static final String IMPORT_PLAN_ICON_PATH = ICONS_DIR + "import_plan.ico"; //$NON-NLS-1$
 	
+	/**
+	 * Icono de importar.
+	 */
 	public static final String IMPORT_ICON_PATH = ICONS_DIR + "import.ico"; //$NON-NLS-1$
 	
+	/**
+	 * Icono de info.
+	 */
 	public static final String INFO_ICON_PATH = ICONS_DIR + "info.gif"; //$NON-NLS-1$
 	
+	/**
+	 * Icono de warning.
+	 */
 	public static final String WARNING_ICON_PATH = ICONS_DIR + "warning.gif"; //$NON-NLS-1$
 	
+	/**
+	 * Icono de recursivo.
+	 */
 	public static final String RECURSIVE_ICON_PATH = ICONS_DIR + "recursive.gif"; //$NON-NLS-1$
 	
+	/**
+	 * Icono de error.
+	 */
 	public static final String ERROR_ICON_PATH = ICONS_DIR + "error.gif"; //$NON-NLS-1$
 	
+	/**
+	 * Icono de si.
+	 */
 	public static final String SI_ICON_PATH = ICONS_DIR + "siicon.png"; //$NON-NLS-1$
 	
+	/**
+	 * Icono de configure.
+	 */
 	public static final String CONFIGURE_ICON_PATH = ICONS_DIR + "configure.ico"; //$NON-NLS-1$
 	
+	/**
+	 * Icono de deshacer.
+	 */
 	public static final String UNDO_ICON_PATH = ICONS_DIR + "undo.ico"; //$NON-NLS-1$
 	
+	/**
+	 * Icono de flecha arriba.
+	 */
 	public static final String ARROW_UP_ICON_PATH = ICONS_DIR + "arrow_up.gif"; //$NON-NLS-1$
 	
+	/**
+	 * Icono de flecha abajo.
+	 */
 	public static final String ARROW_DOWN_ICON_PATH = ICONS_DIR + "arrow_down.gif"; //$NON-NLS-1$
 	
+	/**
+	 * Icono de flecha a la derecha.
+	 */
 	public static final String ARROW_RIGHT_ICON_PATH = ICONS_DIR + "arrow_right.gif"; //$NON-NLS-1$
 	
+	/**
+	 * Icono de flecha a la izquierda.
+	 */
 	public static final String ARROW_LEFT_ICON_PATH = ICONS_DIR + "arrow_left.gif"; //$NON-NLS-1$
 	
+	/**
+	 * Icono de limpiar.
+	 */
 	public static final String CLEAR_ICON_PATH = ICONS_DIR + "clear.png"; //$NON-NLS-1$
 	
+	/**
+	 * Icono de ayuda.
+	 */
 	public static final String HELP_ICON_PATH = ICONS_DIR + "help.png"; //$NON-NLS-1$
 	
+	/**
+	 * Icono de vista de refactorizaciones.
+	 */
 	public static final String REF_VIEW_ICON_PATH = ICONS_DIR + "ref_view.png"; //$NON-NLS-1$
 	
+	/**
+	 * Icono de codigo.
+	 */
 	public static final String SOURCE_ICON_PATH = ICONS_DIR + "source.gif"; //$NON-NLS-1$
 	
+	/**
+	 * Icono de clase de eclipse.
+	 */
 	public static final String ECLIPSE_CLASS_ICON_PATH = ICONS_DIR + "class_obj.gif";
 
 	private static final String PlUGIN_CLASSIFICATION_ICON_PATH = ICONS_DIR + "plugin-classif.ico"; //$NON-NLS-1$

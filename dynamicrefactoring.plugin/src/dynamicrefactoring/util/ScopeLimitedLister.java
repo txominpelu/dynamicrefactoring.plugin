@@ -35,8 +35,8 @@ import dynamicrefactoring.domain.xml.XMLRefactoringUtils;
 import dynamicrefactoring.interfaz.SelectRefactoringWindow;
 
 /**
- * Permite obtener el conjunto de refactorizaciones din�micas disponibles y
- * aplicables sobre un único �mbito (de clase, de método, etc.).
+ * Permite obtener el conjunto de refactorizaciones dinámicas disponibles y
+ * aplicables sobre un único ámbito (de clase, de método, etc.).
  * 
  * @author <A HREF="mailto:lfd0002@alu.ubu.es">Laura Fuente de la Fuente</A>
  * @author <A HREF="mailto:sfd0009@alu.ubu.es">Sonia Fuente de la Fuente</A>
@@ -51,62 +51,62 @@ public class ScopeLimitedLister {
 			.getLogger(ScopeLimitedLister.class);
 
 	/**
-	 * �mbito de refactorizaciones cuya entrada principal es un atributo.
+	 * ámbito de refactorizaciones cuya entrada principal es un atributo.
 	 */
 	private final static String ATTRIBUTE_SCOPE = "moon.core.classdef.AttDec"; //$NON-NLS-1$
 
 	/**
-	 * �mbito de refactorizaciones cuya entrada principal es una clase.
+	 * Ámbito de refactorizaciones cuya entrada principal es una clase.
 	 */
 	private final static String CLASS_SCOPE = "moon.core.classdef.ClassDef"; //$NON-NLS-1$
 
 	/**
-	 * �mbito de refactorizaciones cuya entrada principal es un argumento
+	 * Ámbito de refactorizaciones cuya entrada principal es un argumento
 	 * formal.
 	 */
 	private final static String FORMAL_ARG_SCOPE = "moon.core.classdef.FormalArgument"; //$NON-NLS-1$
 
 	/**
-	 * �mbito de refactorizaciones cuya entrada principal es un parámetro
+	 * Ámbito de refactorizaciones cuya entrada principal es un parámetro
 	 * formal.
 	 */
 	private final static String FORMAL_PAR_SCOPE = "moon.core.genericity.FormalPar"; //$NON-NLS-1$
 
 	/**
-	 * �mbito de refactorizaciones cuya entrada principal es un método.
+	 * Ámbito de refactorizaciones cuya entrada principal es un método.
 	 */
 	private final static String METHOD_SCOPE = "moon.core.classdef.MethDec"; //$NON-NLS-1$
 
 	/**
-	 * �mbito de refactorizaciones cuya entrada principal es un parámetro formal
+	 * Ámbito de refactorizaciones cuya entrada principal es un parámetro formal
 	 * acotado.
 	 */
 	private final static String BOUNDED_PAR_SCOPE = "moon.core.genericity.BoundS"; //$NON-NLS-1$
 
 	/**
-	 * �mbito de refactorizaciones cuya entrada principal es un fragmento de
-	 * c�digo.
+	 * Ámbito de refactorizaciones cuya entrada principal es un fragmento de
+	 * código.
 	 */
 	private final static String CODE_FRAGMENT_SCOPE = "moon.core.instruction.CodeFragment"; //$NON-NLS-1$
 
 	/**
-	 * Filtra la lista de refactorizaciones din�micas disponibles a aqu�llas que
-	 * pertenezcan a un determinado �mbito (de atributo, de clase, de argumento
+	 * Filtra la lista de refactorizaciones dinámicas disponibles a aquellas que
+	 * pertenezcan a un determinado ámbito (de atributo, de clase, de argumento
 	 * formal, de parámetro formal o de método).
 	 * 
 	 * @param scope
-	 *            c�digo del �mbito para el que deben obtenerse las
-	 *            refactorizaciones disponibles, seg�n se codifican en
+	 *            código del ámbito para el que deben obtenerse las
+	 *            refactorizaciones disponibles, según se codifican en
 	 *            {@link SelectRefactoringWindow}.
 	 * 
 	 * @return una tabla <i>hash</i> con la lista de refactorizaciones
-	 *         aplicables al �mbito indicado. En la tabla se sigue el convenio
+	 *         aplicables al ámbito indicado. En la tabla se sigue el convenio
 	 *         de utilizar como clave el nombre de la refactorización y como
 	 *         valor la ruta del fichero que la contiene.
 	 */
 	public static HashMap<String, String> getAvailableRefactorings(Scope scope) {
 
-		// Refactorizaciones seleccionadas por ser del �mbito adecuado.
+		// Refactorizaciones seleccionadas por ser del ámbito adecuado.
 		HashMap<String, String> selected = new HashMap<String, String>();
 
 		DynamicRefactoringLister listing = DynamicRefactoringLister
@@ -127,10 +127,10 @@ public class ScopeLimitedLister {
 							.getRefactoringDefinition(nextRef.getValue());
 
 					for (InputParameter nextInput : definition.getInputs()) {
-						// Para su entrada de tipo "ra�z".
+						// Para su entrada de tipo "raíz".
 						if (nextInput.isMain()) { //$NON-NLS-1$
 							// Si el tipo de la entrada es el que corresponde al
-							// �mbito seleccionado.
+							// ámbito seleccionado.
 							try {
 								if (Class.forName(convertScope(scope))
 										.isAssignableFrom(
@@ -162,16 +162,16 @@ public class ScopeLimitedLister {
 	}
 
 	/**
-	 * Convierte los c�digos de �mbito de refactorización utilizados en la capa
+	 * Convierte los códigos de ámbito de refactorización utilizados en la capa
 	 * de interfaz por los nombres completamente cualificados utilizados en la
 	 * representación XML de las refactorizaciones.
 	 * 
 	 * @param scope
-	 *            c�digo del �mbito de la refactorización seg�n se especifican
+	 *            código del ámbito de la refactorización según se especifican
 	 *            en {@link SelectRefactoringWindow}.
 	 * 
 	 * @return el nombre completamente cualificado del tipo de objeto para el
-	 *         cual se define el �mbito de refactorizaciones seg�n el valor de
+	 *         cual se define el ámbito de refactorizaciones según el valor de
 	 *         #scope.
 	 */
 	private static String convertScope(Scope scope) {
@@ -198,15 +198,15 @@ public class ScopeLimitedLister {
 
 	/**
 	 * Convierte los nombres completamente cualificados utilizados en la
-	 * representación XML de las refactorizaciones por los c�digos de �mbito de
+	 * representación XML de las refactorizaciones por los códigos de ámbito de
 	 * refactorización utilizados en la capa de interfaz.
 	 * 
 	 * @param name
 	 *            nombre completamente cualificado del tipo de objeto para el
-	 *            cual se define el �mbito de refactorizaciones seg�n el valor
+	 *            cual se define el ámbito de refactorizaciones según el valor
 	 *            de #scope.
 	 * 
-	 * @return c�digo del �mbito de la refactorización seg�n se especifican en
+	 * @return código del ámbito de la refactorización según se especifican en
 	 *         {@link SelectRefactoringWindow}.
 	 */
 	private static Scope getScope(String name) {

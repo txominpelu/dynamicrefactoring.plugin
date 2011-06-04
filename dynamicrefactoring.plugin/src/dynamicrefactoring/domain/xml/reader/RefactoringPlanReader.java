@@ -41,7 +41,7 @@ import dynamicrefactoring.util.io.FileManager;
 public class RefactoringPlanReader {
 	
 	/**
-	 * Permite obtener el conjunto de refactorizaciones din�micas que actualmente forman el plan
+	 * Permite obtener el conjunto de refactorizaciones dinámicas que actualmente forman el plan
 	 * de refactorización. 
 	 * 
 	 * @param path ruta del fichero que contiene el plan de refactorizaciones.
@@ -75,7 +75,7 @@ public class RefactoringPlanReader {
 	}
 	
 	/**
-	 * Permite obtener el conjunto de refactorizaciones din�micas que actualmente forman el plan
+	 * Permite obtener el conjunto de refactorizaciones dinámicas que actualmente forman el plan
 	 * de refactorización. 
 	 * 
 	 * @return Conjunto de los nombres de las refactorizaciones del plan.

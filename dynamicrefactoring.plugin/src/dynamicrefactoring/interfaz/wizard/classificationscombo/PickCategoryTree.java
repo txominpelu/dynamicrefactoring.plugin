@@ -33,7 +33,7 @@ public final class PickCategoryTree {
 	private ICheckStateListener checkStateListener;
 	
 	/**
-	 * Crea el arbol que permite escoger las categori�as a las que pertenece la
+	 * Crea el arbol que permite escoger las categoriías a las que pertenece la
 	 * refactorizacion.
 	 * 
 	 * @param parent
@@ -54,7 +54,7 @@ public final class PickCategoryTree {
 	}
 
 	/**
-	 * Crea el arbol que permite escoger las categori�as a las que pertenece la
+	 * Crea el arbol que permite escoger las categoriías a las que pertenece la
 	 * refactorizacion.
 	 * 
 	 * @param parent
@@ -144,7 +144,7 @@ public final class PickCategoryTree {
 	
 
 	/**
-	 * Obtiene el control que permite escoger las categor�as de una
+	 * Obtiene el control que permite escoger las categorías de una
 	 * clasificación.
 	 * 
 	 * @return control
@@ -155,7 +155,7 @@ public final class PickCategoryTree {
 
 	/**
 	 * Marca las categorias a las que la refactorizacion pertenece y las
-	 * clasificaciones en las que hay categor�as marcadas como gris.
+	 * clasificaciones en las que hay categorías marcadas como gris.
 	 * 
 	 * @param availableClassifications
 	 *            clasificaciones disponibles
@@ -262,7 +262,7 @@ public final class PickCategoryTree {
 		/**
 		 * Dado el elemento devuelve el texto que se debe mostar en el arbol de
 		 * seleccion de categorias para el elemento. Sera el nombre de la
-		 * categor�a o clasificacion.
+		 * categoría o clasificacion.
 		 * 
 		 * @param element
 		 *            elemento

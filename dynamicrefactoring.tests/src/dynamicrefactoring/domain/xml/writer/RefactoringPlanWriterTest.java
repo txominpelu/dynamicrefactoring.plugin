@@ -36,7 +36,7 @@ import dynamicrefactoring.util.io.FileManager;
 
 /**
  * Comprueba que funciona correctamente el proceso de escritura de un plan
- * de refactorizaciones din�micas en un fichero XML.
+ * de refactorizaciones dinámicas en un fichero XML.
  * 
  * @author <A HREF="mailto:lfd0002@alu.ubu.es">Laura Fuente de la Fuente</A>
  * 
@@ -44,7 +44,7 @@ import dynamicrefactoring.util.io.FileManager;
 public class RefactoringPlanWriterTest{
 
 	/**
-	 * Comprueba que la escritura se realiza correctamente cuando se a�ade la
+	 * Comprueba que la escritura se realiza correctamente cuando se añade la
 	 * información m�nima necesaria. Es decir se inicializa el fichero con el 
 	 * elemento RefactoringPlan.
 	 * 
@@ -78,11 +78,11 @@ public class RefactoringPlanWriterTest{
 	}
 
 	/**
-	 * Comprueba que la escritura se realiza correctamente cuando se a�ade un par de 
+	 * Comprueba que la escritura se realiza correctamente cuando se añade un par de 
 	 * refactorizaciones al plan de refactorizaciones.
 	 * 
 	 * Esta información es: la información de la refactorización consta de su nombre
-	 * , fecha de ejecuci�n y parámetros.
+	 * , fecha de ejecución y parámetros.
 	 * 
 	 * @throws Exception si se produce un error durante la escritura del plan.
 	 */
@@ -189,8 +189,8 @@ public class RefactoringPlanWriterTest{
 	 * de refactorizaciones se realiza de forma correcta.
 	 * 
 	 * Aunque se eliminen varias refactorizaciones del plan, solo se manda eliminar 
-	 * una. Pero el funcionamiento del método hace que tambi�n se borren las que se
-	 * han producido despu�s.
+	 * una. Pero el funcionamiento del método hace que también se borren las que se
+	 * han producido después.
 	 * 
 	 * @throws Exception si se produce un error durante la escritura del plan.
 	 */

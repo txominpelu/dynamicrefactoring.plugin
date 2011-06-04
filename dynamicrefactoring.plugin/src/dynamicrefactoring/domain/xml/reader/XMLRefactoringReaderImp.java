@@ -37,7 +37,7 @@ import dynamicrefactoring.domain.DynamicRefactoringDefinition;
 public interface XMLRefactoringReaderImp {
 
 	/**
-	 * Nombre de la etiqueta ra�z de la especificación XML de una
+	 * Nombre de la etiqueta raíz de la especificación XML de una
 	 * refactorización.
 	 */
 	public static final String REFACTORING_TAG = "refactoring"; //$NON-NLS-1$
@@ -48,17 +48,17 @@ public interface XMLRefactoringReaderImp {
 	public static final String NAME_ATTRIBUTE = "name"; //$NON-NLS-1$
 
 	/**
-	 * Nombre del atributo con el n�mero de versi�n de la refactorización.
+	 * Nombre del atributo con el número de versión de la refactorización.
 	 */
 	public static final String VERSION_ATTRIBUTE = "version"; //$NON-NLS-1$
 
 	/**
-	 * Nombre de la etiqueta con la información b�sica de la refactorización.
+	 * Nombre de la etiqueta con la información básica de la refactorización.
 	 */
 	public static final String INFORMATION_ELEMENT = "information"; //$NON-NLS-1$
 
 	/**
-	 * Nombre de la etiqueta con la descripci�n de la refactorización.
+	 * Nombre de la etiqueta con la descripción de la refactorización.
 	 */
 	public static final String DESCRIPTION_ELEMENT = "description"; //$NON-NLS-1$
 
@@ -78,12 +78,12 @@ public interface XMLRefactoringReaderImp {
 	public static final String MOTIVATION_ELEMENT = "motivation"; //$NON-NLS-1$
 
 	/**
-	 * Nombre de la etiqueta con las categor�as de la refactorización.
+	 * Nombre de la etiqueta con las categorías de la refactorización.
 	 */
 	public static final String CATEGORIZATION_ELEMENT = "categorization"; //$NON-NLS-1$
 	
 	/**
-	 * Nombre de la etiqueta con las categor�as de la refactorización.
+	 * Nombre de la etiqueta con las categorías de la refactorización.
 	 */
 	public static final String CLASSIFICATION_ELEMENT = "classification"; //$NON-NLS-1$
 
@@ -131,7 +131,7 @@ public interface XMLRefactoringReaderImp {
 	public static final String NAME_INPUT_ATTRIBUTE = "name"; //$NON-NLS-1$
 
 	/**
-	 * Apuntador al nombre de otra entrada de la que obtener el valor de �sta.
+	 * Apuntador al nombre de otra entrada de la que obtener el valor de ésta.
 	 */
 	public static final String FROM_INPUT_ATTRIBUTE = "from"; //$NON-NLS-1$
 
@@ -218,7 +218,7 @@ public interface XMLRefactoringReaderImp {
 	public static final String BEFORE_EXAMPLE_ATTRIBUTE = "before"; //$NON-NLS-1$
 
 	/**
-	 * Nombre del atributo con un ejemplo de la situación despu�s de aplicar la
+	 * Nombre del atributo con un ejemplo de la situación después de aplicar la
 	 * refactorización.
 	 */
 	public static final String AFTER_EXAMPLE_ATTRIBUTE = "after"; //$NON-NLS-1$

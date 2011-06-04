@@ -21,7 +21,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.*/
 package dynamicrefactoring.interfaz.wizard;
 
 /**
- * Interfaz de las clases que componen las p�ginas del wizard referentes a los
+ * Interfaz de las clases que componen las páginas del wizard referentes a los
  * mecanismos de la refactorización.
  * 
  * @author <A HREF="mailto:lfd0002@alu.ubu.es">Laura Fuente de la Fuente</A>
@@ -30,7 +30,7 @@ package dynamicrefactoring.interfaz.wizard;
 public interface IRefactoringWizardElementPage {
 	
 	/**
-	 * Actualiza el estado de la pantalla de di�logo del asistente.
+	 * Actualiza el estado de la pantalla de diálogo del asistente.
 	 * 
 	 * @param message mensaje asociado al estado actual de la pantalla.
 	 */

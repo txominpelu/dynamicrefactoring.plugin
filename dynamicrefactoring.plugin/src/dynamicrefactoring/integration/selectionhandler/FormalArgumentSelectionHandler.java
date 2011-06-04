@@ -46,7 +46,7 @@ import dynamicrefactoring.util.selection.TextSelectionInfo;
 public class FormalArgumentSelectionHandler implements ISelectionHandler {
 	
 	/**
-	 * El proveedor de información concreto para la selecci�n de texto.
+	 * El proveedor de información concreto para la selección de texto.
 	 */
 	private TextSelectionInfo infoProvider;
 	
@@ -57,17 +57,17 @@ public class FormalArgumentSelectionHandler implements ISelectionHandler {
 	private JavaLocalVariableProcessor variableProcessor;
 	
 	/**
-	 * La descripci�n MOON del argumento formal seleccionado.
+	 * La descripción MOON del argumento formal seleccionado.
 	 */
 	private FormalArgument formalArgument;
 	
 	/**
-	 * La descripci�n MOON del método al que pertenece el argumento formal.
+	 * La descripción MOON del método al que pertenece el argumento formal.
 	 */
 	private MethDec method;
 	
 	/**
-	 * La descripci�n MOON de la clase a la que pertenece el método uno de cuyos
+	 * La descripción MOON de la clase a la que pertenece el método uno de cuyos
 	 * argumentos formales se ha seleccionado.
 	 */
 	private ClassDef methodClass;
@@ -75,10 +75,10 @@ public class FormalArgumentSelectionHandler implements ISelectionHandler {
 	/**
 	 * Constructor.
 	 * 
-	 * @param selectionInfo contenedor de la selecci�n que se desea manejar.
+	 * @param selectionInfo contenedor de la selección que se desea manejar.
 	 * 
-	 * @throws Exception si la selecci�n contenida en #selectionInfo no es una
-	 * selecci�n de un argumento formal sobre una representación textual.
+	 * @throws Exception si la selección contenida en #selectionInfo no es una
+	 * selección de un argumento formal sobre una representación textual.
 	 */
 	public FormalArgumentSelectionHandler (TextSelectionInfo selectionInfo) 
 		throws Exception{
@@ -100,11 +100,11 @@ public class FormalArgumentSelectionHandler implements ISelectionHandler {
 	}
 	
 	/**
-	 * Obtiene la descripci�n MOON del argumento formal representado por una 
-	 * selecci�n del interfaz gr�fico.
+	 * Obtiene la descripción MOON del argumento formal representado por una 
+	 * selección del interfaz gráfico.
 	 * 
-	 * @return la descripci�n MOON del argumento formal representado por una 
-	 * selecci�n del interfaz gr�fico.
+	 * @return la descripción MOON del argumento formal representado por una 
+	 * selección del interfaz gráfico.
 	 * 
 	 * @throws ClassNotFoundException si se no se consigue encontrar la clase
 	 * del argumento formal en el modelo MOON cargado.
@@ -133,10 +133,10 @@ public class FormalArgumentSelectionHandler implements ISelectionHandler {
 	}
 	
 	/**
-	 * Obtiene la descripci�n MOON del método al que pertenece el argumento formal
+	 * Obtiene la descripción MOON del método al que pertenece el argumento formal
 	 * seleccionado.
 	 * 
-	 * @return la descripci�n MOON del método al que pertenece el argumento formal
+	 * @return la descripción MOON del método al que pertenece el argumento formal
 	 * seleccionado.
 	 * 
 	 * @throws ClassNotFoundException si se no se consigue encontrar la clase a
@@ -160,10 +160,10 @@ public class FormalArgumentSelectionHandler implements ISelectionHandler {
 	}
 	
 	/**
-	 * Obtiene la descripci�n MOON de la clase a la que pertenece el método uno de
+	 * Obtiene la descripción MOON de la clase a la que pertenece el método uno de
 	 * cuyos argumentos formales se ha seleccionado.
 	 * 
-	 * @return la descripci�n MOON de la clase a la que pertenece el método uno de
+	 * @return la descripción MOON de la clase a la que pertenece el método uno de
 	 * cuyos argumentos formales se ha seleccionado.
 	 * 
 	 * @throws ClassNotFoundException si se no se consigue encontrar la clase en

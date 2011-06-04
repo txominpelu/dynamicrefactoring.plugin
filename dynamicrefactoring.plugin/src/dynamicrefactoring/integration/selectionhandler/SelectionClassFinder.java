@@ -48,15 +48,15 @@ public class SelectionClassFinder {
 	
 	/**
 	 * Obtiene la clase del modelo MOON a la que pertenece el elemento seleccionado
-	 * en una representación textual del interfaz gr�fico.
+	 * en una representación textual del interfaz gráfico.
 	 * 
 	 * @param selectionClass apuntador sobre el que se almacena la referencia 
-	 * a la clase MOON a que pertenece la selecci�n actual.
+	 * a la clase MOON a que pertenece la selección actual.
 	 * @param selectionInfo proveedor de información sobre el elemento 
 	 * seleccionado actualmente en Eclipse sobre un editor de texto.
 	 * 
 	 * @return la clase del modelo MOON a la que pertenece el elemento seleccionado
-	 * en una representación textual del interfaz gr�fico.
+	 * en una representación textual del interfaz gráfico.
 	 * 
 	 * @throws ClassNotFoundException si se no se consigue encontrar la clase en
 	 * el modelo MOON cargado.
@@ -81,15 +81,15 @@ public class SelectionClassFinder {
 	
 	/**
 	 * Obtiene la clase del modelo MOON a la que pertenece el elemento seleccionado
-	 * en una representación en �rbol del interfaz gr�fico.
+	 * en una representación en árbol del interfaz gráfico.
 	 * 
 	 * @param selectionClass apuntador sobre el que se almacena la referencia 
-	 * a la clase MOON a que pertenece la selecci�n actual.
+	 * a la clase MOON a que pertenece la selección actual.
 	 * @param selectionInfo proveedor de información sobre el elemento 
-	 * seleccionado actualmente en Eclipse sobre un �rbol desplegable.
+	 * seleccionado actualmente en Eclipse sobre un árbol desplegable.
 	 * 
 	 * @return la clase del modelo MOON a la que pertenece el elemento seleccionado
-	 * en una representación en �rbol del interfaz gr�fico.
+	 * en una representación en árbol del interfaz gráfico.
 	 * 
 	 * @throws ClassNotFoundException si se no se consigue encontrar la clase en
 	 * el modelo MOON cargado.

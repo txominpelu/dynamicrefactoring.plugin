@@ -185,7 +185,7 @@ public class OverrideAnnotationTest extends RefactoringTemplateAbstractTest{
 	 *    encuentra el método sobre el que operamos no tiene un método con la misma
 	 *    signatura que este.</p>
 	 * 
-	 * @throws Exception si se produce un error durante la ejecuci�n de la prueba.
+	 * @throws Exception si se produce un error durante la ejecución de la prueba.
 	 */    
 	@Test(expected=PreconditionException.class)
 	public void testNotMethodSignatureIsInSuperclass() throws Exception{
@@ -198,7 +198,7 @@ public class OverrideAnnotationTest extends RefactoringTemplateAbstractTest{
 	 * <p>Comprueba que se lanza una cuando el método sobre el que estamos operando
 	 *    ya tiene una anotación override.</p>
 	 * 
-	 * @throws Exception si se produce un error durante la ejecuci�n de la prueba.
+	 * @throws Exception si se produce un error durante la ejecución de la prueba.
 	 */    
 	@Test(expected=PreconditionException.class)
 	public void testHasOverrideAnnotation() throws Exception{

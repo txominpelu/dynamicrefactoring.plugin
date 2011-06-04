@@ -51,11 +51,11 @@ import dynamicrefactoring.domain.DynamicRefactoringDefinition;
 import dynamicrefactoring.domain.RefactoringExample;
 
 /**
- * Sexta p�gina del asistente de creación o edición de refactorizaciones.
+ * Sexta página del asistente de creación o edición de refactorizaciones.
  * 
  * <p>
- * Permite asociar hasta un m�ximo de dos ejemplos concretos a la
- * refactorización. Cada uno de los ejemplos vendr� definido por un fichero con
+ * Permite asociar hasta un máximo de dos ejemplos concretos a la
+ * refactorización. Cada uno de los ejemplos vendrá definido por un fichero con
  * el estado del sistema antes de la refactorización, y otro con su estado
  * posterior, una vez ejecutada.
  * </p>
@@ -79,7 +79,7 @@ public class RefactoringWizardPage6 extends WizardPage {
 
 	/**
 	 * Campo de texto con la ruta del fichero que contiene el estado del primer
-	 * ejemplo despu�s de la refactorización.
+	 * ejemplo después de la refactorización.
 	 */
 	private Text textAfter1;
 
@@ -91,19 +91,19 @@ public class RefactoringWizardPage6 extends WizardPage {
 
 	/**
 	 * Campo de texto con la ruta del fichero que contiene el estado del segundo
-	 * ejemplo despu�s de la refactorización.
+	 * ejemplo después de la refactorización.
 	 */
 	private Text textAfter2;
 
 	/**
 	 * Refactorización configurada a través del asistente y que debe ser creada
 	 * finalmente (si se trata de una nueva refactorización) o modificada (si se
-	 * est� editando una ya existente).
+	 * está editando una ya existente).
 	 */
 	private DynamicRefactoringDefinition refactoring = null;
 
 	/**
-	 * �ltima ruta en la que se seleccion� un archivo de ejemplo.
+	 * última ruta en la que se seleccionó un archivo de ejemplo.
 	 */
 	private String lastSelectionPath = null;
 
@@ -113,8 +113,8 @@ public class RefactoringWizardPage6 extends WizardPage {
 	 * Constructor.
 	 * 
 	 * @param refactoring
-	 *            refactorización que se est� editando o <code>null
-	 * </code> si se est� creando una nueva.
+	 *            refactorización que se está editando o <code>null
+	 * </code> si se está creando una nueva.
 	 */
 	public RefactoringWizardPage6(DynamicRefactoringDefinition refactoring) {
 		super("Wizard page"); //$NON-NLS-1$
@@ -124,10 +124,10 @@ public class RefactoringWizardPage6 extends WizardPage {
 	}
 
 	/**
-	 * Hace visible o invisible la p�gina del asistente.
+	 * Hace visible o invisible la página del asistente.
 	 * 
 	 * @param visible
-	 *            si la p�gina se debe hacer visible o no.
+	 *            si la página se debe hacer visible o no.
 	 */
 	@Override
 	public void setVisible(boolean visible) {
@@ -145,10 +145,10 @@ public class RefactoringWizardPage6 extends WizardPage {
 	}
 
 	/**
-	 * Crea el contenido de la p�gina del asistente.
+	 * Crea el contenido de la página del asistente.
 	 * 
 	 * @param parent
-	 *            el elemento padre de esta p�gina del asistente.
+	 *            el elemento padre de esta página del asistente.
 	 */
 	public void createControl(Composite parent) {
 		Composite container = new Composite(parent, SWT.NULL);
@@ -289,7 +289,7 @@ public class RefactoringWizardPage6 extends WizardPage {
 
 	/**
 	 * Puebla los campos del formulario del asistente con la información que se
-	 * pueda obtener de la refactorización existente que se est� editando.
+	 * pueda obtener de la refactorización existente que se está editando.
 	 */
 	private void fillInRefactoringData() {
 		if (refactoring.getExamples() != null) {
@@ -321,7 +321,7 @@ public class RefactoringWizardPage6 extends WizardPage {
 	 * @return una lista de arrays de cadenas en que cada array contiene dos
 	 *         cadenas: una con la ruta del fichero que contiene el estado del
 	 *         ejemplo antes de la refactorización, y otra con la ruta del
-	 *         fichero que contiene el estado del ejemplo despu�s de la
+	 *         fichero que contiene el estado del ejemplo después de la
 	 *         refactorización.
 	 */
 	public List<RefactoringExample> getExamples() {
@@ -340,7 +340,7 @@ public class RefactoringWizardPage6 extends WizardPage {
 	}
 
 	/**
-	 * Se asegura de que ambos ejemplos est�n completos o vac�os, es decir, no
+	 * Se asegura de que ambos ejemplos están completos o vacíos, es decir, no
 	 * se admite la asociación de solo uno de los dos ficheros que componen el
 	 * ejemplo.
 	 */
@@ -365,15 +365,15 @@ public class RefactoringWizardPage6 extends WizardPage {
 	}
 
 	/**
-	 * Comprueba si un campo de texto no vac�o contiene una cadena terminada en
-	 * la extensi�n <i>.txt</i> o <i>.java</i>.
+	 * Comprueba si un campo de texto no vacío contiene una cadena terminada en
+	 * la extensión <i>.txt</i> o <i>.java</i>.
 	 * 
 	 * @param field
 	 *            campo de texto cuyo contenido se debe verificar.
 	 * 
-	 * @return <code>true</code> si el campo de texto no est� vac�o y su
-	 *         contenido no termina en la extensi�n <i>.txt</i> ni <i>.java</i>,
-	 *         o est� vac�o. <code>false</code> si tiene contenido y termina en
+	 * @return <code>true</code> si el campo de texto no está vacío y su
+	 *         contenido no termina en la extensión <i>.txt</i> ni <i>.java</i>,
+	 *         o está vacío. <code>false</code> si tiene contenido y termina en
 	 *         una de dichas extensiones.
 	 */
 	private boolean isNotValidString(Text field) {
@@ -383,7 +383,7 @@ public class RefactoringWizardPage6 extends WizardPage {
 	}
 
 	/**
-	 * Actualiza el estado de la pantalla de di�logo del asistente.
+	 * Actualiza el estado de la pantalla de diálogo del asistente.
 	 * 
 	 * @param message
 	 *            mensaje asociado al estado actual de la pantalla.
@@ -394,7 +394,7 @@ public class RefactoringWizardPage6 extends WizardPage {
 	}
 
 	/**
-	 * Implementa el proceso de elecci�n de uno de los ficheros de texto o Java
+	 * Implementa el proceso de elección de uno de los ficheros de texto o Java
 	 * con el estado del modelo de uno de los ejemplos.
 	 * 
 	 * @author <A HREF="mailto:sfd0009@alu.ubu.es">Sonia Fuente de la Fuente</A>
@@ -403,7 +403,7 @@ public class RefactoringWizardPage6 extends WizardPage {
 	private class ExampleChooserAction implements SelectionListener {
 
 		/**
-		 * Plantillas con alguna de las cuales deber�n conformar los ficheros
+		 * Plantillas con alguna de las cuales deberán conformar los ficheros
 		 * para poder pasar el filtro y poder ser seleccionados.
 		 */
 		private final String[] extensions = { "*.java", "*.txt" }; //$NON-NLS-1$ //$NON-NLS-2$
@@ -416,7 +416,7 @@ public class RefactoringWizardPage6 extends WizardPage {
 				Messages.RefactoringWizardPage6_TextFile };
 
 		/**
-		 * Campo de texto en que se guardar� la ruta del fichero seleccionado.
+		 * Campo de texto en que se guardará la ruta del fichero seleccionado.
 		 */
 		private Text textField;
 
@@ -425,7 +425,7 @@ public class RefactoringWizardPage6 extends WizardPage {
 		 * <p>
 		 * 
 		 * @param textField
-		 *            campo de texto en que se guardar� la ruta del fichero
+		 *            campo de texto en que se guardará la ruta del fichero
 		 *            seleccionado.
 		 */
 		public ExampleChooserAction(Text textField) {
@@ -434,17 +434,17 @@ public class RefactoringWizardPage6 extends WizardPage {
 		}
 
 		/**
-		 * Recibe una notificación de que se ha pulsado el bot�n que permite
+		 * Recibe una notificación de que se ha pulsado el botón que permite
 		 * seleccionar un fichero de ejemplo asociado a la refactorización.
 		 * 
 		 * <p>
-		 * Abre una ventana de selecci�n de fichero con un filtro que permite
-		 * seleccionar solamente ficheros Java con extensi�n <i>.java</i> o
-		 * ficheros de texto con extensi�n <i>.txt</i>.
+		 * Abre una ventana de selección de fichero con un filtro que permite
+		 * seleccionar solamente ficheros Java con extensión <i>.java</i> o
+		 * ficheros de texto con extensión <i>.txt</i>.
 		 * </p>
 		 * 
 		 * @param e
-		 *            el evento de selecci�n disparado.
+		 *            el evento de selección disparado.
 		 * 
 		 * @see SelectionListener#widgetSelected(SelectionEvent)
 		 */

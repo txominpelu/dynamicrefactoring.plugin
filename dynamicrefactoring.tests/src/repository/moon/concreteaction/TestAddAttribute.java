@@ -31,7 +31,7 @@ import org.junit.Test;
 import repository.RefactoringTemplateAbstractTest;
 
 /** 
- * Comprueba que funciona correctamente la acción que a�ade un atributo a una clase. <p>
+ * Comprueba que funciona correctamente la acción que añade un atributo a una clase. <p>
  * 
  * @author <A HREF="mailto:sfd0009@alu.ubu.es">Sonia Fuente de la Fuente</A>
  * @author <A HREF="mailto:ehp0001@alu.ubu.es">Enrique Herrero Paredes</A>
@@ -39,10 +39,10 @@ import repository.RefactoringTemplateAbstractTest;
 public class TestAddAttribute extends RefactoringTemplateAbstractTest {
 
 	/** 
-	 * Comprueba que la acción funciona correctamente al a�adir un atributo a una 
-	 * clase y deshacer despu�s la operación. <p>
+	 * Comprueba que la acción funciona correctamente al añadir un atributo a una 
+	 * clase y deshacer después la operación. <p>
 	 * 
-	 * @throws Exception si se produce un error durante la ejecuci�n de la prueba.
+	 * @throws Exception si se produce un error durante la ejecución de la prueba.
 	 */
 	@Test
 	public void testUndo() throws Exception{

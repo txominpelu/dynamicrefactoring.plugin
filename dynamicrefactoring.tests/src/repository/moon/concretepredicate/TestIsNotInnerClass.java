@@ -46,7 +46,7 @@ public class TestIsNotInnerClass extends RefactoringTemplateAbstractTest {
 	 * 
 	 * Ejecuta la comprobación sobre una clase que contiene una clase interna.
 	 * 
-	 * @throws Exception si se produce un error durante la ejecuci�n de la prueba.
+	 * @throws Exception si se produce un error durante la ejecución de la prueba.
 	 */
 	@Test
 	public void testNotInner() throws Exception{
@@ -72,7 +72,7 @@ public class TestIsNotInnerClass extends RefactoringTemplateAbstractTest {
 	 * 
 	 * Ejecuta la comprobación sobre una clase interna contenida en otra.
 	 * 
-	 * @throws Exception si se produce un error durante la ejecuci�n de la prueba.
+	 * @throws Exception si se produce un error durante la ejecución de la prueba.
 	 */
 	@Test
 	public void testInner() throws Exception{

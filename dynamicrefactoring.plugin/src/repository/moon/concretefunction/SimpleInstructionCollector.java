@@ -39,7 +39,7 @@ import refactoring.engine.Function;
 public class SimpleInstructionCollector extends Function {
 	
 	/**
-	 * Instrucci�n compuesta cuyas componentes se desea obtener.
+	 * Instrucción compuesta cuyas componentes se desea obtener.
 	 */
 	private CompoundInstr compoundInstr;
 	

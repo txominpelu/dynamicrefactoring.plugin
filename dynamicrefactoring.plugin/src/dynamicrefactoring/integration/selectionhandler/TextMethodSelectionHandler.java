@@ -39,17 +39,17 @@ import dynamicrefactoring.util.selection.TextSelectionInfo;
 public class TextMethodSelectionHandler extends MethodSelectionHandler {
 	
 	/**
-	 * El proveedor de información concreto para la selecci�n de texto.
+	 * El proveedor de información concreto para la selección de texto.
 	 */
 	private TextSelectionInfo infoProvider;
 	
 	/**
 	 * Constructor.
 	 * 
-	 * @param selectionInfo contenedor de la selecci�n que se desea manejar.
+	 * @param selectionInfo contenedor de la selección que se desea manejar.
 	 * 
-	 * @throws Exception si la selecci�n contenida en #selectionInfo no es una
-	 * selecci�n de un método sobre una representación textual.
+	 * @throws Exception si la selección contenida en #selectionInfo no es una
+	 * selección de un método sobre una representación textual.
 	 */
 	public TextMethodSelectionHandler (TextSelectionInfo selectionInfo) 
 		throws Exception{
@@ -75,7 +75,7 @@ public class TextMethodSelectionHandler extends MethodSelectionHandler {
 
 	/**
 	 * Implementación de la operación primitiva.
-	 * (Patr�n de dise�o Método Plantilla).
+	 * (Patrón de diseño Método Plantilla).
 	 * 
 	 * @see MethodSelectionHandler#getMethodProcessor()
 	 */

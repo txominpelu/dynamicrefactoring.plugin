@@ -43,10 +43,12 @@ def suggestFile(file){
 def reemplazarAMano(file){
      salida = ""
      println "A modificar: $file\n"
-     new File(file.getPath()).getText('utf-8').getChars().each {
+     new File(file.getPath()).getText('utf-8').getChars().eachWithIndex { it, index ->
                  if (it == "\uFFFD"){
                       BufferedReader br = new BufferedReader(new InputStreamReader(System.in))
-                      println ""
+	              println ""
+		      siguientes = new File(file.getPath()).getText('utf-8').getChars()[index+1..index+3]
+                      println "Siguientes: $siguientes"
                       println "Sustituir por:"
                       String input = br.readLine()
                       salida = salida + input 

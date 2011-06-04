@@ -40,7 +40,7 @@ import repository.RelayListenerRegistry;
 import repository.moon.MOONRefactoring;
 
 /**
- * Permite a�adir un tipo enumerado al modelo a partir de la información de 
+ * Permite añadir un tipo enumerado al modelo a partir de la información de 
  * una clase que pretende sustituir a un tipo enumerado.<p>
  *
  * @author <A HREF="mailto:lfd0002@alu.ubu.es">Laura Fuente de la Fuente</A>
@@ -139,7 +139,7 @@ public class AddEnumTypeWithClassData extends Action {
 	}
 	
 	/**
-	 * Elimina el atributo a�adido de la clase destino.
+	 * Elimina el atributo añadido de la clase destino.
 	 */
 	public void undo(){		
 		listenerReg.notify("# undo():AddEnumTypeWithClassData #"); //$NON-NLS-1$

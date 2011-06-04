@@ -65,7 +65,7 @@ import dynamicrefactoring.util.io.FileManager;
 
 /**
  * Proporciona un asistente que permite buscar e importar refactorizaciones
- * din�micas existentes fuera del <i>plugin</i>.
+ * dinámicas existentes fuera del <i>plugin</i>.
  * 
  * @author <A HREF="mailto:lfd0002@alu.ubu.es">Laura Fuente de la Fuente</A>
  * @author <A HREF="mailto:sfd0009@alu.ubu.es">Sonia Fuente de la Fuente</A>
@@ -89,12 +89,12 @@ public class ImportWizard extends Dialog {
 	private Text t_Input;
 
 	/**
-	 * Bot�n que lanza el proceso de importación.
+	 * Botón que lanza el proceso de importación.
 	 */
 	private Button bt_Import;
 
 	/**
-	 * Casilla de selecci�n que indica si la b�squeda ha de ser recursiva o no.
+	 * Casilla de selección que indica si la búsqueda ha de ser recursiva o no.
 	 */
 	private Button cbt_Recursive;
 	
@@ -109,13 +109,13 @@ public class ImportWizard extends Dialog {
 	private HashMap<String, String> existing;
 
 	/**
-	 * Nombres de las refactorizaciones que, de importarse, sobreescribir�an
+	 * Nombres de las refactorizaciones que, de importarse, sobreescribirían
 	 * otras ya existentes.
 	 */
 	private ArrayList<String> overwritten;
 
 	/**
-	 * Consejo mostrado al usuario sobre la b�squeda de refactorizaciones.
+	 * Consejo mostrado al usuario sobre la búsqueda de refactorizaciones.
 	 */
 	private String advise;
 	
@@ -130,22 +130,22 @@ public class ImportWizard extends Dialog {
 	private HashMap<String, String> refactorings;
 
 	/**
-	 * Crea la ventana de di�logo.
+	 * Crea la ventana de diálogo.
 	 * 
 	 * @param parentShell
-	 *            <i>shell</i> padre de la ventana de di�logo.
+	 *            <i>shell</i> padre de la ventana de diálogo.
 	 */
 	public ImportWizard(Shell parentShell) {
 		super(parentShell);
 	}
 
 	/**
-	 * Crea el contenido de la ventana de di�logo.
+	 * Crea el contenido de la ventana de diálogo.
 	 * 
 	 * @param parent
 	 *            componente padre de los contenidos de la ventana.
 	 * 
-	 * @return el control asociado al �rea de di�logo.
+	 * @return el control asociado al área de diálogo.
 	 */
 	@Override
 	protected Control createDialogArea(Composite parent) {
@@ -258,7 +258,7 @@ public class ImportWizard extends Dialog {
 	}
 
 	/**
-	 * Obtiene el tama�o inicial de la ventana de di�logo.
+	 * Obtiene el tamaño inicial de la ventana de diálogo.
 	 */
 	@Override
 	protected Point getInitialSize() {
@@ -266,10 +266,10 @@ public class ImportWizard extends Dialog {
 	}
 
 	/**
-	 * Prepara la ventana de di�logo para su apertura.
+	 * Prepara la ventana de diálogo para su apertura.
 	 * 
 	 * @param newShell
-	 *            <i>shell</i> que abrir� la ventana.
+	 *            <i>shell</i> que abrirá la ventana.
 	 */
 	@Override
 	protected void configureShell(Shell newShell) {
@@ -299,10 +299,10 @@ public class ImportWizard extends Dialog {
 
 	/**
 	 * Implementa la funcionalidad de importación, lanzada como respuesta a la
-	 * pulsación del bot�n correspondiente.
+	 * pulsación del botón correspondiente.
 	 * 
 	 * @param buttonId
-	 *            identificador del bot�n que ha sido pulsado en el di�logo.
+	 *            identificador del botón que ha sido pulsado en el diálogo.
 	 */
 	@Override
 	protected void buttonPressed(int buttonId) {
@@ -337,7 +337,7 @@ public class ImportWizard extends Dialog {
 						formatter.format(messageArgs) + "."); //$NON-NLS-1$
 				}
 				catch (InterruptedException e) {
-					// El usuario cancel� el proceso.
+					// El usuario canceló el proceso.
 					logger.warn(e.getMessage());
 				}
 				catch (Exception exception){
@@ -352,8 +352,8 @@ public class ImportWizard extends Dialog {
 	}
 
 	/**
-	 * Actualiza el mensaje de aviso mostrado en la ventana, en funci�n de los
-	 * valores de configuración actuales resultantes de la �ltima b�squeda.
+	 * Actualiza el mensaje de aviso mostrado en la ventana, en función de los
+	 * valores de configuración actuales resultantes de la última búsqueda.
 	 */
 	private void updateMessage() {
 		if (overwritten != null && overwritten.size() > 0){
@@ -418,7 +418,7 @@ public class ImportWizard extends Dialog {
 					updateMessage();
 				}
 				catch (InterruptedException exception) {
-					// El usuario cancel� el proceso.
+					// El usuario canceló el proceso.
 					logger.warn(exception.getMessage());
 				}
 				catch (Exception exception){
@@ -464,15 +464,15 @@ public class ImportWizard extends Dialog {
 		 * Ejecuta el trabajo de importación de refactorizaciones.
 		 * 
 		 * @param monitor
-		 *            el monitor de progreso que deber� usarse para mostrar el
+		 *            el monitor de progreso que deberá usarse para mostrar el
 		 *            progreso.
 		 * 
 		 * @throws InvocationTargetException
 		 *             utilizada como envoltura si el método debe propagar una
-		 *             excepci�n (<i>checked exception</i>). Las excepciones de
+		 *             excepción (<i>checked exception</i>). Las excepciones de
 		 *             tipo <i>runtime exception</i> se envuelven
-		 *             autom�ticamente en una excepci�n de este tipo por el
-		 *             contexto que efect�a la llamada.
+		 *             automáticamente en una excepción de este tipo por el
+		 *             contexto que efectúa la llamada.
 		 * @throws InterruptedException
 		 *             si la operación detecta una solicitud de cancelación (no
 		 *             disponible).
@@ -538,7 +538,7 @@ public class ImportWizard extends Dialog {
 	}
 
 	/**
-	 * Permite lanzar el trabajo de b�squeda de refactorizaciones y hacer un
+	 * Permite lanzar el trabajo de búsqueda de refactorizaciones y hacer un
 	 * seguimiento de su progreso.
 	 * 
 	 * @author <A HREF="mailto:sfd0009@alu.ubu.es">Sonia Fuente de la Fuente</A>
@@ -552,7 +552,7 @@ public class ImportWizard extends Dialog {
 		private String folder;
 
 		/**
-		 * Si la b�squeda ha de ser recursiva o no.
+		 * Si la búsqueda ha de ser recursiva o no.
 		 */
 		private boolean recursive;
 
@@ -563,7 +563,7 @@ public class ImportWizard extends Dialog {
 		 *            directorio a partir del que se deben buscar las
 		 *            refactorizaciones.
 		 * @param recursive
-		 *            si la b�squeda debe ser recursiva o no.
+		 *            si la búsqueda debe ser recursiva o no.
 		 */
 		public RefactoringSearchJob(String folder, boolean recursive){
 			this.folder = folder;
@@ -571,18 +571,18 @@ public class ImportWizard extends Dialog {
 		}
 
 		/**
-		 * Ejecuta el trabajo de b�squeda de refactorizaciones.
+		 * Ejecuta el trabajo de búsqueda de refactorizaciones.
 		 * 
 		 * @param monitor
-		 *            el monitor de progreso que deber� usarse para mostrar el
+		 *            el monitor de progreso que deberá usarse para mostrar el
 		 *            progreso.
 		 * 
 		 * @throws InvocationTargetException
 		 *             utilizada como envoltura si el método debe propagar una
-		 *             excepci�n (<i>checked exception</i>). Las excepciones de
+		 *             excepción (<i>checked exception</i>). Las excepciones de
 		 *             tipo <i>runtime exception</i> se envuelven
-		 *             autom�ticamente en una excepci�n de este tipo por el
-		 *             contexto que efect�a la llamada.
+		 *             automáticamente en una excepción de este tipo por el
+		 *             contexto que efectúa la llamada.
 		 * @throws InterruptedException
 		 *             si la operación detecta una solicitud de cancelación (no
 		 *             disponible).
@@ -638,7 +638,7 @@ public class ImportWizard extends Dialog {
 							// Si es una de las existentes, se descarta.
 							if (old.equals(now))
 								refactorings.remove(names[i]);
-							// Si no, se a�ade un aviso de sobreescritura.
+							// Si no, se añade un aviso de sobreescritura.
 							else
 								overwritten.add(names[i].substring(0, 
 									names[i].indexOf(" ("))); //$NON-NLS-1$

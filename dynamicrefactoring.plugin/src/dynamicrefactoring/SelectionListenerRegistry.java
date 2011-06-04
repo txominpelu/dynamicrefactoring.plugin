@@ -28,7 +28,7 @@ import dynamicrefactoring.util.selection.SelectionInfo;
 
 /**
  * Mantiene un registro de todos los observadores que quieren recibir notificaciones
- * de que un elemento v�lido como entrada para una refactorización ha sido seleccionado.
+ * de que un elemento válido como entrada para una refactorización ha sido seleccionado.
  * 
  * @author <A HREF="mailto:lfd0002@alu.ubu.es">Laura Fuente de la Fuente</A>
  *
@@ -38,7 +38,7 @@ public class SelectionListenerRegistry {
 	/**
 	 * Instancia única del generador.
 	 * 
-	 * Patr�n de dise�o Singleton.
+	 * Patrón de diseño Singleton.
 	 */
 	private static SelectionListenerRegistry myInstance;
 	
@@ -50,7 +50,7 @@ public class SelectionListenerRegistry {
 	/**
 	 * Obtiene la instancia única del generador.
 	 * 
-	 * Patr�n de dise�o Singleton.
+	 * Patrón de diseño Singleton.
 	 * 
 	 * @return la instancia única del generador.
 	 */
@@ -63,7 +63,7 @@ public class SelectionListenerRegistry {
 	/**
 	 * Constructor for SelectionListenerRegistry.
 	 * 
-	 *  Privado, seg�n la estructura del patr�n de dise�o Singleton.
+	 *  Privado, según la estructura del patrón de diseño Singleton.
 	 */
 	private SelectionListenerRegistry() {
 		listeners = new ArrayList<IMainSelectionListener>();
@@ -71,7 +71,7 @@ public class SelectionListenerRegistry {
 	
 	/**
 	 * Notifica a todos los listener registrados que un objeto del espacio de trabajo
-	 * v�lido como entrada para una refactorización ha sido seleccionado.
+	 * válido como entrada para una refactorización ha sido seleccionado.
 	 * 
 	 * @param selection elemento seleccionado en el espacio de trabajo.
 	 */
@@ -84,10 +84,10 @@ public class SelectionListenerRegistry {
 	
 
 	/**
-	 * A�ade un listener dentro de la lista de listeners que son atendidos por esta clase
-	 * que act�a como sujeto dentro del patr�n observador.
+	 * Añade un listener dentro de la lista de listeners que son atendidos por esta clase
+	 * que actúa como sujeto dentro del patrón observador.
 	 * 
-	 * @param listener listener a a�adir.
+	 * @param listener listener a añadir.
 	 */
 	public void addListener(IMainSelectionListener listener){
 		if (listener != null)
@@ -96,7 +96,7 @@ public class SelectionListenerRegistry {
 
 	/**
 	 * Elimina un listener dentro de la lista de listeners que son atendidos por esta clase
-	 * que act�a como sujeto dentro del patr�n observador.
+	 * que actúa como sujeto dentro del patrón observador.
 	 * 
 	 * @param listener listener a eliminar.
 	 * @see #addListener

@@ -59,14 +59,14 @@ public final class RefactoringPlanWriter {
 	/**
 	 * Instancia única de la clase.
 	 * 
-	 * Patr�n de dise�o Singleton.
+	 * Patrón de diseño Singleton.
 	 */
 	private static RefactoringPlanWriter myInstance;
 	
 	/**
 	 * Constructor.
 	 * 
-	 * Privado, seg�n la estructura del patr�n de dise�o Singleton.
+	 * Privado, según la estructura del patrón de diseño Singleton.
 	 */
 	private RefactoringPlanWriter(){
 		Element root = new Element("RefactoringPlan");
@@ -90,7 +90,7 @@ public final class RefactoringPlanWriter {
 	/**
 	 * Obtiene la instancia única del generador.
 	 * 
-	 * Patr�n de dise�o Singleton.
+	 * Patrón de diseño Singleton.
 	 * 
 	 * @return la instancia única del generador.
 	 */
@@ -146,7 +146,7 @@ public final class RefactoringPlanWriter {
 			// El atributo SYSTEM del DOCTYPE de la definición XML de la
 			// refactorización es solo la parte relativa de la ruta del fichero
 			// DTD. Se le antepone la ruta del directorio del plugin que 
-			// contiene los ficheros de refactorizaciones din�micas.
+			// contiene los ficheros de refactorizaciones dinámicas.
 			Document doc = builder.build(new File(RefactoringConstants
 					.REFACTORING_PLAN_FILE).toURI().toString());;
 			Element root = doc.getRootElement();
@@ -186,7 +186,7 @@ public final class RefactoringPlanWriter {
 	 * el resto) del fichero xml que contiene el plan de refactorizaciones.
 	 * 
 	 * @param refactoringName refactorización a eliminar
-	 * @param fecha fecha de ejecuci�n de la refactorización.
+	 * @param fecha fecha de ejecución de la refactorización.
 	 * @throws XMLRefactoringReaderException XMLRefactoringReaderException
 	 */
 	public void deleteRefactorings (String refactoringName, String fecha) throws XMLRefactoringReaderException {

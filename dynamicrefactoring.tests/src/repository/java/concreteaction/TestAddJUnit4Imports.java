@@ -39,7 +39,7 @@ import repository.RefactoringTemplateAbstractTest;
 import repository.moon.MOONRefactoring;
 
 /** 
- * Comprueba que funciona correctamente la acción que a�ade las importaciones
+ * Comprueba que funciona correctamente la acción que añade las importaciones
  * correspondientes a JUnit4 a una clase.
  * 
  * @author <A HREF="mailto:sfd0009@alu.ubu.es">Sonia Fuente de la Fuente</A>
@@ -48,10 +48,10 @@ import repository.moon.MOONRefactoring;
 public class TestAddJUnit4Imports extends RefactoringTemplateAbstractTest {
 
 	/** 
-	 * Comprueba que la acción a�ade correctamente todas las cl�usulas de 
+	 * Comprueba que la acción añade correctamente todas las cláusulas de 
 	 * importación esperadas.
 	 * 
-	 * @throws Exception si se produce un error durante la ejecuci�n de la prueba.
+	 * @throws Exception si se produce un error durante la ejecución de la prueba.
 	 */
 	@Test
 	public void testAddImports() throws Exception{
@@ -80,32 +80,32 @@ public class TestAddJUnit4Imports extends RefactoringTemplateAbstractTest {
 		types.add("org.junit.Assert.fail"); //$NON-NLS-1$
 		types.add("junit.framework.TestCase"); //$NON-NLS-1$
 		
-		assertEquals("Test a�adir importaciones JUnit4: " + //$NON-NLS-1$
-			"no se a�adi� el n�mero de importaciones esperado", 8, imports.size()); //$NON-NLS-1$
+		assertEquals("Test añadir importaciones JUnit4: " + //$NON-NLS-1$
+			"no se añadi� el n�mero de importaciones esperado", 8, imports.size()); //$NON-NLS-1$
 		for (JavaImport i : imports){
 			if (i.getType() != null)
 				if (i.hasPropertyName()){
-					assertTrue("Test a�adir importaciones JUnit4: " + //$NON-NLS-1$
-							"se a�adi� un tipo no esperado.",  //$NON-NLS-1$
+					assertTrue("Test añadir importaciones JUnit4: " + //$NON-NLS-1$
+							"se añadi� un tipo no esperado.",  //$NON-NLS-1$
 							types.contains(i.getType().getUniqueName().toString() + "." + i.getPropertyName().toString()));
 				}else{
-					assertTrue("Test a�adir importaciones JUnit4: " + //$NON-NLS-1$
-							"se a�adi� un tipo no esperado.",  //$NON-NLS-1$
+					assertTrue("Test añadir importaciones JUnit4: " + //$NON-NLS-1$
+							"se añadi� un tipo no esperado.",  //$NON-NLS-1$
 							types.contains(i.getType().getUniqueName().toString()));
 
 				}
 			else
-				assertTrue("Test a�adir importacines JUnit4: " + //$NON-NLS-1$
-					"se a�adi� un tipo no esperado.", //$NON-NLS-1$
+				assertTrue("Test añadir importacines JUnit4: " + //$NON-NLS-1$
+					"se añadi� un tipo no esperado.", //$NON-NLS-1$
 					types.contains(i.getUniqueName().toString()));
 		}		
 	}
 	
 	/** 
 	 * Comprueba que la acción deshace correctamente la adición de todas las 
-	 * cl�usulas de importación esperadas.
+	 * cláusulas de importación esperadas.
 	 * 
-	 * @throws Exception si se produce un error durante la ejecuci�n de la prueba.
+	 * @throws Exception si se produce un error durante la ejecución de la prueba.
 	 */
 	@Test
 	public void testUndo() throws Exception{
@@ -128,15 +128,15 @@ public class TestAddJUnit4Imports extends RefactoringTemplateAbstractTest {
 		List<String> types = new ArrayList<String>();
 		types.add("junit.framework.TestCase"); //$NON-NLS-1$
 		
-		assertEquals("Test deshacer a�adir importaciones JUnit4: " + //$NON-NLS-1$
+		assertEquals("Test deshacer añadir importaciones JUnit4: " + //$NON-NLS-1$
 			"no se eliminaron las importaciones.", 1, imports.size()); //$NON-NLS-1$
 		for (JavaImport i : imports){
 			if (i.getType() != null)
-				assertTrue("Test deshacer a�adir importaciones JUnit4: " + //$NON-NLS-1$
+				assertTrue("Test deshacer añadir importaciones JUnit4: " + //$NON-NLS-1$
 					"se mantuvo un tipo no esperado.",  //$NON-NLS-1$
 					types.contains(i.getType().getUniqueName().toString()));
 			else
-				assertTrue("Test deshacer a�adir importacines JUnit4: " + //$NON-NLS-1$
+				assertTrue("Test deshacer añadir importacines JUnit4: " + //$NON-NLS-1$
 					"se mantuvo un tipo no esperado.", //$NON-NLS-1$
 					types.contains(i.getUniqueName().toString()));
 		}		

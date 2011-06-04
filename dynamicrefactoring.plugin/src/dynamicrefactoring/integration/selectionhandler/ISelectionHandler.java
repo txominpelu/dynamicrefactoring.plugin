@@ -26,9 +26,9 @@ import moon.core.ObjectMoon;
 
 /**
  * Define la interfaz que deben ofrecer los objetos capaces de obtener un 
- * objeto MOON a partir de su selecci�n equivalente en Eclipse.
+ * objeto MOON a partir de su selección equivalente en Eclipse.
  * 
- * <p>Se trata de objetos MOON que puedan desempe�ar el papel de entrada 
+ * <p>Se trata de objetos MOON que puedan desempeñar el papel de entrada 
  * principal en una refactorización dada.</p>
  * 
  * @author <A HREF="mailto:sfd0009@alu.ubu.es">Sonia Fuente de la Fuente</A>
@@ -37,10 +37,10 @@ import moon.core.ObjectMoon;
 public interface ISelectionHandler {
 	
 	/**
-	 * Obtiene el elemento principal objecto de selecci�n y que podr� utilizarse
+	 * Obtiene el elemento principal objecto de selección y que podrá utilizarse
 	 * a su vez como entrada principal de una refactorización.
 	 * 
-	 * @return el elemento principal objeto de selecci�n.
+	 * @return el elemento principal objeto de selección.
 	 * 
 	 * @throws ClassNotFoundException si se no se consigue acceder a alguna 
 	 * clase en el modelo MOON cargado.

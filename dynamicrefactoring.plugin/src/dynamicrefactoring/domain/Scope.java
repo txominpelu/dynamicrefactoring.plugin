@@ -19,40 +19,47 @@ import com.google.common.collect.Collections2;
 
 import dynamicrefactoring.interfaz.Messages;
 
+/**
+ * Posibles ámbitos sobre los que se puede
+ * aplicar una refactorización
+ * 
+ * @author imediava
+ *
+ */
 public enum Scope {
 	/**
-	 * �mbito de clase.
+	 * Ámbito de clase.
 	 */
 	CLASS(ClassDef.class, Messages.SelectRefactoringWindow_ClassScope,
 			"classdef"),
 	/**
-	 * �mbito de método.
+	 * Ámbito de método.
 	 */
 	METHOD(MethDec.class, Messages.SelectRefactoringWindow_MethodScope,
 			"methdec"),
 	/**
-	 * �mbito de atributo.
+	 * Ámbito de atributo.
 	 */
 	ATTRIBUTE(AttDec.class, Messages.SelectRefactoringWindow_FieldScope,
 			"attdec"),
 	/**
-	 * �mbito de argumento formal.
+	 * Ámbito de argumento formal.
 	 */
 	FORMAL_ARG(FormalArgument.class,
 			Messages.SelectRefactoringWindow_FormalArgumentScope,
 			"formalArgument"),
 	/**
-	 * �mbito de parámetro formal.
+	 * Ámbito de parámetro formal.
 	 */
 	FORMAL_PAR(FormalPar.class,
 			Messages.SelectRefactoringWindow_FormalParameterScope, "formalPar"),
 	/**
-	 * �mbito de parámetro formal acotado.
+	 * Ámbito de parámetro formal acotado.
 	 */
 	BOUNDED_PAR(BoundS.class,
 			Messages.SelectRefactoringWindow_BoundedParameterScope, ""),
 	/**
-	 * �mbito de bloque de texto.
+	 * Ámbito de bloque de texto.
 	 */
 	CODE_FRAGMENT(CodeFragment.class,
 			Messages.SelectRefactoringWindow_CodeFragmentScope, "codeFragment");
@@ -98,7 +105,7 @@ public enum Scope {
 	private final Class<? extends ObjectMoon> correspondingClass;
 
 	/**
-	 * Descripci�n del ambito.
+	 * Descripción del ambito.
 	 */
 	private final String description;
 
@@ -109,7 +116,7 @@ public enum Scope {
 
 
 	/**
-	 * Descripci�n del ambito.
+	 * Descripción del ambito.
 	 * 
 	 * @return the description
 	 */
@@ -127,10 +134,10 @@ public enum Scope {
 	}
 
 	/**
-	 * Constructor de un �mbito.
+	 * Constructor de un Ámbito.
 	 * 
 	 * @param correspondinClass
-	 *            clase de moon que se corresponde con el �mbito
+	 *            clase de moon que se corresponde con el Ámbito
 	 */
 	Scope(final Class<? extends ObjectMoon> correspondinClass,
 			final String description, final String xmlTag) {

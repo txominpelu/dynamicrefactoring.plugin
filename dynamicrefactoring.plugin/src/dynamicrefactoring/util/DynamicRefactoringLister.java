@@ -31,7 +31,7 @@ import dynamicrefactoring.util.io.FileManager;
 import dynamicrefactoring.util.io.filter.DynamicRefactoringFilter;
 
 /**
- * Obtiene los ficheros XML con refactorizaciones din�micas disponibles.
+ * Obtiene los ficheros XML con refactorizaciones dinámicas disponibles.
  *
  * @author <A HREF="mailto:alc0022@alu.ubu.es">Ángel López Campo</A>
  * @author <A HREF="mailto:epf0006@alu.ubu.es">Eduardo Peña Fernández</A>
@@ -51,7 +51,7 @@ public class DynamicRefactoringLister {
 	private FilenameFilter fileFilter;
 	
 	/**
-	 * N�mero de iteración actual en la b�squeda recursiva.
+	 * Número de iteración actual en la búsqueda recursiva.
 	 */
 	private int iteration = 0;
 	
@@ -75,19 +75,19 @@ public class DynamicRefactoringLister {
 		
 	/**
 	 * Obtiene un conjunto de pares [nombre, ruta al fichero] de los ficheros XML
-	 * con refactorizaciones din�micas encontrados (recursivamente) en un cierto
+	 * con refactorizaciones dinámicas encontrados (recursivamente) en un cierto
 	 * directorio.
 	 * 
 	 * @param folder el directorio en que se buscan las refactorizaciones.
-	 * @param recursive si la b�squeda ha de ser recursiva o no.
-	 * @param monitor monitor al que deber� consultarse peri�dicamente si la
-	 * operación ha sido cancelada, en cuyo caso deber� detenerse.
+	 * @param recursive si la búsqueda ha de ser recursiva o no.
+	 * @param monitor monitor al que deberá consultarse periódicamente si la
+	 * operación ha sido cancelada, en cuyo caso deberá detenerse.
 	 * 
 	 * @return una tabla de pares [clave, valor] en la que se utiliza como clave
 	 * el nombre comprensible del fichero y como valor la ruta del fichero; 
 	 * para cada fichero encontrado.
 	 * 
-	 * @throws IOException cuando no existe el directorio ra�z de b�squeda, o 
+	 * @throws IOException cuando no existe el directorio raíz de búsqueda, o 
 	 * bien no es un directorio.
 	 */
     public HashMap<String, String> getDynamicRefactoringNameList(String folder,
@@ -116,17 +116,17 @@ public class DynamicRefactoringLister {
     
 	/**
 	 * Obtiene un conjunto de pares [nombre, ruta al fichero] de los ficheros XML 
-	 * con refactorizaciones din�micas encontrados (de forma recursiva) a partir de
+	 * con refactorizaciones dinámicas encontrados (de forma recursiva) a partir de
 	 * un directorio.
 	 * 
 	 * @param dir directorio desde a partir del que se comienza el listado.
-	 * @param h una tabla en la que se almacenar�n los pares <nombre fichero,
+	 * @param h una tabla en la que se almacenarán los pares <nombre fichero,
 	 * ruta fichero> encontrados.
-	 * @param recursive si la b�squeda ha de ser recursiva en subdirectorios.
-	 * @param monitor monitor de progreso al que habr� que consultar peri�dicamente
-	 * si la b�squeda ha sido cancelada, en cuyo caso, habr� que detenerla y retornar.
+	 * @param recursive si la búsqueda ha de ser recursiva en subdirectorios.
+	 * @param monitor monitor de progreso al que habrá que consultar periódicamente
+	 * si la búsqueda ha sido cancelada, en cuyo caso, habrá que detenerla y retornar.
 	 * 
-	 * @throws InterruptedException si la b�squeda se est� ejecutando bajo la
+	 * @throws InterruptedException si la búsqueda se está ejecutando bajo la
 	 * vigilancia de un monitor de progreso que ha detectado una orden de cancelación.
 	 */
     private void dynamicRefactoringNameList(File dir, HashMap<String, String> h, 
@@ -135,7 +135,7 @@ public class DynamicRefactoringLister {
     	if (monitor != null)
     		checkForCancellation(monitor);
     	
-    	// Si es un directorio se contin�a recursivamente.
+    	// Si es un directorio se continúa recursivamente.
         if (dir.isDirectory() && (recursive || iteration < 2)) {
         	iteration++;
             String[] hijos = dir.list();

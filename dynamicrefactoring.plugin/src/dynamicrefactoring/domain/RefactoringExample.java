@@ -3,6 +3,14 @@ package dynamicrefactoring.domain;
 import com.google.common.base.Objects;
 import com.google.common.base.Preconditions;
 
+/**
+ * Ejemplo de refactorizacion con el codigo
+ * fuente de antes y después de que la refactorización
+ * se ejecute.
+ * 
+ * @author imediava
+ *
+ */
 public class RefactoringExample {
 
 	private String before;
@@ -22,10 +30,22 @@ public class RefactoringExample {
 	}
 	
 
+	/**
+	 * Cadena con el código que tenía el ejemplo
+	 * antes de ejecutar la refactorización.
+	 * 
+	 * @return código antes de ejecutar
+	 */
 	public String getBefore() {
 		return before;
 	}
 
+	/**
+	 * Cadena con el código que tiene el ejemplo
+	 * después de ejecutar la refactorización.
+	 * 
+	 * @return código después de ejecutar
+	 */
 	public String getAfter() {
 		return after;
 	}

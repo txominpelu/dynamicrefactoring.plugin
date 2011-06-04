@@ -22,10 +22,19 @@ import dynamicrefactoring.util.io.filter.ClassFilter;
 public enum RefactoringMechanismType {
 	
 
+	/**
+	 * Precondiciones que se deben cumplir antes de ejecutar una refactorización.
+	 */
 	PRECONDITION(RefactoringConstants.JAVA_PREDICATES_PACKAGE,
 			RefactoringConstants.PREDICATES_PACKAGE), 
+			/**
+			 * Acción de las que conforman una refactorización.
+			 */
 	ACTION(RefactoringConstants.JAVA_ACTIONS_PACKAGE,
 			RefactoringConstants.ACTIONS_PACKAGE), 
+			/**
+			 * Requisito que debe cumplir el código tras aplicar la refactorización.
+			 */
 	POSTCONDITION(RefactoringConstants.JAVA_PREDICATES_PACKAGE,
 			RefactoringConstants.PREDICATES_PACKAGE);
 	
@@ -52,10 +61,10 @@ public enum RefactoringMechanismType {
 	}
 
 	/**
-	 * Obtiene la ruta del directorio ra�z bajo el cual se encuentran las clases
+	 * Obtiene la ruta del directorio raíz bajo el cual se encuentran las clases
 	 * de los predicados concretos del repositorio.
 	 * 
-	 * @return la ruta del directorio ra�z bajo el cual se encuentran las clases
+	 * @return la ruta del directorio raíz bajo el cual se encuentran las clases
 	 *         de los predicados concretos del repositorio.
 	 */
 	public String getElementIndependentDir() {
@@ -64,10 +73,10 @@ public enum RefactoringMechanismType {
 	}
 
 	/**
-	 * Obtiene la ruta del directorio ra�z bajo el cual se encuentran las clases
+	 * Obtiene la ruta del directorio raíz bajo el cual se encuentran las clases
 	 * de los predicados concretos del repositorio.
 	 * 
-	 * @return la ruta del directorio ra�z bajo el cual se encuentran las clases
+	 * @return la ruta del directorio raíz bajo el cual se encuentran las clases
 	 *         de los predicados concretos del repositorio.
 	 */
 	public String getElementJavaDir() {
@@ -196,10 +205,10 @@ public enum RefactoringMechanismType {
 	 * o predicados disponibles en un directorio.
 	 * 
 	 * @param sourceDir
-	 *            ruta del directorio en que se buscar�n los elementos del
+	 *            ruta del directorio en que se buscarán los elementos del
 	 *            repositorio.
 	 * 
-	 * @return una tabla en la que se usa como �ndice el nombre comprensible del
+	 * @return una tabla en la que se usa como índice el nombre comprensible del
 	 *         fichero y como contenido la ruta del fichero; para cada fichero
 	 *         encontrado.
 	 * 
@@ -222,14 +231,14 @@ public enum RefactoringMechanismType {
 	 * Genera una tabla con los ficheros de un directorio.
 	 * 
 	 * @param dir
-	 *            el directorio ra�z desde donde se comienza el listado.
+	 *            el directorio raíz desde donde se comienza el listado.
 	 * @param h
 	 *            una tabla con el nombre del fichero como clave y la ruta al
 	 *            mismo como contenido. Se usa como valor de retorno.
 	 */
 	private void listFiles(File dir, Map<String, String> h) {
 		final ClassFilter fileFilter = new ClassFilter();
-		// Si es un directorio se contin�a recursivamente.
+		// Si es un directorio se continúa recursivamente.
 		if (dir.isDirectory()) {
 			for (String hijo : dir.list()) {
 				listFiles(new File(dir, hijo), h);

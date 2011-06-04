@@ -43,7 +43,7 @@ import repository.moon.MOONRefactoring;
  * argumento formal de un método.
  * 
  * <p>
- * Indirectamente, se comprueba tambi�n la correcci�n de las funciones, acciones
+ * Indirectamente, se comprueba también la correcci�n de las funciones, acciones
  * y predicados utilizados por la refactorización.
  * </p>
  * 
@@ -65,7 +65,7 @@ public class TestRenameParameter extends RefactoringTemplateAbstractTest {
 	 * </p>
 	 * 
 	 * @throws Exception
-	 *             si se produce un error durante la ejecuci�n de la prueba.
+	 *             si se produce un error durante la ejecución de la prueba.
 	 */  
 	@Test
 	public void testSimple() throws Exception{
@@ -106,12 +106,12 @@ public class TestRenameParameter extends RefactoringTemplateAbstractTest {
 	 * Se toma en una clase sin atributos un método que tiene variables locales
 	 * y varios argumentos formales, y se intenta renombrar el argumento que
 	 * ocupa la posición central en la lista de parámetros, d�ndole un nombre
-	 * distinto al de cualquiera de las variables locales o de los dem�s
+	 * distinto al de cualquiera de las variables locales o de los demás
 	 * argumentos.
 	 * </p>
 	 * 
 	 * @throws Exception
-	 *             si se produce un error durante la ejecuci�n de la prueba.
+	 *             si se produce un error durante la ejecución de la prueba.
 	 */ 
 	@Test
 	public void testParameterInMiddle()throws Exception{
@@ -153,7 +153,7 @@ public class TestRenameParameter extends RefactoringTemplateAbstractTest {
 		FormalArgument argumento4 = lArgumentos2.get(2);
 		assertEquals(
 				"Test renombrar parámetro central: " + //$NON-NLS-1$
-						"se ha renombrado el �ltimo parámetro.", //$NON-NLS-1$
+						"se ha renombrado el último parámetro.", //$NON-NLS-1$
 				factory.createName("paqueteA.ClaseA~metodo1%int%int%int#int:p3(0)"), //$NON-NLS-1$
 			argumento4.getUniqueName());
 	}
@@ -162,8 +162,8 @@ public class TestRenameParameter extends RefactoringTemplateAbstractTest {
 	 * Verifica el funcionamiento de las precondiciones de la refactorización.
 	 * 
 	 * <p>
-	 * Comprueba que se lanza la excepci�n cuando se intenta renombrar un
-	 * argumento formal para darle un nombre que ya est� asignado a otro
+	 * Comprueba que se lanza la excepción cuando se intenta renombrar un
+	 * argumento formal para darle un nombre que ya está asignado a otro
 	 * parámetro del método.
 	 * </p>
 	 * 
@@ -173,7 +173,7 @@ public class TestRenameParameter extends RefactoringTemplateAbstractTest {
 	 * </p>
 	 * 
 	 * @throws Exception
-	 *             si se produce un error durante la ejecuci�n de la prueba.
+	 *             si se produce un error durante la ejecución de la prueba.
 	 */
 	@Test(expected=PreconditionException.class) 
 	public void testCheckNotExistsParameterWithSameName() throws Exception{
@@ -200,8 +200,8 @@ public class TestRenameParameter extends RefactoringTemplateAbstractTest {
 	 * Verifica el funcionamiento de las precondiciones de la refactorización.
 	 * 
 	 * <p>
-	 * Comprueba que se lanza la excepci�n cuando se intenta renombrar un
-	 * argumento formal para darle un nombre que ya est� asignado a una variable
+	 * Comprueba que se lanza la excepción cuando se intenta renombrar un
+	 * argumento formal para darle un nombre que ya está asignado a una variable
 	 * local del método.
 	 * </p>
 	 * 
@@ -211,7 +211,7 @@ public class TestRenameParameter extends RefactoringTemplateAbstractTest {
 	 * </p>
 	 * 
 	 * @throws Exception
-	 *             si se produce un error durante la ejecuci�n de la prueba.
+	 *             si se produce un error durante la ejecución de la prueba.
 	 */
 	@Test(expected=PreconditionException.class) 
 	public void testCheckNotExistsLocalDecWithSameName() throws Exception{
@@ -241,12 +241,12 @@ public class TestRenameParameter extends RefactoringTemplateAbstractTest {
 	 * <p>
 	 * Se toma un método sencillo de una clase, con un único argumento formal en
 	 * su lista de parámetros y sin variables locales, y se le asigna un nombre
-	 * correcto, distinto al de cualquier atributo de la clase. Despu�s, se
+	 * correcto, distinto al de cualquier atributo de la clase. Después, se
 	 * deshace el renombrado.
 	 * </p>
 	 * 
 	 * @throws Exception
-	 *             si se produce un error durante la ejecuci�n de la prueba.
+	 *             si se produce un error durante la ejecución de la prueba.
 	 */   
 	@Test
 	public void testUndoSimple() throws Exception{

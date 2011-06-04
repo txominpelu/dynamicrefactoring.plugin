@@ -27,7 +27,7 @@ import org.eclipse.ui.IWorkbenchWindow;
 
 /**
  * Proporciona funciones de creación de cualquiera de los objetos que 
- * permiten manejar la información relativa a la selecci�n actual sobre
+ * permiten manejar la información relativa a la selección actual sobre
  * Eclipse.
  * 
  * @author <A HREF="mailto:sfd0009@alu.ubu.es">Sonia Fuente de la Fuente</A>
@@ -36,21 +36,21 @@ import org.eclipse.ui.IWorkbenchWindow;
 public class SelectionInfoFactory {
 	
 	/**
-	 * Instancia única de la f�brica (patr�n Singleton).
+	 * Instancia única de la fábrica (patrón Singleton).
 	 */
 	private static SelectionInfoFactory myInstance;
 	
 	/**
 	 * Constructor.
 	 * 
-	 * Privado seg�n la estructura del patr�n de dise�o Singleton.
+	 * Privado según la estructura del patrón de diseño Singleton.
 	 */
 	private SelectionInfoFactory(){}
 
 	/**
-	 * Obtiene la instancia única de la f�brica (patr�n Singleton).
+	 * Obtiene la instancia única de la fábrica (patrón Singleton).
 	 *
-	 * @return la instancia única de la f�brica.
+	 * @return la instancia única de la fábrica.
 	 */
 	public static SelectionInfoFactory getInstance(){
 		if (myInstance == null)
@@ -59,21 +59,21 @@ public class SelectionInfoFactory {
 	}
 
 	/**
-	 * Obtiene un proveedor de información concreto para una selecci�n dada.
+	 * Obtiene un proveedor de información concreto para una selección dada.
 	 * 
-	 * Si la selecci�n forma parte de un �rbol de selecci�n, devuelve una
+	 * Si la selección forma parte de un árbol de selección, devuelve una
 	 * instancia de <code>TreeSelectionInfo</code>.
-	 * Si la selecci�n forma parte de una representación textual, devuelve una
+	 * Si la selección forma parte de una representación textual, devuelve una
 	 * instancia de <code>TextSelectionInfo</code>.
 	 * 
-	 * Método f�brica (patr�n de dise�o Método f�brica).
+	 * Método fábrica (patrón de diseño Método fábrica).
 	 * 
-	 * @param selection la selecci�n para la que se quiere obtener un proveedor
+	 * @param selection la selección para la que se quiere obtener un proveedor
 	 * de información concreto.
-	 * @param window ventana que se deber� pasar al proveedor de información
-	 * creado para su interacción con la interfaz gr�fica.
+	 * @param window ventana que se deberá pasar al proveedor de información
+	 * creado para su interacción con la interfaz gráfica.
 	 * 
-	 * @return un proveedor de información concreto para una selecci�n dada.
+	 * @return un proveedor de información concreto para una selección dada.
 	 * 
 	 * @throws Exception si se produce un error al intentar crear cualquiera de 
 	 * los proveedores de información concretos.

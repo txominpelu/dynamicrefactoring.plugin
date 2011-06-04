@@ -44,8 +44,8 @@ public class RenameClassType extends Action {
 	private ClassType classType;
 		
 	/**
-	 * Nuevo nombre que se dar� al tipo de la clase, que coincide 
-	 * con el nombre de �sta.
+	 * Nuevo nombre que se dará al tipo de la clase, que coincide 
+	 * con el nombre de ésta.
 	 */
 	private Name newName;
 	

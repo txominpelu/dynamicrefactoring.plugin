@@ -38,13 +38,13 @@ import repository.moon.concretepredicate.NotExistsAttributeInClass;
  *
  * Comprueba que el atributo pertenezca a la clase indicada, y que no exista ya 
  * otro atributo en la clase de destino con el mismo nombre que el atributo de 
- * la clase de origen que se va a mover. Tambi�n verifica que el atributo no 
- * est� siendo utilizado desde ninguna clase del modelo. Las clases de origen
+ * la clase de origen que se va a mover. También verifica que el atributo no 
+ * está siendo utilizado desde ninguna clase del modelo. Las clases de origen
  * y de destino no pueden ser la misma.<p>
  *
  * Si las comprobaciones no fallan, se lleva a cabo la refactorización.<p>
  *
- * Finalmente, comprueba que el proceso se ha llevado a cabo con �xito.
+ * Finalmente, comprueba que el proceso se ha llevado a cabo con éxito.
  *
  * @author <A HREF="mailto:alc0022@alu.ubu.es">Ángel López Campo</A>
  * @author <A HREF="mailto:ehp0001@alu.ubu.es">Enrique Herrero Paredes</A>

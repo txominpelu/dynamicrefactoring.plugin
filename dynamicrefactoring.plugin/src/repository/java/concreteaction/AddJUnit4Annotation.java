@@ -66,7 +66,7 @@ public class AddJUnit4Annotation extends Action{
 	/**
 	 * Constructor.
 	 * 
-	 * @param jcd Clase en la que se a�adir� la anotación.
+	 * @param jcd Clase en la que se añadirá la anotación.
 	 */
 	public AddJUnit4Annotation(ClassDef jcd){
 		this.javaClassDef = (JavaClassDef) jcd;

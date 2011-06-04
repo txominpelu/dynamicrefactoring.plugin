@@ -46,7 +46,7 @@ public class TestNotExistsCallToMethod extends RefactoringTemplateAbstractTest {
 	 * llamadas al método dentro de distintos tipos de instrucciones y 
 	 * expresiones.
 	 * 
-	 * @throws Exception si se produce un error durante la ejecuci�n de la prueba.
+	 * @throws Exception si se produce un error durante la ejecución de la prueba.
 	 */
 	@Test
 	public void testCallExistToMethodA() throws Exception{
@@ -73,7 +73,7 @@ public class TestNotExistsCallToMethod extends RefactoringTemplateAbstractTest {
 	 * llamadas al método dentro de distintos tipos de instrucciones y 
 	 * expresiones.
 	 * 
-	 * @throws Exception si se produce un error durante la ejecuci�n de la prueba.
+	 * @throws Exception si se produce un error durante la ejecución de la prueba.
 	 */
 	@Test
 	public void testCallExistToMethodC() throws Exception {
@@ -101,7 +101,7 @@ public class TestNotExistsCallToMethod extends RefactoringTemplateAbstractTest {
 	 * llamadas al método dentro de distintos tipos de instrucciones y 
 	 * expresiones.
 	 * 
-	 * @throws Exception si se produce un error durante la ejecuci�n de la prueba.
+	 * @throws Exception si se produce un error durante la ejecución de la prueba.
 	 */
 	@Test
 	public void testCallExistToMethodB() throws Exception {

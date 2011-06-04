@@ -72,7 +72,7 @@ import dynamicrefactoring.util.io.FileManager;
 
 /**
  * Proporciona un asistente que permite buscar e importar un plan de
- * refactorizaciones din�micas existentes fuera del <i>plugin</i>.
+ * refactorizaciones dinámicas existentes fuera del <i>plugin</i>.
  * 
  * @author <A HREF="mailto:lfd0002@alu.ubu.es">Laura Fuente de la Fuente</A>
  */
@@ -95,12 +95,12 @@ public class ImportPlanWizard extends Dialog {
 	private Text t_Input;
 
 	/**
-	 * Bot�n que lanza el proceso de ejecuci�n de la refactorización.
+	 * Botón que lanza el proceso de ejecución de la refactorización.
 	 */
 	private Button bt_Execute;
 
 	/**
-	 * Propiedad asociada a las filas de la tabla que indica qu� bot�n tienen
+	 * Propiedad asociada a las filas de la tabla que indica qué botón tienen
 	 * asociado cada una.
 	 */
 	private final String BUTTON_PROPERTY = "Button"; //$NON-NLS-1$
@@ -121,7 +121,7 @@ public class ImportPlanWizard extends Dialog {
 	private Map<String, String> existing;
 
 	/**
-	 * Consejo mostrado al usuario sobre la b�squeda de refactorizaciones.
+	 * Consejo mostrado al usuario sobre la búsqueda de refactorizaciones.
 	 */
 	private String advise;
 	
@@ -147,22 +147,22 @@ public class ImportPlanWizard extends Dialog {
 	private Map<String,String> refactoringsToImport;
 
 	/**
-	 * Crea la ventana de di�logo.
+	 * Crea la ventana de diálogo.
 	 * 
 	 * @param parentShell
-	 *            <i>shell</i> padre de la ventana de di�logo.
+	 *            <i>shell</i> padre de la ventana de diálogo.
 	 */
 	public ImportPlanWizard(Shell parentShell) {
 		super(parentShell);
 	}
 
 	/**
-	 * Crea el contenido de la ventana de di�logo.
+	 * Crea el contenido de la ventana de diálogo.
 	 * 
 	 * @param parent
 	 *            componente padre de los contenidos de la ventana.
 	 * 
-	 * @return el control asociado al �rea de di�logo.
+	 * @return el control asociado al área de diálogo.
 	 */
 	@Override
 	protected Control createDialogArea(Composite parent) {
@@ -262,7 +262,7 @@ public class ImportPlanWizard extends Dialog {
 	}
 
 	/**
-	 * Obtiene el tama�o inicial de la ventana de di�logo.
+	 * Obtiene el tamaño inicial de la ventana de diálogo.
 	 */
 	@Override
 	protected Point getInitialSize() {
@@ -270,10 +270,10 @@ public class ImportPlanWizard extends Dialog {
 	}
 
 	/**
-	 * Prepara la ventana de di�logo para su apertura.
+	 * Prepara la ventana de diálogo para su apertura.
 	 * 
 	 * @param newShell
-	 *            <i>shell</i> que abrir� la ventana.
+	 *            <i>shell</i> que abrirá la ventana.
 	 */
 	@Override
 	protected void configureShell(Shell newShell) {
@@ -392,10 +392,10 @@ public class ImportPlanWizard extends Dialog {
 
 	/**
 	 * Implementa la funcionalidad de importación, lanzada como respuesta a la
-	 * pulsación del bot�n correspondiente.
+	 * pulsación del botón correspondiente.
 	 * 
 	 * @param buttonId
-	 *            identificador del bot�n que ha sido pulsado en el di�logo.
+	 *            identificador del botón que ha sido pulsado en el diálogo.
 	 */
 	@Override
 	protected void buttonPressed(int buttonId) {
@@ -406,7 +406,7 @@ public class ImportPlanWizard extends Dialog {
 				 String[] names = refactoringsToImport.keySet().toArray(new String[refactoringsToImport.keySet().size()]);
 				 Map<String,String> notExecuted = new HashMap<String,String>();
 				try {
-				// Ejecutamos la importación de las refactorizaciones se�aladas
+				// Ejecutamos la importación de las refactorizaciones señaladas
 				// para ser importadas.
 					if(names.length>0){
 						ImportJob job = new ImportJob(names);				
@@ -427,7 +427,7 @@ public class ImportPlanWizard extends Dialog {
 					}
 					
 					if(refactoringsToExecute.size()>0){
-					// Ejecutamos las refactorizaciones se�aladas para ser
+					// Ejecutamos las refactorizaciones señaladas para ser
 					// ejecutadas
 						RefactoringPlanExecutor executeJob = new RefactoringPlanExecutor(XMLRefactoringsCatalog.getInstance(),plan,t_Input.getText());
 						new CustomProgressDialog(getShell()).run(true, false, executeJob);
@@ -525,7 +525,7 @@ public class ImportPlanWizard extends Dialog {
 					}
 				}
 				catch (InterruptedException e) {
-				// El usuario cancel� el proceso.
+				// El usuario canceló el proceso.
 					logger.warn(e.getMessage());
 				}
 				catch (Exception exception){
@@ -571,7 +571,7 @@ public class ImportPlanWizard extends Dialog {
 	}
 
 	/**
-	 * Establece el estado del bot�n que permite ejecutar la importación del
+	 * Establece el estado del botón que permite ejecutar la importación del
 	 * plan.
 	 */
 	private void updateButton(){
@@ -665,15 +665,15 @@ public class ImportPlanWizard extends Dialog {
 		 * Ejecuta el trabajo de importación de refactorizaciones.
 		 * 
 		 * @param monitor
-		 *            el monitor de progreso que deber� usarse para mostrar el
+		 *            el monitor de progreso que deberá usarse para mostrar el
 		 *            progreso.
 		 * 
 		 * @throws InvocationTargetException
 		 *             utilizada como envoltura si el método debe propagar una
-		 *             excepci�n (<i>checked exception</i>). Las excepciones de
+		 *             excepción (<i>checked exception</i>). Las excepciones de
 		 *             tipo <i>runtime exception</i> se envuelven
-		 *             autom�ticamente en una excepci�n de este tipo por el
-		 *             contexto que efect�a la llamada.
+		 *             automáticamente en una excepción de este tipo por el
+		 *             contexto que efectúa la llamada.
 		 * @throws InterruptedException
 		 *             si la operación detecta una solicitud de cancelación (no
 		 *             disponible).
@@ -739,7 +739,7 @@ public class ImportPlanWizard extends Dialog {
 	}
 
 	/**
-	 * Permite lanzar el trabajo de b�squeda de refactorizaciones y hacer un
+	 * Permite lanzar el trabajo de búsqueda de refactorizaciones y hacer un
 	 * seguimiento de su progreso.
 	 * 
 	 * @author <A HREF="mailto:sfd0009@alu.ubu.es">Sonia Fuente de la Fuente</A>
@@ -753,7 +753,7 @@ public class ImportPlanWizard extends Dialog {
 		private String folder;
 
 		/**
-		 * Si la b�squeda ha de ser recursiva o no.
+		 * Si la búsqueda ha de ser recursiva o no.
 		 */
 		private boolean recursive;
 
@@ -764,7 +764,7 @@ public class ImportPlanWizard extends Dialog {
 		 *            directorio a partir del que se deben buscar las
 		 *            refactorizaciones.
 		 * @param recursive
-		 *            si la b�squeda debe ser recursiva o no.
+		 *            si la búsqueda debe ser recursiva o no.
 		 */
 		public RefactoringSearchJob(String folder, boolean recursive){
 			this.folder = folder;
@@ -772,18 +772,18 @@ public class ImportPlanWizard extends Dialog {
 		}
 
 		/**
-		 * Ejecuta el trabajo de b�squeda de refactorizaciones.
+		 * Ejecuta el trabajo de búsqueda de refactorizaciones.
 		 * 
 		 * @param monitor
-		 *            el monitor de progreso que deber� usarse para mostrar el
+		 *            el monitor de progreso que deberá usarse para mostrar el
 		 *            progreso.
 		 * 
 		 * @throws InvocationTargetException
 		 *             utilizada como envoltura si el método debe propagar una
-		 *             excepci�n (<i>checked exception</i>). Las excepciones de
+		 *             excepción (<i>checked exception</i>). Las excepciones de
 		 *             tipo <i>runtime exception</i> se envuelven
-		 *             autom�ticamente en una excepci�n de este tipo por el
-		 *             contexto que efect�a la llamada.
+		 *             automáticamente en una excepción de este tipo por el
+		 *             contexto que efectúa la llamada.
 		 * @throws InterruptedException
 		 *             si la operación detecta una solicitud de cancelación (no
 		 *             disponible).

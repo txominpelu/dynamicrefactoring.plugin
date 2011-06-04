@@ -43,10 +43,10 @@ public class NamedObjectHandler {
 	 * <p>El procedimiento seguido es el siguiente:
 	 * <li>
 	 * <ol>Primero se comprueba si todos los elementos de la lista son objetos de
-	 * subtipos de <code>moon.core.NamedObject</code>. Si es as�, se ordena la 
+	 * subtipos de <code>moon.core.NamedObject</code>. Si es así, se ordena la 
 	 * lista en base a sus nombres únicos y se devuelve una lista ordenada con dichos
 	 * nombres.</ol>
-	 * <ol>Si la comprobación anterior fall�, se ordena la lista bas�ndose en las
+	 * <ol>Si la comprobación anterior falló, se ordena la lista basíndose en las
 	 * cadenas de representación obtenidas por el método <code>toString()</code> para
 	 * cada uno de los objetos de la misma. Finalmente, se devuelve una lista 
 	 * ordenada con dichas representaciones como cadenas de caracteres.</ol>
@@ -79,7 +79,7 @@ public class NamedObjectHandler {
 	}
 
 	/**
-	 * Ordena una lista de objetos en funci�n de su representación obtenida 
+	 * Ordena una lista de objetos en función de su representación obtenida 
 	 * mediante el método <code>toString</code>.
 	 * 
 	 * @param list la lista que se debe ordenar.
@@ -94,9 +94,9 @@ public class NamedObjectHandler {
 	}
 
 	/**
-	 * Ordena una lista de objetos bas�ndose en la suposición de que todos sus
+	 * Ordena una lista de objetos basíndose en la suposición de que todos sus
 	 * elementos pertenecen a subtipos de <code>moon.core.NamedObject</code>. El
-	 * criterio de ordenación es ascendente seg�n el nombre único de los objetos.
+	 * criterio de ordenación es ascendente según el nombre único de los objetos.
 	 * 
 	 * @param list la lista cuyos elementos se deben ordenar.
 	 */
@@ -116,9 +116,9 @@ public class NamedObjectHandler {
 	 * <p>El procedimiento seguido es el siguiente:
 	 * <li>
 	 * <ol>Primero se comprueba si todos los elementos de la lista son objetos de
-	 * subtipos de <code>moon.core.NamedObject</code>. Si es as�, se ordena la 
+	 * subtipos de <code>moon.core.NamedObject</code>. Si es así, se ordena la 
 	 * lista en base a sus nombres únicos.</ol>
-	 * <ol>Si la comprobación anterior fall�, se ordena la lista bas�ndose en las
+	 * <ol>Si la comprobación anterior falló, se ordena la lista basíndose en las
 	 * cadenas de representación obtenidas por el método <code>toString()</code> para
 	 * cada uno de los objetos de la misma.</ol>
 	 * </li></p>
@@ -140,7 +140,7 @@ public class NamedObjectHandler {
 	}
 
 	/**
-	 * Comprueba si una lista de objetos est� compuesta exclusivamente por objetos
+	 * Comprueba si una lista de objetos está compuesta exclusivamente por objetos
 	 * de algún subtipo de <code>moon.core.NamedObject</code>.
 	 * 
 	 * @param list lista objeto de la comprobación.
@@ -160,12 +160,12 @@ public class NamedObjectHandler {
 	}
 	
 	/**
-	 * Obtiene la representación m�s adecuada del nombre de un objeto.
+	 * Obtiene la representación más adecuada del nombre de un objeto.
 	 * 
 	 * <p>Si se trata de un objeto de algún subtipo de <code>NamedObject</code>,
 	 * devuelve su nombre único como una cadena de caracteres. Si no, simplemente
 	 * devuelve el resultado de la llamada a <code>toString()</code> sobre el 
-	 * objeto en cuesti�n.</p>
+	 * objeto en cuestión.</p>
 	 * 
 	 * @param object objeto cuyo nombre se debe obtener.
 	 * 

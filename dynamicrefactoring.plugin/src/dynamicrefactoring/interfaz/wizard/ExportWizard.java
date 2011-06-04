@@ -59,7 +59,7 @@ import dynamicrefactoring.interfaz.RefactoringListSorter;
 
 /**
  * Proporciona un asistente que permite exportar un conjunto de
- * refactorizaciones din�micas existentes.
+ * refactorizaciones dinámicas existentes.
  * 
  * @author <A HREF="mailto:lfd0002@alu.ubu.es">Laura Fuente de la Fuente</A>
  * @author <A HREF="mailto:sfd0009@alu.ubu.es">Sonia Fuente de la Fuente</A>
@@ -82,17 +82,17 @@ public class ExportWizard extends DynamicRefactoringList {
 	
 	/**
 	 * Campo de texto en que se almacena la ruta del directorio al que se
-	 * exportar�n las refactorizaciones.
+	 * exportarán las refactorizaciones.
 	 */
 	private Text t_Output;
 
 	/**
-	 * Bot�n que permite iniciar la exportación.
+	 * Botón que permite iniciar la exportación.
 	 */
 	private Button btExport;
 
 	/**
-	 * Crea la ventana de di�logo.
+	 * Crea la ventana de diálogo.
 	 * 
 	 * @param parentShell
 	 *            la <i>shell</i> padre de esta ventana.
@@ -102,12 +102,12 @@ public class ExportWizard extends DynamicRefactoringList {
 	}
 
 	/**
-	 * Crea el contenido de la ventana de di�logo.
+	 * Crea el contenido de la ventana de diálogo.
 	 * 
 	 * @param parent
 	 *            el elemento padre para los contenidos de la ventana.
 	 * 
-	 * @return el control del �rea de di�logo.
+	 * @return el control del área de diálogo.
 	 */
 	@Override
 	protected Control createDialogArea(Composite parent) {
@@ -189,9 +189,9 @@ public class ExportWizard extends DynamicRefactoringList {
 	}
 
 	/**
-	 * Obtiene el tama�o inicial de la ventana de di�logo.
+	 * Obtiene el tamaño inicial de la ventana de diálogo.
 	 * 
-	 * @return el tama�o inicial de la ventana de di�logo.
+	 * @return el tamaño inicial de la ventana de diálogo.
 	 */
 	@Override
 	protected Point getInitialSize() {
@@ -208,7 +208,7 @@ public class ExportWizard extends DynamicRefactoringList {
 	}
 
 	/**
-	 * Actualiza el estado del bot�n de exportación en funci�n de la selecci�n
+	 * Actualiza el estado del botón de exportación en función de la selección
 	 * sobre la lista de refactorizaciones disponibles.
 	 * 
 	 * @author <A HREF="mailto:sfd0009@alu.ubu.es">Sonia Fuente de la Fuente</A>
@@ -218,10 +218,10 @@ public class ExportWizard extends DynamicRefactoringList {
 
 		/**
 		 * Recibe una notificación de que un elemento de la lista de
-		 * refactorizaciones din�micas disponibles ha sido seleccionado.
+		 * refactorizaciones dinámicas disponibles ha sido seleccionado.
 		 * 
 		 * @param e
-		 *            el evento de selecci�n disparado en la ventana.
+		 *            el evento de selección disparado en la ventana.
 		 * 
 		 * @see SelectionListener#widgetSelected(SelectionEvent)
 		 */
@@ -246,10 +246,10 @@ public class ExportWizard extends DynamicRefactoringList {
 
 	/**
 	 * Implementa la funcionalidad de exportación, lanzada como respuesta a la
-	 * pulsación del bot�n correspondiente.
+	 * pulsación del botón correspondiente.
 	 * 
 	 * @param buttonId
-	 *            identificador del bot�n que ha sido pulsado en el di�logo.
+	 *            identificador del botón que ha sido pulsado en el diálogo.
 	 */
 	@Override
 	protected void buttonPressed(int buttonId) {
@@ -282,7 +282,7 @@ public class ExportWizard extends DynamicRefactoringList {
 							Messages.ExportWizard_ExportDone,
 							formatter.format(messageArgs) + "."); //$NON-NLS-1$
 				} catch (InterruptedException e) {
-					// El usuario cancel� el proceso.
+					// El usuario canceló el proceso.
 					logger.warn(e.getMessage());
 				} catch (Exception exception) {
 					String message = Messages.ExportWizard_NotAllExported
@@ -306,12 +306,12 @@ public class ExportWizard extends DynamicRefactoringList {
 	private class ExportJob implements IRunnableWithProgress {
 
 		/**
-		 * Nombres de las refactorizaciones que se exportar�n.
+		 * Nombres de las refactorizaciones que se exportarán.
 		 */
 		String[] refactorings;
 
 		/**
-		 * Directorio donde se crear�n las copias de las carpetas de cada una de
+		 * Directorio donde se crearán las copias de las carpetas de cada una de
 		 * las refactorizaciones exportadas.
 		 */
 		String destination;
@@ -320,9 +320,9 @@ public class ExportWizard extends DynamicRefactoringList {
 		 * Constructor.
 		 * 
 		 * @param refactorings
-		 *            nombres de las refactorizaciones que se exportar�n.
+		 *            nombres de las refactorizaciones que se exportarán.
 		 * @param destination
-		 *            directorio donde se crear�n las copias de las
+		 *            directorio donde se crearán las copias de las
 		 *            refactorizaciones exportadas.
 		 */
 		public ExportJob(String[] refactorings, String destination) {
@@ -334,15 +334,15 @@ public class ExportWizard extends DynamicRefactoringList {
 		 * Ejecuta el trabajo de exportación de refactorizaciones.
 		 * 
 		 * @param monitor
-		 *            el monitor de progreso que deber� usarse para mostrar el
+		 *            el monitor de progreso que deberá usarse para mostrar el
 		 *            progreso.
 		 * 
 		 * @throws InvocationTargetException
 		 *             utilizada como envoltura si el método debe propagar una
-		 *             excepci�n (<i>checked exception</i>). Las excepciones de
+		 *             excepción (<i>checked exception</i>). Las excepciones de
 		 *             tipo <i>runtime exception</i> se envuelven
-		 *             autom�ticamente en una excepci�n de este tipo por el
-		 *             contexto que efect�a la llamada.
+		 *             automáticamente en una excepción de este tipo por el
+		 *             contexto que efectúa la llamada.
 		 * @throws InterruptedException
 		 *             si la operación detecta una solicitud de cancelación (no
 		 *             disponible).

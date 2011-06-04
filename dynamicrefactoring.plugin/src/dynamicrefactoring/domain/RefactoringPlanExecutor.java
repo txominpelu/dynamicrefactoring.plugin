@@ -116,12 +116,12 @@ public final class RefactoringPlanExecutor implements IRunnableWithProgress {
 
 	/**
 	 * Nombre completamente cualificado del tipo MOON que representa un
-	 * fragmento de c�digo.
+	 * fragmento de código.
 	 */
 	private static final String CODEFRAGMENT_NAME = "moon.core.instruction.CodeFragment"; //$NON-NLS-1$
 
 	/**
-	 * Refactorizaciones con problemas durante la ejecuci�n del plan de
+	 * Refactorizaciones con problemas durante la ejecución del plan de
 	 * refactorizaciones.
 	 */
 	private Map<String, String> notExecuted = new HashMap<String, String>();
@@ -138,7 +138,7 @@ public final class RefactoringPlanExecutor implements IRunnableWithProgress {
 
 	/**
 	 * Devuelve el conjunto de refactorizaciones que han sufrido algún problema
-	 * durante la ejecuci�n del plan de refactorizaciones.
+	 * durante la ejecución del plan de refactorizaciones.
 	 * 
 	 * @return refactorizaciones con problemas y la traza del problema.
 	 */
@@ -226,7 +226,7 @@ public final class RefactoringPlanExecutor implements IRunnableWithProgress {
 		CodeRegenerator.getInstance().refresh();
 		// Dejamos el classpath como estaba, para ello borramos de temp los
 		// ficheros .class
-		// que hemos a�adido temporalmente para ejecutar el plan.
+		// que hemos añadido temporalmente para ejecutar el plan.
 		FileManager.emptyDirectories(RefactoringConstants.TEMP_DIRECTORY);
 		FileManager.deleteDirectories(RefactoringConstants.TEMP_DIRECTORY,
 				false);
@@ -337,7 +337,7 @@ public final class RefactoringPlanExecutor implements IRunnableWithProgress {
 	 */
 	private Object computeValue(InputParameter input, String source) {
 
-		// Se obtiene el nombre del elemento que habr� que buscar.
+		// Se obtiene el nombre del elemento que habrá que buscar.
 		String name = source.trim();
 
 		// Si la entrada es de tipo moon.core.Name.
@@ -407,7 +407,7 @@ public final class RefactoringPlanExecutor implements IRunnableWithProgress {
 	 * entrada de la refactorización.
 	 * 
 	 * @param group
-	 *            Colecci�n que posiblemente contiene el objeto buscado.
+	 *            Colección que posiblemente contiene el objeto buscado.
 	 * @param input
 	 *            parámetro que se esta procesando.
 	 * @param refactoring
@@ -429,7 +429,7 @@ public final class RefactoringPlanExecutor implements IRunnableWithProgress {
 					RefactoringPlugin.getCommonPluginFilesDir()
 							+ "refactoringPlan.xml");
 
-			// Si los valores est�n contenidos en una colecci�n.
+			// Si los valores están contenidos en una colección.
 			if (collection.isAssignableFrom(container))
 				for (Object next : ((java.util.Collection<?>) group)) {
 					if (((NamedObject) next).getUniqueName().toString()
@@ -437,7 +437,7 @@ public final class RefactoringPlanExecutor implements IRunnableWithProgress {
 						return next;
 				}
 
-			// Si los valores est�n contenidos en un iterador.
+			// Si los valores están contenidos en un iterador.
 			else if (iterator.isAssignableFrom(container)) {
 				Iterator<?> valueIterator = (java.util.Iterator<?>) group;
 				while (valueIterator.hasNext()){
@@ -544,7 +544,7 @@ public final class RefactoringPlanExecutor implements IRunnableWithProgress {
 	 * refactorización.
 	 * 
 	 * @param data
-	 *            datos sobre el frgamento de c�digo a obtener.
+	 *            datos sobre el frgamento de código a obtener.
 	 * @return parámetro del modelo correspondiente con uniqueName.
 	 */
 	private CodeFragment processCodeFragment(String data) {
@@ -579,12 +579,12 @@ public final class RefactoringPlanExecutor implements IRunnableWithProgress {
 	 * 
 	 * <p>
 	 * Para ello introduce dicha carpeta dentro de una carpeta temporal llamada
-	 * ./temp que est� agragada al classpath del plugin.
+	 * ./temp que está agragada al classpath del plugin.
 	 * <p>
 	 * 
 	 * @param directory
 	 *            directorio en el que se encuentran los ficheros .class a
-	 *            a�adir.
+	 *            añadir.
 	 */
 	private void setFilesIntoClasspath(String directory) {
 		try {

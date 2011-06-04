@@ -49,7 +49,7 @@ public class TestRemoveJUnit3Imports extends RefactoringTemplateAbstractTest {
 	 * Comprueba que la acción elimina correctamente las importaciones 
 	 * correspondientes a JUnit3.
 	 * 
-	 * @throws Exception si se produce un error durante la ejecuci�n de la prueba.
+	 * @throws Exception si se produce un error durante la ejecución de la prueba.
 	 */
 	@Test
 	public void testRemove() throws Exception{
@@ -76,7 +76,7 @@ public class TestRemoveJUnit3Imports extends RefactoringTemplateAbstractTest {
 	 * Comprueba que la acción deshace correctamente la eliminación de las 
 	 * importaciones correspondientes a JUnit3.
 	 * 
-	 * @throws Exception si se produce un error durante la ejecuci�n de la prueba.
+	 * @throws Exception si se produce un error durante la ejecución de la prueba.
 	 */
 	@Test
 	public void testUndo() throws Exception{

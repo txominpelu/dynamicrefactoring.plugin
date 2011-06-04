@@ -25,7 +25,7 @@ import java.io.File;
 import javax.swing.filechooser.FileFilter;
 
 /**
- * Implementa un filtro de elecci�n de im�genes que permite seleccionar solamente
+ * Implementa un filtro de elección de imagenes que permite seleccionar solamente
  * archivos de tipo imagen.
  * 
  * El criterio seguido es que los archivos tengan una de las extensiones asociadas
@@ -45,7 +45,7 @@ public class ImageFilter extends FileFilter {
 		".jpg", ".png"}; //$NON-NLS-1$ //$NON-NLS-2$
 	
 	/**
-	 * Plantillas con alguna de las que deber�n corresponderse los archivos de
+	 * Plantillas con alguna de las que deberán corresponderse los archivos de
 	 * imagen para pasar el filtro.
 	 */
 	public static final String[] templates = {"*.tiff", "*.tif", "*.gif", "*.jpeg", //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$ //$NON-NLS-4$
@@ -65,8 +65,8 @@ public class ImageFilter extends FileFilter {
 
     /**
      * Acepta todos los directorios, y los ficheros <i>.gif</i>, <i>jpg</i>, 
-     * <i>tiff</i>, o <i>png</i>. Acepta tambi�n sus versiones en may�sculas y
-     * la versi�n de cuatro caracteres de <i>jpg</i>, <i>jpeg</i>.
+     * <i>tiff</i>, o <i>png</i>. Acepta también sus versiones en mayúsculas y
+     * la versión de cuatro caracteres de <i>jpg</i>, <i>jpeg</i>.
      * 
      * @param f el fichero que debe pasar por el filtro.
      * 
@@ -95,9 +95,9 @@ public class ImageFilter extends FileFilter {
     }
 
     /**
-     * Devuelve la descripci�n del filtro.
+     * Devuelve la descripción del filtro.
      * 
-     * @return una cadena con la descripci�n del filtro.
+     * @return una cadena con la descripción del filtro.
      */
 	@Override
     public String getDescription() {        

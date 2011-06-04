@@ -31,7 +31,7 @@ import dynamicrefactoring.domain.xml.XMLRefactoringsCatalog;
 import dynamicrefactoring.interfaz.wizard.ExportWizard;
 
 /**
- * Acci�n que inicia el asistente de exportación de refactorizaciones din�micas.
+ * Acción que inicia el asistente de exportación de refactorizaciones dinámicas.
  */
 public class OpenExportDialogAction implements IWorkbenchWindowActionDelegate  {
 

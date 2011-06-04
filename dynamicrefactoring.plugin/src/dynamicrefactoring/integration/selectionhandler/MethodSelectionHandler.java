@@ -43,18 +43,18 @@ public abstract class MethodSelectionHandler implements ISelectionHandler {
 	protected ClassDef methodClass;
 	
 	/**
-	 * La descripci�n MOON del método seleccionado.
+	 * La descripción MOON del método seleccionado.
 	 */
 	protected MethDec methodDescription;
 	
 	/**
-	 * Obtiene la descripci�n MOON del método representado por una selecci�n del
-	 * interfaz gr�fico.
+	 * Obtiene la descripción MOON del método representado por una selección del
+	 * interfaz gráfico.
 	 * 
-	 * Método plantilla (patr�n de dise�o Método Plantilla).
+	 * Método plantilla (patrón de diseño Método Plantilla).
 	 * 
-	 * @return la descripci�n MOON del método representado por una selecci�n del 
-	 * interfaz gr�fico.
+	 * @return la descripción MOON del método representado por una selección del 
+	 * interfaz gráfico.
 	 * 
 	 * @throws ClassNotFoundException si se no se consigue encontrar la clase a
 	 * la que pertenece el método en el modelo MOON cargado.
@@ -67,7 +67,7 @@ public abstract class MethodSelectionHandler implements ISelectionHandler {
 		
 		if (methodDescription == null){
 			// Llamada a la operación primitiva 
-			// (patr�n de dise�o Método Plantilla).
+			// (patrón de diseño Método Plantilla).
 			JavaMethodProcessor methodProcessor = getMethodProcessor(); 
 							
 			String uniqueName = methodProcessor.getUniqueName();
@@ -81,10 +81,10 @@ public abstract class MethodSelectionHandler implements ISelectionHandler {
 	
 	/**
 	 * Obtiene la clase del modelo MOON en la que se define el método 
-	 * representado por una selecci�n del interfaz gr�fico.
+	 * representado por una selección del interfaz gráfico.
 	 * 
 	 * @return la clase del modelo MOON en la que se define el método
-	 * representado por una selecci�n del interfaz gr�fico.
+	 * representado por una selección del interfaz gráfico.
 	 * 
 	 * @throws ClassNotFoundException si se no se consigue encontrar la clase en
 	 * el modelo MOON cargado.
@@ -96,7 +96,7 @@ public abstract class MethodSelectionHandler implements ISelectionHandler {
 	/**
 	 * Obtiene un elemento capaz de procesar la información de un método Java.
 	 * 
-	 * Operación primitiva (patr�n de dise�o Método Plantilla).
+	 * Operación primitiva (patrón de diseño Método Plantilla).
 	 * 
 	 * @return un elemento capaz de procesar la información de un método Java.
 	 */

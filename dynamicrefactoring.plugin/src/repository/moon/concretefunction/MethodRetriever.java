@@ -28,8 +28,8 @@ import moon.core.classdef.MethDec;
 import refactoring.engine.Function;
 
 /**
- * Permite buscar un método determinado en una clase bas�ndose en el nombre único
- * de aqu�l.
+ * Permite buscar un método determinado en una clase basándose en el nombre único
+ * de aquél.
  *
  * @author <A HREF="mailto:ehp0001@alu.ubu.es">Enrique Herrero Paredes</A>
  * @author <A HREF="mailto:alc0022@alu.ubu.es">Ángel López Campo</A>
@@ -38,7 +38,7 @@ import refactoring.engine.Function;
 public class MethodRetriever extends Function {
 	
 	/**
-	 * Clase en la que se buscar� el método.
+	 * Clase en la que se buscará el método.
 	 */
 	private ClassDef classDef;
 	
@@ -52,7 +52,7 @@ public class MethodRetriever extends Function {
 	 *
 	 * Obtiene una nueva instancia de MethodRetriever.
 	 *
-	 * @param classDef la clase en la que se buscar� el método.
+	 * @param classDef la clase en la que se buscará el método.
 	 * @param methodUniqueName el nombre único del método buscado.
 	 */
 	public MethodRetriever(ClassDef classDef, String methodUniqueName) {

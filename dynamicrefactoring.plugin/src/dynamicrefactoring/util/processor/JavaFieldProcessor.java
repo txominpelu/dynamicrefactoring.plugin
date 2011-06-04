@@ -60,10 +60,10 @@ public class JavaFieldProcessor extends JavaElementProcessor {
 	}
 
 	/**
-	 * Obtiene el nombre único del atributo seg�n la convenci�n de nomenclatura
+	 * Obtiene el nombre único del atributo según la convención de nomenclatura
 	 * única utilizada en el modelo MOON.
 	 * 
-	 * @return el nombre único del atributo seg�n la convenci�n de nomenclatura
+	 * @return el nombre único del atributo según la convención de nomenclatura
 	 *         única utilizada en el modelo MOON.
 	 * @throws JavaModelException
 	 */

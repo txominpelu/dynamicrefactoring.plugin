@@ -53,12 +53,12 @@ public final class FileManager {
 	
 
 	/**
-	 * Vac�a un directorio y todos sus subdirectorios.
+	 * Vacía un directorio y todos sus subdirectorios.
 	 * 
 	 * @param rootDirectory
-	 *            ruta o nombre del directorio ra�z.
+	 *            ruta o nombre del directorio raíz.
 	 * 
-	 * @return <code>true</code> si se pudo completar la operación con �xito.
+	 * @return <code>true</code> si se pudo completar la operación con éxito.
 	 *         <code>false</code> en caso contrario.
 	 */
 	public static boolean emptyDirectories(String rootDirectory){
@@ -86,15 +86,15 @@ public final class FileManager {
 	}
 
 	/**
-	 * Borra un directorio y todos sus subdirectorios, siempre y cuando est�n
-	 * vac�os.
+	 * Borra un directorio y todos sus subdirectorios, siempre y cuando están
+	 * vacíos.
 	 * 
 	 * @param rootDirectory
 	 *            el nombre o la ruta del directorio.
 	 * @param deleteRoot
-	 *            si se debe borrar el directorio ra�z al acabar.
+	 *            si se debe borrar el directorio raíz al acabar.
 	 * 
-	 * @return <code>true</code> si se consigui� completar el borrado; <code>
+	 * @return <code>true</code> si se consiguió completar el borrado; <code>
 	 * false</code> si alguno de los directorios no pudo ser borrado.
 	 */
 	public static boolean deleteDirectories(String rootDirectory, boolean deleteRoot) {
@@ -189,7 +189,7 @@ public final class FileManager {
 	 * @param in
 	 *            el fichero original.
 	 * @param out
-	 *            el fichero que se deber� crear como copia.
+	 *            el fichero que se deberá crear como copia.
 	 * 
 	 * @throws IOException
 	 *             si no se encuentra alguno de los dos ficheros.
@@ -221,11 +221,11 @@ public final class FileManager {
 	 * @param original
 	 *            directorio que se debe copiar.
 	 * @param destination
-	 *            directorio en que se crear� la copia del original y todo su
+	 *            directorio en que se creará la copia del original y todo su
 	 *            contenido.
 	 * 
 	 * @return <code>true</code> si se consigue realizar la copia completa con
-	 *         �xito; <code>false</code> en caso contrario.
+	 *         éxito; <code>false</code> en caso contrario.
 	 * 
 	 * @throws IOException
 	 *             si se produce un error al crear el directorio destino o al
@@ -262,13 +262,13 @@ public final class FileManager {
 	}
 
 	/**
-	 * Obtiene la ruta completa de un fichero determinado, sin la extensi�n del
+	 * Obtiene la ruta completa de un fichero determinado, sin la extensión del
 	 * fichero.
 	 * 
 	 * @param filePath
 	 *            la ruta del fichero.
 	 * 
-	 * @return la ruta del fichero con el nombre del fichero sin extensi�n.
+	 * @return la ruta del fichero con el nombre del fichero sin extensión.
 	 */
     public static String getFilePathWithoutExtension(String filePath) {
     	
@@ -277,7 +277,7 @@ public final class FileManager {
     		temp = temp.concat(
     			filePath.substring(0, filePath.lastIndexOf("."))); //$NON-NLS-1$
 
-		// Si es un fichero sin extensi�n.
+		// Si es un fichero sin extensión.
     	else
       		temp = temp.concat(filePath);
     	
@@ -285,13 +285,13 @@ public final class FileManager {
     }
 
 	/**
-	 * Obtiene la ruta del directorio donde est� contenido un fichero
+	 * Obtiene la ruta del directorio donde está contenido un fichero
 	 * determinado.
 	 * 
 	 * @param filePath
 	 *            la ruta del fichero.
 	 * 
-	 * @return la ruta del directorio donde est� contenido el fichero.
+	 * @return la ruta del directorio donde está contenido el fichero.
 	 */
     public static String getDirectoryPath(String filePath) {
     	
@@ -331,12 +331,12 @@ public final class FileManager {
     }
 
 	/**
-	 * Obtiene el nombre de un fichero determinado, sin la ruta hasta �l.
+	 * Obtiene el nombre de un fichero determinado, sin la ruta hasta él.
 	 * 
 	 * @param filePath
 	 *            la ruta del fichero.
 	 * 
-	 * @return el nombre del fichero sin la ruta para llegar hasta �l.
+	 * @return el nombre del fichero sin la ruta para llegar hasta él.
 	 */
     public static String getFileName(String filePath) {
     	String temp = new String();
@@ -345,7 +345,7 @@ public final class FileManager {
     			filePath.substring(
     				filePath.lastIndexOf(File.separatorChar) + 1, filePath.length())); //$NON-NLS-1$
 
-		// Si el fichero no est� en un directorio.
+		// Si el fichero no está en un directorio.
     	else
       		temp = filePath;
 
@@ -359,7 +359,7 @@ public final class FileManager {
 	 * @param rutaAbsoluta
 	 *            ruta absoluta de un fichero.
 	 * @return devuelve la ruta relativa del fichero cuya rutaAbsoluta se ha
-	 *         introducido en al funci�n.
+	 *         introducido en al función.
 	 */
     public static String AbsoluteToRelative(String rutaAbsoluta){
     	StringBuffer rutaRelativa = new StringBuffer();

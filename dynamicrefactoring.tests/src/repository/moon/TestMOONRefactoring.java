@@ -38,7 +38,7 @@ import repository.RefactoringTemplateAbstractTest;
 public class TestMOONRefactoring extends RefactoringTemplateAbstractTest {
 	
 	/**
-	 * Comprueba que se lanza una excepci�n <code>RuntimeException</code>
+	 * Comprueba que se lanza una excepción <code>RuntimeException</code>
 	 * cuando se intentan instanciar dos refactorizaciones sucesivas sobre MOON
 	 * con diferentes metamodelos.
 	 * 
@@ -64,11 +64,11 @@ public class TestMOONRefactoring extends RefactoringTemplateAbstractTest {
 	}
 	
 	/**
-	 * Comprueba que no se lanza una excepci�n <code>RuntimeException</code>
+	 * Comprueba que no se lanza una excepción <code>RuntimeException</code>
 	 * cuando se intentan instanciar dos refactorizaciones sucesivas sobre MOON
 	 * con diferentes metamodelos si entre ambas se resetea el modelo.
 	 * 
-	 * <p>Comprueba tambi�n que en cada momento se obtiene el modelo esperado
+	 * <p>Comprueba también que en cada momento se obtiene el modelo esperado
 	 * al consultar a <code>MOONRefactoring</code>.
 	 * 
 	 * @throws Exception si se produce un fallo al cargar el modelo MOON.

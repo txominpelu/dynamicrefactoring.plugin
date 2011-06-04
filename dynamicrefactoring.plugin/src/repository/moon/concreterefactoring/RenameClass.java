@@ -40,13 +40,13 @@ import repository.moon.concretepredicate.NotExistsClassWithName;
  *
  * Si la comprobación no falla, lleva a cabo el renombrado.<p>
  *
- * Finalmente, comprueba que el renombrado se ha llevado a cabo con �xito.<p>
+ * Finalmente, comprueba que el renombrado se ha llevado a cabo con éxito.<p>
  *
- * Debido a que ni en MOON, ni en su extensi�n para Java existen paquetes como 
- * tal (aunque se est� trabajando en su inclusi�n), se ha impuesto como
+ * Debido a que ni en MOON, ni en su extensión para Java existen paquetes como 
+ * tal (aunque se está trabajando en su inclusión), se ha impuesto como
  * restriccion para realizar el renombrado de la clase, que no exista en el 
  * modelo ya una clase con el nuevo nombre. Esto puede ser una de las
- * futuras modificaciones que podr�an llevarse a cabo.
+ * futuras modificaciones que podrían llevarse a cabo.
  *
  * @author <A HREF="mailto:ehp0001@alu.ubu.es">Enrique Herrero Paredes</A>
  * @author <A HREF="mailto:alc0022@alu.ubu.es">Ángel López Campo</A>

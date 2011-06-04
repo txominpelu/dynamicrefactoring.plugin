@@ -50,9 +50,9 @@ import dynamicrefactoring.domain.xml.RefactoringXMLTest;
 import dynamicrefactoring.domain.xml.reader.TestCaseRefactoringReader;
 /**
  * Comprueba que funciona correctamente el proceso de escritura de la definición
- * de una refactorización din�mica en un fichero XML.
+ * de una refactorización dinámica en un fichero XML.
  * 
- * Indirectamente, se comprueba tambi�n el funcionamiento de las clases que
+ * Indirectamente, se comprueba también el funcionamiento de las clases que
  * implementan los patrones Bridge y Factory Method.
  * 
  * @author <A HREF="mailto:lfd0002@alu.ubu.es">Laura Fuente de la Fuente</A>
@@ -72,11 +72,11 @@ public final class RefactoringWriterTest extends RefactoringXMLTest{
 	private static final String TESTDATA_XML_WRITER_DIR = "./testdata/XML/Writer/";
 
 	/**
-	 * Comprueba el lanzamiento de una excepci�n cuando hay un fallo en
+	 * Comprueba el lanzamiento de una excepción cuando hay un fallo en
 	 * escritura.
 	 * 
 	 * @throws Exception
-	 *             Excepci�n lanzada tras al aparición de un fallo en lectura.
+	 *             Excepción lanzada tras al aparición de un fallo en lectura.
 	 */
 	@Test(expected = dynamicrefactoring.domain.xml.writer.XMLRefactoringWriterException.class)
 	public void testWritingException() throws Exception {
@@ -101,13 +101,13 @@ public final class RefactoringWriterTest extends RefactoringXMLTest{
 	}
 
 	/**
-	 * Comprueba que la escritura se realiza correctamente cuando se a�ade la
+	 * Comprueba que la escritura se realiza correctamente cuando se añade la
 	 * información m�nima necesaria. Para ello se da valor a los campos de un
 	 * objeto de tipo DynamicRefactoringDefinition y luego se realiza la
 	 * escritura; posteriormente se hace una comprobación del contenido del
 	 * fichero creado con el contenido que debería tener.
 	 * 
-	 * Esta información es: el nombre, la descripci�n, la motivación, una
+	 * Esta información es: el nombre, la descripción, la motivación, una
 	 * entrada, una precondición, una acción y una postcondición; no tiene ni
 	 * imagen, ni parámetros ambiguos ni ejemplos.
 	 * 
@@ -213,13 +213,13 @@ public final class RefactoringWriterTest extends RefactoringXMLTest{
 	}
 
 	/**
-	 * Comprueba que la escritura se realiza correctamente cuando se a�ade toda
+	 * Comprueba que la escritura se realiza correctamente cuando se añade toda
 	 * la información posible. Para ello se da valor a los campos de un objeto
 	 * de tipo DynamicRefactoringDefinition y luego se realiza la escritura;
 	 * posteriormente se hace una comprobación del contenido del fichero creado
 	 * con el contenido que debería tener.
 	 * 
-	 * Esta información es: el nombre, la descripci�n, la imagen, la motivación,
+	 * Esta información es: el nombre, la descripción, la imagen, la motivación,
 	 * varias entradas, precondiciones, acciones, postcondiciones, parámetros
 	 * ambiguos y ejemplos.
 	 * 
@@ -230,13 +230,13 @@ public final class RefactoringWriterTest extends RefactoringXMLTest{
 	@Test
 	public void testWritingWithFullInformation() throws Exception {
 
-		// A�adir información general
+		// Añadir información general
 		DynamicRefactoringDefinition.Builder rd = createRefactoringDefinition(
 				"FullInformation", "Renames the class.",
 				"The name of class does not reveal its intention.");
 		rd.image("renameclass.JPG"); //$NON-NLS-1$
 
-		// A�adir entradas
+		// Añadir entradas
 		ArrayList<InputParameter> entradas = new ArrayList<InputParameter>();
 		entradas.add(new InputParameter.Builder("moon.core.Name")
 				.name("Old_name").from(CLASS).method("getName").main(false)
@@ -253,7 +253,7 @@ public final class RefactoringWriterTest extends RefactoringXMLTest{
 
 		rd.inputs(entradas);
 
-		// a�adir precondiciones,acciones y postcondiciones
+		// añadir precondiciones,acciones y postcondiciones
 		ArrayList<RefactoringMechanismInstance> preconditions = new ArrayList<RefactoringMechanismInstance>();
 		List<String> preconditionParameters = getPreconditionsParameters();
 		preconditions.add(new RefactoringMechanismInstance("NotExistsClassWithName", preconditionParameters,  PRECONDITION)); //$NON-NLS-1$
@@ -274,7 +274,7 @@ public final class RefactoringWriterTest extends RefactoringXMLTest{
 		postconditions.add(new RefactoringMechanismInstance("NotExistsClassWithName", postConditionParameters, POSTCONDITION)); //$NON-NLS-1$
 		rd.postconditions(postconditions);
 
-		// a�adiendo los ejemplos
+		// añadiendo los ejemplos
 		ArrayList<RefactoringExample> ejemplos = new ArrayList<RefactoringExample>();
 		ejemplos.add(new RefactoringExample("ejemplo1_antes.txt","ejemplo1_despues.txt"));
 		rd.examples(ejemplos);
@@ -366,7 +366,7 @@ public final class RefactoringWriterTest extends RefactoringXMLTest{
 	 */
 	private Builder createRefactoringDefinition(String name,
 			String description, String motivation) {
-		// A�adir información general
+		// Añadir información general
 		return new DynamicRefactoringDefinition.Builder(name).description(
 				description).motivation(motivation);
 	}
@@ -393,7 +393,7 @@ public final class RefactoringWriterTest extends RefactoringXMLTest{
 	 *            definicion de la refactorizacion
 	 */
 	private DynamicRefactoringDefinition addSimplePredicates(Builder builder) {
-		// a�adir precondiciones,acciones y postcondiciones
+		// añadir precondiciones,acciones y postcondiciones
 		ArrayList<RefactoringMechanismInstance> preconditions = new ArrayList<RefactoringMechanismInstance>();
 		preconditions.add(new RefactoringMechanismInstance("ExistsClass", new ArrayList<String>() ,PRECONDITION)); //$NON-NLS-1$
 		builder.preconditions(preconditions);

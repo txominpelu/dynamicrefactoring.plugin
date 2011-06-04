@@ -28,8 +28,8 @@ import dynamicrefactoring.domain.RefactoringSummary;
  * 
  * <p>Define métodos suficientes para hacer un seguimiento efectivo del proceso
  * desde el momento en que se inicia, hasta que termina, incluyendo métodos de
- * notificación espec�ficos para aquellos casos en los que la refactorización
- * falle o sea deshecha, as� como para enviar mensajes detallados a medida que
+ * notificación específicos para aquellos casos en los que la refactorización
+ * falle o sea deshecha, así como para enviar mensajes detallados a medida que
  * tienen lugar cada uno de los pasos que componen una refactorización.</p>
  * 
  * @author <A HREF="mailto:sfd0009@alu.ubu.es">Sonia Fuente de la Fuente</A>
@@ -61,7 +61,7 @@ public interface IRefactoringRunListener {
 
 	/**
 	 * Notifica al <i>listener</i> acerca de la realización de un paso concreto en la 
-	 * ejecuci�n de una refactorización.
+	 * ejecución de una refactorización.
 	 * 
 	 * @param message el mensaje asociado al paso llevado a cabo.
 	 */

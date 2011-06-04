@@ -53,12 +53,12 @@ public class RenameMethod extends Action {
 	private MethDec method;
 	
 	/**
-	 * Clase que contiene el método que sufrir� el renombrado.
+	 * Clase que contiene el método que sufrirá el renombrado.
 	 */
 	private ClassDef classDef;
 	
 	/**
-	 * Nuevo nombre que se dar� al método.
+	 * Nuevo nombre que se dará al método.
 	 */
 	private Name newName;
 	
@@ -89,7 +89,7 @@ public class RenameMethod extends Action {
 	 * Obtiene una nueva instancia de RenameMethod.
 	 * @param method el método cuyo nombre se desea cambiar.
 	 * @param classDef la clase que contiene el método que se va a renombrar.
-	 * @param newName el nuevo nombre que se dar� al método.
+	 * @param newName el nuevo nombre que se dará al método.
 	 */
 	public RenameMethod (MethDec method, ClassDef classDef, Name newName){
 			

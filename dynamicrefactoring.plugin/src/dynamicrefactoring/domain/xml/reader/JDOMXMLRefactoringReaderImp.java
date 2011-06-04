@@ -81,7 +81,7 @@ public class JDOMXMLRefactoringReaderImp implements XMLRefactoringReaderImp {
 			// El atributo SYSTEM del DOCTYPE de la definición XML de la
 			// refactorización es solo la parte relativa de la ruta del fichero
 			// DTD. Se le antepone la ruta del directorio del plugin que
-			// contiene los ficheros de refactorizaciones din�micas.
+			// contiene los ficheros de refactorizaciones dinámicas.
 			Document doc = builder.build(in, RefactoringPlugin.getNonEditableDynamicRefactoringsDir());
 			root = doc.getRootElement();
 			in.close();
@@ -98,11 +98,11 @@ public class JDOMXMLRefactoringReaderImp implements XMLRefactoringReaderImp {
 	}
 
 	/**
-	 * Lee el nombre, la descripci�n y la motivación de la refactorización a
+	 * Lee el nombre, la descripción y la motivación de la refactorización a
 	 * partir de la definición contenida en el fichero.
 	 * 
 	 * @param root
-	 *            el elemento ra�z del �rbol XML que define la refactorización.
+	 *            el elemento raíz del árbol XML que define la refactorización.
 	 */
 	private DynamicRefactoringDefinition.Builder readInformationRefactoring(
 			Element root) {
@@ -185,7 +185,7 @@ public class JDOMXMLRefactoringReaderImp implements XMLRefactoringReaderImp {
 	 * refactorización, a partir de la definición contenida en el fichero.
 	 * 
 	 * @param root
-	 *            el elemento ra�z del �rbol XML que define la refactorización.
+	 *            el elemento raíz del árbol XML que define la refactorización.
 	 * @return 
 	 */
 	@SuppressWarnings({ "unchecked" })//$NON-NLS-1$
@@ -297,7 +297,7 @@ public class JDOMXMLRefactoringReaderImp implements XMLRefactoringReaderImp {
 	 * contenida en el fichero.
 	 * 
 	 * @param root
-	 *            el elemento ra�z del �rbol XML que define la refactorización.
+	 *            el elemento raíz del árbol XML que define la refactorización.
 	 */
 	@SuppressWarnings({ "unchecked" })//$NON-NLS-1$
 	private Builder readExamplesRefactoring(Element root, Builder builder) {
@@ -365,7 +365,7 @@ public class JDOMXMLRefactoringReaderImp implements XMLRefactoringReaderImp {
 	/**
 	 * Obtiene del fichero temporal que guarda las refactorizaciones
 	 * disponibles, aquellas que son ejecutables con el parámetro de entrada del
-	 * tipo se�alado por el parámetro scope.
+	 * tipo señalado por el parámetro scope.
 	 * 
 	 * @param scopeClass
 	 *            tipo de la entrada principal de la refactorización.
@@ -374,8 +374,8 @@ public class JDOMXMLRefactoringReaderImp implements XMLRefactoringReaderImp {
 	 *            refactorizaciones disponibles.
 	 * @return <code>HashMap</code> cuyas claves son el nombre de las
 	 *         refactorizaciones y los valores la ruta del fichero que contiene
-	 *         la definición de la refactorización en caso de ser din�mica o la
-	 *         cadena vacia en caso de ser est�tica.
+	 *         la definición de la refactorización en caso de ser dinámica o la
+	 *         cadena vacia en caso de ser estática.
 	 * @throws XMLRefactoringReaderException
 	 *             lanzado en caso de que no se pueda leer el fichero xml.
 	 */

@@ -41,7 +41,7 @@ import repository.moon.concretepredicate.NotExistsMethodWithNameInClass;
  *
  * Si la comprobación no falla, lleva a cabo el renombrado.<p>
  *
- * Finalmente, comprueba que el renombrado se ha llevado a cabo con �xito.
+ * Finalmente, comprueba que el renombrado se ha llevado a cabo con éxito.
  *
  * @author <A HREF="mailto:alc0022@alu.ubu.es">Ángel López Campo</A>
  * @author <A HREF="mailto:ehp0001@alu.ubu.es">Enrique Herrero Paredes</A>
@@ -62,7 +62,7 @@ public class RenameMethod extends MOONRefactoring {
 	 * @param method el método que se desea renombrar.
 	 * @param classDef la clase que contiene el método que se desea renombrar.
 	 * @param newName el nuevo nombre que se le va a dar al método.
-	 * @param newUniqueName nuevo nombre único que tendr� el método.
+	 * @param newUniqueName nuevo nombre único que tendrá el método.
 	 * @param model el modelo que contiene la clase cuyo método se renombra.
 	 */
 	public RenameMethod(MethDec method, ClassDef classDef, Name newName,

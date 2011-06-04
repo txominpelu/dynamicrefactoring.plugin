@@ -17,10 +17,24 @@ import dynamicrefactoring.domain.metadata.condition.PostconditionCondition;
 import dynamicrefactoring.domain.metadata.condition.PreconditionCondition;
 import dynamicrefactoring.domain.metadata.condition.RootInputTypeCondition;
 
+/**
+ * Clase abstracta con metodos comunes a los catalogos de refactorizaciones.
+ * 
+ * Guarda las refactorizaciones exclusivamente en memoria.
+ * 
+ * @author imediava
+ *
+ */
 public abstract class AbstractRefactoringsCatalog implements RefactoringsCatalog {
 
 	private final Set<DynamicRefactoringDefinition> refactorings;
 
+	/**
+	 * Crea un catalogo de refactorizaciones a partir de un conjunto
+	 * de refactorizaciones.
+	 * 
+	 * @param refactorings refactorizaciones iniciales
+	 */
 	public AbstractRefactoringsCatalog(
 			Set<DynamicRefactoringDefinition> refactorings) {
 		this.refactorings = new HashSet<DynamicRefactoringDefinition>(refactorings);

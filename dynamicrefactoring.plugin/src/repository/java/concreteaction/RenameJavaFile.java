@@ -186,12 +186,12 @@ public class RenameJavaFile extends Action {
 		private String label;
 		
 		/**
-		 * Nombre único que tendr� la clase tras el renombrado.
+		 * Nombre único que tendrá la clase tras el renombrado.
 		 */
 		private String oldUnique;
 		
 		/**
-		 * Nombre simple que tendr� la clase tras el renombrado.
+		 * Nombre simple que tendrá la clase tras el renombrado.
 		 */
 		private String oldShort;
 		
@@ -224,9 +224,9 @@ public class RenameJavaFile extends Action {
 		 * Ejecuta la operación de renombrado.
 		 * 
 		 * @param monitor monitor de progreso (no se utiliza).
-		 * @param info información del entorno gr�fico (no se utiliza).
+		 * @param info información del entorno gráfico (no se utiliza).
 		 * 
-		 * @return el estado final tras la ejecuci�n.
+		 * @return el estado final tras la ejecución.
 		 * 
 		 * @see AbstractOperation#execute(IProgressMonitor, IAdaptable)
 		 */
@@ -271,9 +271,9 @@ public class RenameJavaFile extends Action {
 		 * Deshace la operación de renombrado.
 		 * 
 		 * @param monitor monitor de progreso (no se utiliza).
-		 * @param info información del entorno gr�fico (no se utiliza).
+		 * @param info información del entorno gráfico (no se utiliza).
 		 * 
-		 * @return el estado final tras la ejecuci�n.
+		 * @return el estado final tras la ejecución.
 		 * 
 		 * @see AbstractOperation#undo(IProgressMonitor, IAdaptable)
 		 */
@@ -318,7 +318,7 @@ public class RenameJavaFile extends Action {
 		 * Sin implementación.
 		 * 
 		 * @param monitor monitor de progreso (no se utiliza).
-		 * @param info información del entorno gr�fico (no se utiliza).
+		 * @param info información del entorno gráfico (no se utiliza).
 		 * 
 		 * @return {@link Status#OK_STATUS}
 		 * 
@@ -345,7 +345,7 @@ public class RenameJavaFile extends Action {
 		 * @param file el fichero que se debe renombrar. 
 		 * @param newName el nuevo nombre completo del fichero.
 		 * @param originalPath la ruta absoluta original del fichero.
-		 * @param undo si se est� desaciendo un renombrado o no.
+		 * @param undo si se está desaciendo un renombrado o no.
 		 */
 		private void renameSourceFile(final IFile file, final String newName, 
 			String originalPath, boolean undo) {
@@ -386,7 +386,7 @@ public class RenameJavaFile extends Action {
 				oldFile.setName(model.getMoonFactory().createName(
 					newSourceFile.getName()));
 				
-				// Se a�ade el fichero renombrado al modelo.
+				// Se añade el fichero renombrado al modelo.
 				model.add(oldFile);
 			}
 			catch (CoreException e){

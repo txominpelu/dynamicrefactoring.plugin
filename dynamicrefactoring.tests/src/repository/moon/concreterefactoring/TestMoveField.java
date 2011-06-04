@@ -41,7 +41,7 @@ import repository.moon.MOONRefactoring;
  * Comprueba que funciona correctamente la refactorización que mueve un atributo
  * de una clase del modelo a otra.
  * 
- * <p>Indirectamente, se comprueba tambi�n la correcci�n de las funciones,
+ * <p>Indirectamente, se comprueba también la correcci�n de las funciones,
  * acciones y predicados utilizados por la refactorización.</p>
  *
  * @author <A HREF="mailto:sfd0009@alu.ubu.es">Sonia Fuente de la Fuente</A>
@@ -58,7 +58,7 @@ public class TestMoveField extends RefactoringTemplateAbstractTest {
 	 * <p>En un modelo con dos clases, se mueve un atributo que cumple todas las
 	 * precondiciones de una clase a la otra.</p>
 	 * 
-	 * @throws Exception si se produce un error durante la ejecuci�n de la prueba.
+	 * @throws Exception si se produce un error durante la ejecución de la prueba.
 	 */
 	@Test
 	public void testSimple() throws Exception{
@@ -84,7 +84,7 @@ public class TestMoveField extends RefactoringTemplateAbstractTest {
 			"atributo de la clase origen.", lAtribute2.isEmpty()); //$NON-NLS-1$
 
 		List <AttDec> lAtribute3= classDest.getAttributes();
-		assertEquals("Test mover atributo simple: no se ha a�adido el " + //$NON-NLS-1$
+		assertEquals("Test mover atributo simple: no se ha añadido el " + //$NON-NLS-1$
 			"atributo a la clase destino.", 1, lAtribute3.size()); //$NON-NLS-1$
 		
 		AttDec atribute3 = lAtribute3.get(0);
@@ -96,10 +96,10 @@ public class TestMoveField extends RefactoringTemplateAbstractTest {
 	/**
 	 * Verifica el funcionamiento de las precondiciones de la refactorización.
 	 *
-	 * <p>Comprueba que se lanza una excepci�n cuando se intenta mover un atributo 
+	 * <p>Comprueba que se lanza una excepción cuando se intenta mover un atributo 
 	 * a la misma clase que originalmente lo contiene.</p>
 	 * 
-	 * @throws Exception si se produce un error durante la ejecuci�n de la prueba.
+	 * @throws Exception si se produce un error durante la ejecución de la prueba.
 	 */    
 	@Test(expected=PreconditionException.class) 
 	public void testCheckNotEqualClasses() throws Exception{
@@ -122,10 +122,10 @@ public class TestMoveField extends RefactoringTemplateAbstractTest {
 	/**
 	 * Verifica el funcionamiento de las precondiciones de la refactorización.
 	 *
-	 * <p>Comprueba que se lanza una excepci�n cuando se intenta mover un atributo 
-	 * que est� siendo utilizado en su clase de origen.</p>
+	 * <p>Comprueba que se lanza una excepción cuando se intenta mover un atributo 
+	 * que está siendo utilizado en su clase de origen.</p>
 	 * 
-	 * @throws Exception si se produce un error durante la ejecuci�n de la prueba.
+	 * @throws Exception si se produce un error durante la ejecución de la prueba.
 	 */  
 	@Test(expected=PreconditionException.class) 
 	public void testCheckAttributeIsNotUsedInClass() throws Exception{
@@ -149,10 +149,10 @@ public class TestMoveField extends RefactoringTemplateAbstractTest {
 	/**
 	 * Verifica el funcionamiento de las precondiciones de la refactorización.
 	 *
-	 * <p>Comprueba que se lanza una excepci�n cuando se intenta mover un atributo
-	 * que est� siendo utilizado en algún punto del modelo.</p>
+	 * <p>Comprueba que se lanza una excepción cuando se intenta mover un atributo
+	 * que está siendo utilizado en algún punto del modelo.</p>
 	 * 
-	 * @throws Exception si se produce un error durante la ejecuci�n de la prueba.
+	 * @throws Exception si se produce un error durante la ejecución de la prueba.
 	 */
 	@Test(expected=PreconditionException.class)
 	public void testAttributeIsNotUsedInModel() throws Exception{
@@ -179,9 +179,9 @@ public class TestMoveField extends RefactoringTemplateAbstractTest {
 	 * simple.
 	 * 
 	 * <p>En un modelo con dos clases, se mueve un atributo que cumple todas las
-	 * precondiciones de una clase a la otra y despu�s se deshace el movimiento.</p>
+	 * precondiciones de una clase a la otra y después se deshace el movimiento.</p>
 	 * 
-	 * @throws Exception si se produce un error durante la ejecuci�n de la prueba.
+	 * @throws Exception si se produce un error durante la ejecución de la prueba.
 	 */      
 	@Test
 	public void testUndoSimple() throws Exception{

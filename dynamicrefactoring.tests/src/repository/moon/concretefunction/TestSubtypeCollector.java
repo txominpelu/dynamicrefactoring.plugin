@@ -39,7 +39,7 @@ import repository.RefactoringTemplateAbstractTest;
 import repository.moon.MOONRefactoring;
 
 /** 
- * Comprueba que funciona correctamente la funci�n que permite obtener
+ * Comprueba que funciona correctamente la función que permite obtener
  * el conjunto de subtipos de un tipo determinado.
  * 
  * @author <A HREF="mailto:sfd0009@alu.ubu.es">Sonia Fuente de la Fuente</A>
@@ -48,13 +48,13 @@ import repository.moon.MOONRefactoring;
 public class TestSubtypeCollector extends RefactoringTemplateAbstractTest {
 
 	/**
-	 * Comprueba que la funci�n obtiene correctamente los subtipos de un tipo
+	 * Comprueba que la función obtiene correctamente los subtipos de un tipo
 	 * con varios subtipos.<p>
 	 * 
 	 * En un modelo con las bibliotecas b�sicas de Java cargadas, intenta obtener
 	 * los subtipos de <code>java.lang.Number</code>.
 	 * 
-	 * @throws Exception si se produce un error durante la ejecuci�n de la prueba.
+	 * @throws Exception si se produce un error durante la ejecución de la prueba.
 	 */
 	@Test
 	public void testGetSubtypes() throws Exception{

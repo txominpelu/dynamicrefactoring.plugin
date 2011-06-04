@@ -40,7 +40,7 @@ import repository.moon.concretepredicate.NotExistsLocalDecWithName;
  *
  * Si la comprobación no falla, lleva a cabo el renombrado.<p>
  *
- * Finalmente, comprueba que el renombrado se ha llevado a cabo con �xito.
+ * Finalmente, comprueba que el renombrado se ha llevado a cabo con éxito.
  *
  * @author <A HREF="mailto:ehp0001@alu.ubu.es">Enrique Herrero Paredes</A>
  * @author <A HREF="mailto:alc0022@alu.ubu.es">Ángel López Campo</A>

@@ -35,20 +35,20 @@ import repository.moon.concretepredicate.NotExistsLocalDecWithName;
 import repository.moon.concretepredicate.NotExistsMethodWithNameInClass;
 
 /**
- * Permite a�adir un nuevo parámetro a la signatura de un método.<p>
+ * Permite añadir un nuevo parámetro a la signatura de un método.<p>
  *
  * Verifica que no exista ya otro parámetro en el método con el mismo nombre y
  * que no existen variables locales a ese método con nombre igual al del nuevo 
- * parámetro. Adem�s, comprueba que no exista ya un método con la signatura que 
- * tendr�a el método afectado una vez llevada a cabo la refactorización, ni en 
+ * parámetro. Además, comprueba que no exista ya un método con la signatura que 
+ * tendría el método afectado una vez llevada a cabo la refactorización, ni en 
  * la propia clase, ni en clases a las que se deba extender el cambio de 
  * signatura a causa de las relaciones de herencia.<p>
  *
- * Si la comprobación no falla, a�ade el parámetro formal en la definición del 
- * método en la clase correspondiente. Adem�s, incluye en todas las llamadas al
+ * Si la comprobación no falla, añade el parámetro formal en la definición del 
+ * método en la clase correspondiente. Además, incluye en todas las llamadas al
  * método el valor por defecto para el tipo del argumento, como parámetro real.<p>
  *
- * Finalmente, comprueba que el proceso se ha llevado a cabo con �xito.<p>
+ * Finalmente, comprueba que el proceso se ha llevado a cabo con éxito.<p>
  *
  * @author <A HREF="mailto:ehp0001@alu.ubu.es">Enrique Herrero Paredes</A>
  * @author <A HREF="mailto:alc0022@alu.ubu.es">Ángel López Campo</A>
@@ -66,7 +66,7 @@ public class AddParameter extends MOONRefactoring {
 	 *
 	 * Obtiene una nueva instancia de AddParameter.
 	 * 
-	 * @param method el método a cuya signatura se va a a�adir el parámetro.
+	 * @param method el método a cuya signatura se va a añadir el parámetro.
 	 * @param type el tipo {@link moon.core.classdef.Type} del parámetro.
 	 * @param name el nombre del nuevo parámetro formal.
 	 * @param model el modelo sobre el que se ejecuta la refactorización

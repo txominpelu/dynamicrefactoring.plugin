@@ -50,10 +50,10 @@ public class EnumeratedTypeTest extends RefactoringTemplateAbstractTest{
 
 
 	/**
-	 * Comprueba la correcta ejecuci�n de la refactorización EnumeratedType sobre
+	 * Comprueba la correcta ejecución de la refactorización EnumeratedType sobre
 	 * una clase sencilla con un constructor, un atributo y una constante.
 	 * 
-	 * @throws Exception si se produce un error durante la ejecuci�n de la prueba.
+	 * @throws Exception si se produce un error durante la ejecución de la prueba.
 	 */
 	@Test
 	public void testSimpleTest() throws Exception{
@@ -61,11 +61,11 @@ public class EnumeratedTypeTest extends RefactoringTemplateAbstractTest{
 	}
 	
 	/**
-	 * Comprueba la correcta ejecuci�n de la refactorización EnumeratedType sobre
+	 * Comprueba la correcta ejecución de la refactorización EnumeratedType sobre
 	 * una clase sencilla dentro de un paquete con un constructor, un atributo
 	 * y varias constantes.
 	 * 
-	 * @throws Exception si se produce un error durante la ejecuci�n de la prueba.
+	 * @throws Exception si se produce un error durante la ejecución de la prueba.
 	 */
 	@Test
 	public void testSimpleClass() throws Exception{
@@ -73,10 +73,10 @@ public class EnumeratedTypeTest extends RefactoringTemplateAbstractTest{
 	}
 	
 	/**
-	 * Comprueba la correcta ejecuci�n de la refactorización EnumeratedType sobre
+	 * Comprueba la correcta ejecución de la refactorización EnumeratedType sobre
 	 * una clase sencilla que solo tiene constantes.
 	 * 
-	 * @throws Exception si se produce un error durante la ejecuci�n de la prueba.
+	 * @throws Exception si se produce un error durante la ejecución de la prueba.
 	 */
 	@Test
 	public void testOnlyWithConstants() throws Exception{
@@ -84,10 +84,10 @@ public class EnumeratedTypeTest extends RefactoringTemplateAbstractTest{
 	}
 	
 	/**
-	 * Comprueba la correcta ejecuci�n de la refactorización EnumeratedType sobre
+	 * Comprueba la correcta ejecución de la refactorización EnumeratedType sobre
 	 * una clase sencilla cuyo constructor cuenta con dos enteros.
 	 * 
-	 * @throws Exception si se produce un error durante la ejecuci�n de la prueba.
+	 * @throws Exception si se produce un error durante la ejecución de la prueba.
 	 */
 	@Test
 	public void testConstructorWithTwoExpresion() throws Exception{
@@ -100,7 +100,7 @@ public class EnumeratedTypeTest extends RefactoringTemplateAbstractTest{
 	 *
 	 * <p>Comprueba que se lanza una cuando la clase no dispone de constantes.</p>
 	 * 
-	 * @throws Exception si se produce un error durante la ejecuci�n de la prueba.
+	 * @throws Exception si se produce un error durante la ejecución de la prueba.
 	 */   
 	@Test(expected=PreconditionException.class)
 	public void testWithoutFinalStaticAttributes() throws Exception{
@@ -113,7 +113,7 @@ public class EnumeratedTypeTest extends RefactoringTemplateAbstractTest{
 	 * <p>Comprueba que se lanza una cuando los atributos de la clase se encuentran
 	 *    antes que las constantes de la misma.</p>
 	 * 
-	 * @throws Exception si se produce un error durante la ejecuci�n de la prueba.
+	 * @throws Exception si se produce un error durante la ejecución de la prueba.
 	 */   
 	@Test(expected=PreconditionException.class)
 	public void testAttributesBeforeConstants() throws Exception{
@@ -126,7 +126,7 @@ public class EnumeratedTypeTest extends RefactoringTemplateAbstractTest{
 	 * <p>Comprueba que se lanza una cuando los atributos de la clase se encuentran
 	 *    antes que alguna de las constantes de la misma.</p>
 	 * 
-	 * @throws Exception si se produce un error durante la ejecuci�n de la prueba.
+	 * @throws Exception si se produce un error durante la ejecución de la prueba.
 	 */ 
 	@Test(expected=PreconditionException.class)
 	public void testAttributesBeforeSomeConstants() throws Exception{
@@ -139,7 +139,7 @@ public class EnumeratedTypeTest extends RefactoringTemplateAbstractTest{
 	 * <p>Comprueba que se lanza una cuando los metodos de la clase se encuentran
 	 *    antes que las constantes de la misma.</p>
 	 * 
-	 * @throws Exception si se produce un error durante la ejecuci�n de la prueba.
+	 * @throws Exception si se produce un error durante la ejecución de la prueba.
 	 */ 
 	@Test(expected=PreconditionException.class)
 	public void testMethodBeforeConstants() throws Exception{
@@ -152,7 +152,7 @@ public class EnumeratedTypeTest extends RefactoringTemplateAbstractTest{
 	 * <p>Comprueba que se lanza una cuando los atributos y métodos de la clase se encuentran
 	 *    por medio de las constantes de la misma.</p>
 	 * 
-	 * @throws Exception si se produce un error durante la ejecuci�n de la prueba.
+	 * @throws Exception si se produce un error durante la ejecución de la prueba.
 	 */ 
 	@Test(expected=PreconditionException.class)
 	public void testMethodAttributeBetweenConstants() throws Exception{
@@ -164,7 +164,7 @@ public class EnumeratedTypeTest extends RefactoringTemplateAbstractTest{
 	 *
 	 * <p>Comprueba que se lanza una cuando hay un constructor que no es privado.</p>
 	 * 
-	 * @throws Exception si se produce un error durante la ejecuci�n de la prueba.
+	 * @throws Exception si se produce un error durante la ejecución de la prueba.
 	 */ 
 	@Test(expected=PreconditionException.class)
 	public void testConstructorPublic() throws Exception{
@@ -220,7 +220,7 @@ public class EnumeratedTypeTest extends RefactoringTemplateAbstractTest{
 	
 	/**
 	 * Ejecuta la refactorización sobre un caso determinado en el que va a aparecer
-	 * una excepci�n.
+	 * una excepción.
 	 * 
 	 * @param dir directorio sobre el que se encuentra el caso a probar.
 	 * @param paquete paquete de la clase sobre la que se esta probando 
@@ -248,7 +248,7 @@ public class EnumeratedTypeTest extends RefactoringTemplateAbstractTest{
 
 	/**
 	 * Comprueba que la refactorización se deshace de forma correcta.
-	 * @throws Exception si se produce un error durante la ejecuci�n de la prueba.
+	 * @throws Exception si se produce un error durante la ejecución de la prueba.
 	 */
 	@Test
 	public void testConstructorWithTwoExpresionUndo() throws Exception{
@@ -257,7 +257,7 @@ public class EnumeratedTypeTest extends RefactoringTemplateAbstractTest{
 	
 	/**
 	 * Comprueba que la refactorización se deshace de forma correcta.
-	 * @throws Exception si se produce un error durante la ejecuci�n de la prueba.
+	 * @throws Exception si se produce un error durante la ejecución de la prueba.
 	 */
 	@Test
 	public void testOnlyWithConstantsUndo() throws Exception{
@@ -266,7 +266,7 @@ public class EnumeratedTypeTest extends RefactoringTemplateAbstractTest{
 	
 	/**
 	 * Comprueba que la refactorización se deshace de forma correcta.
-	 * @throws Exception si se produce un error durante la ejecuci�n de la prueba.
+	 * @throws Exception si se produce un error durante la ejecución de la prueba.
 	 */
 	@Test
 	public void testSimpleTestUndo() throws Exception{
@@ -275,7 +275,7 @@ public class EnumeratedTypeTest extends RefactoringTemplateAbstractTest{
 	
 	/**
 	 * Comprueba que la refactorización se deshace de forma correcta.
-	 * @throws Exception si se produce un error durante la ejecuci�n de la prueba.
+	 * @throws Exception si se produce un error durante la ejecución de la prueba.
 	 */
 	@Test
 	public void testSimpleClassUndo() throws Exception{

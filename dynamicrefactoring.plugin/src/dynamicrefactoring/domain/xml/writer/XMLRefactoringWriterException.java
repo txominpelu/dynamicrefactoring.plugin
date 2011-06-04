@@ -21,7 +21,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.*/
 package dynamicrefactoring.domain.xml.writer;
 
 /**
- * Excepci�n lanzada cuando se produce un error al escribir una refactorización.
+ * Excepción lanzada cuando se produce un error al escribir una refactorización.
  * 
  * @author <A HREF="mailto:alc0022@alu.ubu.es">Ángel López Campo</A>
  * @author <A HREF="mailto:epf0006@alu.ubu.es">Eduardo Peña Fernández</A>
@@ -35,7 +35,7 @@ public class XMLRefactoringWriterException extends Exception {
 	/**
 	 * Constructor.
 	 * 
-	 * @param s mensaje asociado al origen de la excepci�n.
+	 * @param s mensaje asociado al origen de la excepción.
 	 */
 	public XMLRefactoringWriterException(String s) {
 		super(s);

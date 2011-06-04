@@ -23,7 +23,7 @@ package dynamicrefactoring.domain.xml.writer;
 import dynamicrefactoring.domain.DynamicRefactoringDefinition;
 
 /**
- * Define una interfaz para las f�bricas que generan instancias que implementan
+ * Define una interfaz para las fábricas que generan instancias que implementan
  * la interfaz <code>XMLRefactoringWriterImp</code>.
  * 
  * @author <A HREF="mailto:alc0022@alu.ubu.es">Ángel López Campo</A>

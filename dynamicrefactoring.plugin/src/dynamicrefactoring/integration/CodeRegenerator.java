@@ -54,7 +54,7 @@ import dynamicrefactoring.interfaz.CustomProgressDialog;
 import dynamicrefactoring.util.io.JavaFileManager;
 
 /**
- * Permite regenerar el c�digo de los ficheros fuente del proyecto sobre el
+ * Permite regenerar el código de los ficheros fuente del proyecto sobre el
  * que se trabaja actualmente a partir del modelo MOON utilizado para su
  * representación durante las refactorizaciones.
  * 
@@ -72,21 +72,21 @@ public class CodeRegenerator {
 	/**
 	 * Instancia única del regenerador.
 	 * 
-	 * Patr�n de dise�o Singleton.
+	 * Patrón de diseño Singleton.
 	 */
 	private static CodeRegenerator myInstance;
 	
 	/**
 	 * Constructor.
 	 * 
-	 * Privado, siguiendo la estructura del patr�n de dise�o Singleton.
+	 * Privado, siguiendo la estructura del patrón de diseño Singleton.
 	 */
 	private CodeRegenerator(){}
 
 	/**
 	 * Obtiene la instancia única del regenerador.
 	 * 
-	 * Patr�n de dise�o Singleton.
+	 * Patrón de diseño Singleton.
 	 * 
 	 * @return la instancia única del regenerador.
 	 */
@@ -97,8 +97,8 @@ public class CodeRegenerator {
 	}
 	
 	/**
-	 * Dirige la regeneración de c�digo, mostr�ndosela al usuario a través de un
-	 * di�logo de progreso de Eclipse.
+	 * Dirige la regeneración de código, mostrándosela al usuario a través de un
+	 * diálogo de progreso de Eclipse.
 	 */
 	public void refreshCode() {
 		
@@ -111,7 +111,7 @@ public class CodeRegenerator {
 			
 		} 
 		catch (InterruptedException e) {
-			// El usuario cancel� el proceso.
+			// El usuario canceló el proceso.
 			String message = Messages.CodeRegenerator_UserCancelled +
 				".\n"; //$NON-NLS-1$
 			logger.warn(message);
@@ -126,7 +126,7 @@ public class CodeRegenerator {
 	}
 	
 	/**
-	 * Dirige la regeneración de c�digo.
+	 * Dirige la regeneración de código.
 	 */
 	public void refresh() {
 		
@@ -147,9 +147,9 @@ public class CodeRegenerator {
 	
 		
 	/**
-	 * Coordina la regeneración del c�digo de las clases del modelo.
+	 * Coordina la regeneración del código de las clases del modelo.
 	 * 
-	 * Se encarga de recuperar el c�digo de cada una de ellas y 
+	 * Se encarga de recuperar el código de cada una de ellas y 
 	 * notificar al resto del entorno de trabajo de los cambios realizados.
 	 */
 	private class CodeRegenerationJob implements IRunnableWithProgress{
@@ -160,7 +160,7 @@ public class CodeRegenerator {
 		ArrayList<IFile> javaFiles;
 		
 		/**
-		 * Directorios ra�z de los ficheros fuente afectados.
+		 * Directorios raíz de los ficheros fuente afectados.
 		 */
 		List<String> sourceDirs;
 		
@@ -177,15 +177,15 @@ public class CodeRegenerator {
 		}
 		
 		/**
-		 * Ejecuta la operación de recuperación de c�digo.
+		 * Ejecuta la operación de recuperación de código.
 		 * 
-		 * @param monitor el monitor de progreso que mostrar� el avance de la
-		 * operación de recuperación de c�digo.
+		 * @param monitor el monitor de progreso que mostrará el avance de la
+		 * operación de recuperación de código.
 		 * 
 		 * @throws InvocationTargetException si se produce cualquier clase de
-		 * excepci�n se relanza envuelta en una excepci�n de este tipo.
-		 * @throws InterruptedException si el usuario interrumpi� el proceso
-		 * pulsando sobre el bot�n de cancelación.
+		 * excepción se relanza envuelta en una excepción de este tipo.
+		 * @throws InterruptedException si el usuario interrumpió el proceso
+		 * pulsando sobre el botón de cancelación.
 		 */
 		@Override
 		public void run(IProgressMonitor monitor)
@@ -285,7 +285,7 @@ public class CodeRegenerator {
 		}
 		
 		/**
-		 * Regenera el c�digo pero no crea un di�logo de progreso.
+		 * Regenera el código pero no crea un diálogo de progreso.
 		 */
 		public void refresh(){
 			
@@ -320,12 +320,12 @@ public class CodeRegenerator {
 		}
 
 		/**
-		 * Formatea el c�digo fuente correspondiente a una clase utilizando el 
-		 * API de Eclipse para el formateo de c�digo fuente Java.
+		 * Formatea el código fuente correspondiente a una clase utilizando el 
+		 * API de Eclipse para el formateo de código fuente Java.
 		 * 
-		 * @param sourceCode el c�digo fuente original de la clase.
+		 * @param sourceCode el código fuente original de la clase.
 		 * 
-		 * @return el c�digo fuente formateado de la clase, o el c�digo original
+		 * @return el código fuente formateado de la clase, o el código original
 		 * si se produjo un error durante el proceso.
 		 */
 		private String formatCompilationUnit(String sourceCode){

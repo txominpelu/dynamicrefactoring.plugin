@@ -43,8 +43,8 @@ import repository.moon.concretefunction.MethodCollector;
  *
  * Se ocupa de incluir como parámetro real un valor por defecto en todas las 
  * llamadas al método que existan en las clases del modelo. Si el argumento
- * es de alguno de los tipos primitivos, se asignar� como valor real el valor 
- * habitual por defecto de cada tipo; si no, se le asignar� un valor nulo.
+ * es de alguno de los tipos primitivos, se asignará como valor real el valor 
+ * habitual por defecto de cada tipo; si no, se le asignará un valor nulo.
  *
  * @author <A HREF="mailto:ehp0001@alu.ubu.es">Enrique Herrero Paredes</A>
  * @author <A HREF="mailto:alc0022@alu.ubu.es">Ángel López Campo</A>
@@ -53,12 +53,12 @@ import repository.moon.concretefunction.MethodCollector;
 public class AddFormalArg extends Action {
 
 	/**
-	 * El nuevo parámetro formal que se va a a�adir al método.
+	 * El nuevo parámetro formal que se va a añadir al método.
 	 */
 	FormalArgument newParameter;
 	
 	/**
-	 * El método a cuya lista de parámetros se va a a�adir el nuevo argumento.
+	 * El método a cuya lista de parámetros se va a añadir el nuevo argumento.
 	 */
 	MethDec method;
 	
@@ -95,7 +95,7 @@ public class AddFormalArg extends Action {
 	 *
 	 * Obtiene una nueva instancia de AddFormalArg.
 	 *
-	 * @param method el método a cuya signatura se va a a�adir un argumento.
+	 * @param method el método a cuya signatura se va a añadir un argumento.
 	 * @param name el nombre del nuevo parámetro formal.
 	 * @param type el tipo del nuevo parámetro formal.
 	 */	
@@ -117,7 +117,7 @@ public class AddFormalArg extends Action {
 	}	
 	
 	/**
-	 * A�ade un parámetro formal a la signatura de un método.
+	 * Añade un parámetro formal a la signatura de un método.
 	 */
 	public void run() {
 		
@@ -192,7 +192,7 @@ public class AddFormalArg extends Action {
 	}
 	
 	/**
-	 * A�ade el parámetro en la signatura del método en las clases inferiores 
+	 * Añade el parámetro en la signatura del método en las clases inferiores 
 	 * y superiores de la jerarquía de herencia que, a través de herencia, 
 	 * posean el mismo método (clases que hereden de la que posee el método
 	 * afectado o superclases de la misma que contengan el mismo método, y a su

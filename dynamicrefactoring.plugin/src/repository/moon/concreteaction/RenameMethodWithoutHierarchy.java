@@ -44,7 +44,7 @@ public class RenameMethodWithoutHierarchy extends Action {
 	private MethDec method;
 			
 	/**
-	 * Nuevo nombre que se dar� al método.
+	 * Nuevo nombre que se dará al método.
 	 */
 	private Name newName;
 	
@@ -64,7 +64,7 @@ public class RenameMethodWithoutHierarchy extends Action {
 	 * Obtiene una nueva instancia de RenameMethodWithoutHierarchy.
 	 *
 	 * @param method el método cuyo nombre se desea cambiar.
-	 * @param newName el nuevo nombre que se dar� al método.
+	 * @param newName el nuevo nombre que se dará al método.
 	 */
 	public RenameMethodWithoutHierarchy (MethDec method, Name newName){
 			

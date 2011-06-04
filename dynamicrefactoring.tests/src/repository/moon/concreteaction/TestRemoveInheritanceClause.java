@@ -30,7 +30,7 @@ import org.junit.Test;
 import repository.RefactoringTemplateAbstractTest;
 
 /** 
- * Comprueba que funciona correctamente la acción que elimina una cl�usula de
+ * Comprueba que funciona correctamente la acción que elimina una cláusula de
  * herencia de una clase.
  * 
  * @author <A HREF="mailto:sfd0009@alu.ubu.es">Sonia Fuente de la Fuente</A>
@@ -40,10 +40,10 @@ public class TestRemoveInheritanceClause extends RefactoringTemplateAbstractTest
 
 	/** 
 	 * Comprueba que la acción funciona correctamente al eliminar una
-	 * cl�usula de herencia de una clase que hereda de una superclase en su
+	 * cláusula de herencia de una clase que hereda de una superclase en su
 	 * mismo paquete.
 	 * 
-	 * @throws Exception si se produce un error durante la ejecuci�n de la prueba.
+	 * @throws Exception si se produce un error durante la ejecución de la prueba.
 	 */
 	@Test
 	public void testRemove() throws Exception {
@@ -65,11 +65,11 @@ public class TestRemoveInheritanceClause extends RefactoringTemplateAbstractTest
 	}
 	
 	/** 
-	 * Comprueba que la funciona correctamente la funci�n que deshace la 
-	 * eliminación de una cl�usula de herencia en una clase que hereda de una 
+	 * Comprueba que la funciona correctamente la función que deshace la 
+	 * eliminación de una cláusula de herencia en una clase que hereda de una 
 	 * superclase en su mismo paquete.
 	 * 
-	 * @throws Exception si se produce un error durante la ejecuci�n de la prueba.
+	 * @throws Exception si se produce un error durante la ejecución de la prueba.
 	 */
 	@Test
 	public void testUndo() throws Exception {

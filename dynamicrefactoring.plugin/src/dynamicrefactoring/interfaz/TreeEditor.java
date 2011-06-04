@@ -29,7 +29,7 @@ import org.eclipse.swt.widgets.TreeItem;
 import dynamicrefactoring.RefactoringImages;
 
 /**
- * Proporciona métodos de edición de elementos gr�ficos de tipo �rbol
+ * Proporciona métodos de edición de elementos gráficos de tipo árbol
  * desplegable.
  * 
  * @author <A HREF="mailto:sfd0009@alu.ubu.es">Sonia Fuente de la Fuente</A>
@@ -38,14 +38,14 @@ import dynamicrefactoring.RefactoringImages;
 public class TreeEditor {
 
 	/**
-	 * Puebla una rama de un �rbol a partir de los elementos de una lista.
+	 * Puebla una rama de un árbol a partir de los elementos de una lista.
 	 * 
 	 * @param elements
-	 *            elementos cuyos nombres aparecer�n como hojas del �rbol
+	 *            elementos cuyos nombres aparecerán como hojas del árbol
 	 * @param parent
-	 *            rama del �rbol en la que se insertar�n los elementos.
+	 *            rama del árbol en la que se insertarán los elementos.
 	 * @param icon
-	 *            ruta relativa al <i>plugin</i> del icono que se asociar� a
+	 *            ruta relativa al <i>plugin</i> del icono que se asociará a
 	 *            cada uno de los elementos que se inserten.
 	 */
 	public static void fillInTreeBranch(List<String> elements, TreeItem parent,
@@ -59,19 +59,19 @@ public class TreeEditor {
 	}
 
 	/**
-	 * Crea una rama en un �rbol de elementos.
+	 * Crea una rama en un árbol de elementos.
 	 * 
 	 * @param parent
-	 *            �rbol al que se le a�adir� una rama.
+	 *            árbol al que se le añadirá una rama.
 	 * @param position
-	 *            posición de la rama en el �rbol (empezando en 0).
+	 *            posición de la rama en el árbol (empezando en 0).
 	 * @param text
 	 *            texto asociado a la nueva rama.
 	 * @param icon
 	 *            ruta relativa al <i>plugin</i> del icono asociado a la nueva
 	 *            rama.
 	 * 
-	 * @return el elemento que act�a como ra�z de la rama.
+	 * @return el elemento que actúa como raíz de la rama.
 	 */
 	public static TreeItem createBranch(Tree parent, int position, String text, String icon){
 		TreeItem child = new TreeItem(parent, SWT.NONE, position);
@@ -82,16 +82,16 @@ public class TreeEditor {
 	 * Crea una subrama de un arbol dada la rama padre.
 	 * 
 	 * @param parent
-	 *            rama padre a la que se a�adir� una rama.
+	 *            rama padre a la que se añadirá una rama.
 	 * @param position
-	 *            posición de la rama en el �rbol (empezando en 0).
+	 *            posición de la rama en el árbol (empezando en 0).
 	 * @param text
 	 *            texto asociado a la nueva rama.
 	 * @param icon
 	 *            ruta relativa al <i>plugin</i> del icono asociado a la nueva
 	 *            rama.
 	 * 
-	 * @return el elemento que act�a como ra�z de la rama.
+	 * @return el elemento que actúa como raíz de la rama.
 	 */
 	public static TreeItem createBranch(TreeItem parent, int position,
 			String text, String icon) {

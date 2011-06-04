@@ -28,11 +28,11 @@ import org.eclipse.swt.widgets.List;
 
 /**
  * Actualiza el orden en que aparecen las entradas de una lista, desplazando
- * un puesto hacia abajo aqu�lla que se encuentre seleccionada.
+ * un puesto hacia abajo aquélla que se encuentre seleccionada.
  * 
  * <p>Si se tienen varias entradas seleccionadas, se desplazan todas ellas
- * un puesto hacia abajo. Si la �ltima entrada se encuentra seleccionada, la
- * acción sobre el bot�n no tiene efecto alguno.</p>
+ * un puesto hacia abajo. Si la última entrada se encuentra seleccionada, la
+ * acción sobre el botón no tiene efecto alguno.</p>
  * 
  * @author <A HREF="mailto:sfd0009@alu.ubu.es">Sonia Fuente de la Fuente</A>
  * @author <A HREF="mailto:ehp0001@alu.ubu.es">Enrique Herrero Paredes</A>
@@ -55,13 +55,13 @@ public class ListDownListener implements SelectionListener {
 	}
 	
 	/**
-	 * Recibe una notificación de que se ha pulsado el bot�n que permite 
+	 * Recibe una notificación de que se ha pulsado el botón que permite 
 	 * desplazar una entrada hacia abajo en la lista.
 	 * 
 	 * <p>Inicia las acciones que sean necesarias para actualizar el orden en 
 	 * que se muestran las entradas seleccionadas.</p>
 	 * 
-	 * @param e el evento de selecci�n disparado.
+	 * @param e el evento de selección disparado.
 	 * 
 	 * @see SelectionListener#widgetSelected(SelectionEvent)
 	 */
@@ -75,11 +75,11 @@ public class ListDownListener implements SelectionListener {
 			String[] selected = list.getSelection();
 			int[] indices = list.getSelectionIndices();
 			Arrays.sort(indices);
-			// Se asegura de que no se ha seleccionado el �ltimo de la lista.
+			// Se asegura de que no se ha seleccionado el último de la lista.
 			if (Arrays.binarySearch(indices, list.getItemCount() - 1) < 0){
 				// Se eliminan de la lista las entradas seleccionadas.
 				list.remove(indices);
-				// Se a�aden de una en una, una posición m�s abajo.
+				// Se añaden de una en una, una posición más abajo.
 				for (int i = 0; i < selected.length && i < indices.length; i++)
 					list.add(selected[i], indices[i] + 1);
 			}

@@ -27,7 +27,7 @@ import moon.core.classdef.ClassDef;
 import refactoring.engine.Function;
 
 /**
- * Permite obtener las clases de una jerarquía de herencia que se podr�an ver 
+ * Permite obtener las clases de una jerarquía de herencia que se podrían ver 
  * afectadas por un cambio en la signatura de un método en una cierta clase de 
  * la jerarquía.
  *
@@ -38,23 +38,23 @@ import refactoring.engine.Function;
 public class ClassesAffectedByMethRenameCollector extends Function {
 	
 	/**
-	 * La clase a la que pertenece el método que se ver�a afectado por un cambio
+	 * La clase a la que pertenece el método que se vería afectado por un cambio
 	 * en su signatura.
 	 */
 	private ClassDef classDef;
 	
 	/**
-	 * El nombre único del método que sufrir�a un cambio en su signatura.
+	 * El nombre único del método que sufriráa un cambio en su signatura.
 	 */
 	private String methodUniqueName;
 	
 	/**
-	 * Clases que ya se han inclu�do como afectadas.
+	 * Clases que ya se han incluído como afectadas.
 	 */
 	private Collection<ClassDef> alreadyFound;
 	
 	/**
-	 * Booleano que indica si se quiere revisar tambi�n las subclases o solo se
+	 * Booleano que indica si se quiere revisar también las subclases o solo se
 	 * quiere revisar las superclases.
 	 */
 	private Boolean subclases;
@@ -64,10 +64,10 @@ public class ClassesAffectedByMethRenameCollector extends Function {
 	 *
 	 * Obtiene una nueva instancia de ClassesAffectedByMethRenameCollector.
 	 *
-	 * @param classDef la clase que sufrir�a el cambio en la signatura de un método.
-	 * @param methodUniqueName el nombre único del método cuya signatura sufrir�a un cambio.
+	 * @param classDef la clase que sufriráa el cambio en la signatura de un método.
+	 * @param methodUniqueName el nombre único del método cuya signatura sufriráa un cambio.
 	 * @param alreadyFound la lista de clases ya incluidas como afectadas.
-	 * @param subclases indica si se quiere revisar tambi�n las subclases o solo se
+	 * @param subclases indica si se quiere revisar también las subclases o solo se
 	 * quiere revisar las superclases.
 	 */
 	public ClassesAffectedByMethRenameCollector(ClassDef classDef, 
@@ -80,11 +80,11 @@ public class ClassesAffectedByMethRenameCollector extends Function {
 
 	/**
 	 * Obtiene las clases que se encuentra al recorrer recursivamente la
-	 * jerarquía de herencia de una clase y que, por tanto, podr�an 
-	 * hipot�ticamente verse afectadas por un cambio en la signatura de un 
+	 * jerarquía de herencia de una clase y que, por tanto, podrían 
+	 * hipotéticamente verse afectadas por un cambio en la signatura de un 
 	 * método de la clase original.
 	 *
-	 * @return Las clases encontradas o una colecci�n vac�a, si no se encontr� ninguna.
+	 * @return Las clases encontradas o una colección vacía, si no se encontrá ninguna.
 	 */ 
 	public Collection<ClassDef> getCollection() {
 		

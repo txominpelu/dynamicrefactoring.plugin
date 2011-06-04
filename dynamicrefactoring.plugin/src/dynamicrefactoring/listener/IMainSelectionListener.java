@@ -25,18 +25,18 @@ import dynamicrefactoring.util.selection.SelectionInfo;
 
 /**
  * Define la interfaz común a todos los objetos que deseen actuar como 
- * observadores de una selecci�n dentro de los objetos del espacio de trabajo
- * que son v�lidos como entrada para una refactorización.
+ * observadores de una selección dentro de los objetos del espacio de trabajo
+ * que son válidos como entrada para una refactorización.
  * 
  * @author <A HREF="mailto:lfd0002@alu.ubu.es">Laura Fuente de la Fuente</A>
  */
 public interface IMainSelectionListener {
 	
 	/**
-	 * Notifica al <i>listener</i> que un objeto v�lido como entrada para la refactorización
+	 * Notifica al <i>listener</i> que un objeto válido como entrada para la refactorización
 	 * ha sido seleccionado.
 	 * 
-	 * @param selection selecci�n del espacio de trabajo.
+	 * @param selection selección del espacio de trabajo.
 	 */
 	public abstract void elementSelected(SelectionInfo selection);
 }

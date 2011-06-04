@@ -52,11 +52,11 @@ import dynamicrefactoring.listener.IRefactoringRunListener;
 
 /**
  * Proporciona una vista de Eclipse en la que quedan reflejadas todas las 
- * refactorizaciones que ejecuta el <i>plugin</i> de refactorizaciones din�micas.
+ * refactorizaciones que ejecuta el <i>plugin</i> de refactorizaciones dinámicas.
  * 
  * <p>Proporciona información de resumen acerca de cada una de las refactorizaciones,
- * as� como la posibilidad de ordenarlas por tipo de refactorización y por orden de
- * ejecuci�n real.</p>
+ * así como la posibilidad de ordenarlas por tipo de refactorización y por orden de
+ * ejecución real.</p>
  * 
  * @author <A HREF="mailto:lfd0002@alu.ubu.es">Laura Fuente de la Fuente</A>
  * @author <A HREF="mailto:sfd0009@alu.ubu.es">Sonia Fuente de la Fuente</A>
@@ -94,30 +94,30 @@ public class HistoryView extends ViewPart {
 	private HashMap<String, RefactoringSummary> elements;
 	
 	/**
-	 * Descripci�n de la columna que mostrar� el nombre de la refactorización. 
+	 * Descripción de la columna que mostrará el nombre de la refactorización. 
 	 */
 	private final String NAME_COLUMN = Messages.HistoryView_Refactoring;
 	
 	/**
-	 * Descripci�n de la columna que mostrar� la hora de finalización de la 
+	 * Descripción de la columna que mostrará la hora de finalización de la 
 	 * refactorización.
 	 */
 	private final String TIME_COLUMN = Messages.HistoryView_Time;
 	
 	/**
-	 * Descripci�n de la columna que permitir� seleccionar el punto en el que
+	 * Descripción de la columna que permitirá seleccionar el punto en el que
 	 * se quiere restaurar el estado del modelo.
 	 */
 	private final String UNDO_COLUMN = Messages.HistoryView_Undo;
 	
 	/**
-	 * Propiedad asociada a los botones que indica en qu� fila de la tabla se
+	 * Propiedad asociada a los botones que indica en qué fila de la tabla se
 	 * encuentran.
 	 */
 	private final String ROW_PROPERTY = "Row"; //$NON-NLS-1$
 	
 	/**
-	 * Propiedad asociada a las filas de la tabla que indica qu� bot�n tienen 
+	 * Propiedad asociada a las filas de la tabla que indica qué botón tienen 
 	 * asociado cada una.
 	 */
 	private final String BUTTON_PROPERTY = "Button"; //$NON-NLS-1$
@@ -128,7 +128,7 @@ public class HistoryView extends ViewPart {
 	private TableColumn col_undo;
 	
 	/**
-	 * Indica si una operación de deshacer se dispar� desde la vista.
+	 * Indica si una operación de deshacer se disparó desde la vista.
 	 */
 	private boolean viewFired = false;
 	
@@ -246,7 +246,7 @@ public class HistoryView extends ViewPart {
 	 * el <i>plugin</i>.
 	 * 
 	 * <p>
-	 * Desempe�a el papel de Observador Concreto en el patr�n de dise�o Observador.
+	 * Desempeña el papel de Observador Concreto en el patrón de diseño Observador.
 	 * </p>
 	 * 
 	 * <p>
@@ -268,7 +268,7 @@ public class HistoryView extends ViewPart {
 		/**
 		 * Notifica al <i>listener</i> acerca del comienzo de una refactorización.
 		 * 
-		 * <p>Sin impelementación. Se trata de una vista de tipo hist�rico, por lo 
+		 * <p>Sin impelementación. Se trata de una vista de tipo histórico, por lo 
 		 * que solo procesa refactorizaciones que se hayan completado.</p>
 		 * 
 		 * @param name nombre de la refactorización que ha comenzado.
@@ -282,7 +282,7 @@ public class HistoryView extends ViewPart {
 		 * Notifica al <i>listener</i> acerca de la realización de un paso concreto
 		 * en una refactorización.
 		 * 
-		 * <p>Sin impelementación. Se trata de una vista de tipo hist�rico, por lo 
+		 * <p>Sin impelementación. Se trata de una vista de tipo histórico, por lo 
 		 * que solo tiene en cuenta la finalización de refactorizaciones.</p>
 		 * 
 		 * @param message mensaje asociado al paso realizado.
@@ -367,25 +367,25 @@ public class HistoryView extends ViewPart {
 					}
 				}
 				
-				// Se limpia la tabla de ah� en adelante.
+				// Se limpia la tabla de ahí en adelante.
 			cleanTable(index);
 			}
 		}
 	}
 	
 	/**
-	 * Elimina los elementos de la tabla que se encuentren entre la �ltima 
-	 * posición y la posición indicada, �sta �ltima incluida.
+	 * Elimina los elementos de la tabla que se encuentren entre la última 
+	 * posición y la posición indicada, ésta última incluida.
 	 * 
 	 * @param toIndex posición de la primera fila de la tabla a partir de la que
 	 * debe comenzar la eliminación de elementos. La numeración de las filas 
-	 * comienza en 0, y la fila indicada ser� la primera en ser eliminada.
+	 * comienza en 0, y la fila indicada será la primera en ser eliminada.
 	 */
 	private void cleanTable(int toIndex){
 		if (toIndex < table.getItemCount() && toIndex >= 0){
 			TableItem[] items = table.getItems();
 			for (int i = items.length - 1; i >= toIndex; i--){
-				// Primero se recupera el bot�n asociado a la fila y se elimina.
+				// Primero se recupera el botón asociado a la fila y se elimina.
 				Object button = items[i].getData(BUTTON_PROPERTY);
 				if (button instanceof Button)
 					((Button)button).dispose();
@@ -413,11 +413,11 @@ public class HistoryView extends ViewPart {
 		}
 		
 		/**
-		 * Responde a los eventos de selecci�n sobre uno de los botones de la
-		 * tabla, deshaciendo la refactorización asociada al bot�n y eliminando
+		 * Responde a los eventos de selección sobre uno de los botones de la
+		 * tabla, deshaciendo la refactorización asociada al botón y eliminando
 		 * de la tabla todos los estados posteriores al del punto recuperado.
 		 * 
-		 * @param event el evento de selecci�n disparado sobre la ventana.
+		 * @param event el evento de selección disparado sobre la ventana.
 		 */
 		@Override
 		public void widgetSelected(SelectionEvent event){
@@ -428,7 +428,7 @@ public class HistoryView extends ViewPart {
 				TableItem item = table.getItem(row);
 				String time = item.getText(0);
 				
-				// Se recupera el ID de la operación que ejecut� la refactorización.
+				// Se recupera el ID de la operación que ejecutó la refactorización.
 				RefactoringSummary summary = elements.get(time);
 				
 				/*****************************undo*********************************/
@@ -468,7 +468,7 @@ public class HistoryView extends ViewPart {
 	 */
 	private class TableRunnable implements Runnable{
 		/**
-		 * Resumen de la refactorización que se est� ejecutando.
+		 * Resumen de la refactorización que se está ejecutando.
 		 */
 		private RefactoringSummary summary;
 		

@@ -38,17 +38,17 @@ import repository.moon.concretepredicate.SignatureEntityIsNotUsedInMethod;
  * Permite eliminar un determinado parámetro de la signatura de un método.<p>
  *
  * Verifica que exista un parámetro en el método con el nombre indicado y
- * que no exista ya un método con la signatura que tendr�a el método afectado
+ * que no exista ya un método con la signatura que tendría el método afectado
  * una vez llevada a cabo la refactorización, ni en la propia clase, ni en
  * clases a las que se deba extender el cambio de signatura a causa de las
- * relaciones de herencia. Tambi�n comprueba que el argumento formal no sea
+ * relaciones de herencia. También comprueba que el argumento formal no sea
  * utilizado en el cuerpo del propio método.<p>
  *
  * Si las comprobaciones no fallan, elimina el parámetro formal en la definición 
- * del método en la clase correspondiente. Adem�s, elimina en todas las llamadas 
+ * del método en la clase correspondiente. Además, elimina en todas las llamadas 
  * al método el parámetro real correspondiente al argumento formal eliminado.<p>
  *
- * Finalmente, comprueba que el proceso se ha llevado a cabo con �xito.
+ * Finalmente, comprueba que el proceso se ha llevado a cabo con éxito.
  *
  * @author <A HREF="mailto:ehp0001@alu.ubu.es">Enrique Herrero Paredes</A>
  * @author <A HREF="mailto:alc0022@alu.ubu.es">Ángel López Campo</A>

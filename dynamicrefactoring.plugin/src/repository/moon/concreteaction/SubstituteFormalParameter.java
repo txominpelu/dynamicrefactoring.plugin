@@ -84,7 +84,7 @@ public class SubstituteFormalParameter extends Action {
 	}
 	
 	/**
-	 * Ejecuta la sustituci�n del parámetro formal.
+	 * Ejecuta la sustitución del parámetro formal.
 	 */
 	@Override
 	public void run() {
@@ -107,7 +107,7 @@ public class SubstituteFormalParameter extends Action {
 	/**
 	 * Sustituye el parámetro formal dentro de los métodos.
 	 * 
-	 * @param md método sobre el que hacer la sustituci�n.
+	 * @param md método sobre el que hacer la sustitución.
 	 * @param ct nuevo tipo para el método.
 	 */
 	private void substitute(MethDec md, ClassType ct){
@@ -144,9 +144,9 @@ public class SubstituteFormalParameter extends Action {
 	}
 	
 	/**
-	 * Deshace la sustituci�n del parámetro formal.
+	 * Deshace la sustitución del parámetro formal.
 	 * 
-	 * �Sin implementación!
+	 * ¡Sin implementación!
 	 */
 	@Override
 	public void undo() {}

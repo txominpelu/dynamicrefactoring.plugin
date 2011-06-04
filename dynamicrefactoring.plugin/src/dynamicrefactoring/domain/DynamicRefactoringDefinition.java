@@ -42,7 +42,7 @@ import dynamicrefactoring.domain.metadata.interfaces.ClassificationsCatalog;
 import dynamicrefactoring.domain.metadata.interfaces.Element;
 
 /**
- * Contiene la definición de una refactorización din�mica.
+ * Contiene la definición de una refactorización dinámica.
  * 
  * @author <A HREF="mailto:alc0022@alu.ubu.es">Ángel López Campo</A>
  * @author <A HREF="mailto:epf0006@alu.ubu.es">Eduardo Peña Fernández</A>
@@ -58,7 +58,7 @@ public class DynamicRefactoringDefinition implements Element,
 	private String name;
 
 	/**
-	 * Descripci�n de la refactorización.
+	 * Descripción de la refactorización.
 	 */
 	private String description;
 
@@ -142,9 +142,9 @@ public class DynamicRefactoringDefinition implements Element,
 	}
 
 	/**
-	 * Devuelve la descripci�n de la refactorización.
+	 * Devuelve la descripción de la refactorización.
 	 * 
-	 * @return una cadena con la descripci�n.
+	 * @return una cadena con la descripción.
 	 * 
 	 * @see #setDescription
 	 */
@@ -190,7 +190,7 @@ public class DynamicRefactoringDefinition implements Element,
 	/**
 	 * Devuelve las entradas que se deben solicitar al usuario para construir la
 	 * refactorización en una tabla asociativa de tipo <i>hash</i> que permite
-	 * encontrar la entrada con un nombre determinado de forma f�cil.
+	 * encontrar la entrada con un nombre determinado de forma fácil.
 	 * 
 	 * @return un mapa asociativo <i>hash</i> organizado de tal modo que las
 	 *         claves son los nombres de cada una de las entradas, y el valor en
@@ -504,6 +504,14 @@ public class DynamicRefactoringDefinition implements Element,
 		}
 	}
 
+	/**
+	 * Devuelve el mecanismo del tipo dado con el nombre pasado
+	 * de la refactorización.
+	 * 
+	 * @param mechanismName nombre del mecanismo a obtener
+	 * @param type tipo del mecanismo (precondición, acción o postcondición)
+	 * @return mecanismo de la refactorización con el nombre pasado
+	 */
 	public List<RefactoringMechanismInstance> getMechanismsWithName(
 			final String mechanismName, RefactoringMechanismType type) {
 		Collection<RefactoringMechanismInstance> filtradas = Collections2
@@ -685,7 +693,7 @@ public class DynamicRefactoringDefinition implements Element,
 		}
 
 		/**
-		 * Establece el conjunto de categor�as a las que el elemento va a
+		 * Establece el conjunto de categorías a las que el elemento va a
 		 * pertenecer.
 		 * 
 		 * @param categories
@@ -725,10 +733,10 @@ public class DynamicRefactoringDefinition implements Element,
 		 * 
 		 * @param list
 		 *            lista de arrays de cadenas con los atributos de cada
-		 *            ejemplo. Cada array de cadenas contendr� dos cadenas, una
+		 *            ejemplo. Cada array de cadenas contendrá dos cadenas, una
 		 *            con la ruta del fichero que contiene el estado del ejemplo
 		 *            antes de la refactorización, y otra con la ruta del que
-		 *            contiene el estado despu�s de la refactorización.
+		 *            contiene el estado después de la refactorización.
 		 * @return devuelve el builder con el nuevo parametro
 		 * 
 		 * @see #getExamples
@@ -753,10 +761,10 @@ public class DynamicRefactoringDefinition implements Element,
 		}
 
 		/**
-		 * Asigna la descripci�n de la refactorización.
+		 * Asigna la descripción de la refactorización.
 		 * 
 		 * @param description
-		 *            una cadena con la descripci�n.
+		 *            una cadena con la descripción.
 		 * @return devuelve el builder con el nuevo parametro
 		 * 
 		 * @see #getDescription

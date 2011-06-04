@@ -76,7 +76,7 @@ public class SubtypeCollector extends Function {
 	}
 	
 	/**
-	 * Funci�n que devuelve el valor.
+	 * Función que devuelve el valor.
 	 *  
 	 * @return <code>null</code>.
 	 */
@@ -87,11 +87,11 @@ public class SubtypeCollector extends Function {
 
 	/**
 	 * Obtiene todos los subtipos del <code>ClassType</code> representado por
-	 * {@link #classType}, incluyendo aqu�llos que se puedan obtener 
+	 * {@link #classType}, incluyendo aquellos que se puedan obtener 
 	 * recursivamente a través de sus subtipos directos.
 	 * 
 	 * @return los subtipos del <code>ClassType</code> representado por
-	 * {@link #classType}, incluyendo aqu�llos que se puedan obtener
+	 * {@link #classType}, incluyendo aquellos que se puedan obtener
 	 * recursivamente a través de sus subtipos directos.
 	 */	
 	@Override
@@ -106,10 +106,10 @@ public class SubtypeCollector extends Function {
 	}
 
 	/**
-	 * A�ade todos los subtipos de una clase a una colecci�n.
+	 * Añade todos los subtipos de una clase a una colección.
 	 * 
 	 * @param ct <code>ClassType</code> cuyos subtipos se quieren obtener.
-	 * @param subtypes colecci�n a la que a�adir los subtipos hallados.
+	 * @param subtypes colección a la que añadir los subtipos hallados.
 	 */
 	private void addSubclasses(ClassType ct, Collection<ClassType> subtypes) {
 
@@ -126,7 +126,7 @@ public class SubtypeCollector extends Function {
 			
 			// Se busca una superclase que coincida con la de nuestro tipo.
 			if (ancestors.contains(ct.getClassDef()))
-				// Si entre sus superclases (buscadas recursivamente) est� nuestra
+				// Si entre sus superclases (buscadas recursivamente) está nuestra
 				// superclase, es que es un subtipo.
 				subtypes.add(modelClass.getClassType());
 		}

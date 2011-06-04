@@ -65,11 +65,11 @@ import dynamicrefactoring.util.io.FileManager;
  * la refactorización que desea ejecutar a continuación sobre el elemento
  * seleccionado.
  * 
- * <p>Muestra un listado poblado de forma din�mica con las refactorizaciones
- * est�ticas y din�micas disponibles y que se puedan ejecutar en el �mbito del
+ * <p>Muestra un listado poblado de forma dinámica con las refactorizaciones
+ * estáticas y dinámicas disponibles y que se puedan ejecutar en el Ámbito del
  * objeto seleccionado en la interfaz en ese momento.</p>
  * 
- * <p>El objeto seleccionado en la interfaz constituir� la entrada principal de
+ * <p>El objeto seleccionado en la interfaz constituirá la entrada principal de
  * la refactorización que se seleccione para ser ejecutada.</p>
  * 
  * @author <A HREF="mailto:lfd0002@alu.ubu.es">Laura Fuente de la Fuente</A>
@@ -79,7 +79,7 @@ import dynamicrefactoring.util.io.FileManager;
 public class SelectRefactoringWindow extends Dialog {
 	
 	/**
-	 * �mbito de aplicación de refactorizaciones con el que trabajar� la ventana.
+	 * Ámbito de aplicación de refactorizaciones con el que trabajará la ventana.
 	 */
 	private Scope scope;
 	
@@ -94,7 +94,7 @@ public class SelectRefactoringWindow extends Dialog {
 	private Vector<String> available_refactors;
 	
 	/**
-	 * Lista de refactorizaciones din�micas cargadas.
+	 * Lista de refactorizaciones dinámicas cargadas.
 	 */
 	HashMap<String, String> dynamicRefactorings;
 	
@@ -106,7 +106,7 @@ public class SelectRefactoringWindow extends Dialog {
 	/**
 	 * Constructor.
 	 * 
-	 * @param parentShell shell a la que pertenece la ventana de di�logo.
+	 * @param parentShell shell a la que pertenece la ventana de diálogo.
 	 * @param mainObject objeto seleccionado como entrada principal.
 	 */
 	public SelectRefactoringWindow(Shell parentShell, ObjectMoon mainObject) {
@@ -159,7 +159,7 @@ public class SelectRefactoringWindow extends Dialog {
 		
 		
 		fillInDynamicRefactorings(dynamicRefactorings);
-		// Para un parámetro formal acotado valen tambi�n las refactorizaciones
+		// Para un parámetro formal acotado valen también las refactorizaciones
 		// generales sobre parámetros formales.
 		if (scope == Scope.BOUNDED_PAR){
 			HashMap <String, String> tempMap =
@@ -174,7 +174,7 @@ public class SelectRefactoringWindow extends Dialog {
 	 * incluidas en una tabla asociativa en el formato devuelto por <code>
 	 * ScopeLimitedLister</code>.
 	 * 
-	 * @param refactorings tabla de refactorizaciones que se deben a�adir
+	 * @param refactorings tabla de refactorizaciones que se deben añadir
 	 * a la lista de disponibles.
 	 */
 	private void fillInDynamicRefactorings(HashMap<String, String> refactorings) {
@@ -189,11 +189,11 @@ public class SelectRefactoringWindow extends Dialog {
 	}
 
 	/**
-	 * Crea el contenido de la ventana de di�logo.
+	 * Crea el contenido de la ventana de diálogo.
 	 * 
-	 * @param parent el elemento compuesto padre de esta ventana de di�logo.
+	 * @param parent el elemento compuesto padre de esta ventana de diálogo.
 	 * 
-	 * @return el control asociado al �rea de di�logo.
+	 * @return el control asociado al área de diálogo.
 	 */
 	@Override
 	protected Control createDialogArea(Composite parent) {
@@ -231,8 +231,8 @@ public class SelectRefactoringWindow extends Dialog {
 	}
 	
 	/**
-	 * Devuelve las refactorizaciones din�micas.
-	 * @return refactorizaciones din�micas.
+	 * Devuelve las refactorizaciones dinámicas.
+	 * @return refactorizaciones dinámicas.
 	 */
 	public Vector<String> getAvailableRefactors() {
 		return available_refactors;
@@ -260,9 +260,9 @@ public class SelectRefactoringWindow extends Dialog {
 	}
 
 	/**
-	 * Obtiene el tama�o inicial de la ventana de di�logo.
+	 * Obtiene el tamaño inicial de la ventana de diálogo.
 	 * 
-	 * @return el tama�o inicial de la ventana de di�logo.
+	 * @return el tamaño inicial de la ventana de diálogo.
 	 * 
 	 * @see Dialog#getInitialSize
 	 */
@@ -272,7 +272,7 @@ public class SelectRefactoringWindow extends Dialog {
 	}
 	
 	/**
-	 * Configura la shell dada, prepar�ndola para abrir esta ventana de di�logo
+	 * Configura la shell dada, preparándola para abrir esta ventana de diálogo
 	 * sobre ella.
 	 * 
 	 * @param newShell la shell que se ha de configurar.
@@ -308,10 +308,10 @@ public class SelectRefactoringWindow extends Dialog {
 	}
 	
 	/**
-	 * Notifica que el bot�n de este di�logo con el identificador especificado
+	 * Notifica que el botón de este diálogo con el identificador especificado
 	 * ha sido pulsado.
 	 * 
-	 * @param buttonId el identificador del bot�n que ha sido pulsado (v�anse
+	 * @param buttonId el identificador del botón que ha sido pulsado (véanse
 	 * las constantes <code>IDialogConstants.*ID</code>).
 	 * 
 	 * @see Dialog#buttonPressed

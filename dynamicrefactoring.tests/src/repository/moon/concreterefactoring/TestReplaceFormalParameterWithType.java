@@ -44,7 +44,7 @@ import repository.moon.MOONRefactoring;
  * Comprueba que funciona correctamente la refactorización que reemplaza un 
  * parámetro formal por un tipo.
  * 
- * <p>Indirectamente, se comprueba tambi�n la correcci�n de las funciones,
+ * <p>Indirectamente, se comprueba también la correcci�n de las funciones,
  * acciones y predicados utilizados por la refactorización.</p>
  *
  * @author <A HREF="mailto:sfd0009@alu.ubu.es">Sonia Fuente de la Fuente</A>
@@ -58,7 +58,7 @@ public class TestReplaceFormalParameterWithType
 	/** 
 	 * Comprueba que la refactorización funciona correctamente en un caso simple.
 	 * 
-	 * @throws Exception si se produce un error durante la ejecuci�n de la prueba.
+	 * @throws Exception si se produce un error durante la ejecución de la prueba.
 	 */  
 	@Test
 	public void testSimple() throws Exception{
@@ -90,7 +90,7 @@ public class TestReplaceFormalParameterWithType
 	 * en que el tipo param�trico se utiliza en la declaración de atributos
 	 * y argumentos formales de métodos y como tipo de retorno de métodos.
 	 * 
-	 * @throws Exception si se produce un error durante la ejecuci�n de la prueba.
+	 * @throws Exception si se produce un error durante la ejecución de la prueba.
 	 */  
 	@Test
 	public void testReplaceContents() throws Exception{
@@ -129,9 +129,9 @@ public class TestReplaceFormalParameterWithType
 
 	/** 
 	 * Comprueba que la refactorización funciona correctamente en un caso con
-	 * m�s de un parámetro formal.
+	 * más de un parámetro formal.
 	 * 
-	 * @throws Exception si se produce un error durante la ejecuci�n de la prueba.
+	 * @throws Exception si se produce un error durante la ejecución de la prueba.
 	 */  
 	@Test
 	public void testWithMorePar() throws Exception{
@@ -166,11 +166,11 @@ public class TestReplaceFormalParameterWithType
 	/**
 	 * Verifica el funcionamiento de las precondiciones de la refactorización.
 	 *
-	 * <p>Comprueba que se lanza una excepci�n cuando se intenta  reemplazar 
-	 * un parámetro formal y existe una sustituci�n a este diferente al tipo 
+	 * <p>Comprueba que se lanza una excepción cuando se intenta  reemplazar 
+	 * un parámetro formal y existe una sustitución a este diferente al tipo 
 	 * propuesto.</p>
 	 * 
-	 * @throws Exception si se produce un error durante la ejecuci�n de la prueba.
+	 * @throws Exception si se produce un error durante la ejecución de la prueba.
 	 */
 	@Test(expected=PreconditionException.class)
 	public void testCheckIsSingleGenericInstance() throws Exception{

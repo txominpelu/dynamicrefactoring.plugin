@@ -35,8 +35,8 @@ import dynamicrefactoring.util.io.FileManager;
  * Permite cargar las propiedades de la actividad de registro de traza del 
  * <i>plugin</i>.
  * 
- * <p>Utiliza un fichero de configuración por defecto, que deber� 
- * modificarse solo en caso de necesidad y con precauci�n, y guardando en
+ * <p>Utiliza un fichero de configuración por defecto, que deberá 
+ * modificarse solo en caso de necesidad y con precaución, y guardando en
  * todo momento una copia de la configuración original.</p>
  * 
  * @author <A HREF="mailto:sfd0009@alu.ubu.es">Sonia Fuente de la Fuente</A>
@@ -72,7 +72,7 @@ public class LogManager {
 	/**
 	 * Constructor.
 	 * 
-	 * Privado, siguiendo la estructura del patr�n Singleton.
+	 * Privado, siguiendo la estructura del patrón Singleton.
 	 */
 	private LogManager(){
 		super();
@@ -81,7 +81,7 @@ public class LogManager {
 	/**
 	 * Obtiene la instancia única del gestor del registro.
 	 * 
-	 * Método definido por el patr�n de dise�o Singleton.
+	 * Método definido por el patrón de diseño Singleton.
 	 * 
 	 * @return la instancia única del gestor del registro.
 	 */
@@ -106,7 +106,7 @@ public class LogManager {
 	
 	/**
 	 * Intenta situar el destino del fichero de salida del registro en el 
-	 * directorio perteneciente al plugin, en lugar de en la ra�z del ejecutable
+	 * directorio perteneciente al plugin, en lugar de en la raíz del ejecutable
 	 * de eclipse.
 	 * 
 	 * Modifica el fichero de configuración de la actividad de registro para que
@@ -127,7 +127,7 @@ public class LogManager {
 			configFile.close();
 			
 			// Se construye la ruta actual del directorio temporal del plugin
-			// y en ella se sit�a la carpeta de log.
+			// y en ella se sitúa la carpeta de log.
 			String logDir = RefactoringPlugin.getCommonPluginFilesDir() + PropertyManager.getInstance().getLogFileDirectory();
 			String logFile = logDir + File.separator + LOG_FILE; //$NON-NLS-1$
 			

@@ -68,7 +68,7 @@ public class SubclassesWithMethodCollector extends Function {
 	 * jerarquía de herencia a partir de la clase <code>classDef</code>, y que
 	 * contengan un cierto método.
 	 *
-	 * @return Las clases encontradas, o null si no se encontr� ninguna.
+	 * @return Las clases encontradas, o null si no se encontrá ninguna.
 	 */ 
 	public Collection<ClassDef> getCollection() {
 		

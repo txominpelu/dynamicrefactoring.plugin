@@ -69,7 +69,7 @@ public class ExtractMethodWithGenericsTest extends RefactoringTemplateAbstractTe
 	 * Extract method with type inference from declarations.
 	 * 
 	 * @throws Exception
-	 *             si se produce un error durante la ejecuci�n de la prueba.
+	 *             si se produce un error durante la ejecución de la prueba.
 	 */
 	@Test
 	public void testExtractMethodWithTypeInferenceFromDeclarations()
@@ -82,7 +82,7 @@ public class ExtractMethodWithGenericsTest extends RefactoringTemplateAbstractTe
 	 * Extract method with simple bound in method formal parameter.
 	 * 
 	 * @throws Exception
-	 *             si se produce un error durante la ejecuci�n de la prueba.
+	 *             si se produce un error durante la ejecución de la prueba.
 	 */
 	@Test
 	public void testExtractMethodWithSimpleBoundInMethodFormalParameter()
@@ -158,8 +158,8 @@ public class ExtractMethodWithGenericsTest extends RefactoringTemplateAbstractTe
 	 *            paquete java de la clase sobre la que se esta probando la
 	 *            refactorización.
 	 * @throws Exception
-	 *             Excepci�n en caso de haber algún problema durante la
-	 *             ejecuci�n de la refactorización.
+	 *             Excepción en caso de haber algún problema durante la
+	 *             ejecución de la refactorización.
 	 */
 	private void check(String dir, String paquete, String nombreClase, Fragmento fragmento) throws PreconditionException,Exception{
 		SourceLoader sourceLoader = new SourceLoader();
@@ -203,7 +203,7 @@ public class ExtractMethodWithGenericsTest extends RefactoringTemplateAbstractTe
 	 * Extract method with bounded unknown type with formal parameter.
 	 * 
 	 * @throws Exception
-	 *             si se produce un error durante la ejecuci�n de la prueba.
+	 *             si se produce un error durante la ejecución de la prueba.
 	 */
 	@Test
 	public void testExtractMethodWithBoundedUnknownTypeWithFormalParameter() throws Exception{

@@ -91,7 +91,7 @@ public class TestRefactoringPlanReader {
 	 * contiene toda la información posible. 
 	 * 
 	 * Esta información es: un conjunto de refactorizaciones con su nombre, fecha
-	 * de ejecuci�n y parámetros.
+	 * de ejecución y parámetros.
 	 * 
 	 * @throws Exception si se produce un error durante la lectura.
 	 */

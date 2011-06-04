@@ -51,7 +51,7 @@ public class TestHasNotFormalArg extends RefactoringTemplateAbstractTest {
 	 * En un método con dos argumentos, ejecuta la comprobación sobre uno de los
 	 * propios argumentos del método.
 	 * 
-	 * @throws Exception si se produce un error durante la ejecuci�n de la prueba.
+	 * @throws Exception si se produce un error durante la ejecución de la prueba.
 	 */
 	@Test
 	public void testArgumentExists() throws Exception{
@@ -81,7 +81,7 @@ public class TestHasNotFormalArg extends RefactoringTemplateAbstractTest {
 	 * En un método con dos argumentos, ejecuta la comprobación sobre un argumento
 	 * formal externo con distinto nombre a ambos.
 	 * 
-	 * @throws Exception si se produce un error durante la ejecuci�n de la prueba.
+	 * @throws Exception si se produce un error durante la ejecución de la prueba.
 	 */
 	@Test
 	public void testArgumentNotExists() throws Exception{

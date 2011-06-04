@@ -41,7 +41,7 @@ public final class TestAvailableRefactoringsReader {
 	 * Comprueba que la lectura no se realiza cuando la definición no contiene
 	 * toda la información m�nima necesaria (no cumple las reglas del DTD).
 	 * 
-	 * Para ello se realiza una lectura del documento para un �mbito
+	 * Para ello se realiza una lectura del documento para un Ámbito
 	 * determinado.
 	 * 
 	 * @throws Exception
@@ -58,7 +58,7 @@ public final class TestAvailableRefactoringsReader {
 	 * Comprueba que la lectura no se realiza cuando la definición utiliza otra
 	 * estructura que la que se define en el DTD.
 	 * 
-	 * Para ello se realiza una lectura del documento para un �mbito
+	 * Para ello se realiza una lectura del documento para un Ámbito
 	 * determinado.
 	 * 
 	 * @throws Exception
@@ -74,14 +74,14 @@ public final class TestAvailableRefactoringsReader {
 	/**
 	 * Comprueba que la lectura se realiza correctamente cuando el fichero xml
 	 * contiene la información m�nima necesaria.Es decir que el fichero no tiene
-	 * ninguna refactorización de ningún �mbito.
+	 * ninguna refactorización de ningún Ámbito.
 	 * 
 	 * @throws Exception
 	 *             si se produce un error durante la lectura.
 	 */
 	@Test
 	public void testReadingWithMinimumInformation() throws Exception {
-		// Comprueba que no hay ninguna refactorización en ningún �mbito
+		// Comprueba que no hay ninguna refactorización en ningún Ámbito
 
 		Map<String, String> refactorings = JDOMXMLRefactoringReaderImp
 				.readAvailableRefactorings(Scope.CLASS,
@@ -117,14 +117,14 @@ public final class TestAvailableRefactoringsReader {
 	/**
 	 * Comprueba que la lectura se realiza correctamente cuando el plan contiene
 	 * la información completa. Hay refactorizaciones para cada uno de los
-	 * �mbitos.
+	 * Ámbitos.
 	 * 
 	 * @throws Exception
 	 *             si se produce un error durante la lectura.
 	 */
 	@Test
 	public void testReadingWithCompleteInformation() throws Exception {
-		// Comprueba que no hay ninguna refactorización en ningún �mbito
+		// Comprueba que no hay ninguna refactorización en ningún Ámbito
 
 		Map<String, String> refactorings = JDOMXMLRefactoringReaderImp
 				.readAvailableRefactorings(Scope.CLASS,

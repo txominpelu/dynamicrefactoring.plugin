@@ -47,7 +47,7 @@ public class TestExistsClass extends RefactoringTemplateAbstractTest {
 	 * Ejecuta la comprobación sobre una clase obtenida a partir de una instancia
 	 * distinta del modelo utilizado en la verificación.
 	 * 
-	 * @throws Exception si se produce un error durante la ejecuci�n de la prueba.
+	 * @throws Exception si se produce un error durante la ejecución de la prueba.
 	 */
 	@Test
 	public void testNotExists() throws Exception{

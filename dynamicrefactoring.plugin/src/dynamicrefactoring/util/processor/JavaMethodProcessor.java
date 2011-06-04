@@ -62,10 +62,10 @@ public final class JavaMethodProcessor extends JavaElementProcessor {
 	}
 
 	/**
-	 * Obtiene el nombre único del método seg�n la convenci�n de nomenclatura
+	 * Obtiene el nombre único del método según la convención de nomenclatura
 	 * única utilizada en el modelo MOON.
 	 * 
-	 * @return el nombre único del método seg�n la convenci�n de nomenclatura
+	 * @return el nombre único del método según la convención de nomenclatura
 	 * única utilizada en el modelo MOON.
 	 */
 	@Override
@@ -79,7 +79,7 @@ public final class JavaMethodProcessor extends JavaElementProcessor {
 		for(int i = 0; i < parameters.length; i++){
 			if(parameters[i].substring(1).equals(conversor.convertType(parameters[i]))){
 				// Lo normal es que el nombre del tipo termine en ';', puesto que es 
-				// la convenci�n utilizada por Eclipse.
+				// la convención utilizada por Eclipse.
 				if(parameters[i].endsWith(";")){
 					convertedParameter = 
 						parameters[i].substring(1, parameters[i].lastIndexOf(';'));

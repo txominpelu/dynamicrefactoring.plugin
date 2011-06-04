@@ -83,13 +83,13 @@ import dynamicrefactoring.interfaz.wizard.search.javadoc.EclipseBasedJavadocRead
 import dynamicrefactoring.util.MOONTypeLister;
 
 /**
- * Segunda p�gina del asistente de creación o edición de refactorizaciones.
+ * Segunda página del asistente de creación o edición de refactorizaciones.
  * 
  * <p>
  * Permite definir las entradas de la refactorizacion, asociarles un tipo y un
- * nombre, determinar a partir de qu� otra entrada y mediante la llamada a qu�
- * método se puede obtener su valor, as� como establecer cu�l de todas
- * constituir� la entrada principal a la refactorización.
+ * nombre, determinar a partir de qué otra entrada y mediante la llamada a qué
+ * método se puede obtener su valor, así como establecer cuál de todas
+ * constituirá la entrada principal a la refactorización.
  * </p>
  * 
  * @author <A HREF="mailto:lfd0002@alu.ubu.es">Laura Fuente de la Fuente</A>
@@ -105,23 +105,23 @@ public class RefactoringWizardPage2 extends WizardPage {
 			.getLogger(RefactoringWizardPage2.class);
 
 	/**
-	 * Bot�n que permite a�adir una nueva entrada.
+	 * Botón que permite añadir una nueva entrada.
 	 */
 	private Button addButton;
 
 	/**
-	 * Bot�n que permite eliminar entradas previamente a�adidas.
+	 * Botón que permite eliminar entradas previamente añadidas.
 	 */
 	private Button delButton;
 
 	/**
-	 * Bot�n que permite desplazar una entrada de la refactorización hacia
+	 * Botón que permite desplazar una entrada de la refactorización hacia
 	 * abajo.
 	 */
 	private Button downButton;
 
 	/**
-	 * Bot�n que permite desplazar una entrada de la refactorización hacia
+	 * Botón que permite desplazar una entrada de la refactorización hacia
 	 * abajo.
 	 */
 	private Button upButton;
@@ -129,7 +129,7 @@ public class RefactoringWizardPage2 extends WizardPage {
 	/**
 	 * Refactorización configurada a través del asistente y que debe ser creada
 	 * finalmente (si se trata de una nueva refactorización) o modificada (si se
-	 * est� editando una ya existente).
+	 * está editando una ya existente).
 	 */
 	private DynamicRefactoringDefinition refactoring = null;
 
@@ -152,7 +152,7 @@ public class RefactoringWizardPage2 extends WizardPage {
 	private Text tName;
 
 	/**
-	 * Marca de selecci�n que permite indicar si una entrada es la entrada
+	 * Marca de selección que permite indicar si una entrada es la entrada
 	 * principal de la refactorización o no.
 	 */
 	private Button ch_Root;
@@ -172,7 +172,7 @@ public class RefactoringWizardPage2 extends WizardPage {
 	 * 
 	 * <p>
 	 * Se utiliza como clave el nombre completamente cualificado del tipo, y
-	 * como valor, el n�mero de entradas que tienen el tipo seleccionado, menos
+	 * como valor, el número de entradas que tienen el tipo seleccionado, menos
 	 * 1.
 	 * </p>
 	 */
@@ -194,7 +194,7 @@ public class RefactoringWizardPage2 extends WizardPage {
 	 * 
 	 * <p>
 	 * Se utiliza como clave el nombre completamente cualificado del tipo de
-	 * cada entrada concatenado con un espacio en blanco y el n�mero de entrada
+	 * cada entrada concatenado con un espacio en blanco y el número de entrada
 	 * que utiliza ese tipo, y como valor, un objeto de tipo
 	 * <code>InputParameter
 	 * </code> con toda la información asociada a la entrada.
@@ -205,22 +205,22 @@ public class RefactoringWizardPage2 extends WizardPage {
 	/**
 	 * Navegador en el que se muestra información relativa al elemento
 	 * seleccionado dentro de la lista de tipos con el fin de ayudar al usuario
-	 * a la compresi�n de la interfaz.
+	 * a la compresión de la interfaz.
 	 */
 	private Browser navegador;
 
 	/**
-	 * Caja de texto que permite introducir al usuario el patr�n de la b�squeda.
+	 * Caja de texto que permite introducir al usuario el patrón de la búsqueda.
 	 */
 	private Text tSearch;
 
 	/**
-	 * Bot�n que permite activar un proceso de b�squeda al usuario.
+	 * Botón que permite activar un proceso de búsqueda al usuario.
 	 */
 	private Button bSearch;
 
 	/**
-	 * Bot�n por defecto de esta p�gina del wizard.
+	 * Botón por defecto de esta página del wizard.
 	 */
 	private Button bDefault;
 
@@ -234,8 +234,8 @@ public class RefactoringWizardPage2 extends WizardPage {
 	 * Constructor.
 	 * 
 	 * @param refactoring
-	 *            refactorización que se est� editando o <code>null
-	 * </code> si se est� creando una nueva.
+	 *            refactorización que se está editando o <code>null
+	 * </code> si se está creando una nueva.
 	 */
 	public RefactoringWizardPage2(DynamicRefactoringDefinition refactoring) {
 		super("Wizard page"); //$NON-NLS-1$
@@ -246,10 +246,10 @@ public class RefactoringWizardPage2 extends WizardPage {
 	}
 
 	/**
-	 * Hace visible o invisible la p�gina del asistente.
+	 * Hace visible o invisible la página del asistente.
 	 * 
 	 * @param visible
-	 *            si la p�gina se debe hacer visible o no.
+	 *            si la página se debe hacer visible o no.
 	 */
 	@Override
 	public void setVisible(boolean visible) {
@@ -268,10 +268,10 @@ public class RefactoringWizardPage2 extends WizardPage {
 	}
 
 	/**
-	 * Crea el contenido de la p�gina del asistente.
+	 * Crea el contenido de la página del asistente.
 	 * 
 	 * @param parent
-	 *            el elemento padre de esta p�gina del asistente.
+	 *            el elemento padre de esta página del asistente.
 	 */
 	@Override
 	public void createControl(Composite parent) {
@@ -652,13 +652,13 @@ public class RefactoringWizardPage2 extends WizardPage {
 	 * valor o posibles valores para la entrada actual (si hay alguna).
 	 * </ol>
 	 * <ol>
-	 * El nombre simple del m�tod mediante el cual se obtendr�an dichos valores
+	 * El nombre simple del métod mediante el cual se obtendrían dichos valores
 	 * a partir de la entrada apuntada por el valor del atributo "from".
 	 * </ol>
 	 * <ol>
 	 * El valor que indica si la entrada es la entrada principal de la
 	 * refactorización (en cuyo caso vale <code>"true"</code>) o no (si tiene
-	 * cualquier otro valor, como <code>"false"</code>, una cadena vac�a o
+	 * cualquier otro valor, como <code>"false"</code>, una cadena vacía o
 	 * incluso <code>null</code>).
 	 * </ol>
 	 * </p>
@@ -681,15 +681,15 @@ public class RefactoringWizardPage2 extends WizardPage {
 
 	/**
 	 * Puebla los campos del formulario del asistente con la información que se
-	 * pueda obtener de la refactorización existente que se est� editando.
+	 * pueda obtener de la refactorización existente que se está editando.
 	 */
 	private void fillInRefactoringData() {
 		if (refactoring.getInputs() != null)
 			for (InputParameter input : refactoring.getInputs()) {
 
-				// Se a�ade a la tabla de parámetros.
-				// Si el tipo no est� en la lista de tipos disponibles, se
-				// a�ade.
+				// Se añade a la tabla de parámetros.
+				// Si el tipo no está en la lista de tipos disponibles, se
+				// añade.
 				if (listModelTypes.get(input.getType()) == null) {
 					listModelTypes.put(input.getType(), 1);
 					lTypes.add(input.getType());
@@ -706,7 +706,7 @@ public class RefactoringWizardPage2 extends WizardPage {
 				inputsTable.put(input.getType() + " (" + number + ")", input); //$NON-NLS-1$
 				listModelTypes.put(input.getType(), number + 1);
 
-				// Se a�ade a la lista de parámetros elegidos.
+				// Se añade a la lista de parámetros elegidos.
 				lInputs.add(input.getType() + " (" + number + ")"); //$NON-NLS-1$
 			}
 		lInputs.deselectAll();
@@ -740,11 +740,11 @@ public class RefactoringWizardPage2 extends WizardPage {
 	}
 
 	/**
-	 * A�ade tantas entradas a la lista de entradas elegidas como tipos se
+	 * Añade tantas entradas a la lista de entradas elegidas como tipos se
 	 * encuentren seleccionados en la lista de tipos disponibles en el modelo.
 	 * 
 	 * <p>
-	 * Para cada entrada a�adida, le asocia un n�mero, que ser� el n�mero de
+	 * Para cada entrada añadida, le asocia un número, que será el número de
 	 * entrada con el mismo tipo, al tiempo que actualiza las tablas de
 	 * referencia de entradas seleccionadas y de tipos de datos disponibles.
 	 * </p>
@@ -768,7 +768,7 @@ public class RefactoringWizardPage2 extends WizardPage {
 	}
 
 	/**
-	 * Elimina de la lista de entradas elegidas aqu�llas que se encuentren
+	 * Elimina de la lista de entradas elegidas aquéllas que se encuentren
 	 * seleccionadas y actualiza las tablas de referencia de entradas y tipos.
 	 */
 	private void removeElements() {
@@ -801,7 +801,7 @@ public class RefactoringWizardPage2 extends WizardPage {
 	 * </p>
 	 * 
 	 * @param patron
-	 *            Expresion regular de b�squeda.
+	 *            Expresion regular de búsqueda.
 	 */
 	private void fillSearchTypesList(String patron) {
 		boolean search = !(patron.trim().equals("") || patron.trim()
@@ -863,9 +863,9 @@ public class RefactoringWizardPage2 extends WizardPage {
 			descriptionTypes.put(typeName, EclipseBasedJavadocReader.INSTANCE
 					.getTypeJavaDocAsPlainText(typeName));
 
-			// Si se est� creando una nueva refactorización.
+			// Si se está creando una nueva refactorización.
 			if (((RefactoringWizard) getWizard()).getOperation() == RefactoringWizard.CREATE) {
-				// Se busca y a�ade autom�ticamente el modelo MOON.
+				// Se busca y añade automáticamente el modelo MOON.
 				if (typeName.equals( //$NON-NLS-1$ //$NON-NLS-2$
 						RefactoringConstants.MODEL_PATH)) {
 					lInputs.add(typeName + " (" + 1 + ")"); //$NON-NLS-1$
@@ -888,7 +888,7 @@ public class RefactoringWizardPage2 extends WizardPage {
 	}
 
 	/**
-	 * Activa o desactiva todos los campos del formulario para la introducci�n
+	 * Activa o desactiva todos los campos del formulario para la introducción
 	 * de datos de un parámetro seleccionado.
 	 * 
 	 * @param enable
@@ -957,11 +957,11 @@ public class RefactoringWizardPage2 extends WizardPage {
 
 	/**
 	 * Rellena el desplegable con los nombres de los métodos disponibles para la
-	 * obtenci�n del parámetro de entrada seleccionado a partir de la entrada
-	 * especificada en la secci�n <i>from</i>.
+	 * obtención del parámetro de entrada seleccionado a partir de la entrada
+	 * especificada en la sección <i>from</i>.
 	 * 
 	 * @param fromName
-	 *            nombre de la entrada a partir de la cual se obtendr�a el valor
+	 *            nombre de la entrada a partir de la cual se obtendría el valor
 	 *            de esta entrada mediante la aplicación del método
 	 *            seleccionado.
 	 * @param returnType
@@ -976,7 +976,7 @@ public class RefactoringWizardPage2 extends WizardPage {
 		// la que se debería obtener el valor del parámetro tratado.
 		String type = "";
 
-		// Si no se especifica otra entrada como origen, se intentar� obtener
+		// Si no se especifica otra entrada como origen, se intentará obtener
 		// la nueva entrada directamente desde el modelo MOON.
 		if (fromName == null || fromName.length() == 0)
 			type = RefactoringConstants.MODEL_PATH;
@@ -1000,7 +1000,7 @@ public class RefactoringWizardPage2 extends WizardPage {
 	/**
 	 * Obtiene los nombres de los métodos de una clase que devuelven objetos de
 	 * tipo <code>Iterator</code> ,<code>Collection</code> o <code>List</code>,
-	 * as� como aqu�llos que devuelven un único valor del tipo especificado.
+	 * así como aquéllos que devuelven un único valor del tipo especificado.
 	 * 
 	 * @param className
 	 *            nombre de la clase cuyos métodos se deben obtener.
@@ -1032,7 +1032,7 @@ public class RefactoringWizardPage2 extends WizardPage {
 	}
 
 	/**
-	 * Actualiza el estado de la pantalla de di�logo del asistente.
+	 * Actualiza el estado de la pantalla de diálogo del asistente.
 	 * 
 	 * @param message
 	 *            mensaje asociado al estado actual de la pantalla.
@@ -1127,7 +1127,7 @@ public class RefactoringWizardPage2 extends WizardPage {
 			updateStatus(Messages.RefactoringWizardPage2_MainNeeded + "."); //$NON-NLS-1$
 			return;
 		}
-		// No puede haber m�s de una entrada principal.
+		// No puede haber más de una entrada principal.
 		if (rootInputs > 1) {
 			updateStatus(Messages.RefactoringWizardPage2_OnlyOneMain + "."); //$NON-NLS-1$
 			return;
@@ -1158,7 +1158,7 @@ public class RefactoringWizardPage2 extends WizardPage {
 		 * </p>
 		 * 
 		 * @param e
-		 *            el evento de selecci�n disparado en la ventana.
+		 *            el evento de selección disparado en la ventana.
 		 * 
 		 * @see SelectionListener#widgetSelected(SelectionEvent)
 		 */
@@ -1213,11 +1213,11 @@ public class RefactoringWizardPage2 extends WizardPage {
 	private class RootSelectionListener implements SelectionListener {
 
 		/**
-		 * Recibe una notificación de que la marca de selecci�n ha sido
+		 * Recibe una notificación de que la marca de selección ha sido
 		 * seleccionada o deseleccionada.
 		 * 
 		 * @param e
-		 *            el evento de selecci�n disparado en la ventana.
+		 *            el evento de selección disparado en la ventana.
 		 * 
 		 * @see SelectionListener#widgetSelected(SelectionEvent)
 		 */
@@ -1258,12 +1258,12 @@ public class RefactoringWizardPage2 extends WizardPage {
 		 * disponibles ha sido seleccionado.
 		 * 
 		 * <p>
-		 * Activa el bot�n que permite a�adir el o los tipos seleccionados a la
+		 * Activa el botón que permite añadir el o los tipos seleccionados a la
 		 * lista de entradas.
 		 * </p>
 		 * 
 		 * @param e
-		 *            el evento de selecci�n disparado en la ventana.
+		 *            el evento de selección disparado en la ventana.
 		 * 
 		 * @see SelectionListener#widgetSelected(SelectionEvent)
 		 */
@@ -1403,7 +1403,7 @@ public class RefactoringWizardPage2 extends WizardPage {
 		 * seleccionado).
 		 * 
 		 * @param e
-		 *            evento con la información referente a la recepci�n del
+		 *            evento con la información referente a la recepción del
 		 *            foco.
 		 * 
 		 * @see FocusListener#focusGained(FocusEvent)
@@ -1417,7 +1417,7 @@ public class RefactoringWizardPage2 extends WizardPage {
 		 * el foco.
 		 * 
 		 * @param e
-		 *            evento con la información referente a la p�rdida del foco.
+		 *            evento con la información referente a la pérdida del foco.
 		 * 
 		 * @see FocusListener#focusLost(FocusEvent)
 		 */
@@ -1456,7 +1456,7 @@ public class RefactoringWizardPage2 extends WizardPage {
 		 *            el nombre cuya unicidad se debe verificar.
 		 * @param current
 		 *            el único parámetro de entrada para el que se admite el
-		 *            nombre como v�lido.
+		 *            nombre como válido.
 		 * 
 		 * @return <code>false</code> si el nombre ya existe; <code>true
 		 * </code> en caso contrario.
@@ -1495,7 +1495,7 @@ public class RefactoringWizardPage2 extends WizardPage {
 		 * nombres de las entradas).
 		 * 
 		 * @param e
-		 *            evento con la información referente a la recepci�n del
+		 *            evento con la información referente a la recepción del
 		 *            foco.
 		 * 
 		 * @see FocusListener#focusGained(FocusEvent)
@@ -1509,7 +1509,7 @@ public class RefactoringWizardPage2 extends WizardPage {
 		 * perdido el foco.
 		 * 
 		 * @param e
-		 *            evento con la información referente a la p�rdida del foco.
+		 *            evento con la información referente a la pérdida del foco.
 		 * 
 		 * @see FocusListener#focusLost(FocusEvent)
 		 */
@@ -1560,7 +1560,7 @@ public class RefactoringWizardPage2 extends WizardPage {
 		 * métodos de la entrada seleccionada como origen).
 		 * 
 		 * @param e
-		 *            evento con la información referente a la recepci�n del
+		 *            evento con la información referente a la recepción del
 		 *            foco.
 		 * 
 		 * @see FocusListener#focusGained(FocusEvent)
@@ -1574,7 +1574,7 @@ public class RefactoringWizardPage2 extends WizardPage {
 		 * perdido el foco.
 		 * 
 		 * @param e
-		 *            evento con la información referente a la p�rdida del foco.
+		 *            evento con la información referente a la pérdida del foco.
 		 * 
 		 * @see FocusListener#focusLost(FocusEvent)
 		 */

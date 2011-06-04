@@ -46,9 +46,9 @@ import dynamicrefactoring.domain.xml.XMLRefactoringUtils;
 
 /**
  * Comprueba que funciona correctamente el proceso de lectura de la definición
- * de una refactorización din�mica.
+ * de una refactorización dinámica.
  * 
- * Indirectamente, se comprueba tambi�n el funcionamiento de las clases que
+ * Indirectamente, se comprueba también el funcionamiento de las clases que
  * implementan los patrones Bridge y Factory Method.
  * 
  * @author <A HREF="mailto:sfd0009@alu.ubu.es">Sonia Fuente de la Fuente</A>
@@ -113,7 +113,7 @@ public class TestCaseRefactoringReader extends RefactoringXMLTest{
 	 * toda la información m�nima necesaria (no cumple las reglas del DTD).
 	 * 
 	 * Para ello se realiza la carga de una definición incompleta desde un
-	 * fichero XML y luego se comprueba que se lanza una excepci�n de tipo
+	 * fichero XML y luego se comprueba que se lanza una excepción de tipo
 	 * DynamicRefactoringException.
 	 * 
 	 * @throws Exception
@@ -132,7 +132,7 @@ public class TestCaseRefactoringReader extends RefactoringXMLTest{
 	 * estructura que la que se define en el DTD.
 	 * 
 	 * Para ello se realiza la carga de un fichero XML con una estructura
-	 * distinta a la del DTD y luego se comprueba que se lanza una excepci�n de
+	 * distinta a la del DTD y luego se comprueba que se lanza una excepción de
 	 * tipo DynamicRefactoringException.
 	 * 
 	 * @throws Exception
@@ -152,7 +152,7 @@ public class TestCaseRefactoringReader extends RefactoringXMLTest{
 	 * de la definición de una refactorización desde un fichero XML y luego se
 	 * comprueba el valor de todos los campos recuperados.
 	 * 
-	 * Esta información es: el nombre, la descripci�n, la motivación, una
+	 * Esta información es: el nombre, la descripción, la motivación, una
 	 * entrada, una precondición, una acción y una postcondición; no tiene ni
 	 * imagen, ni parámetros ambiguos ni ejemplos.
 	 * 

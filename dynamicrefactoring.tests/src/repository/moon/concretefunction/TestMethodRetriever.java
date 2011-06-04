@@ -33,7 +33,7 @@ import org.junit.Test;
 import repository.RefactoringTemplateAbstractTest;
 
 /** 
- * Comprueba que funciona correctamente la funci�n que permite recuperar
+ * Comprueba que funciona correctamente la función que permite recuperar
  * un método de una clase en base a su nombre único.
  * 
  * @author <A HREF="mailto:sfd0009@alu.ubu.es">Sonia Fuente de la Fuente</A>
@@ -42,12 +42,12 @@ import repository.RefactoringTemplateAbstractTest;
 public class TestMethodRetriever extends RefactoringTemplateAbstractTest {
 
 	/**
-	 * Comprueba que la funci�n obtiene correctamente un método sin argumentos.<p>
+	 * Comprueba que la función obtiene correctamente un método sin argumentos.<p>
 	 * 
 	 * En una clase con dos métodos, intenta obtener el método sin argumentos ni
 	 * tipo de retorno.
 	 * 
-	 * @throws Exception si se produce un error durante la ejecuci�n de la prueba.
+	 * @throws Exception si se produce un error durante la ejecución de la prueba.
 	 */
 	@Test
 	public void testGetSimple() throws Exception{
@@ -73,13 +73,13 @@ public class TestMethodRetriever extends RefactoringTemplateAbstractTest {
 	}
 
 	/**
-	 * Comprueba que la funci�n obtiene correctamente un método con argumentos
+	 * Comprueba que la función obtiene correctamente un método con argumentos
 	 * y tipo de retorno.<p>
 	 * 
 	 * En una clase con dos métodos, intenta obtener el método con argumentos y
 	 * tipo de retorno.
 	 * 
-	 * @throws Exception si se produce un error durante la ejecuci�n de la prueba.
+	 * @throws Exception si se produce un error durante la ejecución de la prueba.
 	 */
 	@Test
 	public void testGetComplex() throws Exception{

@@ -30,7 +30,7 @@ import repository.RelayListenerRegistry;
  *
  * Para poder llevarse a cabo el movimiento, el atributo no debe estar siendo 
  * utilizado por ninguna clase del modelo, ni tan siquiera la propia clase de
- * origen del atributo. De otra manera, el modelo podr�a quedar en un estado
+ * origen del atributo. De otra manera, el modelo podría quedar en un estado
  * inconsistente.
  *
  * @author <A HREF="mailto:alc0022@alu.ubu.es">Ángel López Campo</A>
@@ -91,7 +91,7 @@ public class MoveAttribute extends Action {
 	}	
 	
 	/**
-	 * Restaura el atributo a su clase original, elimin�ndolo a su vez de la
+	 * Restaura el atributo a su clase original, eliminándolo a su vez de la
 	 * de destino.
 	 */
 	public void undo(){

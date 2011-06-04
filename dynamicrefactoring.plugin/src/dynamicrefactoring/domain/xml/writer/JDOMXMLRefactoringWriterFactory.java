@@ -23,8 +23,8 @@ package dynamicrefactoring.domain.xml.writer;
 import dynamicrefactoring.domain.DynamicRefactoringDefinition;
 
 /**
- * F�brica concreta para obtener instancias que implementan la interfaz
- * <code>XMLRefactoringWriterImp</code> bas�ndose en JDOM para escribir los 
+ * Fábrica concreta para obtener instancias que implementan la interfaz
+ * <code>XMLRefactoringWriterImp</code> basíndose en JDOM para escribir los 
  * ficheros XML.
  * 
  * @author <A HREF="mailto:alc0022@alu.ubu.es">Ángel López Campo</A>
@@ -37,7 +37,7 @@ public class JDOMXMLRefactoringWriterFactory
 
 	/**
 	 * Devuelve un objeto que implementa la interfaz definida por <code>
-	 * XMLRefactoringWriterImp</code> bas�ndose en JDOM para la escritura de 
+	 * XMLRefactoringWriterImp</code> basíndose en JDOM para la escritura de 
 	 * refactorizaciones en ficheros XML.
 	 * 
 	 * @param refactoringDefinition definición de refactorización que se debe

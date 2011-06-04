@@ -34,7 +34,7 @@ import dynamicrefactoring.domain.InputParameter;
 
 /**
  * Proporciona funciones de procesamiento de las entradas obtenidas a través 
- * de una ventana de refactorización din�mica.
+ * de una ventana de refactorización dinámica.
  * 
  * <p>Permite adaptar los valores introducidos en la ventana a las necesidades
  * de la refactorización que se debe ejecutar.</p>
@@ -141,7 +141,7 @@ public class InputProcessor {
 	 */
 	public Object computeValue(InputParameter input, String source){
 		
-		// Se obtiene el nombre del elemento que habr� que buscar.
+		// Se obtiene el nombre del elemento que habrá que buscar.
 		String name = source.trim();
 		
 		// Si la entrada es de tipo moon.core.Name.
@@ -182,14 +182,14 @@ public class InputProcessor {
 	}
 
 	/**
-	 * Realiza algunas comprobaciones y transformaciones b�sicas que permiten
+	 * Realiza algunas comprobaciones y transformaciones básicas que permiten
 	 * obtener unos tipos de datos del modelo a partir de otros.
 	 * 
 	 * @param input la entrada cuyo valor se procesa.
 	 * @param value el valor original obtenido a través de la interfaz.
 	 * 
 	 * @return el resultado de procesar la entrada original para comprobar si es
-	 * necesario aplicarle alguna de las transformaciones b�sicas disponibles.
+	 * necesario aplicarle alguna de las transformaciones básicas disponibles.
 	 */
 	private Object processInput (InputParameter input, Object value){
 		String expectedName = input.getType();
@@ -198,7 +198,7 @@ public class InputProcessor {
 		
 		try {
 			Class<?> expected = Class.forName(expectedName);
-			// Si el valor obtenido es ya un tipo v�lido para la entrada.
+			// Si el valor obtenido es ya un tipo válido para la entrada.
 			if (expected.isAssignableFrom(source))
 				return value;
 			
@@ -214,8 +214,8 @@ public class InputProcessor {
 						position = i;
 					}
 			
-			// Si se ha encontrado m�s de un método o no se ha encontrado ninguno
-			// es una situación ambigua o sin soluci�n.
+			// Si se ha encontrado más de un método o no se ha encontrado ninguno
+			// es una situación ambigua o sin solución.
 			if (count > 1 || position == -1) {
 				Object[] messageArgs = {input.getName()};
 				MessageFormat formatter = new MessageFormat(""); //$NON-NLS-1$
@@ -244,7 +244,7 @@ public class InputProcessor {
 	}
 
 	/**
-	 * Comprueba si un determinado método es v�lido como método de obtenci�n del 
+	 * Comprueba si un determinado método es válido como método de obtención del 
 	 * valor o posibles valores de un determinado tipo.
 	 * 
 	 * @param method método cuya validez se comprueba.
@@ -252,7 +252,7 @@ public class InputProcessor {
 	 * conformar el tipo de retorno del método, en caso de ser un único elemento.
 	 * 
 	 * @return <code>true</code> si el tipo de retorno del método devuelve un
-	 * iterador, una colecci�n o un objeto cuyo tipo conforma con el especificado;
+	 * iterador, una colección o un objeto cuyo tipo conforma con el especificado;
 	 * <code>false</code> en caso contrario. 
 	 * 
 	 * @throws ClassNotFoundException si se produce un error al cargar la clase
@@ -264,7 +264,7 @@ public class InputProcessor {
 		
 		Class<?> expected = Class.forName(returnType);
 		
-		// Las colecciones engloban tambi�n a las listas.
+		// Las colecciones engloban también a las listas.
 		Class<?> collection = Class.forName(
 			RefactoringConstants.COLLECTION_PATH);
 		Class<?> iterator = Class.forName(

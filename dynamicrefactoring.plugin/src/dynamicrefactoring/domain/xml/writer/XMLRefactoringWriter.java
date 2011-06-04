@@ -23,7 +23,7 @@ package dynamicrefactoring.domain.xml.writer;
 import java.io.File;
 
 /**
- * Permite escribir en un fichero XML una refactorización din�mica.
+ * Permite escribir en un fichero XML una refactorización dinámica.
  *
  * @author <A HREF="mailto:alc0022@alu.ubu.es">Ángel López Campo</A>
  * @author <A HREF="mailto:epf0006@alu.ubu.es">Eduardo Peña Fernández</A>
@@ -52,7 +52,7 @@ public class XMLRefactoringWriter {
 	/**
 	 * Escribe el fichero XML a partir de la definición de la refactorización.
 	 * 
-	 * @param dir directorio donde se guardar� el fichero.
+	 * @param dir directorio donde se guardará el fichero.
 	 * 
 	 * @throws XMLRefactoringWriterException
 	 */

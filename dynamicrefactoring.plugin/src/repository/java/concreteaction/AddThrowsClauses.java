@@ -57,7 +57,7 @@ public class AddThrowsClauses extends Action {
 	private Name name;
 	
 	/**
-	 * Clase a la que se mover� el método.
+	 * Clase a la que se moverá el método.
 	 */
 	private ClassDef classDef;
 	
@@ -76,7 +76,7 @@ public class AddThrowsClauses extends Action {
 	 *
 	 * Obtiene una nueva instancia de MoveMethod.
 	 * @param method método que se va a mover de una clase a otra.
-	 * @param classDefDest clase a la que se mover� el método.
+	 * @param classDefDest clase a la que se moverá el método.
 	 */	
 	public AddThrowsClauses(Name name, CodeFragment fragment){
 		super();
@@ -122,8 +122,8 @@ public class AddThrowsClauses extends Action {
 	}
 
 	/**
-	 * Deshace el movimiento del método, devolvi�ndolo a su clase de origen y 
-	 * elimin�ndolo de la nueva clase destino.
+	 * Deshace el movimiento del método, devolviéndolo a su clase de origen y 
+	 * eliminándolo de la nueva clase destino.
 	 */
 	@Override
 	public void undo() {		

@@ -77,7 +77,7 @@ public class JavaLocalVariableProcessor extends JavaElementProcessor {
 				String names[] = ((IMethod) variable.getParent())
 						.getParameterNames();
 				// Si entre los argumentos formales del método hay alguno con el
-				// mismo nombre que la variable, ha de ser �sta misma.
+				// mismo nombre que la variable, ha de ser ésta misma.
 				for (int i = 0; i < names.length; i++)
 					if (names[i].equals(variable.getElementName()))
 						return SelectionInfo.FORMAL_ARGUMENT;

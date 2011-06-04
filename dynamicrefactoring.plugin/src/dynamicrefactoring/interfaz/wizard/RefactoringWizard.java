@@ -47,7 +47,7 @@ import dynamicrefactoring.interfaz.wizard.search.internal.SearchingFacade;
 
 /**
  * Proporciona un asistente de Eclipse que permite crear una nueva
- * refactorización din�mica o modificar una ya existente.
+ * refactorización dinámica o modificar una ya existente.
  * 
  * @author <A HREF="mailto:lfd0002@alu.ubu.es">Laura Fuente de la Fuente</A>
  * @author <A HREF="mailto:sfd0009@alu.ubu.es">Sonia Fuente de la Fuente</A>
@@ -76,16 +76,16 @@ public class RefactoringWizard extends Wizard implements INewWizard {
 	/**
 	 * Refactorización configurada a través del asistente y que debe ser
 	 * creada finalmente (si se trata de una nueva refactorización) o
-	 * modificada (si se est� editando una ya existente).
+	 * modificada (si se está editando una ya existente).
 	 */
 	private DynamicRefactoringDefinition refactoring = null;
 
 	/**
 	 * Indica el tipo de operación que debe realizar el asistente cuando el
-	 * usuario pulse el bot�n "Finalizar".
+	 * usuario pulse el botón "Finalizar".
 	 * 
 	 * <p>
-	 * Deber� ser una de {@value #CREATE} o {@value #EDIT}.
+	 * Deberá ser una de {@value #CREATE} o {@value #EDIT}.
 	 * </p>
 	 */
 	private int operation;
@@ -97,37 +97,37 @@ public class RefactoringWizard extends Wizard implements INewWizard {
 
 
 	/**
-	 * Primera p�gina del asistente.
+	 * Primera página del asistente.
 	 */
 	private RefactoringWizardPage1 pageA;
 
 	/**
-	 * Segunda p�gina del asistente.
+	 * Segunda página del asistente.
 	 */
 	private RefactoringWizardPage2 pageB;
 
 	/**
-	 * Tercera p�gina del asistente.
+	 * Tercera página del asistente.
 	 */
 	private RefactoringWizardPage3 pageC;
 
 	/**
-	 * Cuarta p�gina del asistente.
+	 * Cuarta página del asistente.
 	 */
 	private RefactoringWizardPage4 pageD;
 
 	/**
-	 * Quinta p�gina del asistente.
+	 * Quinta página del asistente.
 	 */
 	private RefactoringWizardPage5 pageE;
 
 	/**
-	 * Sexta p�gina del asistente.
+	 * Sexta página del asistente.
 	 */
 	private RefactoringWizardPage6 pageF;
 
 	/**
-	 * S�ptima p�gina del asistente.
+	 * Séptima página del asistente.
 	 */
 	private RefactoringWizardPage7 pageG;
 
@@ -177,7 +177,7 @@ public class RefactoringWizard extends Wizard implements INewWizard {
 	 * <p>
 	 * Crea un nuevo asistente para la creación de una refactorización desde
 	 * cero. Necesario para la integración del asistente en Eclipse y su
-	 * activación asistente desde el men� <i>New</i> de Eclipse.
+	 * activación asistente desde el menú <i>New</i> de Eclipse.
 	 * </p>
 	 */
 	public RefactoringWizard() {
@@ -185,7 +185,7 @@ public class RefactoringWizard extends Wizard implements INewWizard {
 	}
 
 	/**
-	 * A�ade las p�ginas al asistente.
+	 * Añade las páginas al asistente.
 	 */
 	@Override
 	public void addPages() {
@@ -206,9 +206,9 @@ public class RefactoringWizard extends Wizard implements INewWizard {
 	}
 
 	/**
-	 * Método llamado cuando se pulsa el bot�n "Finish" en el asistente. Se
-	 * crear� la operación que se deba ejecutar, y se ejecutar� utilizando
-	 * el propio asistente como contexto de ejecuci�n.
+	 * Método llamado cuando se pulsa el botón "Finish" en el asistente. Se
+	 * creará la operación que se deba ejecutar, y se ejecutará utilizando
+	 * el propio asistente como contexto de ejecución.
 	 * 
 	 * @return <code>true</code> para indicar que la solicitud de finalización
 	 *         ha sido aceptada; <code>false</code> para indicar que ha sido
@@ -252,19 +252,19 @@ public class RefactoringWizard extends Wizard implements INewWizard {
 	}
 
 	/**
-	 * Obtiene el tipo de operación que est� configurando el asistente.
+	 * Obtiene el tipo de operación que está configurando el asistente.
 	 * 
-	 * @return el tipo de operación que est� configurando el asistente.
+	 * @return el tipo de operación que está configurando el asistente.
 	 */
 	public final int getOperation() {
 		return operation;
 	}
 
 	/**
-	 * Obtiene el nombre del tipo de operación que est� configurando el
+	 * Obtiene el nombre del tipo de operación que está configurando el
 	 * asistente.
 	 * 
-	 * @return el nombre del tipo de operación que est� configurando el
+	 * @return el nombre del tipo de operación que está configurando el
 	 *         asistente.
 	 */
 	public final String getOperationAsString() {
@@ -274,7 +274,7 @@ public class RefactoringWizard extends Wizard implements INewWizard {
 
 	/**
 	 * Crea y configura la nueva refactorización personalizada a partir de los
-	 * datos introducidos por el usuario en las p�ginas del asistente.
+	 * datos introducidos por el usuario en las páginas del asistente.
 	 */
 	private DynamicRefactoringDefinition.Builder configureRefactoring() {
 		DynamicRefactoringDefinition.Builder builder = new DynamicRefactoringDefinition.Builder(

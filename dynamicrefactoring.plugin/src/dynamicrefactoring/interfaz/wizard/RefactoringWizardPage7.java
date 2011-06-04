@@ -57,12 +57,12 @@ import dynamicrefactoring.interfaz.TreeEditor;
 import dynamicrefactoring.interfaz.wizard.classificationscombo.PickCategoryTree;
 
 /**
- * S�ptima p�gina del asistente de creación o edición de refactorizaciones.
+ * Séptima página del asistente de creación o edición de refactorizaciones.
  * 
  * <p>
  * Muestra un resumen con la configuración actual de la refactorización, para
  * que el usuario pueda analizarlo antes de dar su conformidad para la
- * modificación definitiva o la creación de la refactorización, seg�n el caso.
+ * modificación definitiva o la creación de la refactorización, según el caso.
  * </p>
  * 
  * @author <A HREF="mailto:lfd0002@alu.ubu.es">Laura Fuente de la Fuente</A>
@@ -72,29 +72,29 @@ import dynamicrefactoring.interfaz.wizard.classificationscombo.PickCategoryTree;
 public class RefactoringWizardPage7 extends WizardPage {
 
 	/**
-	 * �rbol sobre el que se mostrar�n de forma estructurada los diferentes
+	 * árbol sobre el que se mostrarán de forma estructurada los diferentes
 	 * elementos del repositorio que componen la refactorización
 	 * (precondiciones, acciones y postcondiciones).
 	 */
 	private Tree tr_Components;
 
 	/**
-	 * Cuadro de texto en que se mostrar� la motivación de la refactorización.
+	 * Cuadro de texto en que se mostrará la motivación de la refactorización.
 	 */
 	private Text t_Motivation;
 
 	/**
-	 * Cuadro de texto en que se mostrar� la descripci�n de la refactorización.
+	 * Cuadro de texto en que se mostrará la descripción de la refactorización.
 	 */
 	private Text t_Description;
 
 	/**
-	 * Tabla en que se mostrar�n las entradas de la refactorización.
+	 * Tabla en que se mostrarán las entradas de la refactorización.
 	 */
 	private Table tb_Inputs;
 
 	/**
-	 * Primera p�gina del asistente a través del que se ha compuesto la
+	 * Primera página del asistente a través del que se ha compuesto la
 	 * refactorización.
 	 */
 	private RefactoringWizardPage1 firstPage;
@@ -109,7 +109,7 @@ public class RefactoringWizardPage7 extends WizardPage {
 	 * Constructor.
 	 * 
 	 * @param firstPage
-	 *            primer p�gina del asistente a través del que se ha compuesto
+	 *            primer página del asistente a través del que se ha compuesto
 	 *            la refactorización.
 	 */
 	public RefactoringWizardPage7(IWizardPage firstPage) {
@@ -122,10 +122,10 @@ public class RefactoringWizardPage7 extends WizardPage {
 	}
 
 	/**
-	 * Crea el contenido de la p�gina del asistente.
+	 * Crea el contenido de la página del asistente.
 	 * 
 	 * @param parent
-	 *            el elemento padre de esta p�gina.
+	 *            el elemento padre de esta página.
 	 */
 	@Override
 	public void createControl(Composite parent) {
@@ -288,9 +288,9 @@ public class RefactoringWizardPage7 extends WizardPage {
 	}
 
 	/**
-	 * Puebla los campos de la p�gina del asistente con la información que se
-	 * pueda obtener de la refactorización existente que se est� editando o que
-	 * se est� a punto de crear.
+	 * Puebla los campos de la página del asistente con la información que se
+	 * pueda obtener de la refactorización existente que se está editando o que
+	 * se está a punto de crear.
 	 */
 	private void fillInRefactoringData() {
 		setPageComplete(true);
@@ -357,10 +357,10 @@ public class RefactoringWizardPage7 extends WizardPage {
 	}
 
 	/**
-	 * Hace visible o invisible la p�gina del asistente.
+	 * Hace visible o invisible la página del asistente.
 	 * 
 	 * @param visible
-	 *            si la p�gina se debe hacer visible o no.
+	 *            si la página se debe hacer visible o no.
 	 */
 	@Override
 	public void setVisible(boolean visible) {
@@ -383,7 +383,7 @@ public class RefactoringWizardPage7 extends WizardPage {
 	}
 
 	/**
-	 * Limpia toda la información de resumen contenida en la p�gina hasta el
+	 * Limpia toda la información de resumen contenida en la página hasta el
 	 * momento.
 	 */
 	private void clean() {

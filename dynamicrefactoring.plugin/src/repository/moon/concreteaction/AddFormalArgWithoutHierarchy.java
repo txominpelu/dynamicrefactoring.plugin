@@ -27,7 +27,7 @@ import refactoring.engine.Action;
 import repository.java.concreteaction.AddImportClause;
 
 /**
- * Permite a�adir un parámetro a la signatura de un método de una representación 
+ * Permite añadir un parámetro a la signatura de un método de una representación 
  * MOON de un modelo.<p>
  *
  * No tiene en cuenta las clases que, por herencia, se puedan ver afectadas por
@@ -40,7 +40,7 @@ import repository.java.concreteaction.AddImportClause;
 public class AddFormalArgWithoutHierarchy extends AddFormalArg {
 	
 	/**
-	 * Acci�n auxiliar que permite a�adir la sentencia de importación si es
+	 * Acción auxiliar que permite añadir la sentencia de importación si es
 	 * necesario.
 	 */
 	private Action helper;	
@@ -50,9 +50,9 @@ public class AddFormalArgWithoutHierarchy extends AddFormalArg {
 	 *
 	 * Obtiene una nueva instancia de AddFormalArgWithoutHierarchy
 	 *
-	 * @param method el método en cuya signatura se va a a�adir un parámetro.
-	 * @param paramName el nombre que se dar� al nuevo parámetro formal.
-	 * @param paramType el tipo que tendr� el nuevo parámetro formal.
+	 * @param method el método en cuya signatura se va a añadir un parámetro.
+	 * @param paramName el nombre que se dará al nuevo parámetro formal.
+	 * @param paramType el tipo que tendrá el nuevo parámetro formal.
 	 */
 	public AddFormalArgWithoutHierarchy (MethDec method,  
 		Name paramName, Type paramType){
@@ -69,7 +69,7 @@ public class AddFormalArgWithoutHierarchy extends AddFormalArg {
 	}
 	
 	/**
-	 * Elimina el argumento formal a�adido.
+	 * Elimina el argumento formal añadido.
 	 */
 	public void undo(){
 		super.undo();

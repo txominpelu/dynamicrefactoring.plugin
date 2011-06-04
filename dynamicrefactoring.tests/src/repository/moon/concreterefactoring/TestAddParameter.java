@@ -45,10 +45,10 @@ import repository.moon.MOONRefactoring;
 import repository.moon.RepositoryUtils;
 
 /** 
- * Comprueba que funciona correctamente la refactorización que a�ade un
+ * Comprueba que funciona correctamente la refactorización que añade un
  * argumento formal a la lista de parámetros de un método.<p>
  * 
- * Indirectamente, se comprueba tambi�n la correcci�n de las funciones,
+ * Indirectamente, se comprueba también la correcci�n de las funciones,
  * acciones y predicados utilizados por la refactorización.
  *
  * @author <A HREF="mailto:sfd0009@alu.ubu.es">Sonia Fuente de la Fuente</A>
@@ -65,10 +65,10 @@ public class TestAddParameter extends RefactoringTemplateAbstractTest {
 	 * Comprueba que la refactorización funciona correctamente en un caso
 	 * sencillo y correcto con un argumento de tipo entero.<p>
 	 * 
-	 * En un modelo con una única clase, a�ade un argumento formal de tipo
-	 * entero al método único de la clase, que no tiene m�s argumentos.
+	 * En un modelo con una única clase, añade un argumento formal de tipo
+	 * entero al método único de la clase, que no tiene más argumentos.
 	 * 
-	 * @throws Exception si se produce un error durante la ejecuci�n de la prueba.
+	 * @throws Exception si se produce un error durante la ejecución de la prueba.
 	 */ 
 	@Test
 	public void testSimple() throws Exception{
@@ -93,18 +93,18 @@ public class TestAddParameter extends RefactoringTemplateAbstractTest {
 		// Comienzan las comprobaciones
 		List <MethDec> lMetodo2 = classDef.getMethDecByName(factory.createName(TestRemoveParameter.METODO_A)); //$NON-NLS-1$
 
-		assertEquals("Test a�adir parámetro simple: no se encuentra el " + //$NON-NLS-1$
-			"método al que se ha a�adido el parámetro.", 1, lMetodo.size()); //$NON-NLS-1$
+		assertEquals("Test añadir parámetro simple: no se encuentra el " + //$NON-NLS-1$
+			"método al que se ha añadido el parámetro.", 1, lMetodo.size()); //$NON-NLS-1$
 
 		MethDec metodo2 = lMetodo2.get(0);
 		metodo.getFormalArgument();
-		assertEquals("Test a�adir parámetro simple: " + //$NON-NLS-1$
+		assertEquals("Test añadir parámetro simple: " + //$NON-NLS-1$
 			"el método no tiene un único argumento.", 1,  //$NON-NLS-1$
 			metodo2.getFormalArgument().size());
-		assertEquals("Test a�adir par�emtro simple: " + //$NON-NLS-1$
+		assertEquals("Test añadir par�emtro simple: " + //$NON-NLS-1$
 			"no se encuentra el nuevo param�tro.", "ParameterA", //$NON-NLS-1$ //$NON-NLS-2$
 			metodo.getFormalArgument().get(0).toString());
-		assertEquals("Test a�adir parámetro simple: " + //$NON-NLS-1$
+		assertEquals("Test añadir parámetro simple: " + //$NON-NLS-1$
 			"el tipo del parámetro no coincide con el nuevo tipo", //$NON-NLS-1$
 			metodo.getFormalArgument().get(0).getType(), tipo);
 	} 
@@ -113,11 +113,11 @@ public class TestAddParameter extends RefactoringTemplateAbstractTest {
 	 * Comprueba que la refactorización funciona correctamente en un caso
 	 * sencillo y correcto con un argumento de tipo <code>String</code>.<p>
 	 * 
-	 * En un modelo con una única clase, a�ade un argumento formal de tipo
-	 * cadena de caracteres al método único de la clase, que no tiene m�s 
+	 * En un modelo con una única clase, añade un argumento formal de tipo
+	 * cadena de caracteres al método único de la clase, que no tiene más 
 	 * argumentos.
 	 * 
-	 * @throws Exception si se produce un error durante la ejecuci�n de la prueba.
+	 * @throws Exception si se produce un error durante la ejecución de la prueba.
 	 */ 
 	@Test
 	public void testAddString() throws Exception{
@@ -142,18 +142,18 @@ public class TestAddParameter extends RefactoringTemplateAbstractTest {
 		// Comienzan las comprobaciones
 		List <MethDec> lMetodo2 = classDef.getMethDecByName(factory.createName(TestRemoveParameter.METODO_A)); //$NON-NLS-1$
 
-		assertEquals("Test a�adir argumento String: no se encuentra el " + //$NON-NLS-1$
-			"método al que se ha a�adido el parámetro.", 1, lMetodo.size()); //$NON-NLS-1$
+		assertEquals("Test añadir argumento String: no se encuentra el " + //$NON-NLS-1$
+			"método al que se ha añadido el parámetro.", 1, lMetodo.size()); //$NON-NLS-1$
 
 		MethDec metodo2 = lMetodo2.get(0);
 
-		assertEquals("Test a�adir argumento String: " + //$NON-NLS-1$
+		assertEquals("Test añadir argumento String: " + //$NON-NLS-1$
 			"el método no tiene un único parámetro.", //$NON-NLS-1$
 			1, metodo2.getFormalArgument().size());
-		assertEquals("Test a�adir argumento String: " + //$NON-NLS-1$
+		assertEquals("Test añadir argumento String: " + //$NON-NLS-1$
 			"no se encuentra el nuevo param�tro.", //$NON-NLS-1$
 			"ParameterB", metodo.getFormalArgument().get(0).toString()); //$NON-NLS-1$
-		assertEquals("Test a�adir argumento String: " + //$NON-NLS-1$
+		assertEquals("Test añadir argumento String: " + //$NON-NLS-1$
 			"el tipo del argumento no coincide con el nuevo tipo.", //$NON-NLS-1$
 			tipo, metodo.getFormalArgument().get(0).getType());
 	}
@@ -162,10 +162,10 @@ public class TestAddParameter extends RefactoringTemplateAbstractTest {
 	 * Comprueba que la refactorización funciona correctamente en un caso
 	 * sencillo y correcto con un argumento de tipo booleano.<p>
 	 * 
-	 * En un modelo con una única clase, a�ade un argumento formal de tipo
-	 * booleano al método único de la clase, que no tiene m�s argumentos.
+	 * En un modelo con una única clase, añade un argumento formal de tipo
+	 * booleano al método único de la clase, que no tiene más argumentos.
 	 * 
-	 * @throws Exception si se produce un error durante la ejecuci�n de la prueba.
+	 * @throws Exception si se produce un error durante la ejecución de la prueba.
 	 */  
 	@Test
 	public void testAddBoolean() throws Exception{
@@ -190,28 +190,28 @@ public class TestAddParameter extends RefactoringTemplateAbstractTest {
 		// Comienzan las comprobaciones
 		List <MethDec> lMetodo2 = classDef.getMethDecByName(factory.createName(TestRemoveParameter.METODO_A)); //$NON-NLS-1$
 
-		assertEquals("Test a�adir argumento boolean: no se encuentra el " + //$NON-NLS-1$
-			"método al que se ha a�adido el parámetro.", 1, lMetodo.size()); //$NON-NLS-1$
+		assertEquals("Test añadir argumento boolean: no se encuentra el " + //$NON-NLS-1$
+			"método al que se ha añadido el parámetro.", 1, lMetodo.size()); //$NON-NLS-1$
 
 		MethDec metodo2 = lMetodo2.get(0);
 
-		assertEquals("Test a�adir argumento boolean: " + //$NON-NLS-1$
+		assertEquals("Test añadir argumento boolean: " + //$NON-NLS-1$
 			"el método no tiene un único parámetro.", 1,  //$NON-NLS-1$
 			metodo2.getFormalArgument().size());
-		assertEquals("Test a�adir argumento boolean: "+ //$NON-NLS-1$
+		assertEquals("Test añadir argumento boolean: "+ //$NON-NLS-1$
 			"no se encuentra el nuevo param�tro.", "ParameterC", //$NON-NLS-1$ //$NON-NLS-2$
 			metodo.getFormalArgument().get(0).toString());
-		assertEquals("Test a�adir argumento boolean: " + //$NON-NLS-1$
+		assertEquals("Test añadir argumento boolean: " + //$NON-NLS-1$
 			"el tipo del parámetro no coincide con el nuevo tipo", //$NON-NLS-1$
 			tipo, metodo.getFormalArgument().get(0).getType());
 	}
 
 	/** 
 	 * Comprueba que la refactorización funciona correctamente cuando el método
-	 * al que se le a�ade el argumento formal tiene previamente otros 
+	 * al que se le añade el argumento formal tiene previamente otros 
 	 * argumentos (dos, en este caso).
 	 * 
-	 * @throws Exception si se produce un error durante la ejecuci�n de la prueba.
+	 * @throws Exception si se produce un error durante la ejecución de la prueba.
 	 */ 
 	@Test
 	public void testMethodWithParameters() throws Exception{
@@ -236,38 +236,38 @@ public class TestAddParameter extends RefactoringTemplateAbstractTest {
 		// Comienzan las comprobaciones
 		List <MethDec> lMetodo2 = classDef.getMethDecByName(factory.createName(TestRemoveParameter.METODO_A)); //$NON-NLS-1$
 
-		assertEquals("Test a�adir argumento a método con parámetro: " + //$NON-NLS-1$
-			"no se encuentra el método al que se ha a�adido el parámetro.", 1, //$NON-NLS-1$
+		assertEquals("Test añadir argumento a método con parámetro: " + //$NON-NLS-1$
+			"no se encuentra el método al que se ha añadido el parámetro.", 1, //$NON-NLS-1$
 			lMetodo.size());
 
 		MethDec metodo2 = lMetodo2.get(0);
 
-		assertEquals("Test a�adir argumento a método con parámetro: " + //$NON-NLS-1$
+		assertEquals("Test añadir argumento a método con parámetro: " + //$NON-NLS-1$
 			"el método no tiene tres parámetros.", 3,  //$NON-NLS-1$
 			metodo2.getFormalArgument().size());
-		assertEquals("Test a�adir argumento a método con parámetro: " + //$NON-NLS-1$
+		assertEquals("Test añadir argumento a método con parámetro: " + //$NON-NLS-1$
 			"el nombre del primer parámetro se ha modificado.", "a", //$NON-NLS-1$ //$NON-NLS-2$
 			metodo.getFormalArgument().get(0).toString());
-		assertEquals("Test a�adir argumento a método con parámetro: " + //$NON-NLS-1$
-			"no se encuentra el parámetro a�adido.", "ParameterD", //$NON-NLS-1$ //$NON-NLS-2$
+		assertEquals("Test añadir argumento a método con parámetro: " + //$NON-NLS-1$
+			"no se encuentra el parámetro añadido.", "ParameterD", //$NON-NLS-1$ //$NON-NLS-2$
 			metodo.getFormalArgument().get(2).toString());
-		assertEquals("Test a�adir argumento a método con parámetro: " + //$NON-NLS-1$
+		assertEquals("Test añadir argumento a método con parámetro: " + //$NON-NLS-1$
 			"el tipo del nuevo parámetro no coincide.", tipo, //$NON-NLS-1$
 			metodo.getFormalArgument().get(2).getType());
 	}
 
 	/** 
-	 * Comprueba que la refactorización funciona correctamente cuando se a�ade
+	 * Comprueba que la refactorización funciona correctamente cuando se añade
 	 * un argumento formal a un método al que se referencia en otras clases del
 	 * modelo.<p>
 	 *
 	 * En un modelo con dos clases, se toma un método de la primera clase y se 
-	 * le a�ade un argumento de tipo <code>float</code>. En la segunda clase se 
+	 * le añade un argumento de tipo <code>float</code>. En la segunda clase se 
 	 * utiliza dicho método en las sentencias del cuerpo de un método. Se 
 	 * comprueba que los cambios se extiendan a las instrucciones de este 
 	 * segundo método.
 	 * 
-	 * @throws Exception si se produce un error durante la ejecuci�n de la prueba.
+	 * @throws Exception si se produce un error durante la ejecución de la prueba.
 	 */  
 	@Test
 	public void testMethodIsCalled() throws Exception{
@@ -301,17 +301,17 @@ public class TestAddParameter extends RefactoringTemplateAbstractTest {
 		CallInstr instr2 = (CallInstr) instrIt.get(0);
 		
 
-		assertEquals("Test a�adir argumento a método usado: las llamadas al método " + //$NON-NLS-1$
+		assertEquals("Test añadir argumento a método usado: las llamadas al método " + //$NON-NLS-1$
 			"no contienen un valor real para el nuevo argumento.", "0", //$NON-NLS-1$ //$NON-NLS-2$
 				instr2.getRealArgument(0).toString());
 	}
 	
 	/** 
-	 * Comprueba que la refactorización funciona correctamente cuando se a�ade
+	 * Comprueba que la refactorización funciona correctamente cuando se añade
 	 * un argumento formal a un método del que existen todo tipo de llamadas
 	 * con expresiones e instrucciones de tipos muy distintos.<p>
 	 * 
-	 * @throws Exception si se produce un error durante la ejecuci�n de la prueba.
+	 * @throws Exception si se produce un error durante la ejecución de la prueba.
 	 */  
 	@Test
 	public void testMethodDifferentInstructions() throws Exception{
@@ -339,14 +339,14 @@ public class TestAddParameter extends RefactoringTemplateAbstractTest {
 		
 		for (Instr instMetodoB : metodoB.getFlattenedInstructions())
 				if (instMetodoB.toString().contains(TestRemoveParameter.METODO_A)) //$NON-NLS-1$
-					assertEquals("A�adir parámetro con llamadas complejas: " + //$NON-NLS-1$
-						"no se ha a�adido el parámetro real para el nuevo argumento.", //$NON-NLS-1$
+					assertEquals("Añadir parámetro con llamadas complejas: " + //$NON-NLS-1$
+						"no se ha añadido el parámetro real para el nuevo argumento.", //$NON-NLS-1$
 						" metodoA('0') * 2 /  metodoA('0')", instMetodoB.toString()); //$NON-NLS-1$
 		
 		for (Instr instrMetodoC : metodoC.getFlattenedInstructions()) {
 				if (instrMetodoC.toString().contains(TestRemoveParameter.METODO_A)) { //$NON-NLS-1$
-					assertEquals("A�adir parámetro con llamadas complejas: " + //$NON-NLS-1$
-						"no se ha a�adido el parámetro real en el segundo método.", //$NON-NLS-1$
+					assertEquals("Añadir parámetro con llamadas complejas: " + //$NON-NLS-1$
+						"no se ha añadido el parámetro real en el segundo método.", //$NON-NLS-1$
 						" a= metodoA('0'). intValue() -  metodoB()", instrMetodoC.toString()); //$NON-NLS-1$
 				}
 		}
@@ -355,7 +355,7 @@ public class TestAddParameter extends RefactoringTemplateAbstractTest {
 		
 		for (Instr subi : metodoB.getFlattenedInstructions()) {
 				if (subi.toString().contains(TestRemoveParameter.METODO_A)) { //$NON-NLS-1$
-					assertEquals("Deshacer a�adir parámetro con llamadas complejas: " + //$NON-NLS-1$
+					assertEquals("Deshacer añadir parámetro con llamadas complejas: " + //$NON-NLS-1$
 						"no se ha eliminado el parámetro real para el nuevo argumento.", //$NON-NLS-1$
 						" metodoA() * 2 /  metodoA()", subi.toString()); //$NON-NLS-1$
 				}
@@ -363,7 +363,7 @@ public class TestAddParameter extends RefactoringTemplateAbstractTest {
 		
 		for (Instr subi : metodoC.getFlattenedInstructions()) {
 				if (subi.toString().contains(TestRemoveParameter.METODO_A)) {//$NON-NLS-1$
-					assertEquals("Deshacer a�adir parámetro con llamadas complejas: " + //$NON-NLS-1$
+					assertEquals("Deshacer añadir parámetro con llamadas complejas: " + //$NON-NLS-1$
 						"no se ha eliminado el parámetro real en el segundo método.", //$NON-NLS-1$
 						" a= metodoA(). intValue() -  metodoB()", subi.toString()); //$NON-NLS-1$
 				}
@@ -371,17 +371,17 @@ public class TestAddParameter extends RefactoringTemplateAbstractTest {
 	}
 
 	/** 
-	 * Comprueba que la refactorización funciona correctamente cuando se a�ade
+	 * Comprueba que la refactorización funciona correctamente cuando se añade
 	 * un argumento formal a la signatura de un método cuando se encuentra en
 	 * una clase intermedia de una jerarquía de herencia.
 	 * 
 	 * <p>En una jerarquía de tres niveles, con una clase en cada nivel, en la que
-	 * las tres clases dan una definición para el mismo método, se a�ade un 
+	 * las tres clases dan una definición para el mismo método, se añade un 
 	 * nuevo argumento formal desde la clase central. Se comprueba que los
 	 * cambios se extiendan adecuadamente a la superclase y a la subclase de la
 	 * clase afectada directamente.</p>
 	 * 
-	 * @throws Exception si se produce un error durante la ejecuci�n de la prueba.
+	 * @throws Exception si se produce un error durante la ejecución de la prueba.
 	 */
 	@Test
 	public void testWithHierarchy() throws Exception{
@@ -406,22 +406,22 @@ public class TestAddParameter extends RefactoringTemplateAbstractTest {
 		List <MethDec> lMetodo2 = classDef.getMethDecByName(factory.createName(TestRemoveParameter.METODO_A)); //$NON-NLS-1$
 		MethDec metodo2 = lMetodo2.get(0);		
 
-		assertFalse("Test a�adir argumento con herencia: sigue existiendo el " + //$NON-NLS-1$
+		assertFalse("Test añadir argumento con herencia: sigue existiendo el " + //$NON-NLS-1$
 			"método con la antigua signatura en la clase.", //$NON-NLS-1$
 			"paqueteA.MediumClass~metodoA".equals(metodo2.getUniqueName().toString())); //$NON-NLS-1$
 
-		assertEquals("Testa a�adir argumento con herencia: no se encuentra el " + //$NON-NLS-1$
-			"método al que se ha a�adido el nuevo argumento.", //$NON-NLS-1$
+		assertEquals("Testa añadir argumento con herencia: no se encuentra el " + //$NON-NLS-1$
+			"método al que se ha añadido el nuevo argumento.", //$NON-NLS-1$
 			"paqueteA.MediumClass~metodoA%int", metodo2.getUniqueName().toString()); //$NON-NLS-1$
 
 		List<FormalArgument> lArg = metodo2.getFormalArgument();
 
-		assertEquals("Test a�adir argumento con herencia: no se encuentra el " + //$NON-NLS-1$
+		assertEquals("Test añadir argumento con herencia: no se encuentra el " + //$NON-NLS-1$
 			"nuevo argumento.", 1, lArg.size()); //$NON-NLS-1$
 
 		FormalArgument argumento = lArg.get(0);
 
-		assertEquals("Test a�adir argumento con herencia: no se ha generado " + //$NON-NLS-1$
+		assertEquals("Test añadir argumento con herencia: no se ha generado " + //$NON-NLS-1$
 			"correctamente el parámetro.", //$NON-NLS-1$
 				"paqueteA.MediumClass~metodoA%int#int:newParanuevoParametro(0)", //$NON-NLS-1$
 			argumento.getUniqueName().toString());
@@ -431,22 +431,22 @@ public class TestAddParameter extends RefactoringTemplateAbstractTest {
 		List <MethDec> lMetodoS = classDefS.getMethDecByName(factory.createName(TestRemoveParameter.METODO_A)); //$NON-NLS-1$
 		MethDec metodoS = lMetodoS.get(0);
 
-		assertFalse("Test a�adir argumento con herencia: sigue existiendo el " + //$NON-NLS-1$
+		assertFalse("Test añadir argumento con herencia: sigue existiendo el " + //$NON-NLS-1$
 			"método con la antigua signatura en la superclase.", //$NON-NLS-1$
 			"paqueteA.SuperType~metodoA".equals(metodoS.getUniqueName().toString())); //$NON-NLS-1$
 
-		assertEquals("Test a�adir argumento con herencia: no se encuentra en la " + //$NON-NLS-1$
-			"superclase el método al que se ha a�adido el nuevo argumento.", //$NON-NLS-1$
+		assertEquals("Test añadir argumento con herencia: no se encuentra en la " + //$NON-NLS-1$
+			"superclase el método al que se ha añadido el nuevo argumento.", //$NON-NLS-1$
 			"paqueteA.SuperType~metodoA%int", metodoS.getUniqueName().toString()); //$NON-NLS-1$
 
 		List<FormalArgument> lArgS = metodoS.getFormalArgument();
 
-		assertEquals("Test a�adir argumento con herencia: no se encuentra en el " + //$NON-NLS-1$
+		assertEquals("Test añadir argumento con herencia: no se encuentra en el " + //$NON-NLS-1$
 			"método de la superclase el nuevo argumento.", 1, lArgS.size()); //$NON-NLS-1$
 
 		FormalArgument argumentoS = lArgS.get(0);
 
-		assertEquals("Test a�adir argumento con herencia: no se ha generado " + //$NON-NLS-1$
+		assertEquals("Test añadir argumento con herencia: no se ha generado " + //$NON-NLS-1$
 			"correctamente el parámetro en la superclase.", //$NON-NLS-1$
 				"paqueteA.SuperType~metodoA%int#int:newParanuevoParametro(0)", //$NON-NLS-1$
 			argumentoS.getUniqueName().toString());
@@ -456,22 +456,22 @@ public class TestAddParameter extends RefactoringTemplateAbstractTest {
 		List <MethDec> lMetodos = classDefs.getMethDecByName(factory.createName(TestRemoveParameter.METODO_A)); //$NON-NLS-1$
 		MethDec metodos = lMetodos.get(0);
 
-		assertFalse("Test a�adir argumento con herencia: sigue existiendo el " + //$NON-NLS-1$
+		assertFalse("Test añadir argumento con herencia: sigue existiendo el " + //$NON-NLS-1$
 			"método con la antigua signatura en la subclase.", //$NON-NLS-1$
 			"paqueteA.SubType~metodoA".equals(metodos.getUniqueName().toString())); //$NON-NLS-1$
 
-		assertEquals("Test a�adir argumento con herencia: no se encuentra en la " + //$NON-NLS-1$
-			"subclase el método al que se ha a�adido el nuevo argumento.", //$NON-NLS-1$
+		assertEquals("Test añadir argumento con herencia: no se encuentra en la " + //$NON-NLS-1$
+			"subclase el método al que se ha añadido el nuevo argumento.", //$NON-NLS-1$
 			"paqueteA.SubType~metodoA%int", metodos.getUniqueName().toString()); //$NON-NLS-1$
 
 		List<FormalArgument> lArgs = metodos.getFormalArgument();
 
-		assertEquals("Test a�adir argumento con herencia: no se encuentra en el " + //$NON-NLS-1$
+		assertEquals("Test añadir argumento con herencia: no se encuentra en el " + //$NON-NLS-1$
 			"método de la subclase el nuevo argumento.", 1, lArgs.size()); //$NON-NLS-1$
 
 		FormalArgument argumentos = lArgs.get(0);
 
-		assertEquals("Test a�adir argumento con herencia: no se ha generado " + //$NON-NLS-1$
+		assertEquals("Test añadir argumento con herencia: no se ha generado " + //$NON-NLS-1$
 			"correctamente el parámetro en la subclase.", //$NON-NLS-1$
 				"paqueteA.SubType~metodoA%int#int:newParanuevoParametro(0)", //$NON-NLS-1$
 			argumentos.getUniqueName().toString());		
@@ -480,11 +480,11 @@ public class TestAddParameter extends RefactoringTemplateAbstractTest {
 	/**
 	 * Verifica el funcionamiento de las precondiciones de la refactorización.
 	 *
-	 * <p>Comprueba que se lanza una excepci�n cuando se intenta a�adir un 
-	 * argumento formal con un nombre que ya est� asignado a otro parámetro 
+	 * <p>Comprueba que se lanza una excepción cuando se intenta añadir un 
+	 * argumento formal con un nombre que ya está asignado a otro parámetro 
 	 * del método.</p>
 	 * 
-	 * @throws Exception si se produce un error durante la ejecuci�n de la prueba.
+	 * @throws Exception si se produce un error durante la ejecución de la prueba.
 	 */
 	@Test(expected=PreconditionException.class) 
 	public void testCheckNotExistsParameterWithSameName() throws Exception{
@@ -510,11 +510,11 @@ public class TestAddParameter extends RefactoringTemplateAbstractTest {
 	/**
 	 * Verifica el funcionamiento de las precondiciones de la refactorización.
 	 *
-	 * <p>Comprueba que se lanza una excepci�n cuando se intenta a�adir un 
-	 * argumento con un nombre que ya est� asignado a una variable local del 
+	 * <p>Comprueba que se lanza una excepción cuando se intenta añadir un 
+	 * argumento con un nombre que ya está asignado a una variable local del 
 	 * método.</p>
 	 * 
-	 * @throws Exception si se produce un error durante la ejecuci�n de la prueba.
+	 * @throws Exception si se produce un error durante la ejecución de la prueba.
 	 */
 	@Test(expected=PreconditionException.class) 
 	public void testCheckNotExistsLocalDecWithSameName() throws Exception{
@@ -539,11 +539,11 @@ public class TestAddParameter extends RefactoringTemplateAbstractTest {
 	/**
 	 * Verifica el funcionamiento de las precondiciones de la refactorización.
 	 *
-	 * <p>Comprueba que se lanza una excepci�n cuando se intenta a�adir un 
+	 * <p>Comprueba que se lanza una excepción cuando se intenta añadir un 
 	 * argumento que da lugar a un nombre único de método que ya existe en una 
 	 * superclase.</p>
 	 * 
-	 * @throws Exception si se produce un error durante la ejecuci�n de la prueba.
+	 * @throws Exception si se produce un error durante la ejecución de la prueba.
 	 */
 	@Test(expected=PreconditionException.class)
 	public void testCheckMethodIsNotInSuperclass() throws Exception{
@@ -568,11 +568,11 @@ public class TestAddParameter extends RefactoringTemplateAbstractTest {
 	/**
      * Verifica el funcionamiento de las precondiciones de la refactorización.
      *
-     * <p>Comprueba que se lanza una excepci�n cuando se intenta a�adir un 
+     * <p>Comprueba que se lanza una excepción cuando se intenta añadir un 
      * argumento que da lugar a un nombre único de método que ya existe en 
      * una subclase.</p>
      * 
-     * @throws Exception si se produce un error durante la ejecuci�n de la prueba.
+     * @throws Exception si se produce un error durante la ejecución de la prueba.
      */
     @Test(expected=PreconditionException.class)
     public void testCheckMethodIsNotInSubclass() throws Exception{
@@ -597,11 +597,11 @@ public class TestAddParameter extends RefactoringTemplateAbstractTest {
 	/**
 	 * Verifica el funcionamiento de las precondiciones de la refactorización.
 	 *
-	 * <p>Comprueba que se lanza una excepci�n cuando se intenta a�adir un 
+	 * <p>Comprueba que se lanza una excepción cuando se intenta añadir un 
 	 * argumento que da lugar a un nombre único de método que ya existe en la 
 	 * propia clase.</p>
 	 * 
-	 * @throws Exception si se produce un error durante la ejecuci�n de la prueba.
+	 * @throws Exception si se produce un error durante la ejecución de la prueba.
 	 */
 	@Test(expected=PreconditionException.class)
 	public void testCheckMethodIsNotAlreadyInClass() throws Exception{
@@ -627,11 +627,11 @@ public class TestAddParameter extends RefactoringTemplateAbstractTest {
 	 * Comprueba que funciona correctamente la operación que deshace la
 	 * adición de un argumento formal, en un caso sencillo y correcto.
 	 * 
-	 * <p>En un modelo con una única clase, a�ade un argumento formal al método
-	 * único de la clase, que no tiene m�s argumentos, y despu�s trata de 
+	 * <p>En un modelo con una única clase, añade un argumento formal al método
+	 * único de la clase, que no tiene más argumentos, y después trata de 
 	 * deshacer los cambios.</p>
 	 * 
-	 * @throws Exception si se produce un error durante la ejecuci�n de la prueba.
+	 * @throws Exception si se produce un error durante la ejecución de la prueba.
 	 */
 	@Test 
 	public void testUndoSimple() throws Exception{
@@ -656,22 +656,22 @@ public class TestAddParameter extends RefactoringTemplateAbstractTest {
 		// Comienzan las comprobaciones
 		List <MethDec> lMetodo2 = classDef.getMethDecByName(factory.createName(TestRemoveParameter.METODO_A)); //$NON-NLS-1$
 
-		assertEquals("Test deshacer a�adir argumento simple: " + //$NON-NLS-1$
+		assertEquals("Test deshacer añadir argumento simple: " + //$NON-NLS-1$
 			"no se encuentra el método.", 1, lMetodo.size()); //$NON-NLS-1$
 
 		MethDec metodo2 = lMetodo2.get(0);
 				
-		assertTrue("Test deshacer a�adir argumento simple: " + //$NON-NLS-1$
-			"se ha encontrado un argumento formal a�adido.", //$NON-NLS-1$
+		assertTrue("Test deshacer añadir argumento simple: " + //$NON-NLS-1$
+			"se ha encontrado un argumento formal añadido.", //$NON-NLS-1$
 			metodo2.getFormalArgument().isEmpty());
 	}
 
 	/** 
 	 * Comprueba que se deshace la refactorización correctamente cuando 
-	 * se a�ade un argumento formal a la signatura de un método que se 
+	 * se añade un argumento formal a la signatura de un método que se 
 	 * encuentra en una clase intermedia de una jerarquía de herencia.
 	 * 
-	 * @throws Exception si se produce un error durante la ejecuci�n de la prueba.
+	 * @throws Exception si se produce un error durante la ejecución de la prueba.
 	 */
 	@Test
 	public void testUndoWithHierarchy() throws Exception{
@@ -697,16 +697,16 @@ public class TestAddParameter extends RefactoringTemplateAbstractTest {
 		List <MethDec> lMetodo2 = classDef.getMethDecByName(factory.createName(TestRemoveParameter.METODO_A)); //$NON-NLS-1$
 		MethDec metodo2 = lMetodo2.get(0);	
 
-		assertEquals("Test deshacer a�adir argumento con herencia:" + //$NON-NLS-1$
+		assertEquals("Test deshacer añadir argumento con herencia:" + //$NON-NLS-1$
 			" no se ha encontrado el método en la clase.", //$NON-NLS-1$
 			"paqueteA.MediumClass~metodoA", metodo2.getUniqueName().toString()); //$NON-NLS-1$
 
-		assertFalse("Test deshacer a�adir argumento con herencia:" +  //$NON-NLS-1$
+		assertFalse("Test deshacer añadir argumento con herencia:" +  //$NON-NLS-1$
 			" se ha encontrado el método con la nueva signatura.", //$NON-NLS-1$
 			"paqueteA.MediumClass~metodoA%int".equals(metodo2.getUniqueName().toString())); //$NON-NLS-1$
 
 		List<FormalArgument> lArg = metodo2.getFormalArgument();
-		assertEquals("Test deshacer a�adir argumento con herencia: " + //$NON-NLS-1$
+		assertEquals("Test deshacer añadir argumento con herencia: " + //$NON-NLS-1$
 			"el método no tiene una lista vac�a de argumentos", 0, lArg.size()); //$NON-NLS-1$
 
 		// Comprobaciones en la superclase
@@ -714,16 +714,16 @@ public class TestAddParameter extends RefactoringTemplateAbstractTest {
 		List <MethDec> lMetodoS = classDefS.getMethDecByName(factory.createName(TestRemoveParameter.METODO_A)); //$NON-NLS-1$
 		MethDec metodoS = lMetodoS.get(0);
 
-		assertEquals("Test deshacer a�adir argumento con herencia: " + //$NON-NLS-1$
+		assertEquals("Test deshacer añadir argumento con herencia: " + //$NON-NLS-1$
 			"no se ha encontrado el método en la superclase.", //$NON-NLS-1$
 			"paqueteA.SuperType~metodoA", metodoS.getUniqueName().toString()); //$NON-NLS-1$
-		assertTrue("Test deshacer a�adir argumento con herencia: " + //$NON-NLS-1$
+		assertTrue("Test deshacer añadir argumento con herencia: " + //$NON-NLS-1$
 			"se ha encontrado el método con la nueva signatura.", //$NON-NLS-1$
 			metodoS.getUniqueName().toString().compareTo(
 				"paqueteA.SuperType~metodoA%int")!=0); //$NON-NLS-1$
 
 		List<FormalArgument> lArgS = metodoS.getFormalArgument();
-		assertEquals("Test deshacer a�adir argumento con herencia: " + //$NON-NLS-1$
+		assertEquals("Test deshacer añadir argumento con herencia: " + //$NON-NLS-1$
 			"el método no tiene una lista vac�a de argumentos.", 0, lArgS.size()); //$NON-NLS-1$
 
 		// Comprobaciones en la subclase
@@ -731,16 +731,16 @@ public class TestAddParameter extends RefactoringTemplateAbstractTest {
 		List <MethDec> lMetodos = classDefs.getMethDecByName(factory.createName(TestRemoveParameter.METODO_A)); //$NON-NLS-1$
 		MethDec metodos = lMetodos.get(0);
 
-		assertEquals("Test deshacer a�adir argumento con herencia: " + //$NON-NLS-1$
+		assertEquals("Test deshacer añadir argumento con herencia: " + //$NON-NLS-1$
 			"no se ha encontrado el método en la subclase.", //$NON-NLS-1$
 			"paqueteA.SubType~metodoA", metodos.getUniqueName().toString()); //$NON-NLS-1$
-		assertTrue("Test deshacer a�adir argumento con herencia: " + //$NON-NLS-1$
+		assertTrue("Test deshacer añadir argumento con herencia: " + //$NON-NLS-1$
 			"se ha encontrado el método con la nueva signatura en la subclase.", //$NON-NLS-1$
 			metodos.getUniqueName().toString().compareTo(
 				"paqueteA.SubType~metodoA%int")!=0); //$NON-NLS-1$
 
 		List<FormalArgument> lArgs = metodos.getFormalArgument();
-		assertEquals("Test deshacer a�adir argumento con herencia: " + //$NON-NLS-1$
+		assertEquals("Test deshacer añadir argumento con herencia: " + //$NON-NLS-1$
 			"el método no tiene una lista vac�a de argumentos.", 0, lArgs.size()); //$NON-NLS-1$
 	}
 }

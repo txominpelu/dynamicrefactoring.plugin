@@ -41,7 +41,7 @@ public class RenameClass extends Action {
 	private ClassDef classDef;
 		
 	/**
-	 * Nuevo nombre que se dar� a la clase.
+	 * Nuevo nombre que se dará a la clase.
 	 */
 	private Name newName;
 		
@@ -61,7 +61,7 @@ public class RenameClass extends Action {
 	 * Obtiene una nueva instancia de RenameClass.
 	 *
 	 * @param classDef la clase cuyo nombre se desea cambiar.
-	 * @param newName el nuevo nombre que se dar� a la clase.
+	 * @param newName el nuevo nombre que se dará a la clase.
 	 */	
 	public RenameClass(ClassDef classDef, Name newName){
 		super();

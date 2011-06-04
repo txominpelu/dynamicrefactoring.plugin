@@ -26,9 +26,9 @@ import java.io.FilenameFilter;
 import dynamicrefactoring.RefactoringConstants;
 
 /**
- * Filtra el contenido de un directorio seg�n la extensi�n de
+ * Filtra el contenido de un directorio según la extensión de
  * los ficheros, que se debe corresponder con la utilizada por los ficheros
- * en que se definen refactorizaciones din�micas.
+ * en que se definen refactorizaciones dinámicas.
  * 
  * @author <A HREF="mailto:alc0022@alu.ubu.es">Ángel López Campo</A>
  * @author <A HREF="mailto:epf0006@alu.ubu.es">Eduardo Peña Fernández</A>

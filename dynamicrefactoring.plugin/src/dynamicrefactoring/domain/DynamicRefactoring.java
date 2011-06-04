@@ -35,7 +35,7 @@ import dynamicrefactoring.domain.xml.XMLRefactoringUtils;
 import dynamicrefactoring.util.PluginStringUtils;
 
 /**
- * Representa una refactorización din�mica.
+ * Representa una refactorización dinámica.
  * 
  * @author <A HREF="mailto:lfd0002@alu.ubu.es">Laura Fuente de la Fuente</A>
  * @author <A HREF="mailto:alc0022@alu.ubu.es">Ángel López Campo</A>
@@ -67,7 +67,7 @@ public class DynamicRefactoring extends MOONRefactoring {
 	 * 
 	 * @throws RefactoringException
 	 *             si se produce un error al construir la refactorización
-	 *             din�mica.
+	 *             dinámica.
 	 */
 	public DynamicRefactoring(DynamicRefactoringDefinition refactoringDefinition,  Model model,
 			Map<String, Object> parameters) throws RefactoringException {
@@ -103,14 +103,14 @@ public class DynamicRefactoring extends MOONRefactoring {
 	}
 
 	/**
-	 * Crea una precondición y se la a�ade a la refactorización.
+	 * Crea una precondición y se la añade a la refactorización.
 	 * 
 	 * @param name
 	 *            nombre simple de la precondición.
 	 * 
 	 * @throws RefactoringException
 	 *             si se produce un error al crear la precondición o al
-	 *             a�adirla a la refactorización.
+	 *             añadirla a la refactorización.
 	 */
 	private void createPrecondition(String name) throws RefactoringException {
 
@@ -124,7 +124,7 @@ public class DynamicRefactoring extends MOONRefactoring {
 			Object[] parameters = getNecessaryParameters(constructor,
 					RefactoringMechanismType.PRECONDITION);
 
-			// Se crea la instancia de la precondición y se la a�ade a la
+			// Se crea la instancia de la precondición y se la añade a la
 			// refactorización.
 			addPrecondition((Predicate) constructor.newInstance(parameters));
 		} catch (Exception e) {
@@ -141,14 +141,14 @@ public class DynamicRefactoring extends MOONRefactoring {
 	}
 
 	/**
-	 * Crea una acción concreta y se la a�ade a la refactorización.
+	 * Crea una acción concreta y se la añade a la refactorización.
 	 * 
 	 * @param name
 	 *            nombre simple de la acción.
 	 * 
 	 * @throws RefactoringException
 	 *             si se produce un error al crear la acción concreta o al
-	 *             a�ad�rsela a la refactorización.
+	 *             añadírsela a la refactorización.
 	 */
 	private void createAction(String name) throws RefactoringException {
 
@@ -165,7 +165,7 @@ public class DynamicRefactoring extends MOONRefactoring {
 			Object[] parameters = getNecessaryParameters(constructor,
 					RefactoringMechanismType.ACTION);
 
-			// Se crea la instancia de la acción concreta y se a�ade a la
+			// Se crea la instancia de la acción concreta y se añade a la
 			// refactorización.
 			addAction((Action) constructor.newInstance(parameters));
 		} catch (Exception e) {
@@ -181,14 +181,14 @@ public class DynamicRefactoring extends MOONRefactoring {
 	}
 
 	/**
-	 * Crea una postcondición concreta y se la a�ade a la refactorización.
+	 * Crea una postcondición concreta y se la añade a la refactorización.
 	 * 
 	 * @param name
 	 *            nombre simple de la postcondición.
 	 * 
 	 * @throws RefactoringException
 	 *             si se produce un error al crear la postcondición concreta o
-	 *             al a�ad�rsela a la refactorización.
+	 *             al añadírsela a la refactorización.
 	 */
 	private void createPostcondition(String name) throws RefactoringException {
 
@@ -202,7 +202,7 @@ public class DynamicRefactoring extends MOONRefactoring {
 			Object[] parameters = getNecessaryParameters(constructor,
 					RefactoringMechanismType.POSTCONDITION);
 
-			// Se crea la instancia de la postcondicion concreta y se a�ade
+			// Se crea la instancia de la postcondicion concreta y se añade
 			// a la refactorización.
 			addPostcondition((Predicate) constructor.newInstance(parameters));
 		} catch (Exception e) {
@@ -233,7 +233,7 @@ public class DynamicRefactoring extends MOONRefactoring {
 	 *         constructor.
 	 * 
 	 * @throws RefactoringException
-	 *             si se produce algún error durante la construcci�n de la
+	 *             si se produce algún error durante la construcción de la
 	 *             lista de parámetros del constructor.
 	 */
 	private Object[] getNecessaryParameters(Constructor<?> constructor,
@@ -355,7 +355,7 @@ public class DynamicRefactoring extends MOONRefactoring {
 	 * @param position
 	 *            posición de la entrada en la lista de parámetros.
 	 * @param type
-	 *            c�digo del tipo de elemento (
+	 *            código del tipo de elemento (
 	 *            {@link RefactoringConstants#PRECONDITION},
 	 *            {@link RefactoringConstants#POSTCONDITION} o
 	 *            {@link RefactoringConstants#ACTION}).
@@ -373,7 +373,7 @@ public class DynamicRefactoring extends MOONRefactoring {
 	/**
 	 * Obtiene la definición de las entradas de una refactorización.
 	 * 
-	 * @return Descripci�n de los parámetros de entrada a la
+	 * @return Descripción de los parámetros de entrada a la
 	 *         refactorización.
 	 */
 	public List<InputParameter> getInputs() {

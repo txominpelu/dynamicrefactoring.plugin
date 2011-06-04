@@ -30,8 +30,8 @@ import org.eclipse.core.runtime.NullProgressMonitor;
 import org.eclipse.ui.PlatformUI;
 
 /**
- * Permite deshacer una operación del entorno de Eclipse si se efectu� 
- * utilizando las herramientas de ejecuci�n de operaciones aptas para ser
+ * Permite deshacer una operación del entorno de Eclipse si se efectua 
+ * utilizando las herramientas de ejecución de operaciones aptas para ser
  * deshechas.
  * 
  * @author <A HREF="mailto:sfd0009@alu.ubu.es">Sonia Fuente de la Fuente</A>
@@ -46,10 +46,10 @@ public class RefactoringUndoSystem {
 
 	/**
 	 * Deshace una refactorización identificada por la etiqueta con la que debería
-	 * aparecer en el hist�rico de operaciones que el entorno Eclipse puede
+	 * aparecer en el histórico de operaciones que el entorno Eclipse puede
 	 * deshacer.
 	 * 
-	 * @param id etiqueta asociada a la operación que originalmente ejecut� la
+	 * @param id etiqueta asociada a la operación que originalmente ejecutó la
 	 * refactorización.
 	 * @param checkRenamings TODO
 	 * 
@@ -57,8 +57,8 @@ public class RefactoringUndoSystem {
 	 */
 	public static void undoRefactoring(String id, boolean checkRenamings) throws Exception {
 		
-		// Si se ha producido algún renombrado despu�s de la refactorización,
-		// hay que deshacerlo primero. Si no, al acceder al hist�rico de 
+		// Si se ha producido algún renombrado después de la refactorización,
+		// hay que deshacerlo primero. Si no, al acceder al histórico de 
 		// operaciones, desaparecen las operaciones posteriores.
 		if (checkRenamings){
 			String renaming = RenamingRegistry.getInstance().getRenaming(id); 
@@ -90,7 +90,7 @@ public class RefactoringUndoSystem {
 	 * @param id etiqueta que identifica la operación que se puede deshacer.
 	 * 
 	 * @return la operación recuperada o <code>null</code> si no se encuentra
-	 * ninguna operación con dicha etiqueta en el contexto global de ejecuci�n.
+	 * ninguna operación con dicha etiqueta en el contexto global de ejecución.
 	 */
 	private static IUndoableOperation getUndoable(String id){
 		IOperationHistory history = OperationHistoryFactory.getOperationHistory();

@@ -37,7 +37,7 @@ import repository.moon.concretepredicate.NotExistsAttributeWithNameInClass;
  *
  * Si la comprobación no falla, lleva a cabo el renombrado.<p>
  *
- * Finalmente, comprueba que el renombrado se ha llevado a cabo con �xito.
+ * Finalmente, comprueba que el renombrado se ha llevado a cabo con éxito.
 
  * @author <A HREF="mailto:sfd0009@alu.ubu.es">Laura Fuente de la Fuente</A>
  */

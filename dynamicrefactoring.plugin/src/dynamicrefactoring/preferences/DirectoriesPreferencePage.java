@@ -35,7 +35,7 @@ import dynamicrefactoring.RefactoringPlugin;
 import dynamicrefactoring.interfaz.wizard.FolderSelectionListener;
 
 /**
- * P�gina de preferencias para determinar el directorio de importación de un plan de refactorizaciones y el directorio de 
+ * Página de preferencias para determinar el directorio de importación de un plan de refactorizaciones y el directorio de 
  * exportación del mismo .
  * 
  * @author <A HREF="mailto:lfd0002@alu.ubu.es">Laura Fuente de la Fuente</A>
@@ -54,7 +54,7 @@ public class DirectoriesPreferencePage extends PreferencePage implements IWorkbe
 	
 	
 	/**
-	 * Crea el contenido de la p�gina de preferencias.
+	 * Crea el contenido de la página de preferencias.
 	 * 
 	 * @see PreferencePage#createContents(Composite)
 	 */
@@ -103,7 +103,7 @@ public class DirectoriesPreferencePage extends PreferencePage implements IWorkbe
 	}
 
 	/**
-	 * Inicializa el almac�n de preferencias.
+	 * Inicializa el almacén de preferencias.
 	 * 
 	 * @see IWorkbenchPreferencePage#init(IWorkbench)
 	 */
@@ -121,7 +121,7 @@ public class DirectoriesPreferencePage extends PreferencePage implements IWorkbe
 		t_Export.setText(RefactoringPlugin.getDefault().getDefaultExportRefactoringPlanPreference());
 	}
 	/** 
-	 * Metodo declarado en <code>IPreferencePage</code>. Guarda en el almac�n de preferencias 
+	 * Metodo declarado en <code>IPreferencePage</code>. Guarda en el almacén de preferencias 
 	 * el directorio de importación de un plan de refactorizaciones y el directorio de 
 	 * exportación del mismo.
 	 */

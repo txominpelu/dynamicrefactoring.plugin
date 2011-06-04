@@ -9,3 +9,4 @@ temp/**/*
 /.settings/*
 doc/src_html/*
 doc/doccheck/*
+doc/javadoc/*

@@ -38,7 +38,7 @@ import dynamicrefactoring.util.selection.TreeSelectionInfo;
 
 /**
  * Proporciona las funciones necesarias para obtener la clase MOON con la que
- * se corresponde una clase seleccionada en Eclipse sobre un �rbol desplegable.
+ * se corresponde una clase seleccionada en Eclipse sobre un árbol desplegable.
  * 
  * @author <A HREF="mailto:sfd0009@alu.ubu.es">Sonia Fuente de la Fuente</A>
  * @author <A HREF="mailto:ehp0001@alu.ubu.es">Enrique Herrero Paredes</A>
@@ -46,17 +46,17 @@ import dynamicrefactoring.util.selection.TreeSelectionInfo;
 public class TreeClassSelectionHandler extends ClassSelectionHandler {
 	
 	/**
-	 * La selecci�n de una clase sobre un �rbol de selecci�n.
+	 * La selección de una clase sobre un árbol de selección.
 	 */
 	private TreeSelection classSelection;
 	
 	/**
 	 * Constructor.
 	 * 
-	 * @param selectionInfo contenedor de la selecci�n que se desea manejar.
+	 * @param selectionInfo contenedor de la selección que se desea manejar.
 	 * 
-	 * @throws Exception si la selecci�n contenida en #selectionInfo no es una
-	 * selecci�n de una clase sobre un �rbol de selecci�n.
+	 * @throws Exception si la selección contenida en #selectionInfo no es una
+	 * selección de una clase sobre un árbol de selección.
 	 */
 	public TreeClassSelectionHandler (TreeSelectionInfo selectionInfo)
 		throws Exception{

@@ -39,7 +39,7 @@ public interface XMLRefactoringWriterImp {
 	 * Escribe el fichero XML a partir de la definición de la refactorización.
 	 * 
 	 * @param dir
-	 *            directorio donde se guardar� el fichero.
+	 *            directorio donde se guardará el fichero.
 	 * 
 	 * @throws XMLRefactoringWriterException
 	 *             si se produce un error durante la escritura de la

@@ -33,7 +33,7 @@ import dynamicrefactoring.interfaz.wizard.CustomWizardDialog;
 import dynamicrefactoring.interfaz.wizard.RefactoringWizard;
 
 /**
- * Acci�n que inicia el asistente de creación de una nueva refactorización.
+ * Acción que inicia el asistente de creación de una nueva refactorización.
  */
 public class OpenCreationWizardAction implements IWorkbenchWindowActionDelegate  {
 	

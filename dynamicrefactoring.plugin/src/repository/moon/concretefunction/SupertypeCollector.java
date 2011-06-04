@@ -38,7 +38,7 @@ import refactoring.engine.Function;
 public class SupertypeCollector extends Function {
 	
 	/**
-	 * El <code>ClassType</code> del que se obtendr�n los supertipos.
+	 * El <code>ClassType</code> del que se obtendrán los supertipos.
 	 */
 	private ClassType classType;
     
@@ -56,7 +56,7 @@ public class SupertypeCollector extends Function {
 	}
 	
 	/**
-	 * Funci�n que devuelve el valor.
+	 * Función que devuelve el valor.
 	 *  
 	 * @return <code>null</code>.
 	 */
@@ -67,11 +67,11 @@ public class SupertypeCollector extends Function {
 
 	/**
 	 * Obtiene todos los supertipos del <code>ClassType</code> representado por
-	 * {@link #classType}, incluyendo aqu�llos que se puedan obtener 
+	 * {@link #classType}, incluyendo aquíllos que se puedan obtener 
 	 * recursivamente a través de sus supertipos directos.
 	 * 
 	 * @return los supertipos del <code>ClassType</code> representado por
-	 * {@link #classType}, incluyendo aqu�llos que se puedan obtener
+	 * {@link #classType}, incluyendo aquíllos que se puedan obtener
 	 * recursivamente a través de sus supertipos directos.
 	 */	
 	@Override
@@ -86,10 +86,10 @@ public class SupertypeCollector extends Function {
 	}
 
 	/**
-	 * A�ade recursivamente los supertipos.
+	 * Añade recursivamente los supertipos.
 	 * 
 	 * @param ct <code>ClassType</code> cuyos supertipos se quieren obtener.
-	 * @param supertypes colecci�n a la que a�adir los supertipos hallados.
+	 * @param supertypes colección a la que añadir los supertipos hallados.
 	 */
 	private void recursiveAdd(ClassType ct, Collection<ClassType> supertypes) {
 

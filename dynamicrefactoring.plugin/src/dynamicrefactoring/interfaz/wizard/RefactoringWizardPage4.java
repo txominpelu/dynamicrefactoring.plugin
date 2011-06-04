@@ -38,15 +38,15 @@ import dynamicrefactoring.domain.RefactoringMechanismType;
 
 
 /**
- * Cuarta p�gina del asistente de creación o edición de refactorizaciones.
+ * Cuarta página del asistente de creación o edición de refactorizaciones.
  * 
  * <p>Permite componer la refactorización mediante la adición de predicados
  * a la lista de acciones que implementen las modificaciones llevadas a cabo 
  * por la refactorización.</p>
  * 
- * <p>Permite definir el orden en que se comprobar�n los predicados y en que
- * se ejecutar�n las acciones, as� como la lista de entradas de la 
- * refactorización que deber�n ser transmitidas a cada uno de los componentes.
+ * <p>Permite definir el orden en que se comprobarán los predicados y en que
+ * se ejecutarán las acciones, así como la lista de entradas de la 
+ * refactorización que deberán ser transmitidas a cada uno de los componentes.
  * </p>
  * 
  * @author <A HREF="mailto:lfd0002@alu.ubu.es">Laura Fuente de la Fuente</A>
@@ -55,7 +55,7 @@ public final class RefactoringWizardPage4 extends WizardPage implements  IRefact
 
 
 	/**
-	 * T�tulo de la operación sobre la que se configuran las acciones de la 
+	 * Título de la operación sobre la que se configuran las acciones de la 
 	 * refactorización.
 	 */
 	protected static final String ACTIONS_TITLE = Messages.RefactoringWizardPage4_Actions;
@@ -64,7 +64,7 @@ public final class RefactoringWizardPage4 extends WizardPage implements  IRefact
 	/**
 	 * Refactorización configurada a través del asistente y que debe ser creada
 	 * finalmente (si se trata de una nueva refactorización) o modificada (si se
-	 * est� editando una ya existente).
+	 * está editando una ya existente).
 	 */
 	private DynamicRefactoringDefinition refactoring = null;
 
@@ -83,8 +83,8 @@ public final class RefactoringWizardPage4 extends WizardPage implements  IRefact
 	/**
 	 * Constructor.
 	 * 
-	 * @param refactoring la refactorización que se est� editando, o <code>
-	 * null</code> si se est� construyendo una nueva.
+	 * @param refactoring la refactorización que se está editando, o <code>
+	 * null</code> si se está construyendo una nueva.
 	 */
 	public RefactoringWizardPage4(DynamicRefactoringDefinition refactoring) {
 		super("Wizard page"); //$NON-NLS-1$
@@ -94,9 +94,9 @@ public final class RefactoringWizardPage4 extends WizardPage implements  IRefact
 	}
 	
 	/**
-	 * Hace visible o invisible la p�gina del asistente.
+	 * Hace visible o invisible la página del asistente.
 	 * 
-	 * @param visible si la p�gina se debe hacer visible o no.
+	 * @param visible si la página se debe hacer visible o no.
 	 */
 	@Override
 	public void setVisible(boolean visible){
@@ -114,9 +114,9 @@ public final class RefactoringWizardPage4 extends WizardPage implements  IRefact
 	}
 
 	/**
-	 * Crea el contenido de la p�gina del asistente.
+	 * Crea el contenido de la página del asistente.
 	 * 
-	 * @param parent el elemento padre de esta p�gina del asistente.
+	 * @param parent el elemento padre de esta página del asistente.
 	 */
 	@Override
 	public void createControl(Composite parent) {
@@ -176,7 +176,7 @@ public final class RefactoringWizardPage4 extends WizardPage implements  IRefact
 		
 
 	/**
-	 * Actualiza el estado de la pantalla de di�logo del asistente.
+	 * Actualiza el estado de la pantalla de diálogo del asistente.
 	 * 
 	 * @param message mensaje asociado al estado actual de la pantalla.
 	 */

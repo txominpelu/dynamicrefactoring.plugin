@@ -31,7 +31,7 @@ import refactoring.engine.Action;
 import repository.RelayListenerRegistry;
 
 /**
- * Permite a�adir una sentencia de importación a una clase.
+ * Permite añadir una sentencia de importación a una clase.
  * 
  * @author <A HREF="mailto:sfd0009@alu.ubu.es">Sonia Fuente de la Fuente</A>
  * @author <A HREF="mailto:ehp0001@alu.ubu.es">Enrique Herrero Paredes</A>
@@ -44,17 +44,17 @@ public class AddImportClause extends Action {
 	private RelayListenerRegistry listenerReg;
 	
 	/**
-	 * Tipo de la sentencia de importación que se debe a�adir.
+	 * Tipo de la sentencia de importación que se debe añadir.
 	 */
 	private Type type;
 	
 	/**
-	 * Clase a la que se debe a�adir la sentencia de importación.
+	 * Clase a la que se debe añadir la sentencia de importación.
 	 */
 	private ClassDef classdef;
 	
 	/**
-	 * Cl�usula de importación a�adida a la clase.
+	 * Cláusula de importación añadida a la clase.
 	 */
 	private JavaImport jimport;
 	
@@ -63,7 +63,7 @@ public class AddImportClause extends Action {
 	 * 
 	 * Obtiene una nueva instancia de la acción <code>AddImportClause</code>.
 	 *
-	 * @param classdef clase a la que se debe a�adir la sentencia de importación.
+	 * @param classdef clase a la que se debe añadir la sentencia de importación.
 	 * @param type tipo que debe importar la sentencia de importación.
 	 */
 	public AddImportClause(ClassDef classdef, Type type){
@@ -76,7 +76,7 @@ public class AddImportClause extends Action {
 	}
 	
 	/**
-	 * A�ade la sentencia de importación.
+	 * Añade la sentencia de importación.
 	 * 
 	 * @see Action#run()
 	 */

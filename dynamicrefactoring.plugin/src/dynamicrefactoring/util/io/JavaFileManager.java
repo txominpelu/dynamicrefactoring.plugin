@@ -54,7 +54,7 @@ public class JavaFileManager {
 		Logger.getLogger(JavaFileManager.class);
 	
 	/**
-	 * Extensi�n esperada para los ficheros fuente Java.
+	 * Extensión esperada para los ficheros fuente Java.
 	 */
 	private static final String JAVA_FILE_EXTENSION = "java"; //$NON-NLS-1$
 	
@@ -163,15 +163,15 @@ public class JavaFileManager {
 	 * Obtiene el fichero fuente Java que representa la mejor coincidencia para un
 	 * cierto nombre único de clase.
 	 * 
-	 * Busca entre todos los ficheros Java del proyecto aqu�l cuyo nombre 
+	 * Busca entre todos los ficheros Java del proyecto aquél cuyo nombre 
 	 * completamente cualificado sea la mejor coincidencia para el nombre único de
 	 * clase determinado por #MOONUniqueName en el formato utilizado en MOON.
 	 * 
 	 * @param MOONUniqueName el nombre único de la clase cuyo fichero fuente se 
 	 * busca. Debe estar en el formato utilizado por el modelo MOON, donde el 
 	 * carácter <code>'.'</code> se utiliza como separador entre los nombres de los 
-	 * paquetes y el de la clase. No debe incluir la extensi�n <code>'.java'</code>.
-	 * @param project el proyecto en el que se buscar� el fichero fuente de la clase.
+	 * paquetes y el de la clase. No debe incluir la extensión <code>'.java'</code>.
+	 * @param project el proyecto en el que se buscará el fichero fuente de la clase.
 	 * 
 	 * @return el fichero fuente Java que represente la mejor coincidencia para un
 	 * cierto nombre único de clase. <code>null</code> si no se encuentra ninguna 
@@ -220,16 +220,16 @@ public class JavaFileManager {
 	}
 	
 	/**
-	 * A�ade un recurso de tipo fichero a una lista de ficheros fuente Java.
-	 * Se encarga de verificar que la extensi�n del fichero es la adecuada, seg�n el
-	 * contenido de #JAVA_FILE_EXTENSION, as� como de comprobar que el tipo de 
-	 * contenido es c�digo fuente Java.
+	 * Añade un recurso de tipo fichero a una lista de ficheros fuente Java.
+	 * Se encarga de verificar que la extensión del fichero es la adecuada, según el
+	 * contenido de #JAVA_FILE_EXTENSION, así como de comprobar que el tipo de 
+	 * contenido es código fuente Java.
 	 * 
-	 * @param resourceFile el recurso del espacio de trabajo que se quiere a�adir.
-	 * @param sourceFileList la lista de ficheros fuente Java a la que se debe a�adir.
+	 * @param resourceFile el recurso del espacio de trabajo que se quiere añadir.
+	 * @param sourceFileList la lista de ficheros fuente Java a la que se debe añadir.
 	 * 
 	 * @throws CoreException si se produce un error al acceder al tipo de 
-	 * contenido del fichero que se desea a�adir.
+	 * contenido del fichero que se desea añadir.
 	 */
 	private static void addJavaFileToList(IResource resourceFile, 
 		ArrayList<IFile> sourceFileList) throws CoreException{
@@ -248,7 +248,7 @@ public class JavaFileManager {
 	/**
 	 * Completa la lista de ficheros fuente Java existentes en un directorio.
 	 * Recorre recursivamente el directorio y sus subdirectorios y para cada fichero
-	 * Java que encuentra, a�ade su ruta relativa a la ra�z del proyecto a la lista
+	 * Java que encuentra, añade su ruta relativa a la raíz del proyecto a la lista
 	 * de rutas de ficheros fuente.
 	 *  
 	 * @param folder el directorio a partir del cual se busca.

@@ -43,18 +43,18 @@ public abstract class FieldSelectionHandler implements ISelectionHandler {
 	protected ClassDef fieldClass;
 	
 	/**
-	 * La descripci�n MOON del atributo seleccionado.
+	 * La descripción MOON del atributo seleccionado.
 	 */
 	protected AttDec fieldDescription;
 	
 	/**
-	 * Obtiene la descripci�n MOON del atributo representado por una selecci�n 
-	 * del interfaz gr�fico.
+	 * Obtiene la descripción MOON del atributo representado por una selección 
+	 * del interfaz gráfico.
 	 * 
-	 * Método plantilla (patr�n de dise�o Método Plantilla).
+	 * Método plantilla (patrón de diseño Método Plantilla).
 	 * 
-	 * @return la descripci�n MOON del atributo representado por una selecci�n 
-	 * del interfaz gr�fico.
+	 * @return la descripción MOON del atributo representado por una selección 
+	 * del interfaz gráfico.
 	 * 
 	 * @throws ClassNotFoundException si se no se consigue encontrar la clase a
 	 * la que pertenece el atributo en el modelo MOON cargado.
@@ -67,7 +67,7 @@ public abstract class FieldSelectionHandler implements ISelectionHandler {
 		throws ClassNotFoundException, IOException {
 		
 		if (fieldDescription == null){
-			// Llamada a la operación primitiva (patr�n de dise�o Método Plantilla).
+			// Llamada a la operación primitiva (patrón de diseño Método Plantilla).
 			JavaFieldProcessor fieldProcessor = getFieldProcessor();
 			
 			String uniqueName = fieldProcessor.getUniqueName();
@@ -85,10 +85,10 @@ public abstract class FieldSelectionHandler implements ISelectionHandler {
 	
 	/**
 	 * Obtiene la clase del modelo MOON en la que se define el atributo 
-	 * representado por una selecci�n del interfaz gr�fico.
+	 * representado por una selección del interfaz gráfico.
 	 * 
 	 * @return la clase del modelo MOON en la que se define el atributo
-	 * representado por una selecci�n del interfaz gr�fico.
+	 * representado por una selección del interfaz gráfico.
 	 * 
 	 * @throws ClassNotFoundException si se no se consigue encontrar la clase en
 	 * el modelo MOON cargado.
@@ -100,7 +100,7 @@ public abstract class FieldSelectionHandler implements ISelectionHandler {
 	/**
 	 * Obtiene un elemento capaz de procesar la información de un atributo Java.
 	 * 
-	 * Operación primitiva (patr�n de dise�o Método Plantilla).
+	 * Operación primitiva (patrón de diseño Método Plantilla).
 	 * 
 	 * @return un elemento capaz de procesar la información de un atributo Java.
 	 */

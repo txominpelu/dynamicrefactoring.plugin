@@ -85,7 +85,7 @@ public class ReplaceBoundType extends Action {
 	}
 
 	/**
-	 * Ejecuta la sustituci�n de la acotación del  parámetro formal.
+	 * Ejecuta la sustitución de la acotación del  parámetro formal.
 	 */	
 	public void run() {	
 		listenerReg.notify("# run():ReplaceBoundType #"); //$NON-NLS-1$
@@ -108,7 +108,7 @@ public class ReplaceBoundType extends Action {
 	}
 
 	/**
-	 * Deshace la sustituci�n de la acotación del parámetro formal.
+	 * Deshace la sustitución de la acotación del parámetro formal.
 	 */
 	public void undo() {
 		listenerReg.notify("# undo():ReplaceBoundType #"); //$NON-NLS-1$

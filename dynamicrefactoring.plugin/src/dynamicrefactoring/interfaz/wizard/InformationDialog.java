@@ -41,26 +41,26 @@ import dynamicrefactoring.RefactoringImages;
 public class InformationDialog extends Dialog {
 
 	/**
-	 * T�tulo asociado al di�logo.
+	 * Título asociado al diálogo.
 	 */
 	String title;
 	
 	/**
-	 * Mensaje que muestra el di�logo.
+	 * Mensaje que muestra el diálogo.
 	 */
 	String message;
 	
 	/**
-	 * Detalles que muestra en di�logo.
+	 * Detalles que muestra en diálogo.
 	 */
 	String details;
 	
 	/**
-	 * Crea el di�logo.
+	 * Crea el diálogo.
 	 * 
-	 * @param parentShell Venta sobre la que se abrir� el di�logo.
+	 * @param parentShell Venta sobre la que se abrirá el diálogo.
 	 * @param title titulo.
-	 * @param message mensaje del di�logo.
+	 * @param message mensaje del diálogo.
 	 * @param details detalles.
 	 */
 	public InformationDialog(Shell parentShell, String title, String message,String details) {
@@ -71,7 +71,7 @@ public class InformationDialog extends Dialog {
 	}
 
 	/**
-	 * Crea los contenidos del di�logo.
+	 * Crea los contenidos del diálogo.
 	 * 
 	 * @param parent Compuesto padre.
 	 * @return  un objeto Control.
@@ -112,7 +112,7 @@ public class InformationDialog extends Dialog {
 	}
 
 	/**
-	 * Devuelve el tama�o inicial del di�logo.
+	 * Devuelve el tamaño inicial del diálogo.
 	 */
 	@Override
 	protected Point getInitialSize() {

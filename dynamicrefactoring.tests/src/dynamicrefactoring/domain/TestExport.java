@@ -76,7 +76,7 @@ public class TestExport {
 	}
 
 	/**
-	 * Comprueba que el proceso de exportación de la refactorización din�mica
+	 * Comprueba que el proceso de exportación de la refactorización dinámica
 	 * Rename Class a un directorio temporal "./temp" se ha realizado
 	 * correctamente.
 	 * 
@@ -113,7 +113,7 @@ public class TestExport {
 	}
 
 	/**
-	 * Comprueba que el proceso de exportación de la refactorización din�mica
+	 * Comprueba que el proceso de exportación de la refactorización dinámica
 	 * Rename Class a un directorio temporal "./temp" teniendo en cuenta que uno
 	 * de los ficheros .class requeridos no se encuentra en el repositorio.
 	 * 
@@ -139,7 +139,7 @@ public class TestExport {
 			// Copiamos uno de los ficheros .class que necesita la
 			// refactorización al directorio
 			// temporal y luego lo borramos para que posteriormente salte la
-			// excepci�n.
+			// excepción.
 
 			FileUtils.copyFileToDirectory(new File(ficheroOrigen), new File(
 					TEMP_DIR));
@@ -157,7 +157,7 @@ public class TestExport {
 
 			// Reponemos el fichero .class que hab�amos borrado para comprobar
 			// que saltaba la
-			// excepci�n.
+			// excepción.
 
 			FileManager.copyFile(new File(TEMP_DIR + File.separatorChar
 					+ refactoringName), new File(ficheroOrigen));

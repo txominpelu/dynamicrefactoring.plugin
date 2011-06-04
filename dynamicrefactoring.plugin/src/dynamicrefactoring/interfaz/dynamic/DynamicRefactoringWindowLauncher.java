@@ -28,7 +28,7 @@ import org.eclipse.ui.PlatformUI;
 import dynamicrefactoring.domain.DynamicRefactoringDefinition;
 
 /**
- * Construye una nueva ventana de refactorización din�mica y la abre.
+ * Construye una nueva ventana de refactorización dinámica y la abre.
  * 
  * @author <A HREF="mailto:sfd0009@alu.ubu.es">Sonia Fuente de la Fuente</A>
  * @author <A HREF="mailto:ehp0001@alu.ubu.es">Enrique Herrero Paredes</A>
@@ -42,12 +42,12 @@ public class DynamicRefactoringWindowLauncher {
 	 *            objeto que constituye la entrada principal a la
 	 *            refactorización.
 	 * @param refactoringName
-	 *            nombre de la refactorización din�mica seleccionada.
+	 *            nombre de la refactorización dinámica seleccionada.
 	 */
 	public DynamicRefactoringWindowLauncher(ObjectMoon currentObject,
 			DynamicRefactoringDefinition refactoring) {
 
-		// Si el fichero asociado est� disponible.
+		// Si el fichero asociado está disponible.
 		DynamicRefactoringWindow drw = new DynamicRefactoringWindow(
 				currentObject, refactoring);
 		drw.setBlockOnOpen(true);

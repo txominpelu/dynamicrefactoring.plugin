@@ -49,7 +49,7 @@ import dynamicrefactoring.util.selection.TextSelectionInfo;
 public class FormalParameterSelectionHandler implements ISelectionHandler {
 	
 	/**
-	 * El proveedor de información concreto para la selecci�n de texto.
+	 * El proveedor de información concreto para la selección de texto.
 	 */
 	private TextSelectionInfo infoProvider;
 	
@@ -59,18 +59,18 @@ public class FormalParameterSelectionHandler implements ISelectionHandler {
 	private ITypeParameter selectedParameter;
 	
 	/**
-	 * La descripci�n MOON del parámetro formal seleccionado.
+	 * La descripción MOON del parámetro formal seleccionado.
 	 */
 	private FormalPar formalParameter;
 	
 	/**
-	 * La descripci�n MOON de la clase en cuya declaración aparece el parámetro
+	 * La descripción MOON de la clase en cuya declaración aparece el parámetro
 	 * formal.
 	 */
 	private ClassDef fParClass;
 	
 	/**
-	 * La descripci�n MOON del método en cuya declaración aparece el parámetro
+	 * La descripción MOON del método en cuya declaración aparece el parámetro
 	 * formal.
 	 */
 	private MethDec fParMethod;
@@ -78,10 +78,10 @@ public class FormalParameterSelectionHandler implements ISelectionHandler {
 	/**
 	 * Constructor.
 	 * 
-	 * @param selectionInfo contenedor de la selecci�n que se desea manejar.
+	 * @param selectionInfo contenedor de la selección que se desea manejar.
 	 * 
-	 * @throws Exception si la selecci�n contenida en #selectionInfo no es una
-	 * selecci�n de un parámetro formal sobre una representación textual.
+	 * @throws Exception si la selección contenida en #selectionInfo no es una
+	 * selección de un parámetro formal sobre una representación textual.
 	 */
 	public FormalParameterSelectionHandler (
 		TextSelectionInfo selectionInfo) throws Exception{
@@ -101,11 +101,11 @@ public class FormalParameterSelectionHandler implements ISelectionHandler {
 	}
 	
 	/**
-	 * Obtiene la descripci�n MOON del parámetro formal representado por una 
-	 * selecci�n del interfaz gr�fico.
+	 * Obtiene la descripción MOON del parámetro formal representado por una 
+	 * selección del interfaz gráfico.
 	 * 
-	 * @return la descripci�n MOON del argumento formal representado por una 
-	 * selecci�n del interfaz gr�fico.
+	 * @return la descripción MOON del argumento formal representado por una 
+	 * selección del interfaz gráfico.
 	 * 
 	 * @throws ClassNotFoundException si se no se consigue encontrar la clase 
 	 * del parámetro formal en el modelo MOON cargado.
@@ -118,7 +118,7 @@ public class FormalParameterSelectionHandler implements ISelectionHandler {
 		throws IOException, ClassNotFoundException {
 		
 		if (formalParameter == null){
-			// Se construye el nombre con el que se buscar� el parámetro formal.
+			// Se construye el nombre con el que se buscará el parámetro formal.
 			Model MOONModel = ModelGenerator.getInstance().getModel();
 			Name fParName = MOONModel.getMoonFactory().createName(
 				selectedParameter.getElementName());
@@ -141,10 +141,10 @@ public class FormalParameterSelectionHandler implements ISelectionHandler {
 	}
 	
 	/**
-	 * Obtiene la descripci�n MOON del método al que pertenece el parámetro
+	 * Obtiene la descripción MOON del método al que pertenece el parámetro
 	 * formal seleccionado.
 	 * 
-	 * @return la descripci�n MOON del método al que pertenece el parámetro
+	 * @return la descripción MOON del método al que pertenece el parámetro
 	 * formal seleccionado.
 	 * 
 	 * @throws ClassNotFoundException si se no se consigue encontrar la clase a
@@ -154,7 +154,7 @@ public class FormalParameterSelectionHandler implements ISelectionHandler {
 	public MethDec getFormalParameterMethod() 
 		throws IOException, ClassNotFoundException {
 		
-		// Si el parámetro formal no est� declarado en un método, ser� de clase.
+		// Si el parámetro formal no está declarado en un método, será de clase.
 		if (! (selectedParameter.getDeclaringMember() instanceof IMethod))
 			return null;
 		
@@ -171,10 +171,10 @@ public class FormalParameterSelectionHandler implements ISelectionHandler {
 	}
 	
 	/**
-	 * Obtiene la descripci�n MOON de la clase a la que pertenece el parámetro
+	 * Obtiene la descripción MOON de la clase a la que pertenece el parámetro
 	 * formal seleccionado.
 	 * 
-	 * @return la descripci�n MOON de la clase a la que pertenece el parámetro
+	 * @return la descripción MOON de la clase a la que pertenece el parámetro
 	 * formal seleccionado.
 	 * 
 	 * @throws ClassNotFoundException si se no se consigue encontrar la clase en

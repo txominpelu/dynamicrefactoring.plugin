@@ -88,7 +88,7 @@ import dynamicrefactoring.interfaz.wizard.search.javadoc.EclipseBasedJavadocRead
 import dynamicrefactoring.util.PluginStringUtils;
 
 /**
- * Contenido de las p�ginas en la que se establecen los diferentes mecanismos de la refactorización.
+ * Contenido de las páginas en la que se establecen los diferentes mecanismos de la refactorización.
  * 
  * <p>Implementa de forma genérica la interfaz y el proceso de adición de 
  * componentes concretos del repositorio a la refactorización.</p>
@@ -109,19 +109,19 @@ public class RepositoryElementComposite {
 		Logger.getLogger(RepositoryElementComposite.class);
 	
 	/**
-	 * P�gina del asistente a partir de la cual se pueden obtener las entradas
+	 * Página del asistente a partir de la cual se pueden obtener las entradas
 	 * de la refactorización.
 	 */
 
 	private RefactoringWizardPage2 inputsPage;
 	
 	/**
-	 * P�gina del asistente que contiene este contenedor.
+	 * Página del asistente que contiene este contenedor.
 	 */
 	private IRefactoringWizardElementPage mainPage;
 	
 	/**
-	 * T�tulo de la operación.
+	 * Título de la operación.
 	 */
 	private String title;
 	
@@ -153,31 +153,31 @@ public class RepositoryElementComposite {
 	private Button cb_qualified;
 	
 	/**
-	 * Bot�n que permite a�adir un elemento del repositorio a la lista de elementos
+	 * Botón que permite añadir un elemento del repositorio a la lista de elementos
 	 * que forman parte de la refactorización.
 	 */
 	private Button bt_addElement;
 	
 	/**
-	 * Bot�n que permite eliminar un elemento seleccionado como parte de la
+	 * Botón que permite eliminar un elemento seleccionado como parte de la
 	 * refactorización y devolverlo a la lista de elementos del repositorio.
 	 */
 	private Button bt_delElement;
 	
 	/**
-	 * Bot�n que permite mover hacia arriba en la lista elementos seleccionados 
+	 * Botón que permite mover hacia arriba en la lista elementos seleccionados 
 	 * como parte de la refactorización.
 	 */
 	private Button bt_moveUp;
 	
 	/**
-	 * Bot�n que permite mover hacia abajo en la lista elementos seleccionados 
+	 * Botón que permite mover hacia abajo en la lista elementos seleccionados 
 	 * como parte de la refactorización.
 	 */
 	private Button bt_moveDown;
 	
 	/**
-	 * Tabla con el n�mero de veces que se ha seleccionado un mecanismo. Solo
+	 * Tabla con el número de veces que se ha seleccionado un mecanismo. Solo
 	 * aparecen las precondiciones seleccionadas.
 	 */
 	private Hashtable<String, Integer>selectedTimes;
@@ -189,12 +189,12 @@ public class RepositoryElementComposite {
 	private Browser navegador;
 	
 	/**
-	 * Caja de texto que permite introducir al usuario el patr�n de la b�squeda.
+	 * Caja de texto que permite introducir al usuario el patrón de la búsqueda.
 	 */
 	private Text tSearch;
 	
 	/**
-	 * Bot�n que permite realizar la b�squeda.
+	 * Botón que permite realizar la búsqueda.
 	 */
 	private final Button bSearch;
 	
@@ -209,7 +209,7 @@ public class RepositoryElementComposite {
 	private boolean isSearched;
 	
 	/**
-	 * Bot�n por defecto de esta p�gina del wizard.
+	 * Botón por defecto de esta página del wizard.
 	 */
 	private Button bDefault;
 	
@@ -247,11 +247,11 @@ public class RepositoryElementComposite {
 	/**
 	 * Constructor.
 	 * 
-	 * @param parent elemento padre de la pesta�a.
-	 * @param inputsPage p�gina del asistente a partir de la cual se pueden 
+	 * @param parent elemento padre de la pestaña.
+	 * @param inputsPage página del asistente a partir de la cual se pueden 
 	 * obtener las entradas que se han seleccionado para la refactorización.
-	 * @param title t�tulo asociado a la pesta�a.
-	 * @param main P�gina donde se va a a�adir esta estructura.
+	 * @param title título asociado a la pestaña.
+	 * @param main Página donde se va a añadir esta estructura.
 	 */
 	public RepositoryElementComposite(Composite parent, String title, 
 		IWizardPage inputsPage,IRefactoringWizardElementPage main, final RefactoringMechanismType type){
@@ -292,7 +292,7 @@ public class RepositoryElementComposite {
 		composite = new Composite(parent, SWT.NONE);		
 		this.title = title;
 		
-		/*Para establecer el tama�o de la ventana*/
+		/*Para establecer el tamaño de la ventana*/
 		final Label label = new Label(control, SWT.NONE);
 		final FormData fd_label = new FormData();
 		fd_label.bottom = new FormAttachment(0,261);
@@ -549,9 +549,9 @@ public class RepositoryElementComposite {
 	
 	/**
 	 * Puebla la lista de elementos disponibles con las claves ordenadas 
-	 * alfab�ticamente de una tabla <i>hash</i>.
+	 * alfabéticamente de una tabla <i>hash</i>.
 	 * 
-	 * @param repository tabla <i>hash</i> cuyas claves se deben a�adir a la lista
+	 * @param repository tabla <i>hash</i> cuyas claves se deben añadir a la lista
 	 * (en principio, se trata de una tabla de elementos concretos del repositorio,
 	 * en la que se utiliza como clave el nombre de cada uno de ellos).
 	 */
@@ -561,7 +561,7 @@ public class RepositoryElementComposite {
     	Vector<String> orderedList = new Vector<String>(repository.keySet()); 
     	Collections.sort(orderedList);
 		
-		// Se a�ade a la lista.
+		// Se añade a la lista.
     	for (String nextKey : orderedList){
     		if(!nextKey.startsWith("Test")){
     			l_Available.add(nextKey);
@@ -574,9 +574,9 @@ public class RepositoryElementComposite {
 	}
 	
 	/**
-	 * Rellena la lista de elementos en funci�n del patr�n de b�squeda.
+	 * Rellena la lista de elementos en función del patrón de búsqueda.
 	 * 
-	 * @param patron Patr�n de b�squeda.
+	 * @param patron Patrón de búsqueda.
 	 */
 	protected void fillSearchTypesList(String patron){
 		boolean search = !(patron.trim().equals("") || patron.trim().equals("*"));
@@ -644,7 +644,7 @@ public class RepositoryElementComposite {
 	}
 	
 	/**
-	 * Deselecciona todos los elementos de cualquiera de las listas y vac�a
+	 * Deselecciona todos los elementos de cualquiera de las listas y vacía
 	 * la tabla de parámetros.
 	 */
 	protected void deselect(){
@@ -661,7 +661,7 @@ public class RepositoryElementComposite {
 	 * 
 	 * @param elements elementos que forman ya parte de la refactorización.
 	 * @param refactoring refactorización cuyos elementos se cargan.
-	 * @param typePart tipo de elementos que se cargar�n (uno de 
+	 * @param typePart tipo de elementos que se cargarán (uno de 
 	 * {@link RefactoringConstants#PRECONDITION}, 
 	 * {@link RefactoringConstants#ACTION} o 
 	 * {@link RefactoringConstants#POSTCONDITION}.)
@@ -680,7 +680,7 @@ public class RepositoryElementComposite {
 				selectedTimes.put(next, 1);
 				element = next+" (" + 1 + ")";
 			}
-			// Se a�ade su nombre a la lista de componentes.
+			// Se añade su nombre a la lista de componentes.
 			l_Selected.add(element);
 			
 			// Se crea un nuevo elemento para representarlo.
@@ -748,7 +748,7 @@ public class RepositoryElementComposite {
 				
 				for(InputParameter nextInput : inputsPage.getInputs()){
 					try{
-						//a�adimos al combo las que coinciden con el tipo introducido como parámetro
+						//añadimos al combo las que coinciden con el tipo introducido como parámetro
 						if((Class.forName(type)).isAssignableFrom( Class.forName(nextInput.getType())))
 							combo.add(nextInput.getName() + " (" + nextInput.getType() + ")"); //$NON-NLS-1$ //$NON-NLS-2$	
 					}catch(ClassNotFoundException exception){
@@ -769,7 +769,7 @@ public class RepositoryElementComposite {
 	}
 	
 	/**
-	 * Vac�a la tabla de parámetros ambiguos.
+	 * Vacía la tabla de parámetros ambiguos.
 	 */
 	private void emptyTable() {
 		TableItem items[] = tb_parameters.getItems();
@@ -794,7 +794,7 @@ public class RepositoryElementComposite {
 	}
 	
 	/**
-	 * A�ade los elementos concretos disponibles del repositorio seleccionados a la 
+	 * Añade los elementos concretos disponibles del repositorio seleccionados a la 
 	 * lista de elementos concretos ya seleccionados.
 	 */
 	private void addElements(RefactoringMechanismType type){
@@ -837,8 +837,8 @@ public class RepositoryElementComposite {
 	}
 	
 	/**
-	 * Elimina de la lista de elementos concretos ya a�adidos a la refactorización
-	 * aqu�llos que se encuentren seleccionados.
+	 * Elimina de la lista de elementos concretos ya añadidos a la refactorización
+	 * aquéllos que se encuentren seleccionados.
 	 */
 	private void removeElements(){
 		String[] selected = l_Selected.getSelection();
@@ -857,8 +857,8 @@ public class RepositoryElementComposite {
 	
 	/**
 	 * Obtiene una tabla asociativa con los elementos del repositorio 
-	 * seleccionados en esta pesta�a para formar parte de la refactorización,
-	 * as� como con su lista de parámetros.
+	 * seleccionados en esta pestaña para formar parte de la refactorización,
+	 * así como con su lista de parámetros.
 	 * 
 	 * <p>En la tabla devuelta, la clave la constituye el nombre simple del 
 	 * predicado o acción, y el valor es un <code>ArrayList</code> que contiene
@@ -875,10 +875,10 @@ public class RepositoryElementComposite {
 	}
 	
 	/**
-	 * Obtiene la lista de elementos del repositorio seleccionados en esta pesta�a
+	 * Obtiene la lista de elementos del repositorio seleccionados en esta pestaña
 	 * como componentes de la refactorización.
 	 * 
-	 * @return la lista de elementos del repositorio seleccionados en esta pesta�a
+	 * @return la lista de elementos del repositorio seleccionados en esta pestaña
 	 * como componentes de la refactorización.
 	 */
 	public ArrayList<String> getElements(){
@@ -893,7 +893,7 @@ public class RepositoryElementComposite {
 	 * Comprueba si todos los campos necesarios se han completado y si se puede 
 	 * continuar con el siguiente paso del asistente.
 	 * 
-	 * <p>Para que se pueda continuar no deber� quedar ningún elemento del 
+	 * <p>Para que se pueda continuar no deberá quedar ningún elemento del 
 	 * repositorio con atributos pendientes de completar.</p>
 	 */
 	private void checkForCompletion() {
@@ -931,11 +931,11 @@ public class RepositoryElementComposite {
 		
 		if (parameters != null){
 			
-			// Si al elemento todav�a le faltan parámetros para completar la
+			// Si al elemento todavía le faltan parámetros para completar la
 			// lista de argumentos formales del constructor.
 			if (element.getParameters().size() < parameters.length)
 				return false;
-			// Si alguno de los parámetros todav�a no ha sido configurado.
+			// Si alguno de los parámetros todavía no ha sido configurado.
 			for (InputParameter next : element.getParameters())
 				if (next.getName() == null || next.getName().length() == 0)
 					return false;
@@ -1033,10 +1033,10 @@ public class RepositoryElementComposite {
 
 		
 		/**
-		 * A�ade un parámetro ambiguo al elemento del repositorio.
+		 * Añade un parámetro ambiguo al elemento del repositorio.
 		 * 
 		 * @see #setParameters
-		 * @param parameter el parámetro ambiguo que se debe a�adir.
+		 * @param parameter el parámetro ambiguo que se debe añadir.
 		 */
 		public void addParameter(InputParameter parameter) {
 			parameters.add(parameter);
@@ -1105,7 +1105,7 @@ public class RepositoryElementComposite {
 		 * Recibe notificaciones cuando el elemento observado ha sido seleccionado
 		 * por defecto.
 		 * 
-		 * @param e evento de selecci�n disparado en la interfaz.
+		 * @param e evento de selección disparado en la interfaz.
 		 * 
 		 * @see SelectionListener#widgetDefaultSelected(SelectionEvent)
 		 */
@@ -1117,7 +1117,7 @@ public class RepositoryElementComposite {
 		/**
 		 * Recibe notificaciones cuando el elemento observado ha sido seleccionado.
 		 * 
-		 * @param e evento de selecci�n disparado en la interfaz.
+		 * @param e evento de selección disparado en la interfaz.
 		 * 
 		 * @see SelectionListener#widgetSelected(SelectionEvent)
 		 */
@@ -1151,13 +1151,13 @@ public class RepositoryElementComposite {
 	}
 
 	/**
-	 * Actualiza la pesta�a del asistente en funci�n del elemento del 
+	 * Actualiza la pestaña del asistente en función del elemento del 
 	 * repositorio que se encuentre seleccionado sobre la lista de elementos
-	 * a�adidos como parte de la refactorización.
+	 * añadidos como parte de la refactorización.
 	 * 
 	 * <p>Actualiza la tabla con los parámetros asignados hasta el momento al
-	 * elemento seleccionado, as� como los botones que sea necesario activar o
-	 * desactivar en funci�n del estado de la selecci�n.
+	 * elemento seleccionado, así como los botones que sea necesario activar o
+	 * desactivar en función del estado de la selección.
 	 * 
 	 * @author <A HREF="mailto:lfd0002@alu.ubu.es">Laura Fuente de la Fuente</A>
 	 * @author <A HREF="mailto:sfd0009@alu.ubu.es">Sonia Fuente de la Fuente</A>
@@ -1170,7 +1170,7 @@ public class RepositoryElementComposite {
 		 * del repositorio que forman parte de la refactorización ha sido 
 		 * seleccionado.
 		 * 
-		 * @param e el evento de selecci�n disparado en la ventana.
+		 * @param e el evento de selección disparado en la ventana.
 		 * 
 		 * @see SelectionListener#widgetSelected(SelectionEvent)
 		 */
@@ -1208,7 +1208,7 @@ public class RepositoryElementComposite {
 					}
 				}
 			}
-			// Si no hay ningún elemento seleccionado o hay m�s de uno.
+			// Si no hay ningún elemento seleccionado o hay más de uno.
 			else {
 				tb_parameters.setEnabled(false);
 			}
@@ -1237,10 +1237,10 @@ public class RepositoryElementComposite {
 		 * Recibe una notificación de que un miembro de la lista de elementos
 		 * concretos del repositorio disponibles ha sido seleccionado.
 		 * 
-		 * <p>Activa el bot�n que permite a�adir el o los elementos seleccionados
+		 * <p>Activa el botón que permite añadir el o los elementos seleccionados
 		 * a la lista de componentes de la refactorización.</p>
 		 * 
-		 * @param e el evento de selecci�n disparado en la ventana.
+		 * @param e el evento de selección disparado en la ventana.
 		 * 
 		 * @see SelectionListener#widgetSelected(SelectionEvent)
 		 */

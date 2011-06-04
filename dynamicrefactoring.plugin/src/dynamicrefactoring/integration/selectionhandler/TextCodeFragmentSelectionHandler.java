@@ -32,7 +32,7 @@ import org.eclipse.jface.text.TextSelection;
 import dynamicrefactoring.util.selection.TextSelectionInfo;
 
 /**
- * Proporciona las funciones necesarias para obtener el c�digo de fragmento de MOON
+ * Proporciona las funciones necesarias para obtener el código de fragmento de MOON
  * con el que se corresponde el texto seleccionado en Eclipse.
  * 
  * @author <A HREF="mailto:lfd0002@alu.ubu.es">Laura Fuente de la Fuente</A>
@@ -45,17 +45,17 @@ public class TextCodeFragmentSelectionHandler implements ISelectionHandler {
 	protected CodeFragment codeFragment;
 	
 	/**
-	 * El proveedor de información concreto para la selecci�n de texto.
+	 * El proveedor de información concreto para la selección de texto.
 	 */
 	private TextSelectionInfo infoProvider;
 	
 	/**
 	 * Constructor.
 	 * 
-	 * @param selectionInfo contenedor de la selecci�n que se desea manejar.
+	 * @param selectionInfo contenedor de la selección que se desea manejar.
 	 * 
-	 * @throws Exception si la selecci�n contenida en #selectionInfo no es una
-	 * selecci�n de una representación textual.
+	 * @throws Exception si la selección contenida en #selectionInfo no es una
+	 * selección de una representación textual.
 	 */
 	public TextCodeFragmentSelectionHandler (TextSelectionInfo selectionInfo)
 		throws Exception{

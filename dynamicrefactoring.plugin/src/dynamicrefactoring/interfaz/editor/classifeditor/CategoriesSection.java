@@ -138,7 +138,7 @@ public final class CategoriesSection {
 	}
 
 	/**
-	 * Cambia el nombre de una categor�a dentro de la clasificacion.
+	 * Cambia el nombre de una categoría dentro de la clasificacion.
 	 * 
 	 * @param oldName
 	 * @param newName

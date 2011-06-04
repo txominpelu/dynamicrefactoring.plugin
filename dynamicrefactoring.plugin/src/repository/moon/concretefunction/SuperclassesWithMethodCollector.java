@@ -73,10 +73,10 @@ public class SuperclassesWithMethodCollector extends Function {
 	 *
 	 * Si por una rama de herencia encuentra una clase que contiene el método,
 	 * no sigue buscando hacia las superclases de la misma. En cambio, si 
-	 * encuentra superclases que no contienen el método, contin�a buscando a su
+	 * encuentra superclases que no contienen el método, continúa buscando a su
 	 * vez en las clases superiores de las mismas.
 	 *
-	 * @return Las clases encontradas o null, si no se encontr� ninguna.
+	 * @return Las clases encontradas o null, si no se encontrá ninguna.
 	 */ 
 	public Collection<ClassDef> getCollection() {
 		

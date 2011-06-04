@@ -30,7 +30,7 @@ import org.eclipse.ui.PlatformUI;
 import dynamicrefactoring.interfaz.wizard.ExportPlanWizard;
 
 /**
- * Acci�n que inicia el asistente de exportación de un plan de refactorizaciones din�micas.
+ * Acción que inicia el asistente de exportación de un plan de refactorizaciones dinámicas.
  * 
  * @author <A HREF="mailto:lfd0002@alu.ubu.es">Laura Fuente de la Fuente</A>
  */

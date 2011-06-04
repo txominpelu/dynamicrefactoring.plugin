@@ -30,8 +30,8 @@ import refactoring.engine.Predicate;
 
 
 /**
- * Permite comprobar que una clase tiene atributos p�blicos finales y 
- * est�ticos cuyo tipo corresponde al tipo de la clase en la que son definidos.
+ * Permite comprobar que una clase tiene atributos públicos finales y 
+ * estáticos cuyo tipo corresponde al tipo de la clase en la que son definidos.
  *
  * @author <A HREF="mailto:lfd0002@alu.ubu.es">Laura Fuente de la Fuente</A>
  */ 

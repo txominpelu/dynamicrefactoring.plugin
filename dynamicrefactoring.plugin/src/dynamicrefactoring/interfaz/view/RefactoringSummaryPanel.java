@@ -65,17 +65,17 @@ import dynamicrefactoring.util.RefactoringTreeManager;
 public class RefactoringSummaryPanel {
 
 	/**
-	 * Etiqueta ti�tulo.
+	 * Etiqueta título.
 	 */
 	private Label titleLabel;
 
 	/**
-	 * Número mínimo de pestañas, es el número de pestañas fijas a mostrar.
+	 * Nmero mínimo de pestañas, es el número de pestañas fijas a mostrar.
 	 */
 	private int minNumTabs;
 
 	/**
-	 * Organizador de pesta�as.
+	 * Organizador de pestañas.
 	 */
 	private TabFolder refTabFolder;
 

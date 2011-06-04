@@ -29,11 +29,11 @@ import dynamicrefactoring.RefactoringImages;
 import dynamicrefactoring.interfaz.ButtonTextProvider;
 
 /**
- * Proporciona una especialización del di�logo de asistente de Eclipse.
+ * Proporciona una especialización del diálogo de asistente de Eclipse.
  * 
- * <p>Permite internacionalizar los textos de los botones del di�logo por defecto
- * en el que se abren los asistentes en Eclipse, que de otra forma tendr�an siempre
- * los textos por defecto en ingl�s.</p>
+ * <p>Permite internacionalizar los textos de los botones del diálogo por defecto
+ * en el que se abren los asistentes en Eclipse, que de otra forma tendrían siempre
+ * los textos por defecto en inglés.</p>
  * 
  * @author <A HREF="mailto:sfd0009@alu.ubu.es">Sonia Fuente de la Fuente</A>
  * @author <A HREF="mailto:ehp0001@alu.ubu.es">Enrique Herrero Paredes</A>
@@ -43,17 +43,17 @@ public class CustomWizardDialog extends WizardDialog {
 	/**
 	 * Constructor.
 	 * 
-	 * @param shell <i>shell</i> en la que se abrir� el di�logo del asistente.
-	 * @param wizard asistente que se debe abrir en el di�logo.
+	 * @param shell <i>shell</i> en la que se abrirá el diálogo del asistente.
+	 * @param wizard asistente que se debe abrir en el diálogo.
 	 */
 	public CustomWizardDialog(Shell shell, RefactoringWizard wizard){
 		super(shell, wizard);
 	}
 	
 	/**
-	 * Crea los botones del di�logo en que se muestra un asistente.
+	 * Crea los botones del diálogo en que se muestra un asistente.
 	 * 
-	 * @param parent el componente padre que contendr� los botones.
+	 * @param parent el componente padre que contendrá los botones.
 	 */
 	@Override
 	protected void createButtonsForButtonBar(Composite parent) {
@@ -77,9 +77,9 @@ public class CustomWizardDialog extends WizardDialog {
 	}
 	
 	/**
-	 * Configura la <i>shell</i> en la que se abrir� el di�logo del asistente.
+	 * Configura la <i>shell</i> en la que se abrirá el diálogo del asistente.
 	 * 
-	 * @param newShell <i>shell</i> utilizada por el di�logo del asistente.
+	 * @param newShell <i>shell</i> utilizada por el diálogo del asistente.
 	 */
 	@Override
 	protected void configureShell(Shell newShell){

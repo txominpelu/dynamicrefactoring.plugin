@@ -41,10 +41,10 @@ public abstract class ClassSelectionHandler implements ISelectionHandler {
 	
 	/**
 	 * Obtiene la clase del modelo MOON que se corresponde con la clase 
-	 * a la que pertenece la selecci�n del interfaz gr�fico.
+	 * a la que pertenece la selección del interfaz gráfico.
 	 * 
 	 * @return la clase del modelo MOON que se corresponde con la clase
-	 * a la que pertenece la selecci�n del interfaz gr�fico.
+	 * a la que pertenece la selección del interfaz gráfico.
 	 * 
 	 * @throws ClassNotFoundException si se no se consigue encontrar la clase en
 	 * el modelo MOON cargado.

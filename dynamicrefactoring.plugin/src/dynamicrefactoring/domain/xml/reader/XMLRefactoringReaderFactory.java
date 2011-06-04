@@ -22,7 +22,7 @@ package dynamicrefactoring.domain.xml.reader;
 
 
 /**
- * Define una interfaz para las f�bricas que generan instancias que implementan
+ * Define una interfaz para las fábricas que generan instancias que implementan
  * la interfaz <code>XMLRefactoringReaderImp</code>.
  * 
  * @author <A HREF="mailto:alc0022@alu.ubu.es">Ángel López Campo</A>
@@ -36,7 +36,7 @@ public interface XMLRefactoringReaderFactory {
 	 * Devuelve una instancia de un lector de refactorizaciones en XML que
 	 * implementa la interfaz <code>XMLRefactoringReaderImp</code>.
 	 * 
-	 * @param file el fichero del que leer� el lector de refactorizaciones en XML.
+	 * @param file el fichero del que leerá el lector de refactorizaciones en XML.
 	 * 
 	 * @return la instancia generada.
 	 * 

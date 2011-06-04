@@ -30,8 +30,8 @@ import dynamicrefactoring.domain.RefactoringsCatalog;
 
 /**
  * Proporciona el comportamiento abstracto por defecto común a las ventanas de
- * di�logo que deben mostrar una lista seleccionable con el conjunto de
- * refactorizaciones din�micas disponibles.
+ * diálogo que deben mostrar una lista seleccionable con el conjunto de
+ * refactorizaciones dinámicas disponibles.
  * 
  * @author <A HREF="mailto:sfd0009@alu.ubu.es">Sonia Fuente de la Fuente</A>
  * @author <A HREF="mailto:ehp0001@alu.ubu.es">Enrique Herrero Paredes</A>
@@ -51,7 +51,7 @@ public abstract class DynamicRefactoringList extends Dialog {
 	 * Constructor.
 	 * 
 	 * @param parentShell
-	 *            <i>shell</i> padre del di�logo.
+	 *            <i>shell</i> padre del diálogo.
 	 * @param refactCatalog 
 	 */
 	public DynamicRefactoringList(Shell parentShell, RefactoringsCatalog refactCatalog) {

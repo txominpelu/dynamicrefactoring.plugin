@@ -22,7 +22,7 @@ package dynamicrefactoring.domain.xml.reader;
 
 
 /**
- * Excepci�n lanzada cuando se produce un error al leer el fichero con la
+ * Excepción lanzada cuando se produce un error al leer el fichero con la
  * refactorización.
  * 
  * @author <A HREF="mailto:alc0022@alu.ubu.es">Ángel López Campo</A>

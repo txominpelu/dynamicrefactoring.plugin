@@ -44,25 +44,25 @@ public class RenamingRegistry {
 	
 	/**
 	 * Tabla asociativa que relaciona una clase con todos los nombres que ha
-	 * recibido a lo largo de la ejecuci�n actual de Eclipse.
+	 * recibido a lo largo de la ejecución actual de Eclipse.
 	 * 
 	 * <p>Se utiliza como clave el nombre único original de la clase, y como 
-	 * valor, una lista con todos los nombres únicos que ha recibido despu�s
+	 * valor, una lista con todos los nombres únicos que ha recibido después
 	 * como consecuencia de renombrados.</p>
 	 */
 	private Hashtable<String, ArrayList<String>> renamings;
 
 	/**
-	 * Tabla asociativa que relaciona una clase con el nombre que ten�a
+	 * Tabla asociativa que relaciona una clase con el nombre que tenía
 	 * inmediatamente antes, antes de una única operación de renombrado.
 	 * 
-	 * <p>Se utiliza como clave el nombre único de la clase despu�s del 
+	 * <p>Se utiliza como clave el nombre único de la clase después del 
 	 * renombrado, y como valor, el nombre único original.</p>
 	 */
 	private Hashtable<String, String> reverse;
 	
 	/**
-	 * �ltimo renombrado ejecutado, a�n sin refactorización asociada.
+	 * último renombrado ejecutado, aún sin refactorización asociada.
 	 */
 	private String last = new String();
 	
@@ -87,25 +87,25 @@ public class RenamingRegistry {
 	}
 	
 	/**
-	 * A�ade una operación de renombrado pendiente de ser asociada a una 
+	 * Añade una operación de renombrado pendiente de ser asociada a una 
 	 * refactorización. 
 	 * 
 	 * @param id etiqueta identificativa de la operación de renombrado que
-	 * se a�ade.
+	 * se añade.
 	 */
 	public void addRenamingOperation(String id){
 		last = id;
 	}
 	
 	/**
-	 * Asocia una operación de refactorización a la �ltima operación de renombrado
+	 * Asocia una operación de refactorización a la última operación de renombrado
 	 * pendiente.
 	 * 
 	 * <p>Si se recibe una llamada pero no hay ninguna operación de renombrado libre
 	 * almacenada en {@link #last}, no se realiza ninguna asociación.</p>
 	 * 
 	 * @param refactoringId etiqueta identificativa de la operación de 
-	 * refactorización que se debe asociar al �ltimo renombrado ejecutado.
+	 * refactorización que se debe asociar al último renombrado ejecutado.
 	 */
 	public void bindRenaming(String refactoringId){
 		if (last.length() > 0){
@@ -119,7 +119,7 @@ public class RenamingRegistry {
 	 * a una refactorización.
 	 * 
 	 * @return <code>true</code> si se ha ejecutado una operación de renombrado y
-	 * no se le ha asociado todav�a ninguna refactorización; <code>false</code> en
+	 * no se le ha asociado todavía ninguna refactorización; <code>false</code> en
 	 * caso contrario.
 	 */
 	public boolean isPending(){
@@ -132,7 +132,7 @@ public class RenamingRegistry {
 	 * 
 	 * <p>Si no se encuentra directamente una operación de renombrado asociada,
 	 * busca entre el resto de renombrados el primero que pudiera haber tenido
-	 * lugar despu�s de la refactorización se�alada, y lo devuelve.</p> 
+	 * lugar después de la refactorización señalada, y lo devuelve.</p> 
 	 * 
 	 * @param id etiqueta identificativa de la refactorización cuya operación de
 	 * renombrado asociada se quiere obtener.
@@ -157,11 +157,11 @@ public class RenamingRegistry {
 			
 			// Si la refactorización es anterior.
 			if (refactDate.compareTo(renameDate) < 0){
-				// El renombrado deber� eliminarse despu�s de la lista.
+				// El renombrado deberá eliminarse después de la lista.
 				later.add(nextRenaming);
-				// Si est� m�s cerca de la refactorización que el mejor hasta ahora.
+				// Si está más cerca de la refactorización que el mejor hasta ahora.
 				if (best == null || best[1].compareTo(renameDate) > 0)
-					// Ser� el punto en que se deshaga el renombrado.
+					// Será el punto en que se deshaga el renombrado.
 					best = new String[] {bindings.get(nextRenaming), renameDate};
 			}
 		}
@@ -174,7 +174,7 @@ public class RenamingRegistry {
 	}
 	
 	/**
-	 * A�ade un nuevo renombrado a las tablas asociativas.
+	 * Añade un nuevo renombrado a las tablas asociativas.
 	 * 
 	 * @param oldName nombre único de la clase previo al renombrado.
 	 * @param newName nombre único de la clase tras el renombrado.
@@ -184,7 +184,7 @@ public class RenamingRegistry {
 	}
 	
 	/**
-	 * A�ade un nuevo renombrado a las tablas asociativas.
+	 * Añade un nuevo renombrado a las tablas asociativas.
 	 * 
 	 * @param oldName nombre único de la clase previo al renombrado.
 	 * @param newName nombre único de la clase tras el renombrado.
@@ -220,7 +220,7 @@ public class RenamingRegistry {
 	 * <p>Elimina de las tablas asociativas de renombrados todos los pasos 
 	 * intermedios entre el estado actual de la clase y el original.</p>
 	 * 
-	 * @param oldName nombre único que ten�a la clase en el estado original al
+	 * @param oldName nombre único que tenía la clase en el estado original al
 	 * que se debería restaurar.
 	 * 
 	 * @return el nombre único que tiene la clase en el momento de la llamada.
@@ -257,7 +257,7 @@ public class RenamingRegistry {
 		}
 		
 		reverse.remove(currentName);
-		// Para cada nombre anterior de la clase, empezando por el �ltimo.
+		// Para cada nombre anterior de la clase, empezando por el último.
 		for (int i = oldNames.size() - 1; i > -1; i--){
 			// Si el nombre no es el que se va a recuperar.
 			if (! oldNames.get(i).equals(oldName))

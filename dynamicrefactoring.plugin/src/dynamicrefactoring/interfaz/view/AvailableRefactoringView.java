@@ -82,7 +82,7 @@ public class AvailableRefactoringView extends ViewPart {
 	private SelectionInfo select;
 
 	/**
-	 * �rbol sobre el que se mostrar�n de forma estructurada las diferentes
+	 * árbol sobre el que se mostrarán de forma estructurada las diferentes
 	 * refactorizaciones disponibles para el elemento selecionado en el espacio
 	 * de trabajo.
 	 */
@@ -188,7 +188,7 @@ public class AvailableRefactoringView extends ViewPart {
 	 * editores abiertos con cambios pendientes.
 	 * 
 	 * @return <code>true</code> si se guardaron las modificaciones pendientes o
-	 *         si no hab�a ninguna pendiente; <code>false</code> en caso
+	 *         si no había ninguna pendiente; <code>false</code> en caso
 	 *         contrario.
 	 */
 	public boolean saveUnsavedChanges() {
@@ -223,8 +223,8 @@ public class AvailableRefactoringView extends ViewPart {
 	
 	
 	/**
-	 * Permite responder a los eventos generados por la selecci�n de un elemento
-	 * v�lido como entrada para una refactorización
+	 * Permite responder a los eventos generados por la selección de un elemento
+	 * válido como entrada para una refactorización
 	 * {@link AvailableRefactoringView}.
 	 * 
 	 * @author <A HREF="mailto:lfd0002@alu.ubu.es">Laura Fuente de la Fuente</A>
@@ -232,11 +232,11 @@ public class AvailableRefactoringView extends ViewPart {
 	private class MainSelectionListener implements IMainSelectionListener {
 
 		/**
-		 * Notifica al <i>listener</i> que un objeto v�lido como entrada para la
+		 * Notifica al <i>listener</i> que un objeto válido como entrada para la
 		 * refactorización ha sido seleccionado.
 		 * 
 		 * @param selection
-		 *            selecci�n del espacio de trabajo.
+		 *            selección del espacio de trabajo.
 		 */
 		public void elementSelected(SelectionInfo selection) {
 			select = selection;
@@ -255,17 +255,17 @@ public class AvailableRefactoringView extends ViewPart {
 	private class TreeMouseListener implements MouseListener {
 
 		/**
-		 * Recibe una notificación de que un elemento del �rbol que forma la
-		 * vista ha sido presionado doblemente con el rat�n.
+		 * Recibe una notificación de que un elemento del árbol que forma la
+		 * vista ha sido presionado doblemente con el ratón.
 		 * 
 		 * @param e
-		 *            el evento de selecci�n disparado en la ventana.
+		 *            el evento de selección disparado en la ventana.
 		 * 
 		 * @see MouseListener#mouseDoubleClick(MouseEvent)
 		 */
 		public void mouseDoubleClick(MouseEvent e) {
 			TreeItem[] selection = tr_Refactorings.getSelection();
-			// Si se ha se�alado el nombre de la refactorización
+			// Si se ha señalado el nombre de la refactorización
 			String selectedName = selection[0].getText();
 			if (selection[0].getParentItem() == null) {
 				try {

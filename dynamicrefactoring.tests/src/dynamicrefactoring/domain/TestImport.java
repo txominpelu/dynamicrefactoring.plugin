@@ -68,7 +68,7 @@ public class TestImport {
 
 		// Depu�s de exportarla vamos a eliminar la carpeta de Rename Class
 		// proveniente de
-		// la carpeta de refactorizaciones din�micas
+		// la carpeta de refactorizaciones dinámicas
 		FileManager.emptyDirectories(getRenameClassDir());
 		FileManager.deleteDirectories(getRenameClassDir(), true);
 	}
@@ -87,7 +87,7 @@ public class TestImport {
 	}
 
 	/**
-	 * Comprueba que el proceso de importación de la refactorización din�mica
+	 * Comprueba que el proceso de importación de la refactorización dinámica
 	 * Rename Class a partir de un directorio temporal "./temp" se ha realizado
 	 * correctamente.
 	 * 
@@ -125,7 +125,7 @@ public class TestImport {
 	}
 
 	/**
-	 * Comprueba que el proceso de importación de la refactorización din�mica
+	 * Comprueba que el proceso de importación de la refactorización dinámica
 	 * Rename Class a partir de un directorio temporal "./temp" devuelve la
 	 * cadena NotExistsClassWithName en el caso de borrar este mecanismo de la
 	 * carpeta donde esta exportada la refactorización y del repositorio.

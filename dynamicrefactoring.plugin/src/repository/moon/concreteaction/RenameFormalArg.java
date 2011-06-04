@@ -41,7 +41,7 @@ public class RenameFormalArg extends Action {
 	private FormalArgument formalArg;
 		
 	/**
-	 * Nuevo nombre que se dar� al parámetro.
+	 * Nuevo nombre que se dará al parámetro.
 	 */
 	private Name newName;
 	
@@ -61,7 +61,7 @@ public class RenameFormalArg extends Action {
 	 * Obtiene una nueva instancia de RenameFormalArg.
 	 *
 	 * @param formalArg el parámetro cuyo nombre se desea cambiar.
-	 * @param newName el nuevo nombre que se dar� al parámetro.
+	 * @param newName el nuevo nombre que se dará al parámetro.
 	 */	
 	public RenameFormalArg(FormalArgument formalArg, Name newName){	
 		super();

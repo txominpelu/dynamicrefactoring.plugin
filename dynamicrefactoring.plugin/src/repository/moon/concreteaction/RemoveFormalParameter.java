@@ -80,7 +80,7 @@ public class RemoveFormalParameter extends Action {
 	}
 
 	/**
-	 * Deshace la eliminación del parámetro formal, incluy�ndolo de nuevo en 
+	 * Deshace la eliminación del parámetro formal, incluyéndolo de nuevo en 
 	 * la clase.
 	 */
 	@Override

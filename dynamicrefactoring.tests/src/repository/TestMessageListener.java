@@ -37,7 +37,7 @@ import repository.moon.concreterefactoring.TestAddParameter;
 
 /** 
  * Comprueba que funciona correctamente el mecanismo de distribuci�n de
- * mensajes enviados por los elementos del repositorio durante la ejecuci�n
+ * mensajes enviados por los elementos del repositorio durante la ejecución
  * de una refactorización.<p>
  * 
  * @author <A HREF="mailto:sfd0009@alu.ubu.es">Sonia Fuente de la Fuente</A>
@@ -52,7 +52,7 @@ public class TestMessageListener extends RefactoringTemplateAbstractTest
 	private boolean received = false; 
 	
 	/**
-	 * Este método se invoca despu�s de cada test.
+	 * Este método se invoca después de cada test.
 	 */
 	@After @Override
 	public void tearDown(){
@@ -81,13 +81,13 @@ public class TestMessageListener extends RefactoringTemplateAbstractTest
 	}
 	
 	/** 
-	 * Comprueba que se reciben mensajes durante la ejecuci�n de una
+	 * Comprueba que se reciben mensajes durante la ejecución de una
 	 * refactorización. <p>
 	 * 
 	 * Ejecuta una refactorización "Mover Atributo" y comprueba que se han
 	 * recibido mensajes de refactorización en el proceso.
 	 * 
-	 * @throws Exception si se produjo algún error durante la ejecuci�n de la prueba.
+	 * @throws Exception si se produjo algún error durante la ejecución de la prueba.
 	 */
 	@Test
 	public void testMessageReceived() throws Exception{

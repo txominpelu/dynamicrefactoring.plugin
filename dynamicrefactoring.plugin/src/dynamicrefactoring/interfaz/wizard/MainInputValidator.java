@@ -153,12 +153,12 @@ public class MainInputValidator {
 	
 	/**
 	 * Comprueba si el tipo referenciado por su nombre completamente cualificado
-	 * conforma con alguno de los tipos v�lidos como entrada principal de una
+	 * conforma con alguno de los tipos válidos como entrada principal de una
 	 * refactorización.
 	 * 
 	 * @param typeName nombre completamente cualificado del tipo.
 	 * 
-	 * @return <code>true</code> si el tipo es v�lido; <code>false</code> en caso
+	 * @return <code>true</code> si el tipo es válido; <code>false</code> en caso
 	 * contrario.
 	 */
 	public boolean checkMainType(String typeName) {

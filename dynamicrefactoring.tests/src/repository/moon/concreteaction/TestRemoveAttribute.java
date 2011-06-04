@@ -43,12 +43,12 @@ public class TestRemoveAttribute extends RefactoringTemplateAbstractTest {
 
 	/** 
 	 * Comprueba que la acción funciona correctamente al eliminar un atributo de 
-	 * una clase y deshacer despu�s la operación.<p>
+	 * una clase y deshacer después la operación.<p>
 	 * 
-	 * En una clase simple con un único atributo, elimina el atributo y despu�s
+	 * En una clase simple con un único atributo, elimina el atributo y después
 	 * deshace la eliminación.
 	 * 
-	 * @throws Exception si se produce un error durante la ejecuci�n de la prueba.
+	 * @throws Exception si se produce un error durante la ejecución de la prueba.
 	 */
 	@Test
 	public void testUndo() throws Exception{

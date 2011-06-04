@@ -48,7 +48,7 @@ import dynamicrefactoring.util.selection.SelectionInfo;
  * Permite generar el modelo MOON correspondiente al proyecto Java sobre el
  * que se trabaja en un momento determinado.
  * 
- * <p>Determina qu� bibliotecas b�sicas del API de Java formar�n parte del
+ * <p>Determina qué bibliotecas básicas del API de Java formarán parte del
  * modelo, y proporciona funciones de acceso al modelo MOON sobre el que se
  * trabaja en un instante determinado. 
  * 
@@ -58,13 +58,13 @@ import dynamicrefactoring.util.selection.SelectionInfo;
 public class ModelGenerator {
 
 	/**
-	 * El nombre con el que se crea por defecto el fichero .mod que contendr�
+	 * El nombre con el que se crea por defecto el fichero .mod que contendrá
 	 * el modelo MOON-Java obtenido a partir de los fuentes .java.
 	 */
 	private final static String DEFAULT_MOD_NAMES = "out.mod"; //$NON-NLS-1$
 	
 	/**
-	 * La ruta del fichero "rt.jar" de Java, relativa a la ra�z del directorio de 
+	 * La ruta del fichero "rt.jar" de Java, relativa a la raíz del directorio de 
 	 * instalación de Java que utilice un proyecto.
 	 */
 	private final static String BASIC_JAR =  
@@ -72,7 +72,7 @@ public class ModelGenerator {
 		File.separatorChar + "rt.jar"; //$NON-NLS-1$ //$NON-NLS-2$
 	
 	/**
-	 * Extensi�n de los ficheros de bibliotecas JAR.
+	 * Extensión de los ficheros de bibliotecas JAR.
 	 */
 	private final static String LIB_EXTENSION = ".jar"; //$NON-NLS-1$
 	
@@ -96,21 +96,21 @@ public class ModelGenerator {
 	/**
 	 * Instancia única del generador.
 	 * 
-	 * Patr�n de dise�o Singleton.
+	 * Patrón de diseño Singleton.
 	 */
 	private static ModelGenerator myInstance;
 	
 	/**
 	 * Constructor.
 	 * 
-	 * Privado, seg�n la estructura del patr�n de dise�o Singleton.
+	 * Privado, según la estructura del patrón de diseño Singleton.
 	 */
 	private ModelGenerator(){}
 
 	/**
 	 * Obtiene la instancia única del generador.
 	 * 
-	 * Patr�n de dise�o Singleton.
+	 * Patrón de diseño Singleton.
 	 * 
 	 * @return la instancia única del generador.
 	 */
@@ -124,13 +124,13 @@ public class ModelGenerator {
 	 * Genera el modelo MOON.
 	 * 
 	 * @param info proveedor de información sobre el elemento que se 
-	 * encuentre actualmente seleccionado en Eclipse, y que servir� para 
-	 * determinar el proyecto a partir del que se generar� el modelo MOON.
+	 * encuentre actualmente seleccionado en Eclipse, y que servirá para 
+	 * determinar el proyecto a partir del que se generará el modelo MOON.
 	 * 
 	 * @param createwindow indica si se quiere mostrar al usuario una ventana
 	 * indicando el proceso de generación del modelo o no.
 	 * 
-	 * @param notFromSelection indica si el modelo se gener� a partir de un elemento 
+	 * @param notFromSelection indica si el modelo se generó a partir de un elemento 
 	 * seleccionado o no.
 	 * 
 	 * @return <code>true</code> si se pudo generar el modelo correctamente; 
@@ -163,7 +163,7 @@ public class ModelGenerator {
 			return true;
 		} 
 		catch (InterruptedException e) {
-			// El usuario cancel� el proceso.			 
+			// El usuario canceló el proceso.			 
 			logger.warn(e.getMessage());
 		}
 		catch (Exception exception){
@@ -177,7 +177,7 @@ public class ModelGenerator {
 	}
 
 	/**
-	 * Realiza la carga de bibliotecas b�sicas del API de Java.
+	 * Realiza la carga de bibliotecas básicas del API de Java.
 	 * 
 	 * Es un paso previo necesario para poder utilizar las clases de dichos
 	 * paquetes en las clases a partir de las cuales se quiere generar un modelo.
@@ -201,7 +201,7 @@ public class ModelGenerator {
 				IPath path = classpath[i].getPath();
 				if (path.toOSString().endsWith(BASIC_JAR)){
 					rtPath = path.toOSString();
-				// Se a�aden el resto de bibliotecas de forma normal.
+				// Se añaden el resto de bibliotecas de forma normal.
 				}else if (path.toOSString().toLowerCase().endsWith(LIB_EXTENSION))
 					// Salvo las que pertenezcan al JRE o el JDK.
 					if (! path.toOSString().startsWith(JRE_root)){
@@ -255,7 +255,7 @@ public class ModelGenerator {
 		
 		/**
 		 * Directorios que contienen los ficheros fuente Java a partir de los que
-		 * se generar� el modelo JavaMOON. 
+		 * se generaró el modelo JavaMOON. 
 		 */
 		List<String> sourceDirectories;
 		
@@ -263,7 +263,7 @@ public class ModelGenerator {
 		 * Constructor.
 		 * 
 		 * @param sourceDirectories directorios que contienen los ficheros fuente
-		 * Java a partir de los que se generar� el modelo JavaMOON.
+		 * Java a partir de los que se generará el modelo JavaMOON.
 		 */
 		public GenerationJob(List<String> sourceDirectories){
 			this.sourceDirectories = sourceDirectories;
@@ -272,13 +272,13 @@ public class ModelGenerator {
 		/**
 		 * Ejecuta el trabajo de generación del modelo MOON.
 		 * 
-		 * @param monitor el monitor de progreso que deber� usarse para mostrar
+		 * @param monitor el monitor de progreso que deberá usarse para mostrar
 		 * el progreso y recibir solicitudes de cancelación.
 		 * 
 		 * @throws InvocationTargetException utilizada como envoltura si el método 
-		 * debe propagar una excepci�n (<i>checked exception</i>). Las excepciones
-		 * de tipo <i>runtime exception</i> se envuelven autom�ticamente en una
-		 * excepci�n de este tipo por el contexto que efect�a la llamada.
+		 * debe propagar una excepción (<i>checked exception</i>). Las excepciones
+		 * de tipo <i>runtime exception</i> se envuelven automáticamente en una
+		 * excepción de este tipo por el contexto que efectúa la llamada.
 		 * @throws InterruptedException si la operación detecta una solicitud de 
 		 * cancelación.
 		 * 

@@ -46,14 +46,14 @@ import dynamicrefactoring.domain.DynamicRefactoringDefinition;
 import dynamicrefactoring.domain.RefactoringExample;
 
 /**
- * Pesta�a con los ejemplos de una refactorización.
+ * Pestaña con los ejemplos de una refactorización.
  * 
  * @author <A HREF="mailto:lfd0002@alu.ubu.es">Laura Fuente de la Fuente</A>
  */
 public class DynamicExamplesTab {
 
 	/**
-	 * Pesta�a asociada a los ejemplos de la refactorización.
+	 * Pestaña asociada a los ejemplos de la refactorización.
 	 */
 	private TabItem tab;
 
@@ -63,10 +63,10 @@ public class DynamicExamplesTab {
 	protected DynamicRefactoringDefinition refactoringDefinition;
 
 	/**
-	 * Crea la pesta�a con el resumen de la refactorización.
+	 * Crea la pestaña con el resumen de la refactorización.
 	 * 
 	 * @param parent
-	 *            el contenedor de pesta�as que contendr� esta pesta�a.
+	 *            el contenedor de pestañas que contendrá esta pestaña.
 	 * @param definition
 	 *            la definición de la refactorización.
 	 */
@@ -85,7 +85,7 @@ public class DynamicExamplesTab {
 		scrolledComposite.setExpandHorizontal(true);
 		scrolledComposite.setExpandVertical(true);
 
-		// Pesta�a de Ejemplos.
+		// Pestaña de Ejemplos.
 		final Composite cExamples = new Composite(scrolledComposite, SWT.NONE);
 		cExamples.setLocation(0, 0);
 		cExamples.setSize(872, 390);
@@ -271,7 +271,7 @@ public class DynamicExamplesTab {
 		// directorio de la refactorizacion
 		String dirRefactoring = new File(refactoringDefinition.getExamplesAbsolutePath().get(0).getAfter()).getParent();
 
-		// Cambiamos de extensi�n los ficheros .txt por .java para que puedan
+		// Cambiamos de extensión los ficheros .txt por .java para que puedan
 		// ser interpretados
 		// por java2HTML
 		copyExampleFilesWithOtherExtension(".java");

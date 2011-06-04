@@ -35,12 +35,12 @@ import dynamicrefactoring.domain.DynamicRefactoringDefinition;
 import dynamicrefactoring.domain.RefactoringsCatalog;
 
 /**
- * Permite seleccionar una de las refactorizaciones din�micas disponibles para
+ * Permite seleccionar una de las refactorizaciones dinámicas disponibles para
  * ser eliminada.
  * 
  * <p>
- * Muestra en todo momento un resumen con las caracter�sticas principales de la
- * refactorización seleccionada, hasta que se pulsa el bot�n que inicia el
+ * Muestra en todo momento un resumen con las características principales de la
+ * refactorización seleccionada, hasta que se pulsa el botón que inicia el
  * borrado de la refactorización.
  * </p>
  * 
@@ -51,10 +51,10 @@ import dynamicrefactoring.domain.RefactoringsCatalog;
 public class SelectForDeletingWindow extends SelectDynamicRefactoringWindow {
 
 	/**
-	 * Crea la ventana de di�logo.
+	 * Crea la ventana de diálogo.
 	 * 
 	 * @param parentShell
-	 *            la <i>shell</i> padre de esta ventana de di�logo.
+	 *            la <i>shell</i> padre de esta ventana de diálogo.
 	 */
 	public SelectForDeletingWindow(Shell parentShell,
 			RefactoringsCatalog refactCatalog) {
@@ -64,7 +64,7 @@ public class SelectForDeletingWindow extends SelectDynamicRefactoringWindow {
 	}
 	
 	/**
-	 * Crea el bot�n que permite lanzar la ejecuci�n del borrado de la
+	 * Crea el botón que permite lanzar la ejecución del borrado de la
 	 * refactorización seleccionada.
 	 * 
 	 * @see SelectDynamicRefactoringWindow#createOKButton(Composite)
@@ -77,7 +77,7 @@ public class SelectForDeletingWindow extends SelectDynamicRefactoringWindow {
 
 	/**
 	 * Obtiene el verbo asociado a la acción que permite iniciar la ventana de
-	 * di�logo sobre la refactorización seleccionada.
+	 * diálogo sobre la refactorización seleccionada.
 	 */
 	@Override
 	protected String getOperation() {
@@ -85,11 +85,11 @@ public class SelectForDeletingWindow extends SelectDynamicRefactoringWindow {
 	}
 
 	/**
-	 * Notifica que el bot�n de este di�logo con el identificador especificado
+	 * Notifica que el botón de este diálogo con el identificador especificado
 	 * ha sido pulsado.
 	 * 
 	 * @param buttonId
-	 *            el identificador del bot�n que ha sido pulsado (v�anse las
+	 *            el identificador del botón que ha sido pulsado (véanse las
 	 *            constantes <code>IDialogConstants.*ID</code>).
 	 * 
 	 * @see Dialog#buttonPressed
@@ -129,7 +129,7 @@ public class SelectForDeletingWindow extends SelectDynamicRefactoringWindow {
 
 	/**
 	 * Pide confirmación al usuario para proceder a eliminar una refactorización
-	 * din�mica.
+	 * dinámica.
 	 * 
 	 * @param name
 	 *            nombre de la refactorización seleccionada para ser eliminada.

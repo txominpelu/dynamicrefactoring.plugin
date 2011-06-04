@@ -49,7 +49,7 @@ import repository.moon.MOONRefactoring;
 public abstract class RefactoringTemplateAbstractTest {
 
 	/**
-	 * Cargador de c�digo fuente.
+	 * Cargador de código fuente.
 	 */
 	protected static SourceLoader sourceLoader;
 

@@ -46,7 +46,7 @@ public class RenameReferenceFile extends Action {
 	private ClassDef classDef;
 		
 	/**
-	 * Nuevo nombre que se dar� al fichero que contiene la clase.
+	 * Nuevo nombre que se dará al fichero que contiene la clase.
 	 */
 	private String newName;
 	
@@ -66,7 +66,7 @@ public class RenameReferenceFile extends Action {
 	 * Obtiene una nueva instancia de RenameReferenceFile.
 	 *
 	 * @param classDef la clase cuyo fichero de referencia se desea actualizar.
-	 * @param newName el nuevo nombre que se dar� al fichero en que se define la 
+	 * @param newName el nuevo nombre que se dará al fichero en que se define la 
 	 * clase.
 	 */	
 	public RenameReferenceFile(ClassDef classDef, Name newName){		

@@ -129,10 +129,10 @@ public class RemoveRealParameter extends Action{
 	}
 
 	/**
-	 * Deshace la eliminación del parámetro real, incluy�ndolo de nuevo en 
+	 * Deshace la eliminación del parámetro real, incluyéndolo de nuevo en 
 	 * la clase.
 	 * 
-	 * �Sin implementación!
+	 * ¡Sin implementación!
 	 */
 	@Override
 	public void undo() {}

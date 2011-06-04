@@ -51,7 +51,7 @@ import repository.moon.RepositoryUtils;
  * argumento formal de la lista de parámetros de un método.
  * 
  * <p>
- * Indirectamente, se comprueba tambi�n la correcci�n de las funciones,
+ * Indirectamente, se comprueba también la correcci�n de las funciones,
  * acciones y predicados utilizados por la refactorización.
  * </p>
  * 
@@ -69,11 +69,11 @@ public class TestRemoveParameter extends RefactoringTemplateAbstractTest {
 
 	/**
 	 * Comprueba que la refactorización funciona correctamente al hacer una
-	 * eliminación de un argumento formal en un método con m�s de un
+	 * eliminación de un argumento formal en un método con más de un
 	 * parámetro.
 	 * 
 	 * @throws Exception
-	 *             si se produce un error durante la ejecuci�n de la prueba.
+	 *             si se produce un error durante la ejecución de la prueba.
 	 */
 	@Test
 	public void testRemoveWithManyParameters() throws Exception {
@@ -108,7 +108,7 @@ public class TestRemoveParameter extends RefactoringTemplateAbstractTest {
 		List<FormalArgument> lArgument2 = metodo2.getFormalArgument();
 		assertEquals(
 				"Test eliminar argumento en método con varios parámetros: " + //$NON-NLS-1$
-						"hay m�s parámetros de los que debiera", 1,
+						"hay más parámetros de los que debiera", 1,
 				lArgument2.size()); //$NON-NLS-1$
 
 		FormalArgument argumento2 = lArgument2.get(0);
@@ -124,7 +124,7 @@ public class TestRemoveParameter extends RefactoringTemplateAbstractTest {
 	 * segundo argumento formal de un método.
 	 * 
 	 * @throws Exception
-	 *             si se produce un error durante la ejecuci�n de la prueba.
+	 *             si se produce un error durante la ejecución de la prueba.
 	 */
 	@Test
 	public void testRemoveSecondArgument() throws Exception {
@@ -168,7 +168,7 @@ public class TestRemoveParameter extends RefactoringTemplateAbstractTest {
 	 * parámetro.
 	 * 
 	 * @throws Exception
-	 *             si se produce un error durante la ejecuci�n de la prueba.
+	 *             si se produce un error durante la ejecución de la prueba.
 	 */
 	@Test
 	public void testRemoveWithOneParameter() throws Exception {
@@ -215,12 +215,12 @@ public class TestRemoveParameter extends RefactoringTemplateAbstractTest {
 	 * En un modelo con 3 clases repartidas en 3 niveles de la misma jerarquía
 	 * de herencia, en la que las 3 clases dan su propia definición para un
 	 * método, se elimina el argumento único del método en la clase del
-	 * nivel intermedio. Se comprueba que los cambios se extiendan a las dem�s
+	 * nivel intermedio. Se comprueba que los cambios se extiendan a las demás
 	 * clases de la jerarquía.
 	 * </p>
 	 * 
 	 * @throws Exception
-	 *             si se produce un error durante la ejecuci�n de la prueba.
+	 *             si se produce un error durante la ejecución de la prueba.
 	 */
 	@Test
 	public void testRemoveWithHierarchy() throws Exception {
@@ -320,7 +320,7 @@ public class TestRemoveParameter extends RefactoringTemplateAbstractTest {
 	 * de este segundo metodo.
 	 * 
 	 * @throws Exception
-	 *             si se produce un error durante la ejecuci�n de la prueba.
+	 *             si se produce un error durante la ejecución de la prueba.
 	 */
 	@Test
 	public void testMethodIsCalled() throws Exception {
@@ -413,14 +413,14 @@ public class TestRemoveParameter extends RefactoringTemplateAbstractTest {
 	 * Verifica el funcionamiento de las precondiciones de la refactorización.
 	 * 
 	 * <p>
-	 * Comprueba que se lanza una excepci�n <code>PreconditionException</code>
+	 * Comprueba que se lanza una excepción <code>PreconditionException</code>
 	 * cuando se intenta eliminar un argumento formal de forma que se genera un
 	 * nombre único para el método que ya existe en un método de la misma
 	 * clase.
 	 * </p>
 	 * 
 	 * @throws Exception
-	 *             si se produce un error durante la ejecuci�n de la prueba.
+	 *             si se produce un error durante la ejecución de la prueba.
 	 */
 	@Test(expected = PreconditionException.class)
 	public void testCheckMethodIsNotAlreadyInClass() throws Exception {
@@ -448,14 +448,14 @@ public class TestRemoveParameter extends RefactoringTemplateAbstractTest {
 	 * Verifica el funcionamiento de las precondiciones de la refactorización.
 	 * 
 	 * <p>
-	 * Comprueba que se lanza una excepci�n <code>PreconditionException</code>
+	 * Comprueba que se lanza una excepción <code>PreconditionException</code>
 	 * cuando se intenta eliminar un argumento formal de manera que se genera un
 	 * nombre único para el método que ya existe en otro método de una
 	 * superclase.
 	 * </p>
 	 * 
 	 * @throws Exception
-	 *             si se produce un error durante la ejecuci�n de la prueba.
+	 *             si se produce un error durante la ejecución de la prueba.
 	 */
 	@Test(expected = PreconditionException.class)
 	public void testCheckMethodIsNotInSuperclass() throws Exception {
@@ -483,14 +483,14 @@ public class TestRemoveParameter extends RefactoringTemplateAbstractTest {
 	 * Verifica el funcionamiento de las precondiciones de la refactorización.
 	 * 
 	 * <p>
-	 * Comprueba que se lanza una excepci�n <code>PreconditionException</code>
+	 * Comprueba que se lanza una excepción <code>PreconditionException</code>
 	 * cuando se intenta eliminar un argumento formal de manera que se genera un
 	 * nombre único para el método que ya existe en un método de una
 	 * subclase.
 	 * </p>
 	 * 
 	 * @throws Exception
-	 *             si se produce un error durante la ejecuci�n de la prueba.
+	 *             si se produce un error durante la ejecución de la prueba.
 	 */
 	@Test(expected = PreconditionException.class)
 	public void testCheckMethodIsNotInSubclass() throws Exception {
@@ -518,13 +518,13 @@ public class TestRemoveParameter extends RefactoringTemplateAbstractTest {
 	 * Verifica el funcionamiento de las precondiciones de la refactorización.
 	 * 
 	 * <p>
-	 * Comprueba que se lanza una excepci�n <code>PreconditionException</code>
-	 * cuando se intenta eliminar un argumento formal que est� siendo
+	 * Comprueba que se lanza una excepción <code>PreconditionException</code>
+	 * cuando se intenta eliminar un argumento formal que está siendo
 	 * utilizado en el cuerpo del método.
 	 * </p>
 	 * 
 	 * @throws Exception
-	 *             si se produce un error durante la ejecuci�n de la prueba.
+	 *             si se produce un error durante la ejecución de la prueba.
 	 */
 	@Test(expected = PreconditionException.class)
 	public void testCheckSignatureEntityIsNotUsedInMethod() throws Exception {
@@ -554,7 +554,7 @@ public class TestRemoveParameter extends RefactoringTemplateAbstractTest {
 	 * parámetro.
 	 * 
 	 * @throws Exception
-	 *             si se produce un error durante la ejecuci�n de la prueba.
+	 *             si se produce un error durante la ejecución de la prueba.
 	 */
 	@Test
 	public void testUndo() throws Exception {

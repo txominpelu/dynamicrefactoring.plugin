@@ -45,7 +45,7 @@ public class PluginStringUtils {
 	
 	/**
 	 * Divide la cadena en partes utilizando como token delim y devuelve la
-	 * �ltima de las particiones hechas.
+	 * última de las particiones hechas.
 	 * 
 	 * @param cadena
 	 *            Cadena a dividir

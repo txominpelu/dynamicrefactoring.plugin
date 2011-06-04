@@ -30,7 +30,7 @@ import org.eclipse.ui.PlatformUI;
 import dynamicrefactoring.interfaz.wizard.ImportPlanWizard;
 
 /**
- * Acci�n que inicia el asistente de importación de un plan refactorizaciones din�micas.
+ * Acción que inicia el asistente de importación de un plan refactorizaciones dinámicas.
  * 
  * @author <A HREF="mailto:lfd0002@alu.ubu.es">Laura Fuente de la Fuente</A>
  */

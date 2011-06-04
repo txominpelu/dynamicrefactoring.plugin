@@ -23,7 +23,7 @@ package dynamicrefactoring.domain;
 import com.google.common.base.Objects;
 
 /**
- * Representa una entrada de la refactorización din�mica en la interfaz.
+ * Representa una entrada de la refactorización dinámica en la interfaz.
  * 
  * @author <A HREF="mailto:alc0022@alu.ubu.es">Ángel López Campo</A>
  * @author <A HREF="mailto:epf0006@alu.ubu.es">Eduardo Peña Fernández</A>

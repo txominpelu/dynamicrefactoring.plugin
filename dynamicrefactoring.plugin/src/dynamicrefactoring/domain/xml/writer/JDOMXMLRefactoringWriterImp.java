@@ -51,7 +51,7 @@ import dynamicrefactoring.util.PluginStringUtils;
 
 /**
  * Utiliza la implementación basada en JDOM para escribir los ficheros XML de
- * refactorizaciones din�micas.
+ * refactorizaciones dinámicas.
  * 
  * @author <A HREF="mailto:lfd0002@alu.ubu.es">Laura Fuente de la Fuente</A>
  * @author <A HREF="mailto:alc0022@alu.ubu.es">Ángel López Campo</A>
@@ -104,7 +104,7 @@ public final class JDOMXMLRefactoringWriterImp implements
 
 	/**
 	 * Cambia el nombre de una refactorinzación en el fichero temporal que
-	 * alamacena las refactorizaciones seg�n el ambito al que pertenece su
+	 * alamacena las refactorizaciones según el ambito al que pertenece su
 	 * entrada principal.
 	 * 
 	 * @param scope
@@ -153,7 +153,7 @@ public final class JDOMXMLRefactoringWriterImp implements
 	 * Escribe el fichero XML a partir de la definición de la refactorización.
 	 * 
 	 * @param dir
-	 *            directorio donde se guardar� el fichero.
+	 *            directorio donde se guardará el fichero.
 	 * 
 	 * @throws XMLRefactoringWriterException
 	 *             si se produce un error al intentar almacenar la definición de
@@ -175,13 +175,13 @@ public final class JDOMXMLRefactoringWriterImp implements
 	 * Escribe los elementos con la información general de la refactorización.
 	 * 
 	 * <p>
-	 * Almacena la descripci�n b�sica de la refactorización, la ruta de la
+	 * Almacena la descripción básica de la refactorización, la ruta de la
 	 * imagen asociada a la refactorización y la motivación de la misma.
 	 * </p>
 	 * 
 	 * @param refactoringElement
-	 *            el elemento XML ra�z a partir del cual se a�adir� el elemento
-	 *            hijo con la información b�sica de la refactorización.
+	 *            el elemento XML raíz a partir del cual se añadirá el elemento
+	 *            hijo con la información básica de la refactorización.
 	 */
 	private void constructRefactoringInformation(Element refactoringElement) {
 
@@ -301,7 +301,7 @@ public final class JDOMXMLRefactoringWriterImp implements
 	 * Escribe los elementos de las entradas de la refactorización.
 	 * 
 	 * @param refactoringElement
-	 *            el elemento XML ra�z a partir del cual se a�adir� el elemento
+	 *            el elemento XML raíz a partir del cual se añadirá el elemento
 	 *            hijo con la información acerca de las entradas de la
 	 *            refactorización.
 	 */
@@ -340,7 +340,7 @@ public final class JDOMXMLRefactoringWriterImp implements
 	 * componen la refactorización.
 	 * 
 	 * @param refactoringElement
-	 *            el elemento XML ra�z a partir del cual se a�adir� el elemento
+	 *            el elemento XML raíz a partir del cual se añadirá el elemento
 	 *            hijo con la información acerca de los predicados y las
 	 *            acciones que componen la refactorización.
 	 */
@@ -423,7 +423,7 @@ public final class JDOMXMLRefactoringWriterImp implements
 	 * Escribe los elementos de los ejemplos de la refactorización.
 	 * 
 	 * @param refactoringElement
-	 *            el elemento XML ra�z a partir del cual se a�adir� el elemento
+	 *            el elemento XML raíz a partir del cual se añadirá el elemento
 	 *            hijo con la información acerca de los ejemplos asociados a la
 	 *            refactorización.
 	 */

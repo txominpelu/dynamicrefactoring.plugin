@@ -30,7 +30,7 @@ import dynamicrefactoring.domain.InputParameter;
 
 /**
  * Permite ejecutar una operación de refactorización basado en una
- * refactorización compuesta din�micamente, mostrando al usuario el progreso
+ * refactorización compuesta dinámicamente, mostrando al usuario el progreso
  * de la operación y permitiendo su cancelación hasta cierto momento de la
  * refactorización.
  * 
@@ -41,7 +41,7 @@ import dynamicrefactoring.domain.InputParameter;
 public class DynamicRefactoringRunner extends RefactoringRunner {
 
 	/**
-	 * Refactorización din�mica concreta que permite ejecutar.
+	 * Refactorización dinámica concreta que permite ejecutar.
 	 */
 	private DynamicRefactoring refactoring;
 
@@ -49,7 +49,7 @@ public class DynamicRefactoringRunner extends RefactoringRunner {
 	 * Constructor.
 	 * 
 	 * @param refactoring
-	 *            refactorización din�mica concreta que permite ejecutar.
+	 *            refactorización dinámica concreta que permite ejecutar.
 	 */
 	public DynamicRefactoringRunner(DynamicRefactoring refactoring){
 		this.refactoring = refactoring;
@@ -78,7 +78,7 @@ public class DynamicRefactoringRunner extends RefactoringRunner {
 	/**
 	 * Obtiene la definicion entradas de una refactorización.
 	 * 
-	 * @return Descripci�n de los parámetros de entrada a la
+	 * @return Descripción de los parámetros de entrada a la
 	 *         refactorización.
 	 */
 	public List<InputParameter> getInputs() {

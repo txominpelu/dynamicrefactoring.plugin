@@ -57,10 +57,10 @@ import dynamicrefactoring.domain.RefactoringsCatalog;
 
 /**
  * Proporciona la funcionalidad común a las ventanas que permiten seleccionar una
- * de las refactorizaciones din�micas disponibles para su edición o eliminación.
+ * de las refactorizaciones dinámicas disponibles para su edición o eliminación.
  * 
- * <p>Proporciona un listado de refactorizaciones din�micas disponibles, as� como
- * un breve resumen con las caracter�sticas fundamentales de cada una de ellas.</p>
+ * <p>Proporciona un listado de refactorizaciones dinámicas disponibles, así como
+ * un breve resumen con las características fundamentales de cada una de ellas.</p>
  * 
  * @author <A HREF="mailto:sfd0009@alu.ubu.es">Sonia Fuente de la Fuente</A>
  * @author <A HREF="mailto:ehp0001@alu.ubu.es">Enrique Herrero Paredes</A>
@@ -87,33 +87,33 @@ public abstract class SelectDynamicRefactoringWindow extends DynamicRefactoringL
 	private Text t_Motivation;
 	
 	/**
-	 * Campo de texto en que se muestra la descripci�n de la refactorización
+	 * Campo de texto en que se muestra la descripción de la refactorización
 	 * seleccionada en un momento dado sobre la lista de refactorizaciones
 	 * disponibles.
 	 */
 	private Text t_Description;
 	
 	/**
-	 * <i>Listener</i> que permite mostrar la imagen sobre el �rea de imagen.
+	 * <i>Listener</i> que permite mostrar la imagen sobre el área de imagen.
 	 */
 	private PaintListener listener;
 	
 	/**
-	 * <i>Listeners</i> que manejan la funcionalidad de <i>scroll</i> del �rea de
+	 * <i>Listeners</i> que manejan la funcionalidad de <i>scroll</i> del área de
 	 * imagen cuando la imagen asociada a la refactorización seleccionada supera
-	 * el tama�o del �rea disponible.
+	 * el tamaño del área disponible.
 	 */
 	private Listener[] scrollListeners;
 	
 	/**
-	 * �rea en que se muestra la imagen asociada a la refactorización.
+	 * área en que se muestra la imagen asociada a la refactorización.
 	 */
 	private Canvas cv_Image ;
 		
 	/**
-	 * Crea la ventana de di�logo.
+	 * Crea la ventana de diálogo.
 	 * 
-	 * @param parentShell la <i>shell</i> padre de esta ventana de di�logo.
+	 * @param parentShell la <i>shell</i> padre de esta ventana de diálogo.
 	 * @param refactCatalog 
 	 */
 	public SelectDynamicRefactoringWindow(Shell parentShell, RefactoringsCatalog refactCatalog) {
@@ -123,11 +123,11 @@ public abstract class SelectDynamicRefactoringWindow extends DynamicRefactoringL
 	}
 
 	/**
-	 * Crea el contenido de la ventana de di�logo.
+	 * Crea el contenido de la ventana de diálogo.
 	 * 
-	 * @param parent el componente padre del di�logo.
+	 * @param parent el componente padre del diálogo.
 	 * 
-	 * @return el control del �rea de di�logo.
+	 * @return el control del área de diálogo.
 	 */
 	@Override
 	protected Control createDialogArea(Composite parent) {
@@ -234,7 +234,7 @@ public abstract class SelectDynamicRefactoringWindow extends DynamicRefactoringL
 	/**
 	 * Crea el contenido de la barra de botones.
 	 * 
-	 * @param parent el componente padre de los botones a�adidos.
+	 * @param parent el componente padre de los botones añadidos.
 	 */
 	@Override
 	protected void createButtonsForButtonBar(Composite parent){
@@ -264,17 +264,17 @@ public abstract class SelectDynamicRefactoringWindow extends DynamicRefactoringL
 
 	/**
 	 * Obtiene el verbo asociado a la acción que permite iniciar la ventana
-	 * de di�logo sobre la refactorización seleccionada.
+	 * de diálogo sobre la refactorización seleccionada.
 	 * 
 	 * @return el verbo asociado a la acción que permite iniciar la ventana
-	 * de di�logo sobre la refactorización seleccionada.
+	 * de diálogo sobre la refactorización seleccionada.
 	 */
 	protected abstract String getOperation();
 	
 	/**
-	 * Devuelve el tama�o inicial de la ventana de di�logo.
+	 * Devuelve el tamaño inicial de la ventana de diálogo.
 	 * 
-	 * @return el tama�o inicial de la ventana de di�logo.
+	 * @return el tamaño inicial de la ventana de diálogo.
 	 */
 	@Override
 	protected Point getInitialSize() {
@@ -296,7 +296,7 @@ public abstract class SelectDynamicRefactoringWindow extends DynamicRefactoringL
 	/**
 	 * Completa los datos resumen de una refactorización en el panel derecho.
 	 * 
-	 * @param refactoring la refactorización din�mica cuyos datos se mostrar�n en
+	 * @param refactoring la refactorización dinámica cuyos datos se mostrarán en
 	 * el panel resumen derecho.
 	 */
 	private void fillInData(DynamicRefactoringDefinition refactoring){
@@ -345,7 +345,7 @@ public abstract class SelectDynamicRefactoringWindow extends DynamicRefactoringL
 				// Se elimina el listener anterior.
 				if (listener != null)
 					cv_Image.removePaintListener(listener);
-				// Se a�ade el nuevo.
+				// Se añade el nuevo.
 				Rectangle rect = image.getBounds();
 				Rectangle client = cv_Image.getClientArea();
 				hBar.setMaximum(rect.width);
@@ -406,7 +406,7 @@ public abstract class SelectDynamicRefactoringWindow extends DynamicRefactoringL
 	/**
 	 * Actualiza el panel derecho de información para mostrar un resumen con la 
 	 * información apropiada acerca de la refactorización seleccionada en la lista 
-	 * del refactorizaciones din�micas disponibles.
+	 * del refactorizaciones dinámicas disponibles.
 	 * 
 	 * @author <A HREF="mailto:sfd0009@alu.ubu.es">Sonia Fuente de la Fuente</A>
 	 * @author <A HREF="mailto:ehp0001@alu.ubu.es">Enrique Herrero Paredes</A>
@@ -422,13 +422,13 @@ public abstract class SelectDynamicRefactoringWindow extends DynamicRefactoringL
 		
 		/**
 		 * Recibe una notificación de que un elemento de la lista de 
-		 * refactorizaciones din�micas disponibles ha sido seleccionado.
+		 * refactorizaciones dinámicas disponibles ha sido seleccionado.
 		 * 
 		 * <p>Inicia las acciones que sean necesarias para actualizar la 
 		 * información mostrada en el panel derecho acerca de la refactorizacion
 		 * seleccionada.</p>
 		 * 
-		 * @param e el evento de selecci�n disparado en la ventana.
+		 * @param e el evento de selección disparado en la ventana.
 		 * 
 		 * @see SelectionListener#widgetSelected(SelectionEvent)
 		 */

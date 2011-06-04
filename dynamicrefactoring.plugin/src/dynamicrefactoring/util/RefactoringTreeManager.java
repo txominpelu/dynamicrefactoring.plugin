@@ -32,8 +32,8 @@ public final class RefactoringTreeManager {
 	private RefactoringTreeManager(){}
 	
 	/**
-	 * Cambia el color del texto de todos los componentes del sub�rbol.
-	 * @param tItem sub�rbol
+	 * Cambia el color del texto de todos los componentes del subárbol.
+	 * @param tItem subárbol
 	 * @param c color nuevo que se quiere dar al texto
 	 */
 	public static void setForegroundTreeItem(TreeItem tItem, Color c){
@@ -45,8 +45,8 @@ public final class RefactoringTreeManager {
 	}
 	
 	/**
-	 * Elima todos los componentes del �rbol.
-	 * @param tree �rbol del cual eliminar todos sus componentes
+	 * Elima todos los componentes del árbol.
+	 * @param tree árbol del cual eliminar todos sus componentes
 	 */
 	public static void cleanTree(Tree tree) {
 		if (tree.getItemCount() > 0) {
@@ -57,9 +57,9 @@ public final class RefactoringTreeManager {
 	}
 	
 	/**
-	 * Rellena el �rbol con las refactorizaciones disponibles.
+	 * Rellena el árbol con las refactorizaciones disponibles.
 	 * @param refactorings refactorizaciones disponibles
-	 * @param tree �rbol sobre el que a�adir sub�rboles
+	 * @param tree árbol sobre el que añadir subárboles
 	 * @throws RefactoringException
 	 */
 	public static void fillTree(Set<DynamicRefactoringDefinition> refactorings, Tree tree) {

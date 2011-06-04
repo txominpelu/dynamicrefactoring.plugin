@@ -61,17 +61,17 @@ public abstract class SelectionInfo {
 	public static final int LOCAL_VARIABLE = -2;
 
 	/**
-	 * Selecci�n genérica cuya información se desea consultar.
+	 * Selección genérica cuya información se desea consultar.
 	 */
 	private ISelection selection;
 
 	/**
-	 * Ventana del espacio de trabajo sobre la que se ha hecho la selecci�n.
+	 * Ventana del espacio de trabajo sobre la que se ha hecho la selección.
 	 */
 	protected IWorkbenchWindow window;
 
 	/**
-	 * Nombre completamente cualificado del tipo de selecci�n.
+	 * Nombre completamente cualificado del tipo de selección.
 	 */
 	protected String selectionName;
 	
@@ -81,7 +81,7 @@ public abstract class SelectionInfo {
 	protected final static String TYPE_NAME = "org.eclipse.jdt.internal.core.SourceType"; //$NON-NLS-1$
 
 	/**
-	 * Nombre completamente cualificado del elemento "Método" o "Funci�n".
+	 * Nombre completamente cualificado del elemento "Método" o "Función".
 	 */
 	protected final static String METHOD_NAME = "org.eclipse.jdt.internal.core.SourceMethod"; //$NON-NLS-1$
 	
@@ -104,9 +104,9 @@ public abstract class SelectionInfo {
 	 * Constructor.
 	 * 
 	 * @param selection
-	 *            la selecci�n sobre la que se desea obtener información.
+	 *            la selección sobre la que se desea obtener información.
 	 * @param window
-	 *            la ventana sobre la que se ha efectuado la selecci�n.
+	 *            la ventana sobre la que se ha efectuado la selección.
 	 */
 	public SelectionInfo (ISelection selection, 
 		IWorkbenchWindow window){
@@ -129,12 +129,12 @@ public abstract class SelectionInfo {
 	public abstract String getSelectionType();
 
 	/**
-	 * Comprueba si el nombre completamente cualificado de tipo de selecci�n se
-	 * corresponde con alguno de los tipos de selecci�n v�lidos como entrada
+	 * Comprueba si el nombre completamente cualificado de tipo de selección se
+	 * corresponde con alguno de los tipos de selección válidos como entrada
 	 * para la herramienta de refactorización.
 	 * 
 	 * @return <code>true</code> si es uno de los tipos contemplados como
-	 *         v�lidos; <code>false</code> en caso contrario.
+	 *         válidos; <code>false</code> en caso contrario.
 	 */
 	public boolean isValidSelectionType(){
 		ArrayList<String> validTypes = new ArrayList<String>();
@@ -150,7 +150,7 @@ public abstract class SelectionInfo {
 	}
 
 	/**
-	 * Comprueba si el nombre completamente cualificado del tipo de la selecci�n
+	 * Comprueba si el nombre completamente cualificado del tipo de la selección
 	 * corresponde a un atributo seleccionado.
 	 * 
 	 * @return <code>true</code> si se trata de un atributo seleccionado;
@@ -161,7 +161,7 @@ public abstract class SelectionInfo {
 	}
 
 	/**
-	 * Comprueba si un nombre completamente cualificado del tipo de la selecci�n
+	 * Comprueba si un nombre completamente cualificado del tipo de la selección
 	 * corresponde a un método seleccionado.
 	 * 
 	 * @return <code>true</code> si se trata de un método seleccionado;
@@ -172,7 +172,7 @@ public abstract class SelectionInfo {
 	}
 
 	/**
-	 * Comprueba si un nombre completamente cualificado del tipo de la selecci�n
+	 * Comprueba si un nombre completamente cualificado del tipo de la selección
 	 * corresponde a una clase seleccionada.
 	 * 
 	 * @return <code>true</code> si se trata de una clase seleccionada;
@@ -183,7 +183,7 @@ public abstract class SelectionInfo {
 	}
 
 	/**
-	 * Comprueba si un nombre completamente cualificado del tipo de la selecci�n
+	 * Comprueba si un nombre completamente cualificado del tipo de la selección
 	 * corresponde a un argumento formal de un método seleccionado.
 	 * 
 	 * @return <code>true</code> si se trata de un argumento formal de un
@@ -194,7 +194,7 @@ public abstract class SelectionInfo {
 	}
 
 	/**
-	 * Comprueba si un nombre completamente cualificado del tipo de la selecci�n
+	 * Comprueba si un nombre completamente cualificado del tipo de la selección
 	 * corresponde a un parámetro formal.
 	 * 
 	 * @return <code>true</code> si se trata de un parámetro formal;
@@ -205,9 +205,9 @@ public abstract class SelectionInfo {
 	}
 
 	/**
-	 * Comprueba si la selecci�n es parte de una representación en �rbol.
+	 * Comprueba si la selección es parte de una representación en árbol.
 	 * 
-	 * @return <code>true</code> si se trata de una selecci�n en un �rbol;
+	 * @return <code>true</code> si se trata de una selección en un árbol;
 	 *         <code>false</code> en caso contrario.
 	 */
 	public boolean isTreeSelection(){
@@ -215,9 +215,9 @@ public abstract class SelectionInfo {
 	}
 
 	/**
-	 * Comprueba si la selecci�n es parte de una representación textual.
+	 * Comprueba si la selección es parte de una representación textual.
 	 * 
-	 * @return <code>true</code> si se trata de una selecci�n de texto;
+	 * @return <code>true</code> si se trata de una selección de texto;
 	 *         <code>false</code> en caso contrario.
 	 */
 	public boolean isTextSelection(){
@@ -260,7 +260,7 @@ public abstract class SelectionInfo {
 	 * Obtiene la lista de directorios de fuentes del proyecto al que pertenece
 	 * el elemento seleccionado.
 	 * 
-	 * Método plantilla (patr�n de dise�o Método Plantilla).
+	 * Método plantilla (patrón de diseño Método Plantilla).
 	 * 
 	 * @return la lista de directorios de fuentes del proyecto al que pertenece
 	 *         el elemento seleccionado.
@@ -286,21 +286,21 @@ public abstract class SelectionInfo {
 	}
 
 	/**
-	 * Obtiene el proyecto al que pertenece la selecci�n actual como un <code>
+	 * Obtiene el proyecto al que pertenece la selección actual como un <code>
 	 * IJavaElement</code>, de manera que se pueda manejar aprovechando las
 	 * posibilidades de Eclipse para el manejo de elementos Java.
 	 * 
-	 * Operación primitiva (patr�n de dise�o Método Plantilla).
+	 * Operación primitiva (patrón de diseño Método Plantilla).
 	 * 
-	 * @return el proyecto al que pertenece la selecci�n actual como un <code>
+	 * @return el proyecto al que pertenece la selección actual como un <code>
 	 * IJavaElement</code>.
 	 */
 	public abstract IJavaProject getJavaProjectForSelection();
 
 	/**
-	 * Obtiene la selecci�n asociada al procesador de información.
+	 * Obtiene la selección asociada al procesador de información.
 	 * 
-	 * @return la selecci�n asociada al procesador de información.
+	 * @return la selección asociada al procesador de información.
 	 */
 	public ISelection getSelection(){
 		return selection;

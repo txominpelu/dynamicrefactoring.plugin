@@ -35,12 +35,12 @@ import dynamicrefactoring.domain.RefactoringsCatalog;
 import dynamicrefactoring.interfaz.wizard.RefactoringWizard;
 
 /**
- * Permite seleccionar una de las refactorizaciones din�micas disponibles para
+ * Permite seleccionar una de las refactorizaciones dinámicas disponibles para
  * ser editada.
  * 
  * <p>
- * Muestra en todo momento un resumen con las caracter�sticas principales de la
- * refactorización seleccionada, hasta que se pulsa el bot�n que inicia el
+ * Muestra en todo momento un resumen con las características principales de la
+ * refactorización seleccionada, hasta que se pulsa el botón que inicia el
  * asistente para la edición de refactorizaciones.
  * </p>
  * 
@@ -50,10 +50,10 @@ import dynamicrefactoring.interfaz.wizard.RefactoringWizard;
 public class SelectForEditingWindow extends SelectDynamicRefactoringWindow {
 
 	/**
-	 * Crea la ventana de di�logo.
+	 * Crea la ventana de diálogo.
 	 * 
 	 * @param parentShell
-	 *            la <i>shell</i> padre de esta ventana de di�logo.
+	 *            la <i>shell</i> padre de esta ventana de diálogo.
 	 */
 	public SelectForEditingWindow(Shell parentShell,
 			RefactoringsCatalog refactCatalog) {
@@ -77,11 +77,11 @@ public class SelectForEditingWindow extends SelectDynamicRefactoringWindow {
 	}
 
 	/**
-	 * Crea el bot�n que permite lanzar el asistente para la edición de la
+	 * Crea el botón que permite lanzar el asistente para la edición de la
 	 * refactorización seleccionada.
 	 * 
 	 * @param parent
-	 *            el componente padre del bot�n.
+	 *            el componente padre del botón.
 	 * 
 	 * @see SelectDynamicRefactoringWindow#createOKButton(Composite)
 	 */
@@ -93,10 +93,10 @@ public class SelectForEditingWindow extends SelectDynamicRefactoringWindow {
 
 	/**
 	 * Obtiene el verbo asociado a la acción que permite iniciar la ventana de
-	 * di�logo sobre la refactorización seleccionada.
+	 * diálogo sobre la refactorización seleccionada.
 	 * 
 	 * @return el verbo asociado a la acción que permite iniciar la ventana de
-	 *         di�logo sobre la refactorización seleccionada.
+	 *         diálogo sobre la refactorización seleccionada.
 	 */
 	@Override
 	protected String getOperation() {
@@ -104,11 +104,11 @@ public class SelectForEditingWindow extends SelectDynamicRefactoringWindow {
 	}
 
 	/**
-	 * Notifica que el bot�n de este di�logo con el identificador especificado
+	 * Notifica que el botón de este diálogo con el identificador especificado
 	 * ha sido pulsado.
 	 * 
 	 * @param buttonId
-	 *            el identificador del bot�n que ha sido pulsado (v�anse las
+	 *            el identificador del botón que ha sido pulsado (véanse las
 	 *            constantes <code>IDialogConstants.*ID</code>).
 	 * 
 	 * @see Dialog#buttonPressed

@@ -22,8 +22,8 @@ package dynamicrefactoring.domain.xml.reader;
 
 
 /**
- * F�brica concreta para obtener instancias que implementan la interfaz
- * XMLRefactoringReaderImp bas�ndose en JDOM para leer los ficheros XML.
+ * Fábrica concreta para obtener instancias que implementan la interfaz
+ * XMLRefactoringReaderImp basíndose en JDOM para leer los ficheros XML.
  * 
  * @author <A HREF="mailto:alc0022@alu.ubu.es">Ángel López Campo</A>
  * @author <A HREF="mailto:epf0006@alu.ubu.es">Eduardo Peña Fernández</A>
@@ -34,10 +34,10 @@ public class JDOMXMLRefactoringReaderFactory implements XMLRefactoringReaderFact
 
 	/**
 	 * Devuelve una instancia de un lector de refactorizaciones en XML que
-	 * implementa la interfaz XMLRefactoringReaderImp, bas�ndose en JDOM para
+	 * implementa la interfaz XMLRefactoringReaderImp, basíndose en JDOM para
 	 * leer los ficheros XML.
 	 * 
-	 * @param file el fichero del que leer� el lector de refactorizaciones en XML.
+	 * @param file el fichero del que leerá el lector de refactorizaciones en XML.
 	 * 
 	 * @return la instancia generada.
 	 * 

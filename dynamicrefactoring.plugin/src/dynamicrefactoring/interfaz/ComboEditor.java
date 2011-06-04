@@ -25,7 +25,7 @@ import org.eclipse.swt.events.FocusListener;
 import org.eclipse.swt.widgets.Combo;
 
 /**
- * Permite actualizar la selecci�n de un campo desplegable cuando se
+ * Permite actualizar la selección de un campo desplegable cuando se
  * introduce su contenido manualmente.
  * 
  * @author <A HREF="mailto:sfd0009@alu.ubu.es">Sonia Fuente de la Fuente</A>
@@ -47,7 +47,7 @@ public class ComboEditor implements FocusListener {
 		if (e.getSource() instanceof Combo){
 			Combo combo = (Combo)e.getSource();
 			
-			// Si el combo no tiene ninguna selecci�n marcada.
+			// Si el combo no tiene ninguna selección marcada.
 			if (combo.getSelectionIndex() < 0){
 				String content = combo.getText();
 				

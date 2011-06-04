@@ -33,7 +33,7 @@ import dynamicrefactoring.util.selection.SelectionInfo;
 import dynamicrefactoring.util.selection.SelectionInfoFactory;
 
 /**
- * Acci�n que de notificar a todos los observadores registrados dentro de 
+ * Acción que de notificar a todos los observadores registrados dentro de 
  * SelectionListenerRegistry que el elemento seleccionado ha cambiado..
  * 
  * @author <A HREF="mailto:lfd0002@alu.ubu.es">Laura Fuente de la Fuente</A>
@@ -53,7 +53,7 @@ public class SelectionAction implements IWorkbenchWindowActionDelegate {
 	}
 	
 	/**
-	 * Env�a notificaciones cada vez que el usuario selecciona un elemento de entrada v�lido 
+	 * Envía notificaciones cada vez que el usuario selecciona un elemento de entrada válido 
 	 * para al refactorización.
 	 * 
 	 * @param action no se utiliza.
@@ -96,8 +96,8 @@ public class SelectionAction implements IWorkbenchWindowActionDelegate {
 	public void dispose() {}
 	
 	/**
-	 * Se guarda en cach� el objeto ventana, con objeto de poder obtener
-	 * la <code>shell</code> sobre la que abrir los mensajes de di�logo.
+	 * Se guarda en caché el objeto ventana, con objeto de poder obtener
+	 * la <code>shell</code> sobre la que abrir los mensajes de diálogo.
 	 * 
 	 * @see IWorkbenchWindowActionDelegate#init
 	 */

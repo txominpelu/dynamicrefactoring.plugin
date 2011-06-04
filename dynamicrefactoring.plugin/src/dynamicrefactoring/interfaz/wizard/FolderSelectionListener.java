@@ -31,7 +31,7 @@ import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.Text;
 
 /**
- * Implementa el proceso de elecci�n de un directorio.
+ * Implementa el proceso de elección de un directorio.
  * 
  * @author <A HREF="mailto:lfd0002@alu.ubu.es">Laura Fuente de la Fuente</A>
  */
@@ -43,22 +43,22 @@ public class FolderSelectionListener implements SelectionListener {
 	private Text field;
 	
 	/**
-	 * <i>Shell</i> utilizada para la apertura del di�logo.
+	 * <i>Shell</i> utilizada para la apertura del diálogo.
 	 */
 	private Shell shell;
 	
 	/**
-	 * Mensaje explicativo de la funci�n que tendr� el directorio seleccionado.
+	 * Mensaje explicativo de la función que tendrá el directorio seleccionado.
 	 */
 	private String message;
 	
 	/**
 	 * Constructor.
 	 * 
-	 * @param field campo de texto en que se almacenar� la ruta del directorio
+	 * @param field campo de texto en que se almacenará la ruta del directorio
 	 * seleccionado por el usuario.
-	 * @param shell la <i>shell</i> en la que se mostrar� el di�logo.
-	 * @param text el mensaje explicativo que llevar� asociado el di�logo.
+	 * @param shell la <i>shell</i> en la que se mostrará el diálogo.
+	 * @param text el mensaje explicativo que llevará asociado el diálogo.
 	 */
 	public FolderSelectionListener(Text field, Shell shell, String text){
 		this.field = field;
@@ -67,12 +67,12 @@ public class FolderSelectionListener implements SelectionListener {
 	}
 	
 	/**
-	 * Recibe una notificación de que se ha pulsado el bot�n que permite 
+	 * Recibe una notificación de que se ha pulsado el botón que permite 
 	 * seleccionar un directorio.
 	 * 
-	 * <p>Abre una ventana de selecci�n de directorio.</p>
+	 * <p>Abre una ventana de selección de directorio.</p>
 	 * 
-	 * @param e el evento de selecci�n disparado.
+	 * @param e el evento de selección disparado.
 	 * 
 	 * @see SelectionListener#widgetSelected(SelectionEvent)
 	 */

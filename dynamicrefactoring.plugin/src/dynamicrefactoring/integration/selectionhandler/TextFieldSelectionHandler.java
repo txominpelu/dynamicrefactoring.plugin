@@ -40,17 +40,17 @@ import dynamicrefactoring.util.selection.TextSelectionInfo;
 public class TextFieldSelectionHandler extends FieldSelectionHandler {
 	
 	/**
-	 * El proveedor de información concreto para la selecci�n de texto.
+	 * El proveedor de información concreto para la selección de texto.
 	 */
 	private TextSelectionInfo infoProvider;
 	
 	/**
 	 * Constructor.
 	 * 
-	 * @param selectionInfo contenedor de la selecci�n que se desea manejar.
+	 * @param selectionInfo contenedor de la selección que se desea manejar.
 	 * 
-	 * @throws Exception si la selecci�n contenida en #selectionInfo no es una
-	 * selecci�n de un atributo sobre una representación textual.
+	 * @throws Exception si la selección contenida en #selectionInfo no es una
+	 * selección de un atributo sobre una representación textual.
 	 */
 	public TextFieldSelectionHandler (TextSelectionInfo selectionInfo) 
 		throws Exception{
@@ -78,7 +78,7 @@ public class TextFieldSelectionHandler extends FieldSelectionHandler {
 
 	/**
 	 * Implementación de la operación primitiva 
-	 * (patr�n de dise�o Método Plantilla).
+	 * (patrón de diseño Método Plantilla).
 	 * 
 	 * @see FieldSelectionHandler#getFieldProcessor()
 	 */

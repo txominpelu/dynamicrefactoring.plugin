@@ -43,7 +43,7 @@ import dynamicrefactoring.util.selection.SelectionInfo;
 import dynamicrefactoring.util.selection.SelectionInfoFactory;
 
 /**
- * Acci�n que inicia el asistente de ejecuci�n de refactorizaciones.
+ * Acción que inicia el asistente de ejecución de refactorizaciones.
  * 
  * @author <A HREF="mailto:sfd0009@alu.ubu.es">Sonia Fuente de la Fuente</A>
  * @author <A HREF="mailto:ehp0001@alu.ubu.es">Enrique Herrero Paredes</A>
@@ -77,7 +77,7 @@ public class OpenRefactoringAction implements IWorkbenchWindowActionDelegate,
 	}
 
 	/**
-	 * Recibe notificaciones cada vez que se modifica la selecci�n de la
+	 * Recibe notificaciones cada vez que se modifica la selección de la
 	 * ventana.
 	 * 
 	 * @param action
@@ -97,8 +97,8 @@ public class OpenRefactoringAction implements IWorkbenchWindowActionDelegate,
 	}
 
 	/**
-	 * Se guarda en cach� el objeto ventana, con objeto de poder obtener la
-	 * <code>shell</code> sobre la que abrir los mensajes de di�logo.
+	 * Se guarda en caché el objeto ventana, con objeto de poder obtener la
+	 * <code>shell</code> sobre la que abrir los mensajes de diálogo.
 	 * 
 	 * @see IWorkbenchWindowActionDelegate#init
 	 */
@@ -114,7 +114,7 @@ public class OpenRefactoringAction implements IWorkbenchWindowActionDelegate,
 	 *            la acción que ha sido invocada.
 	 */
 	public void run(IAction action) {
-		// Si la acción se ha disparado desde un men� desplegable,
+		// Si la acción se ha disparado desde un menú desplegable,
 		// hay que recuperar la ventana de trabajo de forma manual.
 		if (window == null)
 			window = PlatformUI.getWorkbench().getActiveWorkbenchWindow();
@@ -130,7 +130,7 @@ public class OpenRefactoringAction implements IWorkbenchWindowActionDelegate,
 				SelectionInfo selectionInfo = SelectionInfoFactory
 						.getInstance().createSelectionInfo(selection, window);
 
-				// Si el elemento seleccionado es v�lido como entrada para la
+				// Si el elemento seleccionado es válido como entrada para la
 				// refactorización.
 				if (selectionInfo.isValidSelectionType()
 						&& saveUnsavedChanges()
@@ -170,10 +170,10 @@ public class OpenRefactoringAction implements IWorkbenchWindowActionDelegate,
 
 	/**
 	 * Intenta generar el modelo MOON para el proyecto al que pertenece la
-	 * selecci�n indicada.
+	 * selección indicada.
 	 * 
 	 * @param selectionInfo
-	 *            la selecci�n para la que se desea crear el modelo.
+	 *            la selección para la que se desea crear el modelo.
 	 * 
 	 * @param createwindow
 	 *            indica si se quiere mostrar al usuario una ventana indicando
@@ -199,7 +199,7 @@ public class OpenRefactoringAction implements IWorkbenchWindowActionDelegate,
 
 	/**
 	 * Muestra un mensaje de aviso indicando que no existen refactorizaciones
-	 * disponibles para la selecci�n actual.
+	 * disponibles para la selección actual.
 	 */
 	private void openNoneAvailableMessage() {
 		MessageDialog.openInformation(window.getShell(),
@@ -213,7 +213,7 @@ public class OpenRefactoringAction implements IWorkbenchWindowActionDelegate,
 	 * editores abiertos con cambios pendientes.
 	 * 
 	 * @return <code>true</code> si se guardaron las modificaciones pendientes o
-	 *         si no hab�a ninguna pendiente; <code>false</code> en caso
+	 *         si no había ninguna pendiente; <code>false</code> en caso
 	 *         contrario.
 	 */
 	private boolean saveUnsavedChanges() {

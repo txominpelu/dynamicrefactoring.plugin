@@ -184,7 +184,7 @@ public class LocalReadEntitiesAccessed extends Function {
 	 * @param entity entity
 	 */
 	private void checkAddEntity(Entity entity) {
-		System.out.println("¿Añadir ... " + entity.getName().toString() + "?");
+		System.out.println("Ã±AÃ±adir ... " + entity.getName().toString() + "?");
 		System.out.println(entity.getClass().toString());
 		
 		if (entity instanceof LocalDec || entity instanceof FormalArgument){
