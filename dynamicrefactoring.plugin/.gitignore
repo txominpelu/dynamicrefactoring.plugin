@@ -9,7 +9,8 @@ temp/**/*
 /.settings/*
 doc/src_html/*
 doc/doccheck/*
+
+doc/javadoc/*
 !doc/javadoc/
 !doc/javadoc/javamoon
 !doc/javadoc/moon
-doc/javadoc/*
