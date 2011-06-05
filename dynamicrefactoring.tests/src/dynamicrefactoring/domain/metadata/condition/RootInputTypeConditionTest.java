@@ -14,13 +14,13 @@ import com.google.common.base.Predicate;
 import dynamicrefactoring.domain.metadata.interfaces.Element;
 
 
-public final class InputTypeConditionTest {
+public final class RootInputTypeConditionTest {
 	
-	private InputTypeCondition<Element> condition;
+	private Predicate<Element> condition;
 
 	@Before
 	public void setUp(){
-		condition = new InputTypeCondition<Element>("MyType");
+		condition = new RootInputTypeCondition<Element>("MyType");
 	}
 	
 	@Test
@@ -28,7 +28,7 @@ public final class InputTypeConditionTest {
 		Element element = new ElementAdapter(){
 
 			@Override
-			public boolean containsInputType(String condition) {
+			public boolean containsRootInputType(String condition) {
 				return true;
 			}
 			
@@ -42,7 +42,7 @@ public final class InputTypeConditionTest {
 		Element element = new ElementAdapter(){
 
 			@Override
-			public boolean containsInputType(String condition) {
+			public boolean containsRootInputType(String condition) {
 				return false;
 			}
 			
@@ -50,16 +50,16 @@ public final class InputTypeConditionTest {
 		assertFalse(condition.apply(element));
 	}
 
-
 	@Test
 	public void testEqualsTrue(){
-		assertEquals(new InputTypeCondition<Element>("MyType"), condition);
+		assertEquals(new RootInputTypeCondition<Element>("MyType"), condition);
 	}
 	
 	@Test
 	public void testHashCode(){
 		HashSet<Predicate<Element>> set = new HashSet<Predicate<Element>>();
 		set.add(condition);
-		assertTrue(set.contains(new InputTypeCondition<Element>("MyType")));
+		assertTrue(set.contains(new RootInputTypeCondition<Element>("MyType")));
 	}
+
 }

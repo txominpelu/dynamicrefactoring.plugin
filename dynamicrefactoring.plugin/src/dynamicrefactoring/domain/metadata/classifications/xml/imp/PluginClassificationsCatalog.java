@@ -32,6 +32,9 @@ public final class PluginClassificationsCatalog extends AbstractCatalog
 
 	private static PluginClassificationsCatalog instance;
 
+	/**
+	 * Nombre de la clasificacion por ambito de una refactorización.
+	 */
 	public static final String SCOPE_CLASSIFICATION = "Scope";
 
 	/**

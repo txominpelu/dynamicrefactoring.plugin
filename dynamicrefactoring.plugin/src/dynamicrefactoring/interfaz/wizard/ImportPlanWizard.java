@@ -701,7 +701,7 @@ public class ImportPlanWizard extends Dialog {
 				
 					try {
 						ExportImportUtilities.ImportRefactoring(
-								definition, true);
+								definition, true, XMLRefactoringsCatalog.getInstance());
 					} catch (FileNotFoundException e) {
 						// Elimina la carpeta de la refactorización ya que
 							// si ha llegado

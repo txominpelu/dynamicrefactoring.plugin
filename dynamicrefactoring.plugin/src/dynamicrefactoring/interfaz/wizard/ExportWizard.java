@@ -371,7 +371,7 @@ public class ExportWizard extends DynamicRefactoringList {
 						String refactName = refactCatalog.getRefactoring(next)
 								.getName();
 						ExportImportUtilities
-								.ExportRefactoring(
+								.exportRefactoring(
 										destination,
 										refactCatalog.getRefactoring(next)
 												.getXmlRefactoringDefinitionFilePath(),

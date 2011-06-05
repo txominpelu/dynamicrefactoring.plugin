@@ -229,6 +229,9 @@ public abstract class RefactoringRunner {
 		 * @param start
 		 *            hora a la que se construye la operación de
 		 *            refactorización.
+		 * @param refactoring  refactorizacion a ejecutar
+		 * @param name nombre de la refactorizacion
+		 * @param fromPlan si forma parte del plan de refactorizaciones o no
 		 */
 		public RefactoringOperation(Date start, Refactoring refactoring, String name,
 				boolean fromPlan) {

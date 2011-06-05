@@ -91,7 +91,7 @@ public class TestExport {
 
 		// Primero exportamos la refactorización Rename Class a un directorio
 		// temporal que luego eliminaremos
-		ExportImportUtilities.ExportRefactoring(TEMP_DIR,
+		ExportImportUtilities.exportRefactoring(TEMP_DIR,
 				RENAME_CLASS_XML_FILE, false);
 
 		JDOMXMLRefactoringReaderImp reader = new JDOMXMLRefactoringReaderImp();
@@ -145,7 +145,7 @@ public class TestExport {
 					TEMP_DIR));
 			FileManager.deleteFile(ficheroOrigen);
 
-			ExportImportUtilities.ExportRefactoring(TEMP_DIR,
+			ExportImportUtilities.exportRefactoring(TEMP_DIR,
 					RENAME_CLASS_XML_FILE, false);
 
 		} catch (IOException e) {

@@ -64,6 +64,7 @@ public class ClassificationsType {
      * <p>
      * Objects of the following type(s) are allowed in the list
      * {@link ClassificationType }
+     * @return classification
      * 
      * 
      */

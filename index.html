@@ -1,0 +1,238 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN">
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<meta name="gwt:property" content="locale=en">
+
+<title>Sonar</title>
+<link href="/stylesheets/sonar.css?1294952420" media="all" rel="stylesheet" type="text/css" /><script src="/javascripts/sonar.js?1294952420" type="text/javascript"></script>
+<!--[if lte IE 6]>
+<link href="/ie6/index" media="all" rel="stylesheet" type="text/css" />
+<![endif]-->
+<link rel="shortcut icon" type="image/x-icon" href="/images/favicon.ico?1294952410" />
+
+<link rel="alternate" title="Sonar Alerts" href="/feeds/projects/Alert" type="application/atom+xml">
+
+</head><body>
+
+
+
+<div id="container">
+<div id="hd">
+<ol id="crumbs">
+<li><a href="/">Home</a></li>
+
+</ol>
+
+<ol id="nav">
+<li><input type="text" autocomplete="off" size="15" name="search" id="projectSearch" onFocus="this.size=30;this.value='';autocompleteProjects('/api/resources?scopes=PRJ&qualifiers=VW,SVW,TRK', '/dashboard/index/', this, $('projectResults'));return true;" onBlur="javacript:this.size=15" value="Search"/><div id="projectResults" style="display:none"></div></li>
+<li>
+<a href="javascript:window.print()"><img src="/images/print.gif" alt="Print" title="Print" /></a>
+
+</li>
+
+<li><a href="/sessions/new">Log in</a></li>
+
+<li><a href="/profiles">Configuration</a></li>
+</ol>
+</div>
+<div id="body" class="with_sidebar">
+<div id="sb">
+<div id="sidebar">
+<ul>
+
+<li class="selected"><a href="/filters/index">Filters</a></li>
+<li class=""><a href="/dependencies/index">Dependencies</a></li>
+
+
+</ul>
+<div id="logo"><center><a href="http://www.sonarsource.org/"><img alt="Embrace Quality" class="png" src="/images/sonar.png?1294952410" title="Embrace Quality" /></a></center></div>
+</div>
+<div id="sidebarconf" class="hidden"> </div>
+</div>
+<div id="content">
+
+<div class="error" id="error" style="display:none"><span id="errormsg"></span> &nbsp;&nbsp;[<a href="#" onclick="javascript:$('error').hide();return false;">hide</a>]</div>
+<div class="notice" id="info" style="display:none"><span id="infomsg"></span> &nbsp;&nbsp;[<a href="#" onclick="javascript:$('info').hide();return false;">hide</a>]</div>
+<div class="warning" id="warning" style="display:none"><span id="warningmsg"></span> &nbsp;&nbsp;[<a href="#" onclick="javascript:$('warning').hide();return false;">hide</a>]</div>
+
+
+<ul class="tabs" id="filter-tabs">
+
+<li>
+<a href="/filters/index/1" class="selected">Projects</a>
+</li>
+
+<li>
+<a href="/filters/index/2" class="">Treemap</a>
+</li>
+
+</ul>
+
+
+<div class="tabs-panel">
+
+<div>
+
+<div class="line-block">
+<div class="operations">
+<form action="/" style="display: inline" method="get">
+<select name="period" onchange="submit()" class="small">
+<option value="">Time changes...</option>
+
+<option value="1" >&Delta; since previous analysis</value>
+
+<option value="2" >&Delta; over 5 days</value>
+
+<option value="3" >&Delta; over 30 days</value>
+
+</select>
+</form>
+</div>
+</div>
+
+<table class="data nowrap width100" id="results">
+<thead id="results-head">
+<tr>
+<th width="1%"></th>
+
+<th width=1% nowrap class="right">
+<a href="/?asc=true&amp;sort=1">Alert</a>
+</th>
+
+<th  class="left">
+<a href="/?asc=false&amp;sort=2">Name</a><img alt="Asc12" src="/images/asc12.png?1294952410" />
+</th>
+
+<th  class="right">
+<a href="/?asc=true&amp;sort=3">Version</a>
+</th>
+
+<th  class="right">
+<a href="/?asc=true&amp;sort=4">Lines of code</a>
+</th>
+
+<th  class="right">
+<a href="/?asc=true&amp;sort=5">Rules compliance</a>
+</th>
+
+<th  class="right">
+<a href="/?asc=true&amp;sort=6">Build date</a>
+</th>
+
+<th  class="right">
+Links
+</th>
+
+</tr>
+
+</thead>
+<tfoot>
+<tr>
+<td colspan="8">
+<span id="results_count">1 result</span>
+
+
+&nbsp;&nbsp; <a href="/feeds/projects/Alert" class="nolink"><img alt="Rss-12x12" src="/images/rss-12x12.png?1294952410" /></a>
+<a href="/feeds/projects/Alert" class="action">Alerts feed</a>
+
+</td>
+</tr>
+</tfoot>
+<tbody>
+
+
+
+<tr class="even">
+<td></td>
+
+<td class="right">
+
+
+
+<img alt="" src="/images/transparent.gif?1294952410" title="" width="16" />
+
+
+</td>
+
+<td class="left">
+
+<img alt="Project" src="/images/q/TRK.png?1294952410" title="Project" /> <a href="/dashboard/index/1" title="dynamicrefactoring:dynamic-refactoring-plugin">dynamic-refactoring-plugin</a>
+
+</td>
+
+<td class="right">
+3.1.0
+
+</td>
+
+<td class="right">
+
+
+<span id='m_ncloc'  >30,515</span>
+<img alt="2-black-small" src="/images/tendency/2-black-small.png?1294952410" />
+
+
+</td>
+
+<td class="right">
+
+
+<span id='m_violations_density'  >78.4%</span>
+<img alt="" src="/images/transparent.gif?1294952410" title="" width="16" />
+
+
+</td>
+
+<td class="right">
+2011-06-04
+
+</td>
+
+<td class="right">
+
+</td>
+
+</tr>
+
+
+</tbody>
+</table>
+<br/>
+
+</div>
+
+</div>
+
+</div>
+</div>
+</div>
+
+<div id="ft">
+
+
+
+<div id="ftlinks">Powered by <a href="http://www.sonarsource.com" target="SonarSource" class="external">SonarSource</a> - Open Source <a href="http://www.sonarsource.org/documentation/license/" target="license" class="external">LGPL</a> - v.2.5 - <a href="http://sonar-plugins.codehaus.org" class="external" target="plugins">Plugins</a> - <a href="http://sonar.codehaus.org/documentation" class="external" target="sonar_doc" class="external">Documentation</a> - <a href="http://sonar.codehaus.org/support/" target="support" class="external">Ask a question</a> - <a href="http://jira.codehaus.org/browse/SONAR" target="issuetracker" class="external">Bug/feature request</a></div>
+</div>
+
+
+
+</body><script type="text/javascript">
+Event.observe(window, 'load', function(){
+$$('.tipable').each(function(element){
+title = element.readAttribute('title');
+if(!element.rel.blank()) {
+if(title ==null) {
+new Tip(element, element.rel);
+} else {
+new Tip(element, element.rel, {title: title});
+}
+} else if (title!=null && !title.blank()) {
+new Tip(element, title);
+}
+});
+});
+
+
+
+</script>
+</html>
+

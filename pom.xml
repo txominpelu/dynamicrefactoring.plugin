@@ -3,7 +3,7 @@
   <modelVersion>4.0.0</modelVersion>
   <groupId>dynamicrefactoring</groupId>
   <artifactId>dynamic-refactoring-plugin</artifactId>
-  <version>3.1.0</version>
+  <version>3.1.1</version>
   <packaging>pom</packaging>
   <properties>
     <org.eclipse.swtbot.playback.poll.delay>1500</org.eclipse.swtbot.playback.poll.delay>
@@ -49,7 +49,7 @@
             <artifact>
               <groupId>dynamicrefactoring</groupId>
               <artifactId>dynamicrefactoring.targetplatform</artifactId>
-              <version>3.1.0</version>
+              <version>3.1.1</version>
               <classifier>dynamicrefactoring</classifier>
             </artifact>
           </target>
@@ -101,7 +101,6 @@
         <artifactId>maven-javadoc-plugin</artifactId>
         <version>2.8</version>
         <reportSets>
-          
           <reportSet>
             <id>doccheck</id>
             <configuration>

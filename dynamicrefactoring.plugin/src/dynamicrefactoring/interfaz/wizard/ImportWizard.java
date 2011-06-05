@@ -58,6 +58,7 @@ import dynamicrefactoring.RefactoringImages;
 import dynamicrefactoring.RefactoringPlugin;
 import dynamicrefactoring.domain.xml.ExportImportUtilities;
 import dynamicrefactoring.domain.xml.XMLRefactoringUtils;
+import dynamicrefactoring.domain.xml.XMLRefactoringsCatalog;
 import dynamicrefactoring.interfaz.ButtonTextProvider;
 import dynamicrefactoring.interfaz.CustomProgressDialog;
 import dynamicrefactoring.util.DynamicRefactoringLister;
@@ -499,7 +500,7 @@ public class ImportWizard extends Dialog {
 				
 					try {
 						ExportImportUtilities.ImportRefactoring(
-								definition, false);
+								definition, false, XMLRefactoringsCatalog.getInstance());
 					} catch (FileNotFoundException e) {
 
 						// Elimina la carpeta de la refactorización ya que

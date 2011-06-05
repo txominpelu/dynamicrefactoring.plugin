@@ -5,20 +5,35 @@ import com.google.common.base.Predicate;
 import dynamicrefactoring.domain.metadata.interfaces.Element;
 
 /**
+ * Condición por si un elemento contiene como entrada un tipo.
  * 
  * @author XPMUser
+ * @param <K> tipo del elemento sobre el que se aplica la condición
  *
  */
 public class InputTypeCondition <K extends Element> implements Predicate<K> {
 
+	/**
+	 * Nombre de la condición
+	 */
 	public static final String NAME="inputType";
 	
 	private String inputType;
 	
+	/**
+	 * Constructor.
+	 * 
+	 * @param inputType tipo de entrada
+	 */
 	public InputTypeCondition(String inputType){
 		this.inputType=inputType;
 	}
 	
+	/**
+	 * Obtiene el tipo de entrada que define la condición.
+	 * 
+	 * @return tipo de entrada que define la condición
+	 */
 	public String getInputType(){
 		return inputType;
 	}

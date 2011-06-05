@@ -5,20 +5,36 @@ import com.google.common.base.Predicate;
 import dynamicrefactoring.domain.metadata.interfaces.Element;
 
 /**
+ * Condición que indica si un elemento tiene un tipo
+ * como el tipo de su entrada raíz.
  * 
  * @author XPMUser
+ * @param <K> tipo del elemento
  *
  */
-public class RootInputTypeCondition <K extends Element> implements Predicate<K> {
+public final class RootInputTypeCondition <K extends Element> implements Predicate<K> {
 
+	/**
+	 * Nombre de la condición.
+	 */
 	public static final String NAME="rootInputType";
 	
 	private String rootInputType;
 	
+	/**
+	 * Constructor.
+	 * 
+	 * @param rootInputType tipo
+	 */
 	public RootInputTypeCondition(String rootInputType){
 		this.rootInputType=rootInputType;
 	}
 	
+	/**
+	 * Devuelve el tipo que define la condición.
+	 * 
+	 * @return tipo que define la condición
+	 */
 	public String getRootInputType(){
 		return rootInputType;
 	}

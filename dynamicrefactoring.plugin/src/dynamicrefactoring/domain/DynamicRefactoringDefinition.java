@@ -129,7 +129,7 @@ public class DynamicRefactoringDefinition implements Element,
 		examples = builder.examples;
 		isEditable = builder.isEditable;
 	}
-	
+
 	/**
 	 * Devuelve el nombre de la refactorización.
 	 * 
@@ -330,6 +330,9 @@ public class DynamicRefactoringDefinition implements Element,
 	/**
 	 * Devuelve si la refactorizacion pertenece a un scope.
 	 * 
+	 * @param categories
+	 *            conjunto de categorias de la refactorizacion
+	 * 
 	 * @param definition
 	 *            definicion de la refactorizacion
 	 * @return si pertenece a un scope
@@ -384,17 +387,20 @@ public class DynamicRefactoringDefinition implements Element,
 
 	@Override
 	public boolean containsPrecondition(String precondition) {
-		return ! getMechanismsWithName(precondition, RefactoringMechanismType.PRECONDITION).isEmpty();
+		return !getMechanismsWithName(precondition,
+				RefactoringMechanismType.PRECONDITION).isEmpty();
 	}
 
 	@Override
 	public boolean containsAction(String action) {
-		return ! getMechanismsWithName(action, RefactoringMechanismType.ACTION).isEmpty();
+		return !getMechanismsWithName(action, RefactoringMechanismType.ACTION)
+				.isEmpty();
 	}
 
 	@Override
 	public boolean containsPostcondition(String postcondition) {
-		return ! getMechanismsWithName(postcondition, RefactoringMechanismType.POSTCONDITION).isEmpty();
+		return !getMechanismsWithName(postcondition,
+				RefactoringMechanismType.POSTCONDITION).isEmpty();
 	}
 
 	/**
@@ -486,9 +492,11 @@ public class DynamicRefactoringDefinition implements Element,
 	}
 
 	/**
-	 * Obtiene todos los mecanismos (precond, acciones y postcondiciones) de la
-	 * refactorizacion.
+	 * Obtiene todos los mecanismos de un tipo (precond, acciones y
+	 * postcondiciones) para una refactorización.
 	 * 
+	 * @param type
+	 *            tipo de mecanismo
 	 * 
 	 * @return todas las precondiciones, acciones y postcondiciones
 	 */
@@ -505,11 +513,13 @@ public class DynamicRefactoringDefinition implements Element,
 	}
 
 	/**
-	 * Devuelve el mecanismo del tipo dado con el nombre pasado
-	 * de la refactorización.
+	 * Devuelve el mecanismo del tipo dado con el nombre pasado de la
+	 * refactorización.
 	 * 
-	 * @param mechanismName nombre del mecanismo a obtener
-	 * @param type tipo del mecanismo (precondición, acción o postcondición)
+	 * @param mechanismName
+	 *            nombre del mecanismo a obtener
+	 * @param type
+	 *            tipo del mecanismo (precondición, acción o postcondición)
 	 * @return mecanismo de la refactorización con el nombre pasado
 	 */
 	public List<RefactoringMechanismInstance> getMechanismsWithName(
@@ -555,8 +565,7 @@ public class DynamicRefactoringDefinition implements Element,
 				.examples(getExamples()).image(getImage()).inputs(getInputs())
 				.keywords(getKeywords()).motivation(getMotivation())
 				.postconditions(getPostconditions())
-				.preconditions(getPreconditions())
-				.isEditable(isEditable());
+				.preconditions(getPreconditions()).isEditable(isEditable());
 	}
 
 	/**
@@ -594,8 +603,10 @@ public class DynamicRefactoringDefinition implements Element,
 	 *         refactorizacion
 	 */
 	public File getRefactoringDirectoryFile() {
-		if(!isEditable()){
-			return new File(RefactoringPlugin.getNonEditableDynamicRefactoringsDir() + File.separator + getName() + File.separator);
+		if (!isEditable()) {
+			return new File(
+					RefactoringPlugin.getNonEditableDynamicRefactoringsDir()
+							+ File.separator + getName() + File.separator);
 		}
 		return new File(RefactoringPlugin.getDynamicRefactoringsDir()
 				+ File.separator + getName() + File.separator);
@@ -614,8 +625,7 @@ public class DynamicRefactoringDefinition implements Element,
 		if (filePath.isEmpty() || new File(filePath).isAbsolute()) {
 			return filePath;
 		}
-		return getRefactoringDirectoryFile() + File.separator
-					+ filePath;
+		return getRefactoringDirectoryFile() + File.separator + filePath;
 	}
 
 	/**
@@ -698,6 +708,7 @@ public class DynamicRefactoringDefinition implements Element,
 		 * 
 		 * @param categories
 		 *            categorias a las que el elemento pertenecera
+		 * @return builder con las nuevas categorias agregadas
 		 */
 		public Builder categories(Set<Category> categories) {
 			this.categories = categories;
@@ -709,6 +720,7 @@ public class DynamicRefactoringDefinition implements Element,
 		 * 
 		 * @param name
 		 *            nuevo nombre que se asignara
+		 * @return builder con el nuevo nombre agregado
 		 */
 		public Builder name(String name) {
 			this.name = name.trim();
@@ -784,8 +796,8 @@ public class DynamicRefactoringDefinition implements Element,
 		 * @see #getImage
 		 */
 		public Builder image(String image) {
-			if(image==null)
-				image="";
+			if (image == null)
+				image = "";
 			this.image = image.trim();
 			return this;
 		}

@@ -21,6 +21,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.*/
 package dynamicrefactoring.domain;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 
 import java.io.File;
@@ -35,6 +36,8 @@ import org.junit.Test;
 import dynamicrefactoring.RefactoringConstants;
 import dynamicrefactoring.RefactoringPlugin;
 import dynamicrefactoring.domain.xml.ExportImportUtilities;
+import dynamicrefactoring.domain.xml.RefactoringCatalogStub;
+import dynamicrefactoring.domain.xml.XMLRefactoringsCatalog;
 import dynamicrefactoring.domain.xml.reader.XMLRefactoringReaderException;
 import dynamicrefactoring.util.io.FileManager;
 
@@ -63,7 +66,7 @@ public class TestImport {
 		FileManager.copyBundleDirToFileSystem("/DynamicRefactorings/Rename Class/", RefactoringPlugin.getCommonPluginFilesDir());
 		// Primero exportamos la refactorización Rename Class a un directorio
 		// temporal que luego eliminaremos
-		ExportImportUtilities.ExportRefactoring(TEMP_DIR,
+		ExportImportUtilities.exportRefactoring(TEMP_DIR,
 				getRenameClassXmlFile(), false);
 
 		// Depu�s de exportarla vamos a eliminar la carpeta de Rename Class
@@ -112,15 +115,11 @@ public class TestImport {
 		FileManager.deleteFile(renameClassFile);
 		FileManager.deleteFile(notExistsClassWithNameClassFile);
 		
+		RefactoringCatalogStub catalog = new RefactoringCatalogStub();
 		// Importamos la refactorización
-		ExportImportUtilities.ImportRefactoring(FilenameUtils.separatorsToSystem(".\\temp\\Rename Class\\Rename Class.xml"),false);
+		ExportImportUtilities.ImportRefactoring(FilenameUtils.separatorsToSystem(".\\temp\\Rename Class\\Rename Class.xml"),false, catalog);
 		
-		// Comprobamos que existe el fichero de definición de la refactorización
-		// y los .class que
-		// anteriormente hab�amos borrado
-		assertEquals(true, new File(getRenameClassXmlFile()).exists());
-		assertEquals(true, new File(renameClassFile).exists());
-		assertEquals(true, new File(notExistsClassWithNameClassFile).exists());
+		assertTrue(catalog.hasRefactoring("Rename Class"));
 		
 	}
 
@@ -164,7 +163,7 @@ public class TestImport {
 					.ImportRefactoring(
 					FilenameUtils.separatorsToSystem(TEMP_DIR
 							+ "\\Rename Class\\Rename Class.xml"),
-							false);
+							false, XMLRefactoringsCatalog.getInstance());
 			fail("No salto la excepcion esperada.");
 		} catch (FileNotFoundException e) {
 			// Comprobamos que no existe el fichero del mecanismo que hemos

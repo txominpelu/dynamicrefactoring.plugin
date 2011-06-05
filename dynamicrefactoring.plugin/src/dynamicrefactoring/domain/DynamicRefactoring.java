@@ -58,6 +58,8 @@ public class DynamicRefactoring extends MOONRefactoring {
 	/**
 	 * Constructor.
 	 * 
+	 * @param refactoringDefinition  definicion de la refactorizacion
+	 * 
 	 * @param refactoringFilePath
 	 *            ruta del fichero con la refactorización.
 	 * @param model

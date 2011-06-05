@@ -25,6 +25,12 @@ import dynamicrefactoring.domain.metadata.classifications.xml.ObjectFactory;
 import dynamicrefactoring.domain.metadata.interfaces.Category;
 import dynamicrefactoring.domain.metadata.interfaces.Classification;
 
+/**
+ * Lector de clasificaciones que utiliza JAXB.
+ * 
+ * @author imediava
+ *
+ */
 public final class JAXBClassificationsWriter {
 
 	private static JAXBClassificationsWriter instance;

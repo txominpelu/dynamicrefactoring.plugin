@@ -4,8 +4,18 @@ import com.google.common.base.Predicate;
 
 import dynamicrefactoring.domain.metadata.interfaces.Element;
 
+/**
+ * Condición por si un elemento contiene una palabra clave.
+ * 
+ * @author imediava
+ *
+ * @param <K> tipo del elemento
+ */
 public class KeyWordCondition<K extends Element> implements Predicate<K> {
 
+	/**
+	 * Nombre de la condición.
+	 */
 	public static final String NAME="key";
 	
 	private String keyWord;
@@ -13,12 +23,17 @@ public class KeyWordCondition<K extends Element> implements Predicate<K> {
 	/**
 	 * Crea una instancia de la condicion.
 	 * 
-	 * @param text texto que se buscara en la información relativa al elemento
+	 * @param keyWord palabra clave que se buscará en el elemento
 	 */
 	public KeyWordCondition(String keyWord){
 		this.keyWord = keyWord.toLowerCase().trim();
 	}
 
+	/**
+	 * Obtiene la palabra clave que define la condición.
+	 * 
+	 * @return palabra clave que define la condición
+	 */
 	private String getKeyWord() {
 		return keyWord;
 	}

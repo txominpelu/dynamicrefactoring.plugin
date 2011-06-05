@@ -42,6 +42,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link CategoriesType }
+     * @return categories type
      * 
      */
     public CategoriesType createCategoriesType() {
@@ -50,6 +51,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link ClassificationsType }
+     * @return new classifications type
      * 
      */
     public ClassificationsType createClassificationsType() {
@@ -58,6 +60,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link ClassificationType }
+     * @return new classification type
      * 
      */
     public ClassificationType createClassificationType() {
@@ -66,6 +69,8 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link JAXBElement }{@code <}{@link ClassificationsType }{@code >}}
+     * @param value classificationsType
+     * @return classifications
      * 
      */
     @XmlElementDecl(namespace = "", name = "classifications")

@@ -148,6 +148,7 @@ public final class RefactoringPlanExecutor implements IRunnableWithProgress {
 
 	/**
 	 * Constructor.
+	 * @param refactCatalog  catalogo de refactorizaciones del plugin
 	 * 
 	 * @param refactorings
 	 *            refactorizaciones a ejecutar.

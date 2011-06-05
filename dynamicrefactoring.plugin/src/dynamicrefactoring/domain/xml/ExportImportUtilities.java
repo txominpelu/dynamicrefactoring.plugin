@@ -25,6 +25,7 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.FilenameUtils;
@@ -32,8 +33,11 @@ import org.apache.commons.io.FilenameUtils;
 import dynamicrefactoring.RefactoringConstants;
 import dynamicrefactoring.RefactoringPlugin;
 import dynamicrefactoring.domain.DynamicRefactoringDefinition;
+import dynamicrefactoring.domain.DynamicRefactoringDefinition.Builder;
 import dynamicrefactoring.domain.Messages;
+import dynamicrefactoring.domain.RefactoringExample;
 import dynamicrefactoring.domain.RefactoringMechanismInstance;
+import dynamicrefactoring.domain.RefactoringsCatalog;
 import dynamicrefactoring.domain.xml.reader.JDOMXMLRefactoringReaderImp;
 import dynamicrefactoring.domain.xml.reader.RefactoringPlanReader;
 import dynamicrefactoring.domain.xml.reader.XMLRefactoringReaderException;
@@ -64,18 +68,24 @@ public class ExportImportUtilities {
 	 * @throws XMLRefactoringReaderException
 	 *             XMLRefactoringReaderException.
 	 */
-	public static void ExportRefactoring(String destination, String definition,
+	public static void exportRefactoring(String destination, String definition,
 			boolean createFolders) throws IOException,
 			XMLRefactoringReaderException {
 		String folder = new File(definition).getParent();
 		FileManager.copyFolder(folder, destination);
-		String definitionFolderName = FilenameUtils.getName(folder);
+		String refactoringName = FilenameUtils.getName(folder);
 		DynamicRefactoringDefinition refact = new JDOMXMLRefactoringReaderImp()
 				.getDynamicRefactoringDefinition(new File(definition));
+		
+		FileManager.copyFile(
+				new File(RefactoringConstants.DTD_PATH), new File(
+						destination + "/" + refactoringName + "/"//$NON-NLS-1$
+								+ new File(RefactoringConstants.DTD_PATH).getName()));
 
 		for (RefactoringMechanismInstance mecanismo : refact.getAllMechanisms()) {
-			
-			String rule = PluginStringUtils.getMechanismFullyQualifiedName(mecanismo.getType(), mecanismo.getClassName());
+
+			String rule = PluginStringUtils.getMechanismFullyQualifiedName(
+					mecanismo.getType(), mecanismo.getClassName());
 			final String className = mecanismo.getClassName(); //$NON-NLS-1$
 
 			String rulePath = rule.replace('.', File.separatorChar);
@@ -84,7 +94,7 @@ public class ExportImportUtilities {
 					RefactoringConstants.REFACTORING_CLASSES_DIR
 							+ File.separatorChar + rulePath + ".class"); //$NON-NLS-1$
 			File destinationFile = new File(destination + File.separatorChar
-					+ definitionFolderName + File.separatorChar + className
+					+ refactoringName + File.separatorChar + className
 					+ ".class"); //$NON-NLS-1$
 			File destinationFolder = new File(destination);
 			File newFolder = new File(destinationFolder.getParent()
@@ -109,9 +119,9 @@ public class ExportImportUtilities {
 					// En este caso se borra la carpeta generada en destino ya
 					// que no estará completa
 					FileManager.emptyDirectories(destination
-							+ File.separatorChar + definitionFolderName);
+							+ File.separatorChar + refactoringName);
 					FileManager.deleteDirectories(destination
-							+ File.separatorChar + definitionFolderName, true);
+							+ File.separatorChar + refactoringName, true);
 					throw new IOException(
 							Messages.ExportImportUtilities_ClassesNotFound
 									+ currentFile.getPath());
@@ -142,22 +152,24 @@ public class ExportImportUtilities {
 					destination + "/refactoringPlan", true); //$NON-NLS-1$
 		}
 		// Creamos el directorio donde se guardará el plan.
-		new File(destination + "/refactoringPlan").mkdir(); //$NON-NLS-1$
+		FileUtils.forceMkdir(new File(destination + "/refactoringPlan")); //$NON-NLS-1$
 		// Copiamos el fichero xml que guarda la información relativa al plan.
-		String planFile = new String(RefactoringConstants.REFACTORING_PLAN_FILE);
-		String dtdFile = new String(RefactoringConstants.REFACTORING_PLAN_DTD);
+		
+		
 		FileManager.copyFile(new File(
 				RefactoringConstants.REFACTORING_PLAN_FILE), new File(
-				destination + "/refactoringPlan" //$NON-NLS-1$
-						+ planFile.substring(planFile.lastIndexOf('/'))));
+				destination + "/refactoringPlan/" //$NON-NLS-1$
+						+ new File(RefactoringConstants.REFACTORING_PLAN_FILE).getName()));
 		FileManager.copyFile(
 				new File(RefactoringConstants.REFACTORING_PLAN_DTD), new File(
-						destination + "/refactoringPlan" //$NON-NLS-1$
-								+ dtdFile.substring(dtdFile.lastIndexOf('/'))));
+						destination + "/refactoringPlan/" //$NON-NLS-1$
+								+ new File(RefactoringConstants.REFACTORING_PLAN_DTD).getName()));
+		
 		// Creamos una carpeta donde guardaremos las refactorizaciones.
 		String refactoringDestination = destination
 				+ "/refactoringPlan/refactorings"; //$NON-NLS-1$
-		new File(refactoringDestination).mkdir();
+
+		FileUtils.forceMkdir(new File(refactoringDestination));
 
 		// Pasamos a exportar las refactorizaciones necesarias dentro de la
 		// carpeta anterior.
@@ -167,10 +179,11 @@ public class ExportImportUtilities {
 				.getInstance().getDynamicRefactoringNameList(
 						RefactoringPlugin.getDynamicRefactoringsDir(), true,
 						null);
-		
-		allRefactorings.putAll(DynamicRefactoringLister
-				.getInstance().getDynamicRefactoringNameList(
-						RefactoringPlugin.getNonEditableDynamicRefactoringsDir(), true,
+
+		allRefactorings.putAll(DynamicRefactoringLister.getInstance()
+				.getDynamicRefactoringNameList(
+						RefactoringPlugin
+								.getNonEditableDynamicRefactoringsDir(), true,
 						null));
 
 		for (String next : refactorings) {
@@ -178,7 +191,7 @@ public class ExportImportUtilities {
 			String definition = allRefactorings.get(key);// ruta del fichero de
 															// definición de al
 															// refactorización
-			ExportRefactoring(refactoringDestination, definition, true);
+			exportRefactoring(refactoringDestination, definition, true);
 		}
 	}
 
@@ -196,30 +209,33 @@ public class ExportImportUtilities {
 	 *             XMLRefactoringReaderException
 	 */
 	public static void ImportRefactoring(String definition,
-			boolean importingFromPlan) throws IOException,
+			boolean importingFromPlan, RefactoringsCatalog catalog) throws IOException,
 			XMLRefactoringReaderException {
 		File definitionFile = new File(definition);
 		final String originalFolder = definitionFile.getParent();
 		String namefolder = definitionFile.getParentFile().getName();
 
-		FileUtils.copyDirectoryToDirectory(new File(originalFolder), new File(
-				RefactoringPlugin.getDynamicRefactoringsDir()));
+		
+		DynamicRefactoringDefinition refact = new JDOMXMLRefactoringReaderImp()
+				.getDynamicRefactoringDefinition(new File(definition));
+		DynamicRefactoringDefinition newRefactToImport = modifyRefactToImportIt(definitionFile, refact);
 
 		// Pasamos a copiar los .class de las precondiciones, postcondiciones
 		// y acciones en su lugar
-		DynamicRefactoringDefinition refact = new JDOMXMLRefactoringReaderImp()
-				.getDynamicRefactoringDefinition(new File(definition));
-
 		for (RefactoringMechanismInstance predicado : refact.getAllMechanisms()) {
-			copyRefactoringFileClassIfNeeded(importingFromPlan, originalFolder,
-					PluginStringUtils.getMechanismFullyQualifiedName(predicado.getType(), predicado.getClassName()));
+			copyRefactoringFileClassIfNeeded(
+					importingFromPlan,
+					originalFolder,
+					PluginStringUtils.getMechanismFullyQualifiedName(
+							predicado.getType(), predicado.getClassName()));
 		}
-
-		// actualizamos el fichero refactorings.xml que guarda la información de
-		// las refactorizaciones
-		// de la aplicación.
-		updateRefactoringsXml(definition, namefolder);
-
+		
+		if(catalog.hasRefactoring(newRefactToImport.getName())){
+			catalog.updateRefactoring(newRefactToImport.getName(), newRefactToImport);
+		}else{
+			catalog.addRefactoring(newRefactToImport);
+		}
+		
 		if (importingFromPlan) {
 			FileManager.emptyDirectories(RefactoringPlugin
 					.getDynamicRefactoringsDir()
@@ -230,11 +246,48 @@ public class ExportImportUtilities {
 							+ File.separatorChar + namefolder
 							+ File.separatorChar + "repository", true);
 
-		} else {
-			// Borramos los .class para no tener almacenada la misma información
-			// en dos sitios
-			deleteClassFilesFromRefactoringsDir(namefolder, refact);
+		} 
+	}
+
+	/**
+	 * Modifica la refactorizacion para poder importarla.
+	 * 
+	 * @param definitionFile
+	 *            fichero de definicion de la refactorizacion
+	 * @param refact
+	 *            refactorizacion a modificar
+	 * @return refactorizacion modificada
+	 */
+	private static DynamicRefactoringDefinition modifyRefactToImportIt(File definitionFile,
+			DynamicRefactoringDefinition refact) {
+		Builder builder = refact.getBuilder();
+		if (!refact.getImage().isEmpty() && !new File(refact.getImage()).isAbsolute()) {
+			builder = builder.image(definitionFile.getParent() + "/"
+					+ refact.getImage());
 		}
+
+		return builder.examples(
+				getExamplesWithOtherRootFolder(definitionFile.getParent(),
+						refact)).build();
+	}
+
+	/**
+	 * Obtiene los ejemplos de una refactorizacion pero modificando la carpeta
+	 * raiz a la que pertenecen.
+	 * 
+	 * @param definitionFile
+	 *            fichero
+	 * @param refact
+	 * @return ejemplos modificados
+	 */
+	private static List<RefactoringExample> getExamplesWithOtherRootFolder(
+			String folder, DynamicRefactoringDefinition refact) {
+		List<RefactoringExample> newExamples = new ArrayList<RefactoringExample>();
+		for (RefactoringExample example : refact.getExamples()) {
+			newExamples.add(new RefactoringExample(folder + "/"
+					+ example.getBefore(), folder + "/" + example.getAfter()));
+		}
+		return newExamples;
 	}
 
 	/**
@@ -273,26 +326,6 @@ public class ExportImportUtilities {
 	}
 
 	/**
-	 * Actualiza el fichero con las nuevas refactorizaciones.
-	 * 
-	 * @param definition
-	 * @param namefolder
-	 */
-	private static void updateRefactoringsXml(String definition,
-			String namefolder) {
-//		try {
-//			DynamicRefactoringDefinition refactDefinition = DynamicRefactoringDefinition
-//					.getRefactoringDefinition(definition);
-//			new dynamicrefactoring.domain.xml.writer.JDOMXMLRefactoringWriterImp(null)
-//					.addNewRefactoringToXml(
-//							refactDefinition.getRefactoringScope(), namefolder,
-//							definition);
-//		} catch (RefactoringException e) {
-//			e.printStackTrace();
-//		}
-	}
-
-	/**
 	 * Elimina los ficheros de clase del directorio de refactorizaciones
 	 * (DynamicRefactorings).
 	 * 
@@ -301,7 +334,8 @@ public class ExportImportUtilities {
 	 */
 	private static void deleteClassFilesFromRefactoringsDir(String namefolder,
 			DynamicRefactoringDefinition refact) {
-		for (String element : RefactoringMechanismInstance.getMechanismListClassNames(refact.getAllMechanisms())) {
+		for (String element : RefactoringMechanismInstance
+				.getMechanismListClassNames(refact.getAllMechanisms())) {
 			String name = PluginStringUtils.splitGetLast(element, "."); //$NON-NLS-1$
 			if (new File(RefactoringPlugin.getDynamicRefactoringsDir()
 					+ File.separatorChar + namefolder + File.separatorChar

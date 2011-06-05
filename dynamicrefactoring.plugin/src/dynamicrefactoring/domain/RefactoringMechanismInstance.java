@@ -15,7 +15,7 @@ import com.google.common.collect.Lists;
  * @author imediava
  * 
  */
-public class RefactoringMechanismInstance {
+public final class RefactoringMechanismInstance {
 
 	/**
 	 * Nombre de la clase del mecanismo de refactorizacion
@@ -36,6 +36,8 @@ public class RefactoringMechanismInstance {
 	 * 
 	 * @param className
 	 *            nombre de la clase del mecanismo
+	 * @param inputParametersNames
+	 *            lista de parámetros de entrada
 	 * @param type
 	 *            tipo del mecanismo
 	 * @see RefactoringMechanismType

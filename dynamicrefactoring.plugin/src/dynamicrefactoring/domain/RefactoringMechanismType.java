@@ -156,6 +156,7 @@ public enum RefactoringMechanismType {
 
 	/**
 	 * Obtiene si un predicado es dependiente de java.
+	 * @param predicateName  nombre del predicado
 	 * 
 	 * @return todos los predicados
 	 * @throws IOException

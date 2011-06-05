@@ -70,6 +70,8 @@ public class CategoriesType {
      * Objects of the following type(s) are allowed in the list
      * {@link String }
      * 
+     * @return category
+     * 
      * 
      */
     public List<String> getCategory() {
