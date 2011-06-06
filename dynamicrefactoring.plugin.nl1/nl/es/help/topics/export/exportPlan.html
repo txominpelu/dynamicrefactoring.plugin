@@ -1,0 +1,68 @@
+<HEAD>
+<META HTTP-EQUIV="Content-Type" Content="text/html; charset=Windows-1252">
+<TITLE>Exportar un plan de Refactorizaciones</TITLE>
+<link href="../../book.css" rel="stylesheet" type="text/css" />
+</HEAD>
+<body>
+
+<H1><img align="middle" border="0" src="../images/4.png">Exportar un plan de Refactorizaciones</H1>
+<P>
+En esta sección aprenderá cómo exportar el plan de refactorizaciones que ha sido ejecutado sobre un proyecto determinado, de forma
+que luego pueda ejecutarse en un nuevo proyecto con las características pertinentes.
+
+<OL>
+	<LI>Seleccione la opción de menú <STRONG>Refactorización Dinámica &gt; Exportar 
+	...</STRONG> para abrir el diálogo <STRONG>Exportar plan de Refactorizaciones...</STRONG>.</p><br>
+	
+	<p align="center"><img border="0" src="../images/export/10.png"><br><br>
+	<a name="_Toc176096195"><font size="1"><b>Seleccione <STRONG>Exportar plan de Refactorizaciones...</STRONG> en el menú</b></font></a></p><br>
+
+
+	<p>La ubicación por defecto en la que se exportará el plan de refactorizaciones se puede establecer dentro del menú <STRONG>Window &gt;
+	Preferences</STRONG> de Eclipse en el apartado "Directorio de exportación para el plan de refactorizaciones"
+       	del submenú <STRONG>Dynamic Refactoring</STRONG>.</p><br>
+
+	<p align="center"><img border="0" src="../images/export/11.png"><br>
+	<a name="_Toc176096195"><font size="1"><b>menú Preferences</b></font></a></p><br>
+	</LI>
+
+	<LI>
+	Para seleccionar una ubicación destino, diferente a la establecida por defecto, en la que se desea exportar el plan de refactorizaciones
+       	se debe presionar el botón "...".</p><br>
+
+	<p align="center"><img border="0" src="../images/export/12.png"><br>
+	<a name="_Toc176096217"><font size="1"><b>directorio destino</b></font></a></p><br>
+	</LI>
+
+	<LI>
+	Una vez que se solicita la exportación, se mostrará un mensaje de confirmación indicando que la exportación se ha realizado de forma satisfactoria. 
+	
+	<br><p align="center"><img border="0" src="../images/export/13.png"><br><br>
+	<a name="_Toc176096218"><font size="1"><b>Confirmación</b></font></a></p><br>
+
+
+	<p>Se creará una carpeta con el plan de la refactorizaciones cuya estructura se corresponde con la siguiente:
+		<br>&nbsp;&nbsp;&nbsp;&nbsp;- Una carpeta llamada refactorings que contiene una carpeta por cada una de las refactorizaciones
+       		que conforman en plan.
+		<br>&nbsp;&nbsp;&nbsp;&nbsp;- Un fichero XML llamado refactoringPlan.xml que guarda una descripción de las refactorizaciones ejecutas.
+		<br>&nbsp;&nbsp;&nbsp;&nbsp;- Un fichero DTD llamado refactoringPlanDTD.dtd que contiene la estructura que tiene que tener el fichero refactoringPlan.xml para que pueda ser interpretado por la aplicación.
+		<br>&nbsp;&nbsp;&nbsp;&nbsp;- Una carpeta llamada repository que contiene todos los ficheros .class correspondientes a los mecanismos (acciones, precondiciones y postcondiciones) que componen las refactorizaciones del plan.</p><br>
+		
+		<p>Para cancelar la operación de exportación se puede pulsar el botón <STRONG>Cancelar</STRONG>.<br></p>
+	
+	</LI>
+	
+</OL>
+
+<p><img src="../images/1.png"  alt="Related tasks"></p>    
+<ul class="NavList">
+	<li><a href="importPlan.html"></a>Importar un plan de Refactorizaciones<br></li>
+</ul>
+<br>
+
+</body>
+</html>
+
+
+</body>
+</html>

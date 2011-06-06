@@ -1,0 +1,53 @@
+<HEAD>
+<META HTTP-EQUIV="Content-Type" Content="text/html; charset=Windows-1252">
+<TITLE>Deshacer Refactorizaciones</TITLE>
+<link href="../../../book.css" rel="stylesheet" type="text/css" />
+</HEAD>
+<body>
+
+<H1><img align="middle" border="0" src="../../images/4.png">Deshacer Refactorizaciones</H1>
+<P>
+<p>Cuando se utiliza el <strong>Plugin de Refactorización Dinámica</strong> para ejecutar refactorizaciones
+sobre el código, será posible deshacer todas las refactorizaciones ejecutadas hasta un punto cualquiera del proceso.
+<br>No olvide, sin embargo, que una vez que se ejecuta una refactorización sobre un segundo proyecto Java en Eclipse,
+se perderá la posibilidad de deshacer refactorizaciones ejecutadas sobre otro diferente. Además, una vez que se
+solicita al <i>plugin</i> que deshaga un conjunto de refactorizaciones, no se podrán rehacer de forma automática,
+sino que habría que volver a ejecutarlas una a una.
+</p>
+
+<p>Existen dos formas de deshacer una refactorización, aunque los efectos de utilizar uno u otro método no son 
+los mismos.</p>
+
+<oL>
+	<LI><p style="margin-left: 20">La forma recomendada de deshacer refactorizaciones es mediante la vista 
+	Historial del <i>plugin</i>.</p>
+	<p style="margin-left: 20">Cada vez que se completa con éxito una refactorización, aparecerá registrada en esta 
+	vista, identificada por su hora de finalización y su nombre. Si desea retornar al estado que tenía su proyecto
+	justo antes de ejecutar una cualquiera de las refactorizaciones que aparecen en la vista, pulse el botón de
+	"Deshacer" que aparece junto a la refactorización más antigua que deba deshacerse.</p><br>
+	
+	<p align="center"><img border="0" src="../../images/refactoring/run/24.png"></p>
+	<p align="center"><a name="_Toc176096195"><font size="1"><b>Vista Historial</b></font></a></p><br>
+	<p style="margin-left: 20">Una vez que pulse el botón, un diálogo de progreso aparecerá y le mantendrá informado
+	acerca del avance del proceso de la operación de deshacer.</p><br>
+	<p align="center"><img border="0" src="../../images/refactoring/run/25.png"></p>
+	<p align="center"><a name="_Toc176096195"><font size="1"><b>Progreso de la operación de deshacer</b></font></a></p><br>
+	<p style="margin-left: 20">Cuando todas las refactorizaciones entre la que se ejecutó la última y la que
+	se seleccionó han sido deshechas, verá que su proyecto ha vuelto al estado original anterior a la primera
+	refactorización. Tanto la vista Historial como la de Progreso se actualizarán para reflejar los cambios.</p><br>
+	<p align="center"><img border="0" src="../../images/refactoring/run/26.png"></p>
+	<p align="center"><a name="_Toc176096195"><font size="1"><b>Refactorización deshecha</b></font></a></p><br>
+    </LI>
+        
+    <LI><p style="margin-left: 20">Active la vista del "Package Explorer" en Eclipse y seleccione la opción de menú
+    <STRONG>Edit &gt; Undo....</STRONG> Esto deshará una única refactorización, y solo la última ejecutada aparecerá
+    disponible en cada ocasión. Si desea deshacer más de una refactorización, tendría que hacerlo una a una mediante
+    este método.</p><br>
+    <p align="center"><img border="0" src="../../images/refactoring/run/27.png"></p>
+	<p align="center"><a name="_Toc176096195"><font size="1"><b>Menu "Deshacer"</b></font></a></p><br>
+	</LI>
+</oL>
+<br>
+<p>
+</body>
+</html>

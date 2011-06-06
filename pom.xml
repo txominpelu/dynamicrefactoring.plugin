@@ -27,6 +27,7 @@
     <module>dynamicrefactoring.targetplatform</module>
     <module>dynamicrefactoring.plugin</module>
     <module>dynamicrefactoring.tests</module>
+    <module>dynamicrefactoring.plugin.nl1</module>
     <module>dynamicrefactoring.feature</module>
     <module>dynamicrefactoring.p2repository</module>
   </modules>

@@ -1,0 +1,77 @@
+<HEAD>
+<META HTTP-EQUIV="Content-Type" Content="text/html; charset=Windows-1252">
+<TITLE>Ejecutar Refactorizaciones Dinámicas</TITLE>
+<link href="../../../book.css" rel="stylesheet" type="text/css" />
+</HEAD>
+<body>
+
+<H1><img align="left" border="0" src="../../images/4.png">Ejecutar Refactorizaciones Dinámicas</H1>
+<br>
+<p>Una vez que se ha seleccionado la refactorización dinámica que se quiere ejecutar, se abrirá un nuevo diálogo. En este diálogo habrá de configurarse
+la refactorización antes de su ejecución.
+
+<p>Se trata de un diálogo generado de forma dinámica, lo que significa que contendrá un conjunto 
+diferente de parámetros configurables dependiendo de la refactorización seleccionada.</p>
+
+<p>Verá que aparecen dos o tres pestañas en la parte superior: una asignada a los parámetros que se deben
+configurar antes de poder ejecutar la refactorización, otra con un breve resumen de la
+refactorización que se está configurando y su estructura, y la tercera contendrá los ejemplos asociados a la refactorización. Esta última
+pestaña solo aparecerá en caso de que la refactorización tenga asociado algún ejemplo.</p>
+ 
+<p>El diálogo debería ser similar al que se muestra a continuación, que corresponde a la refactorización
+"Renombrar Método":</p><br>
+ 
+<p align="center"><img border="0" src="../../images/refactoring/run/17.png"></p>
+<p align="center"><a name="_Toc176096195"><font size="1"><b>Pestaña de parámetros</b></font></a></p><br>
+
+<p align="center"><img border="0" src="../../images/refactoring/run/18.png"></p>
+<p align="center"><a name="_Toc176096195"><font size="1"><b>Pestaña de información</b></font></a></p><br>
+
+<p align="center"><img border="0" src="../../images/refactoring/run/19.png"></p>
+<p align="center"><a name="_Toc176096195"><font size="1"><b>Pestaña de ejemplos</b></font></a></p><br>
+
+<p>Se debe configurar un valor para todos los campos vacíos de la ventana antes de pulsar el botón
+<code>Run</code> para iniciar la refactorización. Si no se ha hecho así, se abrirá un mensaje de aviso.</p><br>
+ 
+<p align="center"><img border="0" src="../../images/refactoring/run/20.png"></p>
+<p align="center"><a name="_Toc176096195"><font size="1"><b>Aviso: campos sin completar</b></font></a></p><br>
+
+<p>Una vez que se ejecute la refactorización, los valores configurados podrían conducir al
+fallo de alguna de las precondiciones, lo que indicaría que la refactorización no puede 
+ejecutarse correctamente con esas entradas. En esos casos, se mostrará un mensaje de error
+y se cancelará el proceso de refactorización.</p>
+
+<p>El mensaje mostrado contendrá información relativa a la precondición que no se cumplió
+y a las posibles causas por los que esto sucedió.</p>
+
+<p>Si, por ejemplo, se intenta renombrar un método constructor de una clase Java, se obtendría un
+mensaje como el siguiente:</p><br>
+
+<p align="center"><img border="0" src="../../images/refactoring/run/21.png"></p>
+<p align="center"><a name="_Toc176096195"><font size="1"><b>Error: excepción de precondición</b></font></a></p><br>
+
+<p>Si es una postcondición la que falla después de que se haya completado la ejecución de acciones de
+la refactorización, se mostrará un mensaje de error similar, que contendrá algunos detalles acerca del
+motivo por el que falló la postcondición. En tal caso, la refactorización se deshará automáticamente
+para intentar preservar la corrección. Este proceso podría no ser completamente exacto en algunas
+refactorizaciones complejas.</p>
+
+<p>Si el error ocurre durant el proceso de refactorización en sí, daría lugar a otro mensaje de error
+y las acciones ejecutadas hasta el momento se desharían igualmente.</p>
+ 
+<P>Cuando la refactorización finaliza, la vista <code>Progreso</code> se actualiza con los datos relativos
+al proceso de refactorización y a las acciones de más bajo nivel que ha ejecutado la refactorización.</p><br>
+
+<p align="center"><img border="0" src="../../images/refactoring/run/22.png"></p>
+<p align="center"><a name="_Toc176096195"><font size="1"><b>Vista de progreso</b></font></a></p><br>
+
+<P>La vista <code>Historial de Refactorización</code> también se actualiza. Esta vista muestra la hora
+y fecha en que se completaron cada una de las refactorizaciones, así como su nombre. Se puede utilizar esta
+vista para deshacer cualquiera de las refactorizaciones ejecutadas.</p><br>
+
+<p align="center"><img border="0" src="../../images/refactoring/run/23.png"></p>
+<p align="center"><a name="_Toc176096195"><font size="1"><b>Vista de histórico</b></font></a></p><br>
+<p>
+<br>
+</body>
+</html>

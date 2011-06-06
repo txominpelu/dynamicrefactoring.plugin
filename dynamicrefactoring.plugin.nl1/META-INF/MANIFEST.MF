@@ -1,0 +1,27 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: dynamicrefactoring.plugin.nl1
+Bundle-SymbolicName: dynamicrefactoring.plugin.nl1
+Bundle-Version: 3.1.1
+Bundle-ClassPath: .,
+ $nl$/
+Fragment-Host: dynamicrefactoring.plugin;bundle-version="3.1.1"
+Bundle-Localization: plugin
+Export-Package: dynamicrefactoring,
+ dynamicrefactoring.action,
+ dynamicrefactoring.domain,
+ dynamicrefactoring.integration,
+ dynamicrefactoring.integration.selectionhandler,
+ dynamicrefactoring.interfaz,
+ dynamicrefactoring.interfaz.dynamic,
+ dynamicrefactoring.interfaz.statico,
+ dynamicrefactoring.interfaz.view,
+ dynamicrefactoring.interfaz.wizard,
+ dynamicrefactoring.preferences,
+ dynamicrefactoring.util,
+ dynamicrefactoring.util.io,
+ dynamicrefactoring.util.io.filter,
+ dynamicrefactoring.util.selection
+Bundle-RequiredExecutionEnvironment: JavaSE-1.6
+Created-By: 1.6.0_03-b05 (Sun Microsystems Inc.)
+Ant-Version: Apache Ant 1.7.0

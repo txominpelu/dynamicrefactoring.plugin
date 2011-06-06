@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?NLS TYPE="org.eclipse.help.toc"?>
+
+<toc label="Refactorizacion" link_to="toc.xml#refactoring">
+	<topic label="Instalacion">
+		<topic label="Requisitos" href="help/topics/installation/requirements.html"/>
+		<topic label="Instalar El Plugin" href="help/topics/installation/installation.html"/>
+	</topic>
+	<topic label="Ejecucion De Refactorizaciones"  href="help/topics/refactoring/run/init.html"> 
+		<topic label="Ejecutar Refactorizaciones Desde Una Vista De Eclipse" href="help/topics/refactoring/run/view.html" /> 
+		<topic label="Ejecutar Refactorizaciones Desde El Editor" href="help/topics/refactoring/run/editor.html" />
+		<topic label="Refactorizacion dinamica" href="help/topics/refactoring/run/dynamic.html" />
+		<topic label="Deshacer Refactorizaciones" href="help/topics/refactoring/run/undo.html" />
+	</topic>
+	<topic label="Gestion De Las Refactorizaciones Dinamicas">
+		<topic label="Creacion" href="help/topics/refactoring/creation.html" /> 
+		<topic label="Edicion" href="help/topics/refactoring/edition.html" /> 
+		<topic label="Eliminacion" href="help/topics/refactoring/deletion.html" />
+		<topic label="Exportacion" href="help/topics/export/export.html" />
+		<topic label="Importacion" href="help/topics/export/import.html" />
+		<topic label="Exportar un plan de refactorizaciones" href="help/topics/export/exportPlan.html" />
+		<topic label="Importar un plan de refactorizaciones" href="help/topics/export/importPlan.html" />
+	</topic> 
+</toc>

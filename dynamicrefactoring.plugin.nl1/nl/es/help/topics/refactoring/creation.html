@@ -1,0 +1,284 @@
+<HEAD>
+<META HTTP-EQUIV="Content-Type" Content="text/html; charset=Windows-1252">
+<TITLE>Crear Refactorizaciones</TITLE>
+<link href="../../book.css" rel="stylesheet" type="text/css" />
+</HEAD>
+
+<body>
+<H1><img align="middle" border="0" src="../images/4.png">Crear Refactorizaciones</H1>
+<P>
+
+<OL>
+	<LI>Seleccione la opción de menú <STRONG>Refactorización Dinámica &gt; Nueva Refactorización...</STRONG>
+	en Eclipse para iniciar el asistente <STRONG>Creación de Refactorización Diámica</STRONG>.</p><br>
+	<p align="center"><img border="0" src="../images/refactoring/1.png"></p>
+	<p align="center"><a name="_Toc176096200"><font size="1"><b>Opción "Nueva Refactorización..."</b></font></a></p><br>
+	<p>Se iniciará un asistente que le guiará a través de todo el proceso de creación de una nueva 
+	refactorización.
+	<br>Se explicarán a continuación cada uno de los cinco pasos que componen el asistente. Puede cancelar el
+	proceso de creación en cualquier momento, así como retroceder a cualquiera de los pasos previos o avanzar
+	al paso siguiente (una vez que todos los datos necesarios han sido completados).</p><br>
+	</LI>
+
+	<LI>En esta página tendrá que proporcional información general acerca de la refactorización:</p><br>
+	<p align="center"><img border="0" src="../images/refactoring/2.png"></p>
+	<p align="center"><a name="_Toc176096201"><font size="1"><b>Primer paso: "Crear una nueva refactorización"</b></font></a></p><br>
+		<ul style="margin-top: 0cm; margin-bottom: 0cm" type="disc">
+			<li class="MsoNormal">
+  			<p style="text-align: left"><STRONG>Nombre</STRONG>:
+  			Introduzca el nombre de la refactorización en este campo. El valor introducido se utilizará para
+  			indentificar la refactorización en las ventanas de selección de refactorizaciones. Se pueden utilizar
+  			espacios en blanco, y es sensible al uso de mayúsculas. Si está utilizando Java 1.6 el nombre puede
+  			contener algunos caracteres especiales como tildes o el carácter <code>'ñ'</code>. En cualquier caso,
+  			no se recomienda, y no se deben utilizar si se está trabajando con Java 1.5 o versiones anteriores.
+  			Se debe completar este campo antes de poder continuar.</p>
+  			</li>
+  			<li class="MsoNormal">
+  			<p style="text-align: left"><STRONG>Descripción</STRONG>: Introduzca en este campo una breve descripción de lo
+  			que hace la refactorización y por qué. Puede ocupar tantas líneas como sea necesario. Este campo también
+  			debe ser completado antes de continuar.</p>
+  			</li>
+  			<li class="MsoNormal">
+  			<p style="text-align: left"><STRONG>Imagen</STRONG>: Puede especificar aquí la imagen que quiere asociar
+  			a la refactorización. Pulsando el botón con el texto <code>"..."</code> podrá seleccionar el fichero
+  			con la imagen. Este campo no es obligatorio.</p>
+  				<blockquote>
+				<p class="MsoNormal" style="margin-left:35.4pt" align="left"><span lang="en-GB">
+				El tamaño ideal de la imagen debería ser de unos 450 x 200 píxeles. Aunque se pueden utilizar
+				imágenes más grandes, no se mostrarán completamente en las ventanas de la interfaz. Los formatos
+				de imagen aceptados son: <code>GIF</code>, <code>JPG</code>, <code>TIFF</code> y 
+				<code>PNG</code>.</span></p>
+				</blockquote>
+  			</li>
+  			<li class="MsoNormal">
+  			<p style="text-align: left"><STRONG>Motivación</STRONG>: Debe proporcionar una breve explicación de
+  			la motivación que podría conducir a aplicar la refactorización. Este campo es también obligarorio.</p><br>
+  			</li>
+		</ul>
+	</LI>
+
+	<LI>En esta página deben configurarse las entradas de la refactorización:</p><br>
+	<p align="center"><img border="0" src="../images/refactoring/3.png"></p>
+	<p align="center"><a name="_Toc176096201"><font size="1"><b>Segundo paso: "Configuración de entradas"</b></font></a></p><br>
+	<p>La lista de la derecha (<code>Entradas</code>) muestra las entradas que ya se han seleccionado para la 
+	refactorización.</p>
+	<p>La lista de tipos disponibles para las nuevas entradas aparece a la izquierda (<code>Tipos</code>).
+	Si quiere añadir una o más entradas a la lista de la derecha, seleccione los tipos de declaración que 
+	quiere que tengan, y pulse el botón con la flecha apuntando hacia la derecha
+	(<img border="0" src="../../../icons/arrow_right.gif">). Si necesita varias entradas con el mismo tipo,
+	podrá repetir la operación tantas veces como sea necesario.
+	<p>Para eliminar la entrada o las entradas seleccionadas de la lista de <code>Entradas</code>, pulse
+	el botón con el símbolo del aspa (<img border="0" src="../../../icons/delete.gif">). 
+	<p>También puede reordenar las entradas mediante los botones con las flechas apuntando hacia arriba y hacia
+	abajo (<img border="0" src="../../../icons/arrow_up.gif"> y <img border="0" src="../../../icons/arrow_down.gif">).
+	El orden que tengan cuando se cree la refactorización se mantendrá en todo el <i>plugin</i> y su interfaz.</p>
+	<p>Para cada entrada que añada, podría tener que completar los siguientes campos:</p>
+	
+	<ul style="margin-top: 0cm; margin-bottom: 0cm" type="disc">
+  		<li class="MsoNormal">
+  		<p style="text-align: left"><STRONG>Nombre</STRONG>: el nombre que se utilizará para identificar la 
+  		entrada más adelante en el asistente. También se usará como etiqueta en la ventana de refactorización
+  		empleada para la introducción de los valores reales de cada entrada. El nombre puede contener tildes
+  		pero no espacios en blanco, y debe completarse para todas las entradas.</p></li>
+  		<li class="MsoNormal">
+  		<p style="text-align: left"><STRONG>Raís</STRONG>: utilice esta casilla de verificación para indicar
+  		cuál de todas las entradas debe utilizarse como entrada principal de la refactorización. Solo se 
+  		puede seleccionar una entrada principal y debe tener uno de los tipos especificados. Una vez que la
+  		refactorización se ha construido y se está utilizando, la entrada principal será aquélla que el usuario
+  		pueda seleccionar en un editor Java o en un árbol de selección de una vista en Eclipse.</p></li>
+  		<li class="MsoNormal">
+  		<p style="text-align: left"><STRONG>Desde</STRONG>: si el valor o posibles valores asignados a la 
+  		entrada acutal se deben obtener a partir de otra, debe especificarlo mediante este desplegable. Si el 
+  		usuario debe introducir el valor de la entrada manualmente, deje este campo vacío.</p></li>
+  		<li class="MsoNormal">
+  		<p style="text-align: left"><STRONG>Método</STRONG>: una vez que se ha seleccionado un valor <code>desde</code>
+  		para una entrada, este desplegable mostrará los métodos disponibles que devuelven, bien una colección de
+  		valores, bien un valor de un tipo asignable a la entrada seleccionada.</p></li>
+	</ul>
+  
+
+	<p>Antes de poder continuar al siguiente paso, se comprueban algunas restricciones que deben cumplirse:</p>
+	<ul style="margin-top: 0cm; margin-bottom: 0cm" type="disc">
+  		<li class="MsoNormal">
+  		<p style="text-align: left">Debe haberse seleccionado exactamente una entrada raíz o principal.</p></li>
+	
+  		<li class="MsoNormal">
+  		<p style="text-align: left">La entrada principal debe tener uno de los tipos 
+  		<code>moon.core.classdef.ClassDef</code>, <code>moon.core.classdef.MethDec</code>,
+  		<code>moon.core.classdef.AttDec</code>, <code>moon.core.classdef.FormalArgument</code>
+  		o <code>moon.core.genericity.FormalPar</code> o un subtipo de cualquiera de ellos.</p></li>
+  		
+  		<li class="MsoNormal">
+  		<p style="text-align: left">Todas las entradas deben tener un nombre único.</p></li>
+  		
+  		<li class="MsoNormal">
+  		<p style="text-align: left">Si se ha especificado un valor <code>Desde</code> para alguna entrada,  
+  		se deberá seleccionar un valor para <code>Método</code> también.</p><br></li>
+	</ul>
+	
+	<p>
+	Dentro de la interfaz de este paso también aparece un campo de texto que permite realizar una búsqueda sobre la lista de tipos (Types).
+	De esta forma el usuario puede filtrar entradas que pertenecen únicamente al modelo MOON con la expresión regular: moon.*
+	o encontrar determinados tipos como JavaClassDef mediante la expresión regular .*JavaClassDef. Para ello se tiene que pulsar el
+	botón <img border="0" src="../images/refactoring/4.png">. Aqui se muestran el conjunto de reglas que hay que seguir para poder construir
+       	correctamente la expresión regular: 
+	</p>
+	
+	<ul style="margin-top: 0cm; margin-bottom: 0cm" type="disc">
+  		<li class="MsoNormal">
+		<p style="text-align: left">Operadores lógicos:</p>
+			<ul>
+				<li>x|y : x o y</li>
+				<li>xy : x seguido de y</li>
+			</ul>
+		</li>
+		<li class="MsoNormal">
+		<p style="text-align: left">Intervalos de caracteres:</p>
+			<ul>
+				<li>[abc] : Cualquiera de los caracteres entre corchetes. Pueden especificarse rangos, por ejemplo,
+			       	[a-d] que equivale a [abcd]).</li>
+				<li>[^abc] : Cualquier carácter que no esté ente los que se encuentran en los corchetes. </li>
+			</ul>
+			</li>
+		<li class="MsoNormal">
+		<p style="text-align: left">Intervalos de caracteres predefinidos:</p>
+			<ul>
+				<li>. : Cualquier carácter individual, salvo el de salto de línea.</li>
+				<li>\d : Cualquier carácter de dígito, equivalente a [0-9].</li>
+				<li>\D: Cualquier carácter que no sea dígito, equivale a [^0-9].</li>
+				<li>\s: Cualquier carácter individual de espacio en blanco (espacios, tabulaciones, saltos de página o saltos de línea).</li>
+				<li>\S: Cualquier carácter individual que no sea un espacio en blanco..</li>
+				<li>\w: Cualquier carácter alfanumérico, incluido el de subrayado, equivalente a [A-Za-z0-9_].</li>
+				<li>\W: Cualquier carácter que no sea alfanumérico, equivalente a [^A-Za-z0-9_].</li>
+			</ul>
+		</li>
+		<li class="MsoNormal">
+		<p style="text-align: left">Caracteres:</p>
+			<ul>
+				<li>\f: Salto de página</li>
+				<li>\n: Salto de línea.</li>
+				<li>\r: Retorno de carro.</li>
+				<li>\t: Tabulación.</li>
+			</ul>
+		</li>
+		<li class="MsoNormal">
+		<p style="text-align: left">Limites:</p>
+			<ul>
+				<li>^: Principio de entrada o línea.</li>
+				<li>$: Fin de entrada o línea.</li>
+				<li>\b: Límite de palabra (como un espacio o un retorno de carro).</li>
+				<li>\B: Fin de palabra.</li>
+			</ul>
+		</li>
+		<li class="MsoNormal">
+		<p style="text-align: left">Cuantificadores:</p>
+			<ul>
+				<li>{n}: Exactamente n apariciones del carácter anterior.</li>
+				<li>{n, m}: Como mínimo n y como máximo m apariciones del carácter anterior.</li>
+				<li>*: El carácter anterior 0 o más veces.</li>
+				<li>+: El carácter anterior 1 o más veces.</li>
+				<li>?: El carácter anterior una vez como máximo (es decir, indica que el carácter anterior es opcional).</li>
+			</ul>
+		</li>
+
+	</ul>
+	<br><p>Cada vez que un tipo es seleccionado dentro de la lista de izquierda (Types) se actualiza el navegador html de la parte inferior
+	con la información del javadoc asociado a dicho tipo. En caso de no encontrarse disponible el fichero javadoc de la misma se muestra una página
+	html que indica que la información solicitada no se encuentra disponible. Esto permite ayudar al usuario a conocer la funcionalidad de cada uno
+       	de los tipos disponibles.</p>
+
+	<p>Este navegador html puede ser ampliado arrastrando la parte superior del mismo hacia arriba teniendo presionado el botón izquierdo 
+	del ratón.</p><br>
+	<p align="center"><img border="0" src="../images/refactoring/5.png"></p>
+	
+  	</LI><br>
+  	
+  	<LI>En este paso debe seleccionar las precondiciones que componen la refactorización.</p><br>
+	<p align="center"><img border="0" src="../images/refactoring/6.png"></p>
+	<p align="center"><a name="_Toc176096201"><font size="1"><b>Tercer paso: "Selección de precondiciones"</b></font></a></p><br>
+  	
+	<p class="MsoNormal">La lista de la derecha muestra las precondiciones que han sido ya seleccionadas
+  	como parte de la refactorización.</p>
+  	
+	
+	<p class="MsoNormal">La lista de precondiciones disponibles aparece en la tabla del lado izquierdo.
+	Para poder añadir una o más precondiciones a la refactorización, selecciónelas en la lista y pulse
+  	el botón con la flecha apuntando hacia la derecha
+ 	(<img border="0" src="../../../icons/arrow_right.gif">). Para eliminar cualquiera de los ya seleccionados,
+ 	marque las precondiciones que desea eliminar y pulse el botón con la flecha apuntando hacia la izquierda.
+ 	(<img border="0" src="../../../icons/arrow_left.gif">). Los elementos seleccionados volverán a la lista de
+ 	candidatos.</p>
+ 	
+ 	<p class="MsoNormal">Para reordenar la lista de elementos seleccionados, utilice los botones con las flechas
+ 	apuntando arriba y abajo en la parte derecha
+ 	(<img border="0" src="../../../icons/arrow_up.gif"> y <img border="0" src="../../../icons/arrow_down.gif">).
+ 	El orden resultante será el mismo en que se verifiquen y ejecuten cuando se ejecute la refactorización.</p>
+ 	
+ 	<p class="MsoNormal">Una vez que ha seleccionado un elemento del repositorio, será necesario indicarle al
+	<i>plugin</i> qué entradas de la refactorización deben utilizarse como argumentos del nuevo elemento.Para ello
+	se debe seleccionar un elemento de la lista desplegable situada a la derecha de cada parámetro.</p><br>
+		<p align="center"><img border="0" src="../images/refactoring/7.png"></p>
+		<p align="center"><a name="_Toc176096201"><font size="1"><b>Action parameters</b></font></a></p><br>
+		<p class="MsoNormal">También se puede visualizar el nombre cualificado de las precondiciones seleccionando el siguiente
+		<code>check button</code>:
+		<img border="0" src="../images/refactoring/8.png"></p><br>		
+  	</LI>
+
+	<LI>
+	En la cuarta página del asistente se seleccionan las acciones que conforman la refactorización:
+	
+	<p>La interfaz de la cuarta página es similar a la tercera. Para interactuar con ella solo tienes que seguir los mismos pasos que para
+       	la página anterior.</p><br>
+	
+	<p align="center"><img border="0" src="../images/refactoring/9.png"></p>
+	<p align="center"><a name="_Toc176096201"><font size="1"><b>Cuarto paso: "Seleccionar las acciones de la refactorización"</b></font></a></p><br>
+	</LI>
+
+	<LI>
+	En la quinta página del asistente se seleccionan las postcondiciones que conforman la refactorización:
+	
+	<p>La interfaz de la quinta página es similar a la tercera. Para interactuar con ella solo tienes que seguir los mismos pasos que para
+       	la página anterior.</p><br>
+	
+	<p align="center"><img border="0" src="../images/refactoring/10.png"></p>
+	<p align="center"><a name="_Toc176096201"><font size="1"><b>Quinto paso: "Seleccionar las postcondiciones de la refactorización"</b></font></a></p><br>
+	</LI>
+
+
+	<LI>En la sexta página del asistente, podrá asociar hasta dos ejemmplos a la refactorización.</p><br>
+		
+	<p>Para añadir un nuevo ejemplo a la refactorización, seleccione un fichero <code>TXT</code> o Java 
+	que represente el estado del sistema antes de la refactorización, y un segundo que contenga su estado
+	después de aplicarla. Los ejemplos deben consistir siempre de dos ficheros (para el "antes" y el "después"),
+	así que no se podrá continuar si uno de los ejemplos está completo a medias.</p><br>	
+	
+	<p align="center"><img border="0" src="../images/refactoring/11.png"></p>
+	<p align="center"><a name="_Toc176096201"><font size="1"><b>Sexto paso: "Añada ejemplos"</b></font></a></p><br>
+	</LI>
+
+
+	<LI>La última página del asistente muestra un resumen informativo de la refactorización completa, con toda
+	la información introducida por el usuario a través de las páginas anteriores.
+	
+	<p class = "MsoNormal">Una vez que haya revisado la configuración de la refactorización, puede guardarla 
+	pulsando el botón <code>Finalizar</code>. La refactorización creada aparecerá inmediatamente en las ventanas
+	de selección de refactorizaciones, identificada por su nombre.</p><br>
+	
+	<p align="center"><img border="0" src="../images/refactoring/12.png"></p>
+	<p align="center"><a name="_Toc176096201"><font size="1"><b>Séptimo paso: "Confirmación"</b></font></a></p><br>
+	</LI>
+</OL>
+
+<p><img src="../images/1.png"  alt="Related tasks"></p>
+
+<ul class="NavList">
+	<li><a href="./run/init.html">Ejecutar refactorizaciones</a><br></li>
+    <li><a href="../export/export.html">Exportar refactorizaciones</a><br></li>
+    <li><a href="../export/import.html">Importar refactorizaciones</a><br></li>
+    <li><a href="edition.html">Editar refactorizaciones</a><br></li>
+    <li><a href="deletion.html">Eliminar refactorizaciones</a><br></li>
+</ul>
+<p>
+<br>
+</body>
+</html>

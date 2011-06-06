@@ -3,6 +3,7 @@
 cobertura/*
 dynamicrefactoring.plugin/log/dynamicrefactoring.plugin.properties
 dynamicrefactoring.plugin/target/*
+dynamicrefactoring.plugin.nl1/target/*
 dynamicrefactoring.plugin/bin/*
 dynamicrefactoring.tests/screenshots/*
 dynamicrefactoring.tests/target/*

@@ -236,7 +236,7 @@ public final class RefactoringWizardPage1 extends WizardPage {
 
 		DataBindingContext dbc = new DataBindingContext();
 		IObservableValue modelObservable = BeansObservables.observeValue(this,
-				"refactoringImage");
+				"refactoringImage"); //$NON-NLS-1$
 		dbc.bindValue(SWTObservables.observeText(imageText, SWT.Modify),
 				modelObservable, null, null);
 
