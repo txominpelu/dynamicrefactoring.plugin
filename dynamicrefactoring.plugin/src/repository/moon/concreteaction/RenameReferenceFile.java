@@ -23,7 +23,9 @@ package repository.moon.concreteaction;
 import java.io.File;
 
 import javamoon.core.JavaFile;
+import javamoon.core.JavaModel;
 import javamoon.core.JavaName;
+import javamoon.core.JavaPackageReference;
 import javamoon.core.classdef.JavaClassDef;
 import moon.core.Name;
 import moon.core.classdef.ClassDef;
@@ -35,7 +37,7 @@ import repository.RelayListenerRegistry;
  * fichero de origen en que se define dicha clase.
  *
  * @author <A HREF="mailto:ehp0001@alu.ubu.es">Enrique Herrero Paredes</A>
- * @author <A HREF="mailto:alc0022@alu.ubu.es">Ángel López Campo</A>
+ * @author <A HREF="mailto:alc0022@alu.ubu.es">�ngel L�pez Campo</A>
  * @author <A HREF="mailto:sfd0009@alu.ubu.es">Sonia Fuente de la Fuente</A>
  */ 
 public class RenameReferenceFile extends Action {
@@ -46,7 +48,7 @@ public class RenameReferenceFile extends Action {
 	private ClassDef classDef;
 		
 	/**
-	 * Nuevo nombre que se dará al fichero que contiene la clase.
+	 * Nuevo nombre que se dar� al fichero que contiene la clase.
 	 */
 	private String newName;
 	
@@ -56,7 +58,7 @@ public class RenameReferenceFile extends Action {
 	private String originalName;
 	
 	/**
-	 * Receptor de los mensajes enviados por la acción concreta.
+	 * Receptor de los mensajes enviados por la acci�n concreta.
 	 */
 	private RelayListenerRegistry listenerReg;
 	
@@ -66,7 +68,7 @@ public class RenameReferenceFile extends Action {
 	 * Obtiene una nueva instancia de RenameReferenceFile.
 	 *
 	 * @param classDef la clase cuyo fichero de referencia se desea actualizar.
-	 * @param newName el nuevo nombre que se dará al fichero en que se define la 
+	 * @param newName el nuevo nombre que se dar� al fichero en que se define la 
 	 * clase.
 	 */	
 	public RenameReferenceFile(ClassDef classDef, Name newName){		
@@ -98,7 +100,22 @@ public class RenameReferenceFile extends Action {
 		listenerReg.notify("\t- Updating reference source file: from " +  //$NON-NLS-1$
 			originalName + " to " + newName); //$NON-NLS-1$
 		
-		((JavaClassDef)classDef).setJavaFile(new JavaFile(new JavaName(newPath),classDef.getName(),0));
+		//((JavaClassDef)classDef).setJavaFile(new JavaFile(new JavaName(newPath),classDef.getName(),0));
+		
+		// RMS Modified Solution 1
+		/*
+		JavaPackageReference jpr = ((JavaClassDef)classDef).getJavaFile().getPackageReference();
+		JavaFile jf = new JavaFile(new JavaName(newPath),classDef.getName(),0);
+		jf.setPackageReference(jpr);
+		((JavaClassDef)classDef).setJavaFile(jf);
+		*/
+		
+		// RMS Modified Solution 2
+		
+		
+		JavaModel.getInstance().remove(((JavaClassDef)classDef).getJavaFile());
+		((JavaClassDef)classDef).getJavaFile().setName(new JavaName(newName + ".java"));
+		JavaModel.getInstance().add(((JavaClassDef)classDef).getJavaFile());	
 	}
 		
 	/**

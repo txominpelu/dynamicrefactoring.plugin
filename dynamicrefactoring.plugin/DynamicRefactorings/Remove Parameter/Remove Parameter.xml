@@ -49,8 +49,8 @@
         </actions>
         <postconditions>
             <postcondition name="repository.moon.concretepredicate.HasNotFormalArg">
-                <param name="Method"/>
                 <param name="Argument"/>
+                <param name="Method"/>
             </postcondition>
         </postconditions>
     </mechanism>

@@ -26,6 +26,7 @@ import java.util.Date;
 
 import javamoon.core.JavaFile;
 import javamoon.core.JavaModel;
+import javamoon.core.classdef.JavaClassDef;
 import moon.core.Name;
 import moon.core.classdef.ClassDef;
 
@@ -74,12 +75,12 @@ public class RenameJavaFile extends Action {
 	private static final Logger logger = Logger.getLogger(RenameJavaFile.class);
 	
 	/**
-	 * Receptor de los mensajes enviados por la acción concreta.
+	 * Receptor de los mensajes enviados por la acci�n concreta.
 	 */
 	private RelayListenerRegistry listenerReg;
 	
 	/**
-	 * Nombre único completo de la clase definida en el fichero antes del renombrado.
+	 * Nombre �nico completo de la clase definida en el fichero antes del renombrado.
 	 */
 	private String oldUniqueName;
 	
@@ -99,7 +100,12 @@ public class RenameJavaFile extends Action {
 	private String newUniqueName;
 	
 	/**
-	 * Formato utilizado para almacenar la hora de creación de una operación de
+	 * Renamed class.
+	 */
+	private ClassDef classDef;
+	
+	/**
+	 * Formato utilizado para almacenar la hora de creaci�n de una operaci�n de
 	 * renombrado.
 	 */
 	private final DateFormat dateFormat = new SimpleDateFormat("HH:mm:ss"); //$NON-NLS-1$
@@ -107,14 +113,14 @@ public class RenameJavaFile extends Action {
 	/**
 	 * Constructor.<p>
 	 * 
-	 * Obtiene una nueva instancia de la acción <code>RenameJavaFile</code>.
+	 * Obtiene una nueva instancia de la acci�n <code>RenameJavaFile</code>.
 	 *
-	 * @param classdef clase cuyo fichero de definición se debe renombrar.
+	 * @param classdef clase cuyo fichero de definici�n se debe renombrar.
 	 * @param newShortName nuevo nombre asigando a la clase renombrada.
 	 */
 	public RenameJavaFile(ClassDef classdef, Name newShortName){
 		super();
-		
+		this.classDef = classdef;		
 		this.oldUniqueName = classdef.getUniqueName().toString();
 		this.oldName = classdef.getName().toString();
 		this.newShortName = newShortName.toString();
@@ -133,6 +139,7 @@ public class RenameJavaFile extends Action {
 	 */
 	@Override
 	public void run(){	
+		
 		listenerReg.notify("# run():RenameJavaFile #"); //$NON-NLS-1$
 		
 		IUndoableOperation refactoring = new RenamingOperation(new Date());
@@ -149,7 +156,7 @@ public class RenameJavaFile extends Action {
 			String message = Messages.RenameJavaFile_RenamingNotUndone +
 				":\n\n" + exception.getMessage();  //$NON-NLS-1$
 			logger.error(message);
-		}
+		}		
 	}
 			
 	/**
@@ -171,7 +178,7 @@ public class RenameJavaFile extends Action {
 	}
 	
 	/**
-	 * Implementa la operación de renombrado como una operación capaz de
+	 * Implementa la operaci�n de renombrado como una operaci�n capaz de
 	 * ser deshecha por el entorno de Eclipse.
 	 * 
 	 * @author <A HREF="mailto:sfd0009@alu.ubu.es">Sonia Fuente de la Fuente</A>
@@ -180,18 +187,18 @@ public class RenameJavaFile extends Action {
 	private class RenamingOperation extends AbstractOperation {
 		
 		/**
-		 * Cadena que identifica la operación de refactorización a la hora de
+		 * Cadena que identifica la operaci�n de refactorizaci�n a la hora de
 		 * deshacerla dentro del entorno de operaciones de Eclipse.
 		 */
 		private String label;
 		
 		/**
-		 * Nombre único que tendrá la clase tras el renombrado.
+		 * Nombre �nico que tendr� la clase tras el renombrado.
 		 */
 		private String oldUnique;
 		
 		/**
-		 * Nombre simple que tendrá la clase tras el renombrado.
+		 * Nombre simple que tendr� la clase tras el renombrado.
 		 */
 		private String oldShort;
 		
@@ -201,14 +208,14 @@ public class RenameJavaFile extends Action {
 		private String newShort;
 		
 		/**
-		 * Nombre único de la clase anterior al renombrado.
+		 * Nombre �nico de la clase anterior al renombrado.
 		 */
 		private String newUnique;
 		
 		/**
 		 * Constructor.
 		 * 
-		 * @param start fecha y hora de comienzo de la operación.
+		 * @param start fecha y hora de comienzo de la operaci�n.
 		 */
 		public RenamingOperation(Date start){
 			super("Rename " + oldName + " (" +  dateFormat.format(start) + ")"); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
@@ -221,12 +228,12 @@ public class RenameJavaFile extends Action {
 		}
 		
 		/**
-		 * Ejecuta la operación de renombrado.
+		 * Ejecuta la operaci�n de renombrado.
 		 * 
 		 * @param monitor monitor de progreso (no se utiliza).
-		 * @param info información del entorno gráfico (no se utiliza).
+		 * @param info informaci�n del entorno gr�fico (no se utiliza).
 		 * 
-		 * @return el estado final tras la ejecución.
+		 * @return el estado final tras la ejecuci�n.
 		 * 
 		 * @see AbstractOperation#execute(IProgressMonitor, IAdaptable)
 		 */
@@ -240,7 +247,7 @@ public class RenameJavaFile extends Action {
 				if (sourceFile != null){
 					String originalAbsolutePath = sourceFile.getLocation().toOSString();
 						
-					// Se construye su nuevo nombre completo único, que representa su ruta.
+					// Se construye su nuevo nombre completo �nico, que representa su ruta.
 					String pathString = sourceFile.getFullPath().toString();
 					int namePosition = pathString.toLowerCase().lastIndexOf(
 						oldName.toLowerCase() + ".java"); //$NON-NLS-1$
@@ -268,12 +275,12 @@ public class RenameJavaFile extends Action {
 		}
 	
 		/**
-		 * Deshace la operación de renombrado.
+		 * Deshace la operaci�n de renombrado.
 		 * 
 		 * @param monitor monitor de progreso (no se utiliza).
-		 * @param info información del entorno gráfico (no se utiliza).
+		 * @param info informaci�n del entorno gr�fico (no se utiliza).
 		 * 
-		 * @return el estado final tras la ejecución.
+		 * @return el estado final tras la ejecuci�n.
 		 * 
 		 * @see AbstractOperation#undo(IProgressMonitor, IAdaptable)
 		 */
@@ -291,7 +298,7 @@ public class RenameJavaFile extends Action {
 				if (sourceFile != null){
 					String originalAbsolutePath = sourceFile.getLocation().toOSString();
 						
-					// Se construye su nuevo nombre completo único, que representa su ruta.
+					// Se construye su nuevo nombre completo �nico, que representa su ruta.
 					String pathString = sourceFile.getFullPath().toString();
 					int namePosition = pathString.toLowerCase().lastIndexOf(
 						oldShort.toLowerCase() + ".java"); //$NON-NLS-1$
@@ -315,10 +322,10 @@ public class RenameJavaFile extends Action {
 		}
 	
 		/**
-		 * Sin implementación.
+		 * Sin implementaci�n.
 		 * 
 		 * @param monitor monitor de progreso (no se utiliza).
-		 * @param info información del entorno gráfico (no se utiliza).
+		 * @param info informaci�n del entorno gr�fico (no se utiliza).
 		 * 
 		 * @return {@link Status#OK_STATUS}
 		 * 
@@ -329,7 +336,7 @@ public class RenameJavaFile extends Action {
 		}
 		
 		/**
-		 * Determina si la operación se puede rehacer una vez deshecha. En 
+		 * Determina si la operaci�n se puede rehacer una vez deshecha. En 
 		 * este caso, no se puede.
 		 * 
 		 * @return <code>false</code>.
@@ -345,7 +352,7 @@ public class RenameJavaFile extends Action {
 		 * @param file el fichero que se debe renombrar. 
 		 * @param newName el nuevo nombre completo del fichero.
 		 * @param originalPath la ruta absoluta original del fichero.
-		 * @param undo si se está desaciendo un renombrado o no.
+		 * @param undo si se est� desaciendo un renombrado o no.
 		 */
 		private void renameSourceFile(final IFile file, final String newName, 
 			String originalPath, boolean undo) {
@@ -386,7 +393,7 @@ public class RenameJavaFile extends Action {
 				oldFile.setName(model.getMoonFactory().createName(
 					newSourceFile.getName()));
 				
-				// Se añade el fichero renombrado al modelo.
+				// Se a�ade el fichero renombrado al modelo.
 				model.add(oldFile);
 			}
 			catch (CoreException e){

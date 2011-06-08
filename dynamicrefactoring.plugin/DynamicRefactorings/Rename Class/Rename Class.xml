@@ -20,7 +20,12 @@
 			</precondition>
 		</preconditions>
 		<actions>
+			
 			<action name="repository.moon.concreteaction.RenameClass">
+				<param name="Class"/>
+				<param name="New_name"/>
+			</action>						
+			<action name="repository.java.concreteaction.RenameJavaFile">
 				<param name="Class"/>
 				<param name="New_name"/>
 			</action>
@@ -40,10 +45,7 @@
 				<param name="Class"/>
 				<param name="New_name"/>
 			</action>
-			<action name="repository.java.concreteaction.RenameJavaFile">
-				<param name="Class"/>
-				<param name="New_name"/>
-			</action>
+
 		</actions>
 		<postconditions>
 			<postcondition name="repository.moon.concretepredicate.NotExistsClassWithName">
