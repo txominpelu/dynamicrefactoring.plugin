@@ -7,12 +7,14 @@ class PluginVersionChanger {
 		def newVersion = args[0]
 		def changer = new PluginVersionChanger()
 		changer.changeVersionManifestFile("./dynamicrefactoring.plugin/META-INF/MANIFEST.MF",newVersion)
+		changer.changeVersionManifestFile("./dynamicrefactoring.plugin.nl1/META-INF/MANIFEST.MF",newVersion)
 		changer.changeVersionManifestFile("./dynamicrefactoring.tests/META-INF/MANIFEST.MF",newVersion)
 		changer.modifyRootPomFile("pom.xml", newVersion)
 		changer.modifyFeatureFile("./dynamicrefactoring.feature/feature.xml", newVersion)
 		changer.modifyPom("./dynamicrefactoring.feature/pom.xml", newVersion)
 		changer.modifyPom("./dynamicrefactoring.targetplatform/pom.xml", newVersion)
 		changer.modifyPom("./dynamicrefactoring.plugin/pom.xml", newVersion)
+		changer.modifyPom("./dynamicrefactoring.plugin.nl1/pom.xml", newVersion)
 		changer.modifyPom("./dynamicrefactoring.tests/pom.xml", newVersion)
 		changer.modifyPom("./dynamicrefactoring.p2repository/pom.xml", newVersion)
 

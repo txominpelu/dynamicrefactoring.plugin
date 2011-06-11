@@ -1,53 +1,25 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<feature
-      id="dynamicrefactoring.feature"
-      label="dynamicrefactoring.feature"
-      version="3.1.1"
-      plugin="dynamicrefactoring.plugin">
-
-   <description>
-      The Dynamic Refactoring Plugin will allow you to dynamically create new refactorings out of a given set of predicates and actions. You will then be able to edit them, delete them or export them. It is also possible to import refactorings built outside the current Eclipse installation. Some basic statically defined
+<feature id="dynamicrefactoring.feature" label="dynamicrefactoring.feature" version="3.1.3" plugin="dynamicrefactoring.plugin">
+  <description>The Dynamic Refactoring Plugin will allow you to dynamically create new refactorings out of a given set of predicates and actions. You will then be able to edit them, delete them or export them. It is also possible to import refactorings built outside the current Eclipse installation. Some basic statically defined
 refactorings are shipped with the plug-in by default as well.
-With this plugin you can also export and execute a plan of refactorings.
-   </description>
-
-   <copyright>
-      Copyright (C) 2011  Íñigo Mediavilla y Míryam Gómez
-   </copyright>
-
-   <license>
-      Copyright (C) 2011  Íñigo Mediavilla y Míryam Gómez
+With this plugin you can also export and execute a plan of refactorings.</description>
+  <copyright>Copyright (C) 2011  Íñigo Mediavilla y Míryam Gómez</copyright>
+  <license>Copyright (C) 2011  Íñigo Mediavilla y Míryam Gómez
 
  This program is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version.
  This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License for more details.
  
- You should have received a copy of the GNU General Public License along with this program. If not, see &lt;http://www.gnu.org/licenses/&gt;.
-   </license>
-
-   <requires>
-      <import plugin="org.eclipse.core.resources"/>
-      <import plugin="org.eclipse.ui.forms" version="3.4.1" match="greaterOrEqual"/>
-      <import plugin="org.eclipse.ui"/>
-      <import plugin="org.eclipse.core.runtime"/>
-      <import plugin="org.eclipse.jface.text"/>
-      <import plugin="org.eclipse.jdt.core"/>
-      <import plugin="org.eclipse.jdt.ui"/>
-      <import plugin="org.eclipse.jdt.launching"/>
-   </requires>
-
-   <plugin
-         id="dynamicrefactoring.plugin.nl1"
-         download-size="0"
-         install-size="0"
-         version="0.0.0"
-         fragment="true"
-         unpack="false"/>
-
-   <plugin
-         id="dynamicrefactoring.plugin"
-         download-size="0"
-         install-size="0"
-         version="0.0.0"
-         unpack="false"/>
-
+ You should have received a copy of the GNU General Public License along with this program. If not, see &lt;http://www.gnu.org/licenses/&gt;.</license>
+  <requires>
+    <import plugin="org.eclipse.core.resources"/>
+    <import plugin="org.eclipse.ui.forms" version="3.4.1" match="greaterOrEqual"/>
+    <import plugin="org.eclipse.ui"/>
+    <import plugin="org.eclipse.core.runtime"/>
+    <import plugin="org.eclipse.jface.text"/>
+    <import plugin="org.eclipse.jdt.core"/>
+    <import plugin="org.eclipse.jdt.ui"/>
+    <import plugin="org.eclipse.jdt.launching"/>
+  </requires>
+  <plugin id="dynamicrefactoring.plugin.nl1" download-size="0" install-size="0" version="3.1.3" fragment="true" unpack="false"/>
+  <plugin id="dynamicrefactoring.plugin" download-size="0" install-size="0" version="0.0.0" unpack="false"/>
 </feature>

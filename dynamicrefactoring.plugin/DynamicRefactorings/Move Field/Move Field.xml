@@ -66,11 +66,11 @@
             </action>
         </actions>
         <postconditions>
-            <postcondition name="repository.moon.concretepredicate.AttributeIsNotAlreadyInClass">
+            <postcondition name="repository.moon.concretepredicate.NotExistsAttributeInClass">
                 <param name="Attribute"/>
                 <param name="Source_class"/>
             </postcondition>
-            <postcondition name="repository.moon.concretepredicate.AttributeIsAlreadyInClass">
+            <postcondition name="repository.moon.concretepredicate.ExistsAttributeInClass">
                 <param name="Attribute"/>
                 <param name="Target_class"/>
             </postcondition>
