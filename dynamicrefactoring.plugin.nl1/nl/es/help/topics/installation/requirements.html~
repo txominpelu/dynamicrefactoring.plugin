@@ -10,8 +10,7 @@ que soporte Eclipse. Sin embargo, su rendimiento, al igual que el del propio Ecl
 incrementado cuanto mejor sea el procesador y más memoria RAM se tenga disponible. Ejecutar
 la Máquina Virtual Java es una tarea pesada, así que será necesario contar con un equipo potente
 para que pueda ejecutarse de forma eficiente. Esto es especialmente apreciable con el
-cambio en el modelo de carga de clases realizado en esta tercera versión del plugin
-y que ha obligado a aumentar los requisitos de memoria para la instalación.<br>
+cambio en el modelo de carga de clases realizado en esta tercera versión del plugin.<br>
 <br>
 Así, se recomienda no instalar el <i>plugin</i> en equipos que no cumplan los siguientes 
 requisitos mínimos. De otra forma, no se puede garantizar que la aplicación vaya a funcionar de manera óptima.</p><br>

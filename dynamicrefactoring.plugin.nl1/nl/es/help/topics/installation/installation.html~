@@ -21,10 +21,6 @@ Podrá instalar el <i>plugin</i> desde dicho menú:<br></p>
 	<li>Reiniciando Eclipse al finalizar la instalación.</li>
 </ul>
 
-Para la actualización sólo será necesario acceder nuevamente al menú de ayuda de Eclipse
-pero esta vez pulsar la opción de <i>comprobar actualizaciones</i> y seleccionar la
-actualización de la característica <i>dynamicrefactoring.feature</i> ya citada.
-
 <br>
 
 <p><img src="../images/2.png"  alt="Related reference"></p>
