@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<introContent>
+	 <extensionContent id="comeclipsetipsintro-introExtension" style="css/sample.css" name="Sample Extension" path="overview/@">
+		 <group style-id="content-group" id="comeclipsetipsintro-introLink-group">
+			 <link label="Dynamicrefactoring Plugin" url="http://org.eclipse.ui.intro/showHelpTopic?id=/dynamicrefactoring.plugin/help/topics/index.html" 
+			 id="comeclipsetipsintro-introLink" style-id="content-link">
+				 <text>Descubre como crear, clasificar y aplicar tus propias refactorizaciones.</text>
+			 </link>
+		 </group>
+	</extensionContent>
+</introContent>
+

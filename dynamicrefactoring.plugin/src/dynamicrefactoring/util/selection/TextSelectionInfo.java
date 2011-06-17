@@ -205,7 +205,7 @@ public class TextSelectionInfo extends SelectionInfo {
 			window.getPages()[0].getActiveEditor().getEditorInput(); 
 		
 		IJavaElement element = JavaUI.getEditorInputJavaElement(input); 
-		if (element.getElementType() == IJavaElement.COMPILATION_UNIT)
+		if (element != null && element.getElementType() == IJavaElement.COMPILATION_UNIT)
 			return (ICompilationUnit) element;
 		
 		return null;

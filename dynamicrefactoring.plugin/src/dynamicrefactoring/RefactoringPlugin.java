@@ -35,6 +35,7 @@ import moon.core.classdef.MethDec;
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.FilenameUtils;
 import org.apache.log4j.Logger;
+import org.apache.log4j.PropertyConfigurator;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.IWorkspaceRoot;
 import org.eclipse.core.resources.ResourcesPlugin;
@@ -227,8 +228,12 @@ public class RefactoringPlugin extends AbstractUIPlugin
 					PropertyManager.getInstance().getLogFileDirectory()));
 			logPropertiesFile.createNewFile();
 			LogManager.getInstance().loadLogConfig();
+
+
+		} else {
+			PropertyConfigurator.configure(LogManager.LOG_PROPERTIES_FILE_PATH);
 		}
-		
+
 		copyDefaultFilesToCommonDir();
 		RefactoringPlanWriter.getInstance();
 		
