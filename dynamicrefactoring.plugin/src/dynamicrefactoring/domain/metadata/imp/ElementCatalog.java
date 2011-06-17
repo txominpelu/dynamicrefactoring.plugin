@@ -23,6 +23,13 @@ import dynamicrefactoring.domain.metadata.interfaces.ClassifiedElements;
 import dynamicrefactoring.domain.metadata.interfaces.ClassifiedFilterableCatalog;
 import dynamicrefactoring.domain.metadata.interfaces.Element;
 
+/**
+ * Permite clasificar elementos por categorías y aplicar filtros
+ * sobre ellos.
+ * 
+ * @author <A HREF="mailto:ims0011@alu.ubu.es">Iñigo Mediavilla Saiz</A>
+ * @author <A HREF="mailto:mgs0110@alu.ubu.es">Míryam Gómez San Martín</A>
+ */
 public final class ElementCatalog<K extends Element> implements
 		ClassifiedFilterableCatalog<K> {
 

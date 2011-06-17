@@ -21,4 +21,17 @@
 		<topic label="Exportar un plan de refactorizaciones" href="help/topics/export/exportPlan.html" />
 		<topic label="Importar un plan de refactorizaciones" href="help/topics/export/importPlan.html" />
 	</topic> 
+	<topic label="Gestion de las clasificaciones">
+		<topic label="Editor" href="help/topics/clasifEditor/clasifEditor.html" /> 
+		<topic label="Creacion" href="help/topics/clasifEditor/creation.html" />
+		<topic label="Edicion" href="help/topics/clasifEditor/edition.html" /> 
+		<topic label="Eliminacion" href="help/topics/clasifEditor/deletion.html" />
+	</topic>
+	<topic label="Vista del catálogo de refactorizaciones">
+		<topic label="Catálogo" href="help/topics/catalog/catalog.html" /> 
+		<topic label="Barra de herramientas" href="help/topics/catalog/toolbar.html" />
+		<topic label="Panel de clasificación" href="help/topics/catalog/clasifPanel.html" /> 
+		<topic label="Panel de resumen" href="help/topics/catalog/summary.html" />
+		<topic label="Filtrado" href="help/topics/catalog/filtrado.html" />
+	</topic>
 </toc>

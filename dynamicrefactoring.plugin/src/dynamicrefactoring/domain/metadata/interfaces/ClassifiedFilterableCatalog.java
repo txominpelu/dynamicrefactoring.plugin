@@ -4,6 +4,16 @@ import java.util.List;
 
 import com.google.common.base.Predicate;
 
+/**
+ * 
+ * Catálogo de elementos clasificados por categorías
+ * y filtrables por criterios.
+ * 
+ * @param <K> tipo de elemento a clasificar
+ * 
+ * @author <A HREF="mailto:ims0011@alu.ubu.es">Iñigo Mediavilla Saiz</A>
+ * @author <A HREF="mailto:mgs0110@alu.ubu.es">Míryam Gómez San Martín</A>
+ */
 public interface ClassifiedFilterableCatalog<K> {
 
 	/**
@@ -72,11 +82,16 @@ public interface ClassifiedFilterableCatalog<K> {
 	 * Devuelve la clasificación que divide en categorias los elementos de este
 	 * catalogo.
 	 * 
-	 * @return clasificacion que divide en categorias el catalogo.
+	 * @return clasificacion que divide en categorias el catalogo
 	 */
 	Classification getClassification();
 
 
+	/**
+	 * Elimina todas las condiciones del filtro.
+	 * 
+	 * @return nuevo catálogo con los filtros eliminados
+	 */
 	ClassifiedFilterableCatalog<K> removeAllFilterConditions();
 
 

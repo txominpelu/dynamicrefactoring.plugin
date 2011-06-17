@@ -8,6 +8,12 @@ import com.google.common.base.Throwables;
 
 import dynamicrefactoring.domain.DynamicRefactoringDefinition;
 
+/**
+ * Metodos utiles para modificar el catalogo de refactorizaciones en XML. 
+ *
+ * @author <A HREF="mailto:ims0011@alu.ubu.es">Iñigo Mediavilla Saiz</A>
+ * @author <A HREF="mailto:mgs0110@alu.ubu.es">Míryam Gómez San Martín</A>
+ */
 public final class XMLRefactoringsFileUtils {
 	
 	/**

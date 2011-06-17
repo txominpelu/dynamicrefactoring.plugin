@@ -2,9 +2,19 @@ package dynamicrefactoring.domain.metadata.interfaces;
 
 import java.util.Set;
 
-
+/**
+ * Elemento que se puede clasificar.
+ *
+ * @author <A HREF="mailto:ims0011@alu.ubu.es">Iñigo Mediavilla Saiz</A>
+ * @author <A HREF="mailto:mgs0110@alu.ubu.es">Míryam Gómez San Martín</A>
+ */
 public interface Element {
 
+	/**
+	 * Obtiene el nombre del elemento.
+	 * 
+	 * @return nombre del elemento
+	 */
 	String getName();
 
 	/**
