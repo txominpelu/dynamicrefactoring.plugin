@@ -25,6 +25,13 @@ import dynamicrefactoring.domain.metadata.interfaces.Category;
 import dynamicrefactoring.domain.metadata.interfaces.Classification;
 import dynamicrefactoring.domain.metadata.interfaces.ClassificationsCatalog;
 
+/**
+ * Seccion de la lista de categorías de la clasificación
+ * seleccionada.
+ *
+ * @author <A HREF="mailto:ims0011@alu.ubu.es">Iñigo Mediavilla Saiz</A>
+ * @author <A HREF="mailto:mgs0110@alu.ubu.es">Míryam Gómez San Martín</A>
+ */
 public final class CategoriesSection {
 
 	private static final String EMPTY_STRING = "";

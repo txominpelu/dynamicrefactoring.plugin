@@ -48,6 +48,9 @@ public final class ClassifListSection {
 	 */
 	private static final int TABLE_CLASSIF_LINES_HEIGHT = 3;
 	private static final String EMPTY_STRING = ""; //$NON-NLS-1$
+	/**
+	 * Tooltip del botón de agregar clasificación.
+	 */
 	public static final String ADD_CLASSIFICATION_BUTTON_TOOLTIP = Messages.ClassifListSection_AddClassification;
 	private ClassificationsCatalog catalog;
 	private Table tbClassif;

@@ -15,8 +15,6 @@ import java.util.Set;
  */
 public interface ClassifiedElements<K> {
 
-
-
 	/**
 	 * Obtiene los hijos que corresponden a una categoria en la clasificacion.
 	 * 
@@ -34,5 +32,14 @@ public interface ClassifiedElements<K> {
 	 */
 	Classification getClassification();
 
+	/**
+	 * Obtiene los elementos clasificados en un mapa en el que las categorías
+	 * son las claves y los valores son el conjunto de elementos que pertenecen
+	 * a la categoría.
+	 * 
+	 * @return elementos clasificados en un mapa en el que las categorías son
+	 *         las claves y los valores son el conjunto de elementos que
+	 *         pertenecen a la categoría
+	 */
 	Map<Category, Set<K>> getClassifiedElements();
 }

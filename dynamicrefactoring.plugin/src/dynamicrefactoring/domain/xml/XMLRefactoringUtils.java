@@ -11,6 +11,12 @@ import dynamicrefactoring.domain.xml.reader.XMLRefactoringReader;
 import dynamicrefactoring.domain.xml.reader.XMLRefactoringReaderFactory;
 import dynamicrefactoring.domain.xml.reader.XMLRefactoringReaderImp;
 
+/**
+ * Metodos utiles para leer el catalogo de refactorizaciones en XML. 
+ * 
+ * @author <A HREF="mailto:ims0011@alu.ubu.es">Iñigo Mediavilla Saiz</A>
+ * @author <A HREF="mailto:mgs0110@alu.ubu.es">Míryam Gómez San Martín</A>
+ */
 public class XMLRefactoringUtils {
 
 	/**

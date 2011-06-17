@@ -172,11 +172,17 @@ public class AvailableRefactoringView extends ViewPart {
 		}	
 	}
 	
+	/**
+	 * Muestra la lista de refactorizaciones no editables (del plugin).
+	 */
 	public void showNonEditableRefactorings(){
 		showNonEditableRef=!showNonEditableRef;
 		fillTree();
 	}
 	
+	/**
+	 * Muestra la lista de refactorizaciones editables (del usuario).
+	 */
 	public void showEditableRefactorings(){
 		showEditableRef=!showEditableRef;
 		fillTree();

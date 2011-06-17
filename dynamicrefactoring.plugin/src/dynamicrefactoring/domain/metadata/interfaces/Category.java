@@ -3,9 +3,18 @@ package dynamicrefactoring.domain.metadata.interfaces;
 import com.google.common.base.Objects;
 
 
-
+/**
+ * Categoría de una clasificación.
+ * 
+ * @author <A HREF="mailto:ims0011@alu.ubu.es">Iñigo Mediavilla Saiz</A>
+ * @author <A HREF="mailto:mgs0110@alu.ubu.es">Míryam Gómez San Martín</A>
+ */
 public final class Category implements Comparable<Category> {
 	
+	/**
+	 * Categoria por defecto de los elementos que no pertenecen a ninguna
+	 * categoría en una clasificación.
+	 */
 	public static final Category NONE_CATEGORY = new Category("", "None");
 
 	private final String name;
