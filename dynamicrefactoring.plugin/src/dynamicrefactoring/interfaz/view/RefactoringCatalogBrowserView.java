@@ -799,6 +799,11 @@ import dynamicrefactoring.util.RefactoringTreeManager;
 	}
 	
 
+	/**
+	 * Actualiza la vista del catálogo con las últimas modificaciones realizadas
+	 * sobre las clasificaciones y refactorizaciones del plugin.
+	 * 
+	 */
 	public void refreshView() {
 		// almacenamos la clasificación seleccionada en el classCombo y
 		// la refactorización que se muestra en detalle

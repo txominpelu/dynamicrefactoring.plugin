@@ -36,6 +36,9 @@ import dynamicrefactoring.domain.metadata.interfaces.Classification;
  */
  public final class ClassificationsEditor extends EditorPart  {
 	
+	/**
+	 * Identificador del editor de clasificaciones.
+	 */
 	public static final String ID = "dynamicrefactoring.editors.refactoringClasificationsEditor"; //$NON-NLS-1$
 
 	private FormToolkit toolkit;

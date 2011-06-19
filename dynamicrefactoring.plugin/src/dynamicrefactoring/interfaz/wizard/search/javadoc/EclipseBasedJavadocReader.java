@@ -48,9 +48,16 @@ import dynamicrefactoring.RefactoringConstants;
  */
  public enum EclipseBasedJavadocReader implements JavadocReader {
 
+	/**
+	 * Instancia del lector.
+	 */
 	INSTANCE;
 
 	private static final String JAVADOC_PATH = "/doc/javadoc/";
+	/**
+	 * Nombre del proyecto que el lector crea para leer la documentación en
+	 * formato javadoc.
+	 */
 	public static final String JAVADOC_READER_PROJECT_NAME = "JavadocReaderProject";
 	private final IJavaProject javaProject;
 
