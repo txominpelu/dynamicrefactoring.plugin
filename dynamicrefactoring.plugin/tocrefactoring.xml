@@ -26,7 +26,7 @@
 		<topic label="Edition" href="help/topics/clasifEditor/edition.html" /> 
 		<topic label="Deletion" href="help/topics/clasifEditor/deletion.html" />
 	</topic>
-	<topic label="Vista del catálogo de refactorizaciones" href="help/topics/catalog/catalog.html">
+	<topic label="Refactoring Catalog Browser View" href="help/topics/catalog/catalog.html">
 		<topic label="Toolbar" href="help/topics/catalog/toolbar.html" />
 		<topic label="Classification Panel" href="help/topics/catalog/clasifPanel.html" /> 
 		<topic label="Summary Panel" href="help/topics/catalog/summary.html" />
