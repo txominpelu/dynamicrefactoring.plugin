@@ -92,7 +92,6 @@ public class EntitiesAssignedToEntity extends Function {
 	 */
 	@Override
 	public Object getValue() {
-		// TODO Auto-generated method stub
 		return null;
 	}
 
@@ -116,7 +115,7 @@ public class EntitiesAssignedToEntity extends Function {
 	private void visit(Instr instr) {
 
 		if (instr instanceof AssignmentInstr) {
-			if (instr instanceof JavaFalseAssignmentInstr) { // FIXME
+			if (instr instanceof JavaFalseAssignmentInstr) { 
 				return;
 			}
 			Expr exprLeft = ((AssignmentInstr) instr).getLeftSide();

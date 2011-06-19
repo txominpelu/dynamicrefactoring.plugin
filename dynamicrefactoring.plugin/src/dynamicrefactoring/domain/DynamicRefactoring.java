@@ -367,7 +367,6 @@ public class DynamicRefactoring extends MOONRefactoring {
 	private Object getInput(String elementName, int position,
 			RefactoringMechanismType type) {
 		// Se obtiene el valor asociado a la entrada con el nombre dado.
-		//FIXME: Y si hay dos precondiciones con igual nombre?
 		final String inputParameterName = refactoringDefinition.getMechanismsWithName(elementName, type).get(0).getInputParameters().get(position);
 		return inputParameters.get(inputParameterName);
 	}

@@ -153,7 +153,6 @@ public class SelectRefactoringWindow extends Dialog {
 			}
 			outputStream.close();
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		

@@ -120,8 +120,7 @@ public class SubstituteFormalParameter extends Action {
 			FunctionDec f = (FunctionDec) md;
 			// Si el tipo de retorno es el parámetro formal.
 			if (f.getReturnType().equals(this.formalPar)){
-				f.setFunctionResultEntity(ct);
-				// FIXME: Es necesario? f.getFunctionResultEntity().setType(ct);	
+				f.setFunctionResultEntity(ct);	
 			}			
 		}
 		

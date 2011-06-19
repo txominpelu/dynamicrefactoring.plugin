@@ -183,9 +183,7 @@ public class ReplaceCodeFragment extends Action {
 						for (LocalDec ld : tmp){							
 							methDec.remove(ld);
 						}
-						//
 
-						//if (listLocalDeclared.size()>0 && entity == (Entity) listLocalDeclared.get(0)){
 						if (entity!=null && listLocalDeclared.size()>0 && listLocalDeclared.contains(entity)){
 							
 							// declare a new local entity
@@ -228,8 +226,6 @@ public class ReplaceCodeFragment extends Action {
 					else{
 						// no return 
 						List<Expr> arguments = new ArrayList<Expr>();
-						//Function function = new LocalEntitiesAccessed(fragment.getFlattenedInstructionsInMethod());
-						//List<Entity> entities = (List<Entity>) function.getCollection();
 						LocalEntitiesAccessed lea = new LocalEntitiesAccessed(this.fragment.getFlattenedInstructionsInMethod());
 						
 						
@@ -297,18 +293,7 @@ public class ReplaceCodeFragment extends Action {
 	}
 	
 	private boolean isInFragment(Instr instr){
-		/*
-		if (instr instanceof CallInstr ||
-				instr instanceof CreationInstr ||
-				instr instanceof AssignmentInstr || 
-				instr instanceof JavaFalseLocalDec || // FIXME Language dependent
-				instr instanceof JavaInstrNoMoon){ // FIXME Language dependent
-			if ( (instr.getLine() + fragment.getMethDec().getLine()) >= fragment.getLine() && 
-					(instr.getLine() + fragment.getMethDec().getLine()) <= fragment.getEndLine()){
-				return true;
-			}					
-		}
-		return false;*/
+
 		List<Instr> list = this.fragment.getFlattenedInstructionsInMethod();
 		for (Instr instrInFragment : list) {
 			if (instrInFragment.getId()==instr.getId()){

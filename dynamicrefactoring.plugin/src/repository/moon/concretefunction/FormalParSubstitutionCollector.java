@@ -115,7 +115,6 @@ public class FormalParSubstitutionCollector extends Function {
 							realType.getClassDef().getClassType()))
 						substitutions.add(realType.getClassDef().getClassType());
 
-					// FIXME: Java dependent code
 					if (realType instanceof JavaDecoratorType){
 						Type javaType = 
 							((JavaDecoratorType)realType).getType();

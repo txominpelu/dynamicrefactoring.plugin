@@ -267,7 +267,6 @@ public class AddFormalArgIntoInstructions extends Action {
 			// el valor por defecto para el nuevo argumento.
 			expr.setRealArgument(defaultValue);
 		}
-		// FIXME: Java dependent code.
 		else if (expr instanceof JavaCallExpr){
 			
 			Expr leftSide = ((JavaCallExpr)expr).getLeftSide();
@@ -376,7 +375,6 @@ public class AddFormalArgIntoInstructions extends Action {
 			arguments.remove(arguments.size() - 1);
 		}
 
-		// FIXME: Java dependent code.
 		else if (expr instanceof JavaCallExpr){
 			Expr leftSide = ((JavaCallExpr)expr).getLeftSide();
 			Expr rightSide = ((JavaCallExpr)expr).getRightSide();

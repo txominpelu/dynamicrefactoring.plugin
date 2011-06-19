@@ -51,7 +51,8 @@ public class RefactoringUndoSystem {
 	 * 
 	 * @param id etiqueta asociada a la operación que originalmente ejecutó la
 	 * refactorización.
-	 * @param checkRenamings TODO
+	 * @param checkRenamings indica si se ha realizado algún renombrado después
+     * de la refactorización
 	 * 
 	 * @throws Exception si se produce un error al deshacer la refactorización.
 	 */

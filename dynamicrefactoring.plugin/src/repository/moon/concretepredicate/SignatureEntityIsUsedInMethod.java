@@ -154,16 +154,6 @@ public class SignatureEntityIsUsedInMethod extends Predicate {
 		Expr leftSide = instr.getLeftSide();
 		Expr right = instr.getRighSide();
 		
-		/*
-		// FIXME: Java dependent code
-		if (leftSide instanceof JavaArtificialEntityExpression){
-			
-			if(((JavaArtificialEntityExpression)leftSide).getExpression()
-				instanceof CallExpr)
-				if(checkCallExpr(
-					((JavaArtificialEntityExpression)leftSide).getExpression()))
-					return true;
-		}*/
 		if(leftSide instanceof JavaCallExpr){
 			
 			if(checkCallExpr((CallExpr) leftSide))
@@ -242,7 +232,6 @@ public class SignatureEntityIsUsedInMethod extends Predicate {
 				checkCallExpr((CallExpr)argument))
 				return true;
 		
-		// FIXME: Java dependent code.
 		if (callExpr instanceof JavaCallExpr){
 			Expr leftSide = ((JavaCallExpr)callExpr).getLeftSide();
 			Expr rightSide = ((JavaCallExpr)callExpr).getRightSide();
@@ -258,7 +247,6 @@ public class SignatureEntityIsUsedInMethod extends Predicate {
 			}
 		}
 		
-		// FIXME: Java dependent code
 		if (callExpr instanceof JavaCallExprCreation){
 			return checkExpr((JavaCallExprCreation)callExpr);
 		}

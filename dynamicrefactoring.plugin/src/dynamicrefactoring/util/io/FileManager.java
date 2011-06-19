@@ -423,10 +423,8 @@ public final class FileManager {
 	 */
 	public static void copyBundleDirToFileSystem(String bundleDir,
 			String fileSystemDir) throws IOException {
-		// TODO: Test para este método
 		final Bundle bundle = Platform.getBundle(RefactoringPlugin.BUNDLE_NAME);
 		final Enumeration<?> entries = bundle.findEntries(FilenameUtils.separatorsToUnix(bundleDir), "*", true);
-		//FIXME: Falla si no existe la carpeta o no hay nada en ella solucionar y agregar tests
 		final List<?> lista = Collections.list(entries);
 		for (Object entrada : lista) {
 			URL entry = (URL) entrada;

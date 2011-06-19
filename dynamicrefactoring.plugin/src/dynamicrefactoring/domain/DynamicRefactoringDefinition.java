@@ -302,7 +302,6 @@ public class DynamicRefactoringDefinition implements Element,
 
 				});
 
-		// FIXME: Internacionalizar
 		Preconditions.checkArgument(refactScopeCategories.size() > 0,
 				"All refactorings must belong to at least one scope.");
 
