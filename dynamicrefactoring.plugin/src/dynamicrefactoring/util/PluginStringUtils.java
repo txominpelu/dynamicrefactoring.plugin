@@ -30,6 +30,9 @@ import dynamicrefactoring.domain.RefactoringMechanismType;
  */
  public class PluginStringUtils {
 
+	 /**
+	  * Constante que almacena el caracter separador de paquetes.
+	  */
 	private static final String PACKAGE_SEPARATOR_CHAR = ".";
 
 	/**
@@ -52,7 +55,7 @@ import dynamicrefactoring.domain.RefactoringMechanismType;
 
 	/**
 	 * Devuelve el nombre de paquete a partir del nombre
-	 * completo de una clase
+	 * completo de una clase.
 	 * 
 	 * @param fullyQualifiedName nombre completo de la clase
 	 * @return nombre del paquete
@@ -86,16 +89,13 @@ import dynamicrefactoring.domain.RefactoringMechanismType;
 	 * pertenece) dado el nombre de una precondicion, accion o postcondicion.
 	 * Ejemplo:
 	 * 
-	 * Recibe :
-	 * 
-	 * ExistsClassWithName
-	 * 
-	 * Devuelve:
-	 * 
-	 * repository.moon.concretepredicate.ExistsClassWithName
+	 * Recibe: ExistsClassWithName
+	 * Devuelve: repository.moon.concretepredicate.ExistsClassWithName
 	 * 
 	 * @param mechanismName
 	 *            nombre de la precondicion, accion o postcondicion
+	 * @param type
+	 * 			  tipo de mecanismo del que se trata
 	 * @return nombre totalmente cualificado (con paquete)
 	 */
 	public static String getMechanismFullyQualifiedName(
@@ -111,6 +111,8 @@ import dynamicrefactoring.domain.RefactoringMechanismType;
 	 *            si es RefactoringConstant.PRECONDITION /POSTCONDITION/ACTION
 	 * @param mechanismName
 	 *            mechanism name
+	 * @param type
+	 * 			  tipo de mecanismo del que se trata
 	 * @return package name (Ej. "repository.concreteaction")
 	 */
 	public static String getMechanismPackage(RefactoringMechanismType type, final String mechanismName) {

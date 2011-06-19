@@ -143,6 +143,15 @@ import dynamicrefactoring.interfaz.TreeEditor;
 		createRefactoringTree(refactoring, definition);
 	}
 
+	/**
+	 * Crea la definición de la refactorización en el árbol, es decir,
+	 * la descripción, motivación y sus acciones y predicados.
+	 * 
+	 * @param refactoring
+	 *            item raiz de la refactorizacion
+	 * @param definition
+	 *            definicion de la refactorizacion
+	 */
 	private static void createRefactoringTree(TreeItem refactoring,
 			DynamicRefactoringDefinition definition) {
 		// Descripcion de la refactorizacion

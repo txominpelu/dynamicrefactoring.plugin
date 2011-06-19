@@ -65,7 +65,6 @@ public class JavaFieldProcessor extends JavaElementProcessor {
 	 * 
 	 * @return el nombre único del atributo según la convención de nomenclatura
 	 *         única utilizada en el modelo MOON.
-	 * @throws JavaModelException
 	 */
 	@Override
 	public final String getUniqueName() {
