@@ -28,7 +28,6 @@ import javamoon.core.JavaName;
 import moon.core.classdef.AttDec;
 
 import org.eclipse.jdt.core.IField;
-import org.eclipse.jdt.core.JavaModelException;
 
 import com.google.common.base.Preconditions;
 import com.google.common.base.Predicate;

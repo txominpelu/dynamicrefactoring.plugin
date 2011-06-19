@@ -27,6 +27,16 @@ import dynamicrefactoring.domain.DynamicRefactoringDefinition;
  */
  public class RefactoringListFilter extends ViewerFilter{
 
+	 /**
+	  * Indica si el elemento cumple con el filtro.
+	  * 
+	  * @param viewer visor de elementos
+	  * @param parentElement elemento padre
+	  * @param element elemento del que se quiere saber si cumple con el filtro
+	  * 
+	  * @return verdadero si el elemento cumple con el filtro,
+	  * 		falso en caso contrario.
+	  */
 	@Override
 	public boolean select(Viewer viewer, Object parentElement, Object element) {
 		

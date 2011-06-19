@@ -111,8 +111,6 @@ import dynamicrefactoring.domain.RefactoringMechanismType;
 	 *            si es RefactoringConstant.PRECONDITION /POSTCONDITION/ACTION
 	 * @param mechanismName
 	 *            mechanism name
-	 * @param type
-	 * 			  tipo de mecanismo del que se trata
 	 * @return package name (Ej. "repository.concreteaction")
 	 */
 	public static String getMechanismPackage(RefactoringMechanismType type, final String mechanismName) {
@@ -130,6 +128,8 @@ import dynamicrefactoring.domain.RefactoringMechanismType;
 	 * 
 	 * @see #getMechanismFullyQualifiedName(String)
 	 * 
+	 * @param type
+	 * 			  tipo de mecanismo del que se trata
 	 * @param simpleNames
 	 *            conjunto de nombres simples de pre/postcondiciones o acciones
 	 * @return nombres totalmente cualificados (con paquetes) de los mismos

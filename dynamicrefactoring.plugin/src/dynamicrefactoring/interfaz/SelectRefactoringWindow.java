@@ -20,13 +20,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.*/
 
 package dynamicrefactoring.interfaz;
 
-import java.io.BufferedWriter;
-import java.io.FileWriter;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
-import java.util.Map.Entry;
 import java.util.Vector;
 
 import moon.core.ObjectMoon;

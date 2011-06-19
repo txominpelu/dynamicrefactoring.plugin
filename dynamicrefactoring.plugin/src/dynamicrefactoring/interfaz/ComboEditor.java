@@ -34,13 +34,19 @@ import org.eclipse.swt.widgets.Combo;
 public class ComboEditor implements FocusListener {
 	
 	/**
+	 * Comportamiento cuando gana el foco.
+	 * 
 	 * @see FocusListener#focusGained(FocusEvent)
+	 * @param e evento de foco
 	 */
 	@Override
 	public void focusGained(FocusEvent e){}
 	
 	/**
+	 * Comportamiento cuando pierde el foco.
+	 * 
 	 * @see FocusListener#focusLost(FocusEvent)
+	 * @param e evento de foco
 	 */
 	@Override
 	public void focusLost(FocusEvent e){
