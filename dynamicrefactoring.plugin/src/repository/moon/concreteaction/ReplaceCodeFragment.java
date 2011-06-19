@@ -43,7 +43,6 @@ import moon.core.instruction.AssignmentInstr;
 import moon.core.instruction.CallInstr;
 import moon.core.instruction.CodeFragment;
 import moon.core.instruction.CompoundInstr;
-import moon.core.instruction.CreationInstr;
 import moon.core.instruction.Instr;
 import refactoring.engine.Action;
 import refactoring.engine.Function;

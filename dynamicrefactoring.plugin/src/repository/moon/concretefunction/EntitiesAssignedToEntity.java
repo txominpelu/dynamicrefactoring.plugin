@@ -4,11 +4,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
-import javamoon.core.expression.JavaCallExpr;
-import javamoon.core.expression.operation.JavaOperationInfix;
-import javamoon.core.expression.operation.JavaOperationPostfix;
 import javamoon.core.instruction.JavaFalseAssignmentInstr;
-
 import moon.core.classdef.AttDec;
 import moon.core.classdef.FormalArgument;
 import moon.core.classdef.LocalDec;
@@ -17,9 +13,7 @@ import moon.core.entity.Entity;
 import moon.core.expression.CallExpr;
 import moon.core.expression.Expr;
 import moon.core.instruction.AssignmentInstr;
-import moon.core.instruction.CallInstr;
 import moon.core.instruction.CompoundInstr;
-import moon.core.instruction.CreationInstr;
 import moon.core.instruction.Instr;
 import refactoring.engine.Function;
 
