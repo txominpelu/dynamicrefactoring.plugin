@@ -15,7 +15,8 @@ import dynamicrefactoring.RefactoringConstants;
 /**
  * Tests del RefactoringMechanism.
  * 
- * @author imediava
+ * @author <A HREF="mailto:ims0011@alu.ubu.es">Iñigo Mediavilla Saiz</A>
+ * @author <A HREF="mailto:mgs0110@alu.ubu.es">Míryam Gómez San Martín</A>
  * 
  */
 public class RefactoringMechanismTest {

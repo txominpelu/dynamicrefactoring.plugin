@@ -141,22 +141,6 @@ public class SelectRefactoringWindow extends Dialog {
 		dynamicRefactorings = 
 			ScopeLimitedLister.getAvailableRefactorings(scope);
 		
-		try {
-			BufferedWriter outputStream = new BufferedWriter(new FileWriter("/home/imediava/Escritorio/PruebasProgramacion/addCategories-Refactorings/classifiedbyscope.txt"));
-			for(Scope sc: Scope.values()){
-				outputStream.write("#" + sc.toString() + "\n");
-				for(Entry<String, String>  refactEntry: ScopeLimitedLister.getAvailableRefactorings(sc).entrySet()){
-					outputStream.write(refactEntry.getKey());
-					outputStream.newLine();
-				}
-				
-			}
-			outputStream.close();
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-		
-		
 		fillInDynamicRefactorings(dynamicRefactorings);
 		// Para un parámetro formal acotado valen también las refactorizaciones
 		// generales sobre parámetros formales.

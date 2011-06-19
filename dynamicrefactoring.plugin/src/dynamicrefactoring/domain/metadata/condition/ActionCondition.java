@@ -20,8 +20,6 @@ import dynamicrefactoring.domain.metadata.interfaces.Element;
 /**
  * Condicion que indica si un elemento contiene una acción.
  * 
- * @author imediava
- * 
  * @param <K> tipo de elemento de la condicion 
  *
  * @author <A HREF="mailto:ims0011@alu.ubu.es">Iñigo Mediavilla Saiz</A>

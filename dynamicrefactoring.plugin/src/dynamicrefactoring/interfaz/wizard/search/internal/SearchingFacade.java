@@ -40,7 +40,8 @@ import dynamicrefactoring.util.PluginStringUtils;
 	/**
 	 * Tipo de elemento sobre el que se pueden hacer busquedas en el plugin.
 	 * 
-	 * @author imediava
+	 * @author <A HREF="mailto:ims0011@alu.ubu.es">Iñigo Mediavilla Saiz</A>
+	 * @author <A HREF="mailto:mgs0110@alu.ubu.es">Míryam Gómez San Martín</A>
 	 * 
 	 */
 	public enum SearchableType {
