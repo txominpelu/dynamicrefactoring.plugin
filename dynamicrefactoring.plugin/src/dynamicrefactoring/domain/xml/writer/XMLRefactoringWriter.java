@@ -45,16 +45,16 @@ public class XMLRefactoringWriter {
 	 */
 	public XMLRefactoringWriter(XMLRefactoringWriterImp implementor) {		
 		this.implementor = implementor;
-	}	
+	}
 
-
-	
 	/**
 	 * Escribe el fichero XML a partir de la definición de la refactorización.
 	 * 
-	 * @param dir directorio donde se guardará el fichero.
+	 * @param dir
+	 *            directorio donde se guardará el fichero.
 	 * 
 	 * @throws XMLRefactoringWriterException
+	 *             si ocurre algun error en la escritura
 	 */
 	public void writeRefactoring(File dir) throws XMLRefactoringWriterException {
 		implementor.writeRefactoring(dir);

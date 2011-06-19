@@ -35,6 +35,9 @@ import dynamicrefactoring.util.PluginStringUtils;
  */
  public enum SearchingFacade {
 
+	/**
+	 * Instancia de la fachada de búsqueda.
+	 */
 	INSTANCE;
 
 	/**
@@ -45,6 +48,9 @@ import dynamicrefactoring.util.PluginStringUtils;
 	 * 
 	 */
 	public enum SearchableType {
+		/**
+		 * Predicado (precondiciones y postcondiciones).
+		 */
 		PREDICATE {
 			@Override
 			Set<String> getClassesToIndex() {
@@ -54,6 +60,10 @@ import dynamicrefactoring.util.PluginStringUtils;
 			}
 		
 		},
+
+		/**
+		 * Tipo de elemento de búsqueda acción.
+		 */
 		ACTION {
 			@Override
 			Set<String> getClassesToIndex() {
@@ -64,6 +74,9 @@ import dynamicrefactoring.util.PluginStringUtils;
 			}
 
 		},
+		/**
+		 * Tipo de elemento de búsqueda entrada.
+		 */
 		INPUT {
 			@Override
 			Set<String> getClassesToIndex() {

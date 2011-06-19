@@ -60,13 +60,13 @@ import dynamicrefactoring.domain.metadata.interfaces.Category;
  */
 public class JDOMXMLRefactoringReaderImp implements XMLRefactoringReaderImp {
 
-
 	/**
 	 * Lee cada uno de los componentes de la refactorización a partir de la
 	 * definición contenida en el fichero.
 	 * 
-	 * @param file
-	 *            el fichero con la definición de la refactorización.
+	 * @param in
+	 *            stream al fichero con la definición de la refactorización.
+	 * @return refactorización leida desde el fichero
 	 * 
 	 * @throws XMLRefactoringReaderException
 	 *             si se produce un error al cargar la refactorización desde el
@@ -103,6 +103,7 @@ public class JDOMXMLRefactoringReaderImp implements XMLRefactoringReaderImp {
 	 * 
 	 * @param root
 	 *            el elemento raíz del árbol XML que define la refactorización.
+	 * @return constructor de la refactorización
 	 */
 	private DynamicRefactoringDefinition.Builder readInformationRefactoring(
 			Element root) {
@@ -186,7 +187,9 @@ public class JDOMXMLRefactoringReaderImp implements XMLRefactoringReaderImp {
 	 * 
 	 * @param root
 	 *            el elemento raíz del árbol XML que define la refactorización.
-	 * @return 
+	 * @param builder
+	 *            constructor actual de la refactorización
+	 * @return constructor modificación
 	 */
 	@SuppressWarnings({ "unchecked" })//$NON-NLS-1$
 	private Builder readInputsRefactoring(Element root, Builder builder) {
@@ -227,9 +230,14 @@ public class JDOMXMLRefactoringReaderImp implements XMLRefactoringReaderImp {
 	/**
 	 * Lee las precondiciones, acciones y postcondiciones de la refactorización
 	 * a partir de la definición contenida en el fichero.
-	 * @param builder 
 	 * 
-	 * @return mecanismos de la refactorización.
+	 * @param root
+	 *            elemento xml raíz del fichero
+	 * @param builder
+	 *            constructor de la refactorización
+	 * 
+	 * @return constructor de la refactorización modificado con los mecanismos
+	 *         asignados
 	 */
 	@SuppressWarnings({ "unchecked" })//$NON-NLS-1$
 	private Builder readMechanismRefactoring(Element root, Builder builder) {
@@ -263,6 +271,15 @@ public class JDOMXMLRefactoringReaderImp implements XMLRefactoringReaderImp {
 		return builder;
 	}
 
+	/**
+	 * Lee un tipo de mecanismos de la refactorización del fichero XML.
+	 * 
+	 * @param elements
+	 *            conjunto de elementos xml
+	 * @param type
+	 *            tipo de mecanismo a leer
+	 * @return conjunto de mecanismos leido de los elementos xml
+	 */
 	private List<RefactoringMechanismInstance> readMechanismElementsAsRefactoringMechanismInstance(List<Element> elements, RefactoringMechanismType type) {
 
 		ArrayList<RefactoringMechanismInstance> elementNames = new ArrayList<RefactoringMechanismInstance>();
@@ -294,10 +311,14 @@ public class JDOMXMLRefactoringReaderImp implements XMLRefactoringReaderImp {
 
 	/**
 	 * Lee los ejemplos de la refactorización a partir de la definición
-	 * contenida en el fichero.
+	 * contenida en el fichero y modifica el constructor de la refactorización
+	 * actual.
 	 * 
 	 * @param root
 	 *            el elemento raíz del árbol XML que define la refactorización.
+	 * @param builder
+	 *            constructor actual
+	 * @return constructor modificado
 	 */
 	@SuppressWarnings({ "unchecked" })//$NON-NLS-1$
 	private Builder readExamplesRefactoring(Element root, Builder builder) {
@@ -347,9 +368,13 @@ public class JDOMXMLRefactoringReaderImp implements XMLRefactoringReaderImp {
 			throw Throwables.propagate(e);
 		}
 	}
-	
+
 	/**
-	 * Devuelve la definición de la refactorización.
+	 * Devuelve la definición de la refactorización a partir de un stream de
+	 * entrada.
+	 * 
+	 * @param in
+	 *            stream de entrada
 	 * 
 	 * @return la definición de la refactorización.
 	 */
@@ -400,6 +425,9 @@ public class JDOMXMLRefactoringReaderImp implements XMLRefactoringReaderImp {
 	/**
 	 * Devuelve la informacion (nombre, ruta) del conjunto de refactorizaciones
 	 * cuyo ambito es el pasado.
+	 * 
+	 * @param root
+	 *            elemento raíz del fichero xml
 	 * 
 	 * @param scope
 	 *            ambito que filtra las refactorizaciones a obtener

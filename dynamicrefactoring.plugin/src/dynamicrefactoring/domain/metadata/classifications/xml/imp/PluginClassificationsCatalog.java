@@ -43,6 +43,9 @@ import dynamicrefactoring.domain.xml.XMLRefactoringsCatalog;
  public final class PluginClassificationsCatalog extends AbstractCatalog
 		implements ClassificationsCatalog {
 
+	/**
+	 * Instancia del catálogo.
+	 */
 	private static PluginClassificationsCatalog instance;
 
 	/**

@@ -177,6 +177,13 @@ public class MainInputValidator {
 		}
 	}
 	
+	/**
+	 * Dado un tipo devuelve el ámbito que le corresponde.
+	 * 
+	 * @param typeName
+	 *            nombre del tipo
+	 * @return nombre del ámbito que le corresponde
+	 */
 	public String convertScopeCategory(String typeName) {
 		try {
 			Class<?> mainClass = Class.forName(typeName);

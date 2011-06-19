@@ -113,6 +113,13 @@ public class DynamicRefactoringDefinition implements Element,
 	 */
 	private boolean isEditable;
 
+	/**
+	 * Constructor de una refactorización.
+	 * 
+	 * @param builder
+	 *            constructor con los parámetros que definirán la
+	 *            refactorización
+	 */
 	private DynamicRefactoringDefinition(Builder builder) {
 		name = builder.name;
 		description = builder.description;
@@ -135,7 +142,6 @@ public class DynamicRefactoringDefinition implements Element,
 	 * 
 	 * @return una cadena con el nombre de la refactorización.
 	 * 
-	 * @see #setName
 	 */
 	public String getName() {
 		return name;
@@ -146,7 +152,6 @@ public class DynamicRefactoringDefinition implements Element,
 	 * 
 	 * @return una cadena con la descripción.
 	 * 
-	 * @see #setDescription
 	 */
 	public String getDescription() {
 		return description;
@@ -170,7 +175,6 @@ public class DynamicRefactoringDefinition implements Element,
 	 * @return una lista de <i>arrays</i> de cadenas con la información de esas
 	 *         entradas.
 	 * 
-	 * @see #setInputs
 	 */
 	public List<InputParameter> getInputs() {
 		return inputs;
@@ -214,7 +218,6 @@ public class DynamicRefactoringDefinition implements Element,
 	 * 
 	 * @return una cadena con la motivación de la refactorización.
 	 * 
-	 * @see #setMotivation
 	 */
 	public String getMotivation() {
 		return motivation;
@@ -236,7 +239,6 @@ public class DynamicRefactoringDefinition implements Element,
 	 * 
 	 * @return un <code>List</code> de mecanismos con los nombres.
 	 * 
-	 * @see #setActions
 	 */
 	public List<RefactoringMechanismInstance> getActions() {
 		return new ArrayList<RefactoringMechanismInstance>(actions);
@@ -314,6 +316,7 @@ public class DynamicRefactoringDefinition implements Element,
 							 * anteriormente.
 							 * 
 							 * @param arg0
+							 *            categoría
 							 * @return el scope de las categorias obtenidas
 							 *         anteriormente
 							 */
@@ -332,8 +335,6 @@ public class DynamicRefactoringDefinition implements Element,
 	 * @param categories
 	 *            conjunto de categorias de la refactorizacion
 	 * 
-	 * @param definition
-	 *            definicion de la refactorizacion
 	 * @return si pertenece a un scope
 	 */
 	public static boolean containsScopeCategory(Set<Category> categories) {
@@ -594,7 +595,6 @@ public class DynamicRefactoringDefinition implements Element,
 	 * Obtiene un fichero cuya ruta sera la del directorio donde se guardara el
 	 * fichero de definicion de la refactorizacion.
 	 * 
-	 * @param refactoringName
 	 * 
 	 * @param refact
 	 *            nombre de la refactorizacion
@@ -637,17 +637,53 @@ public class DynamicRefactoringDefinition implements Element,
 	 */
 	public static final class Builder {
 
+		/**
+		 * Si es editable.
+		 */
 		private boolean isEditable = false;
+		/**
+		 * Conjunto de categorías a la que pertenecerá la refact.
+		 */
 		private Set<Category> categories;
+		/**
+		 * Palabras clave.
+		 */
 		private Set<String> keywords = new HashSet<String>();
+		/**
+		 * Ejemplos de la refactorización.
+		 */
 		private List<RefactoringExample> examples = new ArrayList<RefactoringExample>();
+		/**
+		 * Nombre de la refactorización.
+		 */
 		private String name;
+		/**
+		 * Descripción de la refactorización.
+		 */
 		private String description;
+		/**
+		 * Imagen de la refactorización.
+		 */
 		private String image = "";
+		/**
+		 * Motivación de la refactorización.
+		 */
 		private String motivation;
+		/**
+		 * Entradas.
+		 */
 		private List<InputParameter> inputs;
+		/**
+		 * Precondiciones.
+		 */
 		private List<RefactoringMechanismInstance> preconditions;
+		/**
+		 * Acciones.
+		 */
 		private List<RefactoringMechanismInstance> actions;
+		/**
+		 * Postcondiciones.
+		 */
 		private List<RefactoringMechanismInstance> postconditions;
 
 		/**
@@ -692,6 +728,15 @@ public class DynamicRefactoringDefinition implements Element,
 			return definition;
 		}
 
+		/**
+		 * Comprueba que un parámetro no es null y si lo es lanaz una excepción
+		 * con un mensaje adecuado.
+		 * 
+		 * @param parameter
+		 *            parámetro
+		 * @param parameterName
+		 *            nombre del parámetro
+		 */
 		private void checkParameterNotNull(Object parameter,
 				String parameterName) {
 			Preconditions

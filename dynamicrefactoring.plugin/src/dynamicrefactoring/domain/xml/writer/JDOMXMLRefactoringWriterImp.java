@@ -374,13 +374,17 @@ public final class JDOMXMLRefactoringWriterImp implements
 	}
 
 	/**
-	 * Crea el mecanismo de una refactorizacion.
+	 * Crea los mecanismos de una refactorizacion.
 	 * 
 	 * @param type
+	 *            tipo del mecanismo
 	 * @param parentTagName
+	 *            nombre de la etiqueta padre
 	 * @param childTagName
+	 *            nombre de la etiqueta hijo
 	 * @param mechanismElements
-	 * @return
+	 *            mecanismos a crear
+	 * @return elemento con todos los mecanismos creados
 	 */
 	private Element createMechanismElement(RefactoringMechanismType type,
 			String parentTagName, String childTagName,
@@ -473,7 +477,7 @@ public final class JDOMXMLRefactoringWriterImp implements
 	/**
 	 * Inicializa las opciones de formato del fichero XML.
 	 * 
-	 * @return
+	 * @return devuelve el formato que se da al fichero XML
 	 */
 	private static Format initializeFormat() {
 		Format format = Format.getPrettyFormat();

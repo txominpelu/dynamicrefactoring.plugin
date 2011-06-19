@@ -33,6 +33,7 @@ import com.google.common.base.Predicate;
 	 * Agrega un condicion al filtro actual que se esta aplicando al catalogo.
 	 * 
 	 * @param filter
+	 *            filtro a agregar
 	 */
 	void addConditionToFilter(Predicate<K> filter);
 
@@ -67,16 +68,20 @@ import com.google.common.base.Predicate;
 	 * @return devuelve verdadero si exiten elementos filtrados, falso en caso contrario.
 	 */
 	boolean hasFilteredElements();
-	
+
 	/**
 	 * Devuelve el conjunto de los elementos que contiene el catalogo
 	 * clasificado por categorias, sin los elementos filtrados.
+	 * 
+	 * @return obtiene los elementos clasificados
 	 */
 	ClassifiedElements<K> getClassificationOfElements();
 
 	/**
 	 * Devuelve el conjunto de los elementos filtrados que contiene el catalogo
 	 * clasificado por categorias.
+	 * 
+	 * @return obtiene los elementos filtrados clasificados
 	 */
 	ClassifiedElements<K> getClassificationOfFilteredElements();
 	

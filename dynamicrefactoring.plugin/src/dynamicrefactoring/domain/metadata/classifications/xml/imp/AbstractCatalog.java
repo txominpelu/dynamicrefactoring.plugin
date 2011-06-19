@@ -38,11 +38,31 @@ import dynamicrefactoring.domain.metadata.interfaces.ClassificationsCatalog;
  */
  abstract class AbstractCatalog implements ClassificationsCatalog {
 
+	/**
+	 * Mensaje para indicar en un error que la clasificación pasada no existe.
+	 */
 	private static final String THE_CLASSIFICATION_DOESNT_EXIST = "The classification %s doesn't exist.";
+	/**
+	 * Error que indica que una categoría ya existe.
+	 */
 	private static final String CATEGORY_ALREADY_EXIST = "The category %s already exist.";
+	/**
+	 * Conjunto de clasificaciones del catálogo.
+	 */
 	private Set<Classification> classifications;
+	/**
+	 * Catálogo de refactorizaciones.
+	 */
 	private RefactoringsCatalog refactCatalog;
 
+	/**
+	 * Constructor del catálogo.
+	 * 
+	 * @param classifSet
+	 *            conjunto de clasificaciones
+	 * @param refactCatalog
+	 *            catálogo de refactorizaciones
+	 */
 	public AbstractCatalog(Set<Classification> classifSet,
 			RefactoringsCatalog refactCatalog) {
 		this.classifications = new HashSet<Classification>(classifSet);
@@ -231,6 +251,18 @@ import dynamicrefactoring.domain.metadata.interfaces.ClassificationsCatalog;
 		return builder.categories(categories).build();
 	}
 
+	/**
+	 * Actualiza la clasificación padre de la categoría a la que pertenece una
+	 * refactorización.
+	 * 
+	 * @param refact
+	 *            refactorización
+	 * @param toUpdate
+	 *            categoría a actualizar
+	 * @param newParentName
+	 *            nueva clasificación padre de la categoría
+	 * @return devuelve la definición de la refactorización modificada
+	 */
 	private DynamicRefactoringDefinition updateRefactoringCategoryParent(
 			DynamicRefactoringDefinition refact, Category toUpdate,
 			String newParentName) {

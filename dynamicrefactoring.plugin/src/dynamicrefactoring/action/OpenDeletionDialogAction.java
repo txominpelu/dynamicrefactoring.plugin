@@ -37,7 +37,12 @@ import dynamicrefactoring.interfaz.SelectForDeletingWindow;
 public class OpenDeletionDialogAction implements IWorkbenchWindowActionDelegate  {
 
 	/**
+	 * Ejecutar acción.
+	 * 
 	 * @see IActionDelegate#run(IAction)
+	 * 
+	 * @param action
+	 *            acción
 	 */
 	@Override
 	public void run(IAction action) {
@@ -50,7 +55,12 @@ public class OpenDeletionDialogAction implements IWorkbenchWindowActionDelegate 
 	}
 
 	/**
-	 * @see IActionDelegate#selectionChanged(IAction, ISelection)
+	 * Sin implementación.
+	 * 
+	 * @param action
+	 *            acción
+	 * @param selection
+	 *            selección
 	 */
 	@Override
 	public void selectionChanged(IAction action, ISelection selection){}

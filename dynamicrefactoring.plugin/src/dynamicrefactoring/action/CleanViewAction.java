@@ -68,6 +68,11 @@ public class CleanViewAction implements IViewActionDelegate {
 
 	/**
 	 * Sin implementación.
+	 * 
+	 * @param action
+	 *            acción
+	 * @param selection
+	 *            selección
 	 */
 	@Override
 	public void selectionChanged(IAction action, ISelection selection) {

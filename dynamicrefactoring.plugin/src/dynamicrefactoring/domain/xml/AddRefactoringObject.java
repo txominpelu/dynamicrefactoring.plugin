@@ -39,6 +39,9 @@ import dynamicrefactoring.util.io.FileManager;
  */
  public class AddRefactoringObject {
 
+	/**
+	 * Refactorización a guardar.
+	 */
 	private final DynamicRefactoringDefinition refactoring;
 
 	/**
@@ -47,7 +50,7 @@ import dynamicrefactoring.util.io.FileManager;
 	 * 
 	 * @see #addRefactoring()
 	 * 
-	 * @param refactoring2
+	 * @param refactoring
 	 *            refactorizacion de la que se creara el directorio
 	 */
 	public AddRefactoringObject(DynamicRefactoringDefinition refactoring) {
@@ -97,7 +100,6 @@ import dynamicrefactoring.util.io.FileManager;
 	 * Agrega el fichero DTD esquema de la definicion de refactorizaciones en
 	 * xml al directorio de la refactorizacion.
 	 * 
-	 * @param refactToAdd
 	 */
 	private void addDtdFile() {
 		try {
@@ -186,7 +188,7 @@ import dynamicrefactoring.util.io.FileManager;
 	 * Guarda el fichero xml de definicion de la refactorizacion en la ruta que
 	 * le corresponde.
 	 * 
-	 * @param refact
+	 * @param refactoringToSave
 	 *            definicion de la refactorizacion a guardar
 	 */
 	private void saveRefactoringToXmlFile(DynamicRefactoringDefinition refactoringToSave) {

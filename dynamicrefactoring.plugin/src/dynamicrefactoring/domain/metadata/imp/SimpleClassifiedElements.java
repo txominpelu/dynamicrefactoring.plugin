@@ -33,12 +33,23 @@ import dynamicrefactoring.domain.metadata.interfaces.ClassifiedElements;
  */
  public final class SimpleClassifiedElements<K> implements ClassifiedElements<K> {
 
+	/**
+	 * Conjuntos de elementos clasificados agrupados por categorías.
+	 */
 	private final Map<Category, Set<K>> classifiedElements;
+	/**
+	 * Clasificación en la que se basan los elementos clasificados.
+	 */
 	private final Classification classification;
 
 	/**
 	 * Crea una categoria a partir de su nombre y su conjunto de categorias
 	 * junto con los hijos que estas tienen.
+	 * 
+	 * @param classification
+	 *            clasificación
+	 * @param classifiedElements
+	 *            elementos clasificados
 	 * 
 	 * @param name
 	 *            nombre de la clasificacion

@@ -158,6 +158,21 @@ public class OpenRefactoringAction implements IWorkbenchWindowActionDelegate,
 		}
 	}
 
+	/**
+	 * Comprueba si se puede ejecutar una refactorización sobre la selección.
+	 * 
+	 * @param selectionInfo
+	 *            información de la selección
+	 * @throws Exception
+	 *             cualquier excepción
+	 * @throws ClassNotFoundException
+	 *             excepción si no se encuentra una clase
+	 * @throws IOException
+	 *             excepción de entrada/salida
+	 * 
+	 * @return verdadero si puede ejecutarse una refactorización sobre la
+	 *         selección
+	 */
 	private boolean canRunRefactoringForSelection(SelectionInfo selectionInfo)
 			throws Exception, ClassNotFoundException, IOException {
 		RefactoringPlugin mediator = RefactoringPlugin.getDefault();

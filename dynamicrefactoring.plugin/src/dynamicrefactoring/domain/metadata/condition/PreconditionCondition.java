@@ -33,6 +33,9 @@ import dynamicrefactoring.domain.metadata.interfaces.Element;
 	 */
 	public static final String NAME="precondition";
 	
+	/**
+	 * Precondición que se comprobará.
+	 */
 	private String precondition;
 	
 	/**

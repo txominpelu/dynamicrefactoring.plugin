@@ -68,9 +68,14 @@ import dynamicrefactoring.interfaz.view.RefactoringCatalogBrowserView;
 	}
 
 	/**
-	 * Habilita la acción en caso de encontrase deshabilitada,
-	 * una vez que esta ha sido seleccionada, para que este disponible 
-	 * ya que inicialmente no lo esta.
+	 * Habilita la acción en caso de encontrase deshabilitada, una vez que esta
+	 * ha sido seleccionada, para que este disponible ya que inicialmente no lo
+	 * esta.
+	 * 
+	 * @param action
+	 *            acción
+	 * @param selection
+	 *            selección
 	 */
 	@Override
 	public void selectionChanged(IAction action, ISelection selection) {

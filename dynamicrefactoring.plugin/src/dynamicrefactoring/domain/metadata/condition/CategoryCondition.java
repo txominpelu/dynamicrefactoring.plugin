@@ -34,6 +34,9 @@ import dynamicrefactoring.domain.metadata.interfaces.Element;
 	 */
 	public static final String NAME="category";
 	
+	/**
+	 * Categoría que se comprobará.
+	 */
 	private Category category;
 
 	/**

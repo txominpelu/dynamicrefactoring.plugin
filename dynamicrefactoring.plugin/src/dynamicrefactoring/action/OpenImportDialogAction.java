@@ -36,7 +36,12 @@ import dynamicrefactoring.interfaz.wizard.ImportWizard;
 public class OpenImportDialogAction implements IWorkbenchWindowActionDelegate  {
 
 	/**
+	 * Ejecutar acción.
+	 * 
 	 * @see IActionDelegate#run(IAction)
+	 * 
+	 * @param action
+	 *            acción
 	 */
 	@Override
 	public void run(IAction action) {
@@ -49,7 +54,12 @@ public class OpenImportDialogAction implements IWorkbenchWindowActionDelegate  {
 	}
 
 	/**
-	 * @see IActionDelegate#selectionChanged(IAction, ISelection)
+	 * Sin implementación.
+	 * 
+	 * @param action
+	 *            acción
+	 * @param selection
+	 *            selección
 	 */
 	@Override
 	public void selectionChanged(IAction action, ISelection selection){}

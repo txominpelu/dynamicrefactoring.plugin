@@ -26,7 +26,13 @@ import com.google.common.base.Preconditions;
  */
  public class RefactoringExample {
 
+	/**
+	 * Código antes de ejecutar la refactorización.
+	 */
 	private String before;
+	/**
+	 * Código después de ejecutar la refactorización.
+	 */
 	private String after;
 
 	/**

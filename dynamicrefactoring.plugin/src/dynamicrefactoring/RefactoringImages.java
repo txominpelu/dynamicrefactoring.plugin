@@ -26,6 +26,9 @@ import com.swtdesigner.ResourceManager;
  */
  public final class RefactoringImages {
 
+	/**
+	 * Directorio del plugin con los iconos.
+	 */
 	private static final String ICONS_DIR = "/icons/";
 
 	/**
@@ -173,6 +176,9 @@ import com.swtdesigner.ResourceManager;
 	 */
 	public static final String ECLIPSE_CLASS_ICON_PATH = ICONS_DIR + "class_obj.gif";
 
+	/**
+	 * Ruta del icono de la clasificacion del plugin.
+	 */
 	private static final String PlUGIN_CLASSIFICATION_ICON_PATH = ICONS_DIR + "plugin-classif.ico"; //$NON-NLS-1$
 
 	/**

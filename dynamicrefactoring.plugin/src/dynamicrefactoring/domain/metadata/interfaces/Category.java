@@ -30,8 +30,14 @@ import com.google.common.base.Objects;
 	 */
 	public static final Category NONE_CATEGORY = new Category("", "None");
 
+	/**
+	 * Nombre de la categoría.
+	 */
 	private final String name;
 
+	/**
+	 * Nombre de la clasificación padre de la categoría.
+	 */
 	private final String parent;
 
 	/**

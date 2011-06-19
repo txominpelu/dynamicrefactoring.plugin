@@ -59,12 +59,24 @@ import javax.xml.bind.annotation.XmlType;
 })
  public class ClassificationType {
 
+	/**
+	 * Categorías.
+	 */
     @XmlElement(required = true)
     protected CategoriesType categories;
+	/**
+	 * Nombre de la clasificación.
+	 */
     @XmlAttribute(required = true)
     protected String name;
+	/**
+	 * Descripción de la clasificación.
+	 */
     @XmlAttribute(required = true)
     protected String description;
+	/**
+	 * Si la clasificación es multicategoría.
+	 */
     @XmlAttribute
     protected Boolean multicategory;
 

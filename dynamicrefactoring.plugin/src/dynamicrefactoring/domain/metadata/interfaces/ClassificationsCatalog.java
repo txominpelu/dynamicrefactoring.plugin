@@ -114,6 +114,7 @@ import dynamicrefactoring.domain.DynamicRefactoringDefinition;
 	 * Agrega una clasificacion al catalogo de clasificaciones.
 	 * 
 	 * @param classification
+	 *            clasificación a añadir
 	 */
 	void addClassification(Classification classification);
 
@@ -128,20 +129,21 @@ import dynamicrefactoring.domain.DynamicRefactoringDefinition;
 	 *            nombre de la refactorizacion a utilizar
 	 */
 	void removeClassification(String classification);
-	
+
 	/**
 	 * Agrega una categoria nueva a una refactorizacion. Si la refactorizacion
 	 * ya pertenece a la categoria saltara una IllegalArgumentException. Si la
 	 * categoria no existe en el catalogo tambien saltara la excepcion. Si la
 	 * refactorizacion no pertenece al catalogo tambien saltara la excepcion.
 	 * 
-	 * @param refact
+	 * @param refactName
 	 *            refactorizacion a la que se agregara la categoria
 	 * @param classificationName
 	 *            nombre de la clasificacion a la que pertenece la categoria
 	 * @param categoryName
 	 *            nombre de la nueva categoria
-	 * @param catalog catalogo de clasificaciones
+	 * @param catalog
+	 *            catalogo de clasificaciones
 	 */
 	void addCategoryToRefactoring(String refactName, String classificationName,
 			String categoryName);
@@ -178,14 +180,16 @@ import dynamicrefactoring.domain.DynamicRefactoringDefinition;
 	 * 
 	 * La clasificacion debe existir en el catalogo.
 	 * 
-	 * Lanza {@link IllegalArgumentException}
-	 *             si {@link #hasClassification(String)} es falso para el nombre
-	 *             de clasificacion dado.
-	 *             
+	 * Lanza {@link IllegalArgumentException} si
+	 * {@link #hasClassification(String)} es falso para el nombre de
+	 * clasificacion dado.
+	 * 
 	 * @param miClasificacion2
-	 * @param string
+	 *            nombre de la clasificación
+	 * @param description
+	 *            descripción a asignar a la clasificación
 	 */
-	void setDescription(String miClasificacion2, String string);
+	void setDescription(String miClasificacion2, String description);
 
 	/**
 	 * Devuelve la lista de todas las refactorizaciones que pertenecen a varias

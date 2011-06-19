@@ -37,11 +37,13 @@ import dynamicrefactoring.domain.metadata.interfaces.ClassifiedFilterableCatalog
 import dynamicrefactoring.domain.metadata.interfaces.Element;
 
 /**
- * Permite clasificar elementos por categorías y aplicar filtros
- * sobre ellos.
+ * Permite clasificar elementos por categorías y aplicar filtros sobre ellos.
  * 
  * @author <A HREF="mailto:ims0011@alu.ubu.es">Iñigo Mediavilla Saiz</A>
  * @author <A HREF="mailto:mgs0110@alu.ubu.es">Míryam Gómez San Martín</A>
+ * 
+ * @param <K>
+ *            Tipo del catálogo
  */
  public final class ElementCatalog<K extends Element> implements
 		ClassifiedFilterableCatalog<K> {
@@ -72,6 +74,8 @@ import dynamicrefactoring.domain.metadata.interfaces.Element;
 	 * 
 	 * @param allElements
 	 *            elementos que componen el catalogo
+	 * @param classification
+	 *            clasificacion en la que se basa el catálogo
 	 * @param categories
 	 *            conjunto de categorias que contiene la clasificacion en la que
 	 *            se basa este catalogo
@@ -89,6 +93,8 @@ import dynamicrefactoring.domain.metadata.interfaces.Element;
 	 * 
 	 * @param allElements
 	 *            elementos que componen el catalogo
+	 * @param classification
+	 *            clasificación en la que se basa el catálogo
 	 * @param categories
 	 *            conjunto de categorias que contiene la clasificacion en la que
 	 *            se basa este catalogo
@@ -136,6 +142,12 @@ import dynamicrefactoring.domain.metadata.interfaces.Element;
 		return false;
 	}
 
+	/**
+	 * Inicializa el catálogo de elementos.
+	 * 
+	 * @param classificationCategories
+	 *            conjunto de categorías de la clasificación
+	 */
 	private void initializeClassifiedElements(
 			Set<Category> classificationCategories) {
 		classifiedElements = new HashMap<Category, Set<K>>();
@@ -145,6 +157,12 @@ import dynamicrefactoring.domain.metadata.interfaces.Element;
 		classifiedElements.put(Category.NONE_CATEGORY, new HashSet<K>());
 	}
 
+	/**
+	 * Inicializa el catálogo de elementos filtrados.
+	 * 
+	 * @param classificationCategories
+	 *            conjunto de categorías de la clasificación
+	 */
 	private void initializeFilteredClassifiedElements(
 			Set<Category> classificationCategories) {
 		filteredClassifiedElements = new HashMap<Category, Set<K>>();
@@ -153,12 +171,13 @@ import dynamicrefactoring.domain.metadata.interfaces.Element;
 		}
 		filteredClassifiedElements.put(Category.NONE_CATEGORY, new HashSet<K>());
 	}
-	
+
 	/**
 	 * Clasifica los elementos pasados dentro de las categorias definidas en el
 	 * catalogo.
 	 * 
 	 * @param elementsToClassify
+	 *            elementos a clasificar
 	 */
 	private void classify(Collection<K> elementsToClassify) {
 		ArrayList<K> elementsLeftWithNoCategory = new ArrayList<K>(

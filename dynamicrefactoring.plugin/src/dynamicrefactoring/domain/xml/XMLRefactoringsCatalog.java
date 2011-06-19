@@ -41,6 +41,9 @@ import dynamicrefactoring.util.DynamicRefactoringLister;
  public final class XMLRefactoringsCatalog extends AbstractRefactoringsCatalog
 		implements RefactoringsCatalog {
 
+	/**
+	 * Instancia del catálogo.
+	 */
 	private static XMLRefactoringsCatalog instance;
 
 	/**
@@ -51,6 +54,7 @@ import dynamicrefactoring.util.DynamicRefactoringLister;
 	 * {@link #getInstance()} para utilizar la funcionalidad del catalogo.
 	 * 
 	 * @param refactorings
+	 *            conjunto de refactorizaciones
 	 */
 	protected XMLRefactoringsCatalog(
 			Set<DynamicRefactoringDefinition> refactorings) {

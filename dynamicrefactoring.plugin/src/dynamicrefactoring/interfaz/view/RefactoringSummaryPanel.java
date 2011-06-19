@@ -152,7 +152,14 @@ import dynamicrefactoring.util.RefactoringTreeManager;
 	
 	private RefactoringCatalogBrowserView rcbView;
 	
-	
+	/**
+	 * Constructor del panel de resumen.
+	 * 
+	 * @param parent
+	 *            contenedor que es el padre del panel
+	 * @param rcbView
+	 *            vista del catalogo
+	 */
 	public RefactoringSummaryPanel(Composite parent, RefactoringCatalogBrowserView rcbView){
 
 		this.rcbView=rcbView;
@@ -572,6 +579,9 @@ import dynamicrefactoring.util.RefactoringTreeManager;
 		refactoring=ref;
 	}
 
+	/**
+	 * Muestra el resumen de la refactorización.
+	 */
 	public void showRefactoringSummary(){
 
 		refTabFolder.setVisible(false);
@@ -598,6 +608,11 @@ import dynamicrefactoring.util.RefactoringTreeManager;
 		fillComponentsTree();
 	}
 
+	/**
+	 * Devuelve la refactorización seleccionada.
+	 * 
+	 * @return refactorización seleccionada
+	 */
 	public DynamicRefactoringDefinition getRefactoringSelected(){
 		return refactoring;
 	}

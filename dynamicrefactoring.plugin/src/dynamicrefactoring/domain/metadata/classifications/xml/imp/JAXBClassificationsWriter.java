@@ -39,15 +39,21 @@ import dynamicrefactoring.domain.metadata.interfaces.Category;
 import dynamicrefactoring.domain.metadata.interfaces.Classification;
 
 /**
- * Lector de clasificaciones que utiliza JAXB.
+ * Escritor de clasificaciones en XML que utiliza JAXB.
  * 
  * @author <A HREF="mailto:ims0011@alu.ubu.es">Iñigo Mediavilla Saiz</A>
  * @author <A HREF="mailto:mgs0110@alu.ubu.es">Míryam Gómez San Martín</A>
  */
  public final class JAXBClassificationsWriter {
 
+	/**
+	 * Instancia del escritor.
+	 */
 	private static JAXBClassificationsWriter instance;
 
+	/**
+	 * Constructor privado para evitar que se cree instancias.
+	 */
 	private JAXBClassificationsWriter() {
 	}
 

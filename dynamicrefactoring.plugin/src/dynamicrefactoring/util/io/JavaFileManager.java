@@ -234,8 +234,10 @@ public class JavaFileManager {
 	private static void addJavaFileToList(IResource resourceFile, 
 		ArrayList<IFile> sourceFileList) throws CoreException{
 		
-		if (resourceFile.exists() && resourceFile instanceof IFile)
-			if (((IFile)resourceFile).getFileExtension().equalsIgnoreCase(JAVA_FILE_EXTENSION)){
+		if (resourceFile.exists() && resourceFile instanceof IFile) {
+			String extension = ((IFile) resourceFile).getFileExtension();
+			if (extension != null
+					&& extension.equalsIgnoreCase(JAVA_FILE_EXTENSION)) {
 				IFile file = (IFile) resourceFile;
 				
 				if (file.getContentDescription().getContentType().equals(
@@ -243,6 +245,7 @@ public class JavaFileManager {
 						JAVA_CONTENT_TYPE)))					
 					sourceFileList.add(file);
 			}
+		}
 	}
 
 	/**

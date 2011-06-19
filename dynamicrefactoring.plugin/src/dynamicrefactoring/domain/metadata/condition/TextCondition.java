@@ -34,6 +34,9 @@ import dynamicrefactoring.domain.metadata.interfaces.Element;
 	 */
 	public static final String NAME="text";
 	
+	/**
+	 * Texto que se buscará en el elemento.
+	 */
 	private String text;
 
 	/**
@@ -45,6 +48,11 @@ import dynamicrefactoring.domain.metadata.interfaces.Element;
 		this.text = text.toLowerCase().trim();
 	}
 
+	/**
+	 * Obtiene el texto de la condición.
+	 * 
+	 * @return texto de la condición
+	 */
 	private String getText() {
 		return text;
 	}

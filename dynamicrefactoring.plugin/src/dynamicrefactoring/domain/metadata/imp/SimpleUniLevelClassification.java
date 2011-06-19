@@ -29,8 +29,17 @@ import dynamicrefactoring.domain.metadata.interfaces.Classification;
  */
  public final class SimpleUniLevelClassification implements Classification {
 
+	/**
+	 * Conjunto de categorías de la clasificación.
+	 */
 	private final Set<Category> categories;
+	/**
+	 * Nombre de la clasificación.
+	 */
 	private final String name;
+	/**
+	 * Descripción de la clasificación
+	 */
 	private final String description;
 	/**
 	 * Si la clasificacion admite o no elementos en mas de una categoria.

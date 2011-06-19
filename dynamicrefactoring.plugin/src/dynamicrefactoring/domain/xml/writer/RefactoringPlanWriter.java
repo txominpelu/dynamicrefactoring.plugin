@@ -47,8 +47,14 @@ import dynamicrefactoring.domain.xml.reader.XMLRefactoringReaderException;
  */
 public final class RefactoringPlanWriter {
 	
+	/**
+	 * Nombre.
+	 */
 	private static final String NAME = "name";
 
+	/**
+	 * Valor.
+	 */
 	private static final String VALUE = "value";
 
 	/**

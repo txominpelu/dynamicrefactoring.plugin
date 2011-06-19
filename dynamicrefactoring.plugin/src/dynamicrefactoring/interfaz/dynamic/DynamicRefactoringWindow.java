@@ -192,6 +192,8 @@ public class DynamicRefactoringWindow extends Dialog {
 	 * @param currentObject
 	 *            objeto que constituye la entrada principal de la
 	 *            refactorización.
+	 * @param refactoring
+	 *            refactorizacion
 	 * @param refactoringName
 	 *            nombre de la refactorización.
 	 * @param refactoringfilePath

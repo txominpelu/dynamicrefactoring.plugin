@@ -255,6 +255,7 @@ public class RefactoringPlugin extends AbstractUIPlugin
 	 * directorio.
 	 * 
 	 * @throws IOException
+	 *             si hay algun problema de IO
 	 */
 	private void copyDefaultFilesToCommonDir()
 			throws IOException {
@@ -285,19 +286,21 @@ public class RefactoringPlugin extends AbstractUIPlugin
 	}
 
 	/**
-	 * Directorio en el que se guardan los ficheros
+	 * Directorio en el que se guardan los ficheros.
 	 * 
-	 * @return el directorio en el que se guardaran los ficheros de refactorizacion.
+	 * @return el directorio en el que se guardaran los ficheros de
+	 *         refactorizacion.
 	 */
 	public static String getDynamicRefactoringsDir() {
 		return getCommonPluginFilesDir()
 				+ DYNAMIC_REFACTORINGS_FOLDER_NAME;
 	}
-	
+
 	/**
-	 * Directorio en el que se guardan los ficheros
+	 * Directorio en el que se guardan los ficheros.
 	 * 
-	 * @return el directorio en el que se guardaran los ficheros de refactorizacion.
+	 * @return el directorio en el que se guardaran los ficheros de
+	 *         refactorizacion.
 	 */
 	public static String getNonEditableDynamicRefactoringsDir() {
 		return getCommonPluginFilesDir() + File.separator + "temp" + DYNAMIC_REFACTORINGS_FOLDER_NAME;
@@ -413,11 +416,12 @@ public class RefactoringPlugin extends AbstractUIPlugin
 	}
 
 	/**
-	 * Borra el proyecto creado para obtener la documentacion
-	 * de entradas, acciones, precondiciones y postcondiciones
-	 * en el wizard de crear refactorizaciones.
+	 * Borra el proyecto creado para obtener la documentacion de entradas,
+	 * acciones, precondiciones y postcondiciones en el wizard de crear
+	 * refactorizaciones.
 	 * 
 	 * @throws CoreException
+	 *             si hay algun problema al borrar el proyecto
 	 */
 	private void deleteJavadocReaderProject() throws CoreException {
 		IWorkspaceRoot root = ResourcesPlugin.getWorkspace().getRoot();

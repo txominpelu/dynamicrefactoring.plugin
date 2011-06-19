@@ -46,13 +46,21 @@ import dynamicrefactoring.domain.metadata.interfaces.Classification;
  */
  class JAXBClassificationsReader implements XmlClassificationsReader {
 
+	/**
+	 * Ruta al fichero de esquema del fichero de clasificaciones XML.
+	 */
 	static final URL XSD_SCHEMA_URL = JAXBClassificationsReader.class
 			.getResource("/Classification/classifications.xsd");
-	private static final String DTD_SCHEMA_URL = "/Classification/classificationsDTD.dtd";
-	
+
+	/**
+	 * Instancia del lector de clasificaciones.
+	 */
 	private static JAXBClassificationsReader instancia = new JAXBClassificationsReader();
 
-	
+	/**
+	 * Constructor privado para evitar que se creen instancias nuevas del lector
+	 * de clasificaciones.
+	 */
 	private JAXBClassificationsReader(){}
 	
 	/**
@@ -94,9 +102,11 @@ import dynamicrefactoring.domain.metadata.interfaces.Classification;
 	 * @param file
 	 *            fichero xml con las clasificaciones disponibles
 	 * @param validationEventHandler
+	 *            gestor de eventos de la validación del fichero XML
 	 * 
 	 * @return objeto con la informacion de las clasificaciones disponibles
-	 * @throws ValidationException si el xml no cumple las especificaciones del esquema
+	 * @throws ValidationException
+	 *             si el xml no cumple las especificaciones del esquema
 	 */
 	private ClassificationsType generateClassificationsXmlType(File file) throws ValidationException{
 		ValidationEventCollector validationEventHandler = new ValidationEventCollector();
@@ -124,6 +134,11 @@ import dynamicrefactoring.domain.metadata.interfaces.Classification;
 		} 
 	}
 	
+	/**
+	 * Permite obtener la instancia del lector.
+	 * 
+	 * @return la instancia del lector
+	 */
 	protected static JAXBClassificationsReader getInstance(){
 		return instancia;
 		

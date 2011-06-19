@@ -198,10 +198,25 @@ public final class InputParameter {
 	 */
 	public static class Builder {
 
+		/**
+		 * Tipo.
+		 */
 		private String type;
+		/**
+		 * Nombre.
+		 */
 		private String name = "";
+		/**
+		 * Desde donde se obtiene la entrada.
+		 */
 		private String from = "";
+		/**
+		 * De qué método se obtiene la entrada.
+		 */
 		private String method = "";
+		/**
+		 * Si la entrada es principal o no.
+		 */
 		private boolean isMain = false;
 
 		/**

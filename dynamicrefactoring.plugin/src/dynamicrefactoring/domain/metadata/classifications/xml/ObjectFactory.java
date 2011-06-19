@@ -46,6 +46,9 @@ import javax.xml.namespace.QName;
 @XmlRegistry
  public class ObjectFactory {
 
+	/**
+	 * Nombre de la etiqueta principal.
+	 */
     private final static QName _Classifications_QNAME = new QName("", "classifications");
 
     /**

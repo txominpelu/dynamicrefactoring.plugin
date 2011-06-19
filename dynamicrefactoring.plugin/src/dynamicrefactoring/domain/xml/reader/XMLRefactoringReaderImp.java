@@ -226,6 +226,9 @@ public interface XMLRefactoringReaderImp {
 	/**
 	 * Devuelve la definición de la refactorización.
 	 * 
+	 * @param file
+	 *            fichero del que se lee la definición
+	 * 
 	 * @return la definición de la refactorización.
 	 */
 	public DynamicRefactoringDefinition getDynamicRefactoringDefinition(File file);

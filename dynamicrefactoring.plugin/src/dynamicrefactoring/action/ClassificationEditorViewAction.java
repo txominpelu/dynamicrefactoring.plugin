@@ -63,6 +63,11 @@ import dynamicrefactoring.interfaz.view.RefactoringCatalogBrowserView;
 
 	/**
 	 * Sin implementación.
+	 * 
+	 * @param action
+	 *            acción
+	 * @param selection
+	 *            selección
 	 */
 	@Override
 	public void selectionChanged(IAction action, ISelection selection) {

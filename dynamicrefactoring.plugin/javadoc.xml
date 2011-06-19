@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="ISO-8859-1" standalone="no"?>
 <project default="allDoc" basedir=".">
-<property name="src.dir" value="${basedir}\src" />
-<property name="test.dir" value="${basedir}\test" />
+<property name="src.dir" value="${basedir}\src" /> <property name="test.dir" value="${basedir}\test" />
 <property name="lib.dir" value="${basedir}\lib" />
 <property name="doclib.dir" value="${basedir}\doclib" />
 <property name="eclipse.lib" value="${maven.local.repo}/p2/osgi/bundle"/>
@@ -71,37 +70,49 @@
 		nodeprecatedlist="false" 
 		noindex="false" 
 		nonavbar="false" 
-		encoding="UTF-8"
 		charset="UTF-8"
-		docencoding="UTF-8"
 		notree="false" 
 		encoding="UTF-8"
 		docencoding="UTF-8"
-		charset="UTF-8"
 		packagenames="*.*"
 		source="1.6" 
-		sourcepath="${src.dir};${test.dir}"
 		splitindex="true" 
 		stylesheetfile="${basedir}\stylesheet.css" 
 		use="true" 
 		version="true"
 		windowtitle="Documentación técnica del plugin Dinamyc refactoring" 
 		header="Dinamyc Refactoring Plugin">
+
+		<fileset dir="${src.dir}" defaultexcludes="yes">
+  			<include name="**/*.java"/>
+  			<exclude name="**/Messages.java"/>
+		</fileset>
+
 		<classpath refid="doc.classpath"/>
 	</javadoc>
 </target>
     
 <!-- ========================= DocCheck Target ========================= -->
 <target name="doccheck" depends="init" description="Comprueba la documentación del código fuente java">		
-	<javadoc packagenames="*.*" sourcepath="${src.dir};${test.dir}"
+	<javadoc packagenames="*.*"
 		destdir="${basedir}\doc\doccheck"
-	    encoding="UTF-8"
+	    	encoding="UTF-8"
 		private="true" 
 		author="true" 
 		verbose="false" 
 		source="1.6">
+
 		<classpath refid="doc.classpath"/>
 		<doclet name="com.sun.tools.doclets.doccheck.DocCheck" path="${doclib.dir}\doccheck.jar" />
+
+		<fileset dir="${src.dir}">
+			<include name="**/*.java"/>
+			<exclude name="**/Messages.java"/>
+		</fileset>
+
+		<packageset dir="${src.dir}" defaultexcludes="no"/>
+
+
 	</javadoc>
 </target>
 	

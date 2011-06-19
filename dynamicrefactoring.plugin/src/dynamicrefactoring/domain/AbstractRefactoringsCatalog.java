@@ -40,6 +40,9 @@ import dynamicrefactoring.domain.metadata.condition.RootInputTypeCondition;
  */
  public abstract class AbstractRefactoringsCatalog implements RefactoringsCatalog {
 
+	/**
+	 * Conjunto de refactorizaciones del catálogo.
+	 */
 	private final Set<DynamicRefactoringDefinition> refactorings;
 
 	/**
@@ -85,6 +88,12 @@ import dynamicrefactoring.domain.metadata.condition.RootInputTypeCondition;
 		refactorings.add(refactoring);
 	}
 
+	/**
+	 * Obtiene el conjunto de todas las refactorizaciones contenidas en el
+	 * catalogo.
+	 * 
+	 * @return conjunto de refactorizaciones contenidas en el catalogo
+	 */
 	@Override
 	public Set<DynamicRefactoringDefinition> getAllRefactorings() {
 		return new HashSet<DynamicRefactoringDefinition>(refactorings);

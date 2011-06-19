@@ -26,6 +26,9 @@ import dynamicrefactoring.domain.DynamicRefactoringDefinition;
  public class SameNamePredicate implements
 		Predicate<DynamicRefactoringDefinition> {
 
+	/**
+	 * Nombre del predicado.
+	 */
 	private String name;
 
 	/**

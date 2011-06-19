@@ -193,6 +193,9 @@ public abstract class RefactoringRunner {
 	private static class RefactoringOperation extends AbstractOperation
 			implements IRunnableWithProgress {
 
+		/**
+		 * Constante que indica un segundo en milisegundos.
+		 */
 		private static final int ONE_SECOND = 1000;
 		
 		/**
@@ -490,6 +493,12 @@ public abstract class RefactoringRunner {
 		 */
 		private final Date dateToRevertFiles;
 
+		/**
+		 * Constructor del trabajo.
+		 * 
+		 * @param dateToRevertFiles
+		 *            fecha a la que se tienen que devolver los ficheros
+		 */
 		public UndoJob(Date dateToRevertFiles) {
 			this.dateToRevertFiles = dateToRevertFiles;
 		}

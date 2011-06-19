@@ -38,6 +38,12 @@ import dynamicrefactoring.domain.DynamicRefactoringDefinition;
 
 	private DynamicRefactoringDefinition refactoring;
 	
+	/**
+	 * Crea el tooltip a partir del control que será su padre.
+	 * 
+	 * @param control
+	 *            control que será el padre del tooltip
+	 */
 	public RefactoringTooltip(Control control) {
 		super(control);
 		refactoring=(DynamicRefactoringDefinition)control.getData();

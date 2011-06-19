@@ -203,6 +203,8 @@ public class ExportImportUtilities {
 	 * @param importingFromPlan
 	 *            indica si la importación de la refactorización ha sido
 	 *            solicitada cuando se importaba un plan de refactorizaciones.
+	 * @param catalog
+	 *            catálogo de refactorizaciones
 	 * @throws IOException
 	 *             IOException en caso de fallo al copiar la carpeta
 	 * @throws XMLRefactoringReaderException
@@ -275,9 +277,13 @@ public class ExportImportUtilities {
 	 * Obtiene los ejemplos de una refactorizacion pero modificando la carpeta
 	 * raiz a la que pertenecen.
 	 * 
+	 * @param folder
+	 *            nueva carpeta a la que se asignarán los ejemplos
+	 * 
 	 * @param definitionFile
 	 *            fichero
 	 * @param refact
+	 *            refactorización
 	 * @return ejemplos modificados
 	 */
 	private static List<RefactoringExample> getExamplesWithOtherRootFolder(
@@ -330,7 +336,9 @@ public class ExportImportUtilities {
 	 * (DynamicRefactorings).
 	 * 
 	 * @param namefolder
-	 * @param reader
+	 *            ruta al directorio
+	 * @param refact
+	 *            definición de la refactorización
 	 */
 	private static void deleteClassFilesFromRefactoringsDir(String namefolder,
 			DynamicRefactoringDefinition refact) {
@@ -355,8 +363,10 @@ public class ExportImportUtilities {
 	 * refactorizaciones.
 	 * 
 	 * @param originalFolder
+	 *            carpeta original
 	 * @param predicateName
-	 * @return
+	 *            nombre del predicado
+	 * @return fichero de clase del predicado
 	 */
 	private static File getClassFileFromPlanBinDir(final String originalFolder,
 			final String predicateName) {
@@ -374,8 +384,10 @@ public class ExportImportUtilities {
 	 * refactorizaciones.
 	 * 
 	 * @param originalFolder
+	 *            carpeta original
 	 * @param predicateName
-	 * @return
+	 *            nombre del predicado
+	 * @return fichero de clase
 	 */
 	private static File getClassFileFromBinDir(final String originalFolder,
 			String predicateName) {

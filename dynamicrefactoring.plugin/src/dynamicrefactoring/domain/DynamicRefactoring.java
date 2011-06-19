@@ -60,8 +60,6 @@ public class DynamicRefactoring extends MOONRefactoring {
 	 * 
 	 * @param refactoringDefinition  definicion de la refactorizacion
 	 * 
-	 * @param refactoringFilePath
-	 *            ruta del fichero con la refactorización.
 	 * @param model
 	 *            modelo MOON sobre el que se refactoriza.
 	 * @param parameters
@@ -227,16 +225,14 @@ public class DynamicRefactoring extends MOONRefactoring {
 	 *            constructor cuya lista de parámetros necesarios se desea
 	 *            obtener.
 	 * @param type
-	 *            si se trata de {@link RefactoringConstants#PRECONDITION},
-	 *            {@link RefactoringConstants#ACTION} o
-	 *            {@link RefactoringConstants#POSTCONDITION}.
+	 *            si se trata de precondición, acción o postcondición
 	 * 
 	 * @return un <i>array</i> con los objetos que pasar como parámetros al
 	 *         constructor.
 	 * 
 	 * @throws RefactoringException
-	 *             si se produce algún error durante la construcción de la
-	 *             lista de parámetros del constructor.
+	 *             si se produce algún error durante la construcción de la lista
+	 *             de parámetros del constructor.
 	 */
 	private Object[] getNecessaryParameters(Constructor<?> constructor,
 			RefactoringMechanismType type)
@@ -294,9 +290,7 @@ public class DynamicRefactoring extends MOONRefactoring {
 	 *            constructor del elemento cuyo nombre se ha de obtener.
 	 * @param type
 	 *            tipo de elemento del repositorio del que se trata (uno de
-	 *            {@link RefactoringConstants#PRECONDITION},
-	 *            {@link RefactoringConstants#POSTCONDITION} o
-	 *            {@link RefactoringConstants#ACTION}.
+	 *            precondición, acción o postcondicion).
 	 * 
 	 * @return el nombre simple del predicado o acción.
 	 */
@@ -349,18 +343,16 @@ public class DynamicRefactoring extends MOONRefactoring {
 	}
 
 	/**
-	 * Obtiene el valor asignado a la entrada que ocupa una cierta posición
-	 * para un predicado o acción concreto.
+	 * Obtiene el valor asignado a la entrada que ocupa una cierta posición para
+	 * un predicado o acción concreto.
 	 * 
 	 * @param elementName
 	 *            nombre simple del predicado o acción.
 	 * @param position
 	 *            posición de la entrada en la lista de parámetros.
 	 * @param type
-	 *            código del tipo de elemento (
-	 *            {@link RefactoringConstants#PRECONDITION},
-	 *            {@link RefactoringConstants#POSTCONDITION} o
-	 *            {@link RefactoringConstants#ACTION}).
+	 *            código del tipo de elemento precondición, acción o
+	 *            postcondición.
 	 * 
 	 * @return el valor asignado a la entrada.
 	 */

@@ -59,6 +59,9 @@ import javax.xml.bind.annotation.XmlType;
 })
  public class ClassificationsType {
 
+	/**
+	 * Lista de clasificaciones.
+	 */
     @XmlElement(required = true)
     protected List<ClassificationType> classification;
 

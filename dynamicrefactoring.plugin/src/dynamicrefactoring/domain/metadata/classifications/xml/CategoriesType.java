@@ -64,6 +64,9 @@ import javax.xml.bind.annotation.XmlType;
 })
  public class CategoriesType {
 
+	/**
+	 * Lista de categorías.
+	 */
     @XmlElement(required = true)
     protected List<String> category;
 

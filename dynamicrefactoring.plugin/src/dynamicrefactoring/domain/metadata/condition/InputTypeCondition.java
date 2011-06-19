@@ -32,6 +32,9 @@ import dynamicrefactoring.domain.metadata.interfaces.Element;
 	 */
 	public static final String NAME="inputType";
 	
+	/**
+	 * Tipo de la entrada.
+	 */
 	private String inputType;
 	
 	/**

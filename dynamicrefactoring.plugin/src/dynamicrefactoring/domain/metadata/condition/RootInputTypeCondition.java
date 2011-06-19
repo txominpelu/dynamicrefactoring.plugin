@@ -33,6 +33,9 @@ import dynamicrefactoring.domain.metadata.interfaces.Element;
 	 */
 	public static final String NAME="rootInputType";
 	
+	/**
+	 * Tipo de entrada principal que se comprobará.
+	 */
 	private String rootInputType;
 	
 	/**

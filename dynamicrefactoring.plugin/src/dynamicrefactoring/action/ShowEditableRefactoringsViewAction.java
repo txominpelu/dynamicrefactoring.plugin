@@ -65,6 +65,11 @@ import dynamicrefactoring.interfaz.view.AvailableRefactoringView;
 
 	/**
 	 * Sin implementación.
+	 * 
+	 * @param action
+	 *            acción
+	 * @param selection
+	 *            selección
 	 */
 	@Override
 	public void selectionChanged(IAction action, ISelection selection) {

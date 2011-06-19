@@ -33,6 +33,9 @@ import dynamicrefactoring.domain.metadata.interfaces.Element;
 	 */
 	public static final String NAME="postcondition";
 	
+	/**
+	 * Postcondición a comprobar.
+	 */
 	private String postcondition;
 	
 	/**

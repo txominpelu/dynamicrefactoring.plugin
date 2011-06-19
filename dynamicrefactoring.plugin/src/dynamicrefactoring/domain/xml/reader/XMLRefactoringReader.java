@@ -72,9 +72,12 @@ public class XMLRefactoringReader {
 	public void setImplementor(XMLRefactoringReaderImp newImplementor) {
 		this.implementor = newImplementor;
 	}
-	
+
 	/**
 	 * Devuelve la definición de la refactorización.
+	 * 
+	 * @param f
+	 *            fichero del que se leerá la refactorización
 	 * 
 	 * @return la definición de la refactorización.
 	 */
