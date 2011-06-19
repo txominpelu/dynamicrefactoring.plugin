@@ -27,6 +27,18 @@ import dynamicrefactoring.domain.DynamicRefactoringDefinition;
  */
  public class RefactoringListSorter extends ViewerSorter{
 
+	 /**
+	  * Permite comparar dos elementos del visor.
+	  * 
+	  * @param viewer visor de elementos.
+	  * @param e1 elemento primero a comparar.
+	  * @param e2 elemento segundo a comparar.
+	  * 
+	  * @return indica si son iguales devolviendo 0,
+	  * 		si el primer elemento es mayor devuelve mayor que 0 y
+	  *         sino menor que 0.
+	  * 
+	  */
 	@Override
 	public int compare(Viewer viewer, Object e1, Object e2){
 		if (e1 instanceof DynamicRefactoringDefinition && 

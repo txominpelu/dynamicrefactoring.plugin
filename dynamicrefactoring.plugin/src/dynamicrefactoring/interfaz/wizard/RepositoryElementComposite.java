@@ -239,9 +239,25 @@ public class RepositoryElementComposite {
 	 */
 	private HashMap<String, String> a_Available;
 	
+	/**
+	 * Toolkit.
+	 */
 	private FormToolkit toolkit;
+	
+	/**
+	 * Contenedor form.
+	 */
 	private ScrolledForm form;
+	
+	/**
+	 * Etiqueda de descripción para el elemento seleccionado.
+	 */
 	private Label descriptionFormLabel;
+	
+	/**
+	 * Contenedor expandible que va a contener las refactorizaciones
+	 * que contiene el elemento seleccionado en su definición.
+	 */
 	private ExpandableComposite refExpandableComp;
 	
 	/**
@@ -620,6 +636,12 @@ public class RepositoryElementComposite {
 			
 	}
 
+	/**
+	 * Obtiene el nombre cualificado del elemento.
+	 * 
+	 * @param element elemento
+	 * @return nombre cualificado del elemento
+	 */
 	private String getElementFullyQualifiedName(String element) {
 		RefactoringMechanismType type = RefactoringMechanismType.PRECONDITION;
 		if (title.equals(RefactoringWizardPage3.PRECONDITIONS_TITLE) ||
@@ -633,6 +655,13 @@ public class RepositoryElementComposite {
 		return qualified_name;
 	}
 	
+	/**
+	 * Obtiene el nombre sin cualificar del elemento a partir de su
+	 * nombre cualificado.
+	 * 
+	 * @param element elemento
+	 * @return nombre sin cualificar del elemento
+	 */
 	private String getElementNotQualifiedName(String qualifiedName) {
 		final int SEPARATOR='.';
 		int pos=qualifiedName.lastIndexOf(SEPARATOR);
@@ -1214,6 +1243,11 @@ public class RepositoryElementComposite {
 		}
 		
 		/**
+		 * Recibe notificaciones cuando el elemento observado ha sido seleccionado
+		 * por defecto.
+		 * 
+		 * @param e evento de selección disparado en la interfaz.
+		 * 
 		 * @see SelectionListener#widgetDefaultSelected(SelectionEvent)
 		 */
 		@Override
@@ -1315,6 +1349,11 @@ public class RepositoryElementComposite {
 		}
 		
 		/**
+		 * Recibe notificaciones cuando el elemento observado ha sido seleccionado
+		 * por defecto.
+		 * 
+		 * @param e evento de selección disparado en la interfaz.
+		 * 
 		 * @see SelectionListener#widgetDefaultSelected(SelectionEvent)
 		 */
 		@Override

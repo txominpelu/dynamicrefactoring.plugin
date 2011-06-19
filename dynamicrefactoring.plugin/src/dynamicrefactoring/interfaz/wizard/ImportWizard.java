@@ -260,6 +260,7 @@ public class ImportWizard extends Dialog {
 
 	/**
 	 * Obtiene el tamaño inicial de la ventana de diálogo.
+	 * @return tamaño inicial
 	 */
 	@Override
 	protected Point getInitialSize() {

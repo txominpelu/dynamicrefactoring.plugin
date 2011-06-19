@@ -48,12 +48,29 @@ import dynamicrefactoring.RefactoringConstants;
  */
  public enum EclipseBasedJavadocReader implements JavadocReader {
 
+	 /**
+	  * Instancia.
+	  */
 	INSTANCE;
 
+	/**
+	 * Ruta donde se encuentra la documentación.
+	 */
 	private static final String JAVADOC_PATH = "/doc/javadoc/";
+	
+	/**
+	 * Nombre del proyecto del lector de javadoc.
+	 */
 	public static final String JAVADOC_READER_PROJECT_NAME = "JavadocReaderProject";
+	
+	/**
+	 * Proyecto java.
+	 */
 	private final IJavaProject javaProject;
 
+	/**
+	 * Constructor del lector de ficheros javadoc basado en Eclipse.
+	 */
 	private EclipseBasedJavadocReader() {
 		try {
 			javaProject = createProject();
@@ -67,8 +84,7 @@ import dynamicrefactoring.RefactoringConstants;
 	 * Crea el proyecto del que se obtendran las descripciones de los javadoc.
 	 * 
 	 * @return proyecto a editar
-	 * @throws CoreException
-	 *             problema
+	 * @throws CoreException problema
 	 */
 	private IJavaProject createProject() throws CoreException {
 		IWorkspaceRoot root = ResourcesPlugin.getWorkspace().getRoot();
@@ -90,9 +106,9 @@ import dynamicrefactoring.RefactoringConstants;
 
 	/**
 	 * Establece el classpath del proyecto por defecto. Incluye al menos las
-	 * librerias de la JavaRunTime
+	 * librerias de la JavaRunTime.
 	 * 
-	 * @throws CoreException
+	 * @throws CoreException problema
 	 */
 	private void setUpProjectClassPath() throws CoreException {
 
@@ -140,6 +156,12 @@ import dynamicrefactoring.RefactoringConstants;
 				.toArray(new IClasspathEntry[actualEntries.size()]), null);
 	}
 
+	/**
+	 * Obtiene el javadoc de un tipo en formato html.
+	 * 
+	 * @param typeFullyQualifiedName tipo
+	 * @return html
+	 */
 	@Override
 	public String getTypeJavaDocAsHtml(String typeFullyQualifiedName) {
 		Preconditions.checkArgument(hasType(typeFullyQualifiedName));
@@ -152,11 +174,25 @@ import dynamicrefactoring.RefactoringConstants;
 		}
 	}
 
+	/**
+	 * Obtiene el javadoc de un tipo en formato texto plano.
+	 * 
+	 * @param typeFullyQualifiedName tipo
+	 * @return texto plano
+	 */
 	@Override
 	public String getTypeJavaDocAsPlainText(String typeFullyQualifiedName) {
 		return html2text(getTypeJavaDocAsHtml(typeFullyQualifiedName));
 	}
 
+	/**
+	 * Indica si el proyecto java contiene en nombre cualificado indicado.
+	 * 
+	 * @param typeFullyQualifiedName nombre cualificado
+	 * 
+	 * @return verdadero si le ha encontrado,
+	 *         falso en caso contrario
+	 */
 	@Override
 	public boolean hasType(String typeFullyQualifiedName) {
 		try {

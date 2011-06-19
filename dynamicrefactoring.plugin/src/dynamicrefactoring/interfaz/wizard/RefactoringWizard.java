@@ -132,7 +132,7 @@ public class RefactoringWizard extends Wizard implements INewWizard {
 	private RefactoringWizardPage7 pageG;
 
 	/**
-	 * 
+	 * Catálogo de refactorizaciones.
 	 */
 	protected RefactoringsCatalog refactCatalog;
 	
@@ -146,6 +146,7 @@ public class RefactoringWizard extends Wizard implements INewWizard {
 	 * 
 	 * @param refactoring
 	 *            refactorización que se desea editar o <code>null
+	 * @param catalog catálogo de refactorizaciones
 	 * </code> si se desea crear una nueva.
 	 */
 	public RefactoringWizard(DynamicRefactoringDefinition refactoring, RefactoringsCatalog catalog) {
@@ -246,6 +247,8 @@ public class RefactoringWizard extends Wizard implements INewWizard {
 	 * Método de inicialización.
 	 * 
 	 * @see IWorkbenchWizard#init(IWorkbench, IStructuredSelection)
+	 * @param workbench workbench
+	 * @param selection selección
 	 */
 	@Override
 	public void init(IWorkbench workbench, IStructuredSelection selection) {
@@ -275,6 +278,7 @@ public class RefactoringWizard extends Wizard implements INewWizard {
 	/**
 	 * Crea y configura la nueva refactorización personalizada a partir de los
 	 * datos introducidos por el usuario en las páginas del asistente.
+	 * @return builder
 	 */
 	private DynamicRefactoringDefinition.Builder configureRefactoring() {
 		DynamicRefactoringDefinition.Builder builder = new DynamicRefactoringDefinition.Builder(
@@ -298,7 +302,7 @@ public class RefactoringWizard extends Wizard implements INewWizard {
 	 * Copia los ficheros asociados a una refactorización al directorio
 	 * seleccionado y escribe el fichero con la refactorización creada.
 	 * 
-	 * @param resultingRefactoringDefinition
+	 * @param builder builder
 	 * 
 	 * @throws IOException
 	 *             si se produce un error de lectura / escritura durante el

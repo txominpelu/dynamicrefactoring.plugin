@@ -107,6 +107,9 @@ public class RefactoringWizardPage6 extends WizardPage {
 	 */
 	private String lastSelectionPath = null;
 
+	/**
+	 * Model.
+	 */
 	private RefactoringExampleModel model;
 
 	/**
@@ -474,6 +477,11 @@ public class RefactoringWizardPage6 extends WizardPage {
 		}
 
 		/**
+		 * Recibe notificaciones cuando el elemento observado ha sido seleccionado
+		 * por defecto.
+		 * 
+		 * @param e evento de selección disparado en la interfaz.
+		 * 
 		 * @see SelectionListener#widgetDefaultSelected(SelectionEvent)
 		 */
 		@Override
@@ -489,6 +497,9 @@ public class RefactoringWizardPage6 extends WizardPage {
 		private String afterExample2;
 
 		/**
+		 * 
+		 * @see #getBeforeExample1
+		 * 
 		 * @param beforeExample1
 		 *            the beforeExample1 to set
 		 */

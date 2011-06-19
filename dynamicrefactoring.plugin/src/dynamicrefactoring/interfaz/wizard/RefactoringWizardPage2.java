@@ -224,10 +224,31 @@ public class RefactoringWizardPage2 extends WizardPage {
 	 */
 	private Button bDefault;
 
+	/**
+	 * Toolkit.
+	 */
 	private FormToolkit toolkit;
+	
+	/**
+	 * Contenedor form.
+	 */
 	private ScrolledForm form;
+	
+	/**
+	 * Etiqueta de descripción.
+	 */
 	private Label descriptionFormLabel;
+	
+	/**
+	 * Contenedor expandible para las refactorizaciones 
+	 * que contienen la entrada seleccionada.
+	 */
 	private ExpandableComposite refExpandableComp;
+	
+	/**
+	 * Contenedor expandible para las refactorizaciones 
+	 * que contienen la entrada seleccionada como entrada principal.
+	 */
 	private ExpandableComposite refMainExpandableComp;
 
 	/**
@@ -1195,7 +1216,9 @@ public class RefactoringWizardPage2 extends WizardPage {
 		}
 
 		/**
-		 * @see SelectionListener#widgetDefaultSelected(SelectionEvent)
+		 * Comportamiento ante el evento de selección por defecto.
+		 * 
+		 * @param e evento de selección.
 		 */
 		public void widgetDefaultSelected(SelectionEvent e) {
 			widgetSelected(e);
@@ -1236,7 +1259,9 @@ public class RefactoringWizardPage2 extends WizardPage {
 		}
 
 		/**
-		 * @see SelectionListener#widgetDefaultSelected(SelectionEvent)
+		 * Comportamiento ante el evento de selección por defecto.
+		 * 
+		 * @param e evento de selección.
 		 */
 		public void widgetDefaultSelected(SelectionEvent e) {
 			widgetSelected(e);
@@ -1373,7 +1398,9 @@ public class RefactoringWizardPage2 extends WizardPage {
 		}
 
 		/**
-		 * @see SelectionListener#widgetDefaultSelected(SelectionEvent)
+		 * Comportamiento ante el evento de selección por defecto.
+		 * 
+		 * @param e evento de selección.
 		 */
 		public void widgetDefaultSelected(SelectionEvent e) {
 			widgetSelected(e);

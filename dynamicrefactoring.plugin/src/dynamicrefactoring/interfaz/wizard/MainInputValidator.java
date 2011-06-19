@@ -177,6 +177,12 @@ public class MainInputValidator {
 		}
 	}
 	
+	/**
+	 * El nombre de un tipo lo convierte a una categoría scope.
+	 * 
+	 * @param typeName nombre de tipo
+	 * @return categoría
+	 */
 	public String convertScopeCategory(String typeName) {
 		try {
 			Class<?> mainClass = Class.forName(typeName);

@@ -42,23 +42,31 @@ import dynamicrefactoring.domain.metadata.interfaces.Classification;
  */
  public final class PickCategoryTree {
 
+	/**
+	 * Árbol de categorias de clasificaciones.
+	 */
 	private final CheckboxTreeViewer tv;
+	
+	/**
+	 * Clasificaciones disponibles.
+	 */
 	private final Set<Classification> availableClassifications;
 
+	/**
+	 * Listener de cambios en la selección del árbol de categorías.
+	 */
 	private ICheckStateListener checkStateListener;
 	
 	/**
-	 * Crea el arbol que permite escoger las categoriías a las que pertenece la
+	 * Crea el arbol que permite escoger las categorías a las que pertenece la
 	 * refactorizacion.
 	 * 
 	 * @param parent
 	 *            elemento de la GUI en la que se incrustara el arbol
 	 * @param availableClassifications
 	 *            conjunto de clasificaciones existentes
-	 * @param refact
-	 *            refactorizacion sobre la que se va a crear el arbol. Si la
-	 *            refactorizacion ya pertenece a alguna categoria esas
-	 *            apareceran marcadas en el arbol
+	 * @param categories
+	 *            conjunto de categorías
 	 */
 	public PickCategoryTree(Composite parent,
 			Set<Classification> availableClassifications,
@@ -76,10 +84,8 @@ import dynamicrefactoring.domain.metadata.interfaces.Classification;
 	 *            elemento de la GUI en la que se incrustara el arbol
 	 * @param availableClassifications
 	 *            conjunto de clasificaciones existentes
-	 * @param refact
-	 *            refactorizacion sobre la que se va a crear el arbol. Si la
-	 *            refactorizacion ya pertenece a alguna categoria esas
-	 *            apareceran marcadas en el arbol
+	 * @param categories
+	 *            conjunto de categorías
 	 * @param checkStateListener
 	 *            gestionara los eventos del arbol
 	 */
@@ -131,7 +137,8 @@ import dynamicrefactoring.domain.metadata.interfaces.Classification;
 	 * 
 	 * @param availableClassifications2 clasificaciones disponibles
 	 * @param category categoria
-	 * @return
+	 * @return verdadero si la categoría pertenece,
+	 *  	   falseo en caso contrario.
 	 */
 	private boolean notCategoryExistInAvailableClassifications(
 			Set<Classification> availableClassifications2, final Category category) {
@@ -194,8 +201,6 @@ import dynamicrefactoring.domain.metadata.interfaces.Classification;
 	 * Obtiene las categorias que han sido marcadas en el arbol y a las que por
 	 * tanto la refactorización pertenecerá.
 	 * 
-	 * @param checkedElements
-	 *            elementos marcados en el arbol
 	 * @return categorias a las que la refactorizacion pertenece
 	 */
 	public Set<Category> getRefactoringCategories() {
@@ -270,7 +275,12 @@ import dynamicrefactoring.domain.metadata.interfaces.Classification;
 		return elemento instanceof Category;
 	}
 
-
+	/**
+	 * Proveedor de etiquets para los elementos del árbol.
+	 * 
+	 * @author <A HREF="mailto:ims0011@alu.ubu.es">Iñigo Mediavilla Saiz</A>
+	 * @author <A HREF="mailto:mgs0110@alu.ubu.es">Míryam Gómez San Martín</A>
+	 */
 	private static class PickCategoryTreeLabelProvider extends LabelProvider
 	implements ILabelProvider {
 

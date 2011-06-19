@@ -38,7 +38,7 @@ import com.google.common.base.Preconditions;
 	 * 
 	 * y devuelve el nombre sin el numero:
 	 * 
-	 * NotExistClassWithName
+	 * NotExistClassWithName.
 	 * 
 	 * @param mechanismList lista de nombres de mecanismos a transformar
 	 * @return lista de nombres de mecanismos transformada
@@ -58,7 +58,7 @@ import com.google.common.base.Preconditions;
 	 * 
 	 * y devuelve el nombre sin el numero:
 	 * 
-	 * NotExistClassWithName
+	 * NotExistClassWithName.
 	 * 
 	 * @param preconditionWithNumber
 	 *            precondicion con formato nombre(numero)

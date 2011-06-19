@@ -41,8 +41,8 @@ public class DynamicRefactoringWindowLauncher {
 	 * @param currentObject
 	 *            objeto que constituye la entrada principal a la
 	 *            refactorización.
-	 * @param refactoringName
-	 *            nombre de la refactorización dinámica seleccionada.
+	 * @param refactoring definición de la refactorización dinámica 
+	 *        seleccionada.
 	 */
 	public DynamicRefactoringWindowLauncher(ObjectMoon currentObject,
 			DynamicRefactoringDefinition refactoring) {

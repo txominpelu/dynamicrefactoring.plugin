@@ -47,6 +47,9 @@ import dynamicrefactoring.domain.metadata.interfaces.ClassificationsCatalog;
  */
  public final class CategoriesSection {
 
+	/**
+	 * Constante que representa la cadena vacia.
+	 */
 	private static final String EMPTY_STRING = "";
 	
 	/**
@@ -59,6 +62,9 @@ import dynamicrefactoring.domain.metadata.interfaces.ClassificationsCatalog;
 	 */
 	private ClassificationsCatalog catalog;
 
+	/**
+	 * Tabla con las categorias disponibles.
+	 */
 	private Table tbCategories;
 
 	/**
@@ -66,10 +72,19 @@ import dynamicrefactoring.domain.metadata.interfaces.ClassificationsCatalog;
 	 */
 	private NotCategoryAlreadyExistsValidator inputValidator;
 
+	/**
+	 * Botón añadir.
+	 */
 	private Button btAdd;
 
+	/**
+	 * Botón eliminar.
+	 */
 	private Button btDelete;
 
+	/**
+	 * Botón renombrar.
+	 */
 	private Button btRename;
 
 	/**
@@ -88,6 +103,12 @@ import dynamicrefactoring.domain.metadata.interfaces.ClassificationsCatalog;
 
 	}
 
+	/**
+	 * Crea la sección de categorías.
+	 * 
+	 * @param toolkit toolkit
+	 * @param form contenedor form
+	 */
 	protected void createCategoriesSection(FormToolkit toolkit,
 			final ScrolledForm form) {
 		final Section section = toolkit.createSection(form.getBody(),
@@ -160,8 +181,8 @@ import dynamicrefactoring.domain.metadata.interfaces.ClassificationsCatalog;
 	/**
 	 * Cambia el nombre de una categoría dentro de la clasificacion.
 	 * 
-	 * @param oldName
-	 * @param newName
+	 * @param oldName nombre viejo
+	 * @param newName nombre nuevo
 	 */
 	public void renameCategory(String oldName, String newName) {
 		catalog.renameCategory(classification, oldName, newName);
@@ -169,6 +190,8 @@ import dynamicrefactoring.domain.metadata.interfaces.ClassificationsCatalog;
 
 	/**
 	 * Obtiene la clasificacion que se esta editando en la interfaz.
+	 * 
+	 * @see #setClassification
 	 * 
 	 * @return clasificacion en edicion
 	 */
@@ -202,6 +225,8 @@ import dynamicrefactoring.domain.metadata.interfaces.ClassificationsCatalog;
 	/**
 	 * Cambia la clasificacion que el editor esta editando.
 	 * 
+	 * @see #getClassification
+	 * 
 	 * @param classification
 	 *            nueva clasificacion a editar
 	 */
@@ -210,8 +235,20 @@ import dynamicrefactoring.domain.metadata.interfaces.ClassificationsCatalog;
 		updateUI();
 	}
 
+	/**
+	 * Comportamiento para el borrado de categorías.
+	 * 
+	 * @author <A HREF="mailto:ims0011@alu.ubu.es">Iñigo Mediavilla Saiz</A>
+	 * @author <A HREF="mailto:mgs0110@alu.ubu.es">Míryam Gómez San Martín</A>
+	 *
+	 */
 	private class ButtonDeleteListener extends SelectionAdapter {
 
+		/**
+		 * Comportamiento cuando se produce la acción de selección.
+		 * 
+		 * @param e evento de selección
+		 */
 		@Override
 		public void widgetSelected(SelectionEvent e) {
 			if (tbCategories.getSelectionCount() > 0) {
@@ -231,8 +268,20 @@ import dynamicrefactoring.domain.metadata.interfaces.ClassificationsCatalog;
 		}
 	}
 
+	/**
+	 * Comportamiento para la adición de categorías.
+	 * 
+	 * @author <A HREF="mailto:ims0011@alu.ubu.es">Iñigo Mediavilla Saiz</A>
+	 * @author <A HREF="mailto:mgs0110@alu.ubu.es">Míryam Gómez San Martín</A>
+	 *
+	 */
 	private class ButtonAddListener extends SelectionAdapter {
 
+		/**
+		 * Comportamiento cuando se produce la acción de selección.
+		 * 
+		 * @param e evento de selección
+		 */
 		@Override
 		public void widgetSelected(SelectionEvent e) {
 			InputDialog dialog = new InputDialog(tbCategories.getShell(),
@@ -248,10 +297,20 @@ import dynamicrefactoring.domain.metadata.interfaces.ClassificationsCatalog;
 		}
 	}
 
+	/**
+	 * Comportamiento para el renombrado de categorías.
+	 * 
+	 * @author <A HREF="mailto:ims0011@alu.ubu.es">Iñigo Mediavilla Saiz</A>
+	 * @author <A HREF="mailto:mgs0110@alu.ubu.es">Míryam Gómez San Martín</A>
+	 *
+	 */
 	private class ButtonRenameListener extends SelectionAdapter {
 
-
-
+		/**
+		 * Comportamiento cuando se produce la acción de selección.
+		 * 
+		 * @param e evento de selección
+		 */
 		@Override
 		public void widgetSelected(SelectionEvent e) {
 			final String oldName = tbCategories.getSelection()[0].getText();
@@ -268,8 +327,22 @@ import dynamicrefactoring.domain.metadata.interfaces.ClassificationsCatalog;
 		}
 	}
 
+	/**
+	 * Validador que controla que no exista ya una categoría con el mismo nombre.
+	 * 
+	 * @author <A HREF="mailto:ims0011@alu.ubu.es">Iñigo Mediavilla Saiz</A>
+	 * @author <A HREF="mailto:mgs0110@alu.ubu.es">Míryam Gómez San Martín</A>
+	 *
+	 */
 	private class NotCategoryAlreadyExistsValidator implements IInputValidator {
 
+		/**
+		 * Valida si existe ya una categoría con ese nombre.
+		 * 
+		 * @param newText nombre de la categoría a validar
+		 * 
+		 * @return si ya existe una categoría con ese nombre indica el texto de error.
+		 */
 		@Override
 		public String isValid(String newText) {
 			if (catalog.getClassification(classification).getCategories()

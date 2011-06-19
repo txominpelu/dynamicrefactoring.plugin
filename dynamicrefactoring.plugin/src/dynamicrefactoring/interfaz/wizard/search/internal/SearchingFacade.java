@@ -35,6 +35,9 @@ import dynamicrefactoring.util.PluginStringUtils;
  */
  public enum SearchingFacade {
 
+	 /**
+	  * Instancia.
+	  */
 	INSTANCE;
 
 	/**
@@ -45,6 +48,9 @@ import dynamicrefactoring.util.PluginStringUtils;
 	 * 
 	 */
 	public enum SearchableType {
+		/**
+		 * Predicados.
+		 */
 		PREDICATE {
 			@Override
 			Set<String> getClassesToIndex() {
@@ -54,6 +60,9 @@ import dynamicrefactoring.util.PluginStringUtils;
 			}
 		
 		},
+		/**
+		 * Acciones.
+		 */
 		ACTION {
 			@Override
 			Set<String> getClassesToIndex() {
@@ -64,6 +73,9 @@ import dynamicrefactoring.util.PluginStringUtils;
 			}
 
 		},
+		/**
+		 * Entradas.
+		 */
 		INPUT {
 			@Override
 			Set<String> getClassesToIndex() {
@@ -94,7 +106,14 @@ import dynamicrefactoring.util.PluginStringUtils;
 		abstract Set<String> getClassesToIndex();
 	}
 
+	/**
+	 * Indexador de clases y sus descripciones en Javadoc.
+	 */
 	private SearchableTypeIndexer indexer;
+	
+	/**
+	 * Elemento encargado de realizar las busquedas.
+	 */
 	private SimpleElementSearcher searcher;
 
 	/**
@@ -107,7 +126,7 @@ import dynamicrefactoring.util.PluginStringUtils;
 
 	/**
 	 * Genera los indices para todos los tipos de elementos que pueden ser
-	 * buscados es decir para todos los elementos de {@link SearchableType}
+	 * buscados es decir para todos los elementos de {@link SearchableType}.
 	 * 
 	 * @throws IOException
 	 */

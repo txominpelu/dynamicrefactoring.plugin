@@ -114,7 +114,7 @@ public abstract class SelectDynamicRefactoringWindow extends DynamicRefactoringL
 	 * Crea la ventana de diálogo.
 	 * 
 	 * @param parentShell la <i>shell</i> padre de esta ventana de diálogo.
-	 * @param refactCatalog 
+	 * @param refactCatalog catalogo de refactorizaciones
 	 */
 	public SelectDynamicRefactoringWindow(Shell parentShell, RefactoringsCatalog refactCatalog) {
 		super(parentShell, refactCatalog);
@@ -453,7 +453,11 @@ public abstract class SelectDynamicRefactoringWindow extends DynamicRefactoringL
 		}
 		
 		/**
+		 * Comportamiento para la selección por defecto.
+		 * 
 		 * @see SelectionListener#widgetDefaultSelected(SelectionEvent)
+		 * 
+		 * @param e evento de selección.
 		 */
 		@Override
 		public void widgetDefaultSelected(SelectionEvent e) {

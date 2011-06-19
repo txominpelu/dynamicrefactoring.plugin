@@ -53,21 +53,43 @@ import dynamicrefactoring.domain.metadata.interfaces.ClassificationsCatalog;
  public final class ClassificationDataSection {
 
 	/**
-	 * Numero de lineas de altura del campo de texto de descripcion
+	 * Numero de lineas de altura del campo de texto de descripcion.
 	 */
 	private static final int TEXT_DESCRIPTION_NUMLINE_HEIGHT = 3;
+	
+	/**
+	 * Número de columanas de la sección.
+	 */
 	private static final int SECTION_NUM_COLUMNS = 3;
+	
 	/**
 	 * Catalogo de clasificaciones y categorias.
 	 */
 	private ClassificationsCatalog catalog;
+	
 	/**
-	 * Nombre de la clasificacion en edicion.
+	 * Clasificacion en edición.
 	 */
 	private String classification;
+	
+	/**
+	 * Botón donde se indica si la clasificación es uni o multicategoría.
+	 */
 	private Button chkMulti;
+	
+	/**
+	 * Texto para el nombre de la clasificación.
+	 */
 	private Text txtName;
+	
+	/**
+	 * Texto para la descripción de la clasificación.
+	 */
 	private Text txtDescription;
+	
+	/**
+	 * Botón que permite la modificación de la clasificación seleccionada.
+	 */
 	private Button btMofifyDescription;
 
 	/**
@@ -75,6 +97,7 @@ import dynamicrefactoring.domain.metadata.interfaces.ClassificationsCatalog;
 	 * 
 	 * @param catalog
 	 *            catalogo de clasificaciones
+	 * @param classification clasificación en edición
 	 */
 	public ClassificationDataSection(ClassificationsCatalog catalog,
 			String classification) {
@@ -83,6 +106,12 @@ import dynamicrefactoring.domain.metadata.interfaces.ClassificationsCatalog;
 
 	}
 
+	/**
+	 * Crea la sección destinada a la clasificación en edición.
+	 * 
+	 * @param toolkit toolkit
+	 * @param form contenedor form
+	 */
 	protected void createSelectedClassificationDataSection(FormToolkit toolkit,
 			final ScrolledForm form) {
 		final Section section = toolkit.createSection(form.getBody(),
@@ -152,8 +181,7 @@ import dynamicrefactoring.domain.metadata.interfaces.ClassificationsCatalog;
 	/**
 	 * Asigna la clasificacion a mostrar y editar en la seccion.
 	 * 
-	 * @param classification
-	 *            clasificacion
+	 * @param classification clasificación
 	 */
 	protected void setClassification(String classification) {
 		this.classification = classification;
@@ -168,8 +196,20 @@ import dynamicrefactoring.domain.metadata.interfaces.ClassificationsCatalog;
 
 	}
 
+	/**
+	 * Comportamiento para la modificación de la descripción de la clasificación.
+	 * 
+	 * @author <A HREF="mailto:ims0011@alu.ubu.es">Iñigo Mediavilla Saiz</A>
+	 * @author <A HREF="mailto:mgs0110@alu.ubu.es">Míryam Gómez San Martín</A>
+	 *
+	 */
 	private class ButtonModifyDescriptionListener extends SelectionAdapter {
 
+		/**
+		 * Comportamiento cuando se produce la acción de selección.
+		 * 
+		 * @param e evento de selección
+		 */
 		@Override
 		public void widgetSelected(SelectionEvent e) {
 			InputDialog dialog = new InputDialog(chkMulti.getShell(),
@@ -185,8 +225,21 @@ import dynamicrefactoring.domain.metadata.interfaces.ClassificationsCatalog;
 		}
 	}
 
+	/**
+	 * Comportamiento para la selección de la propiedad multicategoría
+	 * de la clasificación.
+	 * 
+	 * @author <A HREF="mailto:ims0011@alu.ubu.es">Iñigo Mediavilla Saiz</A>
+	 * @author <A HREF="mailto:mgs0110@alu.ubu.es">Míryam Gómez San Martín</A>
+	 *
+	 */
 	private class ChkMultiCategoryListener extends SelectionAdapter {
 
+		/**
+		 * Comportamiento cuando se produce la acción de selección.
+		 * 
+		 * @param e evento de selección
+		 */
 		@Override
 		public void widgetSelected(SelectionEvent e) {
 			if (!chkMulti.getSelection()

@@ -55,6 +55,7 @@ public class SelectForDeletingWindow extends SelectDynamicRefactoringWindow {
 	 * 
 	 * @param parentShell
 	 *            la <i>shell</i> padre de esta ventana de diálogo.
+	 * @param refactCatalog catalogo de refactorizaciones
 	 */
 	public SelectForDeletingWindow(Shell parentShell,
 			RefactoringsCatalog refactCatalog) {

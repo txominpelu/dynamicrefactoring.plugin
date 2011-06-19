@@ -88,6 +88,9 @@ public class AvailableRefactoringView extends ViewPart {
 	 */
 	private Tree tr_Refactorings;
 
+	/**
+	 * Catálogo de refactorizaciones.
+	 */
 	private RefactoringsCatalog refactCatalog;
 
 	/**
@@ -304,12 +307,18 @@ public class AvailableRefactoringView extends ViewPart {
 		}
 
 		/**
+		 * Comportamiento cuando el ratón es presionado.
+		 * 
+		 * @param e el evento de selección disparado en la ventana.
 		 * @see MouseListener#mouseDown(MouseEvent)
 		 */
 		public void mouseDown(MouseEvent e) {
 		}
 
 		/**
+		 * Comportamiento cuando el ratón es soltado.
+		 * 
+		 * @param e el evento de selección disparado en la ventana.
 		 * @see MouseListener#mouseUp(MouseEvent)
 		 */
 		public void mouseUp(MouseEvent e) {

@@ -293,6 +293,8 @@ import dynamicrefactoring.interfaz.ButtonTextProvider;
 
 	/**
 	 * Prepara la <i>shell</i> para su apertura.
+	 * 
+	 * @param newShell nueva shell
 	 */
 	protected void configureShell(Shell newShell) {
 		super.configureShell(newShell);

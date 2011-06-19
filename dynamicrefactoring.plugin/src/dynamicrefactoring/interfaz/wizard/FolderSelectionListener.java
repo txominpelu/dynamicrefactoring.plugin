@@ -91,7 +91,9 @@ public class FolderSelectionListener implements SelectionListener {
 	}
 	
 	/**
-	 * @see SelectionListener#widgetDefaultSelected(SelectionEvent)
+	 * Comportamiento ante el evento de selección por defecto.
+	 * 
+	 * @param e evento de selección.
 	 */
 	@Override
 	public void widgetDefaultSelected(SelectionEvent e) {

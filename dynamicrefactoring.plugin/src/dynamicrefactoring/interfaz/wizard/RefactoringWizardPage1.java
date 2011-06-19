@@ -85,14 +85,29 @@ import dynamicrefactoring.util.io.filter.ImageFilter;
  */
 public final class RefactoringWizardPage1 extends WizardPage {
 
+	/**
+	 * Ancho para el texto multilinea.
+	 */
 	private static final int MULTILINE_TEXT_WIDTH_HINT = 450;
 
+	/**
+	 * Número de líneas para el texto multilínea.
+	 */
 	private static final int MULTILINE_TEXT_NUM_LINES = 4;
 
+	/**
+	 * Altura de la ventana.
+	 */
 	private static final int WINDOW_HEIGHT = 800;
 
+	/**
+	 * Espaciado vertical para la página.
+	 */
 	private static final int PAGE_VERTICAL_SPACING = 10;
 
+	/**
+	 * Anchura de la ventana.
+	 */
 	private static final int WINDOW_WIDTH = 650;
 
 	/**
@@ -247,14 +262,33 @@ public final class RefactoringWizardPage1 extends WizardPage {
 
 	}
 
+	/**
+	 * Propiedad change support.
+	 */
 	private PropertyChangeSupport changeSupport = new PropertyChangeSupport(
 			this);
 
+	/**
+	 * Añade una propiedad.
+	 * 
+	 * @see #removePropertyChangeListener
+	 * 
+	 * @param propertyName nombre de la propiedad
+	 * @param listener listener
+	 */
 	public void addPropertyChangeListener(String propertyName,
 			PropertyChangeListener listener) {
 		changeSupport.addPropertyChangeListener(propertyName, listener);
 	}
 
+	/**
+	 * Elimina una propiedad.
+	 * 
+	 * @see #addPropertyChangeListener
+	 * 
+	 * @param propertyName nombre de la propiedad
+	 * @param listener listener
+	 */
 	public void removePropertyChangeListener(String propertyName,
 			PropertyChangeListener listener) {
 		changeSupport.removePropertyChangeListener(propertyName, listener);
@@ -589,7 +623,9 @@ public final class RefactoringWizardPage1 extends WizardPage {
 		}
 
 		/**
-		 * @see SelectionListener#widgetDefaultSelected(SelectionEvent)
+		 * Comportamiento ante el evento de selección por defecto.
+		 * 
+		 * @param e evento de selección.
 		 */
 		@Override
 		public void widgetDefaultSelected(SelectionEvent e) {
@@ -597,12 +633,19 @@ public final class RefactoringWizardPage1 extends WizardPage {
 		}
 	}
 
+	/**
+	 * Notifica que la ayuda ha sido requerida en este asistente.
+	 */
 	@Override
 	public void performHelp() {
 		PlatformUI.getWorkbench().getHelpSystem().displayHelp();
 	}
 
 	/**
+	 * Asigna la imagen.
+	 * 
+	 * @see #getRefactoringImage
+	 * 
 	 * @param refactoringImage
 	 *            the refactoringImage to set
 	 */
@@ -611,6 +654,10 @@ public final class RefactoringWizardPage1 extends WizardPage {
 	}
 
 	/**
+	 * Obtiene la imagen.
+	 * 
+	 * @see #setRefactoringImage
+	 * 
 	 * @return the refactoringImage
 	 */
 	public String getRefactoringImage() {

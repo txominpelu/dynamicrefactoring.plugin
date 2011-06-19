@@ -181,7 +181,7 @@ public final class RefactoringWizardPage3 extends WizardPage implements
 	 * 
 	 * y devuelve el nombre sin el numero:
 	 * 
-	 * NotExistClassWithName
+	 * NotExistClassWithName.
 	 * 
 	 * @param preconditionWithNumber
 	 *            precondicion con formato nombre(numero)

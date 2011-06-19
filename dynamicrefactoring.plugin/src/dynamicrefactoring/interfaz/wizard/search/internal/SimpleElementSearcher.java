@@ -41,6 +41,9 @@ import dynamicrefactoring.interfaz.wizard.search.internal.SearchingFacade.Search
  */
  enum SimpleElementSearcher {
 
+	 /**
+	  * Intancia.
+	  */
 	INSTANCE;
 
 	/**

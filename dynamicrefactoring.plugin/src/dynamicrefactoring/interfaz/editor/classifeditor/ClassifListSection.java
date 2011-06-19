@@ -60,14 +60,34 @@ import dynamicrefactoring.domain.metadata.interfaces.ClassificationsCatalog;
 	 * Numero de lineas de alto que tendra la tabla de clasificaciones.
 	 */
 	private static final int TABLE_CLASSIF_LINES_HEIGHT = 3;
+	
+	/**
+	 * Constante que representa la cadena vacia.
+	 */
 	private static final String EMPTY_STRING = ""; //$NON-NLS-1$
 	/**
 	 * Tooltip del botón de agregar clasificación.
 	 */
 	public static final String ADD_CLASSIFICATION_BUTTON_TOOLTIP = Messages.ClassifListSection_AddClassification;
+	
+	/**
+	 * Catálogo de clasificaciones.
+	 */
 	private ClassificationsCatalog catalog;
+	
+	/**
+	 * Tabla de clasificaciones.
+	 */
 	private Table tbClassif;
+	
+	/**
+	 * Botón de borrado de clasificaciones.
+	 */
 	private Button btDelete;
+	
+	/**
+	 * Botón de renombrado de clasificaciones.
+	 */
 	private Button btRename;
 
 	/**
@@ -94,6 +114,8 @@ import dynamicrefactoring.domain.metadata.interfaces.ClassificationsCatalog;
 	 *            editor de clasificaciones que sera notificado cuando sea
 	 *            necesario cambiar la clasificacion a editar
 	 * @param classifDataSection
+	 * 			  sección donde se muestran los datos de la clasificación
+	 * 			  seleccionada.
 	 */
 	protected void createClassificationsSection(FormToolkit toolkit,
 			final ScrolledForm form, final CategoriesSection clasifCatEditor,
@@ -196,8 +218,8 @@ import dynamicrefactoring.domain.metadata.interfaces.ClassificationsCatalog;
 	/**
 	 * Renombra una clasificacion existente.
 	 * 
-	 * @param classifName
-	 * @param newClassifName
+	 * @param classifName nombre de la clasificación
+	 * @param newClassifName nuevo nombre de la clasificación
 	 */
 	protected void renameClassification(String classifName,
 			String newClassifName) {
@@ -224,8 +246,20 @@ import dynamicrefactoring.domain.metadata.interfaces.ClassificationsCatalog;
 		catalog.removeClassification(classifName);
 	}
 
+	/**
+	 * Comportamiento para el borrado de la clasificación.
+	 * 
+	 * @author <A HREF="mailto:ims0011@alu.ubu.es">Iñigo Mediavilla Saiz</A>
+	 * @author <A HREF="mailto:mgs0110@alu.ubu.es">Míryam Gómez San Martín</A>
+	 *
+	 */
 	private class ButtonDeleteListener extends SelectionAdapter {
 
+		/**
+		 * Comportamiento cuando se produce la acción de selección.
+		 * 
+		 * @param e evento de selección
+		 */
 		@Override
 		public void widgetSelected(SelectionEvent e) {
 
@@ -247,8 +281,20 @@ import dynamicrefactoring.domain.metadata.interfaces.ClassificationsCatalog;
 		}
 	}
 
+	/**
+	 * Comportamiento para la adición de una clasificación.
+	 * 
+	 * @author <A HREF="mailto:ims0011@alu.ubu.es">Iñigo Mediavilla Saiz</A>
+	 * @author <A HREF="mailto:mgs0110@alu.ubu.es">Míryam Gómez San Martín</A>
+	 *
+	 */
 	private class ButtonAddListener extends SelectionAdapter {
 
+		/**
+		 * Comportamiento cuando se produce la acción de selección.
+		 * 
+		 * @param e evento de selección
+		 */
 		@Override
 		public void widgetSelected(SelectionEvent e) {
 			InputDialog dialog = new InputDialog(tbClassif.getShell(),
@@ -268,8 +314,20 @@ import dynamicrefactoring.domain.metadata.interfaces.ClassificationsCatalog;
 		}
 	}
 
+	/**
+	 * Comportamiento para el renombrado de la clasificación.
+	 * 
+	 * @author <A HREF="mailto:ims0011@alu.ubu.es">Iñigo Mediavilla Saiz</A>
+	 * @author <A HREF="mailto:mgs0110@alu.ubu.es">Míryam Gómez San Martín</A>
+	 *
+	 */
 	private class ButtonRenameListener extends SelectionAdapter {
 
+		/**
+		 * Comportamiento cuando se produce la acción de selección.
+		 * 
+		 * @param e evento de selección
+		 */
 		@Override
 		public void widgetSelected(SelectionEvent e) {
 			final String oldName = tbClassif.getSelection()[0].getText();
@@ -339,9 +397,23 @@ import dynamicrefactoring.domain.metadata.interfaces.ClassificationsCatalog;
 		btRename.setEnabled(classifIsEditable);
 	}
 
+	/**
+	 * Validador que controla que no exista ya una clasificación con el mismo nombre.
+	 * 
+	 * @author <A HREF="mailto:ims0011@alu.ubu.es">Iñigo Mediavilla Saiz</A>
+	 * @author <A HREF="mailto:mgs0110@alu.ubu.es">Míryam Gómez San Martín</A>
+	 *
+	 */
 	private class NotClassificationAlreadyExistsValidator implements
 			IInputValidator {
 
+		/**
+		 * Valida si existe ya una clasificación con ese nombre.
+		 * 
+		 * @param newText nombre de la clasificación a validar
+		 * 
+		 * @return si ya existe una clasificación con ese nombre indica el texto de error.
+		 */
 		@Override
 		public String isValid(String newText) {
 			if (catalog.containsClassification(newText)) {

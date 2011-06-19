@@ -32,18 +32,35 @@ import dynamicrefactoring.domain.metadata.interfaces.Classification;
  */
  class ClassificationsTreeContentProvider implements ITreeContentProvider {
 
+	/**
+	 * Clasificaciones disponibles.
+	 */
 	private Set<Classification> availableClassifications;
 
+	/**
+	 * Libera al proveedor de contenido.
+	 */
 	@Override
 	public void dispose() {
 	}
 
-
+	/**
+	 * Indica que la entrada ha cambiado.
+	 * 
+	 * @param viewer visor
+	 * @param oldInput entrada vieja
+	 * @param newInput nueva entrada
+	 */
 	@Override
 	public void inputChanged(Viewer viewer, Object oldInput, Object newInput) {
 	}
 
-
+	/**
+	 * Devuelve las clasificaciones disponibles para mostrar en el visor.
+	 * 
+	 * @param inputElement elemento entrada
+	 * @return clasificaciones disponibles
+	 */
 	@Override
 	public Object[] getElements(Object inputElement) {
 		Preconditions.checkArgument(inputElement instanceof Set<?>);
@@ -55,6 +72,12 @@ import dynamicrefactoring.domain.metadata.interfaces.Classification;
 
 	}
 
+	/**
+	 * Devuelve los elementos hijos del elemento padre indicado.
+	 * 
+	 * @param parentElement padre
+	 * @return elementos hijos
+	 */
 	@Override
 	public Object[] getChildren(Object parentElement) {
 		if (hasChildren(parentElement)) {
@@ -64,11 +87,26 @@ import dynamicrefactoring.domain.metadata.interfaces.Classification;
 		return null;
 	}
 
+	/**
+	 * Obtiene el padre del elemento indicado.
+	 * 
+	 * @param element elemento 
+	 * 
+	 * @return elemento padre
+	 */
 	@Override
 	public Object getParent(Object element) {
 		return PickCategoryTree.getParent(element, availableClassifications);
 	}
 
+	/**
+	 * Indica si el elemento indicado tiene hijos.
+	 * 
+	 * @param element elemento 
+	 * 
+	 * @return verdadero en caso de que el elemento padre
+	 *         tenga hijos, en caso contrario falso.
+	 */
 	@Override
 	public boolean hasChildren(Object element) {
 		return PickCategoryTree.isParentElement(element);

@@ -234,6 +234,8 @@ public class DynamicExamplesTab {
 	/**
 	 * Copia los ficheros des ejemplo modificando su nombre para darles
 	 * otra extension.
+	 * 
+	 * @param toExtension extensión
 	 */
 	private void copyExampleFilesWithOtherExtension( String toExtension) {
 		for (RefactoringExample ejemplo : refactoringDefinition.getExamplesAbsolutePath()) {
