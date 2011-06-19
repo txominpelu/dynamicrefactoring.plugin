@@ -21,7 +21,6 @@ import dynamicrefactoring.domain.DynamicRefactoringDefinition;
 /**
  * Filtro para que únicamente las refactorizaciones del
  * usuario sean visibles en la lista de refactorizaciones.
- * @author XPMUser
  *
  * @author <A HREF="mailto:ims0011@alu.ubu.es">Iñigo Mediavilla Saiz</A>
  * @author <A HREF="mailto:mgs0110@alu.ubu.es">Míryam Gómez San Martín</A>

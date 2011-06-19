@@ -326,7 +326,8 @@ import dynamicrefactoring.interfaz.ButtonTextProvider;
 	   * operaciones disponibles a realizar de acuerdo a si 
 	   * este recibe o pierde el foco.
 	   * 
-	   * @author XPMUser
+	   * @author <A HREF="mailto:ims0011@alu.ubu.es">Iñigo Mediavilla Saiz</A>
+	   * @author <A HREF="mailto:mgs0110@alu.ubu.es">Míryam Gómez San Martín</A>
 	   *
 	   */
 	  private class StyledTextFocusListener implements FocusListener{
@@ -414,7 +415,8 @@ import dynamicrefactoring.interfaz.ButtonTextProvider;
 	   * Actualiza la acción de copiado de texto cuando se modifica 
 	   * la selección del texto del visor de texto.
 	   * 
-	   * @author XPMUser
+	   * @author <A HREF="mailto:ims0011@alu.ubu.es">Iñigo Mediavilla Saiz</A>
+	   * @author <A HREF="mailto:mgs0110@alu.ubu.es">Míryam Gómez San Martín</A>
 	   *
 	   */
 	  private class SourceViewerSelectionChangedListener implements ISelectionChangedListener{
