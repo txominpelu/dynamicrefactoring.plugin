@@ -175,7 +175,6 @@ public class ScopeLimitedLister {
 	 *         #scope.
 	 */
 	private static String convertScope(Scope scope) {
-		// FIXME: Sustituir por nombre de enum SelectRefactoringWindow.SCOPE
 		switch (scope) {
 		case ATTRIBUTE:
 			return ATTRIBUTE_SCOPE;
@@ -236,7 +235,6 @@ public class ScopeLimitedLister {
 			logger.error(Messages.ScopeLimitedLister_ErrorLoading + ".\n"
 					+ exception.getMessage());
 		}
-		// FIXME: ELiminar null
 		return null;
 	}
 }

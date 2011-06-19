@@ -25,7 +25,6 @@ import java.io.File;
 import javamoon.core.JavaFile;
 import javamoon.core.JavaModel;
 import javamoon.core.JavaName;
-import javamoon.core.JavaPackageReference;
 import javamoon.core.classdef.JavaClassDef;
 import moon.core.Name;
 import moon.core.classdef.ClassDef;

@@ -4,11 +4,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
-import javamoon.core.expression.JavaCallExpr;
-import javamoon.core.expression.operation.JavaOperationInfix;
-import javamoon.core.expression.operation.JavaOperationPostfix;
 import javamoon.core.instruction.JavaFalseAssignmentInstr;
-
 import moon.core.classdef.AttDec;
 import moon.core.classdef.FormalArgument;
 import moon.core.classdef.LocalDec;
@@ -17,9 +13,7 @@ import moon.core.entity.Entity;
 import moon.core.expression.CallExpr;
 import moon.core.expression.Expr;
 import moon.core.instruction.AssignmentInstr;
-import moon.core.instruction.CallInstr;
 import moon.core.instruction.CompoundInstr;
-import moon.core.instruction.CreationInstr;
 import moon.core.instruction.Instr;
 import refactoring.engine.Function;
 
@@ -98,7 +92,6 @@ public class EntitiesAssignedToEntity extends Function {
 	 */
 	@Override
 	public Object getValue() {
-		// TODO Auto-generated method stub
 		return null;
 	}
 
@@ -122,7 +115,7 @@ public class EntitiesAssignedToEntity extends Function {
 	private void visit(Instr instr) {
 
 		if (instr instanceof AssignmentInstr) {
-			if (instr instanceof JavaFalseAssignmentInstr) { // FIXME
+			if (instr instanceof JavaFalseAssignmentInstr) { 
 				return;
 			}
 			Expr exprLeft = ((AssignmentInstr) instr).getLeftSide();

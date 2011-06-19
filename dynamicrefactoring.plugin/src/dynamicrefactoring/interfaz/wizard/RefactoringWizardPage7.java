@@ -174,7 +174,6 @@ public class RefactoringWizardPage7 extends WizardPage {
 		lb_Mechanism.setBounds(397, 0, 237, 13);
 
 		final Label lb_Keywords = new Label(container, SWT.CENTER);
-		// FIXME: Internacionalizar
 		lb_Keywords.setText("Keywords");
 		lb_Keywords.setBounds(new Rectangle(397, 330, 237, 20));
 
@@ -182,7 +181,6 @@ public class RefactoringWizardPage7 extends WizardPage {
 				355, 237, 140));
 
 		final Label lb_Categories = new Label(container, SWT.CENTER);
-		// FIXME: Internacionalizar
 		lb_Categories.setText("Categories");
 		lb_Categories.setBounds(new Rectangle(0, 330, 381, 20));
 		createNotEditableCategoryTree(container,

@@ -21,8 +21,6 @@ import dynamicrefactoring.domain.metadata.interfaces.Element;
  * Crea una condicion para un elemento que comprueba si este elemento contiene
  * un texto.
  * 
- * @author imediava
- * 
  * @param <K>
  *            Elemento
  * 

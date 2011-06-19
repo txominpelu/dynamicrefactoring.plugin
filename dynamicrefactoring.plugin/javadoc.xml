@@ -71,6 +71,9 @@
 		nodeprecatedlist="false" 
 		noindex="false" 
 		nonavbar="false" 
+		encoding="UTF-8"
+		charset="UTF-8"
+		docencoding="UTF-8"
 		notree="false" 
 		encoding="UTF-8"
 		docencoding="UTF-8"
@@ -92,6 +95,7 @@
 <target name="doccheck" depends="init" description="Comprueba la documentación del código fuente java">		
 	<javadoc packagenames="*.*" sourcepath="${src.dir};${test.dir}"
 		destdir="${basedir}\doc\doccheck"
+	    encoding="UTF-8"
 		private="true" 
 		author="true" 
 		verbose="false" 

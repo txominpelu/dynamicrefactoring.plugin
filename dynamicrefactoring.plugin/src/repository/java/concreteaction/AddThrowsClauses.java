@@ -22,7 +22,6 @@ package repository.java.concreteaction;
 
 import java.util.List;
 
-import javamoon.core.classdef.JavaType;
 import javamoon.core.entity.JavaFunctionDec;
 import javamoon.core.entity.JavaRoutineDec;
 import javamoon.core.entity.JavaThrows;

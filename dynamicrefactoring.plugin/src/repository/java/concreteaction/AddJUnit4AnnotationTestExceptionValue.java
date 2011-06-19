@@ -68,7 +68,6 @@ public class AddJUnit4AnnotationTestExceptionValue extends Action {
 					
 					// Create expr MyException.class
 					List<Expr> listExpr = new ArrayList<Expr>();
-					// FIXME
 					 
 					Expr exprAtom = new JavaTypeConstant(exception,(int) jar.getLine(),-1, md.getClassDef());
 					listExpr.add(exprAtom);

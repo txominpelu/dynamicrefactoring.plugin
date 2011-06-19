@@ -495,7 +495,6 @@ public class RepositoryElementComposite {
 			throw Throwables.propagate(e);
 		}
 		
-		//TODO: nuevo
 		Composite formComp;
 		formComp = new Composite(compTop, SWT.BORDER);
 		formComp.setLayout(new FormLayout());
@@ -1261,8 +1260,7 @@ public class RepositoryElementComposite {
 			}catch(IOException excp){
 				throw Throwables.propagate(excp);
 			}
-			
-			//TODO: realizar modificaciones oportunas
+
 			//form
 			form.getParent().setVisible(false);
 			//previamente eleminamos las etiquetas que contienen los desplegables

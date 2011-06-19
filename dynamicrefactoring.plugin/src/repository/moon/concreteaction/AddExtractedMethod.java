@@ -148,7 +148,7 @@ public class AddExtractedMethod extends Action {
 		// Recalculate the new number of lines in the class to put the last {
 		int numberOfInstructions = fragment.getMethDec().getFlattenedInstructions().size();
 		int endOfClass = ((JavaClassDef) classDef).getEndLine();			
-		// FIXME why do we have to *2 size?
+		
 		((JavaClassDef) classDef).setEndLine(endOfClass + numberOfInstructions*2);
 		
 		

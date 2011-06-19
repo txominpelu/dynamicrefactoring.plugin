@@ -31,7 +31,8 @@ import dynamicrefactoring.util.io.FileManager;
 /**
  * Pruebas del catalogo de clasificaciones del plugin.
  * 
- * @author imediava
+ * @author <A HREF="mailto:ims0011@alu.ubu.es">Iñigo Mediavilla Saiz</A>
+ * @author <A HREF="mailto:mgs0110@alu.ubu.es">Míryam Gómez San Martín</A>
  *
  */
 public final class PluginClassificationsCatalogTest {

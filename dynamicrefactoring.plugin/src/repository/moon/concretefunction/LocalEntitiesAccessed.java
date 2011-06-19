@@ -73,7 +73,6 @@ public class LocalEntitiesAccessed extends Function {
 	 */
 	@Override
 	public Object getValue() {
-		// TODO Auto-generated method stub
 		return null;
 	}
 

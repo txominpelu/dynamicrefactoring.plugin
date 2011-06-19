@@ -44,7 +44,11 @@ import dynamicrefactoring.RefactoringConstants;
  */
 public class MOONTypeLister {
 
+	/**
+	 * Constante que indica la extensión de las clases.
+	 */
 	private static final String CLASS_EXTENSION = ".class";
+	
 	/**
 	 * La instancia unica de la clase.
 	 * 

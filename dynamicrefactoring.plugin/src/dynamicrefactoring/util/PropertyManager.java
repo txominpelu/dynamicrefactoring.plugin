@@ -89,10 +89,6 @@ public class PropertyManager {
 			properties.load(in);
 			
 			in.close();
-			//configFile.close();
-			
-			
-
 
 		} catch (Exception e) {
 			String message = Messages.PropertyManager_NotLoaded +

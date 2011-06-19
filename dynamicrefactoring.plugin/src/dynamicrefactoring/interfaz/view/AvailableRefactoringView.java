@@ -198,7 +198,6 @@ public class AvailableRefactoringView extends ViewPart {
 	 *         contrario.
 	 */
 	public boolean saveUnsavedChanges() {
-		// FIXME: Esto no deberia estar aqui es util para muchos
 		IWorkbenchWindow window = PlatformUI.getWorkbench()
 				.getActiveWorkbenchWindow();
 		// Se recogen los editores abiertos con cambios sin guardar.

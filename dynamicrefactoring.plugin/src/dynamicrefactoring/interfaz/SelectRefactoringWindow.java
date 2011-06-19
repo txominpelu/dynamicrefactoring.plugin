@@ -20,13 +20,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.*/
 
 package dynamicrefactoring.interfaz;
 
-import java.io.BufferedWriter;
-import java.io.FileWriter;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
-import java.util.Map.Entry;
 import java.util.Vector;
 
 import moon.core.ObjectMoon;
@@ -140,23 +136,6 @@ public class SelectRefactoringWindow extends Dialog {
 		
 		dynamicRefactorings = 
 			ScopeLimitedLister.getAvailableRefactorings(scope);
-		
-		try {
-			BufferedWriter outputStream = new BufferedWriter(new FileWriter("/home/imediava/Escritorio/PruebasProgramacion/addCategories-Refactorings/classifiedbyscope.txt"));
-			for(Scope sc: Scope.values()){
-				outputStream.write("#" + sc.toString() + "\n");
-				for(Entry<String, String>  refactEntry: ScopeLimitedLister.getAvailableRefactorings(sc).entrySet()){
-					outputStream.write(refactEntry.getKey());
-					outputStream.newLine();
-				}
-				
-			}
-			outputStream.close();
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		
 		
 		fillInDynamicRefactorings(dynamicRefactorings);
 		// Para un parámetro formal acotado valen también las refactorizaciones

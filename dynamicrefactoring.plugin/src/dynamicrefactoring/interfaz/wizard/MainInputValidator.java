@@ -26,8 +26,6 @@ import java.util.Map;
 
 import org.apache.log4j.Logger;
 
-import dynamicrefactoring.domain.Scope;
-
 /**
  * Proporciona la capacidad de comprobar que un determinado tipo, identificado
  * por su nombre completamente cualificado, es apto para ser admitido como 

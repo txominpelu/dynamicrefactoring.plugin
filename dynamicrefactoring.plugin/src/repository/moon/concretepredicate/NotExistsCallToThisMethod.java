@@ -146,7 +146,6 @@ public class NotExistsCallToThisMethod extends Predicate {
 			}
 		}
 		
-		// FIXME: Java dependent code.
 		if (exp instanceof JavaCallExpr){
 			Expr leftSide = ((JavaCallExpr)exp).getLeftSide();
 			Expr rightSide = ((JavaCallExpr)exp).getRightSide();

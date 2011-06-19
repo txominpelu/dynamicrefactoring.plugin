@@ -48,7 +48,7 @@ import dynamicrefactoring.RefactoringPlugin;
  * @author <A HREF="mailto:ehp0001@alu.ubu.es">Enrique Herrero Paredes</A>
  */
 public final class FileManager {
-	
+
 	private FileManager(){}
 	
 
@@ -417,16 +417,14 @@ public final class FileManager {
 	 * Copia un directorio empaquetado en el plugin en un directorio del sistema
 	 * de ficheros.
 	 * 
-	 * @param bundleDir
-	 * @param fileSystemDir
-	 * @throws IOException
+	 * @param bundleDir ruta del directorio en el bundle
+	 * @param fileSystemDir ruta del directorio del sistema
+	 * @throws IOException si ocurre algun problema al acceder a las rutas
 	 */
 	public static void copyBundleDirToFileSystem(String bundleDir,
 			String fileSystemDir) throws IOException {
-		// TODO: Test para este método
 		final Bundle bundle = Platform.getBundle(RefactoringPlugin.BUNDLE_NAME);
 		final Enumeration<?> entries = bundle.findEntries(FilenameUtils.separatorsToUnix(bundleDir), "*", true);
-		//FIXME: Falla si no existe la carpeta o no hay nada en ella solucionar y agregar tests
 		final List<?> lista = Collections.list(entries);
 		for (Object entrada : lista) {
 			URL entry = (URL) entrada;
@@ -453,6 +451,13 @@ public final class FileManager {
 		return FileLocator.find(bundle, path, null);
 	}
 
+	/**
+	 * Copia el recurso a la ruta indicada.
+	 * 
+	 * @param resourcePath ruta al recurso
+	 * @param dirPath ruta destino
+	 * @throws IOException si ocurre algun problema al acceder al fichero o la ruta
+	 */
 	public static void copyResourceToDir(String resourcePath, String dirPath) throws IOException {
 		FileUtils.copyInputStreamToFile(
 				dynamicrefactoring.util.io.FileManager.class
@@ -460,6 +465,13 @@ public final class FileManager {
 						+ resourcePath));
 	}
 	
+	/**
+	 * Copia el recurso a la ruta indicada con su ruta.
+	 * 
+	 * @param resourcePath ruta al recurso
+	 * @param dirPath ruta destino
+	 * @throws IOException si ocurre algun problema al acceder al fichero o la ruta
+	 */
 	public static void copyResourceToExactDir(String resourcePath, String dirPath) throws IOException {
 		FileUtils.copyInputStreamToFile(
 				dynamicrefactoring.util.io.FileManager.class

@@ -43,8 +43,14 @@ public abstract class DynamicRefactoringList extends Dialog {
 	 */
 	protected static Logger logger = Logger.getLogger(DynamicRefactoringList.class);
 	
+	/**
+	 * Lista de refactorizaciones disponibles.
+	 */
 	protected TableViewer availableRefListViewer;
 
+	/**
+	 * Catálogo de refactorizaciones.
+	 */
 	protected final RefactoringsCatalog refactCatalog;
 
 	/**
@@ -52,7 +58,7 @@ public abstract class DynamicRefactoringList extends Dialog {
 	 * 
 	 * @param parentShell
 	 *            <i>shell</i> padre del diálogo.
-	 * @param refactCatalog 
+	 * @param refactCatalog catálogo de refactorizaciones.
 	 */
 	public DynamicRefactoringList(Shell parentShell, RefactoringsCatalog refactCatalog) {
 		super(parentShell);
@@ -64,6 +70,7 @@ public abstract class DynamicRefactoringList extends Dialog {
 	 * 
 	 * @param parentShell
 	 *            <i>shell</i> padre del dialogo.
+	 * @param refactCatalog catálogo de refactorizaciones.
 	 */
 	public DynamicRefactoringList(IShellProvider parentShell,  RefactoringsCatalog refactCatalog) {
 		super(parentShell);

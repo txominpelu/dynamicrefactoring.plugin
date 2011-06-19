@@ -28,7 +28,6 @@ import javamoon.core.JavaName;
 import moon.core.classdef.AttDec;
 
 import org.eclipse.jdt.core.IField;
-import org.eclipse.jdt.core.JavaModelException;
 
 import com.google.common.base.Preconditions;
 import com.google.common.base.Predicate;
@@ -65,7 +64,6 @@ public class JavaFieldProcessor extends JavaElementProcessor {
 	 * 
 	 * @return el nombre único del atributo según la convención de nomenclatura
 	 *         única utilizada en el modelo MOON.
-	 * @throws JavaModelException
 	 */
 	@Override
 	public final String getUniqueName() {

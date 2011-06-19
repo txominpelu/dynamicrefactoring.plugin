@@ -471,7 +471,6 @@ public final class RefactoringWizardPage1 extends WizardPage {
 		}
 		if (!DynamicRefactoringDefinition
 				.containsScopeCategory(getCategories())) {
-			// TODO: Internacionalizar
 			updateStatus("The refactoring must belong to at least one scope."); //$NON-NLS-1$
 			return;
 		}
@@ -485,7 +484,6 @@ public final class RefactoringWizardPage1 extends WizardPage {
 	 *            mensaje asociado al estado actual de la pantalla.
 	 */
 	private void updateStatus(String message) {
-		// TODO: Comprobar que las palabras claves tienen sintaxis correcta
 		setErrorMessage(message);
 		if(message==null){
 			for(Category c: getCategories()){

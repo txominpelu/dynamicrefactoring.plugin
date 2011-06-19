@@ -26,7 +26,6 @@ import java.util.Date;
 
 import javamoon.core.JavaFile;
 import javamoon.core.JavaModel;
-import javamoon.core.classdef.JavaClassDef;
 import moon.core.Name;
 import moon.core.classdef.ClassDef;
 

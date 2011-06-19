@@ -57,6 +57,8 @@ public class DirectoriesPreferencePage extends PreferencePage implements IWorkbe
 	 * Crea el contenido de la página de preferencias.
 	 * 
 	 * @see PreferencePage#createContents(Composite)
+	 * @param parent contenedor padre
+	 * @return componente creado
 	 */
 	protected Control createContents(Composite parent) {
 		
@@ -106,6 +108,7 @@ public class DirectoriesPreferencePage extends PreferencePage implements IWorkbe
 	 * Inicializa el almacén de preferencias.
 	 * 
 	 * @see IWorkbenchPreferencePage#init(IWorkbench)
+	 * @param workbench objeto raiz de la interfaz de usuario
 	 */
 	public void init(IWorkbench workbench) {
 		//Initialize the preference store we wish to use
@@ -124,6 +127,8 @@ public class DirectoriesPreferencePage extends PreferencePage implements IWorkbe
 	 * Metodo declarado en <code>IPreferencePage</code>. Guarda en el almacén de preferencias 
 	 * el directorio de importación de un plan de refactorizaciones y el directorio de 
 	 * exportación del mismo.
+	 * 
+	 * @return indica si el botón OK ha sido presionado y por tanto se ha guardado la preferencia
 	 */
 	public boolean performOk() {
 		RefactoringPlugin.getDefault().setImportRefactoringPlanPreference(t_Import.getText());

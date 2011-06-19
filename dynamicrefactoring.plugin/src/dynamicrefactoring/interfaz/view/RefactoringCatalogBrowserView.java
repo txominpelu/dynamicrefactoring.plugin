@@ -1123,7 +1123,6 @@ import dynamicrefactoring.util.RefactoringTreeManager;
 
 		@Override
 		public Object getAdapter(Class adapter) {
-			// TODO Auto-generated method stub
 			return null;
 		}
 
@@ -1134,13 +1133,11 @@ import dynamicrefactoring.util.RefactoringTreeManager;
 
 		@Override
 		public ImageDescriptor getImageDescriptor() {
-			// TODO Auto-generated method stub
 			return null;
 		}
 
 		@Override
 		public String getName() {
-			//TODO: Internacionalizar
 			return "Classifications Editor";
 		}
 
@@ -1151,7 +1148,6 @@ import dynamicrefactoring.util.RefactoringTreeManager;
 
 		@Override
 		public String getToolTipText() {
-			//TODO: Internacionalizar
 			return "Classifications Editor";
 		}
 		

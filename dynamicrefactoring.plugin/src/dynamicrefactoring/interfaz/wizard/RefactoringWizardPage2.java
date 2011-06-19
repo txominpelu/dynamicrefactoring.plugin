@@ -1303,7 +1303,6 @@ public class RefactoringWizardPage2 extends WizardPage {
 				throw Throwables.propagate(excp);
 			}
 
-			// TODO: realizar modificaciones oportunas
 			// form
 			form.getParent().setVisible(false);
 			// previamente eleminamos las etiquetas que contienen los

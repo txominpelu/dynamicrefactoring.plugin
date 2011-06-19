@@ -26,7 +26,6 @@ public class ExtractMethodTest extends RefactoringTemplateAbstractTest{
 
 	public ExtractMethodTest(String name) {
 		super(name);
-		// TODO Auto-generated constructor stub
 	}
 	
 	@Override

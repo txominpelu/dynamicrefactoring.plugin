@@ -230,7 +230,7 @@ public class ModelGenerator {
 		binaryLoader.addClassesFromJar(rtPath);
 		
 		//for (int i = 0; i < LIBRARIES.length; i++)
-			//binaryLoader.addClassesFromPackageInJar(LIBRARIES[i], rtPath);
+		//	binaryLoader.addClassesFromPackageInJar(LIBRARIES[i], rtPath);
 		
 		binaryLoader.load();
 	}

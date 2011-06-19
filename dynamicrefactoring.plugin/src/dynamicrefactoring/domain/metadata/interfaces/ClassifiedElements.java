@@ -21,8 +21,6 @@ import java.util.Set;
  * 
  * Cada categoria de la clasificacion contendra un conjunto de hijos.
  * 
- * @author imediava
- * 
  * @param <K>
  *            Tipo de los elementos que forman la categoria
  * 
