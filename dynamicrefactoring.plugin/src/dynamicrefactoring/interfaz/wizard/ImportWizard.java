@@ -56,6 +56,8 @@ import org.eclipse.swt.widgets.Text;
 
 import dynamicrefactoring.RefactoringImages;
 import dynamicrefactoring.RefactoringPlugin;
+import dynamicrefactoring.domain.DynamicRefactoringDefinition;
+import dynamicrefactoring.domain.RefactoringsCatalog;
 import dynamicrefactoring.domain.xml.ExportImportUtilities;
 import dynamicrefactoring.domain.xml.XMLRefactoringUtils;
 import dynamicrefactoring.domain.xml.XMLRefactoringsCatalog;
@@ -103,11 +105,6 @@ public class ImportWizard extends Dialog {
 	 * Mensaje informativo mostrado al usuario en cada momento.
 	 */
 	private Text t_Message;
-	
-	/**
-	 * Tabla de refactorizaciones que ya forman parte del <i>plugin</i>.
-	 */
-	private HashMap<String, String> existing;
 
 	/**
 	 * Nombres de las refactorizaciones que, de importarse, sobreescribirían
@@ -131,13 +128,22 @@ public class ImportWizard extends Dialog {
 	private HashMap<String, String> refactorings;
 
 	/**
+	 * Catálogo de refactorizaciones.
+	 */
+	private final RefactoringsCatalog catalog;
+
+	/**
 	 * Crea la ventana de diálogo.
+	 * 
+	 * @param catalog
+	 *            catálogo de refactorizaciones
 	 * 
 	 * @param parentShell
 	 *            <i>shell</i> padre de la ventana de diálogo.
 	 */
-	public ImportWizard(Shell parentShell) {
+	public ImportWizard(Shell parentShell, RefactoringsCatalog catalog) {
 		super(parentShell);
+		this.catalog = catalog;
 	}
 
 	/**
@@ -230,17 +236,6 @@ public class ImportWizard extends Dialog {
 		cbt_Recursive.setImage(RefactoringImages.getRecursiveIcon());
 		cbt_Recursive.setText(Messages.ImportWizard_Recursive);
 		cbt_Recursive.setBounds(294, 40, 107, 16);
-		
-		try {
-			existing = DynamicRefactoringLister.getInstance().
-				getDynamicRefactoringNameList(
-					RefactoringPlugin.getDynamicRefactoringsDir(), true, null);
-		}
-		catch(Exception exception){
-			logger.error(Messages.ImportWizard_ErrorBuilding +
-				":\n\n" + exception.getMessage()); //$NON-NLS-1$
-			throw new RuntimeException(exception);
-		}
 				
 		return container;
 	}
@@ -500,7 +495,7 @@ public class ImportWizard extends Dialog {
 					String folder = new File(definition).getParent();
 				
 					try {
-						ExportImportUtilities.ImportRefactoring(
+						ExportImportUtilities.importRefactoring(
 								definition, false, XMLRefactoringsCatalog.getInstance());
 					} catch (FileNotFoundException e) {
 
@@ -634,16 +629,18 @@ public class ImportWizard extends Dialog {
 						}
 						
 						// Si ya hay una refactorización con ese nombre.
-						if (existing.containsKey(names[i])){
-							String old = new File(existing.get(names[i])).getCanonicalPath();
-							String now = new File(path).getCanonicalPath();
-							// Si es una de las existentes, se descarta.
-							if (old.equals(now))
+						if (catalog.hasRefactoring(fileName)) {
+							DynamicRefactoringDefinition refact = catalog
+									.getRefactoring(fileName);
+							// Si es editable se añade un aviso de
+							// sobreescritura.
+							if (refact.isEditable()) {
+								overwritten.add(names[i].substring(0,
+										names[i].indexOf(" ("))); //$NON-NLS-1$
+								// Si no es de usuario, se descarta.
+							} else {
 								refactorings.remove(names[i]);
-							// Si no, se añade un aviso de sobreescritura.
-							else
-								overwritten.add(names[i].substring(0, 
-									names[i].indexOf(" ("))); //$NON-NLS-1$
+							}
 						}
 					}
 					catch (Exception exception){

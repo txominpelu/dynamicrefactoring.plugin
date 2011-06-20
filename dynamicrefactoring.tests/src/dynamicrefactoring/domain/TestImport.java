@@ -117,7 +117,9 @@ public class TestImport {
 		
 		RefactoringCatalogStub catalog = new RefactoringCatalogStub();
 		// Importamos la refactorización
-		ExportImportUtilities.ImportRefactoring(FilenameUtils.separatorsToSystem(".\\temp\\Rename Class\\Rename Class.xml"),false, catalog);
+		ExportImportUtilities.importRefactoring(FilenameUtils
+				.separatorsToSystem(".\\temp\\Rename Class\\Rename Class.xml"),
+				false, catalog);
 		
 		assertTrue(catalog.hasRefactoring("Rename Class"));
 		
@@ -159,8 +161,7 @@ public class TestImport {
 		// encuentra.
 		try {
 			// Importamos la refactorización
-			ExportImportUtilities
-					.ImportRefactoring(
+			ExportImportUtilities.importRefactoring(
 					FilenameUtils.separatorsToSystem(TEMP_DIR
 							+ "\\Rename Class\\Rename Class.xml"),
 							false, XMLRefactoringsCatalog.getInstance());

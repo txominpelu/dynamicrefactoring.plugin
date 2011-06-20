@@ -23,11 +23,11 @@ package dynamicrefactoring.action;
 
 import org.eclipse.jface.action.IAction;
 import org.eclipse.jface.viewers.ISelection;
-import org.eclipse.ui.IActionDelegate;
 import org.eclipse.ui.IWorkbenchWindow;
 import org.eclipse.ui.IWorkbenchWindowActionDelegate;
 import org.eclipse.ui.PlatformUI;
 
+import dynamicrefactoring.domain.xml.XMLRefactoringsCatalog;
 import dynamicrefactoring.interfaz.wizard.ImportWizard;
 
 /**
@@ -47,7 +47,9 @@ public class OpenImportDialogAction implements IWorkbenchWindowActionDelegate  {
 	public void run(IAction action) {
 		
 		ImportWizard wizard = new ImportWizard(
-			PlatformUI.getWorkbench().getActiveWorkbenchWindow().getShell());
+PlatformUI.getWorkbench()
+				.getActiveWorkbenchWindow().getShell(),
+				XMLRefactoringsCatalog.getInstance());
 			
 		wizard.setBlockOnOpen(true);
 		wizard.open();

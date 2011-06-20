@@ -114,7 +114,7 @@ public class ImportPlanWizard extends Dialog {
 	 * Mensaje informativo mostrado al usuario en cada momento.
 	 */
 	private Text t_Message;
-	
+
 	/**
 	 * Tabla de refactorizaciones que ya forman parte del <i>plugin</i>.
 	 */
@@ -234,16 +234,16 @@ public class ImportPlanWizard extends Dialog {
 		refactoringsToImport = new HashMap<String,String>();
 		
 		try {
-			existing = DynamicRefactoringLister.getInstance().
-				getDynamicRefactoringNameList(
-					RefactoringPlugin.getDynamicRefactoringsDir(), true, null);
-		}
-		catch(Exception exception){
-			logger.error(Messages.ImportPlanWizard_ErrorBuilding +
-				":\n\n" + exception.getMessage()); //$NON-NLS-1$
+			existing = DynamicRefactoringLister.getInstance()
+					.getDynamicRefactoringNameList(
+							RefactoringPlugin.getDynamicRefactoringsDir(),
+							true, null);
+		} catch (Exception exception) {
+			logger.error(Messages.ImportPlanWizard_ErrorBuilding
+					+ ":\n\n" + exception.getMessage()); //$NON-NLS-1$
 			throw new RuntimeException(exception);
 		}
-		
+
 		return container;
 	}
 
@@ -701,7 +701,7 @@ public class ImportPlanWizard extends Dialog {
 					String folder = new File(definition).getParent();
 				
 					try {
-						ExportImportUtilities.ImportRefactoring(
+						ExportImportUtilities.importRefactoring(
 								definition, true, XMLRefactoringsCatalog.getInstance());
 					} catch (FileNotFoundException e) {
 						// Elimina la carpeta de la refactorización ya que

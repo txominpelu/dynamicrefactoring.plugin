@@ -210,7 +210,7 @@ public class ExportImportUtilities {
 	 * @throws XMLRefactoringReaderException
 	 *             XMLRefactoringReaderException
 	 */
-	public static void ImportRefactoring(String definition,
+	public static void importRefactoring(String definition,
 			boolean importingFromPlan, RefactoringsCatalog catalog) throws IOException,
 			XMLRefactoringReaderException {
 		File definitionFile = new File(definition);
@@ -232,7 +232,10 @@ public class ExportImportUtilities {
 							predicado.getType(), predicado.getClassName()));
 		}
 		
-		if (!catalog.hasRefactoring(newRefactToImport.getName())) {
+		if (catalog.hasRefactoring(newRefactToImport.getName())) {
+			catalog.updateRefactoring(newRefactToImport.getName(),
+					newRefactToImport);
+		} else {
 			catalog.addRefactoring(newRefactToImport);
 		}
 		
