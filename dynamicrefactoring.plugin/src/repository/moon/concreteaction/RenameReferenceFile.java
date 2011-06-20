@@ -34,9 +34,9 @@ import repository.RelayListenerRegistry;
 /**
  * Permite modificar el atributo de una clase donde se almacena el nombre del
  * fichero de origen en que se define dicha clase.
- *
+ * 
  * @author <A HREF="mailto:ehp0001@alu.ubu.es">Enrique Herrero Paredes</A>
- * @author <A HREF="mailto:alc0022@alu.ubu.es">�ngel L�pez Campo</A>
+ * @author <A HREF="mailto:alc0022@alu.ubu.es">Angel Lopez Campo</A>
  * @author <A HREF="mailto:sfd0009@alu.ubu.es">Sonia Fuente de la Fuente</A>
  */ 
 public class RenameReferenceFile extends Action {
@@ -129,7 +129,8 @@ public class RenameReferenceFile extends Action {
 		String oldPath;
 		String newPath;
 		
-		newPath = ((JavaClassDef)classDef).getSourceFile().getPath().toString();
+		newPath = ((JavaClassDef) classDef).getSourceFile().getCanonicalName()
+				.toString();
 		nameFileFirstIndex = newPath.lastIndexOf(newName + ".java"); //$NON-NLS-1$
 		oldPath=newPath.substring(0, nameFileFirstIndex)+ originalName + ".java"; //$NON-NLS-1$
 				

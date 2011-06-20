@@ -45,16 +45,18 @@ import refactoring.engine.PreconditionException;
 import repository.RefactoringTemplateAbstractTest;
 import repository.moon.MOONRefactoring;
 
-/** 
+/**
  * Comprueba que funciona correctamente la refactorización que renombra una
  * clase.
  * 
- * <p>Indirectamente, se comprueba también la correcci�n de las funciones,
- * acciones y predicados utilizados por la refactorización.</p>
- *
+ * <p>
+ * Indirectamente, se comprueba también la corrección de las funciones, acciones
+ * y predicados utilizados por la refactorización.
+ * </p>
+ * 
  * @author <A HREF="mailto:sfd0009@alu.ubu.es">Sonia Fuente de la Fuente</A>
  * @author <A HREF="mailto:ehp0001@alu.ubu.es">Enrique Herrero Paredes</A>
- *
+ * 
  * @see RenameClass
  */
 public class TestRenameClass extends RefactoringTemplateAbstractTest { 
@@ -351,6 +353,6 @@ public class TestRenameClass extends RefactoringTemplateAbstractTest {
 
 		ClassDef classDef3 = jm.getClassDef(factory.createName("paqueteA.nuevoNombre")); //$NON-NLS-1$
 		assertNull("Test deshacer renombrado de clase simple: " + //$NON-NLS-1$
-			"todav�a existe la clase con el nuevo nobmre.", classDef3); //$NON-NLS-1$
+				"todavía existe la clase con el nuevo nobmre.", classDef3); //$NON-NLS-1$
 	}
 }

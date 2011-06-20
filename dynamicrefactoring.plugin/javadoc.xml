@@ -65,6 +65,7 @@
 	<mkdir dir="${basedir}\doc" />
     <javadoc access="public" author="true" 
     	destdir="${basedir}\doc\javadoc"
+		sourcepath="${src.dir}"
 		doctitle="&lt;img src=.\3.png/&gt; " 
 		nodeprecated="false" 
 		nodeprecatedlist="false" 
@@ -82,11 +83,6 @@
 		version="true"
 		windowtitle="Documentación técnica del plugin Dinamyc refactoring" 
 		header="Dinamyc Refactoring Plugin">
-
-		<fileset dir="${src.dir}" defaultexcludes="yes">
-  			<include name="**/*.java"/>
-  			<exclude name="**/Messages.java"/>
-		</fileset>
 
 		<classpath refid="doc.classpath"/>
 	</javadoc>
