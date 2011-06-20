@@ -232,9 +232,7 @@ public class ExportImportUtilities {
 							predicado.getType(), predicado.getClassName()));
 		}
 		
-		if(catalog.hasRefactoring(newRefactToImport.getName())){
-			catalog.updateRefactoring(newRefactToImport.getName(), newRefactToImport);
-		}else{
+		if (!catalog.hasRefactoring(newRefactToImport.getName())) {
 			catalog.addRefactoring(newRefactToImport);
 		}
 		
