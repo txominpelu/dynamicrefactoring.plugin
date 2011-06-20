@@ -56,15 +56,24 @@ import dynamicrefactoring.domain.metadata.interfaces.Element;
 	private String getKeyWord() {
 		return keyWord;
 	}
+
+	/**
+	 * Comprueba si se aplica la condición.
+	 * 
+	 * @param arg0
+	 *            objeto a comprobar
+	 * 
+	 * @return devuelve si la condición se cumple para el objeto pasado
+	 */
 	@Override
 	public boolean apply(K arg0) {
 		return arg0.belongsTo(keyWord);
 	}
-	
+
 	/**
 	 * Son iguales si ambas contienen el mismo texto.
 	 * 
-	 * @param otra
+	 * @param o
 	 *            a comparar
 	 * @return verdadero si filtran por el mismo texto
 	 */

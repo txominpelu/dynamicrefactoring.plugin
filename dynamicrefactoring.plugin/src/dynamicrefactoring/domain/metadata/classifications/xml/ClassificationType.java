@@ -80,38 +80,37 @@ import javax.xml.bind.annotation.XmlType;
     @XmlAttribute
     protected Boolean multicategory;
 
-    /**
-     * Gets the value of the categories property.
-     * 
-     * @return
-     *     possible object is
-     *     {@link CategoriesType }
-     *     
-     */
+	/**
+	 * Gets the value of the categories property.
+	 * 
+	 * @return possible object is CategoriesType
+	 * 
+	 * @see #setCategories(CategoriesType)
+	 * 
+	 */
     public CategoriesType getCategories() {
         return categories;
     }
 
-    /**
-     * Sets the value of the categories property.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link CategoriesType }
-     *     
-     */
+	/**
+	 * Sets the value of the categories property.
+	 * 
+	 * @param value
+	 *            allowed object is CategoriesType
+	 * 
+	 */
     public void setCategories(CategoriesType value) {
         this.categories = value;
     }
 
-    /**
-     * Gets the value of the name property.
-     * 
-     * @return
-     *     possible object is
-     *     {@link String }
-     *     
-     */
+	/**
+	 * Gets the value of the name property.
+	 * 
+	 * @return possible object is {@link String }
+	 * 
+	 * @see #setName(String)
+	 * 
+	 */
     public String getName() {
         return name;
     }
@@ -128,14 +127,13 @@ import javax.xml.bind.annotation.XmlType;
         this.name = value;
     }
 
-    /**
-     * Gets the value of the description property.
-     * 
-     * @return
-     *     possible object is
-     *     {@link String }
-     *     
-     */
+	/**
+	 * Gets the value of the description property.
+	 * 
+	 * @return possible object is {@link String }
+	 * 
+	 * @see #setDescription(String)
+	 */
     public String getDescription() {
         return description;
     }
@@ -152,14 +150,13 @@ import javax.xml.bind.annotation.XmlType;
         this.description = value;
     }
 
-    /**
-     * Gets the value of the multicategory property.
-     * 
-     * @return
-     *     possible object is
-     *     {@link Boolean }
-     *     
-     */
+	/**
+	 * Gets the value of the multicategory property.
+	 * 
+	 * @return possible object is {@link Boolean }
+	 * 
+	 * @see #setMulticategory(Boolean)
+	 */
     public boolean isMulticategory() {
         if (multicategory == null) {
             return false;

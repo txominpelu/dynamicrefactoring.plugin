@@ -14,7 +14,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.*/
 package dynamicrefactoring.domain;
 
 import java.io.File;
-import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -65,9 +64,23 @@ import dynamicrefactoring.util.io.filter.ClassFilter;
 	public static final String JAVA_PREDICATES_PACKAGE = 
 		"repository.java.concretepredicate."; //$NON-NLS-1$
 
+	/**
+	 * Paquete de javamoon.
+	 */
 	private final String javaPackage;
+	/**
+	 * Paquete de moon.
+	 */
 	private final String moonPackage;
 
+	/**
+	 * Construye el tipo de mecanismo.
+	 * 
+	 * @param javaPackage
+	 *            paquete de javamoon para el mecanismo
+	 * @param moonPackage
+	 *            paquete de moon para el mecanismo
+	 */
 	private RefactoringMechanismType(String javaPackage, String moonPackage) {
 		this.javaPackage = javaPackage;
 		this.moonPackage = moonPackage;
@@ -101,10 +114,6 @@ import dynamicrefactoring.util.io.filter.ClassFilter;
 	 * Obtiene el nombre del paquete independiente de una pre/poscondicion o de
 	 * una accion.
 	 * 
-	 * @param type
-	 *            si es RefactoringConstant.PRECONDITION /POSTCONDITION/ACTION
-	 * @param mechanismName
-	 *            mechanism name
 	 * @return package name (Ej. "repository.concreteaction")
 	 */
 	public String getMechanismIndependentPackage() {
@@ -115,9 +124,6 @@ import dynamicrefactoring.util.io.filter.ClassFilter;
 	 * Obtiene el nombre del paquete java de una pre/poscondicion o de una
 	 * accion.
 	 * 
-	 * @param type
-	 *            si es RefactoringConstant.PRECONDITION /POSTCONDITION/ACTION
-	 * @param mechanismName
 	 *            mechanism name
 	 * @return package name (Ej. "repository.concreteaction")
 	 */
@@ -132,10 +138,6 @@ import dynamicrefactoring.util.io.filter.ClassFilter;
 	 * @return el conjunto de todos los predicados encontrados en los
 	 *         directorios por defecto de predicados del repositorio,
 	 *         dependientes o independientes del lenguaje.
-	 * 
-	 * @throws IOException
-	 *             si no se consigue acceder a alguno de los directorios de
-	 *             predicados.
 	 */
 	public Map<String, String> getElementJavaList() {
 		return getElementList(getElementJavaDir());
@@ -148,10 +150,6 @@ import dynamicrefactoring.util.io.filter.ClassFilter;
 	 * @return el conjunto de todos los predicados encontrados en los
 	 *         directorios por defecto de predicados del repositorio,
 	 *         dependientes o independientes del lenguaje.
-	 * 
-	 * @throws IOException
-	 *             si no se consigue acceder a alguno de los directorios de
-	 *             predicados.
 	 */
 	public Map<String, String> getElementIndependentList() {
 		return getElementList(getElementIndependentDir());
@@ -161,7 +159,6 @@ import dynamicrefactoring.util.io.filter.ClassFilter;
 	 * Lista todos los predicados.
 	 * 
 	 * @return todos los predicados
-	 * @throws IOException
 	 */
 	public static Map<String, String> getPredicatesAllList() {
 		return PRECONDITION.getElementAllList();
@@ -172,7 +169,6 @@ import dynamicrefactoring.util.io.filter.ClassFilter;
 	 * @param predicateName  nombre del predicado
 	 * 
 	 * @return todos los predicados
-	 * @throws IOException
 	 */
 	public static boolean isPredicateJavaDependent(String predicateName) {
 		return PRECONDITION.isElementJavaDependent(predicateName);
@@ -186,10 +182,6 @@ import dynamicrefactoring.util.io.filter.ClassFilter;
 	 * @return el conjunto de todos los predicados encontrados en los
 	 *         directorios por defecto de predicados del repositorio,
 	 *         dependientes o independientes del lenguaje.
-	 * 
-	 * @throws IOException
-	 *             si no se consigue acceder a alguno de los directorios de
-	 *             predicados.
 	 */
 	public Map<String, String> getElementAllList() {
 		Map<String, String> allElements = getElementIndependentList();
@@ -225,9 +217,6 @@ import dynamicrefactoring.util.io.filter.ClassFilter;
 	 * @return una tabla en la que se usa como índice el nombre comprensible del
 	 *         fichero y como contenido la ruta del fichero; para cada fichero
 	 *         encontrado.
-	 * 
-	 * @throws IOException
-	 *             cuando no existe el directorio, o bien no es un directorio.
 	 */
 	private Map<String, String> getElementList(String sourceDir) {
 		File dir = new File(sourceDir);

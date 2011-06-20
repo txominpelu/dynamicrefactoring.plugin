@@ -98,7 +98,17 @@ import dynamicrefactoring.domain.metadata.condition.RootInputTypeCondition;
 	public Set<DynamicRefactoringDefinition> getAllRefactorings() {
 		return new HashSet<DynamicRefactoringDefinition>(refactorings);
 	}
-	
+
+	/**
+	 * Obtienen las refactorizaciones que pertenecen a una categoría.
+	 * 
+	 * @param classification
+	 *            nombre de la clasificación
+	 * @param categoryName
+	 *            nombre de la categoría
+	 * 
+	 * @return conjunto de refactorizaciones que pertenecen a la categoría
+	 */
 	@Override
 	public final Set<DynamicRefactoringDefinition> getRefactoringBelongingTo(
 			String classification, String categoryName) {

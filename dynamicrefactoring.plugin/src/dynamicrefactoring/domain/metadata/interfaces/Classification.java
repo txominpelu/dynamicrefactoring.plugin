@@ -74,12 +74,13 @@ import java.util.Set;
 	boolean containsCategory(Category cat);
 
 	/**
-	 * Devuelve una clasificacion copia de la actual pero
-	 * en la que se ha sustituido el nombre de la categoria
-	 * oldName por newName
+	 * Devuelve una clasificacion copia de la actual pero en la que se ha
+	 * sustituido el nombre de la categoria oldName por newName.
 	 * 
-	 * @param oldName nombre actual de la categoria a cambiar
-	 * @param newName nuevo nombre
+	 * @param oldName
+	 *            nombre actual de la categoria a cambiar
+	 * @param newName
+	 *            nuevo nombre
 	 * @return clasificacion con los cambios aplicados
 	 */
 	Classification renameCategory(String oldName, String newName);

@@ -150,8 +150,6 @@ public final class RefactoringPlanExecutor implements IRunnableWithProgress {
 	 * Constructor.
 	 * @param refactCatalog  catalogo de refactorizaciones del plugin
 	 * 
-	 * @param refactorings
-	 *            refactorizaciones a ejecutar.
 	 * @param plan
 	 *            conjunto de refactorizaciones que conforman el plan.
 	 * @param path
@@ -245,8 +243,6 @@ public final class RefactoringPlanExecutor implements IRunnableWithProgress {
 	 *         encontrado para la entrada.
 	 * @throws XMLRefactoringReaderException
 	 *             XMLRefactoringReaderException
-	 * @throws RefactoringException
-	 *             RefactoringException
 	 */
 	private Map<String, Object> getInputs(String refactoring)
 			throws XMLRefactoringReaderException {

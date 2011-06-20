@@ -95,6 +95,7 @@
 <!-- ========================= DocCheck Target ========================= -->
 <target name="doccheck" depends="init" description="Comprueba la documentación del código fuente java">		
 	<javadoc packagenames="*.*"
+		sourcepath="${src.dir}"
 		destdir="${basedir}\doc\doccheck"
 	    	encoding="UTF-8"
 		private="true" 
@@ -103,15 +104,9 @@
 		source="1.6">
 
 		<classpath refid="doc.classpath"/>
-		<doclet name="com.sun.tools.doclets.doccheck.DocCheck" path="${doclib.dir}\doccheck.jar" />
-
-		<fileset dir="${src.dir}">
-			<include name="**/*.java"/>
-			<exclude name="**/Messages.java"/>
-		</fileset>
-
-		<packageset dir="${src.dir}" defaultexcludes="no"/>
-
+		<doclet name="com.sun.tools.doclets.doccheck.DocCheck" path="${doclib.dir}\doccheck.jar" >
+			<param name="-skipClass" value="dynamicrefactoring.*.Messages"/>
+		</doclet>
 
 	</javadoc>
 </target>

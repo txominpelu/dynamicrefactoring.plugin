@@ -36,6 +36,9 @@ import dynamicrefactoring.domain.DynamicRefactoringDefinition;
  */
  public class RefactoringTooltip extends ToolTip {
 
+	/**
+	 * Definición de la refactorización.
+	 */
 	private DynamicRefactoringDefinition refactoring;
 	
 	/**
@@ -49,6 +52,13 @@ import dynamicrefactoring.domain.DynamicRefactoringDefinition;
 		refactoring=(DynamicRefactoringDefinition)control.getData();
 	}
 
+	/**
+	 * Crea el área de contenido del tooltip.
+	 * @param event evento
+	 * @param parent contenedor padre
+	 * 
+	 * @return componente
+	 */
 	protected Composite createToolTipContentArea(Event event,
 			Composite parent) {
 		FormToolkit toolkit = new FormToolkit(parent.getDisplay());

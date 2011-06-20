@@ -49,6 +49,9 @@ import dynamicrefactoring.RefactoringPlugin;
  */
 public final class FileManager {
 
+	/**
+	 * Constructor privado que evita que se creen instancias de la clase.
+	 */
 	private FileManager(){}
 	
 

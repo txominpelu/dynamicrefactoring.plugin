@@ -36,11 +36,9 @@ public interface XMLRefactoringReaderFactory {
 	 * Devuelve una instancia de un lector de refactorizaciones en XML que
 	 * implementa la interfaz <code>XMLRefactoringReaderImp</code>.
 	 * 
-	 * @param file el fichero del que leerá el lector de refactorizaciones en XML.
 	 * 
 	 * @return la instancia generada.
 	 * 
-	 * @throws XMLRefactoringReaderException si se produce un error al crear el
 	 * lector de refactorizaciones concreto.
 	 */
 	public XMLRefactoringReaderImp makeXMLRefactoringReaderImp();

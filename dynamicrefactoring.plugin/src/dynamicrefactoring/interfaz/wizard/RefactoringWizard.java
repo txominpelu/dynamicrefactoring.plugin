@@ -20,7 +20,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.*/
 
 package dynamicrefactoring.interfaz.wizard;
 
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
 import java.text.MessageFormat;
@@ -42,7 +41,6 @@ import dynamicrefactoring.domain.DynamicRefactoringDefinition;
 import dynamicrefactoring.domain.RefactoringsCatalog;
 import dynamicrefactoring.domain.metadata.interfaces.Category;
 import dynamicrefactoring.domain.xml.XMLRefactoringsCatalog;
-import dynamicrefactoring.domain.xml.writer.XMLRefactoringWriterException;
 import dynamicrefactoring.interfaz.wizard.search.internal.SearchingFacade;
 
 /**
@@ -132,7 +130,7 @@ public class RefactoringWizard extends Wizard implements INewWizard {
 	private RefactoringWizardPage7 pageG;
 
 	/**
-	 * 
+	 * Catálogo de refactorizaciones.
 	 */
 	protected RefactoringsCatalog refactCatalog;
 	
@@ -146,6 +144,7 @@ public class RefactoringWizard extends Wizard implements INewWizard {
 	 * 
 	 * @param refactoring
 	 *            refactorización que se desea editar o <code>null
+	 * @param catalog catálogo de refactorizaciones
 	 * </code> si se desea crear una nueva.
 	 */
 	public RefactoringWizard(DynamicRefactoringDefinition refactoring, RefactoringsCatalog catalog) {
@@ -246,6 +245,8 @@ public class RefactoringWizard extends Wizard implements INewWizard {
 	 * Método de inicialización.
 	 * 
 	 * @see IWorkbenchWizard#init(IWorkbench, IStructuredSelection)
+	 * @param workbench workbench
+	 * @param selection selección
 	 */
 	@Override
 	public void init(IWorkbench workbench, IStructuredSelection selection) {
@@ -275,6 +276,7 @@ public class RefactoringWizard extends Wizard implements INewWizard {
 	/**
 	 * Crea y configura la nueva refactorización personalizada a partir de los
 	 * datos introducidos por el usuario en las páginas del asistente.
+	 * @return builder
 	 */
 	private DynamicRefactoringDefinition.Builder configureRefactoring() {
 		DynamicRefactoringDefinition.Builder builder = new DynamicRefactoringDefinition.Builder(
@@ -298,17 +300,8 @@ public class RefactoringWizard extends Wizard implements INewWizard {
 	 * Copia los ficheros asociados a una refactorización al directorio
 	 * seleccionado y escribe el fichero con la refactorización creada.
 	 * 
-	 * @param resultingRefactoringDefinition
+	 * @param builder builder
 	 * 
-	 * @throws IOException
-	 *             si se produce un error de lectura / escritura durante el
-	 *             proceso de escritura de la refactorización.
-	 * @throws FileNotFoundException
-	 *             si no se encuentra uno de los ficheros o directorios
-	 *             implicados en el proceso.
-	 * @throws XMLRefactoringWriterException
-	 *             si se produce un error durante la escritura de la
-	 *             refactorización en el fichero XML de destino.
 	 */
 	private void writeRefactoring(
 			DynamicRefactoringDefinition.Builder builder) {

@@ -105,6 +105,11 @@ public class ProgressView extends ViewPart
 	 */
 	private ArrayList<String> stepMessages;
 	
+	/**
+	 * Crea el control.
+	 * 
+	 * @param parent control padre.
+	 */
 	@Override
 	public void createPartControl(Composite parent) {
 		
@@ -130,9 +135,15 @@ public class ProgressView extends ViewPart
 		cl_Message.setText(Messages.ProgressView_Message);
 	}
 	
+	/**
+	 * Solicita a la vista que tome el foco en el espacio de trabajo.
+	 */
 	@Override
 	public void setFocus() {}
 	
+	/**
+	 * Oculta la vista.
+	 */
 	@Override
 	public void dispose(){
 		RefactoringPlugin.getDefault().removeRefactoringListener(this);

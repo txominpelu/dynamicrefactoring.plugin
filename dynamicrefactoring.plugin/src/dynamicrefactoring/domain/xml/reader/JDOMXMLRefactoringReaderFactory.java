@@ -37,11 +37,8 @@ public class JDOMXMLRefactoringReaderFactory implements XMLRefactoringReaderFact
 	 * implementa la interfaz XMLRefactoringReaderImp, basíndose en JDOM para
 	 * leer los ficheros XML.
 	 * 
-	 * @param file el fichero del que leerá el lector de refactorizaciones en XML.
-	 * 
 	 * @return la instancia generada.
 	 * 
-	 * @throws XMLRefactoringReaderException si se produce un error al generar el
 	 * lector de refactorizaciones.
 	 */
 	@Override

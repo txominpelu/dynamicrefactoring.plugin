@@ -195,7 +195,9 @@ import dynamicrefactoring.util.RefactoringTreeManager;
 	 */
 	private Button searchButton;
 
-	
+	/**
+	 * Constante filtrado.
+	 */
 	private static final String FILTERED="Filtered";
 
 	/**
@@ -268,6 +270,9 @@ import dynamicrefactoring.util.RefactoringTreeManager;
 	 */
 	private ArrayList<IAction> actionsPane;
 
+	/**
+	 * Entrada del editor de clasificaciones.
+	 */
 	private ClassificationsEditorInput classEditorIntup;
 	
 	/**
@@ -503,7 +508,9 @@ import dynamicrefactoring.util.RefactoringTreeManager;
 	public void setFocus() {
 	}
 
-
+	/**
+	 * Da contenido al combo de clasificaciones disponibles.
+	 */
 	private void fillClassCombo() {
 		// añadimos la clasificacion por defecto
 		classCombo.add(NONE_CLASSIFICATION.getName());
@@ -635,6 +642,10 @@ import dynamicrefactoring.util.RefactoringTreeManager;
 		refactoringsTree.setVisible(true);
 	}
 
+	/**
+	 * Elimina todas las condiciones de filtro 
+	 * de la tabla donde se muestran.
+	 */
 	private void removeAllConditionToTable(){
 
 		TableItem item=null;
@@ -663,6 +674,9 @@ import dynamicrefactoring.util.RefactoringTreeManager;
 		
 	}
 	
+	/**
+	 * Elimina todas las condiones de filtro.
+	 */
 	private void removeAllConditionToFilter(){
 		removeAllConditionToTable();
 		catalog=(ElementCatalog<DynamicRefactoringDefinition>)catalog.removeAllFilterConditions();
@@ -670,6 +684,9 @@ import dynamicrefactoring.util.RefactoringTreeManager;
 		showTree(classCombo.getText());
 	}
 	
+	/**
+	 * Redimensiona la tabla para que se adecue al mejor tamaño.
+	 */
 	private void packTableColumns(){
 		TableColumn cols[]=conditionsTable.getColumns();
 		for(TableColumn col : cols){
@@ -677,6 +694,11 @@ import dynamicrefactoring.util.RefactoringTreeManager;
 		}
 	}
 
+	/**
+	 * Añade la condición de filtro a la tabla donde se muestran.
+	 * 
+	 * @param condition condición de filtro a mostrar.
+	 */
 	private void addConditionToTable(Predicate<DynamicRefactoringDefinition> condition){
 		
 		conditionsTable.setVisible(false);
@@ -775,6 +797,11 @@ import dynamicrefactoring.util.RefactoringTreeManager;
 		conditionsTable.setVisible(true);
 	}
 	
+	/**
+	 * Añade la condición de filtro al propio filtro.
+	 * 
+	 * @param condition condición de filtro.
+	 */
 	protected void addConditionToFilter(Predicate<DynamicRefactoringDefinition> condition){
 		if(condition!=null){
 			if(!filter.contains(condition)){
@@ -800,9 +827,8 @@ import dynamicrefactoring.util.RefactoringTreeManager;
 	
 
 	/**
-	 * Actualiza la vista del catálogo con las últimas modificaciones realizadas
-	 * sobre las clasificaciones y refactorizaciones del plugin.
-	 * 
+	 * Refresca la vista del catálogo de refactorizaciones por si hubiesen habido cambios
+	 * que la afecten en la visualización.
 	 */
 	public void refreshView() {
 		// almacenamos la clasificación seleccionada en el classCombo y
@@ -948,9 +974,17 @@ import dynamicrefactoring.util.RefactoringTreeManager;
 	/**
 	 * Actualiza el árbol de refactorizaciones para representarlas conforme a
 	 * la clasificación que ha sido seleccionada en el combo.
+	 * 
+	 * @author <A HREF="mailto:ims0011@alu.ubu.es">Iñigo Mediavilla Saiz</A>
+	 * @author <A HREF="mailto:mgs0110@alu.ubu.es">Míryam Gómez San Martín</A>
 	 */
 	private class ClassComboSelectionListener implements SelectionListener {
 
+		/**
+		 * Comportamiento ante el evento de selección.
+		 * 
+		 * @param e evento de selección.
+		 */
 		@Override
 		public void widgetSelected(SelectionEvent e) {
 			Classification classSelected = null;
@@ -969,6 +1003,11 @@ import dynamicrefactoring.util.RefactoringTreeManager;
 			showTree(classSelected.getName());
 		}
 
+		/**
+		 * Comportamiento ante el evento de selección por defecto.
+		 * 
+		 * @param e evento de selección.
+		 */
 		@Override
 		public void widgetDefaultSelected(SelectionEvent e) {
 			widgetSelected(e);
@@ -976,12 +1015,35 @@ import dynamicrefactoring.util.RefactoringTreeManager;
 
 	}
 
+	/**
+	 * Realiza la búsqueda de refactorizaciones que cumplen con la condición de filtro
+	 * introducida.
+	 * 
+	 * @author <A HREF="mailto:ims0011@alu.ubu.es">Iñigo Mediavilla Saiz</A>
+ 	 * @author <A HREF="mailto:mgs0110@alu.ubu.es">Míryam Gómez San Martín</A>
+	 */
 	private class SearchTextSelectionListener implements SelectionListener{
 
+		/**
+		 * Constante separador de búsqueda.
+		 */
 		private final char SEARCH_SEPARATOR=':';
+		
+		/**
+		 * Constante separador de clasificación y categoría.
+		 */
 		private final char CAT_SEPARATOR='@';
+		
+		/**
+		 * Condición de filtro.
+		 */
 		private Predicate<DynamicRefactoringDefinition> condition;
 
+		/**
+		 * Comportamiento ante el evento de selección.
+		 * 
+		 * @param e evento de selección.
+		 */
 		@Override
 		public void widgetSelected(SelectionEvent e) {
 			if(search(searchText.getText())){
@@ -996,6 +1058,11 @@ import dynamicrefactoring.util.RefactoringTreeManager;
 			}
 		}
 
+		/**
+		 * Comportamiento ante el evento de selección por defecto.
+		 * 
+		 * @param e evento de selección.
+		 */
 		@Override
 		public void widgetDefaultSelected(SelectionEvent e) {
 			widgetSelected(e);
@@ -1003,7 +1070,7 @@ import dynamicrefactoring.util.RefactoringTreeManager;
 
 		/**
 		 * Comprueba que la clasificación y categoria indicadas por parámetro
-		 * se encuentra o no disponible. En caso de estar disponible se le
+		 * se encuentra o no disponible. En caso de no estar disponible se le
 		 * indica al usuario para que pueda elegir si quiere o no añadir esta
 		 * condición de filtrado.
 		 * 
@@ -1011,7 +1078,8 @@ import dynamicrefactoring.util.RefactoringTreeManager;
 		 *            nombre de la clasificación
 		 * @param nameCat
 		 *            nombre de la categoria
-		 * @return
+		 * @return verdadero si se añade la condición de filtro,
+		 *         falso en caso contrario
 		 */
 		private boolean checkAvailableCategoryToAddCondition(String nameClass, String nameCat){
 			boolean addCondition=true;
@@ -1035,6 +1103,13 @@ import dynamicrefactoring.util.RefactoringTreeManager;
 			return addCondition;
 		}
 		
+		/**
+		 * Comprueba la validez de la búsqueda según el texto introducido.
+		 * 
+		 * @param text texto introducido
+		 * @return devuelve verdero si es correcta, 
+		 * 		falso en caso contrario
+		 */
 		private boolean search(String text){
 			int indexSearchSep=text.indexOf(SEARCH_SEPARATOR);
 			boolean searchOk=false;
@@ -1077,6 +1152,9 @@ import dynamicrefactoring.util.RefactoringTreeManager;
 	/**
 	 * Recibe notificaciones cuando uno de los elementos de la lista de
 	 * refactorizaciones es seleccionado.
+	 * 
+	 * @author <A HREF="mailto:ims0011@alu.ubu.es">Iñigo Mediavilla Saiz</A>
+	 * @author <A HREF="mailto:mgs0110@alu.ubu.es">Míryam Gómez San Martín</A>
 	 */
 	private class TreeMouseListener implements MouseListener {
 
@@ -1105,6 +1183,9 @@ import dynamicrefactoring.util.RefactoringTreeManager;
 		}
 
 		/**
+		 * Comportamiento cuando el ratón es presionado.
+		 * 
+		 * @param e el evento de selección disparado en la ventana.
 		 * @see MouseListener#mouseDown(MouseEvent)
 		 */
 		@Override
@@ -1112,6 +1193,9 @@ import dynamicrefactoring.util.RefactoringTreeManager;
 		}
 
 		/**
+		 * Comportamiento cuando el ratón es soltado.
+		 * 
+		 * @param e el evento de selección disparado en la ventana.
 		 * @see MouseListener#mouseUp(MouseEvent)
 		 */
 		@Override
@@ -1119,33 +1203,74 @@ import dynamicrefactoring.util.RefactoringTreeManager;
 		}
 	}
 
+	/**
+	 * Entrada del editor de clasificaciones.
+	 * 
+	 * @author <A HREF="mailto:ims0011@alu.ubu.es">Iñigo Mediavilla Saiz</A>
+	 * @author <A HREF="mailto:mgs0110@alu.ubu.es">Míryam Gómez San Martín</A>
+	 *
+	 */
 	private class ClassificationsEditorInput implements IEditorInput{
 
+		/**
+		 * Devuelve un adaptador.
+		 * 
+		 * @param adapter clase adaptadora
+		 * 
+		 * @return objeto adaptador
+		 */
 		@Override
 		public Object getAdapter(Class adapter) {
 			return null;
 		}
 
+		/**
+		 * Determina si existe.
+		 * 
+		 * @return verdadero si existe,
+		 *         falso en caso contrario.
+		 */
 		@Override
 		public boolean exists() {
 			return false;
 		}
 
+		/**
+		 * Obtiene la imagen del descriptor.
+		 * 
+		 * @return imagen del descriptor.
+		 */
 		@Override
 		public ImageDescriptor getImageDescriptor() {
 			return null;
 		}
 
+		/**
+		 * Obtiene el nombre.
+		 * 
+		 * @return nombre
+		 */
 		@Override
 		public String getName() {
 			return "Classifications Editor";
 		}
 
+		/**
+		 * Devuelve un objeto que puede ser usado para 
+		 * salvar el estado del editor.
+		 * 
+		 * @return elemento persistente
+		 */
 		@Override
 		public IPersistableElement getPersistable() {
 			return null;
 		}
 
+		/**
+		 * Obtiene el tooltip asociado.
+		 * 
+		 * @return tooltip asociado
+		 */
 		@Override
 		public String getToolTipText() {
 			return "Classifications Editor";

@@ -41,12 +41,20 @@ import dynamicrefactoring.domain.metadata.interfaces.Classification;
 	 */
 	public static final String ID = "dynamicrefactoring.editors.refactoringClasificationsEditor"; //$NON-NLS-1$
 
+	/**
+	 * Toolkit.
+	 */
 	private FormToolkit toolkit;
+	
+	/**
+	 * Contenedor form.
+	 */
 	private ScrolledForm form;
 
 	/**
 	 * This is a callback that will allow us to create the viewer and initialize
 	 * it.
+	 * @param parent contenedor padre.
 	 */
 	@Override
 	public void createPartControl(Composite parent) {
@@ -72,11 +80,14 @@ import dynamicrefactoring.domain.metadata.interfaces.Classification;
 
 	}
 
-
-	private Classification firstClassif(
-			final Set<Classification> classifications) {
-		return classifications
-				.iterator().next();
+	/**
+	 * Devuelve la primera clasificación del conjunto de clasificaciones.
+	 * 
+	 * @param classifications conjunto de clasificaciones
+	 * @return clasificación que se encuentra en primer lugar
+	 */
+	private Classification firstClassif(final Set<Classification> classifications) {
+		return classifications.iterator().next();
 	}
 
 	
@@ -89,7 +100,7 @@ import dynamicrefactoring.domain.metadata.interfaces.Classification;
 	}
 
 	/**
-	 * Disposes the toolkit
+	 * Disposes the toolkit.
 	 */
 	@Override
 	public void dispose() {
@@ -97,18 +108,30 @@ import dynamicrefactoring.domain.metadata.interfaces.Classification;
 		super.dispose();
 	}
 	
+	/**
+	 * Guarda el contenido.
+	 * @param monitor monitor de progreso
+	 */
 	@Override
 	public void doSave(IProgressMonitor monitor) {
-		
 	}
 
-
+	/**
+	 * Guarda el contenido en otro objeto.
+	 */
 	@Override
 	public void doSaveAs() {
-		
 	}
 
-
+	/**
+	 * Inicializa el editor.
+	 * 
+	 * @param site interfaz del editor
+	 * @param input entrada del editor
+	 * 
+	 * @throws PartInitException si existe algun 
+	 *         problema al inicializar
+	 */
 	@Override
 	public void init(IEditorSite site, IEditorInput input)
 			throws PartInitException {
@@ -116,13 +139,24 @@ import dynamicrefactoring.domain.metadata.interfaces.Classification;
         setInput(input);
 	}
 
-
+	/**
+	 * Indica si el contenido ha podido cambiar desde el último
+	 * salvado.
+	 * 
+	 * @return verdadero si el contenido ha podido cambiar
+	 *         falso en caso contrario.
+	 */
 	@Override
 	public boolean isDirty() {
 		return false;
 	}
 
-
+	/**
+	 * Indica si el salvar como esta permitido.
+	 * 
+	 * @return verdadero si salvar como esta permitido,
+	 *         falso en caso contrario.
+	 */
 	@Override
 	public boolean isSaveAsAllowed() {
 		return false;

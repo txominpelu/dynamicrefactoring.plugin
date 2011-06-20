@@ -49,7 +49,7 @@ import dynamicrefactoring.domain.metadata.interfaces.Element;
 		ClassifiedFilterableCatalog<K> {
 
 	/**
-	 * Lista de condiciones que conforman el filtro actual aplicado
+	 * Lista de condiciones que conforman el filtro actual aplicado.
 	 */
 	private List<Predicate<K>> filter;
 
@@ -76,11 +76,6 @@ import dynamicrefactoring.domain.metadata.interfaces.Element;
 	 *            elementos que componen el catalogo
 	 * @param classification
 	 *            clasificacion en la que se basa el catálogo
-	 * @param categories
-	 *            conjunto de categorias que contiene la clasificacion en la que
-	 *            se basa este catalogo
-	 * @param classificationName
-	 *            nombre de la clasificacion
 	 */
 	public ElementCatalog(Set<K> allElements, Classification classification) {
 		this(allElements, classification, new ArrayList<Predicate<K>>());
@@ -95,13 +90,8 @@ import dynamicrefactoring.domain.metadata.interfaces.Element;
 	 *            elementos que componen el catalogo
 	 * @param classification
 	 *            clasificación en la que se basa el catálogo
-	 * @param categories
-	 *            conjunto de categorias que contiene la clasificacion en la que
-	 *            se basa este catalogo
 	 * @param filterConditionList
 	 *            condiciones de filtrado del nuevo catalogo de elementos
-	 * @param classificationName
-	 *            nombre de la clasificacion
 	 */
 	public ElementCatalog(Set<K> allElements, Classification classification,
 			List<Predicate<K>> filterConditionList) {
@@ -239,6 +229,11 @@ import dynamicrefactoring.domain.metadata.interfaces.Element;
 		return new ElementCatalog<K>(getAllElements(), classification);
 	}
 
+	/**
+	 * Obtiene la lista de elementos clasificados.
+	 * 
+	 * @return lista de elementos clasificados
+	 */
 	@Override
 	public ClassifiedElements<K> getClassificationOfElements() {
 		HashMap<Category, Set<K>> toReturn = new HashMap<Category, Set<K>>();
@@ -255,6 +250,11 @@ import dynamicrefactoring.domain.metadata.interfaces.Element;
 				toReturn);
 	}
 
+	/**
+	 * Obtiene la lista de elementos filtrados clasificados.
+	 * 
+	 * @return lista de elementos filtrados clasificados
+	 */
 	@Override
 	public ClassifiedElements<K> getClassificationOfFilteredElements() {
 		HashMap<Category, Set<K>> toReturn = new HashMap<Category, Set<K>>();
@@ -271,6 +271,11 @@ import dynamicrefactoring.domain.metadata.interfaces.Element;
 				toReturn);
 	}
 	
+	/**
+	 * Devuelve todas las condiciones de filtro.
+	 * 
+	 * @return todas las condiciones de filtro
+	 */
 	@Override
 	public List<Predicate<K>> getAllFilterConditions() {
 		return new ArrayList<Predicate<K>>(filter);

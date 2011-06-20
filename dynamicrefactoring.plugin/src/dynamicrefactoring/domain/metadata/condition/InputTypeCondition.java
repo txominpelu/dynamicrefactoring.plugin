@@ -55,15 +55,24 @@ import dynamicrefactoring.domain.metadata.interfaces.Element;
 		return inputType;
 	}
 	
+	/**
+	 * Comprueba si se aplica la condición.
+	 * 
+	 * @param arg0
+	 *            objeto a comprobar
+	 * 
+	 * @return devuelve si la condición se cumple para el objeto pasado
+	 */
 	@Override
 	public boolean apply(K arg0) {
 		return arg0.containsInputType(inputType);
 	}
-	
+
 	/**
 	 * Son iguales si ambas contienen el mismo tipo de entrada.
 	 * 
-	 * @param otra a comparar
+	 * @param o
+	 *            a comparar
 	 * @return verdadero si filtran por el mismo tipo de entrada
 	 */
 	@Override

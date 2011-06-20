@@ -280,8 +280,6 @@ public class ExportImportUtilities {
 	 * @param folder
 	 *            nueva carpeta a la que se asignarán los ejemplos
 	 * 
-	 * @param definitionFile
-	 *            fichero
 	 * @param refact
 	 *            refactorización
 	 * @return ejemplos modificados

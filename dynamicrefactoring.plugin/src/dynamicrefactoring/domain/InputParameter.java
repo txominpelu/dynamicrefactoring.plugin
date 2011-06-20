@@ -91,7 +91,6 @@ public final class InputParameter {
 	 * 
 	 * @return el nombre identificador del parámetro de entrada.
 	 * 
-	 * @see #setName(String)
 	 */
 	public String getName() {
 		return name;
@@ -104,7 +103,6 @@ public final class InputParameter {
 	 * @return el nombre identificador de la entrada a partir de la que se puede
 	 *         obtener el valor de esta entrada.
 	 * 
-	 * @see #setFrom(String)
 	 */
 	public String getFrom() {
 		return from;
@@ -115,7 +113,6 @@ public final class InputParameter {
 	 * 
 	 * @return el nombre completamente cualificado del tipo del parámetro.
 	 * 
-	 * @see #setType(String)
 	 */
 	public String getType() {
 		return type;
@@ -128,7 +125,6 @@ public final class InputParameter {
 	 * @return el nombre del método que permite obtener los posibles valores del
 	 *         parámetro de entrada a partir del objeto {@link #from}.
 	 * 
-	 * @see #setMethod(String)
 	 */
 	public String getMethod() {
 		return method;

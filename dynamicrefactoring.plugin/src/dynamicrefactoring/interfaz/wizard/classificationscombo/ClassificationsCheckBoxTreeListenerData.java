@@ -36,8 +36,15 @@ import dynamicrefactoring.domain.metadata.interfaces.Classification;
 class ClassificationsCheckBoxTreeListener implements
 		ICheckStateListener {
 
+	/**
+	 * Clasificaciones disponibles.
+	 */
 	private final Set<Classification> availableClassifications;
 
+	/**
+	 * Constructor.
+	 * @param availableClassifications clasificaciones disponibles
+	 */
 	ClassificationsCheckBoxTreeListener(
 			Set<Classification> availableClassifications) {
 		this.availableClassifications = availableClassifications;
@@ -52,6 +59,8 @@ class ClassificationsCheckBoxTreeListener implements
 	 * Si el evento corresponde a una categoria solo permitira marcar una si
 	 * su padre no permite refactorizaciones que pertenecen a multiples
 	 * categorias (refact. multicategoria).
+	 * 
+	 * @param event evento de cambio
 	 */
 	@Override
 	public void checkStateChanged(CheckStateChangedEvent event) {
@@ -90,7 +99,7 @@ class ClassificationsCheckBoxTreeListener implements
 	 *            evento
 	 * @param classification
 	 *            clasification objeto del evento
-	 * @param viewer
+	 * @param viewer visor
 	 */
 	private void dealWithParentCheckStateChange(
 			CheckStateChangedEvent event, Classification classification,
@@ -108,13 +117,12 @@ class ClassificationsCheckBoxTreeListener implements
 	 * 
 	 * @param classification
 	 *            elemento padre
-	 * @param viewer
+	 * @param viewer visor
 	 */
 
 	protected static void grayParentIfNeeded(Classification classification,
 			CheckboxTreeViewer viewer) {
-		// Si alguno de los hijos de la clasificacion tiene algun hijo
-		// marcado
+		// Si alguno de los hijos de la clasificacion tiene algun hijo marcado
 		if (!Sets
 				.intersection(
 						classification.getCategories(),

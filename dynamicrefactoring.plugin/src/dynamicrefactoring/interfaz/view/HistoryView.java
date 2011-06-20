@@ -405,6 +405,10 @@ public class HistoryView extends ViewPart {
 	private class UndoSelectionListener implements SelectionListener {
 		
 		/**
+		 * Comportamiento para la selección por defecto.
+		 * 
+		 * @param event el evento de selección disparado sobre la ventana.
+		 *
 		 * @see SelectionListener#widgetDefaultSelected(SelectionEvent)
 		 */
 		@Override

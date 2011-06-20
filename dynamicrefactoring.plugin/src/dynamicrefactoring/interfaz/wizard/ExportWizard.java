@@ -96,6 +96,7 @@ public class ExportWizard extends DynamicRefactoringList {
 	 * 
 	 * @param parentShell
 	 *            la <i>shell</i> padre de esta ventana.
+	 * @param refactCatalog catálogo de refactorizaciones
 	 */
 	public ExportWizard(Shell parentShell, RefactoringsCatalog refactCatalog) {
 		super(parentShell, refactCatalog);
@@ -200,6 +201,8 @@ public class ExportWizard extends DynamicRefactoringList {
 
 	/**
 	 * Prepara la <i>shell</i> para su apertura.
+	 * 
+	 * @param newShell nueva shell
 	 */
 	protected void configureShell(Shell newShell) {
 		super.configureShell(newShell);
@@ -236,7 +239,9 @@ public class ExportWizard extends DynamicRefactoringList {
 		}
 
 		/**
-		 * @see SelectionListener#widgetDefaultSelected(SelectionEvent)
+		 * Comportamiento ante el evento de selección por defecto.
+		 * 
+		 * @param e evento de selección.
 		 */
 		@Override
 		public void widgetDefaultSelected(SelectionEvent e) {

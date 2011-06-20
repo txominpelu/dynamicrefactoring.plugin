@@ -113,6 +113,7 @@ public class InformationDialog extends Dialog {
 
 	/**
 	 * Devuelve el tamaño inicial del diálogo.
+	 * @return tamaño inicial
 	 */
 	@Override
 	protected Point getInitialSize() {
@@ -121,6 +122,8 @@ public class InformationDialog extends Dialog {
 	
 	/**
 	 * Configuración inicial de la ventana.
+	 * 
+	 * @param newShell nueva shell
 	 */
 	protected void configureShell(Shell newShell) {
 		super.configureShell(newShell);

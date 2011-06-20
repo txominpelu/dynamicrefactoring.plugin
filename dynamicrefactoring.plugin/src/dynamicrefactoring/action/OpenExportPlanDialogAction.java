@@ -64,14 +64,21 @@ public class OpenExportPlanDialogAction implements IWorkbenchWindowActionDelegat
 	 */
 	@Override
 	public void selectionChanged(IAction action, ISelection selection){}
-	
+
 	/**
+	 * Finalizado de la acción.
+	 * 
 	 * @see org.eclipse.ui.IWorkbenchWindowActionDelegate#dispose()
 	 */
 	@Override
 	public void dispose() {}
 
 	/**
+	 * Inicia la acción.
+	 * 
+	 * @param window
+	 *            ventana
+	 * 
 	 * @see org.eclipse.ui.IWorkbenchWindowActionDelegate#init(IWorkbenchWindow)
 	 */
 	@Override

@@ -26,6 +26,17 @@ import org.eclipse.jface.viewers.ViewerFilter;
  */
  public class JavadocReaderViewerFilter extends ViewerFilter {	
 	
+	 /**
+	  * Indica si el elemento cumple con el filtro.
+	  * 
+	  * @param viewer visor
+	  * @param parentElement elemento padre
+	  * @param element elemnto del que se desea saber 
+	  *        si cumple o no con el filtro
+	  * 
+	  * @return verdadero si cumple con el filtro,
+	  *         falso en caso contrario
+	  */
 	@Override
 	public boolean select(Viewer viewer, Object parentElement, Object element) {
 		if(element instanceof IJavaProject){

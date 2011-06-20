@@ -65,14 +65,26 @@ public class OpenRefactoringAction implements IWorkbenchWindowActionDelegate,
 	}
 
 	/**
+	 * Specifies the active part value.
+	 * 
+	 * @param action
+	 *            an IAction object
+	 * @param targetPart
+	 *            an IWorkbenchPart object
 	 * @see IObjectActionDelegate#setActivePart(IAction, IWorkbenchPart)
 	 */
 	public void setActivePart(IAction action, IWorkbenchPart targetPart) {
 	}
 
 	/**
-	 * @see IEditorActionDelegate#setActiveEditor(IAction, IEditorPart)
+	 * Establece el editor activo.
+	 * 
+	 * @param action
+	 *            acción
+	 * @param editorPart
+	 *            editor
 	 */
+	@Override
 	public void setActiveEditor(IAction action, IEditorPart editorPart) {
 	}
 
@@ -100,6 +112,8 @@ public class OpenRefactoringAction implements IWorkbenchWindowActionDelegate,
 	 * Se guarda en caché el objeto ventana, con objeto de poder obtener la
 	 * <code>shell</code> sobre la que abrir los mensajes de diálogo.
 	 * 
+	 * @param window
+	 *            ventana
 	 * @see IWorkbenchWindowActionDelegate#init
 	 */
 	public void init(IWorkbenchWindow window) {

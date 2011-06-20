@@ -123,10 +123,7 @@ import dynamicrefactoring.util.io.FileManager;
 	 * ejemplos con la nueva ruta que ahora les corresponde en el directorio del
 	 * fichero de definicion de la refactorizacion.
 	 * 
-	 * @param newRefactoringName
-	 *            nombre de la refactorizacion
-	 * @param sourceExamples
-	 *            ficheros origen de ejemplo que se van a copiar
+	 * 
 	 * @return rutas de los ficheros de ejemplo tras la copia
 	 */
 	private List<RefactoringExample> copyExampleFiles() {
@@ -144,8 +141,6 @@ import dynamicrefactoring.util.io.FileManager;
 	 * Copia un fichero al directorio de la refactorizacion indicada por el
 	 * nombre.
 	 * 
-	 * @param newRefactoringName
-	 *            nombre de la refactorizacon
 	 * @param fileSourcePath
 	 *            ruta actual del fichero que se copiara al directorio de la
 	 *            refactorizacion

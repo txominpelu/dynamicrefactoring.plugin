@@ -31,7 +31,7 @@ import com.google.common.collect.Lists;
  public final class RefactoringMechanismInstance {
 
 	/**
-	 * Nombre de la clase del mecanismo de refactorizacion
+	 * Nombre de la clase del mecanismo de refactorizacion.
 	 */
 	private String className;
 	/**
@@ -40,7 +40,7 @@ import com.google.common.collect.Lists;
 	private RefactoringMechanismType type;
 
 	/**
-	 * Parametros de entrada del mecanismo
+	 * Parametros de entrada del mecanismo.
 	 */
 	private List<String> inputParameters;
 
@@ -123,7 +123,6 @@ import com.google.common.collect.Lists;
 	 *            mecanismos a tranformar
 	 * @return un <code>List</code> de cadenas con los nombres.
 	 * 
-	 * @see #setActions
 	 */
 	public static List<String> getMechanismListClassNames(
 			List<RefactoringMechanismInstance> mechanisms) {

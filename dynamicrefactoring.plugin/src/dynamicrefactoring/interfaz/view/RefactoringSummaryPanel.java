@@ -115,8 +115,19 @@ import dynamicrefactoring.util.RefactoringTreeManager;
 	 */
 	private Text motivationText;
 	
+	/**
+	 * Toolkit.
+	 */
 	private FormToolkit toolkit;
+	
+	/**
+	 * Sección de palabras clave.
+	 */
 	private Section keyWordsSection;
+	
+	/**
+	 * Sección de categorías.
+	 */
 	private Section categoriesSection;
 
 	/**
@@ -142,7 +153,14 @@ import dynamicrefactoring.util.RefactoringTreeManager;
 	 */
 	private Canvas imageCanvas ;
 	
+	/**
+	 * Conjunto de links a los ejemplos de la refactorización.
+	 */
 	private ArrayList<Link> examplesLink;
+	
+	/**
+	 * Visor de código fuente de los ejemplos de la refactorización.
+	 */
 	private SourceViewerDialog sourceViewer;
 
 	/**
@@ -150,6 +168,9 @@ import dynamicrefactoring.util.RefactoringTreeManager;
 	 */
 	private DynamicRefactoringDefinition refactoring;
 	
+	/**
+	 * Vista del catálogo de refactorizaciones.
+	 */
 	private RefactoringCatalogBrowserView rcbView;
 	
 	/**
@@ -196,6 +217,9 @@ import dynamicrefactoring.util.RefactoringTreeManager;
 		minNumTabs=refTabFolder.getItemCount();
 	}
 
+	/**
+	 * Crea la pestaña Overview del organizador de pestañas.
+	 */
 	private void createOverviewTabItem(){
 
 		//comp
@@ -328,6 +352,9 @@ import dynamicrefactoring.util.RefactoringTreeManager;
 		item.setControl(comp);
 	}
 	
+	/**
+	 * Crea la pestaña Inputs del organizador de pestañas.
+	 */
 	private void createInputsTabItem(){
 		inputsTable = new Table(refTabFolder, SWT.BORDER);
 		inputsTable.setBackground(Display.getCurrent().getSystemColor(SWT.COLOR_WHITE));
@@ -351,6 +378,9 @@ import dynamicrefactoring.util.RefactoringTreeManager;
 		item.setControl(inputsTable);
 	}
 
+	/**
+	 * Crea la pestaña Mechanism del organizador de pestañas.
+	 */
 	private void createMechanismTabItem(){
 		componentsTree=new Tree(refTabFolder, SWT.BORDER);
 
@@ -359,6 +389,9 @@ import dynamicrefactoring.util.RefactoringTreeManager;
 		item.setControl(componentsTree);
 	}
 
+	/**
+	 * Crea y da contenido a la pestaña Image del organizador de pestañas.
+	 */
 	private void createAndFillImageTabItem(){
 
 		ScrolledComposite scroller = new ScrolledComposite(refTabFolder, SWT.V_SCROLL | SWT.H_SCROLL );
@@ -389,6 +422,9 @@ import dynamicrefactoring.util.RefactoringTreeManager;
 		item.setControl(scroller);
 	}
 
+	/**
+	 * Crea la pestaña Examples del organizador de pestañas y la da contenido.
+	 */
 	private void createAndFillExamplesTabItem(){
 		
 		//comp
@@ -428,6 +464,9 @@ import dynamicrefactoring.util.RefactoringTreeManager;
 		item.setControl(comp);
 	}
 	
+	/**
+	 * Limpia todo el organizador de pestañas del panel de resumen.
+	 */
 	private void clear(){
 
 		//examplesLink
@@ -466,6 +505,9 @@ import dynamicrefactoring.util.RefactoringTreeManager;
 		}
 	}
 
+	/**
+	 * Da contenido a la pestaña Overview del organizador de pestañas.
+	 */
 	private void fillOverview(){
 		descriptionText.setText(refactoring.getDescription().trim());
 		motivationText.setText(refactoring.getMotivation().trim());
@@ -513,6 +555,9 @@ import dynamicrefactoring.util.RefactoringTreeManager;
 		
 	}
 	
+	/**
+	 * Da conenido a la pestaña Inputs del organizador de pestañas.
+	 */
 	private void fillInputsTable(){
 		List<InputParameter> inputs = refactoring.getInputs();
 		Button checkButton=null;
@@ -538,6 +583,9 @@ import dynamicrefactoring.util.RefactoringTreeManager;
 		}
 	}
 
+	/**
+	 * Da contenido a la pestaña de Mechanims del organizador de pestañas.
+	 */
 	private void fillComponentsTree(){
 		componentsTree.setVisible(false);
 
@@ -580,7 +628,7 @@ import dynamicrefactoring.util.RefactoringTreeManager;
 	}
 
 	/**
-	 * Muestra el resumen de la refactorización.
+	 * Muestra el panel de resumen.
 	 */
 	public void showRefactoringSummary(){
 
@@ -602,6 +650,9 @@ import dynamicrefactoring.util.RefactoringTreeManager;
 		refTabFolder.setVisible(true);
 	}
 
+	/**
+	 * Da contenido a las pestañas fijas del organizador de pestañas.
+	 */
 	private void fillConstantComponents() {
 		fillOverview();
 		fillInputsTable();
@@ -609,9 +660,10 @@ import dynamicrefactoring.util.RefactoringTreeManager;
 	}
 
 	/**
-	 * Devuelve la refactorización seleccionada.
+	 * Obtiene la refactorización que esta siendo mostrada en el panel de
+	 * resumen.
 	 * 
-	 * @return refactorización seleccionada
+	 * @return refactorización que esta siendo mostrada
 	 */
 	public DynamicRefactoringDefinition getRefactoringSelected(){
 		return refactoring;

@@ -99,10 +99,19 @@ public class RefactoringWizardPage7 extends WizardPage {
 	 */
 	private RefactoringWizardPage1 firstPage;
 
+	/**
+	 * Tabla resumen con las palabras clave.
+	 */
 	private TableViewer table_Keywords;
 
+	/**
+	 * Columnas de la tabla de palabras clave.
+	 */
 	private TableColumn col_Keywords;
 
+	/**
+	 * Árbol de categorías de clasificaciones.
+	 */
 	private PickCategoryTree picker;
 
 	/**
@@ -223,6 +232,9 @@ public class RefactoringWizardPage7 extends WizardPage {
 
 	/**
 	 * Rellena los datos de la tabla con la lista de palabras claves.
+	 * 
+	 * @param container contenedor
+	 * @param bounds bounds
 	 */
 	private void fillInKeywordsTableData(Composite container, Rectangle bounds) {
 
@@ -268,6 +280,7 @@ public class RefactoringWizardPage7 extends WizardPage {
 	 * 
 	 * @param container
 	 *            contenedor del arbol
+	 * @param bounds bounds
 	 */
 	private void createNotEditableCategoryTree(Composite container,
 			Rectangle bounds) {

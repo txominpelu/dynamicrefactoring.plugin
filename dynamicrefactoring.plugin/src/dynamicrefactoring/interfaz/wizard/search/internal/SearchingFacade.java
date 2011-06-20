@@ -74,6 +74,7 @@ import dynamicrefactoring.util.PluginStringUtils;
 			}
 
 		},
+
 		/**
 		 * Tipo de elemento de búsqueda entrada.
 		 */
@@ -107,7 +108,14 @@ import dynamicrefactoring.util.PluginStringUtils;
 		abstract Set<String> getClassesToIndex();
 	}
 
+	/**
+	 * Indexador de clases y sus descripciones en Javadoc.
+	 */
 	private SearchableTypeIndexer indexer;
+	
+	/**
+	 * Elemento encargado de realizar las busquedas.
+	 */
 	private SimpleElementSearcher searcher;
 
 	/**
@@ -120,9 +128,10 @@ import dynamicrefactoring.util.PluginStringUtils;
 
 	/**
 	 * Genera los indices para todos los tipos de elementos que pueden ser
-	 * buscados es decir para todos los elementos de {@link SearchableType}
+	 * buscados es decir para todos los elementos de {@link SearchableType}.
 	 * 
 	 * @throws IOException
+	 *             excepción de entrada o salida
 	 */
 	public void generateAllIndexes() throws IOException {
 		for (SearchableType type : SearchableType.values()) {

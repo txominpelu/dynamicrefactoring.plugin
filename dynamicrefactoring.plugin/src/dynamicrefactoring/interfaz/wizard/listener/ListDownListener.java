@@ -88,7 +88,11 @@ public class ListDownListener implements SelectionListener {
 	}
 	
 	/**
+	 * Comportamiento ante el evento de selección por defecto.
+	 * 
 	 * @see SelectionListener#widgetDefaultSelected(SelectionEvent)
+	 * 
+	 * @param e evento de selección.
 	 */
 	@Override
 	public void widgetDefaultSelected(SelectionEvent e) {

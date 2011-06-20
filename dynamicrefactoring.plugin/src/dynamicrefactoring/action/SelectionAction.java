@@ -94,11 +94,13 @@ public class SelectionAction implements IWorkbenchWindowActionDelegate {
 	 * @see IWorkbenchWindowActionDelegate#dispose
 	 */
 	public void dispose() {}
-	
+
 	/**
-	 * Se guarda en caché el objeto ventana, con objeto de poder obtener
-	 * la <code>shell</code> sobre la que abrir los mensajes de diálogo.
+	 * Se guarda en caché el objeto ventana, con objeto de poder obtener la
+	 * <code>shell</code> sobre la que abrir los mensajes de diálogo.
 	 * 
+	 * @param window
+	 *            ventana
 	 * @see IWorkbenchWindowActionDelegate#init
 	 */
 	public void init(IWorkbenchWindow window) {

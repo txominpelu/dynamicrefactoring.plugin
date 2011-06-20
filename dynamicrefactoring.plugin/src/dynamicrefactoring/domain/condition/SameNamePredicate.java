@@ -41,6 +41,14 @@ import dynamicrefactoring.domain.DynamicRefactoringDefinition;
 		this.name = name;
 	}
 
+	/**
+	 * Comprueba si se aplica la condición.
+	 * 
+	 * @param arg0
+	 *            objeto a comprobar
+	 * 
+	 * @return devuelve si la condición se cumple para el objeto pasado
+	 */
 	@Override
 	public boolean apply(DynamicRefactoringDefinition arg0) {
 		return arg0.getName().equals(name);

@@ -101,9 +101,6 @@ import dynamicrefactoring.domain.metadata.interfaces.Classification;
 	 * 
 	 * @param file
 	 *            fichero xml con las clasificaciones disponibles
-	 * @param validationEventHandler
-	 *            gestor de eventos de la validación del fichero XML
-	 * 
 	 * @return objeto con la informacion de las clasificaciones disponibles
 	 * @throws ValidationException
 	 *             si el xml no cumple las especificaciones del esquema

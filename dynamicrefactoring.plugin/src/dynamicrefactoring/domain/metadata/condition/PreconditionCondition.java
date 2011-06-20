@@ -56,15 +56,24 @@ import dynamicrefactoring.domain.metadata.interfaces.Element;
 		return precondition;
 	}
 	
+	/**
+	 * Comprueba si se aplica la condición.
+	 * 
+	 * @param arg0
+	 *            objeto a comprobar
+	 * 
+	 * @return devuelve si la condición se cumple para el objeto pasado
+	 */
 	@Override
 	public boolean apply(K arg0) {
 		return arg0.containsPrecondition(precondition);
 	}
-	
+
 	/**
 	 * Son iguales si ambas contienen la misma precondición.
 	 * 
-	 * @param otra a comparar
+	 * @param o
+	 *            a comparar
 	 * @return verdadero si filtran por la misma precondición
 	 */
 	@Override

@@ -71,7 +71,7 @@ import dynamicrefactoring.domain.metadata.interfaces.Element;
 	/**
 	 * Son iguales si ambas contienen el mismo texto.
 	 * 
-	 * @param otra
+	 * @param o
 	 *            a comparar
 	 * @return verdadero si filtran por el mismo texto
 	 */

@@ -126,7 +126,6 @@ import dynamicrefactoring.domain.RefactoringMechanismType;
 	 * y devuelve los nombres de ellos totalmente cualificados (incluidos los
 	 * paquetes).
 	 * 
-	 * @see #getMechanismFullyQualifiedName(String)
 	 * 
 	 * @param type
 	 * 			  tipo de mecanismo del que se trata

@@ -51,46 +51,53 @@ import javax.xml.namespace.QName;
 	 */
     private final static QName _Classifications_QNAME = new QName("", "classifications");
 
-    /**
-     * Create a new ObjectFactory that can be used to create new instances of schema derived classes for package: dynamicrefactoring.plugin.xml.classifications
-     * 
-     */
+	/**
+	 * Create a new ObjectFactory that can be used to create new instances of
+	 * schema derived classes for package:
+	 * dynamicrefactoring.plugin.xml.classifications .
+	 * 
+	 */
     public ObjectFactory() {
     }
 
-    /**
-     * Create an instance of {@link CategoriesType }
-     * @return categories type
-     * 
-     */
+	/**
+	 * Create an instance of CategoriesType.
+	 * 
+	 * @return categories type
+	 * 
+	 */
     public CategoriesType createCategoriesType() {
         return new CategoriesType();
     }
 
-    /**
-     * Create an instance of {@link ClassificationsType }
-     * @return new classifications type
-     * 
-     */
+	/**
+	 * Create an instance of ClassificationsType.
+	 * 
+	 * @return new classifications type
+	 * 
+	 */
     public ClassificationsType createClassificationsType() {
         return new ClassificationsType();
     }
 
-    /**
-     * Create an instance of {@link ClassificationType }
-     * @return new classification type
-     * 
-     */
+	/**
+	 * Create an instance of ClassificationType.
+	 * 
+	 * @return new classification type
+	 * 
+	 */
     public ClassificationType createClassificationType() {
         return new ClassificationType();
     }
 
-    /**
-     * Create an instance of {@link JAXBElement }{@code <}{@link ClassificationsType }{@code >}}
-     * @param value classificationsType
-     * @return classifications
-     * 
-     */
+	/**
+	 * Create an instance of ClassificationsType.
+	 * 
+	 * @param value
+	 *            classificationsType
+	 * @return classifications
+	 * 
+	 */
     @XmlElementDecl(namespace = "", name = "classifications")
     public JAXBElement<ClassificationsType> createClassifications(ClassificationsType value) {
         return new JAXBElement<ClassificationsType>(_Classifications_QNAME, ClassificationsType.class, null, value);

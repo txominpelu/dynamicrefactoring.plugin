@@ -38,7 +38,7 @@ import dynamicrefactoring.domain.metadata.interfaces.Classification;
 	 */
 	private final String name;
 	/**
-	 * Descripción de la clasificación
+	 * Descripción de la clasificación.
 	 */
 	private final String description;
 	/**
@@ -46,7 +46,7 @@ import dynamicrefactoring.domain.metadata.interfaces.Classification;
 	 */
 	private final boolean multicategory;
 	/**
-	 * Si la clasificacion se puede editar o no
+	 * Si la clasificacion se puede editar o no.
 	 */
 	private boolean editable;
 
@@ -90,6 +90,11 @@ import dynamicrefactoring.domain.metadata.interfaces.Classification;
 		this.editable = editable;
 	}
 
+	/**
+	 * Devuelve el conjunto de categorías de la clasificación.
+	 * 
+	 * @return conjunto de categorías de la clasificación
+	 */
 	@Override
 	public Set<Category> getCategories() {
 		return new HashSet<Category>(categories);
@@ -135,7 +140,7 @@ import dynamicrefactoring.domain.metadata.interfaces.Classification;
 	/**
 	 * Ensures that s1.equals(s2) implies that s1.hashCode()==s2.hashCode() for
 	 * any two classification s1 and s2, as required by the general contract of
-	 * Object.hashCode()
+	 * Object.hashCode().
 	 */
 	@Override
 	public int hashCode() {
@@ -151,6 +156,12 @@ import dynamicrefactoring.domain.metadata.interfaces.Classification;
 				.add("categories", getCategories()).toString();
 	}
 
+	/**
+	 * Compara con otra clasificación y devuelve un orden basado en el nombre de
+	 * ambas.
+	 * 
+	 * @return mayor que cero si la refactorización es mayor
+	 */
 	@Override
 	public int compareTo(Classification o) {
 		return name.compareTo(o.getName());

@@ -34,8 +34,8 @@ import dynamicrefactoring.domain.DynamicRefactoringDefinition;
 	 *            nombre de la clasificacion
 	 * @return clasificacion con el nombre dado
 	 * @throws IllegalArgumentException
-	 *             si {@link #hasClassification(String)} es falso para el nombre
-	 *             dado
+	 *             si {@link #containsClassification(String)} es falso para el
+	 *             nombre dado
 	 */
 	Classification getClassification(String name);
 
@@ -51,7 +51,7 @@ import dynamicrefactoring.domain.DynamicRefactoringDefinition;
 	boolean containsClassification(String name);
 
 	/**
-	 * Cambia el nombre de la categoria <b>oldName<b> por <b>newName<b> en la
+	 * Cambia el nombre de la categoria <b>oldName</b> por <b>newName</b> en la
 	 * clasificacion pasada.
 	 * 
 	 * @param classification
@@ -142,8 +142,6 @@ import dynamicrefactoring.domain.DynamicRefactoringDefinition;
 	 *            nombre de la clasificacion a la que pertenece la categoria
 	 * @param categoryName
 	 *            nombre de la nueva categoria
-	 * @param catalog
-	 *            catalogo de clasificaciones
 	 */
 	void addCategoryToRefactoring(String refactName, String classificationName,
 			String categoryName);
@@ -181,7 +179,7 @@ import dynamicrefactoring.domain.DynamicRefactoringDefinition;
 	 * La clasificacion debe existir en el catalogo.
 	 * 
 	 * Lanza {@link IllegalArgumentException} si
-	 * {@link #hasClassification(String)} es falso para el nombre de
+	 * {@link #containsClassification(String)} es falso para el nombre de
 	 * clasificacion dado.
 	 * 
 	 * @param miClasificacion2

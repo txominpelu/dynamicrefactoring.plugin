@@ -239,19 +239,41 @@ public class RepositoryElementComposite {
 	 */
 	private HashMap<String, String> a_Available;
 	
+	/**
+	 * Toolkit.
+	 */
 	private FormToolkit toolkit;
-	private ScrolledForm form;
-	private Label descriptionFormLabel;
-	private ExpandableComposite refExpandableComp;
 	
+	/**
+	 * Contenedor form.
+	 */
+	private ScrolledForm form;
+	
+	/**
+	 * Etiqueda de descripción para el elemento seleccionado.
+	 */
+	private Label descriptionFormLabel;
+	
+	/**
+	 * Contenedor expandible que va a contener las refactorizaciones
+	 * que contiene el elemento seleccionado en su definición.
+	 */
+	private ExpandableComposite refExpandableComp;
+
 	/**
 	 * Constructor.
 	 * 
-	 * @param parent elemento padre de la pestaña.
-	 * @param inputsPage página del asistente a partir de la cual se pueden 
-	 * obtener las entradas que se han seleccionado para la refactorización.
-	 * @param title título asociado a la pestaña.
-	 * @param main Página donde se va a añadir esta estructura.
+	 * @param parent
+	 *            elemento padre de la pestaña.
+	 * @param inputsPage
+	 *            página del asistente a partir de la cual se pueden obtener las
+	 *            entradas que se han seleccionado para la refactorización.
+	 * @param title
+	 *            título asociado a la pestaña.
+	 * @param main
+	 *            Página donde se va a añadir esta estructura.
+	 * @param type
+	 *            tipo del elemento
 	 */
 	public RepositoryElementComposite(Composite parent, String title, 
 		IWizardPage inputsPage,IRefactoringWizardElementPage main, final RefactoringMechanismType type){
@@ -620,6 +642,12 @@ public class RepositoryElementComposite {
 			
 	}
 
+	/**
+	 * Obtiene el nombre cualificado del elemento.
+	 * 
+	 * @param element elemento
+	 * @return nombre cualificado del elemento
+	 */
 	private String getElementFullyQualifiedName(String element) {
 		RefactoringMechanismType type = RefactoringMechanismType.PRECONDITION;
 		if (title.equals(RefactoringWizardPage3.PRECONDITIONS_TITLE) ||
@@ -632,7 +660,15 @@ public class RepositoryElementComposite {
 				.getMechanismFullyQualifiedName(type, element);
 		return qualified_name;
 	}
-	
+
+	/**
+	 * Obtiene el nombre sin cualificar del elemento a partir de su nombre
+	 * cualificado.
+	 * 
+	 * @param qualifiedName
+	 *            nombre cualificado
+	 * @return nombre sin cualificar del elemento
+	 */
 	private String getElementNotQualifiedName(String qualifiedName) {
 		final int SEPARATOR='.';
 		int pos=qualifiedName.lastIndexOf(SEPARATOR);
@@ -653,17 +689,18 @@ public class RepositoryElementComposite {
 		enableInputButtons(false);
 		emptyTable();
 	}
-	
+
 	/**
 	 * Puebla la lista de elementos que forman ya parte de una refactorización
 	 * que se haya cargado para ser editada.
 	 * 
-	 * @param elements elementos que forman ya parte de la refactorización.
-	 * @param refactoring refactorización cuyos elementos se cargan.
-	 * @param typePart tipo de elementos que se cargarán (uno de 
-	 * {@link RefactoringConstants#PRECONDITION}, 
-	 * {@link RefactoringConstants#ACTION} o 
-	 * {@link RefactoringConstants#POSTCONDITION}.)
+	 * @param elements
+	 *            elementos que forman ya parte de la refactorización.
+	 * @param refactoring
+	 *            refactorización cuyos elementos se cargan.
+	 * @param typePart
+	 *            tipo de elementos que se cargarán (uno de precondicion, accion
+	 *            o postcondición)
 	 */
 	protected void fillSelectedListAsRefactoringMechanism(java.util.List<RefactoringMechanismInstance> elements,
 			DynamicRefactoringDefinition refactoring,
@@ -791,10 +828,13 @@ public class RepositoryElementComposite {
 		this.bt_moveUp.setEnabled(enable);
 		this.bt_moveDown.setEnabled(enable);
 	}
-	
+
 	/**
-	 * Añade los elementos concretos disponibles del repositorio seleccionados a la 
-	 * lista de elementos concretos ya seleccionados.
+	 * Añade los elementos concretos disponibles del repositorio seleccionados a
+	 * la lista de elementos concretos ya seleccionados.
+	 * 
+	 * @param type
+	 *            tipo del elemento
 	 */
 	private void addElements(RefactoringMechanismType type){
 		String[] selected = l_Available.getSelection();
@@ -996,13 +1036,14 @@ public class RepositoryElementComposite {
 		 * Parámetros ambiguos del elemento del repositorio.
 		 */
 		private ArrayList<InputParameter> parameters;
-		
-		
+
 		/**
 		 * Constructor.
 		 * 
-		 * @param name nombre del elemento del repositorio.
-		 * @param javaDependent si el elemento es dependiente de Java o no.
+		 * @param name
+		 *            nombre del elemento del repositorio.
+		 * @param type
+		 *            tipo del elemento
 		 */
 		public RepositoryItem(String name, RefactoringMechanismType type) {
 			this.name = name;
@@ -1024,7 +1065,6 @@ public class RepositoryElementComposite {
 		 * 
 		 * @return el nombre del elemento del repositorio.
 		 * 
-		 * @see #setName
 		 */
 		public String getName() {
 			return name;
@@ -1034,7 +1074,6 @@ public class RepositoryElementComposite {
 		/**
 		 * Añade un parámetro ambiguo al elemento del repositorio.
 		 * 
-		 * @see #setParameters
 		 * @param parameter el parámetro ambiguo que se debe añadir.
 		 */
 		public void addParameter(InputParameter parameter) {
@@ -1045,7 +1084,6 @@ public class RepositoryElementComposite {
 		 * Obtiene los parámetros ambiguos del elemento del repositorio.
 		 * 
 		 * @return un <code>ArrayList</code> con la lista de parámetros ambiguos.
-		 * @see #setParameters
 		 */
 		public java.util.List<InputParameter> getParameters() {
 			return parameters;
@@ -1055,7 +1093,6 @@ public class RepositoryElementComposite {
 		 * Obtiene los parámetros ambiguos del elemento del repositorio.
 		 * 
 		 * @return un <code>ArrayList</code> con la lista de parámetros ambiguos.
-		 * @see #setParameters
 		 */
 		public java.util.List<String> getParametersNames() {
 			final java.util.List<String> parametersAsString = new ArrayList<String>();
@@ -1214,6 +1251,11 @@ public class RepositoryElementComposite {
 		}
 		
 		/**
+		 * Recibe notificaciones cuando el elemento observado ha sido seleccionado
+		 * por defecto.
+		 * 
+		 * @param e evento de selección disparado en la interfaz.
+		 * 
 		 * @see SelectionListener#widgetDefaultSelected(SelectionEvent)
 		 */
 		@Override
@@ -1315,6 +1357,11 @@ public class RepositoryElementComposite {
 		}
 		
 		/**
+		 * Recibe notificaciones cuando el elemento observado ha sido seleccionado
+		 * por defecto.
+		 * 
+		 * @param e evento de selección disparado en la interfaz.
+		 * 
 		 * @see SelectionListener#widgetDefaultSelected(SelectionEvent)
 		 */
 		@Override

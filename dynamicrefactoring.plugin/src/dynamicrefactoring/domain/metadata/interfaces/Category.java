@@ -51,9 +51,9 @@ import com.google.common.base.Objects;
 		this.name = name;
 		this.parent = parent;
 	}
-	
+
 	/**
-	 * Devuelve el nombre de la categoria
+	 * Devuelve el nombre de la categoria.
 	 * 
 	 * @return nombre de la categoria
 	 */
@@ -94,6 +94,11 @@ import com.google.common.base.Objects;
 		return Objects.hashCode(name.toLowerCase(), parent.toLowerCase());
 	}
 
+	/**
+	 * Compara dos categorías y las ordena en base a su nombre.
+	 * 
+	 * @return mayor que cero si la categoría es mayor que la pasada
+	 */
 	@Override
 	public int compareTo(Category o) {
 		return toString().toLowerCase().compareTo(o.toString().toLowerCase());

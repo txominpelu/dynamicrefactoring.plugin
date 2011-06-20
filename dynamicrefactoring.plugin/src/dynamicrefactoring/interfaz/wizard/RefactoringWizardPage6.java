@@ -107,6 +107,9 @@ public class RefactoringWizardPage6 extends WizardPage {
 	 */
 	private String lastSelectionPath = null;
 
+	/**
+	 * Model.
+	 */
 	private RefactoringExampleModel model;
 
 	/**
@@ -474,6 +477,11 @@ public class RefactoringWizardPage6 extends WizardPage {
 		}
 
 		/**
+		 * Recibe notificaciones cuando el elemento observado ha sido seleccionado
+		 * por defecto.
+		 * 
+		 * @param e evento de selección disparado en la interfaz.
+		 * 
 		 * @see SelectionListener#widgetDefaultSelected(SelectionEvent)
 		 */
 		@Override
@@ -482,13 +490,33 @@ public class RefactoringWizardPage6 extends WizardPage {
 		}
 	}
 
+	/**
+	 * Modelo de los ejemplos de las refactorizaciones.
+	 * 
+	 */
 	public static class RefactoringExampleModel {
+		/**
+		 * Ejemplo 1, antes.
+		 */
 		private String beforeExample1;
+		/**
+		 * Ejemplo 1, después.
+		 */
 		private String afterExample1;
+		/**
+		 * Ejemplo 2, antes.
+		 */
 		private String beforeExample2;
+		/**
+		 * Ejemplo 3, después.
+		 */
 		private String afterExample2;
 
 		/**
+		 * Establece el antes del ejemplo1.
+		 * 
+		 * @see #getBeforeExample1
+		 * 
 		 * @param beforeExample1
 		 *            the beforeExample1 to set
 		 */
@@ -497,6 +525,8 @@ public class RefactoringWizardPage6 extends WizardPage {
 		}
 
 		/**
+		 * Obtiene el antes del ejemplo 1.
+		 * 
 		 * @return the beforeExample1
 		 */
 		public String getBeforeExample1() {
@@ -504,6 +534,8 @@ public class RefactoringWizardPage6 extends WizardPage {
 		}
 
 		/**
+		 * Establece el después del ejemplo1.
+		 * 
 		 * @param afterExample1
 		 *            the afterExample1 to set
 		 */
@@ -512,6 +544,8 @@ public class RefactoringWizardPage6 extends WizardPage {
 		}
 
 		/**
+		 * Obtiene el después del ejemplo1.
+		 * 
 		 * @return the afterExample1
 		 */
 		public String getAfterExample1() {
@@ -519,6 +553,8 @@ public class RefactoringWizardPage6 extends WizardPage {
 		}
 
 		/**
+		 * Establece el antes del ejemplo 2.
+		 * 
 		 * @param beforeExample2
 		 *            the beforeExample2 to set
 		 */
@@ -527,6 +563,8 @@ public class RefactoringWizardPage6 extends WizardPage {
 		}
 
 		/**
+		 * Obtiene el antes del ejemplo 2.
+		 * 
 		 * @return the beforeExample2
 		 */
 		public String getBeforeExample2() {
@@ -534,6 +572,8 @@ public class RefactoringWizardPage6 extends WizardPage {
 		}
 
 		/**
+		 * Establece el después del ejemplo 2.
+		 * 
 		 * @param afterExample2
 		 *            the afterExample2 to set
 		 */
@@ -542,20 +582,42 @@ public class RefactoringWizardPage6 extends WizardPage {
 		}
 
 		/**
+		 * Obtiene el después del ejemplo 2.
+		 * 
 		 * @return the afterExample2
 		 */
 		public String getAfterExample2() {
 			return afterExample2;
 		}
 
+		/**
+		 * Permite hacer databinding de las modificaciones en los campos de los
+		 * ejemplos.
+		 */
 		private PropertyChangeSupport changeSupport = new PropertyChangeSupport(
 				this);
 
+		/**
+		 * Agrega un listener de cambios en los campos.
+		 * 
+		 * @param propertyName
+		 *            nombre de la propiedad
+		 * @param listener
+		 *            observador
+		 */
 		public void addPropertyChangeListener(String propertyName,
 				PropertyChangeListener listener) {
 			changeSupport.addPropertyChangeListener(propertyName, listener);
 		}
 
+		/**
+		 * Elimina un listener de cambios en los campos.
+		 * 
+		 * @param propertyName
+		 *            nombre de la propiedad
+		 * @param listener
+		 *            observador
+		 */
 		public void removePropertyChangeListener(String propertyName,
 				PropertyChangeListener listener) {
 			changeSupport.removePropertyChangeListener(propertyName, listener);

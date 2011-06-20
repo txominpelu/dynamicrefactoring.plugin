@@ -192,16 +192,10 @@ public class DynamicRefactoringWindow extends Dialog {
 	 * @param currentObject
 	 *            objeto que constituye la entrada principal de la
 	 *            refactorización.
-	 * @param refactoring
-	 *            refactorizacion
-	 * @param refactoringName
-	 *            nombre de la refactorización.
-	 * @param refactoringfilePath
-	 *            ruta del fichero XML que define la refactorización.
 	 * 
-	 * @throws RefactoringException
-	 *             si se produce un error al acceder a la definición de la
-	 *             refactorización dinámica que se asociará a la ventana.
+	 * @param refactoring
+	 *            definición de la refactorización.
+	 * 
 	 */
 	public DynamicRefactoringWindow(ObjectMoon currentObject, DynamicRefactoringDefinition refactoring) {
 		super(PlatformUI.getWorkbench().getActiveWorkbenchWindow().getShell());
@@ -1092,6 +1086,8 @@ public class DynamicRefactoringWindow extends Dialog {
 
 	/**
 	 * Cierra la ventana de diálogo.
+	 * 
+	 * @return indica si se ha podido cerrar la ventana correctamente.
 	 */
 	@Override
 	public boolean close(){
@@ -1214,7 +1210,11 @@ public class DynamicRefactoringWindow extends Dialog {
 		}
 		
 		/**
+		 * Comportamiento para el evento de selección por defecto.
+		 * 
 		 * @see SelectionListener#widgetDefaultSelected(SelectionEvent)
+		 * 
+		 * @param e evento de selección.
 		 */
 		@Override
 		public void widgetDefaultSelected(SelectionEvent e) {

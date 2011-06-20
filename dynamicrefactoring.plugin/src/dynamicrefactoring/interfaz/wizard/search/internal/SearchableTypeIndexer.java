@@ -50,13 +50,39 @@ import dynamicrefactoring.util.PluginStringUtils;
  */
  enum SearchableTypeIndexer implements Indexer {
 
+	 /**
+	  * Instancia.
+	  */
 	INSTANCE;
 
+	/**
+	 * Fichero donde se encuentran las stopwords.
+	 */
 	private static final String SEARCH_STOPWORDS_ENGLISH_TXT = "/search/stopwords-english.txt";
+	
+	/**
+	 * Campo nombre de la clase.
+	 */
 	public static final String CLASS_NAME_FIELD = "className";
+	
+	/**
+	 * Campo descripción de la clase.
+	 */
 	public static final String CLASS_DESCRIPTION_FIELD = "contents";
+	
+	/**
+	 * Campo paquete.
+	 */
 	public static final String PACKAGE_FIELD = "package";
+	
+	/**
+	 * Campo nombre cualificado de la clase. 
+	 */
 	public static final String FULLY_QUALIFIED_CLASS_NAME_FIELD = "fullyQualifiedName";
+	
+	/**
+	 * Conjunto de stopwords.
+	 */
 	public static final Set<String> ENGLISH_STOP_WORDS;
 
 	static {
@@ -95,7 +121,8 @@ import dynamicrefactoring.util.PluginStringUtils;
 	 * Genera un indice en el directorio del sistema de ficheros cuya ruta viene
 	 * dada por {@link #getIndexDir()}.
 	 * 
-	 * @return
+	 * @param elementType tipo de elemento
+	 * @return devuelve el indice
 	 * @throws IOException
 	 */
 	protected int index(SearchableType elementType) throws IOException {
@@ -153,7 +180,7 @@ import dynamicrefactoring.util.PluginStringUtils;
 	/**
 	 * Crea el escritor del indice.
 	 * 
-	 * @param indexDir
+	 * @param dir
 	 *            directorio en el que se creara el indice
 	 * @return escritor del indice
 	 * 

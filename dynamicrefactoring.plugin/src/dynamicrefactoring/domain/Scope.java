@@ -33,8 +33,7 @@ import com.google.common.collect.Collections2;
 import dynamicrefactoring.interfaz.Messages;
 
 /**
- * Posibles ámbitos sobre los que se puede
- * aplicar una refactorización
+ * Posibles ámbitos sobre los que se puede aplicar una refactorización.
  * 
  * @author <A HREF="mailto:ims0011@alu.ubu.es">Iñigo Mediavilla Saiz</A>
  * @author <A HREF="mailto:mgs0110@alu.ubu.es">Míryam Gómez San Martín</A>
@@ -77,6 +76,9 @@ import dynamicrefactoring.interfaz.Messages;
 	CODE_FRAGMENT(CodeFragment.class,
 			Messages.SelectRefactoringWindow_CodeFragmentScope, "codeFragment");
 
+	/**
+	 * Permite convertir de la cadena de la enumeración a la enumeración en sí.
+	 */
 	private static final Map<String, Scope> stringToEnum = new HashMap<String, Scope>();
 
 	static { // Inicializa el mapa de nombre de ambito a constante de la
@@ -151,6 +153,10 @@ import dynamicrefactoring.interfaz.Messages;
 	 * 
 	 * @param correspondinClass
 	 *            clase de moon que se corresponde con el Ámbito
+	 * @param description
+	 *            descripción
+	 * @param xmlTag
+	 *            etiqueta xml
 	 */
 	Scope(final Class<? extends ObjectMoon> correspondinClass,
 			final String description, final String xmlTag) {
@@ -160,9 +166,11 @@ import dynamicrefactoring.interfaz.Messages;
 	}
 
 	/**
-	 * Dada una clase de Moon obtiene el ambito que se corresponde con la misma
+	 * Dada una clase de Moon obtiene el ambito que se corresponde con la misma.
 	 * 
 	 * @param correspondingClass
+	 *            clase correspondiente
+	 * 
 	 * @return ambito que se corresponde con la clase
 	 */
 	public static final Scope getScopeForObjectMoonClass(

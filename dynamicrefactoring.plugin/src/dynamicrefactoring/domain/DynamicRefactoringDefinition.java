@@ -162,7 +162,6 @@ public class DynamicRefactoringDefinition implements Element,
 	 * 
 	 * @return una cadena con la ruta a la imagen.
 	 * 
-	 * @see #setImage
 	 */
 	public String getImage() {
 		return image;
@@ -228,7 +227,6 @@ public class DynamicRefactoringDefinition implements Element,
 	 * 
 	 * @return un <code>List</code> de cadenas con los nombres.
 	 * 
-	 * @see #setPreconditions
 	 */
 	public List<RefactoringMechanismInstance> getPreconditions() {
 		return new ArrayList<RefactoringMechanismInstance>(preconditions);
@@ -249,7 +247,6 @@ public class DynamicRefactoringDefinition implements Element,
 	 * 
 	 * @return un <code>List</code> de cadenas con los nombres.
 	 * 
-	 * @see #setPostconditions
 	 */
 	public List<RefactoringMechanismInstance> getPostconditions() {
 		return new ArrayList<RefactoringMechanismInstance>(postconditions);
@@ -260,7 +257,6 @@ public class DynamicRefactoringDefinition implements Element,
 	 * 
 	 * @return una lista de arrays de cadenas con los atributos de cada ejemplo.
 	 * 
-	 * @see #setExamples
 	 */
 	public List<RefactoringExample> getExamples() {
 		return examples;
@@ -416,6 +412,11 @@ public class DynamicRefactoringDefinition implements Element,
 		return name.compareTo(refactorToCompare.getName());
 	}
 
+	/**
+	 * Obtiene las categorías de la refactorización.
+	 * 
+	 * @return conjunto de categorías a las que la refactorización pertenece
+	 */
 	@Override
 	public final Set<Category> getCategories() {
 		return new HashSet<Category>(categories);
@@ -581,8 +582,6 @@ public class DynamicRefactoringDefinition implements Element,
 	 * Obtiene ruta donde se guarda el fichero de definicion de la
 	 * refactorizacion pasada.
 	 * 
-	 * @param refactName
-	 *            nombre de la refactorizacion
 	 * @return ruta donde se guarda la definicion de la refactorizacion
 	 */
 	public String getXmlRefactoringDefinitionFilePath() {
@@ -596,8 +595,6 @@ public class DynamicRefactoringDefinition implements Element,
 	 * fichero de definicion de la refactorizacion.
 	 * 
 	 * 
-	 * @param refact
-	 *            nombre de la refactorizacion
 	 * @return fichero con la ruta donde se guardara la definicion de la
 	 *         refactorizacion
 	 */
@@ -723,8 +720,6 @@ public class DynamicRefactoringDefinition implements Element,
 			checkParameterNotNull(examples, "examples");
 			checkParameterNotNull(keywords, "keywords");
 
-			// Preconditions.checkArgument(containsScopeCategory(definition.getCategories()),
-			// "The refactoring must belong to at least one scope.");
 			return definition;
 		}
 

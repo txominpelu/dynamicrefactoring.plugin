@@ -21,15 +21,29 @@ package dynamicrefactoring.interfaz.wizard.search.internal;
  */
  public class QueryResult {
 
+	/**
+	 * Nombre de la clase.
+	 */
 	private String className;
+	
+	/**
+	 * Descripción de la clase.
+	 */
 	private String classDescription;
 
+	/**
+	 * Rresultados de una busqueda de elementos en el indice.
+	 * @param className nombre de la clase
+	 * @param classDescription descripción de la clase
+	 */
 	protected QueryResult(String className, String classDescription) {
 		this.className = className;
 		this.classDescription=classDescription;
 	}
 
 	/**
+	 * Obtiene el nombre de la clase.
+	 * 
 	 * @return el nombre de la clase encontrada
 	 */
 	public String getClassName() {
@@ -37,6 +51,8 @@ package dynamicrefactoring.interfaz.wizard.search.internal;
 	}
 
 	/**
+	 * Obtiene la descripción de la clase.
+	 * 
 	 * @return el descripción de la clase encontrada
 	 */
 	public String getClassDescription() {

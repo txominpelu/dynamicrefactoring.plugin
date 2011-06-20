@@ -25,7 +25,6 @@ import org.eclipse.swt.widgets.TreeItem;
 
 import dynamicrefactoring.RefactoringImages;
 import dynamicrefactoring.domain.DynamicRefactoringDefinition;
-import dynamicrefactoring.domain.RefactoringException;
 import dynamicrefactoring.domain.RefactoringMechanismInstance;
 import dynamicrefactoring.interfaz.TreeEditor;
 
@@ -73,7 +72,6 @@ import dynamicrefactoring.interfaz.TreeEditor;
 	 * Rellena el árbol con las refactorizaciones disponibles.
 	 * @param refactorings refactorizaciones disponibles
 	 * @param tree árbol sobre el que añadir subárboles
-	 * @throws RefactoringException
 	 */
 	public static void fillTree(Set<DynamicRefactoringDefinition> refactorings, Tree tree) {
 
@@ -104,7 +102,6 @@ import dynamicrefactoring.interfaz.TreeEditor;
 	 * @param tree
 	 *            arbol al que se agregara la rama con la refactorizacion
 	 * 
-	 * @throws RefactoringException
 	 */
 	public static void createRefactoringDefinitionTreeItemFromParentTree(
 			int refactOrderInBranch, DynamicRefactoringDefinition definition,
@@ -129,7 +126,6 @@ import dynamicrefactoring.interfaz.TreeEditor;
 	 * @param itemParent
 	 *            item al que se agregara la rama con la refactorizacion
 	 * 
-	 * @throws RefactoringException
 	 */
 	public static void createRefactoringDefinitionTreeItemFromParentTreeItem(
 			int refactOrderInBranch, DynamicRefactoringDefinition definition,

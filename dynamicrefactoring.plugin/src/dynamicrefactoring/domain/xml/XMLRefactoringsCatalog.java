@@ -79,9 +79,6 @@ import dynamicrefactoring.util.DynamicRefactoringLister;
 									true)
 					)
 			);
-			// instance = new XMLRefactoringsCatalog(
-			// getRefactoringsFrom(RefactoringPlugin
-			// .getDynamicRefactoringsDir()));
 
 		}
 		return instance;
