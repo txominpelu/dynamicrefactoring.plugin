@@ -2,7 +2,7 @@ Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: dynamicrefactoring.plugin.nl1
 Bundle-SymbolicName: dynamicrefactoring.plugin.nl1
-Bundle-Version: 3.1.5
+Bundle-Version: 3.1.6
 Bundle-ClassPath: .,
  $nl$/
 Fragment-Host: dynamicrefactoring.plugin;bundle-version="3.1.1"

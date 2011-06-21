@@ -4,11 +4,11 @@
   <parent>
     <artifactId>dynamic-refactoring-plugin</artifactId>
     <groupId>dynamicrefactoring</groupId>
-    <version>3.1.5</version>
+    <version>3.1.6</version>
   </parent>
   <groupId>dynamicrefactoring</groupId>
   <artifactId>dynamicrefactoring.tests</artifactId>
-  <version>3.1.5</version>
+  <version>3.1.6</version>
   <packaging>eclipse-test-plugin</packaging>
   <properties>
     <tycho-version>0.10.0</tycho-version>
@@ -39,7 +39,6 @@
         <version>${tycho-version}</version>
         <configuration>
           <argLine>-javaagent:${jacoco.agent.path}=destfile=${jacoco.file.path}</argLine>
-	
           <useUIHarness>true</useUIHarness>
           <useUIThread>false</useUIThread>
           <product>org.eclipse.sdk.ide</product>

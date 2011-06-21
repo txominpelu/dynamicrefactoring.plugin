@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<feature id="dynamicrefactoring.feature" label="dynamicrefactoring.feature" version="3.1.5" plugin="dynamicrefactoring.plugin">
+<feature id="dynamicrefactoring.feature" label="dynamicrefactoring.feature" version="3.1.6" plugin="dynamicrefactoring.plugin">
   <description>The Dynamic Refactoring Plugin will allow you to dynamically create new refactorings out of a given set of predicates and actions. You will then be able to edit them, delete them or export them. It is also possible to import refactorings built outside the current Eclipse installation. Some basic statically defined
 refactorings are shipped with the plug-in by default as well.
 With this plugin you can also export and execute a plan of refactorings.</description>
@@ -20,6 +20,6 @@ With this plugin you can also export and execute a plan of refactorings.</descri
     <import plugin="org.eclipse.jdt.ui"/>
     <import plugin="org.eclipse.jdt.launching"/>
   </requires>
-  <plugin id="dynamicrefactoring.plugin.nl1" download-size="0" install-size="0" version="3.1.5" fragment="true" unpack="false"/>
+  <plugin id="dynamicrefactoring.plugin.nl1" download-size="0" install-size="0" version="3.1.6" fragment="true" unpack="false"/>
   <plugin id="dynamicrefactoring.plugin" download-size="0" install-size="0" version="0.0.0" unpack="false"/>
 </feature>
