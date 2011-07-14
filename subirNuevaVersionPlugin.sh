@@ -1,7 +1,7 @@
 #!/bin/bash
 
-fecha=20110620
-plugin_version=3.1.6
+fecha=20110714
+plugin_version=3.2.0
 #ruta_proyecto=/home/imediava/Escritorio/workspace-proyecto2/dynamicrefactoring.plugin/
 
 #cd $ruta_proyecto 

@@ -305,7 +305,7 @@ import dynamicrefactoring.domain.metadata.interfaces.ClassificationsCatalog;
 			if (dialog.open() == IStatus.OK) {
 				addClassification(new SimpleUniLevelClassification(
 						dialog.getValue(), EMPTY_STRING,
-						new HashSet<Category>())); 
+						new HashSet<Category>(), false)); 
 				updateTable();
 				selectClassificationAndUpdateGUI(getTableClassificationIndex(dialog
 						.getValue()));

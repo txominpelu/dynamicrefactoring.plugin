@@ -110,7 +110,7 @@ import dynamicrefactoring.util.RefactoringTreeManager;
 		catNone.add(Category.NONE_CATEGORY);
 		NONE_CLASSIFICATION = new SimpleUniLevelClassification(
 				Category.NONE_CATEGORY.getName(),
-				Messages.RefactoringCatalogBrowserView_NoneClassDescription, catNone);
+				Messages.RefactoringCatalogBrowserView_NoneClassDescription, catNone, false);
 	}
 
 	/**

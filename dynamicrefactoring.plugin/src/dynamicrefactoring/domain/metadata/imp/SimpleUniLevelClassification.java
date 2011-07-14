@@ -27,7 +27,7 @@ import dynamicrefactoring.domain.metadata.interfaces.Classification;
  * @author <A HREF="mailto:ims0011@alu.ubu.es">Iñigo Mediavilla Saiz</A>
  * @author <A HREF="mailto:mgs0110@alu.ubu.es">Míryam Gómez San Martín</A>
  */
- public final class SimpleUniLevelClassification implements Classification {
+public final class SimpleUniLevelClassification implements Classification {
 
 	/**
 	 * Conjunto de categorías de la clasificación.
@@ -51,9 +51,8 @@ import dynamicrefactoring.domain.metadata.interfaces.Classification;
 	private boolean editable;
 
 	/**
-	 * Crea una clasificacion de un solo nivel y en la que los elementos solo
-	 * pueden pertenecer a una categoria y que se puede editar 
-	 * (unicategory y editable).
+	 * Crea una clasificacion de un solo nivel y en la que los elementos y que se puede editar 
+	 * (editable).
 	 * 
 	 * @param classificationName
 	 *            nombre de la clasificacion
@@ -61,10 +60,12 @@ import dynamicrefactoring.domain.metadata.interfaces.Classification;
 	 *            descripcion de la clasificacion
 	 * @param categories
 	 *            lista de categorias de la clasificacion
+	 * @param multiCategory
+	 *            si la clasificacion es multicategoria
 	 */
 	public SimpleUniLevelClassification(String classificationName,
-			String description, Set<Category> categories) {
-		this(classificationName, description, categories, false, true);
+			String description, Set<Category> categories, boolean multiCategory) {
+		this(classificationName, description, categories, multiCategory, true);
 	}
 
 	/**
@@ -79,10 +80,12 @@ import dynamicrefactoring.domain.metadata.interfaces.Classification;
 	 *            categoria
 	 * @param categories
 	 *            lista de categorias de la clasificacion
-	 * @param editable si la clasificacion se puede editar o es de solo lectura
+	 * @param editable
+	 *            si la clasificacion se puede editar o es de solo lectura
 	 */
 	public SimpleUniLevelClassification(String classificationName,
-			String description, Set<Category> categories, boolean multicategory, boolean editable) {
+			String description, Set<Category> categories,
+			boolean multicategory, boolean editable) {
 		this.categories = categories;
 		this.name = classificationName;
 		this.description = description;
@@ -174,8 +177,8 @@ import dynamicrefactoring.domain.metadata.interfaces.Classification;
 
 	@Override
 	public boolean containsCategory(Category cat) {
-		for(Category c : categories){
-			if(c.equals(cat))
+		for (Category c : categories) {
+			if (c.equals(cat))
 				return true;
 		}
 		return false;
@@ -184,25 +187,28 @@ import dynamicrefactoring.domain.metadata.interfaces.Classification;
 	@Override
 	public Classification renameCategory(String oldName, String newName) {
 		Set<Category> newCategories = new HashSet<Category>(categories);
-		Category oldCategory = new Category(getName(),oldName);
+		Category oldCategory = new Category(getName(), oldName);
 		newCategories.remove(oldCategory);
-		Category newCategory = new Category(getName(),newName);
+		Category newCategory = new Category(getName(), newName);
 		newCategories.add(newCategory);
-		return new SimpleUniLevelClassification(getName(), getDescription(), newCategories);
+		return new SimpleUniLevelClassification(getName(), getDescription(),
+				newCategories, isMultiCategory());
 	}
 
 	@Override
 	public Classification addCategory(Category category) {
 		Set<Category> newCategories = new HashSet<Category>(categories);
 		newCategories.add(category);
-		return new SimpleUniLevelClassification(getName(), getDescription(), newCategories);
+		return new SimpleUniLevelClassification(getName(), getDescription(),
+				newCategories, isMultiCategory());
 	}
-	
+
 	@Override
 	public Classification removeCategory(Category category) {
 		Set<Category> newCategories = new HashSet<Category>(categories);
 		newCategories.remove(category);
-		return new SimpleUniLevelClassification(getName(), getDescription(), newCategories);
+		return new SimpleUniLevelClassification(getName(), getDescription(),
+				newCategories, isMultiCategory());
 	}
 
 	@Override
@@ -214,7 +220,7 @@ import dynamicrefactoring.domain.metadata.interfaces.Classification;
 		}
 
 		return new SimpleUniLevelClassification(clasifNewName,
-				getDescription(), newCategories);
+				getDescription(), newCategories, isMultiCategory());
 	}
 
 	@Override

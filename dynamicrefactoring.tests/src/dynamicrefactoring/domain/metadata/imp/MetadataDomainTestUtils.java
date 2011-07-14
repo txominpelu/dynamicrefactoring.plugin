@@ -24,7 +24,15 @@ class MetadataDomainTestUtils {
 	public static final String FOWLER_CLASSIFICATION_NAME = "Fowler";
 	public static final String FILTERED="@Filtered";
 	
-	public static ClassifiedElements<Element>[] readClassifiedElements(String file)
+	/**
+	 * Obtiene la lista de elementos clasificados leidos del fichero.
+	 * 
+	 * @param file fichero del que se leen
+	 * @param multiCategory si los elementos clasificados pertenecen a una clasificacion multicategoria
+	 * @return elementos clasificados leidos del fichero
+	 * @throws IOException si hay algun problema en la lectura
+	 */
+	public static ClassifiedElements<Element>[] readClassifiedElements(String file, boolean multiCategory)
 			throws IOException {
 		
 		ClassifiedElements<Element>[] toReturn=new SimpleClassifiedElements[2];
@@ -57,9 +65,9 @@ class MetadataDomainTestUtils {
 			}
 		}
 		
-		toReturn[0]=new SimpleClassifiedElements<Element>(new SimpleUniLevelClassification(classificationName, ElementCatalogTest.MI_CLASSIFICATION_DESCRIPTION, classifiedElements.keySet()),
+		toReturn[0]=new SimpleClassifiedElements<Element>(new SimpleUniLevelClassification(classificationName, ElementCatalogTest.MI_CLASSIFICATION_DESCRIPTION, classifiedElements.keySet(),multiCategory),
 				classifiedElements);
-		toReturn[1]=new SimpleClassifiedElements<Element>(new SimpleUniLevelClassification(classificationName, ElementCatalogTest.MI_CLASSIFICATION_DESCRIPTION, filteredClassifiedElements.keySet()),
+		toReturn[1]=new SimpleClassifiedElements<Element>(new SimpleUniLevelClassification(classificationName, ElementCatalogTest.MI_CLASSIFICATION_DESCRIPTION, filteredClassifiedElements.keySet(),multiCategory),
 				filteredClassifiedElements);
 			
 		// Close the input stream
@@ -75,7 +83,7 @@ class MetadataDomainTestUtils {
 		subcategories.add(new Category("MiClasif", "Tal"));
 		subcategories.add(new Category("MiClasif", "MovingFeatures"));
 		subcategories.add(new Category("MiClasif", "OrganizingData"));
-		return new SimpleUniLevelClassification("MiClasif", ElementCatalogTest.MI_CLASSIFICATION_DESCRIPTION, subcategories);
+		return new SimpleUniLevelClassification("MiClasif", ElementCatalogTest.MI_CLASSIFICATION_DESCRIPTION, subcategories, false);
 	}
 	
 

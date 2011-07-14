@@ -28,7 +28,7 @@ public class ElementCatalogWithMultiCategoryElementTest {
 		Set<Element> refactorings = MetadataDomainTestUtils
 				.readRefactoringsFromFile(INICIAL_MULT_SIN_FILTRAR);
 		ClassifiedElements<Element> classifiedElements = MetadataDomainTestUtils
-				.readClassifiedElements(INICIAL_MULT_SIN_FILTRAR)[0];
+				.readClassifiedElements(INICIAL_MULT_SIN_FILTRAR, true)[0];
 		catalog = new ElementCatalog<Element>(refactorings,
 				new SimpleUniLevelClassification(
 						"BadSmells",ElementCatalogTest.MI_CLASSIFICATION_DESCRIPTION,
@@ -41,7 +41,7 @@ public class ElementCatalogWithMultiCategoryElementTest {
 		Set<Element> refactorings = 
 			MetadataDomainTestUtils.readRefactoringsFromFile(INICIAL_MULT_SIN_FILTRAR);
 		ClassifiedElements<Element> classifiedElements[] = 
-			MetadataDomainTestUtils.readClassifiedElements(INICIAL_MULT_SIN_FILTRAR);
+			MetadataDomainTestUtils.readClassifiedElements(INICIAL_MULT_SIN_FILTRAR, true);
 		ClassifiedFilterableCatalog<Element > otroCatalogo = 
 			new ElementCatalog<Element>(refactorings,
 										new SimpleUniLevelClassification(
@@ -52,7 +52,7 @@ public class ElementCatalogWithMultiCategoryElementTest {
 	@Test
 	public final void testCargaInicial() throws IOException {
 		final ClassifiedElements<Element> expected[] = MetadataDomainTestUtils
-		.readClassifiedElements(INICIAL_MULT_SIN_FILTRAR);
+		.readClassifiedElements(INICIAL_MULT_SIN_FILTRAR, true);
 		assertEquals(expected[0], catalog.getClassificationOfElements());
 		assertEquals(expected[1], catalog.getClassificationOfFilteredElements());
 	}
@@ -60,7 +60,7 @@ public class ElementCatalogWithMultiCategoryElementTest {
 	@Test
 	public final void testFiltradoPorExtract() throws IOException {
 		final ClassifiedElements<Element> expected[] = MetadataDomainTestUtils
-		.readClassifiedElements(INICIAL_FILTRADO_POR_EXTRACT);
+		.readClassifiedElements(INICIAL_FILTRADO_POR_EXTRACT, true);
 		catalog.addConditionToFilter(ElementCatalogTest.CATEGORY_CONDITION_EXTRACT);
 		assertEquals(expected[0], catalog.getClassificationOfElements());
 		assertEquals(expected[1], catalog.getClassificationOfFilteredElements());
@@ -69,7 +69,7 @@ public class ElementCatalogWithMultiCategoryElementTest {
 	@Test
 	public final void testFiltradoPorDuplicatedCode() throws IOException {
 		final ClassifiedElements<Element> expected[] = MetadataDomainTestUtils
-		.readClassifiedElements(INICIAL_FILTRADO_POR_DUPLICATEDCODE);
+		.readClassifiedElements(INICIAL_FILTRADO_POR_DUPLICATEDCODE, true);
 		catalog.addConditionToFilter(DUPLICATEDCODE_CATEGORYCONDITION);
 		assertEquals(expected[0], catalog.getClassificationOfElements());
 		assertEquals(expected[1], catalog.getClassificationOfFilteredElements());
@@ -78,7 +78,7 @@ public class ElementCatalogWithMultiCategoryElementTest {
 	@Test
 	public final void testFiltradoPorDuplicatedCodeYDesfiltrar() throws IOException {
 		final ClassifiedElements<Element> expected[] = MetadataDomainTestUtils
-		.readClassifiedElements(INICIAL_MULT_SIN_FILTRAR);
+		.readClassifiedElements(INICIAL_MULT_SIN_FILTRAR, true);
 		catalog.addConditionToFilter(DUPLICATEDCODE_CATEGORYCONDITION);
 		catalog.removeConditionFromFilter(DUPLICATEDCODE_CATEGORYCONDITION);
 		assertEquals(expected[0], catalog.getClassificationOfElements());
@@ -88,7 +88,7 @@ public class ElementCatalogWithMultiCategoryElementTest {
 	@Test
 	public final void testFiltradoPorDosYDesfiltrarPorUno() throws IOException {
 		final ClassifiedElements<Element> expected[] = MetadataDomainTestUtils
-		.readClassifiedElements(INICIAL_FILTRADO_POR_DUPLICATEDCODE);
+		.readClassifiedElements(INICIAL_FILTRADO_POR_DUPLICATEDCODE, true);
 		catalog.addConditionToFilter(DUPLICATEDCODE_CATEGORYCONDITION);
 		catalog.addConditionToFilter(new CategoryCondition<Element>("BadSmells","LargeClass"));
 		catalog.removeConditionFromFilter(new CategoryCondition<Element>("BadSmells","LargeClass"));

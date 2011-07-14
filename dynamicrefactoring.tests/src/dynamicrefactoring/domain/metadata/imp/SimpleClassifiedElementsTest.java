@@ -48,7 +48,7 @@ public class SimpleClassifiedElementsTest {
 	@Before
 	public void setUp() throws Exception {
 		ClassifiedElements<Element>[] ce=MetadataDomainTestUtils
-				.readClassifiedElements(MetadataDomainTestUtils.TESTDATA_ENTRADASINFILTRAR_FILE);
+				.readClassifiedElements(MetadataDomainTestUtils.TESTDATA_ENTRADASINFILTRAR_FILE, false);
 		classifiedElements = ce[0];
 		filteredClassifiedElements = ce[1];
 
@@ -57,14 +57,14 @@ public class SimpleClassifiedElementsTest {
 			map.put(c, classifiedElements.getCategoryChildren(c));
 		}
 		copiaClassifiedElements = new SimpleClassifiedElements<Element>(new SimpleUniLevelClassification(
-				classifiedElements.getClassification().getName(),ElementCatalogTest.MI_CLASSIFICATION_DESCRIPTION,map.keySet()), map);
+				classifiedElements.getClassification().getName(),ElementCatalogTest.MI_CLASSIFICATION_DESCRIPTION,map.keySet(), false), map);
 		
 		Map<Category, Set<Element>> filteredMap = new HashMap<Category, Set<Element>>();
 		for (Category c : filteredClassifiedElements.getClassification().getCategories()) {;
 			filteredMap.put(c, filteredClassifiedElements.getCategoryChildren(c));
 		}
 		copiaFilteredClassifiedElements = new SimpleClassifiedElements<Element>(new SimpleUniLevelClassification(
-				filteredClassifiedElements.getClassification().getName(),ElementCatalogTest.MI_CLASSIFICATION_DESCRIPTION,filteredMap.keySet()), filteredMap);
+				filteredClassifiedElements.getClassification().getName(),ElementCatalogTest.MI_CLASSIFICATION_DESCRIPTION,filteredMap.keySet(), false), filteredMap);
 	}
 
 	/**

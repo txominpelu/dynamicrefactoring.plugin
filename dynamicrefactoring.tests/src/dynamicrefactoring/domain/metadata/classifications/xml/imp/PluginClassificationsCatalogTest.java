@@ -184,7 +184,7 @@ public final class PluginClassificationsCatalogTest {
 				.getAllClassifications();
 		final SimpleUniLevelClassification newClassification = new SimpleUniLevelClassification(
 				MI_NUEVA_CLASSIFICACION, "", ImmutableSet.of(new Category(
-						MI_NUEVA_CLASSIFICACION, NEW_CATEGORY)));
+						MI_NUEVA_CLASSIFICACION, NEW_CATEGORY)),false);
 		expectedClassifications.add(newClassification);
 
 		catalog.addClassification(newClassification);

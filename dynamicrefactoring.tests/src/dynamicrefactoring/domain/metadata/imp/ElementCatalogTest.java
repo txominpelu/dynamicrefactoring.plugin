@@ -18,6 +18,11 @@ import dynamicrefactoring.domain.metadata.interfaces.Category;
 import dynamicrefactoring.domain.metadata.interfaces.ClassifiedElements;
 import dynamicrefactoring.domain.metadata.interfaces.Element;
 
+/**
+ * Test de catalogo de elementos unicategoria.
+ * 
+ *
+ */
 public class ElementCatalogTest {
 
 	public static final String MI_CLASSIFICATION_DESCRIPTION = "Midescripcion";
@@ -34,17 +39,17 @@ public class ElementCatalogTest {
 		refactorings = MetadataDomainTestUtils
 				.readRefactoringsFromFile(MetadataDomainTestUtils.TESTDATA_ENTRADASINFILTRAR_FILE);
 		categories=MetadataDomainTestUtils
-				.readClassifiedElements(MetadataDomainTestUtils.TESTDATA_ENTRADASINFILTRAR_FILE)[0].getClassification().getCategories();
+				.readClassifiedElements(MetadataDomainTestUtils.TESTDATA_ENTRADASINFILTRAR_FILE, false)[0].getClassification().getCategories();
 		catalog = new ElementCatalog<Element>(refactorings,
 				new SimpleUniLevelClassification(
 						MetadataDomainTestUtils.FOWLER_CLASSIFICATION_NAME,MI_CLASSIFICATION_DESCRIPTION,
-						categories));
+						categories,false));
 	}
 
 	@Test
 	public void filteringForExtractTest() throws IOException {
 		final ClassifiedElements<Element> expected[] = MetadataDomainTestUtils
-				.readClassifiedElements(ElementCatalogTest.TESTDATA_ENTRADA_FILTRADA_POR_EXTRACT);
+				.readClassifiedElements(ElementCatalogTest.TESTDATA_ENTRADA_FILTRADA_POR_EXTRACT, false);
 		catalog.addConditionToFilter(CATEGORY_CONDITION_EXTRACT);
 		assertEquals(expected[0], catalog.getClassificationOfElements());
 		assertEquals(expected[1], catalog.getClassificationOfFilteredElements());
@@ -123,10 +128,10 @@ public class ElementCatalogTest {
 				refactorings,
 				new SimpleUniLevelClassification(
 						MetadataDomainTestUtils.FOWLER_CLASSIFICATION_NAME,MI_CLASSIFICATION_DESCRIPTION,
-						categories),
+						categories,false),
 				filterConditions);
 		final ClassifiedElements<Element> expected[] = MetadataDomainTestUtils
-				.readClassifiedElements(ElementCatalogTest.TESTDATA_ENTRADA_FILTRADA_POR_EXTRACT);
+				.readClassifiedElements(ElementCatalogTest.TESTDATA_ENTRADA_FILTRADA_POR_EXTRACT, false);
 		assertEquals(expected[0], otroCatalogo.getClassificationOfElements());
 		assertEquals(expected[1], otroCatalogo.getClassificationOfFilteredElements());
 	}

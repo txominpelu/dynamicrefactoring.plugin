@@ -45,7 +45,7 @@ import dynamicrefactoring.domain.metadata.interfaces.Element;
  * @param <K>
  *            Tipo del catálogo
  */
- public final class ElementCatalog<K extends Element> implements
+public final class ElementCatalog<K extends Element> implements
 		ClassifiedFilterableCatalog<K> {
 
 	/**
@@ -57,7 +57,7 @@ import dynamicrefactoring.domain.metadata.interfaces.Element;
 	 * Elementos clasificados.
 	 */
 	private Map<Category, Set<K>> classifiedElements;
-	
+
 	/**
 	 * Elementos clasificados filtrados.
 	 */
@@ -96,17 +96,19 @@ import dynamicrefactoring.domain.metadata.interfaces.Element;
 	public ElementCatalog(Set<K> allElements, Classification classification,
 			List<Predicate<K>> filterConditionList) {
 		Preconditions
-				.checkArgument(classification.isMultiCategory()
+				.checkArgument(
+						classification.isMultiCategory()
 								|| !hasMultiCategoryElements(allElements,
 										classification.getCategories()),
-						"Some of the elements belong to more than one category" + "" +
-								" though the classification doesn't allow multiple-category elements");
+						"Some of the elements belong to more than one category"
+								+ ""
+								+ " though the classification doesn't allow multiple-category elements");
 		this.filter = new ArrayList<Predicate<K>>();
 		this.classification = classification;
 		initializeClassifiedElements(classification.getCategories());
 		initializeFilteredClassifiedElements(classification.getCategories());
 		classify(allElements);
-		for(Predicate<K> condition : filterConditionList) {
+		for (Predicate<K> condition : filterConditionList) {
 			addConditionToFilter(condition);
 		}
 	}
@@ -141,7 +143,7 @@ import dynamicrefactoring.domain.metadata.interfaces.Element;
 	private void initializeClassifiedElements(
 			Set<Category> classificationCategories) {
 		classifiedElements = new HashMap<Category, Set<K>>();
-		for(Category c : classificationCategories) {
+		for (Category c : classificationCategories) {
 			classifiedElements.put(c, new HashSet<K>());
 		}
 		classifiedElements.put(Category.NONE_CATEGORY, new HashSet<K>());
@@ -156,10 +158,11 @@ import dynamicrefactoring.domain.metadata.interfaces.Element;
 	private void initializeFilteredClassifiedElements(
 			Set<Category> classificationCategories) {
 		filteredClassifiedElements = new HashMap<Category, Set<K>>();
-		for(Category c : classificationCategories) {
+		for (Category c : classificationCategories) {
 			filteredClassifiedElements.put(c, new HashSet<K>());
 		}
-		filteredClassifiedElements.put(Category.NONE_CATEGORY, new HashSet<K>());
+		filteredClassifiedElements
+				.put(Category.NONE_CATEGORY, new HashSet<K>());
 	}
 
 	/**
@@ -185,10 +188,10 @@ import dynamicrefactoring.domain.metadata.interfaces.Element;
 	@Override
 	public void addConditionToFilter(Predicate<K> condition) {
 		for (Entry<Category, Set<K>> entry : classifiedElements.entrySet()) {
-				Collection<K> toFilter = new HashSet<K>(Collections2.filter(
-						entry.getValue(), Predicates.not(condition)));
-				classifiedElements.get(entry.getKey()).removeAll(toFilter);
-				filteredClassifiedElements.get(entry.getKey()).addAll(toFilter);
+			Collection<K> toFilter = new HashSet<K>(Collections2.filter(
+					entry.getValue(), Predicates.not(condition)));
+			classifiedElements.get(entry.getKey()).removeAll(toFilter);
+			filteredClassifiedElements.get(entry.getKey()).addAll(toFilter);
 		}
 		filter.add(condition);
 	}
@@ -203,17 +206,19 @@ import dynamicrefactoring.domain.metadata.interfaces.Element;
 	}
 
 	@Override
-	public void removeConditionFromFilter(Predicate<K> conditionToRemove) {	
-		//comprobamos si cada uno sigue estando filtrado con el filtro resultante
-		//de haber eliminado la condicion que se va a eliminar
+	public void removeConditionFromFilter(Predicate<K> conditionToRemove) {
+		// comprobamos si cada uno sigue estando filtrado con el filtro
+		// resultante
+		// de haber eliminado la condicion que se va a eliminar
 		filter.remove(conditionToRemove);
-		for (Entry<Category, Set<K>> entry : filteredClassifiedElements.entrySet()) {
+		for (Entry<Category, Set<K>> entry : filteredClassifiedElements
+				.entrySet()) {
 			Collection<K> toUnFilter = new HashSet<K>(Collections2.filter(
 					entry.getValue(), getPredicateForAllConditions()));
-			filteredClassifiedElements.get(entry.getKey()).removeAll(toUnFilter);
+			filteredClassifiedElements.get(entry.getKey())
+					.removeAll(toUnFilter);
 			classifiedElements.get(entry.getKey()).addAll(toUnFilter);
 		}
-		
 
 	}
 
@@ -243,11 +248,11 @@ import dynamicrefactoring.domain.metadata.interfaces.Element;
 			toReturn.put(category,
 					ImmutableSet.copyOf(classifiedElements.get(category)));
 		}
-		
+
 		return new SimpleClassifiedElements<K>(
 				new SimpleUniLevelClassification(classification.getName(),
-						classification.getDescription(), toReturn.keySet()),
-				toReturn);
+						classification.getDescription(), toReturn.keySet(),
+						classification.isMultiCategory()), toReturn);
 	}
 
 	/**
@@ -261,16 +266,16 @@ import dynamicrefactoring.domain.metadata.interfaces.Element;
 
 		// Hacemos copias defensivas de los sets
 		for (Category category : filteredClassifiedElements.keySet()) {
-			toReturn.put(category,
-					ImmutableSet.copyOf(filteredClassifiedElements.get(category)));
+			toReturn.put(category, ImmutableSet
+					.copyOf(filteredClassifiedElements.get(category)));
 		}
-		
+
 		return new SimpleClassifiedElements<K>(
 				new SimpleUniLevelClassification(classification.getName(),
-						classification.getDescription(), toReturn.keySet()),
-				toReturn);
+						classification.getDescription(), toReturn.keySet(),
+						classification.isMultiCategory()), toReturn);
 	}
-	
+
 	/**
 	 * Devuelve todas las condiciones de filtro.
 	 * 
@@ -297,7 +302,7 @@ import dynamicrefactoring.domain.metadata.interfaces.Element;
 	}
 
 	/**
-	 * Obtiene todos los elementos del catalogo. 
+	 * Obtiene todos los elementos del catalogo.
 	 * 
 	 * @return todos los elementos contenidos en el catalogo.
 	 */
@@ -309,7 +314,7 @@ import dynamicrefactoring.domain.metadata.interfaces.Element;
 		for (Category c : filteredClassifiedElements.keySet()) {
 			allElements.addAll(filteredClassifiedElements.get(c));
 		}
-		
+
 		return allElements;
 	}
 
@@ -322,14 +327,16 @@ import dynamicrefactoring.domain.metadata.interfaces.Element;
 	@Override
 	public Classification getClassification() {
 		return new SimpleUniLevelClassification(classification.getName(),
-				classification.getDescription(), classification.getCategories());
+				classification.getDescription(),
+				classification.getCategories(),
+				classification.isMultiCategory());
 	}
 
 	/**
 	 * Determina si se encuentra vacio el filtro de condiciones.
 	 * 
-	 * @return devuelve verdadero si el filtro se encuentra vacio de condiciones, 
-	 * falso en caso contrario.
+	 * @return devuelve verdadero si el filtro se encuentra vacio de
+	 *         condiciones, falso en caso contrario.
 	 */
 	@Override
 	public boolean isEmptyFilter() {
@@ -339,7 +346,8 @@ import dynamicrefactoring.domain.metadata.interfaces.Element;
 	/**
 	 * Determina si existen elementos filtrados.
 	 * 
-	 * @return devuelve verdadero si exiten elementos filtrados, falso en caso contrario.
+	 * @return devuelve verdadero si exiten elementos filtrados, falso en caso
+	 *         contrario.
 	 */
 	@Override
 	public boolean hasFilteredElements() {
